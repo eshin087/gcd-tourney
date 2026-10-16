@@ -1,0 +1,1374 @@
+{
+  "title": "Goku r02 consolidated inventory; latest source-measured candidate or evidence-backed hold per 18 strips",
+  "status": "Diagnostic only. No production calibration/bodyHeight/scaleManualQA changes; no art approval. Fixture 1 and fixture 2 audits are final; fixture 2 is the latest exact-pixel binding.",
+  "reference": {
+    "path": "art/characters/goku/raw/idle_v02.png",
+    "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+    "targetLandmarksPx": {
+      "collarToBelt": 38.1,
+      "beltWidth": 36,
+      "bootTopToSole": 43.7
+    },
+    "sourceEndpointUncertaintySeparated": true
+  },
+  "fixtures": {
+    "fixture1": {
+      "atlasSha256": "f56ef41137234e3f955900660d903359c7d060178a3e29ca4a6e707944f55f81",
+      "metadataSha256": "e37f1dc357328d97473c251a9b18a0ba3e4f79fc2c8a511603058d929fe947eb",
+      "report": "art/characters/goku/production/manual-audit-r2/REASSEMBLY_R02_FIXTURE1_AUDIT.md"
+    },
+    "fixture2": {
+      "atlasSha256": "c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0",
+      "metadataSha256": "dec929ae11544546e7a8a8f3c23c860ffa33f4844882bfda2cc9313d7cab9167",
+      "report": "art/characters/goku/production/manual-audit-r2/REASSEMBLY_R02_FINAL_AUDIT.md"
+    }
+  },
+  "rows": [
+    {
+      "animation": "run",
+      "currentVersion": "v05",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\run_v02_attempt04.png",
+      "sourceSha256": "d98480645714f0778debcbf67fffef932feedacdc65a008adb8fce99c6af2486",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": null,
+      "factor": 0.484,
+      "factorUncertainty": 0.05,
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/run_v05.json",
+      "sourceAnnotation": null,
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/run_v05.png",
+      "rawCandidateSha256": "6e0f3a9051ec7affbbed7e709c9d136c6ceebd580960bc0b3fa7605df8df8b97",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 2,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 3,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 4,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 5,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 6,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 7,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "HOLD: fixture2 shows undersized torso/boot and rear-foot clipping at f3/f6."
+    },
+    {
+      "animation": "dash",
+      "currentVersion": "v04",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\dash_v03_attempt03.png",
+      "sourceSha256": "7243edf0b162bd933879baf183bc91c83e59ff290b846fad3e4ba6b56eae2b2a",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": null,
+      "factor": 0.241,
+      "factorUncertainty": 0.04,
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/dash_v04.json",
+      "sourceAnnotation": null,
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/dash_v04.png",
+      "rawCandidateSha256": "e9f9993b6b774393944903430862542be740e6d2047b9619c8a01f6577266b53",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "HOLD: short torso/boot and rear-foot clipping at f1."
+    },
+    {
+      "animation": "jumpUp",
+      "currentVersion": "v04",
+      "sourcePath": "art/characters/goku/production/generation-source/jumpUp_v03_attempt03.png",
+      "sourceSha256": "c8b5ee50491068292041519b5533f41a78ec77084a80c846d5307686c2309e81",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            480,
+            350
+          ],
+          "b": [
+            398,
+            473
+          ],
+          "definition": "collar-center/sternoclavicular point to belt center, f0",
+          "sourceLengthPx": 147.828,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 38.1,
+          "targetUncertaintyPx": 5,
+          "ratio": 0.25773265
+        },
+        "beltWidth": {
+          "a": [
+            331,
+            453
+          ],
+          "b": [
+            476,
+            453
+          ],
+          "definition": "outer visible blue belt edge span at y453, f0",
+          "sourceLengthPx": 145,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 36,
+          "targetUncertaintyPx": 4,
+          "ratio": 0.24827586
+        },
+        "bootTopToSole": {
+          "a": [
+            304,
+            645
+          ],
+          "b": [
+            269,
+            794
+          ],
+          "definition": "left boot shaft top to sole along diagonal, f0",
+          "sourceLengthPx": 153.056,
+          "sourceEndpointUncertaintyPx": [
+            10,
+            10
+          ],
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 6,
+          "ratio": 0.28551726
+        },
+        "otherBoot": {
+          "a": [
+            407,
+            655
+          ],
+          "b": [
+            409,
+            826
+          ],
+          "definition": "other boot shaft top to sole, near-vertical f0; secondary projection check",
+          "sourceLengthPx": 171.012,
+          "sourceEndpointUncertaintyPx": [
+            10,
+            10
+          ],
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 6,
+          "ratio": 0.25553808
+        }
+      },
+      "factor": 0.257,
+      "factorUncertainty": "Approximate ±0.06 for jumpUp / ±0.07 for airLight1, propagated conservatively from independent endpoint and reference target uncertainties; not a numeric gate result.",
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/jumpUp_v04.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/jumpUp-source-f0-corrected-endpoints.png",
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/jumpUp_v04.png",
+      "rawCandidateSha256": "262d801b7fee1686c474cb03a4c9b338decfbb9a518bcaa134568a4539bd3d30",
+      "fixture": "fixture2",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture2-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "Fixture2 proposed qualified body/anatomy PASS within uncertainty; tucked boot projection noted; exact fixture2 pixels only."
+    },
+    {
+      "animation": "jumpFall",
+      "currentVersion": "v04",
+      "sourcePath": "art/characters/goku/production/generation-source/jumpFall_v02_attempt03.png",
+      "sourceSha256": "6fde8e555318e6ae624378be1d461288e68bef3aadb0021d965d1d07817a5a53",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            477,
+            267
+          ],
+          "b": [
+            446,
+            365
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 5,
+          "definition": "neckline center to belt center, rotated airborne frame 0",
+          "sourceLengthPx": 102.79,
+          "targetPx": 38.1,
+          "ratio": 0.370672
+        },
+        "beltWidth": {
+          "a": [
+            395,
+            365
+          ],
+          "b": [
+            496,
+            365
+          ],
+          "sourceUncertaintyPx": 8,
+          "targetUncertaintyPx": 4,
+          "definition": "visible outer belt edge span, frame 0",
+          "sourceLengthPx": 101,
+          "targetPx": 36,
+          "ratio": 0.356436
+        },
+        "bootTopToSole": {
+          "a": [
+            357,
+            605
+          ],
+          "b": [
+            349,
+            736
+          ],
+          "sourceUncertaintyPx": 12,
+          "targetUncertaintyPx": 6,
+          "definition": "dangling boot shaft top to sole along near-vertical axis, frame 0",
+          "sourceLengthPx": 131.24,
+          "targetPx": 43.7,
+          "ratio": 0.332967
+        }
+      },
+      "factor": 0.356,
+      "factorUncertainty": "±0.040 selected from source endpoint uncertainty (10–12 source px) and independent reference landmark uncertainty; separate from target uncertainty values above",
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/jumpFall_v04.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/jumpFall-source-f0-endpoints.png",
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/jumpFall_v04.png",
+      "rawCandidateSha256": "d4e6062e01de822b1b788536f1de7f067ad90e0abd9a685c6aa0b6b931ad2ba4",
+      "fixture": "fixture2",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture2-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 1,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        }
+      ],
+      "assessment": "Fixture2 proposed full visible-anatomy PASS; corrected v04; v03 remains immutable and disputed."
+    },
+    {
+      "animation": "land",
+      "currentVersion": "v04",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\land_v03_attempt03.png",
+      "sourceSha256": "3cd093cacc6742804e94702467514ec3e19e3dda039c00ccad2a703e5861709c",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": null,
+      "factor": 0.253,
+      "factorUncertainty": 0.05,
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/land_v04.json",
+      "sourceAnnotation": null,
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/land_v04.png",
+      "rawCandidateSha256": "a00bfe5c1b35c517446e5502e04a0693f0bd8b7c89e4880b9d80538fb77097d9",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "HOLD: recovery body undersized relative to idle."
+    },
+    {
+      "animation": "light1",
+      "currentVersion": "v03",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\light1_v01_attempt01_A.png",
+      "sourceSha256": "7bf06ad0d8c11b5802bf0a5a49b29acb10aea242d85102787140767f61cda975",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "landmarks": null,
+      "factor": 0.385,
+      "factorUncertainty": 0.05,
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/light1_v03.json",
+      "sourceAnnotation": null,
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/light1_v03.png",
+      "rawCandidateSha256": "68261071aa73d1ac03fc501c093a10beefc62a7043a6e1dd1a014b00145cb16f",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "Fixture2 body-only PASS; hair reaches y3, one pixel inside nominal 4px margin, so placement remains HOLD."
+    },
+    {
+      "animation": "light3",
+      "currentVersion": "v05",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\light3_v04_attempt04.png",
+      "sourceSha256": "6ac8c834982930f4ee24c43e8de3fda78d2ff84a28a1694c7ef5a3156f19d72c",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "landmarks": null,
+      "factor": 0.53,
+      "factorUncertainty": 0.05,
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/light3_v05.json",
+      "sourceAnnotation": null,
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/light3_v05.png",
+      "rawCandidateSha256": "7b9c1fe744efead89150368bc843fae0a60969775e625667800fe68c57387432",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 2,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 3,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 4,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 5,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 6,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "HOLD: detached/severed arm and hand fragments, source clipping; no full anatomy pass."
+    },
+    {
+      "animation": "light4",
+      "currentVersion": "v05",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\light4_v04_attempt04.png",
+      "sourceSha256": "1a968ce8893d3217f122244227eb2fad9a9502e2a965c5e0ad832863063ca7d2",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": null,
+      "factor": 0.565,
+      "factorUncertainty": 0.04,
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/light4_v05.json",
+      "sourceAnnotation": null,
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/light4_v05.png",
+      "rawCandidateSha256": "a2a2c45181e6a28296e74381ad7115da7da8de9780c8cb56dfa0032e240c293d",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 2,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 3,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 4,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 5,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 6,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 7,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "HOLD: recovery body undersized and kick clips right."
+    },
+    {
+      "animation": "heavy",
+      "currentVersion": "v05",
+      "sourcePath": "art/characters/goku/production/generation-source/heavy_v04_attempt04.png",
+      "sourceSha256": "c7822c99040c120d564dbe76af54f9b9aa23dd2b4a9e799d99a5c21bfc0a3116",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            1340,
+            675
+          ],
+          "b": [
+            1315,
+            742
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 5,
+          "definition": "neckline/collar center to belt center, planted guard frame 7",
+          "sourceLengthPx": 71.51,
+          "targetPx": 38.1,
+          "ratio": 0.532776
+        },
+        "beltWidth": {
+          "a": [
+            1285,
+            740
+          ],
+          "b": [
+            1344,
+            740
+          ],
+          "sourceUncertaintyPx": 8,
+          "targetUncertaintyPx": 4,
+          "definition": "outer belt edge span, frame 7",
+          "sourceLengthPx": 59,
+          "targetPx": 36,
+          "ratio": 0.610169
+        },
+        "bootTopToSole": {
+          "a": [
+            1223,
+            882
+          ],
+          "b": [
+            1182,
+            954
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 6,
+          "definition": "rear-left boot shaft top to sole along boot axis, frame 7",
+          "sourceLengthPx": 82.86,
+          "targetPx": 43.7,
+          "ratio": 0.527426
+        }
+      },
+      "factor": 0.533,
+      "factorUncertainty": "±0.040 selected from source endpoint uncertainty (10–12 source px) and independent reference landmark uncertainty; separate from target uncertainty values above",
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/heavy_v05.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/heavy-source-f7-endpoints.png",
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/heavy_v05.png",
+      "rawCandidateSha256": "ef4120f320a018b7eb4c14a53219d70023028507e474afd1fd11bdb4946e1588",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 1,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 2,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 3,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 4,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 5,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 6,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 7,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        }
+      ],
+      "assessment": "HOLD: body undersized; arm/fist crop and detached fragments."
+    },
+    {
+      "animation": "airLight1",
+      "currentVersion": "v05",
+      "sourcePath": "art/characters/goku/production/generation-source/airLight1_v04_attempt04.png",
+      "sourceSha256": "1e18761c0c48cbe9b739a8d57adc3e701e018fa88291b12cf23986fe36b67305",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            278,
+            147
+          ],
+          "b": [
+            251,
+            212
+          ],
+          "definition": "collar-center/sternoclavicular point to belt center, f0",
+          "sourceLengthPx": 70.385,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 38.1,
+          "targetUncertaintyPx": 5,
+          "ratio": 0.54131115
+        },
+        "beltWidth": {
+          "a": [
+            218,
+            213
+          ],
+          "b": [
+            279,
+            213
+          ],
+          "definition": "outer blue belt span; excludes pants edge, f0",
+          "sourceLengthPx": 61,
+          "sourceEndpointUncertaintyPx": [
+            6,
+            6
+          ],
+          "targetPx": 36,
+          "targetUncertaintyPx": 4,
+          "ratio": 0.59016393
+        },
+        "bootTopToSole": {
+          "a": [
+            150,
+            386
+          ],
+          "b": [
+            132,
+            464
+          ],
+          "definition": "left boot shaft top to sole along axis, f0",
+          "sourceLengthPx": 80.05,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 6,
+          "ratio": 0.54590891
+        }
+      },
+      "factor": 0.546,
+      "factorUncertainty": "Approximate ±0.06 for jumpUp / ±0.07 for airLight1, propagated conservatively from independent endpoint and reference target uncertainties; not a numeric gate result.",
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/airLight1_v05.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/airLight1-source-f0-corrected-endpoints.png",
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/airLight1_v05.png",
+      "rawCandidateSha256": "b3b43210f14297e7fbf7f559a6f9f6cefd1f8fa9e179e0ec786245aaf290b0b8",
+      "fixture": "fixture2",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture2-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 2,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 3,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 4,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "HOLD overall: visible body matches but attack arm exits right at f2/f3; no complete anatomy pass."
+    },
+    {
+      "animation": "airHeavy",
+      "currentVersion": null,
+      "sourcePath": "art/characters/goku/production/generation-source/airHeavy_v04_attempt04.png",
+      "sourceSha256": "39fc7ce748f4234f88b0d72631f5db9e9e0048e11dd6fa47f9760e7329def6e8",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            1254,
+            641
+          ],
+          "b": [
+            1241,
+            710
+          ],
+          "sourceLengthPx": 70.21,
+          "sourceEndpointUncertaintyPx": 18,
+          "targetPx": 38.1,
+          "referenceUncertaintyPx": 5,
+          "ratio": 0.5426,
+          "definition": "collar center to belt center"
+        },
+        "beltWidth": {
+          "a": [
+            1194,
+            710
+          ],
+          "b": [
+            1286,
+            710
+          ],
+          "sourceLengthPx": 92,
+          "sourceEndpointUncertaintyPx": 18,
+          "targetPx": 36,
+          "referenceUncertaintyPx": 4,
+          "ratio": 0.3913,
+          "definition": "outer belt edge span"
+        },
+        "bootTopToSole": {
+          "a": [
+            1168,
+            881
+          ],
+          "b": [
+            1175,
+            962
+          ],
+          "sourceLengthPx": 81.3,
+          "sourceEndpointUncertaintyPx": 18,
+          "targetPx": 43.7,
+          "referenceUncertaintyPx": 6,
+          "ratio": 0.5375,
+          "definition": "rear boot shaft top to sole axis"
+        }
+      },
+      "factor": null,
+      "factorUncertainty": null,
+      "measurementRecord": "art/characters/goku/production/reassembly-r02/airHeavy-measurement-hold.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/airHeavy-source-f5-hold-endpoints.png",
+      "rawCandidate": null,
+      "rawCandidateSha256": null,
+      "fixture": "hold",
+      "fixtureAtlasPath": null,
+      "clipping": null,
+      "assessment": "SOURCE HOLD: corrected boot point but airborne projection/landmark spread does not establish a common factor."
+    },
+    {
+      "animation": "hurtHigh",
+      "currentVersion": "v08",
+      "sourcePath": "art/characters/goku/production/generation-source/hurtHigh_v07_attempt03.png",
+      "sourceSha256": "9b4c9521cc0beebdb547a95e7842507a5bb4d82b2b72a6b0dd4c508637d78a8e",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            362,
+            181
+          ],
+          "b": [
+            324,
+            285
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 5,
+          "definition": "visible collar-center/sternoclavicular to belt center, source frame 0",
+          "sourceLengthPx": 110.72,
+          "targetPx": 38.1,
+          "ratio": 0.344096
+        },
+        "beltWidth": {
+          "a": [
+            270,
+            283
+          ],
+          "b": [
+            377,
+            294
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 4,
+          "definition": "outer horizontal belt edge to edge, source frame 0",
+          "sourceLengthPx": 107.56,
+          "targetPx": 36,
+          "ratio": 0.334685
+        },
+        "bootTopToSole": {
+          "a": [
+            192,
+            545
+          ],
+          "b": [
+            150,
+            672
+          ],
+          "sourceUncertaintyPx": 12,
+          "targetUncertaintyPx": 6,
+          "definition": "left boot shaft top to sole along boot axis, source frame 0",
+          "sourceLengthPx": 133.76,
+          "targetPx": 43.7,
+          "ratio": 0.326693
+        }
+      },
+      "factor": 0.335,
+      "factorUncertainty": "±0.040 selected from source endpoint uncertainty (10–12 source px) and independent reference landmark uncertainty; separate from target uncertainty values above",
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/hurtHigh_v08.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/hurtHigh-source-f0-endpoints.png",
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/hurtHigh_v08.png",
+      "rawCandidateSha256": "27ee04e0cb996e6216b5630ab70df0c2ced3a07ca986cd6529270431a146e1c1",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 1,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 2,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        }
+      ],
+      "assessment": "Fixture2 proposed full visible-anatomy PASS within stated uncertainty; exact fixture2 pixels only."
+    },
+    {
+      "animation": "launched",
+      "currentVersion": "v07",
+      "sourcePath": "art/characters/goku/production/generation-source/launched_v06_attempt02.png",
+      "sourceSha256": "7468616598613a3b004ac5663dd248712d6bc024fc2b12c2aac1252bfd245f9e",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            246,
+            256
+          ],
+          "b": [
+            320,
+            355
+          ],
+          "unc": [
+            8,
+            8
+          ],
+          "definition": "neckline center to waistband center along reclining torso f0; prior points retained",
+          "sourceLengthPx": 123.6,
+          "targetPx": 38.1,
+          "ratio": 0.30825202
+        },
+        "beltWidth": {
+          "a": [
+            282,
+            351
+          ],
+          "b": [
+            415,
+            393
+          ],
+          "unc": [
+            8,
+            8
+          ],
+          "definition": "visible waistband edges across reclining f0; prior points retained",
+          "sourceLengthPx": 139.474,
+          "targetPx": 36,
+          "ratio": 0.2581126
+        },
+        "bootTopToSole": {
+          "a": [
+            563,
+            676
+          ],
+          "b": [
+            655,
+            824
+          ],
+          "unc": [
+            10,
+            10
+          ],
+          "definition": "lower visible boot axis corrected per Astra; f0",
+          "sourceLengthPx": 174.264,
+          "targetPx": 43.7,
+          "ratio": 0.25076871
+        }
+      },
+      "factor": 0.258,
+      "factorUncertainty": "±0.07, source endpoints ±8–10 px plus independent reference uncertainties; separate from target uncertainty",
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/launched_v07.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/launched-source-f0-corrected-endpoints.png",
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/launched_v07.png",
+      "rawCandidateSha256": "e89a02399955d828fcef54f94929905663bb755cdb2e78f63c764dde1c9d3338",
+      "fixture": "fixture2",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture2-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "HOLD: visible body plausible, but head/hair crops left in both frames."
+    },
+    {
+      "animation": "down",
+      "currentVersion": null,
+      "sourcePath": "art/characters/goku/production/generation-source/down_v04_attempt02.png",
+      "sourceSha256": "b53cc90ee5a1ccd1e24ec58606aedc9a7f6bf6b245eb1ace0726b20f83e9266a",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            306,
+            427
+          ],
+          "b": [
+            304,
+            506
+          ],
+          "sourceLengthPx": 79.03,
+          "sourceEndpointUncertaintyPx": 18,
+          "targetPx": 38.1,
+          "referenceUncertaintyPx": 5,
+          "ratio": 0.4821,
+          "definition": "neckline to belt along forward-folded torso"
+        },
+        "beltWidth": {
+          "a": [
+            255,
+            500
+          ],
+          "b": [
+            352,
+            500
+          ],
+          "sourceLengthPx": 97,
+          "sourceEndpointUncertaintyPx": 18,
+          "targetPx": 36,
+          "referenceUncertaintyPx": 4,
+          "ratio": 0.3711,
+          "definition": "outer belt span in kneeling recovery pose"
+        }
+      },
+      "factor": null,
+      "factorUncertainty": null,
+      "measurementRecord": "art/characters/goku/production/reassembly-r02/down-measurement-hold.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/down-source-f0-hold-endpoints.png",
+      "rawCandidate": null,
+      "rawCandidateSha256": null,
+      "fixture": "hold",
+      "fixtureAtlasPath": null,
+      "clipping": null,
+      "assessment": "SOURCE HOLD: prior marks withdrawn; no independent reliable pair under folded-pose occlusion."
+    },
+    {
+      "animation": "getup",
+      "currentVersion": "v05",
+      "sourcePath": "art/characters/goku/production/generation-source/getup_v03_attempt02.png",
+      "sourceSha256": "dd68beb20f48e146443c6d4a4030d3dad4a0fd7a0d54f25958fd5b09f92345f4",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            772,
+            640
+          ],
+          "b": [
+            777,
+            731
+          ],
+          "sourceUncertaintyPx": 12,
+          "targetUncertaintyPx": 5,
+          "definition": "collar center to belt center, recovered neutral frame 4",
+          "sourceLengthPx": 91.14,
+          "targetPx": 38.1,
+          "ratio": 0.418051
+        },
+        "beltWidth": {
+          "a": [
+            719,
+            731
+          ],
+          "b": [
+            823,
+            731
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 4,
+          "definition": "outer belt edges, frame 4",
+          "sourceLengthPx": 104,
+          "targetPx": 36,
+          "ratio": 0.346154
+        },
+        "bootTopToSole": {
+          "a": [
+            637,
+            930
+          ],
+          "b": [
+            650,
+            976
+          ],
+          "sourceUncertaintyPx": 12,
+          "targetUncertaintyPx": 6,
+          "definition": "left boot shaft-to-sole diagonal, frame 4",
+          "sourceLengthPx": 47.8,
+          "targetPx": 43.7,
+          "ratio": 0.914194
+        }
+      },
+      "factor": 0.418,
+      "factorUncertainty": "±0.040 selected from source endpoint uncertainty (10–12 source px) and independent reference landmark uncertainty; separate from target uncertainty values above",
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/getup_v05.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/getup-source-f4-endpoints.png",
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/getup_v05.png",
+      "rawCandidateSha256": "b47974d886f2ed8b2de9090c2b77ddeb0e0bf6bfaa63152dfac8ab96629521dc",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 1,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 2,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 3,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 4,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        }
+      ],
+      "assessment": "HOLD: upright recovery remains undersized."
+    },
+    {
+      "animation": "charge",
+      "currentVersion": null,
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\charge_v04_attempt03.png",
+      "sourceSha256": "f857cf8ffc6ffdeebd7938c5dd238fd38c11ca0f989137803653db8bccf6b703",
+      "sourceDimensions": [
+        2170,
+        725
+      ],
+      "landmarks": {
+        "collar_to_belt": {
+          "a": [
+            274,
+            205
+          ],
+          "b": [
+            274,
+            289
+          ],
+          "targetPx": 38.1,
+          "uncertaintyPx": 5,
+          "definition": "collar-center/sternoclavicular to belt center, source f0",
+          "sourceLengthPx": 84,
+          "ratio": 0.4536
+        },
+        "belt_width": {
+          "a": [
+            228,
+            289
+          ],
+          "b": [
+            322,
+            289
+          ],
+          "targetPx": 36,
+          "uncertaintyPx": 4,
+          "definition": "horizontal outer belt edges, source f0",
+          "sourceLengthPx": 94,
+          "ratio": 0.383
+        },
+        "boot_top_to_sole": {
+          "a": [
+            140,
+            552
+          ],
+          "b": [
+            125,
+            669
+          ],
+          "targetPx": 43.7,
+          "uncertaintyPx": 6,
+          "definition": "left boot shaft top to sole endpoint, source f0",
+          "sourceLengthPx": 117.96,
+          "ratio": 0.3705
+        }
+      },
+      "factor": null,
+      "factorUncertainty": null,
+      "measurementRecord": "art/characters/goku/production/reassembly-r02/charge-measurement-hold.json",
+      "sourceAnnotation": "charge-source-f0-endpoints.png",
+      "rawCandidate": null,
+      "rawCandidateSha256": null,
+      "fixture": "hold",
+      "fixtureAtlasPath": null,
+      "clipping": null,
+      "assessment": "SOURCE HOLD: loop snap remains; ratio spread alone does not establish anatomical scale failure."
+    },
+    {
+      "animation": "special",
+      "currentVersion": "v03",
+      "sourcePath": "art/characters/goku/production/generation-source/special_v02_attempt03.png",
+      "sourceSha256": "4e123c123e855f787c85020fdbca68194667dd6122867e49af7bde092bacc3ba",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            227,
+            145
+          ],
+          "b": [
+            211,
+            201
+          ],
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "definition": "neckline/collar center to waistband center, frame 0; Astra corrected screen coordinate",
+          "sourceLengthPx": 58.241,
+          "targetPx": 38.1,
+          "ratio": 0.65417969
+        },
+        "bootTopToSole": {
+          "a": [
+            75,
+            356
+          ],
+          "b": [
+            37,
+            418
+          ],
+          "sourceEndpointUncertaintyPx": [
+            6,
+            6
+          ],
+          "definition": "visible left/rear boot shaft top to sole along boot axis, frame 0; prior point independently visually confirmed",
+          "sourceLengthPx": 72.719,
+          "targetPx": 43.7,
+          "ratio": 0.60094637
+        }
+      },
+      "factor": 0.628,
+      "factorUncertainty": "±0.07; source endpoint ±6–8px and approved idle target uncertainty retained separately",
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/special_v03.json",
+      "sourceAnnotation": "art/characters/goku/production/reassembly-r02/special-source-f0-corrected-endpoints.png",
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/special_v03.png",
+      "rawCandidateSha256": "882a952e4a0bb675e782b60f7f50057de5a3f8eff8467765fbf503256ae49ee0",
+      "fixture": "fixture2",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture2-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 106
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 100
+        },
+        {
+          "frame": 2,
+          "lostNonMagentaPixels": 83
+        },
+        {
+          "frame": 3,
+          "lostNonMagentaPixels": 87
+        },
+        {
+          "frame": 4,
+          "lostNonMagentaPixels": 108
+        },
+        {
+          "frame": 5,
+          "lostNonMagentaPixels": 89
+        },
+        {
+          "frame": 6,
+          "lostNonMagentaPixels": 95
+        },
+        {
+          "frame": 7,
+          "lostNonMagentaPixels": 100
+        }
+      ],
+      "assessment": "HOLD: visible body matches, but hair crops top in all frames; standard cell lost 768 pixels, roomy companion preserves source pixels.",
+      "roomyCompanion": {
+        "path": "art/characters/goku/raw/_qa_hold/special_v03-uncropped-roomy.png",
+        "dimensions": [
+          1992,
+          266
+        ],
+        "sha256": "e5de9500734b909ed30b9a07ba68aafab63fc1557b5493b559fc2c07976feb5d",
+        "note": "Preserves all resampled pixels; not a standard 256 cell."
+      }
+    },
+    {
+      "animation": "win",
+      "currentVersion": "v04",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\win_v03_attempt03.png",
+      "sourceSha256": "ed788ec4fa8bb96295835de29016c60a33e9db69708e47bc2b921866115b30ca",
+      "sourceDimensions": [
+        1263,
+        1246
+      ],
+      "landmarks": null,
+      "factor": 0.444,
+      "factorUncertainty": 0.05,
+      "measurementRecord": "art/characters/goku/raw/_qa_hold/win_v04.json",
+      "sourceAnnotation": null,
+      "rawCandidate": "art/characters/goku/raw/_qa_hold/win_v04.png",
+      "rawCandidateSha256": "cf1819cac543404cac2bb7420d46ecf7d80318dce70494683b3e4bf1d50fe17c",
+      "fixture": "fixture1",
+      "fixtureAtlasPath": "art/characters/goku/production/scale-qa/reassembly-r02/fixture-public/characters/goku/sheet.png",
+      "clipping": [
+        {
+          "frame": 0,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 1,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 2,
+          "lostNonMagentaPixels": 0
+        },
+        {
+          "frame": 3,
+          "lostNonMagentaPixels": 0
+        }
+      ],
+      "assessment": "HOLD: visible body consistent, but hair and raised fist crop; standard staging lost 928 pixels."
+    }
+  ]
+}

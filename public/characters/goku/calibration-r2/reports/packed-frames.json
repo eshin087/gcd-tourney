@@ -1,0 +1,402 @@
+{
+  "label": "Exact 256x256 crops from 48-color quantized diagnostic atlases; neither mode is a production pass.",
+  "modes": {
+    "current": {
+      "sheet": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/characters/goku/sheet.png",
+      "sheetSha256": "bb4eb2d7e03d075f90784784d009906fd09cbc4e420fb89b68d67a85b11d3a55",
+      "metadata": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/characters/goku/anims.json",
+      "metadataSha256": "229ab74b97556ef3a2b2dd8bd4148323b4509d5a840d4c5374ec66573454367c",
+      "idle": {
+        "frame": 0,
+        "frameIndex": 0,
+        "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/idle/f00.png",
+        "sha256": "ca451ff723598094606ae79748d213da3a29791eb8c7922f6fc66cc4e8cd53d2",
+        "bounds": {
+          "x0": 48,
+          "y0": 9,
+          "x1": 210,
+          "y1": 240,
+          "width": 163,
+          "height": 232
+        },
+        "durationMs": 150,
+        "loop": true
+      },
+      "animations": {
+        "guard": {
+          "loop": true,
+          "durationsMs": [
+            300,
+            300
+          ],
+          "frames": [
+            {
+              "frame": 0,
+              "atlasIndex": 15,
+              "durationMs": 300,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/guard/f00.png",
+              "sha256": "5722ca1461f5367f13da5909b868de6fb43b929524179db08d0e6cf2ad25c699",
+              "bounds": {
+                "x0": 50,
+                "y0": 43,
+                "x1": 201,
+                "y1": 240,
+                "width": 152,
+                "height": 198
+              }
+            },
+            {
+              "frame": 1,
+              "atlasIndex": 16,
+              "durationMs": 300,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/guard/f01.png",
+              "sha256": "645c7e58bf8ae22679d5f3e174ece8585805d0f2f25e7f7a73e29d41a1a0a1b8",
+              "bounds": {
+                "x0": 53,
+                "y0": 43,
+                "x1": 200,
+                "y1": 240,
+                "width": 148,
+                "height": 198
+              }
+            }
+          ],
+          "contact": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/contacts/guard-one-density.png",
+          "contactSha256": "2a2f4e42d651e353b7c756819be6f9383238fc134f394422c8816150ab865b69"
+        },
+        "light2": {
+          "loop": false,
+          "durationsMs": [
+            35,
+            30,
+            40,
+            50,
+            60,
+            50,
+            30
+          ],
+          "frames": [
+            {
+              "frame": 0,
+              "atlasIndex": 8,
+              "durationMs": 35,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/light2/f00.png",
+              "sha256": "15e400dcb2d40719558e583b2bd1d3c13e22c8bfdbef7f6f458524c2ab7ebbf4",
+              "bounds": {
+                "x0": 57,
+                "y0": 38,
+                "x1": 199,
+                "y1": 240,
+                "width": 143,
+                "height": 203
+              }
+            },
+            {
+              "frame": 1,
+              "atlasIndex": 9,
+              "durationMs": 30,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/light2/f01.png",
+              "sha256": "d3d12879d676f3035ee12f8f39653a819da8ef18c06b82a0c9f2ec19c45e53cd",
+              "bounds": {
+                "x0": 56,
+                "y0": 39,
+                "x1": 201,
+                "y1": 240,
+                "width": 146,
+                "height": 202
+              }
+            },
+            {
+              "frame": 2,
+              "atlasIndex": 10,
+              "durationMs": 40,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/light2/f02.png",
+              "sha256": "a94232f768c59d3adfa3b82211825b0bd2341f52c3c47ce8c6cd799840efa9ae",
+              "bounds": {
+                "x0": 51,
+                "y0": 42,
+                "x1": 222,
+                "y1": 240,
+                "width": 172,
+                "height": 199
+              }
+            },
+            {
+              "frame": 3,
+              "atlasIndex": 11,
+              "durationMs": 50,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/light2/f03.png",
+              "sha256": "ba4f98d6c46542546f96c00a1034c554706b1b0429399bcd4058011a4ddb548d",
+              "bounds": {
+                "x0": 54,
+                "y0": 42,
+                "x1": 231,
+                "y1": 240,
+                "width": 178,
+                "height": 199
+              }
+            },
+            {
+              "frame": 4,
+              "atlasIndex": 12,
+              "durationMs": 60,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/light2/f04.png",
+              "sha256": "4da403c8a38f10c374bde090bc38bdfe6d0c50eafcc78b42be82fa9af509c32f",
+              "bounds": {
+                "x0": 52,
+                "y0": 45,
+                "x1": 229,
+                "y1": 240,
+                "width": 178,
+                "height": 196
+              }
+            },
+            {
+              "frame": 5,
+              "atlasIndex": 13,
+              "durationMs": 50,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/light2/f05.png",
+              "sha256": "2a0ef712effad2fc903da4beea1595e08e25600c10c088b9f334df1d5586ed1c",
+              "bounds": {
+                "x0": 58,
+                "y0": 37,
+                "x1": 200,
+                "y1": 240,
+                "width": 143,
+                "height": 204
+              }
+            },
+            {
+              "frame": 6,
+              "atlasIndex": 14,
+              "durationMs": 30,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/frames/light2/f06.png",
+              "sha256": "09e2aae6ed5053b4b1ff086b36fbdedee84d1961fad494d10f48d45bfde7f9dc",
+              "bounds": {
+                "x0": 58,
+                "y0": 37,
+                "x1": 200,
+                "y1": 240,
+                "width": 143,
+                "height": 204
+              }
+            }
+          ],
+          "contact": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/contacts/light2-one-density.png",
+          "contactSha256": "4c29a8ef13c834d81ad683732d0dbe68057315460765b62a864fdb3a4a8f507b"
+        }
+      }
+    },
+    "native-height": {
+      "sheet": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/characters/goku/sheet.png",
+      "sheetSha256": "b319f07b217b76f1292eeba0f1559464b6d6104d7091790180bc8db7293abfe8",
+      "metadata": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/characters/goku/anims.json",
+      "metadataSha256": "b4df0fed72369440395e697d5a78cde9a0487f9c6a443830ad497c92e94cf324",
+      "idle": {
+        "frame": 0,
+        "frameIndex": 0,
+        "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/idle/f00.png",
+        "sha256": "fc27e87f239b98e82a970bb0abae565a8910f929b248241ae67f7ce27320bb63",
+        "bounds": {
+          "x0": 48,
+          "y0": 9,
+          "x1": 210,
+          "y1": 240,
+          "width": 163,
+          "height": 232
+        },
+        "durationMs": 150,
+        "loop": true
+      },
+      "animations": {
+        "guard": {
+          "loop": true,
+          "durationsMs": [
+            300,
+            300
+          ],
+          "frames": [
+            {
+              "frame": 0,
+              "atlasIndex": 15,
+              "durationMs": 300,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/guard/f00.png",
+              "sha256": "279e6a6cfd5e734142facb47826e47ffafb7f96edaa63551d9e42d0b34fce5d5",
+              "bounds": {
+                "x0": 38,
+                "y0": 12,
+                "x1": 213,
+                "y1": 240,
+                "width": 176,
+                "height": 229
+              }
+            },
+            {
+              "frame": 1,
+              "atlasIndex": 16,
+              "durationMs": 300,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/guard/f01.png",
+              "sha256": "7f2efdec2ce3f86cedaea9a89430a990ba45eee20d58106bdb7ef669d05819df",
+              "bounds": {
+                "x0": 41,
+                "y0": 12,
+                "x1": 211,
+                "y1": 240,
+                "width": 171,
+                "height": 229
+              }
+            }
+          ],
+          "contact": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/contacts/guard-one-density.png",
+          "contactSha256": "d9598dfa43c147eb81c2436608d485a04de6adb85c9e61c977a62e89630759c9"
+        },
+        "light2": {
+          "loop": false,
+          "durationsMs": [
+            35,
+            30,
+            40,
+            50,
+            60,
+            50,
+            30
+          ],
+          "frames": [
+            {
+              "frame": 0,
+              "atlasIndex": 8,
+              "durationMs": 35,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/light2/f00.png",
+              "sha256": "c88069838a546906e61184983b8254a237f1792bfffec08b706dc524303b1569",
+              "bounds": {
+                "x0": 46,
+                "y0": 6,
+                "x1": 211,
+                "y1": 240,
+                "width": 166,
+                "height": 235
+              }
+            },
+            {
+              "frame": 1,
+              "atlasIndex": 9,
+              "durationMs": 30,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/light2/f01.png",
+              "sha256": "1aef4dcddb845435b8bc165ff494f2b14ec2975d53d37b1d984af9a314fd89db",
+              "bounds": {
+                "x0": 45,
+                "y0": 7,
+                "x1": 213,
+                "y1": 240,
+                "width": 169,
+                "height": 234
+              }
+            },
+            {
+              "frame": 2,
+              "atlasIndex": 10,
+              "durationMs": 40,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/light2/f02.png",
+              "sha256": "5d589ee7996ce99d30af294227cfe877a03591f46adcd0d576d7864286151644",
+              "bounds": {
+                "x0": 39,
+                "y0": 11,
+                "x1": 237,
+                "y1": 240,
+                "width": 199,
+                "height": 230
+              }
+            },
+            {
+              "frame": 3,
+              "atlasIndex": 11,
+              "durationMs": 50,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/light2/f03.png",
+              "sha256": "64697b0bad98d95c1e6750c4a272466b694a515d956b8594ba42d416402d52ba",
+              "bounds": {
+                "x0": 43,
+                "y0": 11,
+                "x1": 248,
+                "y1": 240,
+                "width": 206,
+                "height": 230
+              }
+            },
+            {
+              "frame": 4,
+              "atlasIndex": 12,
+              "durationMs": 60,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/light2/f04.png",
+              "sha256": "0c9c29d772a3f197daa7ad584375d8468031b7f62e9ec44a2bfca05bd8b10979",
+              "bounds": {
+                "x0": 41,
+                "y0": 14,
+                "x1": 246,
+                "y1": 240,
+                "width": 206,
+                "height": 227
+              }
+            },
+            {
+              "frame": 5,
+              "atlasIndex": 13,
+              "durationMs": 50,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/light2/f05.png",
+              "sha256": "2af95157017f2b83f62260c7374faeb2d881a4eadd060dae435e1525fddeb8e7",
+              "bounds": {
+                "x0": 47,
+                "y0": 5,
+                "x1": 212,
+                "y1": 240,
+                "width": 166,
+                "height": 236
+              }
+            },
+            {
+              "frame": 6,
+              "atlasIndex": 14,
+              "durationMs": 30,
+              "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/frames/light2/f06.png",
+              "sha256": "6c2e1409d416dc2176dbbf210e177ea6b0fe104068c765df9bcced7e8ff878d6",
+              "bounds": {
+                "x0": 48,
+                "y0": 5,
+                "x1": 212,
+                "y1": 240,
+                "width": 165,
+                "height": 236
+              }
+            }
+          ],
+          "contact": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/contacts/light2-one-density.png",
+          "contactSha256": "4c64b9c211da01e1e0a8ebceda39045280143ed4aba127e783cc2f5ce651e6fd"
+        }
+      }
+    }
+  },
+  "approvedComparison": {
+    "idleSource": {
+      "path": "art/characters/goku/raw/idle_v02.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03"
+    },
+    "approvedFixedIdle": {
+      "path": "art/characters/goku/reference/idle_approved.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03"
+    },
+    "titleStyleSource": {
+      "path": "art/characters/goku/reference/title_style_draft.png",
+      "sha256": "f7ae672771e9282f31e7804b02bb3f0ed46488618efd6050a4b864b2203dea42",
+      "split": "first 256x256 neutral, second 256x256 combat"
+    },
+    "titleLineup": {
+      "path": "art/characters/goku/reference/title_style_lineup_v02.png",
+      "sha256": "7cd53f5cff685fd50408c9b2b268996fc387cfa7203d9f1d0165222e1fa3d415"
+    },
+    "extractedCells": [
+      "references/title-neutral-v02.png",
+      "references/title-combat-v02.png"
+    ],
+    "contact": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/contacts/approved-reference-lineup.png",
+    "contactSha256": "c83be1440ccfe7d215c4933f72344a03305ad04cece988336e860e016533f798"
+  }
+}

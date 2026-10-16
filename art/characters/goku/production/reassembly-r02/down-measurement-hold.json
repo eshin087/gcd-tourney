@@ -1,0 +1,72 @@
+{
+  "animation": "down",
+  "status": "measured technical HOLD; no factor and no resample",
+  "sourcePath": "art/characters/goku/production/generation-source/down_v04_attempt02.png",
+  "sourceSha256": "b53cc90ee5a1ccd1e24ec58606aedc9a7f6bf6b245eb1ace0726b20f83e9266a",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "sourceGrid": [
+    2,
+    1,
+    2
+  ],
+  "inspectedFrame": 0,
+  "sourcePanelRect": [
+    0,
+    0,
+    887,
+    887
+  ],
+  "reference": {
+    "path": "art/characters/goku/raw/idle_v02.png",
+    "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+    "targetsPx": {
+      "collarToBelt": 38.1,
+      "beltWidth": 36,
+      "bootTopToSole": 43.7
+    },
+    "uncertaintyPx": {
+      "collarToBelt": 5,
+      "beltWidth": 4,
+      "bootTopToSole": 6
+    }
+  },
+  "landmarks": {
+    "collarToBelt": {
+      "a": [
+        306,
+        427
+      ],
+      "b": [
+        304,
+        506
+      ],
+      "sourceLengthPx": 79.03,
+      "sourceEndpointUncertaintyPx": 18,
+      "targetPx": 38.1,
+      "referenceUncertaintyPx": 5,
+      "ratio": 0.4821,
+      "definition": "neckline to belt along forward-folded torso"
+    },
+    "beltWidth": {
+      "a": [
+        255,
+        500
+      ],
+      "b": [
+        352,
+        500
+      ],
+      "sourceLengthPx": 97,
+      "sourceEndpointUncertaintyPx": 18,
+      "targetPx": 36,
+      "referenceUncertaintyPx": 4,
+      "ratio": 0.3711,
+      "definition": "outer belt span in kneeling recovery pose"
+    }
+  },
+  "annotation": "art/characters/goku/production/reassembly-r02/down-source-f0-hold-endpoints.png",
+  "holdReason": "Frame 0 is a hands-and-knees fall pose and frame 1 is prone; neither offers an independent boot axis or a comparable neutral torso. The two recorded measurements are projection-sensitive, so no factor or resample is supported. Measured HOLD."
+}

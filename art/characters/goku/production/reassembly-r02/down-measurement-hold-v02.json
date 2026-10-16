@@ -1,0 +1,17 @@
+{
+  "animation": "down",
+  "status": "unmeasurable source HOLD; no scale factor or resample",
+  "sourcePath": "art/characters/goku/production/generation-source/down_v04_attempt02.png",
+  "sourceSha256": "b53cc90ee5a1ccd1e24ec58606aedc9a7f6bf6b245eb1ace0726b20f83e9266a",
+  "sourceDimensions": [1774, 887],
+  "inspectedFrames": [0, 1],
+  "withdrawnPriorEndpoints": {
+    "collarToBelt": { "a": [306, 427], "b": [304, 506], "reason": "Both marks landed on hair/upper torso rather than the neck-base and waistband landmarks." },
+    "beltWidth": { "a": [255, 500], "b": [352, 500], "reason": "Line crosses torso/arm; does not trace the visible blue waistband." }
+  },
+  "visualEvidence": {
+    "frame0": "Hands-and-knees forward fold; neckline is hidden/overlapped and waistband is partly occluded by the arm/torso. A small visible waistband region is approximately x430–456,y490–550 per Astra screening, but does not give a reliable independent length pair.",
+    "frame1": "Prone pose; torso/arm overlap obscures collar and belt. A visible boot segment is not independently comparable to the idle boot axis because the lower leg is foreshortened/overlapped."
+  },
+  "holdReason": "The two previous measurement endpoints are explicitly withdrawn. Neither frame exposes two independent stable landmarks suitable for a common scale; no ratio or scale impossibility claim is made."
+}

@@ -1,0 +1,16 @@
+{
+  "animation": "airHeavy",
+  "status": "measured HOLD; no factor or reassembly",
+  "sourcePath": "art/characters/goku/production/generation-source/airHeavy_v04_attempt04.png",
+  "sourceSha256": "39fc7ce748f4234f88b0d72631f5db9e9e0048e11dd6fa47f9760e7329def6e8",
+  "inspectedFrame": 5,
+  "sourcePanelOriginPx": [1024, 512],
+  "reference": { "path": "art/characters/goku/raw/idle_v02.png", "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03", "targetsPx": { "collarToBelt": 38.1, "beltWidth": 36, "bootTopToSole": 43.7 }, "referenceUncertaintyPx": { "collarToBelt": 5, "beltWidth": 4, "bootTopToSole": 6 } },
+  "retainedScreeningLandmarks": {
+    "collarToBelt": { "a": [1254, 641], "b": [1241, 710], "sourceLengthPx": 70.21, "ratio": 0.5426, "sourceEndpointUncertaintyPx": 18, "note": "Screening only in airborne recovery pose; direct coordinates retained from prior hold, not certified as a common scale." },
+    "beltWidth": { "a": [1194, 710], "b": [1286, 710], "sourceLengthPx": 92, "ratio": 0.3913, "sourceEndpointUncertaintyPx": 18, "note": "Screening only; projected belt width in midair pose." }
+  },
+  "withdrawnLandmark": { "name": "bootTopToSole", "oldA": [1168, 881], "oldB": [1175, 962], "reason": "Old line starts near ankle/foot and ends in magenta; not a boot-shaft measurement." },
+  "correctedVisibleBootScreening": { "a": [1179, 838], "b": [1169, 910], "panelLocalA": [155, 326], "panelLocalB": [145, 398], "sourceLengthPx": 72.69, "ratio": 0.601, "sourceEndpointUncertaintyPx": 10, "definition": "visible rear boot shaft top to sole along boot axis; source frame5" },
+  "holdReason": "After correcting the boot endpoints, screening ratios still span torso .543, belt .391, and boot .601 in a tucked airborne pose. Projection and endpoint uncertainty are large, so no common factor is claimed and this is not evidence of impossible anatomy."
+}

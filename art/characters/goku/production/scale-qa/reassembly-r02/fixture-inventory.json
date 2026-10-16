@@ -1,0 +1,1857 @@
+{
+  "label": "Native-density candidate fixture; no production settings changed.",
+  "reference": {
+    "idle": "characters/goku/reference/idle_approved.png",
+    "idleV02": "characters/goku/reference/idle_v02.png"
+  },
+  "candidates": [
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "idle",
+      "version": 2,
+      "sourcePath": "art/characters/goku/raw/idle_v02.png",
+      "sourceSha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+      "sourceDimensions": [
+        2048,
+        256
+      ],
+      "sourcePivotPx": [
+        128,
+        240
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        0
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 8,
+      "nativeBodyHeight": 233,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 120295,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            46,
+            8,
+            208,
+            239
+          ],
+          "fixtureBounds": [
+            46,
+            8,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 15044
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            46,
+            7,
+            208,
+            239
+          ],
+          "fixtureBounds": [
+            46,
+            7,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 15217
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            47,
+            7,
+            208,
+            239
+          ],
+          "fixtureBounds": [
+            47,
+            7,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14946
+        },
+        {
+          "frame": 3,
+          "sourceContentBounds": [
+            46,
+            7,
+            208,
+            239
+          ],
+          "fixtureBounds": [
+            46,
+            7,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 15089
+        },
+        {
+          "frame": 4,
+          "sourceContentBounds": [
+            46,
+            8,
+            208,
+            239
+          ],
+          "fixtureBounds": [
+            46,
+            8,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14993
+        },
+        {
+          "frame": 5,
+          "sourceContentBounds": [
+            46,
+            8,
+            208,
+            239
+          ],
+          "fixtureBounds": [
+            46,
+            8,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 15088
+        },
+        {
+          "frame": 6,
+          "sourceContentBounds": [
+            47,
+            8,
+            208,
+            239
+          ],
+          "fixtureBounds": [
+            47,
+            8,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14926
+        },
+        {
+          "frame": 7,
+          "sourceContentBounds": [
+            46,
+            8,
+            208,
+            239
+          ],
+          "fixtureBounds": [
+            46,
+            8,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14992
+        }
+      ],
+      "sidecarPath": null,
+      "sourceSidecarSha256": null,
+      "stagedFixturePath": "art/characters/goku/raw/idle_v02.png",
+      "stagedFixtureSha256": "b5cd2267095a9e5834e4a61ce621116d9bf307d1b11941c7c7f21ae1e3a9bde5",
+      "excludedFromScalePass": true,
+      "dispute": null
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "win",
+      "version": 4,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/win_v04.png",
+      "sourceSha256": "cf1819cac543404cac2bb7420d46ecf7d80318dce70494683b3e4bf1d50fe17c",
+      "sourceDimensions": [
+        1024,
+        272
+      ],
+      "sourcePivotPx": [
+        128,
+        260
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        -20
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 4,
+      "nativeBodyHeight": 240,
+      "lostNonMagentaPixels": 928,
+      "retainedNonMagentaPixels": 57589,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            74,
+            20,
+            182,
+            259
+          ],
+          "fixtureBounds": [
+            74,
+            0,
+            182,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 203,
+          "retainedNonMagentaPixels": 14390
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            74,
+            20,
+            182,
+            259
+          ],
+          "fixtureBounds": [
+            74,
+            0,
+            182,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 200,
+          "retainedNonMagentaPixels": 14001
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            68,
+            20,
+            187,
+            259
+          ],
+          "fixtureBounds": [
+            68,
+            0,
+            187,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 326,
+          "retainedNonMagentaPixels": 14861
+        },
+        {
+          "frame": 3,
+          "sourceContentBounds": [
+            74,
+            20,
+            182,
+            259
+          ],
+          "fixtureBounds": [
+            74,
+            0,
+            182,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 199,
+          "retainedNonMagentaPixels": 14337
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/win_v04.json",
+      "sourceSidecarSha256": "b15254348d3be16297a289712b02faeecdff182a078d9d3c32a4b31d1b038002",
+      "stagedFixturePath": "art/characters/goku/raw/win_v04.png",
+      "stagedFixtureSha256": "91481209f8dd6709f1cc78fe7a30391efc5324088f6e8d64be6cca76bde31cdd",
+      "excludedFromScalePass": true,
+      "dispute": "Factor prose erratum; top overflow recorded; include for audit only, not a pass."
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "light3",
+      "version": 5,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/light3_v05.png",
+      "sourceSha256": "7b9c1fe744efead89150368bc843fae0a60969775e625667800fe68c57387432",
+      "sourceDimensions": [
+        1792,
+        256
+      ],
+      "sourcePivotPx": [
+        128,
+        240
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        0
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 7,
+      "nativeBodyHeight": 240,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 97944,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            52,
+            26,
+            203,
+            239
+          ],
+          "fixtureBounds": [
+            52,
+            26,
+            203,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 13525
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            54,
+            31,
+            202,
+            239
+          ],
+          "fixtureBounds": [
+            54,
+            31,
+            202,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14118
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            45,
+            8,
+            210,
+            239
+          ],
+          "fixtureBounds": [
+            45,
+            8,
+            210,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14329
+        },
+        {
+          "frame": 3,
+          "sourceContentBounds": [
+            50,
+            13,
+            205,
+            239
+          ],
+          "fixtureBounds": [
+            50,
+            13,
+            205,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 12353
+        },
+        {
+          "frame": 4,
+          "sourceContentBounds": [
+            57,
+            0,
+            199,
+            239
+          ],
+          "fixtureBounds": [
+            57,
+            0,
+            199,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14918
+        },
+        {
+          "frame": 5,
+          "sourceContentBounds": [
+            52,
+            16,
+            203,
+            239
+          ],
+          "fixtureBounds": [
+            52,
+            16,
+            203,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14341
+        },
+        {
+          "frame": 6,
+          "sourceContentBounds": [
+            52,
+            16,
+            203,
+            239
+          ],
+          "fixtureBounds": [
+            52,
+            16,
+            203,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14360
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/light3_v05.json",
+      "sourceSidecarSha256": "67caf074708e988083c3bc7aa10f7914be097b2776f9ee92e0e927421ca396a4",
+      "stagedFixturePath": "art/characters/goku/raw/light3_v05.png",
+      "stagedFixtureSha256": "6b28cfb43008a207ace1ad723d81e08d8f8404418aedf57c3f93624891b80f14",
+      "excludedFromScalePass": true,
+      "dispute": "Raw v05 clips 11 rows in frame 4; source segmentation defect. Include quantized clipped version with crop loss diagnostics."
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "light4",
+      "version": 5,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/light4_v05.png",
+      "sourceSha256": "a2a2c45181e6a28296e74381ad7115da7da8de9780c8cb56dfa0032e240c293d",
+      "sourceDimensions": [
+        2048,
+        272
+      ],
+      "sourcePivotPx": [
+        128,
+        260
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        -20
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 8,
+      "nativeBodyHeight": 205,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 92300,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            55,
+            60,
+            201,
+            259
+          ],
+          "fixtureBounds": [
+            55,
+            40,
+            201,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11367
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            52,
+            61,
+            203,
+            259
+          ],
+          "fixtureBounds": [
+            52,
+            41,
+            203,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11445
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            46,
+            65,
+            209,
+            259
+          ],
+          "fixtureBounds": [
+            46,
+            45,
+            209,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11860
+        },
+        {
+          "frame": 3,
+          "sourceContentBounds": [
+            47,
+            58,
+            208,
+            259
+          ],
+          "fixtureBounds": [
+            47,
+            38,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11643
+        },
+        {
+          "frame": 4,
+          "sourceContentBounds": [
+            30,
+            58,
+            226,
+            259
+          ],
+          "fixtureBounds": [
+            30,
+            38,
+            226,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11955
+        },
+        {
+          "frame": 5,
+          "sourceContentBounds": [
+            32,
+            60,
+            223,
+            259
+          ],
+          "fixtureBounds": [
+            32,
+            40,
+            223,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11699
+        },
+        {
+          "frame": 6,
+          "sourceContentBounds": [
+            68,
+            55,
+            188,
+            259
+          ],
+          "fixtureBounds": [
+            68,
+            35,
+            188,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 10788
+        },
+        {
+          "frame": 7,
+          "sourceContentBounds": [
+            55,
+            58,
+            201,
+            259
+          ],
+          "fixtureBounds": [
+            55,
+            38,
+            201,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11543
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/light4_v05.json",
+      "sourceSidecarSha256": "a1c22019e4b5bdb1b6062ccd61b393c3d72463d0d05765eb55a5e1198563ca7c",
+      "stagedFixturePath": "art/characters/goku/raw/light4_v05.png",
+      "stagedFixtureSha256": "cb66b21a5e817060a77a78abd8940292bbbbcd0c5dbf34135cab1be29c2994d1",
+      "excludedFromScalePass": true,
+      "dispute": null
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "run",
+      "version": 5,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/run_v05.png",
+      "sourceSha256": "6e0f3a9051ec7affbbed7e709c9d136c6ceebd580960bc0b3fa7605df8df8b97",
+      "sourceDimensions": [
+        2048,
+        272
+      ],
+      "sourcePivotPx": [
+        128,
+        260
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        -20
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 8,
+      "nativeBodyHeight": 195,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 88288,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            53,
+            66,
+            203,
+            259
+          ],
+          "fixtureBounds": [
+            53,
+            46,
+            203,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11170
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            53,
+            70,
+            203,
+            259
+          ],
+          "fixtureBounds": [
+            53,
+            50,
+            203,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11231
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            53,
+            67,
+            203,
+            259
+          ],
+          "fixtureBounds": [
+            53,
+            47,
+            203,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11089
+        },
+        {
+          "frame": 3,
+          "sourceContentBounds": [
+            45,
+            66,
+            210,
+            259
+          ],
+          "fixtureBounds": [
+            45,
+            46,
+            210,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 10729
+        },
+        {
+          "frame": 4,
+          "sourceContentBounds": [
+            53,
+            65,
+            202,
+            259
+          ],
+          "fixtureBounds": [
+            53,
+            45,
+            202,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11050
+        },
+        {
+          "frame": 5,
+          "sourceContentBounds": [
+            47,
+            65,
+            209,
+            259
+          ],
+          "fixtureBounds": [
+            47,
+            45,
+            209,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11216
+        },
+        {
+          "frame": 6,
+          "sourceContentBounds": [
+            47,
+            68,
+            209,
+            259
+          ],
+          "fixtureBounds": [
+            47,
+            48,
+            209,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 10629
+        },
+        {
+          "frame": 7,
+          "sourceContentBounds": [
+            53,
+            66,
+            203,
+            259
+          ],
+          "fixtureBounds": [
+            53,
+            46,
+            203,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -20
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11174
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/run_v05.json",
+      "sourceSidecarSha256": "b19202740148c56554c88a3f51a0ae267d79cb461929f65e2f4d479fd6e565cb",
+      "stagedFixturePath": "art/characters/goku/raw/run_v05.png",
+      "stagedFixtureSha256": "862bfa5598e051b5ab7e758347e912cea69e61953cdcd42ae3532e0f62273c4a",
+      "excludedFromScalePass": true,
+      "dispute": null
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "dash",
+      "version": 4,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/dash_v04.png",
+      "sourceSha256": "e9f9993b6b774393944903430862542be740e6d2047b9619c8a01f6577266b53",
+      "sourceDimensions": [
+        512,
+        256
+      ],
+      "sourcePivotPx": [
+        128,
+        240
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        0
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 2,
+      "nativeBodyHeight": 172,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 20709,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            51,
+            70,
+            205,
+            239
+          ],
+          "fixtureBounds": [
+            51,
+            70,
+            205,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 10419
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            49,
+            68,
+            207,
+            239
+          ],
+          "fixtureBounds": [
+            49,
+            68,
+            207,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 10290
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/dash_v04.json",
+      "sourceSidecarSha256": "19284b79d6cd92bc3b8c51a7bffdcb71ebad04497bdb44fb59b6697681df42e9",
+      "stagedFixturePath": "art/characters/goku/raw/dash_v04.png",
+      "stagedFixtureSha256": "ec790ea8274ecf2bb981401d9427ff54a40f5de046a6078ab8f959a505d33aa5",
+      "excludedFromScalePass": true,
+      "dispute": null
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "jumpFall",
+      "version": 3,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/jumpFall_v03.png",
+      "sourceSha256": "f992abd27fdf5c4ad96edf4996f648baa62bca26f219c7386bbc8e17703caa07",
+      "sourceDimensions": [
+        512,
+        360
+      ],
+      "sourcePivotPx": [
+        128,
+        340
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        -100
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 2,
+      "nativeBodyHeight": 240,
+      "lostNonMagentaPixels": 5498,
+      "retainedNonMagentaPixels": 42269,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            14,
+            100,
+            242,
+            339
+          ],
+          "fixtureBounds": [
+            14,
+            0,
+            242,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -100
+          ],
+          "lostNonMagentaPixels": 3036,
+          "retainedNonMagentaPixels": 21434
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            16,
+            100,
+            240,
+            339
+          ],
+          "fixtureBounds": [
+            16,
+            0,
+            240,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -100
+          ],
+          "lostNonMagentaPixels": 2462,
+          "retainedNonMagentaPixels": 20835
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/jumpFall_v03.json",
+      "sourceSidecarSha256": "524abf2895a48a9c693b497049c0047c278997d1ede31c4afd0462b7e57fe518",
+      "stagedFixturePath": "art/characters/goku/raw/jumpFall_v03.png",
+      "stagedFixtureSha256": "974a1bdc021853e05e3c3f1c40bcc44087fa47464c1457d0578af89870935539",
+      "excludedFromScalePass": true,
+      "dispute": "Superseded measurement endpoints are likely misplaced per Astra; include only as historical disputed candidate and exclude from audit pass."
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "land",
+      "version": 4,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/land_v04.png",
+      "sourceSha256": "a00bfe5c1b35c517446e5502e04a0693f0bd8b7c89e4880b9d80538fb77097d9",
+      "sourceDimensions": [
+        512,
+        256
+      ],
+      "sourcePivotPx": [
+        128,
+        240
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        0
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 2,
+      "nativeBodyHeight": 198,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 23132,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            55,
+            74,
+            201,
+            239
+          ],
+          "fixtureBounds": [
+            55,
+            74,
+            201,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11745
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            55,
+            42,
+            201,
+            239
+          ],
+          "fixtureBounds": [
+            55,
+            42,
+            201,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11387
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/land_v04.json",
+      "sourceSidecarSha256": "40bdfdd8f76cd32d031a0b80c96ff6df351244960c2099e7202b70264655e481",
+      "stagedFixturePath": "art/characters/goku/raw/land_v04.png",
+      "stagedFixtureSha256": "a8ec242697b4ee06abc006bc0ba840910d231b54d1b8a6ee8051e6991d2672e7",
+      "excludedFromScalePass": true,
+      "dispute": null
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "light1",
+      "version": 3,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/light1_v03.png",
+      "sourceSha256": "68261071aa73d1ac03fc501c093a10beefc62a7043a6e1dd1a014b00145cb16f",
+      "sourceDimensions": [
+        1792,
+        262
+      ],
+      "sourcePivotPx": [
+        128,
+        250
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        -10
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 7,
+      "nativeBodyHeight": 238,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 107553,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            50,
+            26,
+            205,
+            249
+          ],
+          "fixtureBounds": [
+            50,
+            16,
+            205,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -10
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14425
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            48,
+            29,
+            208,
+            249
+          ],
+          "fixtureBounds": [
+            48,
+            19,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -10
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14891
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            47,
+            29,
+            208,
+            249
+          ],
+          "fixtureBounds": [
+            47,
+            19,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -10
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14809
+        },
+        {
+          "frame": 3,
+          "sourceContentBounds": [
+            31,
+            29,
+            224,
+            249
+          ],
+          "fixtureBounds": [
+            31,
+            19,
+            224,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -10
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 15314
+        },
+        {
+          "frame": 4,
+          "sourceContentBounds": [
+            38,
+            12,
+            217,
+            249
+          ],
+          "fixtureBounds": [
+            38,
+            2,
+            217,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -10
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 16275
+        },
+        {
+          "frame": 5,
+          "sourceContentBounds": [
+            45,
+            12,
+            210,
+            249
+          ],
+          "fixtureBounds": [
+            45,
+            2,
+            210,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -10
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 16130
+        },
+        {
+          "frame": 6,
+          "sourceContentBounds": [
+            47,
+            12,
+            208,
+            249
+          ],
+          "fixtureBounds": [
+            47,
+            2,
+            208,
+            239
+          ],
+          "shiftedBy": [
+            0,
+            -10
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 15709
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/light1_v03.json",
+      "sourceSidecarSha256": "b639a5e3610f6aeb84d75d1ed42f234b7e7f3fd05b05fa892ce514e216ab9ff5",
+      "stagedFixturePath": "art/characters/goku/raw/light1_v03.png",
+      "stagedFixtureSha256": "70d79a65bd524330420967cce03cbc068b6610b7d99096436324b33155c0b301",
+      "excludedFromScalePass": true,
+      "dispute": "Two-pixel intrusion into required top margin; inspect crop diagnostics."
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "heavy",
+      "version": 5,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/heavy_v05.png",
+      "sourceSha256": "ef4120f320a018b7eb4c14a53219d70023028507e474afd1fd11bdb4946e1588",
+      "sourceDimensions": [
+        2048,
+        256
+      ],
+      "sourcePivotPx": [
+        128,
+        240
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        0
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 8,
+      "nativeBodyHeight": 211,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 95065,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            53,
+            54,
+            204,
+            240
+          ],
+          "fixtureBounds": [
+            53,
+            54,
+            204,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11588
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            50,
+            58,
+            206,
+            240
+          ],
+          "fixtureBounds": [
+            50,
+            58,
+            206,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 12417
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            50,
+            49,
+            206,
+            240
+          ],
+          "fixtureBounds": [
+            50,
+            49,
+            206,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11920
+        },
+        {
+          "frame": 3,
+          "sourceContentBounds": [
+            36,
+            30,
+            220,
+            240
+          ],
+          "fixtureBounds": [
+            36,
+            30,
+            220,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 12443
+        },
+        {
+          "frame": 4,
+          "sourceContentBounds": [
+            35,
+            37,
+            222,
+            240
+          ],
+          "fixtureBounds": [
+            35,
+            37,
+            222,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 12066
+        },
+        {
+          "frame": 5,
+          "sourceContentBounds": [
+            26,
+            36,
+            230,
+            240
+          ],
+          "fixtureBounds": [
+            26,
+            36,
+            230,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 12066
+        },
+        {
+          "frame": 6,
+          "sourceContentBounds": [
+            41,
+            48,
+            216,
+            240
+          ],
+          "fixtureBounds": [
+            41,
+            48,
+            216,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 11579
+        },
+        {
+          "frame": 7,
+          "sourceContentBounds": [
+            54,
+            48,
+            203,
+            240
+          ],
+          "fixtureBounds": [
+            54,
+            48,
+            203,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 10986
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/heavy_v05.json",
+      "sourceSidecarSha256": "77f444b6545f1c81834d471741fce6ac073b80d1ead82898410e28acfaab878e",
+      "stagedFixturePath": "art/characters/goku/raw/heavy_v05.png",
+      "stagedFixtureSha256": "ef4120f320a018b7eb4c14a53219d70023028507e474afd1fd11bdb4946e1588",
+      "excludedFromScalePass": true,
+      "dispute": "Source frames 3–5 show detached fist/hand fragments; include for technical audit only."
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "getup",
+      "version": 5,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/getup_v05.png",
+      "sourceSha256": "b47974d886f2ed8b2de9090c2b77ddeb0e0bf6bfaa63152dfac8ab96629521dc",
+      "sourceDimensions": [
+        1280,
+        256
+      ],
+      "sourcePivotPx": [
+        128,
+        240
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        0
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 5,
+      "nativeBodyHeight": 186,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 47754,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            57,
+            113,
+            200,
+            240
+          ],
+          "fixtureBounds": [
+            57,
+            113,
+            200,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 9368
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            70,
+            91,
+            187,
+            240
+          ],
+          "fixtureBounds": [
+            70,
+            91,
+            187,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 10183
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            67,
+            88,
+            190,
+            240
+          ],
+          "fixtureBounds": [
+            67,
+            88,
+            190,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 9367
+        },
+        {
+          "frame": 3,
+          "sourceContentBounds": [
+            62,
+            71,
+            194,
+            240
+          ],
+          "fixtureBounds": [
+            62,
+            71,
+            194,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 9333
+        },
+        {
+          "frame": 4,
+          "sourceContentBounds": [
+            66,
+            55,
+            191,
+            240
+          ],
+          "fixtureBounds": [
+            66,
+            55,
+            191,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 9503
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/getup_v05.json",
+      "sourceSidecarSha256": "26124e9d10c704bf3e5d955a0a63134723bae6be1acc5b8b3fe81fadcd4082e1",
+      "stagedFixturePath": "art/characters/goku/raw/getup_v05.png",
+      "stagedFixtureSha256": "b47974d886f2ed8b2de9090c2b77ddeb0e0bf6bfaa63152dfac8ab96629521dc",
+      "excludedFromScalePass": true,
+      "dispute": null
+    },
+    {
+      "fixtureOnly": true,
+      "scaleGateMode": "warn",
+      "approvalFieldsPreserved": true,
+      "note": "Isolated warn-only fixture for diagnostic quantized pixels. Approval fields are copied unchanged from the production manifest; no art approval or scale pass is implied.",
+      "animation": "hurtHigh",
+      "version": 8,
+      "sourcePath": "art/characters/goku/raw/_qa_hold/hurtHigh_v08.png",
+      "sourceSha256": "27ee04e0cb996e6216b5630ab70df0c2ced3a07ca986cd6529270431a146e1c1",
+      "sourceDimensions": [
+        768,
+        256
+      ],
+      "sourcePivotPx": [
+        128,
+        240
+      ],
+      "fixturePivotPx": [
+        128,
+        240
+      ],
+      "sourceToFixtureShiftPx": [
+        0,
+        0
+      ],
+      "fixtureCellSizePx": [
+        256,
+        256
+      ],
+      "frameCount": 3,
+      "nativeBodyHeight": 223,
+      "lostNonMagentaPixels": 0,
+      "retainedNonMagentaPixels": 42210,
+      "frameDiagnostics": [
+        {
+          "frame": 0,
+          "sourceContentBounds": [
+            45,
+            18,
+            211,
+            240
+          ],
+          "fixtureBounds": [
+            45,
+            18,
+            211,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 13945
+        },
+        {
+          "frame": 1,
+          "sourceContentBounds": [
+            43,
+            21,
+            214,
+            240
+          ],
+          "fixtureBounds": [
+            43,
+            21,
+            214,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 14413
+        },
+        {
+          "frame": 2,
+          "sourceContentBounds": [
+            44,
+            18,
+            212,
+            240
+          ],
+          "fixtureBounds": [
+            44,
+            18,
+            212,
+            240
+          ],
+          "shiftedBy": [
+            0,
+            0
+          ],
+          "lostNonMagentaPixels": 0,
+          "retainedNonMagentaPixels": 13852
+        }
+      ],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/hurtHigh_v08.json",
+      "sourceSidecarSha256": "a437bfc98aaae3886d5cc90c96c66016f9f1c824f77a4cdb791a04753e52a75b",
+      "stagedFixturePath": "art/characters/goku/raw/hurtHigh_v08.png",
+      "stagedFixtureSha256": "27ee04e0cb996e6216b5630ab70df0c2ced3a07ca986cd6529270431a146e1c1",
+      "excludedFromScalePass": true,
+      "dispute": null
+    }
+  ]
+}

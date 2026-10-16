@@ -1,5 +1,48 @@
 # Proposed Goku review rows
 
+## Current calibration audit r02 (2026-10-15)
+
+Date: 2026-10-15. These rows correspond to exact source-measured rescale candidates in `raw/_qa_hold/`. They are technical audit records, not new drawings, approval decisions, or production calibration. Preserve any user design approval attached to the identical source drawing; the rescaled pixels still need Claude calibration/tool review and the final packed pixel audit. Do not copy fixture-only bodyHeight values into the production manifest.
+
+| Character | Asset | Candidate | Status | Exact change and evidence | Current technical finding |
+|---|---|---|---|---|---|
+| Goku | run | [run_v05.png](raw/_qa_hold/run_v05.png) | needs review | Source `run_v02_attempt04.png`; factor .484; [sidecar](raw/_qa_hold/run_v05.json). | Final fixture2 HOLD (fixture1 finding rechecked): body segments undersized; rear boot crop at frames 3/6. |
+| Goku | dash | [dash_v04.png](raw/_qa_hold/dash_v04.png) | needs review | Source `dash_v03_attempt03.png`; factor .241; [sidecar](raw/_qa_hold/dash_v04.json). | Final fixture2 HOLD (fixture1 finding rechecked): short body segments and rear boot crop. |
+| Goku | jumpUp | [jumpUp_v04.png](raw/_qa_hold/jumpUp_v04.png) | needs review | Source `jumpUp_v03_attempt03.png`; corrected collar-center/boot endpoints; exact median .257±.06; [sidecar](raw/_qa_hold/jumpUp_v04.json); [annotated source](production/reassembly-r02/jumpUp-source-f0-corrected-endpoints.png). | Fixture2 final Astra audit: proposed qualified body/anatomy PASS within uncertainty, bound to atlas c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0; tucked boot projection is qualified. |
+| Goku | jumpFall | [jumpFall_v04.png](raw/_qa_hold/jumpFall_v04.png) | needs review | Source `jumpFall_v02_attempt03.png`; corrected endpoints; .356±.04; [sidecar](raw/_qa_hold/jumpFall_v04.json); [annotated source](production/reassembly-r02/jumpFall-source-f0-endpoints.png). | Fixture2 final Astra audit: proposed full visible-anatomy PASS, bound to atlas c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0; v03 stays immutable and disputed. |
+| Goku | land | [land_v04.png](raw/_qa_hold/land_v04.png) | needs review | Source `land_v03_attempt03.png`; factor .253; [sidecar](raw/_qa_hold/land_v04.json). | Final fixture2 HOLD (fixture1 finding rechecked): undersized upright recovery. |
+| Goku | light1 | [light1_v03.png](raw/_qa_hold/light1_v03.png) | needs review | A/B parts mapping and factor .385; [sidecar](raw/_qa_hold/light1_v03.json). | Fixture2 final Astra audit: body-only PASS; y3 hair margin HOLD (1px inside nominal 4px margin). |
+| Goku | light3 | [light3_v05.png](raw/_qa_hold/light3_v05.png) | needs review | Same source drawing `light3_v04_attempt04.png`; factor .530; [sidecar](raw/_qa_hold/light3_v05.json). | Final fixture2 HOLD (fixture1 finding rechecked): detached/severed rear arm and hand; prior source crop remains. Drawing approval is retained; technical pass is not. |
+| Goku | light4 | [light4_v05.png](raw/_qa_hold/light4_v05.png) | needs review | Same source drawing `light4_v04_attempt04.png`; factor .565; [sidecar](raw/_qa_hold/light4_v05.json). | Final fixture2 HOLD (fixture1 finding rechecked): undersized recovery body and right-edge kick crop. |
+| Goku | heavy | [heavy_v05.png](raw/_qa_hold/heavy_v05.png) | needs review | Same source drawing `heavy_v04_attempt04.png`; factor .533±.04; [sidecar](raw/_qa_hold/heavy_v05.json). | Final fixture2 HOLD (fixture1 finding rechecked): undersized body; extended fist/arm cut and detached fragments. |
+| Goku | airLight1 | [airLight1_v05.png](raw/_qa_hold/airLight1_v05.png) | needs review | Source `airLight1_v04_attempt04.png`; corrected visible belt span; exact median .546±.07; [sidecar](raw/_qa_hold/airLight1_v05.json); [annotated source](production/reassembly-r02/airLight1-source-f0-corrected-endpoints.png). | Fixture2 final Astra audit: visible body matches; active attack arms crop at right, overall HOLD. |
+| Goku | hurtHigh | [hurtHigh_v08.png](raw/_qa_hold/hurtHigh_v08.png) | needs review | Source `hurtHigh_v07_attempt03.png`; factor .335±.04; [sidecar](raw/_qa_hold/hurtHigh_v08.json). | Fixture2 final Astra audit: proposed full visible-anatomy PASS within uncertainty; user/design approval remains separate. |
+| Goku | launched | [launched_v07.png](raw/_qa_hold/launched_v07.png) | needs review | Source `launched_v06_attempt02.png`; corrected lower boot axis; exact median .258±.07; [sidecar](raw/_qa_hold/launched_v07.json); [annotated source](production/reassembly-r02/launched-source-f0-corrected-endpoints.png). | Fixture2 final Astra audit: visible body plausible; head cropped left in both frames, overall HOLD. |
+| Goku | getup | [getup_v05.png](raw/_qa_hold/getup_v05.png) | needs review | Source `getup_v03_attempt02.png`; factor .418±.04; [sidecar](raw/_qa_hold/getup_v05.json). | Final fixture2 HOLD (fixture1 finding rechecked): upright body remains undersized. |
+| Goku | special | [special_v03.png](raw/_qa_hold/special_v03.png) | needs review | Source `special_v02_attempt03.png`; corrected collar and visible boot; exact median .628±.07; [sidecar](raw/_qa_hold/special_v03.json); [uncropped companion](production/reassembly-r02/special_v03-uncropped-roomy.png). | Fixture2 final Astra audit: visible body matches, but hair crops at top. Standard 256 candidate loses 768 pixels; roomy companion preserves all resampled pixels. |
+| Goku | win | [win_v04.png](raw/_qa_hold/win_v04.png) | needs review | Source `win_v03_attempt03.png`; factor prose erratum preserved; [sidecar](raw/_qa_hold/win_v04.json). | Visible body consistent; hair/raised fist crop, overall HOLD. |
+
+The three no-output source holds remain in `FINAL_INVENTORY.json` and are not assigned guessed factors: airHeavy (corrected boot point, but airborne landmark spread does not support one factor), down (prior collar/belt points withdrawn; no independent pair), and charge (loop snap; factor spread alone does not establish anatomy failure). Do not create versions for them without new reliable evidence.
+
+
+## Superseded and companion files
+
+| Character | Asset | Candidate | Status | Exact scope | Technical finding |
+|---|---|---|---|---|---|
+| Goku | jumpFall | [jumpFall_v03.png](raw/_qa_hold/jumpFall_v03.png) | needs review | Immutable earlier v03; sidecar records the withdrawn endpoint/factor issue. | Disputed and excluded from fixture 2; do not select over v04. |
+| Goku | getup | [getup_v04.png](raw/_qa_hold/getup_v04.png) | needs review | Immutable earlier reassembly candidate, superseded by v05. | Fixture 1 pack/audit did not use this version; preserve as history, no pass inferred. |
+| Goku | jumpUp | [jumpUp_v04-uncropped-roomy.png](production/reassembly-r02/jumpUp_v04-uncropped-roomy.png) | needs review | Diagnostic roomy companion, not a standard 256-cell asset. | Preserves resampled pixels for overflow review; not packed or approved. |
+| Goku | airLight1 | [airLight1_v05-uncropped-roomy.png](production/reassembly-r02/airLight1_v05-uncropped-roomy.png) | needs review | Diagnostic roomy companion, not a standard 256-cell asset. | Does not repair source attack-arm crop; not packed or approved. |
+| Goku | light3 | [light3_v05-uncropped-roomy.png](production/reassembly-r02/light3_v05-uncropped-roomy.png) | needs review | Diagnostic roomy companion, not a standard 256-cell asset. | Source fragments remain; not packed or approved. |
+| Goku | guard | [guard_v05.png](raw/_qa_hold/guard_v05.png) | needs review | Native-density reassembly pilot; separate from approved drawing. | Astra conditional source-method pass is fixture-bound; current manifest-scale render remains HOLD pending Claude calibration. |
+| Goku | light2 | [light2_v05.png](raw/_qa_hold/light2_v05.png) | needs review | Approved v04 drawing uniformly reassembled at measured pilot density. | Existing design approval retained; native-density pilot pass is fixture-bound; current manifest-scale render remains HOLD pending Claude calibration. |
+
+
+## Historical checkpoints below
+
+These entries preserve earlier evidence and approvals. The r02 audit above supersedes the old unreassembled-count and provisional-pilot status; no prior user drawing approval is withdrawn.
+
+
 ## Current technical interpretation (2026-10-15)
 
 Earlier automatic head ratios below are preserved as historical reports, **not confirmed anatomy measurements**. The unchanged approved idle fails the same detector (0.50-2.667, median detected region only 6x10px). The old cell-fit assembly and a second template-height normalization also changed apparent size; Claude repaired the malformed manifest at `728fa9d7`. These findings supersede assertions that a low ratio alone means a redraw is required.

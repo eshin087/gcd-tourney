@@ -1,0 +1,88 @@
+{
+  "animation": "airLight1",
+  "status": "measured technical HOLD; no factor and no resample",
+  "sourcePath": "art/characters/goku/production/generation-source/airLight1_v04_attempt04.png",
+  "sourceSha256": "1e18761c0c48cbe9b739a8d57adc3e701e018fa88291b12cf23986fe36b67305",
+  "sourceDimensions": [
+    1536,
+    1024
+  ],
+  "sourceGrid": [
+    3,
+    2,
+    5
+  ],
+  "inspectedFrame": 0,
+  "sourcePanelRect": [
+    0,
+    0,
+    512,
+    512
+  ],
+  "reference": {
+    "path": "art/characters/goku/raw/idle_v02.png",
+    "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+    "targetsPx": {
+      "collarToBelt": 38.1,
+      "beltWidth": 36,
+      "bootTopToSole": 43.7
+    },
+    "uncertaintyPx": {
+      "collarToBelt": 5,
+      "beltWidth": 4,
+      "bootTopToSole": 6
+    }
+  },
+  "landmarks": {
+    "collarToBelt": {
+      "a": [
+        255,
+        150
+      ],
+      "b": [
+        249,
+        218
+      ],
+      "sourceLengthPx": 68.26,
+      "sourceEndpointUncertaintyPx": 18,
+      "targetPx": 38.1,
+      "referenceUncertaintyPx": 5,
+      "ratio": 0.5581,
+      "definition": "collar center to belt center"
+    },
+    "beltWidth": {
+      "a": [
+        206,
+        220
+      ],
+      "b": [
+        291,
+        220
+      ],
+      "sourceLengthPx": 85,
+      "sourceEndpointUncertaintyPx": 18,
+      "targetPx": 36,
+      "referenceUncertaintyPx": 4,
+      "ratio": 0.4235,
+      "definition": "outer blue belt span"
+    },
+    "bootTopToSole": {
+      "a": [
+        154,
+        396
+      ],
+      "b": [
+        132,
+        463
+      ],
+      "sourceLengthPx": 70.52,
+      "sourceEndpointUncertaintyPx": 18,
+      "targetPx": 43.7,
+      "referenceUncertaintyPx": 6,
+      "ratio": 0.6197,
+      "definition": "left boot shaft top to sole along axis"
+    }
+  },
+  "annotation": "art/characters/goku/production/reassembly-r02/airLight1-source-f0-hold-endpoints.png",
+  "holdReason": "Frame 0 is a tucked airborne guard with a raised leg; belt-width projection is short relative to collar/boot estimates. Other frames are airborne strikes and do not supply an upright independent check. Keep measured HOLD pending Astra review; no common factor asserted."
+}

@@ -1,0 +1,142 @@
+{
+  "label": "Fixture 2: exact quantized candidate atlas, warn-only; no approval fields changed, not a scale pass.",
+  "fixtureScaleGate": "warn",
+  "inheritedFixture1": "fixture-art source copied before adding corrected candidate versions; jumpFall v04 supersedes disputed v03 only in this fixture",
+  "candidates": [
+    {
+      "animation": "jumpFall",
+      "version": 4,
+      "sourceCandidatePath": "art/characters/goku/raw/_qa_hold/jumpFall_v04.png",
+      "sourceCandidateSha256": "d4e6062e01de822b1b788536f1de7f067ad90e0abd9a685c6aa0b6b931ad2ba4",
+      "fixtureFile": "characters/goku/raw/jumpFall_v04.png",
+      "fixtureSha256": "d4e6062e01de822b1b788536f1de7f067ad90e0abd9a685c6aa0b6b931ad2ba4",
+      "bodyHeight": 232,
+      "pivot": [
+        128,
+        240
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "bounds": [
+            38,
+            9,
+            218,
+            240
+          ],
+          "bodyHeight": 232
+        },
+        {
+          "frame": 1,
+          "bounds": [
+            40,
+            14,
+            216,
+            240
+          ],
+          "bodyHeight": 227
+        }
+      ]
+    },
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "sourceCandidatePath": "art/characters/goku/raw/_qa_hold/jumpUp_v04.png",
+      "sourceCandidateSha256": "262d801b7fee1686c474cb03a4c9b338decfbb9a518bcaa134568a4539bd3d30",
+      "fixtureFile": "characters/goku/raw/jumpUp_v04.png",
+      "fixtureSha256": "262d801b7fee1686c474cb03a4c9b338decfbb9a518bcaa134568a4539bd3d30",
+      "bodyHeight": 206,
+      "pivot": [
+        128,
+        240
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "bounds": [
+            74,
+            54,
+            182,
+            240
+          ],
+          "bodyHeight": 187
+        },
+        {
+          "frame": 1,
+          "bounds": [
+            73,
+            35,
+            184,
+            240
+          ],
+          "bodyHeight": 206
+        }
+      ]
+    },
+    {
+      "animation": "airLight1",
+      "version": 5,
+      "sourceCandidatePath": "art/characters/goku/raw/_qa_hold/airLight1_v05.png",
+      "sourceCandidateSha256": "b3b43210f14297e7fbf7f559a6f9f6cefd1f8fa9e179e0ec786245aaf290b0b8",
+      "fixtureFile": "characters/goku/raw/airLight1_v05.png",
+      "fixtureSha256": "b3b43210f14297e7fbf7f559a6f9f6cefd1f8fa9e179e0ec786245aaf290b0b8",
+      "bodyHeight": 240,
+      "pivot": [
+        128,
+        240
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "bounds": [
+            59,
+            1,
+            198,
+            240
+          ],
+          "bodyHeight": 240
+        },
+        {
+          "frame": 1,
+          "bounds": [
+            54,
+            4,
+            203,
+            240
+          ],
+          "bodyHeight": 237
+        },
+        {
+          "frame": 2,
+          "bounds": [
+            14,
+            9,
+            242,
+            240
+          ],
+          "bodyHeight": 232
+        },
+        {
+          "frame": 3,
+          "bounds": [
+            21,
+            8,
+            235,
+            240
+          ],
+          "bodyHeight": 233
+        },
+        {
+          "frame": 4,
+          "bounds": [
+            61,
+            4,
+            196,
+            240
+          ],
+          "bodyHeight": 237
+        }
+      ]
+    }
+  ]
+}

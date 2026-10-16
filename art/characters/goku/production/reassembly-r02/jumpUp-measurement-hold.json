@@ -1,0 +1,71 @@
+{
+  "animation": "jumpUp",
+  "sourcePath": "art\\characters\\goku\\production\\generation-source\\jumpUp_v03_attempt03.png",
+  "sourceSha256": "c8b5ee50491068292041519b5533f41a78ec77084a80c846d5307686c2309e81",
+  "sourceFrame": 0,
+  "sourcePanel": "left half of 2x1 source (887x887)",
+  "landmarks": {
+    "collar_to_belt": {
+      "a": [
+        469,
+        284
+      ],
+      "b": [
+        394,
+        455
+      ],
+      "targetPx": 38.1,
+      "uncertaintyPx": 12,
+      "definition": "collar-center to belt-center, strongly tucked/leaning source frame 0",
+      "sourceLengthPx": 186.72,
+      "ratio": 0.204
+    },
+    "belt_width": {
+      "a": [
+        331,
+        453
+      ],
+      "b": [
+        476,
+        453
+      ],
+      "targetPx": 36,
+      "uncertaintyPx": 8,
+      "definition": "outer belt edges, frame 0",
+      "sourceLengthPx": 145.0,
+      "ratio": 0.2483
+    },
+    "left_boot_axis": {
+      "a": [
+        304,
+        645
+      ],
+      "b": [
+        269,
+        794
+      ],
+      "targetPx": 43.7,
+      "uncertaintyPx": 10,
+      "definition": "visible left boot-shaft top to sole endpoint along diagonal, frame 0",
+      "sourceLengthPx": 153.06,
+      "ratio": 0.2855
+    },
+    "right_boot_axis": {
+      "a": [
+        407,
+        655
+      ],
+      "b": [
+        409,
+        826
+      ],
+      "targetPx": 43.7,
+      "uncertaintyPx": 10,
+      "definition": "visible right boot-shaft top to sole endpoint, near-vertical projection",
+      "sourceLengthPx": 171.01,
+      "ratio": 0.2555
+    }
+  },
+  "hold": "No scale assigned. Direct source ratios: torso .209 (tucked/leaning segment, \u00b112px), belt .248 (\u00b18px), near-boot axis .286 (\u00b110px), other boot .256 (near-vertical, not orientation-matched). The segments span .209-.286 and projection is pose-dependent; no defensible common factor from this frame. Frame1 is a second airborne tuck, not an independent upright check. Preserve source/candidate and await calibration or better source.",
+  "annotation": "jumpUp-source-f0-endpoints.png"
+}

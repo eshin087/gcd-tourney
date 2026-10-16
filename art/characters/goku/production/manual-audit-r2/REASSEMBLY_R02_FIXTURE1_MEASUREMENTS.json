@@ -1,0 +1,1414 @@
+{
+  "atlasSha256": "f56ef41137234e3f955900660d903359c7d060178a3e29ca4a6e707944f55f81",
+  "metadataSha256": "e37f1dc357328d97473c251a9b18a0ba3e4f79fc2c8a511603058d929fe947eb",
+  "opaqueRgbColors": 48,
+  "scope": "Independent manual representative endpoints on exact quantized cells; all64 frames visually inspected. Uncertainty is segment-length uncertainty, not pixel-coordinate certification. Hidden knees/shins unmeasured.",
+  "records": {
+    "idle": {
+      "animation": "idle",
+      "frame": 0,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            136,
+            75
+          ],
+          "b": [
+            127,
+            112
+          ],
+          "lengthPx": 38.08,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.999,
+          "correctionToIdle": 1.001
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            109,
+            112
+          ],
+          "b": [
+            145,
+            112
+          ],
+          "lengthPx": 36,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 1,
+          "correctionToIdle": 1
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            70,
+            197
+          ],
+          "b": [
+            58,
+            239
+          ],
+          "lengthPx": 43.68,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 1,
+          "correctionToIdle": 1
+        }
+      ]
+    },
+    "run": {
+      "animation": "run",
+      "frame": 0,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            155,
+            108
+          ],
+          "b": [
+            137,
+            135
+          ],
+          "lengthPx": 32.45,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.852,
+          "correctionToIdle": 1.174
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            122,
+            132
+          ],
+          "b": [
+            146,
+            140
+          ],
+          "lengthPx": 25.3,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.703,
+          "correctionToIdle": 1.423
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            166,
+            205
+          ],
+          "b": [
+            177,
+            236
+          ],
+          "lengthPx": 32.89,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.753,
+          "correctionToIdle": 1.329
+        }
+      ]
+    },
+    "dash": {
+      "animation": "dash",
+      "frame": 0,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            190,
+            128
+          ],
+          "b": [
+            175,
+            149
+          ],
+          "lengthPx": 25.81,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.677,
+          "correctionToIdle": 1.476
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            155,
+            145
+          ],
+          "b": [
+            181,
+            153
+          ],
+          "lengthPx": 27.2,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.756,
+          "correctionToIdle": 1.323
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            169,
+            208
+          ],
+          "b": [
+            161,
+            233
+          ],
+          "lengthPx": 26.25,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.601,
+          "correctionToIdle": 1.665
+        }
+      ]
+    },
+    "land": {
+      "animation": "land",
+      "frame": 1,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            135,
+            104
+          ],
+          "b": [
+            124,
+            130
+          ],
+          "lengthPx": 28.23,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.741,
+          "correctionToIdle": 1.35
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            109,
+            129
+          ],
+          "b": [
+            140,
+            130
+          ],
+          "lengthPx": 31.02,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.862,
+          "correctionToIdle": 1.161
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            75,
+            204
+          ],
+          "b": [
+            65,
+            238
+          ],
+          "lengthPx": 35.44,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.811,
+          "correctionToIdle": 1.233
+        }
+      ]
+    },
+    "light1": {
+      "animation": "light1",
+      "frame": 0,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            136,
+            79
+          ],
+          "b": [
+            127,
+            115
+          ],
+          "lengthPx": 37.11,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.974,
+          "correctionToIdle": 1.027
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            110,
+            115
+          ],
+          "b": [
+            143,
+            116
+          ],
+          "lengthPx": 33.02,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.917,
+          "correctionToIdle": 1.09
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            69,
+            200
+          ],
+          "b": [
+            58,
+            238
+          ],
+          "lengthPx": 39.56,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.905,
+          "correctionToIdle": 1.105
+        }
+      ]
+    },
+    "light1Recovery": {
+      "animation": "light1",
+      "frame": 6,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            140,
+            72
+          ],
+          "b": [
+            129,
+            106
+          ],
+          "lengthPx": 35.74,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.938,
+          "correctionToIdle": 1.066
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            110,
+            107
+          ],
+          "b": [
+            148,
+            108
+          ],
+          "lengthPx": 38.01,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 1.056,
+          "correctionToIdle": 0.947
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            69,
+            198
+          ],
+          "b": [
+            56,
+            238
+          ],
+          "lengthPx": 42.06,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.962,
+          "correctionToIdle": 1.039
+        }
+      ]
+    },
+    "light3": {
+      "animation": "light3",
+      "frame": 6,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            134,
+            83
+          ],
+          "b": [
+            124,
+            119
+          ],
+          "lengthPx": 37.36,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.981,
+          "correctionToIdle": 1.02
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            109,
+            120
+          ],
+          "b": [
+            141,
+            120
+          ],
+          "lengthPx": 32,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.889,
+          "correctionToIdle": 1.125
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            70,
+            202
+          ],
+          "b": [
+            62,
+            238
+          ],
+          "lengthPx": 36.88,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.844,
+          "correctionToIdle": 1.185
+        }
+      ]
+    },
+    "light4": {
+      "animation": "light4",
+      "frame": 7,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            132,
+            98
+          ],
+          "b": [
+            124,
+            127
+          ],
+          "lengthPx": 30.08,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.79,
+          "correctionToIdle": 1.266
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            110,
+            127
+          ],
+          "b": [
+            139,
+            128
+          ],
+          "lengthPx": 29.02,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.806,
+          "correctionToIdle": 1.241
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            75,
+            204
+          ],
+          "b": [
+            64,
+            238
+          ],
+          "lengthPx": 35.74,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.818,
+          "correctionToIdle": 1.223
+        }
+      ]
+    },
+    "heavy": {
+      "animation": "heavy",
+      "frame": 7,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            135,
+            103
+          ],
+          "b": [
+            125,
+            129
+          ],
+          "lengthPx": 27.86,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.731,
+          "correctionToIdle": 1.368
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            111,
+            130
+          ],
+          "b": [
+            139,
+            131
+          ],
+          "lengthPx": 28.02,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.778,
+          "correctionToIdle": 1.285
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            74,
+            205
+          ],
+          "b": [
+            63,
+            238
+          ],
+          "lengthPx": 34.79,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.796,
+          "correctionToIdle": 1.256
+        }
+      ]
+    },
+    "hurtHigh": {
+      "animation": "hurtHigh",
+      "frame": 2,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            140,
+            85
+          ],
+          "b": [
+            120,
+            114
+          ],
+          "lengthPx": 35.23,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.925,
+          "correctionToIdle": 1.082
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            99,
+            111
+          ],
+          "b": [
+            137,
+            116
+          ],
+          "lengthPx": 38.33,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 1.065,
+          "correctionToIdle": 0.939
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            69,
+            199
+          ],
+          "b": [
+            55,
+            239
+          ],
+          "lengthPx": 42.38,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.97,
+          "correctionToIdle": 1.031
+        }
+      ]
+    },
+    "getup": {
+      "animation": "getup",
+      "frame": 4,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            135,
+            111
+          ],
+          "b": [
+            128,
+            135
+          ],
+          "lengthPx": 25,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.656,
+          "correctionToIdle": 1.524
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            112,
+            136
+          ],
+          "b": [
+            139,
+            136
+          ],
+          "lengthPx": 27,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.75,
+          "correctionToIdle": 1.333
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            82,
+            207
+          ],
+          "b": [
+            72,
+            238
+          ],
+          "lengthPx": 32.57,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.745,
+          "correctionToIdle": 1.342
+        }
+      ]
+    },
+    "win": {
+      "animation": "win",
+      "frame": 0,
+      "measurements": [
+        {
+          "landmark": "collarCenterToBelt",
+          "a": [
+            138,
+            56
+          ],
+          "b": [
+            138,
+            91
+          ],
+          "lengthPx": 35,
+          "lengthUncertaintyPx": 5,
+          "ratioToIdle": 0.919,
+          "correctionToIdle": 1.089
+        },
+        {
+          "landmark": "visibleBeltSpan",
+          "a": [
+            117,
+            91
+          ],
+          "b": [
+            154,
+            91
+          ],
+          "lengthPx": 37,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 1.028,
+          "correctionToIdle": 0.973
+        },
+        {
+          "landmark": "bootShaftTopToSole",
+          "a": [
+            93,
+            199
+          ],
+          "b": [
+            85,
+            238
+          ],
+          "lengthPx": 39.81,
+          "lengthUncertaintyPx": 4,
+          "ratioToIdle": 0.911,
+          "correctionToIdle": 1.098
+        }
+      ]
+    }
+  },
+  "bounds": {
+    "idle": [
+      {
+        "frame": 0,
+        "atlasIndex": 0,
+        "sha256": "ffb6cfbff25592227f129bb75e11a2d3a8b4142c7a994484240e53c6038c1849",
+        "bounds": [
+          48,
+          9,
+          210,
+          240
+        ],
+        "durationMs": 150
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 1,
+        "sha256": "2607983de01f83f8e7cf186dd91d607da7be9ad717a15854e542d01895f6d6a8",
+        "bounds": [
+          47,
+          8,
+          209,
+          240
+        ],
+        "durationMs": 150
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 2,
+        "sha256": "65f38878410fb8c46c7eaad4ffc4db93934cbbacc408b70f35febc9120f0a414",
+        "bounds": [
+          49,
+          8,
+          210,
+          240
+        ],
+        "durationMs": 150
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 3,
+        "sha256": "abf82136243906408d3ef96934d9c02ead6171abc754747fa0bc4a485c3e0b69",
+        "bounds": [
+          48,
+          9,
+          209,
+          240
+        ],
+        "durationMs": 150
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 4,
+        "sha256": "109112722bdf5e10209884f1fac8f25f4b7ee67b053caff788f383f849f71267",
+        "bounds": [
+          48,
+          9,
+          209,
+          240
+        ],
+        "durationMs": 150
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 5,
+        "sha256": "5cc9830525d57cb25989d1547ab5a84a0a2799029fcbc336cb67f4fdd37c7d7f",
+        "bounds": [
+          47,
+          9,
+          209,
+          240
+        ],
+        "durationMs": 150
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 6,
+        "sha256": "5de280ca3463b04dc9f10b671d64459e1318197a41a339cb54beb6e41557a25b",
+        "bounds": [
+          48,
+          9,
+          209,
+          240
+        ],
+        "durationMs": 150
+      },
+      {
+        "frame": 7,
+        "atlasIndex": 7,
+        "sha256": "d1423fcfe977ee8555802c8c2af03b541f5ba7a3c1d5055ff30105f3cd98172f",
+        "bounds": [
+          48,
+          9,
+          210,
+          240
+        ],
+        "durationMs": 150
+      }
+    ],
+    "run": [
+      {
+        "frame": 0,
+        "atlasIndex": 8,
+        "sha256": "1b21b11298aa12248b9cf1e364b15084a6a8c6e84afd2439b7f47f4342702a43",
+        "bounds": [
+          54,
+          47,
+          204,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 9,
+        "sha256": "59b6daf20fb079f608ce67348da8cf699c255c5c11a8734f48882ebbbafec928",
+        "bounds": [
+          42,
+          51,
+          192,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 10,
+        "sha256": "4191210380ebb3bf4f2c9532c62b3493df245a3ccdbe5fe6e360c24d83a88891",
+        "bounds": [
+          79,
+          48,
+          229,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 11,
+        "sha256": "9379e74ef21bf80aa2ff8c15eb1e070edef307d74d57341546291a845bcb4e57",
+        "bounds": [
+          0,
+          47,
+          157,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 12,
+        "sha256": "d8deb5052d86fc6692f99867d32749abf235f7c42a0adef2673b186368c7bda6",
+        "bounds": [
+          93,
+          46,
+          242,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 13,
+        "sha256": "0f8042b5494d709beb807f803777fc60f63e7fab56b689517f27ecf8f02ab4c9",
+        "bounds": [
+          10,
+          46,
+          172,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 14,
+        "sha256": "31934fe6480a28cf6a7083c7b9332c075fba8ab15619ff44750a73380ffb150b",
+        "bounds": [
+          0,
+          49,
+          158,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 7,
+        "atlasIndex": 15,
+        "sha256": "493ef4864415c2b9e779032ed7232cb787e7f2d3034bfce1e313c651523d7fa5",
+        "bounds": [
+          54,
+          47,
+          204,
+          240
+        ],
+        "durationMs": 60
+      }
+    ],
+    "dash": [
+      {
+        "frame": 0,
+        "atlasIndex": 16,
+        "sha256": "3f5bfe4c4ab9437a14702ea519078c7ad229925a17f78a8ce2eaf1e86651445a",
+        "bounds": [
+          75,
+          71,
+          229,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 17,
+        "sha256": "ff37a6785cb57d42334d29bc051387d7b495250168a78f94296873a604ddb72d",
+        "bounds": [
+          0,
+          69,
+          156,
+          240
+        ],
+        "durationMs": 60
+      }
+    ],
+    "jumpFall": [
+      {
+        "frame": 0,
+        "atlasIndex": 18,
+        "sha256": "39a6b73c8b591d39a6eaedcbc783fb32f0c65db060998f0a1ed4ff1129d42688",
+        "bounds": [
+          28,
+          4,
+          253,
+          240
+        ],
+        "durationMs": 80
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 19,
+        "sha256": "d107cfac34576ef33d0e510c6b5a53db0810f71c6bab4c4d81f51ac800d53d26",
+        "bounds": [
+          32,
+          4,
+          253,
+          240
+        ],
+        "durationMs": 80
+      }
+    ],
+    "land": [
+      {
+        "frame": 0,
+        "atlasIndex": 20,
+        "sha256": "63b207d8a33e4b7a4b17a87afa23cfdb90b50cdb0fad7a22f6862924f29f1382",
+        "bounds": [
+          60,
+          75,
+          206,
+          240
+        ],
+        "durationMs": 50
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 21,
+        "sha256": "71828f78d17d9dfc5f927b1ca0ac2def34f8b2c89c128bcb3ecc2b03f71b4c89",
+        "bounds": [
+          56,
+          43,
+          202,
+          240
+        ],
+        "durationMs": 70
+      }
+    ],
+    "light1": [
+      {
+        "frame": 0,
+        "atlasIndex": 22,
+        "sha256": "ce531ff511f04aea5d929a2c81dbdd2d3b1cf8a50e94d2fd236ce5e797bbfbb7",
+        "bounds": [
+          51,
+          17,
+          206,
+          240
+        ],
+        "durationMs": 30
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 23,
+        "sha256": "1567cdee01559372e53664cfafbfcd81759be7177be331564d81d0979bed1f58",
+        "bounds": [
+          49,
+          20,
+          209,
+          240
+        ],
+        "durationMs": 30
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 24,
+        "sha256": "b972fac30da3468b3379685cae7a499c2169e1d7c86fd4ef5616411d7d5f2ce7",
+        "bounds": [
+          48,
+          20,
+          209,
+          240
+        ],
+        "durationMs": 40
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 25,
+        "sha256": "779e026eda9f3848fa2ec1b5ca019f22cedeb0da549af13b5aba0b96dab9f2b4",
+        "bounds": [
+          49,
+          20,
+          242,
+          240
+        ],
+        "durationMs": 50
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 26,
+        "sha256": "ba40b213c74eb4e2556a7e6babc22fdf167e166bd78e7d649720887373759d21",
+        "bounds": [
+          45,
+          3,
+          224,
+          240
+        ],
+        "durationMs": 50
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 27,
+        "sha256": "2772692fc276c9bfbe50128481b3d923b15c0b33fe46e237adb8cb78e807203a",
+        "bounds": [
+          45,
+          3,
+          210,
+          240
+        ],
+        "durationMs": 50
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 28,
+        "sha256": "1298d21dcb7c6b73d33c7fffc095d1aa86b64598f5d2d9d183a848be555a79ca",
+        "bounds": [
+          48,
+          3,
+          209,
+          240
+        ],
+        "durationMs": 30
+      }
+    ],
+    "light3": [
+      {
+        "frame": 0,
+        "atlasIndex": 29,
+        "sha256": "a38a5bbe65b2354c5265231d05cc4293209963851b60060f37dedc75abb75921",
+        "bounds": [
+          58,
+          29,
+          207,
+          240
+        ],
+        "durationMs": 40
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 30,
+        "sha256": "d232fb6ef6408ededdcb0807e98ba07b311a0eccbb057ea94dbe6a3027d30fdd",
+        "bounds": [
+          79,
+          35,
+          225,
+          240
+        ],
+        "durationMs": 35
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 31,
+        "sha256": "04844486649920401c35876375342170000465392e4e0bc75e0bf7174f683229",
+        "bounds": [
+          66,
+          12,
+          230,
+          240
+        ],
+        "durationMs": 45
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 32,
+        "sha256": "514cc907a6dfa5eb5acae3dc4962a8081bdc658f1a37f83286fa08dc1de6da3e",
+        "bounds": [
+          58,
+          16,
+          212,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 33,
+        "sha256": "a597183b71349936c865d6b004db7a08276b6c8f7f676df05d07ec93bd6aee87",
+        "bounds": [
+          90,
+          4,
+          229,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 34,
+        "sha256": "f8c37645925f1d571c5c8a5ccf79a53d38cfc3157e6d1e99db9fb258e812e006",
+        "bounds": [
+          54,
+          21,
+          203,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 35,
+        "sha256": "ab5e8330d1b26ce48515d68ddb6430e50dc1a00d700bdcdfbf0b7a1e806d6c53",
+        "bounds": [
+          54,
+          20,
+          203,
+          240
+        ],
+        "durationMs": 30
+      }
+    ],
+    "light4": [
+      {
+        "frame": 0,
+        "atlasIndex": 36,
+        "sha256": "de8fdd0ab85a005f1dde9c44753bea54aa0e38937758f66f341ff7c2b8f83b26",
+        "bounds": [
+          56,
+          42,
+          202,
+          240
+        ],
+        "durationMs": 50
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 37,
+        "sha256": "7194ba36cc7470ac0d26cc06b7e611c5f933d107b914e7f35b7949cb9b41ea38",
+        "bounds": [
+          57,
+          43,
+          206,
+          240
+        ],
+        "durationMs": 45
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 38,
+        "sha256": "a97043b7e06bd8fdc00c0ff2439eee34989dd0fa1d72ec2adcdbeaf78ce41e5f",
+        "bounds": [
+          49,
+          46,
+          212,
+          240
+        ],
+        "durationMs": 35
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 39,
+        "sha256": "7cd6bfd84ab1005810d7b0a95c3ff17531a870ba4d71acac47117c8ed2adf996",
+        "bounds": [
+          39,
+          40,
+          200,
+          240
+        ],
+        "durationMs": 40
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 40,
+        "sha256": "e38a79339b5e1c4d8a6888ce0e24710d0ebde1b44b90b0764a1e171df0adc888",
+        "bounds": [
+          68,
+          39,
+          255,
+          240
+        ],
+        "durationMs": 70
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 41,
+        "sha256": "1637042392a309920d1cb370c0e0cc2c87acda86273a4894fe8bef4405c855ea",
+        "bounds": [
+          66,
+          42,
+          255,
+          240
+        ],
+        "durationMs": 70
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 42,
+        "sha256": "4620e4fbc789e2ed2d6541e02b7d8f1fe7f497cb8751b697abc9d7d7d1d1598c",
+        "bounds": [
+          85,
+          37,
+          205,
+          240
+        ],
+        "durationMs": 70
+      },
+      {
+        "frame": 7,
+        "atlasIndex": 43,
+        "sha256": "9c6ed8b13223cf6b52b06e09db7f3507481df15870be16030fbfb671666fc3b3",
+        "bounds": [
+          56,
+          40,
+          201,
+          240
+        ],
+        "durationMs": 40
+      }
+    ],
+    "heavy": [
+      {
+        "frame": 0,
+        "atlasIndex": 44,
+        "sha256": "19f507686757cb0ebbc2ea57c116398efa7f2a287d3d73be30ab0285bdd01aa7",
+        "bounds": [
+          53,
+          55,
+          204,
+          240
+        ],
+        "durationMs": 40
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 45,
+        "sha256": "d82df9b7511faa5201f5edf589d90b5ef11c8f4d2131b611a56f4fa7360bafd3",
+        "bounds": [
+          50,
+          59,
+          206,
+          240
+        ],
+        "durationMs": 35
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 46,
+        "sha256": "5b955e1d7d40da80afb904585c31fac9fabda35ff8ba45973940a049a5861818",
+        "bounds": [
+          51,
+          50,
+          206,
+          240
+        ],
+        "durationMs": 30
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 47,
+        "sha256": "1bcc2aaabb6fb0d5e27a9fbe7b2f9fb59dfc91d5c657dab375b079b992f79ac4",
+        "bounds": [
+          78,
+          31,
+          255,
+          240
+        ],
+        "durationMs": 50
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 48,
+        "sha256": "2ff9166613dcb6125f5f38b6f8f7b0d598ad2048b3569c8ac1aa4a1cd2bb7a0c",
+        "bounds": [
+          75,
+          37,
+          255,
+          240
+        ],
+        "durationMs": 70
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 49,
+        "sha256": "b60e13264f7b4ea9ca16d3b980419e2990e3bb243077457c3700fd06dc8609e8",
+        "bounds": [
+          59,
+          36,
+          255,
+          240
+        ],
+        "durationMs": 70
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 50,
+        "sha256": "f9b35c01f174130379e0eba232a6b9183bd023148a5710a863f17060e6d391dc",
+        "bounds": [
+          29,
+          49,
+          204,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 7,
+        "atlasIndex": 51,
+        "sha256": "6ce98ae8c9ea6f94ec54ffe078c9cc2677b7ea8495d3b4f221b33e0b7b2f9c38",
+        "bounds": [
+          54,
+          49,
+          202,
+          240
+        ],
+        "durationMs": 30
+      }
+    ],
+    "hurtHigh": [
+      {
+        "frame": 0,
+        "atlasIndex": 52,
+        "sha256": "6293cecbd3b0dc486644d5ab30f5f1fa8441c9fdb2e96b1ba240ec28a664732b",
+        "bounds": [
+          45,
+          19,
+          211,
+          240
+        ],
+        "durationMs": 70
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 53,
+        "sha256": "3bc174faaf341ce92c7049ca8cc5879af6af4b337ce3b48071805b75233025a3",
+        "bounds": [
+          41,
+          22,
+          211,
+          240
+        ],
+        "durationMs": 90
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 54,
+        "sha256": "2765572ba10d8a89455da397c1f91f62797c99fd08dbc2a832175d04fcff34ba",
+        "bounds": [
+          45,
+          18,
+          212,
+          240
+        ],
+        "durationMs": 100
+      }
+    ],
+    "getup": [
+      {
+        "frame": 0,
+        "atlasIndex": 55,
+        "sha256": "d101ec27a8b403e9421450e9b5ca7fb47638c8032e0c6d8b38b5748c263ee5b3",
+        "bounds": [
+          67,
+          113,
+          209,
+          240
+        ],
+        "durationMs": 70
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 56,
+        "sha256": "edd49434011837ce55792fe6718040f707d1d08ef1bcf6d62b9e23c100c232b1",
+        "bounds": [
+          75,
+          91,
+          192,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 57,
+        "sha256": "e837d7752ab6ca6b94a3d0059d054de67cd9da437ef6412699d4a732c2434607",
+        "bounds": [
+          78,
+          89,
+          201,
+          240
+        ],
+        "durationMs": 60
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 58,
+        "sha256": "83259e78cf10e72545a9f51cbc1c6667dd112862cda4267d928a0cf1276d7062",
+        "bounds": [
+          65,
+          71,
+          196,
+          240
+        ],
+        "durationMs": 80
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 59,
+        "sha256": "dd99a1ee51c77217296376a85550fda17f231b2c1f438556c9323383e4a1b71d",
+        "bounds": [
+          66,
+          56,
+          189,
+          240
+        ],
+        "durationMs": 70
+      }
+    ],
+    "win": [
+      {
+        "frame": 0,
+        "atlasIndex": 60,
+        "sha256": "8d8048d45cea4629110d67dd8b82d0dd2755f4fe18164fc2f4a3d47dd9fce79f",
+        "bounds": [
+          77,
+          4,
+          184,
+          240
+        ],
+        "durationMs": 200
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 61,
+        "sha256": "ed0c9f81000d025e92f131fe7cf37dd71d003689f98a2485301f914ff14cca0b",
+        "bounds": [
+          77,
+          4,
+          184,
+          240
+        ],
+        "durationMs": 200
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 62,
+        "sha256": "1cb56c7dd50dcea870447e21dcb9c637287473c1ac11c0dae3acfaf85a69006e",
+        "bounds": [
+          78,
+          4,
+          196,
+          240
+        ],
+        "durationMs": 200
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 63,
+        "sha256": "4f01a0d62032fb93284c8fb2762cd5364cbfc6f3da9e80a27643fb11cf1a346b",
+        "bounds": [
+          77,
+          4,
+          184,
+          240
+        ],
+        "durationMs": 200
+      }
+    ]
+  }
+}
