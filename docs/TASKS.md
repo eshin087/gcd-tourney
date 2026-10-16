@@ -339,3 +339,5 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 | ART-luffy-ref | Luffy briefs + title-style neutral/combat reference, preview stop; then model sheet, expressions, idle | Codex | todo | after the data PR merges; branch art/luffy-refs (--art luffy); files: art/characters/luffy/**, the luffy block of art/manifest.json and art/TRACKER.md |
 | CHAR-goku-balance | Six-fighter CPU round-robin with Goku; log in ADR 0011 | Claude | todo | after his core art lands |
 | CHAR-luffy-balance | Six-fighter CPU round-robin with Luffy; Gigant Pistol cell margins on his drawn beamCharge/beamFire | Claude | todo | after his core art lands |
+
+| ART-DECISION-NARUTO-20261015 | light2Alt v4 user decision | Codex | review | User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized. Claude owns remaining technical checks. |
