@@ -70,7 +70,7 @@ The user signed off on 2026-10-10 (USR-001); DOC-001 (docs fact check) is the la
 - User scope (2026-10-15): public lobbies and private room codes, many lobbies at once with one 1v1 each, winner
   stays on, spectators watch while they queue, desktop and phones in the same match.
 - Spike done (ADR 0036): the fixed step replays exactly from pad inputs once the control basis, round flow, frame
-  counter and render clock stop leaking in; `Math.random` doesn't reach gameplay state. Cross-browser: pending.
+  counter and render clock stop leaking in; `Math.random` doesn't reach gameplay state. With deterministic hypot / sin / cos, an iPhone (Safari) matches Chrome frame for frame.
 - Then: simulation prerequisites (ENG-091 basis + frame-based flow, ENG-092 view events, save/restore,
   deterministic math), a local rollback test mode (ENG-093), the lobby server on Cloudflare Durable Objects with
   relayed inputs and spectating (ENG-094), public lobbies and moderation (ENG-095).

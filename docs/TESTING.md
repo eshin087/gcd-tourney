@@ -609,8 +609,9 @@ window aspect feed the controls, so only the same render cadence replays. `detMa
 `gojo-killua-s3`) are recorded with both, and carry one hash per frame, so a split reports its exact frame.
 
 Expected today: `replay` of a fresh recording at `'60'` and two `randomSeed`s match; `'120'`, `'144'` and `'jitter'`
-split around frame 96 (round flow on wall-clock time, ADR 0036). Cross-browser: open
-`<preview URL>/?det=naruto-sasuke-s7` and `?det=gojo-killua-s3` in Safari (iPhone) and Firefox and read the verdict.
+split around frame 96 (round flow on wall-clock time, ADR 0036). Cross-browser (an iPhone matched on
+2026-10-15): open each fixture in Safari (iPhone) and Firefox and read the verdict, on production or a branch preview
+(https://gcd-tourney.vercel.app/?det=naruto-sasuke-s7 and https://gcd-tourney.vercel.app/?det=gojo-killua-s3).
 A split inside a window the fixture has a trace for (`log.traces`, added with `det.addTrace(log, from, to)` then
 `det.save(log)`) also prints the first differing frame, the fields and that browser's values; compare them with
 `det.replay(log, { stopAt: k + 1, dumpAt: k })` here. Compare the per-frame hashes, never the final result: a
