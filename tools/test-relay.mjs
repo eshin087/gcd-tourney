@@ -134,7 +134,7 @@ check(relay(['ring', 'goku', '--kind', 'approval', '--note', 'x']).code === 1, '
 check(/turn: you, via Claude \(unread: approval\)/.test(relay(['status', 'goku']).out), 'status: an unread ring for the user puts the turn on the user');
 r = relay(['wait', 'goku', '--timeout', '5s', '--interval', '50ms']);
 check(r.code === 0 && /needs the USER on lane goku \(approval/.test(r.out) && r.out.includes('naruto stagger v08'), 'wait: with no desk running, a ring for the user wakes the lane\'s chat');
-check(/approvals desk is not running/.test(r.out) && /do not ask the user here/.test(r.out) && r.out.includes("'0 - Approvals' and type /desk"), 'wait: ...which points the user at the desk instead of asking');
+check(/approvals desk is not running/.test(r.out) && /do not ask the user here/.test(r.out) && r.out.includes("'0 - Approvals' and type /approvals"), 'wait: ...which points the user at the desk instead of asking');
 check(/turn: you \(approval: naruto stagger v08/.test(relay(['status', 'goku']).out), 'status: until Claude relays an answer, the turn is the user\'s');
 check(relay(['send', 'goku', '--user-approved', 'naruto stagger v08']).code === 1, 'send --user-approved: needs the user\'s quoted answer');
 check(relay(['send', 'goku', '--user-approved', 'a', '--user-rejected', 'b', '--quote', 'x']).code === 1, 'send: one user answer at a time');
@@ -202,7 +202,7 @@ check(r.code === 0 && calls().length === callsBefore && /SendMessage to local_ab
 const second = /- (claude-\S+)/.exec(relay(['asks']).out)?.[1] ?? '';
 check(relay(['answer', second, '--dismiss', '']).code === 1 && relay(['answer', second, '--dismiss', 'asked twice']).code === 0 && /0 open/.test(relay(['asks']).out), 'answer --dismiss: closes a stale ask with a reason');
 r = relay(['brief']);
-check(r.code === 0 && r.out.includes('only the Claude chat "0 - Approvals" asks') && /0 open ask/.test(r.out) && r.out.includes('run /desk'), 'brief: states the rule and the queue');
+check(r.code === 0 && r.out.includes('only the Claude chat "0 - Approvals" asks') && /0 open ask/.test(r.out) && r.out.includes('run /approvals'), 'brief: states the rule and the queue');
 check(relay(['brief'], { RELAY_HOME: path.join(FIX, 'nowhere') }).code === 0, 'brief: never fails, even with no relay folder');
 
 // ---- an archived chat is unarchived and the send retried once

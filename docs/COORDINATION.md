@@ -64,7 +64,7 @@ That explicitly selects this chat as coordinator and authorizes restoring this c
    instead of creating duplicates. Never restore an unbounded recurrence.
 6. Send existing workers a scoped setup notice to read main's current rules. Claude reads the same procedure
    through CLAUDE.md and restores the lane watchers; the user restores the approvals desk by naming one Claude chat
-   `0 - Approvals` and typing `/desk` (ADR 0039). Report watcher-off states (lanes and desk), never claim Claude is
+   `0 - Approvals` and typing `/approvals` (ADR 0039). Report watcher-off states (lanes and desk), never claim Claude is
    listening merely because a ring succeeded. Do not remove pauses during setup.
 7. Present one consolidated attention queue. State missing bindings or tool limitations and the minimal action
    needed to restore them. No per-worker reminder from the user should be necessary.

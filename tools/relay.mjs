@@ -392,7 +392,7 @@ async function cmdWait() {
       log(lane, { event: 'woke', seq: rang.seq, ...(rang.for && { for: rang.for }) });
       if (rang.for === 'user') {
         console.log(`[relay] Codex needs the USER on lane ${lane} (${rang.kind}, #${rang.seq} at ${clock(rang.at)}): ${rang.note}`);
-        console.log(`[relay] the approvals desk is not running, so it is queued for it: do not ask the user here. Send one push notification "Waiting for you: open the Claude chat '${DESK_TITLE}' and type /desk", then start this watcher again.`);
+        console.log(`[relay] the approvals desk is not running, so it is queued for it: do not ask the user here. Send one push notification "Waiting for you: open the Claude chat '${DESK_TITLE}' and type /approvals", then start this watcher again.`);
       } else {
         console.log(`[relay] Codex rang lane ${lane} (#${rang.seq} at ${clock(rang.at)}): ${rang.note || '(no note)'}`);
         console.log('[relay] read the newest section of docs/agents/CLAUDE_ART_HANDOFF.md (or the lane\'s handoff) and continue');
@@ -478,7 +478,7 @@ function cmdAsk() {
   log('desk', { event: 'ask', id, from, kind, note });
   console.log(`[relay] queued for the user at the approvals desk (${id}). Do not ask the user in this chat: stop here; the desk sends their answer to this chat.`);
   if (!deskAlive()) {
-    console.log(`[relay] the desk is not running: send one push notification "Waiting for you: open the Claude chat '${DESK_TITLE}' and type /desk", then stop.`);
+    console.log(`[relay] the desk is not running: send one push notification "Waiting for you: open the Claude chat '${DESK_TITLE}' and type /approvals", then stop.`);
   }
 }
 
@@ -577,7 +577,7 @@ function cmdBrief() {
       + '--kind approval|decision|blocked --note "<question; versions>" --link <review url>, then stops; the desk sends the answer back. '
       + 'Codex lanes keep ringing --for user; lane watchers leave those to the desk.');
     console.log(`[relay] Now: ${open.length} open ask(s) for the user; desk watcher ${desk ? 'on' : 'off'}.`
-      + (desk ? '' : ` If this chat is "${DESK_TITLE}", run /desk.`));
+      + (desk ? '' : ` If this chat is "${DESK_TITLE}", run /approvals.`));
   } catch (err) {
     console.log(`[relay] brief unavailable: ${err.message}`);
   }
