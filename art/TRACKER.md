@@ -391,10 +391,10 @@ Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characte
 
 | fighter | beamStruggle | beamStruggleAir | the technique | notes |
 |---|---|---|---|---|
-| naruto | todo | - | Rasengan, two-handed push | no air energy shot |
-| sasuke | todo | todo | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | |
-| killua | todo | todo | Narukami, open palm (in the air driven down) | |
-| gojo | todo | todo | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | |
+| naruto | approved | - | Rasengan, two-handed push | v02 approved as drawn via Claude approval desk relay #7 (“Approve all 6”); v01 remains held. Strict pack passes (head .95-.98); body-area B=.65-.67 advisory accepted. Palm anchor [232,124] across frames. Astra audit pending; see Round 2 review page. |
+| sasuke | approved | approved | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | Ground and air v01 approved via Claude approval desk relay #7. Strict packs pass after bodyHeight calibration; ground B=.71-.80 advisory accepted, air B=.84-.91. Astra audit pending; see Round 2 review page. |
+| killua | approved | approved | Narukami, open palm (in the air driven down) | Ground v01 approved via Claude approval desk relay #7; air v02 approved as drawn via relay #10 (“Approve v02”). Air v01 remains preserved as rejected/superseded in raw/_rejected after its technical gate failure. V02 strict quantized pack passes; body sheet H=.97–1.03, B=.97–.99, no body flag. Astra audit and exact hand-anchor measurement remain before runtime integration. See Round 2 review page. |
+| gojo | approved | approved | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | Ground and air v01 approved via Claude approval desk relay #7; strict packs pass. Astra audit pending; see Round 2 review page. |
 | goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
 
 ## Attack alts (ADR 0031)
@@ -709,9 +709,9 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 
 | Fighter | Asset | Latest | Status | Approved | Notes |
 |---|---|---|---|---|---|
-| Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; not packed. |
-| Sasuke | super_fg | v01 (rejected) | raw | — | Kirin; user rejected via Claude relay effects #3; source archived. |
-| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; not packed. |
-| Sasuke | ult_fg | v01 (rejected) | raw | — | Amaterasu; user rejected via Claude relay effects #3; source archived. |
+| Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; packed to public/characters/sasuke/super_bg.png. |
+| Sasuke | super_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; arm passes, eyes remain relatively open/round and chin slightly elevated. |
+| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; packed to public/characters/sasuke/ult_bg.png. |
+| Sasuke | ult_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; connected eye motif faint at fit and blood remains below uncovered eye; rope and sword pass. |
 
-User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Only the backdrops are approved; foreground technical holds remain documented. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Both v01 backdrops and both v03 foregrounds are approved. Foreground v01s were rejected; v02s were superseded after user-authorized redraws via relay #5. v03s were approved by the user via Claude relay effects #6 despite Astra holds; each used 3 additional calls (cumulative 6/6). See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
