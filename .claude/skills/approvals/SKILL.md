@@ -47,7 +47,10 @@ monitor are retired, so status and forwarding are yours too. Run every relay com
 3. Ask with **AskUserQuestion**, one question per ask (up to 4 per box; several image strips can be one multi-select
    question). Every question uses this shape, so it reads on a phone without context (user rule, 2026-10-15):
    - **header** = the asking chat, short ("Effects", "Gojo run", "Scale").
-   - The box shows plain text: markdown does not render (raw asterisks), but line breaks and links do. Use this
+   - **Links never go only in the box** (user rule, 2026-10-16): the box is plain text and its URLs can't be clicked,
+     selected or copied. Before every question box, write a short chat message with each link as a clickable
+     markdown link, numbered `[L1]`, `[L2]` ...; in the box, LOOK just names it ("open link L1 in the chat above").
+   - The box shows plain text: markdown does not render (raw asterisks), and line breaks do. Use this
      layout, which the user approved on 2026-10-15: an emoji + CAPS label on its own line, the content on the lines
      below, a blank line between sections, one item per numbered line, holds as `•` bullets, short words (no
      run-on `·` lists):
@@ -65,7 +68,7 @@ monitor are retired, so status and forwarding are yours too. Run every relay com
        •  #2: body reads a little small
 
      👀 LOOK
-     https://<direct gallery or in-game preview URL>
+     Link L1 in the chat above (review gallery)
      ```
      (For a decision rather than an approval, use `❓ DECIDING:` in place of `✅ APPROVING:`.)
    - FROM is the chat's exact title as the app shows it, plus which app: `Claude chat "3 - Gojo Running"` or
