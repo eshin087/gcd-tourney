@@ -1,0 +1,45 @@
+{
+  "frame": 7,
+  "atlasIndex": 103,
+  "coordinateSystem": "native256 final diagnostic cell",
+  "segments": {
+    "torso": {
+      "endpoints": [
+        [
+          120,
+          104
+        ],
+        [
+          112,
+          142
+        ]
+      ],
+      "length": 38.8329756778952,
+      "uncertainty": 5
+    },
+    "shin": {
+      "endpoints": [
+        [
+          72,
+          181
+        ],
+        [
+          48,
+          228
+        ]
+      ],
+      "length": 52.773099207835045,
+      "uncertainty": 6
+    }
+  },
+  "reference": {
+    "torso": {
+      "length": 41.5,
+      "uncertainty": 6
+    },
+    "shin": {
+      "length": 52.8,
+      "uncertainty": 6
+    }
+  }
+}

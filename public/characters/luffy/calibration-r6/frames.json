@@ -1,0 +1,34 @@
+{
+  "sourceAtlas": "diagnostic-only",
+  "frames": [
+    "special-00.png",
+    "special-01.png",
+    "special-02.png",
+    "special-03.png",
+    "special-04.png",
+    "special-05.png",
+    "special-06.png",
+    "special-07.png"
+  ],
+  "durations": [
+    120,
+    120,
+    120,
+    120,
+    120,
+    160,
+    110,
+    70
+  ],
+  "loop": false,
+  "atlasFrameIndices": [
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103
+  ]
+}
