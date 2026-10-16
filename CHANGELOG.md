@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: a raw sidecar can set `"flipX": true` to mirror a character pose drawn facing the wrong way, frame by frame (TOOL-044; art/PIPELINE.md).
+
 - docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.
 
 - Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
