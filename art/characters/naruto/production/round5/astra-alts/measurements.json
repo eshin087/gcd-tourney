@@ -1,0 +1,1896 @@
+{
+  "method": "Fresh manual native-cell representative landmarks on exact final quantized pixels; all 59 frames visually inspected. Numeric samples do NOT stand in for all-frame numeric clearance. H_hair includes hair; H_skullEstimate estimates skull under hair and is low confidence. T consistently collar to black jacket hem, not to crotch/trouser folds. Segment coordinates are projected, not depth corrected.",
+  "uncertaintyPx": {
+    "H_hair": 4,
+    "H_skullEstimate": 4,
+    "T": 6,
+    "upperArm": 6,
+    "forearm": 6,
+    "thigh": 7,
+    "shin": 7,
+    "S": 4
+  },
+  "comparisonTolerance": 0.06,
+  "numericFullContractPass": false,
+  "referencesAndSamples": {
+    "neutral": {
+      "landmarks": {
+        "hair": [
+          132,
+          39
+        ],
+        "skull": [
+          132,
+          53
+        ],
+        "chin": [
+          134,
+          75
+        ],
+        "collar": [
+          131,
+          79
+        ],
+        "hem": [
+          134,
+          128
+        ],
+        "arm": [
+          [
+            112,
+            86
+          ],
+          [
+            101,
+            117
+          ],
+          [
+            96,
+            144
+          ]
+        ],
+        "leg": [
+          [
+            138,
+            147
+          ],
+          [
+            146,
+            181
+          ],
+          [
+            151,
+            227
+          ]
+        ],
+        "shoe": [
+          [
+            146,
+            235
+          ],
+          [
+            174,
+            235
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 36.1,
+        "H_skullEstimate": 22.1,
+        "T": 49.1,
+        "upperArm": 32.9,
+        "forearm": 27.5,
+        "thigh": 34.9,
+        "shin": 46.3,
+        "S": 28.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "combat": {
+      "landmarks": {
+        "hair": [
+          142,
+          77
+        ],
+        "skull": [
+          141,
+          91
+        ],
+        "chin": [
+          139,
+          113
+        ],
+        "collar": [
+          137,
+          116
+        ],
+        "hem": [
+          131,
+          154
+        ],
+        "arm": [
+          [
+            118,
+            124
+          ],
+          [
+            102,
+            138
+          ],
+          [
+            120,
+            128
+          ]
+        ],
+        "leg": [
+          [
+            139,
+            169
+          ],
+          [
+            172,
+            191
+          ],
+          [
+            181,
+            228
+          ]
+        ],
+        "shoe": [
+          [
+            176,
+            236
+          ],
+          [
+            202,
+            236
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 36.1,
+        "H_skullEstimate": 22.1,
+        "T": 38.5,
+        "upperArm": 21.3,
+        "forearm": 20.6,
+        "thigh": 39.7,
+        "shin": 38.1,
+        "S": 26.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "idle:0": {
+      "landmarks": {
+        "hair": [
+          140,
+          76
+        ],
+        "skull": [
+          140,
+          91
+        ],
+        "chin": [
+          139,
+          114
+        ],
+        "collar": [
+          138,
+          117
+        ],
+        "hem": [
+          133,
+          153
+        ],
+        "arm": [
+          [
+            118,
+            125
+          ],
+          [
+            104,
+            140
+          ],
+          [
+            122,
+            129
+          ]
+        ],
+        "leg": [
+          [
+            140,
+            169
+          ],
+          [
+            168,
+            188
+          ],
+          [
+            175,
+            226
+          ]
+        ],
+        "shoe": [
+          [
+            170,
+            235
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 38.0,
+        "H_skullEstimate": 23.0,
+        "T": 36.3,
+        "upperArm": 20.5,
+        "forearm": 21.1,
+        "thigh": 33.8,
+        "shin": 38.6,
+        "S": 29.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "airLight1Alt:0": {
+      "landmarks": {
+        "hair": [
+          176,
+          49
+        ],
+        "skull": [
+          176,
+          66
+        ],
+        "chin": [
+          174,
+          91
+        ],
+        "collar": [
+          171,
+          94
+        ],
+        "hem": [
+          164,
+          134
+        ],
+        "arm": [
+          [
+            148,
+            101
+          ],
+          [
+            140,
+            118
+          ],
+          [
+            157,
+            108
+          ]
+        ],
+        "leg": [
+          [
+            157,
+            156
+          ],
+          [
+            143,
+            186
+          ],
+          [
+            125,
+            226
+          ]
+        ],
+        "shoe": null
+      },
+      "projectedPx": {
+        "H_hair": 42.0,
+        "H_skullEstimate": 25.1,
+        "T": 40.6,
+        "upperArm": 18.8,
+        "forearm": 19.7,
+        "thigh": 33.1,
+        "shin": 43.9,
+        "S": null
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "airLight2Alt:1": {
+      "landmarks": {
+        "hair": [
+          135,
+          65
+        ],
+        "skull": [
+          134,
+          80
+        ],
+        "chin": [
+          132,
+          102
+        ],
+        "collar": [
+          130,
+          105
+        ],
+        "hem": [
+          130,
+          144
+        ],
+        "arm": [
+          [
+            114,
+            113
+          ],
+          [
+            91,
+            129
+          ],
+          [
+            70,
+            138
+          ]
+        ],
+        "leg": [
+          [
+            133,
+            153
+          ],
+          [
+            172,
+            147
+          ],
+          [
+            215,
+            144
+          ]
+        ],
+        "shoe": [
+          [
+            221,
+            146
+          ],
+          [
+            243,
+            139
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 37.1,
+        "H_skullEstimate": 22.1,
+        "T": 39.0,
+        "upperArm": 28.0,
+        "forearm": 22.8,
+        "thigh": 39.5,
+        "shin": 43.1,
+        "S": 23.1
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "airLight3Alt:2": {
+      "landmarks": {
+        "hair": [
+          124,
+          85
+        ],
+        "skull": [
+          124,
+          98
+        ],
+        "chin": [
+          125,
+          125
+        ],
+        "collar": [
+          120,
+          126
+        ],
+        "hem": [
+          134,
+          165
+        ],
+        "arm": [
+          [
+            97,
+            137
+          ],
+          [
+            80,
+            157
+          ],
+          [
+            66,
+            175
+          ]
+        ],
+        "leg": [
+          [
+            132,
+            172
+          ],
+          [
+            173,
+            160
+          ],
+          [
+            219,
+            152
+          ]
+        ],
+        "shoe": [
+          [
+            224,
+            155
+          ],
+          [
+            234,
+            135
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 40.0,
+        "H_skullEstimate": 27.0,
+        "T": 41.4,
+        "upperArm": 26.2,
+        "forearm": 22.8,
+        "thigh": 42.7,
+        "shin": 46.7,
+        "S": 22.4
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "heavyAlt:3": {
+      "landmarks": {
+        "hair": [
+          122,
+          66
+        ],
+        "skull": [
+          121,
+          81
+        ],
+        "chin": [
+          124,
+          102
+        ],
+        "collar": [
+          121,
+          106
+        ],
+        "hem": [
+          118,
+          146
+        ],
+        "arm": [
+          [
+            102,
+            115
+          ],
+          [
+            85,
+            142
+          ],
+          [
+            75,
+            159
+          ]
+        ],
+        "leg": [
+          [
+            132,
+            150
+          ],
+          [
+            143,
+            109
+          ],
+          [
+            151,
+            73
+          ]
+        ],
+        "shoe": [
+          [
+            160,
+            65
+          ],
+          [
+            147,
+            48
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 36.1,
+        "H_skullEstimate": 21.2,
+        "T": 40.1,
+        "upperArm": 31.9,
+        "forearm": 19.7,
+        "thigh": 42.4,
+        "shin": 36.9,
+        "S": 21.4
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "hurtHighAlt:2": {
+      "landmarks": {
+        "hair": [
+          104,
+          66
+        ],
+        "skull": [
+          106,
+          80
+        ],
+        "chin": [
+          114,
+          102
+        ],
+        "collar": [
+          112,
+          105
+        ],
+        "hem": [
+          133,
+          144
+        ],
+        "arm": [
+          [
+            96,
+            114
+          ],
+          [
+            82,
+            133
+          ],
+          [
+            106,
+            139
+          ]
+        ],
+        "leg": [
+          [
+            138,
+            159
+          ],
+          [
+            158,
+            181
+          ],
+          [
+            164,
+            223
+          ]
+        ],
+        "shoe": [
+          [
+            157,
+            235
+          ],
+          [
+            189,
+            235
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 37.4,
+        "H_skullEstimate": 23.4,
+        "T": 44.3,
+        "upperArm": 23.6,
+        "forearm": 24.7,
+        "thigh": 29.7,
+        "shin": 42.4,
+        "S": 32.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "hurtLowAlt:0": {
+      "landmarks": {
+        "hair": [
+          170,
+          86
+        ],
+        "skull": [
+          170,
+          100
+        ],
+        "chin": [
+          168,
+          127
+        ],
+        "collar": [
+          153,
+          126
+        ],
+        "hem": [
+          127,
+          153
+        ],
+        "arm": [
+          [
+            131,
+            125
+          ],
+          [
+            116,
+            144
+          ],
+          [
+            137,
+            151
+          ]
+        ],
+        "leg": [
+          [
+            135,
+            168
+          ],
+          [
+            160,
+            186
+          ],
+          [
+            162,
+            225
+          ]
+        ],
+        "shoe": [
+          [
+            155,
+            235
+          ],
+          [
+            188,
+            235
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 41.0,
+        "H_skullEstimate": 27.1,
+        "T": 37.5,
+        "upperArm": 24.2,
+        "forearm": 22.1,
+        "thigh": 30.8,
+        "shin": 39.1,
+        "S": 33.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "light1Alt:0": {
+      "landmarks": {
+        "hair": [
+          138,
+          74
+        ],
+        "skull": [
+          137,
+          89
+        ],
+        "chin": [
+          137,
+          115
+        ],
+        "collar": [
+          134,
+          117
+        ],
+        "hem": [
+          130,
+          152
+        ],
+        "arm": [
+          [
+            115,
+            126
+          ],
+          [
+            101,
+            139
+          ],
+          [
+            119,
+            130
+          ]
+        ],
+        "leg": [
+          [
+            139,
+            170
+          ],
+          [
+            166,
+            188
+          ],
+          [
+            174,
+            225
+          ]
+        ],
+        "shoe": [
+          [
+            170,
+            235
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 41.0,
+        "H_skullEstimate": 26.0,
+        "T": 35.2,
+        "upperArm": 19.1,
+        "forearm": 20.1,
+        "thigh": 32.4,
+        "shin": 37.9,
+        "S": 29.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "light2Alt:2": {
+      "landmarks": {
+        "hair": [
+          135,
+          65
+        ],
+        "skull": [
+          135,
+          78
+        ],
+        "chin": [
+          134,
+          103
+        ],
+        "collar": [
+          133,
+          106
+        ],
+        "hem": [
+          146,
+          146
+        ],
+        "arm": [
+          [
+            119,
+            114
+          ],
+          [
+            110,
+            130
+          ],
+          [
+            128,
+            114
+          ]
+        ],
+        "leg": [
+          [
+            143,
+            155
+          ],
+          [
+            179,
+            133
+          ],
+          [
+            213,
+            124
+          ]
+        ],
+        "shoe": [
+          [
+            222,
+            124
+          ],
+          [
+            250,
+            125
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 38.0,
+        "H_skullEstimate": 25.0,
+        "T": 42.1,
+        "upperArm": 18.4,
+        "forearm": 24.1,
+        "thigh": 42.2,
+        "shin": 35.2,
+        "S": 28.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "light3Alt:2": {
+      "landmarks": {
+        "hair": [
+          143,
+          74
+        ],
+        "skull": [
+          141,
+          88
+        ],
+        "chin": [
+          140,
+          114
+        ],
+        "collar": [
+          139,
+          117
+        ],
+        "hem": [
+          136,
+          150
+        ],
+        "arm": [
+          [
+            118,
+            127
+          ],
+          [
+            111,
+            142
+          ],
+          [
+            129,
+            132
+          ]
+        ],
+        "leg": [
+          [
+            140,
+            158
+          ],
+          [
+            178,
+            150
+          ],
+          [
+            219,
+            143
+          ]
+        ],
+        "shoe": [
+          [
+            229,
+            147
+          ],
+          [
+            245,
+            123
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 40.1,
+        "H_skullEstimate": 26.0,
+        "T": 33.1,
+        "upperArm": 16.6,
+        "forearm": 20.6,
+        "thigh": 38.8,
+        "shin": 41.6,
+        "S": 28.8
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    },
+    "light4Alt:3": {
+      "landmarks": {
+        "hair": [
+          153,
+          67
+        ],
+        "skull": [
+          153,
+          81
+        ],
+        "chin": [
+          153,
+          107
+        ],
+        "collar": [
+          148,
+          109
+        ],
+        "hem": [
+          131,
+          149
+        ],
+        "arm": [
+          [
+            134,
+            120
+          ],
+          [
+            163,
+            122
+          ],
+          [
+            184,
+            123
+          ]
+        ],
+        "leg": [
+          [
+            147,
+            167
+          ],
+          [
+            182,
+            179
+          ],
+          [
+            188,
+            225
+          ]
+        ],
+        "shoe": [
+          [
+            185,
+            235
+          ],
+          [
+            214,
+            235
+          ]
+        ]
+      },
+      "projectedPx": {
+        "H_hair": 40.0,
+        "H_skullEstimate": 26.0,
+        "T": 43.5,
+        "upperArm": 29.1,
+        "forearm": 21.0,
+        "thigh": 37.0,
+        "shin": 46.4,
+        "S": 29.0
+      },
+      "shoulderWidth": null,
+      "shoulderExclusion": "Oblique shoulders; deltoid landmarks/axial depth are not both exposed. Not a numeric pass.",
+      "exclusions": [
+        "upperArm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "forearm: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "thigh: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison.",
+        "shin: projected estimate; hidden joint and depth uncertainty prevents a strict intrinsic-length comparison."
+      ]
+    }
+  },
+  "perFrame": {
+    "airLight1Alt": [
+      {
+        "frame": 0,
+        "visualInspection": "Guard, raised knee; far limbs overlap.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "airLight1Alt:0",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Straight punch; near arm lengthens in projection as expected.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Held extended punch, no detached wrist.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 3,
+        "visualInspection": "Retracts to guard without head jump.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 4,
+        "visualInspection": "Guard recovery; last-to-first near pose match.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "airLight2Alt": [
+      {
+        "frame": 0,
+        "visualInspection": "Knee chamber, compact guard.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Side kick; supporting thigh bent, striking knee under cloth.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "airLight2Alt:1",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Extended kick, stable head and torso; toe remains inside margin.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 3,
+        "visualInspection": "Knee retracts and both forearms converge; joints occluded.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 4,
+        "visualInspection": "Returns to chamber; last-to-first small stance change.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "airLight3Alt": [
+      {
+        "frame": 0,
+        "visualInspection": "Knee chamber, shorter silhouette than base; not scaled to standing.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Open arms/hips, no base back-spin pose.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Extended kick with crescent; exclude effect from body.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "airLight3Alt:2",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 3,
+        "visualInspection": "Extended kick without crescent, head/torso stable to f2.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 4,
+        "visualInspection": "Retracts and opens rear hand; no lost limb.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 5,
+        "visualInspection": "Guarded recovery, bent support leg; endpoint differs from base.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "heavyAlt": [
+      {
+        "frame": 0,
+        "visualInspection": "Low preload; garment compression expected.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Deeper preload, head lowered with torso.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Knee lift; rising torso, no global head jump.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 3,
+        "visualInspection": "High kick, head tipped back; striking knee not clearly localized.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "heavyAlt:3",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 4,
+        "visualInspection": "High kick hold, hip fold and raised sandal rotate.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 5,
+        "visualInspection": "Retracts into airborne guard with raised fist; no scaled-down part B.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 6,
+        "visualInspection": "Landing turn, rear arm spread; projected shoulder width changes.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 7,
+        "visualInspection": "Guard recovery; last-to-first bends into startup.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "hurtHighAlt": [
+      {
+        "frame": 0,
+        "visualInspection": "Back lean/open arms; head rolls back.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Open-arm hit hold; far forearm occluded.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Guarded recovery; head angle differs from base, not a proven size jump.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "hurtHighAlt:2",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "hurtLowAlt": [
+      {
+        "frame": 0,
+        "visualInspection": "Forward fold, both hands at abdomen.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "hurtLowAlt:0",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "One arm thrown behind; near sleeve overlaps waist.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Re-folds with hands at abdomen; last-to-first modest head rise.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "light1Alt": [
+      {
+        "frame": 0,
+        "visualInspection": "Guard startup, feet wider than base.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "light1Alt:0",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Guard/shoulder load.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Straight extended punch rather than compact hook.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 3,
+        "visualInspection": "Extended punch held, guard fist overlaps face.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 4,
+        "visualInspection": "Cross-body withdrawal; arms obscure torso.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 5,
+        "visualInspection": "Guard recovery.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 6,
+        "visualInspection": "Guard end; last-to-first close but not pixel-identical.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "light2Alt": [
+      {
+        "frame": 0,
+        "visualInspection": "Guard startup; base rear-fist load absent.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Knee lift, near leg folded.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Snap kick; foot lower/further than base fist.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "light2Alt:2",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 3,
+        "visualInspection": "Kick held; foot retracts horizontally while same low height remains.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 4,
+        "visualInspection": "Knee retraction, body near vertical.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 5,
+        "visualInspection": "Guard recovery.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 6,
+        "visualInspection": "Guard endpoint; slightly different stance/head tilt from base.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "light3Alt": [
+      {
+        "frame": 0,
+        "visualInspection": "Grounded guard differs from base knee-chamber start.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Knee lift, forearms guarding.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Side kick reaches mid torso; shoe intact at margin.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "light3Alt:2",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 3,
+        "visualInspection": "Held kick; no obvious head/torso pop.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 4,
+        "visualInspection": "Chamber crosses body, opposite support configuration; large pose reset from f3.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 5,
+        "visualInspection": "Wide guard recovery.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 6,
+        "visualInspection": "Guard end; last-to-first similar, base remains more upright.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ],
+    "light4Alt": [
+      {
+        "frame": 0,
+        "visualInspection": "Guard startup.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 1,
+        "visualInspection": "Both palms raised, shoulders opening.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 2,
+        "visualInspection": "Double-palm extension, no lost fingers/forearms.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 3,
+        "visualInspection": "Full lunge, arms extended; torso lean lengthens projected hem distance.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": "light4Alt:3",
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 4,
+        "visualInspection": "Lower follow-through, palms still extended.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 5,
+        "visualInspection": "Rear step; one sandal oblique and largely edge-on.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 6,
+        "visualInspection": "Guard recovery.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      },
+      {
+        "frame": 7,
+        "visualInspection": "Guard endpoint; last-to-first small chest/head-height shift.",
+        "anatomyComponentsInspected": [
+          "head",
+          "torso",
+          "upper/lower arms",
+          "upper/lower legs",
+          "shoes",
+          "build/clothing"
+        ],
+        "sampleKey": null,
+        "numericStatus": "UNRESOLVED: no all-segment +/-6% certificate; see projection/occlusion exclusions"
+      }
+    ]
+  }
+}

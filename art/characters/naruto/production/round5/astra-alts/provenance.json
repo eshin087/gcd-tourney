@@ -1,0 +1,81 @@
+{
+  "sourceCommit": "357951e",
+  "atlas": {
+    "sheetSha256": "68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e",
+    "animsSha256": "1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047"
+  },
+  "raw": {
+    "airLight1Alt": {
+      "path": "art\\characters\\naruto\\raw\\airLight1Alt_v01.png",
+      "sha256": "bae2be080738f37b13213c94ce304fbee09d436ebe17b5180ff3ccf2a8665636"
+    },
+    "airLight2Alt": {
+      "path": "art\\characters\\naruto\\raw\\airLight2Alt_v01.png",
+      "sha256": "8cce73a56f420224b3d20103cbc0c525dc12ab1de523fbd70f2a63e185c5e153"
+    },
+    "airLight3Alt": {
+      "path": "art\\characters\\naruto\\raw\\airLight3Alt_v01.png",
+      "sha256": "e80f731a272908090d4aa31e774f827ebcacddc9516be4280d3c0106a82a78ee"
+    },
+    "heavyAlt": {
+      "path": "art\\characters\\naruto\\raw\\heavyAlt_v02.png",
+      "sha256": "13b21ab505aa7de43a413ef7632db366ecb73bfaee13144e9171bd4f01bdd861"
+    },
+    "hurtHighAlt": {
+      "path": "art\\characters\\naruto\\raw\\hurtHighAlt_v01.png",
+      "sha256": "c1644a78c96a197dbcf54dd06d6ba37b5212efca2858457403514d40222b3cb3"
+    },
+    "hurtLowAlt": {
+      "path": "art\\characters\\naruto\\raw\\hurtLowAlt_v01.png",
+      "sha256": "38d653b40c6a95f78545a86d70242e760bf04d8bdd8314f955a576c68b6c8d68"
+    },
+    "light1Alt": {
+      "path": "art\\characters\\naruto\\raw\\light1Alt_v01.png",
+      "sha256": "330794591126925a3c32c09cfdad7d8e6c0ac6474d2e983ce34fcfbd0f1c5fff"
+    },
+    "light2Alt": {
+      "path": "art\\characters\\naruto\\raw\\light2Alt_v03.png",
+      "sha256": "0b3ec8ed9f7ac50d2350f56727158a558c17e66abb8cda85627f5d292db97d5f"
+    },
+    "light3Alt": {
+      "path": "art\\characters\\naruto\\raw\\light3Alt_v02.png",
+      "sha256": "d83954bfb36ee1fc5ac08c2d3ff6ea636ef2baa5002c5dd8ba06e18e93173249"
+    },
+    "light4Alt": {
+      "path": "art\\characters\\naruto\\raw\\light4Alt_v01.png",
+      "sha256": "11ffdabd01973afa9a7c903385a9db0adb00a2f6e7b5addf9b921748e702671d"
+    }
+  },
+  "heldAirHeavyAlt": [
+    {
+      "path": "art\\characters\\naruto\\raw\\_qa_hold\\airHeavyAlt_v01.json",
+      "sha256": "f7d81ae8f4310bfc89aee98387fbae6d6b29a8e01c23430a1d52282f2d11ce39"
+    },
+    {
+      "path": "art\\characters\\naruto\\raw\\_qa_hold\\airHeavyAlt_v01.png",
+      "sha256": "34c928515addb02d24d4ed22e33e4a8731ff7ac40014bfe86bab60b5b8c975cc"
+    },
+    {
+      "path": "art\\characters\\naruto\\raw\\_qa_hold\\airHeavyAlt_v02.json",
+      "sha256": "475369ead675dc02053eef592aa109824449beae7b22a12c35efe6ae969c2feb"
+    },
+    {
+      "path": "art\\characters\\naruto\\raw\\_qa_hold\\airHeavyAlt_v02.png",
+      "sha256": "6dd86b6e1bb3d56f91d21a10b9da312c31a3f601bd61c0c37a69a6328dd6691c"
+    },
+    {
+      "path": "art\\characters\\naruto\\raw\\_qa_hold\\airHeavyAlt_v03.png",
+      "sha256": "8d86f7c326194ecff02524e260e5e3d6a0be34fd42ce999433322b138d2bde40"
+    }
+  ],
+  "references": {
+    "neutral": {
+      "path": "public\\art-review\\title-style-pilot\\naruto-neutral_v01.png",
+      "sha256": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f"
+    },
+    "combat": {
+      "path": "public\\art-review\\title-style-pilot\\naruto-combat_v01.png",
+      "sha256": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+    }
+  }
+}
