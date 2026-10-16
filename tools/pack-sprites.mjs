@@ -1945,8 +1945,36 @@ function auditAnims(id, anims, env) {
   const decl = env.builds?.[id] || {};
   return auditCharacter(anims.map((a) => ({ name: a.def.name, cells: a.cells, version: a.version, phases: a.def.phases })), {
     decl, gate: env.gate, exempt: exemptionsFrom(env.manifestRaw?.characters?.[id]?.animations), maxColors: env.spec.maxColors,
-    reference: loadScaleReference(env.artDir, decl),
+    reference: scaleReferenceFor(id, env),
   });
+}
+const scaleReferenceFor = (id, env) => loadScaleReference(env.artDir, env.builds?.[id] || {}) || env.approvedIdleRef?.[id] || null;
+
+// A new idle candidate as the newest raw would become the scale gate's reference and move every strip's head numbers
+// and auto head fits (TOOL-040: Gojo idle v07 made superDash read 0.47). While the packed idle is not the approved
+// version, the gate measures against the approved idle instead, imported and placed exactly like the live one, and
+// the candidate idle is gated like any other strip. A builds.json scaleReference still wins.
+function approvedIdleReference(id, defs, anims, rawIdx, env, R, warn) {
+  const def = defs.find((d) => d.name === 'idle');
+  const live = anims.find((a) => a.def.name === 'idle');
+  if (def?.approvedVersion == null || live?.version == null || live.version === def.approvedVersion) return;
+  if (loadScaleReference(env.artDir, env.builds?.[id] || {})) return;
+  const vv = (n) => `v${String(n).padStart(2, '0')}`;
+  const raw = pickRaw(rawIdx.get('idle'), 'idle', def.approvedVersion);
+  if (raw?.version !== def.approvedVersion) {
+    warn(`idle: candidate ${vv(live.version)} is packed and no raw/idle_${vv(def.approvedVersion)}.png is left - every strip is measured against the candidate`);
+    return;
+  }
+  const side = readSidecars(raw.sidecars, warn, 'idle');
+  const { frames } = framesFromRaw(raw.files, def.frames, side, env, 'char', () => {}, 'idle', raw.strip);
+  if (!frames.length) return;
+  const bodyHeight = Math.round(Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight);
+  const maxH = Math.max(...frames.map((s) => s.h));
+  const scale = Math.abs(maxH - bodyHeight) <= 1 ? 1 : bodyHeight / maxH;
+  const offsets = frameOffsetsFor(side, frames.length, env.spec, () => {}, 'idle');
+  const cells = frames.map((s, k) => placeCharFrame(resample(s, scale, { coverage: 0.5, alphaMin: 128 }), env.spec, offsets?.[k], null).cell);
+  (env.approvedIdleRef ??= {})[id] = { cells, label: `approved idle ${vv(def.approvedVersion)} (${raw.label})` };
+  R.notes.push(`scale: measured against the approved idle ${vv(def.approvedVersion)}, not the packed candidate ${vv(live.version)}`);
 }
 
 // builds.json fighter "scaleReference": { "cells": ["characters/<id>/reference/<approved cell>.png", ...], "why": "..." }
@@ -2032,7 +2060,7 @@ function scaleGate(id, anims, env, R) {
   R.scale = out;
   const approved = (a) => a.def.approvedVersion != null && (a.version == null || a.version <= a.def.approvedVersion);
   // the idle is the reference and never fails, unless builds.json names an approved reference: then it is gated too
-  const external = !!loadScaleReference(env.artDir, env.builds?.[id] || {})?.cells;
+  const external = !!scaleReferenceFor(id, env)?.cells;
   const isStrict = (a) => (a.def.name !== 'idle' || external) && (mode === 'strict' || (mode === 'auto' && !approved(a)));
   if (!anims.some((a) => a.def.name === 'idle')) { out.error = 'no idle packed yet - nothing to measure against'; R.notes.push(`scale: ${out.error}`); return null; }
   const A = auditAnims(id, anims, env);
@@ -2207,6 +2235,8 @@ function packCharacter(id, env) {
       R.failed.push(def.name);
     }
   }
+
+  approvedIdleReference(id, defs, anims, rawIdx, env, R, warn);
 
   // UI images are independent of the sheet
   packUi(id, charDir, env, R);
