@@ -1,9 +1,9 @@
-# Goku core: relays 9, 11, 12 and final full-set review
+# Goku core: relays 9, 11, 12 and 14; full-set approval
 
 ## Review
 
-- **Current full-set gallery:** [Goku core review](https://gcd-tourney-le661omg1-eshin087s-projects.vercel.app/characters/goku/core-review-final/index.html) from committed branch HEAD `35f4ca22`. Historical audited calibration gallery: [r5](https://gcd-tourney-9rbjxyx11-eshin087s-projects.vercel.app/characters/goku/calibration-r5/index.html).
-- The gallery shows the approved title-style neutral/combat strip at native 256px cells, approved identity references, light3 v13 and heavy v14 players using exact cells extracted from the audited atlas, the historical v11 light3 hold, source provenance, and current audit state.
+- **Current full-set gallery:** [Goku core review](https://gcd-tourney-n4nm8l3wq-eshin087s-projects.vercel.app/characters/goku/core-review-final/index.html) from committed branch HEAD `ef61b68d`. Historical audited calibration gallery: [r5](https://gcd-tourney-9rbjxyx11-eshin087s-projects.vercel.app/characters/goku/calibration-r5/index.html).
+- The full-set gallery presents all 23 approved core strips at native 256px beside the approved idle, with exact frame playback, version labels, provenance and the retained getup runtime caveat. It reuses the exact quantized atlas frame extracts.
 - **Goku light3 v13 is approved by the user via Claude relay #12.** Exact user quote: "Approve Goku light3 v13 and Luffy special v02 as drawn." This approval applies to light3 v13 only for Goku. Heavy v14 remains approved via relay #10 ("Approved").
 
 Three-line verdict:
@@ -44,6 +44,6 @@ Cumulative attempts: light3 six calls (relay #11 authorized and used call 6; no 
 - Parent local browser QA from relay #9 is historical (`production/relay9-generation/PARENT_BROWSER_R4.md`). The parent CUA browser session was unavailable for r5; no new interactive browser QA is claimed. The committed preview build succeeded. Parent authenticated retrieval confirmed hosted sheet/meta match the exact audited hashes above, and hosted `data.json` is byte-identical to local SHA-256 `5d36078b1c6a11b246a2620de69235062547c46b2cb468b6ef2398b93d133a77`. Hosted `index.html` matches local content with only Vercel's 163-byte feedback toolbar script injected (deployment `dpl_5U3qZwYMtJx8xM39r8HkamWq2djM`); raw response hash is `b3c666f80bf79de1c9ee6ad8aa25dba3bc7f34ec4532f4c189db9b3d42270e6b`, local file hash is `b95a5dbb36f3de07fc2a0910f35fbe96dbd1885ae1862e70dbbb3cf8815c9bf0`.
 - No gameplay contact, hidden-knee/ankle measurement, runtime timing, merge or production deployment is claimed.
 
-## Final 23-strip review request (2026-10-16)
+## Relay 14 approval of all 23 core drawings (2026-10-16)
 
-Gallery source: `public/characters/goku/core-review-final/index.html`. It reuses the exact audited atlas frame extracts, with all strips at native 256px beside idle frame 0, selectable cells and playback controls. The known getup floor/contact warning remains visible and links to the final atlas audit. Approved rows: idle v02; light2 v05, light3 v13, light4 v09, heavy v14, airLight1 v07, airHeavy v06. Exact pending user approvals: run v09, dash v09, jumpUp v04, jumpFall v04, land v07, light1 v04, guard v05, hurtHigh v08, launched v08, down v05, getup v11, charge v05, beamCharge v07, beamFire v07, special v05, win v05.
+Gallery source: `public/characters/goku/core-review-final/index.html`. It reuses the exact audited atlas frame extracts, with all strips at native 256px beside idle frame 0, selectable cells and playback controls. The known getup floor/contact warning remains visible and links to the final atlas audit. **USER APPROVAL via Claude relay #14:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." Goku scope: run v09, dash v09, jumpUp v04, jumpFall v04, land v07, light1 v04, guard v05, hurtHigh v08, launched v08, down v05, getup v11, charge v05, beamCharge v07, beamFire v07, special v05 and win v05. All 23 Goku core drawings are now user-approved, including the earlier approvals listed above. No new image calls or pixel changes were made. Getup v11 still has the known floor/contact caveat for Claude runtime review; visual approval does not certify runtime contacts, timing or integration.
