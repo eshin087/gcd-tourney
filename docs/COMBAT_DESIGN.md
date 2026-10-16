@@ -265,16 +265,16 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   **heavy**. A swing that lands while the other fighter's classed swing is live (active, or at most
   `MELEE_CLASH.window` = 4 frames before its first active frame) meets it (`Game.swingsMeet`). Lights pressed up
   to about 3 frames apart clash at close range.
-- **Same class: CLASH!** Neither hit applies. Every clash plays the same slow-mo (0.3x for 0.5 s) with the strikes
-  held pressed together (hit stop 7 light / 9 heavy): sparks and arcs in both fighters' colors at the contact, a
+- **Same class: CLASH!** Neither hit applies. The strikes are held pressed together (hit stop 12 light / 14
+  heavy, no slow-mo): sparks and arcs in both fighters' colors at the contact, a
   thin shockwave ring, speed lines on the contact, the stage dimmed a little and the camera pushing in on the fists.
-  No screen flash. Then both slide back a step in the `clashBack` state (4 / 5 units/s, playing the move's own
-  recovery). After 3 frames of it they can do anything; a Light or Heavy pressed during the slow-mo comes out then,
+  No screen flash. Then both are pushed back a step in the `clashBack` state (6.5 / 7.5 units/s, playing the move's own
+  recovery). After 3 frames of it they can do anything; a Light or Heavy pressed while the strikes are held comes out then,
   so pressing again meets the next swing. Air clashes hop a little.
 - **Chain:** a clash within 80 frames of the last one counts up `Game.meleeChain` (CLASH ×2, ×3...). Each step
   grows the spray, the shockwave, the camera push-in and the cheer, and gives both fighters ki: 10 per light
   clash, 18 per heavy, ×(1 + 0.25 per step). The **5th** is **CLASH BREAK!**: the biggest spray, smoke and a
-  crater, 30 damage to each, both launched apart into a knockdown.
+  crater, and both skid far back on their feet (about a unit each, free after 12 frames): no damage, no knockdown.
 - **Light vs heavy: CRUSH!** The light's hits that frame are dropped and the heavy lands now, even a few frames
   before its active frames.
 - Specials, the vanish kick, the super dash hit and throws have no class: they trade as before.

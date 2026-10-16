@@ -737,7 +737,7 @@ export class Game {
     if (this.clash) lines = 0.75;
     if (this.meleeFxF > 0) {
       this.meleeFxF--;
-      lines = Math.max(lines, MELEE_CLASH.slow.lines);
+      lines = Math.max(lines, MELEE_CLASH.look.lines);
       this.linesFocus = this.meleeFocus;
       if (!this.meleeFxF && !this.superFlash) this.dimTarget = 0;
     }
@@ -835,10 +835,10 @@ export class Game {
     return def.t >= d.startup - MELEE_CLASH.window && def.t < d.startup + d.active;
   }
 
-  // Two lights (or two heavies) met: no damage. Both hold their strikes pressed together through a short slow-mo
-  // (sparks in both colors, a shockwave, speed lines, the stage dimmed, the camera pushing in on the fists), then
-  // slide back a step free to act. A chain (the next clash within chainGap frames) grows the spray and the push-in
-  // and pays both ki; the finale-th blows both apart (clashFinale).
+  // Two lights (or two heavies) met: no damage. Both hold their strikes pressed together for a moment (sparks in both
+  // colors, a shockwave, speed lines, the stage dimmed, the camera pushing in on the fists), then get pushed back a
+  // step free to act. A chain (the next clash within chainGap frames) grows the spray and the push-in and pays both
+  // ki; the finale-th pushes both far back (clashFinale).
   meleeClash(a, b, at) {
     const C = MELEE_CLASH, ch = this.meleeChain, cls = a.move.meleeClash, heavy = cls === 'heavy';
     ch.n = this.frameNo - ch.at <= C.chainGap ? ch.n + 1 : 1;
@@ -866,20 +866,20 @@ export class Game {
     this.hud.announce(n > 1 ? `CLASH ×${n}!` : 'CLASH!', 'clash', 650);
   }
 
-  // what every melee clash shares: the slow-mo, the push-in on the contact, speed lines on it and a dimmed stage
-  // for `frames` sim frames (fxTicks lifts them)
+  // what every melee clash shares: the push-in on the contact, speed lines on it and a dimmed stage for `frames` sim
+  // frames (fxTicks lifts them). No slow-mo: the user found it dragged (2026-10-15).
   clashMoment(at, frames, cam) {
-    const S = MELEE_CLASH.slow;
-    this.slowmo(S.scale, S.dur);
-    this.cam.pushIn(at.x, at.y, at.z, cam, S.dur);
+    const S = MELEE_CLASH.look;
+    this.cam.pushIn(at.x, at.y, at.z, cam, S.hold);
     this.meleeFocus.pos.set(at.x, at.y - 0.9, at.z); // the speed lines center on pos + 0.9
     this.meleeFxF = frames;
     if (!this.superFlash) this.dimTarget = S.dim;
   }
 
-  // the last clash of a chain: a blast between them throws both apart (a little damage each, a knockdown)
+  // the last clash of a chain: a blast between them pushes both far back, skidding (no damage, no knockdown)
   clashFinale(a, b, mid) {
-    const F = MELEE_CLASH.finaleHit;
+    const P = MELEE_CLASH.breakPush;
+    for (const f of [a, b]) f.clashBounce(P.stop, P.speed, P.act, P.slide);
     this.fx.clashSpark(mid.x, mid.y, mid.z, a.def.color, b.def.color, 1.6);
     for (let k = 0; k < 4; k++) this.fx.smoke(mid.x + (Math.random() - 0.5) * 1.4, mid.y * 0.5 + Math.random() * 0.5, mid.z + (Math.random() - 0.5) * 1.4, 1);
     if (Math.min(a.pos.y, b.pos.y) < 1.5) this.fx.ground.impact(mid, { kind: 'trade' });
@@ -890,11 +890,6 @@ export class Game {
     this.cam.shake(0.9);
     this.excite = 1;
     this.hud.announce('CLASH BREAK!', 'clash', 1100);
-    // the clash spray is the show: each knockback hit only adds a small spark
-    for (const f of [a, b]) {
-      const o = f.opp, d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
-      f.takeHit(o, { dmg: F.dmg, launch: F.launch, hitstop: F.hitstop, unblockable: true, big: true, projectileHit: true, spark: 'light', hitFlash: 'heavy' }, d);
-    }
   }
 
   // a heavy that met a light blows through it (the hit itself follows in resolveMelee)

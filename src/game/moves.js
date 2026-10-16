@@ -472,30 +472,30 @@ export const CLASH = {
 };
 
 // MELEE CLASH (ADR 0034): a light meeting a light (or a heavy a heavy) while both swings are live cancels both: no
-// damage, both hold their strikes together through a short slow-mo, then slide back a step and can act, so pressing
-// again starts the next one. Clashes within `chainGap` frames of the last one form a chain that grows the sparks and
-// the camera push-in and pays both fighters ki; the `finale`-th blows both apart. A light meeting a heavy loses: the
-// heavy lands at once.
+// damage, both hold their strikes together for a moment, then get pushed back a step and can act, so pressing again
+// starts the next one. Clashes within `chainGap` frames of the last one form a chain that grows the sparks and the
+// camera push-in and pays both fighters ki; the `finale`-th pushes both far back (CLASH BREAK!). A light meeting a
+// heavy loses: the heavy lands at once.
 //  window     frames before its first active frame the other swing still counts as live (both pressed a few frames apart)
-//  stop       frames the strikes stay pressed together (hit stop, played under the slow-mo) per class
-//  slow       every clash: world speed `scale` for `dur` real seconds; meanwhile `dim` darkens the stage and `lines`
-//             sets the speed lines on the contact
+//  stop       frames the strikes stay pressed together (hit stop) per class
+//  look       while they do: `dim` darkens the stage and `lines` sets the speed lines on the contact; the camera push-in
+//             holds `hold` seconds
 //  cam        how far the camera pushes in on the contact (0-1), + camPer per chain step, at most camMax
-//  push       the slide back (units/s) once the strikes part; act: frames of it before they can act (a swing pressed
+//  push       the pushback (units/s) once the strikes part; act: frames of it before they can act (a swing pressed
 //             during the freeze comes out then); slide: frames of it before they stand (cancellable from act)
+//  breakPush  the finale's pushback instead: its hit stop, speed, act and slide (no damage, no knockdown)
 //  buffer     extra frames a Light or Heavy pressed during the freeze is kept for (it comes out on the first free frame)
 //  ki         ki for each fighter per clash by class, x (1 + kiPer * (n - 1)) in a chain
-//  finaleHit  dmg / launch for both at the last clash of a chain
 //  seekRange  screen distance the CPU tries a clash from; chainSeek: its rate multiplier for pressing again out of a
 //             slide (the per-level rates are `meleeClash` in ai.js / aiMaster.js)
 export const MELEE_CLASH = {
   window: 4, chainGap: 80, finale: 5,
-  stop: { light: 7, heavy: 9 },
-  slow: { scale: 0.3, dur: 0.5, dim: 0.35, lines: 0.5 },
+  stop: { light: 12, heavy: 14 },
+  look: { dim: 0.3, lines: 0.5, hold: 0.25 },
   cam: 0.6, camPer: 0.08, camMax: 0.9,
-  push: { light: 4, heavy: 5 }, act: 3, slide: 10, buffer: 8,
+  push: { light: 6.5, heavy: 7.5 }, act: 3, slide: 10, buffer: 8,
   ki: { light: 10, heavy: 18 }, kiPer: 0.25,
-  finaleHit: { dmg: 30, launch: [13, 8], hitstop: 18 },
+  breakPush: { stop: 18, speed: 13, act: 12, slide: 18 },
   seekRange: 2.6, chainSeek: 1.1,
 };
 

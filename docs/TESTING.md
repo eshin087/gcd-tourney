@@ -168,9 +168,10 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       Pressing every frame scores OFF BEAT and loses. Lab **Special clash** (Naruto vs Sasuke): one ring, the closer
       press wins.
 - [ ] Melee clash (ADR 0034), lab **Melee clash chain (light vs light)**: CLASH!, no damage, the strikes held
-      together in slow-mo with orange / blue (the fighters' colors) sparks, no white flash, the camera pushed in on
-      the fists, then a short step back (no bounce); the presses during each slow-mo chain it (CLASH ×2, ×3, ×4,
-      a bigger spray each time, both ki bars grow), and the 5th is CLASH BREAK! (explosion, crater, 30 each, both launched). Lab **Heavy beats
+      together (no slow-mo) with orange / blue (the fighters' colors) sparks, no white flash, the camera pushed in on
+      the fists, then a short pushback (no bounce, the spacing stays about 1.2-1.7 through the chain); the presses
+      while the strikes are held chain it (CLASH ×2, ×3, ×4, a bigger spray each time, both ki bars grow), and the 5th
+      is CLASH BREAK! (spray, crater, both skid about a unit back on their feet, no damage). Lab **Heavy beats
       light**: CRUSH! on the dummy, you are launched. In a match: Light into the CPU's Light as it comes out clashes;
       a Light 6+ frames after theirs is hit as before. `game.meleeChain.n` counts the running chain.
 - [ ] Beam clash (ADR 0027), lab **Beam clash (energy vs energy)** in every pairing but the Naruto mirror (which says
