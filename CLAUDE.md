@@ -152,7 +152,8 @@ documentation that stays true.
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
-| `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work |
+| `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work. It verifies each `--art` folder's tracked `raw/` files are on disk (TOOL-048) |
+| `npm run pr -- art <id>[,<id>]` | (inside a sparse worktree) add more raw art there with the same patterns as `start --art`, drop patterns a shell rewrote (`C:/Program Files/Git/art/...`), and verify the raws are on disk. Use it instead of a hand-typed `git sparse-checkout add` |
 | `npm run pr -- open` | (in a worktree on a named branch, never detached HEAD) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
 | `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it). **Art guard first (TOOL-028, `tools/pr-guard.mjs`):** for every fighter strip the merge changes it refuses an unapproved newest raw (newest `raw/<anim>_vNN.png` != manifest `approvedVersion`; approve it or move it to `raw/_qa_hold/`, which the packer skips), a committed pack of an unapproved version, or a strict-scale-gate failure (packer dry run on scratch copies). Code branches skip it. `--force-art "<reason>"` overrides and records the reason in the merge commit |
@@ -164,7 +165,7 @@ documentation that stays true.
 | `npm run lint:undeclared` | undeclared-identifier check (TOOL-027, `tools/check-undeclared.mjs [dir]`; second step of `prebuild`): every `src/**/*.js` name that is used but never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug) fails the build with `file:line` |
 | `npm run test:lints` | lint regression test (`tools/test-lints.mjs`, fixtures in tools/.test-fixtures/lints/): the planted `MODE_ORDER` bug, a wide valid-syntax sample, one doctored case per animation-contract rule; run after any change to the two lints |
 | `npm run test:anims` | tech pose test (`tools/test-tech-anims.mjs`: animation selection, beat transitions, back rolls, wall facing, missing-art fallbacks); run after changes to the tech states or `src/game/techAnim.js` |
-| `npm run test:guard` | art merge guard test (`tools/test-pr-guard.mjs`: throw-away git repo under tools/.test-fixtures/; unapproved, held, approved, off-size and shipped-version branches, merge-result verdicts, `--force-art` parsing); run after changes to `tools/pr-guard.mjs` or `tools/pr.mjs` |
+| `npm run test:guard` | art merge guard test (`tools/test-pr-guard.mjs`: throw-away git repo under tools/.test-fixtures/; unapproved, held, approved, off-size and shipped-version branches, merge-result verdicts, `--force-art` parsing) plus the sparse worktree test (`tools/test-sparse-art.mjs`: real `pr start --art` and `pr art` in a throw-away repo, raw/ on disk); run after changes to `tools/pr-guard.mjs`, `tools/pr.mjs` or `tools/sparse-art.mjs` |
 | `npm run test:alts` | attack-alt picker test (`tools/test-anim-alts.mjs`: balanced Thue-Morse alternation, never three in a row, base when the alt is missing, `?alts` override; ADR 0031); run after changes to `src/game/animAlts.js` or the alt hooks in fighter.js |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
@@ -214,7 +215,8 @@ The docs-only/main exceptions below still apply.
    available. In a manual CLI session, the optional project helper can create a real Git worktree and branch.
 3. For an art task created with the helper, use `npm run pr -- start <branch> --art <id>[,<id>]` so the required
    raw art is included without a full checkout. Never use `--full` for art work. A plain
-   `git sparse-checkout add art/characters/<id>` does not bring back its `raw/` directory.
+   `git sparse-checkout add art/characters/<id>` does not bring back its `raw/` directory; in an existing worktree
+   (one recreated without `--art`, or a task that grew) run `npm run pr -- art <id>[,<id>]` there instead.
 4. Use one worktree per task and reuse it for later versions (`v02`, `v03`, etc.) of that same task.
 5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator must
    finish cleanup of merged task worktrees. `npm run pr -- merge` automatically removes only the project-local
