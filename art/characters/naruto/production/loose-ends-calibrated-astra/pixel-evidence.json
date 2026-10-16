@@ -1,0 +1,561 @@
+{
+  "sheet_sha256": "dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c",
+  "anims_sha256": "9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b",
+  "animations": {
+    "idle": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 0,
+          "bounds": [
+            58,
+            76,
+            200,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 1,
+          "bounds": [
+            58,
+            80,
+            200,
+            241
+          ]
+        },
+        {
+          "frame": 2,
+          "atlas": 2,
+          "bounds": [
+            58,
+            78,
+            201,
+            241
+          ]
+        },
+        {
+          "frame": 3,
+          "atlas": 3,
+          "bounds": [
+            58,
+            79,
+            200,
+            241
+          ]
+        },
+        {
+          "frame": 4,
+          "atlas": 4,
+          "bounds": [
+            60,
+            81,
+            198,
+            241
+          ]
+        },
+        {
+          "frame": 5,
+          "atlas": 5,
+          "bounds": [
+            60,
+            81,
+            197,
+            241
+          ]
+        },
+        {
+          "frame": 6,
+          "atlas": 6,
+          "bounds": [
+            62,
+            81,
+            196,
+            241
+          ]
+        },
+        {
+          "frame": 7,
+          "atlas": 7,
+          "bounds": [
+            60,
+            82,
+            197,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "durations": [
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150
+        ],
+        "loop": true
+      }
+    },
+    "light2Alt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 182,
+          "bounds": [
+            69,
+            77,
+            189,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 183,
+          "bounds": [
+            67,
+            79,
+            191,
+            241
+          ]
+        },
+        {
+          "frame": 2,
+          "atlas": 184,
+          "bounds": [
+            65,
+            76,
+            206,
+            241
+          ]
+        },
+        {
+          "frame": 3,
+          "atlas": 185,
+          "bounds": [
+            65,
+            76,
+            206,
+            241
+          ]
+        },
+        {
+          "frame": 4,
+          "atlas": 186,
+          "bounds": [
+            69,
+            76,
+            190,
+            241
+          ]
+        },
+        {
+          "frame": 5,
+          "atlas": 187,
+          "bounds": [
+            65,
+            76,
+            191,
+            241
+          ]
+        },
+        {
+          "frame": 6,
+          "atlas": 188,
+          "bounds": [
+            65,
+            76,
+            190,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          182,
+          183,
+          184,
+          185,
+          186,
+          187,
+          188
+        ],
+        "durations": [
+          35,
+          30,
+          40,
+          50,
+          60,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          3
+        ]
+      }
+    },
+    "light2": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 37,
+          "bounds": [
+            62,
+            64,
+            193,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 38,
+          "bounds": [
+            62,
+            68,
+            194,
+            241
+          ]
+        },
+        {
+          "frame": 2,
+          "atlas": 39,
+          "bounds": [
+            58,
+            64,
+            220,
+            241
+          ]
+        },
+        {
+          "frame": 3,
+          "atlas": 40,
+          "bounds": [
+            58,
+            64,
+            211,
+            241
+          ]
+        },
+        {
+          "frame": 4,
+          "atlas": 41,
+          "bounds": [
+            55,
+            57,
+            200,
+            241
+          ]
+        },
+        {
+          "frame": 5,
+          "atlas": 42,
+          "bounds": [
+            56,
+            56,
+            199,
+            241
+          ]
+        },
+        {
+          "frame": 6,
+          "atlas": 43,
+          "bounds": [
+            56,
+            56,
+            200,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43
+        ],
+        "durations": [
+          35,
+          30,
+          40,
+          50,
+          60,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          3
+        ]
+      }
+    },
+    "airHeavyAlt": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 228,
+          "bounds": [
+            70,
+            79,
+            171,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 229,
+          "bounds": [
+            74,
+            83,
+            172,
+            241
+          ]
+        },
+        {
+          "frame": 2,
+          "atlas": 230,
+          "bounds": [
+            101,
+            108,
+            231,
+            241
+          ]
+        },
+        {
+          "frame": 3,
+          "atlas": 231,
+          "bounds": [
+            117,
+            129,
+            244,
+            241
+          ]
+        },
+        {
+          "frame": 4,
+          "atlas": 232,
+          "bounds": [
+            135,
+            89,
+            232,
+            241
+          ]
+        },
+        {
+          "frame": 5,
+          "atlas": 233,
+          "bounds": [
+            102,
+            71,
+            212,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          228,
+          229,
+          230,
+          231,
+          232,
+          233
+        ],
+        "durations": [
+          50,
+          45,
+          45,
+          70,
+          70,
+          40
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    "airHeavy": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 83,
+          "bounds": [
+            71,
+            59,
+            171,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 84,
+          "bounds": [
+            50,
+            82,
+            171,
+            241
+          ]
+        },
+        {
+          "frame": 2,
+          "atlas": 85,
+          "bounds": [
+            85,
+            82,
+            246,
+            241
+          ]
+        },
+        {
+          "frame": 3,
+          "atlas": 86,
+          "bounds": [
+            78,
+            98,
+            251,
+            241
+          ]
+        },
+        {
+          "frame": 4,
+          "atlas": 87,
+          "bounds": [
+            106,
+            82,
+            226,
+            241
+          ]
+        },
+        {
+          "frame": 5,
+          "atlas": 88,
+          "bounds": [
+            100,
+            58,
+            218,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          83,
+          84,
+          85,
+          86,
+          87,
+          88
+        ],
+        "durations": [
+          50,
+          45,
+          45,
+          70,
+          70,
+          40
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          2
+        ]
+      }
+    }
+  },
+  "crop_validation": "All saved crops RGBA-byte-identical to final atlas cells; no atlas or metadata changed.",
+  "contact_method": "Base hit boxes; manually estimated hand centers +/-3 native pixels; Euclidean center distances, axis-aligned point-to-rectangle edge distances. Not subpixel segmentation.",
+  "contacts": [
+    {
+      "animation": "light2Alt",
+      "frame": 2,
+      "base_box_xywh": [
+        189,
+        84,
+        34,
+        26
+      ],
+      "hand_center_manual": [
+        196,
+        114
+      ],
+      "uncertainty_px": 3,
+      "center_distance_px": 19.72,
+      "point_to_box_distance_px": 4.0
+    },
+    {
+      "animation": "light2Alt",
+      "frame": 3,
+      "base_box_xywh": [
+        190,
+        86,
+        24,
+        21
+      ],
+      "hand_center_manual": [
+        196,
+        114
+      ],
+      "uncertainty_px": 3,
+      "center_distance_px": 18.5,
+      "point_to_box_distance_px": 7.0
+    },
+    {
+      "animation": "airHeavyAlt",
+      "frame": 2,
+      "base_box_xywh": [
+        219,
+        178,
+        29,
+        26
+      ],
+      "hand_center_manual": [
+        221.5,
+        189.5
+      ],
+      "uncertainty_px": 3,
+      "center_distance_px": 12.09,
+      "point_to_box_distance_px": 0.0
+    },
+    {
+      "animation": "airHeavyAlt",
+      "frame": 3,
+      "base_box_xywh": [
+        224,
+        187,
+        27,
+        26
+      ],
+      "hand_center_manual": [
+        230.5,
+        221.5
+      ],
+      "uncertainty_px": 3,
+      "center_distance_px": 22.61,
+      "point_to_box_distance_px": 8.5
+    }
+  ]
+}

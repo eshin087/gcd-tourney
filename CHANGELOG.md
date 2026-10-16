@@ -11,6 +11,11 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(naruto): record user approval via Claude for light2Alt v05 and airHeavyAlt v04 as drawn; retain Claude-owned contact and anatomy holds.
+
+- Review: refreshed the five-candidate scale-loose-ends page from the calibrated atlases with Astra's final screening results, exact comparison crops and full audit evidence; unresolved technical checks remain and no art is approved.
+
+- art(naruto): One authorized call each for light2Alt05 and airHeavyAlt04; normal scale gate fails; diagnostic-only atlas and Astra review for Claude calibration.
 - art(scale): record user approval via Claude of Naruto light2Alt05/airHeavyAlt04 and Killua charge14/down08/ko09; return remaining technical checks to Claude without merge or production deploy.
 
 - Added: Codex chats with no relay lane are found and handled (TOOL-050): `relay status` lists recent project chats nobody mapped, `relay ask --app codex --from "<title>"` lets such a chat queue a question, and `relay answer` maps it by title and relays the answer.

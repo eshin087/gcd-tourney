@@ -1,0 +1,14 @@
+Use case: illustration-story
+Asset type: one complete six-frame 256x256-cell fighting-game sprite strip
+Primary request: Create Naruto's airHeavyAlt v04 as a single continuous horizontal sprite strip with exactly six equally spaced full-body poses, one pose per equal-width cell, in order f0-f5. Use the supplied approved Naruto idle and title-style references for identity, one consistent head size, build, clothing volume and pixel density; use approved airHeavy_v09 only for facing, six-frame timing and base contact target. The alternate is a clearly readable downward spike, using either a right axe heel or a double-fist smash.
+Input images: Image 1: approved idle_approved strip, identity and consistent head size; Image 2: approved title-style neutral cell, body anatomy and scale; Image 3: approved title-style combat cell, stance and shading; Image 4: approved airHeavy_v09, timing/facing and active contact target only.
+Scene/backdrop: one flat exact #FF00FF background across all cells; no floor shadow.
+Subject: Naruto Shippuden-era teenage ninja, same approved face, spiky blond hair, forehead protector, black-and-orange zip jacket, orange trousers, thigh holster and black open-toed sandals.
+Style/medium: crisp hard-edged pixel-art game sprite matching the approved references; no anti-aliasing, blur, gradients or dithering.
+Composition/framing: six equal square cells in a horizontal strip, right-facing 3/4 view, airborne full figure visible in each cell. Use same body/head scale in every pose. Keep every pixel inside x=4..251 and preserve clear gaps between figures.
+Lighting/mood: consistent flat game-sprite lighting; fierce expression during the strike.
+Color palette: use the approved Naruto palette, no new colors.
+Materials/textures: clean pixel clusters and crisp dark outlines.
+Text (verbatim): none.
+Constraints: f0 matches airHeavy f0 air startup (arms raised, torso arched, knees tucked). f1 is a compact overhead windup, lifting the right heel or bringing both fists above the head. f2 makes a clear downward-forward strike into [219,178,29,26] within 24 pixels in final 256-cell coordinates; f3 continues the strike into [224,187,27,26] within 24 pixels. Make the hand or heel the visibly low-forward contact point; do not leave the strike about 50 pixels behind the base hammer. f4 folds the strike limb and rebounds. f5 returns to airHeavy f5 recovery. Head size must remain constant across all six frames. Preserve anatomy and clothing volume; do not resize individual poses.
+Avoid: horizontal punch or kick that does not come down, clasped-hands-only strike with no visible impact limb, oversized head, head-size jump between frames, cropped figure, floor contact, detached effects, text, labels, borders, watermark, extra frames, extra characters.

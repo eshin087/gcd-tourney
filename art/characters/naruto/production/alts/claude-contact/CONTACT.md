@@ -94,3 +94,16 @@ Nine alts ship, each with its base's hit and hurt boxes: light1Alt, light3Alt, l
 airLight2Alt, airLight3Alt, hurtHighAlt, hurtLowAlt. Atlas: sheet sha256
 `1ee677ccd32d74e54a8975b36f7e13f3129d6dc7e3b02d19aaf591a4ed669db7`, anims.json sha256
 `f858b7f36cf590c64e5489c473c4aaf5983fc0ec1d6f5ce4bb3ef22522914f9b`.
+
+# Round 5 (2026-10-15): loose ends, light2Alt v05 and airHeavyAlt v04
+
+| alt | Claude change | result |
+|---|---|---|
+| light2Alt v05 (palm strike) | bodyHeight 185 -> 165 (`raw/light2Alt_v05.json`); `hitboxes.json` light2Alt f2/f3 on the drawn palm (visual check only) | head 0.995 (frames 0.98-1.05; it was 1.128 uniform). The palm lands 9-13 px short of and 18 px under light2's hit on both active frames, inside 24 px. At the calibrated size the auto finder read the strike at knee height, hence the measured box |
+| airHeavyAlt v04 (double-fist smash) | bodyHeight 183 -> 170, frameOffsets f3 +40 / f4 +30 px (`raw/airHeavyAlt_v04.json`); `hitboxes.json` airHeavyAlt f2/f3 on the drawn fists; manifest `scaleExemptFrames` f2/f3 (v4) | f0/f1/f4/f5 heads 0.97-1.01. The foot-centred placement read the low f3 fists as feet and set f3/f4 back; with the offsets the head path (126-133-186-205-204-170) follows airHeavy's (129-122-187-204-208-170) and the fists land within 14 px (f2) and about 10 px (f3) of airHeavy's hit. f2/f3's probe reading (1.07-1.10) is the orange sleeve highlights in the hair colour range during the smash, the same as the approved airHeavy's f2/f3 |
+
+For the user's review: airHeavyAlt v04 is a double-fist smash like the base airHeavy (Claude's brief suggested that technique), so it reads as a variant of the same hammer more than a new move (overhead wind-up, crouched smash, no arc trail).
+
+Pack: `node tools/pack-sprites.mjs naruto --quantize 48`, gate 1 ref, 44 ok, 7 manual, 1 unmeasured (spin, approved and untouched); eleven alts ship with their bases' boxes. The strict run fails only on that untouched spin.
+
+Atlas: sheet sha256 `dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c`, anims.json sha256 `9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b`.
