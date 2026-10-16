@@ -99,7 +99,14 @@ const writeJson = (file, value) => {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   // Write then rename, so the watcher never reads half a file.
   fs.writeFileSync(`${file}.tmp`, JSON.stringify(value, null, 2));
-  fs.renameSync(`${file}.tmp`, file);
+  // Windows refuses a rename onto a file another process is reading at that instant (EPERM/EBUSY/EACCES): with a
+  // desk and several lane watchers polling the same folder this happens, so retry briefly instead of crashing.
+  for (let attempt = 0; ; attempt++) {
+    try { fs.renameSync(`${file}.tmp`, file); return; } catch (err) {
+      if (!['EPERM', 'EBUSY', 'EACCES'].includes(err.code) || attempt >= 20) throw err;
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 25);
+    }
+  }
 };
 const log = (lane, event) => {
   fs.mkdirSync(laneDir(lane), { recursive: true });

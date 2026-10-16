@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: relay watchers no longer crash on Windows when a state file is renamed while another watcher reads it (EPERM/EBUSY); the write retries briefly (TOOL-049).
+
 - Changed: one central chat (OPS-016): the Claude chat `0 - Approvals` now also gives the status overview, forwards the user's instructions to Codex chats and runs the reset after chats are deleted; the Codex control chat "0 - G", its attention monitor (OPS-014) and `$gcdtourney-attention` (OPS-015) are retired. Codex chats never ask the user; they ring `--for user` and stop.
 
 - Added: explicit-only `$gcdtourney-attention` project skill to run the multi-chat status check immediately and update or pause the existing bounded monitor (OPS-015).
