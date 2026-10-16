@@ -41,6 +41,19 @@ approved; until then do the two backdrops and mark the cutouts blocked (ring the
 needs the user).
 - [x] 1. Goku and Luffy title-style refs were already user-approved; generated and filed all eight v01 candidates within their call budgets; Astra audited four cutouts and the review gallery plus PR #131 preview were published. All eight await user decisions through the approvals desk (2026-10-16).
 
+## Goku: two redraw calls authorized (2026-10-16, relay #9) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER DECISION via Claude:** "light3: B: one redraw call. heavy: B: one redraw call."
+Exactly one redraw call each for held light3 v09 and heavy v11, keeping the intended pose inside the frame
+at Goku's true size (approved idle density). Failed calls count. This is call permission, not image approval.
+
+- [x] Record permission and dispatch Luna/medium in the existing `.worktrees/art-goku-core`, PR #123.
+- [ ] Generate one correction per move, preserve every version, record cumulative attempts and exact source
+  provenance; assemble at measured density and have Astra/medium audit the actual final quantized frames.
+- [ ] Publish committed preview and root fighter review rows, commit handoff, then ring `goku-luffy --for user
+  --kind approval` with the direct preview and exact versions/technical holds. No further redraw is authorized.
+
+---
 ## Luffy: three repair calls authorized (2026-10-16, relay #8) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **USER DECISION via Claude:** "Fix down, Fix getup, Fix special (4th call)". This authorizes exactly one new call
