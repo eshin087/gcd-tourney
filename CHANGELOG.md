@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(sasuke): record user visual approval of beamFire v07, dash v07, superDash v07; retain technical evidence and unrelated holds.
+
 - art(sasuke): jumpSquat — User approved v07 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
 
 - Sasuke round4: file jumpSquat v07 from the single authorized arm-repair call; exact generation event and SHA256 recorded, candidate awaits review and packed anatomy QA.
