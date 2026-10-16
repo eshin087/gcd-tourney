@@ -80,3 +80,17 @@ non-alt strip). Ten alts, every one at head 1.022-1.059 and every one carrying i
 alt warning left is light2Alt's visual offset (the kick lands about 28 px under and 32 px past light2's fist; contact
 is light2's). Atlas: sheet sha256 `68dc54555c32184ea69b02b8bc3ea2df2c7e32ebf2f86a1184aa3055cf61ba3e`, anims.json sha256
 `1e4669fab67b71a3400d03cdc351b997560de183f861ccbda14dc98ea921a047`.
+
+# Round 4 (2026-10-15): light2Alt held as the user decided
+
+The user kept light2Alt v04 held (its one repair call left the kick 27-28 px under light2's contact). Holding only v04
+would have shipped v03 (the same low kick, unapproved), so every light2Alt version, v01 to v04 with their sidecars, is
+now in `raw/_qa_hold/` (moved byte for byte with `git mv`). The packer packs no light2Alt and the game plays the base
+light2 in that slot (ADR 0031), like airHeavyAlt. `raw/light2Alt_02-03_fix01.png` (Codex's repair part, not a `_vNN`
+version) stays where it is; the packer ignores it.
+
+Pack: `node tools/pack-sprites.mjs naruto --quantize 48`, gate 1 ref, 42 ok, 7 manual, 1 unmeasured (a non-alt strip).
+Nine alts ship, each with its base's hit and hurt boxes: light1Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt,
+airLight2Alt, airLight3Alt, hurtHighAlt, hurtLowAlt. Atlas: sheet sha256
+`1ee677ccd32d74e54a8975b36f7e13f3129d6dc7e3b02d19aaf591a4ed669db7`, anims.json sha256
+`f858b7f36cf590c64e5489c473c4aaf5983fc0ec1d6f5ce4bb3ef22522914f9b`.
