@@ -15,6 +15,47 @@ How it works:
 
 ---
 
+## Goku core animations (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**Do this after "Luffy core calibration fixes" is handed back.** **Goal:** Goku's 22 remaining CORE strips exist as
+review-ready candidates on one branch, so Claude can calibrate them and the user can review one preview. **Done when**
+items 1-5 are ticked; then add a handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, per-strip
+version, calls used, scale-gate result, Astra verdict, preview link) and run
+`node tools/relay.mjs ring goku-luffy --note "<one line>"`. Luna/medium; Astra/medium for the final audit.
+
+Approved anchors (PR #94): reference/title_style_draft.png (v02), model_sheet.png (v02), expressions.png (v02) and
+idle_approved.png (idle v02; Claude calibrated it: idle bodyHeight 233, packs at x1, see
+art/characters/goku/production/claude-calibration-20261015.md). Moveset and poses: art/characters/goku/KIT.md §2.
+
+Lessons from Luffy's batch (art/characters/luffy/production/claude-calibration-20261015/CALIBRATION.md):
+- Draw every strip at the approved idle's density. If a stitched part's head can't be measured, don't trust the
+  stitch tool's factor: measure hat/hair-top-to-sole on both parts and pass `--factor` with `--landmarks` and
+  `--uncertainty` (Luffy light4 got 0.43 instead of 0.84).
+- Assemble whole figures only: no divider lines, no frame cut at a seam, no frame redrawn in a different style.
+- Check a one-scale contact sheet (idle f0 beside every frame, lines at the idle's top and y240) before handing back.
+- The probe reads Goku's gold hair well (unlike Luffy's hat), so a scale-gate failure here is more likely a real
+  size error than a misread: fix it, don't exempt it.
+- Leave `bodyHeight` and other calibration fields to Claude; report each strip's measured height instead.
+
+- [ ] 1. From the main checkout: `npm run pr -- start art/goku-core --art goku` (dev port 5241). Work only there.
+- [ ] 2. Generate the 22 CORE strips in art/manifest.json step order: run; light1-4, heavy, airLight1, airHeavy;
+  guard, hurtHigh, launched, down, getup; charge, beamCharge, beamFire, special; dash, jumpUp, jumpFall, land, win.
+  Each the next free `raw/<anim>_vNN.png`, at most 3 calls per strip (failed ones count). Kamehameha: beamCharge
+  cupped hands at the hip, beamFire both palms thrust forward; no beam, aura or ki in any sprite.
+- [ ] 3. `node tools/pack-sprites.mjs goku --quantize 48`; fix scale-gate failures within the budget, then
+  `npm run scale -- goku` and the one-scale contact sheet. Strips that still fail go to `raw/_qa_hold/` with the reason.
+- [ ] 4. Astra/medium audits every frame and loop of the packed atlas against the approved neutral and combat cells
+  (head and hair, torso, limbs, build, gi volume). Luna fixes holds within budget; Astra rechecks.
+- [ ] 5. Commit, `npm run pr -- open` and `npm run pr -- preview`; review rows in art/characters/goku/REVIEW_ROWS.md
+  (`needs review`) and the PR body.
+
+Rules: edit only art/characters/goku/**, the goku block of art/manifest.json and the "## goku" section of
+art/TRACKER.md. Not art/REVIEW.md, CHANGELOG.md, docs/TASKS.md, docs/NOW.md, src/, tools/, other fighters or public/
+on main. No merge, no production deploy, no approvals. Blocked: write BLOCKED under the item and in NOW.md, tell the
+user and do not ring.
+
+---
+
 ## Luffy core calibration fixes (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **Goal:** every Luffy core strip that doesn't need a new image is fixed or carries a recorded manual size check, so
