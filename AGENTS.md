@@ -289,6 +289,20 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
      worktree root, change the user's global Worktree root, or reject an app-managed worktree because it is outside
      this repository. Verify the actual returned path before using it. Audit existing worktrees for uncommitted and
      ignored files before moving, removing or archiving them.
+- **Storage hygiene (user request, 2026-10-15; OPS-013).** The project lives on a small USB drive; clean up what a
+  finished task leaves behind. Details: [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md#storage-hygiene-2026-10-15-ops-013).
+  1. After `npm run pr -- merge`, the coordinator runs `npm run pr -- prune` and archives the app-managed worktree of
+     every merged branch through its app (worktree rule 5). A `.worktrees/` folder that is no longer a registered
+     worktree (an empty shell, an old plain copy) is listed by `prune --dry-run` and deleted once it holds nothing unique.
+  2. When a task ends, delete its worktree's `node_modules/` and `dist/` (reinstall and rebuild are cheap).
+  3. Scratch (PR body `.md` files, one-off `.cjs`/`.mjs` helpers, QA comparison PNGs, `.tmp/`) goes in your own
+     scratch or temp folder, never the project root, `.worktrees/` or `deliverables/`. Anything in `deliverables/`
+     is deleted once the user has it.
+  4. A `_preserved-*` or `_codex-scratch-*` folder must hold a `README.md` saying why it is kept, what in it is
+     unique and a review-by date. Past that date it is reviewed and removed (or its README renewed with a reason).
+  5. Hygiene never touches `art/**/raw/` or any versioned `_vNN` input, approved art, unmerged commits or another
+     agent's uncommitted work. Deleting anything beyond rules 1-3's routine outputs needs the user's yes through the
+     approvals desk (Claude ADR 0039; Codex rings `--for user --kind decision`).
 - **The main folder is merge-only.** Never leave uncommitted work there (git can't merge over it); docs-only and
   bookkeeping commits there go in right away. `docs/NOW.md` and `docs/agents/CODEX_INBOX.md` are edited only on
   `main`, never in a branch. Read the moveset from `art/characters/<id>/KIT.md`; ask Claude to change a move there

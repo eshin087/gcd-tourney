@@ -352,3 +352,42 @@ Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
 - The project-local `.worktrees/art-scale-fix-killua` has three commits not reachable from `main` (`6a0ca36`, `4bdf784`, `c696807`). Preserve it. Its `.git` pointer already references E, but Git status in that checkout fails on ancestor `E:/Vibe Coding`; dirty state is unverified.
 - `pr prune --dry-run` found no clean merged branch worktrees eligible for removal. It separately reported eleven archive/residual directories under `.worktrees`; those are not registered Git worktrees. Preserve candidates and archived scratch until their contents are reviewed. No move, deletion or prune was performed.
 - Project permission configuration remains unchanged. The earlier suggestion to grant the external Gojo checkout is superseded by project-local worktree storage. Native Git creation/access still needs a successful real-worktree test; changing storage preference alone is not proof that the sandbox issue is fixed.
+
+## Storage hygiene (2026-10-15, OPS-013)
+
+The user asked that the project stop growing with leftovers: it lives on an exFAT USB SSD
+(`E:\Vibe Coding`), where a full worktree is about 1.3-3.5 GB and every `dist/` about 0.6 GB. The short rules
+are in CLAUDE.md and AGENTS.md; this is the recipe behind them.
+
+**What each role cleans.**
+
+| Leftover | Who | When | How |
+|---|---|---|---|
+| Merged helper worktree | coordinator | after `npm run pr -- merge` | the merge removes it; then `npm run pr -- prune` (dry run first) |
+| Merged app-managed worktree | coordinator | after its merge | archive it through the Codex/Claude app (worktree rule 5), after auditing its dirty and ignored files |
+| Unregistered `.worktrees/<name>` folder (empty shell after a Windows removal, old plain copy) | coordinator | when `prune --dry-run` lists it | delete once it holds nothing unique (see the audit below) |
+| A worktree's `node_modules/`, `dist/` | the task's owner | when the task ends (merged, abandoned or handed over) | delete both; `npm install` / `npm run build` recreate them |
+| Scratch: PR bodies, one-off helpers, QA PNGs, `.tmp/` | whoever made it | as it is made | write it to the agent's own scratch/temp folder from the start |
+| `deliverables/<item>` | whoever made it | once the user confirms they have it | delete it |
+| `_preserved-*`, `_codex-scratch-*` | coordinator | on the review-by date in its README | review, then delete or renew the README with a reason |
+
+**Never touched by hygiene:** `art/**/raw/` and every `_vNN` input (ADR 0007), `_qa_hold/`, approved art and its
+packs, commits not reachable from `main`, and another agent's uncommitted work. Deleting anything outside the
+routine rows above (`node_modules/`, `dist/`, empty shells, your own scratch) needs the user's yes through the
+approvals desk (ADR 0039).
+
+**Audit before deleting a folder.** For each candidate: `git worktree list` (is it registered?), the branch's merge
+commit on `main` (`git log main --merges --grep "<branch>"`), `git status --porcelain` for a registered one, and
+whether any PNG in it is missing from git: `find <dir> -name '*.png' | git hash-object --stdin-paths | git
+cat-file --batch-check | grep missing`. A missing PNG named `raw/*_vNN.png` is a versioned input: keep it, or
+commit it on its branch, before anything else. Measure sizes per folder in the background (`du -sm`); `du` on the
+exFAT drive is slow.
+
+**Preserved-folder README template.**
+
+```
+Kept because: <why>
+Unique content: <files not in git, or "none; everything is committed">
+Owner: <chat or agent>
+Review by: <YYYY-MM-DD, at most 14 days out>
+```

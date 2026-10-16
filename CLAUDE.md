@@ -225,6 +225,26 @@ The docs-only/main exceptions below still apply.
    this repository. Verify the actual returned path before using it. Audit existing worktrees for uncommitted and
    ignored files before moving, removing or archiving them.
 
+### Storage hygiene (user request, 2026-10-15; OPS-013)
+
+The project lives on a small USB drive, so agents clean up what a finished task leaves behind. Details and the
+audit recipe: [AI_COLLABORATION.md](docs/AI_COLLABORATION.md#storage-hygiene-2026-10-15-ops-013).
+
+1. After `npm run pr -- merge`, the coordinator runs `npm run pr -- prune` and archives the app-managed worktree
+   of every merged branch through its app (worktree rule 5). A folder left in `.worktrees/` that is no longer a
+   registered worktree (an empty shell after a removal, an old plain copy) is listed by `prune --dry-run` and
+   deleted once it holds nothing unique.
+2. When a task ends, delete its worktree's `node_modules/` and `dist/` (reinstall and rebuild are cheap). Main's
+   `dist/` is a build output too; `npm run deploy` builds its own clean export.
+3. Agent scratch (PR body `.md` files, one-off `.cjs`/`.mjs` helpers, QA comparison PNGs, `.tmp/`) goes in the
+   agent's own scratch or temp folder, never the project root, `.worktrees/` or `deliverables/`. Anything in
+   `deliverables/` is deleted once the user has it.
+4. A `_preserved-*` or `_codex-scratch-*` folder must hold a `README.md` saying why it is kept, what in it is
+   unique and a review-by date. Past that date it is reviewed and removed (or its README renewed with a reason).
+5. Hygiene never touches `art/**/raw/` or any versioned `_vNN` input (ADR 0007), approved art, unmerged commits or
+   another agent's uncommitted work. Deleting anything beyond rules 1-3's routine outputs needs the user's yes,
+   asked through the approvals desk (ADR 0039).
+
 ### Code and integration rules
 
 0. **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).

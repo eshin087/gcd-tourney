@@ -11,6 +11,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: explicit-only `$gcdtourney-attention` project skill to run the multi-chat status check immediately and update or pause the existing bounded monitor (OPS-015).
+
+- Added: storage hygiene rule (OPS-013, CLAUDE.md, AGENTS.md, docs/AI_COLLABORATION.md): after a merge the coordinator prunes merged and unregistered worktree folders, a finished task deletes its `node_modules/` and `dist/`, agent scratch stays out of the project, `deliverables/` empties once the user has them, and `_preserved-*` folders carry a README with a review-by date; versioned `_vNN` art, approved art and unmerged commits are never touched.
+
 - Changed: the approvals desk command is `/approvals` (was `/desk`); desk questions must name the asking chat, say exactly what a yes approves and link the preview itself; the desk keeps one bounded background watcher and never restarts it in a loop (TOOL-047, ADR 0039).
 
 - Changed: the control-chat monitor backs off according to progress, pauses on completion/user-only waits/stalls, and retains a fixed four-hour maximum session expiration; no endless five-minute loop (OPS-012).
