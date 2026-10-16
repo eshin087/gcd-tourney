@@ -15,6 +15,17 @@ Read this from the main checkout at the start of every Codex or Claude session, 
   `--for user --kind approval|decision|blocked` when the user must act, and other Claude chats queue with
   `relay ask`; both land in `node tools/relay.mjs asks`. The control chat lists the same decision, review link
   and holds and points the user to `0 - Approvals`; it does not create a competing approval request.
+- **The control chat never asks the user to approve or decide** (user decision 2026-10-15: one true central
+  approver). It forwards instead, on its own relay lane `control`:
+  1. Run `node tools/relay.mjs asks` first. If the item is already there (a worker rang `--for user`), do nothing
+     but tell the user "waiting in Claude 0 - Approvals".
+  2. Otherwise run `node tools/relay.mjs ring control --for user --kind approval|decision|blocked --note "for lane
+     <worker lane or none>: <what exactly; versions; holds>; <direct preview link>"`, then stop on that item.
+  3. The answer comes back as `[relay control #N] USER APPROVAL|REJECTION|DECISION via Claude`. The desk sends the
+     same answer straight to the named worker lane too, so the control chat only records it; it never re-relays an
+     approval to a worker itself (workers accept only the desk's relay or the user's own words).
+  If the user volunteers an approval in this chat, that is still their own words: pass it on with the step-2 ring
+  quoting them, so the desk records and relays it.
 - Branches, commits, versioned candidates, REVIEW/manifest, and CLAUDE_ART_HANDOFF preserve work.
   `docs/NOW.md` is the durable next-actions page. `.relay/lanes.json` is the machine-local worker mapping;
   use the relay CLI to maintain it rather than editing it by hand. Never store credentials here.

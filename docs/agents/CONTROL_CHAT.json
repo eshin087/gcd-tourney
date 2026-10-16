@@ -6,6 +6,8 @@
   "titleAtRegistration": "0 - G",
   "registeredOn": "2026-10-15",
   "procedure": "docs/COORDINATION.md",
+  "relayLane": "control",
+  "approvals": "Never asks the user; forwards to the Claude desk '0 - Approvals' with relay ring control --for user (ADR 0039).",
   "monitor": {
     "id": "gcd-tourney-attention-queue",
     "name": "GCD Tourney attention queue",

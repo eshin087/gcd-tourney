@@ -84,7 +84,11 @@ but never answers it. Run every relay command from the main checkout (find it wi
    `node tools/relay.mjs answer <id> --user-approved|--user-rejected|--user-decision "<what, versions>" --quote "<their answer>" [--note "<their feedback>"]`.
    For a Codex ask this sends it to the lane. For a Claude chat's ask the command prints the message; deliver it
    with SendMessage to the `local_...` session it names (or find the chat by its title with `list_sessions`).
-   "Hold" is a decision: relay it with `--user-decision`. A stale ask: `answer <id> --dismiss "<why>"`.
+   "Hold" is a decision: relay it with `--user-decision`.
+   An ask from lane `control` (the Codex control chat "0 - G", COORDINATION.md) whose note starts "for lane <x>":
+   answer it as usual (that tells the control chat), then also send the same answer to lane x with
+   `relay send <x> --user-approved|--user-rejected|--user-decision "<what>" --quote "<their answer>"`, because workers
+   accept approvals only from the desk. A stale ask: `answer <id> --dismiss "<why>"`.
 5. Unpin this chat when `asks` shows nothing open, then start the watcher again (see the rules below).
 
 ## Rules
