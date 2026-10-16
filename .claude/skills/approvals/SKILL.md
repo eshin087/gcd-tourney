@@ -47,9 +47,12 @@ monitor are retired, so status and forwarding are yours too. Run every relay com
 3. Ask with **AskUserQuestion**, one question per ask (up to 4 per box; several image strips can be one multi-select
    question). Every question uses this shape, so it reads on a phone without context (user rule, 2026-10-15):
    - **header** = the asking chat, short ("Effects", "Gojo run", "Scale").
-   - **Links never go only in the box** (user rule, 2026-10-16): the box is plain text and its URLs can't be clicked,
-     selected or copied. Before every question box, write a short chat message with each link as a clickable
-     markdown link, numbered `[L1]`, `[L2]` ...; in the box, LOOK just names it ("open link L1 in the chat above").
+   - **Links never go in the box** (user rule, 2026-10-16): the box is plain text, its URLs can't be clicked,
+     selected or copied, and while it is open it covers the chat, so links written just before it can't be reached
+     either. So for anything the user must look at (art, previews, demos): end the turn with a normal message that
+     lists each item and its clickable markdown link, numbered `[L1]`, `[L2]` ..., and ask for the answer with the
+     next-step box buttons (wrap_up actions, e.g. "Approve both" / "Feedback") or a short typed reply ("approve
+     L2, redo L3: ..."). Use the question box only for decisions that need no link, or after the user has looked.
    - The box shows plain text: markdown does not render (raw asterisks), and line breaks do. Use this
      layout, which the user approved on 2026-10-15: an emoji + CAPS label on its own line, the content on the lines
      below, a blank line between sections, one item per numbered line, holds as `•` bullets, short words (no
