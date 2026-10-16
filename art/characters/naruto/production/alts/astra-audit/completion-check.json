@@ -1,0 +1,12 @@
+{
+  "frozenHashesUnchanged": {
+    "frozen\\naruto-alt-base-paired-native.png": true,
+    "frozen\\audit-manifest.json": true,
+    "frozen\\approved-contact-deltas.json": true,
+    "frozen\\packed\\characters\\naruto\\sheet.png": true,
+    "frozen\\packed\\characters\\naruto\\anims.json": true
+  },
+  "anatomyFrameCount": 65,
+  "verdictCount": 11,
+  "allHold": true
+}

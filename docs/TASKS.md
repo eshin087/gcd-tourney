@@ -376,3 +376,6 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 | CHAR-luffy-balance | Six-fighter CPU round-robin with Luffy; Gigant Pistol cell margins on his drawn beamCharge/beamFire | Claude | todo | after his core art lands |
 
 | ART-R5-APPROVE-KILLUA | Record round5 user decisions | Codex | review | User approved guard v09, idle v11, superDash v08 as drawn. Claude owns integration checks; no merge/deploy by Codex. |
+| ART-DECISION-NARUTO-20261015 | light2Alt v4 user decision | Codex | review | User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized. Claude owns remaining technical checks. |
+
+| ART-R5-APPROVE-NARUTO-ALTS | Record round5 user decisions | Codex | review | User approved airLight1Alt v01, airLight2Alt v01, airLight3Alt v01, heavyAlt v02, hurtHighAlt v01, hurtLowAlt v01, light1Alt v01, light3Alt v02, light4Alt v01 as drawn. Claude owns integration checks; no merge/deploy by Codex. |

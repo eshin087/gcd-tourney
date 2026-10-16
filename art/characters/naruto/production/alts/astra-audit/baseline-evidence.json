@@ -1,0 +1,2000 @@
+{
+  "sha256": {
+    "sheet.png": "8d33ba2116321822db29f76c6e6edd3433c155775e5cb599b3f1774aa2effe53",
+    "anims.json": "334f92a6cf8237e83c664ea5c7b384ee3291d85ce509d39903d62f7c377abe7b"
+  },
+  "animations": {
+    "idle": {
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true,
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 0,
+          "boundsExclusive": [
+            58,
+            76,
+            200,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                84,
+                83,
+                90,
+                158
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 1,
+          "boundsExclusive": [
+            58,
+            80,
+            200,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                84,
+                86,
+                90,
+                155
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 2,
+          "boundsExclusive": [
+            58,
+            78,
+            201,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                84,
+                85,
+                91,
+                156
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 3,
+          "boundsExclusive": [
+            58,
+            79,
+            200,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                84,
+                85,
+                90,
+                156
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 4,
+          "boundsExclusive": [
+            60,
+            81,
+            198,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                85,
+                87,
+                88,
+                154
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 5,
+          "boundsExclusive": [
+            60,
+            81,
+            197,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                85,
+                87,
+                87,
+                154
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 6,
+          "boundsExclusive": [
+            62,
+            81,
+            196,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                86,
+                87,
+                86,
+                154
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 7,
+          "boundsExclusive": [
+            60,
+            82,
+            197,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                85,
+                88,
+                87,
+                153
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "light1": {
+      "frames": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "durations": [
+        30,
+        30,
+        40,
+        50,
+        50,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 30,
+          "boundsExclusive": [
+            65,
+            68,
+            194,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                88,
+                75,
+                83,
+                166
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 31,
+          "boundsExclusive": [
+            63,
+            68,
+            199,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                87,
+                75,
+                88,
+                166
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 32,
+          "boundsExclusive": [
+            62,
+            68,
+            217,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                90,
+                75,
+                99,
+                166
+              ]
+            ],
+            "hit": [
+              [
+                189,
+                99,
+                31,
+                22
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 33,
+          "boundsExclusive": [
+            62,
+            68,
+            211,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                89,
+                75,
+                95,
+                166
+              ]
+            ],
+            "hit": [
+              [
+                189,
+                101,
+                25,
+                20
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 34,
+          "boundsExclusive": [
+            61,
+            75,
+            197,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                85,
+                82,
+                88,
+                159
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 35,
+          "boundsExclusive": [
+            59,
+            74,
+            199,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                84,
+                81,
+                90,
+                160
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 36,
+          "boundsExclusive": [
+            64,
+            73,
+            196,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                88,
+                80,
+                84,
+                161
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "light2": {
+      "frames": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "durations": [
+        35,
+        30,
+        40,
+        50,
+        60,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 37,
+          "boundsExclusive": [
+            62,
+            64,
+            193,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                86,
+                71,
+                83,
+                170
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 38,
+          "boundsExclusive": [
+            62,
+            68,
+            194,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                86,
+                75,
+                84,
+                166
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 39,
+          "boundsExclusive": [
+            58,
+            64,
+            220,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                87,
+                71,
+                104,
+                170
+              ]
+            ],
+            "hit": [
+              [
+                189,
+                84,
+                34,
+                26
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 40,
+          "boundsExclusive": [
+            58,
+            64,
+            211,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                86,
+                71,
+                97,
+                170
+              ]
+            ],
+            "hit": [
+              [
+                190,
+                86,
+                24,
+                21
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 41,
+          "boundsExclusive": [
+            55,
+            57,
+            200,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                81,
+                64,
+                93,
+                177
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 42,
+          "boundsExclusive": [
+            56,
+            56,
+            199,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                82,
+                63,
+                91,
+                178
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 43,
+          "boundsExclusive": [
+            56,
+            56,
+            200,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                82,
+                63,
+                92,
+                178
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "light3": {
+      "frames": [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "durations": [
+        40,
+        35,
+        45,
+        60,
+        60,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 44,
+          "boundsExclusive": [
+            107,
+            45,
+            192,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                122,
+                53,
+                55,
+                188
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 45,
+          "boundsExclusive": [
+            95,
+            46,
+            185,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                111,
+                54,
+                58,
+                187
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 46,
+          "boundsExclusive": [
+            89,
+            49,
+            242,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                117,
+                57,
+                97,
+                184
+              ]
+            ],
+            "hit": [
+              [
+                189,
+                102,
+                56,
+                44
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 47,
+          "boundsExclusive": [
+            96,
+            47,
+            251,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                124,
+                55,
+                99,
+                186
+              ]
+            ],
+            "hit": [
+              [
+                189,
+                98,
+                65,
+                47
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 48,
+          "boundsExclusive": [
+            92,
+            45,
+            183,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                108,
+                53,
+                59,
+                188
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 49,
+          "boundsExclusive": [
+            73,
+            45,
+            189,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                94,
+                53,
+                74,
+                188
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 50,
+          "boundsExclusive": [
+            67,
+            45,
+            194,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                90,
+                53,
+                81,
+                188
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "light4": {
+      "frames": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "durations": [
+        50,
+        45,
+        35,
+        40,
+        70,
+        70,
+        70,
+        40
+      ],
+      "loop": false,
+      "phases": [
+        3,
+        2,
+        3
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 51,
+          "boundsExclusive": [
+            56,
+            56,
+            200,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                82,
+                63,
+                92,
+                178
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 52,
+          "boundsExclusive": [
+            68,
+            49,
+            178,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                88,
+                57,
+                70,
+                184
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 53,
+          "boundsExclusive": [
+            64,
+            56,
+            225,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                93,
+                63,
+                103,
+                178
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 54,
+          "boundsExclusive": [
+            50,
+            55,
+            244,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                85,
+                62,
+                124,
+                179
+              ]
+            ],
+            "hit": [
+              [
+                213,
+                88,
+                33,
+                19
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 55,
+          "boundsExclusive": [
+            52,
+            55,
+            244,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                87,
+                62,
+                122,
+                179
+              ]
+            ],
+            "hit": [
+              [
+                189,
+                87,
+                58,
+                33
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 56,
+          "boundsExclusive": [
+            71,
+            64,
+            184,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                91,
+                71,
+                73,
+                170
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 57,
+          "boundsExclusive": [
+            66,
+            76,
+            192,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                89,
+                83,
+                80,
+                158
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 58,
+          "boundsExclusive": [
+            63,
+            75,
+            193,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                86,
+                82,
+                84,
+                159
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "heavy": {
+      "frames": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "durations": [
+        40,
+        35,
+        30,
+        50,
+        70,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        3,
+        2,
+        3
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 59,
+          "boundsExclusive": [
+            70,
+            88,
+            200,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                93,
+                94,
+                84,
+                147
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 60,
+          "boundsExclusive": [
+            76,
+            107,
+            197,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                98,
+                112,
+                77,
+                129
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 61,
+          "boundsExclusive": [
+            68,
+            71,
+            195,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                91,
+                78,
+                81,
+                163
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 62,
+          "boundsExclusive": [
+            68,
+            49,
+            195,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                91,
+                57,
+                81,
+                184
+              ]
+            ],
+            "hit": [
+              [
+                156,
+                50,
+                24,
+                54
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 63,
+          "boundsExclusive": [
+            106,
+            23,
+            194,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                122,
+                32,
+                56,
+                209
+              ]
+            ],
+            "hit": [
+              [
+                177,
+                21,
+                19,
+                25
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 64,
+          "boundsExclusive": [
+            101,
+            30,
+            193,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                118,
+                38,
+                58,
+                203
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 65,
+          "boundsExclusive": [
+            90,
+            72,
+            187,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                107,
+                79,
+                63,
+                162
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 66,
+          "boundsExclusive": [
+            67,
+            75,
+            196,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                90,
+                82,
+                83,
+                159
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "airLight1": {
+      "frames": [
+        67,
+        68,
+        69,
+        70,
+        71
+      ],
+      "durations": [
+        45,
+        35,
+        50,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        1,
+        2,
+        2
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 67,
+          "boundsExclusive": [
+            117,
+            49,
+            214,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                134,
+                57,
+                63,
+                184
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 68,
+          "boundsExclusive": [
+            117,
+            52,
+            246,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                140,
+                60,
+                83,
+                181
+              ]
+            ],
+            "hit": [
+              [
+                201,
+                87,
+                48,
+                24
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 69,
+          "boundsExclusive": [
+            117,
+            52,
+            238,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                139,
+                60,
+                77,
+                181
+              ]
+            ],
+            "hit": [
+              [
+                197,
+                88,
+                44,
+                22
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 70,
+          "boundsExclusive": [
+            117,
+            49,
+            220,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                136,
+                57,
+                65,
+                184
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 71,
+          "boundsExclusive": [
+            116,
+            49,
+            212,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                133,
+                57,
+                62,
+                184
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "airLight2": {
+      "frames": [
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "durations": [
+        45,
+        40,
+        50,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        1,
+        2,
+        2
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 72,
+          "boundsExclusive": [
+            115,
+            62,
+            204,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                131,
+                69,
+                57,
+                172
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 73,
+          "boundsExclusive": [
+            64,
+            67,
+            242,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                96,
+                74,
+                114,
+                167
+              ]
+            ],
+            "hit": [
+              [
+                189,
+                129,
+                56,
+                30
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 74,
+          "boundsExclusive": [
+            64,
+            67,
+            242,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                96,
+                74,
+                114,
+                167
+              ]
+            ],
+            "hit": [
+              [
+                189,
+                129,
+                56,
+                33
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 75,
+          "boundsExclusive": [
+            98,
+            69,
+            184,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                113,
+                76,
+                56,
+                165
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 76,
+          "boundsExclusive": [
+            115,
+            62,
+            204,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                131,
+                69,
+                57,
+                172
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "airLight3": {
+      "frames": [
+        77,
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "durations": [
+        50,
+        40,
+        50,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 77,
+          "boundsExclusive": [
+            114,
+            49,
+            205,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                130,
+                57,
+                59,
+                184
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 78,
+          "boundsExclusive": [
+            65,
+            103,
+            164,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                83,
+                109,
+                63,
+                132
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 79,
+          "boundsExclusive": [
+            70,
+            73,
+            250,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                102,
+                80,
+                116,
+                161
+              ]
+            ],
+            "hit": [
+              [
+                215,
+                117,
+                31,
+                34
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 80,
+          "boundsExclusive": [
+            70,
+            73,
+            244,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                101,
+                80,
+                112,
+                161
+              ]
+            ],
+            "hit": [
+              [
+                215,
+                117,
+                31,
+                34
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 81,
+          "boundsExclusive": [
+            110,
+            68,
+            194,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                125,
+                75,
+                54,
+                166
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 82,
+          "boundsExclusive": [
+            110,
+            69,
+            197,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                126,
+                76,
+                55,
+                165
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "airHeavy": {
+      "frames": [
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "durations": [
+        50,
+        45,
+        45,
+        70,
+        70,
+        40
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ],
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 83,
+          "boundsExclusive": [
+            71,
+            59,
+            171,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                89,
+                66,
+                64,
+                175
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 84,
+          "boundsExclusive": [
+            50,
+            82,
+            171,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                72,
+                88,
+                77,
+                153
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 85,
+          "boundsExclusive": [
+            85,
+            82,
+            246,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                114,
+                88,
+                103,
+                153
+              ]
+            ],
+            "hit": [
+              [
+                219,
+                178,
+                29,
+                26
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 86,
+          "boundsExclusive": [
+            78,
+            98,
+            251,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                109,
+                104,
+                111,
+                137
+              ]
+            ],
+            "hit": [
+              [
+                224,
+                187,
+                27,
+                26
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 87,
+          "boundsExclusive": [
+            106,
+            82,
+            226,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                128,
+                88,
+                76,
+                153
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 88,
+          "boundsExclusive": [
+            100,
+            58,
+            218,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                121,
+                65,
+                76,
+                176
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "hurtHigh": {
+      "frames": [
+        93,
+        94,
+        95
+      ],
+      "durations": [
+        70,
+        90,
+        100
+      ],
+      "loop": false,
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 93,
+          "boundsExclusive": [
+            52,
+            64,
+            185,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                76,
+                71,
+                85,
+                170
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 94,
+          "boundsExclusive": [
+            63,
+            65,
+            189,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                86,
+                72,
+                80,
+                169
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 95,
+          "boundsExclusive": [
+            68,
+            67,
+            188,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                90,
+                74,
+                76,
+                167
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "hurtLow": {
+      "frames": [
+        96,
+        97,
+        98
+      ],
+      "durations": [
+        70,
+        90,
+        100
+      ],
+      "loop": false,
+      "cells": [
+        {
+          "frame": 0,
+          "atlasIndex": 96,
+          "boundsExclusive": [
+            71,
+            80,
+            198,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                94,
+                86,
+                81,
+                155
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 97,
+          "boundsExclusive": [
+            70,
+            85,
+            190,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                92,
+                91,
+                76,
+                150
+              ]
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 98,
+          "boundsExclusive": [
+            72,
+            71,
+            189,
+            241
+          ],
+          "boxes": {
+            "hurt": [
+              [
+                93,
+                78,
+                75,
+                163
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "references": {
+    "neutral": {
+      "path": "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-alts\\public\\art-review\\title-style-pilot\\naruto-neutral_v01.png",
+      "sha256": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+      "boundsExclusive": [
+        81,
+        36,
+        175,
+        241
+      ]
+    },
+    "combat": {
+      "path": "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-alts\\public\\art-review\\title-style-pilot\\naruto-combat_v01.png",
+      "sha256": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751",
+      "boundsExclusive": [
+        53,
+        76,
+        203,
+        241
+      ]
+    },
+    "idleApproved": {
+      "path": "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-alts\\art\\characters\\naruto\\reference\\idle_approved.png",
+      "sha256": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3"
+    }
+  },
+  "frameTablesSha256": "e72cb39448bad5186e21c40f48f41f35ab9a6e411ca208d09d3cbb66d1970022",
+  "manifestVersions": {
+    "idle": {
+      "version": 7,
+      "approvedVersion": 7,
+      "bodyHeight": 165
+    },
+    "light1": {
+      "version": 4,
+      "approvedVersion": 4,
+      "bodyHeight": 173
+    },
+    "light2": {
+      "version": 6,
+      "approvedVersion": 6,
+      "bodyHeight": 185
+    },
+    "light3": {
+      "version": 4,
+      "approvedVersion": 4,
+      "bodyHeight": 196
+    },
+    "light4": {
+      "version": 8,
+      "approvedVersion": 8,
+      "bodyHeight": 192
+    },
+    "heavy": {
+      "version": 12,
+      "approvedVersion": 12,
+      "bodyHeight": 218
+    },
+    "airLight1": {
+      "version": 6,
+      "approvedVersion": 6,
+      "bodyHeight": 192
+    },
+    "airLight2": {
+      "version": 5,
+      "approvedVersion": 5,
+      "bodyHeight": 179
+    },
+    "airLight3": {
+      "version": 9,
+      "approvedVersion": 9,
+      "bodyHeight": 192
+    },
+    "airHeavy": {
+      "version": 9,
+      "approvedVersion": 9,
+      "bodyHeight": 183
+    },
+    "hurtHigh": {
+      "version": 4,
+      "approvedVersion": 4,
+      "bodyHeight": 177
+    },
+    "hurtLow": {
+      "version": 3,
+      "approvedVersion": 3,
+      "bodyHeight": 170
+    }
+  }
+}

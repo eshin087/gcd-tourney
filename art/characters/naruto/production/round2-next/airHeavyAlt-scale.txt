@@ -1,0 +1,7 @@
+
+== naruto: idle head 29x19 px (declared palette #fcb540)
+   1 ref, 1 pop
+   airHeavyAlt     v02  head  -2%  feet -38%  POP      f: 0.93 0.90 1.09 1.16 0.97 1.00
+   wrote art\characters\naruto\production\round2-next\scale-airHeavyAlt\heads-naruto.png
+
+[scale] 1 flagged strip(s); wrote art\characters\naruto\production\round2-next\scale-airHeavyAlt\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md

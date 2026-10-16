@@ -135,6 +135,26 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 11 | ui/cutin.png (480x128) | - | - | no | - | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 | 11 | ui/select.png (384x384) | - | - | no | - | approved | v02 | v02 | Title-style v02 approved by the user 2026-10-11 (shown in the final review preview); copied to ui/. |
 
+User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized.
+
+- User approved airLight1Alt v01 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
+- User approved airLight2Alt v01 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
+- User approved airLight3Alt v01 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
+- User approved heavyAlt v02 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
+- User approved hurtHighAlt v01 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
+- User approved hurtLowAlt v01 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
+- User approved light1Alt v01 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
+- User approved light3Alt v02 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
+- User approved light4Alt v01 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
+
 ## sasuke
 
 Round4: superDash v07, beamFire v07, dash v07 need review. jumpSquat v07 is user-approved as drawn; technical HOLD remains; standard strict pack fails because v06 manual QA does not apply. A separate gate-warn diagnostic atlas is filed under `production/round6/diagnostic-v07/`; its head/body scale verdict remains unmeasured. All9 prior strips inspected; numerical joint/skull certification remains inconclusive, SD clips10/4px, strict pack holds JS. Production atlas preserved. [Audit](characters/sasuke/production/round4/SEGMENT_AUDIT.md).
@@ -368,7 +388,7 @@ move into its own section's table when its alts are generated.
 
 | fighter | light1-4 Alt | heavyAlt | airLight1-3 Alt | airHeavyAlt | hurtHigh / hurtLow Alt | notes |
 |---|---|---|---|---|---|---|
-| naruto | todo | todo | todo | todo | todo | pilot (ART-ALTS-NAR) |
+| naruto | 5 candidates: light1Alt v01, light2Alt v01/v02/v03/v04, light3Alt v01/v02, light4Alt v01 | heavyAlt v01/v02 (v02 is byte-identical measured restitch) | 3 candidates: airLight1Alt/2Alt/3Alt v01 | airHeavyAlt v01/v02; v03 held under `raw/_qa_hold/` | hurtHighAlt/HurtLowAlt v01 | ART-ALTS-NAR: light2Alt v04 source repair filed 2026-10-15 under one extra user-authorized imagegen call; local diagnostic pack still reports +30px reach / -30px height contact residual. All candidates await independent anatomy/contact review. airHeavyAlt v03 is quarantined; v02 may remain the highest raw candidate and base fallback is unverified. Claude owns repack/cache/fallback resolution (see production/alts/HOLD_AIRHEAVY_20261015.md). No candidate approved or deployed. |
 | sasuke | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | killua | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | gojo | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |

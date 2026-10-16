@@ -1,0 +1,894 @@
+{
+  "airLight1Alt:0": {
+    "H_hair": {
+      "samplePx": 42.0,
+      "idlePx": 38.0,
+      "pointRatio": 1.105,
+      "landmarkIntervalRatio": [
+        0.905,
+        1.353
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 25.1,
+      "idlePx": 23.0,
+      "pointRatio": 1.091,
+      "landmarkIntervalRatio": [
+        0.781,
+        1.532
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 40.6,
+      "idlePx": 36.3,
+      "pointRatio": 1.118,
+      "landmarkIntervalRatio": [
+        0.818,
+        1.538
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 18.8,
+      "idlePx": 20.5,
+      "pointRatio": 0.917,
+      "landmarkIntervalRatio": [
+        0.483,
+        1.71
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 19.7,
+      "idlePx": 21.1,
+      "pointRatio": 0.934,
+      "landmarkIntervalRatio": [
+        0.506,
+        1.702
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 33.1,
+      "idlePx": 33.8,
+      "pointRatio": 0.979,
+      "landmarkIntervalRatio": [
+        0.64,
+        1.496
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 43.9,
+      "idlePx": 38.6,
+      "pointRatio": 1.137,
+      "landmarkIntervalRatio": [
+        0.809,
+        1.611
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "result": "UNMEASURED"
+    }
+  },
+  "airLight2Alt:1": {
+    "H_hair": {
+      "samplePx": 37.1,
+      "idlePx": 38.0,
+      "pointRatio": 0.976,
+      "landmarkIntervalRatio": [
+        0.788,
+        1.209
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 22.1,
+      "idlePx": 23.0,
+      "pointRatio": 0.961,
+      "landmarkIntervalRatio": [
+        0.67,
+        1.374
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 39.0,
+      "idlePx": 36.3,
+      "pointRatio": 1.074,
+      "landmarkIntervalRatio": [
+        0.78,
+        1.485
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 28.0,
+      "idlePx": 20.5,
+      "pointRatio": 1.366,
+      "landmarkIntervalRatio": [
+        0.83,
+        2.345
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 22.8,
+      "idlePx": 21.1,
+      "pointRatio": 1.081,
+      "landmarkIntervalRatio": [
+        0.62,
+        1.907
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 39.5,
+      "idlePx": 33.8,
+      "pointRatio": 1.169,
+      "landmarkIntervalRatio": [
+        0.797,
+        1.735
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 43.1,
+      "idlePx": 38.6,
+      "pointRatio": 1.117,
+      "landmarkIntervalRatio": [
+        0.792,
+        1.585
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 23.1,
+      "idlePx": 29.0,
+      "pointRatio": 0.797,
+      "landmarkIntervalRatio": [
+        0.579,
+        1.084
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  },
+  "airLight3Alt:2": {
+    "H_hair": {
+      "samplePx": 40.0,
+      "idlePx": 38.0,
+      "pointRatio": 1.053,
+      "landmarkIntervalRatio": [
+        0.857,
+        1.294
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 27.0,
+      "idlePx": 23.0,
+      "pointRatio": 1.174,
+      "landmarkIntervalRatio": [
+        0.852,
+        1.632
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 41.4,
+      "idlePx": 36.3,
+      "pointRatio": 1.14,
+      "landmarkIntervalRatio": [
+        0.837,
+        1.564
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 26.2,
+      "idlePx": 20.5,
+      "pointRatio": 1.278,
+      "landmarkIntervalRatio": [
+        0.762,
+        2.221
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 22.8,
+      "idlePx": 21.1,
+      "pointRatio": 1.081,
+      "landmarkIntervalRatio": [
+        0.62,
+        1.907
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 42.7,
+      "idlePx": 33.8,
+      "pointRatio": 1.263,
+      "landmarkIntervalRatio": [
+        0.875,
+        1.854
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 46.7,
+      "idlePx": 38.6,
+      "pointRatio": 1.21,
+      "landmarkIntervalRatio": [
+        0.871,
+        1.699
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 22.4,
+      "idlePx": 29.0,
+      "pointRatio": 0.772,
+      "landmarkIntervalRatio": [
+        0.558,
+        1.056
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  },
+  "heavyAlt:3": {
+    "H_hair": {
+      "samplePx": 36.1,
+      "idlePx": 38.0,
+      "pointRatio": 0.95,
+      "landmarkIntervalRatio": [
+        0.764,
+        1.179
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 21.2,
+      "idlePx": 23.0,
+      "pointRatio": 0.922,
+      "landmarkIntervalRatio": [
+        0.637,
+        1.326
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 40.1,
+      "idlePx": 36.3,
+      "pointRatio": 1.105,
+      "landmarkIntervalRatio": [
+        0.806,
+        1.521
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 31.9,
+      "idlePx": 20.5,
+      "pointRatio": 1.556,
+      "landmarkIntervalRatio": [
+        0.977,
+        2.614
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 19.7,
+      "idlePx": 21.1,
+      "pointRatio": 0.934,
+      "landmarkIntervalRatio": [
+        0.506,
+        1.702
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 42.4,
+      "idlePx": 33.8,
+      "pointRatio": 1.254,
+      "landmarkIntervalRatio": [
+        0.868,
+        1.843
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 36.9,
+      "idlePx": 38.6,
+      "pointRatio": 0.956,
+      "landmarkIntervalRatio": [
+        0.656,
+        1.389
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 21.4,
+      "idlePx": 29.0,
+      "pointRatio": 0.738,
+      "landmarkIntervalRatio": [
+        0.527,
+        1.016
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  },
+  "hurtHighAlt:2": {
+    "H_hair": {
+      "samplePx": 37.4,
+      "idlePx": 38.0,
+      "pointRatio": 0.984,
+      "landmarkIntervalRatio": [
+        0.795,
+        1.218
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 23.4,
+      "idlePx": 23.0,
+      "pointRatio": 1.017,
+      "landmarkIntervalRatio": [
+        0.719,
+        1.442
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 44.3,
+      "idlePx": 36.3,
+      "pointRatio": 1.22,
+      "landmarkIntervalRatio": [
+        0.905,
+        1.66
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 23.6,
+      "idlePx": 20.5,
+      "pointRatio": 1.151,
+      "landmarkIntervalRatio": [
+        0.664,
+        2.041
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 24.7,
+      "idlePx": 21.1,
+      "pointRatio": 1.171,
+      "landmarkIntervalRatio": [
+        0.69,
+        2.033
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 29.7,
+      "idlePx": 33.8,
+      "pointRatio": 0.879,
+      "landmarkIntervalRatio": [
+        0.556,
+        1.369
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 42.4,
+      "idlePx": 38.6,
+      "pointRatio": 1.098,
+      "landmarkIntervalRatio": [
+        0.776,
+        1.563
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 32.0,
+      "idlePx": 29.0,
+      "pointRatio": 1.103,
+      "landmarkIntervalRatio": [
+        0.848,
+        1.44
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  },
+  "hurtLowAlt:0": {
+    "H_hair": {
+      "samplePx": 41.0,
+      "idlePx": 38.0,
+      "pointRatio": 1.079,
+      "landmarkIntervalRatio": [
+        0.881,
+        1.324
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 27.1,
+      "idlePx": 23.0,
+      "pointRatio": 1.178,
+      "landmarkIntervalRatio": [
+        0.856,
+        1.637
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 37.5,
+      "idlePx": 36.3,
+      "pointRatio": 1.033,
+      "landmarkIntervalRatio": [
+        0.745,
+        1.436
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 24.2,
+      "idlePx": 20.5,
+      "pointRatio": 1.18,
+      "landmarkIntervalRatio": [
+        0.687,
+        2.083
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 22.1,
+      "idlePx": 21.1,
+      "pointRatio": 1.047,
+      "landmarkIntervalRatio": [
+        0.594,
+        1.861
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 30.8,
+      "idlePx": 33.8,
+      "pointRatio": 0.911,
+      "landmarkIntervalRatio": [
+        0.583,
+        1.41
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 39.1,
+      "idlePx": 38.6,
+      "pointRatio": 1.013,
+      "landmarkIntervalRatio": [
+        0.704,
+        1.459
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 33.0,
+      "idlePx": 29.0,
+      "pointRatio": 1.138,
+      "landmarkIntervalRatio": [
+        0.879,
+        1.48
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  },
+  "light1Alt:0": {
+    "H_hair": {
+      "samplePx": 41.0,
+      "idlePx": 38.0,
+      "pointRatio": 1.079,
+      "landmarkIntervalRatio": [
+        0.881,
+        1.324
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 26.0,
+      "idlePx": 23.0,
+      "pointRatio": 1.13,
+      "landmarkIntervalRatio": [
+        0.815,
+        1.579
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 35.2,
+      "idlePx": 36.3,
+      "pointRatio": 0.97,
+      "landmarkIntervalRatio": [
+        0.69,
+        1.36
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 19.1,
+      "idlePx": 20.5,
+      "pointRatio": 0.932,
+      "landmarkIntervalRatio": [
+        0.494,
+        1.731
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 20.1,
+      "idlePx": 21.1,
+      "pointRatio": 0.953,
+      "landmarkIntervalRatio": [
+        0.52,
+        1.728
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 32.4,
+      "idlePx": 33.8,
+      "pointRatio": 0.959,
+      "landmarkIntervalRatio": [
+        0.623,
+        1.47
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 37.9,
+      "idlePx": 38.6,
+      "pointRatio": 0.982,
+      "landmarkIntervalRatio": [
+        0.678,
+        1.421
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 29.0,
+      "idlePx": 29.0,
+      "pointRatio": 1.0,
+      "landmarkIntervalRatio": [
+        0.758,
+        1.32
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  },
+  "light2Alt:2": {
+    "H_hair": {
+      "samplePx": 38.0,
+      "idlePx": 38.0,
+      "pointRatio": 1.0,
+      "landmarkIntervalRatio": [
+        0.81,
+        1.235
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 25.0,
+      "idlePx": 23.0,
+      "pointRatio": 1.087,
+      "landmarkIntervalRatio": [
+        0.778,
+        1.526
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 42.1,
+      "idlePx": 36.3,
+      "pointRatio": 1.16,
+      "landmarkIntervalRatio": [
+        0.853,
+        1.587
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 18.4,
+      "idlePx": 20.5,
+      "pointRatio": 0.898,
+      "landmarkIntervalRatio": [
+        0.468,
+        1.683
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 24.1,
+      "idlePx": 21.1,
+      "pointRatio": 1.142,
+      "landmarkIntervalRatio": [
+        0.668,
+        1.993
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 42.2,
+      "idlePx": 33.8,
+      "pointRatio": 1.249,
+      "landmarkIntervalRatio": [
+        0.863,
+        1.836
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 35.2,
+      "idlePx": 38.6,
+      "pointRatio": 0.912,
+      "landmarkIntervalRatio": [
+        0.618,
+        1.335
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 28.0,
+      "idlePx": 29.0,
+      "pointRatio": 0.966,
+      "landmarkIntervalRatio": [
+        0.727,
+        1.28
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  },
+  "light3Alt:2": {
+    "H_hair": {
+      "samplePx": 40.1,
+      "idlePx": 38.0,
+      "pointRatio": 1.055,
+      "landmarkIntervalRatio": [
+        0.86,
+        1.297
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 26.0,
+      "idlePx": 23.0,
+      "pointRatio": 1.13,
+      "landmarkIntervalRatio": [
+        0.815,
+        1.579
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 33.1,
+      "idlePx": 36.3,
+      "pointRatio": 0.912,
+      "landmarkIntervalRatio": [
+        0.641,
+        1.29
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 16.6,
+      "idlePx": 20.5,
+      "pointRatio": 0.81,
+      "landmarkIntervalRatio": [
+        0.4,
+        1.559
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 20.6,
+      "idlePx": 21.1,
+      "pointRatio": 0.976,
+      "landmarkIntervalRatio": [
+        0.539,
+        1.762
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 38.8,
+      "idlePx": 33.8,
+      "pointRatio": 1.148,
+      "landmarkIntervalRatio": [
+        0.779,
+        1.709
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 41.6,
+      "idlePx": 38.6,
+      "pointRatio": 1.078,
+      "landmarkIntervalRatio": [
+        0.759,
+        1.538
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 28.8,
+      "idlePx": 29.0,
+      "pointRatio": 0.993,
+      "landmarkIntervalRatio": [
+        0.752,
+        1.312
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  },
+  "light4Alt:3": {
+    "H_hair": {
+      "samplePx": 40.0,
+      "idlePx": 38.0,
+      "pointRatio": 1.053,
+      "landmarkIntervalRatio": [
+        0.857,
+        1.294
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "H_skullEstimate": {
+      "samplePx": 26.0,
+      "idlePx": 23.0,
+      "pointRatio": 1.13,
+      "landmarkIntervalRatio": [
+        0.815,
+        1.579
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "T": {
+      "samplePx": 43.5,
+      "idlePx": 36.3,
+      "pointRatio": 1.198,
+      "landmarkIntervalRatio": [
+        0.887,
+        1.634
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "upperArm": {
+      "samplePx": 29.1,
+      "idlePx": 20.5,
+      "pointRatio": 1.42,
+      "landmarkIntervalRatio": [
+        0.872,
+        2.421
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "forearm": {
+      "samplePx": 21.0,
+      "idlePx": 21.1,
+      "pointRatio": 0.995,
+      "landmarkIntervalRatio": [
+        0.554,
+        1.788
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "thigh": {
+      "samplePx": 37.0,
+      "idlePx": 33.8,
+      "pointRatio": 1.095,
+      "landmarkIntervalRatio": [
+        0.735,
+        1.642
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "shin": {
+      "samplePx": 46.4,
+      "idlePx": 38.6,
+      "pointRatio": 1.202,
+      "landmarkIntervalRatio": [
+        0.864,
+        1.69
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    },
+    "S": {
+      "samplePx": 29.0,
+      "idlePx": 29.0,
+      "pointRatio": 1.0,
+      "landmarkIntervalRatio": [
+        0.758,
+        1.32
+      ],
+      "intervalInsidePlusMinus6": false,
+      "result": "UNRESOLVED_PROJECTION_AND_LANDMARK_UNCERTAINTY"
+    }
+  }
+}

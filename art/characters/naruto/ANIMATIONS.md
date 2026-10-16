@@ -1,10 +1,11 @@
 # Naruto: animations, frame by frame
 
 > Every animation the engine knows, with the exact pose of every frame, for **art spec v2**
-> (Shippuden design, about 6.5 heads tall, 256×256 cells). Read [CHARACTER.md](CHARACTER.md) first
-> (look, palette, landmarks, R/L convention). Technical rules:
-> [ADR 0007](../../../docs/decisions/0007-art-spec-v2-shippuden-256.md) and [art/SPEC.md](../../SPEC.md).
-> If this file disagrees with them, **ADR 0007 / SPEC.md win**. Fix this file.
+> (Shippuden design, 256×256 cells). Read [CHARACTER.md](CHARACTER.md) for Naruto's look, palette,
+> landmarks and R/L convention. Cell and animation rules come from [ADR 0007](../../../docs/decisions/0007-art-spec-v2-shippuden-256.md)
+> and [art/SPEC.md](../../SPEC.md); cast anatomy and scale come from [ADR 0029](../../../docs/decisions/0029-title-style-scale-baseline.md)
+> and [the approved title-style production contract](../../scale/title-style-pilot/PRODUCTION_CONTRACT.md).
+> If this file disagrees with those sources, they win. Fix this file.
 > Frame counts and phases match the canonical list in `src/art/animGuide.js`. Gameplay timing (how
 > long each phase lasts) lives in `src/game/moves.js`; the engine stretches the startup / active /
 > recovery frames over those phases, so the art only has to put the right pose in the right phase.
@@ -29,13 +30,13 @@
 - **Smear**: a solid stretched shape in the limb's own colors that shows speed on the first active
   frame. Hard pixels, no blur, no transparency, one frame only.
 - **2 images**: strips with 6 or more frames are generated in two parts (part A, part B) and
-  stitched, so each 6.5-head figure stays big enough (PROMPTS.md, art/PIPELINE.md "Long strips").
+  stitched, so each figure stays large enough for clean pose detail (PROMPTS.md, art/PIPELINE.md "Long strips").
 
 ## Rules for every strip
 
 1. **Facing right, 3/4 view**, camera about 12° above. Body turned about 35° toward the camera,
-   head a bit more so both eyes show. The same head size (about 31 px), the same **~6.5-head
-   proportions** (never chibi), the same Shippuden outfit and palette in every frame.
+   head a bit more so both eyes show. Match the approved title-style neutral and combat anatomy
+   and scale across every pose (never chibi), with the same Shippuden outfit and palette.
 2. **Baseline.** Grounded poses: soles on the floor line. Airborne and lying poses: the lowest body
    point sits on the floor line too. The packer aligns every frame's lowest opaque pixel to y 240
    and the engine moves the sprite in the air, so show height with the pose, not with position.
@@ -334,6 +335,21 @@ First hit of the auto combo (Light ×4). Fast and snappy: a long, straight lead-
 | f5 | `light1_05` | recovery | Fist almost back at the chin, L foot sliding back, weight re-centering. | focused |  |
 | f6 | `light1_06` | recovery | Back in the stance (same as idle f0). | determined | QA: within 1-2 px of idle f0 |
 
+<a id="light1alt"></a>
+
+### `light1Alt`:  short lead-left hook to the jaw
+7 frames · phases 2/2/3 · ms 30/30/40/50/50/50/30 · active f2-f3. Distinct from the straight L jab through a compact elbow-led horizontal arc. Current base active boxes: f2 `[189,99,31,22]`, f3 `[189,101,25,20]`; keep the alt hit boxes within 12 px of each corresponding rectangle.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact `light1` f0 stance and hand position: L fist drawn slightly toward chin, shoulders coiled, weight on R leg. | focused |
+| 1 | startup | L elbow bends and lifts across the chest; fist travels inward before the hook, shoulder rotates toward target; R fist guards jaw. | fierce |
+| 2 | active | Compact L hook sweeps horizontally across at chest-to-lower-face height; elbow remains bent, fist and forearm pass in front-right of shoulder. Place the live hit rectangle to match base f2 `[189,99,31,22]` within 12 px. | short shout; no detached smear |
+| 3 | active | Hold hook endpoint with fist 2 px behind f2; keep contact rectangle within 12 px of `[189,101,25,20]`. | fierce |
+| 4 | recovery | Hook recoils across the chest, elbow folded; shoulders unwind. | fierce |
+| 5 | recovery | L fist returns beside chin, front foot sliding back toward base. | focused |
+| 6 | recovery | Exact `light1` f6 / idle f0 guard stance. | determined |
+
 <a id="light2"></a>
 
 ### `light2`: rear straight with the R (near) fist
@@ -354,6 +370,21 @@ Second hit of the auto combo: a heavier rear straight with full hip rotation.
 | f4 | `light2_04` | recovery | R arm retracting, elbow bent, fist halfway back; torso unwinding. | fierce | QA: fist ~x 204 |
 | f5 | `light2_05` | recovery | R fist returning to the jaw; R heel down. | focused |  |
 | f6 | `light2_06` | recovery | Back in the stance. | determined | QA: within 1-2 px of idle f0 |
+
+<a id="light2alt"></a>
+
+### `light2Alt`:  lead-left snap kick to the upper torso
+7 frames · phases 2/2/3 · ms 35/30/40/50/60/50/30 · active f2-f3. Swapped from a low midsection kick: current packed base boxes are high, so target upper torso/chest with the L foot. Current base boxes: f2 `[189,84,34,26]`, f3 override `[190,86,24,21]`; each alt rectangle within 12 px.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact `light2` f0 stance: R fist cocked beside jaw, L guard forward, weight on R rear leg. | focused |
+| 1 | startup | Shift to planted R support leg; L knee chambers forward at chest height, torso leans back slightly, hands counterbalance. | fierce |
+| 2 | active | L snap kick extends toward screen-right at upper-torso height; foot/toes occupy the current f2 contact region around x189-223, y84-110. Keep rectangle within 12 px of `[189,84,34,26]`. | shout; solid leg-only pixel smear allowed behind the shin |
+| 3 | active | Hold extension with the foot 2 px back; target the f3 override `[190,86,24,21]` within 12 px. | fierce |
+| 4 | recovery | L knee re-chambers, heel drawn back; hips rotate out of the kick. | fierce |
+| 5 | recovery | L foot plants forward then slides to the lead position; torso unwinds. | focused |
+| 6 | recovery | Exact `light2` f6 stance. | determined |
 
 <a id="light3"></a>
 
@@ -376,6 +407,21 @@ Third hit of the auto combo: a front push-kick with the rear leg, aimed at the s
 | f5 | `light3_05` | recovery | R foot stepping down behind into the rear position, torso coming upright. | focused |  |
 | f6 | `light3_06` | recovery | Back in the stance. | determined | QA: within 1-2 px of idle f0 |
 
+<a id="light3alt"></a>
+
+### `light3Alt`:  low right shin sweep
+7 frames · phases 2/2/3 · ms 40/35/45/60/60/60/30 · active f2-f3. This retains the suggested low R sweep; sweep passes through the current base box's lower shin/ankle area. Current base boxes: f2 `[189,102,56,44]`, f3 `[189,98,65,47]`; keep each rectangle within 12 px. If live packed geometry cannot meet this, HOLD and ask coordinator before changing the authored technique.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact `light3` f0 stance, weight shifting onto L support leg, R heel lifting, guard tightening. | focused |
+| 1 | startup | R knee folds and draws across low in front; body lowers slightly, torso stays upright enough to keep head scale/position consistent; L fist guards chin. | fierce |
+| 2 | active | R leg sweeps low and forward across the shin line, knee slightly bent and sandal leading; hips pivot, support L knee bends. Place the contact rectangle over the current f2 box `[189,102,56,44]` within 12 px. | shout; small attached leg-color arc only |
+| 3 | active | Hold low sweep extension, sandal 2 px back; target f3 `[189,98,65,47]` within 12 px. | fierce |
+| 4 | recovery | R knee folds under hips, body rises a little. | fierce |
+| 5 | recovery | R foot steps back to rear stance; hips square to front. | focused |
+| 6 | recovery | Exact `light3` f6 stance. | determined |
+
 <a id="light4"></a>
 
 ### `light4`: spinning roundhouse finisher with the R leg
@@ -397,6 +443,22 @@ Last hit of the auto combo: a big spinning roundhouse that launches and wall-bou
 | f5 | `light4_05` | recovery | Leg dropping and folding at the knee, torso coming upright. | focused |  |
 | f6 | `light4_06` | recovery | R foot lands behind, knees bent low, arms returning toward the guard. | focused |  |
 | f7 | `light4_07` | recovery | Back in the stance. | determined | QA: within 1-2 px of idle f0 |
+
+<a id="light4alt"></a>
+
+### `light4Alt`:  stepping double-palm chest shove
+8 frames · phases 3/2/3 · ms 50/45/35/40/70/70/70/40 · active f3-f4. Current base boxes: f3 override `[213,88,33,19]`, f4 `[189,87,58,33]`; keep each within 12 px. The forward launch comes from a committed step and shoulder drive, with both palms replacing the roundhouse leg.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact `light4` f0 coil: knees bend, torso twists toward viewer, R shoulder back, arms tucked, weight on L foot. | focused |
+| 1 | startup | Begin stepping through toward screen-right; torso unwinds, both elbows draw back to ribs, palms open facing target. | focused |
+| 2 | startup | Lead foot plants farther forward; hips and chest rotate toward screen-right, both hands thrusting forward but still bent at elbows. | fierce |
+| 3 | active | Both palms strike forward together at chest height with arms almost extended; shoulders and torso drive behind hands. Place f3 contact inside `[213,88,33,19]` ±12 px. | shout |
+| 4 | active | Hold the double-palm shove; elbows slightly bent and palms forward, body weight fully over lead foot. Match `[189,87,58,33]` ±12 px. | shout |
+| 5 | recovery | Hands recoil, elbows fold, torso rises while trailing foot swings through. | focused |
+| 6 | recovery | Step finishes, feet re-form the original stance width; arms return to guard. | focused |
+| 7 | recovery | Exact `light4` f7 stance. | determined |
 
 <a id="heavy"></a>
 
@@ -435,6 +497,22 @@ the shoulders, the shoulders lead the fist, and the whole body rises off the flo
 
 ## Air attacks
 
+<a id="heavyalt"></a>
+
+### `heavyAlt`:  rising left flip-kick launcher
+8 frames · phases 3/2/3 · ms 40/35/30/50/70/70/60/30 · active f3-f4. Current base overrides: f3 `[156,50,24,54]`, f4 `[177,21,19,25]`; match both per-frame boxes within 12 px. L foot rises on a compact forward arc; no right-fist uppercut re-pose.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact `heavy` f0: step L foot in, knees bend, torso pitched forward/coiled, R fist low behind hip, L fist guarding chin. | focused |
+| 1 | startup | Exact deep coil of `heavy` f1; weight over bent L, head low, R heel ready to drive. | fierce |
+| 2 | startup | Legs drive upward; R support foot pushes off, L knee swings up across body, arms counterbalance. | fierce |
+| 3 | active | L leg flips upward from below hip toward the target; foot passes in front of torso/face at mid-rise, body lifts behind it. Keep live box within 12 px of `[156,50,24,54]`. | shout |
+| 4 | active | Continue same L flip kick above forehead, toes pointed; compact body roll, no detached effect; box within 12 px of `[177,21,19,25]`. | shout |
+| 5 | recovery | L leg folds down and body rotates toward upright; feet descend under hips. | focused |
+| 6 | recovery | Land in low stance; arms return toward guard as torso settles. | focused |
+| 7 | recovery | Exact `heavy` f7 recovery stance. | determined |
+
 <a id="airlight1"></a>
 
 ### `airLight1`: mid-air jab with the L fist
@@ -455,6 +533,19 @@ First hit of the air combo (Light ×3 in the air).
 | f3 | `airLight1_03` | recovery | L arm retracting, elbow bent. | focused |  |
 | f4 | `airLight1_04` | recovery | Back to the AIR BASE POSE. | focused |  |
 
+<a id="airlight1alt"></a>
+
+### `airLight1Alt`:  airborne right backfist
+5 frames · phases 1/2/2 · ms 45/35/50/50/30 · active f1-f2. Current base boxes: f1 `[201,87,48,24]`, f2 `[197,88,44,22]`; match each within 12 px. This changes from the lead-left jab to a right-arm backfist.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact `airLight1` f0 air base pose and L fist draw-back; legs tucked and torso coiled. | focused |
+| 1 | active | R forearm whips across horizontally in a backfist at chest height; hand's back leads, elbow slightly bent. Match `[201,87,48,24]` ±12 px. | shout; attached forearm smear only |
+| 2 | active | Hold R backfist endpoint 2 px behind f1; match `[197,88,44,22]` ±12 px. | fierce |
+| 3 | recovery | Right elbow retracts toward ribs; torso re-centers in air. | focused |
+| 4 | recovery | Exact air base pose, matching the approved base strip endpoint. | focused |
+
 <a id="airlight2"></a>
 
 ### `airLight2`: mid-air front kick with the R leg
@@ -474,6 +565,19 @@ Second hit of the air combo.
 | f2 | `airLight2_02` | **active** | Hold the extension, no smear. | fierce | QA: sole ~x 231 |
 | f3 | `airLight2_03` | recovery | Knee folds back toward the chest. | focused |  |
 | f4 | `airLight2_04` | recovery | Back to the AIR BASE POSE. | focused |  |
+
+<a id="airlight2alt"></a>
+
+### `airLight2Alt`:  airborne left snap kick
+5 frames · phases 1/2/2 · ms 45/40/50/50/30 · active f1-f2. Current base boxes: f1 `[189,129,56,30]`, f2 `[189,129,56,33]`; a knee strike risks falling short of the base foot's x245 reach, so use a left snap kick with an extended foot at the same y/reach. Match each box within 12 px.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact air base pose opening from `airLight2` f0; R leg's base chamber and torso line preserved while L knee starts drawing in. | focused |
+| 1 | active | L leg snaps forward to the base strike region, foot fully extended at the base kick's reach; R knee folds slightly under the torso for balance. Match `[189,129,56,30]` ±12 px. | shout; no detached smear |
+| 2 | active | Hold L snap-kick extension with hip and torso stable; match `[189,129,56,33]` ±12 px. | fierce |
+| 3 | recovery | L knee folds back toward chest; body re-centers. | focused |
+| 4 | recovery | Exact air base pose endpoint. | focused |
 
 <a id="airlight3"></a>
 
@@ -496,6 +600,20 @@ Third air hit: a spinning back-heel kick that knocks the opponent away (wall bou
 | f4 | `airLight3_04` | recovery | Leg folding back in, body re-centering. | focused |  |
 | f5 | `airLight3_05` | recovery | Back to the AIR BASE POSE. | focused |  |
 
+<a id="airlight3alt"></a>
+
+### `airLight3Alt`:  airborne right roundhouse, forward launch
+6 frames · phases 2/2/2 · ms 50/40/50/70/60/30 · active f2-f3. Current overrides: f2/f3 `[215,117,31,34]`; each alt box within 12 px. Distinct from the L back-heel: the R leg arcs around from the front with instep leading; preserve forward launch.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact air base pose from `airLight3` f0; torso begins the turn while R knee draws inward. | focused |
+| 1 | startup | Rotate hips toward screen-right, R knee chambers across the front; L leg tucked, arms open for balance. | fierce |
+| 2 | active | R roundhouse snaps across at chest height, instep leading toward the current `[215,117,31,34]` box; torso leans back and L leg stays tucked. | shout; attached leg-color arc behind the kick |
+| 3 | active | Hold R roundhouse endpoint 2 px behind f2; match the same box within 12 px. | shout |
+| 4 | recovery | R knee folds, hips unwind and body re-centers in air. | focused |
+| 5 | recovery | Exact air base pose endpoint. | focused |
+
 <a id="airheavy"></a>
 
 ### `airHeavy`: double-fist hammer spike
@@ -516,6 +634,20 @@ Air finisher: smashes the opponent into the floor (ground bounce).
 | f3 | `airHeavy_03` | **active** | Hold the smash, no smear. | shout | QA: fists ~x 197 |
 | f4 | `airHeavy_04` | recovery | Arms rising back to chest height, body uncurling. | focused |  |
 | f5 | `airHeavy_05` | recovery | Back to the AIR BASE POSE. | focused |  |
+
+<a id="airheavyalt"></a>
+
+### `airHeavyAlt`:  airborne right axe-heel downward spike
+6 frames · phases 2/2/2 · ms 50/45/45/70/70/40 · active f2-f3. Current overrides: f2 `[219,178,29,26]`, f3 `[224,187,27,26]`; match each within 12 px. The R heel chops down-forward; do not use clasped fists.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | startup | Exact `airHeavy` f0 air base pose: arms raised, torso arched back, knees tucked. | shout |
+| 1 | startup | Wind-up: R leg lifts high above hip, knee bent, heel poised over the down-forward target; arms open to counterbalance. | shout |
+| 2 | active | R knee extends and axe heel chops down-forward into the current box `[219,178,29,26]`, body jackknifes and left leg trails above the floor. Heel remains above the lowest foot. | shout; solid attached leg-color arc above/behind heel |
+| 3 | active | Hold downward R heel contact, shifted only enough to match `[224,187,27,26]` ±12 px; heel never below the lowest foot. | shout |
+| 4 | recovery | R leg folds back upward; torso begins to uncurl. | focused |
+| 5 | recovery | Exact air base pose endpoint. | focused |
 
 <a id="throw"></a>
 
@@ -588,6 +720,17 @@ Standard hitstun reaction for high and mid hits.
 | f1 | `hurtHigh_01` | — | Recoil continues: head still back but a little less, arms dropping, torso leaning back about 20°. | one eye squinting, teeth gritted |  |
 | f2 | `hurtHigh_02` | — | Starting to recover: head coming forward, torso back about 15°, arms coming down toward the guard. | pained, eyes open |  |
 
+<a id="hurthighalt"></a>
+
+### `hurtHighAlt`:  head and shoulders snapped sideways
+3 frames · no phases · ms 70/90/100 · plays once. No hit rectangles; retain the base hurt shape and range. Distinct from backward head-snap through lateral neck/shoulder displacement and torso twist.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | — | Exact `hurtHigh` f0 pose, copying the approved base reaction opening. No pose change on the opening frame. | pained; hair/tails whip forward |
+| 1 | — | Only variant frame: head and shoulders snap sideways, torso twists away while hips/feet stay planted; arms flare back/out without extending toward the attacker. | teeth gritted |
+| 2 | — | Exact `hurtHigh` f2 recovery pose, matching the base head, torso and arms. | pained |
+
 <a id="hurtlow"></a>
 
 ### `hurtLow`: hit in the stomach
@@ -603,6 +746,25 @@ Hitstun for low and stomach hits.
 | f0 | `hurtLow_00` | — | IMPACT: doubled over forward about 40°, both arms pulled in toward the stomach (fists near the belly), knees bent, hips pushed back; head down. | gasp: eyes wide with small irises, mouth open |  |
 | f1 | `hurtLow_01` | — | Still doubled over (about 34°), arms slightly lower. | teeth gritted, one eye shut |  |
 | f2 | `hurtLow_02` | — | Recovering: torso about 28°, head lifting. | pained |  |
+
+<a id="hurtlowalt"></a>
+
+### `hurtLowAlt`:  rib hit, side fold and one-arm clutch
+3 frames · no phases · ms 70/90/100 · plays once. No hit rectangles; retain base hurt shape and range. Only f1 differs; user's endpoint continuity rule requires f0 and f2 to match the base exactly.
+
+| f | phase | pose | face and continuity |
+|---|---|---|---|
+| 0 | — | Exact `hurtLow` f0 doubled-over pose and arm placement from the approved base opening; no pose change on the opening frame. | gasp |
+| 1 | — | Only variant frame: fold sideways from ribs; one forearm clutches ribs while the other draws back, keeping attacker-side hurt reach within base outline. | teeth gritted |
+| 2 | — | Exact `hurtLow` f2 recovery pose, matching the base torso, head and both arms. | pained |
+
+## Cross-check gate before generation
+
+- All counts/phases/timings match MAIN guide/manifest and packed atlas.
+- Proposed body mechanics differ from each base strike and preserve opening/recovery/air endpoints.
+- Numeric hit rectangle gates are the live boxes listed here. The full candidate packing and contact-box report must confirm every active frame within 12 px; if it cannot, hold before generation or revise table after coordinator review.
+- Segment anatomy remains anchored to approved neutral/combat refs and current idle; posed silhouette extents are not grounds to resize.
+- Part A/B images are required for every strip with 6+ frames. Attempts are budgeted up to 3 per part and only selected v01 parts will be filed.
 
 <a id="launched"></a>
 

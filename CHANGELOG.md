@@ -11,6 +11,13 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(naruto): record user visual approval of airLight1Alt v01, airLight2Alt v01, airLight3Alt v01, heavyAlt v02, hurtHighAlt v01, hurtLowAlt v01, light1Alt v01, light3Alt v02, light4Alt v01; retain technical evidence and unrelated holds.
+
+- art(naruto): light2Alt — User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized.
+
+- Art (ART-ALTS-NAR): added Naruto light2Alt v04 with a single user-authorized paired f2/f3 contact repair call; diagnostic pack still shows a 30px reach and height residual. Candidate remains unapproved and on technical hold.
+- Art (ART-ALTS-NAR): added a measured heavyAlt v02 restitch and source repairs for light2Alt v03, light3Alt v02 and airHeavyAlt v03; airHeavyAlt v03 is now held byte-for-byte under `raw/_qa_hold/`. Raw v01/v02 remain, so v02 may be selected and base fallback is unverified; Claude owns repack/cache/fallback resolution. No candidate is approved or in public output.
+- Art (ART-ALTS-NAR): filed 11 Naruto attack-alt candidates (including v02 selections assembled from already generated parts), reconciled cumulative call budgets, and produced isolated 48-color quantized QA with paired base/alt atlas, exact input hashes, per-frame bounds and active hitbox deltas. Candidate assets remain unapproved; multiple technical holds are recorded in REVIEW.md.
 - art(naruto): record user visual approval of stagger v08, win v09; retain technical evidence and unrelated holds.
 
 - art(naruto): record the user's taunt v10 visual approval; preserve Astra's technical HOLD and archive superseded pending v07/v09 sources (ART-NAR-TAUNT10-DECISION).

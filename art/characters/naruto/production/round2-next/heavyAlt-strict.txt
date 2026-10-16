@@ -1,0 +1,20 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/naruto/production/round2-next/fixture
+  out:  art/characters/naruto/production/round2-next/packed-heavyAlt
+  anims: animGuide.js + art/characters/naruto/production/round2-next/fixture/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 2 anims, 16 frames -> sheet 4096x256, 48 colors, NOT WRITTEN (the scale gate failed, see below)
+    idle         8     <- raw/idle_v07.png             x0.286
+    heavyAlt     8     <- raw/heavyAlt_v01.png         x0.407
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 1 pop  FAILED: heavyAlt - nothing written
+  missing core (22): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (32): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech, light1Alt, light2Alt, light3Alt, light4Alt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  - palette snapped to 48 colors
+  ! scale gate: heavyAlt pops inside the strip: f5 0.95 vs f1 1.15 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v01, strict]
+  ! heavyAlt: packed without its base heavy - the game alternates it with whatever stands in for heavy; pack heavy first
+  ! scale gate: did not write art/characters/naruto/production/round2-next/packed-heavyAlt/characters/naruto/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion
+
+SCALE GATE FAILED: naruto (heavyAlt) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 3 warning(s).

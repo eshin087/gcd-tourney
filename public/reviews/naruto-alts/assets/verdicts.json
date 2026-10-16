@@ -1,0 +1,145 @@
+{
+  "light1Alt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "FAIL",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "FAIL: active f2/f3 read as straight extension rather than compact elbow-led hook; too similar to base jab.",
+      "endpoint": "HOLD: f0 guard hand heights and wider foot spread differ; f6 returns to a broadly similar guard but not the base geometry.",
+      "primary": "f3 auto box extends to y=241, not the base y=121. Source Part A exceeded its authorized generation limit."
+    }
+  },
+  "light2Alt": {
+    "version": 2,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "FAIL",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "Distinct kick replacing punch; intended technique is recognizable.",
+      "endpoint": "FAIL: f0 no longer has the base rear-fist loaded position; f6 head/stance height differs from base.",
+      "primary": "f2 loses 7px at right according to pack log. Both active contact rectangles are too low and extend too far right."
+    }
+  },
+  "light3Alt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "FAIL",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "Low forward sweep is recognizable; it remains low visually.",
+      "endpoint": "FAIL: base f0 has a knee chamber; alt f0 plants both feet in guard. Last stance/clothing volume also differs.",
+      "primary": "Contact is about 104\u2013106px below the base top edge; literal low sweep does not meet the authored live contact envelope."
+    }
+  },
+  "light4Alt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "FAIL",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "Distinct double-palm shove with forward drive is recognizable.",
+      "endpoint": "HOLD: first pose broadly similar; final head height, torso posture and stance differ from base recovery.",
+      "primary": "Both active rectangles exceed at least one approved edge tolerance, including f4 right edge 24px short."
+    }
+  },
+  "heavyAlt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "FAIL",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "Distinct rising flip-kick with upward motion is recognizable.",
+      "endpoint": "HOLD: opening coil broadly similar, final recovery more upright/higher than base; f5 raised-arm pose produces an abrupt recovery change.",
+      "primary": "Both active rectangles fail approved upward-launch contact envelope. Pose mechanics do not justify changing engine boxes in this audit."
+    }
+  },
+  "airLight1Alt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "PASS",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "HOLD: active silhouette still reads as straight jab. Right-backfist hand/forearm rotation is not clearly demonstrated.",
+      "endpoint": "Broadly similar air-base opening/recovery; exact fidelity not certified.",
+      "primary": "Contact edges pass, but f1 reaches x=254 and violates x<=251 margin. This is a margin failure, not separately confirmed loss of source pixels."
+    }
+  },
+  "airLight2Alt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "PASS",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "HOLD: same visible front-kick mechanism as base; required opposite-leg/left snap distinction is not clearly demonstrable from the costume/pose sequence.",
+      "endpoint": "Broadly similar air-base poses with hand/knee differences; exact fidelity not certified.",
+      "primary": "Contact edges pass, but f2 reaches x=255. No pack overflow warning for this frame, so boundary contact/margin failure is proven, not quantified pixel loss."
+    }
+  },
+  "airLight3Alt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "FAIL",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "Forward kick motion present; intended right roundhouse versus base back-heel distinction remains unclear in active silhouettes.",
+      "endpoint": "HOLD: f0 supporting-leg bend differs; final hips/leg spread differ from base air recovery.",
+      "primary": "f2/f3 lose 15/21px at right. Both contacts fail; f2 heuristic box targets a region far behind/above the required strike."
+    }
+  },
+  "airHeavyAlt": {
+    "version": 2,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "FAIL",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "Down-forward leg strike is distinct from base hammer fists, but clear axe-heel wind-up/contact is not certified.",
+      "endpoint": "FAIL: f0 open separated hands differ from base clasp; f5 is another down-forward attack, not air-base recovery.",
+      "primary": "Both active frames have no-clear-strike heuristic boxes far outside target. f5 loses 7px at left. A3 budget exhausted; active f2/f3 both from Part A."
+    }
+  },
+  "hurtHighAlt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "not applicable",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "f1 head/shoulder lateral turn is visible and distinct from backward snap.",
+      "endpoint": "f0/f2 preserve overall base reaction poses, but exact contour/hand/foot fidelity is not certified; nonidentical pixels alone are not a pose-failure criterion.",
+      "primary": "No attack hit boxes, correct timing. HOLD remains for all-segment anatomy precision and exact endpoint review, not an invented contact failure."
+    }
+  },
+  "hurtLowAlt": {
+    "version": 1,
+    "overall": "HOLD",
+    "countPhasesTiming": "PASS",
+    "contact": "not applicable",
+    "anatomy": "HOLD: coarse projected measurements plus exclusions, not +/-6% certification",
+    "shoulderWidth": "excluded: oblique/three-quarter rather than frontal",
+    "findings": {
+      "technique": "f1 one-arm clutch and opposite arm drawn back create the requested side-fold variant.",
+      "endpoint": "f0/f2 preserve overall base poses, with small outline/hand differences; exact fidelity not certified.",
+      "primary": "No attack hit boxes, correct timing. HOLD remains for all-segment anatomy precision and endpoint review."
+    }
+  }
+}

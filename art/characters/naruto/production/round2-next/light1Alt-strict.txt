@@ -1,0 +1,21 @@
+GCD Tourney sprite packer v2
+  art:  art/characters/naruto/production/round2-next/fixture
+  out:  art/characters/naruto/production/round2-next/packed-light1Alt
+  anims: animGuide.js + art/characters/naruto/production/round2-next/fixture/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== naruto ======================================================
+  packed 2 anims, 15 frames -> sheet 4096x256, 48 colors, NOT WRITTEN (the scale gate failed, see below)
+    idle         8     <- raw/idle_v07.png             x0.286
+    light1Alt    7     <- raw/light1Alt_v01.png        x0.316
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 1 drift  FAILED: light1Alt - nothing written
+  missing core (22): run, dash, jumpUp, jumpFall, land, light1, light2, light3, light4, heavy, airLight1, airHeavy, guard, hurtHigh, launched, down, getup, charge, beamCharge, beamFire, special, win
+  missing optional (32): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, techGround, techRoll, wallTech, light2Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  - palette snapped to 48 colors
+  - 1 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! scale gate: light1Alt head 1.06 of idle (feet 0.69): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v01, strict]
+  ! light1Alt: packed without its base light1 - the game alternates it with whatever stands in for light1; pack light1 first
+  ! scale gate: did not write art/characters/naruto/production/round2-next/packed-light1Alt/characters/naruto/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion
+
+SCALE GATE FAILED: naruto (light1Alt) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 3 warning(s).
