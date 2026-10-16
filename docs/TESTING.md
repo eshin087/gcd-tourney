@@ -597,7 +597,7 @@ Online rollback needs the same inputs to give the same fight on every machine. `
 
 | Call | Does |
 |---|---|
-| `det.record({ p1, p2, seed, fixedBasis, name, maxFrames })` | a CPU vs CPU match; keeps both pads' inputs per frame and the state hashes (`det.last`) |
+| `det.record({ p1, p2, seed, fixedBasis, detMath, name, maxFrames })` | a CPU vs CPU match; keeps both pads' inputs per frame and the state hashes (`det.last`) |
 | `det.replay(log, { dt, noDraw, randomSeed, stopAt, dumpAt })` | the same inputs, brains replaced by idle stand-ins; `{ match, first: { frame, groups }, step, frame, rollback8 }`. `dt`: `'60'`, `'120'`, `'144'`, `'jitter'` (render rates) |
 | `det.diagnose(log, { dt, randomSeed })` | two replays (the second at `dt` / another `Math.random` sequence); where they split, the values that differ |
 | `det.save(log)` / `det.load(name)` | write / read `public/det/<name>.json` (save: dev server only) |
@@ -605,8 +605,8 @@ Online rollback needs the same inputs to give the same fight on every machine. `
 
 Every run starts from a fresh camera, frame counter 0 and render clock 0. `fixedBasis: true` pins the control basis
 to the world axes (the stand-in for a simulation-owned basis); without it, the rendered camera's smoothing, shake and
-window aspect feed the controls, so only the same render cadence replays. Fixtures (`naruto-sasuke-s7`,
-`gojo-killua-s3`) are recorded with the pinned basis.
+window aspect feed the controls, so only the same render cadence replays. `detMath: true` swaps in `src/net/dmath.js` for `Math.hypot` / `sin` / `cos` (Safari's `hypot` differs from Chrome's in the last bit). Fixtures (`naruto-sasuke-s7`,
+`gojo-killua-s3`) are recorded with both, and carry one hash per frame, so a split reports its exact frame.
 
 Expected today: `replay` of a fresh recording at `'60'` and two `randomSeed`s match; `'120'`, `'144'` and `'jitter'`
 split around frame 96 (round flow on wall-clock time, ADR 0036). Cross-browser: open
@@ -615,7 +615,7 @@ A split inside a window the fixture has a trace for (`log.traces`, added with `d
 `det.save(log)`) also prints the first differing frame, the fields and that browser's values; compare them with
 `det.replay(log, { stopAt: k + 1, dumpAt: k })` here. Compare the per-frame hashes, never the final result: a
 split replay usually still ends with the same winner and HP. After a change to the simulation, re-record the fixtures
-(`det.record({ ..., fixedBasis: true, name })`, `det.save(det.last)`), re-add their traces, and commit them with the
+(`det.record({ ..., fixedBasis: true, detMath: true, name })`, `det.save(det.last)`), re-add their traces, and commit them with the
 change.
 
 ## Performance budget

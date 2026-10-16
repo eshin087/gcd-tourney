@@ -9,6 +9,7 @@
 import { ACTIONS } from '../core/input.js';
 import { rng } from '../game/rng.js';
 import { CameraDirector } from '../game/camera.js';
+import { installDetMath } from './dmath.js';
 import { GROUPS, hashSim, hashKeys, dumpSim, diffDumps, hashString } from './simHash.js';
 
 const EVERY = 30; // a saved log keeps the chained group hashes every 30 frames: another browser places a split within 30
@@ -27,6 +28,8 @@ function dtSource(mode, seed = 99) {
 
 const artPrint = (asset) => ({ source: asset.source ?? '?', meta: hashString(JSON.stringify(asset.meta)).toString(16) });
 const probe = (g) => g.fighters.flatMap((f) => [f.pos.x, f.pos.y, f.pos.z, f.hp]);
+// the six group hashes of one frame folded into one (a saved log keeps one per frame)
+const combine = (H) => { let c = 0x811c9dc5; for (let g = 0; g < H.length; g++) c = Math.imul(c ^ H[g], 0x01000193) >>> 0; return c; };
 const hex = (u32s) => Array.from(u32s, (x) => x.toString(16).padStart(8, '0')).join('');
 const unhex = (s) => Uint32Array.from({ length: s.length / 8 }, (_, i) => parseInt(s.slice(i * 8, i * 8 + 8), 16));
 
@@ -36,12 +39,15 @@ function stats(a) {
   return { n: s.length, avg: +(s.reduce((x, y) => x + y, 0) / s.length).toFixed(3), p50: q(0.5), p95: q(0.95), p99: q(0.99), max: +s[s.length - 1].toFixed(3) };
 }
 
-// A fresh match from the log's settings, intro skipped. Returns the frame counter it starts from. The camera starts
-// fresh too: the simulation reads the control basis from it (stick directions, facing), so the last screen's camera
-// would leak into the first frames; so does the frame counter. `fixedBasis` pins that basis to the world axes after every camera update: the
-// stand-in for a simulation-owned basis, so a run can show what else is not deterministic yet.
-function startRun(game, cfg, { fixedBasis = false } = {}) {
+// A fresh match from the log's settings, intro skipped. Returns the frame counter it starts from and `done`, which
+// undoes the run's patches. The camera starts fresh too: the simulation reads the control basis from it (stick
+// directions, facing), so the last screen's camera would leak into the first frames; so does the frame counter.
+// `fixedBasis` pins that basis to the world axes after every camera update: the stand-in for a simulation-owned basis,
+// so a run can show what else is not deterministic yet. `detMath` swaps in dmath.js's hypot / sin / cos for the run
+// (Safari's Math.hypot differs from Chrome's in the last bit).
+function startRun(game, cfg, { fixedBasis = false, detMath = false } = {}) {
   window.__manualStep = true; // the rAF loop must not step the game behind our back
+  const restoreMath = detMath ? installDetMath() : () => {};
   game.cam = new CameraDirector(game.camera);
   game.acc = 0;
   game.frameNo = 0; // the simulation reads the absolute frame counter (cooldown stamps, beam-clash chart seeds): per match, as online play will need
@@ -56,19 +62,20 @@ function startRun(game, cfg, { fixedBasis = false } = {}) {
       this.fwd.set(0, 0, -1);
     };
   }
-  return game.frameNo;
+  return { f0: game.frameNo, done: restoreMath };
 }
 
 // Runs `after(k)` after every fixed step (k = 0 for the first step of the run) and times the step itself.
 function hookStep(game, f0, after, timing) {
-  const orig = game.fixedUpdate;
+  const own = Object.hasOwn(game, 'fixedUpdate'), orig = game.fixedUpdate;
   game.fixedUpdate = function () {
     const t0 = performance.now();
     orig.call(this);
     timing.push(performance.now() - t0);
     after(this.frameNo - f0 - 1);
   };
-  return () => { game.fixedUpdate = orig; };
+  // put back exactly what was there: an own copy of the prototype's method would hide later patches of Game.prototype
+  return () => { if (own) game.fixedUpdate = orig; else delete game.fixedUpdate; };
 }
 
 // Both pads, frame k, from the recorded changes: the same writes a brain or InputManager.poll makes (tick, stick,
@@ -103,16 +110,22 @@ function show(text) {
 }
 
 export function install(game, ready, qs) {
-  // record({ p1, p2, level, seed, maxFrames, name, fixedBasis, dumpAt }): a CPU vs CPU match (Math.random seeded, so the
+  // record({ p1, p2, level, seed, maxFrames, name, fixedBasis, detMath, dumpAt }): a CPU vs CPU match (Math.random seeded, so the
   // same seed records the same match again in this browser). The log's per-frame hashes stay in memory (log.per) for
   // same-page replays, and log.dump holds dumpSim() after frame dumpAt.
-  async function record({ p1 = 'naruto', p2 = 'sasuke', level = 'impossible', seed = 7, maxFrames = 20000, name = null, fixedBasis = false, dumpAt = null } = {}) {
+  async function record({ p1 = 'naruto', p2 = 'sasuke', level = 'impossible', seed = 7, maxFrames = 20000, name = null, fixedBasis = false, detMath = false, dumpAt = null } = {}) {
     const realRandom = Math.random;
     Math.random = rng(seed);
-    const cfg = { mode: 'cpu', p1, p2, level, seed }, test = { fixedBasis };
-    const f0 = startRun(game, cfg, test);
+    const cfg = { mode: 'cpu', p1, p2, level, seed }, test = { fixedBasis, detMath };
+    const { f0, done } = startRun(game, cfg, test);
     let dump = null;
-    const inputs = [[], []], last = [null, null];
+    const inputs = [[], []], last = [null, null], stick = [[0, 0], [0, 0]];
+    // the stick as the brain gave it, before Pad.setMove normalizes it: replaying the normalized value would normalize
+    // it twice, and a length of 1.0000000000000002 rescales it (online, the wire carries the raw stick too)
+    game.pads.forEach((p, i) => {
+      const setMove = p.setMove;
+      p.setMove = function (x, y) { stick[i][0] = x; stick[i][1] = y; return setMove.call(this, x, y); };
+    });
     game.brains.forEach((b, i) => {
       const think = b.update;
       b.update = function (g) {
@@ -120,15 +133,16 @@ export function install(game, ready, qs) {
         const p = g.pads[i];
         let bits = 0;
         ACTIONS.forEach((a, j) => { if (p.b[a].down) bits |= 1 << j; });
-        const rec = [g.frameNo - f0 - 1, p.mx, p.my, bits, p.dashDir ? 1 : 0], L = last[i];
+        const rec = [g.frameNo - f0 - 1, stick[i][0], stick[i][1], bits, p.dashDir ? 1 : 0], L = last[i];
         if (!L || L[1] !== rec[1] || L[2] !== rec[2] || L[3] !== rec[3] || L[4] !== rec[4]) { inputs[i].push(rec); last[i] = rec; }
       };
     });
-    const per = [], H = new Uint32Array(NG), chain = new Uint32Array(NG), checks = [], probes = [], timing = [];
+    const per = [], H = new Uint32Array(NG), chain = new Uint32Array(NG), checks = [], probes = [], timing = [], frameH = [];
     let frames = 0;
     const unhook = hookStep(game, f0, (k) => {
       hashSim(game, H);
       for (let g = 0; g < NG; g++) { chain[g] = (Math.imul(chain[g], 31) + H[g]) >>> 0; per.push(H[g]); }
+      frameH.push(combine(H));
       if (k % EVERY === EVERY - 1) { checks.push(...chain); probes.push(probe(game)); }
       if (k === dumpAt) dump = dumpSim(game);
       frames = k + 1;
@@ -141,12 +155,13 @@ export function install(game, ready, qs) {
       }
     } finally {
       unhook();
+      done();
       Math.random = realRandom;
     }
     const log = {
       v: 1, name, made: new Date().toISOString(), ua: navigator.userAgent, cfg, test, frames, every: EVERY, groups: GROUPS,
       result: { winner: game.roundWinner?.index ?? null, rounds: game.round, wins: game.fighters.map((f) => f.wins), hp: game.fighters.map((f) => f.hp) },
-      art: game.assets.map(artPrint), inputs, checks: hex(checks), probes, step: stats(timing),
+      art: game.assets.map(artPrint), inputs, checks: hex(checks), frameHashes: hex(frameH), probes, step: stats(timing),
     };
     Object.defineProperty(log, 'per', { value: Uint32Array.from(per), enumerable: false });
     Object.defineProperty(log, 'dump', { value: dump, enumerable: false });
@@ -161,10 +176,10 @@ export function install(game, ready, qs) {
   // Math.random sequence (by default another one than the recording's: a draw that reaches the simulation shows).
   // onStep(k): called after every step; returning true stops the replay there.
   async function replay(log, { dt = '60', stopAt = log.frames, dumpAt = null, noDraw = false, onProgress = null, fixedBasis = log.test?.fixedBasis,
-    ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null } = {}) {
+    detMath = log.test?.detMath, ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null } = {}) {
     const realRandom = Math.random;
     Math.random = rng(randomSeed);
-    const f0 = startRun(game, log.cfg, { fixedBasis });
+    const { f0, done } = startRun(game, log.cfg, { fixedBasis, detMath });
     // idle stand-ins, not null: the rules know a CPU's pad from a person's (holding back blocks only for a person,
     // Fighter.holdingBack), and the recording ran under the CPU's
     game.brains = [{ update() {} }, { update() {} }];
@@ -173,21 +188,22 @@ export function install(game, ready, qs) {
     const feed = makeFeed(log.inputs), poll = game.input.poll, draw = game.renderer.render;
     game.input.poll = () => feed(game, game.frameNo - f0 - 1);
     if (noDraw) game.renderer.render = () => {};
-    const ref = refPer ?? log.per ?? null, checks = ref ? null : unhex(log.checks);
+    const ref = refPer ?? log.per ?? null, checks = ref ? null : unhex(log.checks), fh = !ref && log.frameHashes ? unhex(log.frameHashes) : null;
     const H = new Uint32Array(NG), chain = new Uint32Array(NG), timing = [], drawT = [], per = keepPer ? [] : null;
-    let frames = 0, first = null, dump = null, halt = false;
+    let frames = 0, first = null, dump = null, halt = false, exact = null;
     const groupsAt = (a, b) => GROUPS.filter((_, g) => a[g] !== b[g]);
     const unhook = hookStep(game, f0, (k) => {
       hashSim(game, H);
       for (let g = 0; g < NG; g++) chain[g] = (Math.imul(chain[g], 31) + H[g]) >>> 0;
       if (per) per.push(...H);
+      if (fh && exact === null && k < fh.length && combine(H) !== fh[k]) exact = k; // a saved log's per-frame hash: the exact frame
       if (!first && ref && (k + 1) * NG <= ref.length) {
         const R = ref.subarray(k * NG, k * NG + NG);
         if (H.some((h, g) => h !== R[g])) first = { frame: k, groups: groupsAt(H, R) };
       }
       if (!first && checks && k % EVERY === EVERY - 1) {
         const c = (k + 1) / EVERY - 1, R = checks.subarray(c * NG, c * NG + NG);
-        if (c * NG < checks.length && chain.some((h, g) => h !== R[g])) first = { window: [k - EVERY + 1, k], groups: groupsAt(chain, R), probe: { ref: log.probes[c], here: probe(game) } };
+        if (c * NG < checks.length && chain.some((h, g) => h !== R[g])) first = { frame: exact ?? undefined, window: [k - EVERY + 1, k], groups: groupsAt(chain, R), probe: { ref: log.probes[c], here: probe(game) } };
       }
       if (k === dumpAt) dump = dumpSim(game);
       if (onStep?.(k)) halt = true;
@@ -204,11 +220,13 @@ export function install(game, ready, qs) {
       }
     } finally {
       unhook();
+      done();
       game.render = render;
       game.input.poll = poll;
       game.renderer.render = draw;
       Math.random = realRandom;
     }
+    if (!first && exact !== null) first = { frame: exact, groups: [] }; // split after the last checkpoint
     const step = stats(timing);
     // 8 consecutive steps (a rollback's worth): their summed time is still meaningful where the timer is coarse
     // (Safari rounds performance.now() to 1 ms, so one step reads 0 or 1)
@@ -227,7 +245,7 @@ export function install(game, ready, qs) {
   // (`randomSeed`). Replays repeat themselves exactly (the recording doesn't: the brains keep state across matches),
   // so where they split, both run again up to that frame and the values that differ come back too.
   async function diagnose(log, { dt = '60', randomSeed = 12345, fixedBasis = log.test?.fixedBasis } = {}) {
-    const base = { noDraw: true, fixedBasis };
+    const base = { noDraw: true, fixedBasis, detMath: log.test?.detMath };
     const a = await replay(log, { ...base, keepPer: true });
     const r = await replay(log, { ...base, dt, randomSeed, ref: a.per });
     delete a.per;
@@ -294,14 +312,14 @@ export function install(game, ready, qs) {
       return null;
     }
     const head = `Determinism test (ADR 0036): ${log.cfg.p1} vs ${log.cfg.p2}, seed ${log.cfg.seed}, ${log.frames} frames, render ${dt}`
-      + `${log.test?.fixedBasis ? ', control basis pinned' : ''}\nscreenshot this when it finishes and send it to Claude`;
+      + `${log.test?.fixedBasis ? ', control basis pinned' : ''}${log.test?.detMath ? ', deterministic math' : ''}\nscreenshot this when it finishes and send it to Claude`;
     const r = await replay(log, { dt, onProgress: (k, n, first) => show(`${head}\nreplaying... ${k} / ${n}${first ? '  (already split)' : ''}`) });
     const f = r.first;
     const sameEnd = r.result.winner === log.result.winner && r.result.rounds === log.result.rounds && r.result.hp.join() === log.result.hp.join();
     const lines = [
       head,
       '',
-      r.match ? 'RESULT: MATCH. Every checkpoint equals the reference.' : f ? `RESULT: SPLIT in frames ${f.window?.join('-') ?? f.frame}, first in: ${f.groups.join(', ')}` : `RESULT: stopped early at ${r.frames} / ${r.of}`,
+      r.match ? 'RESULT: MATCH. Every checkpoint equals the reference.' : f ? `RESULT: SPLIT ${f.frame != null ? `at frame ${f.frame}` : ''}${f.window ? ` (checkpoint frames ${f.window.join('-')}, first in: ${f.groups.join(', ')})` : ''}` : `RESULT: stopped early at ${r.frames} / ${r.of}`,
       f?.probe ? `  positions + hp at that checkpoint ${JSON.stringify(f.probe.ref) === JSON.stringify(f.probe.here) ? 'are identical' : `differ\n    reference: ${JSON.stringify(f.probe.ref)}\n    this run:  ${JSON.stringify(f.probe.here)}`}` : null,
       `art: ${r.art.same ? 'same as the reference' : `DIFFERENT (here ${JSON.stringify(r.art.here)}, reference ${JSON.stringify(r.art.ref)})`}`,
       `result: winner ${r.result.winner}, rounds ${r.result.rounds}, hp ${r.result.hp.join(' / ')} (${sameEnd ? 'same as the reference' : `reference: winner ${log.result.winner}, rounds ${log.result.rounds}, hp ${log.result.hp.join(' / ')}`})`,

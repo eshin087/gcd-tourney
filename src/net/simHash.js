@@ -89,7 +89,7 @@ function walk(v, s, path, depth, seen, fighters) {
     for (const x of v) walk(x, s, sub(i++), depth + 1, seen, fighters);
   } else {
     for (const k of Object.keys(v)) {
-      if (SKIP.has(k) || (depth === 0 && k === 'pad')) continue;
+      if (SKIP.has(k) || (depth === 0 && k === 'pad') || typeof v[k] === 'function') continue; // a patched method is not state
       s.key(k);
       walk(v[k], s, sub(k), depth + 1, seen, fighters);
     }
@@ -144,11 +144,11 @@ export function hashKeys(game, groups = GROUPS) {
       case 'f0': case 'f1': {
         const f = F[g === 'f0' ? 0 : 1];
         if (!f) break;
-        for (const k of Object.keys(f)) if (!SKIP.has(k) && k !== 'pad') one(`${g}.${k}`, f[k]);
+        for (const k of Object.keys(f)) if (!SKIP.has(k) && k !== 'pad' && typeof f[k] !== 'function') one(`${g}.${k}`, f[k]);
         one(`${g}.actor`, actorOf(f.actor));
         break;
       }
-      case 'pads': game.pads.forEach((p, i) => { for (const k of Object.keys(p)) one(`pads.${i}.${k}`, p[k]); }); break;
+      case 'pads': game.pads.forEach((p, i) => { for (const k of Object.keys(p)) if (typeof p[k] !== 'function') one(`pads.${i}.${k}`, p[k]); }); break;
       case 'shots': for (const k of ['projectiles', 'beams', 'orbs', 'vortices']) one(`shots.${k}`, game[k]); break;
       case 'cam': one('cam.right', game.cam.right); one('cam.fwd', game.cam.fwd); break;
     }

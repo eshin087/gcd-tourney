@@ -61,13 +61,25 @@ off, and reports the first frame where the two runs differ and which values diff
    cost ~2 ms at p95. On the user's iPhone (iOS 18.7, Safari 27) it averaged 0.029 ms, max 3 ms (Safari's timer
    rounds to 1 ms, so the page now also sums 8 consecutive steps). Today's step still spawns effects, plays sounds and
    paints decals; a re-simulation must skip them.
-5. **Cross-engine: Safari splits.** The simulation calls `Math.sin`, `cos`, `atan2`, `hypot` and `pow` (about 40
-   calls in fighter/kit/projectiles/game, more in the camera framing it reads), whose last bit the spec leaves to each
-   engine; `+ - * /` and `Math.sqrt` are exactly rounded everywhere. On the user's iPhone both fixtures split from the
-   Chrome reference early (naruto-sasuke-s7 in frames 240–269 in fighter 1; gojo-killua-s3 in frames 120–149 in both
-   fighters), although both matches ended with the reference's winner, rounds and HP. A matching result proves
-   nothing: a 120 Hz Chrome replay also splits and still ends the same. The fixtures now carry per-field traces for
-   those windows, so the next phone run names the frame and the fields (pending). Firefox: not run yet.
+5. **Cross-engine: Safari's `Math.hypot` differs from Chrome's.** The spec leaves the last bit of `Math.hypot`, `sin`,
+   `cos`, `atan2`, `pow` ... to each engine; `+ - * /` and `Math.sqrt` are exactly rounded everywhere. On the user's
+   iPhone (iOS 18.7, Safari 27) both fixtures split from the Chrome reference early although both matches ended
+   with the reference's winner, rounds and HP (a matching result proves nothing: a 120 Hz Chrome replay also splits
+   and still ends the same). Per-field traces then named the first difference: gojo-killua-s3 at frame 125, both
+   fighters' `pos.z` one ulp apart (`Game.separate`, the push-apart step), and naruto-sasuke-s7 at frame 267,
+   fighter 1's `vel.x`/`vel.z`. Both are `Math.hypot`: Safari returned 0.5794781766945303 where Chrome returns
+   0.5794781766945304, and feeding Safari's value into `separate` reproduces all four of the phone's coordinates bit
+   for bit; a Chrome replay with a square-root hypot reproduces the phone's frame-267 velocity exactly. Safari's
+   hypot is neither Chrome's nor a plain square root (that emulation splits at frame 120, the phone at 125).
+   A census of every `Math` call inside the fixed step (both fixtures): ~40,000 `hypot` calls reach gameplay
+   (`Pad.setMove` normalizing the stick, `separate`, `distTo`, `takeHit`, `onHit`, attacks, shots, tech rolls) and one
+   `sin` (the beam-clash struggle line, `Game.updateClash`); every other `sin`, `cos`, `pow`, `atan2` and `asin` is
+   in effects, ground decals and three.js color and rotation code. The prototype `src/net/dmath.js` (hypot, sin and
+   cos from `+ - * /` and `Math.sqrt`, within 1–2 ulp of V8) is installed by the test's `detMath` option; the
+   fixtures are re-recorded with it and replay exactly in Chrome even with `Math.hypot` deliberately skewed by one
+   ulp (without it, the skew splits at frame 97). iPhone run with it: pending. Firefox: not run yet.
+   Also found on the way: replaying an already-normalized stick normalizes it twice (a length of 1.0000000000000002
+   rescales it), so the wire must carry the raw stick.
 
 ## Decision
 
@@ -87,12 +99,14 @@ off, and reports the first frame where the two runs differ and which values diff
      `hfx` move to the view;
    - **save/restore** of plain data for fighters, pads, shots, clashes, domain and game flow (`simHash` stays the
      test oracle: restore, step, hash must equal the original run);
-   - **deterministic math**: `src/game/dmath.js` (sin, cos, atan2, hypot, pow, exp on `+ - * /` and `Math.sqrt`) for
-     the simulation and the basis, and a lint that rejects `Math.sin` and friends in simulation files. Done
-     regardless of the phone result: engines can change their implementations;
+   - **deterministic math**: the simulation and the basis call `dmath.js` (today's prototype in `src/net/`: hypot,
+     sin, cos; atan2, pow and exp when a gameplay path needs them) instead of `Math.hypot`, `sin`, `cos` and friends,
+     and a lint rejects those `Math` functions in simulation files. Effects and three.js keep the engine's (cosmetic);
+
    - **player kind in match setup** (`person` / `cpu`) instead of `brains[i] != null`;
    - **a match handshake** that compares the build id and both fighters' art fingerprints.
-3. **Wire input:** per player per frame, the stick quantized to signed 8-bit x/y plus a 7-bit button mask (3 bytes).
+3. **Wire input:** per player per frame, the raw stick (before `Pad.setMove` normalizes it) quantized to signed 8-bit
+   x/y plus a 7-bit button mask (3 bytes).
    The pad's derived state (buffers, double taps) is simulation state, rebuilt from the inputs and saved with it.
 4. **Server: Cloudflare Workers + Durable Objects**, in a separate `server/` package (its dev tooling, wrangler, stays
    out of the game's dependencies). One Durable Object per lobby (room, queue, chat, spectator feed over hibernating
@@ -138,5 +152,5 @@ off, and reports the first frame where the two runs differ and which values diff
 - The fixtures in `public/det/` (~90 KB) ship with the game until the local netplay mode replaces them; the
   dev-server `/__det/save` endpoint (vite.config.js) only exists under `vite serve`.
 - New: a `server/` package and a Cloudflare account (the user's), needed from ENG-094.
-- Safari splits, so deterministic math moves to the front of ENG-092 once the trace names the fields; if the trace
-  points at something other than math (an engine-dependent sort, a device check), that is fixed first.
+- Safari's `Math.hypot` splits real matches, so deterministic math (`hypot` first) moves to the front of ENG-092,
+  ahead of the view split; it is small and the determinism test proves it on a phone.
