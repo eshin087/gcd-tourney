@@ -1,0 +1,767 @@
+{
+  "art": "art",
+  "artExists": true,
+  "out": "art/characters/goku/production/scale-qa/strict",
+  "warnings": [],
+  "characters": [
+    {
+      "id": "goku",
+      "packed": [
+        {
+          "anim": "idle",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/idle_v02.png",
+          "from": "raw/idle_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light2",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light2_v05.png",
+          "from": "raw/light2_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.864,
+          "frameScales": [
+            0.86441,
+            0.86441,
+            0.86441,
+            0.86441,
+            0.86441,
+            0.86441,
+            0.86441
+          ],
+          "notes": [
+            "candidate v05 (approved: v04)"
+          ]
+        },
+        {
+          "anim": "light3",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light3_v04.png",
+          "from": "raw/light3_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.9,
+          "frameScales": [
+            0.89958,
+            0.89958,
+            0.89958,
+            0.89958,
+            0.89958,
+            0.89958,
+            0.89958
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light4",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/light4_v04.png",
+          "from": "raw/light4_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.866,
+          "frameScales": [
+            0.86611,
+            0.86611,
+            0.86611,
+            0.86611,
+            0.86611,
+            0.86611,
+            0.86611,
+            0.86611
+          ],
+          "notes": []
+        },
+        {
+          "anim": "heavy",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/heavy_v04.png",
+          "from": "raw/heavy_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.908,
+          "frameScales": [
+            0.90833,
+            0.90833,
+            0.90833,
+            0.90833,
+            0.90833,
+            0.90833,
+            0.90833,
+            0.90833
+          ],
+          "notes": []
+        },
+        {
+          "anim": "airLight1",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight1_v04.png",
+          "from": "raw/airLight1_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.825,
+          "frameScales": [
+            0.825,
+            0.825,
+            0.825,
+            0.825,
+            0.825
+          ],
+          "notes": []
+        },
+        {
+          "anim": "airHeavy",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airHeavy_v04.png",
+          "from": "raw/airHeavy_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.825,
+          "frameScales": [
+            0.825,
+            0.825,
+            0.825,
+            0.825,
+            0.825,
+            0.825
+          ],
+          "notes": []
+        },
+        {
+          "anim": "guard",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/guard_v05.png",
+          "from": "raw/guard_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.865,
+          "frameScales": [
+            0.86463,
+            0.86463
+          ],
+          "notes": []
+        },
+        {
+          "anim": "launched",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/launched_v06.png",
+          "from": "raw/launched_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.599,
+          "frameScales": [
+            0.59912,
+            0.59912
+          ],
+          "notes": []
+        },
+        {
+          "anim": "down",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/down_v04.png",
+          "from": "raw/down_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.762,
+          "frameScales": [
+            0.7619,
+            0.7619
+          ],
+          "notes": []
+        },
+        {
+          "anim": "getup",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/getup_v03.png",
+          "from": "raw/getup_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.854,
+          "frameScales": [
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356
+          ],
+          "notes": []
+        }
+      ],
+      "missing": [
+        "run",
+        "dash",
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "jumpUp",
+        "jumpFall",
+        "land",
+        "light1",
+        "airLight2",
+        "airLight3",
+        "block",
+        "hurtHigh",
+        "hurtLow",
+        "spin",
+        "airRecover",
+        "charge",
+        "throw",
+        "beamCharge",
+        "beamFire",
+        "vanish",
+        "stagger",
+        "ko",
+        "special",
+        "intro",
+        "taunt",
+        "win",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose",
+        "techGround",
+        "techRoll",
+        "wallTech",
+        "light1Alt",
+        "light2Alt",
+        "light3Alt",
+        "light4Alt",
+        "heavyAlt",
+        "airLight1Alt",
+        "airLight2Alt",
+        "airLight3Alt",
+        "airHeavyAlt",
+        "hurtHighAlt",
+        "hurtLowAlt"
+      ],
+      "missingCore": [
+        "run",
+        "dash",
+        "jumpUp",
+        "jumpFall",
+        "land",
+        "light1",
+        "hurtHigh",
+        "charge",
+        "beamCharge",
+        "beamFire",
+        "special",
+        "win"
+      ],
+      "failed": [],
+      "blocked": [],
+      "versions": {
+        "idle": 2,
+        "light2": 5,
+        "light3": 4,
+        "light4": 4,
+        "heavy": 4,
+        "airLight1": 4,
+        "airHeavy": 4,
+        "guard": 5,
+        "launched": 6,
+        "down": 4,
+        "getup": 3
+      },
+      "complete": false,
+      "frames": 60,
+      "sheet": "4096x1024",
+      "colors": 48,
+      "warnings": [
+        "light4: 2 frame(s) clipped by the 256x256 cell (#4 right 9px, #5 right 2px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "heavy: 3 frame(s) clipped by the 256x256 cell (#3 right 10px, #4 right 11px, #5 right 13px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "airLight1: 2 frame(s) clipped by the 256x256 cell (#2 right 36px, #3 right 29px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "scale gate: light2 pops inside the strip: f3 0.50 vs f5 0.74 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v05, strict]",
+        "scale gate: light3 pops inside the strip: f1 0.50 vs f3 0.74 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale gate: light4 pops inside the strip: f2 0.50 vs f0 0.98 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale gate: heavy pops inside the strip: f0 0.50 vs f1 1.13 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale gate: airLight1 pops inside the strip: f4 0.50 vs f2 1.00 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale gate: airHeavy pops inside the strip: f1 0.50 vs f0 0.63 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [v04, strict]",
+        "scale gate: guard head 0.57 of idle (feet 0.86): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [v05, strict]",
+        "scale gate: did not write art/characters/goku/production/scale-qa/strict/characters/goku/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion"
+      ],
+      "notes": [
+        "palette snapped to 48 colors",
+        "5 active frame(s) had no clear strike limb - hitbox = front 28% of the body (light3#3, light4#3, airLight1#1, airHeavy#2, airHeavy#3; check them in the Sprite Lab or add hitboxes.json overrides)"
+      ],
+      "wrote": [],
+      "writeback": [],
+      "ui": [],
+      "uiItems": [],
+      "ground": {
+        "down": [
+          {
+            "frame": 1,
+            "contact": 0.74,
+            "gaps": [
+              3,
+              0,
+              3,
+              3,
+              6
+            ],
+            "worst": 6,
+            "h": 61,
+            "ok": true
+          }
+        ],
+        "getup": [
+          {
+            "frame": 0,
+            "contact": 0.46,
+            "gaps": [
+              2,
+              0,
+              7,
+              6,
+              4
+            ],
+            "worst": 7,
+            "h": 142,
+            "ok": true
+          }
+        ]
+      },
+      "tech": {},
+      "alts": {},
+      "hitBoxes": {
+        "light2": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                88,
+                27,
+                22
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                199,
+                91,
+                36,
+                24
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "light3": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                107,
+                21,
+                47
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                160,
+                63,
+                44,
+                53
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "light4": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                152,
+                101,
+                52,
+                143
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                199,
+                45,
+                57,
+                61
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "heavy": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                202,
+                67,
+                54,
+                26
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                210,
+                67,
+                46,
+                29
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "airLight1": [
+          {
+            "frame": 1,
+            "hit": [
+              [
+                197,
+                45,
+                41,
+                141
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 2,
+            "hit": [
+              [
+                230,
+                79,
+                26,
+                38
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "airHeavy": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                171,
+                42,
+                37,
+                141
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                141,
+                68,
+                38,
+                176
+              ]
+            ],
+            "rule": "front"
+          }
+        ]
+      },
+      "scale": {
+        "gate": "strict",
+        "failed": [
+          "light2",
+          "light3",
+          "light4",
+          "heavy",
+          "airLight1",
+          "airHeavy",
+          "guard"
+        ],
+        "findings": [],
+        "anims": {
+          "idle": {
+            "head": 0.645,
+            "feet": 1,
+            "range": 2.167,
+            "verdict": "ref",
+            "strict": false,
+            "version": 2,
+            "reason": null,
+            "frames": [
+              2.667,
+              0.516,
+              0.606,
+              0.5,
+              0.516,
+              1.183,
+              0.876,
+              0.683
+            ]
+          },
+          "light2": {
+            "head": 0.526,
+            "feet": 0.88,
+            "range": 0.237,
+            "verdict": "pop",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.658,
+              0.707,
+              0.516,
+              0.5,
+              0.526,
+              0.737,
+              0.5
+            ]
+          },
+          "light3": {
+            "head": 0.516,
+            "feet": 0.819,
+            "range": 0.237,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.632,
+              0.5,
+              0.5,
+              0.737,
+              0.658,
+              0.5,
+              0.516
+            ]
+          },
+          "light4": {
+            "head": 0.579,
+            "feet": 0.869,
+            "range": 0.483,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.983,
+              0.632,
+              0.5,
+              0.842,
+              0.516,
+              0.526,
+              0.796,
+              0.526
+            ]
+          },
+          "heavy": {
+            "head": 0.622,
+            "feet": 0.902,
+            "range": 0.625,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.5,
+              1.125,
+              0.516,
+              0.683,
+              0.526,
+              0.577,
+              0.667,
+              0.667
+            ]
+          },
+          "airLight1": {
+            "head": 0.606,
+            "feet": 0.787,
+            "range": 0.5,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.737,
+              0.526,
+              1,
+              0.606,
+              0.5
+            ]
+          },
+          "airHeavy": {
+            "head": 0.508,
+            "feet": 0.778,
+            "range": 0.132,
+            "verdict": "pop",
+            "strict": true,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.632,
+              0.5,
+              0.5,
+              0.5,
+              0.516,
+              0.632
+            ]
+          },
+          "guard": {
+            "head": 0.566,
+            "feet": 0.859,
+            "range": 0.08,
+            "verdict": "drift",
+            "strict": true,
+            "version": 5,
+            "reason": null,
+            "frames": [
+              0.526,
+              0.606
+            ]
+          },
+          "launched": {
+            "head": 0.591,
+            "feet": 0.615,
+            "range": 0.029,
+            "verdict": "manual",
+            "strict": true,
+            "version": 6,
+            "reason": "manual QA by Codex: Compared both native-density frames side by side with approved idle f0 in the contact sheet. Reclined/tumbling poses retain consistent head-to-torso and limb volume; pose foreshortening and occlusion make absolute stature uncertain by about ±10px. Manual shape comparison only; not a numeric height pass or user approval. (art/characters/goku/production/scale-qa/goku-lowpose-contact-v01.png)",
+            "frames": [
+              0.577,
+              0.606
+            ]
+          },
+          "down": {
+            "head": 0.516,
+            "feet": 0.611,
+            "range": 0,
+            "verdict": "manual",
+            "strict": true,
+            "version": 4,
+            "reason": "manual QA by Codex: Compared both native-density frames side by side with approved idle f0 in the contact sheet. Crouched-to-prone poses retain coherent torso, head and limb volume; foreshortening and occlusion make absolute stature uncertain by about ±10px. Manual shape comparison only; not a numeric height pass or user approval. (art/characters/goku/production/scale-qa/goku-lowpose-contact-v01.png)",
+            "frames": [
+              0.516,
+              null
+            ]
+          },
+          "getup": {
+            "head": 0.577,
+            "feet": 0.849,
+            "range": 0.342,
+            "verdict": "manual",
+            "strict": true,
+            "version": 3,
+            "reason": "manual QA by Codex: Compared all five native-density frames side by side with approved idle f0 in the contact sheet. Gradual kneeling-to-standing recovery retains plausible head, torso and limb proportions; crouched-frame stature uncertainty is about ±8px. Manual shape comparison only; not a numeric height pass or user approval. (art/characters/goku/production/scale-qa/goku-lowpose-contact-v01.png)",
+            "frames": [
+              0.842,
+              0.5,
+              0.526,
+              0.842,
+              0.577
+            ]
+          }
+        },
+        "ref": {
+          "box": [
+            124,
+            14,
+            139,
+            43
+          ],
+          "headPx": [
+            6,
+            10
+          ],
+          "palette": [
+            "#b62827",
+            "#791f0d",
+            "#faa231",
+            "#fc8b17",
+            "#fcca6e"
+          ],
+          "source": "auto"
+        },
+        "refused": true
+      },
+      "refused": true
+    }
+  ],
+  "vfx": null,
+  "crowd": null,
+  "stage": null,
+  "npc": null,
+  "ui": null,
+  "decals": null,
+  "guideSource": "animGuide.js",
+  "manifest": " + art/manifest.json",
+  "spec": {
+    "name": "hi-res sprite spec v2",
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "columns": 16,
+    "pivot": [
+      128,
+      240
+    ],
+    "pixelsPerUnit": 128,
+    "facing": "right",
+    "maxColors": 48,
+    "warnColors": 64,
+    "cellMargin": 4,
+    "standingBodyPx": 200
+  },
+  "totalWarnings": 11
+}

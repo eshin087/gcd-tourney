@@ -1,0 +1,1 @@
+const fs=require('fs'),{PNG}=require('pngjs');const p=PNG.sync.read(fs.readFileSync('art/characters/goku/raw/_qa_hold/light3_v10.png'));const x0=1240,w=310,q=new PNG({width:w,height:724});for(let y=0;y<724;y++)p.data.copy(q.data,y*w*4,(y*p.width+x0)*4,(y*p.width+x0+w)*4);fs.writeFileSync(__dirname+'/light3-f4-source.png',PNG.sync.write(q));

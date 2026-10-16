@@ -1,0 +1,10 @@
+# Rebuildable fixture mirrors are reproducible from the adjacent scripts and
+# versioned Goku raw sources. Keep exact public atlas/crops and reports in the
+# review gallery and manual-audit-r3 instead of duplicating every intermediate.
+*-fixture-art/
+*-fixture-crops/
+*-fixture-public/
+fixture-art/
+fixture-crops/
+fixture-public/
+final5-pre-config-crops/

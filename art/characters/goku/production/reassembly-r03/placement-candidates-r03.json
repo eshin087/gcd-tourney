@@ -1,0 +1,179 @@
+{
+  "method": "Exact translation from final3 packer clip report; no scaling or drawing changes.",
+  "candidates": [
+    {
+      "animation": "run",
+      "version": 9,
+      "bodyHeight": 237,
+      "sourcePixelsSha256": "6b5bcf59b85b51b2e22dbb4f2f1fb6c408c636dbbeb677b634fa0c87dcdf2cdf",
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          40,
+          0
+        ],
+        [
+          -15,
+          0
+        ],
+        [
+          18,
+          0
+        ],
+        [
+          37,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "sourceFactor": 0.589,
+      "basis": "packer report final3: f2 right margin1; f3 left clip36; f4 right clip11; f5 left clip14; f6 left clip33. Offsets place bounds into x=4..251; source-width maximum202px."
+    },
+    {
+      "animation": "light4",
+      "version": 9,
+      "bodyHeight": 237,
+      "sourcePixelsSha256": "a04374c4d2bf0a223d48c2d2caba7a7b6b2f859636b7bb17e6f51f97097d5b6c",
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          -32,
+          0
+        ],
+        [
+          -25,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "sourceFactor": 0.652,
+      "basis": "packer report final3: f4 right clip28; f5 right clip21. Offsets place bounds into x=4..251; source-width maximum227px."
+    },
+    {
+      "animation": "heavy",
+      "version": 11,
+      "bodyHeight": 237,
+      "sourcePixelsSha256": "a3c61d05a58ec28e7f2f1e9cf2133022c9f83181b71012b86f85a4540c389304",
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          -27,
+          0
+        ],
+        [
+          -39,
+          0
+        ],
+        [
+          -36,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "sourceFactor": 0.599,
+      "basis": "packer report final3: f3 right clip23; f4 right clip35; f5 right clip32. Offsets place bounds into x=4..251; source-width maximum225px."
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "bodyHeight": 237,
+      "sourcePixelsSha256": "ee5258351a58bb1760e36a31ca6e814f55f9c58fa803fc3695baa2cc6c78b125",
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          -4,
+          0
+        ],
+        [
+          -74,
+          0
+        ],
+        [
+          -66,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "sourceFactor": 0.539,
+      "basis": "packer report final3: f1 right margin4; f2 right clip70; f3 right clip62. Offsets place bounds into x=4..251; source-width maximum226px."
+    },
+    {
+      "animation": "launched",
+      "version": 8,
+      "bodyHeight": 200,
+      "sourcePixelsSha256": "e89a02399955d828fcef54f94929905663bb755cdb2e78f63c764dde1c9d3338",
+      "frameOffsets": [
+        [
+          24,
+          0
+        ],
+        [
+          42,
+          0
+        ]
+      ],
+      "sourceFactor": 0.258,
+      "basis": "packer report final3: f0 left clip20; f1 left clip38. Offsets place bounds into x=4..251; source-width maximum218px."
+    }
+  ]
+}

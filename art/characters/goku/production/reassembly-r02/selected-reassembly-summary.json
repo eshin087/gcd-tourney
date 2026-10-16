@@ -1,0 +1,66 @@
+{
+  "method": "Measured f0 endpoint reassembly; fixture/atlas still pending.",
+  "rows": [
+    {
+      "animation": "getup",
+      "version": 5,
+      "factor": 0.418,
+      "sourceSha256": "dd68beb20f48e146443c6d4a4030d3dad4a0fd7a0d54f25958fd5b09f92345f4",
+      "outputSha256": "b47974d886f2ed8b2de9090c2b77ddeb0e0bf6bfaa63152dfac8ab96629521dc",
+      "annotation": "getup-source-f4-endpoints.png",
+      "factorUncertainty": "±0.040 selected from source endpoint uncertainty (10–12 source px) and independent reference landmark uncertainty; separate from target uncertainty values above",
+      "clipping": [
+        {
+          "frame": 0,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 1,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 2,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 3,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        },
+        {
+          "frame": 4,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          },
+          "lostNonMagenta": 0
+        }
+      ]
+    }
+  ]
+}

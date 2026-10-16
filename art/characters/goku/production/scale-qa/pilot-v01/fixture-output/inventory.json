@@ -1,0 +1,135 @@
+{
+  "label": "DIAGNOSTIC ONLY. Isolated selected-source current and native-height fixtures; not production gate/pass or approval.",
+  "sourceCommit": "ec37e3ae3eb2a97aa3e9afc54d8b4ee14a1ec694",
+  "worktree": "art/characters/goku",
+  "sourceManifest": {
+    "path": "art/manifest.json",
+    "sha256": "7624cb1831e071b137d855449a6ddbc6f66d7efe76da3fa65063803e2827f6f7"
+  },
+  "packer": {
+    "path": "tools/pack-sprites.mjs",
+    "sha256": "2381bb144658878565a7dff9af16e5283ac35934179a53fdcf331f3dd3c80317"
+  },
+  "probe": {
+    "path": "tools/scale-probe.mjs",
+    "sha256": "6f817c0a84fbc7354be85e93340b52fcfa4dfbbf7f874c142a14c5276ece5eaf"
+  },
+  "builds": {
+    "path": "art/scale/builds.json",
+    "sha256": "686b5f83804b9766f8941d88b99dfaeefb1f74f5582a8f1515c6c0f7c92e946d"
+  },
+  "selectedSources": [
+    {
+      "name": "idle",
+      "version": 2,
+      "path": "art/characters/goku/raw/idle_v02.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+      "width": 2048,
+      "height": 256,
+      "frames": 8,
+      "sourceSidecar": null
+    },
+    {
+      "name": "guard",
+      "version": 5,
+      "path": "art/characters/goku/raw/guard_v05.png",
+      "sha256": "517c51ce2899ac06bcf4c8ab99c710f9e0660742bc637e9a11c084124bba8406",
+      "width": 512,
+      "height": 256,
+      "frames": 2,
+      "sourceSidecar": {
+        "path": "art/characters/goku/raw/guard_v05.json",
+        "sha256": "70cebec2603b7d50ad6839f652907e682d2d9b6926f36661a5e3e79af0dd9a16"
+      }
+    },
+    {
+      "name": "light2",
+      "version": 5,
+      "path": "art/characters/goku/raw/light2_v05.png",
+      "sha256": "248b5c7c2b4e8dfed110585c19d868477588d4f3b2cf899a1a446423a59ce2b3",
+      "width": 1792,
+      "height": 256,
+      "frames": 7,
+      "sourceSidecar": {
+        "path": "art/characters/goku/raw/light2_v05.json",
+        "sha256": "0996d9213c40d6bb5161ec7877cb6827b419e85f039858611ebbb16609b3babf"
+      }
+    }
+  ],
+  "productionSettingsAtRun": {
+    "idle": {
+      "bodyHeight": 233,
+      "version": 2,
+      "approvedVersion": 2,
+      "scaleManualQA": null
+    },
+    "guard": {
+      "bodyHeight": 198,
+      "version": 5,
+      "approvedVersion": null,
+      "scaleManualQA": null
+    },
+    "light2": {
+      "bodyHeight": 204,
+      "version": 5,
+      "approvedVersion": 4,
+      "scaleManualQA": null
+    }
+  },
+  "fixtureManifests": {
+    "current": {
+      "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/diagnostic-manifest.json",
+      "sha256": "655e6a4db73446be5b0305ab83c27361060d9dfa703eb0cdbc546c05e2b9f770",
+      "guardBodyHeight": 198,
+      "light2BodyHeight": 204,
+      "scaleGate": "warn"
+    },
+    "native-height": {
+      "path": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/diagnostic-manifest.json",
+      "sha256": "c3f5db6b61a1564602d0c6b6cf0e08c772fee8c58ab48a4804446021e3792d95",
+      "guardBodyHeight": 229,
+      "light2BodyHeight": 236,
+      "scaleGate": "warn"
+    }
+  },
+  "approvedReferences": [
+    {
+      "path": "E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core/art/characters/goku/raw/idle_v02.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+      "copy": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/references/idle_v02.png"
+    },
+    {
+      "path": "E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core/art/characters/goku/reference/idle_approved.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+      "copy": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/references/idle_approved.png"
+    },
+    {
+      "path": "E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core/art/characters/goku/reference/title_style_lineup_v02.png",
+      "sha256": "7cd53f5cff685fd50408c9b2b268996fc387cfa7203d9f1d0165222e1fa3d415",
+      "copy": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/references/title_style_lineup_v02.png"
+    }
+  ],
+  "outputs": {
+    "current": {
+      "strictExitCode": 1,
+      "renderExitCode": 0,
+      "strictReport": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/strict-report.json",
+      "renderReport": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/render-report.json",
+      "sheet": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/characters/goku/sheet.png",
+      "sheetSha256": "bb4eb2d7e03d075f90784784d009906fd09cbc4e420fb89b68d67a85b11d3a55",
+      "metadata": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/current/characters/goku/anims.json",
+      "metadataSha256": "229ab74b97556ef3a2b2dd8bd4148323b4509d5a840d4c5374ec66573454367c"
+    },
+    "native-height": {
+      "strictExitCode": 1,
+      "renderExitCode": 0,
+      "strictReport": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/strict-report.json",
+      "renderReport": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/render-report.json",
+      "sheet": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/characters/goku/sheet.png",
+      "sheetSha256": "b319f07b217b76f1292eeba0f1559464b6d6104d7091790180bc8db7293abfe8",
+      "metadata": "art/characters/goku/production/scale-qa/pilot-v01/fixture-output/native-height/characters/goku/anims.json",
+      "metadataSha256": "b4df0fed72369440395e697d5a78cde9a0487f9c6a443830ad497c92e94cf324"
+    }
+  },
+  "note": "The current fixture mirrors production bodyHeight and differs from strict production mode only by isolated scaleGate=warn to force diagnostic rendering. Native-height fixture changes only guard bodyHeight=229 and light2 bodyHeight=236 in its private manifest; these values are measured occupied source-frame maxima and are not production calibration changes."
+}

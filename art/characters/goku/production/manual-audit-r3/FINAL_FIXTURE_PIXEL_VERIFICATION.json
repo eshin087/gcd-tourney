@@ -1,0 +1,736 @@
+{
+  "atlasSha256": "d7d8ce0cc7c920dea794c87daf9a27c5d3cda11805f7cb3d1621719a4526ccac",
+  "metadataSha256": "97bf6026f2865f9f115e1e27826a72b67a6cb6fbcf9bde52c6dde36dc0422c12",
+  "quantize": 48,
+  "frames": [
+    {
+      "animation": "idle",
+      "version": 2,
+      "frame": 0,
+      "atlasIndex": 0,
+      "durationMs": 150,
+      "loop": true,
+      "cellPngSha256": "0313c19d36280eab48efa589daf3a66d203835bdd32923d1b97a7d1461ae90d5",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "idle",
+      "version": 2,
+      "frame": 1,
+      "atlasIndex": 1,
+      "durationMs": 150,
+      "loop": true,
+      "cellPngSha256": "cdeb94b7cdf32bfadf4e57ffcc8d14c652f25d66887a86c019e53e9103777c23",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "idle",
+      "version": 2,
+      "frame": 2,
+      "atlasIndex": 2,
+      "durationMs": 150,
+      "loop": true,
+      "cellPngSha256": "4197dd6b5957a47be5faf4a4a5fd89c0cb1644000b5d099223e1f3406f6034fc",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "idle",
+      "version": 2,
+      "frame": 3,
+      "atlasIndex": 3,
+      "durationMs": 150,
+      "loop": true,
+      "cellPngSha256": "2981e13a454b0bae6fdcd6e9c3f301ba044d7aeb4b05fa0636bc4343b203d506",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "idle",
+      "version": 2,
+      "frame": 4,
+      "atlasIndex": 4,
+      "durationMs": 150,
+      "loop": true,
+      "cellPngSha256": "5b72c92c2e95da0e33519dd35bdb70dbfeecc335105046aefd6395ceff2ed531",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "idle",
+      "version": 2,
+      "frame": 5,
+      "atlasIndex": 5,
+      "durationMs": 150,
+      "loop": true,
+      "cellPngSha256": "52e30083d6ad2cfb69bf296942a58a6503209ce7250b1936ce8042da0f39164a",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "idle",
+      "version": 2,
+      "frame": 6,
+      "atlasIndex": 6,
+      "durationMs": 150,
+      "loop": true,
+      "cellPngSha256": "7513f0a126d00d6d5281c00256320981868b221e8ca3e065352415170598a331",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "idle",
+      "version": 2,
+      "frame": 7,
+      "atlasIndex": 7,
+      "durationMs": 150,
+      "loop": true,
+      "cellPngSha256": "718542075d406fdda8486607beca352f34771459e77cbcb6cbc94203f97de004",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "dash",
+      "version": 9,
+      "frame": 0,
+      "atlasIndex": 8,
+      "durationMs": 60,
+      "loop": true,
+      "cellPngSha256": "e5c41871052ad99243944e7bc728c1844eefb371cfc29dfbe73e5c600fbca5f5",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "dash",
+      "version": 9,
+      "frame": 1,
+      "atlasIndex": 9,
+      "durationMs": 60,
+      "loop": true,
+      "cellPngSha256": "f64c21c7597ef3818c73fcff7b4700a8606ca734dfd39a69ac5ddd0309717385",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "frame": 0,
+      "atlasIndex": 10,
+      "durationMs": 80,
+      "loop": true,
+      "cellPngSha256": "3b8e3e6e2eee3d4ce0bde5936878b5fbeda2f0d011d95c453f3c4a207442d898",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "frame": 1,
+      "atlasIndex": 11,
+      "durationMs": 80,
+      "loop": true,
+      "cellPngSha256": "0e5287defab0033e343fc45216cf0bd8475336e9ff4090e24dd587f03146a378",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "jumpFall",
+      "version": 4,
+      "frame": 0,
+      "atlasIndex": 12,
+      "durationMs": 80,
+      "loop": true,
+      "cellPngSha256": "00d4efdd037bdac4951e1f2f2b6678a3c782d4aca2a3876593d82fdd0e44b570",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "jumpFall",
+      "version": 4,
+      "frame": 1,
+      "atlasIndex": 13,
+      "durationMs": 80,
+      "loop": true,
+      "cellPngSha256": "c62d0ba8e631686a912a47f3cab2a56f77d507fcb1fe9189c7170fdb7f70057b",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "frame": 0,
+      "atlasIndex": 14,
+      "durationMs": 50,
+      "loop": false,
+      "cellPngSha256": "b4368e63cc9e97dc33bd23dc658513f53ace7f0b9ca32b051c7a71fe20acadbf",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "frame": 1,
+      "atlasIndex": 15,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "08ba49b6148b7f5483b31c1c9c56d87b92b8a0bd241ebc3ac4da62547cde69ed",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "frame": 0,
+      "atlasIndex": 16,
+      "durationMs": 35,
+      "loop": false,
+      "cellPngSha256": "cc5e9ff01c93fe9b7b87e904ed7d7d48e78215e5ca51b1214e1bd8ae5850f988",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "frame": 1,
+      "atlasIndex": 17,
+      "durationMs": 30,
+      "loop": false,
+      "cellPngSha256": "a4dbb20c8abaae03d1722f129a46dff619f53d5a5191d8379038a520499c5b88",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "frame": 2,
+      "atlasIndex": 18,
+      "durationMs": 40,
+      "loop": false,
+      "cellPngSha256": "00c68d4bad485e65df9414b6d325e98c8907d0735309d50e619599a8cf0da677",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "frame": 3,
+      "atlasIndex": 19,
+      "durationMs": 50,
+      "loop": false,
+      "cellPngSha256": "30ebc970af5df6763625bd9ccef49884e06c63bc8200baa3fdc712560977560c",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "frame": 4,
+      "atlasIndex": 20,
+      "durationMs": 60,
+      "loop": false,
+      "cellPngSha256": "593fd9679586ceff5c5148c9fa58358748e4599f061172eb75e6d4f4671141ab",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "frame": 5,
+      "atlasIndex": 21,
+      "durationMs": 50,
+      "loop": false,
+      "cellPngSha256": "8d9f1768688ed0677441333322a239ed88ed1856a4aafa8ec90391646ad3b142",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "frame": 6,
+      "atlasIndex": 22,
+      "durationMs": 30,
+      "loop": false,
+      "cellPngSha256": "bcaa491cdc06b87a158cd2eedd0e41db89b410022b6d726353ab47add4d8c3e3",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light3",
+      "version": 4,
+      "frame": 0,
+      "atlasIndex": 23,
+      "durationMs": 40,
+      "loop": false,
+      "cellPngSha256": "fdbf383348e3db709047d2588db53cf9227e4e5be66ee74c29fde6feb398b6a5",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light3",
+      "version": 4,
+      "frame": 1,
+      "atlasIndex": 24,
+      "durationMs": 35,
+      "loop": false,
+      "cellPngSha256": "8fbf1cd0daa97fb8ae0a2455623972b8f2f7fcce5c6223088a03d6834038eb28",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light3",
+      "version": 4,
+      "frame": 2,
+      "atlasIndex": 25,
+      "durationMs": 45,
+      "loop": false,
+      "cellPngSha256": "2c22e81a9c8efb6e9aa2de86f30b67263b6564bc67a71b1f8e58bf8e270a9928",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light3",
+      "version": 4,
+      "frame": 3,
+      "atlasIndex": 26,
+      "durationMs": 60,
+      "loop": false,
+      "cellPngSha256": "4724dea733a69e4273ea2e63cd0250d4a32404291b1095e77e1a3485220d664c",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light3",
+      "version": 4,
+      "frame": 4,
+      "atlasIndex": 27,
+      "durationMs": 60,
+      "loop": false,
+      "cellPngSha256": "fd887e935a7a721127587c9323fe5033155fa296310c64ed9cf06cd4c333cc05",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light3",
+      "version": 4,
+      "frame": 5,
+      "atlasIndex": 28,
+      "durationMs": 60,
+      "loop": false,
+      "cellPngSha256": "9a5db594c7d7d7c196ca4b978e133e7f95549026f3ff976006aad318a94802a2",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light3",
+      "version": 4,
+      "frame": 6,
+      "atlasIndex": 29,
+      "durationMs": 30,
+      "loop": false,
+      "cellPngSha256": "941eb2d0101a76f0c676c3d5eff2bb94166e69f3873a3b9ca898cd8484f03d26",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light4",
+      "version": 4,
+      "frame": 0,
+      "atlasIndex": 30,
+      "durationMs": 50,
+      "loop": false,
+      "cellPngSha256": "e8d1d86d896c717f956c6a71b17fdd1b3bf4389382881c92cc7786f66e58f692",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light4",
+      "version": 4,
+      "frame": 1,
+      "atlasIndex": 31,
+      "durationMs": 45,
+      "loop": false,
+      "cellPngSha256": "a2f29cda5975ae88bdd7e49d0e1d117d9b38289f11a83a778d1c7f9c84acd764",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light4",
+      "version": 4,
+      "frame": 2,
+      "atlasIndex": 32,
+      "durationMs": 35,
+      "loop": false,
+      "cellPngSha256": "24639a5798967c6dfbcff75b9cd292492cd60bde24345665d63570be365e0ad7",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light4",
+      "version": 4,
+      "frame": 3,
+      "atlasIndex": 33,
+      "durationMs": 40,
+      "loop": false,
+      "cellPngSha256": "90038affef9c157cb4a3c3f088c1db989492ecbc91fe0e414cc03608ef0b144f",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light4",
+      "version": 4,
+      "frame": 4,
+      "atlasIndex": 34,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "479a2a40c6893e4488add7d469a6c2c44137689530839adfd1ef7ce0512f2404",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light4",
+      "version": 4,
+      "frame": 5,
+      "atlasIndex": 35,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "a93c782bb5ff031eb23ea4904f00a779104d9b9df1a2bf7beaad0d3d0bf2dd71",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light4",
+      "version": 4,
+      "frame": 6,
+      "atlasIndex": 36,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "33d136caf9bc28ebc920a1c999fefec281c94314d6a65c716edf4fe7a2bc439e",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "light4",
+      "version": 4,
+      "frame": 7,
+      "atlasIndex": 37,
+      "durationMs": 40,
+      "loop": false,
+      "cellPngSha256": "957ac97fb9fe962d6b4b41e7c6b51813a86c7d7085b6e5e29c701f0d006e3a69",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 4,
+      "frame": 0,
+      "atlasIndex": 38,
+      "durationMs": 40,
+      "loop": false,
+      "cellPngSha256": "c376405984f9af33bc9beb84a96a4263a567fbb3d4a6284773c5ba968c924c0c",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 4,
+      "frame": 1,
+      "atlasIndex": 39,
+      "durationMs": 35,
+      "loop": false,
+      "cellPngSha256": "17786107bf3475d655df196bba26c566b3ebd224e4494ca411ab32a9ea8e5f5b",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 4,
+      "frame": 2,
+      "atlasIndex": 40,
+      "durationMs": 30,
+      "loop": false,
+      "cellPngSha256": "ad74ded79aa2a715649e9babd3d67fad9eb11425aaf85aa754a4ea60e697a9f6",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 4,
+      "frame": 3,
+      "atlasIndex": 41,
+      "durationMs": 50,
+      "loop": false,
+      "cellPngSha256": "4746a5062b837e98bacf266159556b1ee21eccbcc574e27020e00ba14e06b0fd",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 4,
+      "frame": 4,
+      "atlasIndex": 42,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "a7f724a331ea4b986cce835c99ec16dddb75b142b788d402aae818001866ccfa",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 4,
+      "frame": 5,
+      "atlasIndex": 43,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "08cfbce2373c9fd94adcb5194b015c3c27a2cee4d8946298a7e95d4fd4305967",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 4,
+      "frame": 6,
+      "atlasIndex": 44,
+      "durationMs": 60,
+      "loop": false,
+      "cellPngSha256": "b227d1b4419e818460bfb3bbb53539e4c037e78f22674055e74dd0725469a2b6",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "heavy",
+      "version": 4,
+      "frame": 7,
+      "atlasIndex": 45,
+      "durationMs": 30,
+      "loop": false,
+      "cellPngSha256": "d1a68f9102921673acbad7f34b88db9bfcf907f72f6f7d9d2b5eba30c87069a3",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airLight1",
+      "version": 4,
+      "frame": 0,
+      "atlasIndex": 46,
+      "durationMs": 45,
+      "loop": false,
+      "cellPngSha256": "cc6102101f7ae39897803f35830eefa7b5d02111f6e3ed26452afa372b20d051",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airLight1",
+      "version": 4,
+      "frame": 1,
+      "atlasIndex": 47,
+      "durationMs": 35,
+      "loop": false,
+      "cellPngSha256": "58e190858319ca259b60bf5154e2cca00c3723c626038caf95bde015601b9cdb",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airLight1",
+      "version": 4,
+      "frame": 2,
+      "atlasIndex": 48,
+      "durationMs": 50,
+      "loop": false,
+      "cellPngSha256": "687ccc8a8bc083a395d7fae3a5455f9732419f86725ab382e685c065815817c1",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airLight1",
+      "version": 4,
+      "frame": 3,
+      "atlasIndex": 49,
+      "durationMs": 50,
+      "loop": false,
+      "cellPngSha256": "981cc971a2410c7298961a7e520d27d4e21144fd745e7bbe2d8bcc67ef4070c6",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airLight1",
+      "version": 4,
+      "frame": 4,
+      "atlasIndex": 50,
+      "durationMs": 30,
+      "loop": false,
+      "cellPngSha256": "749aa83d72a6d4f645bfc439fe040fd8c1e14bd19a2142adbc3fa07a01b7d85d",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airHeavy",
+      "version": 4,
+      "frame": 0,
+      "atlasIndex": 51,
+      "durationMs": 50,
+      "loop": false,
+      "cellPngSha256": "a4f9bbf5a79245713a3b5b7aec0d71facffe21ea649e6e24afe1a92bee16a7d2",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airHeavy",
+      "version": 4,
+      "frame": 1,
+      "atlasIndex": 52,
+      "durationMs": 45,
+      "loop": false,
+      "cellPngSha256": "82098df701711773686c62c0afd2e90dec2d6d9d2ac88718f40c9d01826883ca",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airHeavy",
+      "version": 4,
+      "frame": 2,
+      "atlasIndex": 53,
+      "durationMs": 45,
+      "loop": false,
+      "cellPngSha256": "e2dc060d5d9d80409adf5f2a72aa1b7b0c060903d9e04dbfa5e0380b1143b61a",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airHeavy",
+      "version": 4,
+      "frame": 3,
+      "atlasIndex": 54,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "c81fcc9b57f72debcc1dd733eba1f120d7a889684f320984fae775ddf429de59",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airHeavy",
+      "version": 4,
+      "frame": 4,
+      "atlasIndex": 55,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "c9089fc2f8f0be9d2dc915e885985ebf1ad00031e3afacffb87900f8817c61e9",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "airHeavy",
+      "version": 4,
+      "frame": 5,
+      "atlasIndex": 56,
+      "durationMs": 40,
+      "loop": false,
+      "cellPngSha256": "4f538308294a1a644547bad2a1e76582d0ad95d06ec3e22fbe515a42dec08892",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "guard",
+      "version": 5,
+      "frame": 0,
+      "atlasIndex": 57,
+      "durationMs": 300,
+      "loop": true,
+      "cellPngSha256": "d31b449fabd2989dd232f1e1770e530496edb922270a436f79765494d4964265",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "guard",
+      "version": 5,
+      "frame": 1,
+      "atlasIndex": 58,
+      "durationMs": 300,
+      "loop": true,
+      "cellPngSha256": "506adad852f2a2a062bfcab78f641a71a28771c2dfaea02b2c37fca843efbaba",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "hurtHigh",
+      "version": 8,
+      "frame": 0,
+      "atlasIndex": 59,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "e5ab98028d4bf65742a434603c5d9342f2206a2636d37e4772eb971241a1a55c",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "hurtHigh",
+      "version": 8,
+      "frame": 1,
+      "atlasIndex": 60,
+      "durationMs": 90,
+      "loop": false,
+      "cellPngSha256": "97c6b0629f50232e7ffe640c8163076074d55e7f68f895399c1911611ad7d78a",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "hurtHigh",
+      "version": 8,
+      "frame": 2,
+      "atlasIndex": 61,
+      "durationMs": 100,
+      "loop": false,
+      "cellPngSha256": "399640a2ba7ad050a712c6950584e9bb4b811a5f4d4178616afe4d67318f0885",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "launched",
+      "version": 6,
+      "frame": 0,
+      "atlasIndex": 62,
+      "durationMs": 70,
+      "loop": true,
+      "cellPngSha256": "458d839b51ac3b14feb4018378122178c0709d7c82488773a7f27edaa97b5269",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "launched",
+      "version": 6,
+      "frame": 1,
+      "atlasIndex": 63,
+      "durationMs": 70,
+      "loop": true,
+      "cellPngSha256": "2449859fb2621cb8cc77ce949628c631e2f6afdadbc5dac473b2a334577080bc",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "frame": 0,
+      "atlasIndex": 64,
+      "durationMs": 80,
+      "loop": false,
+      "cellPngSha256": "3cf2ffd520ddb6d63ef0c792e4369ae6fbfff35cf54a96bd7968d38e3a2030b3",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "frame": 1,
+      "atlasIndex": 65,
+      "durationMs": 420,
+      "loop": false,
+      "cellPngSha256": "7fe6c0e76607b7efaafb2e83ad93aae5bf8c24063d4fcbddf32f5a45a72ee50f",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "getup",
+      "version": 3,
+      "frame": 0,
+      "atlasIndex": 66,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "76ed1a5762ec6826d43a822597848bcddbf8a9b055f45892c0f4c69d85a4d730",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "getup",
+      "version": 3,
+      "frame": 1,
+      "atlasIndex": 67,
+      "durationMs": 60,
+      "loop": false,
+      "cellPngSha256": "e5b99c115b59071883a7bff9d906d0ea746de322ec2fadfb8d091ad23d306cd4",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "getup",
+      "version": 3,
+      "frame": 2,
+      "atlasIndex": 68,
+      "durationMs": 60,
+      "loop": false,
+      "cellPngSha256": "d1f03ab30fd91bbcf1a2512e82db64d38202c50db9e6c07887ab032944dd011d",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "getup",
+      "version": 3,
+      "frame": 3,
+      "atlasIndex": 69,
+      "durationMs": 80,
+      "loop": false,
+      "cellPngSha256": "c2f00e0b6d35dee9240edeb780c522706e2852ec260e007781cc86d164b40741",
+      "atlasRgbaDifference": 0
+    },
+    {
+      "animation": "getup",
+      "version": 3,
+      "frame": 4,
+      "atlasIndex": 70,
+      "durationMs": 70,
+      "loop": false,
+      "cellPngSha256": "a333fc00a91161cd3dae1664783fb1945343fc518e9e32bec50b82ffc61d857c",
+      "atlasRgbaDifference": 0
+    }
+  ],
+  "versions": {
+    "idle": 2,
+    "dash": 9,
+    "jumpUp": 4,
+    "jumpFall": 4,
+    "land": 7,
+    "light2": 5,
+    "light3": 4,
+    "light4": 4,
+    "heavy": 4,
+    "airLight1": 4,
+    "airHeavy": 4,
+    "guard": 5,
+    "hurtHigh": 8,
+    "launched": 6,
+    "down": 5,
+    "getup": 3
+  },
+  "opaqueRgbColors": 48
+}

@@ -1,0 +1,346 @@
+{
+  "reassembly": {
+    "measurement": "manual",
+    "factor": 0.613,
+    "uncertainty": "±0.075",
+    "reason": "single common source-to-cell factor measured from stable anatomical landmarks against approved idle v02; no whole-figure fit or pose-specific scaling",
+    "landmarks": {
+      "method": "inverse-map of Astra-marked v04 native-control frame 0 through the recorded old grid-to-cells transform; source coordinates are approximate and include prior raster resampling uncertainty",
+      "sourceFrame0": {
+        "neckBaseToBeltCenter": {
+          "from": [
+            189,
+            123
+          ],
+          "to": [
+            190,
+            198
+          ],
+          "lengthPx": 75,
+          "idleTargetPx": 46,
+          "factor": 0.613,
+          "uncertaintyPx": 8
+        },
+        "beltWidth": {
+          "from": [
+            166,
+            198
+          ],
+          "to": [
+            224,
+            198
+          ],
+          "lengthPx": 58,
+          "idleTargetPx": 36,
+          "factor": 0.621,
+          "uncertaintyPx": 7
+        },
+        "leftBootTopToSole": {
+          "from": [
+            107,
+            341
+          ],
+          "to": [
+            86,
+            410
+          ],
+          "lengthPx": 72,
+          "idleTargetPx": 45,
+          "factor": 0.625,
+          "uncertaintyPx": 8
+        }
+      },
+      "validationFrames": "the source includes readable guard/recovery frames 0, 1 and 6; belt spans in those rows are approximately 57, 58 and 59 source px. Attack frames turn/foreshorten the torso and are not treated as independent scale measurements.",
+      "decision": "factor is the median of frame-0 torso, belt and boot ratios; landmarks agree within about 2%. Endpoint and perspective uncertainty dominate (±0.075); not a numeric pass."
+    },
+    "source": "art/characters/goku/production/generation-source/light2_v04_attempt05.png",
+    "sourceSha256": "f9541b3fbabd570bf9db80152add3331d4b7753ff9f1bee52065683608e61753",
+    "previousCandidate": "art/characters/goku/raw/light2_v04.png",
+    "previousSourceTransform": "The inverse-map used only to express measured landmarks in original-source coordinates; not used to select the new scale.",
+    "grid": {
+      "columns": 4,
+      "rows": 2,
+      "frames": 7
+    },
+    "idleReference": {
+      "path": "art/characters/goku/raw/idle_v02.png",
+      "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+      "frame": 0,
+      "bounds": {
+        "minX": 46,
+        "minY": 8,
+        "maxX": 208,
+        "maxY": 239,
+        "width": 163,
+        "height": 232
+      },
+      "measuredLandmarksPx": {
+        "neckBaseToBeltCenter": 46,
+        "beltWidth": 36,
+        "leftBootTopToSole": 45
+      }
+    },
+    "panels": [
+      {
+        "frame": 0,
+        "crop": {
+          "x0": 0,
+          "y0": 0,
+          "x1": 443,
+          "y1": 443
+        },
+        "sourceBounds": {
+          "minX": 65,
+          "minY": 27,
+          "maxX": 334,
+          "maxY": 410,
+          "width": 270,
+          "height": 384
+        },
+        "output": {
+          "x": 46,
+          "y": 5,
+          "width": 166,
+          "height": 236,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 46,
+          "minY": 5,
+          "maxX": 211,
+          "maxY": 240,
+          "width": 166,
+          "height": 236
+        }
+      },
+      {
+        "frame": 1,
+        "crop": {
+          "x0": 443,
+          "y0": 0,
+          "x1": 887,
+          "y1": 443
+        },
+        "sourceBounds": {
+          "minX": 506,
+          "minY": 29,
+          "maxX": 782,
+          "maxY": 410,
+          "width": 277,
+          "height": 382
+        },
+        "output": {
+          "x": 44,
+          "y": 6,
+          "width": 170,
+          "height": 235,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 300,
+          "minY": 6,
+          "maxX": 469,
+          "maxY": 240,
+          "width": 170,
+          "height": 235
+        }
+      },
+      {
+        "frame": 2,
+        "crop": {
+          "x0": 887,
+          "y0": 0,
+          "x1": 1330,
+          "y1": 443
+        },
+        "sourceBounds": {
+          "minX": 944,
+          "minY": 34,
+          "maxX": 1267,
+          "maxY": 410,
+          "width": 324,
+          "height": 377
+        },
+        "output": {
+          "x": 29,
+          "y": 9,
+          "width": 199,
+          "height": 232,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 541,
+          "minY": 9,
+          "maxX": 739,
+          "maxY": 240,
+          "width": 199,
+          "height": 232
+        }
+      },
+      {
+        "frame": 3,
+        "crop": {
+          "x0": 1330,
+          "y0": 0,
+          "x1": 1774,
+          "y1": 443
+        },
+        "sourceBounds": {
+          "minX": 1400,
+          "minY": 34,
+          "maxX": 1735,
+          "maxY": 410,
+          "width": 336,
+          "height": 377
+        },
+        "output": {
+          "x": 26,
+          "y": 9,
+          "width": 206,
+          "height": 232,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 794,
+          "minY": 9,
+          "maxX": 999,
+          "maxY": 240,
+          "width": 206,
+          "height": 232
+        }
+      },
+      {
+        "frame": 4,
+        "crop": {
+          "x0": 0,
+          "y0": 443,
+          "x1": 443,
+          "y1": 887
+        },
+        "sourceBounds": {
+          "minX": 56,
+          "minY": 483,
+          "maxX": 391,
+          "maxY": 852,
+          "width": 336,
+          "height": 370
+        },
+        "output": {
+          "x": 26,
+          "y": 14,
+          "width": 206,
+          "height": 227,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 1050,
+          "minY": 14,
+          "maxX": 1255,
+          "maxY": 240,
+          "width": 206,
+          "height": 227
+        }
+      },
+      {
+        "frame": 5,
+        "crop": {
+          "x0": 443,
+          "y0": 443,
+          "x1": 887,
+          "y1": 887
+        },
+        "sourceBounds": {
+          "minX": 510,
+          "minY": 470,
+          "maxX": 782,
+          "maxY": 853,
+          "width": 273,
+          "height": 384
+        },
+        "output": {
+          "x": 45,
+          "y": 5,
+          "width": 168,
+          "height": 236,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 1325,
+          "minY": 5,
+          "maxX": 1492,
+          "maxY": 240,
+          "width": 168,
+          "height": 236
+        }
+      },
+      {
+        "frame": 6,
+        "crop": {
+          "x0": 887,
+          "y0": 443,
+          "x1": 1330,
+          "y1": 887
+        },
+        "sourceBounds": {
+          "minX": 953,
+          "minY": 470,
+          "maxX": 1220,
+          "maxY": 853,
+          "width": 268,
+          "height": 384
+        },
+        "output": {
+          "x": 46,
+          "y": 5,
+          "width": 165,
+          "height": 236,
+          "overflow": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "occupied": {
+          "minX": 1582,
+          "minY": 5,
+          "maxX": 1746,
+          "maxY": 240,
+          "width": 165,
+          "height": 236
+        }
+      }
+    ],
+    "review": "Technical hold pending Claude calibration and pack/contact review; this does not record or imply image approval."
+  }
+}

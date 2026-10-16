@@ -1,0 +1,35 @@
+{
+  "animation": "land",
+  "version": 7,
+  "factor": 0.3,
+  "sourcePath": "art/characters/goku/production/generation-source/land_v03_attempt03.png",
+  "sourceSha256": "3cd093cacc6742804e94702467514ec3e19e3dda039c00ccad2a703e5861709c",
+  "standardStrip": "art/characters/goku/raw/_qa_hold/land_v07.png",
+  "standardStripSha256": "813e55ab269ae3e4cdd1ab7e4f191de25b9ae17d3173989c9ed2eba7173390cc",
+  "standardStripLostSourcePixels": 0,
+  "method": "unclipped nearest-neighbor diagnostic rendering from exact per-frame source rectangles; no palette quantization, no approval, not pack-ready",
+  "frames": [
+    {
+      "frame": 0,
+      "dimensions": [
+        175,
+        198
+      ],
+      "nativeHeight": 198,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/land_v07-f00.png",
+      "sha256": "bba8d68f7ebd444486f754189d22d106bcf1ae50fb8582c40e1b0178cc3f32ed"
+    },
+    {
+      "frame": 1,
+      "dimensions": [
+        175,
+        235
+      ],
+      "nativeHeight": 235,
+      "path": "art/characters/goku/production/reassembly-r03/roomy/land_v07-f01.png",
+      "sha256": "14684eda3de4357685b3915f941c8d665877aed42c8c33f73210d979df91337f"
+    }
+  ],
+  "contactPath": "art/characters/goku/production/reassembly-r03/roomy/land_v07-contact.png",
+  "contactSha256": "628a2b09a5d496ccd562c3675480ffb448bbcc07e428a3bb3e94b64706ee61ae"
+}

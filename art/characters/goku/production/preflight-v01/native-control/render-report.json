@@ -1,0 +1,1240 @@
+{
+  "art": "art/characters/goku/production/preflight-v01/input",
+  "artExists": true,
+  "out": "art/characters/goku/production/preflight-v01/native-control",
+  "warnings": [],
+  "characters": [
+    {
+      "id": "goku",
+      "packed": [
+        {
+          "anim": "idle",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/idle_v02.png",
+          "from": "raw/idle_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "run",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/run_v04.png",
+          "from": "raw/run_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.854,
+          "frameScales": [
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356
+          ],
+          "notes": []
+        },
+        {
+          "anim": "dash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/dash_v03.png",
+          "from": "raw/dash_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "jumpUp",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpUp_v03.png",
+          "from": "raw/jumpUp_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.992,
+          "frameScales": [
+            0.99163,
+            0.99163
+          ],
+          "notes": []
+        },
+        {
+          "anim": "jumpFall",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpFall_v02.png",
+          "from": "raw/jumpFall_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "land",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/land_v03.png",
+          "from": "raw/land_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light1",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light1_v02.png",
+          "from": "raw/light1_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.854,
+          "frameScales": [
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356,
+            0.85356
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light2",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light2_v04.png",
+          "from": "raw/light2_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light3",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light3_v04.png",
+          "from": "raw/light3_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.992,
+          "frameScales": [
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light4",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/light4_v04.png",
+          "from": "raw/light4_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.992,
+          "frameScales": [
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163
+          ],
+          "notes": []
+        },
+        {
+          "anim": "heavy",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/heavy_v04.png",
+          "from": "raw/heavy_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "airLight1",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight1_v04.png",
+          "from": "raw/airLight1_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "airHeavy",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airHeavy_v04.png",
+          "from": "raw/airHeavy_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "guard",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/guard_v04.png",
+          "from": "raw/guard_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.992,
+          "frameScales": [
+            0.99163,
+            0.99163
+          ],
+          "notes": []
+        },
+        {
+          "anim": "hurtHigh",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtHigh_v07.png",
+          "from": "raw/hurtHigh_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "launched",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/launched_v06.png",
+          "from": "raw/launched_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "down",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/down_v04.png",
+          "from": "raw/down_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "getup",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/getup_v03.png",
+          "from": "raw/getup_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.992,
+          "frameScales": [
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163
+          ],
+          "notes": []
+        },
+        {
+          "anim": "charge",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/charge_v04.png",
+          "from": "raw/charge_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamCharge",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamCharge_v04.png",
+          "from": "raw/beamCharge_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamFire",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamFire_v04.png",
+          "from": "raw/beamFire_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        },
+        {
+          "anim": "special",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/special_v02.png",
+          "from": "raw/special_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.992,
+          "frameScales": [
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163,
+            0.99163
+          ],
+          "notes": []
+        },
+        {
+          "anim": "win",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/win_v03.png",
+          "from": "raw/win_v03.png",
+          "version": 3,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.988,
+          "frameScales": [
+            0.9875,
+            0.9875,
+            0.9875,
+            0.9875
+          ],
+          "notes": []
+        }
+      ],
+      "missing": [
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "airLight2",
+        "airLight3",
+        "block",
+        "hurtLow",
+        "spin",
+        "airRecover",
+        "throw",
+        "vanish",
+        "stagger",
+        "ko",
+        "intro",
+        "taunt",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose",
+        "techGround",
+        "techRoll",
+        "wallTech",
+        "light1Alt",
+        "light2Alt",
+        "light3Alt",
+        "light4Alt",
+        "heavyAlt",
+        "airLight1Alt",
+        "airLight2Alt",
+        "airLight3Alt",
+        "airHeavyAlt",
+        "hurtHighAlt",
+        "hurtLowAlt"
+      ],
+      "missingCore": [],
+      "failed": [],
+      "blocked": [],
+      "versions": {
+        "idle": 2,
+        "run": 4,
+        "dash": 3,
+        "jumpUp": 3,
+        "jumpFall": 2,
+        "land": 3,
+        "light1": 2,
+        "light2": 4,
+        "light3": 4,
+        "light4": 4,
+        "heavy": 4,
+        "airLight1": 4,
+        "airHeavy": 4,
+        "guard": 4,
+        "hurtHigh": 7,
+        "launched": 6,
+        "down": 4,
+        "getup": 3,
+        "charge": 4,
+        "beamCharge": 4,
+        "beamFire": 4,
+        "special": 2,
+        "win": 3
+      },
+      "complete": true,
+      "frames": 108,
+      "sheet": "4096x1792",
+      "colors": 48,
+      "warnings": [
+        "run: 2 frame(s) clipped by the 256x256 cell (#3 left 13px, #6 left 11px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "dash: 1 frame(s) clipped by the 256x256 cell (#1 left 28px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "jumpUp: bodyHeight 239 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "jumpFall: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "land: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "light2: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "light3: bodyHeight 239 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "light4: bodyHeight 239 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "light4: 2 frame(s) clipped by the 256x256 cell (#4 right 28px, #5 right 21px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "heavy: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "heavy: 3 frame(s) clipped by the 256x256 cell (#3 right 21px, #4 right 22px, #5 right 25px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "airLight1: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "airLight1: 2 frame(s) clipped by the 256x256 cell (#2 right 70px, #3 right 60px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "airLight1: 1 frame(s) reach into the 4px cell margin (#1 right 4px) - keep every pixel inside x 4..251, y >= 4; lower bodyHeight or redraw",
+        "airHeavy: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "guard: bodyHeight 239 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "hurtHigh: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "launched: 2 frame(s) clipped by the 256x256 cell (#0 left 41px, #1 left 61px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "down: 1 frame(s) clipped by the 256x256 cell (#1 right 4px) - pose too wide/tall for the pivot; lower bodyHeight or redraw",
+        "getup: bodyHeight 239 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "charge: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "beamCharge: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "beamFire: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "special: bodyHeight 239 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "win: bodyHeight 240 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "getup: 1 lying frame(s) float above the floor line (#0: 39% of the body within 6px of y 240, worst fifth 8px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020)"
+      ],
+      "notes": [
+        "palette snapped to 48 colors",
+        "6 active frame(s) had no clear strike limb - hitbox = front 28% of the body (light1#2, light3#3, light4#3, airLight1#1, airLight1#2, airHeavy#3; check them in the Sprite Lab or add hitboxes.json overrides)"
+      ],
+      "wrote": [
+        "art/characters/goku/production/preflight-v01/native-control/characters/goku/sheet.png",
+        "art/characters/goku/production/preflight-v01/native-control/characters/goku/anims.json"
+      ],
+      "writeback": [],
+      "ui": [],
+      "uiItems": [],
+      "ground": {
+        "down": [
+          {
+            "frame": 1,
+            "contact": 0.57,
+            "gaps": [
+              5,
+              0,
+              5,
+              4,
+              8
+            ],
+            "worst": 8,
+            "h": 80,
+            "ok": true
+          }
+        ],
+        "getup": [
+          {
+            "frame": 0,
+            "contact": 0.39,
+            "gaps": [
+              2,
+              0,
+              8,
+              7,
+              4
+            ],
+            "worst": 8,
+            "h": 165,
+            "ok": false
+          }
+        ]
+      },
+      "tech": {},
+      "alts": {},
+      "hitBoxes": {
+        "light1": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                158,
+                40,
+                48,
+                201
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                199,
+                87,
+                36,
+                24
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "light2": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                63,
+                43,
+                24
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                199,
+                66,
+                55,
+                27
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "light3": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                94,
+                31,
+                57
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                165,
+                45,
+                47,
+                57
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "light4": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                157,
+                85,
+                58,
+                159
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                199,
+                23,
+                57,
+                67
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "heavy": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                207,
+                52,
+                49,
+                28
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                217,
+                53,
+                39,
+                31
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "airLight1": [
+          {
+            "frame": 1,
+            "hit": [
+              [
+                212,
+                7,
+                44,
+                167
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 2,
+            "hit": [
+              [
+                210,
+                9,
+                46,
+                173
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "airHeavy": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                199,
+                8,
+                24,
+                55
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                144,
+                34,
+                44,
+                210
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "special": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                199,
+                48,
+                36,
+                45
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                201,
+                46,
+                48,
+                47
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 5,
+            "hit": [
+              [
+                199,
+                47,
+                31,
+                44
+              ]
+            ],
+            "rule": "forward"
+          }
+        ]
+      },
+      "scale": {
+        "gate": "warn",
+        "failed": [],
+        "findings": [
+          "run pops inside the strip: f0 0.50 vs f2 0.78 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "dash pops inside the strip: f0 0.73 vs f1 1.02 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v03]",
+          "jumpUp head 0.79 of idle (feet 0.94): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v03]",
+          "jumpFall head 0.50 of idle (feet 0.89): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v02]",
+          "land head 0.55 of idle (feet 0.95): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v03]",
+          "light1 pops inside the strip: f0 0.50 vs f4 0.74 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]",
+          "light2 pops inside the strip: f4 0.52 vs f3 1.17 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "light3 pops inside the strip: f1 0.50 vs f0 0.71 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "light4 pops inside the strip: f0 0.50 vs f2 0.98 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "heavy pops inside the strip: f3 0.50 vs f6 0.93 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "airLight1 pops inside the strip: f2 0.50 vs f0 0.89 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "airHeavy pops inside the strip: f0 0.50 vs f3 0.84 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "guard pops inside the strip: f0 0.66 vs f1 0.95 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "hurtHigh pops inside the strip: f0 1.13 vs f1 1.26 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v07]",
+          "charge pops inside the strip: f2 0.50 vs f0 0.78 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "beamCharge pops inside the strip: f0 0.50 vs f1 0.67 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v04]",
+          "beamFire head 0.50 of idle (feet 1.05): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v04]",
+          "special pops inside the strip: f2 0.50 vs f3 1.00 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v02]",
+          "win pops inside the strip: f2 0.50 vs f0 0.91 of the idle head (two parts at two scales?) - re-stitch with a measured factor (npm run stitch) or redraw [approved v03]"
+        ],
+        "anims": {
+          "idle": {
+            "head": 0.645,
+            "feet": 1,
+            "range": 2.167,
+            "verdict": "ref",
+            "strict": false,
+            "version": 2,
+            "reason": null,
+            "frames": [
+              2.667,
+              0.516,
+              0.606,
+              0.5,
+              0.516,
+              1.183,
+              0.876,
+              0.683
+            ]
+          },
+          "run": {
+            "head": 0.574,
+            "feet": 0.865,
+            "range": 0.275,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.5,
+              0.737,
+              0.775,
+              0.658,
+              0.516,
+              0.632,
+              0.5,
+              0.5
+            ]
+          },
+          "dash": {
+            "head": 0.874,
+            "feet": 0.819,
+            "range": 0.287,
+            "verdict": "pop",
+            "strict": false,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              0.73,
+              1.017
+            ]
+          },
+          "jumpUp": {
+            "head": 0.786,
+            "feet": 0.938,
+            "range": 0.112,
+            "verdict": "drift",
+            "strict": false,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              0.73,
+              0.842
+            ]
+          },
+          "jumpFall": {
+            "head": 0.5,
+            "feet": 0.89,
+            "range": 0,
+            "verdict": "drift",
+            "strict": false,
+            "version": 2,
+            "reason": null,
+            "frames": [
+              0.5,
+              0.5
+            ]
+          },
+          "land": {
+            "head": 0.547,
+            "feet": 0.954,
+            "range": 0.061,
+            "verdict": "drift",
+            "strict": false,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              0.516,
+              0.577
+            ]
+          },
+          "light1": {
+            "head": 0.577,
+            "feet": 0.877,
+            "range": 0.237,
+            "verdict": "pop",
+            "strict": false,
+            "version": 2,
+            "reason": null,
+            "frames": [
+              0.5,
+              0.5,
+              0.5,
+              0.577,
+              0.737,
+              0.73,
+              0.606
+            ]
+          },
+          "light2": {
+            "head": 0.632,
+            "feet": 1.026,
+            "range": 0.653,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.632,
+              0.737,
+              0.632,
+              1.169,
+              0.516,
+              0.577,
+              0.707
+            ]
+          },
+          "light3": {
+            "head": 0.526,
+            "feet": 0.908,
+            "range": 0.207,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.707,
+              0.5,
+              0.5,
+              0.526,
+              0.667,
+              0.606,
+              0.516
+            ]
+          },
+          "light4": {
+            "head": 0.645,
+            "feet": 1,
+            "range": 0.483,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.5,
+              0.516,
+              0.983,
+              0.516,
+              0.658,
+              0.894,
+              0.796,
+              0.632
+            ]
+          },
+          "heavy": {
+            "head": 0.577,
+            "feet": 0.969,
+            "range": 0.431,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.577,
+              0.913,
+              0.516,
+              0.5,
+              0.526,
+              0.577,
+              0.931,
+              0.753
+            ]
+          },
+          "airLight1": {
+            "head": 0.606,
+            "feet": 0.943,
+            "range": 0.394,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.894,
+              0.632,
+              0.5,
+              0.606,
+              0.5
+            ]
+          },
+          "airHeavy": {
+            "head": 0.561,
+            "feet": 0.932,
+            "range": 0.342,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.5,
+              0.5,
+              0.606,
+              0.842,
+              0.683,
+              0.516
+            ]
+          },
+          "guard": {
+            "head": 0.803,
+            "feet": 1.033,
+            "range": 0.289,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.658,
+              0.947
+            ]
+          },
+          "hurtHigh": {
+            "head": 1.183,
+            "feet": 0.824,
+            "range": 0.14,
+            "verdict": "pop",
+            "strict": false,
+            "version": 7,
+            "reason": null,
+            "frames": [
+              1.125,
+              1.265,
+              1.183
+            ]
+          },
+          "launched": {
+            "head": null,
+            "feet": null,
+            "range": 0,
+            "verdict": "manual",
+            "strict": false,
+            "version": 6,
+            "reason": "manual QA by Codex: Compared both native-density frames side by side with approved idle f0 in the contact sheet. Reclined/tumbling poses retain consistent head-to-torso and limb volume; pose foreshortening and occlusion make absolute stature uncertain by about ±10px. Manual shape comparison only; not a numeric height pass or user approval. (art/characters/goku/production/scale-qa/goku-lowpose-contact-v01.png)",
+            "frames": [
+              null,
+              null
+            ]
+          },
+          "down": {
+            "head": 0.592,
+            "feet": 0.8,
+            "range": 0.183,
+            "verdict": "manual",
+            "strict": false,
+            "version": 4,
+            "reason": "manual QA by Codex: Compared both native-density frames side by side with approved idle f0 in the contact sheet. Crouched-to-prone poses retain coherent torso, head and limb volume; foreshortening and occlusion make absolute stature uncertain by about ±10px. Manual shape comparison only; not a numeric height pass or user approval. (art/characters/goku/production/scale-qa/goku-lowpose-contact-v01.png)",
+            "frames": [
+              0.683,
+              0.5
+            ]
+          },
+          "getup": {
+            "head": 0.526,
+            "feet": 0.99,
+            "range": 0.5,
+            "verdict": "manual",
+            "strict": false,
+            "version": 3,
+            "reason": "manual QA by Codex: Compared all five native-density frames side by side with approved idle f0 in the contact sheet. Gradual kneeling-to-standing recovery retains plausible head, torso and limb proportions; crouched-frame stature uncertainty is about ±8px. Manual shape comparison only; not a numeric height pass or user approval. (art/characters/goku/production/scale-qa/goku-lowpose-contact-v01.png)",
+            "frames": [
+              0.5,
+              0.516,
+              0.526,
+              1,
+              0.577
+            ]
+          },
+          "charge": {
+            "head": 0.539,
+            "feet": 0.929,
+            "range": 0.275,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.775,
+              0.577,
+              0.5,
+              0.5
+            ]
+          },
+          "beamCharge": {
+            "head": 0.516,
+            "feet": 0.909,
+            "range": 0.167,
+            "verdict": "pop",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.5,
+              0.667,
+              0.516
+            ]
+          },
+          "beamFire": {
+            "head": 0.5,
+            "feet": 1.053,
+            "range": 0.026,
+            "verdict": "drift",
+            "strict": false,
+            "version": 4,
+            "reason": null,
+            "frames": [
+              0.5,
+              0.526,
+              0.5
+            ]
+          },
+          "special": {
+            "head": 0.65,
+            "feet": 1.011,
+            "range": 0.5,
+            "verdict": "pop",
+            "strict": false,
+            "version": 2,
+            "reason": null,
+            "frames": [
+              0.526,
+              0.632,
+              0.5,
+              1,
+              0.667,
+              0.737,
+              0.753,
+              0.526
+            ]
+          },
+          "win": {
+            "head": 0.539,
+            "feet": 0.899,
+            "range": 0.413,
+            "verdict": "pop",
+            "strict": false,
+            "version": 3,
+            "reason": null,
+            "frames": [
+              0.913,
+              0.577,
+              0.5,
+              0.5
+            ]
+          }
+        },
+        "ref": {
+          "box": [
+            124,
+            14,
+            139,
+            43
+          ],
+          "headPx": [
+            6,
+            10
+          ],
+          "palette": [
+            "#b62827",
+            "#791f0d",
+            "#faa231",
+            "#fc8b17",
+            "#fcca6e"
+          ],
+          "source": "auto"
+        }
+      }
+    }
+  ],
+  "vfx": null,
+  "crowd": null,
+  "stage": null,
+  "npc": null,
+  "ui": null,
+  "decals": null,
+  "guideSource": "animGuide.js",
+  "manifest": " + art/characters/goku/production/preflight-v01/native-control/diagnostic-manifest.json",
+  "spec": {
+    "name": "hi-res sprite spec v2",
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "columns": 16,
+    "pivot": [
+      128,
+      240
+    ],
+    "pixelsPerUnit": 128,
+    "facing": "right",
+    "maxColors": 48,
+    "warnColors": 64,
+    "cellMargin": 4,
+    "standingBodyPx": 200
+  },
+  "totalWarnings": 26
+}

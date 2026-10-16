@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Goku calibration r3 — exact pixel review</title>
+  <style>
+    :root{color-scheme:dark;font:16px/1.45 system-ui,sans-serif;background:#151318;color:#f4f0f5}
+    body{max-width:1180px;margin:0 auto;padding:24px;box-sizing:border-box;overflow-x:hidden}h1{margin:0 0 8px}h2{margin:24px 0 10px}
+    .hold{padding:14px;border:2px solid #e5ae4d;background:#34280f;color:#ffe2a0;font-weight:700;border-radius:8px}
+    .panel{background:#211f24;border:1px solid #49454d;border-radius:8px;padding:16px;margin:16px 0;min-width:0;max-width:100%;box-sizing:border-box}
+    .small{color:#c9c4ce;font-size:.9rem}.row{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+    button,select{font:inherit;padding:8px 10px;background:#37343b;color:#fff;border:1px solid #716b76;border-radius:5px}
+    img.pixel{image-rendering:pixelated;background:#ff00ff;max-width:100%;height:auto}
+    #native{width:256px;height:256px}#zoom{width:min(768px,100%);height:auto}
+    .contactViewport,.referenceViewport{overflow:auto;max-width:100%}#contact{height:256px;width:auto;max-width:none;image-rendering:pixelated;display:block}.frames{display:flex;gap:8px;overflow:auto;margin-top:12px}
+    .frames img{width:128px;height:128px;image-rendering:pixelated;background:#ff00ff;cursor:pointer}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:12px;min-width:0;max-width:100%}
+    .anim{background:#19171c;border:1px solid #49454d;border-radius:7px;padding:12px;min-width:0;overflow-wrap:anywhere;box-sizing:border-box}
+    .anim h3{margin:0 0 6px}.badge{display:inline-block;padding:2px 7px;border-radius:4px;background:#433719;color:#ffe3a4;font-size:.83rem}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#19171c;padding:10px;border-radius:5px}a{color:#a9d7ff;overflow-wrap:anywhere}code{overflow-wrap:anywhere}
+    @media(max-width:600px){body{padding:14px}#zoom{width:min(512px,100%)}}
+  </style>
+</head>
+<body>
+  <h1>Goku calibration r3</h1>
+  <p class="hold">FINAL5 PIXEL AUDIT — Astra passed the exact combined 48-color atlas: 20 selected versions plus approved idle v02, 21 animations and 93 frames, strict-scale exit 0, all x1. light3 v09 and heavy v11 remain calibration holds and are omitted. This is not a complete 23-animation release, design approval, or runtime/contact approval. All candidate versions here are deterministic reassemblies of existing source drawings; this round used zero image-generation calls. Original versioned source art is preserved. Prior drawing approvals remain attached to their original versions.</p>
+  <section class="panel">
+    <h2>What this preview tests</h2>
+    <p>This branch preview pack matches the exact audited atlas and metadata byte-for-byte. It contains idle plus the 20 selected candidate versions at 48 colors, with x1 packing; held light3 and heavy are omitted rather than replaced by older versions. The final5 strict pack passed its scale gate. Getup retains one floor/contact warning for Claude's runtime review.</p>
+    <p>Source hashes, endpoint measurements, factors, offsets, frame durations, pack settings, atlas hashes and frame hashes are in the <a href="reports/fixture-inventory.json">fixture inventory</a>, <a href="reports/pack-report.json">strict fixture pack report</a>, <a href="reports/production-pack-report.json">actual public pack report</a>, <a href="reports/crop-inventory.json">crop inventory</a>, <a href="reports/final5-anims.json">atlas metadata</a> and <a href="reports/final4-final5-mask-comparison.json">final4/final5 pixel comparison</a>. The exact sheet is <a href="reports/final5-sheet.png">final5 atlas</a>; Astra's hash-bound result is <a href="reports/FINAL5_STRICT_AUDIT.md">final5 audit</a>.</p>
+    <p class="small">Repeatable workflow: isolate the complete source figure before nominal grid cuts; remove only verified separators or adjacent-frame fragments; measure at least two stable anatomy landmarks and keep source/reference uncertainty separate; apply one uniform factor; preserve overflow; use measured horizontal offsets only when full silhouettes fit; confirm native bodyHeight gives x1; include exact build configuration and reference cells in isolated pack fixtures; assert probe mode/manual count before interpreting gate failures; audit the exact combined quantized atlas. Request art only for source/action defects that assembly and placement cannot repair.</p>
+  </section>
+  <section class="panel">
+    <h2>Native frame and timed replay</h2>
+    <div class="row">
+      <label>Animation <select id="animation"></select></label>
+      <button id="toggle">Pause</button><button id="replay">Replay from frame 0</button><button id="previous">Previous frame</button><button id="next">Next frame</button>
+      <span id="timing" class="small"></span>
+    </div>
+    <p id="status" class="badge"></p>
+    <div class="row"><div><p class="small">Native 256 × 256</p><img id="native" class="pixel" alt="Exact quantized atlas frame"></div><div style="flex:1;min-width:260px"><p class="small">Nearest-neighbor 3× view</p><img id="zoom" class="pixel" alt="Exact quantized atlas frame enlarged"></div></div>
+    <div id="frames" class="frames"></div><p id="caption" class="small"></p>
+  </section>
+  <section class="panel"><h2>One-density frame contacts</h2><p class="small">Each strip begins with approved idle v02 frame 0, followed by every frame at exact 256 × 256 pixel density. Scroll horizontally; no cell is rescaled.</p><div class="contactViewport"><img id="contact" class="pixel" alt="Approved idle beside every selected frame at identical pixel density"></div></section>
+  <section class="panel"><h2>Approved comparison references</h2><p class="small">Each reference cell is 256 × 256. Order: approved idle v02 f0, title-style neutral v02, title-style combat v02.</p><div class="referenceViewport"><img class="pixel" style="width:768px;max-width:none" src="assets/references/approved-reference-lineup.png" alt="Approved idle and title-style neutral/combat references"></div></section>
+  <section class="panel"><h2>Held source drawings — excluded from strict atlas</h2><p>Both source drawings are complete. Their present reassemblies pass cell fit but remain on body-calibration hold; older held versions are not used as fallback.</p><div class="grid"><article class="anim"><h3>light3 v09 — HOLD</h3><p>Body calibration unresolved; assembly and cell fit pass. No source redraw is established as necessary.</p><div class="referenceViewport"><img class="pixel" style="height:180px;width:auto;max-width:none" src="assets/held/light3_v09.png" alt="Held light3 reassembly source strip"></div><p><a href="assets/held/light3-capacity-source.png">Capacity source panel</a> · <a href="assets/held/light3-recovery-source-panel.png">Recovery frame endpoint panel</a></p></article><article class="anim"><h3>heavy v11 — HOLD</h3><p>Body calibration unresolved; assembly and cell fit pass. No source redraw is established as necessary.</p><div class="referenceViewport"><img class="pixel" style="height:180px;width:auto;max-width:none" src="assets/held/heavy_v11.png" alt="Held heavy reassembly source strip"></div><p><a href="assets/held/heavy-capacity-source.png">Capacity source panel</a> · <a href="assets/held/heavy-source-panel.png">Source endpoint panel</a></p></article></div></section>
+  <section class="panel"><h2>Selected animation inventory</h2><div id="inventory" class="grid"></div></section>
+  <section class="panel"><h2>Pack diagnostics</h2><pre id="warnings">Loading exact pack report…</pre></section>
+  <script>
+    fetch('data.json').then(r=>r.json()).then(data=>{
+      const $=id=>document.getElementById(id),names=Object.keys(data.animations),select=$('animation');
+      for(const n of names){const o=document.createElement('option');o.value=n;o.textContent=`${n} v${String(data.animations[n].version).padStart(2,'0')}`;select.append(o)}
+      const inventory=$('inventory');
+      for(const n of names){const a=data.animations[n],card=document.createElement('article');card.className='anim';const esc=s=>String(s??'—');
+        card.innerHTML=`<h3>${n} v${String(a.version).padStart(2,'0')}</h3><span class="badge">${a.status}</span><p><b>BodyHeight:</b> ${esc(a.bodyHeight)} · <b>pack scale:</b> ${esc(a.packScale)} · <b>native max:</b> ${esc(a.nativeBodyHeight)}</p><p><b>factor:</b> ${esc(a.factor)}<br><b>source:</b> <code>${esc(a.sourcePath)}</code><br><b>source SHA256:</b> <code>${esc(a.sourceSha256)}</code></p><p><b>drawing approval:</b> ${esc(a.sourceDrawingApproval)}</p><details><summary>Landmarks, offsets and pack findings</summary><pre>${JSON.stringify({landmarks:a.landmarks,frameOffsets:a.frameOffsets,erase:a.erase,packWarnings:a.packWarnings},null,2)}</pre><p><a href="${a.contact}">Open contact sheet</a> · <a href="reports/pack-report.json">Pack report</a></p></details></article>`;inventory.append(card)}
+      const base=`assets/frames/`,framePath=(a,i)=>base+a+'/'+`f${String(i).padStart(2,'0')}.png`;
+      let timer=null,index=0,playing=true;
+      function render(){const n=select.value,a=data.animations[n],src=framePath(n,index);$('native').src=src;$('zoom').src=src;$('contact').src=a.contact;$('timing').textContent=`Frame ${index+1}/${a.durationsMs.length} · ${a.durationsMs[index]} ms · ${a.loop?'loop':'one-shot'} · all crops are exact quantized atlas pixels`;$('status').textContent=a.status;$('caption').textContent=`${n} v${String(a.version).padStart(2,'0')} · ${a.bodyHeight}px bodyHeight · pack x${a.packScale} · ${a.sourceDrawingApproval}`;const strip=$('frames');strip.replaceChildren();for(let i=0;i<a.framePaths.length;i++){const im=document.createElement('img');im.src=framePath(n,i);im.alt=`${n} frame ${i}`;im.onclick=()=>{index=i;start()};strip.append(im)}}
+      function start(){clearTimeout(timer);render();if(!playing)return;const a=data.animations[select.value];timer=setTimeout(()=>{if(index+1<a.durationsMs.length)index++;else if(a.loop)index=0;else{playing=false;$('toggle').textContent='Play';render();return}start()},a.durationsMs[index])}
+      select.onchange=()=>{index=0;playing=true;$('toggle').textContent='Pause';start()};$('toggle').onclick=()=>{playing=!playing;$('toggle').textContent=playing?'Pause':'Play';start()};$('replay').onclick=()=>{playing=true;$('toggle').textContent='Pause';index=0;start()};$('previous').onclick=()=>{const a=data.animations[select.value];index=(index+a.durationsMs.length-1)%a.durationsMs.length;start()};$('next').onclick=()=>{const a=data.animations[select.value];index=(index+1)%a.durationsMs.length;start()};
+      $('warnings').textContent=JSON.stringify({totalWarnings:data.totalWarnings,warnings:data.warnings},null,2);start();
+    });
+  </script>
+</body>
+</html>

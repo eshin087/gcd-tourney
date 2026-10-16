@@ -1,0 +1,48 @@
+{
+  "label": "Goku r03 complete-source diagnostic fixture. Exact current manifest copied then scoped to selected candidates. Warn-only pack; no approval or gameplay status implied.",
+  "scaleGate": "warn",
+  "quantizeColors": 48,
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "calibratedSelectionsPreservedFromCurrentManifest": [
+    "guard_v05",
+    "light2_v05",
+    "jumpUp_v04",
+    "jumpFall_v04",
+    "hurtHigh_v08"
+  ],
+  "selectedNew": [
+    {
+      "animation": "dash",
+      "version": 9,
+      "bodyHeight": 207,
+      "sourceSha256": "de18ea1f4c62657b374d9e7278308ab3cb5b88356374450bf340693f2fb206cf",
+      "factor": 0.291,
+      "sidecar": "characters/goku/raw/dash_v09.json"
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "bodyHeight": 235,
+      "sourceSha256": "813e55ab269ae3e4cdd1ab7e4f191de25b9ae17d3173989c9ed2eba7173390cc",
+      "factor": 0.3,
+      "sidecar": "characters/goku/raw/land_v07.json"
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "bodyHeight": 115,
+      "sourceSha256": "e703d5e2620931956bccd989ed4d7ce48858f912b6d8b8acbf037ad526c566ac",
+      "factor": 0.272,
+      "sidecar": "characters/goku/raw/down_v05.json"
+    }
+  ],
+  "fixtureRawSource": "current worktree art/characters/goku/raw copied at build time",
+  "fixtureManifestSourceSha256": "244cc92f294dd316a1cb427ee5d0e65b587193eadad3d19e46c01d4bb97b859f"
+}

@@ -1,0 +1,166 @@
+{
+  "label": "Goku r03 final5 strict selected fixture: idle plus 20 Astra final4-reviewed animation versions; light3 and heavy omitted on calibration hold.",
+  "warning": "Private isolated fixture. 20 exact-version Astra manual anatomy/fit recommendations are bound to those selected pixels; this is not a production manifest change or user design approval. Source reassemblies used zero image-generation calls this round.",
+  "scaleGate": "strict",
+  "quantizeColors": 48,
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "selected": [
+    {
+      "animation": "run",
+      "version": 9,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "dash",
+      "version": 9,
+      "bodyHeight": 207
+    },
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "bodyHeight": 206
+    },
+    {
+      "animation": "jumpFall",
+      "version": 4,
+      "bodyHeight": 232
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "bodyHeight": 235
+    },
+    {
+      "animation": "light1",
+      "version": 4,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "bodyHeight": 236
+    },
+    {
+      "animation": "light4",
+      "version": 9,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "airHeavy",
+      "version": 6,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "guard",
+      "version": 5,
+      "bodyHeight": 229
+    },
+    {
+      "animation": "hurtHigh",
+      "version": 8,
+      "bodyHeight": 223
+    },
+    {
+      "animation": "launched",
+      "version": 8,
+      "bodyHeight": 200
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "bodyHeight": 115
+    },
+    {
+      "animation": "getup",
+      "version": 11,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "charge",
+      "version": 5,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "beamCharge",
+      "version": 7,
+      "bodyHeight": 236
+    },
+    {
+      "animation": "beamFire",
+      "version": 7,
+      "bodyHeight": 233
+    },
+    {
+      "animation": "special",
+      "version": 5,
+      "bodyHeight": 237
+    },
+    {
+      "animation": "win",
+      "version": 5,
+      "bodyHeight": 237
+    }
+  ],
+  "omittedOnHold": [
+    "light3_v09",
+    "heavy_v11"
+  ],
+  "preservedHeldFiles": [
+    "characters/goku/raw/_qa_hold/light3_v09.png",
+    "characters/goku/raw/_qa_hold/light3_v09.json",
+    "characters/goku/raw/_qa_hold/heavy_v11.png",
+    "characters/goku/raw/_qa_hold/heavy_v11.json"
+  ],
+  "frameCountExpected": 93,
+  "final4SourceAtlasSha256": "c5017ea8067c35d2a956be1d1a306970ec20d507879b3208d56876ea2ef810f",
+  "final4SourceMetadataSha256": "3e5d1714c2c809bd0c19fa0cae08d54c8f825e538e57f9d932031daa38949dda",
+  "manifestSnapshotSha256": "874cf240845f5b4f4b2bb3d4c5f1999a0fe84b451c33f2d8304e0dfc0b696cc7",
+  "source": "A byte copy of final4 fixture art, with only held light3/heavy candidate files removed from the selected raw folder and fixture-only manual audit records attached.",
+  "strictScaleAttempt": {
+    "exitCode": 1,
+    "reason": "First strict attempt used a fixture missing scale/builds.json and is invalid. Repeated after exact build config copy; see final5-fixture-strict-attempt.json."
+  },
+  "buildsSnapshotSha256": "ef0a6b9b5debd11ae5382d79a4e0c99b3cc8ddc006d6a51040a2b2adad2d73b7",
+  "strictPack": {
+    "command": "node tools/pack-sprites.mjs goku --quantize 48 --strict-scale --no-writeback --json",
+    "exitCode": 0,
+    "animations": 21,
+    "frames": 93,
+    "colors": 48,
+    "scaleFailures": [],
+    "allScaleAndFramesX1": true,
+    "missingCore": [
+      "light3",
+      "heavy"
+    ],
+    "warnings": [
+      "getup: 1 lying frame(s) float above the floor line (#0: 35% of the body within 6px of y 240, worst fifth 8px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020)"
+    ]
+  },
+  "firstStrictAttempt": {
+    "exitCode": 1,
+    "disposition": "Invalid fixture: it omitted the exact art/scale/builds.json dependency, so its probe mode/manual-record behavior was not evidence about the art. The fixture builder now copies and hashes this file byte-for-byte."
+  },
+  "fixtureManifestSha256": "874cf240845f5b4f4b2bb3d4c5f1999a0fe84b451c33f2d8304e0dfc0b696cc7",
+  "finalAtlasSha256": "fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054",
+  "finalMetadataSha256": "e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f",
+  "productionManifestSha256": "5a3d6525c8e489b6a9f0a4223704dffc3b2633ca178544c1d7c7b25a1c11000b",
+  "productionAtlasSha256": "fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054",
+  "productionMetadataSha256": "e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f",
+  "finalAtlasMatchesAstra": true,
+  "finalAtlasMatchesProduction": true,
+  "finalAstraAudit": "art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md",
+  "maskComparison": "art/characters/goku/production/reassembly-r03/final4-final5-mask-comparison.json"
+}

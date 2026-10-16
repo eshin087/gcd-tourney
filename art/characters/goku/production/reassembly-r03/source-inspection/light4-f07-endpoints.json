@@ -1,0 +1,88 @@
+{
+  "animation": "light4",
+  "sourcePath": "art/characters/goku/production/generation-source/light4_v04_attempt04.png",
+  "sourceSha256": "1a968ce8893d3217f122244227eb2fad9a9502e2a965c5e0ad832863063ca7d2",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "frame": 7,
+  "panelOrigin": [
+    1330,
+    443
+  ],
+  "panelDimensions": [
+    444,
+    444
+  ],
+  "coordinates": "global source pixel coordinates",
+  "sourceEndpointUncertaintyPx": 8,
+  "endpointUncertaintyMeaning": "per endpoint, approximate reading error; not a confidence interval",
+  "landmarks": {
+    "collarToBelt": {
+      "a": [
+        1547,
+        577
+      ],
+      "b": [
+        1531,
+        630
+      ],
+      "localA": [
+        217,
+        134
+      ],
+      "localB": [
+        201,
+        187
+      ],
+      "length": 55.362,
+      "definition": "collar-center/sternoclavicular point to belt center"
+    },
+    "beltWidth": {
+      "a": [
+        1501,
+        628
+      ],
+      "b": [
+        1558,
+        630
+      ],
+      "localA": [
+        171,
+        185
+      ],
+      "localB": [
+        228,
+        187
+      ],
+      "length": 57.035,
+      "definition": "visible blue belt outer edge span"
+    },
+    "rearBootTopToSole": {
+      "a": [
+        1445,
+        766
+      ],
+      "b": [
+        1429,
+        826
+      ],
+      "localA": [
+        115,
+        323
+      ],
+      "localB": [
+        99,
+        383
+      ],
+      "length": 62.097,
+      "definition": "visible boot shaft top to sole along shaft axis"
+    }
+  },
+  "annotation": "art/characters/goku/production/reassembly-r03/source-inspection/light4-f07-endpoints.png"
+}

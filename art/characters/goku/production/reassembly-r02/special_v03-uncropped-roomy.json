@@ -1,0 +1,193 @@
+{
+  "animation": "special",
+  "version": 3,
+  "relationToCandidate": "same source and factor as raw/_qa_hold/special_v03.png",
+  "sourcePath": "art/characters/goku/production/generation-source/special_v02_attempt03.png",
+  "sourceSha256": "4e123c123e855f787c85020fdbca68194667dd6122867e49af7bde092bacc3ba",
+  "factor": 0.628,
+  "dimensions": [
+    1992,
+    266
+  ],
+  "roomyCellPx": [
+    249,
+    266
+  ],
+  "pivotPerFramePx": [
+    124,
+    258
+  ],
+  "lostNonMagentaPixels": 0,
+  "sourceCellAndBounds": [
+    {
+      "frame": 0,
+      "sourceRect": [
+        0,
+        0,
+        443,
+        443
+      ],
+      "sourceBounds": [
+        43,
+        27,
+        374,
+        421
+      ],
+      "outputBounds": {
+        "x": 20,
+        "y": 9,
+        "width": 209,
+        "height": 249
+      }
+    },
+    {
+      "frame": 1,
+      "sourceRect": [
+        443,
+        0,
+        887,
+        443
+      ],
+      "sourceBounds": [
+        43,
+        27,
+        374,
+        421
+      ],
+      "outputBounds": {
+        "x": 20,
+        "y": 9,
+        "width": 209,
+        "height": 249
+      }
+    },
+    {
+      "frame": 2,
+      "sourceRect": [
+        887,
+        0,
+        1330,
+        443
+      ],
+      "sourceBounds": [
+        40,
+        26,
+        374,
+        421
+      ],
+      "outputBounds": {
+        "x": 19,
+        "y": 9,
+        "width": 211,
+        "height": 249
+      }
+    },
+    {
+      "frame": 3,
+      "sourceRect": [
+        1330,
+        0,
+        1774,
+        443
+      ],
+      "sourceBounds": [
+        37,
+        26,
+        380,
+        421
+      ],
+      "outputBounds": {
+        "x": 16,
+        "y": 9,
+        "width": 217,
+        "height": 249
+      }
+    },
+    {
+      "frame": 4,
+      "sourceRect": [
+        0,
+        443,
+        443,
+        887
+      ],
+      "sourceBounds": [
+        40,
+        25,
+        409,
+        421
+      ],
+      "outputBounds": {
+        "x": 8,
+        "y": 8,
+        "width": 233,
+        "height": 250
+      }
+    },
+    {
+      "frame": 5,
+      "sourceRect": [
+        443,
+        443,
+        887,
+        887
+      ],
+      "sourceBounds": [
+        38,
+        26,
+        376,
+        421
+      ],
+      "outputBounds": {
+        "x": 18,
+        "y": 9,
+        "width": 213,
+        "height": 249
+      }
+    },
+    {
+      "frame": 6,
+      "sourceRect": [
+        887,
+        443,
+        1330,
+        887
+      ],
+      "sourceBounds": [
+        42,
+        27,
+        374,
+        421
+      ],
+      "outputBounds": {
+        "x": 19,
+        "y": 9,
+        "width": 210,
+        "height": 249
+      }
+    },
+    {
+      "frame": 7,
+      "sourceRect": [
+        1330,
+        443,
+        1774,
+        887
+      ],
+      "sourceBounds": [
+        43,
+        27,
+        374,
+        421
+      ],
+      "outputBounds": {
+        "x": 20,
+        "y": 9,
+        "width": 209,
+        "height": 249
+      }
+    }
+  ],
+  "sha256": "e5de9500734b909ed30b9a07ba68aafab63fc1557b5493b559fc2c07976feb5d",
+  "note": "All scaled source pixels preserved on roomy panels. Not packer-ready: width/cell and pivot differ from 256 spec; review the companion when evaluating the clipped standard candidate."
+}

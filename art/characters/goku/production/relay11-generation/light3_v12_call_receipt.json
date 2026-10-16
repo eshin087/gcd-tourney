@@ -1,0 +1,26 @@
+{
+  "schema": "goku-relay11-call-receipt-v1",
+  "authorization": "One light3 call, cumulative call 6, via Claude relay #11 user decision: Goku luffy retry",
+  "callWindowUtc": ["2026-10-16T12:12:23Z", "2026-10-16T12:12:44Z"],
+  "tool": "built-in image_gen",
+  "toolResultKeys": ["image_url", "output_hint"],
+  "fullToolResultPersistentStoreKey": "goku_relay11_light3_call6_full_result",
+  "outputHint": "Generated images are saved to E:\\Vibe Coding\\.codex\\generated_images\\01a14385-47eb-7ba1-b7aa-f23c5e205115 as E:\\Vibe Coding\\.codex\\generated_images\\01a14385-47eb-7ba1-b7aa-f23c5e205115\\exec-f9edf1af-877a-4eb7-87fd-8d9c7e0853f5.png by default. If you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it. The generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "exactGeneratedPath": "E:/Vibe Coding/.codex/generated_images/01a14385-47eb-7ba1-b7aa-f23c5e205115/exec-f9edf1af-877a-4eb7-87fd-8d9c7e0853f5.png",
+  "copiedPath": "art/characters/goku/raw/_qa_hold/light3_v12.png",
+  "sha256": "C2320840541EF2B9A9EBD5919F632BF40F733092CE2C2DDCD54F37467447DCB1",
+  "dimensions": [1659, 948],
+  "bytes": 1533006,
+  "promptPath": "art/characters/goku/production/relay11-generation/light3_v12_prompt.txt",
+  "promptSha256": "3DA0AF5ECA9E556556BD5D760E800CD3D0F5AB2BA504BBD03B3DBE5AAAFAB096",
+  "inputReferences": [
+    {"path":"art/characters/goku/reference/title_style_draft.png","sha256":"F7AE672771E9282F31E7804B02BB3F0ED46488618EFD6050A4B864B2203DEA42","role":"approved title-style neutral/combat and style"},
+    {"path":"art/characters/goku/reference/model_sheet.png","sha256":"C0A197C11B409D3D916078FB8577D09F3C0597B6F9875F7F7DA0CC31873A985D","role":"approved identity, outfit and silhouette"},
+    {"path":"art/characters/goku/reference/expressions.png","sha256":"0E71CE3E4083AD6A2CB5BC0C89F2545A94B9C6EA97AB164F93C9DE12F97A845A","role":"approved face/expression continuity"},
+    {"path":"art/characters/goku/reference/idle_approved.png","sha256":"57FBBD3CB99FC92A30DAFDD478479971E4E9D497E035C846E9FD28ECB126FE03","role":"approved idle anatomy and native pixel density"},
+    {"path":"art/characters/goku/raw/_qa_hold/light3_v11_roomy_280.png","sha256":"896144629B1ACF6EB07EF6CE235E1744729A8556D50D4586967A1EBC65B49A8C","role":"held v11 move/timing continuity only; not scale authority"}
+  ],
+  "failure": false,
+  "retryAuthorized": false,
+  "note": "The full tool result object was immediately stored in the active exec session. The returned object exposed output_hint and image_url; no provider call ID was supplied. The exact returned source path, not a filesystem recency search, identified the source."
+}

@@ -1,0 +1,174 @@
+{
+  "schema": "goku-relay9-final6-audited-atlas-v1",
+  "status": "exact strict fixture audited PASS by Astra; branch public atlas reproduced exact audited hashes; user drawing approval pending",
+  "scaleGate": "strict",
+  "quantizeColors": 48,
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "selected": [
+    {
+      "animation": "idle",
+      "version": 2,
+      "bodyHeight": 233,
+      "frames": 8
+    },
+    {
+      "animation": "run",
+      "version": 9,
+      "bodyHeight": 237,
+      "frames": 8
+    },
+    {
+      "animation": "dash",
+      "version": 9,
+      "bodyHeight": 207,
+      "frames": 2
+    },
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "bodyHeight": 206,
+      "frames": 2
+    },
+    {
+      "animation": "jumpFall",
+      "version": 4,
+      "bodyHeight": 232,
+      "frames": 2
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "bodyHeight": 235,
+      "frames": 2
+    },
+    {
+      "animation": "light1",
+      "version": 4,
+      "bodyHeight": 237,
+      "frames": 7
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "bodyHeight": 236,
+      "frames": 7
+    },
+    {
+      "animation": "light4",
+      "version": 9,
+      "bodyHeight": 237,
+      "frames": 8
+    },
+    {
+      "animation": "heavy",
+      "version": 14,
+      "bodyHeight": 235,
+      "frames": 8
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "bodyHeight": 237,
+      "frames": 5
+    },
+    {
+      "animation": "airHeavy",
+      "version": 6,
+      "bodyHeight": 237,
+      "frames": 6
+    },
+    {
+      "animation": "guard",
+      "version": 5,
+      "bodyHeight": 229,
+      "frames": 2
+    },
+    {
+      "animation": "hurtHigh",
+      "version": 8,
+      "bodyHeight": 223,
+      "frames": 3
+    },
+    {
+      "animation": "launched",
+      "version": 8,
+      "bodyHeight": 200,
+      "frames": 2
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "bodyHeight": 115,
+      "frames": 2
+    },
+    {
+      "animation": "getup",
+      "version": 11,
+      "bodyHeight": 237,
+      "frames": 5
+    },
+    {
+      "animation": "charge",
+      "version": 5,
+      "bodyHeight": 237,
+      "frames": 4
+    },
+    {
+      "animation": "beamCharge",
+      "version": 7,
+      "bodyHeight": 236,
+      "frames": 3
+    },
+    {
+      "animation": "beamFire",
+      "version": 7,
+      "bodyHeight": 233,
+      "frames": 3
+    },
+    {
+      "animation": "special",
+      "version": 5,
+      "bodyHeight": 237,
+      "frames": 8
+    },
+    {
+      "animation": "win",
+      "version": 5,
+      "bodyHeight": 237,
+      "frames": 4
+    }
+  ],
+  "selectedAnimationCount": 22,
+  "expectedFrameCount": 101,
+  "omittedOnHold": [
+    "light3_v11"
+  ],
+  "newCandidate": {
+    "animation": "heavy",
+    "version": 14,
+    "bodyHeight": 235,
+    "source": "art/characters/goku/raw/heavy_v12.png",
+    "sourceSha256": "e6402a00a760d5262553e977f16ebfa9ca14523a3aa1b394b678019676310adc",
+    "factor": 0.72,
+    "candidateAudit": "art/characters/goku/production/manual-audit-r4/DIAGNOSTIC_AUDIT.md#heavy14-candidate-recheck",
+    "finalCombinedAudit": "art/characters/goku/production/manual-audit-r4/FINAL_STRICT_AUDIT.md"
+  },
+  "sourceFixture": "byte copy of final5-fixture-art preserving its reviewed 93-frame baseline; light3 excluded; heavy14 added only inside isolated fixture",
+  "buildsSnapshotSha256": "ef0a6b9b5debd11ae5382d79a4e0c99b3cc8ddc006d6a51040a2b2adad2d73b7",
+  "manifestSnapshotSha256": "b89bc75b904d7d58588a8e501cdc674beb290444a1ce3b2ae59f009b0eabbd36",
+  "actualPublicAtlasTouched": true,
+  "finalAudit": {
+    "result": "pass",
+    "report": "art/characters/goku/production/manual-audit-r4/FINAL_STRICT_AUDIT.md",
+    "sheetSha256": "f117d996d5d9f225b13bfc6d7b19a741e603fa04a329b1410422263eadd824f2",
+    "metadataSha256": "2ee25e2a2103a145f1a888700b5e55cd19ddb0fd7a755649f1056226e6fdbbd6"
+  },
+  "publicAtlasAdoption": "Real branch strict quantized pack reproduced exact fixture sheet and metadata hashes; only the authorized branch public atlas was replaced; main and production were untouched."
+}

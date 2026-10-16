@@ -1,0 +1,36 @@
+{
+  "label": "Goku r03 source reassembly fixture. Isolated warn-only quantized pixels; no art approval implied.",
+  "scaleGate": "warn",
+  "quantizeColors": 48,
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "selection": [
+    {
+      "animation": "dash",
+      "version": 7,
+      "bodyHeight": 207,
+      "source": "dash_v07.png",
+      "stagedFile": "characters/goku/raw/dash_v07.png",
+      "sourceSha256": "de18ea1f4c62657b374d9e7278308ab3cb5b88356374450bf340693f2fb206cf",
+      "bodyHeightForX1": 207,
+      "approvalFieldsPreserved": true
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "bodyHeight": 235,
+      "source": "land_v07.png",
+      "stagedFile": "characters/goku/raw/land_v07.png",
+      "sourceSha256": "813e55ab269ae3e4cdd1ab7e4f191de25b9ae17d3173989c9ed2eba7173390cc",
+      "bodyHeightForX1": 235,
+      "approvalFieldsPreserved": true
+    }
+  ],
+  "sourceFixture": "production/scale-qa/reassembly-r02/fixture-art"
+}

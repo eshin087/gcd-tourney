@@ -1,0 +1,24 @@
+{
+  "animation": "heavy",
+  "sourcePath": "art/characters/goku/production/generation-source/heavy_v04_attempt04.png",
+  "sourceSha256": "c7822c99040c120d564dbe76af54f9b9aa23dd2b4a9e799d99a5c21bfc0a3116",
+  "sourceDimensions": [
+    1536,
+    1024
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "frame": 7,
+  "frameOrigin": [
+    1152,
+    512
+  ],
+  "panelDimensions": [
+    384,
+    512
+  ],
+  "gridSpacingPx": 50,
+  "lines": "cyan lines are every 50 source px in panel-local coordinates"
+}

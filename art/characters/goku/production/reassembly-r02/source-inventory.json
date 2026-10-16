@@ -1,0 +1,278 @@
+{
+  "date": "2026-10-15",
+  "status": "8 measured reassemblies and 2 measured holds complete; 8 sources still need direct original-source measurement",
+  "method": "Need direct source endpoint coordinates; pilot factors are source-specific and not reused.",
+  "reference": "production/manual-audit-r2/measurements.json",
+  "rows": [
+    {
+      "animation": "run",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\run_v02_attempt04.png",
+      "sourceSha256": "d98480645714f0778debcbf67fffef932feedacdc65a008adb8fce99c6af2486",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 6,
+      "measurementStatus": "measured factor .484 exact median collar/boot; belt screening excluded; roomy candidate",
+      "hold": "whole-strip/parts provenance needs verification",
+      "highestExistingVersion": 4,
+      "measurementPath": "raw/_qa_hold/run_v05.json",
+      "outputPath": "raw/_qa_hold/run_v05.png",
+      "createdVersion": "v05",
+      "outputSha256": "6e0f3a9051ec7affbbed7e709c9d136c6ceebd580960bc0b3fa7605df8df8b97"
+    },
+    {
+      "animation": "dash",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\dash_v03_attempt03.png",
+      "sourceSha256": "7243edf0b162bd933879baf183bc91c83e59ff290b846fad3e4ba6b56eae2b2a",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 5,
+      "measurementStatus": "measured factor .241 exact median three frame0 ratios; 2-frame candidate",
+      "hold": "crouched pose; direct endpoints not annotated",
+      "highestExistingVersion": 3,
+      "measurementPath": "raw/_qa_hold/dash_v04.json",
+      "outputPath": "raw/_qa_hold/dash_v04.png",
+      "createdVersion": "v04",
+      "outputSha256": "e9f9993b6b774393944903430862542be740e6d2047b9619c8a01f6577266b53"
+    },
+    {
+      "animation": "jumpUp",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\jumpUp_v03_attempt03.png",
+      "sourceSha256": "c8b5ee50491068292041519b5533f41a78ec77084a80c846d5307686c2309e81",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 4,
+      "measurementStatus": "measured HOLD: frame0 ratios .204 torso/.248 belt/.286 diagonal boot/.256 vertical boot; no common factor",
+      "hold": "tuck/extension; landmarks not annotated",
+      "highestExistingVersion": 3,
+      "measurementPath": "production/reassembly-r02/jumpUp-measurement-hold.json",
+      "outputPath": null
+    },
+    {
+      "animation": "jumpFall",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\jumpFall_v02_attempt03.png",
+      "sourceSha256": "6fde8e555318e6ae624378be1d461288e68bef3aadb0021d965d1d07817a5a53",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 4,
+      "measurementStatus": "measured factor .452 exact median torso/belt; dangling boot excluded; 58/52px proposed top overflow; roomy candidate",
+      "hold": "rotated airborne pose; landmarks not annotated",
+      "highestExistingVersion": 2,
+      "measurementPath": "raw/_qa_hold/jumpFall_v03.json",
+      "outputPath": "raw/_qa_hold/jumpFall_v03.png",
+      "createdVersion": "v03",
+      "outputSha256": "f992abd27fdf5c4ad96edf4996f648baa62bca26f219c7386bbc8e17703caa07"
+    },
+    {
+      "animation": "land",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\land_v03_attempt03.png",
+      "sourceSha256": "3cd093cacc6742804e94702467514ec3e19e3dda039c00ccad2a703e5861709c",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 5,
+      "measurementStatus": "measured factor .253 exact median collar/boot; belt screening excluded; 2-frame candidate",
+      "hold": "crouch/landing; endpoints not annotated",
+      "highestExistingVersion": 3,
+      "measurementPath": "raw/_qa_hold/land_v04.json",
+      "outputPath": "raw/_qa_hold/land_v04.png",
+      "createdVersion": "v04",
+      "outputSha256": "a00bfe5c1b35c517446e5502e04a0693f0bd8b7c89e4880b9d80538fb77097d9"
+    },
+    {
+      "animation": "light1",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\light1_v01_attempt01_A.png",
+      "sourceSha256": "7bf06ad0d8c11b5802bf0a5a49b29acb10aea242d85102787140767f61cda975",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "nextFreeVersion": 4,
+      "measurementStatus": "measured factor .385 exact median of four belt/boot ratios across A/B; A attempt01 + B attempt03 mapping explicit; 2px proposed top-margin intrusion",
+      "hold": "part A/B mapping unresolved",
+      "highestExistingVersion": 2,
+      "measurementPath": "raw/_qa_hold/light1_v03.json",
+      "outputPath": "raw/_qa_hold/light1_v03.png",
+      "createdVersion": "v03",
+      "outputSha256": "68261071aa73d1ac03fc501c093a10beefc62a7043a6e1dd1a014b00145cb16f"
+    },
+    {
+      "animation": "light3",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\light3_v04_attempt04.png",
+      "sourceSha256": "6ac8c834982930f4ee24c43e8de3fda78d2ff84a28a1694c7ef5a3156f19d72c",
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "nextFreeVersion": 6,
+      "measurementStatus": "measured factor .530 chosen; exact median .5115 (erratum); source arm/hand defect; v05 raw clips 11 rows frame4; roomy companion; HOLD",
+      "hold": "detached hand/rear-arm source defect",
+      "highestExistingVersion": 4,
+      "measurementPath": "raw/_qa_hold/light3_v05.json",
+      "outputPath": "raw/_qa_hold/light3_v05.png",
+      "createdVersion": "v05",
+      "outputSha256": "7b9c1fe744efead89150368bc843fae0a60969775e625667800fe68c57387432"
+    },
+    {
+      "animation": "light4",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\light4_v04_attempt04.png",
+      "sourceSha256": "1a968ce8893d3217f122244227eb2fad9a9502e2a965c5e0ad832863063ca7d2",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 6,
+      "measurementStatus": "measured factor .565 exact median of collar/belt; boot projection excluded; roomy candidate, audit pending",
+      "hold": "kick pose source/panel overflow",
+      "highestExistingVersion": 4,
+      "measurementPath": "raw/_qa_hold/light4_v05.json",
+      "outputPath": "raw/_qa_hold/light4_v05.png",
+      "createdVersion": "v05",
+      "outputSha256": "a2a2c45181e6a28296e74381ad7115da7da8de9780c8cb56dfa0032e240c293d"
+    },
+    {
+      "animation": "heavy",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\heavy_v04_attempt04.png",
+      "sourceSha256": "c7822c99040c120d564dbe76af54f9b9aa23dd2b4a9e799d99a5c21bfc0a3116",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "nextFreeVersion": 5,
+      "measurementStatus": "NOT MEASURED: source endpoint coordinates absent; no factor assigned",
+      "hold": "detached fragments/overflow",
+      "highestExistingVersion": 4
+    },
+    {
+      "animation": "airLight1",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\airLight1_v04_attempt04.png",
+      "sourceSha256": "1e18761c0c48cbe9b739a8d57adc3e701e018fa88291b12cf23986fe36b67305",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "nextFreeVersion": 5,
+      "measurementStatus": "NOT MEASURED: source endpoint coordinates absent; no factor assigned",
+      "hold": "strike-limb overflow",
+      "highestExistingVersion": 4
+    },
+    {
+      "animation": "airHeavy",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\airHeavy_v04_attempt04.png",
+      "sourceSha256": "39fc7ce748f4234f88b0d72631f5db9e9e0048e11dd6fa47f9760e7329def6e8",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "nextFreeVersion": 5,
+      "measurementStatus": "NOT MEASURED: source endpoint coordinates absent; no factor assigned",
+      "hold": "tucked/rotated poses; landmarks not annotated",
+      "highestExistingVersion": 4
+    },
+    {
+      "animation": "hurtHigh",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\hurtHigh_v07_attempt03.png",
+      "sourceSha256": "9b4c9521cc0beebdb547a95e7842507a5bb4d82b2b72a6b0dd4c508637d78a8e",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "nextFreeVersion": 8,
+      "measurementStatus": "NOT MEASURED: source endpoint coordinates absent; no factor assigned",
+      "hold": "recoil arms overlap; endpoints not annotated",
+      "highestExistingVersion": 7
+    },
+    {
+      "animation": "launched",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\launched_v06_attempt02.png",
+      "sourceSha256": "7468616598613a3b004ac5663dd248712d6bc024fc2b12c2aac1252bfd245f9e",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 7,
+      "measurementStatus": "NOT MEASURED: source endpoint coordinates absent; no factor assigned",
+      "hold": "rotated pose/overflow; factor not measured",
+      "highestExistingVersion": 6
+    },
+    {
+      "animation": "down",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\down_v04_attempt02.png",
+      "sourceSha256": "b53cc90ee5a1ccd1e24ec58606aedc9a7f6bf6b245eb1ace0726b20f83e9266a",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 5,
+      "measurementStatus": "NOT MEASURED: source endpoint coordinates absent; no factor assigned",
+      "hold": "lying pose; landmarks not annotated",
+      "highestExistingVersion": 4
+    },
+    {
+      "animation": "getup",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\getup_v03_attempt02.png",
+      "sourceSha256": "dd68beb20f48e146443c6d4a4030d3dad4a0fd7a0d54f25958fd5b09f92345f4",
+      "sourceDimensions": [
+        1536,
+        1024
+      ],
+      "nextFreeVersion": 4,
+      "measurementStatus": "NOT MEASURED: source endpoint coordinates absent; no factor assigned",
+      "hold": "kneeling transitions; landmarks not annotated",
+      "highestExistingVersion": 3
+    },
+    {
+      "animation": "charge",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\charge_v04_attempt03.png",
+      "sourceSha256": "f857cf8ffc6ffdeebd7938c5dd238fd38c11ca0f989137803653db8bccf6b703",
+      "sourceDimensions": [
+        2170,
+        725
+      ],
+      "nextFreeVersion": 5,
+      "measurementStatus": "measured HOLD: source-frame ratios .4536 torso/.3830 belt/.3705 boot disagree; no factor/output",
+      "hold": "loop snap persists; factor not measured",
+      "highestExistingVersion": 4,
+      "measurementPath": "production/reassembly-r02/charge-measurement-hold.json",
+      "outputPath": null
+    },
+    {
+      "animation": "special",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\special_v02_attempt03.png",
+      "sourceSha256": "4e123c123e855f787c85020fdbca68194667dd6122867e49af7bde092bacc3ba",
+      "sourceDimensions": [
+        1774,
+        887
+      ],
+      "nextFreeVersion": 3,
+      "measurementStatus": "NOT MEASURED: source endpoint coordinates absent; no factor assigned",
+      "hold": "multiphase projection; landmarks not annotated",
+      "highestExistingVersion": 2
+    },
+    {
+      "animation": "win",
+      "sourcePath": "art\\characters\\goku\\production\\generation-source\\win_v03_attempt03.png",
+      "sourceSha256": "ed788ec4fa8bb96295835de29016c60a33e9db69708e47bc2b921866115b30ca",
+      "sourceDimensions": [
+        1263,
+        1246
+      ],
+      "nextFreeVersion": 5,
+      "measurementStatus": "measured factor .444 chosen; exact median .4456 (erratum); roomy candidate; proposed 256 top overflow 14px; HOLD",
+      "hold": "hair touches panel top; panel integrity review",
+      "highestExistingVersion": 3,
+      "outputPath": "raw/_qa_hold/win_v04.png",
+      "outputSha256": "cf1819cac543404cac2bb7420d46ecf7d80318dce70494683b3e4bf1d50fe17c",
+      "measurementPath": "raw/_qa_hold/win_v04.json",
+      "createdVersion": "v04"
+    }
+  ]
+}

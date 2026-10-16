@@ -1,0 +1,24 @@
+{
+  "animation": "getup",
+  "sourcePath": "art/characters/goku/production/generation-source/getup_v03_attempt02.png",
+  "sourceSha256": "dd68beb20f48e146443c6d4a4030d3dad4a0fd7a0d54f25958fd5b09f92345f4",
+  "sourceDimensions": [
+    1536,
+    1024
+  ],
+  "grid": [
+    3,
+    2
+  ],
+  "frame": 4,
+  "frameOrigin": [
+    512,
+    512
+  ],
+  "panelDimensions": [
+    512,
+    512
+  ],
+  "gridSpacingPx": 50,
+  "lines": "cyan lines are every 50 source px in panel-local coordinates"
+}

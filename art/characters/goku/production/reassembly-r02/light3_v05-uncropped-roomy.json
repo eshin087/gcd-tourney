@@ -1,0 +1,173 @@
+{
+  "status": "uncropped diagnostic companion; not raw candidate or production atlas",
+  "source": "art\\characters\\goku\\production\\generation-source\\light3_v04_attempt04.png",
+  "sourceSha256": "6ac8c834982930f4ee24c43e8de3fda78d2ff84a28a1694c7ef5a3156f19d72c",
+  "factor": 0.53,
+  "factorMethodCorrection": "recorded ratios are .5573,.5070,.5115; median is .5115. Raw v05 uses selected .530, not the median. See erratum.",
+  "dimensions": [
+    1792,
+    272
+  ],
+  "pivot": [
+    128,
+    260
+  ],
+  "preservesAllScaledOpaqueSourcePixels": true,
+  "frames": [
+    {
+      "frame": 0,
+      "outputBoundsRoomy": [
+        52,
+        46,
+        203,
+        259
+      ],
+      "height": 214,
+      "sourceRect": [
+        0,
+        0,
+        314,
+        627
+      ],
+      "subjectBoundsRelative": [
+        18,
+        188,
+        305,
+        591
+      ]
+    },
+    {
+      "frame": 1,
+      "outputBoundsRoomy": [
+        54,
+        51,
+        202,
+        259
+      ],
+      "height": 209,
+      "sourceRect": [
+        314,
+        0,
+        627,
+        627
+      ],
+      "subjectBoundsRelative": [
+        31,
+        199,
+        313,
+        593
+      ]
+    },
+    {
+      "frame": 2,
+      "outputBoundsRoomy": [
+        45,
+        28,
+        210,
+        259
+      ],
+      "height": 232,
+      "sourceRect": [
+        627,
+        0,
+        940,
+        627
+      ],
+      "subjectBoundsRelative": [
+        0,
+        156,
+        313,
+        593
+      ]
+    },
+    {
+      "frame": 3,
+      "outputBoundsRoomy": [
+        50,
+        33,
+        205,
+        259
+      ],
+      "height": 227,
+      "sourceRect": [
+        940,
+        0,
+        1254,
+        627
+      ],
+      "subjectBoundsRelative": [
+        0,
+        162,
+        294,
+        591
+      ]
+    },
+    {
+      "frame": 4,
+      "outputBoundsRoomy": [
+        57,
+        9,
+        199,
+        259
+      ],
+      "height": 251,
+      "sourceRect": [
+        0,
+        627,
+        314,
+        1254
+      ],
+      "subjectBoundsRelative": [
+        28,
+        55,
+        297,
+        529
+      ]
+    },
+    {
+      "frame": 5,
+      "outputBoundsRoomy": [
+        52,
+        36,
+        203,
+        259
+      ],
+      "height": 224,
+      "sourceRect": [
+        314,
+        627,
+        627,
+        1254
+      ],
+      "subjectBoundsRelative": [
+        11,
+        106,
+        297,
+        529
+      ]
+    },
+    {
+      "frame": 6,
+      "outputBoundsRoomy": [
+        52,
+        36,
+        203,
+        259
+      ],
+      "height": 224,
+      "sourceRect": [
+        627,
+        627,
+        940,
+        1254
+      ],
+      "subjectBoundsRelative": [
+        12,
+        106,
+        298,
+        529
+      ]
+    }
+  ],
+  "sha256": "3ebb781b2d7a97f1eb35848a1e98a84787693b5affdec12e8a01df759e01a3b6"
+}

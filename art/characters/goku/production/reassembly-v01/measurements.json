@@ -1,0 +1,476 @@
+{
+  "label": "Two pilot reassemblies; estimates carry uncertainty and remain on technical hold.",
+  "idleReference": {
+    "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+    "beltWidthPx": 36
+  },
+  "strips": [
+    {
+      "name": "guard",
+      "version": 5,
+      "source": "guard_v04_attempt03.png",
+      "previous": "raw/_qa_hold/guard_v04.png",
+      "cols": 2,
+      "rows": 1,
+      "frames": 2,
+      "factor": 0.282,
+      "uncertainty": 0.03,
+      "landmarks": {
+        "method": "inverse-map of Astra-marked v04 native-control frame 0 through the recorded old grid-to-cells transform; source coordinates are approximate and include prior raster resampling uncertainty",
+        "sourceFrame0": {
+          "neckBaseToBeltCenter": {
+            "from": [
+              411,
+              224
+            ],
+            "to": [
+              425,
+              387
+            ],
+            "lengthPx": 164,
+            "idleTargetPx": 46,
+            "factor": 0.28,
+            "uncertaintyPx": 18
+          },
+          "beltWidth": {
+            "from": [
+              360,
+              387
+            ],
+            "to": [
+              492,
+              387
+            ],
+            "lengthPx": 132,
+            "idleTargetPx": 36,
+            "factor": 0.273,
+            "uncertaintyPx": 12
+          },
+          "leftBootTopToSole": {
+            "from": [
+              214,
+              693
+            ],
+            "to": [
+              160,
+              831
+            ],
+            "lengthPx": 148,
+            "idleTargetPx": 45,
+            "factor": 0.304,
+            "uncertaintyPx": 12
+          }
+        },
+        "validationFrames": "guard source frames 0 and 1 show the same broad planted guard; frame 1 has greater arm occlusion, so frame 0 drives the estimate.",
+        "decision": "factor is the median of torso, belt and boot ratios. Combined spread and inverse-map uncertainty are about ±0.030; not a numeric pass."
+      },
+      "description": "Reassembled from the existing v04 source at the measured idle density; design and approval state unchanged.",
+      "sourcePath": "art/characters/goku/production/generation-source/guard_v04_attempt03.png",
+      "sourceSha256": "c1d19e09c37b55e9fbd08a31de0dea60e2ed23564eec1489f669f2f606b9a104",
+      "output": "art/characters/goku/raw/guard_v05.png",
+      "outputSha256": "517c51ce2899ac06bcf4c8ab99c710f9e0660742bc637e9a11c084124bba8406",
+      "panels": [
+        {
+          "frame": 0,
+          "crop": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 887,
+            "y1": 887
+          },
+          "sourceBounds": {
+            "minX": 131,
+            "minY": 17,
+            "maxX": 757,
+            "maxY": 831,
+            "width": 627,
+            "height": 815
+          },
+          "output": {
+            "x": 40,
+            "y": 11,
+            "width": 177,
+            "height": 230,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 40,
+            "minY": 12,
+            "maxX": 216,
+            "maxY": 240,
+            "width": 177,
+            "height": 229
+          }
+        },
+        {
+          "frame": 1,
+          "crop": {
+            "x0": 887,
+            "y0": 0,
+            "x1": 1774,
+            "y1": 887
+          },
+          "sourceBounds": {
+            "minX": 998,
+            "minY": 18,
+            "maxX": 1604,
+            "maxY": 831,
+            "width": 607,
+            "height": 814
+          },
+          "output": {
+            "x": 43,
+            "y": 11,
+            "width": 172,
+            "height": 230,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 299,
+            "minY": 12,
+            "maxX": 470,
+            "maxY": 240,
+            "width": 172,
+            "height": 229
+          }
+        }
+      ]
+    },
+    {
+      "name": "light2",
+      "version": 5,
+      "source": "light2_v04_attempt05.png",
+      "previous": "raw/light2_v04.png",
+      "cols": 4,
+      "rows": 2,
+      "frames": 7,
+      "factor": 0.613,
+      "uncertainty": 0.075,
+      "landmarks": {
+        "method": "inverse-map of Astra-marked v04 native-control frame 0 through the recorded old grid-to-cells transform; source coordinates are approximate and include prior raster resampling uncertainty",
+        "sourceFrame0": {
+          "neckBaseToBeltCenter": {
+            "from": [
+              189,
+              123
+            ],
+            "to": [
+              190,
+              198
+            ],
+            "lengthPx": 75,
+            "idleTargetPx": 46,
+            "factor": 0.613,
+            "uncertaintyPx": 8
+          },
+          "beltWidth": {
+            "from": [
+              166,
+              198
+            ],
+            "to": [
+              224,
+              198
+            ],
+            "lengthPx": 58,
+            "idleTargetPx": 36,
+            "factor": 0.621,
+            "uncertaintyPx": 7
+          },
+          "leftBootTopToSole": {
+            "from": [
+              107,
+              341
+            ],
+            "to": [
+              86,
+              410
+            ],
+            "lengthPx": 72,
+            "idleTargetPx": 45,
+            "factor": 0.625,
+            "uncertaintyPx": 8
+          }
+        },
+        "validationFrames": "the source includes readable guard/recovery frames 0, 1 and 6; belt spans in those rows are approximately 57, 58 and 59 source px. Attack frames turn/foreshorten the torso and are not treated as independent scale measurements.",
+        "decision": "factor is the median of frame-0 torso, belt and boot ratios; landmarks agree within about 2%. Endpoint and perspective uncertainty dominate (±0.075); not a numeric pass."
+      },
+      "description": "Reassembled from user-approved v04 drawing at measured idle density; this is a uniform calibration candidate, not a new design approval.",
+      "sourcePath": "art/characters/goku/production/generation-source/light2_v04_attempt05.png",
+      "sourceSha256": "f9541b3fbabd570bf9db80152add3331d4b7753ff9f1bee52065683608e61753",
+      "output": "art/characters/goku/raw/light2_v05.png",
+      "outputSha256": "248b5c7c2b4e8dfed110585c19d868477588d4f3b2cf899a1a446423a59ce2b3",
+      "panels": [
+        {
+          "frame": 0,
+          "crop": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 443,
+            "y1": 443
+          },
+          "sourceBounds": {
+            "minX": 65,
+            "minY": 27,
+            "maxX": 334,
+            "maxY": 410,
+            "width": 270,
+            "height": 384
+          },
+          "output": {
+            "x": 46,
+            "y": 5,
+            "width": 166,
+            "height": 236,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 46,
+            "minY": 5,
+            "maxX": 211,
+            "maxY": 240,
+            "width": 166,
+            "height": 236
+          }
+        },
+        {
+          "frame": 1,
+          "crop": {
+            "x0": 443,
+            "y0": 0,
+            "x1": 887,
+            "y1": 443
+          },
+          "sourceBounds": {
+            "minX": 506,
+            "minY": 29,
+            "maxX": 782,
+            "maxY": 410,
+            "width": 277,
+            "height": 382
+          },
+          "output": {
+            "x": 44,
+            "y": 6,
+            "width": 170,
+            "height": 235,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 300,
+            "minY": 6,
+            "maxX": 469,
+            "maxY": 240,
+            "width": 170,
+            "height": 235
+          }
+        },
+        {
+          "frame": 2,
+          "crop": {
+            "x0": 887,
+            "y0": 0,
+            "x1": 1330,
+            "y1": 443
+          },
+          "sourceBounds": {
+            "minX": 944,
+            "minY": 34,
+            "maxX": 1267,
+            "maxY": 410,
+            "width": 324,
+            "height": 377
+          },
+          "output": {
+            "x": 29,
+            "y": 9,
+            "width": 199,
+            "height": 232,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 541,
+            "minY": 9,
+            "maxX": 739,
+            "maxY": 240,
+            "width": 199,
+            "height": 232
+          }
+        },
+        {
+          "frame": 3,
+          "crop": {
+            "x0": 1330,
+            "y0": 0,
+            "x1": 1774,
+            "y1": 443
+          },
+          "sourceBounds": {
+            "minX": 1400,
+            "minY": 34,
+            "maxX": 1735,
+            "maxY": 410,
+            "width": 336,
+            "height": 377
+          },
+          "output": {
+            "x": 26,
+            "y": 9,
+            "width": 206,
+            "height": 232,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 794,
+            "minY": 9,
+            "maxX": 999,
+            "maxY": 240,
+            "width": 206,
+            "height": 232
+          }
+        },
+        {
+          "frame": 4,
+          "crop": {
+            "x0": 0,
+            "y0": 443,
+            "x1": 443,
+            "y1": 887
+          },
+          "sourceBounds": {
+            "minX": 56,
+            "minY": 483,
+            "maxX": 391,
+            "maxY": 852,
+            "width": 336,
+            "height": 370
+          },
+          "output": {
+            "x": 26,
+            "y": 14,
+            "width": 206,
+            "height": 227,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 1050,
+            "minY": 14,
+            "maxX": 1255,
+            "maxY": 240,
+            "width": 206,
+            "height": 227
+          }
+        },
+        {
+          "frame": 5,
+          "crop": {
+            "x0": 443,
+            "y0": 443,
+            "x1": 887,
+            "y1": 887
+          },
+          "sourceBounds": {
+            "minX": 510,
+            "minY": 470,
+            "maxX": 782,
+            "maxY": 853,
+            "width": 273,
+            "height": 384
+          },
+          "output": {
+            "x": 45,
+            "y": 5,
+            "width": 168,
+            "height": 236,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 1325,
+            "minY": 5,
+            "maxX": 1492,
+            "maxY": 240,
+            "width": 168,
+            "height": 236
+          }
+        },
+        {
+          "frame": 6,
+          "crop": {
+            "x0": 887,
+            "y0": 443,
+            "x1": 1330,
+            "y1": 887
+          },
+          "sourceBounds": {
+            "minX": 953,
+            "minY": 470,
+            "maxX": 1220,
+            "maxY": 853,
+            "width": 268,
+            "height": 384
+          },
+          "output": {
+            "x": 46,
+            "y": 5,
+            "width": 165,
+            "height": 236,
+            "overflow": {
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }
+          },
+          "occupied": {
+            "minX": 1582,
+            "minY": 5,
+            "maxX": 1746,
+            "maxY": 240,
+            "width": 165,
+            "height": 236
+          }
+        }
+      ]
+    }
+  ]
+}

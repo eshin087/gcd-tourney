@@ -1,0 +1,172 @@
+{
+  "coordinateSystem": "local to complete component crops listed in relay9-generation/source-component-inventory.json; f0 in SOURCE_MEASUREMENTS.json",
+  "rows": [
+    {
+      "frame": 1,
+      "torso": {
+        "endpoints": [
+          [
+            126,
+            111
+          ],
+          [
+            98,
+            161
+          ]
+        ],
+        "sourcePx": 57.30619512757762,
+        "uncertainty": 6
+      },
+      "boot": {
+        "endpoints": [
+          [
+            58,
+            291
+          ],
+          [
+            38,
+            364
+          ]
+        ],
+        "sourcePx": 75.69015788066505,
+        "uncertainty": 6
+      }
+    },
+    {
+      "frame": 2,
+      "torso": null,
+      "boot": {
+        "endpoints": [
+          [
+            125,
+            330
+          ],
+          [
+            128,
+            395
+          ]
+        ],
+        "sourcePx": 65.06919393998974,
+        "uncertainty": 6
+      },
+      "limit": "posterior collar occluded; no equivalent torso measure"
+    },
+    {
+      "frame": 3,
+      "torso": null,
+      "boot": {
+        "endpoints": [
+          [
+            179,
+            326
+          ],
+          [
+            181,
+            394
+          ]
+        ],
+        "sourcePx": 68.0294054067798,
+        "uncertainty": 6
+      },
+      "limit": "twisted torso projection; no direct ratio"
+    },
+    {
+      "frame": 4,
+      "torso": {
+        "endpoints": [
+          [
+            100,
+            112
+          ],
+          [
+            91,
+            170
+          ]
+        ],
+        "sourcePx": 58.69412236331676,
+        "uncertainty": 6
+      },
+      "boot": {
+        "endpoints": [
+          [
+            36,
+            348
+          ],
+          [
+            21,
+            422
+          ]
+        ],
+        "sourcePx": 75.50496672405067,
+        "uncertainty": 6
+      }
+    },
+    {
+      "frame": 5,
+      "torso": {
+        "endpoints": [
+          [
+            152,
+            115
+          ],
+          [
+            132,
+            176
+          ]
+        ],
+        "sourcePx": 64.19501538281614,
+        "uncertainty": 6
+      },
+      "boot": {
+        "endpoints": [
+          [
+            34,
+            320
+          ],
+          [
+            15,
+            386
+          ]
+        ],
+        "sourcePx": 68.6804193347711,
+        "uncertainty": 6
+      }
+    },
+    {
+      "frame": 6,
+      "torso": {
+        "endpoints": [
+          [
+            149,
+            115
+          ],
+          [
+            128,
+            176
+          ]
+        ],
+        "sourcePx": 64.51356446515724,
+        "uncertainty": 6
+      },
+      "boot": {
+        "endpoints": [
+          [
+            30,
+            320
+          ],
+          [
+            10,
+            385
+          ]
+        ],
+        "sourcePx": 68.00735254367723,
+        "uncertainty": 6
+      }
+    }
+  ],
+  "centralDiagnosticFactor": 0.62,
+  "f4SourceHeight": 424,
+  "predictedNativeHeight": 262.88,
+  "capFactor": 0.5589622641509434,
+  "conclusion": "Capacity/calibration HOLD; no per-frame shrink supported, no claim that broad uncertainty proves all valid factors impossible."
+}

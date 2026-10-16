@@ -1,0 +1,73 @@
+{
+  "schema": "goku-relay9-quantized-fixture-r4",
+  "status": "isolated quantized diagnostic only; not a normal atlas, not audited, not approved; transparent backgrounds match character packer output",
+  "quantizer": "tools/pack-sprites.mjs exported removeBackground(mode=char) and quantizeFrames(cells,48); median-cut palette computed jointly across 22 diagnostic and roomy cells",
+  "visibleColorCount": 48,
+  "paletteSizeReported": 48,
+  "sourceInputs": [
+    {
+      "asset": "light3",
+      "source": "art/characters/goku/raw/_qa_hold/light3_v11.png",
+      "sourceSha256": "baab0c519bb8b7a6e8f056d6ca04eea989e25b497fab2ef477dac9167cf933b2",
+      "frameCount": 7,
+      "cellSize": 256
+    },
+    {
+      "asset": "heavy",
+      "source": "art/characters/goku/raw/_qa_hold/heavy_v13.png",
+      "sourceSha256": "2c641166f0070bfba0b56622b610d08dd4169fd5faa94d6130074024abec14f6",
+      "frameCount": 8,
+      "cellSize": 256
+    },
+    {
+      "asset": "light3-roomy",
+      "source": "art/characters/goku/raw/_qa_hold/light3_v11_roomy_280.png",
+      "sourceSha256": "896144629b1acf6eb07ef6ce235e1744729a8556d50d4586967a1ebc65b49a8c",
+      "frameCount": 7,
+      "cellSize": 280
+    }
+  ],
+  "outputs": {
+    "light3": {
+      "file": "art/characters/goku/production/relay9-generation/light3_v11_48c_diagnostic.png",
+      "dimensions": [
+        1792,
+        256
+      ],
+      "sha256": "3acb4739e8490ca85f4b5595496e46246dc09e99ee0a5b61a9a3c5bd5b93a745",
+      "frames": 7
+    },
+    "heavy": {
+      "file": "art/characters/goku/production/relay9-generation/heavy_v13_48c_diagnostic.png",
+      "dimensions": [
+        2048,
+        256
+      ],
+      "sha256": "2cb923b3d275a8f8f06a0c6909c297bd4c3cf21148eb811df054aea11ed0b275",
+      "frames": 8
+    },
+    "combined15": {
+      "file": "art/characters/goku/production/relay9-generation/light3-heavy_relay9_48c_diagnostic.png",
+      "dimensions": [
+        3840,
+        256
+      ],
+      "sha256": "452129b381b063d7a8fb2d7f852a9c93578e0df1f57e4730445d729c4ca74faf",
+      "frames": 15
+    },
+    "light3RoomyCompanion": {
+      "file": "art/characters/goku/production/relay9-generation/light3_v11_roomy_280_48c.png",
+      "dimensions": [
+        1960,
+        280
+      ],
+      "sha256": "94423d4d739d82a606f3fa8da977c59faaaa6598f59a86bcd5ab0daa78c29294",
+      "frames": 7
+    }
+  },
+  "notes": [
+    "The 15-cell fixture contains exactly 7 light3 and 8 heavy frames at 256x256.",
+    "The roomy 280-cell companion shares the same 48-color palette.",
+    "The final normal atlas must be quantized and audited separately after candidate findings."
+  ]
+}

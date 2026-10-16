@@ -1,0 +1,68 @@
+{
+  "idle": {
+    "frames": 8,
+    "identicalFrames": 0,
+    "changedRgbPixels": 80450,
+    "changedAlphaPixels": 0
+  },
+  "run": {
+    "frames": 8,
+    "identicalFrames": 0,
+    "changedRgbPixels": 61927,
+    "changedAlphaPixels": 0
+  },
+  "dash": {
+    "frames": 2,
+    "identicalFrames": 0,
+    "changedRgbPixels": 15932,
+    "changedAlphaPixels": 0
+  },
+  "land": {
+    "frames": 2,
+    "identicalFrames": 0,
+    "changedRgbPixels": 19253,
+    "changedAlphaPixels": 0
+  },
+  "light1": {
+    "frames": 7,
+    "identicalFrames": 0,
+    "changedRgbPixels": 78308,
+    "changedAlphaPixels": 0
+  },
+  "light3": {
+    "frames": 7,
+    "identicalFrames": 0,
+    "changedRgbPixels": 71668,
+    "changedAlphaPixels": 0
+  },
+  "light4": {
+    "frames": 8,
+    "identicalFrames": 0,
+    "changedRgbPixels": 64291,
+    "changedAlphaPixels": 0
+  },
+  "heavy": {
+    "frames": 8,
+    "identicalFrames": 0,
+    "changedRgbPixels": 68797,
+    "changedAlphaPixels": 0
+  },
+  "hurtHigh": {
+    "frames": 3,
+    "identicalFrames": 0,
+    "changedRgbPixels": 33542,
+    "changedAlphaPixels": 0
+  },
+  "getup": {
+    "frames": 5,
+    "identicalFrames": 0,
+    "changedRgbPixels": 35685,
+    "changedAlphaPixels": 0
+  },
+  "win": {
+    "frames": 4,
+    "identicalFrames": 0,
+    "changedRgbPixels": 43197,
+    "changedAlphaPixels": 0
+  }
+}

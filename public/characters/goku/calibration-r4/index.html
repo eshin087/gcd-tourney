@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Goku Relay 9 calibration r4</title>
+<style>
+:root{color-scheme:dark;font:16px/1.45 system-ui,sans-serif;background:#151318;color:#f4f0f5}*{box-sizing:border-box}body{max-width:1200px;margin:auto;padding:22px}h1,h2,h3{line-height:1.2}h1{margin:0 0 10px}h2{margin:0 0 12px}.panel{margin:16px 0;padding:16px;background:#211f24;border:1px solid #49454d;border-radius:9px}.state{padding:14px;border:2px solid #e5ae4d;background:#34280f;color:#ffe2a0;border-radius:8px;font-weight:700}.state p{margin:3px 0}.small{color:#c9c4ce;font-size:.91rem}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}button,select{font:inherit;padding:8px 10px;background:#37343b;color:#fff;border:1px solid #716b76;border-radius:5px}.framebox{display:inline-flex;flex-direction:column;gap:6px;align-items:center;vertical-align:top}.frame{width:256px;height:256px;object-fit:contain;background:#ff00ff;image-rendering:pixelated}.frame.roomy{width:280px;height:280px}.zoom{width:min(768px,100%);height:auto;image-rendering:pixelated;background:#ff00ff}.contacts{overflow:auto;max-width:100%;margin-top:10px}.contacts img{display:block;height:256px;width:auto;max-width:none;image-rendering:pixelated;background:#ff00ff}.refs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.refcard{min-width:0;background:#19171c;padding:10px;border-radius:6px}.refcard img{display:block;width:100%;height:auto;image-rendering:pixelated;background:#ff00ff}.native-reference-strip{overflow-x:auto;max-width:100%;margin-top:8px}.native-reference-strip img{display:block;width:768px;max-width:none;height:256px;image-rendering:pixelated;background:#ff00ff}.diagrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(560px,100%),1fr));gap:16px}.framepair{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}.badge{display:inline-block;padding:3px 8px;border-radius:5px;background:#433719;color:#ffe3a4}.ok{background:#173a24;color:#c3ffd0}.pending{background:#433719;color:#ffe3a4}details{margin-top:10px}summary{cursor:pointer;font-weight:650}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#19171c;padding:10px;border-radius:5px}a{color:#a9d7ff;overflow-wrap:anywhere}.scroll{overflow:auto}.phase{min-width:180px}@media(max-width:600px){body{padding:12px}.panel{padding:12px}.frame{width:224px;height:224px}.frame.roomy{width:246px;height:246px}}
+</style>
+</head>
+<body>
+<h1>Goku Relay 9 — exact candidate review</h1>
+<section class="panel state" aria-live="polite">
+<p>Drawing approval: <span id="drawingApproval"></span></p>
+<p>Technical audit: <span id="technicalAudit"></span></p>
+<p>Hold decision: <span id="holdDecision"></span></p>
+<p class="small">These are separate decisions. Relay #10 user decision: "Approved" applies to Goku heavy v14. The call authorization itself did not approve the images. Light3 v11 remains on technical HOLD for clipping and is excluded from the atlas.</p>
+</section>
+<section class="panel">
+<h2>Native candidate player</h2>
+<div class="row"><label>Move <select id="move"></select></label><button id="play">Pause</button><button id="replay">Replay from frame 0</button><button id="prev">Previous</button><button id="next">Next</button><span id="caption" class="badge"></span><span id="phase" class="badge phase"></span></div>
+<div class="row" style="margin-top:12px"><div><p class="small">Exact quantized candidate cell</p><img id="candidate" class="frame" alt="Exact 48-color candidate frame"></div><div style="flex:1;min-width:220px"><p class="small">Nearest-neighbor enlargement</p><img id="zoom" class="zoom" alt="Enlarged exact candidate cell"></div></div>
+<div id="contactWrap" class="contacts"></div>
+<p class="small">Frame durations and phase boundaries follow the current Goku manifest; both moves are one-shots. Player pauses on the final frame.</p>
+</section>
+<section class="panel">
+<h2>Approved identity and scale references</h2>
+<p class="small">These are the approved reference images used for identity and anatomy. Reference approval does not approve the animation candidates below.</p>
+<div class="refs">
+<div class="refcard"><b>Approved title-style neutral/combat cells — native 256px each, horizontally scrollable</b><div class="native-reference-strip"><img src="assets/references/approved-reference-lineup.png" alt="Three approved title-style cells displayed at native 256px density"></div></div>
+<div class="refcard"><b>Approved title-style reference</b><img src="assets/references/title_style_draft.png" alt="Approved title-style Goku reference"></div>
+<div class="refcard"><b>Approved model sheet</b><img src="assets/references/model_sheet.png" alt="Approved Goku model sheet"></div>
+<div class="refcard"><b>Approved expressions</b><img src="assets/references/expressions.png" alt="Approved Goku expressions"></div>
+<div class="refcard"><b>Approved idle</b><img src="assets/references/idle_approved.png" alt="Approved Goku idle strip"></div>
+</div>
+</section>
+<section class="panel">
+<h2>Light3 capacity comparison at the same measured density</h2>
+<p>Both views use the same uniform <b>0.62</b> source factor and show the same frame index. The 256px candidate preserves the fixed native-cell size and clips <b>800 foreground-mask pixels total</b> across the seven frames. The 280px companion preserves every scaled foreground-mask pixel. Frame-level counts are listed below; no per-pose resizing was used.</p>
+<div class="framepair"><div class="framebox"><b>256 × 256 diagnostic</b><img id="light3Diag" class="frame" alt="Light3 native cell diagnostic"></div><div class="framebox"><b>280 × 280 complete companion</b><img id="light3Roomy" class="frame roomy" alt="Light3 complete roomy companion"></div></div>
+<p id="clipCaption" class="small"></p>
+<div class="contacts"><img src="assets/light3-contact.png" alt="All seven light3 quantized diagnostic frames"></div>
+</section>
+<section class="panel">
+<h2>Heavy candidate at native size</h2>
+<p>Heavy v14 is shown at uniform 0.720 density and native bodyHeight 235. The exact final audit passed all eight poses at x1; tallest top is y=5, with no clipped foreground-mask pixels. User approved heavy v14 via Claude relay #10 on 2026-10-16 ("Approved").</p>
+<div class="contacts"><img src="assets/heavy-contact.png" alt="All eight heavy quantized diagnostic frames"></div>
+</section>
+<section class="panel">
+<h2>Final exact combined strict atlas</h2>
+<p id="finalAtlasState">This actual branch atlas contains 93 retained audited frames plus heavy v14 (101 total); light3 remains excluded. Final Astra exact-pixel audit passed. Heavy v14 was approved by the user via Claude relay #10; light3 v11 remains on technical HOLD and excluded.</p>
+<p class="small">Sheet SHA256 <code>f117d996d5d9f225b13bfc6d7b19a741e603fa04a329b1410422263eadd824f2</code> · metadata SHA256 <code>2ee25e2a2103a145f1a888700b5e55cd19ddb0fd7a755649f1056226e6fdbbd6</code> · all 101 frames at x1, 48 colors.</p>
+<div class="row"><label>Atlas animation <select id="atlasMove"></select></label><button id="atlasPlay">Pause</button><button id="atlasReplay">Replay</button><button id="atlasPrev">Previous</button><button id="atlasNext">Next</button><span id="atlasCaption" class="badge"></span></div>
+<div class="row" style="margin-top:12px"><div><p class="small">Exact final-atlas cell</p><img id="atlasCell" class="frame" alt="Exact final strict atlas cell"></div><div style="flex:1;min-width:220px"><p class="small">Nearest-neighbor enlargement</p><img id="atlasZoom" class="zoom" alt="Enlarged final strict atlas cell"></div></div><div id="atlasContact" class="contacts"></div>
+<p class="small">The player below reads the exact audited branch public sheet and anims.json. Heavy v14 is user-approved; light3 v11 remains held and excluded.</p></section>
+<section class="panel">
+<h2>Source and QA evidence</h2>
+<details><summary>Measured source screen, original source images, factors, and exact hashes</summary>
+<p><a href="assets/evidence/SOURCE_SCREEN.md">Astra source-screen report</a> · <a href="assets/evidence/ASSEMBLY_R4.json">Connected-component assembly and source conservation</a> · <a href="assets/evidence/QUANTIZED_FIXTURE_R4_V14.json">48-color fixture hashes</a> · <a href="assets/evidence/GENERATION_LEDGER.md">Generation-call provenance</a></p>
+<p>Exact source images, preserved unchanged:</p><div class="refs"><div class="refcard"><b>light3 v10 source, 2172 × 724</b><img src="assets/evidence/light3_v10_source.png" alt="Original held light3 source"></div><div class="refcard"><b>heavy v12 source, 2172 × 724</b><img src="assets/evidence/heavy_v12_source.png" alt="Original held heavy source"></div></div>
+</details>
+<details><summary>Source pixel ownership and extraction rules</summary><p>Foreground components were identified with 8-connected labeling after excluding the flat magenta background. The exact component masks, not overlapping rectangular crop boundaries, own the pixels in each assembled frame. The light3 256px diagnostic clipping counts are <code>f0=1, f1=82, f2=0, f3=33, f4=680, f5=2, f6=2</code>. The roomy companion has zero clipped foreground-mask pixels in every frame.</p><p>Both diagnostic strips and the roomy companion were keyed with the packer’s character background helper and quantized jointly with its median-cut 48-color helper. They are isolated fixtures, not packed public atlas output.</p></details>
+</section>
+<script>
+fetch('data.json').then(r=>r.json()).then(data=>{
+ const $=id=>document.getElementById(id);const select=$('move');
+ $('drawingApproval').textContent=data.status.drawingApproval;$('technicalAudit').textContent=data.status.technicalAudit;$('holdDecision').textContent=data.status.holdDecision;
+ for(const name of Object.keys(data.animations)){const o=document.createElement('option');o.value=name;o.textContent=`${name} v${String(data.animations[name].version).padStart(2,'0')}`;select.append(o)}
+ let idx=0,playing=true,timer=null;
+ const framePath=(name,i)=>`assets/frames/${name}-f${String(i).padStart(2,'0')}.png`;
+ function stage(a,i){let total=0;for(let p=0;p<a.phases.length;p++){total+=a.phases[p];if(i<total)return ['startup','active','recovery'][p]||`phase ${p+1}`}return 'phase'}
+ function render(){const name=select.value,a=data.animations[name],src=framePath(name,idx);$('candidate').src=src;$('zoom').src=src;$('caption').textContent=`Frame ${idx+1}/${a.frameCount} · ${a.durationsMs[idx]} ms · ${a.loop?'loop':'one-shot'} · x${a.densityFactor}`;$('phase').textContent=`${stage(a,idx)} · phases ${a.phases.join('/')}`;
+ const strip=$('contactWrap');strip.replaceChildren();const img=document.createElement('img');img.src=`assets/${name}-contact.png`;img.alt=`All ${a.frameCount} ${name} frames`;strip.append(img);
+ if(name==='light3'){$('light3Diag').src=src;$('light3Roomy').src=framePath('light3-roomy',idx);$('clipCaption').textContent=`Frame ${idx+1}: 256px diagnostic loses ${data.light3Clipping.clippedForegroundPixelsByFrame[idx]} foreground-mask pixels; roomy companion loses 0.`}
+ }
+ function schedule(){clearTimeout(timer);render();if(!playing)return;const a=data.animations[select.value];timer=setTimeout(()=>{if(idx+1<a.frameCount){idx++;schedule()}else{playing=false;$('play').textContent='Play';render()}},a.durationsMs[idx])}
+ select.onchange=()=>{idx=0;playing=true;$('play').textContent='Pause';schedule()};$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'Pause':'Play';schedule()};$('replay').onclick=()=>{idx=0;playing=true;$('play').textContent='Pause';schedule()};$('prev').onclick=()=>{const a=data.animations[select.value];idx=(idx+a.frameCount-1)%a.frameCount;schedule()};$('next').onclick=()=>{const a=data.animations[select.value];idx=(idx+1)%a.frameCount;schedule()};schedule();
+}).catch(e=>{document.body.insertAdjacentHTML('beforeend',`<p class="state">Gallery data could not be loaded: ${String(e)}</p>`)});
+</script>
+<script>
+Promise.all([fetch('data.json').then(r=>r.json()),fetch('../anims.json').then(r=>r.json()),new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src='../sheet.png'})]).then(([data,meta,sheet])=>{const $=id=>document.getElementById(id),sel=$('atlasMove'),list=data.finalAtlas.animations,ctx=document.createElement('canvas').getContext('2d');for(const n of Object.keys(meta.animations)){const a=data.finalAtlas.animations[n];if(!a)continue;const o=document.createElement('option');o.value=n;o.textContent=n+' v'+String(a.version).padStart(2,'0');sel.append(o)}let i=0,playing=true,timer=null;function draw(){const n=sel.value,a=list[n],f=meta.animations[n].frames[i],x=(f%meta.columns)*meta.frameWidth,y=Math.floor(f/meta.columns)*meta.frameHeight;ctx.canvas.width=meta.frameWidth;ctx.canvas.height=meta.frameHeight;ctx.drawImage(sheet,x,y,meta.frameWidth,meta.frameHeight,0,0,meta.frameWidth,meta.frameHeight);const src=ctx.canvas.toDataURL('image/png');$('atlasCell').src=src;$('atlasZoom').src=src;$('atlasContact').innerHTML='<img src="'+a.contact+'" alt="Exact final atlas contact strip for '+n+'">';$('atlasCaption').textContent='Frame '+(i+1)+'/'+a.frameCount+' · '+a.durationsMs[i]+' ms · '+(a.loop?'loop':'one-shot')+' · v'+String(a.version).padStart(2,'0');}function run(){clearTimeout(timer);draw();if(!playing)return;const a=list[sel.value];timer=setTimeout(()=>{if(i+1<a.frameCount){i++;run()}else if(a.loop){i=0;run()}else{playing=false;$('atlasPlay').textContent='Play';draw()}},a.durationsMs[i])}sel.onchange=()=>{i=0;playing=true;$('atlasPlay').textContent='Pause';run()};$('atlasPlay').onclick=()=>{playing=!playing;$('atlasPlay').textContent=playing?'Pause':'Play';run()};$('atlasReplay').onclick=()=>{i=0;playing=true;$('atlasPlay').textContent='Pause';run()};$('atlasPrev').onclick=()=>{clearTimeout(timer);playing=false;$('atlasPlay').textContent='Play';const a=list[sel.value];i=(i+a.frameCount-1)%a.frameCount;draw()};$('atlasNext').onclick=()=>{clearTimeout(timer);playing=false;$('atlasPlay').textContent='Play';const a=list[sel.value];i=(i+1)%a.frameCount;draw()};run()}).catch(e=>console.error(e));</script>
+</body></html>
+
+

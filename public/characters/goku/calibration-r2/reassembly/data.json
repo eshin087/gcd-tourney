@@ -1,0 +1,1902 @@
+{
+  "title": "Goku r02 reassembly review",
+  "label": "DIAGNOSTIC ONLY · fixture pixels are not approval or production calibration",
+  "fixtures": {
+    "fixture1": {
+      "label": "Fixture 1 · 12 animations · superseded/held first audit",
+      "atlas": "assets/fixture1/sheet.png",
+      "atlasSha256": "f56ef41137234e3f955900660d903359c7d060178a3e29ca4a6e707944f55f81",
+      "metadata": "assets/fixture1/anims.json",
+      "metadataSha256": "e37f1dc357328d97473c251a9b18a0ba3e4f79fc2c8a511603058d929fe947eb",
+      "animationCount": 12,
+      "animations": {
+        "idle": {
+          "frames": [
+            {
+              "file": "assets/fixture1/idle/f00.png",
+              "sha256": "ffb6cfbff25592227f129bb75e11a2d3a8b4142c7a994484240e53c6038c1849",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture1/idle/f01.png",
+              "sha256": "2607983de01f83f8e7cf186dd91d607da7be9ad717a15854e542d01895f6d6a8",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture1/idle/f02.png",
+              "sha256": "65f38878410fb8c46c7eaad4ffc4db93934cbbacc408b70f35febc9120f0a414",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture1/idle/f03.png",
+              "sha256": "abf82136243906408d3ef96934d9c02ead6171abc754747fa0bc4a485c3e0b69",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture1/idle/f04.png",
+              "sha256": "109112722bdf5e10209884f1fac8f25f4b7ee67b053caff788f383f849f71267",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture1/idle/f05.png",
+              "sha256": "5cc9830525d57cb25989d1547ab5a84a0a2799029fcbc336cb67f4fdd37c7d7f",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture1/idle/f06.png",
+              "sha256": "5de280ca3463b04dc9f10b671d64459e1318197a41a339cb54beb6e41557a25b",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture1/idle/f07.png",
+              "sha256": "d1423fcfe977ee8555802c8c2af03b541f5ba7a3c1d5055ff30105f3cd98172f",
+              "durationMs": 150
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture1/idle-contact.png",
+          "contactSha256": "e331c0b23366d860e2adc8d430e6f15ab6d72361566bd5bd5bac19dae0c46a55"
+        },
+        "run": {
+          "frames": [
+            {
+              "file": "assets/fixture1/run/f00.png",
+              "sha256": "1b21b11298aa12248b9cf1e364b15084a6a8c6e84afd2439b7f47f4342702a43",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/run/f01.png",
+              "sha256": "59b6daf20fb079f608ce67348da8cf699c255c5c11a8734f48882ebbbafec928",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/run/f02.png",
+              "sha256": "4191210380ebb3bf4f2c9532c62b3493df245a3ccdbe5fe6e360c24d83a88891",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/run/f03.png",
+              "sha256": "9379e74ef21bf80aa2ff8c15eb1e070edef307d74d57341546291a845bcb4e57",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/run/f04.png",
+              "sha256": "d8deb5052d86fc6692f99867d32749abf235f7c42a0adef2673b186368c7bda6",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/run/f05.png",
+              "sha256": "0f8042b5494d709beb807f803777fc60f63e7fab56b689517f27ecf8f02ab4c9",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/run/f06.png",
+              "sha256": "31934fe6480a28cf6a7083c7b9332c075fba8ab15619ff44750a73380ffb150b",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/run/f07.png",
+              "sha256": "493ef4864415c2b9e779032ed7232cb787e7f2d3034bfce1e313c651523d7fa5",
+              "durationMs": 60
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture1/run-contact.png",
+          "contactSha256": "fd59801cfc5504177a70911e6c2c15a8689c4f31639a2477aa795358cd3ca61a"
+        },
+        "dash": {
+          "frames": [
+            {
+              "file": "assets/fixture1/dash/f00.png",
+              "sha256": "3f5bfe4c4ab9437a14702ea519078c7ad229925a17f78a8ce2eaf1e86651445a",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/dash/f01.png",
+              "sha256": "ff37a6785cb57d42334d29bc051387d7b495250168a78f94296873a604ddb72d",
+              "durationMs": 60
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture1/dash-contact.png",
+          "contactSha256": "a5ac832d5b6e3e6a22ab1b07bc0665fc3965b05ce786ff41b30bc3174f97af90"
+        },
+        "jumpFall": {
+          "frames": [
+            {
+              "file": "assets/fixture1/jumpFall/f00.png",
+              "sha256": "39a6b73c8b591d39a6eaedcbc783fb32f0c65db060998f0a1ed4ff1129d42688",
+              "durationMs": 80
+            },
+            {
+              "file": "assets/fixture1/jumpFall/f01.png",
+              "sha256": "d107cfac34576ef33d0e510c6b5a53db0810f71c6bab4c4d81f51ac800d53d26",
+              "durationMs": 80
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture1/jumpFall-contact.png",
+          "contactSha256": "0cfa07d54ff8d228d6c6168cffec6ab7ec919497cb0d9faca734dc1a677da5be"
+        },
+        "land": {
+          "frames": [
+            {
+              "file": "assets/fixture1/land/f00.png",
+              "sha256": "63b207d8a33e4b7a4b17a87afa23cfdb90b50cdb0fad7a22f6862924f29f1382",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture1/land/f01.png",
+              "sha256": "71828f78d17d9dfc5f927b1ca0ac2def34f8b2c89c128bcb3ecc2b03f71b4c89",
+              "durationMs": 70
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture1/land-contact.png",
+          "contactSha256": "2d924b540fa77d4e150136e686a10c661f46cf1f9a399306e9ff854c463a4e05"
+        },
+        "light1": {
+          "frames": [
+            {
+              "file": "assets/fixture1/light1/f00.png",
+              "sha256": "ce531ff511f04aea5d929a2c81dbdd2d3b1cf8a50e94d2fd236ce5e797bbfbb7",
+              "durationMs": 30
+            },
+            {
+              "file": "assets/fixture1/light1/f01.png",
+              "sha256": "1567cdee01559372e53664cfafbfcd81759be7177be331564d81d0979bed1f58",
+              "durationMs": 30
+            },
+            {
+              "file": "assets/fixture1/light1/f02.png",
+              "sha256": "b972fac30da3468b3379685cae7a499c2169e1d7c86fd4ef5616411d7d5f2ce7",
+              "durationMs": 40
+            },
+            {
+              "file": "assets/fixture1/light1/f03.png",
+              "sha256": "779e026eda9f3848fa2ec1b5ca019f22cedeb0da549af13b5aba0b96dab9f2b4",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture1/light1/f04.png",
+              "sha256": "ba40b213c74eb4e2556a7e6babc22fdf167e166bd78e7d649720887373759d21",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture1/light1/f05.png",
+              "sha256": "2772692fc276c9bfbe50128481b3d923b15c0b33fe46e237adb8cb78e807203a",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture1/light1/f06.png",
+              "sha256": "1298d21dcb7c6b73d33c7fffc095d1aa86b64598f5d2d9d183a848be555a79ca",
+              "durationMs": 30
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture1/light1-contact.png",
+          "contactSha256": "7b1b8af73d16e86f9b1deeaca6ed5bb429b7f33bbfb444f20f8cea3fc6dcc37d"
+        },
+        "light3": {
+          "frames": [
+            {
+              "file": "assets/fixture1/light3/f00.png",
+              "sha256": "a38a5bbe65b2354c5265231d05cc4293209963851b60060f37dedc75abb75921",
+              "durationMs": 40
+            },
+            {
+              "file": "assets/fixture1/light3/f01.png",
+              "sha256": "d232fb6ef6408ededdcb0807e98ba07b311a0eccbb057ea94dbe6a3027d30fdd",
+              "durationMs": 35
+            },
+            {
+              "file": "assets/fixture1/light3/f02.png",
+              "sha256": "04844486649920401c35876375342170000465392e4e0bc75e0bf7174f683229",
+              "durationMs": 45
+            },
+            {
+              "file": "assets/fixture1/light3/f03.png",
+              "sha256": "514cc907a6dfa5eb5acae3dc4962a8081bdc658f1a37f83286fa08dc1de6da3e",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/light3/f04.png",
+              "sha256": "a597183b71349936c865d6b004db7a08276b6c8f7f676df05d07ec93bd6aee87",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/light3/f05.png",
+              "sha256": "f8c37645925f1d571c5c8a5ccf79a53d38cfc3157e6d1e99db9fb258e812e006",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/light3/f06.png",
+              "sha256": "ab5e8330d1b26ce48515d68ddb6430e50dc1a00d700bdcdfbf0b7a1e806d6c53",
+              "durationMs": 30
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture1/light3-contact.png",
+          "contactSha256": "2e890a72aa1415e38f287bc93847a84b973498a7080e9ca2deb15e24ba4f7e9b"
+        },
+        "light4": {
+          "frames": [
+            {
+              "file": "assets/fixture1/light4/f00.png",
+              "sha256": "de8fdd0ab85a005f1dde9c44753bea54aa0e38937758f66f341ff7c2b8f83b26",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture1/light4/f01.png",
+              "sha256": "7194ba36cc7470ac0d26cc06b7e611c5f933d107b914e7f35b7949cb9b41ea38",
+              "durationMs": 45
+            },
+            {
+              "file": "assets/fixture1/light4/f02.png",
+              "sha256": "a97043b7e06bd8fdc00c0ff2439eee34989dd0fa1d72ec2adcdbeaf78ce41e5f",
+              "durationMs": 35
+            },
+            {
+              "file": "assets/fixture1/light4/f03.png",
+              "sha256": "7cd6bfd84ab1005810d7b0a95c3ff17531a870ba4d71acac47117c8ed2adf996",
+              "durationMs": 40
+            },
+            {
+              "file": "assets/fixture1/light4/f04.png",
+              "sha256": "e38a79339b5e1c4d8a6888ce0e24710d0ebde1b44b90b0764a1e171df0adc888",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture1/light4/f05.png",
+              "sha256": "1637042392a309920d1cb370c0e0cc2c87acda86273a4894fe8bef4405c855ea",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture1/light4/f06.png",
+              "sha256": "4620e4fbc789e2ed2d6541e02b7d8f1fe7f497cb8751b697abc9d7d7d1d1598c",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture1/light4/f07.png",
+              "sha256": "9c6ed8b13223cf6b52b06e09db7f3507481df15870be16030fbfb671666fc3b3",
+              "durationMs": 40
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture1/light4-contact.png",
+          "contactSha256": "d5a31aace2200c26cfa19701d4b4865f68be88869b39ac58ba0afce31b805ccc"
+        },
+        "heavy": {
+          "frames": [
+            {
+              "file": "assets/fixture1/heavy/f00.png",
+              "sha256": "19f507686757cb0ebbc2ea57c116398efa7f2a287d3d73be30ab0285bdd01aa7",
+              "durationMs": 40
+            },
+            {
+              "file": "assets/fixture1/heavy/f01.png",
+              "sha256": "d82df9b7511faa5201f5edf589d90b5ef11c8f4d2131b611a56f4fa7360bafd3",
+              "durationMs": 35
+            },
+            {
+              "file": "assets/fixture1/heavy/f02.png",
+              "sha256": "5b955e1d7d40da80afb904585c31fac9fabda35ff8ba45973940a049a5861818",
+              "durationMs": 30
+            },
+            {
+              "file": "assets/fixture1/heavy/f03.png",
+              "sha256": "1bcc2aaabb6fb0d5e27a9fbe7b2f9fb59dfc91d5c657dab375b079b992f79ac4",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture1/heavy/f04.png",
+              "sha256": "2ff9166613dcb6125f5f38b6f8f7b0d598ad2048b3569c8ac1aa4a1cd2bb7a0c",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture1/heavy/f05.png",
+              "sha256": "b60e13264f7b4ea9ca16d3b980419e2990e3bb243077457c3700fd06dc8609e8",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture1/heavy/f06.png",
+              "sha256": "f9b35c01f174130379e0eba232a6b9183bd023148a5710a863f17060e6d391dc",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/heavy/f07.png",
+              "sha256": "6ce98ae8c9ea6f94ec54ffe078c9cc2677b7ea8495d3b4f221b33e0b7b2f9c38",
+              "durationMs": 30
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture1/heavy-contact.png",
+          "contactSha256": "79042fcb852cbfaaf96156006c18a312f040f43ef15f587c881c611bc00b1824"
+        },
+        "hurtHigh": {
+          "frames": [
+            {
+              "file": "assets/fixture1/hurtHigh/f00.png",
+              "sha256": "6293cecbd3b0dc486644d5ab30f5f1fa8441c9fdb2e96b1ba240ec28a664732b",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture1/hurtHigh/f01.png",
+              "sha256": "3bc174faaf341ce92c7049ca8cc5879af6af4b337ce3b48071805b75233025a3",
+              "durationMs": 90
+            },
+            {
+              "file": "assets/fixture1/hurtHigh/f02.png",
+              "sha256": "2765572ba10d8a89455da397c1f91f62797c99fd08dbc2a832175d04fcff34ba",
+              "durationMs": 100
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture1/hurtHigh-contact.png",
+          "contactSha256": "bcfd57ca9ed362424bed3a829e63bcbacf77b89855bb61000b162fba034669ab"
+        },
+        "getup": {
+          "frames": [
+            {
+              "file": "assets/fixture1/getup/f00.png",
+              "sha256": "d101ec27a8b403e9421450e9b5ca7fb47638c8032e0c6d8b38b5748c263ee5b3",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture1/getup/f01.png",
+              "sha256": "edd49434011837ce55792fe6718040f707d1d08ef1bcf6d62b9e23c100c232b1",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/getup/f02.png",
+              "sha256": "e837d7752ab6ca6b94a3d0059d054de67cd9da437ef6412699d4a732c2434607",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture1/getup/f03.png",
+              "sha256": "83259e78cf10e72545a9f51cbc1c6667dd112862cda4267d928a0cf1276d7062",
+              "durationMs": 80
+            },
+            {
+              "file": "assets/fixture1/getup/f04.png",
+              "sha256": "dd99a1ee51c77217296376a85550fda17f231b2c1f438556c9323383e4a1b71d",
+              "durationMs": 70
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture1/getup-contact.png",
+          "contactSha256": "829dcf0da4a262153a42117d496ac7c8001a507102971e0b360d8da5b4927bea"
+        },
+        "win": {
+          "frames": [
+            {
+              "file": "assets/fixture1/win/f00.png",
+              "sha256": "8d8048d45cea4629110d67dd8b82d0dd2755f4fe18164fc2f4a3d47dd9fce79f",
+              "durationMs": 200
+            },
+            {
+              "file": "assets/fixture1/win/f01.png",
+              "sha256": "ed0c9f81000d025e92f131fe7cf37dd71d003689f98a2485301f914ff14cca0b",
+              "durationMs": 200
+            },
+            {
+              "file": "assets/fixture1/win/f02.png",
+              "sha256": "1cb56c7dd50dcea870447e21dcb9c637287473c1ac11c0dae3acfaf85a69006e",
+              "durationMs": 200
+            },
+            {
+              "file": "assets/fixture1/win/f03.png",
+              "sha256": "4f01a0d62032fb93284c8fb2762cd5364cbfc6f3da9e80a27643fb11cf1a346b",
+              "durationMs": 200
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture1/win-contact.png",
+          "contactSha256": "3ed884edeb8e4949ea0f247dd1ad2b0ef6ba4fd8d6a6c15ba12ed4d070bc0f57"
+        }
+      }
+    },
+    "fixture2": {
+      "label": "Fixture 2 · 16 animations · latest corrected batch",
+      "atlas": "assets/fixture2/sheet.png",
+      "atlasSha256": "c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0",
+      "metadata": "assets/fixture2/anims.json",
+      "metadataSha256": "dec929ae11544546e7a8a8f3c23c860ffa33f4844882bfda2cc9313d7cab9167",
+      "animationCount": 16,
+      "animations": {
+        "idle": {
+          "frames": [
+            {
+              "file": "assets/fixture2/idle/f00.png",
+              "sha256": "ff94832232b5eff8c55f43e2985c85587faf7d003e72b81279c5b7cf54e96406",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture2/idle/f01.png",
+              "sha256": "52f7a78b434c8233c75eab051709df216e1adcc76cd2805920e2662449b9ba84",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture2/idle/f02.png",
+              "sha256": "c4cd89303a5643ef44af2dfb92a6335a06467b6e56be44c0faed2a4d4b3e5fbe",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture2/idle/f03.png",
+              "sha256": "0dffc0f12ad961f6650ec9c1c922906e65fdf996349a32e9457b34980c94c0b3",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture2/idle/f04.png",
+              "sha256": "d23c9bfe1967aaea4ad6c52287457b2466fd81d760136a0e599792a14f1ed76f",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture2/idle/f05.png",
+              "sha256": "23961508e5703c90ccb7451dc8004b87463d2f35993d86186d261acaa119b317",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture2/idle/f06.png",
+              "sha256": "2a64bcdf6a7c716a175eb09b783459713212b0fe64d79d4cdb27e1b095d9104b",
+              "durationMs": 150
+            },
+            {
+              "file": "assets/fixture2/idle/f07.png",
+              "sha256": "12c8a9d4266ea4b127b12720d3ba5f2b8957e84c6c84d119f04ebf55faf114da",
+              "durationMs": 150
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture2/idle-contact.png",
+          "contactSha256": "7f0255a85ace6ec17ea3f33320a2ade01dcd767bc811cb03ca02a4c3ceb0f87c"
+        },
+        "run": {
+          "frames": [
+            {
+              "file": "assets/fixture2/run/f00.png",
+              "sha256": "9916c4e096c5e969b029eadf3131e8c5666a0fbc0068064cc3480bf93bf81fff",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/run/f01.png",
+              "sha256": "5dae7d38eb5ababa1cc236c52e649cf7c9bffa473fe0d58e38bc37380704f7a1",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/run/f02.png",
+              "sha256": "85156bb37108a0fed61bdc6ce388e555820c696de02a1166527376849feae6b9",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/run/f03.png",
+              "sha256": "efbc101606e725472225b9bf53675ae95a0d987b23609759dd32df36d1b2174e",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/run/f04.png",
+              "sha256": "3e33a545bb58e671e15d201af059e3e453da2ab4e61c14ddba672a55a68b1d36",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/run/f05.png",
+              "sha256": "7c8f420c188cba78734305ff731c7a806c426cfd98277845bbcd922edced8272",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/run/f06.png",
+              "sha256": "2a5c85511af1fd283a383943cddcc0e5dbc28958e43d32443d4921b01278d823",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/run/f07.png",
+              "sha256": "67e98203a3c85fa7bb527f26698f232ecf8c8fd9a638ea9befda0d19e56c97f5",
+              "durationMs": 60
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture2/run-contact.png",
+          "contactSha256": "189e9ed5409514170bf0322ca776f4669111b3b407a4275d14211ae75e121372"
+        },
+        "dash": {
+          "frames": [
+            {
+              "file": "assets/fixture2/dash/f00.png",
+              "sha256": "11192cd93eb5de27495a5439fc48e191a6dc28bfc5fb267bb2118487199dafdc",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/dash/f01.png",
+              "sha256": "168749ece9555ed7e86f9305ba33d4943cbd96e21fca393e0fe2fc73e5bdb4e1",
+              "durationMs": 60
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture2/dash-contact.png",
+          "contactSha256": "cd37cc6ca08c14b7adb3909cb602cb7a0f2f0c30f241496ceb9a038d96ec8da8"
+        },
+        "jumpUp": {
+          "frames": [
+            {
+              "file": "assets/fixture2/jumpUp/f00.png",
+              "sha256": "9d4682fb0852e91914670212a361c0950ee40595e1a95ee9637d5a5b9777a187",
+              "durationMs": 80
+            },
+            {
+              "file": "assets/fixture2/jumpUp/f01.png",
+              "sha256": "7dda84eca30fa03283e5dedfd747ef408ebe3757f8a6ad8f650d1aeb8c73a6cc",
+              "durationMs": 80
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture2/jumpUp-contact.png",
+          "contactSha256": "7c971cab982be7aee5bdc90ddf1242663baf22869c1ed692830a3dff87d71382"
+        },
+        "jumpFall": {
+          "frames": [
+            {
+              "file": "assets/fixture2/jumpFall/f00.png",
+              "sha256": "038031aa5e2aea957d36b53aedebc91d517b6b8cd6d773bda60b787a8bd5695e",
+              "durationMs": 80
+            },
+            {
+              "file": "assets/fixture2/jumpFall/f01.png",
+              "sha256": "432871834be1261bae5dd25ac57a3d1600e11f0f2998c9bb8e0d54ba41d8d2cc",
+              "durationMs": 80
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture2/jumpFall-contact.png",
+          "contactSha256": "696a5113f8951d30169e3212f37afa1beb9a1505a15ede049ac0c25d5a5f124f"
+        },
+        "land": {
+          "frames": [
+            {
+              "file": "assets/fixture2/land/f00.png",
+              "sha256": "35ed57f7763bb4fe4adda45517172f379754a2b0c38eed705c22aa37684668ec",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture2/land/f01.png",
+              "sha256": "127140e8eb5c8200e084e7f49df568ff20856025a7fbe1eeb0a788a705fbabb8",
+              "durationMs": 70
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/land-contact.png",
+          "contactSha256": "8e848ebeb02832be64c46273d98d0954245c0a79c08ccdbd007623c7ad2bfb5c"
+        },
+        "light1": {
+          "frames": [
+            {
+              "file": "assets/fixture2/light1/f00.png",
+              "sha256": "a280a5c23e7435ca3302b9c92807c4f3bd89bb9ab49702eadb4064d18a693fdc",
+              "durationMs": 30
+            },
+            {
+              "file": "assets/fixture2/light1/f01.png",
+              "sha256": "3b69fffad92692741a8e0bf576df9a97a43b77c9890290b447211bef1c49db5b",
+              "durationMs": 30
+            },
+            {
+              "file": "assets/fixture2/light1/f02.png",
+              "sha256": "3afea5f815696140d4c843e48b23a6a0618ff08605883dcc4eef57c1ea738258",
+              "durationMs": 40
+            },
+            {
+              "file": "assets/fixture2/light1/f03.png",
+              "sha256": "66d33aa45b9379174459cfaebfdf4350e120694d72e57285abeff449443af4f4",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture2/light1/f04.png",
+              "sha256": "63f739498a39702e9d3976ed0dcfaf12fd493f6b2e613f2ac71848e5698d6967",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture2/light1/f05.png",
+              "sha256": "c01b318a0c3a89dbbedf0cbf03af0e0b3448fc73b5b52b1c22a708cae552a29e",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture2/light1/f06.png",
+              "sha256": "9e2592d3c25d090c466cbd0bd85b8051c390fa56fdccd23699754293f172d257",
+              "durationMs": 30
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/light1-contact.png",
+          "contactSha256": "80d803dde28410c428a3920a5aa60f6263e9474adcb6c28d5680a4c6b107496f"
+        },
+        "light3": {
+          "frames": [
+            {
+              "file": "assets/fixture2/light3/f00.png",
+              "sha256": "2dd50bd6369e4dc4c77d3e9e02974decfbd0d57e3b0afb68f3b0a59625a44757",
+              "durationMs": 40
+            },
+            {
+              "file": "assets/fixture2/light3/f01.png",
+              "sha256": "446f8eb4e0aa3a0848dea997b40d9e9e96296a2f383f09ee439b19f02e910e0e",
+              "durationMs": 35
+            },
+            {
+              "file": "assets/fixture2/light3/f02.png",
+              "sha256": "c8a1eb2abaf154d52d1016ea462e3f36d59dc5894324b56bcb738e7d0d5d1810",
+              "durationMs": 45
+            },
+            {
+              "file": "assets/fixture2/light3/f03.png",
+              "sha256": "61d2b0e369b4af6d81f6bda2da719f3293cac69bc4034097333a092a653f5f39",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/light3/f04.png",
+              "sha256": "580f1ac6b5bd5f002940589327ad7adadd53792d10f666f3f9c5eb72d2cfc966",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/light3/f05.png",
+              "sha256": "15abd24c9e495ccc308bf3ecedc63e9559b3b24a6482ed6e2fdd436dfadd5b79",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/light3/f06.png",
+              "sha256": "28e6ab464087e19179e68baa8032a7ee885e31a7fa9cf14ae29a124cb97d3d1a",
+              "durationMs": 30
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/light3-contact.png",
+          "contactSha256": "f333cba364440a7cf6d0600cd5631f6b0dbcf6405cfb99f18b91c1d24f4a3826"
+        },
+        "light4": {
+          "frames": [
+            {
+              "file": "assets/fixture2/light4/f00.png",
+              "sha256": "98727c1605e2aca1df1fbddf60d483d8eaeaedc449b30d93eaf377fdeb330da7",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture2/light4/f01.png",
+              "sha256": "933898e0dcbd53a89ddab0c2445f815e70c40a49928fdb190862d1a507f1334a",
+              "durationMs": 45
+            },
+            {
+              "file": "assets/fixture2/light4/f02.png",
+              "sha256": "4e22ef97e75ce3dac85087bf11b7d3f4ff6c63c4005d16aa29ddca54bec0418d",
+              "durationMs": 35
+            },
+            {
+              "file": "assets/fixture2/light4/f03.png",
+              "sha256": "922b9d3f477e27c97a8d1fb8788ceedffc1d9f8be3a15ec5c54aec88d2adfa9f",
+              "durationMs": 40
+            },
+            {
+              "file": "assets/fixture2/light4/f04.png",
+              "sha256": "2589983e94a81786421367ddc342d68f604c29b000b47710818067de70a58f7d",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture2/light4/f05.png",
+              "sha256": "e3bbbb0bd10180bd185fbcda07045802c0405c41300e94ec6d7d3236ce2033a5",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture2/light4/f06.png",
+              "sha256": "d5616867e905508122ec7c1c6e690257b3aac7a42359ca2dfda1e61512d1a4d0",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture2/light4/f07.png",
+              "sha256": "2f9d1f881ba194f111aaa31a329fa71552022b2c6723b7a62c699c54b7b011ae",
+              "durationMs": 40
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/light4-contact.png",
+          "contactSha256": "806ebc470e21891bc594252da9559dd435aa302e27e8ee502baaf6feb81c726a"
+        },
+        "heavy": {
+          "frames": [
+            {
+              "file": "assets/fixture2/heavy/f00.png",
+              "sha256": "ac6fcfcee4a20aa7031797d0fed230015fe1509b31c8ca35544c9aa5bedd8027",
+              "durationMs": 40
+            },
+            {
+              "file": "assets/fixture2/heavy/f01.png",
+              "sha256": "402e33bfb468043bde264c27907c2c6d56d7b415b512f36c7abc4237b0d0a577",
+              "durationMs": 35
+            },
+            {
+              "file": "assets/fixture2/heavy/f02.png",
+              "sha256": "2de8b8c9b02a5848cda37bf2524040646c6de29004f76f2a03290671dc646ce9",
+              "durationMs": 30
+            },
+            {
+              "file": "assets/fixture2/heavy/f03.png",
+              "sha256": "03fa2502f234f1888a77e5ab3d9808a7c1f209a8a598db38d35b55434db3acbd",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture2/heavy/f04.png",
+              "sha256": "ce0f3c5854958f96a58325475c58d37d7b91c9b9bcb7787c07ccf2f0a4423f7d",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture2/heavy/f05.png",
+              "sha256": "ffe38b5123ed683598aac09e866e4a7cbc2e0c596556392d69394dbf3246187d",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture2/heavy/f06.png",
+              "sha256": "20f861da196577cd77c09512ccc4a030303ce3737dfa3a22c49d85c9c78f9dcb",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/heavy/f07.png",
+              "sha256": "b78323474421d622c590eead01c12a2a872b401b94ef4afa45708fe922cfbd55",
+              "durationMs": 30
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/heavy-contact.png",
+          "contactSha256": "8fb4c17218e349681841dc98c4a2bc527e295bfc7c5b1ba6d1053edf19292b4f"
+        },
+        "airLight1": {
+          "frames": [
+            {
+              "file": "assets/fixture2/airLight1/f00.png",
+              "sha256": "ed566eba4117c20645025e4ec9d2b492988def9a42a13cf6d25f140412d40520",
+              "durationMs": 45
+            },
+            {
+              "file": "assets/fixture2/airLight1/f01.png",
+              "sha256": "4fed0c9d98060a2705efb6aea1d64f99831aefc7fa0878a743c732df70543338",
+              "durationMs": 35
+            },
+            {
+              "file": "assets/fixture2/airLight1/f02.png",
+              "sha256": "8af5315d7109995a5fa5d56bf27a3f2c723cf40d744ae5a357f6aab8e9073f44",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture2/airLight1/f03.png",
+              "sha256": "8260f4999b93dd8bdf3f231515e5b5d75c273b419d8c30cddbf8f393af769b56",
+              "durationMs": 50
+            },
+            {
+              "file": "assets/fixture2/airLight1/f04.png",
+              "sha256": "691afcc16a3032a82bd24fd34ce719175c55414ddbe0ad3f595fb27b5be385fb",
+              "durationMs": 30
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/airLight1-contact.png",
+          "contactSha256": "e82dd8f7d90919f8f1b6971d291100dc5fb0c7c1242b7283f4c5c75f210f609f"
+        },
+        "hurtHigh": {
+          "frames": [
+            {
+              "file": "assets/fixture2/hurtHigh/f00.png",
+              "sha256": "3e9f39221d470c8d1471eb4e2d689e5dfdd34ee4fe3f2454316acbee13c651f8",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture2/hurtHigh/f01.png",
+              "sha256": "15dde4b6c47c4ae392bc25d9563db1a9cce2f25b5300acae42908a14108ae3a3",
+              "durationMs": 90
+            },
+            {
+              "file": "assets/fixture2/hurtHigh/f02.png",
+              "sha256": "9f6fa534b469935161df040e431cd7c3e15e1c2693fb3f470096184894e5c8e7",
+              "durationMs": 100
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/hurtHigh-contact.png",
+          "contactSha256": "00f1edb9048e18253e762b961c97036ab07dae799bea473a3d3de9b88b2b4d2e"
+        },
+        "launched": {
+          "frames": [
+            {
+              "file": "assets/fixture2/launched/f00.png",
+              "sha256": "827687f28d6ec6c6797df3d7c7c33bc904148f3581476b162c0244146e1d8b74",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture2/launched/f01.png",
+              "sha256": "7b6dccf9623b5a18cbb88aa331ab280bdab0c59c817078fdc7315d62277cbc4f",
+              "durationMs": 70
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture2/launched-contact.png",
+          "contactSha256": "0e0e1427a56ff096b42c72cd8e92f7c33ab3370b7cb06fc4a50b367fc30cc0f5"
+        },
+        "getup": {
+          "frames": [
+            {
+              "file": "assets/fixture2/getup/f00.png",
+              "sha256": "4f41772d0a1cd6533569bf71dd53c1d4159cda04668a5d527741247cc43fd618",
+              "durationMs": 70
+            },
+            {
+              "file": "assets/fixture2/getup/f01.png",
+              "sha256": "7a3b9c2b67d8df3f945404e7b0c6de979e3d97aa5556250f6d4ede4a9e60a025",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/getup/f02.png",
+              "sha256": "b9e16451e14f7a906a3fb3a72a16535f69a820c545b7a24a4077abe4ff5c6fd4",
+              "durationMs": 60
+            },
+            {
+              "file": "assets/fixture2/getup/f03.png",
+              "sha256": "a5647d4d89a44d993af302a22df68c07f9fe5c21396d73b7b3d99b8d4523ed67",
+              "durationMs": 80
+            },
+            {
+              "file": "assets/fixture2/getup/f04.png",
+              "sha256": "81c154dec14ba052a66ce3279ff7f60e0b7e7ef643604af42f6d256cabce7dea",
+              "durationMs": 70
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/getup-contact.png",
+          "contactSha256": "365dec910fdb4f1cf215a7e9d168ab3156a97df308ea5dd524dd5b672a7c0845"
+        },
+        "special": {
+          "frames": [
+            {
+              "file": "assets/fixture2/special/f00.png",
+              "sha256": "21b6b526259c04f03b344f5d9ab747a372f56717544d2435ac6c3c5f51248c81",
+              "durationMs": 120
+            },
+            {
+              "file": "assets/fixture2/special/f01.png",
+              "sha256": "b62ca8209c4bdaa8e06b14cc55684b2ffdd041a548a685a4f00fa7882a16b4b8",
+              "durationMs": 120
+            },
+            {
+              "file": "assets/fixture2/special/f02.png",
+              "sha256": "d0dfedcd82bdeb81c6942201f6215ffd5368e4b8f1590619707ce91a2b913727",
+              "durationMs": 120
+            },
+            {
+              "file": "assets/fixture2/special/f03.png",
+              "sha256": "4640b83b02bb7c15fc6d70ca761dcb1ea45c6b0ca7e903ee04ed1683cff7f45b",
+              "durationMs": 120
+            },
+            {
+              "file": "assets/fixture2/special/f04.png",
+              "sha256": "65cd9e8e3e5f246c6e4578024bf72f647e518478ceffe6c07e98e64db14bace0",
+              "durationMs": 120
+            },
+            {
+              "file": "assets/fixture2/special/f05.png",
+              "sha256": "374996f512d264f68143ab1b24239c0e222f5f71a838638314afa7bbb43c42a8",
+              "durationMs": 160
+            },
+            {
+              "file": "assets/fixture2/special/f06.png",
+              "sha256": "c44cefe626815f558eee4a90becf7d13ccb4da6f66014afabb2ebf0c2ed85932",
+              "durationMs": 110
+            },
+            {
+              "file": "assets/fixture2/special/f07.png",
+              "sha256": "a238c2ed023f7473bfe750438531b32e0bced0a704149960590ac8ab7d5f969a",
+              "durationMs": 70
+            }
+          ],
+          "loop": false,
+          "contact": "assets/fixture2/special-contact.png",
+          "contactSha256": "1a08f11cba889415a4c57d9c5db2e935b27c303f73f08ec31e57ed185ac5ef63"
+        },
+        "win": {
+          "frames": [
+            {
+              "file": "assets/fixture2/win/f00.png",
+              "sha256": "def05cf544d25fdb3288ef34d39698e6905bb2ca0f34b7ed480924c80007035f",
+              "durationMs": 200
+            },
+            {
+              "file": "assets/fixture2/win/f01.png",
+              "sha256": "cbf014f6742be22702667c3b36159d6e7d6d3615043f379c0d9a10682b242f3c",
+              "durationMs": 200
+            },
+            {
+              "file": "assets/fixture2/win/f02.png",
+              "sha256": "c65f1a07ed5e83040ad124a50927c05c1aeab8d1fb2e7760a991513714c7a919",
+              "durationMs": 200
+            },
+            {
+              "file": "assets/fixture2/win/f03.png",
+              "sha256": "d1c78cfb6e749aa15e131268b988c4ff88deb2d1570bfabe7ec5e9ef04bdadf1",
+              "durationMs": 200
+            }
+          ],
+          "loop": true,
+          "contact": "assets/fixture2/win-contact.png",
+          "contactSha256": "2e6f8119efe56bd3343df0d06f36e9bd91cf7658e9fa224baf2f38efb6a003bb"
+        }
+      }
+    }
+  },
+  "animations": {
+    "idle": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/idle/f00.png",
+            "sha256": "ffb6cfbff25592227f129bb75e11a2d3a8b4142c7a994484240e53c6038c1849",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture1/idle/f01.png",
+            "sha256": "2607983de01f83f8e7cf186dd91d607da7be9ad717a15854e542d01895f6d6a8",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture1/idle/f02.png",
+            "sha256": "65f38878410fb8c46c7eaad4ffc4db93934cbbacc408b70f35febc9120f0a414",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture1/idle/f03.png",
+            "sha256": "abf82136243906408d3ef96934d9c02ead6171abc754747fa0bc4a485c3e0b69",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture1/idle/f04.png",
+            "sha256": "109112722bdf5e10209884f1fac8f25f4b7ee67b053caff788f383f849f71267",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture1/idle/f05.png",
+            "sha256": "5cc9830525d57cb25989d1547ab5a84a0a2799029fcbc336cb67f4fdd37c7d7f",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture1/idle/f06.png",
+            "sha256": "5de280ca3463b04dc9f10b671d64459e1318197a41a339cb54beb6e41557a25b",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture1/idle/f07.png",
+            "sha256": "d1423fcfe977ee8555802c8c2af03b541f5ba7a3c1d5055ff30105f3cd98172f",
+            "durationMs": 150
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture1/idle-contact.png",
+        "contactSha256": "e331c0b23366d860e2adc8d430e6f15ab6d72361566bd5bd5bac19dae0c46a55"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/idle/f00.png",
+            "sha256": "ff94832232b5eff8c55f43e2985c85587faf7d003e72b81279c5b7cf54e96406",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture2/idle/f01.png",
+            "sha256": "52f7a78b434c8233c75eab051709df216e1adcc76cd2805920e2662449b9ba84",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture2/idle/f02.png",
+            "sha256": "c4cd89303a5643ef44af2dfb92a6335a06467b6e56be44c0faed2a4d4b3e5fbe",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture2/idle/f03.png",
+            "sha256": "0dffc0f12ad961f6650ec9c1c922906e65fdf996349a32e9457b34980c94c0b3",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture2/idle/f04.png",
+            "sha256": "d23c9bfe1967aaea4ad6c52287457b2466fd81d760136a0e599792a14f1ed76f",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture2/idle/f05.png",
+            "sha256": "23961508e5703c90ccb7451dc8004b87463d2f35993d86186d261acaa119b317",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture2/idle/f06.png",
+            "sha256": "2a64bcdf6a7c716a175eb09b783459713212b0fe64d79d4cdb27e1b095d9104b",
+            "durationMs": 150
+          },
+          {
+            "file": "assets/fixture2/idle/f07.png",
+            "sha256": "12c8a9d4266ea4b127b12720d3ba5f2b8957e84c6c84d119f04ebf55faf114da",
+            "durationMs": 150
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture2/idle-contact.png",
+        "contactSha256": "7f0255a85ace6ec17ea3f33320a2ade01dcd767bc811cb03ca02a4c3ceb0f87c"
+      }
+    },
+    "run": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/run/f00.png",
+            "sha256": "1b21b11298aa12248b9cf1e364b15084a6a8c6e84afd2439b7f47f4342702a43",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/run/f01.png",
+            "sha256": "59b6daf20fb079f608ce67348da8cf699c255c5c11a8734f48882ebbbafec928",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/run/f02.png",
+            "sha256": "4191210380ebb3bf4f2c9532c62b3493df245a3ccdbe5fe6e360c24d83a88891",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/run/f03.png",
+            "sha256": "9379e74ef21bf80aa2ff8c15eb1e070edef307d74d57341546291a845bcb4e57",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/run/f04.png",
+            "sha256": "d8deb5052d86fc6692f99867d32749abf235f7c42a0adef2673b186368c7bda6",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/run/f05.png",
+            "sha256": "0f8042b5494d709beb807f803777fc60f63e7fab56b689517f27ecf8f02ab4c9",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/run/f06.png",
+            "sha256": "31934fe6480a28cf6a7083c7b9332c075fba8ab15619ff44750a73380ffb150b",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/run/f07.png",
+            "sha256": "493ef4864415c2b9e779032ed7232cb787e7f2d3034bfce1e313c651523d7fa5",
+            "durationMs": 60
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture1/run-contact.png",
+        "contactSha256": "fd59801cfc5504177a70911e6c2c15a8689c4f31639a2477aa795358cd3ca61a"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/run/f00.png",
+            "sha256": "9916c4e096c5e969b029eadf3131e8c5666a0fbc0068064cc3480bf93bf81fff",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/run/f01.png",
+            "sha256": "5dae7d38eb5ababa1cc236c52e649cf7c9bffa473fe0d58e38bc37380704f7a1",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/run/f02.png",
+            "sha256": "85156bb37108a0fed61bdc6ce388e555820c696de02a1166527376849feae6b9",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/run/f03.png",
+            "sha256": "efbc101606e725472225b9bf53675ae95a0d987b23609759dd32df36d1b2174e",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/run/f04.png",
+            "sha256": "3e33a545bb58e671e15d201af059e3e453da2ab4e61c14ddba672a55a68b1d36",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/run/f05.png",
+            "sha256": "7c8f420c188cba78734305ff731c7a806c426cfd98277845bbcd922edced8272",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/run/f06.png",
+            "sha256": "2a5c85511af1fd283a383943cddcc0e5dbc28958e43d32443d4921b01278d823",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/run/f07.png",
+            "sha256": "67e98203a3c85fa7bb527f26698f232ecf8c8fd9a638ea9befda0d19e56c97f5",
+            "durationMs": 60
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture2/run-contact.png",
+        "contactSha256": "189e9ed5409514170bf0322ca776f4669111b3b407a4275d14211ae75e121372"
+      }
+    },
+    "dash": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/dash/f00.png",
+            "sha256": "3f5bfe4c4ab9437a14702ea519078c7ad229925a17f78a8ce2eaf1e86651445a",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/dash/f01.png",
+            "sha256": "ff37a6785cb57d42334d29bc051387d7b495250168a78f94296873a604ddb72d",
+            "durationMs": 60
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture1/dash-contact.png",
+        "contactSha256": "a5ac832d5b6e3e6a22ab1b07bc0665fc3965b05ce786ff41b30bc3174f97af90"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/dash/f00.png",
+            "sha256": "11192cd93eb5de27495a5439fc48e191a6dc28bfc5fb267bb2118487199dafdc",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/dash/f01.png",
+            "sha256": "168749ece9555ed7e86f9305ba33d4943cbd96e21fca393e0fe2fc73e5bdb4e1",
+            "durationMs": 60
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture2/dash-contact.png",
+        "contactSha256": "cd37cc6ca08c14b7adb3909cb602cb7a0f2f0c30f241496ceb9a038d96ec8da8"
+      }
+    },
+    "jumpFall": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/jumpFall/f00.png",
+            "sha256": "39a6b73c8b591d39a6eaedcbc783fb32f0c65db060998f0a1ed4ff1129d42688",
+            "durationMs": 80
+          },
+          {
+            "file": "assets/fixture1/jumpFall/f01.png",
+            "sha256": "d107cfac34576ef33d0e510c6b5a53db0810f71c6bab4c4d81f51ac800d53d26",
+            "durationMs": 80
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture1/jumpFall-contact.png",
+        "contactSha256": "0cfa07d54ff8d228d6c6168cffec6ab7ec919497cb0d9faca734dc1a677da5be"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/jumpFall/f00.png",
+            "sha256": "038031aa5e2aea957d36b53aedebc91d517b6b8cd6d773bda60b787a8bd5695e",
+            "durationMs": 80
+          },
+          {
+            "file": "assets/fixture2/jumpFall/f01.png",
+            "sha256": "432871834be1261bae5dd25ac57a3d1600e11f0f2998c9bb8e0d54ba41d8d2cc",
+            "durationMs": 80
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture2/jumpFall-contact.png",
+        "contactSha256": "696a5113f8951d30169e3212f37afa1beb9a1505a15ede049ac0c25d5a5f124f"
+      }
+    },
+    "land": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/land/f00.png",
+            "sha256": "63b207d8a33e4b7a4b17a87afa23cfdb90b50cdb0fad7a22f6862924f29f1382",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture1/land/f01.png",
+            "sha256": "71828f78d17d9dfc5f927b1ca0ac2def34f8b2c89c128bcb3ecc2b03f71b4c89",
+            "durationMs": 70
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture1/land-contact.png",
+        "contactSha256": "2d924b540fa77d4e150136e686a10c661f46cf1f9a399306e9ff854c463a4e05"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/land/f00.png",
+            "sha256": "35ed57f7763bb4fe4adda45517172f379754a2b0c38eed705c22aa37684668ec",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture2/land/f01.png",
+            "sha256": "127140e8eb5c8200e084e7f49df568ff20856025a7fbe1eeb0a788a705fbabb8",
+            "durationMs": 70
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/land-contact.png",
+        "contactSha256": "8e848ebeb02832be64c46273d98d0954245c0a79c08ccdbd007623c7ad2bfb5c"
+      }
+    },
+    "light1": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/light1/f00.png",
+            "sha256": "ce531ff511f04aea5d929a2c81dbdd2d3b1cf8a50e94d2fd236ce5e797bbfbb7",
+            "durationMs": 30
+          },
+          {
+            "file": "assets/fixture1/light1/f01.png",
+            "sha256": "1567cdee01559372e53664cfafbfcd81759be7177be331564d81d0979bed1f58",
+            "durationMs": 30
+          },
+          {
+            "file": "assets/fixture1/light1/f02.png",
+            "sha256": "b972fac30da3468b3379685cae7a499c2169e1d7c86fd4ef5616411d7d5f2ce7",
+            "durationMs": 40
+          },
+          {
+            "file": "assets/fixture1/light1/f03.png",
+            "sha256": "779e026eda9f3848fa2ec1b5ca019f22cedeb0da549af13b5aba0b96dab9f2b4",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture1/light1/f04.png",
+            "sha256": "ba40b213c74eb4e2556a7e6babc22fdf167e166bd78e7d649720887373759d21",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture1/light1/f05.png",
+            "sha256": "2772692fc276c9bfbe50128481b3d923b15c0b33fe46e237adb8cb78e807203a",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture1/light1/f06.png",
+            "sha256": "1298d21dcb7c6b73d33c7fffc095d1aa86b64598f5d2d9d183a848be555a79ca",
+            "durationMs": 30
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture1/light1-contact.png",
+        "contactSha256": "7b1b8af73d16e86f9b1deeaca6ed5bb429b7f33bbfb444f20f8cea3fc6dcc37d"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/light1/f00.png",
+            "sha256": "a280a5c23e7435ca3302b9c92807c4f3bd89bb9ab49702eadb4064d18a693fdc",
+            "durationMs": 30
+          },
+          {
+            "file": "assets/fixture2/light1/f01.png",
+            "sha256": "3b69fffad92692741a8e0bf576df9a97a43b77c9890290b447211bef1c49db5b",
+            "durationMs": 30
+          },
+          {
+            "file": "assets/fixture2/light1/f02.png",
+            "sha256": "3afea5f815696140d4c843e48b23a6a0618ff08605883dcc4eef57c1ea738258",
+            "durationMs": 40
+          },
+          {
+            "file": "assets/fixture2/light1/f03.png",
+            "sha256": "66d33aa45b9379174459cfaebfdf4350e120694d72e57285abeff449443af4f4",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture2/light1/f04.png",
+            "sha256": "63f739498a39702e9d3976ed0dcfaf12fd493f6b2e613f2ac71848e5698d6967",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture2/light1/f05.png",
+            "sha256": "c01b318a0c3a89dbbedf0cbf03af0e0b3448fc73b5b52b1c22a708cae552a29e",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture2/light1/f06.png",
+            "sha256": "9e2592d3c25d090c466cbd0bd85b8051c390fa56fdccd23699754293f172d257",
+            "durationMs": 30
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/light1-contact.png",
+        "contactSha256": "80d803dde28410c428a3920a5aa60f6263e9474adcb6c28d5680a4c6b107496f"
+      }
+    },
+    "light3": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/light3/f00.png",
+            "sha256": "a38a5bbe65b2354c5265231d05cc4293209963851b60060f37dedc75abb75921",
+            "durationMs": 40
+          },
+          {
+            "file": "assets/fixture1/light3/f01.png",
+            "sha256": "d232fb6ef6408ededdcb0807e98ba07b311a0eccbb057ea94dbe6a3027d30fdd",
+            "durationMs": 35
+          },
+          {
+            "file": "assets/fixture1/light3/f02.png",
+            "sha256": "04844486649920401c35876375342170000465392e4e0bc75e0bf7174f683229",
+            "durationMs": 45
+          },
+          {
+            "file": "assets/fixture1/light3/f03.png",
+            "sha256": "514cc907a6dfa5eb5acae3dc4962a8081bdc658f1a37f83286fa08dc1de6da3e",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/light3/f04.png",
+            "sha256": "a597183b71349936c865d6b004db7a08276b6c8f7f676df05d07ec93bd6aee87",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/light3/f05.png",
+            "sha256": "f8c37645925f1d571c5c8a5ccf79a53d38cfc3157e6d1e99db9fb258e812e006",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/light3/f06.png",
+            "sha256": "ab5e8330d1b26ce48515d68ddb6430e50dc1a00d700bdcdfbf0b7a1e806d6c53",
+            "durationMs": 30
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture1/light3-contact.png",
+        "contactSha256": "2e890a72aa1415e38f287bc93847a84b973498a7080e9ca2deb15e24ba4f7e9b"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/light3/f00.png",
+            "sha256": "2dd50bd6369e4dc4c77d3e9e02974decfbd0d57e3b0afb68f3b0a59625a44757",
+            "durationMs": 40
+          },
+          {
+            "file": "assets/fixture2/light3/f01.png",
+            "sha256": "446f8eb4e0aa3a0848dea997b40d9e9e96296a2f383f09ee439b19f02e910e0e",
+            "durationMs": 35
+          },
+          {
+            "file": "assets/fixture2/light3/f02.png",
+            "sha256": "c8a1eb2abaf154d52d1016ea462e3f36d59dc5894324b56bcb738e7d0d5d1810",
+            "durationMs": 45
+          },
+          {
+            "file": "assets/fixture2/light3/f03.png",
+            "sha256": "61d2b0e369b4af6d81f6bda2da719f3293cac69bc4034097333a092a653f5f39",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/light3/f04.png",
+            "sha256": "580f1ac6b5bd5f002940589327ad7adadd53792d10f666f3f9c5eb72d2cfc966",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/light3/f05.png",
+            "sha256": "15abd24c9e495ccc308bf3ecedc63e9559b3b24a6482ed6e2fdd436dfadd5b79",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/light3/f06.png",
+            "sha256": "28e6ab464087e19179e68baa8032a7ee885e31a7fa9cf14ae29a124cb97d3d1a",
+            "durationMs": 30
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/light3-contact.png",
+        "contactSha256": "f333cba364440a7cf6d0600cd5631f6b0dbcf6405cfb99f18b91c1d24f4a3826"
+      }
+    },
+    "light4": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/light4/f00.png",
+            "sha256": "de8fdd0ab85a005f1dde9c44753bea54aa0e38937758f66f341ff7c2b8f83b26",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture1/light4/f01.png",
+            "sha256": "7194ba36cc7470ac0d26cc06b7e611c5f933d107b914e7f35b7949cb9b41ea38",
+            "durationMs": 45
+          },
+          {
+            "file": "assets/fixture1/light4/f02.png",
+            "sha256": "a97043b7e06bd8fdc00c0ff2439eee34989dd0fa1d72ec2adcdbeaf78ce41e5f",
+            "durationMs": 35
+          },
+          {
+            "file": "assets/fixture1/light4/f03.png",
+            "sha256": "7cd6bfd84ab1005810d7b0a95c3ff17531a870ba4d71acac47117c8ed2adf996",
+            "durationMs": 40
+          },
+          {
+            "file": "assets/fixture1/light4/f04.png",
+            "sha256": "e38a79339b5e1c4d8a6888ce0e24710d0ebde1b44b90b0764a1e171df0adc888",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture1/light4/f05.png",
+            "sha256": "1637042392a309920d1cb370c0e0cc2c87acda86273a4894fe8bef4405c855ea",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture1/light4/f06.png",
+            "sha256": "4620e4fbc789e2ed2d6541e02b7d8f1fe7f497cb8751b697abc9d7d7d1d1598c",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture1/light4/f07.png",
+            "sha256": "9c6ed8b13223cf6b52b06e09db7f3507481df15870be16030fbfb671666fc3b3",
+            "durationMs": 40
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture1/light4-contact.png",
+        "contactSha256": "d5a31aace2200c26cfa19701d4b4865f68be88869b39ac58ba0afce31b805ccc"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/light4/f00.png",
+            "sha256": "98727c1605e2aca1df1fbddf60d483d8eaeaedc449b30d93eaf377fdeb330da7",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture2/light4/f01.png",
+            "sha256": "933898e0dcbd53a89ddab0c2445f815e70c40a49928fdb190862d1a507f1334a",
+            "durationMs": 45
+          },
+          {
+            "file": "assets/fixture2/light4/f02.png",
+            "sha256": "4e22ef97e75ce3dac85087bf11b7d3f4ff6c63c4005d16aa29ddca54bec0418d",
+            "durationMs": 35
+          },
+          {
+            "file": "assets/fixture2/light4/f03.png",
+            "sha256": "922b9d3f477e27c97a8d1fb8788ceedffc1d9f8be3a15ec5c54aec88d2adfa9f",
+            "durationMs": 40
+          },
+          {
+            "file": "assets/fixture2/light4/f04.png",
+            "sha256": "2589983e94a81786421367ddc342d68f604c29b000b47710818067de70a58f7d",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture2/light4/f05.png",
+            "sha256": "e3bbbb0bd10180bd185fbcda07045802c0405c41300e94ec6d7d3236ce2033a5",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture2/light4/f06.png",
+            "sha256": "d5616867e905508122ec7c1c6e690257b3aac7a42359ca2dfda1e61512d1a4d0",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture2/light4/f07.png",
+            "sha256": "2f9d1f881ba194f111aaa31a329fa71552022b2c6723b7a62c699c54b7b011ae",
+            "durationMs": 40
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/light4-contact.png",
+        "contactSha256": "806ebc470e21891bc594252da9559dd435aa302e27e8ee502baaf6feb81c726a"
+      }
+    },
+    "heavy": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/heavy/f00.png",
+            "sha256": "19f507686757cb0ebbc2ea57c116398efa7f2a287d3d73be30ab0285bdd01aa7",
+            "durationMs": 40
+          },
+          {
+            "file": "assets/fixture1/heavy/f01.png",
+            "sha256": "d82df9b7511faa5201f5edf589d90b5ef11c8f4d2131b611a56f4fa7360bafd3",
+            "durationMs": 35
+          },
+          {
+            "file": "assets/fixture1/heavy/f02.png",
+            "sha256": "5b955e1d7d40da80afb904585c31fac9fabda35ff8ba45973940a049a5861818",
+            "durationMs": 30
+          },
+          {
+            "file": "assets/fixture1/heavy/f03.png",
+            "sha256": "1bcc2aaabb6fb0d5e27a9fbe7b2f9fb59dfc91d5c657dab375b079b992f79ac4",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture1/heavy/f04.png",
+            "sha256": "2ff9166613dcb6125f5f38b6f8f7b0d598ad2048b3569c8ac1aa4a1cd2bb7a0c",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture1/heavy/f05.png",
+            "sha256": "b60e13264f7b4ea9ca16d3b980419e2990e3bb243077457c3700fd06dc8609e8",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture1/heavy/f06.png",
+            "sha256": "f9b35c01f174130379e0eba232a6b9183bd023148a5710a863f17060e6d391dc",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/heavy/f07.png",
+            "sha256": "6ce98ae8c9ea6f94ec54ffe078c9cc2677b7ea8495d3b4f221b33e0b7b2f9c38",
+            "durationMs": 30
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture1/heavy-contact.png",
+        "contactSha256": "79042fcb852cbfaaf96156006c18a312f040f43ef15f587c881c611bc00b1824"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/heavy/f00.png",
+            "sha256": "ac6fcfcee4a20aa7031797d0fed230015fe1509b31c8ca35544c9aa5bedd8027",
+            "durationMs": 40
+          },
+          {
+            "file": "assets/fixture2/heavy/f01.png",
+            "sha256": "402e33bfb468043bde264c27907c2c6d56d7b415b512f36c7abc4237b0d0a577",
+            "durationMs": 35
+          },
+          {
+            "file": "assets/fixture2/heavy/f02.png",
+            "sha256": "2de8b8c9b02a5848cda37bf2524040646c6de29004f76f2a03290671dc646ce9",
+            "durationMs": 30
+          },
+          {
+            "file": "assets/fixture2/heavy/f03.png",
+            "sha256": "03fa2502f234f1888a77e5ab3d9808a7c1f209a8a598db38d35b55434db3acbd",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture2/heavy/f04.png",
+            "sha256": "ce0f3c5854958f96a58325475c58d37d7b91c9b9bcb7787c07ccf2f0a4423f7d",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture2/heavy/f05.png",
+            "sha256": "ffe38b5123ed683598aac09e866e4a7cbc2e0c596556392d69394dbf3246187d",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture2/heavy/f06.png",
+            "sha256": "20f861da196577cd77c09512ccc4a030303ce3737dfa3a22c49d85c9c78f9dcb",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/heavy/f07.png",
+            "sha256": "b78323474421d622c590eead01c12a2a872b401b94ef4afa45708fe922cfbd55",
+            "durationMs": 30
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/heavy-contact.png",
+        "contactSha256": "8fb4c17218e349681841dc98c4a2bc527e295bfc7c5b1ba6d1053edf19292b4f"
+      }
+    },
+    "hurtHigh": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/hurtHigh/f00.png",
+            "sha256": "6293cecbd3b0dc486644d5ab30f5f1fa8441c9fdb2e96b1ba240ec28a664732b",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture1/hurtHigh/f01.png",
+            "sha256": "3bc174faaf341ce92c7049ca8cc5879af6af4b337ce3b48071805b75233025a3",
+            "durationMs": 90
+          },
+          {
+            "file": "assets/fixture1/hurtHigh/f02.png",
+            "sha256": "2765572ba10d8a89455da397c1f91f62797c99fd08dbc2a832175d04fcff34ba",
+            "durationMs": 100
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture1/hurtHigh-contact.png",
+        "contactSha256": "bcfd57ca9ed362424bed3a829e63bcbacf77b89855bb61000b162fba034669ab"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/hurtHigh/f00.png",
+            "sha256": "3e9f39221d470c8d1471eb4e2d689e5dfdd34ee4fe3f2454316acbee13c651f8",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture2/hurtHigh/f01.png",
+            "sha256": "15dde4b6c47c4ae392bc25d9563db1a9cce2f25b5300acae42908a14108ae3a3",
+            "durationMs": 90
+          },
+          {
+            "file": "assets/fixture2/hurtHigh/f02.png",
+            "sha256": "9f6fa534b469935161df040e431cd7c3e15e1c2693fb3f470096184894e5c8e7",
+            "durationMs": 100
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/hurtHigh-contact.png",
+        "contactSha256": "00f1edb9048e18253e762b961c97036ab07dae799bea473a3d3de9b88b2b4d2e"
+      }
+    },
+    "getup": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/getup/f00.png",
+            "sha256": "d101ec27a8b403e9421450e9b5ca7fb47638c8032e0c6d8b38b5748c263ee5b3",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture1/getup/f01.png",
+            "sha256": "edd49434011837ce55792fe6718040f707d1d08ef1bcf6d62b9e23c100c232b1",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/getup/f02.png",
+            "sha256": "e837d7752ab6ca6b94a3d0059d054de67cd9da437ef6412699d4a732c2434607",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture1/getup/f03.png",
+            "sha256": "83259e78cf10e72545a9f51cbc1c6667dd112862cda4267d928a0cf1276d7062",
+            "durationMs": 80
+          },
+          {
+            "file": "assets/fixture1/getup/f04.png",
+            "sha256": "dd99a1ee51c77217296376a85550fda17f231b2c1f438556c9323383e4a1b71d",
+            "durationMs": 70
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture1/getup-contact.png",
+        "contactSha256": "829dcf0da4a262153a42117d496ac7c8001a507102971e0b360d8da5b4927bea"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/getup/f00.png",
+            "sha256": "4f41772d0a1cd6533569bf71dd53c1d4159cda04668a5d527741247cc43fd618",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture2/getup/f01.png",
+            "sha256": "7a3b9c2b67d8df3f945404e7b0c6de979e3d97aa5556250f6d4ede4a9e60a025",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/getup/f02.png",
+            "sha256": "b9e16451e14f7a906a3fb3a72a16535f69a820c545b7a24a4077abe4ff5c6fd4",
+            "durationMs": 60
+          },
+          {
+            "file": "assets/fixture2/getup/f03.png",
+            "sha256": "a5647d4d89a44d993af302a22df68c07f9fe5c21396d73b7b3d99b8d4523ed67",
+            "durationMs": 80
+          },
+          {
+            "file": "assets/fixture2/getup/f04.png",
+            "sha256": "81c154dec14ba052a66ce3279ff7f60e0b7e7ef643604af42f6d256cabce7dea",
+            "durationMs": 70
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/getup-contact.png",
+        "contactSha256": "365dec910fdb4f1cf215a7e9d168ab3156a97df308ea5dd524dd5b672a7c0845"
+      }
+    },
+    "win": {
+      "fixture1": {
+        "frames": [
+          {
+            "file": "assets/fixture1/win/f00.png",
+            "sha256": "8d8048d45cea4629110d67dd8b82d0dd2755f4fe18164fc2f4a3d47dd9fce79f",
+            "durationMs": 200
+          },
+          {
+            "file": "assets/fixture1/win/f01.png",
+            "sha256": "ed0c9f81000d025e92f131fe7cf37dd71d003689f98a2485301f914ff14cca0b",
+            "durationMs": 200
+          },
+          {
+            "file": "assets/fixture1/win/f02.png",
+            "sha256": "1cb56c7dd50dcea870447e21dcb9c637287473c1ac11c0dae3acfaf85a69006e",
+            "durationMs": 200
+          },
+          {
+            "file": "assets/fixture1/win/f03.png",
+            "sha256": "4f01a0d62032fb93284c8fb2762cd5364cbfc6f3da9e80a27643fb11cf1a346b",
+            "durationMs": 200
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture1/win-contact.png",
+        "contactSha256": "3ed884edeb8e4949ea0f247dd1ad2b0ef6ba4fd8d6a6c15ba12ed4d070bc0f57"
+      },
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/win/f00.png",
+            "sha256": "def05cf544d25fdb3288ef34d39698e6905bb2ca0f34b7ed480924c80007035f",
+            "durationMs": 200
+          },
+          {
+            "file": "assets/fixture2/win/f01.png",
+            "sha256": "cbf014f6742be22702667c3b36159d6e7d6d3615043f379c0d9a10682b242f3c",
+            "durationMs": 200
+          },
+          {
+            "file": "assets/fixture2/win/f02.png",
+            "sha256": "c65f1a07ed5e83040ad124a50927c05c1aeab8d1fb2e7760a991513714c7a919",
+            "durationMs": 200
+          },
+          {
+            "file": "assets/fixture2/win/f03.png",
+            "sha256": "d1c78cfb6e749aa15e131268b988c4ff88deb2d1570bfabe7ec5e9ef04bdadf1",
+            "durationMs": 200
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture2/win-contact.png",
+        "contactSha256": "2e6f8119efe56bd3343df0d06f36e9bd91cf7658e9fa224baf2f38efb6a003bb"
+      }
+    },
+    "jumpUp": {
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/jumpUp/f00.png",
+            "sha256": "9d4682fb0852e91914670212a361c0950ee40595e1a95ee9637d5a5b9777a187",
+            "durationMs": 80
+          },
+          {
+            "file": "assets/fixture2/jumpUp/f01.png",
+            "sha256": "7dda84eca30fa03283e5dedfd747ef408ebe3757f8a6ad8f650d1aeb8c73a6cc",
+            "durationMs": 80
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture2/jumpUp-contact.png",
+        "contactSha256": "7c971cab982be7aee5bdc90ddf1242663baf22869c1ed692830a3dff87d71382"
+      }
+    },
+    "airLight1": {
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/airLight1/f00.png",
+            "sha256": "ed566eba4117c20645025e4ec9d2b492988def9a42a13cf6d25f140412d40520",
+            "durationMs": 45
+          },
+          {
+            "file": "assets/fixture2/airLight1/f01.png",
+            "sha256": "4fed0c9d98060a2705efb6aea1d64f99831aefc7fa0878a743c732df70543338",
+            "durationMs": 35
+          },
+          {
+            "file": "assets/fixture2/airLight1/f02.png",
+            "sha256": "8af5315d7109995a5fa5d56bf27a3f2c723cf40d744ae5a357f6aab8e9073f44",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture2/airLight1/f03.png",
+            "sha256": "8260f4999b93dd8bdf3f231515e5b5d75c273b419d8c30cddbf8f393af769b56",
+            "durationMs": 50
+          },
+          {
+            "file": "assets/fixture2/airLight1/f04.png",
+            "sha256": "691afcc16a3032a82bd24fd34ce719175c55414ddbe0ad3f595fb27b5be385fb",
+            "durationMs": 30
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/airLight1-contact.png",
+        "contactSha256": "e82dd8f7d90919f8f1b6971d291100dc5fb0c7c1242b7283f4c5c75f210f609f"
+      }
+    },
+    "launched": {
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/launched/f00.png",
+            "sha256": "827687f28d6ec6c6797df3d7c7c33bc904148f3581476b162c0244146e1d8b74",
+            "durationMs": 70
+          },
+          {
+            "file": "assets/fixture2/launched/f01.png",
+            "sha256": "7b6dccf9623b5a18cbb88aa331ab280bdab0c59c817078fdc7315d62277cbc4f",
+            "durationMs": 70
+          }
+        ],
+        "loop": true,
+        "contact": "assets/fixture2/launched-contact.png",
+        "contactSha256": "0e0e1427a56ff096b42c72cd8e92f7c33ab3370b7cb06fc4a50b367fc30cc0f5"
+      }
+    },
+    "special": {
+      "fixture2": {
+        "frames": [
+          {
+            "file": "assets/fixture2/special/f00.png",
+            "sha256": "21b6b526259c04f03b344f5d9ab747a372f56717544d2435ac6c3c5f51248c81",
+            "durationMs": 120
+          },
+          {
+            "file": "assets/fixture2/special/f01.png",
+            "sha256": "b62ca8209c4bdaa8e06b14cc55684b2ffdd041a548a685a4f00fa7882a16b4b8",
+            "durationMs": 120
+          },
+          {
+            "file": "assets/fixture2/special/f02.png",
+            "sha256": "d0dfedcd82bdeb81c6942201f6215ffd5368e4b8f1590619707ce91a2b913727",
+            "durationMs": 120
+          },
+          {
+            "file": "assets/fixture2/special/f03.png",
+            "sha256": "4640b83b02bb7c15fc6d70ca761dcb1ea45c6b0ca7e903ee04ed1683cff7f45b",
+            "durationMs": 120
+          },
+          {
+            "file": "assets/fixture2/special/f04.png",
+            "sha256": "65cd9e8e3e5f246c6e4578024bf72f647e518478ceffe6c07e98e64db14bace0",
+            "durationMs": 120
+          },
+          {
+            "file": "assets/fixture2/special/f05.png",
+            "sha256": "374996f512d264f68143ab1b24239c0e222f5f71a838638314afa7bbb43c42a8",
+            "durationMs": 160
+          },
+          {
+            "file": "assets/fixture2/special/f06.png",
+            "sha256": "c44cefe626815f558eee4a90becf7d13ccb4da6f66014afabb2ebf0c2ed85932",
+            "durationMs": 110
+          },
+          {
+            "file": "assets/fixture2/special/f07.png",
+            "sha256": "a238c2ed023f7473bfe750438531b32e0bced0a704149960590ac8ab7d5f969a",
+            "durationMs": 70
+          }
+        ],
+        "loop": false,
+        "contact": "assets/fixture2/special-contact.png",
+        "contactSha256": "1a08f11cba889415a4c57d9c5db2e935b27c303f73f08ec31e57ed185ac5ef63"
+      }
+    }
+  }
+}

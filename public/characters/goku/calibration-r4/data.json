@@ -1,0 +1,749 @@
+{
+  "status": {
+    "drawingApproval": "APPROVED — Goku heavy v14 approved by user via Claude relay #10 (\"Approved\"); light3 v11 remains unapproved and on technical HOLD.",
+    "technicalAudit": "PASS — exact combined strict atlas, 22 animations / 101 frames; heavy v14 approved by user.",
+    "holdDecision": "Separate from drawing approval; light3 v11 hold decision remains pending.",
+    "finalAtlas": "Final Astra exact-pixel audit PASS; heavy v14 approved via relay #10; light3 v11 remains excluded."
+  },
+  "animations": {
+    "light3": {
+      "version": 11,
+      "cellSize": 256,
+      "frameCount": 7,
+      "phases": [
+        2,
+        2,
+        3
+      ],
+      "durationsMs": [
+        40,
+        35,
+        45,
+        60,
+        60,
+        60,
+        30
+      ],
+      "loop": false,
+      "densityFactor": 0.62,
+      "filePrefix": "light3"
+    },
+    "heavy": {
+      "version": 14,
+      "cellSize": 256,
+      "frameCount": 8,
+      "phases": [
+        3,
+        2,
+        3
+      ],
+      "durationsMs": [
+        40,
+        35,
+        30,
+        50,
+        70,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "densityFactor": 0.72,
+      "filePrefix": "heavy",
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          -28,
+          0
+        ],
+        [
+          -35,
+          0
+        ],
+        [
+          -31,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "light3Clipping": {
+    "sourceScale": 0.62,
+    "cellSize": 256,
+    "pivotBottomY": 240,
+    "clippedForegroundPixelsByFrame": [
+      1,
+      82,
+      0,
+      33,
+      680,
+      2,
+      2
+    ],
+    "totalClippedForegroundPixels": 800,
+    "roomyCompanionCellSize": 280,
+    "roomyClippedForegroundPixelsByFrame": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "note": "Foreground-mask pixel counts after nearest-neighbor scale and before 48-color quantization; source resampling deltas are separate."
+  },
+  "finalAtlas": {
+    "sheet": "../sheet.png",
+    "metadata": "../anims.json",
+    "sheetSha256": "f117d996d5d9f225b13bfc6d7b19a741e603fa04a329b1410422263eadd824f2",
+    "metadataSha256": "2ee25e2a2103a145f1a888700b5e55cd19ddb0fd7a755649f1056226e6fdbbd6",
+    "frameCount": 101,
+    "animationCount": 22,
+    "animations": {
+      "idle": {
+        "frameCount": 8,
+        "frameIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "durationsMs": [
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150
+        ],
+        "loop": true,
+        "version": 2,
+        "bodyHeight": 233,
+        "framePaths": [
+          "assets/frames-final/idle-f00.png",
+          "assets/frames-final/idle-f01.png",
+          "assets/frames-final/idle-f02.png",
+          "assets/frames-final/idle-f03.png",
+          "assets/frames-final/idle-f04.png",
+          "assets/frames-final/idle-f05.png",
+          "assets/frames-final/idle-f06.png",
+          "assets/frames-final/idle-f07.png"
+        ],
+        "contact": "assets/final-atlas/idle-contact.png"
+      },
+      "run": {
+        "frameCount": 8,
+        "frameIndices": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "durationsMs": [
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60
+        ],
+        "loop": true,
+        "version": 9,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/run-f00.png",
+          "assets/frames-final/run-f01.png",
+          "assets/frames-final/run-f02.png",
+          "assets/frames-final/run-f03.png",
+          "assets/frames-final/run-f04.png",
+          "assets/frames-final/run-f05.png",
+          "assets/frames-final/run-f06.png",
+          "assets/frames-final/run-f07.png"
+        ],
+        "contact": "assets/final-atlas/run-contact.png"
+      },
+      "dash": {
+        "frameCount": 2,
+        "frameIndices": [
+          16,
+          17
+        ],
+        "durationsMs": [
+          60,
+          60
+        ],
+        "loop": true,
+        "version": 9,
+        "bodyHeight": 207,
+        "framePaths": [
+          "assets/frames-final/dash-f00.png",
+          "assets/frames-final/dash-f01.png"
+        ],
+        "contact": "assets/final-atlas/dash-contact.png"
+      },
+      "jumpUp": {
+        "frameCount": 2,
+        "frameIndices": [
+          18,
+          19
+        ],
+        "durationsMs": [
+          80,
+          80
+        ],
+        "loop": true,
+        "version": 4,
+        "bodyHeight": 206,
+        "framePaths": [
+          "assets/frames-final/jumpUp-f00.png",
+          "assets/frames-final/jumpUp-f01.png"
+        ],
+        "contact": "assets/final-atlas/jumpUp-contact.png"
+      },
+      "jumpFall": {
+        "frameCount": 2,
+        "frameIndices": [
+          20,
+          21
+        ],
+        "durationsMs": [
+          80,
+          80
+        ],
+        "loop": true,
+        "version": 4,
+        "bodyHeight": 232,
+        "framePaths": [
+          "assets/frames-final/jumpFall-f00.png",
+          "assets/frames-final/jumpFall-f01.png"
+        ],
+        "contact": "assets/final-atlas/jumpFall-contact.png"
+      },
+      "land": {
+        "frameCount": 2,
+        "frameIndices": [
+          22,
+          23
+        ],
+        "durationsMs": [
+          50,
+          70
+        ],
+        "loop": false,
+        "version": 7,
+        "bodyHeight": 235,
+        "framePaths": [
+          "assets/frames-final/land-f00.png",
+          "assets/frames-final/land-f01.png"
+        ],
+        "contact": "assets/final-atlas/land-contact.png"
+      },
+      "light1": {
+        "frameCount": 7,
+        "frameIndices": [
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ],
+        "durationsMs": [
+          30,
+          30,
+          40,
+          50,
+          50,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          3
+        ],
+        "version": 4,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/light1-f00.png",
+          "assets/frames-final/light1-f01.png",
+          "assets/frames-final/light1-f02.png",
+          "assets/frames-final/light1-f03.png",
+          "assets/frames-final/light1-f04.png",
+          "assets/frames-final/light1-f05.png",
+          "assets/frames-final/light1-f06.png"
+        ],
+        "contact": "assets/final-atlas/light1-contact.png"
+      },
+      "light2": {
+        "frameCount": 7,
+        "frameIndices": [
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37
+        ],
+        "durationsMs": [
+          35,
+          30,
+          40,
+          50,
+          60,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          3
+        ],
+        "version": 5,
+        "bodyHeight": 236,
+        "framePaths": [
+          "assets/frames-final/light2-f00.png",
+          "assets/frames-final/light2-f01.png",
+          "assets/frames-final/light2-f02.png",
+          "assets/frames-final/light2-f03.png",
+          "assets/frames-final/light2-f04.png",
+          "assets/frames-final/light2-f05.png",
+          "assets/frames-final/light2-f06.png"
+        ],
+        "contact": "assets/final-atlas/light2-contact.png"
+      },
+      "light4": {
+        "frameCount": 8,
+        "frameIndices": [
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45
+        ],
+        "durationsMs": [
+          50,
+          45,
+          35,
+          40,
+          70,
+          70,
+          70,
+          40
+        ],
+        "loop": false,
+        "phases": [
+          3,
+          2,
+          3
+        ],
+        "version": 9,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/light4-f00.png",
+          "assets/frames-final/light4-f01.png",
+          "assets/frames-final/light4-f02.png",
+          "assets/frames-final/light4-f03.png",
+          "assets/frames-final/light4-f04.png",
+          "assets/frames-final/light4-f05.png",
+          "assets/frames-final/light4-f06.png",
+          "assets/frames-final/light4-f07.png"
+        ],
+        "contact": "assets/final-atlas/light4-contact.png"
+      },
+      "heavy": {
+        "frameCount": 8,
+        "frameIndices": [
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53
+        ],
+        "durationsMs": [
+          40,
+          35,
+          30,
+          50,
+          70,
+          70,
+          60,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          3,
+          2,
+          3
+        ],
+        "version": 14,
+        "bodyHeight": 235,
+        "framePaths": [
+          "assets/frames-final/heavy-f00.png",
+          "assets/frames-final/heavy-f01.png",
+          "assets/frames-final/heavy-f02.png",
+          "assets/frames-final/heavy-f03.png",
+          "assets/frames-final/heavy-f04.png",
+          "assets/frames-final/heavy-f05.png",
+          "assets/frames-final/heavy-f06.png",
+          "assets/frames-final/heavy-f07.png"
+        ],
+        "contact": "assets/final-atlas/heavy-contact.png"
+      },
+      "airLight1": {
+        "frameCount": 5,
+        "frameIndices": [
+          54,
+          55,
+          56,
+          57,
+          58
+        ],
+        "durationsMs": [
+          45,
+          35,
+          50,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          1,
+          2,
+          2
+        ],
+        "version": 7,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/airLight1-f00.png",
+          "assets/frames-final/airLight1-f01.png",
+          "assets/frames-final/airLight1-f02.png",
+          "assets/frames-final/airLight1-f03.png",
+          "assets/frames-final/airLight1-f04.png"
+        ],
+        "contact": "assets/final-atlas/airLight1-contact.png"
+      },
+      "airHeavy": {
+        "frameCount": 6,
+        "frameIndices": [
+          59,
+          60,
+          61,
+          62,
+          63,
+          64
+        ],
+        "durationsMs": [
+          50,
+          45,
+          45,
+          70,
+          70,
+          40
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          2
+        ],
+        "version": 6,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/airHeavy-f00.png",
+          "assets/frames-final/airHeavy-f01.png",
+          "assets/frames-final/airHeavy-f02.png",
+          "assets/frames-final/airHeavy-f03.png",
+          "assets/frames-final/airHeavy-f04.png",
+          "assets/frames-final/airHeavy-f05.png"
+        ],
+        "contact": "assets/final-atlas/airHeavy-contact.png"
+      },
+      "guard": {
+        "frameCount": 2,
+        "frameIndices": [
+          65,
+          66
+        ],
+        "durationsMs": [
+          300,
+          300
+        ],
+        "loop": true,
+        "version": 5,
+        "bodyHeight": 229,
+        "framePaths": [
+          "assets/frames-final/guard-f00.png",
+          "assets/frames-final/guard-f01.png"
+        ],
+        "contact": "assets/final-atlas/guard-contact.png"
+      },
+      "hurtHigh": {
+        "frameCount": 3,
+        "frameIndices": [
+          67,
+          68,
+          69
+        ],
+        "durationsMs": [
+          70,
+          90,
+          100
+        ],
+        "loop": false,
+        "version": 8,
+        "bodyHeight": 223,
+        "framePaths": [
+          "assets/frames-final/hurtHigh-f00.png",
+          "assets/frames-final/hurtHigh-f01.png",
+          "assets/frames-final/hurtHigh-f02.png"
+        ],
+        "contact": "assets/final-atlas/hurtHigh-contact.png"
+      },
+      "launched": {
+        "frameCount": 2,
+        "frameIndices": [
+          70,
+          71
+        ],
+        "durationsMs": [
+          70,
+          70
+        ],
+        "loop": true,
+        "version": 8,
+        "bodyHeight": 200,
+        "framePaths": [
+          "assets/frames-final/launched-f00.png",
+          "assets/frames-final/launched-f01.png"
+        ],
+        "contact": "assets/final-atlas/launched-contact.png"
+      },
+      "down": {
+        "frameCount": 2,
+        "frameIndices": [
+          72,
+          73
+        ],
+        "durationsMs": [
+          80,
+          420
+        ],
+        "loop": false,
+        "version": 5,
+        "bodyHeight": 115,
+        "framePaths": [
+          "assets/frames-final/down-f00.png",
+          "assets/frames-final/down-f01.png"
+        ],
+        "contact": "assets/final-atlas/down-contact.png"
+      },
+      "getup": {
+        "frameCount": 5,
+        "frameIndices": [
+          74,
+          75,
+          76,
+          77,
+          78
+        ],
+        "durationsMs": [
+          70,
+          60,
+          60,
+          80,
+          70
+        ],
+        "loop": false,
+        "version": 11,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/getup-f00.png",
+          "assets/frames-final/getup-f01.png",
+          "assets/frames-final/getup-f02.png",
+          "assets/frames-final/getup-f03.png",
+          "assets/frames-final/getup-f04.png"
+        ],
+        "contact": "assets/final-atlas/getup-contact.png"
+      },
+      "charge": {
+        "frameCount": 4,
+        "frameIndices": [
+          79,
+          80,
+          81,
+          82
+        ],
+        "durationsMs": [
+          50,
+          50,
+          50,
+          50
+        ],
+        "loop": true,
+        "version": 5,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/charge-f00.png",
+          "assets/frames-final/charge-f01.png",
+          "assets/frames-final/charge-f02.png",
+          "assets/frames-final/charge-f03.png"
+        ],
+        "contact": "assets/final-atlas/charge-contact.png"
+      },
+      "beamCharge": {
+        "frameCount": 3,
+        "frameIndices": [
+          83,
+          84,
+          85
+        ],
+        "durationsMs": [
+          50,
+          50,
+          50
+        ],
+        "loop": true,
+        "version": 7,
+        "bodyHeight": 236,
+        "framePaths": [
+          "assets/frames-final/beamCharge-f00.png",
+          "assets/frames-final/beamCharge-f01.png",
+          "assets/frames-final/beamCharge-f02.png"
+        ],
+        "contact": "assets/final-atlas/beamCharge-contact.png"
+      },
+      "beamFire": {
+        "frameCount": 3,
+        "frameIndices": [
+          86,
+          87,
+          88
+        ],
+        "durationsMs": [
+          50,
+          50,
+          50
+        ],
+        "loop": true,
+        "version": 7,
+        "bodyHeight": 233,
+        "framePaths": [
+          "assets/frames-final/beamFire-f00.png",
+          "assets/frames-final/beamFire-f01.png",
+          "assets/frames-final/beamFire-f02.png"
+        ],
+        "contact": "assets/final-atlas/beamFire-contact.png"
+      },
+      "special": {
+        "frameCount": 8,
+        "frameIndices": [
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96
+        ],
+        "durationsMs": [
+          120,
+          120,
+          120,
+          120,
+          120,
+          160,
+          110,
+          70
+        ],
+        "loop": false,
+        "phases": [
+          3,
+          3,
+          2
+        ],
+        "version": 5,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/special-f00.png",
+          "assets/frames-final/special-f01.png",
+          "assets/frames-final/special-f02.png",
+          "assets/frames-final/special-f03.png",
+          "assets/frames-final/special-f04.png",
+          "assets/frames-final/special-f05.png",
+          "assets/frames-final/special-f06.png",
+          "assets/frames-final/special-f07.png"
+        ],
+        "contact": "assets/final-atlas/special-contact.png"
+      },
+      "win": {
+        "frameCount": 4,
+        "frameIndices": [
+          97,
+          98,
+          99,
+          100
+        ],
+        "durationsMs": [
+          200,
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "version": 5,
+        "bodyHeight": 237,
+        "framePaths": [
+          "assets/frames-final/win-f00.png",
+          "assets/frames-final/win-f01.png",
+          "assets/frames-final/win-f02.png",
+          "assets/frames-final/win-f03.png"
+        ],
+        "contact": "assets/final-atlas/win-contact.png"
+      }
+    }
+  }
+}

@@ -1,0 +1,532 @@
+{
+  "schema": "goku-relay9-assembly-r4",
+  "status": "diagnostic candidates only; not audited or approved",
+  "entries": [
+    {
+      "asset": "heavy",
+      "source": "art\\characters\\goku\\raw\\_qa_hold\\heavy_v12.png",
+      "sourceSha256": "8789ffdcd3ecf07fcab091896429ffc80a1524e7b3c0e7fd72f7b8072e17da01",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "expectedFrameCount": 8,
+      "connectedFigureComponentCount": 8,
+      "componentMaskMethod": "8-connected components of non-magenta source foreground; pixels assigned by component label",
+      "uniformDensityFactor": 0.73,
+      "pivotBottomY": 240,
+      "frames": [
+        {
+          "frame": 0,
+          "sourceComponentId": 4,
+          "sourceComponentBoundsXYWH": [
+            16,
+            213,
+            227,
+            320
+          ],
+          "densityFactor": 0.73,
+          "diagnostic": {
+            "scaledSize": [
+              166,
+              234
+            ],
+            "offsetTopLeft": [
+              6,
+              42
+            ],
+            "sourceComponentForegroundPixels": 30412,
+            "resampledForegroundPixels": 16252,
+            "resamplingPixelDelta": 14160,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 1,
+          "sourceComponentId": 8,
+          "sourceComponentBoundsXYWH": [
+            266,
+            226,
+            246,
+            307
+          ],
+          "densityFactor": 0.73,
+          "diagnostic": {
+            "scaledSize": [
+              180,
+              224
+            ],
+            "offsetTopLeft": [
+              16,
+              32
+            ],
+            "sourceComponentForegroundPixels": 33051,
+            "resampledForegroundPixels": 17646,
+            "resamplingPixelDelta": 15405,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 2,
+          "sourceComponentId": 6,
+          "sourceComponentBoundsXYWH": [
+            541,
+            217,
+            229,
+            316
+          ],
+          "densityFactor": 0.73,
+          "diagnostic": {
+            "scaledSize": [
+              167,
+              231
+            ],
+            "offsetTopLeft": [
+              9,
+              36
+            ],
+            "sourceComponentForegroundPixels": 31732,
+            "resampledForegroundPixels": 16928,
+            "resamplingPixelDelta": 14804,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 3,
+          "sourceComponentId": 1,
+          "sourceComponentBoundsXYWH": [
+            797,
+            206,
+            293,
+            327
+          ],
+          "densityFactor": 0.73,
+          "diagnostic": {
+            "scaledSize": [
+              214,
+              239
+            ],
+            "offsetTopLeft": [
+              1,
+              30
+            ],
+            "sourceComponentForegroundPixels": 31300,
+            "resampledForegroundPixels": 16704,
+            "resamplingPixelDelta": 14596,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 4,
+          "sourceComponentId": 3,
+          "sourceComponentBoundsXYWH": [
+            1065,
+            211,
+            316,
+            322
+          ],
+          "densityFactor": 0.73,
+          "diagnostic": {
+            "scaledSize": [
+              231,
+              235
+            ],
+            "offsetTopLeft": [
+              5,
+              18
+            ],
+            "sourceComponentForegroundPixels": 31430,
+            "resampledForegroundPixels": 16744,
+            "resamplingPixelDelta": 14686,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 5,
+          "sourceComponentId": 2,
+          "sourceComponentBoundsXYWH": [
+            1365,
+            206,
+            305,
+            327
+          ],
+          "densityFactor": 0.73,
+          "diagnostic": {
+            "scaledSize": [
+              223,
+              239
+            ],
+            "offsetTopLeft": [
+              1,
+              21
+            ],
+            "sourceComponentForegroundPixels": 31267,
+            "resampledForegroundPixels": 16693,
+            "resamplingPixelDelta": 14574,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 6,
+          "sourceComponentId": 7,
+          "sourceComponentBoundsXYWH": [
+            1653,
+            218,
+            236,
+            315
+          ],
+          "densityFactor": 0.73,
+          "diagnostic": {
+            "scaledSize": [
+              172,
+              230
+            ],
+            "offsetTopLeft": [
+              10,
+              31
+            ],
+            "sourceComponentForegroundPixels": 30309,
+            "resampledForegroundPixels": 16124,
+            "resamplingPixelDelta": 14185,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 7,
+          "sourceComponentId": 5,
+          "sourceComponentBoundsXYWH": [
+            1917,
+            212,
+            232,
+            321
+          ],
+          "densityFactor": 0.73,
+          "diagnostic": {
+            "scaledSize": [
+              169,
+              234
+            ],
+            "offsetTopLeft": [
+              6,
+              43
+            ],
+            "sourceComponentForegroundPixels": 29608,
+            "resampledForegroundPixels": 15717,
+            "resamplingPixelDelta": 13891,
+            "clippedForegroundPixels": 0
+          }
+        }
+      ],
+      "diagnosticStrip": "art\\characters\\goku\\raw\\_qa_hold\\heavy_v13.png",
+      "diagnosticDimensions": [
+        2048,
+        256
+      ],
+      "diagnosticSha256": "2c641166f0070bfba0b56622b610d08dd4169fd5faa94d6130074024abec14f6"
+    },
+    {
+      "asset": "light3",
+      "source": "art\\characters\\goku\\raw\\_qa_hold\\light3_v10.png",
+      "sourceSha256": "5079524de75f308a6421f24d2b88b8bd57ebabcf407c0c9ab1a00cd78656dab5",
+      "sourceDimensions": [
+        2172,
+        724
+      ],
+      "expectedFrameCount": 7,
+      "connectedFigureComponentCount": 7,
+      "componentMaskMethod": "8-connected components of non-magenta source foreground; pixels assigned by component label",
+      "uniformDensityFactor": 0.62,
+      "pivotBottomY": 240,
+      "frames": [
+        {
+          "frame": 0,
+          "sourceComponentId": 4,
+          "sourceComponentBoundsXYWH": [
+            20,
+            195,
+            273,
+            389
+          ],
+          "densityFactor": 0.62,
+          "diagnostic": {
+            "scaledSize": [
+              169,
+              241
+            ],
+            "offsetTopLeft": [
+              -1,
+              43
+            ],
+            "sourceComponentForegroundPixels": 43877,
+            "resampledForegroundPixels": 16793,
+            "resamplingPixelDelta": 27084,
+            "clippedForegroundPixels": 1
+          },
+          "roomyCompanion": {
+            "scaledSize": [
+              169,
+              241
+            ],
+            "offsetTopLeft": [
+              23,
+              55
+            ],
+            "sourceComponentForegroundPixels": 43877,
+            "resampledForegroundPixels": 16793,
+            "resamplingPixelDelta": 27084,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 1,
+          "sourceComponentId": 7,
+          "sourceComponentBoundsXYWH": [
+            340,
+            219,
+            224,
+            365
+          ],
+          "densityFactor": 0.62,
+          "diagnostic": {
+            "scaledSize": [
+              139,
+              226
+            ],
+            "offsetTopLeft": [
+              14,
+              56
+            ],
+            "sourceComponentForegroundPixels": 42239,
+            "resampledForegroundPixels": 16252,
+            "resamplingPixelDelta": 25987,
+            "clippedForegroundPixels": 0
+          },
+          "roomyCompanion": {
+            "scaledSize": [
+              139,
+              226
+            ],
+            "offsetTopLeft": [
+              38,
+              68
+            ],
+            "sourceComponentForegroundPixels": 42239,
+            "resampledForegroundPixels": 16252,
+            "resamplingPixelDelta": 25987,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 2,
+          "sourceComponentId": 2,
+          "sourceComponentBoundsXYWH": [
+            617,
+            186,
+            261,
+            397
+          ],
+          "densityFactor": 0.62,
+          "diagnostic": {
+            "scaledSize": [
+              162,
+              246
+            ],
+            "offsetTopLeft": [
+              -6,
+              49
+            ],
+            "sourceComponentForegroundPixels": 41299,
+            "resampledForegroundPixels": 15833,
+            "resamplingPixelDelta": 25466,
+            "clippedForegroundPixels": 82
+          },
+          "roomyCompanion": {
+            "scaledSize": [
+              162,
+              246
+            ],
+            "offsetTopLeft": [
+              18,
+              61
+            ],
+            "sourceComponentForegroundPixels": 41299,
+            "resampledForegroundPixels": 15833,
+            "resamplingPixelDelta": 25466,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 3,
+          "sourceComponentId": 3,
+          "sourceComponentBoundsXYWH": [
+            922,
+            187,
+            337,
+            396
+          ],
+          "densityFactor": 0.62,
+          "diagnostic": {
+            "scaledSize": [
+              209,
+              246
+            ],
+            "offsetTopLeft": [
+              -6,
+              28
+            ],
+            "sourceComponentForegroundPixels": 41972,
+            "resampledForegroundPixels": 16203,
+            "resamplingPixelDelta": 25769,
+            "clippedForegroundPixels": 33
+          },
+          "roomyCompanion": {
+            "scaledSize": [
+              209,
+              246
+            ],
+            "offsetTopLeft": [
+              18,
+              40
+            ],
+            "sourceComponentForegroundPixels": 41972,
+            "resampledForegroundPixels": 16203,
+            "resamplingPixelDelta": 25769,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 4,
+          "sourceComponentId": 1,
+          "sourceComponentBoundsXYWH": [
+            1294,
+            163,
+            206,
+            424
+          ],
+          "densityFactor": 0.62,
+          "diagnostic": {
+            "scaledSize": [
+              128,
+              263
+            ],
+            "offsetTopLeft": [
+              -23,
+              67
+            ],
+            "sourceComponentForegroundPixels": 43459,
+            "resampledForegroundPixels": 16769,
+            "resamplingPixelDelta": 26690,
+            "clippedForegroundPixels": 680
+          },
+          "roomyCompanion": {
+            "scaledSize": [
+              128,
+              263
+            ],
+            "offsetTopLeft": [
+              1,
+              79
+            ],
+            "sourceComponentForegroundPixels": 43459,
+            "resampledForegroundPixels": 16769,
+            "resamplingPixelDelta": 26690,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 5,
+          "sourceComponentId": 5,
+          "sourceComponentBoundsXYWH": [
+            1566,
+            196,
+            272,
+            388
+          ],
+          "densityFactor": 0.62,
+          "diagnostic": {
+            "scaledSize": [
+              169,
+              241
+            ],
+            "offsetTopLeft": [
+              -1,
+              41
+            ],
+            "sourceComponentForegroundPixels": 43941,
+            "resampledForegroundPixels": 16958,
+            "resamplingPixelDelta": 26983,
+            "clippedForegroundPixels": 2
+          },
+          "roomyCompanion": {
+            "scaledSize": [
+              169,
+              241
+            ],
+            "offsetTopLeft": [
+              23,
+              53
+            ],
+            "sourceComponentForegroundPixels": 43941,
+            "resampledForegroundPixels": 16958,
+            "resamplingPixelDelta": 26983,
+            "clippedForegroundPixels": 0
+          }
+        },
+        {
+          "frame": 6,
+          "sourceComponentId": 6,
+          "sourceComponentBoundsXYWH": [
+            1875,
+            196,
+            272,
+            388
+          ],
+          "densityFactor": 0.62,
+          "diagnostic": {
+            "scaledSize": [
+              169,
+              241
+            ],
+            "offsetTopLeft": [
+              -1,
+              43
+            ],
+            "sourceComponentForegroundPixels": 43736,
+            "resampledForegroundPixels": 16878,
+            "resamplingPixelDelta": 26858,
+            "clippedForegroundPixels": 2
+          },
+          "roomyCompanion": {
+            "scaledSize": [
+              169,
+              241
+            ],
+            "offsetTopLeft": [
+              23,
+              55
+            ],
+            "sourceComponentForegroundPixels": 43736,
+            "resampledForegroundPixels": 16878,
+            "resamplingPixelDelta": 26858,
+            "clippedForegroundPixels": 0
+          }
+        }
+      ],
+      "diagnosticStrip": "art\\characters\\goku\\raw\\_qa_hold\\light3_v11.png",
+      "diagnosticDimensions": [
+        1792,
+        256
+      ],
+      "diagnosticSha256": "baab0c519bb8b7a6e8f056d6ca04eea989e25b497fab2ef477dac9167cf933b2",
+      "roomyCompanion": {
+        "file": "art\\characters\\goku\\raw\\_qa_hold\\light3_v11_roomy_280.png",
+        "cellSize": 280,
+        "dimensions": [
+          1960,
+          280
+        ],
+        "sha256": "896144629b1acf6eb07ef6ce235e1744729a8556d50d4586967a1ebc65b49a8c"
+      }
+    }
+  ]
+}

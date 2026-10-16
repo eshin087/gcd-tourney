@@ -1,0 +1,2425 @@
+{
+  "label": "Goku r03 strict selected quantized atlas. Candidate pixels are deterministic reassemblies from existing source art; zero image generation calls in this round.",
+  "fixture": "final5-fixture",
+  "scaleGate": "strict isolated fixture",
+  "quantizeColors": 48,
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "atlasSha256": "fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054",
+  "metadataSha256": "e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f",
+  "colors": 48,
+  "animationCount": 21,
+  "frameCount": 93,
+  "totalWarnings": 1,
+  "warnings": [
+    "getup: 1 lying frame(s) float above the floor line (#0: 35% of the body within 6px of y 240, worst fifth 8px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020)"
+  ],
+  "animations": {
+    "idle": {
+      "version": 2,
+      "bodyHeight": 233,
+      "approvedVersion": 2,
+      "sourceDrawingApproval": "Original approval v02 remains recorded.",
+      "status": "Approved reference v02",
+      "factor": null,
+      "factorMethod": null,
+      "sourcePath": null,
+      "sourceSha256": null,
+      "sourceParts": null,
+      "landmarks": null,
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": null,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "contact": "assets/contacts/idle-one-density.png",
+      "framePaths": [
+        "assets/frames/idle/f00.png",
+        "assets/frames/idle/f01.png",
+        "assets/frames/idle/f02.png",
+        "assets/frames/idle/f03.png",
+        "assets/frames/idle/f04.png",
+        "assets/frames/idle/f05.png",
+        "assets/frames/idle/f06.png",
+        "assets/frames/idle/f07.png"
+      ],
+      "atlasIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "frameHashes": [
+        "dcd67ff57bfbc2421e953cf0df4be7c874f877a2f737a11f8e9dc1714c852f8f",
+        "5a9696b3f781bdd4d09bca93d1b2592a5b83c6c9f450ae7218b464fa1ffa569f",
+        "05759f5f71419928b9bcd754a4dd0b87169a96959d6682b44360a278b8ecba69",
+        "c30d04ddbaff90d64a71991557a16054eff5d9c29c27f1f8c7c24d1197e31ece",
+        "a93e1a9ff174adb59743c96e7e5a2ed7e620d00be50982f6e6743e1cbbac753b",
+        "14b3a1a983f4d1b08660e2cffc9ccb141e9335d40f7b2153b67f6a8f4f910256",
+        "972662e69448f1263a5172b03012918b6e4e0f2c1807fedf6ef7c3599bb62605",
+        "a36d0e615d1bc5d11a05bddd8eef8475c88df39d94f7232527be117ef4eac52b"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/_qa_hold/idle_v02.json",
+      "selectedRawPath": "raw/idle_v02.png"
+    },
+    "run": {
+      "version": 9,
+      "bodyHeight": 237,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.589,
+      "factorMethod": "Astra interval-constrained diagnostic candidate using source endpoint uncertainty; one-factor density remains unverified against every pose",
+      "sourcePath": "art/characters/goku/production/generation-source/run_v02_attempt04.png",
+      "sourceSha256": "d98480645714f0778debcbf67fffef932feedacdc65a008adb8fce99c6af2486",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              257,
+              147
+            ],
+            [
+              214,
+              192
+            ]
+          ],
+          "sourceLengthPx": 62.241,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.612132
+        },
+        "beltWidth": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              181,
+              184
+            ],
+            [
+              237,
+              201
+            ]
+          ],
+          "sourceLengthPx": 58.523,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.615138
+        },
+        "bootTopToSole": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              280,
+              344
+            ],
+            [
+              293,
+              409
+            ]
+          ],
+          "sourceLengthPx": 66.287,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.659252
+        }
+      },
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          -1,
+          0
+        ],
+        [
+          40,
+          0
+        ],
+        [
+          -15,
+          0
+        ],
+        [
+          18,
+          0
+        ],
+        [
+          37,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "contact": "assets/contacts/run-one-density.png",
+      "framePaths": [
+        "assets/frames/run/f00.png",
+        "assets/frames/run/f01.png",
+        "assets/frames/run/f02.png",
+        "assets/frames/run/f03.png",
+        "assets/frames/run/f04.png",
+        "assets/frames/run/f05.png",
+        "assets/frames/run/f06.png",
+        "assets/frames/run/f07.png"
+      ],
+      "atlasIndices": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "frameHashes": [
+        "7ff2bb64110c4fe181c41ebf925d8efa052d30f92683db749322fbab411e95f7",
+        "2c01945bb7b2dbefd1ed54714daca44b0480604c7424fbc7b890a1d697a2c074",
+        "ad0ca643e37a33623fe19ba75ea9967a957cb3d2572c10f4ed710a21f9fe04fc",
+        "79398ed2d1d87c3ec3dca82f52da8e614d3c41fd65f0a64220fadf5dcfcf5e02",
+        "36d7380dc2f5a81388ce977189b60b39c31d41fffb81db04d2302b1981212507",
+        "dbc3282091618d0e2c49c632f7f1f2c1e0b729fc26571cce84b61c24709b7642",
+        "9b51e3118ffe279bea9a6add3b8a0cdb5f444d84a63fb8c9992fccf2fbca180c",
+        "339150f1d40a64c46327478090277d36edcd3823e93276a5d3f77f05167659a7"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/run_v09.json",
+      "selectedRawPath": "raw/run_v09.png"
+    },
+    "dash": {
+      "version": 9,
+      "bodyHeight": 207,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.291,
+      "factorMethod": null,
+      "sourcePath": "art/characters/goku/production/generation-source/dash_v03_attempt03.png",
+      "sourceSha256": "7243edf0b162bd933879baf183bc91c83e59ff290b846fad3e4ba6b56eae2b2a",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "sourceEndpoints": [
+            [
+              580,
+              336
+            ],
+            [
+              467,
+              403
+            ]
+          ],
+          "sourceLengthPx": 131.37,
+          "sourceEndpointUncertaintyPx": 12,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.290021
+        },
+        "beltWidth": {
+          "sourceEndpoints": [
+            [
+              414,
+              380
+            ],
+            [
+              518,
+              418
+            ]
+          ],
+          "sourceLengthPx": 110.725,
+          "sourceEndpointUncertaintyPx": 12,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.32513
+        },
+        "bootTopToSole": {
+          "sourceEndpoints": [
+            [
+              177,
+              632
+            ],
+            [
+              142,
+              778
+            ]
+          ],
+          "sourceLengthPx": 150.137,
+          "sourceEndpointUncertaintyPx": 12,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.291068
+        }
+      },
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          35,
+          0
+        ]
+      ],
+      "erase": null,
+      "nativeBodyHeight": 207,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        60,
+        60
+      ],
+      "contact": "assets/contacts/dash-one-density.png",
+      "framePaths": [
+        "assets/frames/dash/f00.png",
+        "assets/frames/dash/f01.png"
+      ],
+      "atlasIndices": [
+        16,
+        17
+      ],
+      "frameHashes": [
+        "7b1f95a3e8bf513beb5a135d2b454fe6e0635f18c194767e1cbc4abfe7e906cf",
+        "d9fb8bed4f88415dfdb317152d22aec61164d0c3bed134f19bc058f0edc9fd9a"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/dash_v09.json",
+      "selectedRawPath": "raw/dash_v09.png"
+    },
+    "jumpUp": {
+      "version": 4,
+      "bodyHeight": 206,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.257,
+      "factorMethod": "exact median of all listed direct source landmark ratios, calculated programmatically and rounded to 0.001; nearest-neighbor uniform scale, no per-frame or bounds normalization",
+      "sourcePath": "art/characters/goku/production/generation-source/jumpUp_v03_attempt03.png",
+      "sourceSha256": "c8b5ee50491068292041519b5533f41a78ec77084a80c846d5307686c2309e81",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            480,
+            350
+          ],
+          "b": [
+            398,
+            473
+          ],
+          "definition": "collar-center/sternoclavicular point to belt center, f0",
+          "sourceLengthPx": 147.828,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 38.1,
+          "targetUncertaintyPx": 5,
+          "ratio": 0.25773265
+        },
+        "beltWidth": {
+          "a": [
+            331,
+            453
+          ],
+          "b": [
+            476,
+            453
+          ],
+          "definition": "outer visible blue belt edge span at y453, f0",
+          "sourceLengthPx": 145,
+          "sourceEndpointUncertaintyPx": [
+            8,
+            8
+          ],
+          "targetPx": 36,
+          "targetUncertaintyPx": 4,
+          "ratio": 0.24827586
+        },
+        "bootTopToSole": {
+          "a": [
+            304,
+            645
+          ],
+          "b": [
+            269,
+            794
+          ],
+          "definition": "left boot shaft top to sole along diagonal, f0",
+          "sourceLengthPx": 153.056,
+          "sourceEndpointUncertaintyPx": [
+            10,
+            10
+          ],
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 6,
+          "ratio": 0.28551726
+        },
+        "otherBoot": {
+          "a": [
+            407,
+            655
+          ],
+          "b": [
+            409,
+            826
+          ],
+          "definition": "other boot shaft top to sole, near-vertical f0; secondary projection check",
+          "sourceLengthPx": 171.012,
+          "sourceEndpointUncertaintyPx": [
+            10,
+            10
+          ],
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 6,
+          "ratio": 0.25553808
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 206,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        80,
+        80
+      ],
+      "contact": "assets/contacts/jumpUp-one-density.png",
+      "framePaths": [
+        "assets/frames/jumpUp/f00.png",
+        "assets/frames/jumpUp/f01.png"
+      ],
+      "atlasIndices": [
+        18,
+        19
+      ],
+      "frameHashes": [
+        "1e9d055277aa5da33b3e9c0005db19a815760f68cdbfc87ad43e6465751bb46b",
+        "6f1e652052c1c4a72bcb88f43509db4fc62baa7b48aabfb04a581729891fe026"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/jumpUp_v04.json",
+      "selectedRawPath": "raw/jumpUp_v04.png"
+    },
+    "jumpFall": {
+      "version": 4,
+      "bodyHeight": 232,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.356,
+      "factorMethod": "exact median of all three source landmark ratios in inspected frame 0, calculated programmatically and rounded to 0.001; nearest-neighbor uniform scale, no framewise or bounds-fit normalization",
+      "sourcePath": "art/characters/goku/production/generation-source/jumpFall_v02_attempt03.png",
+      "sourceSha256": "6fde8e555318e6ae624378be1d461288e68bef3aadb0021d965d1d07817a5a53",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            477,
+            267
+          ],
+          "b": [
+            446,
+            365
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 5,
+          "definition": "neckline center to belt center, rotated airborne frame 0",
+          "sourceLengthPx": 102.79,
+          "targetPx": 38.1,
+          "ratio": 0.370672
+        },
+        "beltWidth": {
+          "a": [
+            395,
+            365
+          ],
+          "b": [
+            496,
+            365
+          ],
+          "sourceUncertaintyPx": 8,
+          "targetUncertaintyPx": 4,
+          "definition": "visible outer belt edge span, frame 0",
+          "sourceLengthPx": 101,
+          "targetPx": 36,
+          "ratio": 0.356436
+        },
+        "bootTopToSole": {
+          "a": [
+            357,
+            605
+          ],
+          "b": [
+            349,
+            736
+          ],
+          "sourceUncertaintyPx": 12,
+          "targetUncertaintyPx": 6,
+          "definition": "dangling boot shaft top to sole along near-vertical axis, frame 0",
+          "sourceLengthPx": 131.24,
+          "targetPx": 43.7,
+          "ratio": 0.332967
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 232,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        80,
+        80
+      ],
+      "contact": "assets/contacts/jumpFall-one-density.png",
+      "framePaths": [
+        "assets/frames/jumpFall/f00.png",
+        "assets/frames/jumpFall/f01.png"
+      ],
+      "atlasIndices": [
+        20,
+        21
+      ],
+      "frameHashes": [
+        "3e2ddffc8784874f6dbc4780d6dd6b2c0b786f5b4659c0f33c0173e2f8434ef0",
+        "455e54127332256be9c9ee6d601affb608905e421ef230e1c5d55e62911ea5ba"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/jumpFall_v04.json",
+      "selectedRawPath": "raw/jumpFall_v04.png"
+    },
+    "land": {
+      "version": 7,
+      "bodyHeight": 235,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.3,
+      "factorMethod": null,
+      "sourcePath": "art/characters/goku/production/generation-source/land_v03_attempt03.png",
+      "sourceSha256": "3cd093cacc6742804e94702467514ec3e19e3dda039c00ccad2a703e5861709c",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "sourceEndpoints": [
+            [
+              1318,
+              282
+            ],
+            [
+              1274,
+              395
+            ]
+          ],
+          "sourceLengthPx": 121.264,
+          "sourceEndpointUncertaintyPx": 12,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.31419
+        },
+        "beltWidth": {
+          "sourceEndpoints": [
+            [
+              1217,
+              391
+            ],
+            [
+              1340,
+              396
+            ]
+          ],
+          "sourceLengthPx": 123.102,
+          "sourceEndpointUncertaintyPx": 12,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.292441
+        },
+        "bootTopToSole": {
+          "sourceEndpoints": [
+            [
+              1094,
+              688
+            ],
+            [
+              1042,
+              824
+            ]
+          ],
+          "sourceLengthPx": 145.602,
+          "sourceEndpointUncertaintyPx": 12,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.300133
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 235,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        50,
+        70
+      ],
+      "contact": "assets/contacts/land-one-density.png",
+      "framePaths": [
+        "assets/frames/land/f00.png",
+        "assets/frames/land/f01.png"
+      ],
+      "atlasIndices": [
+        22,
+        23
+      ],
+      "frameHashes": [
+        "01b8e02806c2e30480b74b177560f49569b055da9df803c8a19dbe549d742097",
+        "8e32681beaa14e36cf126628ce0c7756c24a433e9bf65491ef694206c077bcb3"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/land_v07.json",
+      "selectedRawPath": "raw/land_v07.png"
+    },
+    "light1": {
+      "version": 4,
+      "bodyHeight": 237,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.383,
+      "factorMethod": "single uniform factor .383 constrained by recorded idle-target uncertainty intervals; follows the source A/B factor relation in v03 (.385), reduced by 0.52% to fit the 237px packer body-height ceiling; not a bounds-selected art rescale",
+      "sourcePath": [
+        "art/characters/goku/production/generation-source/light1_v01_attempt01_A.png",
+        "art/characters/goku/production/generation-source/light1_v01_attempt03_B.png"
+      ],
+      "sourceSha256": [
+        "7bf06ad0d8c11b5802bf0a5a49b29acb10aea242d85102787140767f61cda975",
+        "8105e423ef0ebf3c37198bec984e975302d9441f87bb8f214b3d043064b0a999"
+      ],
+      "sourceParts": [
+        {
+          "part": "A",
+          "path": "art/characters/goku/production/generation-source/light1_v01_attempt01_A.png",
+          "sha256": "7bf06ad0d8c11b5802bf0a5a49b29acb10aea242d85102787140767f61cda975",
+          "dimensions": [
+            2172,
+            724
+          ],
+          "grid": [
+            4,
+            1
+          ],
+          "mapping": "frames 0-3",
+          "landmarkEvidence": "source A f0 and source B f6 direct belt/boot landmark intervals from light1_v03 sidecar; source identity preserved"
+        },
+        {
+          "part": "B",
+          "path": "art/characters/goku/production/generation-source/light1_v01_attempt03_B.png",
+          "sha256": "8105e423ef0ebf3c37198bec984e975302d9441f87bb8f214b3d043064b0a999",
+          "dimensions": [
+            2172,
+            724
+          ],
+          "grid": [
+            3,
+            1
+          ],
+          "mapping": "frames 4-6",
+          "landmarkEvidence": "source A f0 and source B f6 direct belt/boot landmark intervals from light1_v03 sidecar; source identity preserved"
+        }
+      ],
+      "landmarks": {
+        "sourceA_frame0": {
+          "collar_to_belt": {
+            "a": [
+              247,
+              230
+            ],
+            "b": [
+              217,
+              328
+            ],
+            "targetPx": 38.1,
+            "uncertaintyPx": 9,
+            "definition": "collar-center to belt center in source A f0; leaning guard, excluded from cross-part factor",
+            "sourceLengthPx": 102.49,
+            "ratio": 0.3717
+          },
+          "belt_width": {
+            "a": [
+              181,
+              324
+            ],
+            "b": [
+              265,
+              324
+            ],
+            "targetPx": 36,
+            "uncertaintyPx": 7,
+            "definition": "outer sash edges source A f0",
+            "sourceLengthPx": 84,
+            "ratio": 0.4286
+          },
+          "boot_axis": {
+            "a": [
+              68,
+              546
+            ],
+            "b": [
+              31,
+              655
+            ],
+            "targetPx": 43.7,
+            "uncertaintyPx": 9,
+            "definition": "left boot shaft-to-sole diagonal source A f0",
+            "sourceLengthPx": 115.11,
+            "ratio": 0.3796
+          }
+        },
+        "sourceB_frame6": {
+          "collar_to_belt": {
+            "a": [
+              1724,
+              218
+            ],
+            "b": [
+              1698,
+              327
+            ],
+            "targetPx": 38.1,
+            "uncertaintyPx": 10,
+            "definition": "collar-center to belt center source B f6; guard pose, excluded from cross-part factor",
+            "sourceLengthPx": 112.06,
+            "ratio": 0.34
+          },
+          "belt_width": {
+            "a": [
+              1644,
+              320
+            ],
+            "b": [
+              1736,
+              320
+            ],
+            "targetPx": 36,
+            "uncertaintyPx": 8,
+            "definition": "outer sash edges source B f6",
+            "sourceLengthPx": 92,
+            "ratio": 0.3913
+          },
+          "boot_axis": {
+            "a": [
+              1520,
+              542
+            ],
+            "b": [
+              1482,
+              654
+            ],
+            "targetPx": 43.7,
+            "uncertaintyPx": 10,
+            "definition": "left boot shaft-to-sole diagonal source B f6",
+            "sourceLengthPx": 118.27,
+            "ratio": 0.3695
+          }
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        30,
+        30,
+        40,
+        50,
+        50,
+        50,
+        30
+      ],
+      "contact": "assets/contacts/light1-one-density.png",
+      "framePaths": [
+        "assets/frames/light1/f00.png",
+        "assets/frames/light1/f01.png",
+        "assets/frames/light1/f02.png",
+        "assets/frames/light1/f03.png",
+        "assets/frames/light1/f04.png",
+        "assets/frames/light1/f05.png",
+        "assets/frames/light1/f06.png"
+      ],
+      "atlasIndices": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "frameHashes": [
+        "0bcdf03b194b3167903457d9c09d16af4780e566f770c325ef7baf8f8e5bf803",
+        "4a07b668013eae54629a2893cf168e5cd8b5b242dd6afdf554d2c57e446381ce",
+        "ba09b03d1e9fe3a1c515634e303cbbd342e39693aa85dceb345b0edeb458142e",
+        "27d5b660a4511eb1017de662f262e0af97d27e66968f64f46652ae967e2388d9",
+        "0dbd14436721b6027c7e11f7c6bf6e583d6c0671102ba0b289453f40a723b13c",
+        "8159f39a2cb56319c887a89aaf47ef4f18f3784d1b5aca03ec56eb9f693829b6",
+        "3344abfef8fee08d586bf5b153bf8553b43dd782c30afe82771f18a9783fc8b6"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/light1_v04.json",
+      "selectedRawPath": "raw/light1_v04.png"
+    },
+    "light2": {
+      "version": 5,
+      "bodyHeight": 236,
+      "approvedVersion": 4,
+      "sourceDrawingApproval": "Original approval v04 remains recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.613,
+      "factorMethod": "single common source-to-cell factor measured from stable anatomical landmarks against approved idle v02; no whole-figure fit or pose-specific scaling",
+      "sourcePath": "art/characters/goku/production/generation-source/light2_v04_attempt05.png",
+      "sourceSha256": "f9541b3fbabd570bf9db80152add3331d4b7753ff9f1bee52065683608e61753",
+      "sourceParts": null,
+      "landmarks": {
+        "method": "inverse-map of Astra-marked v04 native-control frame 0 through the recorded old grid-to-cells transform; source coordinates are approximate and include prior raster resampling uncertainty",
+        "sourceFrame0": {
+          "neckBaseToBeltCenter": {
+            "from": [
+              189,
+              123
+            ],
+            "to": [
+              190,
+              198
+            ],
+            "lengthPx": 75,
+            "idleTargetPx": 46,
+            "factor": 0.613,
+            "uncertaintyPx": 8
+          },
+          "beltWidth": {
+            "from": [
+              166,
+              198
+            ],
+            "to": [
+              224,
+              198
+            ],
+            "lengthPx": 58,
+            "idleTargetPx": 36,
+            "factor": 0.621,
+            "uncertaintyPx": 7
+          },
+          "leftBootTopToSole": {
+            "from": [
+              107,
+              341
+            ],
+            "to": [
+              86,
+              410
+            ],
+            "lengthPx": 72,
+            "idleTargetPx": 45,
+            "factor": 0.625,
+            "uncertaintyPx": 8
+          }
+        },
+        "validationFrames": "the source includes readable guard/recovery frames 0, 1 and 6; belt spans in those rows are approximately 57, 58 and 59 source px. Attack frames turn/foreshorten the torso and are not treated as independent scale measurements.",
+        "decision": "factor is the median of frame-0 torso, belt and boot ratios; landmarks agree within about 2%. Endpoint and perspective uncertainty dominate (±0.075); not a numeric pass."
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 236,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        35,
+        30,
+        40,
+        50,
+        60,
+        50,
+        30
+      ],
+      "contact": "assets/contacts/light2-one-density.png",
+      "framePaths": [
+        "assets/frames/light2/f00.png",
+        "assets/frames/light2/f01.png",
+        "assets/frames/light2/f02.png",
+        "assets/frames/light2/f03.png",
+        "assets/frames/light2/f04.png",
+        "assets/frames/light2/f05.png",
+        "assets/frames/light2/f06.png"
+      ],
+      "atlasIndices": [
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "frameHashes": [
+        "0eec5aa33589d3b872801fcdae7ceed1debe78dc4f9bf3ed4c39ff746a7e21e4",
+        "8cbfff467fe03cdb825976ad6145ee37129f404ceca89f3bed6546866ede924f",
+        "09e1bb87cf4c6405313f770737e18041ac1a49dc842e29a641fb710017a1ef32",
+        "5abeac47a4c0ad1e5a72bb80127c5a70fb045476ad24967f52e6d207799b75f7",
+        "d7d94cab6d5af6ee95b37550d3451ce8af448a50532d3ee110fa4d7f35be1adf",
+        "eea6df64ce2590a0e6c82e39b076656c9aecf151be6041709f06cbd17f9807d6",
+        "40bd94db113f49816c82d65caceb78e9b6a820ab139062875c4db43182f36e62"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/light2_v05.json",
+      "selectedRawPath": "raw/light2_v05.png"
+    },
+    "light4": {
+      "version": 9,
+      "bodyHeight": 237,
+      "approvedVersion": 4,
+      "sourceDrawingApproval": "Original drawing approval remains v04; this is a deterministic reassembly, with no new drawing call.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.652,
+      "factorMethod": "Astra interval-constrained candidate; three independent targets overlap within endpoint/reference uncertainty; not a bounds fit",
+      "sourcePath": "art/characters/goku/production/generation-source/light4_v04_attempt04.png",
+      "sourceSha256": "1a968ce8893d3217f122244227eb2fad9a9502e2a965c5e0ad832863063ca7d2",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "measuredFrame": 7,
+          "sourceEndpoints": [
+            [
+              1547,
+              577
+            ],
+            [
+              1531,
+              630
+            ]
+          ],
+          "sourceLengthPx": 55.362,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.688192
+        },
+        "beltWidth": {
+          "measuredFrame": 7,
+          "sourceEndpoints": [
+            [
+              1501,
+              628
+            ],
+            [
+              1558,
+              630
+            ]
+          ],
+          "sourceLengthPx": 57.035,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.631191
+        },
+        "bootTopToSole": {
+          "measuredFrame": 7,
+          "sourceEndpoints": [
+            [
+              1445,
+              766
+            ],
+            [
+              1429,
+              826
+            ]
+          ],
+          "sourceLengthPx": 62.097,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.703741
+        }
+      },
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          -32,
+          0
+        ],
+        [
+          -25,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        50,
+        45,
+        35,
+        40,
+        70,
+        70,
+        70,
+        40
+      ],
+      "contact": "assets/contacts/light4-one-density.png",
+      "framePaths": [
+        "assets/frames/light4/f00.png",
+        "assets/frames/light4/f01.png",
+        "assets/frames/light4/f02.png",
+        "assets/frames/light4/f03.png",
+        "assets/frames/light4/f04.png",
+        "assets/frames/light4/f05.png",
+        "assets/frames/light4/f06.png",
+        "assets/frames/light4/f07.png"
+      ],
+      "atlasIndices": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "frameHashes": [
+        "03558d667228f7915a3ffa58adc146c06eb0ba4ba9b0a8f1b84f264ca271f1f3",
+        "cc83d699a765244ec6bb8e74323619d4cbe689fb925af118ff5e663f12daeda6",
+        "7e2882d2c9a5ef6d71bd9f396a609f7f96ad3fd1e1976ef09dc54c68fbe14c39",
+        "e2ec3cb4da2be0ad1829a0762ef936d3a941c684fef2d969029c97d035a3193c",
+        "3575f899366d2ea9ee8eb55b9b88a9ac8d00447e76de4a64f7245369264d7f62",
+        "624018b41d77293449887392e7643d453ef7bb0443c1ba477009d8da37325db3",
+        "e77c78a6680d57e2234d1f05b32e01606b3781e95552d8e24dd0bd5c0c4748ef",
+        "efab3271a753699a964cd424ba8af9078a1b3a7de8b3d186fca56f8759a2d335"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/light4_v09.json",
+      "selectedRawPath": "raw/light4_v09.png"
+    },
+    "airLight1": {
+      "version": 7,
+      "bodyHeight": 237,
+      "approvedVersion": 4,
+      "sourceDrawingApproval": "Original drawing approval remains v04; this is a deterministic reassembly, with no new drawing call.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.539,
+      "factorMethod": "Astra interval-constrained candidate supported by three direct source lengths; old arm clipping was after packing/anchoring, not source loss",
+      "sourcePath": "art/characters/goku/production/generation-source/airLight1_v04_attempt04.png",
+      "sourceSha256": "1e18761c0c48cbe9b739a8d57adc3e701e018fa88291b12cf23986fe36b67305",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              278,
+              147
+            ],
+            [
+              251,
+              212
+            ]
+          ],
+          "sourceLengthPx": 70.385,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.541311
+        },
+        "beltWidth": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              218,
+              213
+            ],
+            [
+              279,
+              213
+            ]
+          ],
+          "sourceLengthPx": 61,
+          "sourceEndpointUncertaintyPx": 6,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.590164
+        },
+        "bootTopToSole": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              150,
+              386
+            ],
+            [
+              132,
+              464
+            ]
+          ],
+          "sourceLengthPx": 80.05,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.545909
+        }
+      },
+      "frameOffsets": [
+        [
+          0,
+          0
+        ],
+        [
+          -4,
+          0
+        ],
+        [
+          -74,
+          0
+        ],
+        [
+          -66,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        45,
+        35,
+        50,
+        50,
+        30
+      ],
+      "contact": "assets/contacts/airLight1-one-density.png",
+      "framePaths": [
+        "assets/frames/airLight1/f00.png",
+        "assets/frames/airLight1/f01.png",
+        "assets/frames/airLight1/f02.png",
+        "assets/frames/airLight1/f03.png",
+        "assets/frames/airLight1/f04.png"
+      ],
+      "atlasIndices": [
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "frameHashes": [
+        "554e45eef355413e59dd8792091dd2b5ca5247863627543aa32c0ae6f7c3ea47",
+        "b004d72a9ab6f88c27d4b90ee6d4448cf7e54adcf2e593c8c034445b51c4ffd9",
+        "5defc967ec6741a04bd6c016d99568e2a947cbc5499b808655de3cf76980a8d9",
+        "77ac8d660fd4c765f458633dfa76d6894391a146de2d75483000c9af910bf7b1",
+        "3a4751688b97a55c0ffc86449b021c82a3b0215c4affb9979bb04b1e76a201a6"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/airLight1_v07.json",
+      "selectedRawPath": "raw/airLight1_v07.png"
+    },
+    "airHeavy": {
+      "version": 6,
+      "bodyHeight": 237,
+      "approvedVersion": 4,
+      "sourceDrawingApproval": "Original drawing approval remains v04; this is a deterministic reassembly, with no new drawing call.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.573,
+      "factorMethod": "Astra interval-constrained diagnostic candidate; three independent target intervals overlap, source endpoint uncertainty retained; not a bounds fit",
+      "sourcePath": "art/characters/goku/production/generation-source/airHeavy_v04_attempt04.png",
+      "sourceSha256": "39fc7ce748f4234f88b0d72631f5db9e9e0048e11dd6fa47f9760e7329def6e8",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "measuredFrame": 5,
+          "sourceEndpoints": [
+            [
+              1269,
+              667
+            ],
+            [
+              1240,
+              719
+            ]
+          ],
+          "sourceLengthPx": 59.54,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.639907
+        },
+        "beltWidth": {
+          "measuredFrame": 5,
+          "sourceEndpoints": [
+            [
+              1205,
+              719
+            ],
+            [
+              1269,
+              726
+            ]
+          ],
+          "sourceLengthPx": 64.382,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.559165
+        },
+        "bootTopToSole": {
+          "measuredFrame": 5,
+          "sourceEndpoints": [
+            [
+              1178,
+              842
+            ],
+            [
+              1168,
+              911
+            ]
+          ],
+          "sourceLengthPx": 69.721,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.626785
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        50,
+        45,
+        45,
+        70,
+        70,
+        40
+      ],
+      "contact": "assets/contacts/airHeavy-one-density.png",
+      "framePaths": [
+        "assets/frames/airHeavy/f00.png",
+        "assets/frames/airHeavy/f01.png",
+        "assets/frames/airHeavy/f02.png",
+        "assets/frames/airHeavy/f03.png",
+        "assets/frames/airHeavy/f04.png",
+        "assets/frames/airHeavy/f05.png"
+      ],
+      "atlasIndices": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "frameHashes": [
+        "ba10b16649c8484ef5420bf99f858c60ec2d246735fa5d22f13c77d37d0b5481",
+        "cfe7f6a41444cfee58fff6c096bbfa7b2e3c6a9142576bf57517f86869adc3be",
+        "18fb5df50806513a364252fc9f11035bed5853b1bc7c013571e5e4e72be82b90",
+        "9a50b28373307c87002eb30a1ba9aaa456866b6c1b843398e079ca1b4ec0f697",
+        "83f0f916f8706f4c8a5eee2ec3d0870f9f1d7e8e8873cd76674dc366c8427dec",
+        "2e4a476a8c9a54a0cb0eb31d21dc2f8eae198907a7b52cc0edf9e113096ee2f2"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/airHeavy_v06.json",
+      "selectedRawPath": "raw/airHeavy_v06.png"
+    },
+    "guard": {
+      "version": 5,
+      "bodyHeight": 229,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.282,
+      "factorMethod": "single common source-to-cell factor measured from stable anatomical landmarks against approved idle v02; no whole-figure fit or pose-specific scaling",
+      "sourcePath": "art/characters/goku/production/generation-source/guard_v04_attempt03.png",
+      "sourceSha256": "c1d19e09c37b55e9fbd08a31de0dea60e2ed23564eec1489f669f2f606b9a104",
+      "sourceParts": null,
+      "landmarks": {
+        "method": "inverse-map of Astra-marked v04 native-control frame 0 through the recorded old grid-to-cells transform; source coordinates are approximate and include prior raster resampling uncertainty",
+        "sourceFrame0": {
+          "neckBaseToBeltCenter": {
+            "from": [
+              411,
+              224
+            ],
+            "to": [
+              425,
+              387
+            ],
+            "lengthPx": 164,
+            "idleTargetPx": 46,
+            "factor": 0.28,
+            "uncertaintyPx": 18
+          },
+          "beltWidth": {
+            "from": [
+              360,
+              387
+            ],
+            "to": [
+              492,
+              387
+            ],
+            "lengthPx": 132,
+            "idleTargetPx": 36,
+            "factor": 0.273,
+            "uncertaintyPx": 12
+          },
+          "leftBootTopToSole": {
+            "from": [
+              214,
+              693
+            ],
+            "to": [
+              160,
+              831
+            ],
+            "lengthPx": 148,
+            "idleTargetPx": 45,
+            "factor": 0.304,
+            "uncertaintyPx": 12
+          }
+        },
+        "validationFrames": "guard source frames 0 and 1 show the same broad planted guard; frame 1 has greater arm occlusion, so frame 0 drives the estimate.",
+        "decision": "factor is the median of torso, belt and boot ratios. Combined spread and inverse-map uncertainty are about ±0.030; not a numeric pass."
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 229,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        300,
+        300
+      ],
+      "contact": "assets/contacts/guard-one-density.png",
+      "framePaths": [
+        "assets/frames/guard/f00.png",
+        "assets/frames/guard/f01.png"
+      ],
+      "atlasIndices": [
+        57,
+        58
+      ],
+      "frameHashes": [
+        "f22bf058f9d3e94e520dd10a3ce5f44b39d3aed26224c82c0b53e1b2ccce1680",
+        "20b42d3aa048a05cfdc15459e4c0a85b6b02885bc89a42bc87805e61e9ed6020"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/guard_v05.json",
+      "selectedRawPath": "raw/guard_v05.png"
+    },
+    "hurtHigh": {
+      "version": 8,
+      "bodyHeight": 223,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.335,
+      "factorMethod": "exact median of all three frame-0 source landmark ratios, calculated programmatically and rounded to 0.001; nearest-neighbor uniform scale, no framewise or bounds-fit normalization",
+      "sourcePath": "art/characters/goku/production/generation-source/hurtHigh_v07_attempt03.png",
+      "sourceSha256": "9b4c9521cc0beebdb547a95e7842507a5bb4d82b2b72a6b0dd4c508637d78a8e",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            362,
+            181
+          ],
+          "b": [
+            324,
+            285
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 5,
+          "definition": "visible collar-center/sternoclavicular to belt center, source frame 0",
+          "sourceLengthPx": 110.72,
+          "targetPx": 38.1,
+          "ratio": 0.344096
+        },
+        "beltWidth": {
+          "a": [
+            270,
+            283
+          ],
+          "b": [
+            377,
+            294
+          ],
+          "sourceUncertaintyPx": 10,
+          "targetUncertaintyPx": 4,
+          "definition": "outer horizontal belt edge to edge, source frame 0",
+          "sourceLengthPx": 107.56,
+          "targetPx": 36,
+          "ratio": 0.334685
+        },
+        "bootTopToSole": {
+          "a": [
+            192,
+            545
+          ],
+          "b": [
+            150,
+            672
+          ],
+          "sourceUncertaintyPx": 12,
+          "targetUncertaintyPx": 6,
+          "definition": "left boot shaft top to sole along boot axis, source frame 0",
+          "sourceLengthPx": 133.76,
+          "targetPx": 43.7,
+          "ratio": 0.326693
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 223,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        70,
+        90,
+        100
+      ],
+      "contact": "assets/contacts/hurtHigh-one-density.png",
+      "framePaths": [
+        "assets/frames/hurtHigh/f00.png",
+        "assets/frames/hurtHigh/f01.png",
+        "assets/frames/hurtHigh/f02.png"
+      ],
+      "atlasIndices": [
+        59,
+        60,
+        61
+      ],
+      "frameHashes": [
+        "b112ed236c880b16cb5e7a9725099bd2db2a9c252d9252fbaaaec72437b074a6",
+        "baeea3fd1833aa97eb73eba1b60796f4f62b0d9ddb7891d3e593c6076a7c3b4a",
+        "c6c1d376b9dd918c6406f463df004c13307b28bfb4e9c8308901ba20139c645f"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/hurtHigh_v08.json",
+      "selectedRawPath": "raw/hurtHigh_v08.png"
+    },
+    "launched": {
+      "version": 8,
+      "bodyHeight": 200,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.258,
+      "factorMethod": "exact median of three visible direct source landmark ratios, calculated programmatically and rounded to 0.001; nearest-neighbor uniform rescale, no per-frame or bounds normalization",
+      "sourcePath": "art/characters/goku/production/generation-source/launched_v06_attempt02.png",
+      "sourceSha256": "7468616598613a3b004ac5663dd248712d6bc024fc2b12c2aac1252bfd245f9e",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "a": [
+            246,
+            256
+          ],
+          "b": [
+            320,
+            355
+          ],
+          "unc": [
+            8,
+            8
+          ],
+          "definition": "neckline center to waistband center along reclining torso f0; prior points retained",
+          "sourceLengthPx": 123.6,
+          "targetPx": 38.1,
+          "ratio": 0.30825202
+        },
+        "beltWidth": {
+          "a": [
+            282,
+            351
+          ],
+          "b": [
+            415,
+            393
+          ],
+          "unc": [
+            8,
+            8
+          ],
+          "definition": "visible waistband edges across reclining f0; prior points retained",
+          "sourceLengthPx": 139.474,
+          "targetPx": 36,
+          "ratio": 0.2581126
+        },
+        "bootTopToSole": {
+          "a": [
+            563,
+            676
+          ],
+          "b": [
+            655,
+            824
+          ],
+          "unc": [
+            10,
+            10
+          ],
+          "definition": "lower visible boot axis corrected per Astra; f0",
+          "sourceLengthPx": 174.264,
+          "targetPx": 43.7,
+          "ratio": 0.25076871
+        }
+      },
+      "frameOffsets": [
+        [
+          24,
+          0
+        ],
+        [
+          42,
+          0
+        ]
+      ],
+      "erase": null,
+      "nativeBodyHeight": 200,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        70,
+        70
+      ],
+      "contact": "assets/contacts/launched-one-density.png",
+      "framePaths": [
+        "assets/frames/launched/f00.png",
+        "assets/frames/launched/f01.png"
+      ],
+      "atlasIndices": [
+        62,
+        63
+      ],
+      "frameHashes": [
+        "c8d8bb8cba576dc5b8839e76fa7434c3ec9f034db3ceb69d737b4f8c60eb02e2",
+        "d13b7709809f07fced19a7b43a67478b3c7a8647e50825866ad830437867347f"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/launched_v08.json",
+      "selectedRawPath": "raw/launched_v08.png"
+    },
+    "down": {
+      "version": 5,
+      "bodyHeight": 115,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.272,
+      "factorMethod": null,
+      "sourcePath": "art/characters/goku/production/generation-source/down_v04_attempt02.png",
+      "sourceSha256": "b53cc90ee5a1ccd1e24ec58606aedc9a7f6bf6b245eb1ace0726b20f83e9266a",
+      "sourceParts": null,
+      "landmarks": {
+        "bootTopToSole": {
+          "measuredFrame": 1,
+          "sourceEndpoints": [
+            [
+              1590,
+              705
+            ],
+            [
+              1742,
+              751
+            ]
+          ],
+          "sourceLengthPx": 158.808,
+          "sourceEndpointUncertaintyPx": 12,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.275175
+        },
+        "forearmSpan": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              386,
+              623
+            ],
+            [
+              379,
+              695
+            ]
+          ],
+          "sourceLengthPx": 72.339,
+          "sourceEndpointUncertaintyPx": 12,
+          "referenceTargetPx": 19.4,
+          "referenceTargetUncertaintyPx": 6,
+          "ratio": 0.26818
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 115,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        80,
+        420
+      ],
+      "contact": "assets/contacts/down-one-density.png",
+      "framePaths": [
+        "assets/frames/down/f00.png",
+        "assets/frames/down/f01.png"
+      ],
+      "atlasIndices": [
+        64,
+        65
+      ],
+      "frameHashes": [
+        "b1180bc8ef148160c21136fbf54b6b92802c63a8fb6cbeba3d75fbb9b9aa253c",
+        "4b5260250bdbdc1bac513e75d0cb4b0056835b515a1e9eacc9a6a516e8e8ae6f"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/down_v05.json",
+      "selectedRawPath": "raw/down_v05.png"
+    },
+    "getup": {
+      "version": 11,
+      "bodyHeight": 237,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.532,
+      "factorMethod": "uncertainty-compatible constrained candidate within all three direct landmark intervals; exact density remains uncertain and factor is not selected by image bounds",
+      "sourcePath": "art/characters/goku/production/generation-source/getup_v03_attempt02.png",
+      "sourceSha256": "dd68beb20f48e146443c6d4a4030d3dad4a0fd7a0d54f25958fd5b09f92345f4",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "measuredFrame": 4,
+          "sourceEndpoints": [
+            [
+              777,
+              659
+            ],
+            [
+              751,
+              725
+            ]
+          ],
+          "sourceLengthPx": 70.937,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.537099
+        },
+        "beltWidth": {
+          "measuredFrame": 4,
+          "sourceEndpoints": [
+            [
+              719,
+              724
+            ],
+            [
+              785,
+              726
+            ]
+          ],
+          "sourceLengthPx": 66.03,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.545204
+        },
+        "bootTopToSole": {
+          "measuredFrame": 4,
+          "sourceEndpoints": [
+            [
+              654,
+              898
+            ],
+            [
+              627,
+              973
+            ]
+          ],
+          "sourceLengthPx": 79.712,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.548224
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        70,
+        60,
+        60,
+        80,
+        70
+      ],
+      "contact": "assets/contacts/getup-one-density.png",
+      "framePaths": [
+        "assets/frames/getup/f00.png",
+        "assets/frames/getup/f01.png",
+        "assets/frames/getup/f02.png",
+        "assets/frames/getup/f03.png",
+        "assets/frames/getup/f04.png"
+      ],
+      "atlasIndices": [
+        66,
+        67,
+        68,
+        69,
+        70
+      ],
+      "frameHashes": [
+        "cb02285c1d7338040e97c60dcdd3430de3b33dd2bb41ad804144cde4a975d2f8",
+        "d85f44b998cdc18ec808a123e281089d00cd943dfd767b5bdb417e855fd00f02",
+        "cd0e2557f131d7628a913d62784fcd2c888944a149df5502b5b2a6686ba04d63",
+        "2def1607fae1d20f4e1b67eaffbf35c375010ee311fa9d0547660d23312d541f",
+        "cc53b3bd09dd50070cd734d8471204661f8fcfa6e07946f42511a1c3315c7e29"
+      ],
+      "packWarnings": [
+        "getup: 1 lying frame(s) float above the floor line (#0: 35% of the body within 6px of y 240, worst fifth 8px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020)"
+      ],
+      "sidecarPath": "art/characters/goku/raw/getup_v11.json",
+      "selectedRawPath": "raw/getup_v11.png"
+    },
+    "charge": {
+      "version": 5,
+      "bodyHeight": 237,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.373354296,
+      "factorMethod": "direct rear-boot ratio, with torso and belt as independent uncertainty-compatible cross-checks; not a median and not a bounds fit",
+      "sourcePath": "art/characters/goku/production/generation-source/charge_v04_attempt03.png",
+      "sourceSha256": "f857cf8ffc6ffdeebd7938c5dd238fd38c11ca0f989137803653db8bccf6b703",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "sourceEndpointsPanelLocal": [
+            [
+              263,
+              214
+            ],
+            [
+              235,
+              318
+            ]
+          ],
+          "sourceEndpointsAbsolute": [
+            [
+              806,
+              214
+            ],
+            [
+              778,
+              318
+            ]
+          ],
+          "sourceLengthPx": 107.703,
+          "sourceEndpointUncertaintyPx": 9,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.35375,
+          "definition": "sternoclavicular collar-center to belt-center, source f1"
+        },
+        "beltWidth": {
+          "sourceEndpointsPanelLocal": [
+            [
+              187,
+              316
+            ],
+            [
+              279,
+              318
+            ]
+          ],
+          "sourceEndpointsAbsolute": [
+            [
+              730,
+              316
+            ],
+            [
+              822,
+              318
+            ]
+          ],
+          "sourceLengthPx": 92.022,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.391212,
+          "definition": "visible blue belt outer span, source f1"
+        },
+        "bootTopToSole": {
+          "sourceEndpointsPanelLocal": [
+            [
+              81,
+              551
+            ],
+            [
+              47,
+              663
+            ]
+          ],
+          "sourceEndpointsAbsolute": [
+            [
+              624,
+              551
+            ],
+            [
+              590,
+              663
+            ]
+          ],
+          "sourceLengthPx": 117.047,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.373354,
+          "definition": "rear boot shaft-center to sole along boot axis, source f1"
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "contact": "assets/contacts/charge-one-density.png",
+      "framePaths": [
+        "assets/frames/charge/f00.png",
+        "assets/frames/charge/f01.png",
+        "assets/frames/charge/f02.png",
+        "assets/frames/charge/f03.png"
+      ],
+      "atlasIndices": [
+        71,
+        72,
+        73,
+        74
+      ],
+      "frameHashes": [
+        "ad38627e146f8e594c00c9eb55e6c36c32d476d8f0632065201373daf447306c",
+        "d41c872ca5dc2b9d824b13c62773bbc290f389847cf48d648b5c42cb0da48c03",
+        "755c980589247a4ef36db4d1f50242e5183183cb08370c9fc477ee0cb6bd425b",
+        "ad38627e146f8e594c00c9eb55e6c36c32d476d8f0632065201373daf447306c"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/charge_v05.json",
+      "selectedRawPath": "raw/charge_v05.png"
+    },
+    "beamCharge": {
+      "version": 7,
+      "bodyHeight": 236,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.357620533,
+      "factorMethod": "direct boot-ratio estimate, independently checked against visible second landmark with source and reference uncertainty; no bounding-box scaling",
+      "sourcePath": "art/characters/goku/production/generation-source/beamCharge_v04_attempt03.png",
+      "sourceSha256": "fa242621ee5f3904072d1f5dab2aa2587de23bc4e43d29cb498ac4ba022fa411",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "sourceEndpoints": [
+            [
+              361,
+              222
+            ],
+            [
+              319,
+              303
+            ]
+          ],
+          "sourceLengthPx": 91.241,
+          "endpointUncertaintyPx": 10,
+          "targetPx": 38.1,
+          "targetUncertaintyPx": 5,
+          "ratio": 0.417573,
+          "note": "visible collar center to belt center; torso partly occluded by arm"
+        },
+        "bootTopToSole": {
+          "sourceEndpoints": [
+            [
+              151,
+              550
+            ],
+            [
+              107,
+              664
+            ]
+          ],
+          "sourceLengthPx": 122.197,
+          "endpointUncertaintyPx": 10,
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 4,
+          "ratio": 0.357621,
+          "note": "rear boot shaft-to-sole"
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 236,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        50,
+        50,
+        50
+      ],
+      "contact": "assets/contacts/beamCharge-one-density.png",
+      "framePaths": [
+        "assets/frames/beamCharge/f00.png",
+        "assets/frames/beamCharge/f01.png",
+        "assets/frames/beamCharge/f02.png"
+      ],
+      "atlasIndices": [
+        75,
+        76,
+        77
+      ],
+      "frameHashes": [
+        "ab200e064b0e30e6bd3a6775ad61adcd134e63e2799bae55303959de0d998c5f",
+        "59ab6d79bd6690509a72127756706b9646feae4109a4c69b46259045b7c68944",
+        "e715529254205b0c32618c21d20b2e17e3b00e957c90d56473fa9302b2e53ede"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/beamCharge_v07.json",
+      "selectedRawPath": "raw/beamCharge_v07.png"
+    },
+    "beamFire": {
+      "version": 7,
+      "bodyHeight": 233,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.35057737,
+      "factorMethod": "direct boot-ratio estimate, independently checked against visible second landmark with source and reference uncertainty; no bounding-box scaling",
+      "sourcePath": "art/characters/goku/production/generation-source/beamFire_v04_attempt03.png",
+      "sourceSha256": "ea671eed06fcb55609c39f531d2064025099d4f92255d60470c8b2b4177b6779",
+      "sourceParts": null,
+      "landmarks": {
+        "beltWidth": {
+          "sourceEndpoints": [
+            [
+              274,
+              311
+            ],
+            [
+              381,
+              311
+            ]
+          ],
+          "sourceLengthPx": 107,
+          "endpointUncertaintyPx": 10,
+          "targetPx": 36,
+          "targetUncertaintyPx": 4,
+          "ratio": 0.336449,
+          "note": "visible blue belt outer span"
+        },
+        "bootTopToSole": {
+          "sourceEndpoints": [
+            [
+              151,
+              552
+            ],
+            [
+              108,
+              669
+            ]
+          ],
+          "sourceLengthPx": 124.652,
+          "endpointUncertaintyPx": 10,
+          "targetPx": 43.7,
+          "targetUncertaintyPx": 4,
+          "ratio": 0.350577,
+          "note": "rear boot shaft-to-sole, nearly vertical view"
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 233,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        50,
+        50,
+        50
+      ],
+      "contact": "assets/contacts/beamFire-one-density.png",
+      "framePaths": [
+        "assets/frames/beamFire/f00.png",
+        "assets/frames/beamFire/f01.png",
+        "assets/frames/beamFire/f02.png"
+      ],
+      "atlasIndices": [
+        78,
+        79,
+        80
+      ],
+      "frameHashes": [
+        "b8fc57241ae45197fc4abdce3c75d8f7bc57573cb4ede0813091fac44de5034d",
+        "df34347f6b824c4245367515c241f1a2d43c9851b5f7b693ea5e0651ac4eee14",
+        "a14a5f0dfb65d598a1e29d772b1a51b22d6cebda7b24d00e060b50b24b055b03"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/beamFire_v07.json",
+      "selectedRawPath": "raw/beamFire_v07.png"
+    },
+    "special": {
+      "version": 5,
+      "bodyHeight": 237,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.596,
+      "factorMethod": "Astra uncertainty-constrained candidate from two visible landmarks; high uncertainty and no bounds fit",
+      "sourcePath": "art/characters/goku/production/generation-source/special_v02_attempt03.png",
+      "sourceSha256": "4e123c123e855f787c85020fdbca68194667dd6122867e49af7bde092bacc3ba",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              227,
+              145
+            ],
+            [
+              211,
+              201
+            ]
+          ],
+          "sourceLengthPx": 58.241,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.65418
+        },
+        "bootTopToSole": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              75,
+              356
+            ],
+            [
+              37,
+              418
+            ]
+          ],
+          "sourceLengthPx": 72.719,
+          "sourceEndpointUncertaintyPx": 6,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.600946
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": false,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        160,
+        110,
+        70
+      ],
+      "contact": "assets/contacts/special-one-density.png",
+      "framePaths": [
+        "assets/frames/special/f00.png",
+        "assets/frames/special/f01.png",
+        "assets/frames/special/f02.png",
+        "assets/frames/special/f03.png",
+        "assets/frames/special/f04.png",
+        "assets/frames/special/f05.png",
+        "assets/frames/special/f06.png",
+        "assets/frames/special/f07.png"
+      ],
+      "atlasIndices": [
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "frameHashes": [
+        "b3b9274d840c497bc58ff42c5323e9f7cff7cc4a8046cde889122581af1c0adc",
+        "9867de3ca99c9bd7b6508bcbae4d163d1f7af2629681cfc5a13a97e2c2787986",
+        "134f146cb0b8fe1ded85d07786b105dd19337a46d2c5e455349fff1632b24191",
+        "61748cbbccb3a028581234038f6ffd18ba2cc7afc834e9230e46b88825c55d37",
+        "c7e64cb2a26a4f7f39bc417571e920a5eb966f53f07d5b6ce46b5617fad2d281",
+        "b26b064fe84ee17184251964f9ef4abc2bbff4cb77e0c38f85d2204b8b8c77ef",
+        "82fb219417e5c9c87ea24c306b7308eaae0a1e2f689201d585e0398e483ded03",
+        "9d437bde6af00eaba40dfacc80e3d50ba0a1aa3c567336261e2a01ae3e520083"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/special_v05.json",
+      "selectedRawPath": "raw/special_v05.png"
+    },
+    "win": {
+      "version": 5,
+      "bodyHeight": 237,
+      "approvedVersion": null,
+      "sourceDrawingApproval": "No approved drawing version is recorded.",
+      "status": "Astra PASS — exact final5 version-bound pixels",
+      "factor": 0.42,
+      "factorMethod": "Astra uncertainty-constrained candidate from torso/belt/boot intervals; source-complete, no bounds fit",
+      "sourcePath": "art/characters/goku/production/generation-source/win_v03_attempt03.png",
+      "sourceSha256": "ed788ec4fa8bb96295835de29016c60a33e9db69708e47bc2b921866115b30ca",
+      "sourceParts": null,
+      "landmarks": {
+        "collarToBelt": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              317,
+              155
+            ],
+            [
+              323,
+              239
+            ]
+          ],
+          "sourceLengthPx": 84.214,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 38.1,
+          "referenceTargetUncertaintyPx": 5,
+          "ratio": 0.452419
+        },
+        "beltWidth": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              279,
+              243
+            ],
+            [
+              361,
+              243
+            ]
+          ],
+          "sourceLengthPx": 82,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 36,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.439024
+        },
+        "bootTopToSole": {
+          "measuredFrame": 0,
+          "sourceEndpoints": [
+            [
+              213,
+              483
+            ],
+            [
+              193,
+              579
+            ]
+          ],
+          "sourceLengthPx": 98.061,
+          "sourceEndpointUncertaintyPx": 8,
+          "referenceTargetPx": 43.7,
+          "referenceTargetUncertaintyPx": 4,
+          "ratio": 0.44564
+        }
+      },
+      "frameOffsets": null,
+      "erase": null,
+      "nativeBodyHeight": 237,
+      "packScale": 1,
+      "frameScales": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "loop": true,
+      "durationsMs": [
+        200,
+        200,
+        200,
+        200
+      ],
+      "contact": "assets/contacts/win-one-density.png",
+      "framePaths": [
+        "assets/frames/win/f00.png",
+        "assets/frames/win/f01.png",
+        "assets/frames/win/f02.png",
+        "assets/frames/win/f03.png"
+      ],
+      "atlasIndices": [
+        89,
+        90,
+        91,
+        92
+      ],
+      "frameHashes": [
+        "d040fab316a7120b7061915097616b36b5fa32762c353176810e1a025492c942",
+        "363303835c232c6042441c687ea99e9c4e9c9f629452abacdf8ed394bbf33e14",
+        "7a3d67e52788cb9f85bd4d8f8a13ff4ab6dbe27e7066500f71f2a1b1d13bc4fc",
+        "c66e3c905cc24f44d530636814008902d48603a188866385b0f5b538417a3930"
+      ],
+      "packWarnings": [],
+      "sidecarPath": "art/characters/goku/raw/win_v05.json",
+      "selectedRawPath": "raw/win_v05.png"
+    }
+  },
+  "references": {
+    "path": "assets/references/approved-reference-lineup.png",
+    "contents": "approved idle v02 beside title neutral and combat reference cells at 256px per cell",
+    "sourcePath": "art/characters/goku/reference/title_style_pilot_v02.png and raw/idle_v02.png"
+  },
+  "held": {
+    "light3": {
+      "version": 9,
+      "status": "HOLD — body calibration unresolved; fit PASS. Excluded from strict selected atlas.",
+      "source": "assets/held/light3_v09.png",
+      "evidence": "assets/held/light3-capacity-source.png"
+    },
+    "heavy": {
+      "version": 11,
+      "status": "HOLD — body calibration unresolved; fit PASS. Excluded from strict selected atlas.",
+      "source": "assets/held/heavy_v11.png",
+      "evidence": "assets/held/heavy-capacity-source.png"
+    }
+  },
+  "reports": {
+    "pack": "reports/pack-report.json",
+    "productionPack": "reports/production-pack-report.json",
+    "crops": "reports/crop-inventory.json",
+    "fixture": "reports/fixture-inventory.json",
+    "atlas": "reports/final5-sheet.png",
+    "metadata": "reports/final5-anims.json",
+    "maskComparison": "reports/final4-final5-mask-comparison.json",
+    "handoff": "reports/FINAL_HANDOFF_R03.md",
+    "workflow": "reports/WORKFLOW.md",
+    "versionCatalog": "reports/R03_REVIEW_ROWS.md"
+  }
+}

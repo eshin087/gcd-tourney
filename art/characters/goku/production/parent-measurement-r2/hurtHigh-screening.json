@@ -1,0 +1,67 @@
+{
+  "status": "parent source screening; Luna must confirm endpoints and Astra must audit final quantized cells; not a pass",
+  "source": "production/generation-source/hurtHigh_v07_attempt03.png",
+  "crop": [
+    0,
+    0,
+    724,
+    724
+  ],
+  "frame": 0,
+  "method": "Approximate visible source endpoints at native 724x724. No silhouette-height fitting. Knee concealed in gi and unmeasured.",
+  "points": [
+    {
+      "landmark": "collar-center/sternoclavicular to belt-center",
+      "endpoints": [
+        [
+          362,
+          181
+        ],
+        [
+          324,
+          285
+        ]
+      ],
+      "referencePx": 38.1,
+      "sourceLengthUncertaintyPx": 12,
+      "sourceProjectedPx": 110.72488428533127,
+      "ratio": 0.3440960922733378
+    },
+    {
+      "landmark": "belt width",
+      "endpoints": [
+        [
+          270,
+          283
+        ],
+        [
+          377,
+          294
+        ]
+      ],
+      "referencePx": 36,
+      "sourceLengthUncertaintyPx": 10,
+      "sourceProjectedPx": 107.56393447619887,
+      "ratio": 0.3346846707988901
+    },
+    {
+      "landmark": "left boot-top center to sole",
+      "endpoints": [
+        [
+          192,
+          545
+        ],
+        [
+          150,
+          672
+        ]
+      ],
+      "referencePx": 43.7,
+      "sourceLengthUncertaintyPx": 12,
+      "sourceProjectedPx": 133.7647188162858,
+      "ratio": 0.32669302030244723
+    }
+  ],
+  "median": 0.3346846707988901,
+  "factorUncertainty": 0.04
+}

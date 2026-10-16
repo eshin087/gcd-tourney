@@ -1,0 +1,686 @@
+{
+  "label": "Exact crops from frozen 48-color quantized warn-only atlas; no resizing or palette edits.",
+  "atlasPath": "fixture2-public/characters/goku/sheet.png",
+  "atlasSha256": "c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0",
+  "animations": {
+    "idle": {
+      "loop": true,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 0,
+          "durationMs": 150,
+          "path": "fixture2-crops/idle/f00.png",
+          "sha256": "ff94832232b5eff8c55f43e2985c85587faf7d003e72b81279c5b7cf54e96406"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 1,
+          "durationMs": 150,
+          "path": "fixture2-crops/idle/f01.png",
+          "sha256": "52f7a78b434c8233c75eab051709df216e1adcc76cd2805920e2662449b9ba84"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 2,
+          "durationMs": 150,
+          "path": "fixture2-crops/idle/f02.png",
+          "sha256": "c4cd89303a5643ef44af2dfb92a6335a06467b6e56be44c0faed2a4d4b3e5fbe"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 3,
+          "durationMs": 150,
+          "path": "fixture2-crops/idle/f03.png",
+          "sha256": "0dffc0f12ad961f6650ec9c1c922906e65fdf996349a32e9457b34980c94c0b3"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 4,
+          "durationMs": 150,
+          "path": "fixture2-crops/idle/f04.png",
+          "sha256": "d23c9bfe1967aaea4ad6c52287457b2466fd81d760136a0e599792a14f1ed76f"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 5,
+          "durationMs": 150,
+          "path": "fixture2-crops/idle/f05.png",
+          "sha256": "23961508e5703c90ccb7451dc8004b87463d2f35993d86186d261acaa119b317"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 6,
+          "durationMs": 150,
+          "path": "fixture2-crops/idle/f06.png",
+          "sha256": "2a64bcdf6a7c716a175eb09b783459713212b0fe64d79d4cdb27e1b095d9104b"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 7,
+          "durationMs": 150,
+          "path": "fixture2-crops/idle/f07.png",
+          "sha256": "12c8a9d4266ea4b127b12720d3ba5f2b8957e84c6c84d119f04ebf55faf114da"
+        }
+      ],
+      "contactPath": "fixture2-crops/idle-contact.png",
+      "contactSha256": "7f0255a85ace6ec17ea3f33320a2ade01dcd767bc811cb03ca02a4c3ceb0f87c"
+    },
+    "run": {
+      "loop": true,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 8,
+          "durationMs": 60,
+          "path": "fixture2-crops/run/f00.png",
+          "sha256": "9916c4e096c5e969b029eadf3131e8c5666a0fbc0068064cc3480bf93bf81fff"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 9,
+          "durationMs": 60,
+          "path": "fixture2-crops/run/f01.png",
+          "sha256": "5dae7d38eb5ababa1cc236c52e649cf7c9bffa473fe0d58e38bc37380704f7a1"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 10,
+          "durationMs": 60,
+          "path": "fixture2-crops/run/f02.png",
+          "sha256": "85156bb37108a0fed61bdc6ce388e555820c696de02a1166527376849feae6b9"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 11,
+          "durationMs": 60,
+          "path": "fixture2-crops/run/f03.png",
+          "sha256": "efbc101606e725472225b9bf53675ae95a0d987b23609759dd32df36d1b2174e"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 12,
+          "durationMs": 60,
+          "path": "fixture2-crops/run/f04.png",
+          "sha256": "3e33a545bb58e671e15d201af059e3e453da2ab4e61c14ddba672a55a68b1d36"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 13,
+          "durationMs": 60,
+          "path": "fixture2-crops/run/f05.png",
+          "sha256": "7c8f420c188cba78734305ff731c7a806c426cfd98277845bbcd922edced8272"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 14,
+          "durationMs": 60,
+          "path": "fixture2-crops/run/f06.png",
+          "sha256": "2a5c85511af1fd283a383943cddcc0e5dbc28958e43d32443d4921b01278d823"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 15,
+          "durationMs": 60,
+          "path": "fixture2-crops/run/f07.png",
+          "sha256": "67e98203a3c85fa7bb527f26698f232ecf8c8fd9a638ea9befda0d19e56c97f5"
+        }
+      ],
+      "contactPath": "fixture2-crops/run-contact.png",
+      "contactSha256": "189e9ed5409514170bf0322ca776f4669111b3b407a4275d14211ae75e121372"
+    },
+    "dash": {
+      "loop": true,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 16,
+          "durationMs": 60,
+          "path": "fixture2-crops/dash/f00.png",
+          "sha256": "11192cd93eb5de27495a5439fc48e191a6dc28bfc5fb267bb2118487199dafdc"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 17,
+          "durationMs": 60,
+          "path": "fixture2-crops/dash/f01.png",
+          "sha256": "168749ece9555ed7e86f9305ba33d4943cbd96e21fca393e0fe2fc73e5bdb4e1"
+        }
+      ],
+      "contactPath": "fixture2-crops/dash-contact.png",
+      "contactSha256": "cd37cc6ca08c14b7adb3909cb602cb7a0f2f0c30f241496ceb9a038d96ec8da8"
+    },
+    "jumpUp": {
+      "loop": true,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 18,
+          "durationMs": 80,
+          "path": "fixture2-crops/jumpUp/f00.png",
+          "sha256": "9d4682fb0852e91914670212a361c0950ee40595e1a95ee9637d5a5b9777a187"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 19,
+          "durationMs": 80,
+          "path": "fixture2-crops/jumpUp/f01.png",
+          "sha256": "7dda84eca30fa03283e5dedfd747ef408ebe3757f8a6ad8f650d1aeb8c73a6cc"
+        }
+      ],
+      "contactPath": "fixture2-crops/jumpUp-contact.png",
+      "contactSha256": "7c971cab982be7aee5bdc90ddf1242663baf22869c1ed692830a3dff87d71382"
+    },
+    "jumpFall": {
+      "loop": true,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 20,
+          "durationMs": 80,
+          "path": "fixture2-crops/jumpFall/f00.png",
+          "sha256": "038031aa5e2aea957d36b53aedebc91d517b6b8cd6d773bda60b787a8bd5695e"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 21,
+          "durationMs": 80,
+          "path": "fixture2-crops/jumpFall/f01.png",
+          "sha256": "432871834be1261bae5dd25ac57a3d1600e11f0f2998c9bb8e0d54ba41d8d2cc"
+        }
+      ],
+      "contactPath": "fixture2-crops/jumpFall-contact.png",
+      "contactSha256": "696a5113f8951d30169e3212f37afa1beb9a1505a15ede049ac0c25d5a5f124f"
+    },
+    "land": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 22,
+          "durationMs": 50,
+          "path": "fixture2-crops/land/f00.png",
+          "sha256": "35ed57f7763bb4fe4adda45517172f379754a2b0c38eed705c22aa37684668ec"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 23,
+          "durationMs": 70,
+          "path": "fixture2-crops/land/f01.png",
+          "sha256": "127140e8eb5c8200e084e7f49df568ff20856025a7fbe1eeb0a788a705fbabb8"
+        }
+      ],
+      "contactPath": "fixture2-crops/land-contact.png",
+      "contactSha256": "8e848ebeb02832be64c46273d98d0954245c0a79c08ccdbd007623c7ad2bfb5c"
+    },
+    "light1": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 24,
+          "durationMs": 30,
+          "path": "fixture2-crops/light1/f00.png",
+          "sha256": "a280a5c23e7435ca3302b9c92807c4f3bd89bb9ab49702eadb4064d18a693fdc"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 25,
+          "durationMs": 30,
+          "path": "fixture2-crops/light1/f01.png",
+          "sha256": "3b69fffad92692741a8e0bf576df9a97a43b77c9890290b447211bef1c49db5b"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 26,
+          "durationMs": 40,
+          "path": "fixture2-crops/light1/f02.png",
+          "sha256": "3afea5f815696140d4c843e48b23a6a0618ff08605883dcc4eef57c1ea738258"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 27,
+          "durationMs": 50,
+          "path": "fixture2-crops/light1/f03.png",
+          "sha256": "66d33aa45b9379174459cfaebfdf4350e120694d72e57285abeff449443af4f4"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 28,
+          "durationMs": 50,
+          "path": "fixture2-crops/light1/f04.png",
+          "sha256": "63f739498a39702e9d3976ed0dcfaf12fd493f6b2e613f2ac71848e5698d6967"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 29,
+          "durationMs": 50,
+          "path": "fixture2-crops/light1/f05.png",
+          "sha256": "c01b318a0c3a89dbbedf0cbf03af0e0b3448fc73b5b52b1c22a708cae552a29e"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 30,
+          "durationMs": 30,
+          "path": "fixture2-crops/light1/f06.png",
+          "sha256": "9e2592d3c25d090c466cbd0bd85b8051c390fa56fdccd23699754293f172d257"
+        }
+      ],
+      "contactPath": "fixture2-crops/light1-contact.png",
+      "contactSha256": "80d803dde28410c428a3920a5aa60f6263e9474adcb6c28d5680a4c6b107496f"
+    },
+    "light3": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 31,
+          "durationMs": 40,
+          "path": "fixture2-crops/light3/f00.png",
+          "sha256": "2dd50bd6369e4dc4c77d3e9e02974decfbd0d57e3b0afb68f3b0a59625a44757"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 32,
+          "durationMs": 35,
+          "path": "fixture2-crops/light3/f01.png",
+          "sha256": "446f8eb4e0aa3a0848dea997b40d9e9e96296a2f383f09ee439b19f02e910e0e"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 33,
+          "durationMs": 45,
+          "path": "fixture2-crops/light3/f02.png",
+          "sha256": "c8a1eb2abaf154d52d1016ea462e3f36d59dc5894324b56bcb738e7d0d5d1810"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 34,
+          "durationMs": 60,
+          "path": "fixture2-crops/light3/f03.png",
+          "sha256": "61d2b0e369b4af6d81f6bda2da719f3293cac69bc4034097333a092a653f5f39"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 35,
+          "durationMs": 60,
+          "path": "fixture2-crops/light3/f04.png",
+          "sha256": "580f1ac6b5bd5f002940589327ad7adadd53792d10f666f3f9c5eb72d2cfc966"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 36,
+          "durationMs": 60,
+          "path": "fixture2-crops/light3/f05.png",
+          "sha256": "15abd24c9e495ccc308bf3ecedc63e9559b3b24a6482ed6e2fdd436dfadd5b79"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 37,
+          "durationMs": 30,
+          "path": "fixture2-crops/light3/f06.png",
+          "sha256": "28e6ab464087e19179e68baa8032a7ee885e31a7fa9cf14ae29a124cb97d3d1a"
+        }
+      ],
+      "contactPath": "fixture2-crops/light3-contact.png",
+      "contactSha256": "f333cba364440a7cf6d0600cd5631f6b0dbcf6405cfb99f18b91c1d24f4a3826"
+    },
+    "light4": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 38,
+          "durationMs": 50,
+          "path": "fixture2-crops/light4/f00.png",
+          "sha256": "98727c1605e2aca1df1fbddf60d483d8eaeaedc449b30d93eaf377fdeb330da7"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 39,
+          "durationMs": 45,
+          "path": "fixture2-crops/light4/f01.png",
+          "sha256": "933898e0dcbd53a89ddab0c2445f815e70c40a49928fdb190862d1a507f1334a"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 40,
+          "durationMs": 35,
+          "path": "fixture2-crops/light4/f02.png",
+          "sha256": "4e22ef97e75ce3dac85087bf11b7d3f4ff6c63c4005d16aa29ddca54bec0418d"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 41,
+          "durationMs": 40,
+          "path": "fixture2-crops/light4/f03.png",
+          "sha256": "922b9d3f477e27c97a8d1fb8788ceedffc1d9f8be3a15ec5c54aec88d2adfa9f"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 42,
+          "durationMs": 70,
+          "path": "fixture2-crops/light4/f04.png",
+          "sha256": "2589983e94a81786421367ddc342d68f604c29b000b47710818067de70a58f7d"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 43,
+          "durationMs": 70,
+          "path": "fixture2-crops/light4/f05.png",
+          "sha256": "e3bbbb0bd10180bd185fbcda07045802c0405c41300e94ec6d7d3236ce2033a5"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 44,
+          "durationMs": 70,
+          "path": "fixture2-crops/light4/f06.png",
+          "sha256": "d5616867e905508122ec7c1c6e690257b3aac7a42359ca2dfda1e61512d1a4d0"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 45,
+          "durationMs": 40,
+          "path": "fixture2-crops/light4/f07.png",
+          "sha256": "2f9d1f881ba194f111aaa31a329fa71552022b2c6723b7a62c699c54b7b011ae"
+        }
+      ],
+      "contactPath": "fixture2-crops/light4-contact.png",
+      "contactSha256": "806ebc470e21891bc594252da9559dd435aa302e27e8ee502baaf6feb81c726a"
+    },
+    "heavy": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 46,
+          "durationMs": 40,
+          "path": "fixture2-crops/heavy/f00.png",
+          "sha256": "ac6fcfcee4a20aa7031797d0fed230015fe1509b31c8ca35544c9aa5bedd8027"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 47,
+          "durationMs": 35,
+          "path": "fixture2-crops/heavy/f01.png",
+          "sha256": "402e33bfb468043bde264c27907c2c6d56d7b415b512f36c7abc4237b0d0a577"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 48,
+          "durationMs": 30,
+          "path": "fixture2-crops/heavy/f02.png",
+          "sha256": "2de8b8c9b02a5848cda37bf2524040646c6de29004f76f2a03290671dc646ce9"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 49,
+          "durationMs": 50,
+          "path": "fixture2-crops/heavy/f03.png",
+          "sha256": "03fa2502f234f1888a77e5ab3d9808a7c1f209a8a598db38d35b55434db3acbd"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 50,
+          "durationMs": 70,
+          "path": "fixture2-crops/heavy/f04.png",
+          "sha256": "ce0f3c5854958f96a58325475c58d37d7b91c9b9bcb7787c07ccf2f0a4423f7d"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 51,
+          "durationMs": 70,
+          "path": "fixture2-crops/heavy/f05.png",
+          "sha256": "ffe38b5123ed683598aac09e866e4a7cbc2e0c596556392d69394dbf3246187d"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 52,
+          "durationMs": 60,
+          "path": "fixture2-crops/heavy/f06.png",
+          "sha256": "20f861da196577cd77c09512ccc4a030303ce3737dfa3a22c49d85c9c78f9dcb"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 53,
+          "durationMs": 30,
+          "path": "fixture2-crops/heavy/f07.png",
+          "sha256": "b78323474421d622c590eead01c12a2a872b401b94ef4afa45708fe922cfbd55"
+        }
+      ],
+      "contactPath": "fixture2-crops/heavy-contact.png",
+      "contactSha256": "8fb4c17218e349681841dc98c4a2bc527e295bfc7c5b1ba6d1053edf19292b4f"
+    },
+    "airLight1": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 54,
+          "durationMs": 45,
+          "path": "fixture2-crops/airLight1/f00.png",
+          "sha256": "ed566eba4117c20645025e4ec9d2b492988def9a42a13cf6d25f140412d40520"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 55,
+          "durationMs": 35,
+          "path": "fixture2-crops/airLight1/f01.png",
+          "sha256": "4fed0c9d98060a2705efb6aea1d64f99831aefc7fa0878a743c732df70543338"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 56,
+          "durationMs": 50,
+          "path": "fixture2-crops/airLight1/f02.png",
+          "sha256": "8af5315d7109995a5fa5d56bf27a3f2c723cf40d744ae5a357f6aab8e9073f44"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 57,
+          "durationMs": 50,
+          "path": "fixture2-crops/airLight1/f03.png",
+          "sha256": "8260f4999b93dd8bdf3f231515e5b5d75c273b419d8c30cddbf8f393af769b56"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 58,
+          "durationMs": 30,
+          "path": "fixture2-crops/airLight1/f04.png",
+          "sha256": "691afcc16a3032a82bd24fd34ce719175c55414ddbe0ad3f595fb27b5be385fb"
+        }
+      ],
+      "contactPath": "fixture2-crops/airLight1-contact.png",
+      "contactSha256": "e82dd8f7d90919f8f1b6971d291100dc5fb0c7c1242b7283f4c5c75f210f609f"
+    },
+    "hurtHigh": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 59,
+          "durationMs": 70,
+          "path": "fixture2-crops/hurtHigh/f00.png",
+          "sha256": "3e9f39221d470c8d1471eb4e2d689e5dfdd34ee4fe3f2454316acbee13c651f8"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 60,
+          "durationMs": 90,
+          "path": "fixture2-crops/hurtHigh/f01.png",
+          "sha256": "15dde4b6c47c4ae392bc25d9563db1a9cce2f25b5300acae42908a14108ae3a3"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 61,
+          "durationMs": 100,
+          "path": "fixture2-crops/hurtHigh/f02.png",
+          "sha256": "9f6fa534b469935161df040e431cd7c3e15e1c2693fb3f470096184894e5c8e7"
+        }
+      ],
+      "contactPath": "fixture2-crops/hurtHigh-contact.png",
+      "contactSha256": "00f1edb9048e18253e762b961c97036ab07dae799bea473a3d3de9b88b2b4d2e"
+    },
+    "launched": {
+      "loop": true,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 62,
+          "durationMs": 70,
+          "path": "fixture2-crops/launched/f00.png",
+          "sha256": "827687f28d6ec6c6797df3d7c7c33bc904148f3581476b162c0244146e1d8b74"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 63,
+          "durationMs": 70,
+          "path": "fixture2-crops/launched/f01.png",
+          "sha256": "7b6dccf9623b5a18cbb88aa331ab280bdab0c59c817078fdc7315d62277cbc4f"
+        }
+      ],
+      "contactPath": "fixture2-crops/launched-contact.png",
+      "contactSha256": "0e0e1427a56ff096b42c72cd8e92f7c33ab3370b7cb06fc4a50b367fc30cc0f5"
+    },
+    "getup": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 64,
+          "durationMs": 70,
+          "path": "fixture2-crops/getup/f00.png",
+          "sha256": "4f41772d0a1cd6533569bf71dd53c1d4159cda04668a5d527741247cc43fd618"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 65,
+          "durationMs": 60,
+          "path": "fixture2-crops/getup/f01.png",
+          "sha256": "7a3b9c2b67d8df3f945404e7b0c6de979e3d97aa5556250f6d4ede4a9e60a025"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 66,
+          "durationMs": 60,
+          "path": "fixture2-crops/getup/f02.png",
+          "sha256": "b9e16451e14f7a906a3fb3a72a16535f69a820c545b7a24a4077abe4ff5c6fd4"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 67,
+          "durationMs": 80,
+          "path": "fixture2-crops/getup/f03.png",
+          "sha256": "a5647d4d89a44d993af302a22df68c07f9fe5c21396d73b7b3d99b8d4523ed67"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 68,
+          "durationMs": 70,
+          "path": "fixture2-crops/getup/f04.png",
+          "sha256": "81c154dec14ba052a66ce3279ff7f60e0b7e7ef643604af42f6d256cabce7dea"
+        }
+      ],
+      "contactPath": "fixture2-crops/getup-contact.png",
+      "contactSha256": "365dec910fdb4f1cf215a7e9d168ab3156a97df308ea5dd524dd5b672a7c0845"
+    },
+    "special": {
+      "loop": false,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 69,
+          "durationMs": 120,
+          "path": "fixture2-crops/special/f00.png",
+          "sha256": "21b6b526259c04f03b344f5d9ab747a372f56717544d2435ac6c3c5f51248c81"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 70,
+          "durationMs": 120,
+          "path": "fixture2-crops/special/f01.png",
+          "sha256": "b62ca8209c4bdaa8e06b14cc55684b2ffdd041a548a685a4f00fa7882a16b4b8"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 71,
+          "durationMs": 120,
+          "path": "fixture2-crops/special/f02.png",
+          "sha256": "d0dfedcd82bdeb81c6942201f6215ffd5368e4b8f1590619707ce91a2b913727"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 72,
+          "durationMs": 120,
+          "path": "fixture2-crops/special/f03.png",
+          "sha256": "4640b83b02bb7c15fc6d70ca761dcb1ea45c6b0ca7e903ee04ed1683cff7f45b"
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 73,
+          "durationMs": 120,
+          "path": "fixture2-crops/special/f04.png",
+          "sha256": "65cd9e8e3e5f246c6e4578024bf72f647e518478ceffe6c07e98e64db14bace0"
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 74,
+          "durationMs": 160,
+          "path": "fixture2-crops/special/f05.png",
+          "sha256": "374996f512d264f68143ab1b24239c0e222f5f71a838638314afa7bbb43c42a8"
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 75,
+          "durationMs": 110,
+          "path": "fixture2-crops/special/f06.png",
+          "sha256": "c44cefe626815f558eee4a90becf7d13ccb4da6f66014afabb2ebf0c2ed85932"
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 76,
+          "durationMs": 70,
+          "path": "fixture2-crops/special/f07.png",
+          "sha256": "a238c2ed023f7473bfe750438531b32e0bced0a704149960590ac8ab7d5f969a"
+        }
+      ],
+      "contactPath": "fixture2-crops/special-contact.png",
+      "contactSha256": "1a08f11cba889415a4c57d9c5db2e935b27c303f73f08ec31e57ed185ac5ef63"
+    },
+    "win": {
+      "loop": true,
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 77,
+          "durationMs": 200,
+          "path": "fixture2-crops/win/f00.png",
+          "sha256": "def05cf544d25fdb3288ef34d39698e6905bb2ca0f34b7ed480924c80007035f"
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 78,
+          "durationMs": 200,
+          "path": "fixture2-crops/win/f01.png",
+          "sha256": "cbf014f6742be22702667c3b36159d6e7d6d3615043f379c0d9a10682b242f3c"
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 79,
+          "durationMs": 200,
+          "path": "fixture2-crops/win/f02.png",
+          "sha256": "c65f1a07ed5e83040ad124a50927c05c1aeab8d1fb2e7760a991513714c7a919"
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 80,
+          "durationMs": 200,
+          "path": "fixture2-crops/win/f03.png",
+          "sha256": "d1c78cfb6e749aa15e131268b988c4ff88deb2d1570bfabe7ec5e9ef04bdadf1"
+        }
+      ],
+      "contactPath": "fixture2-crops/win-contact.png",
+      "contactSha256": "2e6f8119efe56bd3343df0d06f36e9bd91cf7658e9fa224baf2f38efb6a003bb"
+    }
+  }
+}

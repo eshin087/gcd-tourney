@@ -1,0 +1,925 @@
+{
+  "schema": "goku-relay9-final-atlas-evidence-v1",
+  "status": "Astra final strict atlas audit PASS; user drawing approval pending",
+  "atlas": {
+    "sheet": "art/characters/goku/production/reassembly-r03/final6-fixture-public/characters/goku/sheet.png",
+    "sheetSha256": "f117d996d5d9f225b13bfc6d7b19a741e603fa04a329b1410422263eadd824f2",
+    "sheetDimensions": [
+      4096,
+      1792
+    ],
+    "metadata": "art/characters/goku/production/reassembly-r03/final6-fixture-public/characters/goku/anims.json",
+    "metadataSha256": "2ee25e2a2103a145f1a888700b5e55cd19ddb0fd7a755649f1056226e6fdbbd6",
+    "metadataDimensions": {
+      "frameWidth": 256,
+      "frameHeight": 256,
+      "columns": 16
+    },
+    "metadataFrameCount": 101,
+    "metadataAnimationCount": 22,
+    "strictScale": true,
+    "colorCount": 48,
+    "packReport": "art/characters/goku/production/reassembly-r03/final6-fixture-pack-report.json",
+    "packReportSha256": "838df84a87fa9d8880dce6b88fc6c30fd57199e71e2a57be0ad4904f9bc01dfe",
+    "exitCode": 0,
+    "warningCount": 1,
+    "characterWarnings": [
+      "getup: 1 lying frame(s) float above the floor line (#0: 35% of the body within 6px of y 240, worst fifth 8px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020)"
+    ],
+    "packedAnimationCount": 22,
+    "packedFrameCount": 101,
+    "missingCore": [
+      "light3"
+    ],
+    "blocked": [],
+    "missing": [
+      "backDash",
+      "superDash",
+      "jumpSquat",
+      "light3",
+      "airLight2",
+      "airLight3",
+      "block",
+      "hurtLow",
+      "spin",
+      "airRecover",
+      "throw",
+      "vanish",
+      "stagger",
+      "ko",
+      "intro",
+      "taunt",
+      "specialForward",
+      "specialUp",
+      "specialDown",
+      "superPose",
+      "beamStruggle",
+      "beamStruggleAir",
+      "techGround",
+      "techRoll",
+      "wallTech",
+      "light1Alt",
+      "light2Alt",
+      "light3Alt",
+      "light4Alt",
+      "heavyAlt",
+      "airLight1Alt",
+      "airLight2Alt",
+      "airLight3Alt",
+      "airHeavyAlt",
+      "hurtHighAlt",
+      "hurtLowAlt"
+    ]
+  },
+  "candidate": {
+    "animation": "heavy",
+    "version": 14,
+    "bodyHeight": 235,
+    "sourceFactor": 0.72,
+    "frameOffsets": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        -28,
+        0
+      ],
+      [
+        -35,
+        0
+      ],
+      [
+        -31,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "userDesignApproval": "pending",
+    "technicalCandidateResult": "Astra pass, exact normal strict atlas audit pending"
+  },
+  "excluded": [
+    {
+      "animation": "light3",
+      "version": 11,
+      "reason": "256px candidate clips 800 foreground-mask pixels; complete 280px companion retained for review"
+    }
+  ],
+  "selectedFrameContacts": [
+    {
+      "animation": "idle",
+      "frameCount": 8,
+      "atlasFrameIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "sourceVersion": 2,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/idle-contact.png",
+      "contactSha256": "534048e6905409bfb0b1bff4640b90d0c6b0d721c510a853c696e4538d35c221",
+      "bodyHeight": 233
+    },
+    {
+      "animation": "run",
+      "frameCount": 8,
+      "atlasFrameIndices": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "sourceVersion": 9,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/run-contact.png",
+      "contactSha256": "8d4791240708a2b2cdd344a122c4081b48d6f2b584e692261dea5f261b34a57f",
+      "bodyHeight": 237
+    },
+    {
+      "animation": "dash",
+      "frameCount": 2,
+      "atlasFrameIndices": [
+        16,
+        17
+      ],
+      "sourceVersion": 9,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/dash-contact.png",
+      "contactSha256": "b819dabafec56474fcb4d762eb8039b7a78f619843cc06e92a5d1ac85701eb69",
+      "bodyHeight": 207
+    },
+    {
+      "animation": "jumpUp",
+      "frameCount": 2,
+      "atlasFrameIndices": [
+        18,
+        19
+      ],
+      "sourceVersion": 4,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/jumpUp-contact.png",
+      "contactSha256": "57e73a662388c1104d772fc480d4b307efb37933fed448f00350d01a3dd92887",
+      "bodyHeight": 206
+    },
+    {
+      "animation": "jumpFall",
+      "frameCount": 2,
+      "atlasFrameIndices": [
+        20,
+        21
+      ],
+      "sourceVersion": 4,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/jumpFall-contact.png",
+      "contactSha256": "d6047e5819748c80b82ca30802d73d52c42481db89653f2da8a3e5f6e239c140",
+      "bodyHeight": 232
+    },
+    {
+      "animation": "land",
+      "frameCount": 2,
+      "atlasFrameIndices": [
+        22,
+        23
+      ],
+      "sourceVersion": 7,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/land-contact.png",
+      "contactSha256": "2b13fb8390082c7229970ee36bb26c732a518134349f6defd047a6f83dd83950",
+      "bodyHeight": 235
+    },
+    {
+      "animation": "light1",
+      "frameCount": 7,
+      "atlasFrameIndices": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "sourceVersion": 4,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/light1-contact.png",
+      "contactSha256": "791c4c76fc7200bb7383813309c608cad941ad31171d8fe8b7e1e6b31149e68a",
+      "bodyHeight": 237
+    },
+    {
+      "animation": "light2",
+      "frameCount": 7,
+      "atlasFrameIndices": [
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "sourceVersion": 5,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/light2-contact.png",
+      "contactSha256": "81c29c872407dc75758ee09ac655c578e979eddeed39c13da17cd0080ab36616",
+      "bodyHeight": 236
+    },
+    {
+      "animation": "light4",
+      "frameCount": 8,
+      "atlasFrameIndices": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "sourceVersion": 9,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/light4-contact.png",
+      "contactSha256": "386372dcc7f8751082c4274893c034521e59f5b12512c44f80354109e02345ef",
+      "bodyHeight": 237
+    },
+    {
+      "animation": "heavy",
+      "frameCount": 8,
+      "atlasFrameIndices": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "sourceVersion": 14,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/heavy-contact.png",
+      "contactSha256": "a803831d68eb8a4f78ae18f6876624c44a2309ae6d0f8c720b52d3c9438b1d40",
+      "bodyHeight": 235
+    },
+    {
+      "animation": "airLight1",
+      "frameCount": 5,
+      "atlasFrameIndices": [
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "sourceVersion": 7,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/airLight1-contact.png",
+      "contactSha256": "59fb28bbd13edf6b96a2e33b67b758734024517bbb10fb54227c30054ff9b653",
+      "bodyHeight": 237
+    },
+    {
+      "animation": "airHeavy",
+      "frameCount": 6,
+      "atlasFrameIndices": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64
+      ],
+      "sourceVersion": 6,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/airHeavy-contact.png",
+      "contactSha256": "7c0e9439eefbfab4ecf7ca243df25e61cfd17a461eb9e40e51246829b9b7a4ee",
+      "bodyHeight": 237
+    },
+    {
+      "animation": "guard",
+      "frameCount": 2,
+      "atlasFrameIndices": [
+        65,
+        66
+      ],
+      "sourceVersion": 5,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/guard-contact.png",
+      "contactSha256": "475ea7689f2278eac2a7ca60e14cc19776b37fe23c0638dfb2cf3ef7fc64303e",
+      "bodyHeight": 229
+    },
+    {
+      "animation": "hurtHigh",
+      "frameCount": 3,
+      "atlasFrameIndices": [
+        67,
+        68,
+        69
+      ],
+      "sourceVersion": 8,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/hurtHigh-contact.png",
+      "contactSha256": "cb1df4588dcfc92bc996ba3122edf8f66bbe9fcafd94385216909fc7a2730655",
+      "bodyHeight": 223
+    },
+    {
+      "animation": "launched",
+      "frameCount": 2,
+      "atlasFrameIndices": [
+        70,
+        71
+      ],
+      "sourceVersion": 8,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/launched-contact.png",
+      "contactSha256": "1268ac9f4f14112eb65dd64b190f60b7958ea09847e9cd5574d680524550ceb8",
+      "bodyHeight": 200
+    },
+    {
+      "animation": "down",
+      "frameCount": 2,
+      "atlasFrameIndices": [
+        72,
+        73
+      ],
+      "sourceVersion": 5,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/down-contact.png",
+      "contactSha256": "7c61825c0510b6d4be466f8907138a184d4a584516a3ae364285ea19ecdf91c7",
+      "bodyHeight": 115
+    },
+    {
+      "animation": "getup",
+      "frameCount": 5,
+      "atlasFrameIndices": [
+        74,
+        75,
+        76,
+        77,
+        78
+      ],
+      "sourceVersion": 11,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/getup-contact.png",
+      "contactSha256": "59c9a80344eb53f2211891fd2eb939d98326ca92fc5fb87e6f707f46bd7d4b2a",
+      "bodyHeight": 237
+    },
+    {
+      "animation": "charge",
+      "frameCount": 4,
+      "atlasFrameIndices": [
+        79,
+        80,
+        81,
+        82
+      ],
+      "sourceVersion": 5,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/charge-contact.png",
+      "contactSha256": "915713777bc1c23d4bfb13592237b98a860da06b6c1f13735e765138ffee043a",
+      "bodyHeight": 237
+    },
+    {
+      "animation": "beamCharge",
+      "frameCount": 3,
+      "atlasFrameIndices": [
+        83,
+        84,
+        85
+      ],
+      "sourceVersion": 7,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/beamCharge-contact.png",
+      "contactSha256": "d8ac099bde671b11b7109a99caa26fe01e02f6b80a6e67f274debd0186826cd7",
+      "bodyHeight": 236
+    },
+    {
+      "animation": "beamFire",
+      "frameCount": 3,
+      "atlasFrameIndices": [
+        86,
+        87,
+        88
+      ],
+      "sourceVersion": 7,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/beamFire-contact.png",
+      "contactSha256": "f785264ec66bbe2bb58849b0945c5cf9ae28af2f05a7d52ccf0a94d19e21ca89",
+      "bodyHeight": 233
+    },
+    {
+      "animation": "special",
+      "frameCount": 8,
+      "atlasFrameIndices": [
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96
+      ],
+      "sourceVersion": 5,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/special-contact.png",
+      "contactSha256": "0b9136a79d5a699b7f7b58423085f1f72822fb0ec0a7ab9d3a51977e6fca0674",
+      "bodyHeight": 237
+    },
+    {
+      "animation": "win",
+      "frameCount": 4,
+      "atlasFrameIndices": [
+        97,
+        98,
+        99,
+        100
+      ],
+      "sourceVersion": 5,
+      "contact": "art/characters/goku/production/manual-audit-r4/final-atlas/win-contact.png",
+      "contactSha256": "db2ea8aa0e1e5625cfac03b28ad6505ec01d1ff6ad145438f0fdcdf5e5ed8d3c",
+      "bodyHeight": 237
+    }
+  ],
+  "retainedBaselineComparison": {
+    "baselineAtlas": "art/characters/goku/production/reassembly-r03/final5-fixture-public/characters/goku/sheet.png",
+    "baselineSheetSha256": "fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054",
+    "baselineMetadataSha256": "e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f",
+    "commonAnimationCount": 21,
+    "commonFrameCount": 93,
+    "perAnimation": [
+      {
+        "animation": "idle",
+        "frames": 8,
+        "oldAtlasIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "newAtlasIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 41913,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 3.355,
+        "comparedOpaquePixels": 118698
+      },
+      {
+        "animation": "run",
+        "frames": 8,
+        "oldAtlasIndices": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "newAtlasIndices": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 39525,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 3.71,
+        "comparedOpaquePixels": 127860
+      },
+      {
+        "animation": "dash",
+        "frames": 2,
+        "oldAtlasIndices": [
+          16,
+          17
+        ],
+        "newAtlasIndices": [
+          16,
+          17
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 10354,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 3.264,
+        "comparedOpaquePixels": 29799
+      },
+      {
+        "animation": "jumpUp",
+        "frames": 2,
+        "oldAtlasIndices": [
+          18,
+          19
+        ],
+        "newAtlasIndices": [
+          18,
+          19
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 6853,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 4.306,
+        "comparedOpaquePixels": 22139
+      },
+      {
+        "animation": "jumpFall",
+        "frames": 2,
+        "oldAtlasIndices": [
+          20,
+          21
+        ],
+        "newAtlasIndices": [
+          20,
+          21
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 10258,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 3.755,
+        "comparedOpaquePixels": 29109
+      },
+      {
+        "animation": "land",
+        "frames": 2,
+        "oldAtlasIndices": [
+          22,
+          23
+        ],
+        "newAtlasIndices": [
+          22,
+          23
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 8437,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 4.145,
+        "comparedOpaquePixels": 32347
+      },
+      {
+        "animation": "light1",
+        "frames": 7,
+        "oldAtlasIndices": [
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ],
+        "newAtlasIndices": [
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 29619,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 3.883,
+        "comparedOpaquePixels": 104884
+      },
+      {
+        "animation": "light2",
+        "frames": 7,
+        "oldAtlasIndices": [
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37
+        ],
+        "newAtlasIndices": [
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 33718,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 3.788,
+        "comparedOpaquePixels": 106747
+      },
+      {
+        "animation": "light4",
+        "frames": 8,
+        "oldAtlasIndices": [
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45
+        ],
+        "newAtlasIndices": [
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 34445,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 3.606,
+        "comparedOpaquePixels": 119884
+      },
+      {
+        "animation": "airLight1",
+        "frames": 5,
+        "oldAtlasIndices": [
+          46,
+          47,
+          48,
+          49,
+          50
+        ],
+        "newAtlasIndices": [
+          54,
+          55,
+          56,
+          57,
+          58
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 19014,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 3.941,
+        "comparedOpaquePixels": 70577
+      },
+      {
+        "animation": "airHeavy",
+        "frames": 6,
+        "oldAtlasIndices": [
+          51,
+          52,
+          53,
+          54,
+          55,
+          56
+        ],
+        "newAtlasIndices": [
+          59,
+          60,
+          61,
+          62,
+          63,
+          64
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 26344,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 3.37,
+        "comparedOpaquePixels": 76464
+      },
+      {
+        "animation": "guard",
+        "frames": 2,
+        "oldAtlasIndices": [
+          57,
+          58
+        ],
+        "newAtlasIndices": [
+          65,
+          66
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 7662,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 4.504,
+        "comparedOpaquePixels": 29599
+      },
+      {
+        "animation": "hurtHigh",
+        "frames": 3,
+        "oldAtlasIndices": [
+          59,
+          60,
+          61
+        ],
+        "newAtlasIndices": [
+          67,
+          68,
+          69
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 13865,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 3.866,
+        "comparedOpaquePixels": 41614
+      },
+      {
+        "animation": "launched",
+        "frames": 2,
+        "oldAtlasIndices": [
+          62,
+          63
+        ],
+        "newAtlasIndices": [
+          70,
+          71
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 6824,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 3.813,
+        "comparedOpaquePixels": 27177
+      },
+      {
+        "animation": "down",
+        "frames": 2,
+        "oldAtlasIndices": [
+          64,
+          65
+        ],
+        "newAtlasIndices": [
+          72,
+          73
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 5098,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 4.316,
+        "comparedOpaquePixels": 19525
+      },
+      {
+        "animation": "getup",
+        "frames": 5,
+        "oldAtlasIndices": [
+          66,
+          67,
+          68,
+          69,
+          70
+        ],
+        "newAtlasIndices": [
+          74,
+          75,
+          76,
+          77,
+          78
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 24713,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 3.514,
+        "comparedOpaquePixels": 76185
+      },
+      {
+        "animation": "charge",
+        "frames": 4,
+        "oldAtlasIndices": [
+          71,
+          72,
+          73,
+          74
+        ],
+        "newAtlasIndices": [
+          79,
+          80,
+          81,
+          82
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 19728,
+        "maxMeanChannelDelta": 62,
+        "meanAbsoluteMeanChannelDelta": 3.788,
+        "comparedOpaquePixels": 57072
+      },
+      {
+        "animation": "beamCharge",
+        "frames": 3,
+        "oldAtlasIndices": [
+          75,
+          76,
+          77
+        ],
+        "newAtlasIndices": [
+          83,
+          84,
+          85
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 15830,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 4.108,
+        "comparedOpaquePixels": 50631
+      },
+      {
+        "animation": "beamFire",
+        "frames": 3,
+        "oldAtlasIndices": [
+          78,
+          79,
+          80
+        ],
+        "newAtlasIndices": [
+          86,
+          87,
+          88
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 13882,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 3.703,
+        "comparedOpaquePixels": 47528
+      },
+      {
+        "animation": "special",
+        "frames": 8,
+        "oldAtlasIndices": [
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88
+        ],
+        "newAtlasIndices": [
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 46388,
+        "maxMeanChannelDelta": 81,
+        "meanAbsoluteMeanChannelDelta": 4.011,
+        "comparedOpaquePixels": 135411
+      },
+      {
+        "animation": "win",
+        "frames": 4,
+        "oldAtlasIndices": [
+          89,
+          90,
+          91,
+          92
+        ],
+        "newAtlasIndices": [
+          97,
+          98,
+          99,
+          100
+        ],
+        "alphaMaskMismatchPixels": 0,
+        "rgbColorMismatchPixels": 16235,
+        "maxMeanChannelDelta": 67,
+        "meanAbsoluteMeanChannelDelta": 3.365,
+        "comparedOpaquePixels": 51431
+      }
+    ],
+    "summary": {
+      "alphaMaskMismatchPixels": 0,
+      "rgbColorMismatchPixels": 430705
+    }
+  },
+  "notes": [
+    "The fixture is built from the exact r03 final5 strict fixture and audited versions, then adds only heavy v14.",
+    "Light3 remains absent. The 93 common frames retain exact alpha silhouettes; any RGB changes are reported separately because the shared palette is recomputed with heavy14.",
+    "The only character warning is the pre-existing getup lying-frame floor/contact warning; runtime contact validation remains Claude-owned.",
+    "This isolated fixture does not modify the current public/characters/goku atlas and does not imply user drawing approval."
+  ],
+  "finalAudit": "art/characters/goku/production/manual-audit-r4/FINAL_STRICT_AUDIT.md"
+}

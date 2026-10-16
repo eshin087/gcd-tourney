@@ -1,0 +1,88 @@
+{
+  "animation": "special",
+  "status": "measured technical HOLD; no factor and no resample",
+  "sourcePath": "art/characters/goku/production/generation-source/special_v02_attempt03.png",
+  "sourceSha256": "4e123c123e855f787c85020fdbca68194667dd6122867e49af7bde092bacc3ba",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "sourceGrid": [
+    4,
+    2,
+    8
+  ],
+  "inspectedFrame": 0,
+  "sourcePanelRect": [
+    0,
+    0,
+    444,
+    444
+  ],
+  "reference": {
+    "path": "art/characters/goku/raw/idle_v02.png",
+    "sha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+    "targetsPx": {
+      "collarToBelt": 38.1,
+      "beltWidth": 36,
+      "bootTopToSole": 43.7
+    },
+    "uncertaintyPx": {
+      "collarToBelt": 5,
+      "beltWidth": 4,
+      "bootTopToSole": 6
+    }
+  },
+  "landmarks": {
+    "collarToBelt": {
+      "a": [
+        226,
+        112
+      ],
+      "b": [
+        207,
+        217
+      ],
+      "sourceLengthPx": 106.71,
+      "sourceEndpointUncertaintyPx": 18,
+      "targetPx": 38.1,
+      "referenceUncertaintyPx": 5,
+      "ratio": 0.3571,
+      "definition": "collar center to belt center"
+    },
+    "beltWidth": {
+      "a": [
+        153,
+        216
+      ],
+      "b": [
+        263,
+        216
+      ],
+      "sourceLengthPx": 110,
+      "sourceEndpointUncertaintyPx": 18,
+      "targetPx": 36,
+      "referenceUncertaintyPx": 4,
+      "ratio": 0.3273,
+      "definition": "outer belt edge span"
+    },
+    "bootTopToSole": {
+      "a": [
+        75,
+        356
+      ],
+      "b": [
+        37,
+        418
+      ],
+      "sourceLengthPx": 72.72,
+      "sourceEndpointUncertaintyPx": 18,
+      "targetPx": 43.7,
+      "referenceUncertaintyPx": 6,
+      "ratio": 0.6009,
+      "definition": "rear boot top-to-sole along diagonal axis"
+    }
+  },
+  "annotation": "art/characters/goku/production/reassembly-r02/special-source-f0-hold-endpoints.png",
+  "holdReason": "Three directly marked frame-0 ratios are materially different, while all frames use a wide power-stance or extended-arm pose; source anatomy cannot be inferred from its bounds. Keep measured HOLD for Astra comparison; no factor selected."
+}

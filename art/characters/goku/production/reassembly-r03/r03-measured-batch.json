@@ -1,0 +1,15 @@
+{
+  "method": "Astra-checked source endpoint median; common nearest-neighbor factor across all frames; per-frame translation only; diagnostic hold pending exact packed-pixel audit",
+  "results": [
+    {
+      "animation": "special",
+      "version": 5,
+      "factor": 0.596,
+      "bodyHeight": 237,
+      "sourceSha256": "4e123c123e855f787c85020fdbca68194667dd6122867e49af7bde092bacc3ba",
+      "outputSha256": "d53faf9ed2ab3eaed4ee4ee0ad0780fe8e7d596295ea655754fd7c18e78f5e83",
+      "lost": 0,
+      "file": "art/characters/goku/raw/_qa_hold/special_v05.png"
+    }
+  ]
+}
