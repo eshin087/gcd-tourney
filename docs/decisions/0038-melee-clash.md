@@ -1,8 +1,8 @@
-# 0034: Melee clash (light vs light, heavy vs heavy)
+# 0038: Melee clash (light vs light, heavy vs heavy)
 
 **Status:** Accepted
 **Date:** 2026-10-15
-**Task:** ENG-082
+**Task:** ENG-096
 
 ## Context
 

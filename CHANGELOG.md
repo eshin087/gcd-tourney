@@ -11,7 +11,24 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Added: melee clash (ENG-082, ADR 0034): two lights or two heavies meeting while both are live cancel out (CLASH!, no damage: the strikes held together with sparks in both fighters' colors and the camera pushing in, then a short pushback, free to act); pressing again chains it (CLASH ×2, ×3... with growing effects and ki for both) until the 5th skids both far back (CLASH BREAK!); a light that meets a heavy loses (CRUSH!). The CPUs seek clashes at a per-level rate; lab scenarios **Melee clash chain** and **Heavy beats light**.
+- Added: melee clash (ENG-096, ADR 0038): two lights or two heavies meeting while both are live cancel out (CLASH!, no damage: the strikes held together with sparks in both fighters' colors and the camera pushing in, then a short pushback, free to act); pressing again chains it (CLASH ×2, ×3... with growing effects and ki for both) until the 5th skids both far back (CLASH BREAK!); a light that meets a heavy loses (CRUSH!). The CPUs seek clashes at a per-level rate; lab scenarios **Melee clash chain** and **Heavy beats light**.
+- docs(scale): hand back calibrated five-candidate Astra re-audit and corrected protected preview; oversizing/clipping resolved, precise contact/grounding/aura follow-up retained for Claude. No image approvals or new generation.
+
+- Changed: approvals happen in Claude (TOOL-045, ADR 0037): Codex rings the relay `--for user --kind approval|decision|blocked`, Claude notifies and asks with a question box, then relays the user's quoted answer (`send --user-approved|--user-rejected|--user-decision`); `relay status` shows "turn: you". Also: round trips count only sends that answer a new ring, watchers wait 24 h and say when to restart, `send` unarchives an archived Codex chat, `send --direct`, `add <lane> <chat>` without `--thread`, `remove <lane>`.
+
+- Changed: every Codex handback explicitly reports completion/wait status, required user actions, pending Claude work and the next actor; existing project chats receive the rule (OPS-010).
+
+- Added: a raw sidecar can set `"flipX": true` to mirror a character pose drawn facing the wrong way, frame by frame (TOOL-044; art/PIPELINE.md).
+
+- docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.
+- Changed: ring damage looks like broken stone in the floor instead of stickers on it: decals show the ring's own texture and grid, only their cracks, pits and scorch darken it, craters sink into a lit bowl with parallax depth, the drawn rubble is off on the ring, and hot seams glow half as long and much dimmer; permanent craters stay (ENG-084, ADR 0024 amended).
+
+- Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
+- Fixed: `npm run pr -- merge` names its own merge commit in the revert hint, finishes the worktree cleanup and the deploy when the GitHub publish fails (with a warning), and says which worktree holds a branch it cannot delete (TOOL-038).
+
+- docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
+- Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".
+- Changed: while a new idle candidate is the newest raw, the scale gate measures every strip (and the candidate idle) against the approved idle instead, so a pending idle no longer moves head numbers or auto head fits (TOOL-040; art/CHARACTER_SCALE.md).
 
 - Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).
 

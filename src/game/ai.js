@@ -50,7 +50,7 @@ function personaLevel(base, P, spectate) {
 // beat: its rhythm-clash timing (clash.js cpuPlan): `sd` frames of error per press, `miss` = notes it skips
 // techHold: chance per launch that it holds Guard to tech at the first gap (ADR 0022; `tech` stays the late tap);
 // burst: chance per combo (3+ hits, with the ki and the round's burst) that it bursts out
-// meleeClash: chance to meet a fresh light / heavy with the same button, a MELEE CLASH (aiClash.js, ADR 0034); x1.5 spectated
+// meleeClash: chance to meet a fresh light / heavy with the same button, a MELEE CLASH (aiClash.js, ADR 0038); x1.5 spectated
 // impactTech: chance per techable impact (floor or wall bounce) that it goes for the timed tech (ADR 0028), pressed
 // `techSd` frames off on average (aiTech.js TechTimer: too early locks it out, too late misses)
 const LEVELS = {
@@ -152,7 +152,7 @@ export class CpuBrain {
       if (f.state === 'attack' && f.move) this.comboStep(f, o, R);
       else if (f.state === 'air' && f.chase > 0 && !f.airAttack && f.distTo() < 2.2) this.press('light');
 
-      // --- melee clash (ADR 0034): meet their light / heavy with ours, or go again out of a clash's bounce
+      // --- melee clash (ADR 0038): meet their light / heavy with ours, or go again out of a clash's bounce
       const cl = seekClash(f, L.meleeClash * (this.spectate ? 1.5 : 1), this, R);
       if (cl) { this.press(cl, 2); this.setPlan('idle', 14); }
 

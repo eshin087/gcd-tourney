@@ -471,7 +471,7 @@ export const CLASH = {
   },
 };
 
-// MELEE CLASH (ADR 0034): a light meeting a light (or a heavy a heavy) while both swings are live cancels both: no
+// MELEE CLASH (ADR 0038): a light meeting a light (or a heavy a heavy) while both swings are live cancels both: no
 // damage, both hold their strikes together for a moment, then get pushed back a step and can act, so pressing again
 // starts the next one. Clashes within `chainGap` frames of the last one form a chain that grows the sparks and the
 // camera push-in and pays both fighters ki; the `finale`-th pushes both far back (CLASH BREAK!). A light meeting a

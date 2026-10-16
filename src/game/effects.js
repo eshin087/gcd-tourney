@@ -366,7 +366,7 @@ export class Effects {
     }
   }
 
-  // MELEE CLASH (ADR 0034): two strikes meeting. A crisp contact star, sparks and arcs in both fighters' colors
+  // MELEE CLASH (ADR 0038): two strikes meeting. A crisp contact star, sparks and arcs in both fighters' colors
   // sprayed out of the contact point, a thin shockwave ring and speed lines; no white glow, so the frozen strikes
   // stay readable. `power` grows the spray with the chain.
   clashSpark(x, y, z, colA, colB, power = 1) {

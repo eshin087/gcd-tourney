@@ -167,7 +167,7 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       their side, the bar follows the score, FINAL PUSH fills the target → OVERWHELMED! (250) or DRAW! (90 each).
       Pressing every frame scores OFF BEAT and loses. Lab **Special clash** (Naruto vs Sasuke): one ring, the closer
       press wins.
-- [ ] Melee clash (ADR 0034), lab **Melee clash chain (light vs light)**: CLASH!, no damage, the strikes held
+- [ ] Melee clash (ADR 0038), lab **Melee clash chain (light vs light)**: CLASH!, no damage, the strikes held
       together (no slow-mo) with orange / blue (the fighters' colors) sparks, no white flash, the camera pushed in on
       the fists, then a short pushback (no bounce, the spacing stays about 1.2-1.7 through the chain); the presses
       while the strikes are held chain it (CLASH ×2, ×3, ×4, a bigger spray each time, both ki bars grow), and the 5th

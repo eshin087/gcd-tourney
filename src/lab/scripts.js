@@ -192,7 +192,7 @@ export const SCENARIOS = [
     setup: { gap: 3.2, kiA: 100, kiB: 100 }, a: [tap(0, 'special')], b: [tap(0, 'special')],
   },
   {
-    id: 'meleeClash', name: 'Melee clash chain (light vs light)', info: `Both jab at once: the swings meet, CLASH!, no damage, sparks in both colors, then a short pushback. Both press again while the strikes are held, so it chains (CLASH ×2, ×3 ...) and the ${MELEE_CLASH.finale}th skids them far back (CLASH BREAK!). Two heavies clash the same way (ADR 0034).`,
+    id: 'meleeClash', name: 'Melee clash chain (light vs light)', info: `Both jab at once: the swings meet, CLASH!, no damage, sparks in both colors, then a short pushback. Both press again while the strikes are held, so it chains (CLASH ×2, ×3 ...) and the ${MELEE_CLASH.finale}th skids them far back (CLASH BREAK!). Two heavies clash the same way (ADR 0038).`,
     setup: { gap: 1.8 },
     a: [tap(0, 'light'), tap(14, 'light'), tap(34, 'light'), tap(56, 'light'), tap(80, 'light')],
     b: [tap(0, 'light'), tap(14, 'light'), tap(34, 'light'), tap(56, 'light'), tap(80, 'light')],

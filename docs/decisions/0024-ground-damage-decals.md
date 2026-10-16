@@ -78,6 +78,17 @@ just under 0, older first, so the fighters' blob shadows draw over them. Caps: 4
 timed cluster dissolves past 34; past 40 the oldest already-dissolving ones go), 8 permanent clusters, 4 barrier
 cracks, 4 wall holes, 128 chunks, 20 slabs, 24 runs per trail.
 
+**Ring damage is the ring's stone (amended 2026-10-15, ENG-084).** The user found the craters "janky and unnatural",
+"like stickers placed on top of the arena", and the glowing colored seams too loud. On the ring every floor decal now
+draws in a `GD_FLOOR` program: it shows the ring's own top texture at that spot (grid lines included) and takes from the
+art only how much darker each texel is than untouched stone (grey, measured against `#E3D5BF`). Texels above
+`GROUND.floor.snap` count as unbroken stone, so the drawn rim tones, chips and highlights vanish and only cracks, pits
+and scorch remain. Crater names sink a banded **bowl** drawn in code (`GROUND.floor.bowl`), the slopes of the bowl and
+the cracks tilt the normal so the scene light shades them, and the floor seen in a pit slides with the view (one
+parallax step) so it reads as depth. The drawn `rubble` decal is off on the ring (`GROUND.rubble.ring`; the 3D chunks
+are the rubble). Hot seams glow for half the style's `heat` (`GROUND.heatScale`) at 0.9x the tint instead of 2.2x.
+Grass, walls, the barrier and the holo floor draw as before. Permanent craters stay permanent.
+
 **Hot key:** pure `#FFFFFF` texels in a decal are hot seams. The engine glows them in the tint (the move's color or
 the fighter's `ground.tint`) and cools them to soot (`#3a302a`) over the style's `heat` seconds. No other texel of a
 decal may be pure white, and the packer snaps near-white (>= 250) to `#FFFFFF` in decal art so the key survives

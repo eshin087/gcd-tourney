@@ -58,8 +58,10 @@ when a decision should be revisited.
 | [0030](0030-tech-recovery-animations.md) | Tech recovery animations: techGround, techRoll, wallTech on the tech's clock, wall anchoring, unread beats are not a scale pass | Proposed |
 | [0031](0031-attack-alt-animations.md) | Attack alts: optional `<anim>Alt` strips for the nine attacks and both hit reactions, same frames and phases, deterministic Thue-Morse alternation, fail-soft to the base, packer hit-box check | Proposed |
 | [0032](0032-goku-and-luffy-kits.md) | Goku and Luffy join: their kits (Goku keeps the cast's one beam), and the `laneStrike` ultimate kind for Gigant Pistol | Accepted |
+| [0034](0034-beam-clash-visuals.md) | Beam clash visuals: drawing fixes for both clash tiers, a stream shape per move (`stream.style`), the optional `beamStruggle` pose and five clash effects | Proposed |
 | [0033](0033-claude-codex-relay.md) | Claude-Codex relay: Claude queues the inbox prompt into the lane's Codex chat, Codex rings a git-ignored doorbell that wakes Claude's background watcher; per-lane hop limit and pause switch; approvals never relayed | Proposed |
-| [0034](0034-melee-clash.md) | Melee clash: lights / heavies meeting while both are live cancel out and chain (CLASH ×n, CLASH BREAK! at 5); a heavy beats a light; the `clashBack` bounce; CPUs seek clashes | Accepted |
+| [0037](0037-approvals-in-claude.md) | Approvals happen in Claude: Codex rings the relay `--for user`, Claude asks with a question box and relays the user's quoted answer (`USER APPROVAL via Claude`); amends 0033 | Accepted |
+| [0038](0038-melee-clash.md) | Melee clash: lights / heavies meeting while both are live cancel out and chain (CLASH ×n, CLASH BREAK! at 5); a heavy beats a light; the `clashBack` bounce; CPUs seek clashes | Accepted |
 
 ## Template
 

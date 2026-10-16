@@ -1,6 +1,6 @@
-// CPU side of the MELEE CLASH (ADR 0034), shared by both brains (ai.js CpuBrain, aiMaster.js MasterBrain): now and
-// then it answers a fresh light or heavy with the same button so the two swings meet, and out of a clash's bounce it
-// may press again to keep a chain going. One roll per opposing swing and per bounce, at the brain's `chance`.
+// CPU side of the MELEE CLASH (ADR 0038), shared by both brains (ai.js CpuBrain, aiMaster.js MasterBrain): now and
+// then it answers a fresh light or heavy with the same button so the two swings meet, and out of a clash's pushback it
+// may press again to keep a chain going. One roll per opposing swing and per pushback, at the brain's `chance`.
 import { MELEE_CLASH } from './moves.js';
 
 const FREE = new Set(['idle', 'run', 'air', 'clashBack']);
@@ -10,7 +10,7 @@ const FREE = new Set(['idle', 'run', 'air', 'clashBack']);
 export function seekClash(f, chance, memo, rand) {
   if (!chance || f.hitstop > 0 || !FREE.has(f.state)) return null;
   const o = f.opp, C = MELEE_CLASH;
-  // out of a bounce: go again (the other side may too)
+  // out of a pushback: go again (the other side may too)
   if (f.state === 'clashBack' && f.t === 1 && memo.clashBackAt !== f.clock) {
     memo.clashBackAt = f.clock;
     if (rand() < Math.min(0.85, chance * C.chainSeek)) return f.game.meleeChain.cls ?? 'light';

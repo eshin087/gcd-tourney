@@ -103,7 +103,7 @@ export class Game {
     this.beams = [];
     this.orbs = []; // Hollow Purple (ADR 0017)
     this.pendingMelee = []; // melee hits found this frame, applied together (resolveMelee)
-    this.meleeChain = { n: 0, at: -1e9 }; // the running MELEE CLASH chain: clashes in it, frame of the last (ADR 0034)
+    this.meleeChain = { n: 0, at: -1e9 }; // the running MELEE CLASH chain: clashes in it, frame of the last (ADR 0038)
     this.meleeFxF = 0; // frames left of a melee clash's speed lines and stage dim (clashMoment)
     this.meleeFocus = { pos: new THREE.Vector3() }; // where those speed lines center (a stand-in for linesFocus' fighter)
     this.clash = null;
@@ -795,7 +795,7 @@ export class Game {
     if (!this.pendingMelee.length) return;
     let list = this.pendingMelee;
     this.pendingMelee = [];
-    // MELEE CLASH (ADR 0034): a swing landing on the other's live swing of the same class cancels both; a light that
+    // MELEE CLASH (ADR 0038): a swing landing on the other's live swing of the same class cancels both; a light that
     // meets a heavy is beaten by it (its hit is dropped, the heavy lands now)
     const met = list.find((h) => this.swingsMeet(h.att, h.def));
     if (met) {

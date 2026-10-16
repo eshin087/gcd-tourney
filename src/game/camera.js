@@ -89,7 +89,7 @@ export class CameraDirector {
     this.punch = Math.max(this.punch, a);
   }
 
-  // MELEE CLASH (ADR 0034): the fight framing eases in toward a point (the meeting strikes, ring-relative) by `amt`
+  // MELEE CLASH (ADR 0038): the fight framing eases in toward a point (the meeting strikes, ring-relative) by `amt`
   // (0-1), holds `hold` seconds, then eases back out
   pushIn(x, y, z, amt, hold) {
     this.lean = { p: new THREE.Vector3(x, RING_TOP + y, z), amt, hold, t: 0 };

@@ -260,7 +260,7 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   and won every exchange: in CPU soaks P1 won 81 % of matches; after the fix 51 %.) Two lights or two heavies
   meeting don't trade: they clash (below).
 
-### Melee clash (ADR 0034)
+### Melee clash (ADR 0038)
 - Every normal has a class in `MOVES` (`meleeClash`): light1-4 and airLight1-3 are **light**, heavy and airHeavy
   **heavy**. A swing that lands while the other fighter's classed swing is live (active, or at most
   `MELEE_CLASH.window` = 4 frames before its first active frame) meets it (`Game.swingsMeet`). Lights pressed up
@@ -586,7 +586,7 @@ than legacy fighters. At 3 bars they split between the second super (if its `ran
 ultimate (a beam wants some distance; a kit ultimate fires from anywhere). A counter may sit on ↓ or ←, and
 the CPU dashes out of a Kirin mark.
 
-Melee clash (ADR 0034, `src/game/aiClash.js`): once per opposing light or heavy that has just started in reach,
+Melee clash (ADR 0038, `src/game/aiClash.js`): once per opposing light or heavy that has just started in reach,
 the CPU presses the same button at its level's `meleeClash` rate (Easy 4 %, Normal 8 %, Hard 12 %, ×1.5 when
 spectated; INSANE 8 %, IMPOSSIBLE 10 %, the CPU-vs-CPU showman 18 %), and once per clash slide it goes again at
 that rate × 1.1, so chains happen in solo and spectated play.

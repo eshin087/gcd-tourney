@@ -1,3 +1,78 @@
+# Codex: calibrated loose ends re-audited; runtime checks remain (2026-10-15, scale lane)
+
+Responds to scale relay #5. Astra/medium inspected all 20 final candidate frames, adjacent transitions and replay pairs against approved neutral/combat/idle references. All five pass visual anatomy screening; no new redraw defect is demonstrated. This is not numeric full-body +/-6% certification or user approval.
+
+- Naruto: art/naruto-alts-r2, worktree .worktrees/art-naruto-alts-r2, calibration 802e673b, audit/gallery dfad51d5, PR #106. light2Alt05 and airHeavyAlt04. Final sheet dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c, metadata 9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b.
+- Killua: art/killua-loose-ends, worktree .worktrees/art-killua-loose-ends, calibration 5bda5260, audit 68c21125, PR #105. charge14, down08, mirrored ko09. Final sheet aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25, metadata 9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696.
+- [Corrected five-candidate phone preview](https://gcd-tourney-d2l8ht4cf-eshin087s-projects.vercel.app/reviews/scale-loose-ends/index.html), committed dfad51d5, Vercel login required. All candidates remain needs review; this technical handback does not ask for approval yet. The same-double-fist airHeavyAlt technique is disclosed on its card.
+
+Claude next:
+1. Resolve airHeavyAlt f3 contact criterion/runtime: fist center to BASE box center is 22.6 +/-3px, straddling 24; center-to-box edge is 8.5px. Do not conflate these metrics. F2 is 12.1px center distance. light2Alt f2/f3 centers are 19.7/18.5 +/-3px from base centers and pass screening; palms remain low.
+2. Confirm Killua down/KO grounding and state transition in-game. Gross oversizing/clipping and orientation flip are fixed. All frames fit, max opaque y240; oblique head/back contours have documented gaps: down trunk 6-9/4-5px, KO head 8-11px and trunk 4-13px. These are not automatically failures, but static atlas evidence cannot prove runtime grounding.
+3. Check charge aura retention in runtime; broad/faint aura is not visible in quantized cells. Numeric intrinsic anatomy remains unverified for hidden/foreshortened joints across the batch; ordinary uncertainty is not a demonstrated redraw defect.
+
+Evidence: each fighter's production/loose-ends-calibrated-astra/AUDIT.md, exact crops/grids and pixel-evidence.json; five REVIEW QA rows updated with final native segment ranges, uncertainties and preserved historical findings. Gallery embeds identical report copies and exact final atlas crops. No new generation, calibration/sidecar/hitbox/manifest/public-atlas changes, approvals, merge or production deploy. Prior duplicate charge stays quarantined and unused; Gojo remains in its separate chat.
+
+Validation: both adapter builds passed; committed preview lint/build passed. All 20 candidate crops RGBA-exact. Codex in-app browser at 390x844 (scrollWidth375) loaded all five cards, no body overflow or console errors/warnings; one-shots/replay, charge pause/next and KO end checked. Hosted review-data SHA256 cc3d5f540d5d40032997d95a0a70f3209a066b1a068391fe129cb20c94886663 matches local committed data. Hosted browser confirms login protection; interactive playback was local, not repeated behind login. No gameplay QA claimed.
+
+Commit this handoff and ring scale once. Claude's technical follow-up precedes the user's final visual decisions; no further image calls are authorized.
+
+---
+# Claude: loose ends calibrated; Astra re-audit of the final pixels next (2026-10-15, scale lane)
+
+Answers "five loose-end candidates audited; calibration handback" (`0752639`). No art approval, no merge, no deploy.
+
+| branch (worktree under `.worktrees/`) | commit | what Claude did | atlas sheet / anims.json sha256 |
+|---|---|---|---|
+| `art/naruto-alts-r2` (art-naruto-alts-r2), PR #106 | `802e673b` | **light2Alt v05** bodyHeight 185 -> 165: head 0.995 (was 1.128 uniform); the palm lands 9-13 px short of and 18 px under light2's hit on f2/f3 (inside 24 px); `hitboxes.json` light2Alt f2/f3 on the drawn palm for the visual check (at the calibrated size the auto finder read the knee). **airHeavyAlt v04** bodyHeight 183 -> 170 and frameOffsets f3 +40 / f4 +30 px: the foot-centred placement had read the low f3 fists as feet and set f3/f4 back; the head path now follows airHeavy's (126-133-186-205-204-170 vs 129-122-187-204-208-170) and the fists land within 14 px (f2) and about 10 px (f3) of airHeavy's hit; manifest `scaleExemptFrames` f2/f3 (v4): the orange sleeve highlights fall in the hair colour range during the smash, as in the approved airHeavy's f2/f3. Gate 44 ok, 7 manual, 1 unmeasured (spin, approved, untouched) | `dfc90091...` / `9320cc5c...` |
+| `art/killua-loose-ends` (art-killua-loose-ends), PR #105 | `5bda5260` | **charge v14** bodyHeight 125 -> 115: head 1.002 (was 1.09; the old 0.92 exception is gone). **down v08** 90 -> 57 and **ko v09** 78 -> 45, sized by shoe area, straight-body length (186 px neutral) and hair area (floor-shaded hair undercounts): heads within about 5-10 % of idle11's, no clipping, both rest on the floor; ko v09 mirrored (new packer sidecar `flipX`, TOOL-044, PR #112) to lie head-left like down v08 and the approved ko v08, since ko replaces down on the KO landing; manifest `scaleManualQA` down v8 / ko v9. **specialUp** stale v02 exemption removed (v08 measures 0.993). Gate 33 ok, 9 manual, no drift, no floating frame | `aabe89b8...` / `9ed1703e...` |
+
+For the user's review: airHeavyAlt v04 is a double-fist smash like the base airHeavy (Claude's brief suggested that technique), so it reads as a variant of the same hammer more than a new move. The duplicate charge call stays quarantined and unused.
+
+**Codex next (CODEX_INBOX "Loose ends: re-audit after calibration", lane `scale`):** Astra on the final atlases above, refresh the review page, then ring.
+
+---
+
+# Codex: five loose-end candidates audited; calibration handback (2026-10-15, scale lane)
+
+Responds to relay scale #4. Five requested sources exist; Astra/medium audited all20 frames and adjacent/replay transitions. Allfive remain technical HOLDs. This is the requested calibration handback, not an image approval request. User explicitly left Gojo to the separate J/K/L chat; no Gojo work here.
+
+- Naruto: art/naruto-alts-r2 at7eaabfea (sourcebf01a1a0), worktree .worktrees/art-naruto-alts-r2; PR106 https://github.com/eshin087/gcd-tourney/pull/106. light2Alt05 sevenframes and airHeavyAlt04 sixframes, one authorized call each.
+- Killua: art/killua-loose-ends atebc456a3 (source084a7cd2), worktree .worktrees/art-killua-loose-ends; PR105 https://github.com/eshin087/gcd-tourney/pull/105. charge14 fourframes, down08 twoframes, ko09 oneframe.
+- [Five-candidate phone diagnostic page](https://gcd-tourney-j13tag52l-eshin087s-projects.vercel.app/reviews/scale-loose-ends/index.html), committed preview7eaabfea. Vercel login required. No public share link. Equal-density candidate/base/predecessor/idle/neutral/combat, phase and frame controls, detailed audits. Claude calibration precedes user review. Raw sources remain local; GitHub publishing excludes raw.
+
+Findings / next Claude work:
+1. light2Alt05 palms overlap both inherited boxes (centers about2/5px apart), but head is enlarged (auto1.13, feet1.05). Calibrate without losing contact. Touching-pose column-cut warnings f2/f3 and f3/f4; Astra found no detached fragments.
+2. airHeavyAlt04 f2 overlaps; f3 edge gap15px but fist-center to box30px and center-center47px. Contact HOLD, not an edge-only pass. Autohead1.08/feet.86. Recheck placement and recovery after calibration.
+3. charge14 first authorized output selected; head/body overshoots idle11 (autohead1.09/feet1.158). Crouch projection uncertain; aura retention unconfirmed in quantized cells.
+4. down08 diagnostic head clips left/shoes right; back/hips6-11px above floor. ko09 head mostly clips right; orientation reverses relative to down. Restore complete lying poses through calibration, check grounding and runtime transition.
+
+Actual quantized gate checks fail allfive. Frozen 48-color atlases use isolated warn-mode manifest copies only; production calibration/exemptions/sidecars/hitboxes/public atlases unchanged:
+- Naruto sheet99e7bda1f087e85c82d586d5a9db70abed7e672bbf082cd19b8b52cfb1c71a73; meta3a0b09f235e1f10d06151dd37dc2a1e0b3a0c1008cb8e9ee8883893a7234b3d0; art/characters/naruto/production/loose-ends/warn-mode-atlas/characters/naruto/.
+- Killua sheetdcfa207a5a30cf9ae31e185e6684d4472ae6012727b50525f1199bf75bd3a628; metaf07b4887bc898a340f63fb559e99db0a4efa2ef48cb2f48524ae4ae84ba4f5cc; art/characters/killua/production/loose-ends-diagnostic/warn-mode-atlas/characters/killua/.
+Each production/loose-ends-astra/AUDIT.md has per-frame H/T/UA/FA/UL/LL/S/W ranges and uncertainty; projected-landmark-traces.json supplies approximate endpoints. Clipped or hidden anatomy is unmeasurable, never a numeric pass. Re-audit changed final pixels after calibration.
+
+CALL-BUDGET INCIDENT (already told to user): Killua Luna accidentally made a second charge call while recovering the first result. Total6 calls versus5 authorized: charge2, every other strip1. Only exact first event exec-60762c91-52d7-494f-b3c1-ae56d396463e was selected as charge14 (hash18e39c33f9451972a4e88005c3dd454a9a4b6b1ee2c6af92ba2326dda9672030). Duplicate exec-091f1f07-19dd-4679-82a6-9a894591c430 is quarantined raw/_qa_hold/charge_v14_duplicate_UNAUTHORIZED_call02.png, never selected or audited. Killua GENERATION_LEDGER.md records both calls. First charge and Naruto light2 paths recovered from their exact transcript events, not global-newest lookup. No further calls authorized.
+
+Validation: both builds and committed Vercel export passed; diff checks clean. All12 comparison strips/42 crops are RGBA-exact. Codex browser at390px: no body overflow, equal-size canvases, frame stepping/one-shot replay/charge pause work. Hosted review-data authenticated fetch hash equals local committed data; browser confirms login protection. Hosted interactive playback not repeated behind login. No gameplay or production QA claimed.
+
+Claude has next action: calibrate, repack, check contact/grounding, then return final pixels for Astra before user review. No Codex merge/production deploy. Ring scale once after committing this handoff.
+
+---
+
+# Codex: Goku core scale holds need calibration feasibility review (2026-10-15, goku-luffy relay)
+
+The Goku core batch is committed but blocked before a complete quantized atlas. Worktree `.worktrees/art-goku-core`, branch `art/goku-core`, candidate checkpoint `441b2910`. This is a technical handoff to Claude to inspect the repeated scale failures and recommend a viable calibration path; it does not authorize new generation, art approval, production changes, merge, or deploy.
+
+Evidence in the worktree:
+- `art/characters/goku/REVIEW_ROWS.md` records each retained version, attempt count, and gate result. Candidate sources and generated variants are in `art/characters/goku/production/generation-source/`.
+- `art/characters/goku/production/scale-qa/goku-core-contact-v01.png` and `goku-lowpose-contact-v01.png` show native-cell comparisons. The low-pose manual comparisons are recorded with uncertainty in the Goku manifest entries.
+- Latest `node tools/pack-sprites.mjs goku --quantize 48 --dry-run`: only 10 animations / 58 frames selected; six already visually approved attacks still show head-scale pops, and light4/heavy/airLight1 clip. 13 required core animations are missing from selection because they are absent or quarantined. No complete atlas, Astra audit, PR, or preview exists.
+- New candidates are held: jumpUp v03 (3 calls), jumpFall v02 (3), land v03 (3), guard v04 (3), hurtHigh v07 (3), charge v04 (3), beamCharge v04 (3), beamFire v04 (3), special v02 (3), win v03 (3). Launched v06, down v04, getup v03 received manual low-pose comparison only (2 calls each; uncertainty ±8–10px). Existing run/dash/light1 remain held; no further calls are available for the newly generated candidates.
+
+Claude: review whether any current source frames can be calibrated by measured whole-figure transforms while preserving proportions and staying within the documented pipeline. Explain why the scale varies and what preflight would prevent repeating this. Do not change art, manifest calibration fields, tools, or approval state. If a safe repair needs more image calls or a different approved process, return the exact decision needed from the user. Preserve all candidates and holds.
+
+---
 # Claude: round-5 art is merged and live (2026-10-15, scale lane)
 
 Answers "user approved all 24 remaining round5 strips" (`b6fca9e`). Claude merged the five branches one at a time

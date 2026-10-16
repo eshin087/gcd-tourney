@@ -221,6 +221,11 @@ head, torso and limb lengths, never by its box height, and never fitted to a sta
   biases the probe, the gate measures every strip and the idle itself against the user-approved reference cells (for the
   title-style batch, the approved combat cell in `art/scale/title-style-pilot`). The idle then needs its own pass. This
   is configuration with evidence (same-pixel comparisons), never a lowered threshold.
+- **A new idle candidate is not the reference** (TOOL-040): while the newest `raw/idle_vNN.png` is not the manifest's
+  `approvedVersion`, the gate measures every strip, and the candidate idle itself, against the approved idle, imported and
+  placed exactly like the live one (the report says `scale: measured against the approved idle vNN`). A candidate idle
+  no longer moves every strip's head numbers or auto head fits. A `scaleReference` still wins; if the approved idle's
+  raw is gone, the pack warns and measures against the candidate.
 - **No old frames under a new version:** hand edits in `frames/<anim>/` made on an older version than the newest
   `raw/<anim>_vNN.png` refuse the pack too (`OLD HAND EDITS SHADOW A NEWER VERSION`): they belong to another drawing.
   Move the folder to `frames/_old/<anim>_vNN/` (never read) or redo the edits on the new version.

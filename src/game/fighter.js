@@ -1267,7 +1267,7 @@ export class Fighter {
         freeAnim();
         break;
       case 'clashBack': {
-        // pushed back out of a melee clash (ADR 0034): free after `act` frames, and a Light / Heavy pressed during the freeze
+        // pushed back out of a melee clash (ADR 0038): free after `act` frames, and a Light / Heavy pressed during the freeze
         // comes out then, so pressing again meets the next swing
         this.vel.x *= 0.82; this.vel.z *= 0.82;
         this.actor.setPhase(this.clashAnim, 2, Math.min(0.999, this.t / this.clashSlide));
@@ -1366,7 +1366,7 @@ export class Fighter {
     }
   }
 
-  // A melee clash (Game.meleeClash, ADR 0034): this swing is spent and holds for `stop` frames where it met the
+  // A melee clash (Game.meleeClash, ADR 0038): this swing is spent and holds for `stop` frames where it met the
   // other, then is pushed back away from them at `speed`, free to act after `act` frames (leaveClash)
   clashBounce(stop, speed, act = MELEE_CLASH.act, slide = MELEE_CLASH.slide) {
     const o = this.opp, dx = this.pos.x - o.pos.x, dz = this.pos.z - o.pos.z, d = Math.hypot(dx, dz) || 1;

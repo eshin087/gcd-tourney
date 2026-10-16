@@ -82,7 +82,7 @@ function render() {
   for (const r of q) { if (!groups.has(r.who)) groups.set(r.who, []); groups.get(r.who).push(r); }
   for (const [who, list] of groups) {
     const shown = list.slice(0, 4).map((r) => `${r.asset} ${r.version}`).join(', ');
-    L.push(`- **${who}** (${list.length}): ${shown}${list.length > 4 ? ', …' : ''}. Reply in the ${who} Codex thread: \`approve ${who} <asset> vNN\` or feedback`);
+    L.push(`- **${who}** (${list.length}): ${shown}${list.length > 4 ? ', …' : ''}. Approve in Claude (its question box relays it, ADR 0037) or type \`approve ${who} <asset> vNN\` in the ${who} Codex thread`);
   }
   L.push('');
   L.push('### Fighter art (approved)');

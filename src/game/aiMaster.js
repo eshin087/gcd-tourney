@@ -40,7 +40,7 @@ const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
 // burst   chance per combo (3+ hits, ki and the round's burst in hand) that it bursts out (×1.5 when low on
 //         health or when the attacker sits on three bars); bait: chance per combo that it stops its own combo and
 //         guards against a victim who could burst (ADR 0022)
-// meleeClash  chance to meet a fresh light / heavy with the same button, a MELEE CLASH (aiClash.js, ADR 0034)
+// meleeClash  chance to meet a fresh light / heavy with the same button, a MELEE CLASH (aiClash.js, ADR 0038)
 // impactTech  chance per techable impact (floor or wall bounce) to go for the timed tech (ADR 0028), pressed `techSd`
 //         frames off on average (aiTech.js: too early locks it out, too late misses)
 export const STYLES = {
@@ -222,7 +222,7 @@ export class MasterBrain {
     this.composer.watch(game, c); // our combo's life, bounces, links (aiCombo.js)
     if (game.freeze > 0) return this.frozen(game, c);
     this.clock++;
-    // melee clash (ADR 0034): Math.random, so the seeded combo routes stay the same
+    // melee clash (ADR 0038): Math.random, so the seeded combo routes stay the same
     const cl = seekClash(f, this.S.meleeClash ?? 0, this, Math.random);
     if (cl) { this.tap(cl, 2); return; }
     if (this.pendingPunish && this.parryPunish(game, c)) return;
