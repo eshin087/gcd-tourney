@@ -598,10 +598,18 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 
 ## goku
 
-Data PR `feature/char-goku-luffy` (ADR 0032): playable on the baked placeholder; moveset in
-[KIT.md](characters/goku/KIT.md); manifest block reserved. Art: nothing generated yet. First image: the title-style
-neutral + combat reference beside the four approved cells (ADR 0029), then a preview stop for the user.
+**2026-10-15 reference approvals:** User approved model_sheet_v02 and expressions_v02. Both fixed reference PNGs now match v02 byte-for-byte; manifest status approved and approvedVersion 2. Idle02 visual approval is recorded separately; Claude calibration and technical checks remain pending.
 
+**2026-10-15 idle decision:** User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
+
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in
+  [KIT.md](characters/goku/KIT.md). The user withdrew title-style v01 and approved corrected title-style v02
+  on 2026-10-14. The fixed reference/title_style_draft.png copies v02 (207±4px body excluding hair; 234px
+  including hair); its lineup preserves the four exact approved cells at common density. Body-only ordering is
+  above Naruto/Sasuke and below Gojo within uncertainty. Model-sheet v01 and expressions v01 remain held because
+  they derive from withdrawn v01; their versioned sources are preserved. The fixed model and expression anchors
+  now contain the user-approved v02 files. Idle02 is approved as drawn, with technical checks pending. Idle v01 approval remains historical and is not used as a candidate input.
+  Proposed candidate rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
 ## luffy
 
 Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style neutral/combat reference v01, model sheet v01, expressions v01, and idle v01 are user-approved. Fixed-name reference copies are in place. The idle remains un-packed and has no scale-gate or in-game QA claim. Proposed review rows and provenance are in the Luffy art folder. Core animation production belongs in a separate branch from main after this refs PR is merged by Claude.
