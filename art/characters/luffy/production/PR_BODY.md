@@ -4,7 +4,7 @@ This update adds a single unapproved special recovery candidate, v02. It preserv
 
 ## Review the candidate
 
-- Gallery: `/characters/luffy/calibration-r6/index.html` (interactive one-shot playback, native 256px cells, approved reference context, source A preservation comparison, exact call receipt and final audit).
+- Preview gallery: [open Luffy special v02 review](https://gcd-tourney-j45zd4bei-eshin087s-projects.vercel.app/characters/luffy/calibration-r6/index.html) (interactive one-shot playback, native 256px cells, approved reference context, source A preservation comparison, exact call receipt and final audit).
 - Please reply **“approve luffy special v02”** or provide pose/design feedback. This is the only art approval requested here.
 
 ## Proposed review rows
@@ -24,6 +24,12 @@ The final 48-color strict pack contains 23 animations / 108 frames. Special is i
 - f0–f5 source preservation comparison: `art/characters/luffy/production/relay11-generation/special_v02_sourceA-preservation.json`
 
 The image-generation budget is exhausted for this round: the relay #8 input-validation failure counted as call 4/4; relay #11 authorized and used exactly one fifth call, which returned special v02. No retry remains. The candidate remains `needs review` and `approvedVersion` is unset.
+
+## Preview verification
+
+The preview build completed successfully from committed worktree commit `c85c1e710b8a0d215033cee66e514432f60e5bf7`. Static review checks confirmed the published 23-animation / 108-frame sheet and metadata hashes above; all gallery asset links resolve. The coordinator also verified that the eight review cells are RGBA-identical to their actual public atlas crops and that frame durations match metadata. Live browser playback QA was unavailable after the desktop browser transport reset, so no browser playback claim is made here.
+
+The coordinator's authenticated hosted-content check confirmed the exact sheet, metadata, and `frames.json` SHA-256 values against this audit/gallery. Hosted HTML contains the standard Vercel toolbar and line-ending normalization; the hosted browser itself was not used for playback QA.
 
 ## Other checks and remaining limits
 
