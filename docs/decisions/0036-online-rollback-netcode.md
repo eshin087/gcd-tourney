@@ -307,3 +307,6 @@ off, and reports the first frame where the two runs differ and which values diff
     waiting countdown when the other side dropped.
   - Playtest (phone vs PC): "the match carried on after the app switch and the Wi-Fi drop". Merged and live 2026-10-16
     (PR #135); on production a drop at frame 500 through the live server rejoined and matched every frame.
+- **Paused, 2026-10-16 (the user's call):** the online core is live (ENG-094/095/097). Open: peer-to-peer for private
+  rooms (ENG-098, decision 5), switching on the anti-bot check (ENG-099, built but off), and the licensing decision
+  before promoting public play (OPS-017).
