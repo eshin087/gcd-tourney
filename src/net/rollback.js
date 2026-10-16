@@ -167,6 +167,46 @@ export class RollbackSession {
     }
   }
 
+  // Back on a new connection (ENG-097): the room holds our inputs only up to frame `from` - 1, so send the rest again
+  // (in pieces the server takes). Returns false when they are no longer kept (then the match must be rebuilt).
+  resendFrom(from) {
+    for (const p of this.localPlayers) {
+      for (let f = from; f <= this.lastConf[p]; f++) if (!this.inputs[p].has(f)) return false;
+      for (let f = from; f <= this.lastConf[p]; f += 64) {
+        const v = [];
+        for (let k = f; k <= Math.min(this.lastConf[p], f + 63); k++) v.push(this.inputs[p].get(k));
+        this.link.send({ t: 'in', from: p, start: f, v, ack: this.remoteConfirmed(), adv: this.advantage() });
+      }
+    }
+    return true;
+  }
+
+  // A match rebuilt after a reload (ENG-097): logs are every input the room holds for each player, from frame 0, on a
+  // freshly started match. It replays them quietly up to where our next input belongs (the frame our last logged input
+  // was for, less the delay), the confirmed part straight and the rest as predictions a rollback can still correct.
+  resume(logs) {
+    this.reset();
+    logs.forEach((log, p) => {
+      const map = this.inputs[p];
+      for (let f = 0; f < log.length; f++) map.set(f, log[f]);
+      this.lastConf[p] = Math.max(this.delay - 1, log.length - 1);
+    });
+    const g = this.game, local = this.localPlayers[0];
+    this.ackedByRemote = this.lastConf[local]; // the room has all of it
+    const target = this.lastConf[local] + 1 - this.delay;
+    const sure = Math.min(target, this.remoteConfirmed() + 1);
+    g.quiet(() => {
+      while (g.frameNo < sure) {
+        const f = g.frameNo;
+        for (let p = 0; p < this.cur.length; p++) this.cur[p] = this.inputs[p].get(f) ?? 0;
+        g.fixedUpdate();
+        if (this.hashEvery && f % this.hashEvery === 0) this.hashes.set(f, foldHash(hashSim(g))); // tests compare every frame
+      }
+      while (g.frameNo < target) this.simulate(g.frameNo);
+    });
+    for (const r of this.remotePlayers) this.remoteFrame = Math.max(this.remoteFrame, this.lastConf[r] - this.delay);
+  }
+
   // a message from the other side; returns the earliest frame whose prediction it proved wrong (Infinity: none)
   receive(msg, now) {
     let wrong = Infinity;

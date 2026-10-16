@@ -96,7 +96,8 @@ src/game/
 src/net/                    online play (ADR 0036): rooms, rollback, spectating, a simulated network, the tests
   online.js                 Online (game.online, loaded on first use): the online screens' logic, the room, each
                             match's session (RollbackSession as a player, SpectateSession otherwise), the result report,
-                            the match strip; Game hooks: update() per frame, menuKey() (Esc / pause), overlay
+                            the match strip, rejoining after a drop (reconnect, resend or rebuild from the room's
+                            log); Game hooks: update() per frame, menuKey() (Esc / pause), overlay
   quickChat.js              QUICK: the quick-chat lines and emotes rooms talk in (sent as an index; ENG-095)
   turnstile.js              Cloudflare Turnstile widget (its script loads only to open a public room): roomToken()
   lobby.js                  LobbyClient: one WebSocket to a room on the lobby server (server/), JSON messages, ping;

@@ -69,19 +69,22 @@ export class SpectateSession {
     game.pads.forEach((pad, p) => applyInput(pad, this.cur[p]));
   }
 
-  // a quiet fast-forward skipped the camera cuts and HUD calls of what it ran through: set the view for where the
-  // match is now
   catchUpView() {
-    const g = this.game;
-    if (g.state === 'intro') return;
-    g.hud.showCards(false);
-    if (g.state === 'matchEnd' || g.state === 'results') {
-      g.hud.show(false);
-      g.cam.set('results', g.roundWinner);
-    } else {
-      g.hud.show(true);
-      g.cam.set('fight');
-    }
-    g.cam.snap();
+    catchUpView(this.game);
   }
+}
+
+// A quiet fast-forward (a late spectator, a player rebuilding its match after a reload) skipped the camera cuts and HUD
+// calls of what it ran through: set the view for where the match is now.
+export function catchUpView(g) {
+  if (g.state === 'intro') return;
+  g.hud.showCards(false);
+  if (g.state === 'matchEnd' || g.state === 'results') {
+    g.hud.show(false);
+    g.cam.set('results', g.roundWinner);
+  } else {
+    g.hud.show(true);
+    g.cam.set('fight');
+  }
+  g.cam.snap();
 }

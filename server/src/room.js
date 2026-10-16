@@ -5,6 +5,8 @@
 // A public room reports its summary to the directory (directory.js) when it changes and every HEARTBEAT_MS. Opening
 // one takes the Cloudflare Turnstile check once the TURNSTILE_SECRET Worker secret exists (verify(): siteverify); until
 // then (the user's call, 2026-10-16: "Not now") anyone may open one, and the directory caps rooms per address.
+// Sockets are found by member id (this.sockets): a member who comes back (ENG-097: hello with `resume`) takes its seat
+// on the new socket, the old one (if the server still thinks it is open) is closed, and its later close is ignored.
 import { DurableObject } from 'cloudflare:workers';
 import { RoomCore } from './roomCore.js';
 
@@ -24,6 +26,7 @@ export class Room extends DurableObject {
     this.alarmAt = null;
     this.pubKey = null; // what the directory last heard from this room
     this.pubAt = 0;
+    this.sockets = new Map(); // member id -> its current socket
     // the client's keepalive: answered without waking the object
     ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair('ping', 'pong'));
     ctx.blockConcurrencyWhile(async () => {
@@ -31,13 +34,15 @@ export class Room extends DurableObject {
       this.code = (await ctx.storage.get('code')) || null;
       this.core = new RoomCore({
         send: (id, msg) => this.send(id, msg),
-        close: (id, code, reason) => { for (const ws of ctx.getWebSockets(id)) try { ws.close(code, reason); } catch { /* closed */ } },
+        close: (id, code, reason) => { try { this.sockets.get(id)?.close(code, reason); } catch { /* closed */ } },
         save: (s) => { ctx.storage.put('room', s); },
         now: () => Date.now(),
       }, saved);
       for (const ws of ctx.getWebSockets()) {
         const m = ws.deserializeAttachment();
-        if (m?.joined) this.core.restore(m);
+        if (!m?.joined || m.superseded) continue;
+        this.core.restore(m);
+        this.sockets.set(m.id, ws);
       }
       this.alarmAt = await ctx.storage.getAlarm();
     });
@@ -62,10 +67,9 @@ export class Room extends DurableObject {
   }
 
   send(id, msg) {
-    const data = JSON.stringify(msg);
-    for (const ws of this.ctx.getWebSockets(id)) {
-      try { ws.send(data); } catch { /* closing */ }
-    }
+    const ws = this.sockets.get(id);
+    if (!ws) return; // away: the room keeps its seat, not its messages
+    try { ws.send(JSON.stringify(msg)); } catch { /* closing */ }
   }
 
   async webSocketMessage(ws, data) {
@@ -78,8 +82,20 @@ export class Room extends DurableObject {
       // opening a public room takes the anti-bot check when it is switched on (the secret is set); joining one doesn't
       const opening = !!msg.public && this.core.members.size === 0;
       const verified = opening && (!this.env.TURNSTILE_SECRET || await this.verify(msg.turnstile));
-      const m = this.core.join(a.id, msg, { ip: a.ip, region: a.region, verified });
-      if (!m) return ws.close(4000, 'rejected');
+      // a member coming back takes its seat on this socket (the old one, if still open, is closed and then ignored)
+      const back = msg.resume ? this.core.resumable(msg.resume) : null;
+      const id = back || a.id;
+      const old = this.sockets.get(id);
+      this.sockets.set(id, ws);
+      if (old && old !== ws) {
+        old.serializeAttachment({ ...old.deserializeAttachment(), superseded: true });
+        try { old.close(4002, 'reconnected elsewhere'); } catch { /* closed */ }
+      }
+      const m = this.core.join(id, msg, { ip: a.ip, region: a.region, verified });
+      if (!m) {
+        if (this.sockets.get(id) === ws) this.sockets.delete(id);
+        return ws.close(4000, 'rejected');
+      }
       ws.serializeAttachment({ ...m, joined: true });
     } else {
       if (this.core.message(a.id, msg) === 'flood') return ws.close(4008, 'too many messages');
@@ -121,9 +137,13 @@ export class Room extends DurableObject {
     await this.sync();
   }
 
+  // a socket closed: its member keeps the seat for the grace period (unless it left on purpose, or came back on
+  // another socket already)
   drop(ws) {
     const a = ws.deserializeAttachment();
-    if (a?.joined) this.core.leave(a.id);
+    if (!a?.joined || this.sockets.get(a.id) !== ws) return;
+    this.sockets.delete(a.id);
+    this.core.disconnect(a.id);
   }
 
   async alarm() {

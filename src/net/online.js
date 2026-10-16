@@ -7,11 +7,15 @@
 // Public rooms (ENG-095): BROWSE lists them (the lobby's directory, each room's ping measured to where it runs);
 // opening a public one takes the Turnstile check first (turnstile.js); rooms talk in quick-chat (quickChat.js), shown
 // on the room screen and as lines over a match; the host removes members, anyone can vote to.
+// Rejoining (ENG-097): a connection that drops keeps its seat on the server for SEAT_GRACE_MS. The client retries with
+// the welcome's token: a page that kept its match resends the inputs the room missed and takes the ones it missed; a
+// page that reloaded (a phone that dropped the tab) finds its seat in sessionStorage and rebuilds the match from the
+// room's input log (RollbackSession.resume). The other side sees "waiting for ... to reconnect" meanwhile.
 import { LobbyClient, lobbyUrl, newCode, cleanCode, fetchRooms, pingRoom } from './lobby.js';
 import { QUICK } from './quickChat.js';
 import { roomToken, checkOn } from './turnstile.js';
 import { RollbackSession, packInput } from './rollback.js';
-import { SpectateSession } from './spectate.js';
+import { SpectateSession, catchUpView } from './spectate.js';
 import { ROSTER } from '../characters/index.js';
 
 const SIM = import.meta.env.SIM_ID || 'dev'; // the server keeps a room to one simulation build
@@ -30,6 +34,11 @@ const END_TEXT = {
 // a match the server ended early stays on screen, frozen, while its banner shows
 const FROZEN = { tick: () => false, applyInputs: () => {}, reset: () => {} };
 const SHOW_END_MS = 2600; // after the server's `end`, before the room comes back
+const SEAT_GRACE_MS = 20000; // as long as the server keeps a dropped seat (server/src/roomCore.js GRACE_MS)
+// this tab's seat in its room, for coming back after a reload (sessionStorage: one per tab, kept across reloads)
+const SEAT = 'gcd.online.seat';
+const seatGet = () => { try { return JSON.parse(sessionStorage.getItem(SEAT) || 'null'); } catch { return null; } };
+const seatSet = (v) => { try { if (v) sessionStorage.setItem(SEAT, JSON.stringify({ ...v, at: Date.now() })); else sessionStorage.removeItem(SEAT); } catch { /* private mode */ } };
 
 export class Online {
   constructor(game) {
@@ -64,11 +73,19 @@ export class Online {
   }
 
   // ------------------------------------------------------------ joining
-  // the name / room code screen (code: from an invite link)
+  // the name / room code screen (code: from an invite link); a tab that just reloaded out of that room takes its seat
+  // back instead
   entry(code = '') {
-    this.leaveRoom(false);
+    const seat = seatGet();
+    code = cleanCode(code);
+    this.leaveRoom(false, false);
     const g = this.game;
-    g.toMenu(() => g.menus.onlineEntry(this, cleanCode(code)));
+    if (code && seat?.code === code && Date.now() - seat.at < SEAT_GRACE_MS * 2 && lobbyUrl()) {
+      Object.assign(this, { code, you: seat.id, token: seat.token, rejoin: true });
+      g.toMenu(() => g.menus.onlineWait(this, `REJOINING ROOM ${code}...`));
+      return this.connect(code, { resume: { id: seat.id, token: seat.token, have: null } });
+    }
+    g.toMenu(() => g.menus.onlineEntry(this, code));
   }
 
   setName(name) {
@@ -140,31 +157,102 @@ export class Online {
     this.error = '';
     this.code = code;
     g.menus.onlineWait(this, `JOINING ROOM ${code}...`);
-    const client = (this.client = new LobbyClient(url, code, {
+    this.connect(code, extra);
+  }
+
+  // one connection to the room; the hello carries extra (public / turnstile, or resume)
+  connect(code, extra = {}) {
+    this.errorCode = null;
+    const client = (this.client = new LobbyClient(lobbyUrl(), code, {
       open: () => client.send({ t: 'hello', name: this.name, fighter: this.fighter, sim: SIM, play: this.play, rtt: client.rtt, cid: this.cid, ...extra }),
-      welcome: (m) => {
-        this.you = m.you;
-        this.room = m.room;
-        this.setUrl(code);
-        this.showRoom();
-      },
+      welcome: (m) => this.welcomed(m, code),
       room: (m) => {
         this.room = m.room;
+        this.roomAt = performance.now();
         this.refresh();
       },
-      start: (m) => this.begin(m),
+      start: (m) => this.started(m),
+      log: (m) => this.logged(m),
+      logEnd: (m) => this.logEnded(m),
       feed: (m) => { if (this.match?.no === m.no && this.match.you < 0) this.match.session.feed(m.start, m.a, m.b); },
       end: (m) => this.end(m),
       say: (m) => this.heard(m),
-      error: (m) => { this.error = m.text; },
-      close: (e) => this.lost(e),
+      error: (m) => { this.error = m.text; this.errorCode = m.code; },
+      close: (e) => this.lost(e, client),
     }));
   }
 
-  // the socket closed without us leaving: back to the entry screen with why
-  lost(e) {
+  welcomed(m, code) {
+    Object.assign(this, { you: m.you, token: m.token, room: m.room, roomAt: performance.now(), reconnecting: null, rejoin: false });
+    this.setUrl(code);
+    seatSet({ code, id: m.you, token: m.token });
+    // back in: a match the room still runs comes with its start next; one that ended while we were away is over
+    if (!m.resumed || !this.match || this.room.match?.no !== this.match.no) this.showRoom();
+    this.paintStrip();
+  }
+
+  // a match start; with `resume`, our match coming back after a drop
+  started(m) {
+    const M = this.match;
+    if (m.resume && M && M.no === m.no && M.you === m.you && M.session instanceof RollbackSession && !M.ended) {
+      // this page kept the match: take the inputs we missed (`log`), then send the ones the room lacks (logEnd)
+      this.client.inbox.length = 0;
+      M.session.link = this.client.matchLink();
+      this.resuming = { no: m.no, have: m.resume.have, alive: true };
+      return;
+    }
+    this.begin(m);
+    if (m.resume) {
+      // a reload: the match is rebuilt from the room's log once it has all arrived
+      this.game.netplay = FROZEN;
+      this.resuming = { no: m.no, have: m.resume.have, alive: false, logs: [[], []], delay: m.delay };
+    }
+  }
+
+  logged(m) {
+    const R = this.resuming;
+    if (!R || R.no !== m.no || !this.match) return;
+    if (!R.alive) for (let k = 0; k < m.v.length; k++) R.logs[m.p][m.start + k] = m.v[k];
+    else if (m.p !== this.match.you) this.client.inbox.push({ t: 'in', from: m.p, start: m.start, v: m.v });
+  }
+
+  logEnded(m) {
+    const R = this.resuming, M = this.match, g = this.game;
+    if (!R || R.no !== m.no || !M) return;
+    this.resuming = null;
+    if (R.alive) {
+      // the room lost more of our inputs than we still keep (a long drop): rebuild from its log instead
+      if (!M.session.resendFrom(R.have[M.you])) {
+        this.rebuildNext = true;
+        this.client.kill();
+      }
+      return;
+    }
+    const session = new RollbackSession(g, {
+      link: this.client.matchLink(), local: () => this.localInput(), localPlayers: [M.you], remotePlayers: [1 - M.you],
+      delay: R.delay, onDesync: (frame) => this.client?.send({ t: 'desync', frame }),
+    });
+    g.netplay = session;
+    session.resume(R.logs);
+    M.session = session;
+    catchUpView(g);
+  }
+
+  // The socket closed without us leaving. Joined and not turned away: keep the match and take the seat back (the
+  // room holds it for SEAT_GRACE_MS). Else back to the entry screen with why.
+  lost(e, client) {
+    if (client && client !== this.client) return; // a connection we already replaced
     const g = this.game, joined = !!this.you;
     this.client = null;
+    const fatal = !joined || this.errorCode || [4000, 4001, 4008].includes(e.code);
+    if (!fatal && this.token) return this.reconnect();
+    this.reconnecting = null;
+    if (this.errorCode === 'gone' && this.code) {
+      // the seat is gone (too late, or a reload from long ago): join the room afresh
+      seatSet(null);
+      this.error = '';
+      return this.join(this.code);
+    }
     this.dropMatch();
     this.you = null;
     this.room = null;
@@ -176,8 +264,35 @@ export class Online {
     g.toMenu(() => g.menus.onlineEntry(this, this.code));
   }
 
-  leaveRoom(back = true) {
+  // retry every 2 s until the room's grace for our seat runs out (the match meanwhile stands still on both sides)
+  reconnect() {
+    const R = (this.reconnecting ||= { since: performance.now(), tries: 0 });
+    if (performance.now() - R.since > SEAT_GRACE_MS) {
+      this.reconnecting = null;
+      this.errorCode = 'lost';
+      this.error = 'Lost the connection to the room.';
+      return this.lost({ code: 1006 });
+    }
+    R.tries++;
+    this.paintStrip();
+    const M = this.match, s = M?.session;
+    const have = M && M.you >= 0 && !M.ended && s instanceof RollbackSession && !this.rebuildNext ? s.lastConf.map((c) => c + 1) : null;
+    if (!have && M && M.you >= 0) {
+      this.dropMatch(); // a rebuild starts the match again from the room's log; until then the scene stands still
+      this.game.netplay = FROZEN;
+    }
+    this.rebuildNext = false;
+    clearTimeout(this.retryT);
+    this.retryT = setTimeout(() => {
+      if (this.reconnecting && !this.client) this.connect(this.code, { resume: { id: this.you, token: this.token, have } });
+    }, R.tries === 1 ? 300 : 2000);
+  }
+
+  leaveRoom(back = true, forget = true) {
     const g = this.game;
+    clearTimeout(this.retryT);
+    this.reconnecting = null;
+    if (forget) seatSet(null);
     if (this.client) {
       this.client.close();
       this.client = null;
@@ -397,6 +512,10 @@ export class Online {
     if (now - this.stripAt > 500) {
       this.stripAt = now;
       this.paintStrip();
+      if (this.client && this.you && now - (this.seatAt || 0) > 5000) {
+        this.seatAt = now;
+        seatSet({ code: this.code, id: this.you, token: this.token }); // fresh, so a reload soon after finds it
+      }
     }
   }
 
@@ -411,12 +530,31 @@ export class Online {
     this.paintStrip();
   }
 
-  // the line at the top during a match: the room, who is playing, where we are in the line, the ping
+  // seconds a member has left to come back (the room's figure, counted down since it arrived)
+  awayLeft(m) {
+    return m?.away ? Math.max(0, Math.ceil((m.away - (performance.now() - (this.roomAt || 0))) / 1000)) : 0;
+  }
+
+  // the line at the top during a match: the room, who is playing, where we are in the line, the ping; or that we are
+  // reconnecting, or waiting for a player who is
   paintStrip() {
     const s = this.strip, M = this.match, R = this.room;
+    s.classList.toggle('alert', !!this.reconnecting);
+    if (this.reconnecting) {
+      s.classList.remove('hidden');
+      const left = Math.max(0, Math.ceil((SEAT_GRACE_MS - (performance.now() - this.reconnecting.since)) / 1000));
+      s.textContent = `RECONNECTING TO ROOM ${this.code} · ${left}s`;
+      return;
+    }
     const show = !!(this.client && R && M && !this.overlay);
     s.classList.toggle('hidden', !show);
     if (!show) return;
+    const gone = R.members.find((m) => m.away && m.id !== this.you && M.players.some((p) => p.id === m.id));
+    s.classList.toggle('alert', !!(gone && !M.ended));
+    if (gone && !M.ended) {
+      s.textContent = `WAITING FOR ${gone.name} TO RECONNECT · ${this.awayLeft(gone)}s`;
+      return;
+    }
     const ping = this.client.rtt != null ? ` · ${Math.round(this.client.rtt)} ms` : '';
     const [a, b] = M.players.map((p) => p.name);
     let line = `${a} vs ${b}` + (M.you >= 0 ? ` · input delay ${M.delay}f` : '');

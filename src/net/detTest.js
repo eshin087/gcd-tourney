@@ -334,7 +334,9 @@ export function install(game, ready, qs) {
   // (SimRemote playing the log's second pad over its own socket). The intro is played, as online. Every frame of this
   // game must equal the same inputs replayed straight through a spectator session, the bot's hash reports must agree
   // (the desync check, through the server), and the spectator's feed must be exactly the inputs both players sent.
-  async function online(log, { lobby = lobbyUrl(), frames = 3000, onProgress = null } = {}) {
+  // drop: { at, ms, reload } (ENG-097): at frame `at` our connection drops for `ms` and comes back on the seat's
+  // token; reload: as a page that reloaded (the match rebuilt from the room's log) instead of one that kept it.
+  async function online(log, { lobby = lobbyUrl(), frames = 3000, onProgress = null, drop = null } = {}) {
     if (!lobby) throw new Error('no lobby server: run npm run lobby, or pass { lobby: "ws://..." }');
     const N = Math.min(frames, log.frames);
     const cfg = { mode: 'online', p1: log.cfg.p1, p2: log.cfg.p2 };
@@ -351,7 +353,7 @@ export function install(game, ready, qs) {
         const c = new LobbyClient(lobby, code, {
           ...on,
           open: () => c.send({ t: 'hello', sim, rtt: c.rtt, ...hello }),
-          welcome: () => resolve(c),
+          welcome: (m) => { c.welcome = m; resolve(c); },
           error: (m) => reject(new Error(m.text)),
           close: (e) => { closed.push(`${hello.name} ${e.code}`); reject(new Error('closed ' + e.code)); },
         });
@@ -386,16 +388,52 @@ export function install(game, ready, qs) {
       game.netplay = null;
 
       game.startMatch({ ...cfg, spectate: false });
-      const session = new RollbackSession(game, { link: A.matchLink(), local: (p, f) => table[p][f] ?? 0, localPlayers: [0], remotePlayers: [1], delay, hashEvery: 1 });
+      const opts = { local: (p, f) => table[p][f] ?? 0, localPlayers: [0], remotePlayers: [1], delay, hashEvery: 1 };
+      let session = new RollbackSession(game, { link: A.matchLink(), ...opts });
       remote = new SimRemote(botLink, { player: 1, delay, maxRollback: 8, source: (f) => table[1][f] ?? 0, check: (f) => refFold[f], checkEvery: 60 });
       game.netplay = session;
       // real time, 60 ticks a second: the server holds each socket to a real client's message rate. Like Game.frame
       // (which clamps a long frame to 0.1 s), a stall of this page (a hidden tab) is not made up in a burst.
+      // the drop: our socket dies; after drop.ms a new one takes the seat back (resume) and the match goes on
+      let dropped = null;
+      const comeBack = () => {
+        const have = dropped.have, logs = [[], []];
+        const A2 = new LobbyClient(lobby, code, {
+          open: () => A2.send({ t: 'hello', sim, rtt: A2.rtt, name: 'Det A', resume: { id: start.players[0].id, token: A.welcome.token, have } }),
+          start: (m) => { dropped.start = m; if (have) session.link = A2.matchLink(); },
+          log: (m) => {
+            if (have) { if (m.p === 1) A2.inbox.push({ t: 'in', from: 1, start: m.start, v: m.v }); } else m.v.forEach((v, k) => { logs[m.p][m.start + k] = v; });
+          },
+          logEnd: () => {
+            if (have) dropped.resent = session.resendFrom(dropped.start.resume.have[0]);
+            else {
+              game.startMatch({ ...cfg, spectate: false });
+              session = new RollbackSession(game, { link: A2.matchLink(), ...opts });
+              game.netplay = session;
+              session.resume(logs);
+              dropped.rebuiltTo = game.frameNo;
+            }
+            dropped.done = true;
+          },
+          end: (m) => { ended = m; },
+          error: (m) => { dropped.error = m.code; },
+        });
+        sockets.push(A2);
+      };
       const t0 = performance.now();
       let due = t0;
-      for (let it = 0; game.frameNo < N && it < N * 3 && !ended; it++) {
+      for (let it = 0; game.frameNo < N && it < N * 4 && !ended; it++) {
         due = Math.max(due + 1000 / 60, performance.now() - 100);
         do await yieldNow(); while (performance.now() < due); // the sockets deliver meanwhile
+        if (drop && !dropped && game.frameNo >= drop.at) {
+          A.kill();
+          dropped = { until: performance.now() + (drop.ms ?? 2500), have: drop.reload ? null : session.lastConf.map((c) => c + 1), at: game.frameNo };
+          if (drop.reload) game.netplay = { tick: () => false, applyInputs: () => {}, reset: () => {} }; // the page is gone
+        }
+        if (dropped && !dropped.back && performance.now() >= dropped.until) {
+          dropped.back = true;
+          comeBack();
+        }
         remote.tick();
         game.frame(1 / 60);
         if (it % 120 === 0) onProgress?.(game.frameNo, N);
@@ -414,7 +452,8 @@ export function install(game, ready, qs) {
       for (let f = 0; f < feed[0].length; f++) if (feed[0][f] !== table[0][f] || feed[1][f] !== table[1][f]) { feedFirst = f; break; }
       const stats = { ...session.stats };
       return {
-        match: first === null && stats.desyncs === 0 && compared > 0.9 * N && feedFirst === null && feed[0].length > 0.8 * N && !ended,
+        match: first === null && stats.desyncs === 0 && compared > 0.9 * N && feedFirst === null && feed[0].length > 0.8 * N && !ended && (!drop || !!dropped?.done),
+        drop: dropped && { at: dropped.at, have: dropped.have, resent: dropped.resent, rebuiltTo: dropped.rebuiltTo, done: !!dropped.done, error: dropped.error },
         first, compared, frames: game.frameNo, of: N, seconds: +(ms / 1000).toFixed(1), stats,
         feed: { frames: feed[0].length, first: feedFirst }, ended, closed, rtt: A.rtt, delay, ids: { A: start.players[0].id, B: start.players[1].id },
       };

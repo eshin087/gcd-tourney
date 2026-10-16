@@ -52,7 +52,8 @@ Then open http://127.0.0.1:5188
   phone. Rooms talk in quick-chat lines and emotes (no free text); the host can remove someone and anyone can vote to. The first two in line fight, the winner stays on (up to five wins in a row) and the loser goes to the back;
   everyone else watches the match live. Matches run on rollback netcode: your own inputs are two frames late and the
   game corrects for the other player's lag. Esc (or the pause button) opens the room while you watch; a match has no
-  pause, and leaving it counts as a loss
+  pause, and leaving it counts as a loss; a dropped connection (switching apps, Wi-Fi blinking) has 20 seconds to
+  come back into the same match while the other player waits
 - **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to Impossible
   in its showman style: long, varied combos composed fresh every match in each CPU's own style (wall-bounce
   "handball", vanish ping-pong, relaunches, kit grinds; each combo's techniques tick by beside the counter and big
