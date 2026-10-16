@@ -1,3 +1,41 @@
+# Claude: round-5 calibration done on all five branches; Astra audits and one phone review page next (2026-10-15)
+
+Answers "user accepted Gojo idle08 and Goku idle02; calibration handback" (`13d4ec7`) and the scale relay audit (`4a5e405`)
+for the `scale` lane. Goku idle02 belongs to the "2 - New Characters" Claude session and is not covered here. No art
+approval, no merge, no deploy. Every number is in the branch's calibration note.
+
+| branch (worktree under `.worktrees/`) | commit | what Claude did | atlas sheet / anims.json sha256 |
+|---|---|---|---|
+| `codex/gojo-run-def` (art-gojo-title-r3) | `941d8e0` | idle08 bodyHeight 232 (k 0.983; hair and stance against the approved combat cell); `reference/idle_approved.png` = byte copy of `raw/idle_v08.png` (the user-approved v08 is now the gate reference); light3 v06 231 (k 1.07); airRecover v05 manual QA recorded. Normal gate passes: 1 ref, 33 ok, 8 manual | `0298b272...` / `6d53aac1...` |
+| `art/naruto-title-r3` (art-naruto-title-r3) | `5dee03f` | stagger08 179 (k 0.83): head 1.009, upright torso about 0.97 of the neutral cell, **fixed**. taunt10 170 (k 0.86): head 1.044, torso 0.80-0.85 of neutral, **still short**; no calls left, so it is the user's call | `715a1773...` / `de68f9d5...` |
+| `art/naruto-alts` (art-naruto-alts) | `357951e` | airHeavyAlt v01 and v02 moved to `raw/_qa_hold/` beside v03 (the packer shipped v02 otherwise); no airHeavyAlt raw is left, so the base airHeavy plays. Ten alts packed, head 1.022-1.059, every one with its base's boxes. Only residual: light2Alt's drawn kick lands about 28 px under and 32 px past light2's fist (contact is light2's) | `68dc5455...` / `1e4669fa...` |
+| `art/killua-title-r3` (art-killua-title-r3) | `2da444f` | win v05 moved to `raw/_qa_hold/`, so the **approved v04** ships (manual QA v4: standing 185-186 vs 186). Gate: 32 ok, 9 manual, 1 drift (charge 0.92, the recorded exception) | `16b78e56...` / `ca1e81d9...` |
+| `art/sasuke-title-r3` (art-sasuke-title-r3) | `ffb6abf` | unchanged; jumpSquat finding reconciled below | `a2a8faed...` / `3e6cc01a...` |
+
+**Astra's two open findings, reconciled:**
+- **Killua win05 torso: confirmed, and fixed by falling back.** Band profile of the packed frames: collar ~116 to shirt hem
+  ~153 (about 37 px) against the neutral's 94 to 148 (54), with the head (crown to collar 39 px) equal to the neutral's.
+  No bodyHeight lengthens a trunk without growing the head. Cause: the round-4 brief measured v04's trunk against the
+  crouched idle (38 px) instead of the upright neutral (50), so v05 was redrawn short on purpose. Approved v04 now ships.
+  v05 is held, not rejected; `git mv` brings it back if the user wants it.
+- **Sasuke jumpSquat06 arm: confirmed, not a calibration error.** The near forearm (bracer, elbow skin to wrist) runs about
+  40 px against 25 in the neutral and combat cells, and the hand about 21 against 15. A pose can foreshorten a limb but
+  never lengthen it. The approved v03 has the same long reaching arm (diagnostic packs of v03 at 162 and 149), so
+  falling back does not fix it, and shrinking the strip shrinks the head with it. Remedy is a redraw (round-4 budget
+  3/3 spent) or acceptance: **the user's decision**. This pose is also the spot-dodge hold.
+
+**Merge guard (`node tools/pr.mjs check <branch>`, read-only).** Every refusal is "unapproved newest raw", so integration
+now waits on the user's per-strip review: Killua guard09, idle11, stagger07, superDash08 · Sasuke beamFire07, dash07,
+jumpSquat06, superDash07 · Gojo airLight1 v07, airLight2 v05, airRecover v05, jumpFall v06, light3 v06, superDash v09,
+throw v05 · Naruto stagger08, taunt10, win09 · alts airLight1Alt01, airLight2Alt01, airLight3Alt01, heavyAlt02,
+hurtHighAlt01, hurtLowAlt01, light1Alt01, light2Alt03, light3Alt02, light4Alt01 (28 strips).
+
+**Codex next (CODEX_INBOX "Round 5", lane `scale`):** Astra audits of the changed atlases (Gojo idle08 / light3 v06 /
+airRecover v05; Naruto stagger08 / taunt10; the ten alts), then one phone review page with all 28 strips from these
+atlases, then ring.
+
+---
+
 # Codex: Goku model sheet02 and expressions02 approved by user (2026-10-15)
 
 User explicitly said: "I approve Goku’s model sheet02 and expressions02. Record both approvals and hand them back to Claude."
