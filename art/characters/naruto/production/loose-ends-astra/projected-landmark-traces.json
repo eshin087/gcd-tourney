@@ -1,0 +1,499 @@
+{
+  "method": "Manual approximate projected visible-joint coordinate traces on native crops; not automated segmentation. Endpoints +/-4px or more where covered; identify one most-visible limb only. These traces are supporting evidence, not intrinsic-length passes. Far limbs are excluded. Repeated traces mean differences below manual uncertainty, not pixel-identical frames. In lying frames garment joints and shoulders are especially uncertain (+/-8px).",
+  "frames": {
+    "light2Alt-f0": {
+      "shoulder_elbow_wrist": [
+        [
+          124,
+          111
+        ],
+        [
+          94,
+          126
+        ],
+        [
+          113,
+          117
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          127,
+          157
+        ],
+        [
+          100,
+          192
+        ],
+        [
+          76,
+          221
+        ]
+      ],
+      "projected_arm_lengths": [
+        33.5,
+        21.0
+      ],
+      "projected_leg_lengths": [
+        44.2,
+        37.6
+      ]
+    },
+    "light2Alt-f1": {
+      "shoulder_elbow_wrist": [
+        [
+          124,
+          111
+        ],
+        [
+          92,
+          121
+        ],
+        [
+          113,
+          117
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          127,
+          157
+        ],
+        [
+          100,
+          192
+        ],
+        [
+          76,
+          221
+        ]
+      ],
+      "projected_arm_lengths": [
+        33.5,
+        21.4
+      ],
+      "projected_leg_lengths": [
+        44.2,
+        37.6
+      ]
+    },
+    "light2Alt-f2": {
+      "shoulder_elbow_wrist": [
+        [
+          150,
+          108
+        ],
+        [
+          179,
+          105
+        ],
+        [
+          207,
+          102
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          127,
+          157
+        ],
+        [
+          100,
+          192
+        ],
+        [
+          76,
+          221
+        ]
+      ],
+      "projected_arm_lengths": [
+        29.2,
+        28.2
+      ],
+      "projected_leg_lengths": [
+        44.2,
+        37.6
+      ]
+    },
+    "light2Alt-f3": {
+      "shoulder_elbow_wrist": [
+        [
+          150,
+          108
+        ],
+        [
+          179,
+          105
+        ],
+        [
+          207,
+          102
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          127,
+          157
+        ],
+        [
+          100,
+          192
+        ],
+        [
+          76,
+          221
+        ]
+      ],
+      "projected_arm_lengths": [
+        29.2,
+        28.2
+      ],
+      "projected_leg_lengths": [
+        44.2,
+        37.6
+      ]
+    },
+    "light2Alt-f4": {
+      "shoulder_elbow_wrist": [
+        [
+          124,
+          111
+        ],
+        [
+          98,
+          121
+        ],
+        [
+          120,
+          117
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          127,
+          157
+        ],
+        [
+          100,
+          192
+        ],
+        [
+          76,
+          221
+        ]
+      ],
+      "projected_arm_lengths": [
+        27.9,
+        22.4
+      ],
+      "projected_leg_lengths": [
+        44.2,
+        37.6
+      ]
+    },
+    "light2Alt-f5": {
+      "shoulder_elbow_wrist": [
+        [
+          124,
+          111
+        ],
+        [
+          94,
+          126
+        ],
+        [
+          113,
+          117
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          127,
+          157
+        ],
+        [
+          100,
+          192
+        ],
+        [
+          76,
+          221
+        ]
+      ],
+      "projected_arm_lengths": [
+        33.5,
+        21.0
+      ],
+      "projected_leg_lengths": [
+        44.2,
+        37.6
+      ]
+    },
+    "light2Alt-f6": {
+      "shoulder_elbow_wrist": [
+        [
+          124,
+          111
+        ],
+        [
+          94,
+          126
+        ],
+        [
+          113,
+          117
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          127,
+          157
+        ],
+        [
+          100,
+          192
+        ],
+        [
+          76,
+          221
+        ]
+      ],
+      "projected_arm_lengths": [
+        33.5,
+        21.0
+      ],
+      "projected_leg_lengths": [
+        44.2,
+        37.6
+      ]
+    },
+    "airHeavyAlt-f0": {
+      "shoulder_elbow_wrist": [
+        [
+          112,
+          130
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          99,
+          77
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          139,
+          178
+        ],
+        [
+          132,
+          212
+        ],
+        [
+          110,
+          226
+        ]
+      ],
+      "projected_arm_lengths": [
+        31.9,
+        26.3
+      ],
+      "projected_leg_lengths": [
+        34.7,
+        26.1
+      ]
+    },
+    "airHeavyAlt-f1": {
+      "shoulder_elbow_wrist": [
+        [
+          115,
+          132
+        ],
+        [
+          100,
+          104
+        ],
+        [
+          88,
+          79
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          141,
+          178
+        ],
+        [
+          132,
+          210
+        ],
+        [
+          110,
+          225
+        ]
+      ],
+      "projected_arm_lengths": [
+        31.8,
+        27.7
+      ],
+      "projected_leg_lengths": [
+        33.2,
+        26.6
+      ]
+    },
+    "airHeavyAlt-f2": {
+      "shoulder_elbow_wrist": [
+        [
+          170,
+          147
+        ],
+        [
+          194,
+          170
+        ],
+        [
+          220,
+          183
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          153,
+          180
+        ],
+        [
+          174,
+          207
+        ],
+        [
+          150,
+          223
+        ]
+      ],
+      "projected_arm_lengths": [
+        33.2,
+        29.1
+      ],
+      "projected_leg_lengths": [
+        34.2,
+        28.8
+      ]
+    },
+    "airHeavyAlt-f3": {
+      "shoulder_elbow_wrist": [
+        [
+          155,
+          174
+        ],
+        [
+          176,
+          199
+        ],
+        [
+          192,
+          216
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          128,
+          192
+        ],
+        [
+          150,
+          214
+        ],
+        [
+          126,
+          226
+        ]
+      ],
+      "projected_arm_lengths": [
+        32.6,
+        23.3
+      ],
+      "projected_leg_lengths": [
+        31.1,
+        26.8
+      ]
+    },
+    "airHeavyAlt-f4": {
+      "shoulder_elbow_wrist": [
+        [
+          165,
+          133
+        ],
+        [
+          149,
+          153
+        ],
+        [
+          172,
+          145
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          152,
+          174
+        ],
+        [
+          132,
+          200
+        ],
+        [
+          112,
+          226
+        ]
+      ],
+      "projected_arm_lengths": [
+        25.6,
+        24.4
+      ],
+      "projected_leg_lengths": [
+        32.8,
+        32.8
+      ]
+    },
+    "airHeavyAlt-f5": {
+      "shoulder_elbow_wrist": [
+        [
+          164,
+          117
+        ],
+        [
+          146,
+          136
+        ],
+        [
+          169,
+          127
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          156,
+          159
+        ],
+        [
+          130,
+          192
+        ],
+        [
+          112,
+          225
+        ]
+      ],
+      "projected_arm_lengths": [
+        26.2,
+        24.7
+      ],
+      "projected_leg_lengths": [
+        42.0,
+        37.6
+      ]
+    }
+  }
+}

@@ -22,6 +22,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
 import { auditCharacter, compactAudit, resolveGate, exemptionsFrom, verdictText, staleExemptText, FLAGGED, hex } from './scale-probe.mjs';
 import { packDecals, printDecalReport, updateDecalStatus } from './pack-decals.mjs';
+import { skippedFiles } from './sparse-art.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
@@ -229,6 +230,8 @@ options
                     "approvedVersion" in the manifest are packed, and stale outputs are removed when their
                     approval is gone. --candidates packs every latest candidate into <out>/preview/<kind>/
                     instead (git-ignored, local review with ?art=custom); the shipped folders stay untouched.
+  --allow-drop      let the vfx atlas lose an effect it ships whose source (raw/ or frames/) is missing on disk;
+                    without it the packer refuses (exit 1) and leaves the atlas as it is (TOOL-048)
   --json            print the report as JSON (for scripts/agents) instead of text
   --strict          exit code 2 when there are warnings
   --strict-scale    scale gate (art/CHARACTER_SCALE.md): every strip whose head is off the idle's is an error,
@@ -242,7 +245,7 @@ options
 `;
 
 function parseArgs(argv) {
-  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [] };
+  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, allowDrop: false, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [] };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const eq = a.indexOf('=');
@@ -264,6 +267,7 @@ function parseArgs(argv) {
       case '--guide': o.guide = val(); break;
       case '--dry-run': o.dryRun = true; break;
       case '--no-writeback': o.writeback = false; break;
+      case '--allow-drop': o.allowDrop = true; break;
       case '--json': o.json = true; break;
       case '--update-manifest': o.updateManifest = true; break;
       case '--candidates': o.candidates = true; break;
@@ -2485,8 +2489,25 @@ function reachesSides(img) {
   return hit(0) && hit(img.w - 1);
 }
 
+// TOOL-048: effects the current atlas ships that this pack would lose because their source is missing on disk. An
+// effect that lost its approval leaves on purpose; one whose raw/ and frames/ are simply not there is almost always a
+// checkout problem (a sparse worktree without art/vfx/raw/ dropped six live effects from a committed atlas on
+// 2026-10-15), so the atlas is refused until the raws are back or --allow-drop says the loss is intended.
+function lostVfx(env, outVfx, R) {
+  if (env.candidates || env.allowDrop) return [];
+  const shipped = readJson(path.join(outVfx, 'atlas.json')).data?.anims;
+  const lost = shipped ? Object.keys(shipped).filter((n) => R.missing.includes(n) && !R.unapproved.includes(n)) : [];
+  if (!lost.length) return lost;
+  const skipped = isDir(env.artDir) ? skippedFiles(env.artDir, 'vfx/raw').filter((p) => !/\/(_rejected|_old)\//.test(p)) : [];
+  const fix = skipped.length
+    ? `art/vfx/raw/ is not checked out in this sparse worktree (${skipped.length} tracked file(s) left off disk): run \`npm run pr -- art vfx\` in this worktree, then pack again`
+    : 'restore their raw/ or frames/, or pass --allow-drop if removing them from the atlas is intended';
+  R.warnings.push(`VFX ATLAS NOT WRITTEN: ${rel(env.cwd, path.join(outVfx, 'atlas.json'))} ships ${lost.join(', ')}, but their source is missing here - ${fix}`);
+  return lost;
+}
+
 function packVfx(env) {
-  const R = { packed: [], missing: [], failed: [], unapproved: [], removed: [], preview: !!env.candidates, versions: {}, frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
+  const R = { packed: [], missing: [], failed: [], unapproved: [], removed: [], refused: [], preview: !!env.candidates, versions: {}, frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
   const warn = (m) => R.warnings.push(m);
   const vfxDir = path.join(env.artDir, 'vfx');
   const outVfx = worldOut(env, 'vfx');
@@ -2494,7 +2515,12 @@ function packVfx(env) {
   for (const [name, e] of Object.entries(env.manifest.vfx)) effects[name] = { ...(VFX_EFFECTS[name] || { frames: e.frames || 4, ms: 50, tinted: false, fill: 0.8 }), ...e };
   // an approval recorded on a worldArt.vfx batch (vfx-<effect>, vfx-<effect>-rN) counts like vfx.effects (highest wins)
   for (const [name, v] of worldApprovals(env.manifestRaw, 'vfx')) if (effects[name] && v > (effects[name].approvedVersion || 0)) effects[name].approvedVersion = v;
-  if (!isDir(vfxDir)) { R.missing = Object.keys(effects); removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R); return R; }
+  if (!isDir(vfxDir)) {
+    R.missing = Object.keys(effects);
+    if ((R.refused = lostVfx(env, outVfx, R)).length) return R;
+    removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R);
+    return R;
+  }
   const names = Object.keys(effects);
   const rawIdx = scanRaw(path.join(vfxDir, 'raw'), names, warn, 'vfx/raw');
   const framesRoot = path.join(vfxDir, 'frames');
@@ -2573,6 +2599,7 @@ function packVfx(env) {
       R.failed.push(name);
     }
   }
+  if ((R.refused = lostVfx(env, outVfx, R)).length) return R;
   if (!packed.length) { removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R); return R; }
 
   const cols = Math.max(...packed.map((p) => p.cells.length));
@@ -3145,7 +3172,8 @@ function printReport(rep, env) {
     L(`== vfx ${'='.repeat(57)}`);
     if (v.preview) L('  candidates: every effect, approved or not -> preview/vfx/ (the game shows it with ?art=custom)');
     else if (v.unapproved.length) L(`  not approved yet (${v.unapproved.length}, procedural in game; preview with --candidates): ${v.unapproved.join(', ')}`);
-    if (!v.packed.length) L(`  nothing packed${v.unapproved.length && !v.preview ? ' (no approved effects)' : ' (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/)'} - the game keeps its procedural effects`);
+    if (v.refused?.length) L(`  NOT WRITTEN: the atlas would lose ${v.refused.join(', ')} (source missing on disk; see the ! line below)`);
+    else if (!v.packed.length) L(`  nothing packed${v.unapproved.length && !v.preview ? ' (no approved effects)' : ' (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/)'} - the game keeps its procedural effects`);
     else {
       L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas} (missing ones stay procedural)`);
       for (const p of v.packed) L(`    ${p.effect.padEnd(11)} ${(String(p.frames).padStart(2) + (p.frames !== p.expected ? '/' + p.expected : '')).padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
@@ -3197,10 +3225,11 @@ function printReport(rep, env) {
   const crowdLine = rep.crowd ? (rep.crowd.packed.length ? `crowd atlas packed (${rep.crowd.spectators})` : 'no crowd art') : 'crowd skipped';
   const more = [['stage', 'stage slot'], ['npc', 'NPC'], ['ui', 'UI image'], ['decals', 'decal']].filter(([k]) => rep[k]).map(([k, n]) => `${rep[k].packed.length} ${n}(s)`);
   const gateFailed = rep.characters.filter((c) => c.scale?.failed.length);
+  if (rep.vfx?.refused?.length) L(`VFX ATLAS NOT WRITTEN: it would lose ${rep.vfx.refused.join(', ')} - check out art/vfx/raw/ (\`npm run pr -- art vfx\` in a sparse worktree) or pass --allow-drop`);
   if (gateFailed.length) L(`SCALE GATE FAILED: ${gateFailed.map((c) => `${c.id} (${c.scale.failed.join(', ')})`).join('; ')} - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"`);
   const shadowed = rep.characters.filter((c) => c.blocked?.length);
   if (shadowed.length) L(`OLD HAND EDITS SHADOW A NEWER VERSION: ${shadowed.map((c) => `${c.id} (${c.blocked.join(', ')})`).join('; ')} - not written; move each frames/<anim>/ to frames/_old/ or redo the edits on the new version`);
-  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
+  L(`done: ${rep.characters.filter((c) => c.packed.length).length}/${rep.characters.length} character(s) packed, ${rep.vfx ? (rep.vfx.refused?.length ? 'vfx atlas NOT WRITTEN' : rep.vfx.packed.length ? 'vfx atlas packed' : 'no vfx art') : 'vfx skipped'}, ${crowdLine}${more.length ? ', ' + more.join(', ') : ''}, ${nw} warning(s).`);
 }
 
 // The decal packer (tools/pack-decals.mjs, ADR 0024) uses this file's helpers, passed in (it predates the export list
@@ -3232,7 +3261,7 @@ async function main() {
   for (const s of manifest.specIssues) rep.warnings.push(`manifest ${s}`);
   rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
   rep.spec = manifest.spec;
-  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, quantize: opts.quantize, tol: opts.tol, candidates: opts.candidates };
+  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, allowDrop: opts.allowDrop, quantize: opts.quantize, tol: opts.tol, candidates: opts.candidates };
   // scale gate inputs (TOOL-025): thresholds from spec.scaleGate, declared head/feet colours, the committed baseline
   const gateIssues = [];
   Object.assign(env, {
@@ -3288,6 +3317,7 @@ async function main() {
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);
   if (rep.characters.some((c) => c.scale?.failed.length || c.blocked?.length)) return 1; // the scale gate failed or old hand edits shadow a newer version
+  if (rep.vfx?.refused?.length) return 1; // the vfx atlas would lose effects whose source is not on disk (TOOL-048)
   return opts.strict && rep.totalWarnings ? 2 : 0;
 }
 

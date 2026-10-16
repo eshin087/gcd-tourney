@@ -165,41 +165,96 @@ at head 1.40x, feet 0.62x), the same two-handed Rasengan push; it joins this rou
 **The five effects are live** (Claude shipped them from main in PR #116, fad4e68c). After merging main, keep main's
 `art/vfx/**` and `public/vfx/**`; never repack VFX in `art/beam-clash`. The sparse branch atlas dropped six live effects:
 glow, bubble, wisp, arc, ripple and naruto_chakraTail. PR #110's `public/vfx/atlas.*` must not ship.
-- [x] 1. Merged latest main into `.worktrees/art-beam-clash`; merge commit **881562f4**. Resolved all `art/vfx/**` and
-  `public/vfx/**` conflicts using main's versions; verified they match main. Never run any VFX repack in this worktree.
+- [x] 1. Merged latest main into `.worktrees/art-beam-clash`; latest merge commit **2de7bbb0** (earlier merge 881562f4). Kept main's `art/vfx/**` and
+  `public/vfx/**` unchanged and verified them against main. Never run any VFX repack in this worktree.
 - [x] 2. Generated and filed ground `beamStruggle_v01` for Sasuke, Killua and Gojo (max 3 calls each).
 - [x] 3. Generated and filed `beamStruggleAir_v01` for Sasuke, Killua and Gojo (max 3 calls each). Also generated Naruto
   `beamStruggle_v02` using the user's relayed decision (one call, 2nd of 3); this is not approval.
-- [ ] 4. Per strip: the title-style contract, `hand` on every frame in hitboxes.json (within about 6 px across the
-  loop), `npm run sprites <id>` strict, the body sheet, then the Astra audit of the quantized atlas; a strip that fails stays a
-  technical hold (say so on the page; do not present it for approval).
-  **BLOCKED:** Sasuke ground scale ratios head 1.54 / feet 1.84 and air 1.18 / 1.16; Killua air 1.06 / 1.32; Gojo air
-  0.94 / 1.06. Naruto v02 head gate 2 ok but body sheet garment-area ratio B=0.60 vs idle in all frames. Killua/Gojo
-  ground body/contact checks are incomplete because the gate failure prevented a pack. Astra audit unavailable in this chat.
-  Candidates are on technical hold; do not request image approval.
-- [ ] 5. Phone review page `public/reviews/beam-clash-r2/` and PR preview are not ready because the candidates are held.
-  No review URL exists. Claude must arrange the remaining technical/audit path before the user reviews any image.
+- [x] 4. Strict quantized packing and body sheets were rerun after restoring sparse raw folders. Six candidates passed and the
+  user approved them via Claude approval desk relay #7 (“Approve all 6”): Naruto ground v02, Sasuke ground/air v01,
+  Killua ground v01, Gojo ground/air v01. Recorded in manifest, REVIEW and TRACKER. Naruto anchor [232,124] is stable;
+  the other five per-frame hand anchors still need measurement before runtime integration. Astra audit remains pending.
+  Killua air v01 failed (head .93, feet 1.19, body B .55-.61), stays in `raw/_qa_hold/`, and was omitted from the atlas.
+- [x] 5. Phone review page and PR #110 preview are ready:
+  https://gcd-tourney-m1mjwpw3c-eshin087s-projects.vercel.app/reviews/beam-clash-r2/ (preview build passed).
+  Main VFX sources and atlas were preserved unchanged. No VFX pack was run.
+
+**Completed 2026-10-16 (Codex):** Killua air `beamStruggleAir_v02` was generated, passed the strict quantized scale
+gate and body sheet, and was approved by the user via Claude relay #10. The superseded v01 is archived. Approval is
+recorded in REVIEW, manifest and TRACKER; the updated page and branch handoff are in progress. Astra anatomy audit and
+exact hand-anchor measurements remain pending for Claude before runtime integration.
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
+## Gojo dashes in the run's pose (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
+
+**Status:** run v14 is live. The user approved it via the desk, Astra passed it, and Claude merged it (`c4b04539`) and
+deployed it. **The user decided earlier (in Claude's chat, 2026-10-15) that the dashes retry after the run: 3 new tries
+each, with the finished run as the reference.** No image is approved by this item.
+
+Reference image for every call: `art/characters/gojo/raw/_parts/run_v14_A.png` (the approved run poses), plus the
+approved title_style / title_neutral / idle cells for anatomy. Same look as the run: **far (L) hand in his pocket**,
+**near (R) arm bent with the fist forward**, navy jacket and trousers, black shoes, blindfold, lazy smile. No effects.
+
+Lessons from phase 2 (raw/_qa_hold/ dash v07-v09, backDash v05-v06, superDash v10-v11): the near arm vanished behind
+the torso in a frame (dash v09 f1), and the torso came out short. **The fist must stay visible in every frame**, and the
+torso/legs should match the run's proportions. Don't worry about the horizontal head drift between frames: Claude sets
+the per-frame offsets at packing.
+
+- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-dashes --art gojo` (dev port 5244). Work only there.
+- [ ] 2. **dash** `raw/dash_v10.png` (2 frames, loop, ≤3 calls): a low burst lunge, the run's f0 contact pose pushed
+  lower and longer (lean ~45°, lead knee driven forward, back leg extended, fist forward). f1: the stride a little
+  wider, hem flutter.
+- [ ] 3. **backDash** `raw/backDash_v07.png` (3 frames, ≤3 calls): a quick hop back, still facing right. f0 push-off,
+  f1 airborne with knees tucked (hair and hem whip forward), f2 landing on the back foot. Fist forward, pocket hand
+  pocketed in all three.
+- [ ] 4. **superDash** `raw/superDash_v12.png` (2 frames, loop, ≤3 calls): the run's f3 flight pose stretched into blur
+  speed, the body angled ~30° up along the flight line, lead knee forward-up, back leg extended, fist forward, hair
+  flattened back. About 230 x 140 px after packing, inside x 4..251. f1: limbs 2-4 px further apart, hem flutter.
+- [ ] 5. Set each manifest `version` with status `needs review` (leave `approvedVersion`, `bodyHeight`, offsets and hit
+  boxes to Claude), update ANIMATIONS.md §dash/§backDash/§superDash to what you drew, and pack with `--quantize 48`.
+  Strips that fail the scale gate after their budget go to `raw/_qa_hold/` with the reason.
+- [ ] 6. Astra/medium audits every frame and loop in the packed atlas (fist visible, pocket hand, torso/limbs vs the
+  approved cells). Luna fixes holds within the remaining budget; Astra rechecks.
+- [ ] 7. Review rows (`needs review`), commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the
+  branch's docs/agents/CLAUDE_ART_HANDOFF.md (per-strip version, calls used, heights, Astra verdict, preview link),
+  then `node tools/relay.mjs ring gojo-run --note "<one line>"` from main **for Claude** (Claude sets the offsets and
+  checks the boxes before the review goes to the desk).
+
+Rules: Luna/medium for generation; Astra/medium for the audit. Edit only art/characters/gojo/**, public/reviews/**
+for Gojo, public/characters/gojo/** via the packer, the gojo block of art/manifest.json and the "## gojo" section of
+art/TRACKER.md. Never overwrite an existing `_vNN`; no merge, no production deploy, no approvals. Blocked: write
+BLOCKED under the item and in NOW.md, and ring the desk (`--for user --kind blocked`).
+
+---
+
 ## Gojo run v13: Astra audit before merge (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
+
+**Follow-up, 2026-10-15:** the v14 recheck was completed at source commit `65ff1ea1` and recorded on branch
+`art/gojo-run` in `9b25a5a8`. Astra returned **PASS for visible atlas anatomy and discrete-frame continuity**:
+the f6 free arm/fist is restored, and no new visible defect was established. The 60 ms GIF pixels match the atlas.
+Strict hidden-segment measurements, live browser playback and runtime contact checks remain unverified; Claude owns
+those checks and technical disposition. Full evidence: `art/characters/gojo/production/run-jkl/ASTRA_RUN_V14_AUDIT_v01.md`.
+No art, pack, sidecar or approval data changed in the recheck.
 
 **Status:** the user chose "Stitch and preview" at the approvals desk. Claude stitched run v13 from Part A plus the held
 Part B attempt 02 (no new calls), packed it and set sidecar `frameOffsets` (the head holds at x 169; f3/f7 lifted).
 **The user approved run v13 as drawn via the desk** ("Approve run v13"), with these holds accepted: the same lead
 leg in both halves, the near fist forward in every frame, and the B half sitting ~10 px lower. Branch `art/gojo-run`
-at `e09e4d11` (manifest run approvedVersion 13, review rows updated); the art guard passes. Claude merges after this audit.
+has the approval records (`run.approvedVersion=13`; `e09e4d11`) and audit handoff (`25bc6c60`); the art guard passes.
+The Astra audit returned **HOLD** for a new free-arm/fist disappearance in f6 / atlas slot 14. User approval stands;
+Claude must decide the technical disposition before merge.
 
-- [ ] 1. Astra/medium audits run v13 in the **packed atlas** on the branch (`public/characters/gojo/sheet.png`,
+- [x] 1. Astra/medium audited run v13 in the **packed atlas** on the branch (`public/characters/gojo/sheet.png`,
   anims.json run = cells 8-15) against the approved neutral/combat cells and idle f0: head and hair, torso, limbs,
-  build, clothing volume, pocket hand, cell edges, and the loop played at 60 ms. Record exact hashes and measurement
-  uncertainty in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md`. The three accepted holds above
-  are the user's call: note them, don't fail on them alone.
-- [ ] 2. **No new images and no edits to the pack or sidecar.** If Astra finds a new defect, report it with the
-  frame and evidence; Claude decides the fix (offsets are Claude's).
-- [ ] 3. Commit the audit on the branch, add a handoff at the top of the branch's docs/agents/CLAUDE_ART_HANDOFF.md
-  (verdict, commit), then `node tools/relay.mjs ring gojo-run --note "<PASS|HOLD; commit>"` from main. A PASS goes to
-  Claude for the merge, not to the user.
+  build, clothing volume, pocket hand, cell edges, and the loop timing at 60 ms. Exact hashes and measurement
+  uncertainty are recorded in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md`. The three accepted
+  holds above are the user's call and were not failed on alone.
+- [x] 2. **No new images and no edits to the pack or sidecar.** Astra found a new defect and reported it with
+  frame-level evidence; no art or sidecar was edited.
+- [x] 3. Committed the audit and handoff at `25bc6c60`; Astra verdict is **HOLD** for free-arm/fist disappearance in
+  f6 / atlas slot 14. The three user-accepted deviations were not failed. Live browser playback timed out and remains
+  unverified. Main ring #6 hands the new defect to Claude for disposition; no merge or dash work yet.
 
 Dashes come next as a separate item after the merge (the user's earlier choice: 3 new tries each, with the finished run
 as the reference). Don't start them now.
@@ -240,7 +295,7 @@ single 8-frame image doesn't get the generator to swap legs, so the swap gets it
 Rules: as in phase 1 below. Budget: 3 calls total for run v13 (A + B + one retry or fix); no other new images.
 Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
-**HOLD (user decision via relay #5, 2026-10-15):** “Hold the run.” No new Part B budget. Keep Part A and the held attempt unchanged; the game keeps the current Gojo run. No image is approved. Updated record is on `art/gojo-run` commit `1daae55c`; no dashes were generated.
+**Historical hold (user decision via relay #5, 2026-10-15):** “Hold the run.” No new Part B budget; keep Part A and the held attempt unchanged. This was superseded when the user later approved the stitched candidate via relay #6; see the Astra audit item above. No dashes were generated.
 
 ---
 
@@ -477,6 +532,8 @@ you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 ---
 
 ## Loose ends: re-audit after calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
+
+- [x] 2026-10-15: USER APPROVAL via Claude relay scale#6 recorded for light2Alt05, airHeavyAlt04, charge14, down08, ko09; commits1216e707/c9b2f9bc. Final technical checks returned to Claude; no user action remains for these drawings.
 
 **This is the scale lane's current section** (it follows "Loose ends of the scale round" below). Claude calibrated all five
 candidates; read Claude's note at the top of CLAUDE_ART_HANDOFF.md ("loose ends calibrated") first. No generation calls.
@@ -1230,7 +1287,7 @@ How to run it:
 
 ## Every thread
 
-**Standing coordination rule (2026-10-15):** Read main's docs/COORDINATION.md and docs/agents/CONTROL_CHAT.json at startup. Keep task evidence and explicit status durable; the control chat gathers the queue and routes scoped user notes. Preserve ADR 0037 approval routing to Claude. Do not appoint a replacement coordinator or start another monitor; the reset phrase and recovery steps are in COORDINATION.md.
+**Standing coordination rule (2026-10-15, updated OPS-016):** Read main's docs/COORDINATION.md at startup. The Claude chat `0 - Approvals` is the one central chat (approvals, status, forwarding the user's notes); the Codex control chat "0 - G" and its monitor are retired. When the user must approve or decide, `relay ring <lane> --for user ...` and stop; never ask in your own chat. Do not appoint a coordinator or start a monitor.
 
 
 **Standing status rule (2026-10-15; every handback):** Read main's AGENTS.md "Mandatory user-facing status". End each final response with Status / Your action / Claude / Next. Explicitly state approvals or input required, any action or reply pending from Claude (and relay delivery state), who acts next, or that the requested scope is completely finished with nothing to do. Apply this now, including idle chats; do not start unrequested work.

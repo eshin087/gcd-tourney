@@ -13,6 +13,30 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Art (ART-BEAM-CLASH): generated and recorded user approval via Claude relay #10 for Killua `beamStruggleAir` v02; strict quantized scale gate and body sheet pass, and superseded v01 is archived. Astra anatomy audit and exact hand-anchor measurement remain pending.
 - Art (ART-BEAM-CLASH): recorded the user's Claude desk approval for six strict-scale-passing beam-struggle candidates (Naruto ground v02; Sasuke ground/air v01; Killua ground v01; Gojo ground/air v01). Killua air v01 remains quarantined after a strict-gate failure. Astra anatomy audit is pending.
+- art(killua): record user approval via Claude relay scale#6 (“i approve those 5”) for charge v14, down v08 and ko v09 as drawn. Calibration uncertainty remains; charge aura retention and runtime grounding/state-transition checks remain on technical hold for Claude.
+
+- art(killua): Astra re-audited calibrated charge v14, down v08 and mirrored ko v09; gross scale/clipping defects resolved and visual anatomy screening passes. Runtime grounding and aura retention remain unverified; calibration uncertainties remain. User approval is recorded in the entry above. No new generation or calibration edits.
+
+- art(killua): Charge14/down08/ko09 sources filed; normal scale gate fails; diagnostic-only atlas for Astra. Charge used one unauthorized duplicate call, quarantined and excluded; first authorized output retained.
+- art(naruto): record user approval via Claude for light2Alt v05 and airHeavyAlt v04 as drawn; retain Claude-owned contact and anatomy holds.
+
+- Review: refreshed the five-candidate scale-loose-ends page from the calibrated atlases with Astra's final screening results, exact comparison crops and full audit evidence; unresolved technical checks remain and no art is approved.
+
+- art(naruto): One authorized call each for light2Alt05 and airHeavyAlt04; normal scale gate fails; diagnostic-only atlas and Astra review for Claude calibration.
+- art(scale): record user approval via Claude of Naruto light2Alt05/airHeavyAlt04 and Killua charge14/down08/ko09; return remaining technical checks to Claude without merge or production deploy.
+
+- Added: Codex chats with no relay lane are found and handled (TOOL-050): `relay status` lists recent project chats nobody mapped, `relay ask --app codex --from "<title>"` lets such a chat queue a question, and `relay answer` maps it by title and relays the answer.
+
+- Changed: Gojo runs instead of hover-gliding (ART-GOJO-RUN-JKL): run v14 in the K "fast athletic" direction, far hand in his pocket and the near fist forward, approved by the user via the approvals desk and passed by the Astra audit. Part A of the generated stride is used for both halves; the sidecar frameOffsets hold his head steady and lift the flight frames.
+- Fixed: relay watchers no longer crash on Windows when a state file is renamed while another watcher reads it (EPERM/EBUSY); the write retries briefly (TOOL-049).
+
+- Changed: one central chat (OPS-016): the Claude chat `0 - Approvals` now also gives the status overview, forwards the user's instructions to Codex chats and runs the reset after chats are deleted; the Codex control chat "0 - G", its attention monitor (OPS-014) and `$gcdtourney-attention` (OPS-015) are retired. Codex chats never ask the user; they ring `--for user` and stop.
+
+- Added: explicit-only `$gcdtourney-attention` project skill to run the multi-chat status check immediately and update or pause the existing bounded monitor (OPS-015).
+
+- Added: storage hygiene rule (OPS-013, CLAUDE.md, AGENTS.md, docs/AI_COLLABORATION.md): after a merge the coordinator prunes merged and unregistered worktree folders, a finished task deletes its `node_modules/` and `dist/`, agent scratch stays out of the project, `deliverables/` empties once the user has them, and `_preserved-*` folders carry a README with a review-by date; versioned `_vNN` art, approved art and unmerged commits are never touched.
+
+- Fixed: a sparse worktree can no longer silently pack without its raw art (TOOL-048). `npm run pr -- start --art` verifies every tracked `raw/` file of its folders is on disk and stops otherwise; new `npm run pr -- art <id>[,<id>]` adds raw art to an existing worktree (the art/beam-clash worktree had been recreated without `--art`, and a hand-typed `git sparse-checkout add` in Git Bash had become `C:/Program Files/Git/art/...`); the packer refuses a VFX atlas that would lose a shipped effect whose source is missing on disk (`--allow-drop` to intend it), which is how PR #110 committed an atlas without glow, bubble, wisp, arc, ripple and naruto_chakraTail. Test: `tools/test-sparse-art.mjs` in `npm run test:guard`, run 13d/e in `npm run test:sprites`.
 - Changed: the approvals desk command is `/approvals` (was `/desk`); desk questions must name the asking chat, say exactly what a yes approves and link the preview itself; the desk keeps one bounded background watcher and never restarts it in a loop (TOOL-047, ADR 0039).
 
 - Changed: the control-chat monitor backs off according to progress, pauses on completion/user-only waits/stalls, and retains a fixed four-hour maximum session expiration; no endless five-minute loop (OPS-012).

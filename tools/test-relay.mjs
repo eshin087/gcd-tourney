@@ -205,6 +205,33 @@ r = relay(['brief']);
 check(r.code === 0 && r.out.includes('only the Claude chat "0 - Approvals" asks') && /0 open ask/.test(r.out) && r.out.includes('run /approvals'), 'brief: states the rule and the queue');
 check(relay(['brief'], { RELAY_HOME: path.join(FIX, 'nowhere') }).code === 0, 'brief: never fails, even with no relay folder');
 
+// ---- Codex chats with no lane (the thread table knows each chat's folder): found, and answerable through `ask --app codex`
+{
+  const { DatabaseSync } = await import('node:sqlite');
+  const projectRoot = mainRoot(HERE);
+  const db = new DatabaseSync(path.join(CODEX_HOME, 'state_5.sqlite'));
+  db.exec('create table threads (id text, name text, cwd text, source text, archived integer, updated_at_ms integer)');
+  const ins = db.prepare('insert into threads values (?,?,?,?,?,?)');
+  const NEWCHAT = '01a15000-0000-7000-8000-000000000001';
+  ins.run(NEWCHAT, '8 - Brand New Chat', `\\\\?\\${projectRoot}`, 'cli', 0, Date.now());
+  ins.run('01a15000-0000-7000-8000-000000000002', 'Other project chat', '\\\\?\\E:\\Somewhere\\else', 'cli', 0, Date.now());
+  ins.run('01a15000-0000-7000-8000-000000000003', 'Old project chat', `\\\\?\\${projectRoot}`, 'cli', 0, Date.now() - 10 * 24 * 36e5);
+  ins.run('01a15000-0000-7000-8000-000000000004', 'Guardian review', `\\\\?\\${projectRoot}`, 'cli', 0, Date.now());
+  db.close();
+  r = relay(['status']);
+  check(/Codex chats with NO lane.*"8 - Brand New Chat"/.test(r.out), 'status: a recent project Codex chat with no lane is listed');
+  check(!/Other project chat|Old project chat|Guardian review/.test(r.out.split('\n').filter((l) => /NO lane/.test(l)).join('')), 'status: other projects\' chats, old chats and Guardian reviews are not');
+  check(relay(['ask', '--app', 'robot', '--from', 'x', '--note', 'y']).code === 1, 'ask: --app is claude or codex');
+  r = relay(['ask', '--app', 'codex', '--from', '8 - Brand New Chat', '--kind', 'decision', '--note', 'Keep the stretch punch? review/luffy.html']);
+  const looseAsk = /\((claude-[a-z0-9-]+)\)/.exec(r.out)?.[1];
+  check(r.code === 0 && looseAsk && /Codex chat "8 - Brand New Chat" \(no lane yet\)/.test(relay(['asks']).out), 'ask --app codex: a lane-less Codex chat queues a question the desk can see');
+  callsBefore = calls().length;
+  r = relay(['answer', looseAsk, '--user-decision', 'Luffy punch', '--quote', 'Keep it']);
+  c = calls();
+  check(r.code === 0 && /lane 8-brand-new-chat -> /.test(r.out) && c.length === callsBefore + 1 && c.at(-1)[2] === NEWCHAT, 'answer: a lane-less Codex chat is mapped by its title and the answer is queued into it');
+  check(/USER DECISION via Claude on Luffy punch: "Keep it"/.test(c.at(-1)[4]) && !/NO lane.*Brand New/.test(relay(['status']).out), 'answer: it reads as a normal relayed decision and the chat now has a lane');
+}
+
 // ---- an archived chat is unarchived and the send retried once
 const archived = path.join(FIX, 'archived.flag');
 fs.writeFileSync(archived, SCALE);

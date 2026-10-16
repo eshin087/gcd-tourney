@@ -1,0 +1,436 @@
+{
+  "sheet_sha256": "aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25",
+  "anims_sha256": "9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696",
+  "animations": {
+    "idle": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 0,
+          "bounds": [
+            68,
+            85,
+            187,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 1,
+          "bounds": [
+            67,
+            85,
+            186,
+            241
+          ]
+        },
+        {
+          "frame": 2,
+          "atlas": 2,
+          "bounds": [
+            67,
+            85,
+            186,
+            241
+          ]
+        },
+        {
+          "frame": 3,
+          "atlas": 3,
+          "bounds": [
+            67,
+            85,
+            186,
+            241
+          ]
+        },
+        {
+          "frame": 4,
+          "atlas": 4,
+          "bounds": [
+            66,
+            83,
+            187,
+            241
+          ]
+        },
+        {
+          "frame": 5,
+          "atlas": 5,
+          "bounds": [
+            67,
+            84,
+            187,
+            241
+          ]
+        },
+        {
+          "frame": 6,
+          "atlas": 6,
+          "bounds": [
+            67,
+            83,
+            187,
+            241
+          ]
+        },
+        {
+          "frame": 7,
+          "atlas": 7,
+          "bounds": [
+            67,
+            83,
+            187,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "durations": [
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150,
+          150
+        ],
+        "loop": true
+      }
+    },
+    "charge": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 115,
+          "bounds": [
+            84,
+            126,
+            178,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 116,
+          "bounds": [
+            84,
+            127,
+            178,
+            241
+          ]
+        },
+        {
+          "frame": 2,
+          "atlas": 117,
+          "bounds": [
+            84,
+            127,
+            178,
+            241
+          ]
+        },
+        {
+          "frame": 3,
+          "atlas": 118,
+          "bounds": [
+            84,
+            126,
+            178,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          115,
+          116,
+          117,
+          118
+        ],
+        "durations": [
+          50,
+          50,
+          50,
+          50
+        ],
+        "loop": true
+      }
+    },
+    "down": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 108,
+          "bounds": [
+            37,
+            184,
+            225,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 109,
+          "bounds": [
+            28,
+            196,
+            221,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          108,
+          109
+        ],
+        "durations": [
+          80,
+          420
+        ],
+        "loop": false
+      }
+    },
+    "ko": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 135,
+          "bounds": [
+            22,
+            197,
+            193,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          135
+        ],
+        "durations": [
+          500
+        ],
+        "loop": false
+      }
+    },
+    "getup": {
+      "frames": [
+        {
+          "frame": 0,
+          "atlas": 110,
+          "bounds": [
+            74,
+            169,
+            201,
+            241
+          ]
+        },
+        {
+          "frame": 1,
+          "atlas": 111,
+          "bounds": [
+            81,
+            83,
+            181,
+            241
+          ]
+        },
+        {
+          "frame": 2,
+          "atlas": 112,
+          "bounds": [
+            40,
+            97,
+            176,
+            241
+          ]
+        },
+        {
+          "frame": 3,
+          "atlas": 113,
+          "bounds": [
+            100,
+            102,
+            205,
+            241
+          ]
+        },
+        {
+          "frame": 4,
+          "atlas": 114,
+          "bounds": [
+            59,
+            99,
+            196,
+            241
+          ]
+        }
+      ],
+      "timing": {
+        "frames": [
+          110,
+          111,
+          112,
+          113,
+          114
+        ],
+        "durations": [
+          70,
+          60,
+          60,
+          80,
+          70
+        ],
+        "loop": false
+      }
+    }
+  },
+  "crop_validation": "All saved crops RGBA-byte-identical to final atlas cells; no atlas or metadata changed.",
+  "floor_contours": {
+    "down-0": {
+      "head_hand": {
+        "columns_inclusive": [
+          45,
+          70
+        ],
+        "bottom_y_range": [
+          232,
+          240
+        ],
+        "gap_to_y240_range": [
+          0,
+          8
+        ]
+      },
+      "trunk_hip": {
+        "columns_inclusive": [
+          110,
+          135
+        ],
+        "bottom_y_range": [
+          231,
+          234
+        ],
+        "gap_to_y240_range": [
+          6,
+          9
+        ]
+      },
+      "shoe": {
+        "columns_inclusive": [
+          204,
+          220
+        ],
+        "bottom_y_range": [
+          234,
+          236
+        ],
+        "gap_to_y240_range": [
+          4,
+          6
+        ]
+      }
+    },
+    "down-1": {
+      "head": {
+        "columns_inclusive": [
+          35,
+          55
+        ],
+        "bottom_y_range": [
+          235,
+          237
+        ],
+        "gap_to_y240_range": [
+          3,
+          5
+        ]
+      },
+      "trunk_hip": {
+        "columns_inclusive": [
+          104,
+          125
+        ],
+        "bottom_y_range": [
+          235,
+          236
+        ],
+        "gap_to_y240_range": [
+          4,
+          5
+        ]
+      },
+      "shoe": {
+        "columns_inclusive": [
+          200,
+          216
+        ],
+        "bottom_y_range": [
+          236,
+          238
+        ],
+        "gap_to_y240_range": [
+          2,
+          4
+        ]
+      }
+    },
+    "ko-0": {
+      "head": {
+        "columns_inclusive": [
+          28,
+          48
+        ],
+        "bottom_y_range": [
+          229,
+          232
+        ],
+        "gap_to_y240_range": [
+          8,
+          11
+        ]
+      },
+      "trunk_hip": {
+        "columns_inclusive": [
+          86,
+          104
+        ],
+        "bottom_y_range": [
+          227,
+          236
+        ],
+        "gap_to_y240_range": [
+          4,
+          13
+        ]
+      },
+      "shoe": {
+        "columns_inclusive": [
+          165,
+          185
+        ],
+        "bottom_y_range": [
+          231,
+          240
+        ],
+        "gap_to_y240_range": [
+          0,
+          9
+        ]
+      }
+    }
+  }
+}

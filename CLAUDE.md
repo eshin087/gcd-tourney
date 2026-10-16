@@ -3,13 +3,13 @@
 Project instructions for Claude Code. Read this first in every session. Codex and other agents read
 [AGENTS.md](AGENTS.md), which covers the same rules with a focus on the art workflow.
 
-## Durable control-chat coordination
+## One central chat (user decision, 2026-10-15; OPS-016, ADR 0039)
 
 At every session start, read the main checkout's [docs/COORDINATION.md](docs/COORDINATION.md) and
-[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). They define the persistent control-chat
-role, status aggregation, scoped user-message routing and reset procedure. The control chat discovers
-workers; workers publish their status and use the Claude relay. Claude remains the integration and
-approval desk under ADR 0037. Do not start duplicate coordinators or monitors.
+[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). The Claude chat **`0 - Approvals`** is the one
+central chat: approvals and decisions, status, forwarding the user's instructions to Codex chats, and the reset
+after chats are deleted. The Codex control chat ("0 - G") and its attention monitor are retired; do not start
+coordinators or monitors anywhere else.
 
 ## Approvals desk (user decision, 2026-10-15; ADR 0039)
 
@@ -24,10 +24,8 @@ prints this rule and the queue size in every new chat. After chats are deleted, 
 `/approvals`. Routine technical questions to the user that need no decision (a quick clarification while they are
 talking to this chat) are fine; anything they must approve or decide goes through the desk.
 
-When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
-the control identity, discover replacement workers, restore one attention monitor and notify existing
-workers. Deleted chats do not erase task records or approve work. Missing mappings and stopped watchers
-must be reported honestly; no background service is implied by the rules alone.
+After chats are deleted: in a Claude chat named `0 - Approvals`, type `/approvals`; it follows COORDINATION.md's
+reset. Deleted chats do not erase task records or approve work.
 
 ## Agent model selection (user direction, 2026-10-12)
 
@@ -152,7 +150,8 @@ documentation that stays true.
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
-| `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work |
+| `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work. It verifies each `--art` folder's tracked `raw/` files are on disk (TOOL-048) |
+| `npm run pr -- art <id>[,<id>]` | (inside a sparse worktree) add more raw art there with the same patterns as `start --art`, drop patterns a shell rewrote (`C:/Program Files/Git/art/...`), and verify the raws are on disk. Use it instead of a hand-typed `git sparse-checkout add` |
 | `npm run pr -- open` | (in a worktree on a named branch, never detached HEAD) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
 | `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it). **Art guard first (TOOL-028, `tools/pr-guard.mjs`):** for every fighter strip the merge changes it refuses an unapproved newest raw (newest `raw/<anim>_vNN.png` != manifest `approvedVersion`; approve it or move it to `raw/_qa_hold/`, which the packer skips), a committed pack of an unapproved version, or a strict-scale-gate failure (packer dry run on scratch copies). Code branches skip it. `--force-art "<reason>"` overrides and records the reason in the merge commit |
@@ -164,7 +163,7 @@ documentation that stays true.
 | `npm run lint:undeclared` | undeclared-identifier check (TOOL-027, `tools/check-undeclared.mjs [dir]`; second step of `prebuild`): every `src/**/*.js` name that is used but never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug) fails the build with `file:line` |
 | `npm run test:lints` | lint regression test (`tools/test-lints.mjs`, fixtures in tools/.test-fixtures/lints/): the planted `MODE_ORDER` bug, a wide valid-syntax sample, one doctored case per animation-contract rule; run after any change to the two lints |
 | `npm run test:anims` | tech pose test (`tools/test-tech-anims.mjs`: animation selection, beat transitions, back rolls, wall facing, missing-art fallbacks); run after changes to the tech states or `src/game/techAnim.js` |
-| `npm run test:guard` | art merge guard test (`tools/test-pr-guard.mjs`: throw-away git repo under tools/.test-fixtures/; unapproved, held, approved, off-size and shipped-version branches, merge-result verdicts, `--force-art` parsing); run after changes to `tools/pr-guard.mjs` or `tools/pr.mjs` |
+| `npm run test:guard` | art merge guard test (`tools/test-pr-guard.mjs`: throw-away git repo under tools/.test-fixtures/; unapproved, held, approved, off-size and shipped-version branches, merge-result verdicts, `--force-art` parsing) plus the sparse worktree test (`tools/test-sparse-art.mjs`: real `pr start --art` and `pr art` in a throw-away repo, raw/ on disk); run after changes to `tools/pr-guard.mjs`, `tools/pr.mjs` or `tools/sparse-art.mjs` |
 | `npm run test:alts` | attack-alt picker test (`tools/test-anim-alts.mjs`: balanced Thue-Morse alternation, never three in a row, base when the alt is missing, `?alts` override; ADR 0031); run after changes to `src/game/animAlts.js` or the alt hooks in fighter.js |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
@@ -214,7 +213,8 @@ The docs-only/main exceptions below still apply.
    available. In a manual CLI session, the optional project helper can create a real Git worktree and branch.
 3. For an art task created with the helper, use `npm run pr -- start <branch> --art <id>[,<id>]` so the required
    raw art is included without a full checkout. Never use `--full` for art work. A plain
-   `git sparse-checkout add art/characters/<id>` does not bring back its `raw/` directory.
+   `git sparse-checkout add art/characters/<id>` does not bring back its `raw/` directory; in an existing worktree
+   (one recreated without `--art`, or a task that grew) run `npm run pr -- art <id>[,<id>]` there instead.
 4. Use one worktree per task and reuse it for later versions (`v02`, `v03`, etc.) of that same task.
 5. At handoff, report the worktree path so the coordinator can remove it after merging. The coordinator must
    finish cleanup of merged task worktrees. `npm run pr -- merge` automatically removes only the project-local
@@ -224,6 +224,26 @@ The docs-only/main exceptions below still apply.
    worktree root, change the user's global Worktree root, or reject an app-managed worktree because it is outside
    this repository. Verify the actual returned path before using it. Audit existing worktrees for uncommitted and
    ignored files before moving, removing or archiving them.
+
+### Storage hygiene (user request, 2026-10-15; OPS-013)
+
+The project lives on a small USB drive, so agents clean up what a finished task leaves behind. Details and the
+audit recipe: [AI_COLLABORATION.md](docs/AI_COLLABORATION.md#storage-hygiene-2026-10-15-ops-013).
+
+1. After `npm run pr -- merge`, the coordinator runs `npm run pr -- prune` and archives the app-managed worktree
+   of every merged branch through its app (worktree rule 5). A folder left in `.worktrees/` that is no longer a
+   registered worktree (an empty shell after a removal, an old plain copy) is listed by `prune --dry-run` and
+   deleted once it holds nothing unique.
+2. When a task ends, delete its worktree's `node_modules/` and `dist/` (reinstall and rebuild are cheap). Main's
+   `dist/` is a build output too; `npm run deploy` builds its own clean export.
+3. Agent scratch (PR body `.md` files, one-off `.cjs`/`.mjs` helpers, QA comparison PNGs, `.tmp/`) goes in the
+   agent's own scratch or temp folder, never the project root, `.worktrees/` or `deliverables/`. Anything in
+   `deliverables/` is deleted once the user has it.
+4. A `_preserved-*` or `_codex-scratch-*` folder must hold a `README.md` saying why it is kept, what in it is
+   unique and a review-by date. Past that date it is reviewed and removed (or its README renewed with a reason).
+5. Hygiene never touches `art/**/raw/` or any versioned `_vNN` input (ADR 0007), approved art, unmerged commits or
+   another agent's uncommitted work. Deleting anything beyond rules 1-3's routine outputs needs the user's yes,
+   asked through the approvals desk (ADR 0039).
 
 ### Code and integration rules
 

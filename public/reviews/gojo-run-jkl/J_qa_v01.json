@@ -1,0 +1,190 @@
+{
+  "study": "J",
+  "title": "Easy long stride",
+  "sourceSize": [
+    2172,
+    724
+  ],
+  "normalizedStripSize": [
+    2048,
+    256
+  ],
+  "frameCount": 8,
+  "cellSize": [
+    256,
+    256
+  ],
+  "scale": 0.4069767441860465,
+  "scaleByApprovedHair": 0.4069767441860465,
+  "uniformScale": true,
+  "neutralHairWidth": 35,
+  "idleF0HairWidthAtStudyScale": 39,
+  "frames": [
+    {
+      "frame": 0,
+      "sourceFigureBounds": [
+        11,
+        100,
+        264,
+        610
+      ],
+      "sourceHairWidth": 88,
+      "uniformScale": 0.4069767441860465,
+      "normalizedFigureBounds": [
+        56,
+        33,
+        159,
+        241
+      ],
+      "normalizedHairWidth": 35,
+      "hairWidthDeltaFromNeutralPct": 0.0
+    },
+    {
+      "frame": 1,
+      "sourceFigureBounds": [
+        293,
+        110,
+        520,
+        613
+      ],
+      "sourceHairWidth": 85,
+      "uniformScale": 0.4069767441860465,
+      "normalizedFigureBounds": [
+        62,
+        33,
+        154,
+        238
+      ],
+      "normalizedHairWidth": 33,
+      "hairWidthDeltaFromNeutralPct": -5.71
+    },
+    {
+      "frame": 2,
+      "sourceFigureBounds": [
+        570,
+        111,
+        771,
+        608
+      ],
+      "sourceHairWidth": 85,
+      "uniformScale": 0.4069767441860465,
+      "normalizedFigureBounds": [
+        69,
+        33,
+        151,
+        235
+      ],
+      "normalizedHairWidth": 34,
+      "hairWidthDeltaFromNeutralPct": -2.86
+    },
+    {
+      "frame": 3,
+      "sourceFigureBounds": [
+        792,
+        99,
+        1074,
+        579
+      ],
+      "sourceHairWidth": 87,
+      "uniformScale": 0.4069767441860465,
+      "normalizedFigureBounds": [
+        44,
+        33,
+        159,
+        228
+      ],
+      "normalizedHairWidth": 35,
+      "hairWidthDeltaFromNeutralPct": 0.0
+    },
+    {
+      "frame": 4,
+      "sourceFigureBounds": [
+        1094,
+        110,
+        1346,
+        609
+      ],
+      "sourceHairWidth": 87,
+      "uniformScale": 0.4069767441860465,
+      "normalizedFigureBounds": [
+        58,
+        33,
+        161,
+        236
+      ],
+      "normalizedHairWidth": 35,
+      "hairWidthDeltaFromNeutralPct": 0.0
+    },
+    {
+      "frame": 5,
+      "sourceFigureBounds": [
+        1374,
+        111,
+        1603,
+        613
+      ],
+      "sourceHairWidth": 85,
+      "uniformScale": 0.4069767441860465,
+      "normalizedFigureBounds": [
+        63,
+        33,
+        156,
+        237
+      ],
+      "normalizedHairWidth": 34,
+      "hairWidthDeltaFromNeutralPct": -2.86
+    },
+    {
+      "frame": 6,
+      "sourceFigureBounds": [
+        1655,
+        111,
+        1856,
+        608
+      ],
+      "sourceHairWidth": 85,
+      "uniformScale": 0.4069767441860465,
+      "normalizedFigureBounds": [
+        69,
+        33,
+        151,
+        235
+      ],
+      "normalizedHairWidth": 34,
+      "hairWidthDeltaFromNeutralPct": -2.86
+    },
+    {
+      "frame": 7,
+      "sourceFigureBounds": [
+        1878,
+        100,
+        2160,
+        579
+      ],
+      "sourceHairWidth": 87,
+      "uniformScale": 0.4069767441860465,
+      "normalizedFigureBounds": [
+        44,
+        33,
+        159,
+        228
+      ],
+      "normalizedHairWidth": 35,
+      "hairWidthDeltaFromNeutralPct": 0.0
+    }
+  ],
+  "anatomyStatus": "visual review only; this is not a packed production atlas or approval",
+  "paletteColors": 48,
+  "gif": {
+    "frames": 8,
+    "durationMs": 60,
+    "infiniteLoop": true
+  },
+  "mp4": {
+    "fps": "50/3",
+    "frameMs": 60,
+    "cycles": 8,
+    "decodeExitCode": 0,
+    "stderr": ""
+  }
+}

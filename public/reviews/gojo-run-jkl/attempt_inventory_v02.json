@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-15",
+  "character": "gojo",
+  "task": "independent J and L direction-study refresh; K direction and production strips untouched",
+  "codexModel": "gpt-6-luna",
+  "reasoning": "medium",
+  "generator": "built-in image_gen (image_gen__imagegen)",
+  "identityAndAnatomyReferences": [
+    "art/characters/gojo/reference/title_style_approved.png",
+    "art/characters/gojo/reference/title_neutral_approved.png",
+    "art/characters/gojo/reference/idle_approved.png"
+  ],
+  "orientation": "Approved combat confirms anatomical R is near/camera and L is far.",
+  "protectedFiles": {
+    "K_v01.png": "50566A3678B33497F8587B6CD00256FC6C23D806039957D4C23C0ADA6D7041FB",
+    "J_v01.png": "15DA3414A7710F982F7698CBC5BE50ACACC6C840222CADE05E644F4B5BEEDC07",
+    "L_v01.png": "F222D5C97F123D77709139098582A7937CBBDB062186FCC24D289DFD05E1930C"
+  },
+  "studies": {
+    "J": {
+      "direction": "about 20 degree forward lean, easy loping stride, far L hand pocketed, near R arm low and loose",
+      "callsUsed": 3,
+      "output": "art/characters/gojo/production/run-jkl/J_v02.png",
+      "outputSha256": "A7EFB3446186CDD63292F17C23468EED3BF71B323E186394B54FBE3B8690CFEF",
+      "attempts": [
+        {
+          "call": 1,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-aa1236f0-05f3-4930-8464-9463d7a175df.png",
+          "sourceSha256": "252F699675246BDAA9F4CEDBA37863CD079A95898D39EB912E655E2818867838",
+          "status": "discarded: upright walking feel, loose hand and unclear mirrored second half",
+          "selected": false
+        },
+        {
+          "call": 2,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-2e5c3339-c686-4239-b82c-17abc7cc3e9c.png",
+          "sourceSha256": "52AAA27FAEEBA6377553DCBE434759C8ACC2F3057347CC2D4908FCFE3960DB4E",
+          "status": "discarded: far L hand visibly hangs outside the pocket and mirrored lead-leg phase remains unclear",
+          "selected": false
+        },
+        {
+          "call": 3,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-ae754f79-3072-41d9-8510-1ecba7148826.png",
+          "sourceSha256": "A7EFB3446186CDD63292F17C23468EED3BF71B323E186394B54FBE3B8690CFEF",
+          "output": "art/characters/gojo/production/run-jkl/J_v02.png",
+          "outputSha256": "A7EFB3446186CDD63292F17C23468EED3BF71B323E186394B54FBE3B8690CFEF",
+          "status": "selected as best available direction study, with hold: first and second halves still appear to reuse the same lead-leg pattern",
+          "selected": true,
+          "visualQa": "Eight whole poses, stable compact head/hair, right-facing 3/4, easy stride, far-side hand appears pocketed while the near arm swings. Main hold is unclear L/R leg identity and repeated lead-leg pattern around f0/f4 and f3/f7. Not a mirror-phase pass or approval."
+        }
+      ]
+    },
+    "L": {
+      "direction": "upright showboat, chin high, slight head tilt, bounding stride, pronounced flight, far L hand pocketed, near R arm wide",
+      "callsUsed": 3,
+      "output": "art/characters/gojo/production/run-jkl/L_v02.png",
+      "outputSha256": "C737D7FA7450BEE3F68FED2ED96FD962A84DEC996AE0D6B2D5680E5B2A708ED9",
+      "attempts": [
+        {
+          "call": 1,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-9ab27421-6045-422f-bfe5-898ea0ded7b4.png",
+          "sourceSha256": "52D5CBB84B9BDD4289CD18E2E0D742CE7367EF3962CF11B1F079ED7908B76292",
+          "status": "discarded: lead-leg phase repeats through the second half; flight leg did not switch",
+          "selected": false
+        },
+        {
+          "call": 2,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-88464d10-0bce-497a-97d6-26d58072a3a4.png",
+          "sourceSha256": "1D357ACE80C61DFEBB93479A0D4BC1ECFB5C45A3A29B30B1888B6D1319C7A192",
+          "status": "discarded: mirrored contact and flight phases still repeat the same leg lead",
+          "selected": false
+        },
+        {
+          "call": 3,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-6acc3c63-6c19-4cae-8b75-c92a2930784f.png",
+          "sourceSha256": "C737D7FA7450BEE3F68FED2ED96FD962A84DEC996AE0D6B2D5680E5B2A708ED9",
+          "output": "art/characters/gojo/production/run-jkl/L_v02.png",
+          "outputSha256": "C737D7FA7450BEE3F68FED2ED96FD962A84DEC996AE0D6B2D5680E5B2A708ED9",
+          "status": "selected as best available direction study, with hold: f0/f4 and f3/f7 still reuse the same lead leg",
+          "selected": true,
+          "visualQa": "Eight whole right-facing 3/4 figures; upright showboat posture, high chin, long strides, and broad flight. Far hand appears pocketed; near arm swings. Main hold is mirrored phases: both contact and flight pairs show the same lead leg. Not a mirror-phase pass or approval."
+        }
+      ]
+    }
+  },
+  "scopeNote": "Only J_v02.png, L_v02.png and this provenance inventory were added. No K study or production raw was edited; neither study is approved."
+}
