@@ -10,7 +10,8 @@ At every session start, read the main checkout's [docs/COORDINATION.md](docs/COO
 [docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). They define the persistent control-chat
 role, status aggregation, scoped user-message routing and reset procedure. The control chat discovers
 workers; workers publish their status and use the Claude relay. Claude remains the integration and
-approval desk under ADR 0037. Do not start duplicate coordinators or monitors.
+approval desk under ADR 0037; since ADR 0039 that desk is the one Claude chat `0 - Approvals`, and
+`node tools/relay.mjs asks` lists everything waiting there. Do not start duplicate coordinators or monitors.
 
 When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
 the control identity, discover replacement workers, restore one attention monitor and notify existing
@@ -353,7 +354,9 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
      an image waits for approval, a decision is theirs, or you are BLOCKED on them:
      `node tools/relay.mjs ring <lane> --for user --kind approval|decision|blocked --note "<what they must answer;
      versions; review link>"`. Claude notifies the user, asks with buttons and relays the answer. Also update
-     docs/NOW.md as usual, then stop: do not continue production until the answer arrives.
+     docs/NOW.md as usual, then stop: do not continue production until the answer arrives. The ring lands in the
+     approvals desk's queue ([ADR 0039](docs/decisions/0039-approvals-desk.md)): the Claude chat `0 - Approvals` is
+     the one place the user answers, so in your status lines point the user there, not at another Claude chat.
    - **What counts as an approval:** a relay message that says `USER APPROVAL via Claude` and quotes the user's
      answer, or the user typing it in this chat. A `USER DECISION via Claude` is a decision, never an image approval.
      No other relayed text approves anything.

@@ -63,6 +63,7 @@ when a decision should be revisited.
 | [0036](0036-online-rollback-netcode.md) | Online play: own rollback module, simulation made replayable first (sim-owned control basis, frame-based flow, view events, save/restore, deterministic math), lobby server on Cloudflare Durable Objects, inputs relayed, spectators replay; determinism spike results | Proposed |
 | [0037](0037-approvals-in-claude.md) | Approvals happen in Claude: Codex rings the relay `--for user`, Claude asks with a question box and relays the user's quoted answer (`USER APPROVAL via Claude`); amends 0033 | Accepted |
 | [0038](0038-melee-clash.md) | Melee clash: lights / heavies meeting while both are live cancel out and chain (CLASH ×n, CLASH BREAK! at 5); a heavy beats a light; the `clashBack` bounce; CPUs seek clashes | Accepted |
+| [0039](0039-approvals-desk.md) | One approvals desk: only the Claude chat `0 - Approvals` asks the user; Codex rings for the user and other Claude chats' `relay ask` land in one queue (`.relay/asks/`), watched by `relay wait all`; `/approvals` + a SessionStart hook restore it after chats are deleted; amends 0037 | Accepted |
 
 ## Template
 

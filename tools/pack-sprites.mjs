@@ -231,7 +231,7 @@ options
                     approval is gone. --candidates packs every latest candidate into <out>/preview/<kind>/
                     instead (git-ignored, local review with ?art=custom); the shipped folders stay untouched.
   --allow-drop      let the vfx atlas lose an effect it ships whose source (raw/ or frames/) is missing on disk;
-                    without it the packer refuses (exit 1) and leaves the atlas as it is (TOOL-047)
+                    without it the packer refuses (exit 1) and leaves the atlas as it is (TOOL-048)
   --json            print the report as JSON (for scripts/agents) instead of text
   --strict          exit code 2 when there are warnings
   --strict-scale    scale gate (art/CHARACTER_SCALE.md): every strip whose head is off the idle's is an error,
@@ -2489,7 +2489,7 @@ function reachesSides(img) {
   return hit(0) && hit(img.w - 1);
 }
 
-// TOOL-047: effects the current atlas ships that this pack would lose because their source is missing on disk. An
+// TOOL-048: effects the current atlas ships that this pack would lose because their source is missing on disk. An
 // effect that lost its approval leaves on purpose; one whose raw/ and frames/ are simply not there is almost always a
 // checkout problem (a sparse worktree without art/vfx/raw/ dropped six live effects from a committed atlas on
 // 2026-10-15), so the atlas is refused until the raws are back or --allow-drop says the loss is intended.
@@ -3317,7 +3317,7 @@ async function main() {
   if (opts.json) console.log(JSON.stringify(rep, null, 2));
   else printReport(rep, env);
   if (rep.characters.some((c) => c.scale?.failed.length || c.blocked?.length)) return 1; // the scale gate failed or old hand edits shadow a newer version
-  if (rep.vfx?.refused?.length) return 1; // the vfx atlas would lose effects whose source is not on disk (TOOL-047)
+  if (rep.vfx?.refused?.length) return 1; // the vfx atlas would lose effects whose source is not on disk (TOOL-048)
   return opts.strict && rep.totalWarnings ? 2 : 0;
 }
 

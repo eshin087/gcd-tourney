@@ -11,6 +11,19 @@ role, status aggregation, scoped user-message routing and reset procedure. The c
 workers; workers publish their status and use the Claude relay. Claude remains the integration and
 approval desk under ADR 0037. Do not start duplicate coordinators or monitors.
 
+## Approvals desk (user decision, 2026-10-15; ADR 0039)
+
+Only the Claude chat titled **`0 - Approvals`** asks the user for an approval or decision; it runs `/approvals`
+(`.claude/skills/approvals/SKILL.md`) and watches one queue with `node tools/relay.mjs wait all`. **Every other Claude
+chat never asks the user itself** (no AskUserQuestion for approvals or decisions): it runs
+`node tools/relay.mjs ask --from "<this chat's title>" --session <its local_ id from get_session self> --kind
+approval|decision|blocked --note "<question; versions>" --link <review url>`, then stops; the desk asks, and sends
+the answer back with SendMessage (`USER APPROVAL|REJECTION|DECISION via the approvals desk ...`). Codex rings
+`--for user` reach the desk the same way; lane watchers leave them to it. A SessionStart hook (`relay brief`)
+prints this rule and the queue size in every new chat. After chats are deleted, a chat named `0 - Approvals` types
+`/approvals`. Routine technical questions to the user that need no decision (a quick clarification while they are
+talking to this chat) are fine; anything they must approve or decide goes through the desk.
+
 When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
 the control identity, discover replacement workers, restore one attention monitor and notify existing
 workers. Deleted chats do not erase task records or approve work. Missing mappings and stopped watchers
@@ -128,7 +141,7 @@ documentation that stays true.
 | `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
-| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; state in git-ignored `.relay/` |
+| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`; state in git-ignored `.relay/` |
 | `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` + every world-art kind (vfx, crowd, stage, npc, ui; approved items only) |
 | `npm run sprites naruto` | pack one character |
@@ -139,7 +152,7 @@ documentation that stays true.
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
 | `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
-| `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work. It verifies each `--art` folder's tracked `raw/` files are on disk (TOOL-047) |
+| `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work. It verifies each `--art` folder's tracked `raw/` files are on disk (TOOL-048) |
 | `npm run pr -- art <id>[,<id>]` | (inside a sparse worktree) add more raw art there with the same patterns as `start --art`, drop patterns a shell rewrote (`C:/Program Files/Git/art/...`), and verify the raws are on disk. Use it instead of a hand-typed `git sparse-checkout add` |
 | `npm run pr -- open` | (in a worktree on a named branch, never detached HEAD) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
@@ -366,8 +379,11 @@ A change is done when:
   "Relay watcher" (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue.
   If the watcher exits 2 saying it is still Codex's turn, start it again. If `send` fails, give the user the
   paste-in prompt instead. **Never tell the user to paste a decision into Codex**: relay it.
-- **All approvals happen in Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)). When the watcher says
-  "Codex needs the USER", send a PushNotification (what is waiting, one line), then ask with **AskUserQuestion**:
+- **All approvals happen in Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)), **at the desk**
+  `0 - Approvals` ([ADR 0039](docs/decisions/0039-approvals-desk.md); the rest of this bullet is the desk's job).
+  In any other chat, a lane watcher that says "Codex needs the USER" means the desk is off: send one PushNotification
+  pointing at `0 - Approvals` and `/approvals`, ask nothing, restart the watcher. When the desk's `wait all` wakes it, send a
+  PushNotification (what is waiting, one line), then ask with **AskUserQuestion**:
   one question per approval or decision, the review link and versions in the question, options such as
   "Approve vNN" / "Reject (say why)" / "Hold"; several strips can be one multi-select question. Relay the answer
   word for word: `send <lane> --user-approved "<asset vNN>" --quote "<their answer>"`, `--user-rejected ... --note

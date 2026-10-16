@@ -133,7 +133,8 @@ check(relay(['ring', 'goku', '--for', 'user']).code === 1, 'ring --for user: nee
 check(relay(['ring', 'goku', '--kind', 'approval', '--note', 'x']).code === 1, 'ring: --kind goes with --for user');
 check(/turn: you, via Claude \(unread: approval\)/.test(relay(['status', 'goku']).out), 'status: an unread ring for the user puts the turn on the user');
 r = relay(['wait', 'goku', '--timeout', '5s', '--interval', '50ms']);
-check(r.code === 0 && /needs the USER on lane goku \(approval/.test(r.out) && r.out.includes('naruto stagger v08') && /--user-approved/.test(r.out), 'wait: a ring for the user says so and how to relay the answer');
+check(r.code === 0 && /needs the USER on lane goku \(approval/.test(r.out) && r.out.includes('naruto stagger v08'), 'wait: with no desk running, a ring for the user wakes the lane\'s chat');
+check(/approvals desk is not running/.test(r.out) && /do not ask the user here/.test(r.out) && r.out.includes("'0 - Approvals' and type /approvals"), 'wait: ...which points the user at the desk instead of asking');
 check(/turn: you \(approval: naruto stagger v08/.test(relay(['status', 'goku']).out), 'status: until Claude relays an answer, the turn is the user\'s');
 check(relay(['send', 'goku', '--user-approved', 'naruto stagger v08']).code === 1, 'send --user-approved: needs the user\'s quoted answer');
 check(relay(['send', 'goku', '--user-approved', 'a', '--user-rejected', 'b', '--quote', 'x']).code === 1, 'send: one user answer at a time');
@@ -148,6 +149,61 @@ check(r.code === 0 && /USER REJECTION via Claude: the user rejected naruto taunt
 r = relay(['send', 'goku', '--user-decision', 'Luffy special', '--quote', 'Keep the stretch punch']);
 check(r.code === 0 && /USER DECISION via Claude on Luffy special: "Keep the stretch punch"\. .*not an image approval/.test(calls().at(-1)[4]), 'send --user-decision: relays other decisions, marked as no approval');
 check(relay(['send', 'goku', '--user-decision', 'x', '--quote', 'two\nlines']).code === 1, 'send: the quote must be one line');
+
+// ---- the approvals desk (ADR 0039): one queue of asks, one Claude chat that asks the user
+const askPath = (id) => path.join(HOME, 'asks', `${id}.json`);
+const readAsk = (id) => JSON.parse(fs.readFileSync(askPath(id), 'utf8'));
+const seenOf = (lane) => JSON.parse(fs.readFileSync(path.join(HOME, lane, 'seen.json'), 'utf8')).seq;
+let callsBefore;
+const deskBeat = () => {
+  fs.mkdirSync(path.join(HOME, 'desk'), { recursive: true });
+  fs.writeFileSync(path.join(HOME, 'desk', 'watcher.json'), JSON.stringify({ pid: 1, lastCheck: new Date().toISOString() }));
+};
+check(relay(['add', 'asks', GOKU]).code === 1 && relay(['ring', 'desk']).code === 1, 'desk: asks and desk are not lane names');
+check(/0 open/.test(relay(['asks']).out), 'asks: nothing open after the relayed answers');
+relay(['ring', 'goku', '--for', 'user', '--kind', 'decision', '--note', 'Luffy gear: keep or redo? review/luffy.html']);
+const gokuAsk = `lane-goku-${state('goku', 'ring').seq}`;
+r = relay(['asks']);
+check(r.code === 0 && r.out.includes(gokuAsk) && /\[decision\]/.test(r.out) && r.out.includes('Codex lane goku') && r.out.includes('Luffy gear'), 'asks: a Codex ring for the user is an open ask by itself');
+check(/^Approvals desk "0 - Approvals": watcher off; 1 open ask/m.test(relay(['status']).out), 'status: names the desk, its watcher and the open asks');
+// With the desk on, a lane watcher leaves the user's ring to it and keeps watching.
+deskBeat();
+r = relay(['wait', 'goku', '--timeout', '300ms', '--interval', '50ms']);
+check(r.code === 2 && /routed to the approvals desk, still watching/.test(r.out) && seenOf('goku') === state('goku', 'ring').seq, 'wait: with the desk on, a ring for the user is routed and the lane keeps watching');
+fs.rmSync(path.join(HOME, 'desk', 'watcher.json'));
+r = relay(['wait', 'all', '--timeout', '5s', '--interval', '50ms']);
+check(r.code === 0 && /1 new for the USER/.test(r.out) && r.out.includes(gokuAsk) && /relay\.mjs answer <id>/.test(r.out), 'wait all: wakes the desk on a new ask and says how to answer');
+check(relay(['wait', 'all', '--timeout', '200ms', '--interval', '50ms']).code === 2, 'wait all: an ask already shown does not wake it twice');
+check(relay(['answer', gokuAsk, '--user-decision', 'Luffy gear']).code === 1, 'answer: needs the user\'s quoted answer');
+callsBefore = calls().length;
+r = relay(['answer', gokuAsk, '--user-decision', 'Luffy gear', '--quote', 'Keep it']);
+check(r.code === 0 && calls().length === callsBefore + 1 && /USER DECISION via Claude on Luffy gear: "Keep it"/.test(calls().at(-1)[4]), 'answer: a Codex ask is relayed to its lane through send');
+check(readAsk(gokuAsk).status === 'answered' && readAsk(gokuAsk).answer.quote === 'Keep it' && /0 open/.test(relay(['asks']).out), 'answer: the ask is closed with the quote kept');
+check(relay(['answer', gokuAsk, '--user-decision', 'x', '--quote', 'y']).code === 1, 'answer: an answered ask cannot be answered twice');
+relay(['ring', 'goku', '--for', 'user', '--kind', 'approval', '--note', 'naruto win v03']);
+relay(['asks']);
+relay(['send', 'goku', '--user-approved', 'naruto win v03', '--quote', 'Approve v03']);
+relay(['asks']);
+check(readAsk(`lane-goku-${state('goku', 'ring').seq}`).status === 'closed', 'asks: an answer relayed by any chat closes the lane\'s ask');
+// Claude chats ask through the queue.
+check(relay(['ask', '--note', 'x']).code === 1 && relay(['ask', '--from', 'Effects', '--note', 'x', '--kind', 'vibes']).code === 1, 'ask: needs --from and a known kind');
+check(relay(['ask', '--from', '0 - Approvals', '--note', 'x']).code === 1, 'ask: the desk does not ask itself');
+r = relay(['ask', '--from', '7 - Effects and Ground', '--session', 'local_abc', '--kind', 'approval', '--note', 'Ship the clash FX now?', '--link', 'https://example.test/r']);
+const claudeAsk = /\((claude-[a-z0-9-]+)\)/.exec(r.out)?.[1];
+check(r.code === 0 && claudeAsk && /Do not ask the user in this chat/.test(r.out) && /desk is not running/.test(r.out), 'ask: queues for the desk, says to stop, and to point the user at a stopped desk');
+deskBeat();
+check(!/desk is not running/.test(relay(['ask', '--from', 'Q&A', '--note', 'second']).out), 'ask: no desk warning while the desk runs');
+fs.rmSync(path.join(HOME, 'desk', 'watcher.json'));
+r = relay(['wait', 'all', '--timeout', '5s', '--interval', '50ms']);
+check(r.code === 0 && /2 new for the USER/.test(r.out) && r.out.includes('Claude chat "7 - Effects and Ground" (local_abc)') && r.out.includes('https://example.test/r'), 'wait all: wakes on Claude chats\' asks with their source and link');
+callsBefore = calls().length;
+r = relay(['answer', claudeAsk, '--user-approved', 'clash FX', '--quote', 'Ship it']);
+check(r.code === 0 && calls().length === callsBefore && /SendMessage to local_abc/.test(r.out) && /USER APPROVAL via the approvals desk on clash FX: "Ship it"/.test(r.out), 'answer: a Claude ask sends nothing to Codex and says what to message back');
+const second = /- (claude-\S+)/.exec(relay(['asks']).out)?.[1] ?? '';
+check(relay(['answer', second, '--dismiss', '']).code === 1 && relay(['answer', second, '--dismiss', 'asked twice']).code === 0 && /0 open/.test(relay(['asks']).out), 'answer --dismiss: closes a stale ask with a reason');
+r = relay(['brief']);
+check(r.code === 0 && r.out.includes('only the Claude chat "0 - Approvals" asks') && /0 open ask/.test(r.out) && r.out.includes('run /approvals'), 'brief: states the rule and the queue');
+check(relay(['brief'], { RELAY_HOME: path.join(FIX, 'nowhere') }).code === 0, 'brief: never fails, even with no relay folder');
 
 // ---- an archived chat is unarchived and the send retried once
 const archived = path.join(FIX, 'archived.flag');

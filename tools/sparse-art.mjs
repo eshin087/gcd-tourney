@@ -1,4 +1,4 @@
-// Sparse art worktrees (TOOL-047): which art/ folders a worktree checks out, and proof that their raw/ is on disk.
+// Sparse art worktrees (TOOL-048): which art/ folders a worktree checks out, and proof that their raw/ is on disk.
 // Imported by tools/pr.mjs (start, art) and tools/pack-sprites.mjs (the dropped-effect guard); no side effects on import.
 //
 // Why a check and not only patterns: `pr start --art` writes the right patterns, but worktrees also get recreated or

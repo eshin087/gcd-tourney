@@ -72,7 +72,7 @@ function start() {
   console.log(`[pr] ready: ${dir}\n[pr] work and commit there, then run \`npm run pr -- open\` from that folder.`);
 }
 
-// Proof, not hope (TOOL-047): every tracked raw/ file of the --art folders is on disk. A worktree that silently lacks
+// Proof, not hope (TOOL-048): every tracked raw/ file of the --art folders is on disk. A worktree that silently lacks
 // art/vfx/raw/ packs an atlas without the effects whose raws are missing, and that atlas then gets committed.
 function verifyArt(dir, folders) {
   const bad = mangledPatterns(sparsePatterns(dir));

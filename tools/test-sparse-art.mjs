@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Regression test for sparse art worktrees (TOOL-047: `pr start --art`, `pr art`, tools/sparse-art.mjs).
+// Regression test for sparse art worktrees (TOOL-048: `pr start --art`, `pr art`, tools/sparse-art.mjs).
 //   node tools/test-sparse-art.mjs   (part of `npm run test:guard`; add --keep to keep tools/.test-fixtures/sparse-art/)
 // Builds a throw-away repository under tools/.test-fixtures/ holding a copy of tools/pr.mjs and its imports, then runs
 // the real `pr start` there and checks what lands on disk: art/vfx/raw/ was empty in a worktree on 2026-10-15 and the

@@ -1160,7 +1160,7 @@ function main() {
   const pa13 = r13c.code === 0 && JSON.parse(fs.readFileSync(path.join(FIX, 'out13', 'preview', 'vfx', 'atlas.json'), 'utf8'));
   check(pa13 && pa13.anims.flame && pa13.anims.spark?.n === 5 && r13c.json.vfx.unapproved.length === 0, `run 13c: candidates preview every effect at its newest version (spark ${pa13 && pa13.anims.spark?.n} frames)`);
 
-  // run 13d (TOOL-047): the shipped spark's raws are missing on disk (a sparse worktree without art/vfx/raw/), so its
+  // run 13d (TOOL-048): the shipped spark's raws are missing on disk (a sparse worktree without art/vfx/raw/), so its
   // frames/ are stale: the atlas is refused and left as it is, unless --allow-drop says the loss is intended
   const lostArt = path.join(FIX, 'art-lost-raw');
   fs.rmSync(lostArt, { recursive: true, force: true });
