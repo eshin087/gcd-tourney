@@ -1,7 +1,7 @@
 {
   "cell": 128,
   "cols": 7,
-  "rows": 20,
+  "rows": 25,
   "ppu": 56,
   "source": "art-pack",
   "packer": 2,
@@ -25,6 +25,11 @@
     "wisp": { "row": 16, "n": 7, "ms": 55 },
     "arc": { "row": 17, "n": 6, "ms": 40 },
     "ripple": { "row": 18, "n": 5, "ms": 50 },
-    "naruto_chakraTail": { "row": 19, "n": 6, "ms": 60 }
+    "naruto_chakraTail": { "row": 19, "n": 6, "ms": 60 },
+    "clashBurst": { "row": 20, "n": 6, "ms": 45 },
+    "streamBolt": { "row": 21, "n": 4, "ms": 40 },
+    "streamLance": { "row": 22, "n": 4, "ms": 40 },
+    "streamFlame": { "row": 23, "n": 4, "ms": 50 },
+    "redOrb": { "row": 24, "n": 6, "ms": 40 }
   }
 }

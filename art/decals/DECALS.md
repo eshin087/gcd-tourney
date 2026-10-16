@@ -30,6 +30,10 @@ cursed: [erasure](#erasure) [erasure_trench](#erasure_trench) [crush_implode](#c
   fire for Sasuke's fireball. The tint (the fighter's color) comes from the engine.
 - **Variety.** The engine cycles through every variant before repeating, rotates flat decals a full
   360 degrees, mirrors half of them and jitters size by +-10%. More distinct variants = less repetition.
+- **On the ring the stone shows through** (ENG-084, ADR 0024 amended). The ring draws its own top texture under a
+  decal and uses the art only as a darkness map: texels close to the stone tone vanish, cracks, pits and scorch
+  darken the floor, and craters sink into a bowl drawn in code. So on the ring the **dark structure** of a decal is what
+  counts; its light tones, chips and rubble never show, and `rubble` is not drawn there. Grass and walls draw the art as is.
 - **Fade.** Decals fade out pixel by pixel (a dithered dissolve), hot seams cool from the tint to soot.
 
 ## Common rules

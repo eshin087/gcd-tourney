@@ -1,0 +1,202 @@
+{
+  "study": "J",
+  "version": "v02",
+  "sourceSize": [
+    2172,
+    724
+  ],
+  "frameCount": 8,
+  "cellSize": [
+    256,
+    256
+  ],
+  "scale": 0.3867403314917127,
+  "uniformScale": true,
+  "neutralHairWidthPx": 35,
+  "maxHairToSolePx": 208,
+  "frames": [
+    {
+      "frame": 0,
+      "sourceFigureBounds": [
+        0,
+        100,
+        253,
+        636
+      ],
+      "sourceHairWidth": 92,
+      "uniformScale": 0.3867403314917127,
+      "normalizedFigureBounds": [
+        64,
+        33,
+        162,
+        240
+      ],
+      "hairToSolePx": 207,
+      "posedWidthPx": 98,
+      "normalizedHairWidth": 36,
+      "hairWidthDeltaFromNeutralPct": 2.86
+    },
+    {
+      "frame": 1,
+      "sourceFigureBounds": [
+        258,
+        100,
+        516,
+        639
+      ],
+      "sourceHairWidth": 91,
+      "uniformScale": 0.3867403314917127,
+      "normalizedFigureBounds": [
+        58,
+        33,
+        158,
+        241
+      ],
+      "hairToSolePx": 208,
+      "posedWidthPx": 100,
+      "normalizedHairWidth": 35,
+      "hairWidthDeltaFromNeutralPct": 0.0
+    },
+    {
+      "frame": 2,
+      "sourceFigureBounds": [
+        499,
+        101,
+        789,
+        627
+      ],
+      "sourceHairWidth": 92,
+      "uniformScale": 0.3867403314917127,
+      "normalizedFigureBounds": [
+        47,
+        33,
+        159,
+        236
+      ],
+      "hairToSolePx": 203,
+      "posedWidthPx": 112,
+      "normalizedHairWidth": 34,
+      "hairWidthDeltaFromNeutralPct": -2.86
+    },
+    {
+      "frame": 3,
+      "sourceFigureBounds": [
+        754,
+        96,
+        1085,
+        587
+      ],
+      "sourceHairWidth": 90,
+      "uniformScale": 0.3867403314917127,
+      "normalizedFigureBounds": [
+        38,
+        33,
+        166,
+        223
+      ],
+      "hairToSolePx": 190,
+      "posedWidthPx": 128,
+      "normalizedHairWidth": 34,
+      "hairWidthDeltaFromNeutralPct": -2.86
+    },
+    {
+      "frame": 4,
+      "sourceFigureBounds": [
+        1036,
+        100,
+        1330,
+        638
+      ],
+      "sourceHairWidth": 90,
+      "uniformScale": 0.3867403314917127,
+      "normalizedFigureBounds": [
+        45,
+        33,
+        159,
+        241
+      ],
+      "hairToSolePx": 208,
+      "posedWidthPx": 114,
+      "normalizedHairWidth": 34,
+      "hairWidthDeltaFromNeutralPct": -2.86
+    },
+    {
+      "frame": 5,
+      "sourceFigureBounds": [
+        1324,
+        101,
+        1581,
+        639
+      ],
+      "sourceHairWidth": 90,
+      "uniformScale": 0.3867403314917127,
+      "normalizedFigureBounds": [
+        58,
+        33,
+        157,
+        241
+      ],
+      "hairToSolePx": 208,
+      "posedWidthPx": 99,
+      "normalizedHairWidth": 34,
+      "hairWidthDeltaFromNeutralPct": -2.86
+    },
+    {
+      "frame": 6,
+      "sourceFigureBounds": [
+        1568,
+        100,
+        1856,
+        629
+      ],
+      "sourceHairWidth": 91,
+      "uniformScale": 0.3867403314917127,
+      "normalizedFigureBounds": [
+        54,
+        33,
+        165,
+        238
+      ],
+      "hairToSolePx": 205,
+      "posedWidthPx": 111,
+      "normalizedHairWidth": 35,
+      "hairWidthDeltaFromNeutralPct": 0.0
+    },
+    {
+      "frame": 7,
+      "sourceFigureBounds": [
+        1823,
+        98,
+        2155,
+        590
+      ],
+      "sourceHairWidth": 90,
+      "uniformScale": 0.3867403314917127,
+      "normalizedFigureBounds": [
+        36,
+        33,
+        164,
+        223
+      ],
+      "hairToSolePx": 190,
+      "posedWidthPx": 128,
+      "normalizedHairWidth": 34,
+      "hairWidthDeltaFromNeutralPct": -2.86
+    }
+  ],
+  "visualQA": "Review leg identity, far-hand pocket continuity, mirrored phases, and f7-to-f0 seam; posed envelope is not body-height approval.",
+  "studyStatus": "needs review; technical hold",
+  "holds": [
+    "Frames 4\u20137 appear to reuse the same lead-leg pattern rather than mirror f0\u2013f3.",
+    "Source f0 touches the left edge of the generation canvas (sourceFigureBounds x0=0); normalization cannot recover missing edge pixels."
+  ],
+  "paletteColors": 48,
+  "loopMedia": {
+    "mp4DecodeExitCode": 0,
+    "mp4Cycles": 8,
+    "fps": "50/3",
+    "gifFrames": 8,
+    "gifDurationMs": 60,
+    "gifInfiniteLoop": true
+  }
+}

@@ -118,7 +118,7 @@ sandbox/runtime solution; no broader read access or Git executable modification 
 | Packer bug or new packer feature | Claude (Codex reports it with the exact repro) |
 | "Generate the next asset" / "where does the art stand?" | Codex |
 | Drawing a model sheet, sprite strip, VFX strip, portrait or logo | Codex (built-in image generator); the user in ChatGPT if they prefer |
-| Approving or rejecting an image | the user, in art/REVIEW.md or in chat (`approve vNN` or feedback) |
+| Approving or rejecting an image | the user, in Claude's question box (relayed to Codex, [ADR 0037](decisions/0037-approvals-in-claude.md)) or typed in the Codex chat (`approve vNN` or feedback) |
 | "I saved an image from ChatGPT, file it" | Codex (next free `_vNN`, REVIEW.md row) |
 | Touching up a few pixels on a frame | the user (any pixel editor, in `frames/<anim>/`) or a patched pose saved as the next strip version ([art/PIPELINE.md "Fixing frames"](../art/PIPELINE.md#fixing-frames)), then re-pack |
 | Writing a new character's briefs | Codex (from `_template`), then Claude reviews the gameplay-facing parts |
@@ -156,25 +156,56 @@ There's no hidden memory between tools. Everything that matters lives in the rep
 
 Task statuses: `todo` → `in-progress` → `review` → `done` (or `blocked` with the reason in notes).
 
+### Central chat and restart
+
+Follow [COORDINATION.md](COORDINATION.md): the Claude chat `0 - Approvals` is the one central chat (approvals, status,
+forwarding the user's instructions to Codex chats, reset after chats are deleted; OPS-016). CONTROL_CHAT.json records
+its identity. The Codex control chat and its attention monitor were retired on 2026-10-15.
+
+### Approvals desk ([ADR 0039](decisions/0039-approvals-desk.md))
+
+One Claude chat, titled `0 - Approvals`, is the only chat that asks the user anything; it runs `/approvals`
+(`.claude/skills/approvals/SKILL.md`). Everything for the user lands in one queue, the main checkout's `.relay/asks/`:
+
+```
+Codex:        ring <lane> --for user --kind approval|decision|blocked --note "..."   -> an ask (lane-<lane>-<ring>)
+Claude chat:  relay ask --from "<its title>" --session <local_ id> --kind ... --note "..." --link <url>, then stops
+Desk:         relay wait all (background) -> push notification -> one question box
+              -> relay answer <id> --user-approved|--user-rejected|--user-decision "<what>" --quote "<their answer>"
+                 (Codex ask: sent to the lane; Claude ask: the desk messages that chat with SendMessage)
+```
+
+Lane watchers in the other Claude chats leave rings for the user to the desk while it runs; with the desk off they
+wake their chat only to point the user at `/approvals`. `relay asks` lists the queue and `relay status` opens with the desk
+line. A committed SessionStart hook
+(`relay brief`) tells every new Claude chat the rule, so after chats are deleted: name a Claude chat
+`0 - Approvals` and type `/approvals`.
+
 ### Relay: handoffs without paste-in prompts ([ADR 0033](decisions/0033-claude-codex-relay.md))
 
 ```
-Claude: CODEX_INBOX item -> npm run relay -- send <lane>   (queues "[relay <lane> #N] read the inbox..." into the lane's Codex chat)
+Claude: CODEX_INBOX item -> node tools/relay.mjs send <lane>   (queues "[relay <lane> #N] read the inbox..." into the lane's Codex chat)
         -> node tools/relay.mjs wait <lane>                 (background watcher in the Claude session; no tokens while it waits)
 Codex:  works -> commits the handoff -> node tools/relay.mjs ring <lane> --note "..."
 Claude: watcher exits, Claude wakes, reads the handoff, works -> send again ...
-Stops:  an image waits for approval, BLOCKED, a decision for the user, 4 round trips without the user (send exits 3),
-        or `relay pause <lane|all>`. The one who stops tells the user; their reply restarts the lane (`relay reset`).
+User:   Codex: ring <lane> --for user --kind approval|decision|blocked -> Claude notifies the user and asks with buttons
+        -> send <lane> --user-approved|--user-rejected|--user-decision "<what>" --quote "<their answer>" -> Codex continues
+Stops:  4 round trips without the user (send exits 3; only sends that answer a new ring count), or `relay pause
+        <lane|all>`. A relayed user answer starts the count again; so does `relay reset` after the user replies.
 ```
 
 - A **lane** is one Codex chat plus the Claude session working with it; `.relay/lanes.json` (machine-local) maps
   it to the chat's UUID. Parallel work runs in parallel lanes; each watcher only wakes for its own lane.
-- The relay carries no content: the inbox, `CLAUDE_ART_HANDOFF.md` and the branches still hold the handoff. A relayed
-  message is never the user's approval; approvals stay in the Codex chat, typed by the user.
-- If `codex queue` fails, Claude gives the user the paste-in prompt, as before. `npm run relay -- status` shows
-  whose turn each lane is, its round trips and whether a watcher is running.
+- The relay carries no content: the inbox, `CLAUDE_ART_HANDOFF.md` and the branches still hold the handoff. Approvals
+  happen in Claude ([ADR 0037](decisions/0037-approvals-in-claude.md)): only a `USER APPROVAL via Claude` relay
+  quoting the user's answer (or the user typing in the Codex chat) approves an image; a plain relay note cannot.
+- If `codex queue` fails, Claude gives the user the paste-in prompt, as before (an archived chat is unarchived
+  and retried first). `node tools/relay.mjs status` shows whose turn each lane is (Claude, Codex or you), its round
+  trips and whether a watcher is running.
 
 Every chat and subagent must perform the mandatory Claude handoff check in [AGENTS.md](../AGENTS.md) at session start and before finishing, using main's current rules/inbox and relay status. The owning chat sends required handbacks without a user reminder. Explicit review-ready notifications report "awaiting user approval; do not proceed" without authorizing another production round.
+
+Every Codex handback also ends with Status / Your action / Claude / Next, as specified in AGENTS.md "Mandatory user-facing status". Name exact approvals, pending Claude work and the next actor; explicitly say None when no action is required. A commit or preview is not proof of full completion.
 
 ### Art review loop (every generated image)
 
@@ -184,7 +215,8 @@ Codex generates (up to 3 attempts), then saves ONLY the single best attempt
      number; never overwrite, reuse or delete a version)
   -> packs it (strips, VFX), runs QA
   -> adds a REVIEW.md row "needs review", updates TRACKER + manifest (version)
-  -> STOPS and shows the user the latest version with a 3-line verdict
+  -> STOPS and shows the user the latest version with a 3-line verdict, and rings Claude --for user (ADR 0037):
+     Claude asks the user with buttons and relays the answer
 user: "approve vNN"  -> row approved, manifest approvedVersion = NN, fixed-name copy
                         (reference/model_sheet.png, expressions.png, idle_approved.png, ui/<name>.png);
                         any other "needs review" row of the asset -> rejected (superseded by vNN),
@@ -306,12 +338,14 @@ Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
 
 [docs/NOW.md](NOW.md) is the one page that says what the user does next. Its top half ("Your next actions",
 "Paste-ready prompts") is written by whichever AI hands back last; its bottom half is generated by
-`npm run status` (art waiting for review from `art/REVIEW.md`, each fighter's progress from
+`npm run status` (the desk's open asks, the newest REVIEW.md row of each asset still marked for review, each fighter's progress from
 `art/manifest.json`, what Claude and Codex have in progress from `docs/TASKS.md`, the last commits).
 
 - Both AIs update "Your next actions" and run `npm run status -- --write` before handing back.
 - The user can type **"status"** to either AI and gets the short version.
-- Approvals still happen in the Codex thread that owns the asset (`approve <id> vNN`); NOW.md only points to them.
+- Approvals happen in the question box of the Claude desk `0 - Approvals` and are relayed to the Codex chat that owns
+  the asset (ADR 0037, 0039); typing `approve <id> vNN` in that chat still works. NOW.md only points to them;
+  `npm run status` opens with "Needs you now", the desk's open asks.
 
 
 ## Worktree location audit (2026-10-12, OPS-005)
@@ -320,3 +354,42 @@ Reference sheets (model sheet, expressions) skip `packed`: `raw` → `approved`.
 - The project-local `.worktrees/art-scale-fix-killua` has three commits not reachable from `main` (`6a0ca36`, `4bdf784`, `c696807`). Preserve it. Its `.git` pointer already references E, but Git status in that checkout fails on ancestor `E:/Vibe Coding`; dirty state is unverified.
 - `pr prune --dry-run` found no clean merged branch worktrees eligible for removal. It separately reported eleven archive/residual directories under `.worktrees`; those are not registered Git worktrees. Preserve candidates and archived scratch until their contents are reviewed. No move, deletion or prune was performed.
 - Project permission configuration remains unchanged. The earlier suggestion to grant the external Gojo checkout is superseded by project-local worktree storage. Native Git creation/access still needs a successful real-worktree test; changing storage preference alone is not proof that the sandbox issue is fixed.
+
+## Storage hygiene (2026-10-15, OPS-013)
+
+The user asked that the project stop growing with leftovers: it lives on an exFAT USB SSD
+(`E:\Vibe Coding`), where a full worktree is about 1.3-3.5 GB and every `dist/` about 0.6 GB. The short rules
+are in CLAUDE.md and AGENTS.md; this is the recipe behind them.
+
+**What each role cleans.**
+
+| Leftover | Who | When | How |
+|---|---|---|---|
+| Merged helper worktree | coordinator | after `npm run pr -- merge` | the merge removes it; then `npm run pr -- prune` (dry run first) |
+| Merged app-managed worktree | coordinator | after its merge | archive it through the Codex/Claude app (worktree rule 5), after auditing its dirty and ignored files |
+| Unregistered `.worktrees/<name>` folder (empty shell after a Windows removal, old plain copy) | coordinator | when `prune --dry-run` lists it | delete once it holds nothing unique (see the audit below) |
+| A worktree's `node_modules/`, `dist/` | the task's owner | when the task ends (merged, abandoned or handed over) | delete both; `npm install` / `npm run build` recreate them |
+| Scratch: PR bodies, one-off helpers, QA PNGs, `.tmp/` | whoever made it | as it is made | write it to the agent's own scratch/temp folder from the start |
+| `deliverables/<item>` | whoever made it | once the user confirms they have it | delete it |
+| `_preserved-*`, `_codex-scratch-*` | coordinator | on the review-by date in its README | review, then delete or renew the README with a reason |
+
+**Never touched by hygiene:** `art/**/raw/` and every `_vNN` input (ADR 0007), `_qa_hold/`, approved art and its
+packs, commits not reachable from `main`, and another agent's uncommitted work. Deleting anything outside the
+routine rows above (`node_modules/`, `dist/`, empty shells, your own scratch) needs the user's yes through the
+approvals desk (ADR 0039).
+
+**Audit before deleting a folder.** For each candidate: `git worktree list` (is it registered?), the branch's merge
+commit on `main` (`git log main --merges --grep "<branch>"`), `git status --porcelain` for a registered one, and
+whether any PNG in it is missing from git: `find <dir> -name '*.png' | git hash-object --stdin-paths | git
+cat-file --batch-check | grep missing`. A missing PNG named `raw/*_vNN.png` is a versioned input: keep it, or
+commit it on its branch, before anything else. Measure sizes per folder in the background (`du -sm`); `du` on the
+exFAT drive is slow.
+
+**Preserved-folder README template.**
+
+```
+Kept because: <why>
+Unique content: <files not in git, or "none; everything is committed">
+Owner: <chat or agent>
+Review by: <YYYY-MM-DD, at most 14 days out>
+```

@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-15",
+  "character": "gojo",
+  "task": "phase 2 production run and dashes",
+  "codexModel": "gpt-6-luna",
+  "reasoning": "medium",
+  "generator": "built-in image_gen (image_gen__imagegen)",
+  "references": {
+    "identityAndAnatomy": [
+      "art/characters/gojo/reference/title_style_approved.png",
+      "art/characters/gojo/reference/title_neutral_approved.png",
+      "art/characters/gojo/reference/idle_approved.png"
+    ],
+    "directionOnly": [
+      "art/characters/gojo/production/run-jkl/K_v01.png"
+    ]
+  },
+  "combatOrientationCheck": "Approved combat cell establishes R = near/camera and L = far.",
+  "animations": {
+    "run": {
+      "version": "v13",
+      "callsUsed": 3,
+      "output": null,
+      "attempts": [
+        {
+          "call": 1,
+          "source": null,
+          "sourceSha256": null,
+          "status": "failed/uncaptured: tool result surfaced no artifact or source path; counted against budget",
+          "selected": false
+        },
+        {
+          "call": 2,
+          "source": null,
+          "sourceSha256": null,
+          "status": "discarded: generated strip visibly repeated frames 0-3 in frames 4-7 instead of mirrored run phases; source path was not captured in the tool call and was not recovered by searching generated files",
+          "selected": false
+        },
+        {
+          "call": 3,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-d77db783-3375-47a3-b0e9-4227302c0cd7.png",
+          "sourceSha256": "0DEFA7604B623B00140C9B8740E28C070D2EA3542A0AA940C6BF9F5B94D891CA",
+          "status": "discarded: frames 4-7 repeat the same phase sequence as frames 0-3; fails mirrored leg phase requirement",
+          "selected": false
+        }
+      ],
+      "note": "No raw/run_v13.png saved; generation budget exhausted."
+    },
+    "dash": {
+      "version": "v09",
+      "callsUsed": 3,
+      "currentOutput": "art/characters/gojo/raw/_qa_hold/dash_v09.png",
+      "attempts": [
+        {
+          "call": 1,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-9443bd77-4597-4781-ae7e-5d76979de947.png",
+          "sourceSha256": "128CD6D28D65FF35AB32C24E17465378D047BA7F6D97C482F167C5FA9EC71078",
+          "output": "art/characters/gojo/raw/_qa_hold/dash_v07.png",
+          "outputSha256": "128CD6D28D65FF35AB32C24E17465378D047BA7F6D97C482F167C5FA9EC71078",
+          "status": "held: Original v07 failed strict scale gate: head 1.11 of idle (feet 1.03), f0 clipped 4px right, f1 clipped 47px left.",
+          "selected": false
+        },
+        {
+          "call": 2,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-13431f62-c2ea-4fb1-b4a0-2700b03ff92c.png",
+          "sourceSha256": "D259DF526AA5E026668208D4F75B933A3B8CF0EFA74FA3D61142B55C0AE6ECEF",
+          "output": "art/characters/gojo/raw/dash_v08.png",
+          "outputSha256": "D259DF526AA5E026668208D4F75B933A3B8CF0EFA74FA3D61142B55C0AE6ECEF",
+          "status": "superseded candidate, retained intact: packer passed head/feet scale but f1 left clipped to a 1px margin versus required 4px; selected v09 pending packer check",
+          "selected": false,
+          "visualQa": "v08's approved-size head/feet passed the packer scale gate; its f1 left margin did not."
+        },
+        {
+          "call": 3,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-4d3ee831-a0ed-4539-ae7d-d739ddebfd92.png",
+          "sourceSha256": "56C50DC259FC60CE8D7791C7221F549B40E5E1ECDAB4155302FAABF563918727",
+          "output": "art/characters/gojo/raw/_qa_hold/dash_v09.png",
+          "outputSha256": "56C50DC259FC60CE8D7791C7221F549B40E5E1ECDAB4155302FAABF563918727",
+          "status": "held after independent Astra audit: near/right arm pump disappears behind torso in slot 17, torso garment axis appears shortened versus approved refs, and head shifts about 37px across the loop; no further calls allowed",
+          "selected": false,
+          "visualQa": "Both whole figures remain inside their source cells and strict packer gate passes. Actual quantized-atlas alpha bounds: f0 x54..196/y67..240 (143x174), f1 x30..163/y67..240 (134x174); idle f0 x80..182/y10..240 (103x231). Independent Astra audit held the atlas: near/right arm pump disappears behind torso in slot 17, torso garment axis appears shortened versus approved references, and head shifts about 37px across the loop. Preserved in raw/_qa_hold/dash_v09.png; no image/design approval or release-ready claim."
+        }
+      ],
+      "notes": "v07 is held after strict scale-gate failure. v08 passed head/feet scale but f1 left clipped to a 1px margin versus required 4px; v08 remains intact in raw/_qa_hold. v09 passed the strict packer gate but failed independent Astra anatomy/loop audit and is preserved in raw/_qa_hold; no active dash candidate. The audited atlas is unchanged and not release-ready."
+    },
+    "backDash": {
+      "version": "v06",
+      "callsUsed": 3,
+      "currentOutput": "art/characters/gojo/raw/_qa_hold/backDash_v06.png",
+      "attempts": [
+        {
+          "call": 1,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-11a92af7-9446-40a6-bdde-480b159adaed.png",
+          "sourceSha256": "2CA200031146309B1E1D37F32040AFA6B109F40D2FADA2292F011BA292FD2D28",
+          "output": "art/characters/gojo/raw/_qa_hold/backDash_v05.png",
+          "outputSha256": "2CA200031146309B1E1D37F32040AFA6B109F40D2FADA2292F011BA292FD2D28",
+          "status": "held: Original v05 failed strict scale gate: head 1.25 of idle (feet 1.09).",
+          "selected": false
+        },
+        {
+          "call": 2,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-80254354-253c-4fc9-9dfe-e02cdd36a744.png",
+          "sourceSha256": "5513E7B6F943D33D28F3D476B594E1DD867DCE92EC18BAB09E654511C1222634",
+          "output": null,
+          "outputSha256": null,
+          "status": "discarded: head/hair still appeared too wide relative to the long adult body on visual inspection; no output saved",
+          "selected": false
+        },
+        {
+          "call": 3,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-588c89b6-2f12-41da-9533-eba23464cc15.png",
+          "sourceSha256": "9A3F8489B718F8F0C134F7EC1EAFA4E9F9E66E84EDAC6DAF3AD6F6C3AD277915",
+          "output": "art/characters/gojo/raw/backDash_v06.png",
+          "outputSha256": "9A3F8489B718F8F0C134F7EC1EAFA4E9F9E66E84EDAC6DAF3AD6F6C3AD277915",
+          "status": "held: final allowed attempt failed strict scale gate (head 1.11, feet 1.03 of idle); preserved under raw/_qa_hold/backDash_v06.png",
+          "selected": false,
+          "visualQa": "Three distinct phases: backward push-off, airborne hop with tucked legs, and landing. All face right, the far L hand stays in the pocket, and near R arm balances forward. Head looks smaller than the prior attempt, but the exact 35px normalized head width remains unverified without packing."
+        }
+      ],
+      "notes": "v05 and v06 are preserved under raw/_qa_hold. Budget exhausted at 3/3; no active backDash candidate."
+    },
+    "superDash": {
+      "version": "v11",
+      "callsUsed": 3,
+      "currentOutput": "art/characters/gojo/raw/_qa_hold/superDash_v11.png",
+      "attempts": [
+        {
+          "call": 1,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-0581bb35-3abe-452a-b858-663079998ac6.png",
+          "sourceSha256": "BF08CF37ADD4FD1CBE9D423FD996166521AB32DFB7D522A780A4D07909077652",
+          "output": "art/characters/gojo/raw/_qa_hold/superDash_v10.png",
+          "outputSha256": "BF08CF37ADD4FD1CBE9D423FD996166521AB32DFB7D522A780A4D07909077652",
+          "status": "held: R near arm extends forward with open palm instead of being swept back as required for K flight; otherwise 2-frame stretch",
+          "selected": false
+        },
+        {
+          "call": 2,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-b53c9fff-5911-4d72-9042-9c9e0472dde6.png",
+          "sourceSha256": "A5DCE3BEA8693D6023531BB8EBDE2330F474FC37656495DF82BBF3912FAD8535",
+          "output": "art/characters/gojo/raw/superDash_v11.png",
+          "outputSha256": "A5DCE3BEA8693D6023531BB8EBDE2330F474FC37656495DF82BBF3912FAD8535",
+          "status": "held: arm direction and pocket pose pass, but silhouette remains too narrow/tall at bodyHeight 146 vs ~230x140 target; v12 attempt 3 improved aspect but still measured ~227x169, no v12 saved",
+          "selected": false,
+          "visualQa": "Both frames face right in 3/4 view. L hand remains at the jacket pocket; R arm trails behind the torso with the hand behind him, not in a forward palm strike. Lead knee is driven up and rear leg extends back. Coordinator pixel bounds were about 678x665 and 795x644 source pixels; after scaling to bodyHeight 146 these yield only about 150-180 px width, below the ~230 px target. Moved intact to raw/_qa_hold/superDash_v11.png because call 3 did not achieve the required wider/thinner shape."
+        },
+        {
+          "call": 3,
+          "source": "E:/Vibe Coding/.codex/generated_images/01a142a9-86a5-7460-b08e-92a456bcdaaf/exec-405277f4-5ebe-4920-a6d1-de98c1849794.png",
+          "sourceSha256": "A1FE15BE9FB2E116AC9B54BF31BE8F3A94874860EF672A6321F0D52566112983",
+          "output": null,
+          "outputSha256": null,
+          "status": "discarded: arm direction and pocket pose pass, but the measured silhouettes are only about 226.6x168.6 and 224x167.4 per native cell (aspect 1.34), still too tall for the approximately 230x140 / 1.64 target; no v12 saved",
+          "selected": false,
+          "visualQa": "Two right-facing 3/4 airborne figures; L hand at pocket, R arm swept back, lead knee raised and rear leg extended, no effects. Source raster 1774x887, each cell 887x887. Bounds measured excluding magenta-like background pixels using RGB thresholds R>200, G<50, B>200."
+        }
+      ],
+      "heldCandidates": [
+        {
+          "output": "art/characters/gojo/raw/_qa_hold/superDash_v10.png",
+          "sha256": "BF08CF37ADD4FD1CBE9D423FD996166521AB32DFB7D522A780A4D07909077652",
+          "reason": "R near arm extends forward with open palm instead of being swept back as required for K flight; otherwise 2-frame stretch"
+        },
+        {
+          "output": "art/characters/gojo/raw/_qa_hold/superDash_v11.png",
+          "sha256": "A5DCE3BEA8693D6023531BB8EBDE2330F474FC37656495DF82BBF3912FAD8535",
+          "reason": "R near arm and L pocket pose pass, but the full-frame projected silhouette is too narrow/tall at bodyHeight 146 (~150-180x146 px vs requested ~230x140); third and final attempt improved aspect to 1.34 but remained too tall (~227x169), so no v12 saved."
+        }
+      ]
+    }
+  },
+  "provenanceNote": "Source paths were recorded immediately when surfaced. For run calls 1 and 2 the source path was unavailable at capture time; no global-newest-file recovery was used. The selected output copies are byte-identical to their tool-returned sources."
+}

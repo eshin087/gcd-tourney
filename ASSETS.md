@@ -45,7 +45,8 @@ fighter has one, the game keeps showing `land` / `airRecover` / `jumpUp` for tha
 
 Every fighter with an energy move (all but Luffy) can draw one optional **struggle** strip
 ([ADR 0034](docs/decisions/0034-beam-clash-visuals.md)): `beamStruggle`, braced and pushing that move into the
-other side's in a beam clash. Until it exists the clash shows `beamFire`. Brief: `art/characters/BEAM_STRUGGLE_BRIEF.md`.
+other side's in a beam clash, and `beamStruggleAir`, the same from the air for a fighter with an air energy shot. Until
+they exist the clash shows `beamFire` and the `throw` release frame. Brief: `art/characters/BEAM_STRUGGLE_BRIEF.md`.
 The beam clash also reads five optional VFX effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`,
 `redOrb`; art/vfx/EFFECTS.md "Beam clash"); each falls back to a procedural stand-in.
 

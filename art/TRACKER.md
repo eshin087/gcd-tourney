@@ -2,8 +2,14 @@
 
 # Art tracker
 
+Gojo production run v13: **user approved via Claude relay #6 ("Approve run v13")** on 2026-10-15. Approval is recorded in [REVIEW.md](REVIEW.md), [Gojo review rows](characters/gojo/REVIEW_ROWS.md) and the manifest (`run.approvedVersion=13`). Candidate is packed on `art/gojo-run`, but remains branch-only. Astra's final atlas audit returned **HOLD** for the new f6 free-arm/fist disappearance (slot 14); see [audit](characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md). The user accepted the same lead leg in both halves, near fist forward in every frame and the B half ~10 px lower; this approval does not certify anatomy or clear the new defect. [Packed contact](../public/reviews/gojo-run-jkl/run_v13_contact_v01.png) · [GIF](../public/reviews/gojo-run-jkl/run_v13_loop_v01.gif).
+
+Gojo J/L run-direction redo v02: the user favored K and asked to redo only J and L; K_v01 remains unchanged. J_v02 and L_v02 each used 3/3 calls; both stay **needs review / technical hold** because the mirrored lead-leg phases still repeat. J source f0 also touches the generation canvas edge. Side-by-side J_v02/K_v01/L_v02 contact sheets, GIF/MP4s, measured envelopes and provenance are in [review page](../public/reviews/gojo-run-jkl/index.html), [inventory](characters/gojo/production/run-jkl/attempt_inventory_v02.json) and [QA package](characters/gojo/production/run-jkl/package_qa_v02.json). These remain direction studies; no production raw or approval changed.
+
 Gojo round4 checkpoint: idle_v07 and superDash_v08/v09 **needs review / QA HOLD**. Named drafts filed, no approvals changed. New idle wrong target bounds; full strict pack fails from changed head-probe denominator. superDash v09 isolated strict head1.03 but torso/limb chains remain short. [checkpoint](characters/gojo/production/round4/CHECKPOINT.md). Other listed suspects need complete segment audit before redraw.
 
+Gojo J/K/L run-direction studies v01: **needs review; user pick pending**. Built-in generation used J 3 calls, K 1, L 1; selected candidates, shared 48-color strips, idle+8-frame contact sheets, looping GIF/MP4 and comparison GIF are filed in [review page](../public/reviews/gojo-run-jkl/index.html) with [QA](characters/gojo/production/run-jkl/QA_v01.md). J f3/f7 leave the far hand out of pocket; K f2/f6 hair is about 26% wide; all three second halves closely reprise the first instead of reading as a mirrored stride, so loop/alternation remain on hold. These are not production strips; the manifest remains shipped run v12 / approvedVersion12.
+Gojo phase 2 production: at that handoff **no production strip was review-ready**. Dash v09 passed packer scale but Astra held the actual quantized atlas: slot 17 loses the near/right arm pump, torso garment axis appears shortened, and head shifts ~37 px across the loop. Its source is preserved under `raw/_qa_hold/`; the atlas was not changed after audit and is not release-ready. BackDash v05/v06 and superDash v10/v11 are also preserved under `raw/_qa_hold/` after exhausted budgets. Phase 3 later stitched run v13 from Part A and held Part B attempt 02 with no new calls; the user approved that candidate as drawn. Astra's audit now holds the packed run for the new f6 arm disappearance; the three user-accepted deviations were not failed. Exact hashes and findings are in [phase-2 inventory](characters/gojo/production/run-jkl/phase2_attempt_inventory_v01.json), [dash QA](characters/gojo/production/run-jkl/phase2_dash_qa_v01.json), [run audit](characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md) and the [review page](../public/reviews/gojo-run-jkl/index.html). No merge or production deployment is claimed.
 Gojo G/H/I run-direction studies v01: **G direction selected by user; H/I rejected**. G relaxed-arm glide proceeds to technical cleanup before production approval. [24 frames](../public/reviews/gojo-run-ghi/GHI_all_24_frames_v01.png), [playable GIF](../public/reviews/gojo-run-ghi/GHI_comparison_v01.gif), [QA](characters/gojo/production/run-ghi/QA_v01.md). Neutral head probes pass; alternating leg identity and seam remain technical holds. Production runv12 stays approved.
 
 Gojo D/E/F run-direction studies v01: **needs review / technical HOLD**, three calls each, B/C rejected. [Combined24frames](../public/reviews/gojo-run-def/DEF_all_24_frames_v01.png), [playable comparison](../public/reviews/gojo-run-def/DEF_comparison_v01.gif), [QA](characters/gojo/production/run-def/QA_v01.md). Production run remains v12/approvedVersion12.
@@ -378,17 +384,18 @@ section's table when its strips are generated (the manifest gets the same entrie
 ## Beam clash struggle (ADR 0034)
 
 One optional strip for every fighter with an energy move (step 9): `beamStruggle` (3 frames, loop, 70 ms), braced and
-pushing the 1-bar energy technique into the other side's. Until a fighter's strip is packed, the clash shows `beamFire`.
+pushing the 1-bar energy technique into the other side's, and `beamStruggleAir` for a fighter with an air energy shot
+(the same, hovering). Until a fighter's strip is packed, the clash shows `beamFire` / the `throw` release frame.
 Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characters/BEAM_STRUGGLE_BRIEF.md)
 (ART-BEAM-CLASH). Luffy has no energy move and draws none.
 
-| fighter | beamStruggle | the technique | notes |
-|---|---|---|---|
-| naruto | todo | Rasengan, two-handed push | |
-| sasuke | todo | Chidori Spear thrust (also plays for the air Great Fireball) | |
-| killua | todo | Narukami, open palm | |
-| gojo | todo | Reversal: Red at two fingertips, other hand in the pocket | |
-| goku | todo | Dragon Fist lunge | after his core art is on main |
+| fighter | beamStruggle | beamStruggleAir | the technique | notes |
+|---|---|---|---|---|
+| naruto | todo | - | Rasengan, two-handed push | no air energy shot |
+| sasuke | todo | todo | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | |
+| killua | todo | todo | Narukami, open palm (in the air driven down) | |
+| gojo | todo | todo | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | |
+| goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
 
 ## Attack alts (ADR 0031)
 
@@ -403,7 +410,7 @@ move into its own section's table when its alts are generated.
 
 | fighter | light1-4 Alt | heavyAlt | airLight1-3 Alt | airHeavyAlt | hurtHigh / hurtLow Alt | notes |
 |---|---|---|---|---|---|---|
-| naruto | 5 candidates: light1Alt v01, light2Alt v01/v02/v03/v04, light3Alt v01/v02, light4Alt v01 | heavyAlt v01/v02 (v02 is byte-identical measured restitch) | 3 candidates: airLight1Alt/2Alt/3Alt v01 | airHeavyAlt v01/v02; v03 held under `raw/_qa_hold/` | hurtHighAlt/HurtLowAlt v01 | ART-ALTS-NAR: light2Alt v04 source repair filed 2026-10-15 under one extra user-authorized imagegen call; local diagnostic pack still reports +30px reach / -30px height contact residual. All candidates await independent anatomy/contact review. airHeavyAlt v03 is quarantined; v02 may remain the highest raw candidate and base fallback is unverified. Claude owns repack/cache/fallback resolution (see production/alts/HOLD_AIRHEAVY_20261015.md). No candidate approved or deployed. |
+| naruto | 5 candidates: light1Alt v01, light2Alt v01/v02/v03/v04/v05 (v05 user-approved), light3Alt v01/v02, light4Alt v01 | heavyAlt v01/v02 (v02 is byte-identical measured restitch) | 3 candidates: airLight1Alt/2Alt/3Alt v01 | airHeavyAlt v01/v02; v03 held; v04 user-approved | hurtHighAlt/HurtLowAlt v01 | ART-ALTS-NAR: user approved light2Alt v05 and airHeavyAlt v04 as drawn via Claude on 2026-10-15; manifest approval recorded. Claude still owns production calibration/contact checks: light2Alt full intrinsic +/-6% anatomy remains uncertain; airHeavyAlt strict f3 center-contact certification and numeric anatomy remain held. Calibrated quantized dry-run exits 0 (44 ok, 7 manual, 1 historical unmeasured); no production promotion. Older candidates are rejected as superseded and retained at their listed source paths.
 | sasuke | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | killua | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | gojo | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
@@ -438,11 +445,11 @@ ones.
 | ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
-| clashBurst | 6 | 45 | white (tinted) | center | todo | - | - | Beam clash (ADR 0034, ART-BEAM-CLASH): the knot where two streams collide; procedural until approved. Brief in EFFECTS.md "Beam clash". |
-| streamBolt | 4 | 40 | white (tinted) | center, tiles | todo | - | - | Beam clash: Narukami stream band; exact 128 x 128 tiles in frames/streamBolt/. |
-| streamLance | 4 | 40 | white (tinted) | center, tiles | todo | - | - | Beam clash: Chidori Spear stream band; exact tiles. |
-| streamFlame | 4 | 50 | full color | center, tiles | todo | - | - | Beam clash: Great Fireball stream band; exact tiles. |
-| redOrb | 6 | 40 | full color | center | todo | - | - | Beam clash: Reversal: Red held in a struggle. |
+| clashBurst | 6 | 45 | white (tinted) | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash (ADR 0034, ART-BEAM-CLASH): the knot where two streams collide; procedural until approved. Brief in EFFECTS.md "Beam clash". |
+| streamBolt | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Narukami stream band; exact 128 x 128 tiles in frames/streamBolt/. |
+| streamLance | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Chidori Spear stream band; exact tiles. |
+| streamFlame | 4 | 50 | full color | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Great Fireball stream band; exact tiles. |
+| redOrb | 6 | 40 | full color | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Reversal: Red held in a struggle. |
 
 ## Shared UI (step 11)
 
@@ -696,3 +703,15 @@ Killua corrections checkpoint: light2v06/light4v10 improve combat recovery; spec
 
 Killua latest QA: specialDown07 retained after final hair-only correction; diagnostic reference28 ok/8 unmeasured/5 flagged. Block151/specialUp197 measured fits retained after peer anatomy review. Full production remains blocked; no new image approved.
 Title-style pilot v01: all four sheets and neutral/combat lineups approved by user 2026-10-11. Full animation production authorized; new strips require final review. Original down/KO poses retained with new style.
+
+
+## Sasuke super / ultimate UI pilot (ART-SUPER-ART)
+
+| Fighter | Asset | Latest | Status | Approved | Notes |
+|---|---|---|---|---|---|
+| Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; not packed. |
+| Sasuke | super_fg | v01 (rejected) | raw | — | Kirin; user rejected via Claude relay effects #3; source archived. |
+| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; not packed. |
+| Sasuke | ult_fg | v01 (rejected) | raw | — | Amaterasu; user rejected via Claude relay effects #3; source archived. |
+
+User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Only the backdrops are approved; foreground technical holds remain documented. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
