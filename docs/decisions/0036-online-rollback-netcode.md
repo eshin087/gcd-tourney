@@ -1,8 +1,8 @@
-# 0034: Online play: rollback netcode, lobby server, determinism first
+# 0036: Online play: rollback netcode, lobby server, determinism first
 
 **Status:** Proposed
 **Date:** 2026-10-15
-**Task:** ENG-082 (spike); follow-ups ENG-083 to ENG-087
+**Task:** ENG-090 (spike); follow-ups ENG-091 to ENG-095
 
 ## Context
 
@@ -102,10 +102,10 @@ off, and reports the first frame where the two runs differ and which values diff
    nickname filter, host kick and vote-kick, rate limits, Cloudflare Turnstile on lobby creation, leaving a match
    counts as a loss, and each lobby shows its region and ping.
 8. **Order of work** (one PR each, offline play unchanged at every step):
-   ENG-083 control basis, frame-based flow and slow-mo, per-match counters (a playtest: the controls must feel the
-   same); ENG-084 view events out of the step, save/restore, deterministic math and its lint; ENG-085 a local netplay
-   mode (two pads in one page with simulated latency and loss) that proves rollback without a server; ENG-086 the
-   lobby server, relay transport and spectating; ENG-087 public lobby browser and moderation (P2P later).
+   ENG-091 control basis, frame-based flow and slow-mo, per-match counters (a playtest: the controls must feel the
+   same); ENG-092 view events out of the step, save/restore, deterministic math and its lint; ENG-093 a local netplay
+   mode (two pads in one page with simulated latency and loss) that proves rollback without a server; ENG-094 the
+   lobby server, relay transport and spectating; ENG-095 public lobby browser and moderation (P2P later).
 
 ## Alternatives considered
 
@@ -125,7 +125,7 @@ off, and reports the first frame where the two runs differ and which values diff
 
 ## Consequences
 
-- ENG-083 and ENG-084 touch fighter.js, game.js, kit.js, projectiles.js and the effects hooks. Other work in those
+- ENG-091 and ENG-092 touch fighter.js, game.js, kit.js, projectiles.js and the effects hooks. Other work in those
   files (new kits, mechanics) has to be sequenced around them.
 - The controls move from the rendered camera to a simulation-owned basis; it must feel the same (playtest).
 - `Math.random` stays fine for effects and the CPU; ENG-040 is no longer an online prerequisite.
@@ -133,5 +133,5 @@ off, and reports the first frame where the two runs differ and which values diff
   come before it is promoted.
 - The fixtures in `public/det/` (~90 KB) ship with the game until the local netplay mode replaces them; the
   dev-server `/__det/save` endpoint (vite.config.js) only exists under `vite serve`.
-- New: a `server/` package and a Cloudflare account (the user's), needed from ENG-086.
-- Revisit after the phone/Firefox results: if they split, deterministic math moves to the front of ENG-084.
+- New: a `server/` package and a Cloudflare account (the user's), needed from ENG-094.
+- Revisit after the phone/Firefox results: if they split, deterministic math moves to the front of ENG-092.

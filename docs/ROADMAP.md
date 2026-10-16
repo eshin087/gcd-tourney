@@ -66,14 +66,14 @@ The user signed off on 2026-10-10 (USR-001); DOC-001 (docs fact check) is the la
 - Arcade ladder with a simple story card per character. Survival.
 - Assists or tag teams (3v3, DBFZ-style) as an **ADR-gated** design decision.
 
-## 💭 M7: Online (v0.8.x, ADR 0034)
+## 💭 M7: Online (v0.8.x, ADR 0036)
 - User scope (2026-10-15): public lobbies and private room codes, many lobbies at once with one 1v1 each, winner
   stays on, spectators watch while they queue, desktop and phones in the same match.
-- Spike done (ADR 0034): the fixed step replays exactly from pad inputs once the control basis, round flow, frame
+- Spike done (ADR 0036): the fixed step replays exactly from pad inputs once the control basis, round flow, frame
   counter and render clock stop leaking in; `Math.random` doesn't reach gameplay state. Cross-browser: pending.
-- Then: simulation prerequisites (ENG-083 basis + frame-based flow, ENG-084 view events, save/restore,
-  deterministic math), a local rollback test mode (ENG-085), the lobby server on Cloudflare Durable Objects with
-  relayed inputs and spectating (ENG-086), public lobbies and moderation (ENG-087).
+- Then: simulation prerequisites (ENG-091 basis + frame-based flow, ENG-092 view events, save/restore,
+  deterministic math), a local rollback test mode (ENG-093), the lobby server on Cloudflare Durable Objects with
+  relayed inputs and spectating (ENG-094), public lobbies and moderation (ENG-095).
 
 ## 💭 v1.0: Release readiness
 - Performance pass, accessibility (remappable everything, colorblind-safe UI cues, reduced flashing option).

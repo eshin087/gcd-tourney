@@ -1,4 +1,4 @@
-// Simulation fingerprints for online play (ADR 0034). Rollback netcode needs two machines to compute the same fight
+// Simulation fingerprints for online play (ADR 0036). Rollback netcode needs two machines to compute the same fight
 // from the same inputs; these hashes say whether they did. The state is hashed in groups so a mismatch also says
 // where it started: game flow, either fighter, the pads (input buffers), the shots in flight, and the camera basis
 // the controls read (stick directions and facing are camera-relative). dumpSim() walks the same values into a flat
@@ -13,7 +13,7 @@ export const GROUPS = ['game', 'f0', 'f1', 'pads', 'shots', 'cam'];
 const GAME_KEYS = ['state', 'inputLive', 'timeLeft', 'round', 'freeze', 'timeScale', 'slowT', 'koTriggered', 'roundWinner',
   'spClashCool', 'struggleCool', 'superFlash', 'clash', 'domain', 'pendingMelee', 'combos'];
 // references back into the engine or the view, never walked; and view state the fighters carry today, which the
-// simulation/view split (ADR 0034) moves off them: the power-up particles (chargeFx.js, Math.random) and the hit
+// simulation/view split (ADR 0036) moves off them: the power-up particles (chargeFx.js, Math.random) and the hit
 // flash (hitFlash.js, stamped with the render clock). The CPU brains tag the shots they have seen (_aid, seen): their
 // own bookkeeping, absent when a replay or a remote player drives the pads
 const SKIP = new Set(['game', 'def', 'asset', 'actor', 'scene', 'renderPos', 'boxViewer', 'hasStrip', 'mesh', 'mat', 'geo', 'tex', 'chargeFx', 'hfx', '_aid', 'seen']);

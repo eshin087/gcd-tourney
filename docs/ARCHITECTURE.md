@@ -81,7 +81,7 @@ src/game/
   hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
                             rim, fade) on Game.frameNo, hitstop shake, ?flash=<style>; numbers in HIT_FLASH
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
-src/net/                    online play (ADR 0034), so far its determinism spike:
+src/net/                    online play (ADR 0036), so far its determinism spike:
   simHash.js                hashSim (per-frame state hash in groups: game flow, each fighter, pads, shots, camera
                             basis), dumpSim / diffDumps (flat value maps to diff two runs); view-only keys skipped
   detTest.js                debug only (?debug -> window.det, ?det=<fixture>): record a CPU match's pad inputs and

@@ -48,7 +48,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `soak(n, opts)` | n CPU vs CPU matches back to back on the fixed step (ENG-012), every frame checked for NaN positions / velocities, a fighter outside the ring barrier outside a KO, a non-idle state running 600+ frames, console and uncaught errors, a stalled game. `opts`: `pairs` (`[['naruto','sasuke'], ...]`, cycled), `level`, `stuck`, `maxFrames`, `seed`. Returns the live status at once (also `window.__soak`); see **Soak** below |
 | `comboStats()` | the CPU combos since the page loaded (ADR 0026): hit histogram, 12+ hit combos per match, matches with a handball (2+ wall bounces) or 3 wall bounces, in-combo vanishes per match, distinct routes, repeats of a CPU's previous route, combo-time share, round lengths, how combos ended, link success, personas, edge counts. Raw data: `comboRecs`, `comboLog` (with each decision's options in `steps`), `comboLinks`, `roundRecs` |
 | `?seed=N` | fixes the match seed: the same CPU personas and combo draws (the rest of the sim still uses `Math.random`) |
-| `det.*`, `?det=<fixture>` | the online-play determinism test (ADR 0034): record / replay / diagnose a match; see **Determinism test** below |
+| `det.*`, `?det=<fixture>` | the online-play determinism test (ADR 0036): record / replay / diagnose a match; see **Determinism test** below |
 
 Solo key codes: `KeyW/A/S/D` move, `KeyJ` light, `KeyK` heavy, `KeyL` special, `Space` jump, `ShiftLeft`
 guard, `KeyO` dash.
@@ -590,7 +590,7 @@ window.rrStep = (budget) => {
 4. The CPU is a stand-in for players: also check that each fighter's kit moves get used (count `kitState` /
    named moves), and trust hands-on play over CPU numbers when they disagree.
 
-## Determinism test (ADR 0034)
+## Determinism test (ADR 0036)
 
 Online rollback needs the same inputs to give the same fight on every machine. `src/net/detTest.js` checks it
 (`?debug` exposes `window.det`; run long calls as an un-awaited async function, they take seconds):
@@ -609,7 +609,7 @@ window aspect feed the controls, so only the same render cadence replays. Fixtur
 `gojo-killua-s3`) are recorded with the pinned basis.
 
 Expected today: `replay` of a fresh recording at `'60'` and two `randomSeed`s match; `'120'`, `'144'` and `'jitter'`
-split around frame 96 (round flow on wall-clock time, ADR 0034). Cross-browser: open
+split around frame 96 (round flow on wall-clock time, ADR 0036). Cross-browser: open
 `<preview URL>/?det=naruto-sasuke-s7` and `?det=gojo-killua-s3` in Safari (iPhone) and Firefox and read the verdict.
 After a change to the simulation, re-record the fixtures (`det.record({ ..., fixedBasis: true, name })`,
 `det.save(det.last)`) and commit them with the change.

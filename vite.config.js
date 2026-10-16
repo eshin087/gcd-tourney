@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { writeFileSync, mkdirSync } from 'fs';
 
-// Dev server only: the determinism test (ADR 0034, src/net/detTest.js) saves a recorded match log as a fixture in
+// Dev server only: the determinism test (ADR 0036, src/net/detTest.js) saves a recorded match log as a fixture in
 // public/det/, so another browser or a phone can replay it against the reference hashes.
 const detFixtures = () => ({
   name: 'det-fixtures',

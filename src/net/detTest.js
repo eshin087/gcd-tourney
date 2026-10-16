@@ -1,4 +1,4 @@
-// Determinism test for online play (ADR 0034; debug only, loaded with ?debug or ?det=<log>). Rollback netcode
+// Determinism test for online play (ADR 0036; debug only, loaded with ?debug or ?det=<log>). Rollback netcode
 // replays the same inputs on two machines and needs the same fight on both. record() plays a CPU vs CPU match and
 // keeps, frame by frame, both pads' inputs (after the brains wrote them) and the simulation hashes (simHash.js).
 // replay() plays those inputs back with the brains switched off and reports the first frame where the two runs
@@ -255,7 +255,7 @@ export function install(game, ready, qs) {
       show(`Determinism test: could not load det/${name}.json (${e.message})`);
       return null;
     }
-    const head = `Determinism test (ADR 0034): ${log.cfg.p1} vs ${log.cfg.p2}, seed ${log.cfg.seed}, ${log.frames} frames, render ${dt}`
+    const head = `Determinism test (ADR 0036): ${log.cfg.p1} vs ${log.cfg.p2}, seed ${log.cfg.seed}, ${log.frames} frames, render ${dt}`
       + `${log.test?.fixedBasis ? ', control basis pinned' : ''}\nscreenshot this when it finishes and send it to Claude`;
     const r = await replay(log, { dt, onProgress: (k, n, first) => show(`${head}\nreplaying... ${k} / ${n}${first ? '  (already split)' : ''}`) });
     const f = r.first;

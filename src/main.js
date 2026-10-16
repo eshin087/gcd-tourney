@@ -104,7 +104,7 @@ if (qs.get('fight')) {
   ready.then(() => game.startMatch({ mode, p1, p2: p2 || p1, level: qs.get('level') || (mode === 'cpu' ? 'impossible' : 'normal'), seed }));
 }
 
-// the online-play determinism test (ADR 0034): window.det with ?debug, and ?det=<log> replays a saved log at once
+// the online-play determinism test (ADR 0036): window.det with ?debug, and ?det=<log> replays a saved log at once
 // (another browser or a phone checking itself against the reference); loaded only when asked for
 if (qs.has('debug') || qs.has('det')) import('./net/detTest.js').then((m) => m.install(game, ready, qs));
 
