@@ -161,6 +161,7 @@ documentation that stays true.
 | `npm run body [id] [anim...]` | body sheet (TOOL-036): every packed frame beside idle f0 and the approved combat cell at one density, labelled with body size B (garment area vs idle f0) and head H; writes `art/scale/body-<id>.png` + `body-report.json`. Advisory (±10 %): confirm a flagged strip by its segments |
 | `npm run lint:anims` | animation-contract lint (TOOL-004, `tools/lint-anims.mjs`; also the first step of `prebuild`, so `npm run build` fails on it): every `animGuide.js` animation has a manifest default and a per-fighter entry, optional ones have a `FALLBACK` entry that reaches an animation the placeholder bakes, every `altOf` repeats its base's frames and phases, `art/SPEC.md` names every animation. `--strict` fails on its warnings (optional strips a fighter lacks, SPEC wording) too |
 | `npm run lint:undeclared` | undeclared-identifier check (TOOL-027, `tools/check-undeclared.mjs [dir]`; second step of `prebuild`): every `src/**/*.js` name that is used but never declared, imported or a known global (the ENG-062 `MODE_ORDER` bug) fails the build with `file:line` |
+| `npm run lint:simmath` | simulation math lint (`tools/lint-sim-math.mjs`; third step of `prebuild`, ADR 0036): `Math.sin` / `cos` / `hypot` / `atan2` / `pow` / `exp` / `log` ... in a gameplay file (fighter, kit, game, projectiles, clash, techAnim, basis, moves, input, characters) fails the build with `file:line`; use `src/game/dmath.js`, which every engine computes identically |
 | `npm run test:lints` | lint regression test (`tools/test-lints.mjs`, fixtures in tools/.test-fixtures/lints/): the planted `MODE_ORDER` bug, a wide valid-syntax sample, one doctored case per animation-contract rule; run after any change to the two lints |
 | `npm run test:anims` | tech pose test (`tools/test-tech-anims.mjs`: animation selection, beat transitions, back rolls, wall facing, missing-art fallbacks); run after changes to the tech states or `src/game/techAnim.js` |
 | `npm run test:guard` | art merge guard test (`tools/test-pr-guard.mjs`: throw-away git repo under tools/.test-fixtures/; unapproved, held, approved, off-size and shipped-version branches, merge-result verdicts, `--force-art` parsing) plus the sparse worktree test (`tools/test-sparse-art.mjs`: real `pr start --art` and `pr art` in a throw-away repo, raw/ on disk); run after changes to `tools/pr-guard.mjs`, `tools/pr.mjs` or `tools/sparse-art.mjs` |
@@ -474,5 +475,6 @@ Read this rule from main alongside the mandatory Claude handoff check; it applie
   override with `?res=pixel` or `?res=hd`.
 - Spec v2 custom sheets are 4096 × 2816 px (16 columns of 256 px cells). Fine on desktop GPUs; a GPU with a
   2048 texture limit gets a downscaled sheet and a three.js warning (ADR 0007).
-- Simulation randomness uses `Math.random()` (AI, the CPU's clash timing, FX; clash charts are seeded). That's fine for now. Online play
-  will need a seeded RNG for the sim (see docs/ROADMAP.md).
+- Simulation randomness: `Math.random()` only reaches the CPU brains and effects (clash charts are seeded), so online
+  play doesn't need a seeded RNG (ADR 0036). Gameplay files must use `src/game/dmath.js`, not `Math.sin` / `cos` /
+  `hypot` / `atan2` ...: engines round those differently (`npm run lint:simmath`, part of the build, enforces it).

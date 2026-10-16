@@ -1,6 +1,7 @@
 // Keyboard + gamepad input, normalized into per-player virtual pads.
 // The CPU drives the exact same Pad interface, so fighters never know who's playing.
 // Bindings are rebindable and saved to localStorage.
+import * as dmath from '../game/dmath.js';
 
 export const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 export const DIRECTIONS = ['up', 'down', 'left', 'right'];
@@ -112,7 +113,11 @@ export class Pad {
   }
 
   setMove(x, y) {
-    const len = Math.hypot(x, y);
+    // -0 becomes 0: an input that crosses the wire or a saved log arrives as +0, and the two can steer later math
+    // differently (ADR 0036)
+    x = x || 0;
+    y = y || 0;
+    const len = dmath.hypot(x, y);
     if (len > 1) { x /= len; y /= len; }
     this.mx = x;
     this.my = y;
@@ -347,7 +352,7 @@ export class InputManager {
       const gb = (ids) => g && (ids || []).some((i) => g.buttons[i]?.pressed && !sup?.has(i));
       if (g) {
         const ax = g.axes[0] || 0, ay = g.axes[1] || 0;
-        const mag = Math.hypot(ax, ay);
+        const mag = dmath.hypot(ax, ay);
         if (mag > 0.35) { const k = Math.min(1, (mag - 0.35) / 0.55) / mag; x = ax * k; y = -ay * k; }
         if (gb([14])) x = -1;
         if (gb([15])) x = 1;

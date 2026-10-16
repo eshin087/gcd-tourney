@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: the simulation is replayable with no test workarounds (ENG-091, ADR 0036): it owns its control basis (`src/game/basis.js`; the render camera follows its yaw), runs the match flow and KO slow-mo on the fixed step, resets its frame counter per match, never reads the render clock (Gojo's Infinity charge counts frames), takes the hold-back-to-block rule from the match setup (`Game.kinds`), stores -0 sticks as 0, and uses deterministic math (`src/game/dmath.js`; `npm run lint:simmath` in prebuild). Fixtures re-recorded; replays match at 60/120/144 Hz and uneven frame times.
+
 - art(killua): record user approval via Claude relay scale#6 (“i approve those 5”) for charge v14, down v08 and ko v09 as drawn. Calibration uncertainty remains; charge aura retention and runtime grounding/state-transition checks remain on technical hold for Claude.
 
 - art(killua): Astra re-audited calibrated charge v14, down v08 and mirrored ko v09; gross scale/clipping defects resolved and visual anatomy screening passes. Runtime grounding and aura retention remain unverified; calibration uncertainties remain. User approval is recorded in the entry above. No new generation or calibration edits.

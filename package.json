@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node tools/lint-anims.mjs && node tools/check-undeclared.mjs && node tools/art-index.mjs",
+    "prebuild": "node tools/lint-anims.mjs && node tools/check-undeclared.mjs && node tools/lint-sim-math.mjs && node tools/art-index.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "dev:alt": "vite --port 5200",
@@ -24,6 +24,7 @@
     "deploy": "node tools/deploy.mjs",
     "lint:anims": "node tools/lint-anims.mjs",
     "lint:undeclared": "node tools/check-undeclared.mjs",
+    "lint:simmath": "node tools/lint-sim-math.mjs",
     "test:anims": "node tools/test-tech-anims.mjs",
     "test:alts": "node tools/test-anim-alts.mjs",
     "test:guard": "node tools/test-pr-guard.mjs && node tools/test-sparse-art.mjs",

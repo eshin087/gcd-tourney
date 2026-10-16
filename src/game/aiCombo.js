@@ -905,7 +905,7 @@ export class ComboComposer {
     }
     const L = this.f.game.debugCombos && window.comboLinks;
     if (L) {
-      const f = this.f, o = f.opp, R = f.game.cam.right;
+      const f = this.f, o = f.opp, R = f.game.basis.right;
       L.push({ who: f.def.id, id, ok, gap, pred, ...(ok ? null : { at: `${f.state}/${f.moveName} vs ${o.state} dx${((o.pos.x - f.pos.x) * R.x + (o.pos.z - f.pos.z) * R.z).toFixed(2)} dy${(o.pos.y - f.pos.y).toFixed(2)}` }) });
     }
   }

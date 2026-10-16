@@ -21,7 +21,7 @@ function simId() {
   walk(resolve(__dirname, 'src/game'), (n) => n.endsWith('.js'));
   walk(resolve(__dirname, 'src/characters'), (n) => n.endsWith('.js'));
   walk(resolve(__dirname, 'public/characters'), (n) => n === 'anims.json');
-  for (const f of ['src/core/input.js', 'src/net/simHash.js', 'src/net/dmath.js']) add(resolve(__dirname, f));
+  for (const f of ['src/core/input.js', 'src/net/simHash.js']) add(resolve(__dirname, f));
   const h = createHash('sha1');
   for (const f of files.map((p) => p.slice(__dirname.length).replace(/\\/g, '/')).sort()) {
     h.update(f);
@@ -43,10 +43,14 @@ const detFixtures = () => ({
       req.on('data', (c) => { body += c; });
       req.on('end', () => {
         try {
-          JSON.parse(body);
+          // stamp the fingerprint of the files on disk now: the page's import.meta.env.SIM_ID is the one this server
+          // started with, and gameplay edits since (the page reloads on them) would make the fixture look stale
+          const log = JSON.parse(body);
+          log.sim = simId();
+          const out = JSON.stringify(log);
           mkdirSync(resolve(__dirname, 'public/det'), { recursive: true });
-          writeFileSync(resolve(__dirname, `public/det/${name}.json`), body);
-          res.end(`saved public/det/${name}.json (${body.length} bytes)`);
+          writeFileSync(resolve(__dirname, `public/det/${name}.json`), out);
+          res.end(`saved public/det/${name}.json (${out.length} bytes, sim ${log.sim})`);
         } catch (e) {
           res.statusCode = 400;
           res.end(String(e.message));
