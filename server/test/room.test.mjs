@@ -1,7 +1,7 @@
 // Lobby room rules test (ENG-094): RoomCore driven in plain Node with a fake clock and fake sockets.
 // Run: npm run test:lobby (from the repository root) or npm test (from server/).
 import assert from 'node:assert/strict';
-import { RoomCore, STREAK_CAP, NEXT_MATCH_MS, SILENT_MS, RESULT_WAIT_MS, MAX_MEMBERS, STATS_KEPT, pickDelay, QUICK_COUNT, CHAT_GAP_MS, BAN_MS, VOTE_MS } from '../src/roomCore.js';
+import { RoomCore, STREAK_CAP, NEXT_MATCH_MS, SILENT_MS, RESULT_WAIT_MS, MAX_MEMBERS, STATS_KEPT, pickDelay, QUICK_COUNT, CHAT_GAP_MS, BAN_MS, VOTE_MS, GRACE_MS } from '../src/roomCore.js';
 import { isRude } from '../src/names.js';
 
 const INPUT_DELAY = 2; // two members with no round trip yet (80 ms assumed each) get 2 frames
@@ -395,6 +395,80 @@ test('vote to remove: a majority of the others, at least two', () => {
   R.room.message('e', { t: 'vote', id: 'b' });
   assert.equal(R.room.members.has('b'), false);
   assert.equal(R.last('b', 'error').text, 'The room voted to remove you.');
+});
+
+test('a dropped player keeps its seat and match, and comes back with the inputs it lacks', () => {
+  const R = makeRoom();
+  R.join('a'); R.join('b'); R.join('w', { play: false });
+  const token = R.last('a', 'welcome').token;
+  assert.match(token, /^[0-9a-f]{24}$/);
+  R.room.message('a', { t: 'in', start: 2, v: [1, 1, 1, 1, 1, 1, 1, 1] }); // a has frames 0..9
+  R.room.message('b', { t: 'in', start: 2, v: [2, 2, 2] }); // b has 0..4
+  R.room.disconnect('a');
+  assert.ok(R.last('w', 'room').room.members.find((m) => m.id === 'a').away > 0, 'shown as away');
+  assert.ok(R.room.match, 'the match waits');
+  R.room.message('b', { t: 'in', start: 5, v: [2, 2, 2, 2] }); // b runs on a little (0..8)
+  R.clear();
+  assert.equal(R.room.join('a', { resume: { id: 'a', token: 'wrong', have: [0, 0] } }), null);
+  assert.equal(R.last('a', 'error').code, 'gone');
+  R.clear();
+  const m = R.room.join('a', { resume: { id: 'a', token, have: [10, 5] }, rtt: 30 });
+  assert.ok(m);
+  const w = R.last('a', 'welcome');
+  assert.equal(w.resumed, true);
+  assert.equal(w.you, 'a');
+  const st = R.last('a', 'start');
+  assert.equal(st.you, 0);
+  assert.deepEqual(st.resume.have, [10, 9]);
+  const logs = R.all('a', 'log');
+  assert.deepEqual(logs.map((l) => [l.p, l.start, l.v.length]), [[1, 5, 4]], 'only what it lacks: b 5..8');
+  assert.ok(R.last('a', 'logEnd'));
+  assert.equal(R.last('w', 'room').room.members.find((x) => x.id === 'a').away, 0);
+  // after a reload it holds nothing: everything comes back
+  R.room.disconnect('a');
+  R.clear();
+  R.room.join('a', { resume: { id: 'a', token, have: null } });
+  assert.deepEqual(R.all('a', 'log').map((l) => [l.p, l.start, l.v.length]), [[0, 0, 10], [1, 0, 9]]);
+});
+
+test('a seat whose grace runs out is gone: a player in a match forfeits', () => {
+  const R = makeRoom();
+  R.join('a'); R.join('b');
+  R.room.disconnect('b');
+  R.env.clock += GRACE_MS / 2;
+  R.room.message('a', { t: 'in', start: 2, v: [1] });
+  R.room.timer();
+  assert.ok(R.room.members.has('b'), 'still within the grace');
+  R.env.clock += GRACE_MS / 2 + 1;
+  R.room.message('a', { t: 'in', start: 3, v: [1] });
+  R.room.timer();
+  assert.equal(R.room.members.has('b'), false);
+  assert.equal(R.last('a', 'end').winner, 'a');
+});
+
+test('an away member keeps its place in line but is not put into a match', () => {
+  const R = makeRoom();
+  R.join('a'); R.join('b'); R.join('c');
+  play(R, 5, 0); // a beats b: line a, c, b
+  R.room.disconnect('c');
+  R.tick(NEXT_MATCH_MS);
+  assert.deepEqual(R.room.match.players, ['a', 'b'], 'c is away: a plays b');
+  assert.ok(R.room.queue.includes('c'), 'c keeps its place');
+});
+
+test('leaving on purpose takes no grace; a watcher coming back gets the match from frame 0', () => {
+  const R = makeRoom();
+  R.join('a'); R.join('b'); R.join('w', { play: false });
+  R.room.message('a', { t: 'in', start: 2, v: new Array(10).fill(1) });
+  R.room.message('b', { t: 'in', start: 2, v: new Array(10).fill(2) });
+  const token = R.last('w', 'welcome').token;
+  R.room.disconnect('w');
+  R.clear();
+  R.room.join('w', { resume: { id: 'w', token, have: null } });
+  assert.equal(R.last('w', 'start').you, -1);
+  assert.equal(R.last('w', 'feed').start, 0);
+  R.room.message('w', { t: 'leave' });
+  assert.equal(R.room.members.has('w'), false, 'gone at once');
 });
 
 console.log(process.exitCode ? `room test: ${passed} passed, some FAILED` : `room test: OK, ${passed} passed`);

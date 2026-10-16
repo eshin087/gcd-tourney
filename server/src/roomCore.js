@@ -18,12 +18,19 @@
 // host (the longest-standing member) can remove anyone; anyone can vote to remove someone, and a majority of the
 // others does it. A removed member's browser (its `cid`) can't come back for BAN_MS, nor its address unless someone
 // still in the room shares it (one home's Wi-Fi: the host who removed them, a sibling).
+//
+// Rejoining (ENG-097): a dropped connection (room.js: disconnect) keeps the member's seat for GRACE_MS, marked away.
+// The welcome carries a secret `token`; a hello with `resume { id, token, have }` takes the seat back. A player
+// returning to its match gets the start again with `resume.have` (how many of each player's inputs the room holds),
+// then `log` messages with every input it lacks (from its own `have`; all of them after a reload) and `logEnd`.
+// `leave` is a member leaving on purpose (no grace).
 import { cleanName } from './names.js';
 
 export const STREAK_CAP = 5;
 export const STATS_KEPT = 20; // the newest per-player match stats a room keeps
 export const NEXT_MATCH_MS = 6000; // the results on screen, then the next pair
-export const SILENT_MS = 10000; // a player whose inputs stop this long (closed laptop, app in the background) forfeits
+export const SILENT_MS = 20000; // a player whose inputs stop this long (closed laptop, app in the background) forfeits
+export const GRACE_MS = 20000; // a dropped member's seat (and match) waits this long for it to come back
 export const RESULT_WAIT_MS = 8000; // one player reported the winner: how long the other has to agree
 export const MAX_MEMBERS = 24;
 export const WATCHDOG_MS = 2000; // the silence check's period while a match runs
@@ -36,6 +43,7 @@ const FEED_EVERY = 6; // confirmed frames per spectator message (ten a second)
 const FEED_CHUNK = 3000; // frames per message when catching a late spectator up
 const RATE = 150; // messages a second a member may send (a player sends 60), and twice that as a burst
 
+const newToken = () => Array.from(crypto.getRandomValues(new Uint8Array(12)), (b) => b.toString(16).padStart(2, '0')).join('');
 const seedOf = (id) => [...String(id)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7);
 const cleanFighter = (s) => (typeof s === 'string' && /^[a-z0-9_-]{1,24}$/.test(s) ? s : null);
 const isInput = (v) => Number.isInteger(v) && v >= 0 && v < 1 << 23;
@@ -76,12 +84,40 @@ export class RoomCore {
 
   // a member a restarted object finds on its sockets (room.js): back in, without a broadcast
   restore(m) {
-    this.members.set(m.id, { id: m.id, name: m.name, fighter: m.fighter, play: m.play, sim: m.sim, rtt: m.rtt ?? null, ip: m.ip ?? null, cid: m.cid ?? null });
+    this.members.set(m.id, { id: m.id, name: m.name, fighter: m.fighter, play: m.play, sim: m.sim, rtt: m.rtt ?? null, ip: m.ip ?? null, cid: m.cid ?? null, token: m.token, awayUntil: null });
+  }
+
+  // the seat a resume hello may take back: the member's id, or null
+  resumable(r) {
+    const m = r && this.members.get(r.id);
+    return m && typeof r.token === 'string' && r.token === m.token ? m.id : null;
+  }
+
+  // the connection dropped: the seat waits GRACE_MS (a match too: its silence rule has the same length)
+  disconnect(id) {
+    const m = this.members.get(id);
+    if (!m) return;
+    m.awayUntil = this.io.now() + GRACE_MS;
+    this.changed();
+  }
+
+  // a member back on a new connection (room.js already pointed it at the seat): the room, and its match
+  resume(m, hello) {
+    m.awayUntil = null; // in line for real again (changed() may start a match with it)
+    this.rtt(m, { ms: hello?.rtt });
+    this.io.send(m.id, { t: 'welcome', you: m.id, token: m.token, room: this.view(), resumed: true });
+    if (this.match) this.sendMatch(m.id, Array.isArray(hello.resume.have) ? hello.resume.have : [0, 0]);
+    this.changed();
+    return m;
   }
 
   // A new connection's hello; returns the member, or null (rejected: the socket is closed after the error). info (from
   // room.js): { ip: a hash of the address, region, verified: the anti-bot check passed }.
   join(id, hello, info = {}) {
+    if (hello?.resume) {
+      const back = this.resumable(hello.resume) === id && this.members.get(id);
+      return back ? this.resume(back, hello) : this.reject(id, 'gone', 'Your seat in the room is gone. Join it again.');
+    }
     const sim = String(hello?.sim ?? '').slice(0, 40);
     const first = this.members.values().next().value;
     const now = this.io.now();
@@ -91,7 +127,7 @@ export class RoomCore {
     }
     if (this.members.size >= MAX_MEMBERS) return this.reject(id, 'full', 'This room is full.');
     if (first && first.sim !== sim) return this.reject(id, 'version', 'This room runs another version of the game. Refresh the page to update.');
-    const m = { id, name: cleanName(hello?.name, seedOf(id)), fighter: cleanFighter(hello?.fighter) || 'naruto', play: hello?.play !== false, sim, rtt: null, ip: info.ip ?? null, cid };
+    const m = { id, name: cleanName(hello?.name, seedOf(id)), fighter: cleanFighter(hello?.fighter) || 'naruto', play: hello?.play !== false, sim, rtt: null, ip: info.ip ?? null, cid, token: newToken(), awayUntil: null };
     if (!first) {
       // the room opens: public only after the anti-bot check
       if (hello?.public && !info.verified) return this.reject(id, 'verify', 'Could not check that you are a person. Try again.');
@@ -104,7 +140,7 @@ export class RoomCore {
     this.members.set(id, m);
     this.queue = this.queue.filter((q) => this.members.has(q)); // ids a restart left behind
     if (m.play) this.queue.push(id);
-    this.io.send(id, { t: 'welcome', you: id, room: this.view() });
+    this.io.send(id, { t: 'welcome', you: id, token: m.token, room: this.view() });
     if (this.match) this.sendMatch(id);
     this.changed();
     return m;
@@ -151,6 +187,7 @@ export class RoomCore {
       case 'say': return this.say(m, msg);
       case 'kick': return this.kick(m, msg);
       case 'vote': return this.vote(m, msg);
+      case 'leave': return this.leave(m.id);
     }
   }
 
@@ -244,9 +281,12 @@ export class RoomCore {
   }
 
   // ------------------------------------------------------------ the match
+  // the first two in line who are here (an away member keeps its place but isn't put into a match)
   maybeStart() {
-    if (this.match || this.queue.length < 2 || this.io.now() < this.nextAt) return;
-    const players = this.queue.splice(0, 2);
+    if (this.match || this.io.now() < this.nextAt) return;
+    const players = this.queue.filter((id) => !this.members.get(id)?.awayUntil).slice(0, 2);
+    if (players.length < 2) return;
+    this.queue = this.queue.filter((id) => !players.includes(id));
     const ms = players.map((id) => this.members.get(id));
     this.matchNo++;
     const now = this.io.now();
@@ -268,15 +308,28 @@ export class RoomCore {
     for (const id of this.members.keys()) this.sendMatch(id);
   }
 
-  // the match to one member: its setup, and for a spectator every confirmed frame so far (a late joiner fast-forwards)
-  sendMatch(id) {
+  // The match to one member: its setup, and for a spectator every confirmed frame so far (a late joiner fast-forwards).
+  // have (a player coming back): how many of each player's inputs it still holds; it gets the rest as `log`.
+  sendMatch(id, have = null) {
     const M = this.match;
     const you = M.players.indexOf(id);
-    this.io.send(id, {
+    const start = {
       t: 'start', no: M.no, seed: M.seed, delay: M.delay, you,
       players: M.players.map((p, i) => ({ id: p, name: M.names[i], fighter: M.fighters[i] })),
-    });
-    if (you >= 0) return;
+    };
+    if (you >= 0 && have) start.resume = { have: M.inputs.map((l) => l.length) };
+    this.io.send(id, start);
+    if (you >= 0) {
+      if (!have) return;
+      for (let p = 0; p < 2; p++) {
+        const list = M.inputs[p];
+        for (let f = Math.max(0, Math.min(have[p] | 0, list.length)); f < list.length; f += FEED_CHUNK) {
+          this.io.send(id, { t: 'log', no: M.no, p, start: f, v: list.slice(f, f + FEED_CHUNK) });
+        }
+      }
+      this.io.send(id, { t: 'logEnd', no: M.no });
+      return;
+    }
     for (let f = 0; f <= M.fed; f += FEED_CHUNK) {
       const end = Math.min(M.fed, f + FEED_CHUNK - 1);
       this.io.send(id, { t: 'feed', no: M.no, start: f, a: M.inputs[0].slice(f, end + 1), b: M.inputs[1].slice(f, end + 1) });
@@ -380,9 +433,11 @@ export class RoomCore {
     this.changed();
   }
 
-  // the alarm (room.js): a silent player, a result waiting for its pair, the next match's start
+  // the alarm (room.js): a seat whose grace ran out, a silent player, a result waiting for its pair, the next match
   timer() {
-    const now = this.io.now(), M = this.match;
+    const now = this.io.now();
+    for (const m of [...this.members.values()]) if (m.awayUntil && now >= m.awayUntil) this.leave(m.id);
+    const M = this.match;
     if (M) {
       const quiet = M.lastIn.map((t) => now - t > SILENT_MS);
       if (quiet[0] || quiet[1]) return this.finish(quiet[0] && quiet[1] ? null : quiet[0] ? 1 : 0, 'timeout');
@@ -392,19 +447,29 @@ export class RoomCore {
     if (this.queue.length >= 2 && now >= this.nextAt) this.changed();
   }
 
+  // ready to play: in line and not away
+  ready() {
+    return this.queue.filter((id) => !this.members.get(id)?.awayUntil).length;
+  }
+
   // when the alarm must fire next (ms), or null
   nextWake() {
     const now = this.io.now(), M = this.match;
-    if (M) return Math.min(now + WATCHDOG_MS, M.resultAt || Infinity);
-    if (this.queue.length >= 2 && this.nextAt > now) return this.nextAt;
-    return null;
+    const away = Math.min(...[...this.members.values()].map((m) => m.awayUntil || Infinity));
+    let at = away;
+    if (M) at = Math.min(at, now + WATCHDOG_MS, M.resultAt || Infinity);
+    else if (this.ready() >= 2 && this.nextAt > now) at = Math.min(at, this.nextAt);
+    return at === Infinity ? null : at;
   }
 
   // ------------------------------------------------------------ room state
   view() {
     const now = this.io.now();
     return {
-      members: [...this.members.values()].map((m) => ({ id: m.id, name: m.name, fighter: m.fighter, play: m.play, wins: this.wins[m.id] || 0, streak: this.streak[m.id] || 0 })),
+      members: [...this.members.values()].map((m) => ({
+        id: m.id, name: m.name, fighter: m.fighter, play: m.play, wins: this.wins[m.id] || 0, streak: this.streak[m.id] || 0,
+        away: m.awayUntil ? Math.max(0, m.awayUntil - now) : 0, // ms left to come back
+      })),
       queue: this.queue.slice(),
       match: this.match ? { no: this.match.no, players: this.match.players.slice(), fighters: this.match.fighters.slice() } : null,
       host: this.host(),

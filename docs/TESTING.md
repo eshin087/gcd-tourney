@@ -609,6 +609,7 @@ Online rollback needs the same inputs to give the same fight on every machine. `
 | `det.replay(log, { rollback: { every: 10, depth: 8 } })` | the rollback stress test (ADR 0036): every `every` frames save the state, play `depth` frames on random inputs, restore, re-simulate them quietly (`Game.quiet`) on the right ones; every frame is still checked. `.rollback` holds the rewind count and the save / restore / re-simulation times |
 | `det.netplay(log, { latency, jitter, loss, delay, maxRollback, localPlayer, seed, tamper })` | the rollback session (`src/net/rollback.js`, ENG-093) over a simulated network (`src/net/netSim.js`): one side is this game, the other the recording's inputs arriving `latency` ± `jitter` frames late with `loss` (0-1) dropped; every frame is compared with a plain replay. `{ match, first, compared, frames, stats }` (rollbacks, deepest rewind, stalls, mispredictions, desync checks). `tamper: frame`: the other side sends another input there (jump) but reports the recording's hashes, so the desync check must fire |
 | `det.online(log, { lobby, frames })` | the real lobby server end to end (ENG-094; `npm run lobby` first): a spectator, this game as player 1 and a bot as player 2 (the log's second pad) join a fresh room; the match (intro included) must equal the same inputs replayed through a spectator session on every frame, the hash checks through the server must agree, and the spectator feed must be exactly what both players sent. Runs in real time (60 ticks a second) |
+| `det.online(log, { drop: { at, ms, reload } })` | the same, with our connection dropping at frame `at` for `ms` and coming back on the seat's token (ENG-097); `reload: true` rebuilds the match from the room's log as a reloaded page would. Expected: MATCH on every frame, `drop.done` |
 | `det.bot(code, { name, fighter, play, style, auto })` | a stand-in room member: plays like a real peer ('mash' or 'idle') without running a game, or only watches (`play: false`); never reports a result, so a KO ends after the server's 8 s wait. `auto: false`: tick it yourself (`handle.tick()`) on a hidden page |
 | `det.diagnose(log, { dt, randomSeed })` | two replays (the second at `dt` / another `Math.random` sequence); where they split, the values that differ |
 | `det.save(log)` / `det.load(name)` | write / read `public/det/<name>.json` (save: dev server only) |
@@ -652,6 +653,15 @@ Expected today (`det.netplay` on fresh recordings): a MATCH for every frame of n
 15 % loss), gojo-killua (4 ± 3, 10 %, as player 2), goku-luffy (9 ± 1, 2 %, delay 3) and killua-sasuke (6 ± 2, 5 %),
 with up to 8-frame rewinds, stalls under heavy lag and no desyncs; `tamper: 600` reports a desync at frame 600.
 `startAt: 20` (the other machine starts 20 ticks late) still matches, time sync waiting out the head start.
+
+### Rejoining after a drop (ENG-097)
+
+1. `det.online(log, { frames: 1500, drop: { at: 700, ms: 3000 } })` and the same with `reload: true`: MATCH.
+2. In a room with a stand-in (`det.bot(code, { auto: false })`, ticked in your loop): `game.online.client.kill()`
+   mid-match shows "RECONNECTING TO ROOM ..." and the match goes on; `bot.client.kill()` shows "WAITING FOR Bot TO
+   RECONNECT · 19s" and the match stands still; after 20 s the stand-in forfeits.
+3. On two devices: mid-match, switch the phone to another app for 5-10 s or turn its Wi-Fi off and on; the match
+   resumes. Close the tab and reopen the invite link within 20 s: back in the same match.
 
 ### Public rooms (ENG-095)
 

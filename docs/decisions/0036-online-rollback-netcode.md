@@ -289,3 +289,19 @@ off, and reports the first frame where the two runs differ and which values diff
     (no secret): public rooms open without a token, and a third from one address stays unlisted.
   - Playtest (phone vs PC): "it works". Merged and live 2026-10-16 (PR #134); on production a public room opened
     without the check, was listed and joined, and quick-chat went through.
+- **ENG-097, 2026-10-16:** rejoining after a dropped connection (the user's choice after ENG-095).
+  - The server keeps a dropped member's seat for 20 seconds (`GRACE_MS`, marked away; the silence rule for a
+    player is 20 seconds too). The welcome carries a secret token; a hello with `resume` takes the seat back on the
+    new socket (room.js maps members to sockets, so the old socket's late close is ignored).
+  - A player coming back gets its match's start again with how many inputs the room holds, and `log` messages with
+    the ones it lacks. A page that kept the match takes the other side's missed inputs and resends its own
+    (`RollbackSession.resendFrom`). A page that reloaded finds its seat in sessionStorage (the URL still has
+    ?room=) and rebuilds the match from the log (`RollbackSession.resume`: confirmed frames straight, the last few as
+    predictions), quietly, then plays on. The other side stands still with "waiting for X to reconnect" and a
+    countdown; the dropped side shows "reconnecting".
+  - An away member keeps its place in line but isn't put into a new match (found when a reload left an away
+    stand-in in line: the next match waited on it).
+  - Tests: 28 room-rule cases; `det.online` with a drop at frame 700 (the page kept its match) and at frame 800 and
+    500 (a reload, rebuilt from the log) MATCH on every frame through the local server; the game's own controller
+    reconnected mid-match into the same match, rejoined after a real page reload with the same seat, and showed the
+    waiting countdown when the other side dropped.

@@ -103,11 +103,18 @@ export class LobbyClient {
     if (this.ws.readyState === 1) this.ws.send(JSON.stringify(msg)); // not while closing: the browser logs every try
   }
 
+  // leaving on purpose: the room frees the seat at once (a dropped connection keeps it a while, ENG-097)
   close() {
+    this.send({ t: 'leave' });
     this.on = {};
     clearInterval(this.pinger);
     clearTimeout(this.openT);
     try { this.ws.close(1000); } catch { /* not open yet */ }
+  }
+
+  // tests: the connection drops (no leave; the handlers hear the close like a real drop)
+  kill() {
+    try { this.ws.close(4100, 'test drop'); } catch { /* closed */ }
   }
 
   // the transport a RollbackSession reads (the server stamps who a message is from)

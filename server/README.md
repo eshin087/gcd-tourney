@@ -62,6 +62,8 @@ Client to server:
 | Message | When |
 |---|---|
 | `{ t: 'hello', name, fighter, sim, play, rtt, cid, public?, turnstile? }` | first, once (`play`: false only watches; `rtt`: the first ping's round trip, ms; `cid`: this browser's id, for bans; into an empty room, `public: true` with a Turnstile token opens it public) |
+| `{ t: 'hello', resume: { id, token, have }, ... }` | coming back on a new connection (ENG-097): the seat's id and the welcome's token; `have`: how many of each player's inputs this page still holds (`null` after a reload) |
+| `{ t: 'leave' }` | leaving on purpose (no grace) |
 | `{ t: 'say', i }` | a quick-chat line or emote: an index into `src/net/quickChat.js` (no free text; one per 1.2 s) |
 | `{ t: 'kick', id }` | the host removes a member |
 | `{ t: 'vote', id }` | a vote to remove a member (a majority of the others, at least two, within 90 s) |
@@ -77,10 +79,11 @@ Server to client:
 
 | Message | Means |
 |---|---|
-| `{ t: 'welcome', you, room }` | joined; `you` is this member's id |
+| `{ t: 'welcome', you, token, room, resumed? }` | joined (or back: `resumed`); `you` is this member's id, `token` the secret that takes the seat back after a drop |
 | `{ t: 'room', room }` | anything changed: `{ members: [{ id, name, fighter, play, wins, streak }], queue: [ids], match: { no, players, fighters } \| null, host, nextIn, pub, title, region, chat: [{ from, name, i }], votes: { id: count }, needed }` |
 | `{ t: 'say', from, name, i }` | a quick-chat line |
-| `{ t: 'start', no, players: [{ id, name, fighter }], seed, delay, you }` | a match starts: `you` 0 / 1 plays that side, -1 watches; `delay`: input delay in frames, 1 when the two players' round trips average 67 ms or less, 2 up to 117 ms, else 3 |
+| `{ t: 'log', no, p, start, v }`, `{ t: 'logEnd', no }` | a player coming back: player `p`'s inputs from `start` (from its `have`, or all after a reload), then the end of them |
+| `{ t: 'start', no, players: [{ id, name, fighter }], seed, delay, you, resume? }` | a match starts (or, with `resume: { have: [n0, n1] }`, a player's match comes back: how many inputs the room holds of each): `you` 0 / 1 plays that side, -1 watches; `delay`: input delay in frames, 1 when the two players' round trips average 67 ms or less, 2 up to 117 ms, else 3 |
 | `{ t: 'in', from, ... }`, `{ t: 'ck', ... }` | the other player's messages, passed on |
 | `{ t: 'feed', no, start, a: [...], b: [...] }` | to everyone not playing: both players' inputs for the frames from `start` on, once both are known (from 0 for a late joiner) |
 | `{ t: 'end', no, winner, reason, streak, capped, frame? }` | the match is over: `reason` is `ko`, `forfeit` (left), `timeout` (silent 10 s), `desync`, `mismatch` (results differ) or `server` (the room restarted) |
@@ -91,7 +94,7 @@ playtest: `stalls` (frames waiting for the other side's inputs), `syncWaits` (ti
 `fps` / `fpsLow` (the average and the worst second) and `longFrames` (frames over two refreshes), per device.
 
 `GET /rooms` lists the public rooms (at most two per address, while the anti-bot check is off): `[{ code, title, region, members, playing: [names] | null, waiting, full, at }]`,
-matches first. `GET /room/<CODE>/ping` answers `pong` from the room's object, for the list's ping to where it runs.
+matches first. Room views list each member's `away` (ms left to come back, 0 when connected). `GET /room/<CODE>/ping` answers `pong` from the room's object, for the list's ping to where it runs.
 
 Rules: the first two in line play; the winner stays on and the loser goes to the back; after five wins in a row the
 winner goes to the back too. A no contest puts the same pair first again. The next match starts six seconds after the
@@ -100,3 +103,8 @@ public or private, and names it ("<name>'s room"); the longest-standing member i
 (`names.js`: a rude one becomes Player<digits>). A removed member's browser stays out for 10 minutes, and so does its
 address unless someone still in the room shares it (one home's Wi-Fi). When the last member leaves, the room is unlisted
 and its code free for a fresh room.
+
+Rejoining (ENG-097): a connection that drops keeps its member's seat for 20 seconds (marked away; a match stands
+still, waiting); the member comes back with `resume` and its token, or the seat is freed (a player forfeits). An away
+member keeps its place in line but isn't put into a new match. A player silent for 20 seconds on an open connection
+forfeits too.

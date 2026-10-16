@@ -678,7 +678,8 @@ export class Menus {
       members.innerHTML = '';
       for (const m of [...R.members].sort((a, b) => order(a) - order(b))) {
         const q = R.queue.indexOf(m.id);
-        const role = playing.includes(m.id) ? 'PLAYING'
+        const role = m.away ? 'RECONNECTING'
+          : playing.includes(m.id) ? 'PLAYING'
           : q < 0 ? 'WATCHING'
           : !R.match && R.queue.length < 2 ? 'READY'
           : (R.match ? q === 0 : q < 2) ? 'NEXT' : `IN LINE ${R.match ? q + 1 : q}`;
