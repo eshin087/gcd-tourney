@@ -67,6 +67,7 @@ right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW
 | [specialUp](#specialup) | 6 | 2/2/2 | - | 214 | - (kit) | 9 |
 | [specialDown](#specialdown) | 4 | 2/1/1 | - | 204 | - (kit) | 9 |
 | [superPose](#superpose) | 4 | - | yes | 208 | - (kit) | 9 |
+| [beamStruggle](#beamstruggle) | 3 | - | yes | 198 | - (struggle) | 9 |
 | [techGround](#techground) | 4 | 1/2/1 beats | - | 204 | - (tech) | 9 |
 | [techRoll](#techroll) | 6 | 1/4/1 beats | - | 162 | - (tech) | 9 |
 | [wallTech](#walltech) | 5 | 2/1/2 beats | - | 209 | - (tech) | 9 |
@@ -795,6 +796,23 @@ Only if the kit has a second super (SUPER button). Shown during the freeze befor
 | 01 | loop | aura / cloth / hair variation | _{{fill in}}_ |
 | 02 | loop | like 00, stronger energy | _{{fill in}}_ |
 | 03 | loop | variation, loops into 00 | _{{fill in}}_ |
+
+## beamStruggle
+
+**beam clash struggle: braced, pushing the energy technique into the other side's (loop)**  
+3 frames · loops · body height 198 px · optional (struggle, [ADR 0034](../../../docs/decisions/0034-beam-clash-visuals.md)) · step 9 · default ms 70, 70, 70
+
+Only if the kit has an energy move (a shot with `clash: 'beam'` or a rush with `clash: 'rush'` in `src/game/moves.js`).
+Held for the whole beam clash (about 4 s), so it must read as effort against a push. The technique hand stays on one
+point (the stream origin, recorded as `hand` on every frame, within about 6 px across the loop); the engine draws the
+technique itself (orb, lightning, fire), so draw the hand empty in the gesture that holds it. Missing → `beamFire`.
+Brief and per-fighter poses: [BEAM_STRUGGLE_BRIEF.md](../BEAM_STRUGGLE_BRIEF.md).
+
+| # | phase | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | loop | braced push: front knee bent, back leg straight and driving, torso leaning in, technique hand forward at the stream origin | _{{fill in}}_ |
+| 01 | loop | strain: shoved back a few px at the hips and shoulders, the hand held on its point, teeth gritted | _{{fill in}}_ |
+| 02 | loop | surge: leaning further in, hair and clothes whipped back harder; loops into 00 | _{{fill in}}_ |
 
 ## techGround
 
