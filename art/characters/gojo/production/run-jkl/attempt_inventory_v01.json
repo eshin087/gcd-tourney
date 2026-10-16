@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-15",
+  "character": "gojo",
+  "task": "run direction studies J/K/L; review only; no production promotion",
+  "generator": "built-in image_gen",
+  "references": [
+    "art/characters/gojo/reference/title_style_approved.png",
+    "art/characters/gojo/reference/title_neutral_approved.png",
+    "art/characters/gojo/reference/idle_approved.png"
+  ],
+  "combatOrientationCheck": "Approved title-style combat cell confirms the forward-reaching right arm is near/camera-side; left arm is far-side.",
+  "studies": {
+    "J": {
+      "direction": "~20 degree lean, long easy loping stride, far/left hand pocketed, near/right arm low and loose",
+      "callsUsed": 3,
+      "attempts": [
+        { "call": 1, "status": "no surfaced artifact or output path in tool result; counted against budget", "selected": false },
+        { "call": 2, "source": "E:/Vibe Coding/.codex/generated_images/01a14296-1c2d-7760-be74-ded73f3de104/exec-3960e8c6-1956-48dd-978a-ef3f487165c7.png", "sha256": "F09148802AF2890D2FEDFB842A8E5A8E9C85F7B727BFF8961746982828660024", "status": "discarded: outer poses clipped and second half repeats first half", "selected": false },
+        { "call": 3, "source": "E:/Vibe Coding/.codex/generated_images/01a14296-1c2d-7760-be74-ded73f3de104/exec-0822dea5-4f79-47ad-a3d2-52bf17a8ea0f.png", "sha256": "15DA3414A7710F982F7698CBC5BE50ACACC6C840222CADE05E644F4B5BEEDC07", "status": "selected as J_v01.png", "selected": true }
+      ]
+    },
+    "K": {
+      "direction": "~35 degree lean, strong knee drive, near/right arm bent about 90 degrees and pumping",
+      "callsUsed": 1,
+      "attempts": [
+        { "call": 1, "source": "E:/Vibe Coding/.codex/generated_images/01a14296-1c2d-7760-be74-ded73f3de104/exec-264b4151-7c6e-4e31-8cde-c8ac4ee972a1.png", "sha256": "50566A3678B33497F8587B6CD00256FC6C23D806039957D4C23C0ADA6D7041FB", "status": "selected as K_v01.png; frames 2 and 6 show enlarged hair envelope", "selected": true }
+      ]
+    },
+    "L": {
+      "direction": "upright, chin high, slightly tilted head, bounding stride, pronounced flight, near/right arm swings wide",
+      "callsUsed": 1,
+      "attempts": [
+        { "call": 1, "source": "E:/Vibe Coding/.codex/generated_images/01a14296-1c2d-7760-be74-ded73f3de104/exec-4bea5818-dbfd-44f2-898d-a48b0b919a10.png", "sha256": "F222D5C97F123D77709139098582A7937CBBDB062186FCC24D289DFD05E1930C", "status": "selected as L_v01.png", "selected": true }
+      ]
+    }
+  },
+  "selectedWorkspaceFiles": {
+    "J_v01.png": "15DA3414A7710F982F7698CBC5BE50ACACC6C840222CADE05E644F4B5BEEDC07",
+    "K_v01.png": "50566A3678B33497F8587B6CD00256FC6C23D806039957D4C23C0ADA6D7041FB",
+    "L_v01.png": "F222D5C97F123D77709139098582A7937CBBDB062186FCC24D289DFD05E1930C"
+  },
+  "provenanceNote": "Tool-returned paths were captured immediately. The first J call exposed no artifact path and was not recovered via a newest-file search."
+}

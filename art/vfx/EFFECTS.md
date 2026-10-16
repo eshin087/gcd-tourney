@@ -493,6 +493,89 @@ a version, the procedural stand-ins in `src/art/vfxPainter.js` ship.
 | 04 | ~90 px wide (the widest frame), 5-6 smaller puffs drifting up and out. |
 | 05 | 2-4 small puffs left at the ends, almost gone. |
 
+## Beam clash (ADR 0034)
+
+Five effects for the beam clash ([ADR 0034](../../docs/decisions/0034-beam-clash-visuals.md)): the knot where two
+streams meet, three stream bands and Gojo's Red held in a struggle. Until the user approves a version, the procedural
+stand-ins in `src/art/vfxPainter.js` ship. The clash keeps the fighters readable, so these must read by **shape**, not
+by brightness: big clean silhouettes, hard steps, the white kept to the core.
+
+| Effect | Frames | ms | Total | Playback | Color | Anchor | Max extent | Runtime transforms |
+|---|---|---|---|---|---|---|---|---|
+| clashBurst | 6 | 45 | 270 ms | loop | white (tinted) | center | 116 tall x 90 wide | tinted with both sides' colors (two layers), scale 0.6-1.0, flipped at random |
+| streamBolt | 4 | 40 | 160 ms | loop | white (tinted) | center, **tiles** | full width, band <= 72 tall | repeated end to end along the stream, rotated to it, tinted |
+| streamLance | 4 | 40 | 160 ms | loop | white (tinted) | center, **tiles** | full width, band <= 40 tall | as streamBolt |
+| streamFlame | 4 | 50 | 200 ms | loop | full color | center, **tiles** | full width, band <= 80 tall | as streamBolt, drawn as is |
+| redOrb | 6 | 40 | 240 ms | loop | full color | center | sphere 52, ring <= 64 | held at Gojo's fingertips, grows with the struggle (scale 0.8-1.3) |
+
+**Tiling bands.** `streamBolt`, `streamLance` and `streamFlame` are laid end to end along a stream (the engine repeats
+them and cuts the last one). Each frame is a horizontal band across the **full 128 px width**, centered on y 64, and
+column 0 continues column 127 seamlessly (the main bolt / blade / fire core crosses both edges at y 64). Generate the
+raw as usual (`raw/<effect>_vNN.png`), then cut and clean each frame into an exact 128 x 128 tile in
+`frames/<effect>/<effect>_NN.png` (the packer keeps exact tiles as they are and warns about a frame that does not reach
+both edges). Check the seam by laying two copies side by side.
+
+### clashBurst: where two streams collide
+
+- **In game:** the struggle point of every beam clash, both clash tiers, held for the whole clash (4-8 s) and pushed
+  left and right as the chart goes. Two layers, one tinted per side. Sits between the fighters at chest height.
+- **Look:** a roiling knot of energy with jagged spikes spraying **up and down** (the spray off a head-on collision),
+  shorter spikes back along both sides, a few loose 2-3 px sparks. NOT a round flash and NOT a full-cell white disc:
+  the core is small (about 24 px), the spikes carry the size.
+- **Color:** white (tinted). Spikes #FFFFFF, core #FFFFFF with a #E6E6E6 ring, sparks #FFFFFF.
+- **Anchor:** center (64, 64) = the collision point.
+
+| Frame | Description |
+|---|---|
+| 00 | Core ~24 px, 6-8 spikes up and down reaching ~40 px, short side spikes ~16 px. |
+| 01 | Spikes shift: the tallest spike now up-left, a new one down-right; 3 sparks. |
+| 02 | The biggest frame: spikes reach ~58 px up and down, the core swells to ~28 px. |
+| 03 | Spikes re-form in new places, ~44 px; sparks drifting out. |
+| 04 | Core ~24 px, spikes ~36 px, 2-3 forks on the longest spikes. |
+| 05 | Close to 00 with different spike positions; loops into 00. |
+
+### streamBolt: Narukami stream (Killua)
+
+- **Look:** a thick, branching zigzag of lightning: one main bolt 4-6 px thick with sharp kinks, a thinner second bolt
+  weaving around it, short forks (1-2 px) off the kinks. A different zigzag every frame (it flickers), always crossing
+  both edges at y 64.
+- **Color:** white (tinted). Main bolt #FFFFFF with a #C8C8C8 1 px edge, second bolt #E6E6E6, forks #FFFFFF.
+- **Band:** up to 72 px tall (y 28-100); most of the energy within 40 px of the center.
+
+### streamLance: Chidori Spear stream (Sasuke)
+
+- **Look:** a thin, perfectly straight blade of lightning: a solid core 6-8 px thick running the full width (the
+  spear), with small crackling arcs (1-2 px) jumping off it above and below, different every frame. Straight and
+  sharp where streamBolt is wild.
+- **Color:** white (tinted). Core #FFFFFF, a #E6E6E6 2 px edge, arcs #FFFFFF / #C8C8C8.
+- **Band:** up to 40 px tall (y 44-84).
+
+### streamFlame: Great Fireball stream (Sasuke, air)
+
+- **Look:** a rolling torrent of fire running left to right: billowing lobes along the top and bottom edges that roll
+  forward (to the right) frame by frame, a bright yellow-white core line, a few dark-red smoke flecks at the edges.
+  The lobes repeat over the 128 px width so the band tiles.
+- **Color:** full color, the `fire` palette: #C42A10, #F05A14, #FF9A24, #FFD04A, core #FFF4C0.
+- **Band:** up to 80 px tall (y 24-104).
+
+### redOrb: Reversal: Red held in a struggle (Gojo)
+
+- **In game:** Gojo's Red sits at his fingertips for the whole clash, pushing the other side's technique; it swells
+  and pulses as it gains ground.
+- **Look:** a crimson sphere with a hard white-hot core and a thin ring pushing outward from it (the repulsion), the
+  ring growing over the loop and restarting. Clean, round, menacing; not fire, not a flame.
+- **Color:** full color. Rim #A00C22, body #FF3048, inner #FFD8DC, core #FFFFFF, ring #FF3048 (2 px).
+- **Anchor:** center (64, 64).
+
+| Frame | Description |
+|---|---|
+| 00 | Sphere ~48 px, core ~14 px, ring just outside the sphere (~52 px). |
+| 01 | Sphere ~50 px, ring ~56 px. |
+| 02 | Sphere ~52 px (the biggest), ring ~60 px. |
+| 03 | Sphere ~50 px, ring ~64 px, breaking into dashes. |
+| 04 | Sphere ~48 px, ring gone, a new ring forming at ~50 px. |
+| 05 | Sphere ~48 px, new ring ~52 px; loops into 00. |
+
 ---
 
 ## Beams (future)

@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/clashBurst_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/clashBurst_v01.png"
+  ],
+  "sourceHash": "682e9fb06597e1c39272fb387e451f8cca0091fa",
+  "files": {
+    "clashBurst_00.png": "b2709712e59adfddd827269fe6859dacc2fedef1",
+    "clashBurst_01.png": "36202ea404ab49eca08cdcfc0b9d9f6a74decd5e",
+    "clashBurst_02.png": "02b6a38c18d40f007ecbb68a9c6f9e31de9e599d",
+    "clashBurst_03.png": "824ad988781dc42ec66b52fced3f43b3d4b1a54c",
+    "clashBurst_04.png": "ac67bcedeb2a0e1b724b4199ab90d4262e4e9de8",
+    "clashBurst_05.png": "e5eacaddc6a52b4158e6b97ea48ee41619e6b225"
+  }
+}

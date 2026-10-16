@@ -195,4 +195,6 @@ export default {
   dodgePose: ['jumpSquat', 0],
   portraitFace: 'angry',
   cutinRedEyes: true,
+  // eye techniques (moves with `sigil`, ADR 0035): the pattern drawn big behind him, in the cut-in art's reds
+  eyes: { kind: 'sharingan', iris: '#d81e28', rim: '#7c0c16', light: '#ff5a5a' },
 };

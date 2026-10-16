@@ -167,21 +167,25 @@ because the packer finds strike hitboxes from whatever reaches past idle's right
 
 ### run: 8 frames, loop
 
-A long-striding, easy athletic run (not a ninja run). Torso leans about 35° forward, head up, chin
-level, lazy smile. **Arms bent about 90° swing loosely** opposite the legs, hands open and relaxed. The
-stride is long and effortless. Hair tips and the jacket hem stream back to screen-left the whole time
-with a 1 px alternating flutter; the trouser legs ripple.
+A fast athletic run in the selected K direction (not a ninja run). Torso leans about 35° forward,
+head up, chin level, lazy smile. The far/left hand stays in the pocket throughout; the near/right arm
+pumps bent about 90° opposite the near/right leg. Keep both legs visibly distinct as they alternate.
+Hair tips and jacket hem stream back to screen-left with a small alternating flutter; trouser legs
+ripple.
 
-- **f0**: contact. L leg reaches forward, ball of the foot touching the floor ahead (x ~192). R leg
-  behind, toes pushing off. R arm forward, L arm back.
-- **f1**: down. Weight on the L leg, knee bent deepest, body at its lowest. R heel lifting behind.
-- **f2**: passing. L leg under the hips. R knee swings forward past it. Body rising.
-- **f3**: flight. Both feet off the floor. R knee forward and up, L leg extended back. Body at its
-  highest.
-- **f4**: contact. R leg reaches forward, L leg behind pushing off. Arms swapped.
-- **f5**: down. Weight on the R leg, lowest body.
-- **f6**: passing. L knee swings forward.
-- **f7**: flight. L knee forward and up, R leg extended back. Loops into f0.
+**As drawn in v14 (candidate, 2026-10-15):** Part A (f0-f3, L leg forward) is used for both halves: the generator
+would not swap the lead leg, and v13's Part B lost the near arm in f6. The near fist stays forward in every frame (a
+held-fist look). The sidecar frameOffsets hold the head at x 166 (the foot-centre anchor slides this pose ~76 px)
+and lift the flight frames f3/f7 28 px. A redraw that follows the list below still replaces it.
+
+- **f0**: contact. L leg reaches forward; near R arm is forward. R leg trails, toes pushing off.
+- **f1**: down. Weight on the L leg, knee bent deepest, body at its lowest; R heel lifts behind.
+- **f2**: passing. L leg passes under the hips as the R knee swings forward; body rises.
+- **f3**: flight. Both feet are off the floor; R knee is forward and up, L leg extends back.
+- **f4**: mirrored contact. R leg reaches forward; near R arm is back. L leg trails, toes push off.
+- **f5**: mirrored down. Weight on the R leg, lowest body position; L heel lifts behind.
+- **f6**: mirrored passing. R leg passes under the hips as the L knee swings forward.
+- **f7**: mirrored flight. L knee is forward and up, R leg extends back; loop into f0.
 
 QA: with his long legs the flight stride is about 165 px wide; keep it inside x 4..251.
 
@@ -189,38 +193,38 @@ QA: with his long legs the flight stride is about 165 px wide; keep it inside x 
 
 ### dash: 2 frames, loop
 
-Low, fast forward glide **with both hands still in his pockets** (pure arrogance). Torso leans about
-45° forward, chin up, smiling. L knee bent under the chest, R leg extended straight back, toes
-dragging. Elbows tucked back.
+Two-frame low burst-lunge toward screen-right. Keep the far/left hand in his pocket and the near/right
+arm pumping. Torso leans about 35° forward except for the action compression; head and shoulders stay
+low while the lead knee drives under the chest and the rear leg extends behind. Chin up, lazy smile.
+No aura, trail, smear effect or speed lines. Candidate v09 passed the strict scale gate and is packed
+for review; it remains unapproved.
 
-- **f0**: as described. Hair tips and jacket hem streaming back hard.
-- **f1**: stride 6 px wider (L foot further forward, R further back), hem in an alternate flutter.
+- **f0**: lowest burst-lunge, far hand pocketed, near arm pumping back, rear leg extended.
+- **f1**: second lunge phase with the lead knee driven forward and near arm pumping; keep both legs
+  identifiable and the whole pose inside the cell.
 
 <a id="backdash"></a>
 
 ### backDash: 3 frames
 
-Quick hop backward (toward screen-left) while still facing right.
+Three-frame hop backward toward screen-left while still facing right in 3/4 view. Keep the far/left
+hand pocketed; the near/right arm balances the hop. Candidate v06 is held after the third attempt
+failed the strict scale gate; no active backDash candidate is available for review.
 
-- **f0**: push-off. Knees bent, weight on the ball of the L (front) foot pushing back. Torso upright,
-  leaning back about 6°. Hands come out of the pockets, open, loosely in front of the chest. Face:
-  smile.
-- **f1**: airborne. Both feet off the floor, knees tucked, torso leaning back about 10°, arms forward
-  for balance. Hair tips and the jacket hem whip **forward** (screen-right).
-- **f2**: landing on the ball of the R (back) foot, L foot about to touch, legs nearly extended (the
-  tallest frame, 225), knees starting to absorb. Hands drifting back toward the pockets.
+- **f0**: push-off, knees bent, facing right; far hand remains pocketed, near arm balances the hop.
+- **f1**: airborne with both feet off the floor and knees tucked; torso leans back for the hop.
+- **f2**: land on the back foot, front foot about to touch; knees absorb and the far hand stays pocketed.
 
 <a id="superdash"></a>
 
 ### superDash: 2 frames, loop
 
-Homing flight toward screen-right. The body flies **angled about 30° upward** from horizontal (head
-and leading hand higher, hips lower; steeper than the cast's 25° because his body is longer). **R arm
-thrust forward along the flight line with an open palm leading** (heel of the palm forward, fingers
-up), the leading point of the shape. **L hand in his pocket.** **Knees bent sharply as if kneeling in
-the air**: thighs angled down and a little forward from the hips, shins folded back so the feet trail
-behind; the **knees are the lowest point, under the middle of the shape**. Toes pointed. Face:
-focused, smile corner. The whole shape is about 230 px wide and 140 px tall.
+Two-frame K flight toward screen-right, stretched thinner than tall, with the whole projected pose
+about 230 px wide by 140 px tall. Keep the far/left hand in the pocket; sweep the near/right arm back
+along the body instead of leading with an open palm. Drive the lead knee forward while the rear leg
+extends back, keeping both legs distinct. Head stays up with the blindfold and lazy smile; no aura or
+trail. All three calls are exhausted and no candidate passed the required silhouette target; v10 and
+v11 remain held in raw/_qa_hold, and call 3 was not saved as a version.
 
 - **f0**: as described. Hair crown flattened back, jacket hem streaming straight back.
 - **f1**: knees bent 4 px more and 2 px apart, hem in an alternate flutter.

@@ -26,7 +26,7 @@
     "lint:undeclared": "node tools/check-undeclared.mjs",
     "test:anims": "node tools/test-tech-anims.mjs",
     "test:alts": "node tools/test-anim-alts.mjs",
-    "test:guard": "node tools/test-pr-guard.mjs",
+    "test:guard": "node tools/test-pr-guard.mjs && node tools/test-sparse-art.mjs",
     "test:lints": "node tools/test-lints.mjs",
     "relay": "node tools/relay.mjs",
     "test:relay": "node tools/test-relay.mjs"

@@ -257,7 +257,27 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 ### Simultaneous hits (trades)
 - Melee hits found during a frame are applied together after both fighters have moved
   (`Game.resolveMelee`). Two attacks that connect on the same frame **trade**. (Before, P1 always updated first
-  and won every exchange: in CPU soaks P1 won 81 % of matches; after the fix 51 %.)
+  and won every exchange: in CPU soaks P1 won 81 % of matches; after the fix 51 %.) Two lights or two heavies
+  meeting don't trade: they clash (below).
+
+### Melee clash (ADR 0038)
+- Every normal has a class in `MOVES` (`meleeClash`): light1-4 and airLight1-3 are **light**, heavy and airHeavy
+  **heavy**. A swing that lands while the other fighter's classed swing is live (active, or at most
+  `MELEE_CLASH.window` = 4 frames before its first active frame) meets it (`Game.swingsMeet`). Lights pressed up
+  to about 3 frames apart clash at close range.
+- **Same class: CLASH!** Neither hit applies. The strikes are held pressed together (hit stop 12 light / 14
+  heavy, no slow-mo): sparks and arcs in both fighters' colors at the contact, a
+  thin shockwave ring, speed lines on the contact, the stage dimmed a little and the camera pushing in on the fists.
+  No screen flash. Then both are pushed back a step in the `clashBack` state (6.5 / 7.5 units/s, playing the move's own
+  recovery). After 3 frames of it they can do anything; a Light or Heavy pressed while the strikes are held comes out then,
+  so pressing again meets the next swing. Air clashes hop a little.
+- **Chain:** a clash within 80 frames of the last one counts up `Game.meleeChain` (CLASH ×2, ×3...). Each step
+  grows the spray, the shockwave, the camera push-in and the cheer, and gives both fighters ki: 10 per light
+  clash, 18 per heavy, ×(1 + 0.25 per step). The **5th** is **CLASH BREAK!**: the biggest spray, smoke and a
+  crater, and both skid far back on their feet (about a unit each, free after 12 frames): no damage, no knockdown.
+- **Light vs heavy: CRUSH!** The light's hits that frame are dropped and the heavy lands now, even a few frames
+  before its active frames.
+- Specials, the vanish kick, the super dash hit and throws have no class: they trade as before.
 
 ### Held state
 - `held` (Domain, Infinity counter, flurry): the victim can't act or air-tech, drifts down slowly if
@@ -338,7 +358,17 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
 - **The struggle**: BEAM CLASH!, both attack names called out, the clash camera and HUD (rings + struggle bar), the
   round timer stops, both invulnerable. A shot becomes a stream (`Beam`, the shot's `stream` palette, width 0.95)
   from its owner's hands, an airborne owner hovers; a Rasengan / Chidori is held on its rush frame with its orb lit.
-  Two streams meet halfway between the hands, a stream meets a Rasengan 1.5 ahead of the fist (`rushReach`).
+  Two streams meet halfway between the hands, a stream meets a Rasengan at the held orb's front (the drawn hand +
+  `orbReach`; a shot detects it `rushReach` 1.5 ahead of the fist).
+- **How it looks** (ADR 0034): each move keeps its shape (`stream.style`): Narukami a branching lightning zigzag,
+  Chidori Spear a straight lightning lance, Great Fireball a fire torrent (atlas bands tiled along the stream), Reversal:
+  Red the orb at Gojo's fingertips sending repulsion ripples, a Rasengan / Dragon Fist held at the hand. Two `clashBurst`
+  knots (one per side's color) mark the meeting point inside a size budget; the aura thins and the flashes are short and
+  colored, so both fighters stay readable. A fighter whose sheet has `beamStruggle` plays it for the whole struggle.
+- **From the air** (ADR 0034 section 5): the airborne owner eases down to a low hover (`airHover`) in its air pose
+  (`beamStruggleAir`, else the `throw` release frame). A grounded rush answering it stays planted and holds the technique
+  up the stream line; losing ground shoves the rusher back along the floor or the air owner back and up. A winning rush
+  blasts up the line into them; a winning stream runs through the grounded loser.
 - **The chart**: a fresh chart every time (the same for both players): count-in 30 f, 4 notes every 24 f, 5 every
   18 f with a double, then the FINAL PUSH (30 f); about 4.5 s, 12 graded presses. Same grades as the ultimate clash;
   the point moves 0.045 per point of lead.
@@ -565,6 +595,11 @@ always punishes a `held` or popped-up opponent with a combo. Fighters with a kit
 than legacy fighters. At 3 bars they split between the second super (if its `range` allows) and the
 ultimate (a beam wants some distance; a kit ultimate fires from anywhere). A counter may sit on ↓ or ←, and
 the CPU dashes out of a Kirin mark.
+
+Melee clash (ADR 0038, `src/game/aiClash.js`): once per opposing light or heavy that has just started in reach,
+the CPU presses the same button at its level's `meleeClash` rate (Easy 4 %, Normal 8 %, Hard 12 %, ×1.5 when
+spectated; INSANE 8 %, IMPOSSIBLE 10 %, the CPU-vs-CPU showman 18 %), and once per clash slide it goes again at
+that rate × 1.1, so chains happen in solo and spectated play.
 
 Easy, Normal and Hard also use the defensive options at their level's rate (`parry` with a timing error of
 `slop` frames, `spot`, `airDodge`, `wavedash` in `LEVELS`): a timed Guard press against attacks and

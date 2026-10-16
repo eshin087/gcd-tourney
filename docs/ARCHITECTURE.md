@@ -31,7 +31,8 @@ src/core/
   musicPlan.js              pure seeded composer (ADR 0019): MOODS / DUCKS data, voiceLead, composeSong (Node-tested)
 src/game/
   game.js                   Game: main loop, fixed-step sim, match/round flow, training room, melee hit test
-                            (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade),
+                            (lanes + boxes; hits applied together in resolveMelee so same-frame hits trade, and two live
+                            lights or heavies meet in a melee clash instead: meleeClash, ADR 0038),
                             projectile/beam/orb collisions, special, beam (ADR 0027) and ultimate clashes (clash
                             bodies, the struggle line, endings; startClash tiers 'ultimate' | 'struggle' | 'beat'),
                             event hooks
@@ -61,11 +62,13 @@ src/game/
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
-                            pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette) with HDR shader
+                            pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette and shape:
+                            the HDR ribbon shader, or a VFX atlas band tiled along it, or Red's orb; STREAM_STYLES)
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
+  sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique
   chargeFx.js               power-ups (ADR 0023): CHARGE_DEFAULT + per-fighter `charge` styles, the interpreter
                             (shell, emitters, eye glint, bar / MAX beats) and the restraint rules R1-R9
   auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha)
@@ -81,6 +84,14 @@ src/game/
   hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
                             rim, fade) on Game.frameNo, hitstop shake, ?flash=<style>; numbers in HIT_FLASH
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
+src/net/                    online play (ADR 0036), so far its determinism spike:
+  simHash.js                hashSim (per-frame state hash in groups: game flow, each fighter, pads, shots, camera
+                            basis), dumpSim / diffDumps (flat value maps to diff two runs); view-only keys skipped
+  detTest.js                debug only (?debug -> window.det, ?det=<fixture>): record a CPU match's pad inputs and
+                            hashes, replay them (brains off, other render rates), report the first split and its
+                            values, time the fixed step; fixtures in public/det/, saved via the dev server
+  dmath.js                  deterministic hypot / sin / cos from + - * / and Math.sqrt (Safari's Math.hypot differs
+                            from Chrome's in the last bit); installDetMath() swaps them in for a test run
 src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
   animGuide.js              canonical animation list (frames, phases, pose text) + ChatGPT prompt builder
@@ -423,6 +434,8 @@ click-to-rebind. Bindings persist in localStorage.
 | a new special kind / second super | a `START`/`UPDATE` branch in `src/game/kit.js` + an ADR + `CpuBrain.pickSpecial` weight + where `MasterBrain` uses it (`kitOptions`, `pickBig`) and its link time in the combo composer (`gapKit` / `bigOption` in `aiCombo.js`); `aiShow.js` `toolsOf` lists it automatically |
 | a projectile type | `PROJECTILES` in `moves.js` (sprite = a VFX atlas name) |
 | a VFX effect | `VFX_ANIMS` + painter in `vfxPainter.js`; custom art via `art/vfx/` |
+| an eye technique (Sharingan, Mangekyō) | the character's `eyes` data and a move's `sigil` / `eyeFlash`; a new pattern is a `PATTERNS` entry in `sigil.js` (ADR 0035) |
+| super / ultimate cut-in art | `ui/super_bg|super_fg|ult_bg|ult_fg.png` per fighter (art/SPEC.md, ADR 0035); the HUD falls back layer by layer |
 | a ground damage look | a `ground` field on the move / projectile / super / character; a new look is a `GROUND_STYLES` entry in `ground.js` (+ decal names in `DECALS`, decalPainter.js, and their art) |
 | a sound | a case in `AudioEngine.play()` / `loop()` |
 | a camera move | a mode in `CameraDirector.update()` |
