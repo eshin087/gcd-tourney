@@ -1,0 +1,183 @@
+{
+ "_doc": "Head scale per approved strip at its version (tools/scale-audit.mjs). The packer warns when a strip moves more than spec.scaleGate.baselineTol at the same version. npm run scale records new animations and changed versions; npm run scale -- --baseline rewrites every row (an intended change).",
+ "fighters": {
+  "naruto": {
+   "ref": {
+    "headPx": [
+     29,
+     19
+    ]
+   },
+   "anims": {
+    "idle": {
+     "v": 7,
+     "head": 1
+    },
+    "run": {
+     "v": 7,
+     "head": 1.005
+    },
+    "dash": {
+     "v": 4,
+     "head": 0.994
+    },
+    "backDash": {
+     "v": 4,
+     "head": 1.008
+    },
+    "superDash": {
+     "v": 3,
+     "head": 0.986
+    },
+    "jumpSquat": {
+     "v": 4,
+     "head": 1
+    },
+    "jumpUp": {
+     "v": 6,
+     "head": 1.011
+    },
+    "jumpFall": {
+     "v": 4,
+     "head": 0.99
+    },
+    "land": {
+     "v": 6,
+     "head": 1.003
+    },
+    "light1": {
+     "v": 4,
+     "head": 1.005
+    },
+    "light2": {
+     "v": 6,
+     "head": 1.007
+    },
+    "light3": {
+     "v": 4,
+     "head": 1.002
+    },
+    "light4": {
+     "v": 8,
+     "head": 1.019
+    },
+    "heavy": {
+     "v": 12,
+     "head": 1
+    },
+    "airLight1": {
+     "v": 6,
+     "head": 0.998
+    },
+    "airLight2": {
+     "v": 5,
+     "head": 1.01
+    },
+    "airLight3": {
+     "v": 9,
+     "head": 1.006
+    },
+    "airHeavy": {
+     "v": 9,
+     "head": 1.011
+    },
+    "guard": {
+     "v": 5,
+     "head": 1
+    },
+    "block": {
+     "v": 5,
+     "head": 1.023
+    },
+    "hurtHigh": {
+     "v": 4,
+     "head": 1
+    },
+    "hurtLow": {
+     "v": 3,
+     "head": 1
+    },
+    "launched": {
+     "v": 5,
+     "head": 0.811
+    },
+    "spin": {
+     "v": 7,
+     "head": 1.137
+    },
+    "airRecover": {
+     "v": 7,
+     "head": 1
+    },
+    "down": {
+     "v": 5,
+     "head": 0.96
+    },
+    "getup": {
+     "v": 7,
+     "head": 1.053
+    },
+    "charge": {
+     "v": 7,
+     "head": 0.999
+    },
+    "throw": {
+     "v": 9,
+     "head": 1.011
+    },
+    "beamCharge": {
+     "v": 8,
+     "head": 0.99
+    },
+    "beamFire": {
+     "v": 12,
+     "head": 0.999
+    },
+    "vanish": {
+     "v": 4,
+     "head": 1.013
+    },
+    "stagger": {
+     "v": 6,
+     "head": 1.189
+    },
+    "ko": {
+     "v": 9,
+     "head": 0.833
+    },
+    "special": {
+     "v": 8,
+     "head": 1.007
+    },
+    "intro": {
+     "v": 5,
+     "head": 0.994
+    },
+    "taunt": {
+     "v": 7,
+     "head": 1.195
+    },
+    "win": {
+     "v": 8,
+     "head": 1.189
+    },
+    "specialForward": {
+     "v": 4,
+     "head": 0.947
+    },
+    "specialUp": {
+     "v": 4,
+     "head": 0.947
+    },
+    "specialDown": {
+     "v": 5,
+     "head": 0.986
+    },
+    "superPose": {
+     "v": 5,
+     "head": 0.996
+    }
+   }
+  }
+ }
+}

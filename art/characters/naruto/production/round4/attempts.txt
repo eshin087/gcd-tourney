@@ -1,0 +1,10 @@
+Naruto round4 cumulative call ledger, 2026-10-12.
+Stagger v06: historical3 (v03/v04/v05) + round4 call1 =4. Selected best of1;2 extra calls unused.
+Taunt v07: historical3 (v03/v04/v05;v06 source copy) + round4 call1 =4. Selected best of1;2 unused.
+Win v08: historical3 (v05/v06/v07) + round4 call1 =4. Attempt made from early approximate torso estimates; exact collar/hem marker audit subsequently established robust f0 failure before version filing. Selected best of1;2 unused.
+Win v09: round4 call2 of3; historical3 + round4 2 = 5 cumulative calls; 1 round4 call remains. One built-in call completed, no retry or regeneration. Original: `E:\Vibe Coding\.codex\generated_images\01a138f3-10c4-7151-a6a3-0461c4717979\exec-2a408eb7-c8dd-4a38-bea0-f137ff2795e6.png`, SHA-256 `17AB6249B1447148BEBDEDFDFEC425A0BDB4A051DCC3046E383D66002D1FB23D`. Prompt and input hashes: win-attempt2.md.
+JumpUp v06:0 round4 calls; historical title+round2 calls retained in previous audit.
+SuperDash v03: historical3 +0 round4 calls=3.
+No candidate approved and no source budget reset. After Claude's calibration handback, exactly one additional call was explicitly authorized and used for stagger and taunt; records follow.
+Stagger v07: round4 call2 of3; historical3 + round4 2 = 5 cumulative; 1 round4 call remains. Exactly one call completed. Source SHA-256 `51B9E2717B5BFE448FD1EF53A9DD895AF6157978B2DC284291B0AE9DCD8B9B6B`; full prompt/reference hashes and original path in `stagger-attempt2.md`. Four-frame pose sequence retained; torso correction visually subtle, measurement pending.
+Taunt v09: round4 call2 of3; historical3 + round4 2 = 5 cumulative; 1 round4 call remains. Exactly one call completed. Source SHA-256 `FA32086AF1CF55398F81D840E8AF7EF96EB31FF85BC69CEF840B481CB47967FF`; full prompt/reference hashes and task-local original path in `taunt-attempt2.md`. Requested point/callout pose preserved; torso calibration/Astra measurement pending. Unrelated worker output mistakenly filed as v08 is quarantined and excluded from provenance/call count.

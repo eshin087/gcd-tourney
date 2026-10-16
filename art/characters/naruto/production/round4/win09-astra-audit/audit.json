@@ -1,0 +1,771 @@
+{
+  "audit_model": "GPT-6 Astra",
+  "reasoning": "medium",
+  "date": "2026-10-14",
+  "source_commit": "3ac8bfa154f520180ae895f04907298a4df5995b",
+  "verdict": "HOLD for strict numeric anatomy certification; no robust redraw-level residual established",
+  "hashes": {
+    "public/characters/naruto/sheet.png": "fa585aa6d901a0b6ca69014b339b64529091b1bee5f0803f56544924febefa60",
+    "public/characters/naruto/anims.json": "a31a076b6e0404e76da77cf98b69832421155406c52e174ec532dc4c2d58d667",
+    "public/art-review/title-style-pilot/naruto-neutral_v01.png": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+    "public/art-review/title-style-pilot/naruto-combat_v01.png": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751",
+    "art/characters/naruto/reference/idle_approved.png": "eeb62e3d8981c168ccc48ffeb847ef8308e267c84f9b3b5e2b29a690d1a15db3",
+    "art/characters/naruto/raw/win_v09.png": "17ab6249b1447148bebdedfdfec425a0bdb4a051dcc3046e383d66002d1fb23d",
+    "art/characters/naruto/raw/win_v09.json": "04c29604050c73963da068199d414936a79add19564c7072ae1eac8fb6129c3c"
+  },
+  "scope": "All four actual quantized win09 atlas cells; approved title neutral/combat; idle07 source identity and packed idle f0.",
+  "method": "Manual native pixel endpoints on nearest-neighbor enlargement. Projected garment/visible segment measurements; no normalization of posed bounds. Reference pose selected by trunk extension. Pixel uncertainty is not a 6% pass.",
+  "reference_measurements": {
+    "neutral": {
+      "H": [
+        39,
+        37,
+        41
+      ],
+      "T": [
+        [
+          133,
+          76
+        ],
+        [
+          139,
+          126
+        ]
+      ],
+      "T_range": [
+        48,
+        53
+      ],
+      "S": [
+        29,
+        27,
+        31
+      ],
+      "UA": [
+        [
+          148,
+          85
+        ],
+        [
+          155,
+          110
+        ]
+      ],
+      "LA": [
+        [
+          155,
+          110
+        ],
+        [
+          159,
+          135
+        ]
+      ],
+      "thigh": [
+        [
+          141,
+          139
+        ],
+        [
+          149,
+          174
+        ]
+      ],
+      "shin": [
+        [
+          149,
+          174
+        ],
+        [
+          150,
+          208
+        ]
+      ],
+      "projected_segment_values_px": {
+        "UA": 26.0,
+        "LA": 25.3,
+        "thigh": 35.9,
+        "shin": 34.0
+      },
+      "arm_uncertainty_px": 6,
+      "leg_uncertainty_px": 7,
+      "comparison_limit": "Garment-covered joint estimates; projected, not skeletal. Ratio numbers are screening estimates, never a strict anatomical pass.",
+      "independent_note": "Rechecked exact cell: H ~39; collar(133,76)-hem(139,126)=50.4. Shoe heel146-toe175=29 endpoint distance (30 occupied columns); conservative27-31. Prior limb landmarks retained as contextual projection screens only; shoulder/elbow under cloth can shift several pixels."
+    },
+    "combat": {
+      "H": [
+        39,
+        37,
+        41
+      ],
+      "T": [
+        [
+          138,
+          117
+        ],
+        [
+          128,
+          155
+        ]
+      ],
+      "T_range": [
+        36,
+        42
+      ],
+      "S": [
+        29,
+        27,
+        31
+      ],
+      "UA": [
+        [
+          157,
+          119
+        ],
+        [
+          166,
+          139
+        ]
+      ],
+      "LA": [
+        [
+          166,
+          139
+        ],
+        [
+          155,
+          126
+        ]
+      ],
+      "thigh": [
+        [
+          139,
+          164
+        ],
+        [
+          174,
+          186
+        ]
+      ],
+      "shin": [
+        [
+          174,
+          186
+        ],
+        [
+          178,
+          211
+        ]
+      ],
+      "projected_segment_values_px": {
+        "UA": 21.9,
+        "LA": 17.0,
+        "thigh": 41.3,
+        "shin": 25.3
+      },
+      "arm_uncertainty_px": 6,
+      "leg_uncertainty_px": 7,
+      "comparison_limit": "Garment-covered joint estimates; projected, not skeletal. Ratio numbers are screening estimates, never a strict anatomical pass."
+    },
+    "idle07_f0": {
+      "H": [
+        41,
+        39,
+        43
+      ],
+      "T": [
+        [
+          138,
+          120
+        ],
+        [
+          131,
+          157
+        ]
+      ],
+      "T_range": [
+        35,
+        41
+      ],
+      "S": [
+        29,
+        27,
+        31
+      ],
+      "UA": [
+        [
+          157,
+          122
+        ],
+        [
+          171,
+          142
+        ]
+      ],
+      "LA": [
+        [
+          171,
+          142
+        ],
+        [
+          159,
+          128
+        ]
+      ],
+      "thigh": [
+        [
+          140,
+          166
+        ],
+        [
+          174,
+          188
+        ]
+      ],
+      "shin": [
+        [
+          174,
+          188
+        ],
+        [
+          175,
+          214
+        ]
+      ],
+      "projected_segment_values_px": {
+        "UA": 24.4,
+        "LA": 18.4,
+        "thigh": 40.5,
+        "shin": 26.0
+      },
+      "arm_uncertainty_px": 6,
+      "leg_uncertainty_px": 7,
+      "comparison_limit": "Garment-covered joint estimates; projected, not skeletal. Ratio numbers are screening estimates, never a strict anatomical pass."
+    }
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "atlas_index": 150,
+      "landmarks_native_px": {
+        "T": [
+          [
+            132,
+            98
+          ],
+          [
+            134,
+            144
+          ]
+        ],
+        "left_arm": [
+          [
+            110,
+            109
+          ],
+          [
+            101,
+            128
+          ],
+          [
+            113,
+            121
+          ]
+        ],
+        "right_arm": [
+          [
+            146,
+            108
+          ],
+          [
+            157,
+            137
+          ],
+          [
+            164,
+            153
+          ]
+        ],
+        "left_leg": [
+          [
+            120,
+            157
+          ],
+          [
+            107,
+            187
+          ],
+          [
+            95,
+            216
+          ]
+        ],
+        "right_leg": [
+          [
+            137,
+            156
+          ],
+          [
+            151,
+            190
+          ],
+          [
+            153,
+            217
+          ]
+        ]
+      },
+      "projected_lengths_px": {
+        "T": [
+          46.0
+        ],
+        "left_arm": [
+          21.0,
+          13.9
+        ],
+        "right_arm": [
+          31.0,
+          17.5
+        ],
+        "left_leg": [
+          32.7,
+          31.4
+        ],
+        "right_leg": [
+          36.8,
+          27.1
+        ]
+      },
+      "H": {
+        "estimate": 40,
+        "range": [
+          38,
+          42
+        ],
+        "crown_y": 54,
+        "chin_y": 94
+      },
+      "T_range": [
+        44.0,
+        48.0
+      ],
+      "S": {
+        "screen_right_profile": 28,
+        "range": [
+          27,
+          30
+        ],
+        "screen_left": "excluded: frontal/toe-facing shoe"
+      },
+      "shoulders": "excluded: three-quarter torso and alternating raised shoulder, no frontal reference match",
+      "arm_segment_uncertainty_px": 6,
+      "leg_segment_uncertainty_px": 7,
+      "verdict": "HOLD: not a strict all-segment numeric pass",
+      "exclusions": [
+        "Raised/bent arm projections cannot be compared directly with hanging neutral arm lengths.",
+        "Shoulder, elbow, hip and knee centers under clothing are approximate, not skeletal measurements.",
+        "Opposite shoe faces viewer; its narrow width is not a shorter foot."
+      ]
+    },
+    {
+      "frame": 1,
+      "atlas_index": 151,
+      "landmarks_native_px": {
+        "T": [
+          [
+            132,
+            97
+          ],
+          [
+            134,
+            144
+          ]
+        ],
+        "left_arm": [
+          [
+            111,
+            106
+          ],
+          [
+            101,
+            88
+          ],
+          [
+            108,
+            64
+          ]
+        ],
+        "right_arm": [
+          [
+            146,
+            108
+          ],
+          [
+            157,
+            137
+          ],
+          [
+            164,
+            153
+          ]
+        ],
+        "left_leg": [
+          [
+            120,
+            157
+          ],
+          [
+            107,
+            187
+          ],
+          [
+            95,
+            216
+          ]
+        ],
+        "right_leg": [
+          [
+            137,
+            156
+          ],
+          [
+            151,
+            190
+          ],
+          [
+            153,
+            217
+          ]
+        ]
+      },
+      "projected_lengths_px": {
+        "T": [
+          47.0
+        ],
+        "left_arm": [
+          20.6,
+          25.0
+        ],
+        "right_arm": [
+          31.0,
+          17.5
+        ],
+        "left_leg": [
+          32.7,
+          31.4
+        ],
+        "right_leg": [
+          36.8,
+          27.1
+        ]
+      },
+      "H": {
+        "estimate": 40,
+        "range": [
+          38,
+          42
+        ],
+        "crown_y": 54,
+        "chin_y": 94
+      },
+      "T_range": [
+        45.0,
+        49.0
+      ],
+      "S": {
+        "screen_right_profile": 28,
+        "range": [
+          27,
+          30
+        ],
+        "screen_left": "excluded: frontal/toe-facing shoe"
+      },
+      "shoulders": "excluded: three-quarter torso and alternating raised shoulder, no frontal reference match",
+      "arm_segment_uncertainty_px": 6,
+      "leg_segment_uncertainty_px": 7,
+      "verdict": "HOLD: not a strict all-segment numeric pass",
+      "exclusions": [
+        "Raised/bent arm projections cannot be compared directly with hanging neutral arm lengths.",
+        "Shoulder, elbow, hip and knee centers under clothing are approximate, not skeletal measurements.",
+        "Opposite shoe faces viewer; its narrow width is not a shorter foot."
+      ]
+    },
+    {
+      "frame": 2,
+      "atlas_index": 152,
+      "landmarks_native_px": {
+        "T": [
+          [
+            132,
+            97
+          ],
+          [
+            134,
+            144
+          ]
+        ],
+        "left_arm": [
+          [
+            111,
+            106
+          ],
+          [
+            101,
+            88
+          ],
+          [
+            108,
+            64
+          ]
+        ],
+        "right_arm": [
+          [
+            146,
+            108
+          ],
+          [
+            157,
+            137
+          ],
+          [
+            164,
+            153
+          ]
+        ],
+        "left_leg": [
+          [
+            120,
+            157
+          ],
+          [
+            107,
+            187
+          ],
+          [
+            95,
+            216
+          ]
+        ],
+        "right_leg": [
+          [
+            137,
+            156
+          ],
+          [
+            151,
+            190
+          ],
+          [
+            153,
+            217
+          ]
+        ]
+      },
+      "projected_lengths_px": {
+        "T": [
+          47.0
+        ],
+        "left_arm": [
+          20.6,
+          25.0
+        ],
+        "right_arm": [
+          31.0,
+          17.5
+        ],
+        "left_leg": [
+          32.7,
+          31.4
+        ],
+        "right_leg": [
+          36.8,
+          27.1
+        ]
+      },
+      "H": {
+        "estimate": 40,
+        "range": [
+          38,
+          42
+        ],
+        "crown_y": 54,
+        "chin_y": 94
+      },
+      "T_range": [
+        45.0,
+        49.0
+      ],
+      "S": {
+        "screen_right_profile": 28,
+        "range": [
+          27,
+          30
+        ],
+        "screen_left": "excluded: frontal/toe-facing shoe"
+      },
+      "shoulders": "excluded: three-quarter torso and alternating raised shoulder, no frontal reference match",
+      "arm_segment_uncertainty_px": 6,
+      "leg_segment_uncertainty_px": 7,
+      "verdict": "HOLD: not a strict all-segment numeric pass",
+      "exclusions": [
+        "Raised/bent arm projections cannot be compared directly with hanging neutral arm lengths.",
+        "Shoulder, elbow, hip and knee centers under clothing are approximate, not skeletal measurements.",
+        "Opposite shoe faces viewer; its narrow width is not a shorter foot."
+      ]
+    },
+    {
+      "frame": 3,
+      "atlas_index": 153,
+      "landmarks_native_px": {
+        "T": [
+          [
+            128,
+            98
+          ],
+          [
+            132,
+            144
+          ]
+        ],
+        "left_arm": [
+          [
+            108,
+            108
+          ],
+          [
+            101,
+            132
+          ],
+          [
+            96,
+            151
+          ]
+        ],
+        "right_arm": [
+          [
+            145,
+            107
+          ],
+          [
+            160,
+            114
+          ],
+          [
+            154,
+            97
+          ]
+        ],
+        "left_leg": [
+          [
+            121,
+            157
+          ],
+          [
+            108,
+            187
+          ],
+          [
+            95,
+            216
+          ]
+        ],
+        "right_leg": [
+          [
+            138,
+            156
+          ],
+          [
+            153,
+            190
+          ],
+          [
+            155,
+            217
+          ]
+        ]
+      },
+      "projected_lengths_px": {
+        "T": [
+          46.2
+        ],
+        "left_arm": [
+          25.0,
+          19.6
+        ],
+        "right_arm": [
+          16.6,
+          18.0
+        ],
+        "left_leg": [
+          32.7,
+          31.8
+        ],
+        "right_leg": [
+          37.2,
+          27.1
+        ]
+      },
+      "H": {
+        "estimate": 40,
+        "range": [
+          38,
+          42
+        ],
+        "crown_y": 54,
+        "chin_y": 94
+      },
+      "T_range": [
+        44.2,
+        48.2
+      ],
+      "S": {
+        "screen_right_profile": 29,
+        "range": [
+          27,
+          30
+        ],
+        "screen_left": "excluded: frontal/toe-facing shoe"
+      },
+      "shoulders": "excluded: three-quarter torso and alternating raised shoulder, no frontal reference match",
+      "arm_segment_uncertainty_px": 6,
+      "leg_segment_uncertainty_px": 7,
+      "verdict": "HOLD: not a strict all-segment numeric pass",
+      "exclusions": [
+        "Raised/bent arm projections cannot be compared directly with hanging neutral arm lengths.",
+        "Shoulder, elbow, hip and knee centers under clothing are approximate, not skeletal measurements.",
+        "Opposite shoe faces viewer; its narrow width is not a shorter foot."
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": 0,
+      "to": 1,
+      "finding": "Screen-left fist travels from chest overhead; elbow unfolds. Head, trunk and planted lower body stable; large intentional pose jump, no added/lost limb."
+    },
+    {
+      "from": 1,
+      "to": 2,
+      "finding": "Hold pose; mouth/expression change. No gross anatomy or scale pop."
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "finding": "Raised fist switches sides; left arm drops and right bends beside face. Distinct pose jump; legs remain planted with small x changes."
+    },
+    {
+      "from": 3,
+      "to": 0,
+      "finding": "Wrap returns left fist to chest and drops right arm. Visible pose snap; no missing/clipped extremity or scale inflation."
+    }
+  ],
+  "durations_ms": [
+    110,
+    90,
+    260,
+    180
+  ],
+  "loop": true,
+  "playback_limit": "Static pair/sequence inspection and timing GIF export only; no live browser/game playback claimed.",
+  "technical": "No cell edge clipping observed. All figures complete. No edits to production assets or calibration."
+}

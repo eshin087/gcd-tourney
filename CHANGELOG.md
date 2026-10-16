@@ -11,6 +11,19 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(naruto): record user visual approval of stagger v08, win v09; retain technical evidence and unrelated holds.
+
+- art(naruto): record the user's taunt v10 visual approval; preserve Astra's technical HOLD and archive superseded pending v07/v09 sources (ART-NAR-TAUNT10-DECISION).
+
+- Naruto stagger v08 and taunt v10: final source-only Astra screen measured T/H 1.20 against neutral 1.292 (about 7% short centrally), improved about 12% for stagger and 7% for taunt. Uncertainty overlaps the relative 6% band, so both remain numeric anatomy HOLDs, not passes; poses are preserved, with no packed atlas assessment. Ready for Claude inspection and calibration.
+
+- Audit Naruto stagger v07 and taunt v09 in Claude-calibrated atlas 0725f44: six frames and loop wraps, full hashes and bilateral projected measurements; both remain anatomy HOLD with torso residual and explicit uncertainty. No art approval or production changes.
+
+- Naruto stagger v07 and taunt v09: one authorized round-4 source call each. Stagger retains its four-pose sway but the torso correction remains visually subtle and needs measurement. The task-local taunt output retains the requested pointing/callout poses; torso calibration and Astra measurement remain pending. An unrelated worker's four-frame kick output was quarantined after it was mistakenly copied to v08. Neither candidate was packed or certified. Win09 Astra audit recorded as strict-numeric HOLD, not a pass or approval.
+
+- Naruto win v09: one authorized round-4 redraw preserves the four victory gestures and restores upright anatomy against the approved title references. Candidate awaits Claude calibration and technical review; no atlas or gameplay change.
+
+- Naruto round4: measured every suspect packed frame; saved unapproved stagger v06, taunt v07 and win v08 after robust torso-marker failures. Self-contained diagnostic review with per-frame segment estimates and uncertainty; strict scale fails at current calibration. JumpUp v06 and superDash v03 retained as inconclusive. No runtime calibration, approval, merge or production change (ART-SCALE-R4-NAR).
 - art(gojo): record user visual approval of airLight1 v07, airLight2 v05, airRecover v05, jumpFall v06, light3 v06, superDash v09, throw v05; retain technical evidence and unrelated holds.
 
 - Review: publish three one-call targeted repair candidates with Astra findings and the user-approved Naruto taunt10 reference; distinguish improved arm/motion from unresolved contact and anatomy holds.
