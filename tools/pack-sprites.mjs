@@ -47,6 +47,7 @@ const BODY_HEIGHT = {
   // tech poses (ADR 0030): the tallest frame is the settle stance (= idle), the recovery crouch (= jumpSquat) and the
   // fall handoff (= jumpFall); a fighter drawn at another stature overrides them per animation in the manifest
   techGround: 204, techRoll: 162, wallTech: 209,
+  beamStruggle: 198, // beam clash struggle (ADR 0034): braced, no taller than beamFire
 };
 const DEFAULT_BODY_HEIGHT = 204;
 
@@ -69,6 +70,7 @@ const DEFAULT_MS = {
   vanish: [50, 50], special: [120, 120, 120, 120, 120, 160, 110, 70], intro: 150, taunt: 250, win: 200,
   // tech poses: their beats at 60 fps (DEFENSE animPhases); the engine drives them by the tech state's clock anyway
   techGround: [67, 83, 83, 67], techRoll: [50, 63, 62, 63, 62, 67], wallTech: [50, 50, 67, 67, 66],
+  beamStruggle: 70,
 };
 
 // Attacks whose damage comes from something else (projectile), and phased strips that never strike (the tech
@@ -137,6 +139,7 @@ const FALLBACK_GUIDE = {
   stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
   taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
   techGround: { frames: 4, phases: [1, 2, 1] }, techRoll: { frames: 6, phases: [1, 4, 1] }, wallTech: { frames: 5, phases: [2, 1, 2] },
+  beamStruggle: { frames: 3, loop: true },
   light1Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light1' }, light2Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light2' },
   light3Alt: { frames: 7, phases: [2, 2, 3], altOf: 'light3' }, light4Alt: { frames: 8, phases: [3, 2, 3], altOf: 'light4' },
   heavyAlt: { frames: 8, phases: [3, 2, 3], altOf: 'heavy' }, airLight1Alt: { frames: 5, phases: [1, 2, 2], altOf: 'airLight1' },
@@ -172,6 +175,13 @@ const VFX_EFFECTS = {
   ripple: { frames: 5, ms: 50, tinted: true, fill: 0.95 },
   naruto_chakraTail: { frames: 6, ms: 60, tinted: true, fill: 0.7, anchor: 'bottom', baseX: true },
   dustWave: { frames: 6, ms: 60, tinted: false, fill: 0.7, anchor: 'bottom' }, // ground damage (ADR 0024)
+  // beam clash (ADR 0034). The stream bands tile horizontally: they ship as exact 128 x 128 frames in
+  // art/vfx/frames/<effect>/ (final, never rescaled or re-centered); fill 1 keeps a full-width strip edge to edge
+  clashBurst: { frames: 6, ms: 45, tinted: true, fill: 0.9 },
+  streamBolt: { frames: 4, ms: 40, tinted: true, fill: 1, tile: true },
+  streamLance: { frames: 4, ms: 40, tinted: true, fill: 1, tile: true },
+  streamFlame: { frames: 4, ms: 50, tinted: false, fill: 1, tile: true },
+  redOrb: { frames: 6, ms: 40, tinted: false, fill: 0.5 },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 
@@ -2418,6 +2428,12 @@ function removeOutputs(env, dir, names, R) {
 const vv = (n) => `v${String(n).padStart(2, '0')}`;
 
 // ============================================================== VFX packing
+// any opaque pixel in the first and in the last column (a horizontally tiling stream band)
+function reachesSides(img) {
+  const hit = (x) => { for (let y = 0; y < img.h; y++) if (img.data[(y * img.w + x) * 4 + 3] >= 128) return true; return false; };
+  return hit(0) && hit(img.w - 1);
+}
+
 function packVfx(env) {
   const R = { packed: [], missing: [], failed: [], unapproved: [], removed: [], preview: !!env.candidates, versions: {}, frames: 0, atlas: null, warnings: [], notes: [], wrote: [], writeback: [] };
   const warn = (m) => R.warnings.push(m);
@@ -2495,6 +2511,8 @@ function packVfx(env) {
         if (colored > 0.05) warn(`${name}: drawn in color but the engine tints it - converted to greyscale (draw it white/grey)`);
       }
       if (e.lumaAlpha) cells.forEach((c, k) => { if (!items[k].final) lumaToAlpha(c); });
+      // a stream band is laid end to end along the stream (ADR 0034): every frame must reach both cell edges
+      if (e.tile) cells.forEach((c, k) => { if (!reachesSides(c)) warn(`${name}: frame ${k} does not reach both cell edges, so it cannot tile along a stream (deliver exact 128 x 128 tiles in frames/${name}/)`); });
       for (const c of cells) quantizeAlpha(c);
       if (cells.length !== e.frames) warn(`${name}: ${cells.length} frame(s), expected ${e.frames}`);
       packed.push({ name, e, cells, src, sourceLabel, notes, scale, origin, version, edited: !!src.edited, handMade: src.kind === 'frames' && !src.packerMade });

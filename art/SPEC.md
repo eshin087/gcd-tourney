@@ -193,6 +193,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `specialUp` | 6 | - | 2/2/2 | 214 | - | 50 50 60 60 70 70 | **kit**: a rising special (Killua's Thunderbolt leap; f5 hands over to `airHeavy` f0). Missing → `special` |
 | `specialDown` | 4 | - | 2/1/1 | 204 | - | 80 80 160 90 | **kit**: a stance or power-up, no hit box (Killua's Godspeed activation, Gojo's Infinity palm). Missing → `charge` |
 | `superPose` | 4 | yes | - | 208 | - | 140 each | **kit**: the second super's pose during the super flash (Whirlwind, Domain Expansion hand sign; Gojo lifts the blindfold here). Missing → `taunt` |
+| `beamStruggle` | 3 | yes | - | 198 | - | 70 each | **struggle** ([ADR 0034](../docs/decisions/0034-beam-clash-visuals.md)): the beam clash push: braced and straining, the fighter's 1-bar energy technique thrust forward in the hand(s) against the opponent's (front knee bent, back leg driving, hair and clothes blown back; loop). Only fighters with an energy move draw it (not Luffy). Missing → `beamFire` |
 | `techGround` | 4 | - | 1/2/1 beats | 204 | - | 67 83 83 67 | **tech** ([Tech poses](#tech-poses), ADR 0030): ground tech in place: impact brace low on the floor, push up, rise, back in the fighting stance. Missing → `land` |
 | `techRoll` | 6 | - | 1/4/1 beats | 162 | - | 50 63 62 63 62 67 | **tech**: ground tech roll: shoulder contact, one tight forward roll toward screen-right (4 quarter turns), low crouch. Missing → `airRecover` |
 | `wallTech` | 5 | - | 2/1/2 beats | 209 | - | 50 50 67 67 66 | **tech**: wall tech: lands feet-first on a wall at the cell's left (2 frames), pushes off toward screen-right, airborne recovery into `jumpFall`. Missing → `land`, then `airRecover` |
@@ -215,7 +216,9 @@ sheet. The three **tech** strips ([Tech poses](#tech-poses)) are optional for ev
 45 animations, 190 frames, a 12-row sheet (4096 x 3072). The eleven **alt** strips ([Attack alts](#attack-alts)) are optional
 for every fighter as well: with all of them, 56 animations, 255 frames, a 16-row sheet (4096 x 4096, still inside a
 4096 texture). A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
-of whatever uses them (Sasuke: Kirin); the names stay, the content follows the kit. `special`, `intro`, `taunt` and
+of whatever uses them (Sasuke: Kirin); the names stay, the content follows the kit. The optional `beamStruggle` (ADR 0034)
+follows the fighter's 1-bar energy move the same way (Naruto's Rasengan, Sasuke's Chidori Spear, Killua's Narukami, Gojo's
+Reversal: Red, Goku's Dragon Fist): one more 3-frame strip. `special`, `intro`, `taunt` and
 `win` timings may differ per character (see `manifest.json`).
 
 **Pose notes forced by the 256 px width.** A realistic body lying flat or flying is about 210-240 px
@@ -347,6 +350,7 @@ cell, facing right. Active-frame numbers are the same as in v1.
 | `airHeavy` | both clasped fists | 02, 03 | down-forward | x 180-218, y 160-206 |
 | `throw` | throwing hand (release point) | 01 | release point | x 186-212, y 116-142 |
 | `beamFire` | both palms (beam origin) | all (loop) | beam origin | x 222-238, y 112-132 |
+| `beamStruggle` | the technique hand (stream origin) | all (loop) | stream origin | x 196-240, y 100-150; record it as `hand` on every frame |
 | `special` | technique hand | 03, 04, 05 | LOW (stomach) | x 194-222, y 128-158 |
 
 Notes: the `heavy` row names the fist, but the striking limb is the fighter's own launcher (Sasuke's rising foot,
@@ -378,6 +382,7 @@ baked placeholder always uses them). Convert: **px = (128 + forward x 128, 240 -
 | Chidori-type lightning, startup + whole active phase (hand trailing low behind; also on the thrust frame) | 0.5 back, 0.32 up | (64, 199) |
 | Chidori-type lightning, impact / recovery after a hit (the impact frame, ~6 game frames; not the thrust frame) | 0.7 forward, 0.78 up | (218, 140) |
 | beam origin (`beamFire` palms) | 0.8 forward, 0.92 up | (230, 122) |
+| stream origin (`beamStruggle` technique hand: the Rasengan palm, the spear hand, Red's fingertips) | its `hand` per frame | about (218, 125) |
 | projectile spawn (`throw` release) | 0.5 forward, 0.9 up | (192, 125) |
 | projectile / beam aim point on the opponent (chest) | 0.8-0.85 up | y 131-138 |
 
@@ -498,6 +503,7 @@ repeated until something exists (last resort `idle`):
 | spin | launched | jumpFall | jumpUp |
 | techGround, wallTech | land | techRoll | airRecover |
 | light1Alt ... airHeavyAlt | its base (`light1` ...) | hurtHighAlt, hurtLowAlt | hurtHigh, hurtLow |
+| beamStruggle | beamFire | | |
 
 The tech strips are also switched on per strip: until a sheet has one, the engine keeps showing exactly what that tech
 showed before (`land`; `airRecover`; the wall tech's `land` cling, `airRecover` kick and `jumpUp` wall jump). An attack alt
@@ -558,6 +564,16 @@ Engine names are fixed. Brief: `art/vfx/EFFECTS.md`. VFX cells did not change in
 | `star` | 5 | 40 | white (tinted) | center | four-point twinkle shrinking |
 | `crater` | 3 | static (3 random variants) | full color | decal: center (64, 64), drawn straight top-down | cracked floor decal; 3 variants, one picked at random (not an animation) |
 | `lines` | 4 | 40 | white (tinted) | center | radial manga impact lines |
+| `clashBurst` | 6 | 45 | white (tinted) | center | beam clash (ADR 0034): the knot where two streams collide, a roiling core spraying jagged spikes up and down (loop) |
+| `streamBolt` | 4 | 40 | white (tinted) | center, **tiles** | Narukami stream: a horizontal band of thick branching zigzag lightning (loop) |
+| `streamLance` | 4 | 40 | white (tinted) | center, **tiles** | Chidori Spear stream: a thin straight lightning blade with crackle (loop) |
+| `streamFlame` | 4 | 50 | full color | center, **tiles** | Great Fireball stream: a horizontal band of rolling fire (loop) |
+| `redOrb` | 6 | 40 | full color | center | Reversal: Red held in a struggle: a crimson sphere, white-hot core, a ring pushing out (loop) |
+
+**Tiling bands** (`streamBolt`, `streamLance`, `streamFlame`): the engine lays the frames end to end along a stream, so
+each frame runs the full cell width, centered on y 64, and column 0 continues column 127 seamlessly. Deliver them as
+exact 128 x 128 frames in `art/vfx/frames/<effect>/` (cut from the versioned raw); the packer keeps such frames as they are
+and warns about a frame that does not reach both cell edges.
 
 The `crater` effect is superseded by the ground decals below (the engine draws ground damage with them);
 it stays in the atlas only as long as the engine still reads it. No new `crater` art.

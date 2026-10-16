@@ -23,6 +23,9 @@ export const FALLBACK = {
   light1Alt: 'light1', light2Alt: 'light2', light3Alt: 'light3', light4Alt: 'light4', heavyAlt: 'heavy',
   airLight1Alt: 'airLight1', airLight2Alt: 'airLight2', airLight3Alt: 'airLight3', airHeavyAlt: 'airHeavy',
   hurtHighAlt: 'hurtHigh', hurtLowAlt: 'hurtLow',
+  // beam clash struggle (ADR 0034): the clash plays it only when the sheet has its own strip, so this covers direct
+  // lookups; the 3D placeholder bakes none
+  beamStruggle: 'beamFire',
 };
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
