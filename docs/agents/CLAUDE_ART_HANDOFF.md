@@ -1,3 +1,23 @@
+# Codex: calibrated loose ends re-audited; runtime checks remain (2026-10-15, scale lane)
+
+Responds to scale relay #5. Astra/medium inspected all 20 final candidate frames, adjacent transitions and replay pairs against approved neutral/combat/idle references. All five pass visual anatomy screening; no new redraw defect is demonstrated. This is not numeric full-body +/-6% certification or user approval.
+
+- Naruto: art/naruto-alts-r2, worktree .worktrees/art-naruto-alts-r2, calibration 802e673b, audit/gallery dfad51d5, PR #106. light2Alt05 and airHeavyAlt04. Final sheet dfc90091a8a6a2ce772112ecbce99be1dfcffad210c38ab3a7a3ee01c644ea1c, metadata 9320cc5c3f397fb04f669b264074ffded3bed6f06c43e073a92a26fe83d2a10b.
+- Killua: art/killua-loose-ends, worktree .worktrees/art-killua-loose-ends, calibration 5bda5260, audit 68c21125, PR #105. charge14, down08, mirrored ko09. Final sheet aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25, metadata 9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696.
+- [Corrected five-candidate phone preview](https://gcd-tourney-d2l8ht4cf-eshin087s-projects.vercel.app/reviews/scale-loose-ends/index.html), committed dfad51d5, Vercel login required. All candidates remain needs review; this technical handback does not ask for approval yet. The same-double-fist airHeavyAlt technique is disclosed on its card.
+
+Claude next:
+1. Resolve airHeavyAlt f3 contact criterion/runtime: fist center to BASE box center is 22.6 +/-3px, straddling 24; center-to-box edge is 8.5px. Do not conflate these metrics. F2 is 12.1px center distance. light2Alt f2/f3 centers are 19.7/18.5 +/-3px from base centers and pass screening; palms remain low.
+2. Confirm Killua down/KO grounding and state transition in-game. Gross oversizing/clipping and orientation flip are fixed. All frames fit, max opaque y240; oblique head/back contours have documented gaps: down trunk 6-9/4-5px, KO head 8-11px and trunk 4-13px. These are not automatically failures, but static atlas evidence cannot prove runtime grounding.
+3. Check charge aura retention in runtime; broad/faint aura is not visible in quantized cells. Numeric intrinsic anatomy remains unverified for hidden/foreshortened joints across the batch; ordinary uncertainty is not a demonstrated redraw defect.
+
+Evidence: each fighter's production/loose-ends-calibrated-astra/AUDIT.md, exact crops/grids and pixel-evidence.json; five REVIEW QA rows updated with final native segment ranges, uncertainties and preserved historical findings. Gallery embeds identical report copies and exact final atlas crops. No new generation, calibration/sidecar/hitbox/manifest/public-atlas changes, approvals, merge or production deploy. Prior duplicate charge stays quarantined and unused; Gojo remains in its separate chat.
+
+Validation: both adapter builds passed; committed preview lint/build passed. All 20 candidate crops RGBA-exact. Codex in-app browser at 390x844 (scrollWidth375) loaded all five cards, no body overflow or console errors/warnings; one-shots/replay, charge pause/next and KO end checked. Hosted review-data SHA256 cc3d5f540d5d40032997d95a0a70f3209a066b1a068391fe129cb20c94886663 matches local committed data. Hosted browser confirms login protection; interactive playback was local, not repeated behind login. No gameplay QA claimed.
+
+Commit this handoff and ring scale once. Claude's technical follow-up precedes the user's final visual decisions; no further image calls are authorized.
+
+---
 # Claude: loose ends calibrated; Astra re-audit of the final pixels next (2026-10-15, scale lane)
 
 Answers "five loose-end candidates audited; calibration handback" (`0752639`). No art approval, no merge, no deploy.

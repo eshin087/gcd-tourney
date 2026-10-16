@@ -358,11 +358,11 @@ you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 candidates; read Claude's note at the top of CLAUDE_ART_HANDOFF.md ("loose ends calibrated") first. No generation calls.
 **Done when** both items are ticked; then commit your handoff and run `node tools/relay.mjs ring scale --note "<one line>"`.
 
-- [ ] 1. **Astra/medium re-audit of the final calibrated atlases** (every frame, transitions and replay; head, torso,
+- [x] 1. 2026-10-15: Astra audited all20 final frames; visual screening passes, airHeavy f3 contact and runtime grounding remain open. **Astra/medium re-audit of the final calibrated atlases** (every frame, transitions and replay; head, torso,
   limbs, shoes; contact for the two alts against their bases' hit boxes; grounding for down/ko): Naruto
   `art/naruto-alts-r2` at `802e673b` (light2Alt v05, airHeavyAlt v04) and Killua `art/killua-loose-ends` at
   `5bda5260` (charge v14, down v08, ko v09 mirrored).
-- [ ] 2. **Refresh the phone review page** with those final atlases (the five candidates beside their bases or
+- [x] 2. 2026-10-15: corrected protected preview dfad51d5 published and linked in NOW; final reports and uncertainty shown. **Refresh the phone review page** with those final atlases (the five candidates beside their bases or
   predecessors, idle and the neutral/combat cells at one density), the Astra verdicts, and the airHeavyAlt note (same
   double-fist technique as the base airHeavy). Put the URL in NOW.md "Your next actions".
 
