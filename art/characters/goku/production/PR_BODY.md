@@ -2,7 +2,7 @@
 
 ## Review
 
-- **Current gallery:** [calibration r5 preview](https://gcd-tourney-9rbjxyx11-eshin087s-projects.vercel.app/characters/goku/calibration-r5/index.html) from committed branch HEAD `3bc9169b`.
+- **Current full-set gallery:** [Goku core review](https://gcd-tourney-le661omg1-eshin087s-projects.vercel.app/characters/goku/core-review-final/index.html) from committed branch HEAD `35f4ca22`. Historical audited calibration gallery: [r5](https://gcd-tourney-9rbjxyx11-eshin087s-projects.vercel.app/characters/goku/calibration-r5/index.html).
 - The gallery shows the approved title-style neutral/combat strip at native 256px cells, approved identity references, light3 v13 and heavy v14 players using exact cells extracted from the audited atlas, the historical v11 light3 hold, source provenance, and current audit state.
 - **Goku light3 v13 is approved by the user via Claude relay #12.** Exact user quote: "Approve Goku light3 v13 and Luffy special v02 as drawn." This approval applies to light3 v13 only for Goku. Heavy v14 remains approved via relay #10 ("Approved").
 
@@ -14,7 +14,7 @@ Three-line verdict:
 
 ## Relay 11 result
 
-Claude relay #11 relayed the user quote “Goku luffy retry,” authorizing exactly one light3 redraw call, the sixth cumulative call. It authorized generation only, not drawing approval. The exact generated source is `art/characters/goku/raw/light3_v13.png` assembled from preserved source v12; source and assembly remain additionally preserved under `raw/_qa_hold/`.
+Claude relay #11 relayed the user quote “Goku luffy retry,” authorizing exactly one light3 redraw call, the sixth cumulative call. It authorized generation only, not drawing approval. The exact generated source is `art/characters/goku/raw/light3_v13.png` assembled from preserved source v12; source v12 remains held under `raw/_qa_hold/`; the active v13 assembly is `raw/light3_v13.png`, with a byte-identical preservation copy under `_qa_hold/`.
 
 - Source v12: 1659x948, SHA-256 `C2320840541EF2B9A9EBD5919F632BF40F733092CE2C2DDCD54F37467447DCB1`.
 - Assembly v13: uniform factor `.696133442603862`, chosen from torso/boot/belt landmarks against approved references; SHA-256 `3A55C5C25E389C6336A3938EF9716929EEEA7D6A90B7D834FAF0ED06A701CBC8`.
@@ -46,4 +46,4 @@ Cumulative attempts: light3 six calls (relay #11 authorized and used call 6; no 
 
 ## Final 23-strip review request (2026-10-16)
 
-Gallery source: public/characters/goku/core-review-final/index.html. It reuses the exact audited atlas frame extracts, with all strips at native 256px beside idle frame 0, selectable cells and playback controls. Approved rows: idle v02; light2 v05, light3 v13, light4 v09, heavy v14, airLight1 v07, airHeavy v06. Exact pending user approvals: run v09, dash v09, jumpUp v04, jumpFall v04, land v07, light1 v04, guard v05, hurtHigh v08, launched v08, down v05, getup v11, charge v05, beamCharge v07, beamFire v07, special v05, win v05.
+Gallery source: `public/characters/goku/core-review-final/index.html`. It reuses the exact audited atlas frame extracts, with all strips at native 256px beside idle frame 0, selectable cells and playback controls. The known getup floor/contact warning remains visible and links to the final atlas audit. Approved rows: idle v02; light2 v05, light3 v13, light4 v09, heavy v14, airLight1 v07, airHeavy v06. Exact pending user approvals: run v09, dash v09, jumpUp v04, jumpFall v04, land v07, light1 v04, guard v05, hurtHigh v08, launched v08, down v05, getup v11, charge v05, beamCharge v07, beamFire v07, special v05, win v05.
