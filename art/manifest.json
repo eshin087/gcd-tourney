@@ -562,9 +562,9 @@
           ],
           "required": false,
           "step": 9,
-          "status": "needs review",
+          "status": "approved",
           "version": 7,
-          "approvedVersion": 4
+          "approvedVersion": 7
         },
         "superDash": {
           "frames": 2,
@@ -576,9 +576,9 @@
           ],
           "required": false,
           "step": 9,
-          "status": "needs review",
+          "status": "approved",
           "version": 12,
-          "approvedVersion": 9
+          "approvedVersion": 12
         },
         "jumpSquat": {
           "frames": 1,
