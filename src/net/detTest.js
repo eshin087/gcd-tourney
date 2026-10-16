@@ -8,8 +8,6 @@
 // once per re-simulated frame.
 import { ACTIONS } from '../core/input.js';
 import { rng } from '../game/rng.js';
-import { CameraDirector } from '../game/camera.js';
-import { installDetMath } from './dmath.js';
 import { GROUPS, hashSim, hashKeys, dumpSim, diffDumps, hashString } from './simHash.js';
 
 // this build's simulation fingerprint (vite.config.js simId): a fixture recorded on another one is stale
@@ -41,30 +39,14 @@ function stats(a) {
   return { n: s.length, avg: +(s.reduce((x, y) => x + y, 0) / s.length).toFixed(3), p50: q(0.5), p95: q(0.95), p99: q(0.99), max: +s[s.length - 1].toFixed(3) };
 }
 
-// A fresh match from the log's settings, intro skipped. Returns the frame counter it starts from and `done`, which
-// undoes the run's patches. The camera starts fresh too: the simulation reads the control basis from it (stick
-// directions, facing), so the last screen's camera would leak into the first frames; so does the frame counter.
-// `fixedBasis` pins that basis to the world axes after every camera update: the stand-in for a simulation-owned basis,
-// so a run can show what else is not deterministic yet. `detMath` swaps in dmath.js's hypot / sin / cos for the run
-// (Safari's Math.hypot differs from Chrome's in the last bit).
-function startRun(game, cfg, { fixedBasis = false, detMath = false } = {}) {
+// A fresh match from the log's settings, intro skipped. Returns the frame counter it starts from (0: startMatch resets
+// it). No workarounds any more (ENG-091): the simulation owns its control basis, counts frames and uses deterministic
+// math, so the camera, the render clock and the frame rate can be anything.
+function startRun(game, cfg) {
   window.__manualStep = true; // the rAF loop must not step the game behind our back
-  const restoreMath = detMath ? installDetMath() : () => {};
-  game.cam = new CameraDirector(game.camera);
-  game.acc = 0;
-  game.frameNo = 0; // the simulation reads the absolute frame counter (cooldown stamps, beam-clash chart seeds): per match, as online play will need
-  game.time = 0; // the render clock reaches it too (the charge tremble moves the camera, the round winner faces the camera's yaw)
   game.startMatch({ ...cfg });
   game.skipIntro();
-  if (fixedBasis) {
-    const c = game.cam, update = c.update;
-    c.update = function (dt, g) {
-      update.call(this, dt, g);
-      this.right.set(1, 0, 0);
-      this.fwd.set(0, 0, -1);
-    };
-  }
-  return { f0: game.frameNo, done: restoreMath };
+  return { f0: game.frameNo, done: () => {} };
 }
 
 // Runs `after(k)` after every fixed step (k = 0 for the first step of the run) and times the step itself.
@@ -112,13 +94,13 @@ function show(text) {
 }
 
 export function install(game, ready, qs) {
-  // record({ p1, p2, level, seed, maxFrames, name, fixedBasis, detMath, dumpAt }): a CPU vs CPU match (Math.random seeded, so the
+  // record({ p1, p2, level, seed, maxFrames, name, dumpAt }): a CPU vs CPU match (Math.random seeded, so the
   // same seed records the same match again in this browser). The log's per-frame hashes stay in memory (log.per) for
   // same-page replays, and log.dump holds dumpSim() after frame dumpAt.
-  async function record({ p1 = 'naruto', p2 = 'sasuke', level = 'impossible', seed = 7, maxFrames = 20000, name = null, fixedBasis = false, detMath = false, dumpAt = null } = {}) {
+  async function record({ p1 = 'naruto', p2 = 'sasuke', level = 'impossible', seed = 7, maxFrames = 20000, name = null, dumpAt = null } = {}) {
     const realRandom = Math.random;
     Math.random = rng(seed);
-    const cfg = { mode: 'cpu', p1, p2, level, seed }, test = { fixedBasis, detMath };
+    const cfg = { mode: 'cpu', p1, p2, level, seed }, test = {};
     const { f0, done } = startRun(game, cfg, test);
     let dump = null;
     const inputs = [[], []], last = [null, null], stick = [[0, 0], [0, 0]];
@@ -177,14 +159,12 @@ export function install(game, ready, qs) {
   // ref: per-frame hashes to compare against instead (another replay's `per`, kept with keepPer). randomSeed: the
   // Math.random sequence (by default another one than the recording's: a draw that reaches the simulation shows).
   // onStep(k): called after every step; returning true stops the replay there.
-  async function replay(log, { dt = '60', stopAt = log.frames, dumpAt = null, noDraw = false, onProgress = null, fixedBasis = log.test?.fixedBasis,
-    detMath = log.test?.detMath, ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null } = {}) {
+  async function replay(log, { dt = '60', stopAt = log.frames, dumpAt = null, noDraw = false, onProgress = null,
+    ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null } = {}) {
     const realRandom = Math.random;
     Math.random = rng(randomSeed);
-    const { f0, done } = startRun(game, log.cfg, { fixedBasis, detMath });
-    // idle stand-ins, not null: the rules know a CPU's pad from a person's (holding back blocks only for a person,
-    // Fighter.holdingBack), and the recording ran under the CPU's
-    game.brains = [{ update() {} }, { update() {} }];
+    const { f0, done } = startRun(game, log.cfg);
+    game.brains = [null, null]; // the match setup (Game.kinds) still says both sides are CPUs, as when it was recorded
     game.director = null;
     const art = game.assets.map(artPrint);
     const feed = makeFeed(log.inputs), poll = game.input.poll, draw = game.renderer.render;
@@ -236,7 +216,7 @@ export function install(game, ready, qs) {
     for (let i = 8; i <= timing.length; i++) { let s = 0; for (let j = i - 8; j < i; j++) s += timing[j]; burst.push(s); }
     const tick = timing.reduce((m, t) => (t > 0 && t < m ? t : m), Infinity);
     return {
-      dt, frames, of: log.frames, match: !first && frames === Math.min(stopAt, log.frames), first, dump, per: per && Uint32Array.from(per),
+      dt, frames, of: log.frames, match: !first && frames >= Math.min(stopAt, log.frames), first, dump, per: per && Uint32Array.from(per),
       art: { same: JSON.stringify(art) === JSON.stringify(log.art), here: art, ref: log.art },
       step, frame: stats(drawT), rollback8: step && +(8 * step.p95).toFixed(2), burst8: stats(burst), timerMs: Number.isFinite(tick) ? +tick.toFixed(3) : null,
       result: { winner: game.roundWinner?.index ?? null, rounds: game.round, hp: game.fighters.map((f) => f.hp) },
@@ -246,8 +226,8 @@ export function install(game, ready, qs) {
   // Two replays of the same inputs, the second at another render rate (`dt`) and/or another Math.random sequence
   // (`randomSeed`). Replays repeat themselves exactly (the recording doesn't: the brains keep state across matches),
   // so where they split, both run again up to that frame and the values that differ come back too.
-  async function diagnose(log, { dt = '60', randomSeed = 12345, fixedBasis = log.test?.fixedBasis } = {}) {
-    const base = { noDraw: true, fixedBasis, detMath: log.test?.detMath };
+  async function diagnose(log, { dt = '60', randomSeed = 12345 } = {}) {
+    const base = { noDraw: true };
     const a = await replay(log, { ...base, keepPer: true });
     const r = await replay(log, { ...base, dt, randomSeed, ref: a.per });
     delete a.per;
@@ -314,7 +294,7 @@ export function install(game, ready, qs) {
       return null;
     }
     const head = `Determinism test (ADR 0036): ${log.cfg.p1} vs ${log.cfg.p2}, seed ${log.cfg.seed}, ${log.frames} frames, render ${dt}`
-      + `${log.test?.fixedBasis ? ', control basis pinned' : ''}${log.test?.detMath ? ', deterministic math' : ''}\nscreenshot this when it finishes and send it to Claude`;
+      + `\nscreenshot this when it finishes and send it to Claude`;
     const r = await replay(log, { dt, onProgress: (k, n, first) => show(`${head}\nreplaying... ${k} / ${n}${first ? '  (already split)' : ''}`) });
     const f = r.first;
     const stale = !!log.sim && log.sim !== SIM; // gameplay changed since the recording (vite.config.js simId)

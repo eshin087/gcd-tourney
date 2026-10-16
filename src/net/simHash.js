@@ -1,12 +1,12 @@
 // Simulation fingerprints for online play (ADR 0036). Rollback netcode needs two machines to compute the same fight
 // from the same inputs; these hashes say whether they did. The state is hashed in groups so a mismatch also says
-// where it started: game flow, either fighter, the pads (input buffers), the shots in flight, and the camera basis
-// the controls read (stick directions and facing are camera-relative). dumpSim() walks the same values into a flat
+// where it started: game flow, either fighter, the pads (input buffers), the shots in flight, and the control basis
+// the controls read (Game.basis, basis.js: stick directions and facing are relative to it). dumpSim() walks the same values into a flat
 // { path: value } map for diffing two runs. View-only objects (meshes, materials, textures, DOM, the fighters'
 // interpolated render positions) are skipped; everything else a fighter or shot carries is included, cosmetic
 // timers too, because the walk can't tell them apart and a false alarm is cheaper than a missed desync.
 
-export const GROUPS = ['game', 'f0', 'f1', 'pads', 'shots', 'cam'];
+export const GROUPS = ['game', 'f0', 'f1', 'pads', 'shots', 'basis'];
 
 // game-level fields the simulation reads or writes in the fixed step (the round timer, world freezes, clashes,
 // the domain, combos); wall-clock bookkeeping such as stateT, acc and time is left out on purpose
@@ -14,9 +14,10 @@ const GAME_KEYS = ['state', 'inputLive', 'timeLeft', 'round', 'freeze', 'timeSca
   'spClashCool', 'struggleCool', 'superFlash', 'clash', 'domain', 'pendingMelee', 'combos'];
 // references back into the engine or the view, never walked; and view state the fighters carry today, which the
 // simulation/view split (ADR 0036) moves off them: the power-up particles (chargeFx.js, Math.random) and the hit
-// flash (hitFlash.js, stamped with the render clock). The CPU brains tag the shots they have seen (_aid, seen): their
-// own bookkeeping, absent when a replay or a remote player drives the pads
-const SKIP = new Set(['game', 'def', 'asset', 'actor', 'scene', 'renderPos', 'boxViewer', 'hasStrip', 'mesh', 'mat', 'geo', 'tex', 'chargeFx', 'hfx', '_aid', 'seen']);
+// flash (hitFlash.js, stamped with the render clock), a shot's effect handles (sprite, glow: effects.js items the
+// renderer animates) and a beam's ripple clock (waveT, Beam.sync). The CPU brains tag the shots they have seen (_aid, seen): their own bookkeeping, absent when a
+// replay or a remote player drives the pads
+const SKIP = new Set(['game', 'def', 'asset', 'actor', 'scene', 'renderPos', 'boxViewer', 'hasStrip', 'mesh', 'mat', 'geo', 'tex', 'chargeFx', 'hfx', 'sprite', 'glow', 'waveT', '_aid', 'seen']);
 const MAX_DEPTH = 8;
 
 const F64 = new Float64Array(1), U32 = new Uint32Array(F64.buffer);
@@ -115,11 +116,7 @@ function visit(game, group, s) {
     case 'shots':
       for (const k of ['projectiles', 'beams', 'orbs', 'vortices']) { s.key(k); walk(game[k], s, `shots.${k}`, 1, seen, F); }
       break;
-    case 'cam': {
-      const c = game.cam;
-      walk({ right: c.right, fwd: c.fwd }, s, 'cam', 1, seen, F);
-      break;
-    }
+    case 'basis': walk(game.basis, s, 'basis', 1, seen, F); break;
   }
 }
 
@@ -150,7 +147,7 @@ export function hashKeys(game, groups = GROUPS) {
       }
       case 'pads': game.pads.forEach((p, i) => { for (const k of Object.keys(p)) if (typeof p[k] !== 'function') one(`pads.${i}.${k}`, p[k]); }); break;
       case 'shots': for (const k of ['projectiles', 'beams', 'orbs', 'vortices']) one(`shots.${k}`, game[k]); break;
-      case 'cam': one('cam.right', game.cam.right); one('cam.fwd', game.cam.fwd); break;
+      case 'basis': for (const k of Object.keys(game.basis)) one(`basis.${k}`, game.basis[k]); break;
     }
   }
   return out;

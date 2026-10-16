@@ -249,7 +249,7 @@ export class MasterBrain {
   }
 
   sense(game) {
-    const f = this.f, o = f.opp, R = game.cam.right, F = game.cam.fwd;
+    const f = this.f, o = f.opp, R = game.basis.right, F = game.basis.fwd;
     const rx = o.pos.x - f.pos.x, rz = o.pos.z - f.pos.z;
     const c = this.c || (this.c = {});
     c.R = R;

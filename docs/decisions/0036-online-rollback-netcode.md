@@ -153,4 +153,30 @@ off, and reports the first frame where the two runs differ and which values diff
   dev-server `/__det/save` endpoint (vite.config.js) only exists under `vite serve`.
 - New: a `server/` package and a Cloudflare account (the user's), needed from ENG-094.
 - Safari's `Math.hypot` splits real matches, so deterministic math (`hypot` first) moves to the front of ENG-092,
-  ahead of the view split; it is small and the determinism test proves it on a phone.
+  ahead of the view split; it is small and the determinism test proves it on a phone. (Done in ENG-091.)
+
+## Progress
+
+- **ENG-090 (spike), merged 2026-10-15 (PRs #109, #115):** the determinism test, the iPhone result, fixture
+  fingerprints.
+- **ENG-091, 2026-10-15:** the simulation is replayable with no test workarounds.
+  - `src/game/basis.js` owns the control basis: the fight framing's yaw rule on the fighters' positions, damped on
+    the fixed step (`Game.basis`, read by the fighters, kits, melee, throws and the CPU brains). The render camera
+    takes its yaw from it, interpolated between steps.
+  - The match flow and the KO slow-mo run in `Game.tickFlow` on the fixed step (`stateT` / `slowT` advance by
+    `DT / timeScale`, so the old timings hold).
+  - `frameNo` resets per match. The round winner faces the basis's yaw. Gojo's Infinity ki charge and callout
+    count frames, not the render clock.
+  - `Game.kinds` ('person' / 'cpu', from the match setup) decides the hold-back-to-block rule.
+  - `-0` sticks become `0` in `Pad.setMove`: a saved log or the wire can't carry the sign.
+  - The gameplay files use `src/game/dmath.js` (hypot, sin, cos, atan, atan2; atan / atan2 match V8 bit for bit);
+    `tools/lint-sim-math.mjs` in `prebuild` keeps engine `Math` out of them. The shuriken spread turns its
+    directions by hand instead of with three.js's `applyAxisAngle`.
+  - The state hash skips more view state: shots' effect handles (`sprite`, `glow`) and the beam's ripple clock
+    (`waveT`). Its `cam` group became `basis`.
+  - Result: fresh recordings of four pairings replay exactly at 60, 120 and 144 Hz and with uneven frame times
+    (naruto-sasuke, gojo-killua, goku-luffy, killua-sasuke). They also replay exactly with `Math.hypot` /
+    `Math.sin` deliberately skewed by an ulp, and the first match after a page load replays like any other.
+    A 3-match CPU soak is clean.
+  - Pending: the user's controls playtest. Movement now follows the basis's yaw instead of the drawn camera's
+    (the same rule, without shake and window-shape effects).

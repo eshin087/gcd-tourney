@@ -217,6 +217,14 @@ head, torso and limb lengths, never by its box height, and never fitted to a sta
   or an `unmeasured` strip without a `scaleManualQA` record for its version fails it (`scale gate:` line, exit code 1)
   and **refuses the pack**: nothing is written for that fighter (`public/characters/<id>/` keeps its last pack,
   `frames/` are not written back).
+- **Head probe off for one fighter** (`art/scale/builds.json` fighter `"headProbe": { "mode": "manual", "why": "..." }`,
+  TOOL-GOKU-PROBE): for a fighter whose head the probe provably misreads (Goku: spiky hair split by inner outlines, the
+  idle itself reads 0.45-2.67; Luffy: the straw hat shares the vest, sash and skin colours), the numbers neither pass
+  nor fail a strip. Every strip of that fighter is `unmeasured` ("head probe off for this fighter") until a
+  `scaleManualQA` record for its version accepts it as `manual`, so each strip needs a person's landmark check (boot or
+  sandal to sole, shin, neck to belt or sash, belt width) against the approved idle and title-style cells at one
+  density. It is not an exemption: a strip without that record still fails. Turn it off again once a probe reads the
+  fighter's idle at 1.00 and the idle at x0.8 at 0.80.
 - **Approved reference instead of the idle** (`art/scale/builds.json` fighter `scaleReference`): for a fighter whose idle
   biases the probe, the gate measures every strip and the idle itself against the user-approved reference cells (for the
   title-style batch, the approved combat cell in `art/scale/title-style-pilot`). The idle then needs its own pass. This

@@ -1,18 +1,8 @@
 import * as THREE from 'three';
 import { RING_TOP } from './constants.js';
+import { damp } from './basis.js';
 
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-
-// Critically damped spring toward a target (Unity's SmoothDamp).
-function damp(cur, target, vel, key, smooth, dt) {
-  const omega = 2 / Math.max(0.0001, smooth);
-  const x = omega * dt;
-  const exp = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x);
-  const change = cur - target;
-  const temp = (vel[key] + omega * change) * dt;
-  vel[key] = (vel[key] - omega * temp) * exp;
-  return target + (change + temp) * exp;
-}
 
 function dampV(cur, target, vel, smooth, dt) {
   cur.x = damp(cur.x, target.x, vel, 'x', smooth, dt);
@@ -44,8 +34,7 @@ export class CameraDirector {
     this.trauma = 0;
     this.kick = new THREE.Vector3();
     this.kickVel = new THREE.Vector3();
-    this.yaw = 0;
-    this.yawVel = { v: 0 };
+    this.yaw = 0; // the fight's yaw: the simulation's control basis (basis.js) once a match runs
     this.fov = 30;
     this.pos = new THREE.Vector3(0, 14, 30);
     this.look = new THREE.Vector3(0, 1, 0);
@@ -95,10 +84,6 @@ export class CameraDirector {
     this.lean = { p: new THREE.Vector3(x, RING_TOP + y, z), amt, hold, t: 0 };
   }
 
-  dirFromInput(mx, my) {
-    return new THREE.Vector2(this.right.x * mx + this.fwd.x * my, this.right.z * mx + this.fwd.z * my);
-  }
-
   update(dt, game) {
     this.time += dt;
     this.modeT += dt;
@@ -107,6 +92,9 @@ export class CameraDirector {
     let fov = 30, smoothP = 0.35, smoothL = 0.22;
     const f = game.fighters;
     const rp = (ft) => ft.renderPos || ft.pos;
+    // the fight's yaw is the simulation's control basis (basis.js), drawn between its fixed steps: the framing turns
+    // with the axes the controls use, and every machine agrees on those (ADR 0036)
+    if (game.basis && f[0] && f[1]) this.yaw = game.basis.viewYaw(game.freeze > 0 ? 1 : game.alpha ?? 1);
 
     switch (this.mode) {
       case 'orbit': {
@@ -133,14 +121,6 @@ export class CameraDirector {
         const dx = b.x - a.x, dz = b.z - a.z;
         const sep = Math.hypot(dx, dz);
         const avgH = (a.y + b.y) / 2, maxH = Math.max(a.y, b.y), hd = Math.abs(a.y - b.y);
-        if (sep > 2.2) {
-          let ideal = Math.atan2(dx, dz) - Math.PI / 2;
-          while (ideal - this.yaw > Math.PI / 2) ideal -= Math.PI;
-          while (ideal - this.yaw < -Math.PI / 2) ideal += Math.PI;
-          ideal = THREE.MathUtils.clamp(ideal, -0.42, 0.42);
-          this.targetYaw = ideal;
-        }
-        this.yaw = damp(this.yaw, this.targetYaw ?? 0, this.yawVel, 'v', 1.1, dt);
         // frame for the visible width (the training panel can cover part of the screen)
         const visAspect = (cam.aspect || 1.7) * (1 - (game.viewCover || 0));
         const aspectK = Math.max(1, 1.7 / visAspect);
