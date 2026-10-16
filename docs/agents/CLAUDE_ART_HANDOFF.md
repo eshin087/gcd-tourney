@@ -17,8 +17,8 @@ sasuke-gojo, gojo-naruto; 7 rounds, 18,303 frames, 0 violations, clean console),
 Still held, base move plays: light2Alt (v01-v04) and airHeavyAlt (v01-v03) in `raw/_qa_hold/`. Known warnings unchanged:
 Killua charge head 0.92 (recorded exception), Killua down/ko lying frames float, Killua specialUp exemption written for v02.
 
-**GitHub publish is blocked (TOOL-043):** `npm run pr -- merge` and `pr open` can fail at the GitHub push (non-fast-forward)
-until the user decides the one-time fix. Local merges and `npm run deploy` work. Do not force-push GitHub yourself.
+**GitHub publish fixed (TOOL-043, PR #99):** the user chose the fix; GitHub main was replaced once and publishes fast-forward
+again. A branch publish (`pr open`) now replaces its own GitHub branch. Never force-push main yourself.
 
 ---
 
