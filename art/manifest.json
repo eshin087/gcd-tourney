@@ -306,7 +306,11 @@
       "ui": {
         "portrait": { "file": "art/characters/naruto/ui/portrait.png", "candidates": "art/characters/naruto/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 },
         "cutin": { "file": "art/characters/naruto/ui/cutin.png", "candidates": "art/characters/naruto/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 3, "approvedVersion": 3 },
-        "select": { "file": "art/characters/naruto/ui/select.png", "candidates": "art/characters/naruto/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 }
+        "select": { "file": "art/characters/naruto/ui/select.png", "candidates": "art/characters/naruto/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "super_bg": { "file": "art/characters/naruto/ui/super_bg.png", "candidates": "art/characters/naruto/raw/ui_super_bg_vNN.png", "size": [768, 192], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] },
+        "super_fg": { "file": "art/characters/naruto/ui/super_fg.png", "candidates": "art/characters/naruto/raw/ui_super_fg_vNN.png", "size": [384, 240], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] },
+        "ult_bg": { "file": "art/characters/naruto/ui/ult_bg.png", "candidates": "art/characters/naruto/raw/ui_ult_bg_vNN.png", "size": [768, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1672, 941] },
+        "ult_fg": { "file": "art/characters/naruto/ui/ult_fg.png", "candidates": "art/characters/naruto/raw/ui_ult_fg_vNN.png", "size": [576, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] }
       }
     },
     "sasuke": {
@@ -468,7 +472,11 @@
       "ui": {
         "portrait": { "file": "art/characters/killua/ui/portrait.png", "candidates": "art/characters/killua/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 },
         "cutin": { "file": "art/characters/killua/ui/cutin.png", "candidates": "art/characters/killua/raw/ui_cutin_vNN.png", "size": [480, 128], "step": 11, "status": "approved", "version": 3, "approvedVersion": 3 },
-        "select": { "file": "art/characters/killua/ui/select.png", "candidates": "art/characters/killua/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 }
+        "select": { "file": "art/characters/killua/ui/select.png", "candidates": "art/characters/killua/raw/ui_select_vNN.png", "size": [384, 384], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "super_bg": { "file": "art/characters/killua/ui/super_bg.png", "candidates": "art/characters/killua/raw/ui_super_bg_vNN.png", "size": [768, 192], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] },
+        "super_fg": { "file": "art/characters/killua/ui/super_fg.png", "candidates": "art/characters/killua/raw/ui_super_fg_vNN.png", "size": [384, 240], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1983, 793] },
+        "ult_bg": { "file": "art/characters/killua/ui/ult_bg.png", "candidates": "art/characters/killua/raw/ui_ult_bg_vNN.png", "size": [768, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] },
+        "ult_fg": { "file": "art/characters/killua/ui/ult_fg.png", "candidates": "art/characters/killua/raw/ui_ult_fg_vNN.png", "size": [576, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] }
       }
     },
     "gojo": {
@@ -1350,7 +1358,11 @@
           "status": "approved",
           "version": 1,
           "approvedVersion": 1
-        }
+        },
+        "super_bg": { "file": "art/characters/gojo/ui/super_bg.png", "candidates": "art/characters/gojo/raw/ui_super_bg_vNN.png", "size": [768, 192], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [2172, 724] },
+        "super_fg": { "file": "art/characters/gojo/ui/super_fg.png", "candidates": "art/characters/gojo/raw/ui_super_fg_vNN.png", "size": [384, 240], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1983, 793] },
+        "ult_bg": { "file": "art/characters/gojo/ui/ult_bg.png", "candidates": "art/characters/gojo/raw/ui_ult_bg_vNN.png", "size": [768, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] },
+        "ult_fg": { "file": "art/characters/gojo/ui/ult_fg.png", "candidates": "art/characters/gojo/raw/ui_ult_fg_vNN.png", "size": [576, 432], "step": 11, "status": "raw", "version": 1, "approvedVersion": null, "reviewStatus": "needs review", "sourceSize": [1536, 1024] }
       }
     }
   },

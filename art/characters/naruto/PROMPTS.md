@@ -132,7 +132,7 @@ free version number.
 | 9 | A42 | `superPose`: SHADOW CLONE seal (super flash, loop) | 4 | 1 |  | `raw/superPose_vNN.png` |
 | 11 | U1 | portrait 96×96 | | 1 | | `raw/ui_portrait_vNN.png` → approved copy `ui/portrait.png` |
 | 11 | U2 | super cut-in eye strip 480×128 | | 1 | | `raw/ui_cutin_vNN.png` → approved copy `ui/cutin.png` |
-| 11 | U3 | character select art 384×384 | | 1 | | `raw/ui_select_vNN.png` → approved copy `ui/select.png` |
+| 11 | U7 | character select art 384×384 | | 1 | | `raw/ui_select_vNN.png` → approved copy `ui/select.png` |
 
 ---
 
@@ -1659,7 +1659,23 @@ PALETTE (use only these 34 colors): outline #1d1420; skin #ffe2c6 #f8c69b #eaa77
 BACKGROUND: flat solid magenta #FF00FF above and below the band only. No text, no speed lines, no borders.
 ```
 
-### U3 · Character select art (384×384)
+### U3–U6 · Super banner and ultimate splash (round 2a)
+
+Shared generation constraints: approved Naruto model, expressions and idle references attached; crisp hard-edged hi-res pixel art; right-facing composition; max 48 colors; no text, logo, border, watermark, blur, antialiasing, gradients, dithering or painterly texture. Backdrops are opaque and character-free. Foregrounds use transparent background (magenta only as fallback, never on figure). Review against approved facial references before acceptance.
+
+#### U3 · Shadow Clone Barrage backdrop
+Save as `raw/ui_super_bg_v01.png`. Opaque 1536x1024 source composed for 4:1 center crop. Dusk battlefield; wall of shadow clones charging across central band, smoke puffs as clones vanish, bright blue-white Giant Rasengan with spiral streaks right of center. Orange, black, violet and blue-white; all essential content stays in the center band; no recognizable foreground portrait.
+
+#### U4 · Shadow Clone Barrage cutout
+Save as `raw/ui_super_fg_v01.png`. Naruto chest-up, three-quarter facing and looking screen-right, palm thrust toward viewer/right with blue Rasengan glow (no complete orb), effort grin, black headband with long tails whipping; short compact blond spikes and short temple tufts, blue eyes, three whisker marks on each cheek, orange-and-black jacket with black shoulders and tall collar. Match approved face and identity; not chibi.
+
+#### U5 · Four-Tails backdrop
+Save as `raw/ui_ult_bg_v01.png`. Opaque source composed for 16:9 center crop; scorched crater, blood-red sky, boiling red-black chakra smoke, four huge chakra tails silhouetted across upper half, ember-orange ground cracks. No Naruto figure; keep focal tails inside middle 4:3 safe area.
+
+#### U6 · Four-Tails cutout
+Save as `raw/ui_ult_fg_v01.png`. Full figure in low all-fours crouch, roaring screen-right in Four-Tails cloak: dark crimson-black bubbling shroud, white glowing eyes and mouth, four distinct tails behind; retain readable athletic build and recognizable short blond hair/headband where visible. Match approved face references.
+
+### U7 · Character select art (384×384)
 
 Save as: `raw/ui_select_vNN.png` → approved copy `ui/select.png` (packed to 384×384, transparent
 background). The Rasengan **is** allowed here (UI art, not a sprite).

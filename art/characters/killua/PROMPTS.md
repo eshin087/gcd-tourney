@@ -145,7 +145,7 @@ version (`v01` first).
 | 9 | A42 | `superPose`: GODSPEED: WHIRLWIND activation pose | 4 | 1 | opt v2 | `raw/superPose_vNN.png` |
 | 11 | U1 | portrait 96×96 | | 1 | | `raw/ui_portrait_vNN.png` → approved copy `ui/portrait.png` |
 | 11 | U2 | super cut-in eye strip 480×128 | | 1 | | `raw/ui_cutin_vNN.png` → approved copy `ui/cutin.png` |
-| 11 | U3 | character select art 384×384 | | 1 | | `raw/ui_select_vNN.png` → approved copy `ui/select.png` |
+| 11 | U7 | character select art 384×384 | | 1 | | `raw/ui_select_vNN.png` → approved copy `ui/select.png` |
 | extra | X1, X2 | optional Killua effect art (engine support pending, ENG-014) | | 1 each | | `art/vfx/raw/_proposed/killua_<effect>_vNN.png` |
 
 Within step 9, Killua tip: run A39 `specialForward`, A41 `specialDown`, A42 `superPose`, A33 `throw` and
@@ -1697,7 +1697,23 @@ PALETTE (use only these 30 colors): outline #16121f; skin #fff5ee #fde2cf #eebba
 BACKGROUND: flat solid magenta #FF00FF above and below the band only. No text, no speed lines, no borders.
 ```
 
-### U3 · Character select art (384×384)
+### U3–U6 · Super banner and ultimate splash (round 2a)
+
+Shared generation constraints: attach approved Killua model, expressions and idle references; crisp hard-edged hi-res pixel art; right-facing composition; max 48 colors; no text, logo, border, watermark, blur, antialiasing, gradients, dithering or painterly texture. Backdrops are opaque and character-free. Foregrounds use transparent background (magenta only as fallback, never on figure). Check face against approved references before review.
+
+#### U3 · Speed of Lightning backdrop
+Save as `raw/ui_super_bg_v01.png`. Opaque source composed for 4:1 center crop; dark night city rooftop band shattered by dozens of blue-white afterimage streaks, sharp lightning forks and faint Godspeed aura glow at right. No identifiable foreground person; keep key forms in center band.
+
+#### U4 · Speed of Lightning cutout
+Save as `raw/ui_super_fg_v01.png`. Killua chest-up, pale youthful face, silver-white hair standing up with sparks, sharp upturned blue eyes and cold half-lidded gaze right; claw hand beside face, purple long-sleeved shirt, dark-navy rolled collar, white undershirt cuffs, blue sparks along arms. Match approved face and proportions exactly.
+
+#### U5 · Whirlwind backdrop
+Save as `raw/ui_ult_bg_v01.png`. Opaque source composed for 16:9 center crop; storm-black void, dramatic spiral electricity coiling like a tornado around pale-blue core, floating rock shards. No character; focus within middle 4:3 safe area; blue-white, navy and charcoal.
+
+#### U6 · Whirlwind cutout
+Save as `raw/ui_ult_fg_v01.png`. Full figure in low ready crouch facing right; slim youthful Killua with recognizable silver-white spiky hair streaming up, glowing blue catlike eyes, one claw hand forward, body sheathed in crackling blue-white electricity. Purple shirt, navy collar, white cuffs/hem, navy shorts, purple-white high-top sneakers; full pose grounded at bottom.
+
+### U7 · Character select art (384×384)
 
 **Save as: `raw/ui_select_vNN.png`** → approved copy `ui/select.png` (packed to 384×384, transparent).
 The Godspeed lightning **is** allowed here (UI art, not a sprite).

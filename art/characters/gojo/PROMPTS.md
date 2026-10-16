@@ -152,7 +152,7 @@ manifest gives them their own step).
 | 9 | A42 | `superPose`: DOMAIN EXPANSION: UNLIMITED VOID (eyes revealed, loop) | 4 | 1 |  | `raw/superPose_vNN.png` |
 | 11 | U1 | portrait 96×96 (blindfold on) | | 1 | | `raw/ui_portrait_vNN.png` → approved copy `ui/portrait.png` |
 | 11 | U2 | super cut-in eye strip 480×128 (**eyes revealed**) | | 1 | | `raw/ui_cutin_vNN.png` → approved copy `ui/cutin.png` |
-| 11 | U3 | character select art 384×384 (blindfold on) | | 1 | | `raw/ui_select_vNN.png` → approved copy `ui/select.png` |
+| 11 | U7 | character select art 384×384 (blindfold on) | | 1 | | `raw/ui_select_vNN.png` → approved copy `ui/select.png` |
 | extra | X1, X2 | optional Gojo effect art (engine support pending) | | 1 each | | `art/vfx/raw/_proposed/gojo_<effect>_vNN.png` |
 
 Within step 9, Gojo tip: run A33 `throw` (his air Red) and A37 `intro` first; they show up every
@@ -1721,7 +1721,23 @@ PALETTE (use only these 29 colors): outline #08080c; skin #fff4ec #fbe2d2 #e2ae9
 BACKGROUND: flat solid magenta #FF00FF above and below the band only. No text, no speed lines, no borders.
 ```
 
-### U3 · Character select art (384×384)
+### U3–U6 · Super banner and ultimate splash (round 2a)
+
+Shared generation constraints: attach approved Gojo model, expressions and idle references; crisp hard-edged hi-res pixel art; right-facing composition; max 48 colors; no text, logo, border, watermark, blur, antialiasing, gradients, dithering or painterly texture. Backdrops are opaque and character-free. Foregrounds use transparent background (magenta only as fallback, never on figure). Match approved compact head and slender adult build; check facial identity before review.
+
+#### U3 · Unlimited Void backdrop
+Save as `raw/ui_super_bg_v01.png`. Opaque source composed for 4:1 center crop; infinite black starfield with white and violet light lines rushing toward a vanishing point at right, mirror-black floor, faint domain boundary ring. No Gojo; keep central band readable.
+
+#### U4 · Unlimited Void cutout
+Save as `raw/ui_super_fg_v01.png`. Gojo chest-up, tall lean adult, snow-white spiky hair pushed up/back, pale sharp face, long nose, angular jaw. Black blindfold pulled up onto forehead reveals both cyan-blue crystalline Six Eyes with iris rings and white lashes. Three-quarter facing right, slight smile, right hand raised with index and middle fingers crossed in Domain sign; dark navy-black high-collar jacket zipped to chin. Match approved compact head and face.
+
+#### U5 · Hollow Purple backdrop
+Save as `raw/ui_ult_bg_v01.png`. Opaque source composed for 16:9 center crop; city skyline torn open by violet orb carving trench toward viewer, red and blue light converge at its center into purple, debris lifting. No Gojo; focal orb and trench stay within middle 4:3 safe area.
+
+#### U6 · Hollow Purple cutout
+Save as `raw/ui_ult_fg_v01.png`. Gojo three-quarter to full figure, slender adult, lifted white hair, uncovered cyan-blue ringed Six Eyes, facing right. One arm extended right with open hand, other raised; left hand glows blue and right hand red as forces converge. Dark high-collar uniform and black shoes, complete pose in frame. Match approved Gojo face and compact head.
+
+### U7 · Character select art (384×384)
 
 **Save as: `raw/ui_select_vNN.png`** → approved copy `ui/select.png` (packed to 384×384, transparent).
 Blindfold **on**. The blue vortex **is** allowed here (UI art, not a sprite).
