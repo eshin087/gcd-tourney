@@ -543,7 +543,7 @@
           "required": true,
           "step": 8,
           "status": "packed",
-          "version": 9,
+          "version": 10,
           "approvedVersion": 6
         },
         "backDash": {
@@ -557,8 +557,8 @@
           ],
           "required": false,
           "step": 9,
-          "status": "raw",
-          "version": 6,
+          "status": "packed",
+          "version": 7,
           "approvedVersion": 4
         },
         "superDash": {
@@ -572,7 +572,7 @@
           "required": false,
           "step": 9,
           "status": "raw",
-          "version": 11,
+          "version": 12,
           "approvedVersion": 9
         },
         "jumpSquat": {

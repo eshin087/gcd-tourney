@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Gojo dash-family candidates in the approved run v14 pose (ART-GOJO-RUN-JKL): backDash v07 is packed for technical review with an Astra HOLD on tucked-frame placement and uncertain occluded anatomy; dash v10 and superDash v12 remain quarantined after clipping/scale failures. No image approval or production promotion.
 - Changed: Gojo runs instead of hover-gliding (ART-GOJO-RUN-JKL): run v14 in the K "fast athletic" direction, far hand in his pocket and the near fist forward, approved by the user via the approvals desk and passed by the Astra audit. Part A of the generated stride is used for both halves; the sidecar frameOffsets hold his head steady and lift the flight frames.
 - Fixed: relay watchers no longer crash on Windows when a state file is renamed while another watcher reads it (EPERM/EBUSY); the write retries briefly (TOOL-049).
 
