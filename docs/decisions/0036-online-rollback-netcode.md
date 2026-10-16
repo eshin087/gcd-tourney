@@ -287,3 +287,5 @@ off, and reports the first frame where the two runs differ and which values diff
     browsed (ping 5 ms) and joined; quick-chat both ways and over a watched match; host removal and the ban; a vote
     taking out a player mid-match (forfeit); a filtered name. `det.online` still matches. On the deployed server
     (no secret): public rooms open without a token, and a third from one address stays unlisted.
+  - Playtest (phone vs PC): "it works". Merged and live 2026-10-16 (PR #134); on production a public room opened
+    without the check, was listed and joined, and quick-chat went through.
