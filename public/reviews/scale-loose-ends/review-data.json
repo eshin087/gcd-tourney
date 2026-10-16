@@ -1,0 +1,326 @@
+{
+  "date": "2026-10-15",
+  "total": 5,
+  "fighters": 2,
+  "status": "pre-calibration-diagnostic",
+  "note": "Pre-calibration diagnostics. All five candidates remain technical HOLD; not an approval request.",
+  "sources": {
+    "naruto-alts-r2": {
+      "sheet": "atlases/naruto-alts-r2/sheet.png",
+      "metadata": "atlases/naruto-alts-r2/anims.json",
+      "sheetHash": "99e7bda1f087e85c82d586d5a9db70abed7e672bbf082cd19b8b52cfb1c71a73",
+      "metadataHash": "3a0b09f235e1f10d06151dd37dc2a1e0b3a0c1008cb8e9ee8883893a7234b3d0",
+      "branch": "art/naruto-alts-r2",
+      "commit": "bf01a1a0",
+      "note": "Isolated warn-mode diagnostic; unmodified production gate failed"
+    },
+    "killua-loose-ends": {
+      "sheet": "atlases/killua-loose-ends/sheet.png",
+      "metadata": "atlases/killua-loose-ends/anims.json",
+      "sheetHash": "dcfa207a5a30cf9ae31e185e6684d4472ae6012727b50525f1199bf75bd3a628",
+      "metadataHash": "f07b4887bc898a340f63fb559e99db0a4efa2ef48cb2f48524ae4ae84ba4f5cc",
+      "branch": "art/killua-loose-ends",
+      "commit": "084a7cd2",
+      "note": "Isolated warn-mode diagnostic; unmodified production gate failed"
+    },
+    "naruto-approved": {
+      "sheet": "atlases/naruto-approved/sheet.png",
+      "metadata": "atlases/naruto-approved/anims.json",
+      "sheetHash": "32593c6451fa01d1089deb62c964cf79a99705b6c3e1fd213db4f858f1daf27e",
+      "metadataHash": "656b4770d65247e8c316b6ef7a22b0bf16491ee6cf98b05aa27873243b7429f0",
+      "branch": "main",
+      "commit": "f09938de",
+      "note": "Current approved production comparator"
+    },
+    "killua-approved": {
+      "sheet": "atlases/killua-approved/sheet.png",
+      "metadata": "atlases/killua-approved/anims.json",
+      "sheetHash": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+      "metadataHash": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a",
+      "branch": "main",
+      "commit": "f09938de",
+      "note": "Current approved production comparator"
+    }
+  },
+  "groups": [
+    {
+      "id": "naruto",
+      "name": "Naruto · attack alternatives",
+      "sourceKey": "naruto-alts-r2",
+      "approvedIdleVersion": 7,
+      "idleSourceKey": "naruto-approved",
+      "neutral": "refs/naruto-neutral_v01.png",
+      "combat": "refs/naruto-combat_v01.png",
+      "note": "Pre-calibration candidates. Claude calibration and packed-atlas verification are pending.",
+      "items": [
+        {
+          "animation": "light2Alt",
+          "version": 5,
+          "frames": 7,
+          "baseAnimation": "light2",
+          "phaseGroups": [
+            2,
+            2,
+            3
+          ],
+          "status": "audited-technical-hold",
+          "loop": false,
+          "summary": "Chest-height palms overlap the inherited hit boxes in both active frames. Head remains visibly large; normal scale gate fails.",
+          "verdict": "ASTRA HOLD",
+          "auditNote": "All segment measurements are projected estimates with endpoint/pose uncertainty; no numeric all-body pass.",
+          "baseSourceKey": "naruto-approved",
+          "sourceFrames": [
+            182,
+            183,
+            184,
+            185,
+            186,
+            187,
+            188
+          ],
+          "durations": [
+            35,
+            30,
+            40,
+            50,
+            60,
+            50,
+            30
+          ],
+          "oneShot": true,
+          "preview": "crops/naruto/light2Alt.png",
+          "baseSourceFrames": [
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "basePreview": "crops/naruto/base-light2.png",
+          "residual": "H41–45px; T36–46px; upper/lower arm25–37/20–38px; thigh/shin42–53/31–41px; shoes30–37px. Estimates include ±2–6px endpoint/segment uncertainty and occlusion.",
+          "evidence": [
+            {
+              "href": "audits/naruto/AUDIT.md",
+              "label": "Astra every-frame audit and uncertainty"
+            },
+            {
+              "href": "audits/naruto/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            }
+          ]
+        },
+        {
+          "animation": "airHeavyAlt",
+          "version": 4,
+          "frames": 6,
+          "baseAnimation": "airHeavy",
+          "phaseGroups": [
+            2,
+            2,
+            2
+          ],
+          "status": "audited-technical-hold",
+          "loop": false,
+          "summary": "Downward strike overlaps the target on f2; f3 remains contact HOLD (fist center about30px outside box; centers47px apart).",
+          "verdict": "ASTRA HOLD",
+          "auditNote": "All segment measurements are projected estimates with endpoint/pose uncertainty; no numeric all-body pass.",
+          "baseSourceKey": "naruto-approved",
+          "sourceFrames": [
+            228,
+            229,
+            230,
+            231,
+            232,
+            233
+          ],
+          "durations": [
+            50,
+            45,
+            45,
+            70,
+            70,
+            40
+          ],
+          "oneShot": true,
+          "preview": "crops/naruto/airHeavyAlt.png",
+          "baseSourceFrames": [
+            83,
+            84,
+            85,
+            86,
+            87,
+            88
+          ],
+          "basePreview": "crops/naruto/base-airHeavy.png",
+          "residual": "H35–43px; T35–48px; upper/lower arm23–38/18–36px; thigh/shin23–43/18–38px; shoes14–24px. Deep pose/occlusion prevents intrinsic-length certification.",
+          "evidence": [
+            {
+              "href": "audits/naruto/AUDIT.md",
+              "label": "Astra every-frame audit and uncertainty"
+            },
+            {
+              "href": "audits/naruto/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            }
+          ]
+        }
+      ],
+      "idleSource": {
+        "key": "naruto-approved",
+        "branch": "main",
+        "commit": "f09938de",
+        "sheetHash": "32593c6451fa01d1089deb62c964cf79a99705b6c3e1fd213db4f858f1daf27e",
+        "metadataHash": "656b4770d65247e8c316b6ef7a22b0bf16491ee6cf98b05aa27873243b7429f0",
+        "frame": 0,
+        "preview": "crops/approved-idle-naruto-v07.png"
+      },
+      "neutralHash": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+      "combatHash": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751"
+    },
+    {
+      "id": "killua",
+      "name": "Killua",
+      "sourceKey": "killua-loose-ends",
+      "approvedIdleVersion": 11,
+      "idleSourceKey": "killua-approved",
+      "neutral": "refs/killua-neutral_v01.png",
+      "combat": "refs/killua-combat_v01.png",
+      "note": "Pre-calibration candidates. Claude calibration and packed-atlas verification are pending.",
+      "items": [
+        {
+          "animation": "charge",
+          "version": 14,
+          "frames": 4,
+          "status": "audited-technical-hold",
+          "loop": true,
+          "summary": "Head/body relationship overshoots the approved idle. The breathing loop is stable, but the normal scale gate fails.",
+          "verdict": "ASTRA HOLD",
+          "auditNote": "All segment measurements are projected estimates with endpoint/pose uncertainty; no numeric all-body pass.",
+          "baseSourceKey": "killua-approved",
+          "baseAnimation": "charge",
+          "baseLabel": "Approved predecessor charge v13",
+          "sourceFrames": [
+            115,
+            116,
+            117,
+            118
+          ],
+          "durations": [
+            50,
+            50,
+            50,
+            50
+          ],
+          "oneShot": false,
+          "preview": "crops/killua/charge.png",
+          "baseSourceFrames": [
+            115,
+            116,
+            117,
+            118
+          ],
+          "basePreview": "crops/killua/base-charge.png",
+          "evidence": [
+            {
+              "href": "audits/killua/AUDIT.md",
+              "label": "Astra every-frame audit and uncertainty"
+            },
+            {
+              "href": "audits/killua/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            }
+          ],
+          "residual": "H41–47px; T24–33px; upper/lower arm19–29/16–26px; thigh/shin20–32/18–29px; shoes19–28px. ±2–6px uncertainty plus strong foreshortening. Requested aura retention is unconfirmed."
+        },
+        {
+          "animation": "down",
+          "version": 8,
+          "frames": 2,
+          "status": "audited-technical-hold",
+          "loop": false,
+          "summary": "Both diagnostic frames clip the head at the left edge and footwear at the right edge. Complete anatomy and grounding cannot be certified.",
+          "verdict": "ASTRA HOLD",
+          "auditNote": "All segment measurements are projected estimates with endpoint/pose uncertainty; no numeric all-body pass.",
+          "baseSourceKey": "killua-approved",
+          "baseAnimation": "down",
+          "baseLabel": "Approved predecessor down v7",
+          "sourceFrames": [
+            108,
+            109
+          ],
+          "durations": [
+            80,
+            420
+          ],
+          "oneShot": true,
+          "preview": "crops/killua/down.png",
+          "baseSourceFrames": [
+            108,
+            109
+          ],
+          "basePreview": "crops/killua/base-down.png",
+          "evidence": [
+            {
+              "href": "audits/killua/AUDIT.md",
+              "label": "Astra every-frame audit and uncertainty"
+            },
+            {
+              "href": "audits/killua/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            }
+          ],
+          "residual": "H and S unmeasurable from clipping; T60–72px; upper/lower arm23–39/22–37px; thigh/shin39–56/39–57px. ±4–6px uncertainty; back/hips remain roughly6–11px above floor."
+        },
+        {
+          "animation": "ko",
+          "version": 9,
+          "frames": 1,
+          "status": "audited-technical-hold",
+          "loop": false,
+          "summary": "The head is mostly outside the right edge in this diagnostic pack. Orientation flips from down; Claude must check calibration and entry continuity.",
+          "verdict": "ASTRA HOLD",
+          "auditNote": "All segment measurements are projected estimates with endpoint/pose uncertainty; no numeric all-body pass.",
+          "baseSourceKey": "killua-approved",
+          "baseAnimation": "ko",
+          "baseLabel": "Approved predecessor ko v8",
+          "sourceFrames": [
+            135
+          ],
+          "durations": [
+            500
+          ],
+          "oneShot": true,
+          "preview": "crops/killua/ko.png",
+          "baseSourceFrames": [
+            135
+          ],
+          "basePreview": "crops/killua/base-ko.png",
+          "evidence": [
+            {
+              "href": "audits/killua/AUDIT.md",
+              "label": "Astra every-frame audit and uncertainty"
+            },
+            {
+              "href": "audits/killua/projected-landmark-traces.json",
+              "label": "Approximate landmark coordinates"
+            }
+          ],
+          "residual": "H unmeasurable; T78–92px low confidence; upper/lower arm25–41/25–41px; thigh/shin39–55/38–54px; shoes26–40px. Clipping prevents final anatomy or grounding pass."
+        }
+      ],
+      "idleSource": {
+        "key": "killua-approved",
+        "branch": "main",
+        "commit": "f09938de",
+        "sheetHash": "55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d",
+        "metadataHash": "f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a",
+        "frame": 0,
+        "preview": "crops/approved-idle-killua-v11.png"
+      },
+      "neutralHash": "86278707ba8f0fcb78942cbcedb3341d8ad8f559e95f8cbf48273d0bbdca1855",
+      "combatHash": "d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6"
+    }
+  ]
+}
