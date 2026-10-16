@@ -218,6 +218,8 @@ single 8-frame image doesn't get the generator to swap legs, so the swap gets it
 Rules: as in phase 1 below. Budget: 3 calls total for run v13 (A + B + one retry or fix); no other new images.
 Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
+**BLOCKED (2026-10-15):** Phase 3 used 3/3 calls. Part A is preserved at `raw/_parts/run_v13_A.png`; B call 2 repeated A's lead-leg sequence and was discarded; call 3 failed before generation on an invalid worktree reference path. No complete run_v13, stitch, pack, Astra audit or preview exists. Exact paths/hashes and failure are in `PHASE3_HANDOFF_v01.md` and `phase3_run_v13_attempt_inventory_v01.json` on `art/gojo-run` commit `33a6bd92`. Relay #3 sent a blocked decision to Claude under the user's latest relay instruction; awaiting authorization for a corrected Part B call. No dashes were generated.
+
 ---
 
 ## Gojo running phase 2: production in direction K (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`

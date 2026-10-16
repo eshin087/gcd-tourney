@@ -27,7 +27,7 @@ paused._
 
 **Automatic handback rule (2026-10-15, OPS-009):** every agent must check whether Claude needs its result before finishing and ring the matching lane when required. No manual reminder is needed once the chat reads the updated main-checkout rules/inbox. Already-running chats may still hold older instructions; approval and paused-lane stops remain.
 
-**Gojo running (2026-10-15):** phase 2 used its whole budget and nothing passed (run, dash, backDash, superDash held; J/L v02 not chosen). You authorized 3 new calls for the K run, drawn in two halves with the legs swapped in the second half; the dashes retry after the run. Codex is on it (PR #102, lane `gojo-run`). Nothing to do until the run preview arrives.
+**Gojo running (2026-10-15): BLOCKED.** Phase 3 run v13 exhausted its 3-call budget: Part A is saved, B repeated the wrong lead leg, and the third call failed before generation due to an invalid reference path. No complete strip or preview exists. Review the [phase 3 handoff](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-run/art/characters/gojo/production/run-jkl/PHASE3_HANDOFF_v01.md>) and authorize one corrected Part B call if you want to continue. Relay #3 sent Claude a blocked decision request.
 
 **Beam clash (2026-10-15):** the engine fixes, ground and air (PR #107), and the five clash effects you approved (PR #116) are live at https://gcd-tourney.vercel.app . Codex round 2 is drawing the ground and air struggle poses for Sasuke, Killua and Gojo plus Naruto's `beamStruggle` v02 (your call) in "5 - beam clash chat"; Claude will ask you to approve them with the review link. Nothing to do until then.
 
