@@ -1,3 +1,29 @@
+# Codex: three one-call repairs rechecked; taunt10 visually approved (2026-10-15, waiting for user)
+
+User explicitly approved Naruto taunt10 as drawn and authorized one extra call each for Sasuke jumpSquat arm, Naruto light2Alt kick, Killua stagger f3. Exactly three calls were used, one each; no retry or additional call. [Updated protected phone review](https://gcd-tourney-mawi5frev-eshin087s-projects.vercel.app/reviews/targeted-repairs/index.html), committed gallery077f9d0 on codex/gojo-run-def. New images remain needs review. No merge, production deploy or technical pass. No ring while stopping for user review/decisions.
+
+| worktree under .worktrees/ | branch / commit | result |
+|---|---|---|
+| art-naruto-title-r3 | art/naruto-title-r3 / 3d6db5d | taunt10 approvedVersion10 and REVIEW approved per explicit user decision; pending v07/v09 archived intact. Technical HOLD retained. Separate validation repack exit0 reproduced sheet715a1773 exactly; production atlas unchanged. |
+| art-sasuke-title-r3 | art/sasuke-title-r3 / d4a06e7 (source5b1fe90) | jumpSquat07 arm visually improved: chain67.9±15 vs old88.7±10; no robust new anatomy defect. Strict pack unmeasured; v06 manualQA cannot carry forward. Diagnostic render only uses gate-warn manifest and byte-identical v06 sidecar157. No actual exemption or threshold change. |
+| art-naruto-alts | art/naruto-alts / 348f4bc (sourceb8d800b) | light2Alt04 only f2/f3 replaced. Contact NOT fixed: foot-center offsets(+28.5,+27)/(+14.5,+28)±3px; no vertical overlap with inherited hitboxes. Five other poses preserve occupancy. Keep held; no further calls. |
+| art-killua-title-r3 | art/killua-title-r3 / 7546a45 (source484e3a0) | stagger08 f3 hanging-arm repair removes guard reset. f0–f2 raw pixel-identical. Actual-manifest pack to diagnostic output succeeds. Full anatomy HOLD: inherited upright shirt35–36±3 vs neutral50±3; new detached13px fragment f3[x76–77,y233–239]. No robust new f3 limb defect. |
+
+Exact audited atlases:
+- Sasuke diagnostic: sheet79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9; meta30a5dcc5b50cf6fbca30aa938c317202c787f3a2c105a8bd4aeccf868d870043. Path production/round6/diagnostic-v07/packed/characters/sasuke/. Audit production/targeted-repairs/jumpSquat-v07-astra/.
+- Naruto alts: sheet57e7121351e064a0ca0e4b7d898f29b9739d9d71dfd6b15486f7b6f0f28a7e0f; metae753b6da62a2bc78cff2c3966af33eb90db0a387a26ee639d7b5a267ed631ef6. Actual packer outputs in public/characters/naruto/; audit production/targeted-repairs/astra/. airHeavyAlt unchanged held.
+- Killua diagnostic: sheetb7694cc7c450288d76ebe6069c0ecc1d580b6cb4ddcb7f7304714e70a938f74c; meta9dfcbfb70ce37ddb1faa9094bc5aa9d544ed24e937d2b815bb593dd0de43a566. Path production/round4/stagger-v08-manifest-diagnostic-public/characters/killua/. Audit production/targeted-repairs/astra-stagger-v08/.
+
+Killua fragment provenance follow-up by Luna: generated fix and assembled raw f3 each have one connected component at key threshold72; the detached component appears in packed/quantized output. No proven old-source residue and no further pixel edit or v09 was made. Claude should inspect packing/keying/quantization before deciding source correction is needed. Motion remains coarse: largest head step f2→f3 about26px diagonal, wrap about12px.
+
+Calibration/hitbox boundaries: bodyHeight, offsets and hitboxes were not retuned; new sidecars are byte copies of predecessor parameters. Sasuke diagnostic warn is isolated, not a production gate waiver. Naruto/ Killua actual-manifest packs retain actual approvedVersion. Claude owns final calibration/manualQA/contact and fragment checks. Appearance acceptance is never a numeric±6% pass.
+
+Generation provenance retained in each branch. Sasuke wrapper dropped its return hint; recovered exact image_gen.generation completed event exec-d006ed27-5a55-43b4-98a7-25c633e8ec02 in its own thread01a14224-73ee-7803-bcfc-76c1b74422f8, matching full prompt and savedPath. No global-newest selection.
+
+Verification: gallery build passes;9 playback strips/25 frame crops RGBA-exact to their bound atlases; all evidence links present; phone390px has four cards/equal256px canvases/no body overflow and no console errors. Hosted JSON/player and three candidate strips hash-checked. Login protection retained. User next: review improved Sasuke/Killua; do not present Naruto kick as corrected. The other24 round5 candidates still await their earlier review.
+
+---
+
 # Codex: round-5 audits and 28-strip phone gallery ready (2026-10-15, scale lane)
 
 Items1-2 of the Round5 inbox are complete. [Phone review gallery](https://gcd-tourney-cjilg9ac0-eshin087s-projects.vercel.app/reviews/round5/index.html), committed preview **d3c7eef** on `codex/gojo-run-def`. Vercel login remains required by the user's choice. This handback is not an image approval, anatomy pass, merge instruction or production deployment authorization.
