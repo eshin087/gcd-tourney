@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
-import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE } from './moves.js';
+import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -12,7 +12,7 @@ import { pickAnim } from './animAlts.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
-const HOLDABLE = new Set(['idle', 'run', 'guard', 'block', 'air', 'land', 'jumpSquat', 'dash', 'charge', 'attack', 'airRecover', 'superDash', 'kit', 'dodge', 'airDodge', 'wavedash', 'throw']);
+const HOLDABLE = new Set(['idle', 'run', 'guard', 'block', 'air', 'land', 'jumpSquat', 'dash', 'charge', 'attack', 'airRecover', 'superDash', 'kit', 'dodge', 'airDodge', 'wavedash', 'throw', 'clashBack']);
 const FRAME_MS = 1000 / 60;
 const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
 // out of a wavedash slide, these keep sliding (attacks, guard, specials); jumps and dashes set their own speed
@@ -96,6 +96,7 @@ export class Fighter {
     this.airDashes = 0;
     this.forceTech = false;
     this.shaking = false;
+    this.clashOut = null; // a melee clash's bounce, taken when its freeze ends (clashBounce)
     this.hidden = false;
     this.mode = null; // timed power-up (Godspeed), see kit.js
     this.heldT = 0; // frames held helpless (Domain Expansion, Whirlwind, Infinity stagger)
@@ -168,6 +169,7 @@ export class Fighter {
     // state, or 'air' again after an air attack, never replays it
     this.wallJumpPose = 0;
     this.reversal = false; // update() sets it again when the new state is a reversal
+    this.clashOut = null; // whatever ended the clashed swing (a hit, a burst) also cancels its bounce
     this.state = s;
     this.t = 0;
     if (anim) this.actor.play(anim, true);
@@ -270,6 +272,7 @@ export class Fighter {
     this.move = m;
     this.moveName = name;
     this.state = 'attack';
+    this.clashOut = null;
     this.t = 0;
     this.hitDone = false;
     this.moveHit = false;
@@ -924,7 +927,10 @@ export class Fighter {
 
     if (this.hitstop > 0) {
       this.hitstop--;
-      if (this.hitstop === 0) this.shaking = false;
+      if (this.hitstop === 0) {
+        this.shaking = false;
+        if (this.clashOut) this.leaveClash();
+      }
       this.pad = real;
       return;
     }
@@ -1260,6 +1266,27 @@ export class Fighter {
         this.vel.set(0, 0, 0);
         freeAnim();
         break;
+      case 'clashBack': {
+        // bounced out of a melee clash (ADR 0034): free after `act` frames, and a Light / Heavy pressed during the freeze
+        // comes out then, so pressing again meets the next swing
+        this.vel.x *= 0.82; this.vel.z *= 0.82;
+        if (this.t < MELEE_CLASH.act) { freeAnim(); break; } // the bounce shows before the next swing pulls them back in
+        const w = this.clashBuf + this.t;
+        const heavy = p.buffered('heavy', w), light = !heavy && p.buffered('light', w);
+        if ((heavy || light) && !p.b.special.down) {
+          p.consume(heavy ? 'heavy' : 'light');
+          const name = this.air ? (heavy ? 'airHeavy' : 'airLight1') : heavy ? 'heavy' : 'light1';
+          this.startMove(name, MOVES[name]);
+          break;
+        }
+        if (this.air ? this.tryAirActions() : this.tryActions()) break;
+        if (this.t >= MELEE_CLASH.slide) {
+          if (this.air) this.setState('air', 'jumpFall');
+          else this.setState('idle');
+        }
+        freeAnim();
+        break;
+      }
       default:
         this.vel.x *= 0.8; this.vel.z *= 0.8;
         freeAnim();
@@ -1336,6 +1363,31 @@ export class Fighter {
       if (this.air) this.setState('air', 'jumpFall');
       else this.setState('idle');
     }
+  }
+
+  // A melee clash (Game.meleeClash, ADR 0034): this swing is spent and freezes for `stop` frames where it met the
+  // other, then bounces away from them at `speed` (leaveClash)
+  clashBounce(stop, speed) {
+    const o = this.opp, dx = this.pos.x - o.pos.x, dz = this.pos.z - o.pos.z, d = Math.hypot(dx, dz) || 1;
+    this.hitDone = true;
+    this.moveHit = false;
+    this.vel.set(0, Math.min(this.vel.y, 0), 0);
+    this.hitstop = stop;
+    this.shaking = true;
+    this.clashOut = { x: (dx / d) * speed, z: (dz / d) * speed, buf: stop + MELEE_CLASH.buffer };
+  }
+
+  leaveClash() {
+    const c = this.clashOut;
+    if (this.state !== 'attack') { this.clashOut = null; return; }
+    this.move = null;
+    this.airAttack = false; // a clashed air swing doesn't use up the jump's attack
+    this.setState('clashBack', this.air ? 'airRecover' : 'backDash');
+    this.clashBuf = c.buf;
+    this.vel.x = c.x;
+    this.vel.z = c.z;
+    if (this.air) this.vel.y = Math.max(this.vel.y, 3);
+    this.faceOpponent();
   }
 
   updateAttack() {
@@ -1493,6 +1545,10 @@ export class Fighter {
       case 'airRecover':
         this.setState('land');
         this.landLag = 4;
+        break;
+      case 'clashBack': // an air clash's bounce lands softly: it was never a whiffed attack
+        this.setState('land');
+        this.landLag = 2;
         break;
       case 'impactTech':
         if (this.techKind === 'wallKick') { this.setState('land'); this.landLag = 4; } // (a cling never meets the floor)

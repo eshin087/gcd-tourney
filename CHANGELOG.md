@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: melee clash (ENG-082, ADR 0034): two lights or two heavies meeting while both are live cancel out (CLASH!, no damage, both bounce apart and can act at once); pressing again chains it (CLASH ×2, ×3... with growing effects and ki for both) until the 5th blows both apart (CLASH BREAK!); a light that meets a heavy loses (CRUSH!). The CPUs seek clashes at a per-level rate; lab scenarios **Melee clash chain** and **Heavy beats light**.
+
 - Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).
 
 - art(naruto): record user visual approval of airLight1Alt v01, airLight2Alt v01, airLight3Alt v01, heavyAlt v02, hurtHighAlt v01, hurtLowAlt v01, light1Alt v01, light3Alt v02, light4Alt v01; retain technical evidence and unrelated holds.

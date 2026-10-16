@@ -10,7 +10,7 @@ import { CameraDirector } from './camera.js';
 import { Fighter } from './fighter.js';
 import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles } from './projectiles.js';
-import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES } from './moves.js';
+import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
 import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage, isEnergy, ENERGY_LOCK } from './kit.js';
 import { ShowDirector } from './showDirector.js';
@@ -32,6 +32,7 @@ const newCombo = () => ({ hits: 0, dmg: 0, kinds: new Set(), wall: 0, ground: 0,
 const sd1 = new THREE.Vector3(), sd2 = new THREE.Vector3(), sdr = new THREE.Vector3(), sdc = new THREE.Vector3();
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const clashTmp = new THREE.Vector3();
+const meleeAt = new THREE.Vector3(); // where two swings met (meleeClash)
 const burstCol = new THREE.Color();
 const TECH_SPARK = 0xc8f8ff; // the timed impact tech's white-cyan (ADR 0028)
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
@@ -102,6 +103,7 @@ export class Game {
     this.beams = [];
     this.orbs = []; // Hollow Purple (ADR 0017)
     this.pendingMelee = []; // melee hits found this frame, applied together (resolveMelee)
+    this.meleeChain = { n: 0, at: -1e9 }; // the running MELEE CLASH chain: clashes in it, frame of the last (ADR 0034)
     this.clash = null;
     this.spClashCool = 0; // frames until two specials may clash again (a rush-off can't stall the round)
     this.struggleCool = 0; // frames until the next BEAM CLASH (ADR 0027)
@@ -390,6 +392,7 @@ export class Game {
     this.orbs = [];
     this.vortices = [];
     this.pendingMelee = [];
+    this.meleeChain = { n: 0, at: -1e9 };
     if (this.domain) { this.domain = null; this.setStage(this.training ? 'training' : 'arena'); }
     if (this.clash) { this.clash = null; audio.stopLoop('clash'); }
     this.spClashCool = 0;
@@ -781,8 +784,20 @@ export class Game {
 
   resolveMelee() {
     if (!this.pendingMelee.length) return;
-    const list = this.pendingMelee;
+    let list = this.pendingMelee;
     this.pendingMelee = [];
+    // MELEE CLASH (ADR 0034): a swing landing on the other's live swing of the same class cancels both; a light that
+    // meets a heavy is beaten by it (its hit is dropped, the heavy lands now)
+    const met = list.find((h) => this.swingsMeet(h.att, h.def));
+    if (met) {
+      const { att, def } = met;
+      if (att.move.meleeClash === def.move.meleeClash) { this.meleeClash(att, def, met.at); return; }
+      const H = att.move.meleeClash === 'heavy' ? att : def;
+      list = list.filter((h) => h.att === H);
+      if (!list.length) list.push({ att: H, def: H.opp, m: H.move, dir: H.face.clone(), at: met.at });
+      H.hitDone = true;
+      this.heavyBeatsLight(H, met.at);
+    }
     for (const { att, def, m, dir, at } of list) {
       // a burst started after the hit was queued (P2 updates after P1) still beats it: the attack whiffs, as it
       // would against P1
@@ -801,6 +816,77 @@ export class Game {
       // air juggles: start riding up with the victim (Fighter.updateAttack keeps following)
       if (m.air || m.hover) att.vel.y = Math.max(att.vel.y, def.state === 'launched' ? def.vel.y : 2.5);
     }
+  }
+
+  // Both swings live at once: att's lands now and def's is in its active frames or at most MELEE_CLASH.window frames
+  // from them (both pressed a few frames apart), each a light or heavy normal
+  swingsMeet(att, def) {
+    const a = att.move, d = def.move;
+    if (att.state !== 'attack' || def.state !== 'attack' || !a?.meleeClash || !d?.meleeClash || def.moveHit || def.ko) return false;
+    return def.t >= d.startup - MELEE_CLASH.window && def.t < d.startup + d.active;
+  }
+
+  // Two lights (or two heavies) met: no damage, both freeze where the strikes meet, then bounce apart free to act. A
+  // chain (the next clash within chainGap frames) grows the show each time and pays both ki; the finale-th blows both
+  // apart (clashFinale).
+  meleeClash(a, b, at) {
+    const C = MELEE_CLASH, ch = this.meleeChain, cls = a.move.meleeClash, heavy = cls === 'heavy';
+    ch.n = this.frameNo - ch.at <= C.chainGap ? ch.n + 1 : 1;
+    ch.at = this.frameNo;
+    ch.cls = cls; // the CPUs press it again out of the bounce (aiClash.js)
+    const n = ch.n, mid = meleeAt.set((a.pos.x + b.pos.x) / 2, at.y, (a.pos.z + b.pos.z) / 2);
+    const ki = C.ki[cls] * (1 + C.kiPer * (n - 1));
+    for (const f of [a, b]) f.ki = Math.min(MAX_KI, f.ki + ki);
+    this.arena.npcCue('clash');
+    this.excite = Math.min(1, this.excite + 0.25 + 0.1 * n);
+    if (n >= C.finale) {
+      ch.n = 0;
+      this.clashFinale(a, b, mid);
+      return;
+    }
+    const stop = Math.min(C.stopMax, C.stop[cls] + C.stopPer * (n - 1));
+    a.clashBounce(stop, C.push[cls]);
+    b.clashBounce(stop, C.push[cls]);
+    if (n >= 3) this.fx.bigImpact(mid.x, mid.y, mid.z, 0xfff2c0);
+    else this.fx.hit(mid.x, mid.y, mid.z, heavy || n === 2 ? 'smash' : 'heavy', 0xfff2c0);
+    this.fx.ring(mid, '#fff3d0', 0.7 + 0.3 * n, Math.min(a.pos.y, b.pos.y) + 0.05);
+    this.fx.overlay.flash('#ffffff', Math.min(0.6, 0.15 + 0.1 * n));
+    if (n >= 3) this.fx.overlay.impactFrame(2);
+    this.cam.shake(0.25 + 0.12 * n + (heavy ? 0.2 : 0));
+    this.cam.zoomPunch(0.2 + 0.12 * n);
+    if (n >= 2) this.slowmo(Math.max(0.3, 0.62 - 0.07 * n), 0.08 + 0.05 * n);
+    audio.play(heavy ? 'smash' : 'hitHeavy', Math.min(1.3, 0.8 + 0.1 * n));
+    audio.play('block');
+    if (n >= 2) audio.play('cheer', Math.min(1.2, 0.2 + 0.2 * n));
+    this.hud.announce(n > 1 ? `CLASH ×${n}!` : 'CLASH!', 'clash', 650);
+  }
+
+  // the last clash of a chain: a blast between them throws both apart (a little damage each, a knockdown)
+  clashFinale(a, b, mid) {
+    const F = MELEE_CLASH.finaleHit;
+    this.fx.explosion(mid.x, mid.y, mid.z, new THREE.Color(0xfff0c0));
+    if (Math.min(a.pos.y, b.pos.y) < 1.5) this.fx.ground.impact(mid, { kind: 'trade' });
+    else this.fx.debris(mid.x, mid.z, 12, 1.2);
+    this.fx.overlay.impactFrame(4);
+    this.fx.overlay.flash('#ffffff', 0.8);
+    audio.play('explosion', 1.2);
+    audio.play('cheer', 1.4);
+    this.cam.shake(1.1);
+    this.cam.zoomPunch(1);
+    this.slowmo(0.25, 0.8);
+    this.excite = 1;
+    this.hud.announce('CLASH BREAK!', 'clash', 1100);
+    for (const f of [a, b]) {
+      const o = f.opp, d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
+      f.takeHit(o, { dmg: F.dmg, launch: F.launch, hitstop: F.hitstop, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
+    }
+  }
+
+  // a heavy that met a light blows through it (the hit itself follows in resolveMelee)
+  heavyBeatsLight(H, at) {
+    this.fx.hit(at.x, at.y, at.z, 'heavy', 0xfff2c0);
+    this.hud.callout(H.index, 'CRUSH!', H.def.color);
+    audio.play('smash', 0.7);
   }
 
   // Two rush specials meeting head-on (Rasengan into Chidori): one beat decides it (ADR 0017). Right after another

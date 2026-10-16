@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { ULTIMATE, VANISH, SUPERS, PROJECTILES, CLASH, DEFENSE } from './moves.js';
 import { specialFor, kitOf, towardSide, clashable, energyMoves, airEnergyMoves, isEnergy, incomingEnergy, canBeamClashNow } from './kit.js';
 import { BeatPlan } from './clash.js';
+import { seekClash } from './aiClash.js';
 
 // Where each ultimate kind makes sense (ADR 0017): the beam and Hollow Purple want room, the Four-Tails pounce
 // has a reach and wants their lane, Whirlwind wants them close enough to swing at it, the rest fire anywhere.
@@ -49,12 +50,13 @@ function personaLevel(base, P, spectate) {
 // beat: its rhythm-clash timing (clash.js cpuPlan): `sd` frames of error per press, `miss` = notes it skips
 // techHold: chance per launch that it holds Guard to tech at the first gap (ADR 0022; `tech` stays the late tap);
 // burst: chance per combo (3+ hits, with the ki and the round's burst) that it bursts out
+// meleeClash: chance to meet a fresh light / heavy with the same button, a MELEE CLASH (aiClash.js, ADR 0034); x1.5 spectated
 // impactTech: chance per techable impact (floor or wall bounce) that it goes for the timed tech (ADR 0028), pressed
 // `techSd` frames off on average (aiTech.js TechTimer: too early locks it out, too late misses)
 const LEVELS = {
-  easy: { beat: { sd: 6.5, miss: 0.16 }, impactTech: 0.05, techSd: 5, react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, techHold: 0.05, burst: 0, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03 },
-  normal: { beat: { sd: 4.5, miss: 0.08 }, impactTech: 0.15, techSd: 4, react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, techHold: 0.2, burst: 0.04, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12 },
-  hard: { beat: { sd: 3, miss: 0.04 }, impactTech: 0.35, techSd: 3, react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, techHold: 0.45, burst: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25 },
+  easy: { meleeClash: 0.04, beat: { sd: 6.5, miss: 0.16 }, impactTech: 0.05, techSd: 5, react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, techHold: 0.05, burst: 0, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03 },
+  normal: { meleeClash: 0.08, beat: { sd: 4.5, miss: 0.08 }, impactTech: 0.15, techSd: 4, react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, techHold: 0.2, burst: 0.04, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12 },
+  hard: { meleeClash: 0.12, beat: { sd: 3, miss: 0.04 }, impactTech: 0.35, techSd: 3, react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, techHold: 0.45, burst: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25 },
 };
 
 // The CPU presses virtual buttons on its own Pad, exactly like a player would.
@@ -149,6 +151,10 @@ export class CpuBrain {
       // --- combo execution: react to our own hits
       if (f.state === 'attack' && f.move) this.comboStep(f, o, R);
       else if (f.state === 'air' && f.chase > 0 && !f.airAttack && f.distTo() < 2.2) this.press('light');
+
+      // --- melee clash (ADR 0034): meet their light / heavy with ours, or go again out of a clash's bounce
+      const cl = seekClash(f, L.meleeClash * (this.spectate ? 1.5 : 1), this, R);
+      if (cl) { this.press(cl, 2); this.setPlan('idle', 14); }
 
       // --- reactions
       const oppAttacking = o.state === 'attack' && o.move && o.t < o.move.startup + o.move.active;

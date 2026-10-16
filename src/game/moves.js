@@ -17,16 +17,17 @@
 //  lock       a multi-hit tick keeps air stun / hit stun at least this long, so one move can't be teched midway
 //  noTech     the timed impact tech can't beat the floor or barrier impact after this hit (super finishes, ADR 0028)
 //  ground     the floor damage style a special, shot or super leaves (GROUND_STYLES in ground.js, ADR 0024)
+//  meleeClash 'light' | 'heavy': meets the same class head-on in a MELEE CLASH; a heavy beats a light (MELEE_CLASH)
 export const MOVES = {
-  light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true },
-  light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 2.4, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true },
-  light3: { anim: 'light3', startup: 6, active: 4, recovery: 14, dmg: 36, reach: 1.55, width: 1.0, hitstun: 24, push: 2.8, airPop: 6, hitstop: 8, lunge: 5, next: 'light4', cancel: 9, sfx: 'whoosh', spark: 'light', light: true, low: true },
-  light4: { anim: 'light4', startup: 9, active: 4, recovery: 22, dmg: 58, reach: 1.65, width: 1.05, launch: [14, 6], hitstop: 13, lunge: 6, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.5, wallBounce: true },
-  heavy: { anim: 'heavy', startup: 12, active: 5, recovery: 22, dmg: 64, reach: 1.4, width: 1.05, launch: [2.4, 15.5], hitstop: 12, lunge: 5.5, hop: 5, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.45, launcher: true, yTol: 1.7, boxPad: [0.14, 0.3] },
-  airLight1: { anim: 'airLight1', startup: 4, active: 4, recovery: 9, dmg: 24, reach: 1.4, width: 1.0, hitstun: 20, push: 1.6, airPop: 6.2, hitstop: 7, air: true, yTol: 1.7, next: 'airLight2', cancel: 7, sfx: 'whoosh', spark: 'light' },
-  airLight2: { anim: 'airLight2', startup: 4, active: 4, recovery: 10, dmg: 26, reach: 1.45, width: 1.0, hitstun: 20, push: 1.8, airPop: 6.4, hitstop: 7, air: true, yTol: 1.7, next: 'airLight3', cancel: 8, sfx: 'whoosh', spark: 'light' },
-  airLight3: { anim: 'airLight3', startup: 6, active: 4, recovery: 14, dmg: 40, reach: 1.55, width: 1.05, launch: [12, 4.5], hitstop: 11, air: true, yTol: 1.8, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.4, wallBounce: true },
-  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hardKnockdown: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45] },
+  light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, meleeClash: 'light' },
+  light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 2.4, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, meleeClash: 'light' },
+  light3: { anim: 'light3', startup: 6, active: 4, recovery: 14, dmg: 36, reach: 1.55, width: 1.0, hitstun: 24, push: 2.8, airPop: 6, hitstop: 8, lunge: 5, next: 'light4', cancel: 9, sfx: 'whoosh', spark: 'light', light: true, low: true, meleeClash: 'light' },
+  light4: { anim: 'light4', startup: 9, active: 4, recovery: 22, dmg: 58, reach: 1.65, width: 1.05, launch: [14, 6], hitstop: 13, lunge: 6, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.5, wallBounce: true, meleeClash: 'light' },
+  heavy: { anim: 'heavy', startup: 12, active: 5, recovery: 22, dmg: 64, reach: 1.4, width: 1.05, launch: [2.4, 15.5], hitstop: 12, lunge: 5.5, hop: 5, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.45, launcher: true, yTol: 1.7, boxPad: [0.14, 0.3], meleeClash: 'heavy' },
+  airLight1: { anim: 'airLight1', startup: 4, active: 4, recovery: 9, dmg: 24, reach: 1.4, width: 1.0, hitstun: 20, push: 1.6, airPop: 6.2, hitstop: 7, air: true, yTol: 1.7, next: 'airLight2', cancel: 7, sfx: 'whoosh', spark: 'light', meleeClash: 'light' },
+  airLight2: { anim: 'airLight2', startup: 4, active: 4, recovery: 10, dmg: 26, reach: 1.45, width: 1.0, hitstun: 20, push: 1.8, airPop: 6.4, hitstop: 7, air: true, yTol: 1.7, next: 'airLight3', cancel: 8, sfx: 'whoosh', spark: 'light', meleeClash: 'light' },
+  airLight3: { anim: 'airLight3', startup: 6, active: 4, recovery: 14, dmg: 40, reach: 1.55, width: 1.05, launch: [12, 4.5], hitstop: 11, air: true, yTol: 1.8, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.4, wallBounce: true, meleeClash: 'light' },
+  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hardKnockdown: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45], meleeClash: 'heavy' },
   throw: { anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, cost: 50 },
   // Killua's Rhythm Echo follow-up: the claw strike out of the afterimage teleport
   echoStrike: { anim: 'specialForward', startup: 3, active: 4, recovery: 18, dmg: 70, reach: 1.6, width: 1.1, launch: [15, 6], hitstop: 12, spark: 'smash', big: true, shake: 0.5, wallBounce: true, boxPad: [0.2, 0.3], sfx: 'whooshHeavy' },
@@ -468,6 +469,28 @@ export const CLASH = {
     push: 0.045, drawMargin: 1, winDmg: 120, drawDmg: 45, launch: [16, 9], cooldown: 900, minDist: 2.2, catch: 0.4, answerRange: 5.5, width: 0.95,
     sparks: 0.45, rushReach: 1.5, craters: [0.9, 1.0],
   },
+};
+
+// MELEE CLASH (ADR 0034): a light meeting a light (or a heavy a heavy) while both swings are live cancels both: no
+// damage, both bounce apart and can act at once, so pressing again starts the next one. Clashes within `chainGap` frames
+// of the last one form a chain that escalates the show (hit stop, slow-mo, camera, crowd) and pays both fighters ki;
+// the `finale`-th blows both apart. A light meeting a heavy loses: the heavy lands at once.
+//  window     frames before its first active frame the other swing still counts as live (both pressed a few frames apart)
+//  stop       hit stop of the bounce per class, + stopPer per chain step (the frozen strikes meet), capped at stopMax
+//  push       bounce speed (units/s) away from each other; act: frames of the bounce before they can act (a swing
+//             pressed during the freeze comes out then); slide: frames of it before they stand (cancellable from act)
+//  buffer     extra frames a Light or Heavy pressed during the freeze is kept for (it comes out on the first free frame)
+//  ki         ki for each fighter per clash by class, x (1 + kiPer * (n - 1)) in a chain
+//  finale     dmg / launch for both at the last clash of a chain, and its slow-mo
+//  seek       the CPU's chance to answer a fresh light or heavy with the same button (per level, ai.js / aiMaster.js);
+//             chainSeek multiplies it for pressing again out of a bounce; seekRange: screen distance it tries from
+export const MELEE_CLASH = {
+  window: 4, chainGap: 80, finale: 5,
+  stop: { light: 10, heavy: 14 }, stopPer: 2, stopMax: 22,
+  push: { light: 7.5, heavy: 9 }, act: 3, slide: 10, buffer: 8,
+  ki: { light: 10, heavy: 18 }, kiPer: 0.25,
+  finaleHit: { dmg: 30, launch: [13, 8], hitstop: 18 },
+  seekRange: 2.6, chainSeek: 1.6,
 };
 
 // Ultimate beam (full 3 bars)
