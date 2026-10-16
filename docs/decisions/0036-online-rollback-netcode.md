@@ -266,4 +266,6 @@ off, and reports the first frame where the two runs differ and which values diff
     playtest shows device by device whether any lag left is the network or a slow frame rate. The match strip shows
     the delay. `det.online` over the deployed server: MATCH at 1 frame of delay (10 ms ping, rollbacks of at most
     3 frames, no stalls).
+  - Playtest 2 (phone vs PC, room DUEL2): "it feels right now". The phone's stats: 1 frame of delay, 22 ms to the
+    room, 59 fps (worst second 41), no stalls, rollbacks of at most 3 frames. Merged and live 2026-10-16 (PR #132).
   - Not yet: reconnecting to a match after a dropped connection; public lobbies, chat and moderation (ENG-095).
