@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(naruto): record user approval via Claude for light2Alt v05 and airHeavyAlt v04 as drawn; retain Claude-owned contact and anatomy holds.
+
 - Review: refreshed the five-candidate scale-loose-ends page from the calibrated atlases with Astra's final screening results, exact comparison crops and full audit evidence; unresolved technical checks remain and no art is approved.
 
 - art(naruto): One authorized call each for light2Alt05 and airHeavyAlt04; normal scale gate fails; diagnostic-only atlas and Astra review for Claude calibration.
