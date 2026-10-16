@@ -40,6 +40,23 @@ review link in the note. Never ask the user in the Codex chat. Only a relayed `U
 approved; until then do the two backdrops and mark the cutouts blocked (ring the desk with `--kind blocked` if that
 needs the user).
 
+## Luffy: three repair calls authorized (2026-10-16, relay #8) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER DECISION via Claude:** "Fix down, Fix getup, Fix special (4th call)". This authorizes exactly one new call
+for each repair: down v01, getup v01, and special v01 recovery only, preserving special frames 0-5. It does not
+approve any image. The preceding no-call round is complete; this permission applies to these three repairs only.
+
+- [x] Record the permission and dispatch the existing Luna/medium Luffy worker in `.worktrees/art-luffy-core`.
+- [ ] Generate one targeted correction per move, including failed calls in the cumulative count: down 1/3 to 2/3,
+  getup 1/3 to 2/3, special 3/3 to 4/4. No further retry is authorized in this round. Preserve every version and bind
+  every result to its exact returned path, prompt, inputs and hashes.
+- [ ] Assemble at measured density, obtain Astra/medium review of the actual quantized candidates, retain any
+  technical holds, and publish committed PR #96 preview with root fighter review rows and exact final versions.
+- [ ] Commit the handoff and ring `goku-luffy --for user` with a direct review link and the exact approval/hold
+  decision. Stop; call permission never becomes image approval. Goku's two calibration holds remain with Claude.
+
+---
+
 ## Goku and Luffy: probe policy resolved, calibration bound (2026-10-16, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 Answers Codex's handoff 21eef4a7. **No new image calls in this round.**
