@@ -606,9 +606,10 @@ Online rollback needs the same inputs to give the same fight on every machine. `
 |---|---|
 | `det.record({ p1, p2, seed, name, maxFrames, dumpAt })` | a CPU vs CPU match; keeps both pads' inputs per frame and the state hashes (`det.last`) |
 | `det.replay(log, { dt, noDraw, randomSeed, stopAt, dumpAt })` | the same inputs with the brains off (the match setup, `Game.kinds`, still says CPU); `{ match, first: { frame, groups }, step, frame, burst8 }`. `dt`: `'60'`, `'120'`, `'144'`, `'jitter'` (render rates) |
+| `det.replay(log, { rollback: { every: 10, depth: 8 } })` | the rollback stress test (ADR 0036): every `every` frames save the state, play `depth` frames on random inputs, restore, re-simulate them quietly (`Game.quiet`) on the right ones; every frame is still checked. `.rollback` holds the rewind count and the save / restore / re-simulation times |
 | `det.diagnose(log, { dt, randomSeed })` | two replays (the second at `dt` / another `Math.random` sequence); where they split, the values that differ |
 | `det.save(log)` / `det.load(name)` | write / read `public/det/<name>.json` (save: dev server only) |
-| `?det=<name>[&dt=120]` | no `?debug` needed: replays the fixture in this browser against its reference checkpoints and prints MATCH or SPLIT, the art check, and the step timing (8 re-simulated frames vs the 16.7 ms budget) |
+| `?det=<name>[&dt=120]` | no `?debug` needed: replays the fixture in this browser against its reference checkpoints and prints MATCH or SPLIT, the art check, the rollback stress test (ROLLBACK: MATCH, with save / restore / 8-frame re-simulation times), and the step timing (8 re-simulated frames vs the 16.7 ms budget) |
 
 There are no test workarounds (ENG-091): the simulation owns its control basis (`basis.js`), counts frames for the
 match flow and KO slow-mo, resets its frame counter per match, never reads the render clock and uses

@@ -159,8 +159,11 @@ export function install(game, ready, qs) {
   // ref: per-frame hashes to compare against instead (another replay's `per`, kept with keepPer). randomSeed: the
   // Math.random sequence (by default another one than the recording's: a draw that reaches the simulation shows).
   // onStep(k): called after every step; returning true stops the replay there.
+  // rollback: { every, depth } turns the replay into a rollback stress test (ADR 0036): after every `every` frames it
+  // saves the state, plays `depth` frames on wrong inputs (a misprediction), restores, and re-simulates them quietly
+  // on the right ones, the way rollback netcode will; every frame is still checked against the recording.
   async function replay(log, { dt = '60', stopAt = log.frames, dumpAt = null, noDraw = false, onProgress = null,
-    ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null } = {}) {
+    ref: refPer = null, keepPer = false, randomSeed = (log.cfg.seed ^ 0x5bd1e995) >>> 0, onStep = null, rollback = null } = {}) {
     const realRandom = Math.random;
     Math.random = rng(randomSeed);
     const { f0, done } = startRun(game, log.cfg);
@@ -174,7 +177,7 @@ export function install(game, ready, qs) {
     const H = new Uint32Array(NG), chain = new Uint32Array(NG), timing = [], drawT = [], per = keepPer ? [] : null;
     let frames = 0, first = null, dump = null, halt = false, exact = null;
     const groupsAt = (a, b) => GROUPS.filter((_, g) => a[g] !== b[g]);
-    const unhook = hookStep(game, f0, (k) => {
+    const check = (k) => {
       hashSim(game, H);
       for (let g = 0; g < NG; g++) chain[g] = (Math.imul(chain[g], 31) + H[g]) >>> 0;
       if (per) per.push(...H);
@@ -190,6 +193,36 @@ export function install(game, ready, qs) {
       if (k === dumpAt) dump = dumpSim(game);
       if (onStep?.(k)) halt = true;
       frames = k + 1;
+    };
+    // the rollback stress test: wrong inputs from a seeded stream (stick and buttons at random)
+    const R = rng(0xbadc0de), rb = { n: 0, save: [], load: [], resim: [] };
+    const guess = () => {
+      for (const p of game.pads) {
+        p.tick();
+        p.setMove(Math.round(R() * 2 - 1), Math.round(R() * 2 - 1));
+        ACTIONS.forEach((a) => p.set(a, R() < 0.15));
+      }
+    };
+    const realStep = () => Object.getPrototypeOf(game).fixedUpdate.call(game); // the real step, not the timing hook
+    const rewind = () => {
+      const { depth } = rollback;
+      let t = performance.now();
+      const S = game.saveState();
+      rb.save.push(performance.now() - t);
+      game.input.poll = guess;
+      for (let i = 0; i < depth; i++) realStep(); // predicted frames: played and shown as usual
+      t = performance.now();
+      game.loadState(S);
+      rb.load.push(performance.now() - t);
+      game.input.poll = () => feed(game, game.frameNo - f0 - 1);
+      t = performance.now();
+      game.quiet(() => { for (let i = 0; i < depth; i++) { realStep(); check(game.frameNo - f0 - 1); } });
+      rb.resim.push(performance.now() - t);
+      rb.n++;
+    };
+    const unhook = hookStep(game, f0, (k) => {
+      check(k);
+      if (rollback && !first && (k + 1) % rollback.every === 0 && k + 1 + rollback.depth < stopAt && game.state !== 'results') rewind();
     }, timing);
     const render = game.render;
     game.render = function (d) { const t0 = performance.now(); render.call(this, d); drawT.push(performance.now() - t0); };
@@ -220,6 +253,7 @@ export function install(game, ready, qs) {
       art: { same: JSON.stringify(art) === JSON.stringify(log.art), here: art, ref: log.art },
       step, frame: stats(drawT), rollback8: step && +(8 * step.p95).toFixed(2), burst8: stats(burst), timerMs: Number.isFinite(tick) ? +tick.toFixed(3) : null,
       result: { winner: game.roundWinner?.index ?? null, rounds: game.round, hp: game.fighters.map((f) => f.hp) },
+      rollback: rollback && { ...rollback, n: rb.n, save: stats(rb.save), load: stats(rb.load), resim: stats(rb.resim) },
     };
   }
 
@@ -316,6 +350,15 @@ export function install(game, ready, qs) {
       if (hit) lines.push('  this browser\'s values:', ...hit.values.slice(0, 40).map(([q, v]) => `    ${q} = ${typeof v === 'number' ? String(v) : JSON.stringify(v)}`));
       det.trace = hit;
     } else if (f?.window) lines.push('', `TRACE: none recorded for frames ${f.window.join('-')} yet; Claude adds one from this screenshot`);
+    // the rollback stress test (ADR 0036): every 10 frames save, play 8 frames on wrong inputs, restore, re-simulate
+    show(`${lines.join('\n')}\n\nrollback test...`);
+    const RB = { every: 10, depth: 8 };
+    const q = await replay(log, { dt, noDraw: true, rollback: RB });
+    const qf = q.first, rbs = q.rollback;
+    lines.push('', q.match ? `ROLLBACK: MATCH. ${rbs.n} rewinds of ${RB.depth} frames (every ${RB.every}) changed nothing.`
+      : `ROLLBACK: SPLIT ${qf?.frame != null ? `at frame ${qf.frame}` : ''}${qf?.window ? ` (frames ${qf.window.join('-')}, ${qf.groups.join(', ')})` : ''} after ${rbs.n} rewinds`,
+    `  save ms: avg ${rbs.save?.avg}, max ${rbs.save?.max}; restore ms: avg ${rbs.load?.avg}, max ${rbs.load?.max}; 8 quiet frames ms: avg ${rbs.resim?.avg}, max ${rbs.resim?.max}`);
+    det.rollback = q;
     lines.push(
       '',
       `fixed step ms: avg ${r.step?.avg}, p95 ${r.step?.p95}, max ${r.step?.max} (timer step ${r.timerMs} ms)`,

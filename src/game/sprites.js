@@ -302,6 +302,9 @@ export function spriteMaterial(texture, transparent = false) {
 
 const SUN_YAW = Math.atan2(-9, 13); // matches the arena's sun direction (x, z)
 
+// Game.quiet sets it while a rollback re-simulates frames that were already drawn (ADR 0036): no afterimages twice
+export const actorView = { quiet: false };
+
 export class SpriteActor {
   constructor(asset, scene) {
     this.asset = asset;
@@ -396,6 +399,24 @@ export class SpriteActor {
       }
     }
     this.setFrame(a.frames[this.fi]);
+  }
+
+  // The playback the fixed step drives (the hit and hurt boxes come from `frame`) and whether the fighter is shown:
+  // part of a saved simulation state (ADR 0036, Game.saveState).
+  saveState() {
+    return { animName: this.animName, fi: this.fi, ft: this.ft, done: this.done, frame: this.frame, visible: this.root.visible };
+  }
+
+  loadState(s) {
+    if (this.animName !== s.animName) {
+      this.animName = s.animName;
+      this.anim = this.asset.anim(s.animName);
+    }
+    this.fi = s.fi;
+    this.ft = s.ft;
+    this.done = s.done;
+    this.setFrame(s.frame);
+    this.setVisible(s.visible);
   }
 
   hasAnim(name) {
@@ -502,6 +523,7 @@ export class SpriteActor {
   }
 
   ghost(color, life = 0.3, opacity = 0.55) {
+    if (actorView.quiet) return;
     const mat = spriteMaterial(this.asset.texture, true);
     mat.uniforms.uvRect.value.copy(this._uv);
     mat.uniforms.flashColor.value.set(color);
