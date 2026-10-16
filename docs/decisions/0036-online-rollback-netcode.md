@@ -273,9 +273,11 @@ off, and reports the first frame where the two runs differ and which values diff
   - A `Directory` Durable Object lists public rooms (`GET /rooms`); a room reports its summary when the listing
     changes and every 3 minutes, and drops out 7 minutes after its last report. The online menu browses it, each
     room with its region (where its first member connected) and a ping measured to where it runs (`/room/<CODE>/ping`).
-  - Opening a public room takes Cloudflare Turnstile (decision 7): the client's widget, loaded only then, and one
-    siteverify from the room with the `TURNSTILE_SECRET` Worker secret, checking the action and the page's hostname.
-    Private rooms (invite only) don't need it.
+  - Cloudflare Turnstile on opening a public room (decision 7) is built but switched off: the user chose "Not now"
+    for creating the widget (2026-10-16). With a site key in the game and the `TURNSTILE_SECRET` Worker secret it
+    turns on (the client's widget, loaded only then, and one siteverify from the room checking the action and the
+    page's hostname). Until then anyone may open a public room, and the directory lists at most two per address.
+    Private rooms (invite only) never need it.
   - Quick-chat and emotes: 24 fixed lines sent as an index, one per 1.2 s, kept for latecomers, shown over matches.
   - Names pass a filter (`server/src/names.js`). The host removes members; anyone can vote, and a majority of the
     others (at least two) removes. A removed member's browser (a random id the client keeps) stays out 10 minutes,
@@ -283,4 +285,5 @@ off, and reports the first frame where the two runs differ and which values diff
     locked the host out with the member they removed, on one Wi-Fi.
   - Tests: 24 room-rule cases in Node; locally through wrangler dev a public room opened through the check, listed,
     browsed (ping 5 ms) and joined; quick-chat both ways and over a watched match; host removal and the ban; a vote
-    taking out a player mid-match (forfeit); a filtered name. `det.online` still matches.
+    taking out a player mid-match (forfeit); a filtered name. `det.online` still matches. On the deployed server
+    (no secret): public rooms open without a token, and a third from one address stays unlisted.

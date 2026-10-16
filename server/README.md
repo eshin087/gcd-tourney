@@ -35,9 +35,16 @@ docs/TESTING.md.
 Deployed: https://gcd-tourney-lobby.eshin087.workers.dev (2026-10-16). After a change to `src/` here, run
 `npm test`, then `npm run deploy` again; the game needs no redeploy unless the protocol changed.
 
-## The anti-bot check (Cloudflare Turnstile)
+## The anti-bot check (Cloudflare Turnstile): ready, switched off
 
-Opening a public room takes a Turnstile token: the client's widget (`src/net/turnstile.js`, action `create_room`)
+**Off for now** (the user's call, 2026-10-16: "Not now"): no widget exists, `SITEKEY` is empty and the Worker has no
+`TURNSTILE_SECRET`, so anyone may open a public room; the directory lists at most two per address instead. To switch
+it on: create a managed widget for `gcd-tourney.vercel.app` (and each preview address to be tested) with action
+`create_room`, put its site key in `SITEKEY` (`src/net/turnstile.js`) and deploy the game, then
+`wrangler secret put TURNSTILE_SECRET` here (the server checks tokens as soon as the secret exists, so the game must
+have the site key first).
+
+When it is on, opening a public room takes a Turnstile token: the client's widget (`src/net/turnstile.js`, action `create_room`)
 produces it, and the room checks it once with siteverify before listing the room. The widget's site key is `SITEKEY` in
 `src/net/turnstile.js`; its secret is the Worker secret `TURNSTILE_SECRET` (`wrangler secret put`, never in a file).
 Tokens must come from production or a preview (`gcd-tourney*.vercel.app`), and each preview address must be on the
@@ -83,7 +90,7 @@ Server to client:
 playtest: `stalls` (frames waiting for the other side's inputs), `syncWaits` (time sync), `rollbacks` / `maxDepth`,
 `fps` / `fpsLow` (the average and the worst second) and `longFrames` (frames over two refreshes), per device.
 
-`GET /rooms` lists the public rooms: `[{ code, title, region, members, playing: [names] | null, waiting, full, at }]`,
+`GET /rooms` lists the public rooms (at most two per address, while the anti-bot check is off): `[{ code, title, region, members, playing: [names] | null, waiting, full, at }]`,
 matches first. `GET /room/<CODE>/ping` answers `pong` from the room's object, for the list's ping to where it runs.
 
 Rules: the first two in line play; the winner stays on and the loser goes to the back; after five wins in a row the

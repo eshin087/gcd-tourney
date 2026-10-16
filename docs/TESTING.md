@@ -655,7 +655,8 @@ with up to 8-frame rewinds, stalls under heavy lag and no desyncs; `tamper: 600`
 
 ### Public rooms (ENG-095)
 
-Locally (`npm run lobby`; the page on localhost uses Cloudflare's test Turnstile key, the server its test secret):
+Locally (`npm run lobby`; the page on localhost uses Cloudflare's test Turnstile key, the server its test secret, so the
+switched-off anti-bot check runs here as it would when on; production has neither and skips it):
 
 1. ONLINE, CREATE A PUBLIC ROOM: the check passes by itself and the room opens with "PUBLIC ROOM · <name>'s room · <region>";
    `curl http://127.0.0.1:8787/rooms` lists it.
@@ -664,7 +665,9 @@ Locally (`npm run lobby`; the page on localhost uses Cloudflare's test Turnstile
 3. SAY sends a line both ways (`bot.client.on.say` sees it); a watcher sees lines over the match as passing lines.
 4. The host's REMOVE takes a member out (`error removed`, socket 4001) and they can't come back for 10 minutes; a
    non-host sees VOTE TO REMOVE (v/n) and a majority removes. A bot named `sh1tlord` shows as Player<digits>.
-5. `npm run test:lobby`: the rules (public needs the check, listing, chat limits, kicks, votes, bans across one home
+5. A fourth step for the deployed server (no secret): three public rooms opened from one address list only two
+   (`curl https://gcd-tourney-lobby.eshin087.workers.dev/rooms`).
+6. `npm run test:lobby`: the rules (public needs the check, listing, chat limits, kicks, votes, bans across one home
    network, the name filter).
 
 ### Online rooms (ENG-094)

@@ -1,7 +1,9 @@
 // Cloudflare Turnstile (ADR 0036, ENG-095): the anti-bot check before opening a public room. Cloudflare's script loads
 // only when someone opens one (the game has no other outside script); the widget runs in the given element, usually
 // without asking anything, and hands back a one-time token the lobby server checks (server/src/room.js verify()).
-// A page on localhost uses Cloudflare's always-pass test key, matching the local server's test secret.
+// A page on localhost uses Cloudflare's always-pass test key, matching the local server's test secret. Off in
+// production for now (the user's call, 2026-10-16): SITEKEY is empty, so public rooms open without the check; to switch
+// it on, create the widget, put its site key here and deploy the game, then set the server's secret (server/README.md).
 const TEST_SITEKEY = '1x00000000000000000000AA';
 export const SITEKEY = ''; // the gcd-tourney rooms widget on the user's Cloudflare account (server/README.md)
 const SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
@@ -17,6 +19,7 @@ const load = () => (loading ||= new Promise((resolve, reject) => {
 }));
 
 export const sitekey = () => (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? TEST_SITEKEY : SITEKEY);
+export const checkOn = () => !!sitekey();
 
 // a token for opening a room, from a widget drawn in `el` (removed again either way)
 export async function roomToken(el) {

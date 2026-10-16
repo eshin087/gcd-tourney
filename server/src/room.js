@@ -2,8 +2,9 @@
 // Hibernating WebSockets: an idle room (everyone in the lobby, nobody playing) costs nothing while it sleeps, and a
 // restarted object finds its members again on the sockets' attachments and its line in storage. A match's inputs
 // live in memory only; during a match messages flow 120 times a second, so the object never sleeps mid-match.
-// A public room reports its summary to the directory (directory.js) when it changes and every HEARTBEAT_MS, and opening
-// one takes the Cloudflare Turnstile check (verify(): siteverify with the TURNSTILE_SECRET Worker secret).
+// A public room reports its summary to the directory (directory.js) when it changes and every HEARTBEAT_MS. Opening
+// one takes the Cloudflare Turnstile check once the TURNSTILE_SECRET Worker secret exists (verify(): siteverify); until
+// then (the user's call, 2026-10-16: "Not now") anyone may open one, and the directory caps rooms per address.
 import { DurableObject } from 'cloudflare:workers';
 import { RoomCore } from './roomCore.js';
 
@@ -55,6 +56,7 @@ export class Room extends DurableObject {
     const id = crypto.randomUUID().replace(/-/g, '').slice(0, 10);
     this.ctx.acceptWebSocket(server, [id]); // the tag finds this member's socket again (getWebSockets(id))
     const ip = await hashIp(req.headers.get('CF-Connecting-IP'));
+    if (!this.owner) this.owner = ip; // the address that opened the room: the directory lists a few rooms per address
     server.serializeAttachment({ id, joined: false, ip, region: req.cf?.colo ?? '' });
     return new Response(null, { status: 101, webSocket: client });
   }
@@ -73,8 +75,9 @@ export class Room extends DurableObject {
     try { msg = JSON.parse(data); } catch { return; }
     if (!a.joined) {
       if (msg?.t !== 'hello') return;
-      // opening a public room takes the anti-bot check; joining one doesn't
-      const verified = !!msg.public && this.core.members.size === 0 && await this.verify(msg.turnstile);
+      // opening a public room takes the anti-bot check when it is switched on (the secret is set); joining one doesn't
+      const opening = !!msg.public && this.core.members.size === 0;
+      const verified = opening && (!this.env.TURNSTILE_SECRET || await this.verify(msg.turnstile));
       const m = this.core.join(a.id, msg, { ip: a.ip, region: a.region, verified });
       if (!m) return ws.close(4000, 'rejected');
       ws.serializeAttachment({ ...m, joined: true });
@@ -141,11 +144,16 @@ export class Room extends DurableObject {
     if (key === this.pubKey && !(sum && now - this.pubAt >= HEARTBEAT_MS)) return;
     const dir = this.env.DIRECTORY.get(this.env.DIRECTORY.idFromName('all'));
     try {
-      if (sum) await dir.put(this.code, sum);
+      if (sum) await dir.put(this.code, sum, this.ownerOf());
       else if (this.pubKey !== null) await dir.drop(this.code);
       this.pubKey = key;
       this.pubAt = now;
     } catch { /* the directory is a listing: the next change or heartbeat tries again */ }
+  }
+
+  // the address hash of the room's first member (for the directory's per-address cap)
+  ownerOf() {
+    return this.core.members.values().next().value?.ip ?? this.owner ?? null;
   }
 
   // one alarm at a time: kept while it fires before the room needs it, so a match's 120 messages a second don't

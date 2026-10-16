@@ -9,7 +9,7 @@
 // on the room screen and as lines over a match; the host removes members, anyone can vote to.
 import { LobbyClient, lobbyUrl, newCode, cleanCode, fetchRooms, pingRoom } from './lobby.js';
 import { QUICK } from './quickChat.js';
-import { roomToken } from './turnstile.js';
+import { roomToken, checkOn } from './turnstile.js';
 import { RollbackSession, packInput } from './rollback.js';
 import { SpectateSession } from './spectate.js';
 import { ROSTER } from '../characters/index.js';
@@ -77,10 +77,11 @@ export class Online {
     keep('name', this.name);
   }
 
-  // a new room: a public one opens after the Turnstile check (the server turns it away without a token)
+  // a new room: a public one opens after the Turnstile check when it is on (the server then turns it away without one)
   async create(pub = false) {
     const g = this.game;
     if (!pub) return this.join(newCode());
+    if (!checkOn()) return this.join(newCode(), { public: true });
     if (!lobbyUrl()) {
       this.error = 'Online play is not set up yet.';
       return g.menus.onlineEntry(this, '');
