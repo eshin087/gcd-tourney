@@ -1,6 +1,10 @@
 node_modules
 # PR worktrees made by `npm run pr -- start` (ADR 0013); never `git clean -x` the main folder, it would delete them
 .worktrees/
+# relay state (tools/relay.mjs, ADR 0033): lanes, doorbells, round-trip counts; machine-local, never committed
+.relay/
+# the publish cache (tools/publish.mjs): a bare repository that npm run publish:github / npm run pr rewrite in; safe to delete
+.publish-cache/
 dist
 tools/.test-fixtures/
 # official anime/manga pictures collected for comparison: copyrighted, local only

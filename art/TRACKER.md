@@ -341,6 +341,24 @@ section's table when its strips are generated (the manifest gets the same entrie
 | killua | todo | todo | todo | title-style production branch (PR #70) |
 | gojo | todo | todo | todo | title-style production branch (PR #72) |
 
+## Attack alts (ADR 0031)
+
+Eleven optional strips per fighter (step 9), one alternate of each attack and hit reaction: `light1Alt`, `light2Alt`,
+`light3Alt` (7 frames, 2/2/3), `light4Alt`, `heavyAlt` (8, 3/2/3), `airLight1Alt`, `airLight2Alt` (5, 1/2/2),
+`airLight3Alt`, `airHeavyAlt` (6, 2/2/2), `hurtHighAlt`, `hurtLowAlt` (3). Each keeps its base's frame count, phases and
+strike height and reach with another technique (art/SPEC.md "Attack alts"); the game alternates it with the base and
+plays the base until it is packed, so nothing waits on them. The manifest lists all eleven per fighter (status `todo`,
+`altOf` = the base, frames / phases / ms / bodyHeight copied from that fighter's base). Naruto pilots them (ART-ALTS-NAR,
+brief docs/agents/CODEX_INBOX.md round 4 Part 2); the others follow his in-game review (ART-ALTS). Each fighter's rows
+move into its own section's table when its alts are generated.
+
+| fighter | light1-4 Alt | heavyAlt | airLight1-3 Alt | airHeavyAlt | hurtHigh / hurtLow Alt | notes |
+|---|---|---|---|---|---|---|
+| naruto | todo | todo | todo | todo | todo | pilot (ART-ALTS-NAR) |
+| sasuke | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
+| killua | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
+| gojo | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
+
 ## VFX atlas (step 10)
 
 Brief: [vfx/EFFECTS.md](vfx/EFFECTS.md). Candidates `art/vfx/raw/<effect>_vNN.png` (the packer uses
@@ -579,6 +597,24 @@ World batches are reviewed together in [REVIEW.md](REVIEW.md); the claim queue t
 | crowd | crowd-ninja-samurai-cosplayers-01-r1 | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/crowd-ninja-samurai-cosplayers-01-r1.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crowd | crowd-sailor-moon-01-r1 | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/crowd-sailor-moon-01-r1.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | crowd | crowd-travelers-tourists-02-r1 | 1 | approved | v02 | v02 | [Files/QA](queue/reviews/crowd-travelers-tourists-02-r1.md); final review pending User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
+
+## goku
+
+**2026-10-15 reference approvals:** User approved model_sheet_v02 and expressions_v02. Both fixed reference PNGs now match v02 byte-for-byte; manifest status approved and approvedVersion 2. Idle02 visual approval is recorded separately; Claude calibration and technical checks remain pending.
+
+**2026-10-15 idle decision:** User explicitly approved goku idle v02 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
+
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in
+  [KIT.md](characters/goku/KIT.md). The user withdrew title-style v01 and approved corrected title-style v02
+  on 2026-10-14. The fixed reference/title_style_draft.png copies v02 (207±4px body excluding hair; 234px
+  including hair); its lineup preserves the four exact approved cells at common density. Body-only ordering is
+  above Naruto/Sasuke and below Gojo within uncertainty. Model-sheet v01 and expressions v01 remain held because
+  they derive from withdrawn v01; their versioned sources are preserved. The fixed model and expression anchors
+  now contain the user-approved v02 files. Idle02 is approved as drawn, with technical checks pending. Idle v01 approval remains historical and is not used as a candidate input.
+  Proposed candidate rows: [REVIEW_ROWS.md](characters/goku/REVIEW_ROWS.md).
+## luffy
+
+Data PR feature/char-goku-luffy (ADR 0032): playable on the baked placeholder; moveset in [KIT.md](characters/luffy/KIT.md). The title-style neutral/combat reference v01, model sheet v01, expressions v01, and idle v01 are user-approved. Fixed-name reference copies are in place. The idle remains un-packed and has no scale-gate or in-game QA claim. Proposed review rows and provenance are in the Luffy art folder. Core animation production belongs in a separate branch from main after this refs PR is merged by Claude.
 
 ## Adding a character
 
