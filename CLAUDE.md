@@ -115,7 +115,7 @@ documentation that stays true.
 | `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
-| `npm run relay -- <cmd>` | Claude-Codex relay (ADR 0033, `tools/relay.mjs`): `lanes`, `add <lane> --thread <id\|title>`, `send <lane>` (queue the inbox prompt into the lane's Codex chat), `ring <lane>` (Codex wakes Claude), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; state in git-ignored `.relay/` |
+| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; state in git-ignored `.relay/` |
 | `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` + every world-art kind (vfx, crowd, stage, npc, ui; approved items only) |
 | `npm run sprites naruto` | pack one character |
@@ -334,7 +334,7 @@ A change is done when:
 
 - **Codex** produces the art: it generates every image with its built-in image generator from the prompts
   in `art/`, saves it with a `_vNN` version, runs `npm run sprites`, does QA, adds a row to `art/REVIEW.md`,
-  then stops for the user's `approve vNN` and updates the statuses. It can make small code/data changes that
+  then rings Claude for the user's approval (ADR 0037) and updates the statuses. It can make small code/data changes that
   follow AGENTS.md. Session prompts: [docs/agents/CODEX_PROMPT.md](docs/agents/CODEX_PROMPT.md).
 - **The user** reviews and approves every image (and can still generate one by hand in ChatGPT; it gets the
   same naming and review).
@@ -343,16 +343,25 @@ A change is done when:
   problem, fix the tool, not the output.
 - The handoff protocol is in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md). In short: claim a task in
   docs/TASKS.md, make the change, log it in CHANGELOG, then hand back with a status and a note.
-- **The relay replaces paste-in prompts** ([ADR 0033](docs/decisions/0033-claude-codex-relay.md)). A lane is one
-  Codex chat (`npm run relay -- lanes`, then `add <lane> --thread <uuid|title>`). To hand a lane to Codex: write the
-  CODEX_INBOX item as usual, run `npm run relay -- send <lane> --note "<one line>"`, then start
-  `node tools/relay.mjs wait <lane>` as a **background** command whose description starts with "Relay watcher"
-  (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue. If `send`
-  fails, give the user the paste-in prompt instead.
-  Brakes: don't send when the next step is the user's (an image to approve, BLOCKED, their decision) or when `send`
-  exits 3 (4 round trips without them); notify the user (PushNotification) and stop. After the user replies on a
-  lane, run `npm run relay -- reset <lane>`. "Stop the relay" means `npm run relay -- pause all`. Never put an
-  approval in a relay note. "status" also reports `npm run relay -- status`.
+- **The relay replaces paste-in prompts** ([ADR 0033](docs/decisions/0033-claude-codex-relay.md); call
+  `node tools/relay.mjs` directly, npm swallows some flags). A lane is one Codex chat (`lanes`, then
+  `add <lane> <chat uuid|title>`). To hand a lane to Codex: write the CODEX_INBOX item as usual, run
+  `send <lane> --note "<one line>"` (a one-off question without an inbox item: `send <lane> --direct --note "..."`),
+  then start `node tools/relay.mjs wait <lane>` as a **background** command whose description starts with
+  "Relay watcher" (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue.
+  If the watcher exits 2 saying it is still Codex's turn, start it again. If `send` fails, give the user the
+  paste-in prompt instead. **Never tell the user to paste a decision into Codex**: relay it.
+- **All approvals happen in Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)). When the watcher says
+  "Codex needs the USER", send a PushNotification (what is waiting, one line), then ask with **AskUserQuestion**:
+  one question per approval or decision, the review link and versions in the question, options such as
+  "Approve vNN" / "Reject (say why)" / "Hold"; several strips can be one multi-select question. Relay the answer
+  word for word: `send <lane> --user-approved "<asset vNN>" --quote "<their answer>"`, `--user-rejected ... --note
+  "<their feedback>"`, or `--user-decision "<what>" --quote "..."` for non-image decisions, then restart the watcher.
+  Use these only with an answer the user gave in this conversation, never one you inferred; a plain `--note` that
+  says "approve" is refused. A relayed answer starts the round-trip count again; other brakes: when `send` exits 3
+  (4 round trips without the user), notify and stop; after the user replies on a lane otherwise, `reset <lane>`.
+  "Stop the relay" means `pause all`. "status" also reports `node tools/relay.mjs status` (turn "you" = waiting on
+  the user).
 
 ### Mandatory Claude handoff check (every chat and agent, 2026-10-15)
 
@@ -369,10 +378,10 @@ Locate main with git worktree list. Run node tools/relay.mjs status from main.
   node tools/relay.mjs ring <lane> --note "<what is ready; commit; next Claude action>" from main.
   This user-authorized handback needs no reminder or further permission. Check the command result: a written
   handoff alone is not a sent notification. Ring once per new handoff, not on every status response.
-- Preserve approval, BLOCKED and pause brakes. If only the user's approval or decision remains, stop and
-  update NOW.md. If the task explicitly requests notifying Claude that a review package is ready, send that
-  one notification with "awaiting user approval; do not proceed"; this never authorizes further production.
-  Do not reset/resume a paused lane or bypass a hop limit to complete this check.
+- Preserve approval, BLOCKED and pause brakes. If only the user's approval or decision remains, ring once with
+  `--for user --kind approval|decision|blocked` (ADR 0037: Claude asks the user with buttons), update NOW.md and
+  stop; that ring never authorizes further production. Proceed only on a relayed `USER APPROVAL`/`USER DECISION`
+  or the user's own message. Do not reset/resume a paused lane or bypass a hop limit to complete this check.
 - Subagents report the handoff requirement to their parent; the owning chat rings once unless the handback
   was explicitly delegated. Claude maintains a background watcher for each active lane and reads the
   committed handoff when notified. A ring without a watcher is queued, not proof that Claude read it.
