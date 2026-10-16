@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: Gojo's dash, backDash and superDash are redrawn in the new run's pose (ART-GOJO-RUN-JKL): far hand in his pocket, near fist forward. Dash v10, backDash v07 and superDash v12 approved by the user via the approvals desk and passed by the Astra audit (dash with a comparison note). SuperDash drops the open palm. Sidecar frameOffsets hold the head steady and lift backDash's tucked frame.
+- Added: Gojo dash-family candidates in the approved run v14 pose (ART-GOJO-RUN-JKL): backDash v07 is packed for technical review with an Astra HOLD on tucked-frame placement and uncertain occluded anatomy; dash v10 and superDash v12 remain quarantined after clipping/scale failures. No image approval or production promotion.
 - Added (TOOL-GOKU-PROBE, interim): `art/scale/builds.json` fighter `headProbe: { mode: "manual", why }`. For a fighter whose head the probe provably misreads (Goku, Luffy), no strip passes or fails on the head numbers: each is unmeasured until a version-bound `scaleManualQA` landmark check accepts it. Not an exemption; other fighters unchanged.
 
 - Changed: the simulation is replayable with no test workarounds (ENG-091, ADR 0036): it owns its control basis (`src/game/basis.js`; the render camera follows its yaw), runs the match flow and KO slow-mo on the fixed step, resets its frame counter per match, never reads the render clock (Gojo's Infinity charge counts frames), takes the hold-back-to-block rule from the match setup (`Game.kinds`), stores -0 sticks as 0, and uses deterministic math (`src/game/dmath.js`; `npm run lint:simmath` in prebuild). Fixtures re-recorded; replays match at 60/120/144 Hz and uneven frame times.

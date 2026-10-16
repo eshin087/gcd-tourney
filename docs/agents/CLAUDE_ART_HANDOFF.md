@@ -1,3 +1,13 @@
+# Codex: Gojo dash family Astra audit v02 — scoped results for Claude (2026-10-15, gojo-run)
+
+Audit report: `art/characters/gojo/production/dashes/ASTRA_DASHES_AUDIT_v02.md`. Astra inspected the actual quantized atlas: **dash v10 HOLD** for unresolved jacket/arm volume versus the approved title-style references and run v14; **backDash v07 PASS** for visible anatomy/discrete transitions after the f1 +25 px lift; **superDash v12 PASS** for visible anatomy/loop continuity. Head probes pass on all three. The dash hold is uncertain projected/clothing evidence, not a proven skeletal failure or redraw instruction. No strict hidden-segment +/-6% or runtime contact/playback certification.
+
+The relay named `86c0acf`, which was absent locally during inspection. GitHub API verification confirmed its exact commit SHA `86c0acf036e43adda7fcd8f98f75a2d8d36df185` has identical atlas and mapping hashes to the audited files (`sheet.png` `e5546329c470738a46537fb754ea55887b418c9dbbe7e00e6b7af8684c6f0ca0`; `anims.json` `4fd805c2380a2d7bad933e679b838c850c2fc58e7044d0b06b45e748cc9bd1fb`). Therefore the report is pixel-bound to the requested commit. During inspection the local branch moved from `78e8db86` to `349fc1bc`; atlas/mapping remained identical. The report records the newer commit message without treating it as approval evidence. No image generation, pack or sidecar edit.
+
+Claude: reconcile the visible dash jacket/arm volume against the approved neutral/combat cells; runtime should verify backDash travel/idle exit and superDash elevation. These findings are per-strip technical verdicts, not an image approval. The audit report and this handoff are committed on `art/gojo-dashes`; ring `gojo-run` for Claude.
+
+---
+
 # Codex: Sasuke super / ultimate pilot — v03 approved; packed preview ready for Claude (2026-10-15, effects lane)
 # Codex: Goku/Luffy calibration r2 audited and published; Claude technical work next (2026-10-15, goku-luffy)
 
@@ -764,6 +774,18 @@ The user explicitly approved all five VFX v01 candidates in Codex chat on 2026-1
 Naruto `beamStruggle_v01` used 3 generation calls and is a technical hold. Strict quantized packing failed the scale gate (head/hair 1.40x approved idle; feet 0.62x); estimated hand centers vary beyond the 6 px contact stability limit. The body sheet could not be produced because the required idle atlas was unavailable to that tool run; the final GPT-6 Astra anatomy audit is pending. The review page asks the user not to approve this as production art. The approved atlas was restored unchanged.
 
 The approval is visual approval of these five VFX only; it does not clear the Naruto pilot, authorize the other fighters' strips, or merge/deploy this branch. Relay this user verdict to the coordination lane after the approval commit and preview update. Round two remains gated on Claude relaying the verdict back here and writing its item.
+
+---
+
+# Codex: Gojo dash family technical handoff (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-dashes`, worktree `.worktrees/art-gojo-dashes`. New candidates: dash v10, backDash v07, superDash v12, using the approved references and `run_v14_A.png`. Calls used: dash 3/3, backDash 2/3 (the first output path was not captured), superDash 3/3. No additional calls are authorized in this round.
+
+- **backDash v07:** selected and packed in atlas slots 18-20 after uniform auto-head fit x0.8569. Strict pack `node tools/pack-sprites.mjs gojo --quantize 48` exited 0 (42 animations / 175 frames, 48 colors). Astra inspected the actual quantized atlas and returned **HOLD** for tucked-frame placement/contact (lowest alpha remains y240) and uncertain occluded torso/limb landmarks; visible hands, limbs and margins pass visual screening. No redraw was prescribed. Audit: `art/characters/gojo/production/dashes/ASTRA_DASHES_AUDIT_v01.md`, SHA256 `0742484db6e44eda952521ff7f275ad16bb5338d240714adc045a9f58ef1b043`; atlas SHA256 `e9cb5a6ab5803993c0187e1069c3dfe8440ce1d8d5773e2fb280d3f60271a41a`.
+- **dash v10:** all three calls used. Attempt 3's auto-head fit x1.2626 clipped frame 1 by 12 px; candidate is in `_qa_hold/`; approved dash v06 remains packed.
+- **superDash v12:** all three calls used. Attempt 3 reads head 0.91 / feet 0.79 of idle and clips frame 1 by 4 px; candidate is in `_qa_hold/`; approved superDash v09 remains packed.
+
+Machine manifest versions reflect the latest candidates while preserving approvedVersion, bodyHeight, frame offsets and hitboxes. No user approval, merge or production deployment. Build passes locally and on the Vercel preview. The phone-first preview is [Gojo dash family](https://gcd-tourney-p0i2vm96d-eshin087s-projects.vercel.app/reviews/gojo-dashes/) (PR #124); browser playback/live game QA could not be verified from this environment. Claude owns contact/root placement and any calibration; do not spend new calls without a new authorization. Review rows and attempt provenance: `art/characters/gojo/REVIEW_ROWS.md` and `production/dashes/ATTEMPT_INVENTORY.md`.
 
 ---
 

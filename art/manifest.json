@@ -547,9 +547,9 @@
           ],
           "required": true,
           "step": 8,
-          "status": "packed",
-          "version": 9,
-          "approvedVersion": 6
+          "status": "approved",
+          "version": 10,
+          "approvedVersion": 10
         },
         "backDash": {
           "frames": 3,
@@ -562,9 +562,9 @@
           ],
           "required": false,
           "step": 9,
-          "status": "raw",
-          "version": 6,
-          "approvedVersion": 4
+          "status": "approved",
+          "version": 7,
+          "approvedVersion": 7
         },
         "superDash": {
           "frames": 2,
@@ -576,9 +576,9 @@
           ],
           "required": false,
           "step": 9,
-          "status": "raw",
-          "version": 11,
-          "approvedVersion": 9
+          "status": "approved",
+          "version": 12,
+          "approvedVersion": 12
         },
         "jumpSquat": {
           "frames": 1,
