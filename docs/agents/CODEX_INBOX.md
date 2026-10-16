@@ -115,7 +115,7 @@ character-art generation under `gpt-6-luna` medium; the final anatomy audit of t
   the review page, holds) and run `node tools/relay.mjs ring beam-clash --note "<one line>"`. **Then stop:** the user
   reviews.
 
-Round 1 review page is ready (2026-10-15): five VFX candidates are packed and queued; PR #110 preview is linked in the handoff. Naruto v01 is a technical hold: strict scale gate failed at head/hair 1.40x and feet 0.62x; body sheet and Astra atlas audit remain pending. Do not start round 2 until the user reviews and Claude relays the verdict.
+Round 1 review page is ready (2026-10-15): user approved all five VFX v01 directly in the Codex chat; approval is recorded and the approved atlas repacked in PR #110. Naruto v01 remains on technical hold: strict scale gate failed at head/hair 1.40x and feet 0.62x; body sheet and Astra atlas audit remain pending. Do not start round 2 until Claude relays the user's verdict here and writes the next item.
 
 **Round 2 (only after Claude relays the user's verdict here):** Sasuke, Killua and Gojo's `beamStruggle` in the same
 way, then Goku's once his core art is on main. Claude will write it as its own item with the budget.
