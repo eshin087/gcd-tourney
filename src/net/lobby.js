@@ -3,9 +3,9 @@
 // through matchLink(); everything else goes to the handlers (online.js). A 'ping' every 2 s keeps the socket open
 // and measures the round trip: the server answers 'pong' without waking the room.
 
-// set once the lobby server is deployed (server/README.md); ?lobby=<ws url> overrides it, and a page served from
-// localhost uses `npm run lobby` (wrangler dev) on port 8787
-export const LOBBY_URL = '';
+// the deployed lobby server (server/README.md: the user's Cloudflare account). ?lobby=<ws url> overrides it, and a
+// page served from localhost uses `npm run lobby` (wrangler dev) on port 8787 instead
+export const LOBBY_URL = 'wss://gcd-tourney-lobby.eshin087.workers.dev';
 
 // room codes: five characters a person can read out (no I / O / 0 / 1)
 export const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -15,9 +15,8 @@ export const cleanCode = (s) => String(s || '').toUpperCase().replace(/[^A-Z2-9]
 export function lobbyUrl(qs = new URLSearchParams(location.search)) {
   const q = qs.get('lobby');
   if (q) return q.replace(/\/$/, '');
-  if (LOBBY_URL) return LOBBY_URL;
   if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return 'ws://127.0.0.1:8787';
-  return '';
+  return LOBBY_URL;
 }
 
 export class LobbyClient {

@@ -30,6 +30,9 @@ docs/TESTING.md.
 2. `npm run deploy`. It prints the address, `https://gcd-tourney-lobby.<subdomain>.workers.dev`.
 3. Put `wss://gcd-tourney-lobby.<subdomain>.workers.dev` in `LOBBY_URL` (src/net/lobby.js) and deploy the game.
 
+Deployed: https://gcd-tourney-lobby.eshin087.workers.dev (2026-10-16). After a change to `src/` here, run
+`npm test`, then `npm run deploy` again; the game needs no redeploy unless the protocol changed.
+
 ## Protocol
 
 JSON text messages over one WebSocket per member; the text `ping` gets `pong` (keepalive and round trip, answered

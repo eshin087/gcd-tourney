@@ -659,7 +659,8 @@ The lobby server is `server/` (its README has the protocol). Locally:
 
 1. `npm run lobby` (wrangler dev on `ws://127.0.0.1:8787`; a page on localhost uses it by itself, any other page takes
    `&lobby=ws://127.0.0.1:8787`). `npm run test:lobby` runs the room rules in Node (no server needed).
-2. `det.online(log)` (above) checks the whole path: expected MATCH on every frame, the feed exact, no desyncs.
+2. `det.online(log)` (above) checks the whole path: expected MATCH on every frame, the feed exact, no desyncs. Against
+   the deployed server from a local page: `?debug&lobby=wss://gcd-tourney-lobby.eshin087.workers.dev`.
 3. The screens alone: ONLINE on the mode list, CREATE A ROOM, then `det.bot(game.online.code)` adds an opponent (the match
    starts at once); `det.bot(code, { play: false })` a watcher. Two bots in a room and `play: false` for you shows
    spectating; join a room whose bots have played a while to see the late-join fast-forward. Esc while watching opens

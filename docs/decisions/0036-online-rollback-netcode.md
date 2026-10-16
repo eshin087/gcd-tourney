@@ -253,5 +253,9 @@ off, and reports the first frame where the two runs differ and which values diff
     spectator feed equals both players' inputs. With stand-in bots: winner stays on, forfeit, timeout, a full match
     to KO reported and counted, spectating, a late join fast-forwarding about 650 frames, the room over a watched
     match, phone landscape layout. A 3-match soak is clean.
-  - Not yet: deployment needs the user's Cloudflare account (`LOBBY_URL` is empty until then); a real two-device
-    playtest; reconnecting to a match after a dropped connection; public lobbies, chat and moderation (ENG-095).
+  - Deployed 2026-10-16 on the user's Cloudflare account (free plan): https://gcd-tourney-lobby.eshin087.workers.dev
+    (`LOBBY_URL`). `det.online` against it from a local page: naruto-sasuke, 1,800 frames, MATCH on every frame at a
+    23 ms ping, 30 hash checks, the feed exact. A page on localhost still uses `npm run lobby` unless `?lobby=` says
+    otherwise.
+  - Not yet: a real two-device playtest; reconnecting to a match after a dropped connection; public lobbies, chat and
+    moderation (ENG-095).
