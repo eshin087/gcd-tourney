@@ -2,6 +2,8 @@
 
 # Art tracker
 
+Gojo J/L run-direction redo v02: the user favored K and asked to redo only J and L; K_v01 remains unchanged. J_v02 and L_v02 each used 3/3 calls; both stay **needs review / technical hold** because the mirrored lead-leg phases still repeat. J source f0 also touches the generation canvas edge. Side-by-side J_v02/K_v01/L_v02 contact sheets, GIF/MP4s, measured envelopes and provenance are in [review page](../public/reviews/gojo-run-jkl/index.html), [inventory](characters/gojo/production/run-jkl/attempt_inventory_v02.json) and [QA package](characters/gojo/production/run-jkl/package_qa_v02.json). These remain direction studies; no production raw or approval changed.
+
 Gojo round4 checkpoint: idle_v07 and superDash_v08/v09 **needs review / QA HOLD**. Named drafts filed, no approvals changed. New idle wrong target bounds; full strict pack fails from changed head-probe denominator. superDash v09 isolated strict head1.03 but torso/limb chains remain short. [checkpoint](characters/gojo/production/round4/CHECKPOINT.md). Other listed suspects need complete segment audit before redraw.
 
 Gojo J/K/L run-direction studies v01: **needs review; user pick pending**. Built-in generation used J 3 calls, K 1, L 1; selected candidates, shared 48-color strips, idle+8-frame contact sheets, looping GIF/MP4 and comparison GIF are filed in [review page](../public/reviews/gojo-run-jkl/index.html) with [QA](characters/gojo/production/run-jkl/QA_v01.md). J f3/f7 leave the far hand out of pocket; K f2/f6 hair is about 26% wide; all three second halves closely reprise the first instead of reading as a mirrored stride, so loop/alternation remain on hold. These are not production strips; the manifest remains shipped run v12 / approvedVersion12.
