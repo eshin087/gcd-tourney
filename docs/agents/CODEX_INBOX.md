@@ -34,10 +34,7 @@ review link in the note. Never ask the user in the Codex chat. Only a relayed `U
 - [x] 2. Added prompts and generated all 12 v01 images within the per-image call limits; provenance recorded (2026-10-16).
 - [x] 3. Astra checked the six `fg` images; all six remain technical HOLD. Candidate-only packing produced review fits; nothing copied to `ui/` (2026-10-16).
 - [x] 4. Review page, records, handoff, PR #129 and preview are ready; approval request is routed to the desk (2026-10-16).
-- [ ] 5. After the desk relays the user's answers: copy each approved image to `ui/`, `npm run sprites <id>` (commit only
-  the new `public/characters/<id>/super_*|ult_*` files and the art records; never commit repacked frames or sheets you
-  did not mean to change), redo rejected ones within budget, then ring Claude (`ring effects --note ...`) for the
-  in-game check and merge.
+- [x] 5. User approved all 12 v01s via Claude relay effects #8 (including all six fg despite Astra holds). Copied approved sources to each `ui/`, packed and committed the 12 UI outputs/art records, published PR #129 preview; no rejected images. Handed off to Claude for in-game check (2026-10-16).
 
 **Round 2b (after 2a is approved):** Goku and Luffy the same way. Their `fg` only once their title-style reference is
 approved; until then do the two backdrops and mark the cutouts blocked (ring the desk with `--kind blocked` if that
