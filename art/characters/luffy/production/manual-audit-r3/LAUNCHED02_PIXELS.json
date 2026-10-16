@@ -1,0 +1,20 @@
+{
+  "atlasSha256": "563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996",
+  "metadataSha256": "4267efd0a9d992af50cfe99d21da80319d16cbd02cb30495f4db98570253287d",
+  "frames": [
+    {
+      "frame": 0,
+      "atlasIndex": 77,
+      "pngSha256": "8c7fcb48e58722780b555c86c57ca23f12fc818c955c7673d4fa55750d521899",
+      "rgbaSha256": "f14d503389bc5afc209a27bfb9547fa08f280c513dd0a65cb128b007d5b4c7c6",
+      "duration": 70
+    },
+    {
+      "frame": 1,
+      "atlasIndex": 78,
+      "pngSha256": "14521a139cc9e650c57e4f88f1e5e07e33f2ddcaaf77d65e9c8a7e68b9db96e7",
+      "rgbaSha256": "6b6168e5a80445da9838880c5cd14f97671ae4dd3b205ccb736e0e3d2491e376",
+      "duration": 70
+    }
+  ]
+}

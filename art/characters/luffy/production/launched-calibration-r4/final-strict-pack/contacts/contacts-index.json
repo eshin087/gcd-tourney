@@ -1,0 +1,798 @@
+{
+  "atlas": {
+    "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/characters/luffy/sheet.png",
+    "sha256": "563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996",
+    "width": 4096,
+    "height": 1536
+  },
+  "metadata": {
+    "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/characters/luffy/anims.json",
+    "sha256": "7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a",
+    "complete": false,
+    "missingCore": [
+      "down",
+      "getup",
+      "special"
+    ]
+  },
+  "animations": [
+    {
+      "animation": "idle",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 0,
+          "duration": 150,
+          "cellSha256": "9b677ec06878049baa342a371dea98e1e8ba1fbbf398072d927efded40cbf5ef"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 1,
+          "duration": 150,
+          "cellSha256": "4873aefc2e1144648999a98c21da9513464cff2af5ea6a5265e36f9a47dcc541"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 2,
+          "duration": 150,
+          "cellSha256": "c22521ce9941ea6b93834bbe2ed88b16aed5d3dac7b1ac490aca51435d02f36e"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 3,
+          "duration": 150,
+          "cellSha256": "7bdc09da5d55acdb4317a1b29a9d604a498639acf5abde4010b18071b4c05c76"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 4,
+          "duration": 150,
+          "cellSha256": "7bf65f3126f99444649df705dc863091e3bd5329a9e73be4c5d2105947ba72eb"
+        },
+        {
+          "n": 5,
+          "atlasIndex": 5,
+          "duration": 150,
+          "cellSha256": "8b11060758fefb592ede2e0d0f4aa4eecc59bd527604e2feb14c200832d22b7e"
+        },
+        {
+          "n": 6,
+          "atlasIndex": 6,
+          "duration": 150,
+          "cellSha256": "1f5a66a7db34741cc40759f33aac54c8ad2d47d6b541c0058fa6ac85938214f2"
+        },
+        {
+          "n": 7,
+          "atlasIndex": 7,
+          "duration": 150,
+          "cellSha256": "b764b5b0626cf9c854c833327be1443307112cb537d4e47f14ca1bfea1319da4"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/idle-actual-contact.png",
+        "sha256": "cc034fb318ec8454a1675893e5dc04ec12b7503bb77dba277f31b0cf69a64f94",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "run",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 8,
+          "duration": 60,
+          "cellSha256": "d643aa38dd7c4cbb46fba7056c207437dff6483c61888614ecdfa61e3594dc08"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 9,
+          "duration": 60,
+          "cellSha256": "5efa74f62f85558c966a46d6b2c73e37af60c53b79c27a3e2e65f742c59797dc"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 10,
+          "duration": 60,
+          "cellSha256": "44b7659dc2c419988c1e3693ee6ea97f9bdeaf4998f21507f5630e379cf089fb"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 11,
+          "duration": 60,
+          "cellSha256": "4804006454cc9fca096d8a1f768ab24523f59720a45ef63621daccbe6e8d10c9"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 12,
+          "duration": 60,
+          "cellSha256": "f93caf5e6bfd776a38796a39d3b3c230e2ab59309e5cb5baa5209ed606fcbc9e"
+        },
+        {
+          "n": 5,
+          "atlasIndex": 13,
+          "duration": 60,
+          "cellSha256": "b646f8afa3b7005ec7b1b7171defa7aaffe00a503683e02518fd1b91fa29da28"
+        },
+        {
+          "n": 6,
+          "atlasIndex": 14,
+          "duration": 60,
+          "cellSha256": "59c0e5ee905713287d53cb8cb7764c42ca88fd92f0e484bb2ee8e08ffa60377d"
+        },
+        {
+          "n": 7,
+          "atlasIndex": 15,
+          "duration": 60,
+          "cellSha256": "169ffcce6112f25b7c8df28ead86c7c8b13d81fbe1a320dde09919996d237249"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/run-actual-contact.png",
+        "sha256": "74ff073fc31e96eea1a24e1fc7287f0d7033823f53d5c5eedfef1b27fc278f7d",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "dash",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 16,
+          "duration": 60,
+          "cellSha256": "9ff0a0be067a8867d85751543c020ae294f4cf77de94bb11b990cecdb4219e10"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 17,
+          "duration": 60,
+          "cellSha256": "6a7f7760430622c2ef048f92583e227c42142c480bbc0105c5f4e1b6d3c21820"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/dash-actual-contact.png",
+        "sha256": "79d2bdec316d4e2a6a244a858ac3c9bdd3b5332360d6f81feefd445cda1aa23e",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "animation": "jumpUp",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 18,
+          "duration": 80,
+          "cellSha256": "cd36f62712dfaebe10fd523c92852b5209df5c881ac6f40386265fb646f49fcb"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 19,
+          "duration": 80,
+          "cellSha256": "6a2de9a5a3ef6e117530d3707cfd9a868757f396abaf79df928cef86d4c9bbb2"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/jumpUp-actual-contact.png",
+        "sha256": "ddff1696c11cdf8685d539e14bdfcb1729ec0c898f1c65bc1dd31d71b7755d39",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "animation": "jumpFall",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 20,
+          "duration": 80,
+          "cellSha256": "1ffab17b01fd356ea6462b95dbedd60a4ab5d87622cf9deec1d601dd146742dd"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 21,
+          "duration": 80,
+          "cellSha256": "7227692f3e9614ff2a293ea104f67b1acecf44d6e9b7ec10fa59e1a81700ee56"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/jumpFall-actual-contact.png",
+        "sha256": "de87d6b73abeb22e5cce3e572283aeb7c8f1aa59d23d1d0f069d82134762c2b0",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "animation": "land",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 22,
+          "duration": 50,
+          "cellSha256": "1bafa9d70994da6236a7a7f24b72e8f4d799cd4b34786df50e9f8f26b5bfcab4"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 23,
+          "duration": 70,
+          "cellSha256": "2f0445870679921fedf0057c3e2dcabcd4f162826c5d562e4a20d932fa996f28"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/land-actual-contact.png",
+        "sha256": "5b41dd8ea418cd5fcb14af6d2386aaf6cb18b9ae8c32662807e224007f946e63",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "animation": "light1",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 24,
+          "duration": 30,
+          "cellSha256": "89752992c2ad07339d6a16a756cd528f32a51400f546573d5e838d072a4931dc"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 25,
+          "duration": 30,
+          "cellSha256": "0985aa238730ad8b186d295cffe06ffa7547c97af8aa3baf5092433dfee163cb"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 26,
+          "duration": 40,
+          "cellSha256": "e7e7549e6700ebfe40713f4833e1ba41e68946c0f90a72880c458097b91e416e"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 27,
+          "duration": 50,
+          "cellSha256": "8224c754751a2a3da04f62a852fd47bdda0d1d9f55926b5956579c363acf40f8"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 28,
+          "duration": 50,
+          "cellSha256": "8d71ac1b35cbf8ef1a43d378addd6351ded2c4f558e7fa458cd83b737ab1d26c"
+        },
+        {
+          "n": 5,
+          "atlasIndex": 29,
+          "duration": 50,
+          "cellSha256": "04f2aa68bd4099a90c55a8d36e8b00b7cfa560169e686b688aec714887bacaa0"
+        },
+        {
+          "n": 6,
+          "atlasIndex": 30,
+          "duration": 30,
+          "cellSha256": "2200eddea0703e2cadff7ee0a851ddd03f3a9fe318fc57fda54042bacfcce97f"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/light1-actual-contact.png",
+        "sha256": "544cc5576d3e451b0da6eea00caa5b5563bf0c1bb398227015d4f2fa81ede411",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "light2",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 31,
+          "duration": 35,
+          "cellSha256": "d7df68b31d23e8dfa8e5b5553ff5742dde2d2c2a4915a3df28401618b29b980e"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 32,
+          "duration": 30,
+          "cellSha256": "8e25ecdb98ece4a739804fa126ecbd6c2446446ae721494ad5037ee5005c72dd"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 33,
+          "duration": 40,
+          "cellSha256": "d1d24ec88a2daac0cadeeab39da922263463caf2961b0b3576647acac3641596"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 34,
+          "duration": 50,
+          "cellSha256": "34e0f03933f9248ec6fd9d11eac2cd12397ce8eb0edb20b72cd2e9540e7cc291"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 35,
+          "duration": 60,
+          "cellSha256": "7126f17450753c9027750d526a078df99fccadc6d82185ac1958c8f7bb8d3aa5"
+        },
+        {
+          "n": 5,
+          "atlasIndex": 36,
+          "duration": 50,
+          "cellSha256": "899b20df4a9804ed47340286302a2fe9fb09dde96daf62ec1784459d5fd16017"
+        },
+        {
+          "n": 6,
+          "atlasIndex": 37,
+          "duration": 30,
+          "cellSha256": "e3117ff7777f9ef019a7826db8a3b9efac53f0fd12b6dccb1c6ef87428a711cc"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/light2-actual-contact.png",
+        "sha256": "3623e05649581de56ae1b61efaed93512e99bf8cfc69fb238ad908bc66efe8b1",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "light3",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 38,
+          "duration": 40,
+          "cellSha256": "037caa52fe1ff8eb2ca946ffe90684ddc3955b6d8384065c22e08c3f49828fba"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 39,
+          "duration": 35,
+          "cellSha256": "f68b7cbbb5f56e8fab6c6f44233d0bc501b5201210a0ce15b70b836f59e82d5c"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 40,
+          "duration": 45,
+          "cellSha256": "9ac66110a6759fc59d6539675172c4ccde52954a8512949b4a577c0a5b3b95d6"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 41,
+          "duration": 60,
+          "cellSha256": "3464aa8ffb27ce792f133aa9edf364d54a40c5c1c87c1294c41b6d0be7597b5b"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 42,
+          "duration": 60,
+          "cellSha256": "3b248e1b88c12802a68e9a47669cb9c5cc446de45a97e4df126c2d3761a83d93"
+        },
+        {
+          "n": 5,
+          "atlasIndex": 43,
+          "duration": 60,
+          "cellSha256": "f04acc32ca38136dab5478b428ab000e9eebfaeee74ff9ab80146dfea4c33238"
+        },
+        {
+          "n": 6,
+          "atlasIndex": 44,
+          "duration": 30,
+          "cellSha256": "b4042f265767d54712d373a747790c703f59fc36e5553a1b3aef56b82a0b33ec"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/light3-actual-contact.png",
+        "sha256": "7eaf008e3596e40daf3885156311652d5cb77b5229b8526273e6a1a1681ffaaf",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "light4",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 45,
+          "duration": 50,
+          "cellSha256": "5a20ecc1c874812b74f5962203e93f2ce776cc8bbd0041f86f5cb9872f84531c"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 46,
+          "duration": 45,
+          "cellSha256": "8b7f3cc94bfff105efbc5beb8910145eee19a3dec885eef192325511aab82301"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 47,
+          "duration": 35,
+          "cellSha256": "5c566735f0a7c8beac9064bb4f8a67fdbef34849441f26b687739f20c871c64d"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 48,
+          "duration": 40,
+          "cellSha256": "1cc5327adf46bebe8c92b73512919b2f44808e752386ec8f8c52ef7132427223"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 49,
+          "duration": 70,
+          "cellSha256": "f9e18f7890b4266ed43674af2b10ff1617755302e99936e993df1feaf1bf07ed"
+        },
+        {
+          "n": 5,
+          "atlasIndex": 50,
+          "duration": 70,
+          "cellSha256": "a6c7e3c24a705cf87c7050f9073f1c15ffcf58e46ccae2e732904bff85b5cb6a"
+        },
+        {
+          "n": 6,
+          "atlasIndex": 51,
+          "duration": 70,
+          "cellSha256": "12638d792f9589683cbe4cc79797e6ea6f3404d765b32c244b21b57b80d313ad"
+        },
+        {
+          "n": 7,
+          "atlasIndex": 52,
+          "duration": 40,
+          "cellSha256": "d54f9ace1ca41962d82e09862c2655ea9c5cdcfcd5048452898d4e9061a705f2"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/light4-actual-contact.png",
+        "sha256": "f33fbedc86d37ab3806c49d897070d2ee59e0aab0446b53f5b99ba75650275fc",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "heavy",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 53,
+          "duration": 40,
+          "cellSha256": "dc0ccffdcef6a5232ffdd7cb0da472133aefe896e04b915de5fc73b07c4e7e2f"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 54,
+          "duration": 35,
+          "cellSha256": "b879d28fbcc10f6101e98fe24741ab9cca920ef4674b4bf3fd68360bc4971c96"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 55,
+          "duration": 30,
+          "cellSha256": "568f61e36ad3069052dcc8b5f768aa43c27ac6e6ff6bbb6ce583653ba4511a24"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 56,
+          "duration": 50,
+          "cellSha256": "f14453d7798697c41d37f176c717ce4cc4ae474d3ec437fe38355c0ff82eccfc"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 57,
+          "duration": 70,
+          "cellSha256": "daa81bbdca0a0719f81e9bb49aab0057cff138f57912c6cd32a8f1e03fcd5d22"
+        },
+        {
+          "n": 5,
+          "atlasIndex": 58,
+          "duration": 70,
+          "cellSha256": "141dc5f63e3858051c7b8c982af9adff4b4e9458ff33a379f86ccc64148311f9"
+        },
+        {
+          "n": 6,
+          "atlasIndex": 59,
+          "duration": 60,
+          "cellSha256": "a0c14a2b95338b2f4353975b94f355eeb8a22c1380e73e45fc7783723dbf3f08"
+        },
+        {
+          "n": 7,
+          "atlasIndex": 60,
+          "duration": 30,
+          "cellSha256": "2a4e4a79c5b7cf9d8b47a269538741aaa34924794f3bf1c7f4aed2f91184f699"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/heavy-actual-contact.png",
+        "sha256": "08debaecb5da4b975b6cdbe18e91a5231b7dfc858cef37f94ea484c7c3120f00",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "airLight1",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 61,
+          "duration": 45,
+          "cellSha256": "a9b8406dbf62376de3c6bfaaa2a69f904010fe2c98c60a8978f1e813e76d383c"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 62,
+          "duration": 35,
+          "cellSha256": "0fee5262ed68ec1843b88fd8eeede14e759ef59edcb640b546cbcc39580a90df"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 63,
+          "duration": 50,
+          "cellSha256": "d1ce9ae927dbdaf09a92dc93435db4bb147d4f99cfe113984eb8a4aaaac11a32"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 64,
+          "duration": 50,
+          "cellSha256": "8566e71e31e99a127dab9ce7708ca8660def297e8a72ca7218b26caf08a17636"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 65,
+          "duration": 30,
+          "cellSha256": "08ccf084f622e0af055decccdb4bf12492f2f2c932817a9886bfb6d92bce2039"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/airLight1-actual-contact.png",
+        "sha256": "851fcf8a960471bce198cfacdea35e6922b54c2b7efc3bb49c00b5e8f021e38b",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "airHeavy",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 66,
+          "duration": 50,
+          "cellSha256": "1d43c1edb3cc132115a56a1e7a0c614bba1c2882dc9342290824e6d102011318"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 67,
+          "duration": 45,
+          "cellSha256": "f2d76092b564a9adb7e891c7023d88d2ff1eb0c1f48aa7474152dd2011d6bd43"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 68,
+          "duration": 45,
+          "cellSha256": "7a46df8bb289a574e5d2ecdbb5f48c762c78d8b4091c2f7fc00e7044824b5858"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 69,
+          "duration": 70,
+          "cellSha256": "c1b8f419748d416da6b1387de251a4a6651004252afda0507c4b1293bf3b35e9"
+        },
+        {
+          "n": 4,
+          "atlasIndex": 70,
+          "duration": 70,
+          "cellSha256": "6156870f4583236f2d34ce5062601dddf5c56cbeb887099723c34d5b677ab866"
+        },
+        {
+          "n": 5,
+          "atlasIndex": 71,
+          "duration": 40,
+          "cellSha256": "c77ae54a890bf1302c6101bc3ec9fb2d4ea17a62112a4f5b21f6c6e99e99720d"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/airHeavy-actual-contact.png",
+        "sha256": "84d72ce468abb807d7503d518e99b369cffaf11e63996d17e2f8a7fc7248da01",
+        "width": 1024,
+        "height": 512
+      }
+    },
+    {
+      "animation": "guard",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 72,
+          "duration": 300,
+          "cellSha256": "91d2c1aeb33878497ba13e4394f0eecaed7ddf32492370ff20225e2e701c1e83"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 73,
+          "duration": 300,
+          "cellSha256": "90ceb4d5187bef38aeaa85f0d3aa244b326554c041620089bd14262ac12e4b5b"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/guard-actual-contact.png",
+        "sha256": "24dc7c07ff88f2a3ad7f7bd238688c8cc590da25f21415b955fea83a51507412",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "animation": "hurtHigh",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 74,
+          "duration": 70,
+          "cellSha256": "32252f4b0409ee2317059bc8cf18f3af067b343fa0328dc555a79141c0ca4f44"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 75,
+          "duration": 90,
+          "cellSha256": "7e3a13133b09f2e115e879067f006e25ef10dea80b4b9bf81493605ccefd82f6"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 76,
+          "duration": 100,
+          "cellSha256": "284f815a0334c99b05f8bd800621b1afa6807fcb3369c1356dafbef13950dec6"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/hurtHigh-actual-contact.png",
+        "sha256": "c7daf852c2fe5ff25f06cc365d33e1b06975a9c0f342981b09490fa06263ba88",
+        "width": 768,
+        "height": 256
+      }
+    },
+    {
+      "animation": "launched",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 77,
+          "duration": 70,
+          "cellSha256": "f14d503389bc5afc209a27bfb9547fa08f280c513dd0a65cb128b007d5b4c7c6"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 78,
+          "duration": 70,
+          "cellSha256": "6b6168e5a80445da9838880c5cd14f97671ae4dd3b205ccb736e0e3d2491e376"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/launched-actual-contact.png",
+        "sha256": "00c9582db904175a49630dbb19e14efbe41480023f2f56a9f2398449fed33239",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "animation": "charge",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 79,
+          "duration": 50,
+          "cellSha256": "0c0544865fa579fefaee9153ece18ddf9354126f072f9c13608eb15305e3cfee"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 80,
+          "duration": 50,
+          "cellSha256": "d8326dd89ea7a3b0bf24cf5660931e4d0a49193ef963113416650f7fa6aa74e3"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 81,
+          "duration": 50,
+          "cellSha256": "9d1653d0fea7e872ea7a4fda05e1fb039fb113db0db092a7c5bfd96b1f84ea52"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 82,
+          "duration": 50,
+          "cellSha256": "a8f3cf320a34eb46dcbdf92162f2e3dd84c9d4da09fe4970f0f1395f73fd44e4"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/charge-actual-contact.png",
+        "sha256": "4bcc6802c6594282c91c98af0496acbb592315f41b2259f2d34e015edb0b7121",
+        "width": 1024,
+        "height": 256
+      }
+    },
+    {
+      "animation": "beamCharge",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 83,
+          "duration": 50,
+          "cellSha256": "882a04674095cd62c6a8636fc913763abe4a2a6be4dac1ad47b8b4f3cfa50ed2"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 84,
+          "duration": 50,
+          "cellSha256": "a45aa46e4448393cfa62abb8e43ad6553a233af1f67dec746fbc431576ed661f"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 85,
+          "duration": 50,
+          "cellSha256": "6f7ce93ab107a3e0b35cc65e773656bd06666a954121ff773b930720215e1e81"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/beamCharge-actual-contact.png",
+        "sha256": "3f40ff7312aa56ed99be2a4cbe743b08c0b5beaeac40e5e18948a5992b8a5a00",
+        "width": 768,
+        "height": 256
+      }
+    },
+    {
+      "animation": "beamFire",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 86,
+          "duration": 50,
+          "cellSha256": "7e366f68e50cf26a819a5b2231700f92cda629e2150913c40958050e9cee7391"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 87,
+          "duration": 50,
+          "cellSha256": "72c9e7366e6907e4547faf6f89c8158fa4d9bc8ce8547a3831202a8d4dc585fe"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 88,
+          "duration": 50,
+          "cellSha256": "d5bf08fa18db1d581a48d2fa2894eb5016f2566a7d25d6c162b1f99482f7e9a0"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/beamFire-actual-contact.png",
+        "sha256": "00b87206f2f1ac6d6a6021736832bf346b1b7edf5d69174a73e4fb97f81bdac3",
+        "width": 768,
+        "height": 256
+      }
+    },
+    {
+      "animation": "win",
+      "frames": [
+        {
+          "n": 0,
+          "atlasIndex": 89,
+          "duration": 200,
+          "cellSha256": "300e9da18869e7e5f6b89ce2f5c07201f40bbc464b2c14aed49b3ad5ddec1e05"
+        },
+        {
+          "n": 1,
+          "atlasIndex": 90,
+          "duration": 200,
+          "cellSha256": "d0e8917de169256bc9ae57d5b4e34f01424b02239b66425175ef6b2a9901919a"
+        },
+        {
+          "n": 2,
+          "atlasIndex": 91,
+          "duration": 200,
+          "cellSha256": "06fa23f4de4200a994badc0193c60fa31320f28c7725cf96d0b1ee317bb060d9"
+        },
+        {
+          "n": 3,
+          "atlasIndex": 92,
+          "duration": 200,
+          "cellSha256": "b75e387ac8fc7c700d5baeacce523e555998db421d4920f337e0b5d8a1749ac4"
+        }
+      ],
+      "contact": {
+        "path": "art/characters/luffy/production/launched-calibration-r4/final-strict-pack/contacts/win-actual-contact.png",
+        "sha256": "3ddd374c6e02903596d609908261a345807aaf33a196218cc803ff8d3c378034",
+        "width": 1024,
+        "height": 256
+      }
+    }
+  ]
+}

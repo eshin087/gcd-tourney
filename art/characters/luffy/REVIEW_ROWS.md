@@ -1,6 +1,6 @@
 # Proposed shared review rows (Claude to integrate)
 
-Current r2 findings below supersede earlier anatomy-pending notes; all candidate image approvals remain pending. Historical evidence follows unchanged apart from corrected file links.
+Current r4 findings below supersede earlier technical-pending notes; all candidate image approvals remain pending. Historical evidence follows unchanged apart from corrected file links.
 
 ## Astra manual body-scale audit r2 (2026-10-15)
 
@@ -158,3 +158,13 @@ Astra's r2 result covers only the 23-animation diagnostic fixture, not this actu
 
 
 Final r3 evidence: production/manual-audit-r3/AUDIT.md and production/manual-audit-r3/pixel-hashes-and-comparison.json bind all 91 actual packed frames to the public atlas/metadata hashes above. No design approval is implied.
+
+## Launched v02 and final strict pack r4 (2026-10-16)
+
+| Date | Character | Asset | File | Version | Status | Proposed review row / QA |
+|---|---|---|---|---|---|---|
+| 2026-10-16 | luffy | launched | [v02](characters/luffy/raw/launched_v02.png) | v02 | needs review | Deterministic uniform source reassembly from intact launched v01 source; not a new image-generation call. One shared measured resample, bodyHeight 193, source factor 193/615=.313821, panel-center offsets only. Astra PASS within ±6px landmark uncertainty on final exact quantized pixels; both airborne figures complete and in cell. User image approval, timing, runtime contact and grounding remain pending. Source SHA fd0f981ecab9f4661a524b04d562010f530f4bf49aea339b14e303bdc599025b; v02 SHA 834feedc5f97f0bc759601b4517da65fe4a50839910d3bdb8ee0bf6b226209ed. See `production/launched-calibration-r4/launched_v02-QA.md` and `production/manual-audit-r3/LAUNCHED02_AUDIT.md`. |
+
+The actual strict pack `node tools/pack-sprites.mjs luffy --quantize 48 --no-writeback` exits 0 and writes 20 animations / 93 frames, 4096×1536, 48 colors; it reports 1 reference + 19 version-bound manual results and three missing core moves. Public atlas `public/characters/luffy/sheet.png` SHA-256 `563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996`; metadata `public/characters/luffy/anims.json` SHA-256 `7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a`. Astra rechecked all 93 actual quantized frames on these exact hashes: 18 previous manual body passes and launched v02 remain supported; idle v01 is the approved reference. This is technical body/scale evidence only, not candidate design approval.
+
+Current missing core holds are down v01 (f1 right-edge loss and floor-contour gap), getup v01 (lying f0 clipped on both sides and floor gap; remaining pose geometry/grounding), and special v01 (requested f6/f7 recovery actions absent from the source set; existing call budget exhausted at 3/3). Each source and minimum correction request is in `production/HELD_STRIP_DECISIONS_R3.md`; no generation calls occurred in this calibration round. Packer placement warnings and the four user-accepted placement exceptions plus Claude's separate beamFire arm exception remain recorded above. The r4 actual-frame contact gallery is [calibration-r4](../public/characters/luffy/calibration-r4/index.html); final Astra evidence is `production/manual-audit-r3/LAUNCHED02_AUDIT.md`.
