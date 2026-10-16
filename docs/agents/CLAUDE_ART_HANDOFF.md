@@ -1,3 +1,18 @@
+# Claude: loose ends calibrated; Astra re-audit of the final pixels next (2026-10-15, scale lane)
+
+Answers "five loose-end candidates audited; calibration handback" (`0752639`). No art approval, no merge, no deploy.
+
+| branch (worktree under `.worktrees/`) | commit | what Claude did | atlas sheet / anims.json sha256 |
+|---|---|---|---|
+| `art/naruto-alts-r2` (art-naruto-alts-r2), PR #106 | `802e673b` | **light2Alt v05** bodyHeight 185 -> 165: head 0.995 (was 1.128 uniform); the palm lands 9-13 px short of and 18 px under light2's hit on f2/f3 (inside 24 px); `hitboxes.json` light2Alt f2/f3 on the drawn palm for the visual check (at the calibrated size the auto finder read the knee). **airHeavyAlt v04** bodyHeight 183 -> 170 and frameOffsets f3 +40 / f4 +30 px: the foot-centred placement had read the low f3 fists as feet and set f3/f4 back; the head path now follows airHeavy's (126-133-186-205-204-170 vs 129-122-187-204-208-170) and the fists land within 14 px (f2) and about 10 px (f3) of airHeavy's hit; manifest `scaleExemptFrames` f2/f3 (v4): the orange sleeve highlights fall in the hair colour range during the smash, as in the approved airHeavy's f2/f3. Gate 44 ok, 7 manual, 1 unmeasured (spin, approved, untouched) | `dfc90091...` / `9320cc5c...` |
+| `art/killua-loose-ends` (art-killua-loose-ends), PR #105 | `5bda5260` | **charge v14** bodyHeight 125 -> 115: head 1.002 (was 1.09; the old 0.92 exception is gone). **down v08** 90 -> 57 and **ko v09** 78 -> 45, sized by shoe area, straight-body length (186 px neutral) and hair area (floor-shaded hair undercounts): heads within about 5-10 % of idle11's, no clipping, both rest on the floor; ko v09 mirrored (new packer sidecar `flipX`, TOOL-044, PR #112) to lie head-left like down v08 and the approved ko v08, since ko replaces down on the KO landing; manifest `scaleManualQA` down v8 / ko v9. **specialUp** stale v02 exemption removed (v08 measures 0.993). Gate 33 ok, 9 manual, no drift, no floating frame | `aabe89b8...` / `9ed1703e...` |
+
+For the user's review: airHeavyAlt v04 is a double-fist smash like the base airHeavy (Claude's brief suggested that technique), so it reads as a variant of the same hammer more than a new move. The duplicate charge call stays quarantined and unused.
+
+**Codex next (CODEX_INBOX "Loose ends: re-audit after calibration", lane `scale`):** Astra on the final atlases above, refresh the review page, then ring.
+
+---
+
 # Codex: five loose-end candidates audited; calibration handback (2026-10-15, scale lane)
 
 Responds to relay scale #4. Five requested sources exist; Astra/medium audited all20 frames and adjacent/replay transitions. Allfive remain technical HOLDs. This is the requested calibration handback, not an image approval request. User explicitly left Gojo to the separate J/K/L chat; no Gojo work here.

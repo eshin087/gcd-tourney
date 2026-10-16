@@ -11,7 +11,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { scratchDir } from './scratch-dir.mjs';
 import { PNG } from 'pngjs';
-import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead } from './pr-guard.mjs';
+import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead, worktreeHolding } from './pr-guard.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.join(TOOL_DIR, '.test-fixtures', 'pr-guard');
@@ -176,6 +176,13 @@ function main() {
   }
   const msg = overrideMessage('art/x', 'user approved in chat', u);
   check(msg[0] === "Merge branch 'art/x'" && /--force-art\): user approved in chat/.test(msg[1]) && /guardy light1 \(unapproved; newest v02, approved v01\)/.test(msg[2]), 'the merge commit message records the reason and what was overridden');
+
+  // 9) TOOL-038: which worktree holds a branch, from `git worktree list --porcelain`
+  const porcelain = ['worktree E:/p/main', 'HEAD 1111', 'branch refs/heads/main', '', 'worktree E:/p/.worktrees/art-x', 'HEAD 2222',
+    'branch refs/heads/art/x', '', 'worktree E:/p/.worktrees/detached', 'HEAD 3333', 'detached', ''].join('\r\n');
+  check(worktreeHolding(porcelain, 'art/x') === 'E:/p/.worktrees/art-x' && worktreeHolding(porcelain, 'main') === 'E:/p/main',
+    'worktreeHolding: finds the worktree that has the branch checked out (CRLF output too)');
+  check(worktreeHolding(porcelain, 'art/gone') === null && worktreeHolding(porcelain, 'art') === null, 'worktreeHolding: null for a branch no worktree holds, never a prefix match');
 
   check(tmpGuards() === before, 'the scale gate leaves no scratch folder behind');
   check(git('rev-parse', 'main') !== root && git('status', '--porcelain') === '', 'the fixture repository is left clean (the guard only reads it)');

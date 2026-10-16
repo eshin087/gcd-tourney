@@ -99,21 +99,23 @@ approved the game shows procedural stand-ins and `beamFire`, so nothing waits on
 character-art generation under `gpt-6-luna` medium; the final anatomy audit of the quantized atlas under `gpt-6-astra`.
 
 **Round 1 (do now): the five effects and Naruto's pilot strip**
-- [ ] 1. From the main checkout: `npm run pr -- start art/beam-clash --art naruto,sasuke,killua,gojo,goku,vfx` (dev port
+- [x] 1. From the main checkout: `npm run pr -- start art/beam-clash --art naruto,sasuke,killua,gojo,goku,vfx` (dev port
   5245). Work only there; reuse it for every later round and version.
-- [ ] 2. VFX: `clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb` as `art/vfx/raw/<effect>_v01.png`
+- [x] 2. VFX: `clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb` as `art/vfx/raw/<effect>_v01.png`
   (at most 3 calls each, failed ones count). The three stream bands also as exact 128 x 128 tiles in
   `art/vfx/frames/<effect>/` (EFFECTS.md "Tiling bands"); check each seam with two copies side by side.
   `node tools/pack-sprites.mjs vfx --candidates` must pack them with no tile warning.
 - [ ] 3. Naruto `beamStruggle_v01` (the two-handed Rasengan push, BEAM_STRUGGLE_BRIEF.md "Per fighter"): at most 3
   calls, the title-style contract, `hand` on every frame in hitboxes.json, `npm run sprites naruto` strict, the body
   sheet, then the Astra audit of the quantized atlas.
-- [ ] 4. One phone review page in public/reviews/beam-clash-r1/: each effect's frames at 4x plus a looping GIF (the
+- [x] 4. One phone review page in public/reviews/beam-clash-r1/: each effect's frames at 4x plus a looping GIF (the
   stream bands tiled 4 times end to end), Naruto's strip beside his approved idle and beamFire at one density with a
   looping GIF. REVIEW.md rows (`needs review`), manifest versions, tracker rows; commit, `npm run pr -- open`,
   `npm run pr -- preview`. Add a handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls used,
   the review page, holds) and run `node tools/relay.mjs ring beam-clash --note "<one line>"`. **Then stop:** the user
   reviews.
+
+Round 1 review page is ready (2026-10-15): user approved all five VFX v01 directly in the Codex chat; approval is recorded and the approved atlas repacked in PR #110. Naruto v01 remains on technical hold: strict scale gate failed at head/hair 1.40x and feet 0.62x; body sheet and Astra atlas audit remain pending. Do not start round 2 until Claude relays the user's verdict here and writes the next item.
 
 **Round 2 (only after Claude relays the user's verdict here):** Sasuke, Killua and Gojo's `beamStruggle` in the same
 way, then Goku's once his core art is on main. Claude will write it as its own item with the budget.
@@ -171,6 +173,8 @@ Rules: as in phase 1 below (Luna/medium for generation, Astra/medium for the aud
 public/reviews/gojo-run-jkl/**, public/characters/gojo/** via the packer, the gojo block of art/manifest.json and the
 "## gojo" section of art/TRACKER.md; never overwrite an existing `_vNN`; no merge, no production deploy, no approvals).
 Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
+
+**BLOCKED (2026-10-15):** Phase 2 preview is live at https://gcd-tourney-ncaxh7yr0-eshin087s-projects.vercel.app/reviews/gojo-run-jkl/ (PR #102). No production strip is review-ready. Run v13, dash v07-v09, backDash v05-v06 and superDash v10-v11 exhausted their 3-call budgets; run has no saved candidate, and Astra held the audited dash atlas. See the committed attempt inventory and Astra audit in `.worktrees/art-gojo-run`. Waiting for the user's decision on whether to authorize a new repair round; no relay ring.
 
 ---
 
@@ -347,6 +351,23 @@ luffy, other fighters or public/ atlases on main. No merge, no production deploy
 you, write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
 ---
+
+## Loose ends: re-audit after calibration (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
+
+**This is the scale lane's current section** (it follows "Loose ends of the scale round" below). Claude calibrated all five
+candidates; read Claude's note at the top of CLAUDE_ART_HANDOFF.md ("loose ends calibrated") first. No generation calls.
+**Done when** both items are ticked; then commit your handoff and run `node tools/relay.mjs ring scale --note "<one line>"`.
+
+- [ ] 1. **Astra/medium re-audit of the final calibrated atlases** (every frame, transitions and replay; head, torso,
+  limbs, shoes; contact for the two alts against their bases' hit boxes; grounding for down/ko): Naruto
+  `art/naruto-alts-r2` at `802e673b` (light2Alt v05, airHeavyAlt v04) and Killua `art/killua-loose-ends` at
+  `5bda5260` (charge v14, down v08, ko v09 mirrored).
+- [ ] 2. **Refresh the phone review page** with those final atlases (the five candidates beside their bases or
+  predecessors, idle and the neutral/combat cells at one density), the Astra verdicts, and the airHeavyAlt note (same
+  double-fist technique as the base airHeavy). Put the URL in NOW.md "Your next actions".
+
+Rules: no generation, no merge, no production deploy, no approvals; do not edit Claude's sidecars, manifest calibration
+fields, hitboxes.json or public/ atlases. If something blocks you, write BLOCKED here and in NOW.md and do not ring.
 
 ## Loose ends of the scale round (2026-10-15, Claude) - chat "1 - Scale Consistency", relay lane `scale`
 
@@ -1084,6 +1105,9 @@ How to run it:
   Sasuke's heavy is the Lion's Barrage opening kick (clearly apart from his `specialUp`).
 
 ## Every thread
+
+**Standing status rule (2026-10-15; every handback):** Read main's AGENTS.md "Mandatory user-facing status". End each final response with Status / Your action / Claude / Next. Explicitly state approvals or input required, any action or reply pending from Claude (and relay delivery state), who acts next, or that the requested scope is completely finished with nothing to do. Apply this now, including idle chats; do not start unrequested work.
+
 
 **Standing rule (2026-10-15; applies every turn, never tick off):** Before finishing, read the main checkout's AGENTS.md "Mandatory Claude handoff check" and run node tools/relay.mjs status from main. Decide whether Claude has the next action, commit the handoff and ring the correct lane when required. Report the outcome in your final response. This applies to direct user tasks and relayed tasks, including chats using older worktrees. Preserve user approval and pause brakes.
 

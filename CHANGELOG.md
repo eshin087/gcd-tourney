@@ -13,10 +13,17 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Added: super banners and ultimate splashes (ADR 0035, ENG-083): a taller super banner with the move's backdrop and the fighter breaking out of its top, a full-screen ultimate splash (backdrop push-in, letterbox bars, the fighter sliding in, the move name), four optional layer images per fighter (`super_bg`, `super_fg`, `ult_bg`, `ult_fg`; packer fits them), each falling back to today's eye strip on speed lines; every ultimate's flash holds 24 frames longer (`ULTIMATE.splashHold`).
 - Added: eye techniques (ADR 0035): Sasuke's Sharingan counter shows a large turning Sharingan behind him and flashes his red eyes across the HUD, a successful read spins it up; Amaterasu shows his Mangekyō. Drawn in code from character data (`eyes`, a move's `sigil` / `eyeFlash`).
+- Changed: approvals happen in Claude (TOOL-045, ADR 0037): Codex rings the relay `--for user --kind approval|decision|blocked`, Claude notifies and asks with a question box, then relays the user's quoted answer (`send --user-approved|--user-rejected|--user-decision`); `relay status` shows "turn: you". Also: round trips count only sends that answer a new ring, watchers wait 24 h and say when to restart, `send` unarchives an archived Codex chat, `send --direct`, `add <lane> <chat>` without `--thread`, `remove <lane>`.
+
+- Changed: every Codex handback explicitly reports completion/wait status, required user actions, pending Claude work and the next actor; existing project chats receive the rule (OPS-010).
+
+- Added: a raw sidecar can set `"flipX": true` to mirror a character pose drawn facing the wrong way, frame by frame (TOOL-044; art/PIPELINE.md).
 
 - docs(scale): hand five audited candidates and protected diagnostics to Claude for calibration; disclose duplicate charge call.
+- Changed: ring damage looks like broken stone in the floor instead of stickers on it: decals show the ring's own texture and grid, only their cracks, pits and scorch darken it, craters sink into a lit bowl with parallax depth, the drawn rubble is off on the ring, and hot seams glow half as long and much dimmer; permanent craters stay (ENG-084, ADR 0024 amended).
 
 - Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
+- Fixed: `npm run pr -- merge` names its own merge commit in the revert hint, finishes the worktree cleanup and the deploy when the GitHub publish fails (with a warning), and says which worktree holds a branch it cannot delete (TOOL-038).
 
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
 - Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".

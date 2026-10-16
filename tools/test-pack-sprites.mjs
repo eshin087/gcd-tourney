@@ -993,6 +993,7 @@ function main() {
   standingHitBoxTests(base);
   sidecarEraseTests(base);
   approvedIdleRefTests(base);
+  sidecarFlipTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1858,6 +1859,33 @@ function approvedIdleRefTests(base) {
   setApproved(2);
   const s2 = run()?.scale?.anims;
   check(s2?.idle?.verdict === 'ref' && s2.light1.head > 1.1, `approved idle ref: an approved v02 is the reference again (idle ${s2?.idle?.verdict}, light1 ${s2?.light1?.head})`);
+}
+
+// sidecar "flipX": a pose drawn facing the other way is mirrored frame by frame, frame order kept
+function sidecarFlipTests(base) {
+  const fraw = (n) => path.join(ART, 'characters', 'flippy', 'raw', n);
+  savePng(fraw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 1101, specks: 0 }));
+  savePng(fraw('light1_v01.png'), strip([{}, { punch: 2 }, { punch: 16 }, { punch: 16 }, { punch: 9 }, { punch: 4 }, {}], { seed: 1102, specks: 0 }));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.flippy = { name: 'Flippy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204 } } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const reach = () => {
+    const r = pack([...base, 'flippy']);
+    const C = r.json?.characters.find((c) => c.id === 'flippy');
+    const meta = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'flippy', 'anims.json'), 'utf8'));
+    const sheet = loadPng(path.join(OUT, 'characters', 'flippy', 'sheet.png'));
+    const px = meta.pivot[0];
+    // how far the pose reaches right and left of the pivot, per frame
+    return { C, f: meta.animations.light1.frames.map((i) => { const b = bb(cell(sheet, i)); return { right: b.x1 - px, left: px - b.x0 }; }) };
+  };
+  const a = reach();
+  check(a.f[2].right > a.f[2].left + 20, `flipX: without it the jab reaches right of the pivot (right ${a.f[2].right}, left ${a.f[2].left})`);
+  fs.writeFileSync(fraw('light1_v01.json'), JSON.stringify({ flipX: true }));
+  const b = reach();
+  const notes = b.C?.packed.find((p) => p.anim === 'light1')?.notes || [];
+  check(b.f[2].left > b.f[2].right + 20 && notes.some((n) => /mirrored left-right \(sidecar flipX\)/.test(n)), `flipX: the jab now reaches left and the report says so (right ${b.f[2].right}, left ${b.f[2].left})`);
+  check(b.f[2].left > b.f[1].left + 10 && b.f[5].left < b.f[3].left, 'flipX: frame order is kept (the fist extends on f2-f3 and comes back on f5)');
 }
 
 function finish() {
