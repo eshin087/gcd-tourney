@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed: the determinism page reported STALE FIXTURE after the Goku and Luffy art changed the simulation fingerprint (every anims.json counts); both fixtures are re-recorded and MATCH.
 - Added: Goku and Luffy play with their own title-style art: all 23 core animations each, user-approved, calibrated at the approved density and Astra-audited (PRs #123 and #96). Known and accepted for now: Luffy edge clips on run/light3/light4/airLight1, the Gigant Pistol arm leaving the cell, Goku getup f0 floating ~8 px (TASKS ART-LUFFY-EDGECLIPS, ART-LUFFY-GIGANT-ARM, ART-GOKU-GETUP-FLOAT).
 
 - Added: rejoining an online match after a dropped connection (ENG-097, ADR 0036): the room keeps a dropped seat for 20 seconds; the game reconnects by itself, resends what the room missed, or after a page reload rebuilds the match from the room's input log; the other player sees "waiting for X to reconnect" with a countdown. Away members aren't put into new matches.
