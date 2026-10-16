@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beam Clash Art — Round 1</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101318;--panel:#1a2029;--line:#313b49;--text:#f2f5fa;--muted:#a8b3c2;--accent:#7dcfff;--hold:#ffc96b}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+    main{max-width:920px;margin:auto;padding:24px 16px 64px}h1{font-size:1.8rem;line-height:1.15;margin:0 0 8px}h2{font-size:1.35rem;margin:0 0 8px}h3{font-size:1.1rem;margin:0 0 8px}p{margin:8px 0;color:var(--muted)}a{color:var(--accent)}.lede{font-size:1.05rem}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:18px 0}.hold{border-color:#806329}.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.78rem;color:var(--muted);margin:2px 5px 2px 0}.badge.hold{color:var(--hold);border-color:#806329}.media{display:block;width:100%;height:auto;border-radius:8px;background:#191c22;margin:10px 0}.gif{max-width:512px;image-rendering:pixelated}.contact{image-rendering:pixelated}.grid{display:grid;grid-template-columns:1fr;gap:14px}.small{font-size:.9rem}.seams{max-width:512px;image-rendering:pixelated}figcaption{font-size:.88rem;color:var(--muted)}figure{margin:12px 0}ul{padding-left:22px;color:var(--muted)}.warning{color:var(--hold)}code{color:#c4d7ee}
+    @media(min-width:760px){main{padding-top:40px}.grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Beam Clash Art — Round 1</h1>
+  <p class="lede">The five shared clash effects are approved at v01. Naruto’s optional two-handed Rasengan struggle pilot remains on technical hold.</p>
+  <section class="card hold">
+    <span class="badge hold">Naruto pilot: TECHNICAL HOLD</span>
+    <p class="warning"><strong>Please do not approve Naruto beamStruggle v01 as production art yet.</strong> Its strict 48-color pack failed against the approved idle: head/hair measured 1.40× and feet 0.62×. Estimated palm points also drift between frames by more than the 6 px limit. The required body sheet and final Astra audit are not available for this failed pack.</p>
+    <figure><img class="media" src="naruto-same-density.png" alt="Approved Naruto idle frame, three diagnostic beamStruggle frames, and approved beamFire frame at a common 256 pixel cell density"><figcaption>One 256×256 cell per pose, same-density comparison: approved idle f0 · diagnostic beamStruggle v01 f0–f2 · approved beamFire f0.</figcaption></figure>
+    <figure><img class="media gif" src="naruto-beamStruggle-loop.gif" alt="Looping three-frame Naruto beamStruggle diagnostic preview"><figcaption>Looping diagnostic preview, 70 ms per frame. It shows the saved v01 source from the first worktree pack; the strict pack subsequently stopped at the scale gate.</figcaption></figure>
+    <p class="small">The image-generation budget is exhausted for this round. The raw candidate stays versioned, and the failed scale/contact checks are recorded in art/REVIEW.md. The approved art and production atlas remain unchanged.</p>
+  </section>
+
+  <h2>Shared clash effects</h2>
+  <p>Each contact sheet shows the packed 128×128 frames enlarged 4× with nearest-neighbor scaling. The GIF beside it loops at the brief’s per-frame timing.</p>
+  <div class="grid">
+    <section class="card"><h3>clashBurst <span class="badge">approved v01</span> <span class="badge">6 frames · 45 ms</span></h3><img class="media contact" src="clashBurst-frames-4x.png" alt="Six clashBurst frames at 4x"><img class="media gif" src="clashBurst-loop.gif" alt="Looping clashBurst effect"></section>
+    <section class="card"><h3>streamBolt <span class="badge">approved v01</span> <span class="badge">4 frames · 40 ms</span></h3><img class="media contact" src="streamBolt-frames-4x.png" alt="Four streamBolt frames at 4x"><img class="media gif" src="streamBolt-loop.gif" alt="Looping streamBolt effect"><details><summary>Two-copy tile seam check, every frame</summary><img class="media seams" src="streamBolt-seams-2x.png" alt="Each streamBolt tile repeated twice side by side"></details></section>
+    <section class="card"><h3>streamLance <span class="badge">approved v01</span> <span class="badge">4 frames · 40 ms</span></h3><img class="media contact" src="streamLance-frames-4x.png" alt="Four streamLance frames at 4x"><img class="media gif" src="streamLance-loop.gif" alt="Looping streamLance effect"><details><summary>Two-copy tile seam check, every frame</summary><img class="media seams" src="streamLance-seams-2x.png" alt="Each streamLance tile repeated twice side by side"></details></section>
+    <section class="card"><h3>streamFlame <span class="badge">approved v01</span> <span class="badge">4 frames · 50 ms</span></h3><img class="media contact" src="streamFlame-frames-4x.png" alt="Four streamFlame frames at 4x"><img class="media gif" src="streamFlame-loop.gif" alt="Looping streamFlame effect"><details><summary>Two-copy tile seam check, every frame</summary><img class="media seams" src="streamFlame-seams-2x.png" alt="Each streamFlame tile repeated twice side by side"></details></section>
+    <section class="card"><h3>redOrb <span class="badge">approved v01</span> <span class="badge">6 frames · 40 ms</span></h3><img class="media contact" src="redOrb-frames-4x.png" alt="Six redOrb frames at 4x"><img class="media gif" src="redOrb-loop.gif" alt="Looping redOrb effect"></section>
+  </div>
+  <section class="card">
+    <h2>Technical record</h2>
+    <ul>
+      <li>VFX candidate pack: all five new effects extracted; four exact 128×128 tiles for each stream; no new tile or packer warnings for these five.</li>
+      <li>The sparse task worktree lacks several unrelated legacy raw VFX and Naruto sources. The pack reports those absent-source warnings; they are not changes in this batch.</li>
+      <li>Naruto `beamStruggle_v01`: strict quantized scale gate failed; 47-color diagnostic pack had 3 frames. Head 1.40× idle; feet 0.62× idle. Approximate hand centers and their spread are recorded in the review notes and hitboxes sidecar.</li>
+      <li>The five VFX v01 candidates are approved and recorded. Naruto’s pilot still awaits scale/contact remediation, body sheet, and final Astra anatomy audit.</li>
+      <li>No production integration, merge, or production deployment has occurred.</li>
+    </ul>
+    <p>Briefs: <a href="https://github.com/eshin087/gcd-tourney/blob/main/art/vfx/EFFECTS.md">VFX specs</a> · <a href="https://github.com/eshin087/gcd-tourney/blob/main/art/characters/BEAM_STRUGGLE_BRIEF.md">struggle poses</a> · <a href="https://github.com/eshin087/gcd-tourney/blob/main/docs/decisions/0034-beam-clash-visuals.md">ADR 0034</a>.</p>
+  </section>
+</main>
+</body>
+</html>

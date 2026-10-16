@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art (ART-BEAM-CLASH): generated and recorded user approval via Claude relay #10 for Killua `beamStruggleAir` v02; strict quantized scale gate and body sheet pass, and superseded v01 is archived. Astra anatomy audit and exact hand-anchor measurement remain pending.
+- Art (ART-BEAM-CLASH): recorded the user's Claude desk approval for six strict-scale-passing beam-struggle candidates (Naruto ground v02; Sasuke ground/air v01; Killua ground v01; Gojo ground/air v01). Killua air v01 remains quarantined after a strict-gate failure. Astra anatomy audit is pending.
 - Added: the approvals desk stops itself when all work is done (TOOL-051, ADR 0039): Claude chats report `relay chat active|done`, and `relay wait all` exits after 15 quiet minutes with no open ask, no lane waiting on Codex and no active chat; `relay status` says what keeps it awake.
 
 - art(killua): record user approval via Claude relay scale#6 (“i approve those 5”) for charge v14, down v08 and ko v09 as drawn. Calibration uncertainty remains; charge aura retention and runtime grounding/state-transition checks remain on technical hold for Claude.
@@ -73,6 +75,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
 - Added: the beam clash art contract (ADR 0034, ENG-082): the optional `beamStruggle` animation (3-frame braced push, falls back to `beamFire`) and five clash effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`, `redOrb`) with procedural stand-ins; the packer warns about a stream band frame that cannot tile. Briefs: art/characters/BEAM_STRUGGLE_BRIEF.md, art/vfx/EFFECTS.md "Beam clash".
+- Art (ART-BEAM-CLASH): user approved all five v01 clash effects on 2026-10-15; updated manifest/review/tracker and repacked the approved VFX atlas. Naruto `beamStruggle` v01 remains on technical hold: strict scale measured head/hair at 1.40x and feet at 0.62x approved idle; body sheet and Astra atlas audit remain pending.
 - Changed: while a new idle candidate is the newest raw, the scale gate measures every strip (and the candidate idle) against the approved idle instead, so a pending idle no longer moves head numbers or auto head fits (TOOL-040; art/CHARACTER_SCALE.md).
 
 - Fixed: the GitHub publish keeps commit ids in commit messages as written (`--preserve-commit-hashes`), so a message citing a branch commit no longer changes the slim history when that branch merges; branch publishes replace their own GitHub branch and `-- --force` replaces GitHub main once (TOOL-043).

@@ -22,5 +22,7 @@
   "specialForward": {"0": {"hand": [164, 44]}, "1": {"hand": [166, 55]}, "2": {"hand": [242, 114]}, "3": {"hand": [242, 114]}},
   "throw": {"1": {"hand": [216, 124]}, "2": {"hand": [207, 158]}, "_refit": "scaled x1.0277 about the pivot with the strip's bodyHeight 163 -> 168 (size consistency pass, 2026-10-11)"},
   "beamCharge": {"0": {"hand": [100, 153]}, "1": {"hand": [99, 153]}, "2": {"hand": [99, 154]}, "_refit": "scaled x0.9804 about the pivot with the strip's bodyHeight 174 -> 171 (size consistency pass, 2026-10-11)"},
-  "beamFire": {"0": {"hand": [206, 125]}, "1": {"hand": [206, 125]}, "2": {"hand": [207, 125]}}
+  "beamFire": {"0": {"hand": [206, 125]}, "1": {"hand": [206, 125]}, "2": {"hand": [207, 125]}},
+  "beamStruggle": {"0": {"hand": [232, 124]}, "1": {"hand": [232, 124]}, "2": {"hand": [232, 124]}},
+  "_beamStruggle": "v02 technique palm center, measured on the quantized atlas (all frames [232,124], estimated uncertainty +/-3 px); inside the specified x196-240/y100-150 contact zone and stable within 6 px."
 }

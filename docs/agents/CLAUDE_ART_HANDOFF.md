@@ -1,3 +1,28 @@
+# Codex: Killua air v02 approved; technical follow-up to Claude (2026-10-15, beam-clash)
+
+The user approved Killua `beamStruggleAir_v02` as drawn via Claude relay #10 (“Approve v02”). Approval is recorded in REVIEW, manifest and TRACKER. Superseded v01 is preserved at `art/characters/killua/raw/_rejected/beamStruggleAir_v01.png`; v02's strict quantized pack passed (48 colors), no scale-gate finding for this strip, and the body sheet has H=.97–1.03 / B=.97–.99 with zero flags. Astra anatomy audit remains pending and exact hand-anchor measurements are still required before runtime integration. See `art/characters/killua/production/beam-clash-r2/ROUND2_QA.md` and `GENERATION_LOG.md`. The full Killua atlas was refreshed locally but its outputs were not committed because they also changed other move metadata; Claude owns the clean integration pack. No VFX was packed.
+
+Next: reconcile the approved air v02 into integration, complete the Astra atlas audit and exact hand-anchor measurement, then run runtime/integration checks. The updated review page is under `public/reviews/beam-clash-r2/`.
+
+---
+
+# Codex: Killua air v02 ready for user review (2026-10-15, beam-clash)
+
+Superseded by the user's approval via relay #10; see the current note above.
+
+The user approved the one retry call via relay #9. Killua `beamStruggleAir_v02` is filed and on the updated round-2 review page as `needs review`; this is not an image approval. Strict quantized pack passed (48 colors), no scale-gate finding for the strip, and the body sheet has H=.97–1.03 / B=.97–.99 with 0 flags. Astra anatomy audit remains pending and exact hand-anchor measurements are still required before runtime integration. See `art/characters/killua/production/beam-clash-r2/ROUND2_QA.md` and `GENERATION_LOG.md`. v01 remains held, and no other raw strip was touched.
+
+The packer rewrote other ignored/derived local outputs while running the candidate check. Cleanup was declined by automatic approval review because it bundled broad restores/deletes. Only explicit beam-clash v02 and review-page paths will be committed; unrelated pack outputs remain local.
+
+---
+
+# Codex: beam clash Round 2 approvals recorded; Killua air v02 blocked (2026-10-15, beam-clash)
+
+Branch `art/beam-clash`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-beam-clash`; current main merge **2de7bbb0**; approval bookkeeping **b98d262b**. Final PR #110 preview: https://gcd-tourney-m1mjwpw3c-eshin087s-projects.vercel.app/reviews/beam-clash-r2/ (built from branch handoff commit **568d5624**). The user approved six candidates via Claude approval desk relay #7 (“Approve all 6”): Naruto ground `beamStruggle` v02; Sasuke ground and air v01; Killua ground v01; Gojo ground and air v01. Their manifest versions, REVIEW rows and tracker entries record approval. This does not complete Astra's anatomy audit.
+
+Strict quantized packs pass for the six approved strips. Naruto v02's head ratios are 0.981/0.963/0.954, body-area B=0.648–0.666 (advisory deviation accepted by the user), and palm anchor [232,124] across all frames with estimated ±3 px uncertainty. Full results and caveats: `art/characters/naruto/production/beam-clash-r2/ROUND2_QA.md`. Killua air `beamStruggleAir` v01 remains in `raw/_qa_hold/`: wrong outfit/body scale, head 0.93 and feet 1.19, B=0.551–0.607; it is omitted from the atlas. Do not promote it. The five other new hand anchors still need Claude's exact per-frame measurements before final runtime integration.
+
+Main's `art/vfx/**` and `public/vfx/**` were preserved exactly; no VFX pack was run. Raw folders copied from main for local QA were not staged. The clean PR preview build passed. The final Astra atlas audit remains pending. **Next: Killua air v02 was authorized with one generation call remaining, but this chat cannot switch to the required `gpt-6-luna` medium model; image generation is therefore blocked here.** User action is needed to route this generation through a Luna/medium Codex chat or choose another route. No Killua v02 call was made.
 # Claude: scale loose ends merged and live; the scale round is closed (2026-10-15, scale lane)
 
 Answers "User approval of all five recorded" (`ef9a42a`, relay ring #8). Merged `art/naruto-alts-r2` (PR #106, `9b241bb`)
@@ -675,4 +700,15 @@ checked per animation against both sources (identical alpha masks; mean color sh
 Sasuke charge ships v02. A fresh repack of all four on merged main is byte-identical to the committed sheets.
 The merged art worktrees are kept only because they hold untracked production scratch (PR bodies, before/after PNGs,
 helper scripts); remove them with `npm run pr -- prune` once that scratch is no longer needed.
+# Codex: beam-clash effects approved; Naruto pilot held (2026-10-15, beam-clash lane)
+
+Branch `art/beam-clash`, worktree `.worktrees/art-beam-clash`. PR #110 contains the recorded approval and approved atlas repack. Phone review page: `public/reviews/beam-clash-r1/index.html`.
+
+The user explicitly approved all five VFX v01 candidates in Codex chat on 2026-10-15: `clashBurst_v01` (2 generation calls), `streamBolt_v01`, `streamLance_v01`, `streamFlame_v01`, and `redOrb_v01` (1 call each). The three stream strips use four exact 128x128 frames; doubled seam checks are included. Their review rows and manifest approval fields are updated, and `npm run sprites -- vfx` repacked the approved atlas. It reports six missing-source warnings for unrelated sparse-worktree legacy effects; the five new effects pack cleanly.
+
+Naruto `beamStruggle_v01` used 3 generation calls and is a technical hold. Strict quantized packing failed the scale gate (head/hair 1.40x approved idle; feet 0.62x); estimated hand centers vary beyond the 6 px contact stability limit. The body sheet could not be produced because the required idle atlas was unavailable to that tool run; the final GPT-6 Astra anatomy audit is pending. The review page asks the user not to approve this as production art. The approved atlas was restored unchanged.
+
+The approval is visual approval of these five VFX only; it does not clear the Naruto pilot, authorize the other fighters' strips, or merge/deploy this branch. Relay this user verdict to the coordination lane after the approval commit and preview update. Round two remains gated on Claude relaying the verdict back here and writing its item.
+
+---
 
