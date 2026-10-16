@@ -21,6 +21,8 @@ Read this from the main checkout at the start of every Codex or Claude session, 
 
 ## Control chat operation
 
+To request an immediate full check before the next heartbeat, type `$gcdtourney-attention` in the control chat (or say "check GCD Tourney now"). The project skill lives at `.codex/skills/gcdtourney-attention/`; it reads the current repo state, checks every discovered worker without waking it, consults the approvals desk queue, then updates or pauses the same bounded heartbeat. It never creates a second monitor. The skill is explicit-only, so normal chat turns do not start a check automatically.
+
 Discover current project chats with list_threads and project/worktree evidence; do not rely on a fixed
 list of chat names. Inspect compact wait_threads snapshots, then read_thread only for missing context.
 Read main's inbox, NOW and relay status. An idle/completed turn is not proof the user's task is finished.
