@@ -14,10 +14,11 @@ const GAME_KEYS = ['state', 'inputLive', 'timeLeft', 'round', 'freeze', 'timeSca
   'spClashCool', 'struggleCool', 'superFlash', 'clash', 'domain', 'pendingMelee', 'combos'];
 // references back into the engine or the view, never walked; and view state the fighters carry today, which the
 // simulation/view split (ADR 0036) moves off them: the power-up particles (chargeFx.js, Math.random) and the hit
-// flash (hitFlash.js, stamped with the render clock), a shot's effect handles (sprite, glow: effects.js items the
+// flash (hitFlash.js, stamped with the render clock), the ground decals' pending mark (groundMark, ground.js, set only
+// when effects run), a shot's effect handles (sprite, glow: effects.js items the
 // renderer animates) and a beam's ripple clock (waveT, Beam.sync). The CPU brains tag the shots they have seen (_aid, seen): their own bookkeeping, absent when a
 // replay or a remote player drives the pads
-const SKIP = new Set(['game', 'def', 'asset', 'actor', 'scene', 'renderPos', 'boxViewer', 'hasStrip', 'mesh', 'mat', 'geo', 'tex', 'chargeFx', 'hfx', 'sprite', 'glow', 'waveT', '_aid', 'seen']);
+const SKIP = new Set(['game', 'def', 'asset', 'actor', 'scene', 'renderPos', 'boxViewer', 'hasStrip', 'mesh', 'mat', 'geo', 'tex', 'chargeFx', 'hfx', 'groundMark', 'sprite', 'glow', 'waveT', '_aid', 'seen']);
 const MAX_DEPTH = 8;
 
 const F64 = new Float64Array(1), U32 = new Uint32Array(F64.buffer);

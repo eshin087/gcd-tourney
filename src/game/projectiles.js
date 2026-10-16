@@ -71,11 +71,13 @@ const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpC = new THREE.V
 
 // opts.palette / opts.width: a BEAM CLASH stream (ADR 0027) in its shot's colors; the ultimate beam uses the
 // fighter's def.beam. The palette's `style` picks how it is drawn (STREAM_STYLES, ADR 0034); opts.pose / poseFrame: the
-// pose (and frame) whose drawn hand the stream leaves from (a struggle's `beamStruggle`, the air `throw` release)
+// pose (and frame) whose drawn hand the stream leaves from (a struggle's `beamStruggle`, the air `throw` release).
+// Simulation state only: its mesh is a BeamView (ShotViews, by `id`), so a saved state can bring it back (ADR 0036).
 export class Beam {
   constructor(game, owner, opts = {}) {
     this.game = game;
     this.owner = owner;
+    this.id = game.nextShotId++;
     const o = owner.opp;
     // from the drawn palms of the pose when the art pack marks them
     const H = owner.actor?.hand?.(opts.pose ?? 'beamFire', opts.poseFrame ?? 0);
@@ -97,41 +99,12 @@ export class Beam {
     this.hasHit = false;
     const b = (this.pal = opts.palette ?? owner.def.beam);
     this.width = opts.width ?? b.width ?? ULTIMATE.width; // Hollow Purple is wider
-    // an atlas style needs its band in the atlas; without it (an old pack) the stream falls back to the ribbon
+    // an atlas style needs its band in the atlas; without it (an old pack) the stream falls back to the ribbon. The
+    // atlas the game loaded at startup decides (game.fxMeta), never the effects object, which a rollback swaps out.
     const St = STREAM_STYLES[b.style] ?? STREAM_STYLES.ribbon;
-    this.St = St.fx && !game.fx.meta.anims[St.fx] ? STREAM_STYLES.ribbon : St;
-    if (St !== this.St) console.warn(`[vfx] no ${St.fx} in the atlas: the ${b.style} stream draws as a ribbon`);
+    this.St = St.fx && !game.fxMeta?.anims?.[St.fx] ? STREAM_STYLES.ribbon : St;
+    if (St !== this.St && !game.resim) console.warn(`[vfx] no ${St.fx} in the atlas: the ${b.style} stream draws as a ribbon`);
     if (this.St.width) this.width = this.St.width;
-    this.mat = this.St.fx
-      ? new THREE.ShaderMaterial({
-        uniforms: {
-          map: { value: game.fx.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: this.St.seg },
-          uScroll: { value: 0 }, uFade: { value: 1 }, uGlow: { value: this.St.glow ?? 0.3 },
-          color: { value: this.St.full ? new THREE.Color(0xffffff) : new THREE.Color(b.core).lerp(new THREE.Color(b.mid), this.St.tint ?? 0.5) },
-        },
-        vertexShader: BEAM_VERT,
-        fragmentShader: STREAM_FRAG,
-        side: THREE.DoubleSide,
-        depthWrite: false,
-        transparent: true,
-      })
-      : new THREE.ShaderMaterial({
-        uniforms: {
-          uTime: { value: 0 }, uLen: { value: 1 }, uWidthPx: { value: 1 }, uFade: { value: 1 }, uHot: { value: 1.4 },
-          cCore: { value: new THREE.Color(this.St.orb ? b.mid : b.core) }, cMid: { value: new THREE.Color(b.mid) }, cEdge: { value: new THREE.Color(b.edge) },
-        },
-        vertexShader: BEAM_VERT,
-        fragmentShader: BEAM_FRAG,
-        side: THREE.DoubleSide,
-        depthWrite: false,
-        transparent: true,
-      });
-    const geo = new THREE.PlaneGeometry(1, 1, 1, 1);
-    geo.translate(0.5, 0, 0);
-    this.mesh = new THREE.Mesh(geo, this.mat);
-    this.mesh.renderOrder = 6;
-    this.mesh.matrixAutoUpdate = false;
-    game.scene.add(this.mesh);
     audio.loop('beam' + owner.index, 'beam');
   }
 
@@ -185,69 +158,166 @@ export class Beam {
   kill() {
     if (this.dead) return;
     this.dead = true;
+    audio.stopLoop('beam' + this.owner.index);
+  }
+}
+
+// A beam's ribbon (or atlas stream): the view of a Beam, made and dropped by ShotViews as beams come and go.
+class BeamView {
+  constructor(game, beam) {
+    this.game = game;
+    const b = beam.pal, St = beam.St;
+    this.mat = St.fx
+      ? new THREE.ShaderMaterial({
+        uniforms: {
+          map: { value: game.fx.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: St.seg },
+          uScroll: { value: 0 }, uFade: { value: 1 }, uGlow: { value: St.glow ?? 0.3 },
+          color: { value: St.full ? new THREE.Color(0xffffff) : new THREE.Color(b.core).lerp(new THREE.Color(b.mid), St.tint ?? 0.5) },
+        },
+        vertexShader: BEAM_VERT,
+        fragmentShader: STREAM_FRAG,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        transparent: true,
+      })
+      : new THREE.ShaderMaterial({
+        uniforms: {
+          uTime: { value: 0 }, uLen: { value: 1 }, uWidthPx: { value: 1 }, uFade: { value: 1 }, uHot: { value: 1.4 },
+          cCore: { value: new THREE.Color(St.orb ? b.mid : b.core) }, cMid: { value: new THREE.Color(b.mid) }, cEdge: { value: new THREE.Color(b.edge) },
+        },
+        vertexShader: BEAM_VERT,
+        fragmentShader: BEAM_FRAG,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        transparent: true,
+      });
+    const geo = new THREE.PlaneGeometry(1, 1, 1, 1);
+    geo.translate(0.5, 0, 0);
+    this.mesh = new THREE.Mesh(geo, this.mat);
+    this.mesh.renderOrder = 6;
+    this.mesh.matrixAutoUpdate = false;
+    game.scene.add(this.mesh);
+    this.waveT = -1; // when the last ripple left the orb (render clock)
+  }
+
+  dispose() {
     this.game.scene.remove(this.mesh);
     this.mat.dispose();
     this.mesh.geometry.dispose();
-    audio.stopLoop('beam' + this.owner.index);
   }
 
   // Orient the ribbon along the beam, widened toward the camera.
-  sync(camera, time) {
-    if (this.dead) return;
-    const o = tmpA.copy(this.origin);
+  sync(beam, camera, time) {
+    const o = tmpA.copy(beam.origin);
     o.y += RING_TOP;
     const view = tmpB.copy(camera.position).sub(o).normalize();
-    const side = new THREE.Vector3().crossVectors(this.dir, view).normalize();
-    const normal = new THREE.Vector3().crossVectors(this.dir, side).normalize();
-    const St = this.St;
+    const side = new THREE.Vector3().crossVectors(beam.dir, view).normalize();
+    const normal = new THREE.Vector3().crossVectors(beam.dir, side).normalize();
+    const St = beam.St;
     // an atlas band is as wide as one cell is long (square cells); the ribbon flickers
-    const w = St.fx ? St.seg : this.width * (0.92 + dmath.sin(time * 40) * 0.08);
+    const w = St.fx ? St.seg : beam.width * (0.92 + dmath.sin(time * 40) * 0.08);
     const m = this.mesh.matrix;
-    m.makeBasis(this.dir.clone().multiplyScalar(this.len), side.multiplyScalar(w), normal);
+    m.makeBasis(beam.dir.clone().multiplyScalar(beam.len), side.multiplyScalar(w), normal);
     m.setPosition(o);
     this.mesh.matrixWorldNeedsUpdate = true;
     const u = this.mat.uniforms;
     const fx = this.game.fx;
-    u.uLen.value = this.len;
-    u.uFade.value = Math.max(0, this.fade);
+    u.uLen.value = beam.len;
+    u.uFade.value = Math.max(0, beam.fade);
     if (St.fx) {
       const a = fx.meta.anims[St.fx];
       fx.uv(St.fx, Math.floor((time * 1000) / a.ms) % a.n, u.uvRect.value);
       u.uScroll.value = (time * St.scroll) % St.seg;
     } else {
       u.uTime.value = time;
-      u.uHot.value = this.clash ? 1.1 : 1.4; // in a clash the two streams sit beside the fighters
+      u.uHot.value = beam.clash ? 1.1 : 1.4; // in a clash the two streams sit beside the fighters
     }
     // bulbs at the hands and the head. The hand bulb is small and drawn behind the sprite (fighters are order 2), so
     // it lights the palm without covering the body
-    const color = new THREE.Color(this.pal.mid);
-    const id = this.owner.index;
+    const color = new THREE.Color(beam.pal.mid);
+    const id = beam.owner.index;
     const pulse = 1 + dmath.sin(time * 30) * 0.08;
-    fx.keep('beamO' + id, 'glow', this.origin.x, this.origin.y, this.origin.z, { scale: (this.clash ? 0.34 : 0.5) * pulse * this.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
-    const h = this.head;
+    fx.keep('beamO' + id, 'glow', beam.origin.x, beam.origin.y, beam.origin.z, { scale: (beam.clash ? 0.34 : 0.5) * pulse * beam.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
+    const h = beam.head;
     if (St.orb) {
       // the orb is the technique (Reversal: Red), held just ahead of the fingertips; it pulses on a good beat and
       // sends repulsion ripples down the channel to the struggle point
-      const s = St.orbScale * (this.clash ? 1 + this.clash.kick * 0.2 : 1) * this.fade;
-      const at = 0.3 + 0.2 * s, ox = this.origin.x + this.dir.x * at, oy = this.origin.y + this.dir.y * at, oz = this.origin.z + this.dir.z * at;
+      const s = St.orbScale * (beam.clash ? 1 + beam.clash.kick * 0.2 : 1) * beam.fade;
+      const at = 0.3 + 0.2 * s, ox = beam.origin.x + beam.dir.x * at, oy = beam.origin.y + beam.dir.y * at, oz = beam.origin.z + beam.dir.z * at;
       fx.keep('beamOrb' + id, St.orb, ox, oy, oz, { scale: s, order: 7, glow: 0.3 });
-      if (time - (this.waveT ?? -1) >= St.waveEvery && this.fade > 0.5) {
+      if (time - this.waveT >= St.waveEvery && beam.fade > 0.5) {
         this.waveT = time;
-        const v = Math.max(0.5, this.len - at) / St.waveLife;
-        fx.spawn(St.wave, ox, oy, oz, { scale: 0.32, grow: 2.2, life: St.waveLife, fade: true, vel: [this.dir.x * v, this.dir.y * v, this.dir.z * v], color, opacity: 0.7, order: 6, glow: 0.3 });
+        const v = Math.max(0.5, beam.len - at) / St.waveLife;
+        fx.spawn(St.wave, ox, oy, oz, { scale: 0.32, grow: 2.2, life: St.waveLife, fade: true, vel: [beam.dir.x * v, beam.dir.y * v, beam.dir.z * v], color, opacity: 0.7, order: 6, glow: 0.3 });
       }
-    } else if (!this.clash && !St.fx) {
-      fx.keep('beamH' + id, 'glow', h.x, h.y, h.z, { scale: (this.hitting ? 1.25 : 0.95) * pulse * this.fade, color, opacity: 1, order: 7, glow: 0.4 });
-      fx.keep('beamH2' + id, 'glow', h.x, h.y, h.z, { scale: 0.5 * pulse * this.fade, color: 0xffffff, opacity: 1, order: 8, glow: 0.6 });
+    } else if (!beam.clash && !St.fx) {
+      fx.keep('beamH' + id, 'glow', h.x, h.y, h.z, { scale: (beam.hitting ? 1.25 : 0.95) * pulse * beam.fade, color, opacity: 1, order: 7, glow: 0.4 });
+      fx.keep('beamH2' + id, 'glow', h.x, h.y, h.z, { scale: 0.5 * pulse * beam.fade, color: 0xffffff, opacity: 1, order: 8, glow: 0.6 });
     }
   }
 }
 
+// The shots' visuals, rebuilt from the simulation every render (ADR 0036): a projectile's sprite and glow and a beam's
+// ribbon live here, keyed by the shot's id, so restoring a saved state (a rollback) brings them back or drops them
+// like any other state, and a re-simulated frame never spawns a second one.
+export class ShotViews {
+  constructor(game) {
+    this.game = game;
+    this.shots = new Map(); // projectile id -> { sprite, glow }
+    this.beams = new Map(); // beam id -> BeamView
+  }
+
+  sync(camera, time) {
+    const g = this.game, fx = g.fx, seen = new Set();
+    for (const p of g.projectiles) {
+      if (p.dead) continue;
+      seen.add(p.id);
+      let v = this.shots.get(p.id);
+      if (!v || v.sprite.life < 0) {
+        const P = p.P;
+        v = { sprite: fx.spawn(P.sprite, p.pos.x, p.pos.y, p.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random }) };
+        if (P.glowColor) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
+        this.shots.set(p.id, v);
+      }
+      v.sprite.mesh.position.set(p.pos.x, p.pos.y + RING_TOP, p.pos.z);
+      if (v.glow) v.glow.mesh.position.copy(v.sprite.mesh.position);
+    }
+    for (const [id, v] of this.shots) {
+      if (seen.has(id)) continue;
+      fx.kill(v.sprite);
+      if (v.glow) fx.kill(v.glow);
+      this.shots.delete(id);
+    }
+    seen.clear();
+    for (const b of g.beams) {
+      if (b.dead) continue;
+      seen.add(b.id);
+      let v = this.beams.get(b.id);
+      if (!v) this.beams.set(b.id, (v = new BeamView(g, b)));
+      v.sync(b, camera, time);
+    }
+    for (const [id, v] of this.beams) {
+      if (seen.has(id)) continue;
+      v.dispose();
+      this.beams.delete(id);
+    }
+  }
+
+  // a match ends: every view goes (the effects themselves are cleared with fx.clearAll)
+  clear() {
+    for (const v of this.beams.values()) v.dispose();
+    this.beams.clear();
+    this.shots.clear();
+  }
+}
+
+// Simulation state only: its sprite and glow are drawn by ShotViews, keyed by `id` (ADR 0036).
 export class Projectile {
   constructor(game, owner, type, dir) {
     const P = PROJECTILES[type];
     this.game = game;
     this.owner = owner;
+    this.id = game.nextShotId++;
     this.P = P;
     this.type = type;
     this.name = owner.move?.name ?? owner.def.projectileName ?? type.toUpperCase(); // the BEAM CLASH callout
@@ -258,18 +328,12 @@ export class Projectile {
     this.vel = dir.clone().multiplyScalar(P.speed);
     this.life = P.life;
     this.dead = false;
-    this.sprite = game.fx.spawn(P.sprite, this.pos.x, this.pos.y, this.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random });
-    if (P.glowColor) {
-      this.glow = game.fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
-    }
   }
 
   update() {
     this.pos.addScaledVector(this.vel, DT);
     this.life -= DT;
     const fx = this.game.fx;
-    this.sprite.mesh.position.set(this.pos.x, this.pos.y + RING_TOP, this.pos.z);
-    if (this.glow) this.glow.mesh.position.copy(this.sprite.mesh.position);
     const back = { x: this.pos.x - this.vel.x * 0.03, z: this.pos.z - this.vel.z * 0.03 };
     if (this.P.trail === 'fire' && Math.random() < 0.5) fx.spawn('fire', back.x, this.pos.y, back.z, { scale: 0.7, life: 0.2, fade: true, opacity: 0.8 });
     if (this.P.trail === 'bolt') fx.spawn('lightning', back.x, this.pos.y, back.z, { scale: 0.55, random: true, life: 0.06, color: 0xd8f0ff, rot: Math.random() * 6.28, order: 7, glow: 1.6 });
@@ -330,10 +394,7 @@ export class Projectile {
   }
 
   kill() {
-    if (this.dead) return;
-    this.dead = true;
-    this.game.fx.kill(this.sprite);
-    if (this.glow) this.game.fx.kill(this.glow);
+    this.dead = true; // ShotViews drops its sprite on the next render
   }
 }
 

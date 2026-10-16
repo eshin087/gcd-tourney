@@ -11,7 +11,7 @@ import { ControlBasis } from './basis.js';
 import * as dmath from './dmath.js';
 import { Fighter } from './fighter.js';
 import { makeBrain, DummyBrain } from './ai.js';
-import { Orb, Beam, Vortex, spawnProjectiles } from './projectiles.js';
+import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
 import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage, isEnergy, ENERGY_LOCK } from './kit.js';
@@ -22,11 +22,20 @@ import { Hud, TAGS } from '../ui/hud.js';
 import { Menus } from '../ui/menus.js';
 import { deviceLayout, matchHint, clashHint } from '../ui/controls.js';
 import { ROSTER, getChar } from '../characters/index.js';
-import { loadFighterAsset } from './sprites.js';
+import { loadFighterAsset, actorView } from './sprites.js';
+import { saveState, loadState } from './snapshot.js';
 import { BoxViewer } from './boxViewer.js';
 import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT, MAX_KI } from './constants.js';
 
 const v3 = new THREE.Vector3();
+// Stands in for the HUD, camera, effects, stages and menus while a rollback re-simulates frames that were already shown
+// (Game.quiet, ADR 0036): every call and property read returns itself, so nothing is drawn, announced or shaken twice.
+const NOOP = new Proxy(function () {}, {
+  get: (t, k) => (k === Symbol.toPrimitive ? () => 0 : NOOP),
+  apply: () => NOOP,
+  construct: () => NOOP,
+  set: () => true,
+});
 // one victim's running combo, for the HUD's ticker and rating (Game.trackCombos, ADR 0026)
 const newCombo = () => ({ hits: 0, dmg: 0, kinds: new Set(), wall: 0, ground: 0, vanish: 0, start: 0 });
 
@@ -96,6 +105,9 @@ export class Game {
     this.fx = new Effects(this.scene);
     this.cam = new CameraDirector(this.camera);
     this.basis = new ControlBasis(); // the screen axes the simulation reads (ADR 0036): the camera follows it, not the other way round
+    this.shotViews = new ShotViews(this); // the shots' sprites and beam ribbons, rebuilt from the simulation each render
+    this.nextShotId = 0; // per match: shots are keyed by id so a restored state finds its views again
+    this.resim = false; // true while Game.quiet re-simulates frames that were already shown
     const ui = document.getElementById('ui');
     this.hud = new Hud(ui);
     this.menus = new Menus(ui, this);
@@ -146,6 +158,7 @@ export class Game {
   async init() {
     await loadArtIndex();
     await this.fx.loadCustom();
+    this.fxMeta = this.fx.meta; // the atlas a beam's style checks (never the effects object, which Game.quiet swaps out)
     await this.fx.ground.loadCustom();
     const crowd = await loadCrowdAtlas();
     if (crowd) {
@@ -204,6 +217,7 @@ export class Game {
     this.hud.setup(this.fighters, assets, matchHint(cfg.mode, deviceLayout(this.input)));
     this.round = 1;
     this.frameNo = 0; // per match: cooldown stamps and beam-clash charts read it, and every machine must agree
+    this.nextShotId = 0;
     this.basis.reset();
     this.resetRound();
     this.beginIntro();
@@ -236,6 +250,7 @@ export class Game {
     this.input.flush(); // training goes live at once (no intro): the menu confirm press must not act
     this.hud.setup(this.fighters, assets, '');
     this.frameNo = 0;
+    this.nextShotId = 0;
     this.basis.reset();
     this.resetRound();
     this.setState('training');
@@ -261,6 +276,7 @@ export class Game {
 
   // 'arena' (tournament grounds) or 'training' (holographic practice room)
   setStage(kind) {
+    this.stageKind = kind;
     this.arena.group.visible = kind === 'arena';
     this.room.group.visible = kind === 'training';
     this.voidStage.group.visible = kind === 'void';
@@ -379,6 +395,7 @@ export class Game {
     audio.stopAllLoops();
     audio.clearMusicDucks();
     this.fx.clearAll();
+    this.shotViews.clear();
     this.hud.clash(false);
     this.hud.clearAnnounce();
     this.hud.show(false);
@@ -416,6 +433,7 @@ export class Game {
     audio.stopAllLoops();
     audio.clearMusicDucks();
     this.fx.clearAll();
+    this.shotViews.clear();
     this.timeLeft = ROUND_TIME;
     this.timeScale = 1;
     this.slowT = 0;
@@ -588,6 +606,57 @@ export class Game {
     this.flow();
   }
 
+  // ------------------------------------------------------------ rollback (ADR 0036)
+  // A saved simulation state (snapshot.js) and its restore. After a restore the view catches up on the next render
+  // (syncView): stage, clash camera and bar, the beam / orb / clash hums.
+  saveState() {
+    return saveState(this);
+  }
+
+  loadState(S) {
+    loadState(this, S);
+    this.viewDirty = true;
+  }
+
+  // Runs fn (fixed steps a rollback re-simulates) with the view stood in for: no sound, effect, HUD call, camera move,
+  // stage change or menu happens twice for a frame the player already saw.
+  quiet(fn) {
+    const view = { hud: this.hud, cam: this.cam, fx: this.fx, arena: this.arena, room: this.room, voidStage: this.voidStage, menus: this.menus };
+    Object.assign(this, { hud: NOOP, cam: NOOP, fx: NOOP, arena: NOOP, room: NOOP, voidStage: NOOP, menus: NOOP });
+    this.resim = audio.quiet = actorView.quiet = true;
+    try {
+      return fn();
+    } finally {
+      Object.assign(this, view);
+      this.resim = audio.quiet = actorView.quiet = false;
+      this.viewDirty = true;
+    }
+  }
+
+  // The view follows the simulation where events alone can't keep it right after a rollback: the stage every frame,
+  // and once after a restore the clash camera and bar and the looping hums.
+  syncView() {
+    const stage = this.domain ? 'void' : this.training ? 'training' : 'arena';
+    if (this.fighters.length === 2 && stage !== this.stageKind) this.setStage(stage);
+    if (!this.viewDirty) return;
+    this.viewDirty = false;
+    const c = this.clash;
+    if (!c) {
+      this.hud.clash(false);
+      if (this.cam.mode === 'clash') this.cam.set('fight');
+    }
+    for (const f of this.fighters) {
+      const i = f.index;
+      if (this.beams.some((b) => !b.dead && b.owner === f)) audio.loop('beam' + i, 'beam');
+      else audio.stopLoop('beam' + i);
+      if (this.orbs.some((o) => !o.dead && o.owner === f)) audio.loop('orb' + i, 'beam');
+      else audio.stopLoop('orb' + i);
+      if (f.state !== 'charge') audio.stopLoop('charge' + i);
+    }
+    if (c && !c.lite) audio.loop('clash', 'clash');
+    else audio.stopLoop('clash');
+  }
+
   stepWorld() {
     this.frameNo++;
     this.basis.step(this.fighters); // the axes this frame's inputs and lanes read, from where the fighters ended last frame
@@ -739,6 +808,7 @@ export class Game {
 
   // `frozen`: a super flash or special clash holds the world (f.t stands still), so effects only refresh
   fxTicks(frozen = false) {
+    if (this.resim) return; // all effects: a re-simulated frame was already drawn
     let lines = 0;
     for (const f of this.fighters) {
       if (f.state !== 'charge') chargeEnd(this, f);
@@ -890,7 +960,7 @@ export class Game {
     audio.play(heavy ? 'smash' : 'hitHeavy', Math.min(1.3, 0.8 + 0.1 * n));
     audio.play('block');
     if (n >= 2) audio.play('cheer', Math.min(1.2, 0.2 + 0.2 * n));
-    this.hud.announce(n > 1 ? `CLASH ×${n}!` : 'CLASH!', 'clash-call', 650);
+    this.tag(this.fighters[1], n > 1 ? 'clash' + n : 'clash'); // a right-hand side banner like TECH!, off the action
   }
 
   // what every melee clash shares: the push-in on the contact, speed lines on it and a dimmed stage for `frames` sim
@@ -916,7 +986,7 @@ export class Game {
     audio.play('cheer', 1.4);
     this.cam.shake(0.9);
     this.excite = 1;
-    this.hud.announce('CLASH BREAK!', 'clash-call', 1100);
+    this.tag(this.fighters[1], 'clashBreak');
   }
 
   // a heavy that met a light blows through it (the hit itself follows in resolveMelee)
@@ -2085,7 +2155,8 @@ export class Game {
         if (this.showBoxes) f.boxViewer.update(DEFAULT_HURT);
       }
     }
-    for (const b of this.beams) b.sync(this.camera, this.time);
+    this.shotViews.sync(this.camera, this.time);
+    this.syncView();
     if (!this.paused) {
       this.fx.update(dt * Math.max(0.4, this.timeScale), this.camera);
       if (this.fx.overlay.lines > 0.02 && this.linesFocus) {
