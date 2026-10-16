@@ -542,7 +542,7 @@
           ],
           "required": true,
           "step": 8,
-          "status": "packed",
+          "status": "needs review",
           "version": 10,
           "approvedVersion": 6
         },
@@ -557,7 +557,7 @@
           ],
           "required": false,
           "step": 9,
-          "status": "packed",
+          "status": "needs review",
           "version": 7,
           "approvedVersion": 4
         },
@@ -571,7 +571,7 @@
           ],
           "required": false,
           "step": 9,
-          "status": "raw",
+          "status": "needs review",
           "version": 12,
           "approvedVersion": 9
         },

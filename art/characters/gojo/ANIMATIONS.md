@@ -196,9 +196,10 @@ QA: with his long legs the flight stride is about 165 px wide; keep it inside x 
 Two-frame low burst-lunge toward screen-right, using the approved run v14 as its pose and anatomy
 reference. Keep the far/left hand in his pocket and the near/right arm bent with the fist forward in
 both frames. Torso leans forward; head and shoulders stay low while the lead knee drives under the
-chest and the rear leg extends behind. No aura, trail, smear effect or speed lines. Dash v10 attempt 3
-is held in `raw/_qa_hold/`: its auto-head fit clips frame 1 by 12 px at the right edge. Approved dash
-v06 remains the packed version. See the dashes attempt inventory and handoff for remaining calibration.
+chest and the rear leg extends behind. No aura, trail, smear effect or speed lines. Dash v10 (attempt 3)
+is the current unapproved candidate: auto-head fit x1.2626 (head 1.00 of idle); the sidecar frameOffsets
+hold the head at x 166 (the foot-centre anchor slid it 76 px and clipped f1 12 px). Approved dash v06 stays
+approved until the user reviews v10.
 
 - **f0**: low burst-lunge, far hand pocketed, near fist forward, rear leg extended.
 - **f1**: wider stride with the lead knee driven forward; keep both legs identifiable and leave safe
@@ -210,7 +211,7 @@ v06 remains the packed version. See the dashes attempt inventory and handoff for
 
 Three-frame hop backward toward screen-left while still facing right in 3/4 view. Keep the far/left
 hand pocketed and the near/right fist forward. BackDash v07 is the current unapproved candidate, packed
-after auto-head fit x0.8569; Claude's final offsets and contact checks remain pending.
+after auto-head fit x0.8569; the sidecar frameOffsets lift f1 25 px so the tucked frame is airborne.
 
 - **f0**: push-off, knees bent, facing right; far hand remains pocketed and the near fist stays forward.
 - **f1**: airborne with both feet off the floor and knees tucked; hair and hem whip forward.
@@ -223,9 +224,10 @@ after auto-head fit x0.8569; Claude's final offsets and contact checks remain pe
 Two-frame fast flight toward screen-right, angled about 30° upward and stretched thinner than tall.
 Keep the far/left hand in the pocket and the near/right arm bent with the fist forward. Drive the lead
 knee forward-up while the rear leg extends back, keeping both legs distinct. Head stays up with the
-blindfold and lazy smile; no aura or trail. SuperDash v12 attempt 3 is held in `raw/_qa_hold/`: head
-and feet read 0.91 and 0.79 of idle, and frame 1 clips 4 px at the right edge. Approved superDash v09
-remains packed. See the dashes attempt inventory and handoff.
+blindfold and lazy smile; no aura or trail. SuperDash v12 (attempt 3) is the current unapproved
+candidate: auto-head fit x1.1001 (head 0.91 before the fit); the sidecar frameOffsets centre the ~174 px
+shape (head at x 168) and fix the 5 px and 17 px right-edge clips. Approved superDash v09 stays approved
+until the user reviews v12.
 
 - **f0**: flight pose with hair crown flattened back and jacket hem streaming behind.
 - **f1**: knees bent slightly more and apart; hem flutters differently; keep every limb inside the cell.
