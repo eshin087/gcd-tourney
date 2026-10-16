@@ -4,7 +4,7 @@ No new image calls. Fifteen of eighteen source slots now have versioned reassemb
 
 ## Review
 
-Committed preview: pending publication. Review entry: /characters/goku/calibration-r2/reassembly/index.html; separate pilot comparison: /characters/goku/calibration-r2/index.html. These are diagnostic galleries, not a cleared gameplay atlas. Raw source candidates remain local in the task worktree because the slim PR/export excludes raw art.
+Committed preview: [Goku reassembly gallery](https://gcd-tourney-97ul7l7o2-eshin087s-projects.vercel.app/characters/goku/calibration-r2/reassembly/index.html) (source7f934fda; Vercel login required). Review entry: /characters/goku/calibration-r2/reassembly/index.html; separate pilot comparison: /characters/goku/calibration-r2/index.html. These are diagnostic galleries, not a cleared gameplay atlas. Raw source candidates remain local in the task worktree because the slim PR/export excludes raw art.
 
 Astra inspected every frame in the final 48-color fixture: 81 frames, 16 animations. Final sheet SHA256 c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0; metadata dec929ae11544546e7a8a8f3c23c860ffa33f4844882bfda2cc9313d7cab9167. Full evidence is in art/characters/goku/production/manual-audit-r2/REASSEMBLY_R02_FINAL_AUDIT.md and the gallery reports.
 

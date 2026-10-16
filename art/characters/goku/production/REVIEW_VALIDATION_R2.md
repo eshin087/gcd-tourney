@@ -17,3 +17,7 @@
 
 - Final gallery version/absence labels and final Astra report links verified after reload.
 - Adapter production build passed. Public fixture2 atlas/metadata/final audit copies match source SHA256 exactly; browser-open EBUSY recopy did not alter them.
+
+## Hosted delivery
+
+Preview https://gcd-tourney-97ul7l7o2-eshin087s-projects.vercel.app/characters/goku/calibration-r2/reassembly/index.html from committed source 7f934fda; PR #123. Hosted browser reaches Vercel sign-in, so hosted playback was not repeated. Existing-auth Vercel fetch of FINAL_AUDIT.md matches committed LF bytes SHA256 5888caf794e675305f05c1c19171539b421d032460cb399c464e987464df90fc. No protection setting changed.
