@@ -12,8 +12,10 @@ central chat: it asks the user every approval and decision, gives the overview a
 instructions to you. **The Codex control chat ("0 - G") and its attention monitor are retired**: no Codex chat
 coordinates, monitors, or asks the user to approve or decide. When the user must act, leave it for the central
 chat: `node tools/relay.mjs ring <lane> --for user --kind approval|decision|blocked --note "<what exactly; versions;
-holds; direct preview link>"`, then stop on that item (`node tools/relay.mjs asks` lists the queue). In your status
-lines, point the user to Claude `0 - Approvals`. Deleted chats do not erase task records or approve work.
+holds; direct preview link>"`, then stop on that item (`node tools/relay.mjs asks` lists the queue). **No lane
+for your chat?** (a new chat, nobody ran `relay add` for it) use `node tools/relay.mjs ask --app codex --from "<your exact
+chat title as the app shows it>" --kind approval|decision|blocked --note "<same>"` instead; the desk maps your chat by
+that title when it answers. In your status lines, point the user to Claude `0 - Approvals`. Deleted chats do not erase task records or approve work.
 
 ## Agent model selection (user direction, 2026-10-12)
 

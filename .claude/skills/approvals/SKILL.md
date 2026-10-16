@@ -103,6 +103,10 @@ monitor are retired, so status and forwarding are yours too. Run every relay com
 
 ## Status, forwarding and health (central chat, OPS-016)
 
+- **Codex chats with no lane** (`relay status` prints "Codex chats with NO lane"): they can't ring, so tell the user
+  once and offer to map them (`relay add <lane> "<title>"`, then `send <lane> --direct` the rules). A Codex chat that
+  already asked with `relay ask --app codex` needs nothing: `relay answer` maps it by title when you answer.
+
 - **"status"**: run `npm run status` and `node tools/relay.mjs status`; answer in under 10 lines: Needs you, Waiting
   for Claude, Codex working, Finished, plus watchers off on Claude's turn, paused lanes, lanes at the round-trip limit.
 - **"tell / ask the <x> chat ..."**: forward the user's words to the verified lane, `node tools/relay.mjs send <lane>
