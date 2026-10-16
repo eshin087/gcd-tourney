@@ -15,6 +15,16 @@ How it works:
 
 ---
 
+## Goku/Luffy: all remaining core drawings approved (2026-10-16, relay #14) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." Exact versions are in the new shared REVIEW.md section and the final full-set handoff. All 23 core drawings per fighter are now user-approved when combined with prior approvals; runtime/integration checks remain separate. No new image calls.
+
+- [x] Recorded all 35 exact approvals in main's shared REVIEW.md and resumed the existing Luna/medium fighter workers in their own worktrees.
+- [ ] Update branch manifest approvedVersions, TRACKER, REVIEW_ROWS and preview labels; preserve versions and reproduce the audited atlas bytes.
+- [ ] Run both merge guards against committed branch heads, publish updated PRs/previews, commit combined handoff and ring Claude for runtime checks and integration.
+
+---
+
 ## Goku/Luffy: final repairs approved (2026-10-16, relay #12) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **USER APPROVAL via Claude:** "Approve Goku light3 v13 and Luffy special v02 as drawn." Exactly these two drawings are approved. No new calls are authorized.
