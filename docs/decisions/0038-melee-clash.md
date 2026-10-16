@@ -46,7 +46,8 @@ After the second preview the user dropped the slow-mo and asked for a pushback i
    swings room to meet; with none, a chain glued the fighters together. An air clash hops a little and lands with
    2 frames of lag.
 5. **The chain.** A clash within `chainGap` (80) frames of the last one adds to `Game.meleeChain`. Each step grows the
-   spray, the shockwave and the push-in, the crowd cheer and the `CLASH ×n!` banner, and pays both fighters
+   spray, the shockwave and the push-in, the crowd cheer and the `CLASH ×n!` side banner (right-hand stack, like TECH!; the next count
+   replaces it, so the text never covers the strikes), and pays both fighters
    `ki[class]` × (1 + `kiPer` × (n − 1)). The `finale`-th (5th) clash is **CLASH BREAK!**: the biggest spray, smoke
    and a crater, and both skid far back on their feet (`breakPush`: 18 frames held, 13 units/s, about a unit each,
    free to act after 12 frames): no damage and no knockdown.

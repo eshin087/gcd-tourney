@@ -31,6 +31,13 @@ export const TAGS = {
   relaunch: { text: 'RELAUNCH!', color: '#ffb43a', excite: 0.3 },
   vanish2: { text: 'VANISH ×2!', color: null, excite: 0.4 },
   vanish3: { text: 'VANISH ×3!', color: null, big: true, excite: 0.6 },
+  // melee clash (ADR 0038): a side banner on the right, so the text never covers the two fighters' strikes; one
+  // `group` keeps a single banner up (the next count replaces it instead of stacking)
+  clash: { text: 'CLASH!', color: '#ffd98a', excite: 0.25, group: 'clash' },
+  clash2: { text: 'CLASH ×2!', color: '#ffd98a', excite: 0.3, group: 'clash' },
+  clash3: { text: 'CLASH ×3!', color: '#ffc45a', excite: 0.4, group: 'clash' },
+  clash4: { text: 'CLASH ×4!', color: '#ffb43a', excite: 0.5, group: 'clash' },
+  clashBreak: { text: 'CLASH BREAK!', color: '#ff9a3a', big: true, excite: 0.7, group: 'clash' },
 };
 // the end-of-combo rating (ADR 0026): by hits, plus STYLISH! for 4+ different techniques in it
 const RATINGS = [[20, 'LEGENDARY'], [15, 'AMAZING'], [10, 'GREAT']];
@@ -335,6 +342,10 @@ export class Hud {
     if (!T || !box) return;
     const e = h('div', 'tag' + (T.big ? ' big' : T.small ? ' small' : ''), `<span>${T.text}</span>`);
     e.style.setProperty('--cc', color);
+    if (T.group) {
+      e.dataset.group = T.group;
+      for (const old of box.querySelectorAll(`[data-group="${T.group}"]`)) old.remove();
+    }
     e.addEventListener('animationend', (ev) => { if (ev.target === e) e.remove(); });
     box.prepend(e);
     while (box.children.length > TAG_STACK) box.lastChild.remove();

@@ -12,6 +12,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Added: rollback groundwork (ENG-092, ADR 0036): `Game.saveState()` / `loadState()` (`src/game/snapshot.js`), `Game.quiet()` for silent re-simulation, shots drawn from state by `ShotViews` (projectiles keyed by id, beam meshes in `BeamView`), and a rollback stress test (`det.replay(log, { rollback })`, also on the `?det=` page): four pairings stay frame-exact through 500-1,000 rewinds.
+- Changed: the melee clash's CLASH! / CLASH ×n! / CLASH BREAK! text is a right-hand side banner like TECH! (each count replaces the last) instead of a center-screen callout over the fighters (ENG-096, ADR 0038).
 
 - Changed: Gojo's dash, backDash and superDash are redrawn in the new run's pose (ART-GOJO-RUN-JKL): far hand in his pocket, near fist forward. Dash v10, backDash v07 and superDash v12 approved by the user via the approvals desk and passed by the Astra audit (dash with a comparison note). SuperDash drops the open palm. Sidecar frameOffsets hold the head steady and lift backDash's tucked frame.
 - Added: Gojo dash-family candidates in the approved run v14 pose (ART-GOJO-RUN-JKL): backDash v07 is packed for technical review with an Astra HOLD on tucked-frame placement and uncertain occluded anatomy; dash v10 and superDash v12 remain quarantined after clipping/scale failures. No image approval or production promotion.
