@@ -655,7 +655,7 @@ Branch `art/gojo-dashes`, worktree `.worktrees/art-gojo-dashes`. New candidates:
 - **dash v10:** all three calls used. Attempt 3's auto-head fit x1.2626 clipped frame 1 by 12 px; candidate is in `_qa_hold/`; approved dash v06 remains packed.
 - **superDash v12:** all three calls used. Attempt 3 reads head 0.91 / feet 0.79 of idle and clips frame 1 by 4 px; candidate is in `_qa_hold/`; approved superDash v09 remains packed.
 
-Machine manifest versions reflect the latest candidates while preserving approvedVersion, bodyHeight, frame offsets and hitboxes. No user approval, merge or production deployment. Preview package: `public/reviews/gojo-dashes/index.html`. `npm run build` and local browser QA status to follow before commit. Claude owns contact/root placement and any calibration; do not spend new calls without a new authorization. Review rows and attempt provenance: `art/characters/gojo/REVIEW_ROWS.md` and `production/dashes/ATTEMPT_INVENTORY.md`.
+Machine manifest versions reflect the latest candidates while preserving approvedVersion, bodyHeight, frame offsets and hitboxes. No user approval, merge or production deployment. Build passes locally and on the Vercel preview. The phone-first preview is [Gojo dash family](https://gcd-tourney-p0i2vm96d-eshin087s-projects.vercel.app/reviews/gojo-dashes/) (PR #124); browser playback/live game QA could not be verified from this environment. Claude owns contact/root placement and any calibration; do not spend new calls without a new authorization. Review rows and attempt provenance: `art/characters/gojo/REVIEW_ROWS.md` and `production/dashes/ATTEMPT_INVENTORY.md`.
 
 ---
 
