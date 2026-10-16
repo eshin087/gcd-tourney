@@ -2,6 +2,8 @@
 
 Auditor: GPT-6 Astra, medium. Overall HOLD; no image approvals and no manifest `scaleManualQA` passes assigned. This report supersedes stale/downsampled evidence only for the exact source hashes in [inventory.json](inventory.json). Special remains blocked: the one newly authorized generation attempt was used but its image was not retained. There is no special v02 to audit; no regeneration was attempted here.
 
+**2026-10-15 recovery addendum (Luna, not an Astra re-audit):** the exact third-call image was recovered at `../recovered-special-v02/returned-source.png`. Both panels are guard poses and do not supply the required f6 mid-retraction/f7 upright return. It remains source evidence, not a viable special v02 or an audited candidate. No new call was made. This supersedes only the lost-file status above.
+
 ## Evidence and reproduction
 
 Run `node art/characters/luffy/production/native-audit-20261015/render-native.mjs` from this worktree to reproduce the diagnostic, then `node art/characters/luffy/production/native-audit-20261015/measure-landmarks.mjs` for the annotated manual readings. These commands write only this directory. They do not invoke the production pack, modify source art, write public/, change gates, or record exemptions.
