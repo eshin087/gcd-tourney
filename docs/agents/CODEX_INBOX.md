@@ -174,6 +174,8 @@ public/reviews/gojo-run-jkl/**, public/characters/gojo/** via the packer, the go
 "## gojo" section of art/TRACKER.md; never overwrite an existing `_vNN`; no merge, no production deploy, no approvals).
 Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
 
+**BLOCKED (2026-10-15):** Phase 2 preview is live at https://gcd-tourney-ncaxh7yr0-eshin087s-projects.vercel.app/reviews/gojo-run-jkl/ (PR #102). No production strip is review-ready. Run v13, dash v07-v09, backDash v05-v06 and superDash v10-v11 exhausted their 3-call budgets; run has no saved candidate, and Astra held the audited dash atlas. See the committed attempt inventory and Astra audit in `.worktrees/art-gojo-run`. Waiting for the user's decision on whether to authorize a new repair round; no relay ring.
+
 ---
 
 ## Gojo running: new run + dashes, studies first (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
