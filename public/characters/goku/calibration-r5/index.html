@@ -65,14 +65,16 @@ fetch('data.json').then(r=>r.json()).then(data=>{
  const $=id=>document.getElementById(id);const select=$('move');
  $('drawingApproval').textContent=data.status.drawingApproval;$('technicalAudit').textContent=data.status.technicalAudit;$('holdDecision').textContent=data.status.holdDecision;
  for(const name of Object.keys(data.animations)){const o=document.createElement('option');o.value=name;o.textContent=`${name} v${String(data.animations[name].version).padStart(2,'0')}`;select.append(o)}
- let idx=0,playing=true,timer=null;
+  let idx=0,playing=false,timer=null;
  const framePath=(name,i)=>data.animations[name].framePaths?.[i]||`assets/frames/${name}-f${String(i).padStart(2,'0')}.png`;
+  const controls=[select,$('play'),$('replay'),$('prev'),$('next')];for(const control of controls)control.disabled=true;
+  const preloads=Object.values(data.animations).flatMap(a=>a.framePaths||[]).map(src=>{const image=new Image();image.src=src;return image.decode()});
  function stage(a,i){let total=0;for(let p=0;p<a.phases.length;p++){total+=a.phases[p];if(i<total)return ['startup','active','recovery'][p]||`phase ${p+1}`}return 'phase'}
  function render(){const name=select.value,a=data.animations[name],src=framePath(name,idx);$('candidate').src=src;$('zoom').src=src;$('caption').textContent=`Frame ${idx+1}/${a.frameCount} · ${a.durationsMs[idx]} ms · ${a.loop?'loop':'one-shot'} · x${a.densityFactor}`;$('phase').textContent=`${stage(a,idx)} · phases ${a.phases.join('/')}`;
  const strip=$('contactWrap');strip.replaceChildren();const img=document.createElement('img');img.src=a.contact||`assets/${name}-contact.png`;img.alt=`All ${a.frameCount} ${name} frames`;strip.append(img);
  }
  function schedule(){clearTimeout(timer);render();if(!playing)return;const a=data.animations[select.value];timer=setTimeout(()=>{if(idx+1<a.frameCount){idx++;schedule()}else{playing=false;$('play').textContent='Play';render()}},a.durationsMs[idx])}
- select.onchange=()=>{idx=0;playing=true;$('play').textContent='Pause';schedule()};$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'Pause':'Play';schedule()};$('replay').onclick=()=>{idx=0;playing=true;$('play').textContent='Pause';schedule()};$('prev').onclick=()=>{const a=data.animations[select.value];idx=(idx+a.frameCount-1)%a.frameCount;schedule()};$('next').onclick=()=>{const a=data.animations[select.value];idx=(idx+1)%a.frameCount;schedule()};schedule();
+  select.onchange=()=>{idx=0;playing=true;$('play').textContent='Pause';schedule()};$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'Pause':'Play';schedule()};$('replay').onclick=()=>{idx=0;playing=true;$('play').textContent='Pause';schedule()};$('prev').onclick=()=>{clearTimeout(timer);playing=false;$('play').textContent='Play';const a=data.animations[select.value];idx=(idx+a.frameCount-1)%a.frameCount;render()};$('next').onclick=()=>{clearTimeout(timer);playing=false;$('play').textContent='Play';const a=data.animations[select.value];idx=(idx+1)%a.frameCount;render()};Promise.all(preloads).then(()=>{for(const control of controls)control.disabled=false;playing=true;schedule()}).catch(e=>{document.body.insertAdjacentHTML('beforeend',`<p class="state">Candidate frames could not be decoded: ${String(e)}</p>`)})
 }).catch(e=>{document.body.insertAdjacentHTML('beforeend',`<p class="state">Gallery data could not be loaded: ${String(e)}</p>`)});
 </script>
 <script>
