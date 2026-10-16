@@ -126,6 +126,12 @@ const late = spawnSync(process.execPath, ['-e', `
 `], { encoding: 'utf8' });
 const lateResult = JSON.parse(late.stdout.trim().split('\n').pop() || '{}');
 check(lateResult.code === 0 && /#2 .*late/.test(lateResult.out), 'wait: a ring while it watches wakes it');
+// Claude read a ring by hand (no watcher), then sent: the next watcher waits for Codex's reply to that send.
+relay(['ring', 'goku', '--note', 'read by hand']);
+const seenSeq = (lane) => (fs.existsSync(path.join(HOME, lane, 'seen.json')) ? state(lane, 'seen').seq : 0);
+check(relay(['send', 'goku']).code === 0 && seenSeq('goku') === state('goku', 'ring').seq, 'send: answers every ring before it');
+r = relay(['wait', 'goku', '--timeout', '200ms', '--interval', '50ms']);
+check(r.code === 2, 'wait: a ring answered by a send does not wake the next watcher');
 
 // ---- pause
 relay(['pause', 'scale']);
