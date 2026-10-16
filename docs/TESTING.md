@@ -622,7 +622,7 @@ split around frame 96 (round flow on wall-clock time, ADR 0036). Cross-browser (
 A split inside a window the fixture has a trace for (`log.traces`, added with `det.addTrace(log, from, to)` then
 `det.save(log)`) also prints the first differing frame, the fields and that browser's values; compare them with
 `det.replay(log, { stopAt: k + 1, dumpAt: k })` here. Compare the per-frame hashes, never the final result: a
-split replay usually still ends with the same winner and HP. After a change to the simulation, re-record the fixtures
+split replay usually still ends with the same winner and HP. Each fixture records the simulation fingerprint it was made on (`import.meta.env.SIM_ID`, a hash of `src/game`, `src/characters`, the input, hash and math code and every `anims.json`; `vite.config.js` simId); a build with other gameplay code prints STALE FIXTURE above the verdict. After a change to the simulation, re-record the fixtures
 (`det.record({ ..., fixedBasis: true, detMath: true, name })`, `det.save(det.last)`), re-add their traces, and commit them with the
 change.
 
