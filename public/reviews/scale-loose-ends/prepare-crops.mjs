@@ -7,7 +7,7 @@ import { PNG } from 'pngjs';
 const root = path.dirname(fileURLToPath(import.meta.url));
 const dataPath = path.join(root, 'review-data.json');
 const data = JSON.parse(await readFile(dataPath, 'utf8'));
-const cropRoot = path.join(root, 'crops');
+const cropRoot = path.join(root, 'crops', 'calibrated');
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const sourceCache = new Map();
 const cropRecords = [];
@@ -102,7 +102,7 @@ for (const group of data.groups) {
     item.durations = animation.durations;
     item.loop = animation.loop === true;
     item.oneShot = !item.loop;
-    item.preview = `crops/${safeSegment(group.id)}/${safeSegment(item.animation)}.png`;
+    item.preview = `crops/calibrated/${safeSegment(group.id)}/${safeSegment(item.animation)}.png`;
     await writeCells(sourceKey, item.animation, animation.frames, item.preview);
     if (item.baseAnimation) {
       const baseKey = item.baseSourceKey || sourceKey;
@@ -110,7 +110,7 @@ for (const group of data.groups) {
       const base = baseMetadata.animations[item.baseAnimation];
       if (!base?.frames?.length) throw new Error(`Base animation ${item.baseAnimation} missing from ${sourceKey}`);
       item.baseSourceFrames = base.frames;
-      item.basePreview = `crops/${safeSegment(group.id)}/base-${safeSegment(item.baseAnimation)}.png`;
+      item.basePreview = `crops/calibrated/${safeSegment(group.id)}/base-${safeSegment(item.baseAnimation)}.png`;
       await writeCells(baseKey, item.baseAnimation, base.frames, item.basePreview);
     }
   }
