@@ -48,8 +48,8 @@ pose inside the frame at true idle density; exactly one Luffy special call (fift
 references and original f0-f5 preserved. Failed calls count. This is call permission, not image approval.
 
 - [x] Record permission and resume the existing Luna/medium fighter workers; preflight prompt, reference count and output-path capture before each call.
-- [ ] Use one call per repair, preserve versions and exact source provenance, then assemble at measured density.
-- [ ] Obtain Astra/medium final quantized anatomy/scale audit; retain any technical holds and publish committed previews/PR records.
+- [x] Used exactly one call per repair (Goku cumulative 6, Luffy cumulative 5); preserved returned-source receipts and all versions. Goku source v12/assembly v13; Luffy special v02 with original source A preserved (2026-10-16).
+- [x] Astra/medium passed all 216 actual final quantized frames; each strict atlas has 23 core animations/108 frames/48 colors. Committed previews and PR rows published; parent independently matched hosted atlas/meta hashes. Goku PR #123 preview source 3bc9169b, Luffy PR #96 source c85c1e71. New drawings remain unapproved; browser transport unavailable, so current interactive/runtime QA is not claimed (2026-10-16).
 - [ ] Commit handoff and ring goku-luffy for the user with exact versions, findings and direct review links. No further calls are authorized.
 
 Goku heavy v14 and Luffy down/getup v03 remain approved via relay #10. Their drawings are unchanged by this scope.

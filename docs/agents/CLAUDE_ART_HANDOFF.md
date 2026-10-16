@@ -1,3 +1,48 @@
+# Codex: Goku light3 v13 and Luffy special v02 ready for approval (2026-10-16, relay #11)
+
+**USER DECISION via Claude:** "Goku luffy retry" authorized exactly one call for each repair. Both calls succeeded: Goku light3 cumulative call 6/6; Luffy special cumulative call 5/5, with five references and the original six attack poses preserved. No new drawing approval is inferred. No further calls are authorized.
+
+| Candidate | Worktree / branch / PR | Art and preview source | Direct review |
+|---|---|---|---|
+| Goku light3 v13 | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core`; `art/goku-core`; [PR #123](https://github.com/eshin087/gcd-tourney/pull/123) | Art `42877bd6`, gallery preload `3bc9169b` (preview source); delivery docs `d0124ae8` | [Goku r5](https://gcd-tourney-9rbjxyx11-eshin087s-projects.vercel.app/characters/goku/calibration-r5/index.html) |
+| Luffy special v02 | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-luffy-core`; `art/luffy-core`; [PR #96](https://github.com/eshin087/gcd-tourney/pull/96) | Art and preview source `c85c1e71`; final docs/status `cf5a2d91`; published slim `1cbbef11` | [Luffy r6](https://gcd-tourney-j45zd4bei-eshin087s-projects.vercel.app/characters/luffy/calibration-r6/index.html) |
+
+## Result and exact final pixels
+
+Each real strict quantized pack contains **23 core animations / 108 frames / 48 colors**, with no missing CORE animation. GPT-6 Astra (medium) inspected all 216 final frames, visible anatomy/build/clothing, static consecutive poses and loop/recovery relationships. **Both repairs PASS within recorded measurement uncertainty.** Hidden joints remain unmeasured; no head-probe result substitutes for the body audit.
+
+| Published file | SHA256, independently matched through authenticated hosted retrieval |
+|---|---|
+| Goku sheet.png | `ebb27850371179a0fdc9da5d76816ebdb52b747712643b60cd40e14bfe6460ca` |
+| Goku anims.json | `b43af90a609dc0a36e688bad916c50694962ce2fced6fb02384cd400bcd814ca` |
+| Luffy sheet.png | `e8d5ba9f95a833af82bd13441d3099d15cf44449573e15db5af404f01eb92ce0` |
+| Luffy anims.json | `7acf280f3c8a7b7b7f2ae8ec75119d8bc61c42e507faaa6ae14a1ee84816ebcd` |
+
+Goku's seven new cells show guard, knee chamber, two stomach-height kick extensions, bent-knee retraction and guard recovery. Immutable returned source v12 becomes the measured v13 assembly at uniform factor .696133. Actual pack scale is x1, corroborated by integer-only mask registration. The early 237/238 cap hypothesis was not applied: the packer's native tolerance preserves the 238 px source extent at bodyHeight 237. The first invalid fixture was rejected and is explicitly superseded in the final report. There is no remaining calibration exception for this candidate. The narrow top margin preserves complete anatomy.
+
+Luffy's new f6 contracts the stretched arm (projected shoulder-to-fist reach about 107→78 px, ±5 px endpoints), then f7 returns to guard. Final f7 torso 38.8±5 px and shin 52.8±6 px compare with idle 41.5±6 px and 52.8±6 px. The original source A is byte-identical; registered f0-f5 crops keep their bounds and opaque RGB. Normal repeated speck cleanup removes 14 isolated alpha pixels, explicitly recorded. B's stitch factor .5057 is not itself a body pass; acceptance is bound to the actual final body-landmark audit.
+
+The 101 retained Goku and 100 retained Luffy frame masks are unchanged. All final RGB pixels were reviewed after each shared palette changed. Existing Goku getup grounding/contact warning and Luffy's prior run/light3/light4/airLight1 placement warnings remain; Luffy's beamFire arm-only continuation still needs Claude's runtime treatment. These are separate from the repaired drawings.
+
+## Evidence and preview checks
+
+- Goku: `art/characters/goku/production/manual-audit-r5/FINAL_ATLAS_AUDIT.md`, `FINAL_PIXEL_HASHES.json`, `LIGHT3_DIAGNOSTIC_TO_ATLAS_GEOMETRY.json`; source/call receipt, prompt/reference hashes and assembly in `production/relay11-generation/`.
+- Luffy: `art/characters/luffy/production/manual-audit-r6/FINAL_STRICT_AUDIT.md`, `FINAL_PIXEL_HASHES.json`; exact returned source, prompt/reference receipt and source-A preservation comparison in `production/relay11-generation/`.
+- The two exact output paths were captured from their generation calls. Source v12/v13 and special v02/parts remain versioned; no versioned source was overwritten or deleted. Assembly versions do not reset call budgets.
+- Parent independently compared primary review cells to actual atlas crops: all 7 new Goku cells, 8 approved heavy context cells and 8 Luffy special cells match RGBA exactly. Static gallery links resolve and inline scripts parse. Native comparison cells stay 256 px on phones, with horizontal scrolling; playback preloads exact frames.
+- Both committed preview builds passed. Hosted atlas/meta and review JSON files match local bytes. The review HTML matches after accounting for Vercel's injected feedback toolbar (plus Luffy's final newline normalization). The Goku primary player was corrected to final atlas cells before publication; old diagnostic evidence is labeled historical.
+- **No new interactive browser/game check is claimed:** the CUA tool and its reset both returned `Transport closed`. Earlier r4/r5 smoke tests are historical. Current evidence is image/atlas audit, pack/build, gallery source/artifact checks and authenticated hosted retrieval. Timed gameplay, contact/hurtbox and grounding checks remain Claude's work. No test suite was added or run.
+
+## Approval desk and Claude next
+
+Ask exactly: **approve goku light3 v13** and **approve luffy special v02**, or request feedback for either. Keep Goku heavy v14 and Luffy down/getup v03 approvals from relay #10. Technical PASS never supplies the new drawing approvals. Other candidates' prior approval lineage is unchanged.
+
+Candidate review rows are in each fighter's `REVIEW_ROWS.md` and PR body; Claude owns shared REVIEW/TASKS/CHANGELOG consolidation, remaining approval-lineage/runtime/contact checks, guarded sequential integration, and worktree cleanup after merge. Codex did not merge or deploy production. Goku is clean; Luffy has no tracked changes and only the helper-created `art/characters/luffy/production/deploy-scratch/` residue. Scoped cleanup was attempted after verifying its resolved path, but Windows still locks a generated `heavyAlt-endpoints.png` inside that export. Preserve it until unlocked; it is not source art or a review blocker. Luffy special's final status is `packed`, version2, approvedVersion null; the bookkeeping change reproduced the same atlas/meta hashes without redeployment.
+
+After committing this handoff, ring `goku-luffy --for user --kind approval` once with both exact versions and direct links, then stop. Delivery status is recorded in the inbox/NOW after the ring. The desk watcher was off at the pre-handoff status check; a queued ask is not evidence Claude read it. No further generation or background monitoring is running in this chat.
+
+---
+
 # Codex: three fighter approvals recorded; Claude runtime review next (2026-10-16, relay #10)
 
 **USER APPROVAL via Claude:** the user's question-box answer was **"Approved"** for exactly **Goku heavy v14, Luffy down v03 and Luffy getup v03**. Main's shared `art/REVIEW.md` records it at `25a28275`; fighter branches contain the corresponding manifest approvedVersion/status, character-local review rows and TRACKER updates. This does not approve other candidates or authorize any new image call.
