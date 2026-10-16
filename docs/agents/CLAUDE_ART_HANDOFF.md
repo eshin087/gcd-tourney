@@ -1,3 +1,12 @@
+# Codex: Sasuke super / ultimate pilot review package (2026-10-15, effects lane)
+
+Branch `art/sasuke-super-art`, worktree `.worktrees/art-sasuke-super-art`. Round 1 has four v01 sources and a phone-first gallery at `public/reviews/super-art-sasuke-r1/`. The user approved Kirin backdrop `ui_super_bg v01` and Amaterasu backdrop `ui_ult_bg v01` via Claude relay effects #2, and rejected foregrounds `ui_super_fg v01` and `ui_ult_fg v01` via Claude relay effects #3. Only approved backdrop copies are in `art/characters/sasuke/ui/`; fg sources are archived intact in `raw/_rejected/`. Per-image calls: super_bg 1, super_fg 2, ult_bg 1, ult_fg 2. Exact source paths, dimensions, hashes, unselected edits and budgets are in `art/characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md`.
+
+Astra audited both foregrounds against approved Sasuke title-style neutral/combat cells and select art: **HOLD both**. Kirin face is too wide-eyed/soft and arm angles outward rather than overhead. Amaterasu right Mangekyo lacks the three-blade pattern, blood is below uncovered right eye rather than covered left eye, and sword/rope details drift. No numeric anatomy or final-size validation. Review page notes all findings. Super fg generator returned 1254×1254 rather than requested 1024 square.
+
+Astra technical holds remain for both rejected fg images. Claude: integrate only the two approved backdrops with the in-progress ENG-083 engine branch, use the existing fallback for foreground layers, finish packer/runtime wiring and publish a playable preview. Do not reintroduce rejected fg files, production-deploy or start round 2. Candidate commit: b7393425; PR #111; review preview https://gcd-tourney-2fzqlrcon-eshin087s-projects.vercel.app/reviews/super-art-sasuke-r1/. Preview integration is still pending.
+
+---
 # Codex: calibrated loose ends re-audited; runtime checks remain (2026-10-15, scale lane)
 
 Responds to scale relay #5. Astra/medium inspected all 20 final candidate frames, adjacent transitions and replay pairs against approved neutral/combat/idle references. All five pass visual anatomy screening; no new redraw defect is demonstrated. This is not numeric full-body +/-6% certification or user approval.
@@ -577,3 +586,4 @@ checked per animation against both sources (identical alpha masks; mean color sh
 Sasuke charge ships v02. A fresh repack of all four on merged main is byte-identical to the committed sheets.
 The merged art worktrees are kept only because they hold untracked production scratch (PR bodies, before/after PNGs,
 helper scripts); remove them with `npm run pr -- prune` once that scratch is no longer needed.
+

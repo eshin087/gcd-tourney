@@ -66,17 +66,17 @@ for Kirin and Amaterasu). Model policy (CLAUDE.md): every generation under `gpt-
 the two `fg` images under `gpt-6-astra` medium against the approved title-style cells.
 
 **Round 1 (do now): Sasuke's four images**
-- [ ] 1. The worktree already exists: `.worktrees/art-sasuke-super-art` on branch `art/sasuke-super-art` (made with
+- [x] 1. Reused `.worktrees/art-sasuke-super-art` on branch `art/sasuke-super-art` (made with
   `npm run pr -- start art/sasuke-super-art --art sasuke`; dev port 5247). Merge main into it first (it was cut before
   this item landed), work only there and reuse it for every later version.
-- [ ] 2. Write the four prompts into art/characters/sasuke/PROMPTS.md as new UI sections (after "U2 · Super cut-in eye
+- [x] 2. Added the four prompts and generated the versioned sources into art/characters/sasuke/PROMPTS.md as new UI sections (after "U2 · Super cut-in eye
   strip"), from the brief's Sasuke section and rules. Then generate `raw/ui_super_bg_v01.png`, `ui_super_fg_v01.png`,
   `ui_ult_bg_v01.png` and `ui_ult_fg_v01.png` (at most 3 calls each, failed ones count). Check: the Sharingan reads red
   at a glance, the Mangekyō is his own pattern, the bg crops (4:1 middle band, 16:9 then 4:3) keep the focal shape, no
   character or text in a bg, no magenta/violet on a fg.
-- [ ] 3. Astra anatomy check of both `fg` images against the approved title-style neutral/combat cells and his
+- [x] 3. Astra audited both foregrounds; both are held of both `fg` images against the approved title-style neutral/combat cells and his
   select.png (face, hair, eyes, build). Hold anything that does not look like the approved Sasuke.
-- [ ] 4. The review page from the brief (public/reviews/super-art-sasuke-r1/: each image at final size and 3x, the
+- [x] 4. Review package delivered; user approved all four v01 for preview-only demo, with Astra fg technical holds retained. from the brief (public/reviews/super-art-sasuke-r1/: each image at final size and 3x, the
   banner mock, the splash mock at 16:9 and 4:3, the heads beside the approved cells). REVIEW.md rows (`needs review`),
   manifest/tracker rows; commit, `npm run pr -- open`, `npm run pr -- preview`. Add a handoff at the top of
   docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls used, the review page, holds) and run

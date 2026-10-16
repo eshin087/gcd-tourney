@@ -47,8 +47,9 @@ const layerImg = (img, cls, mirror) => {
   el.draggable = false;
   return el;
 };
-const mirroredCanvas = (src, mirror) => {
+const mirroredCanvas = (src, mirror, cls = '') => {
   const cv = document.createElement('canvas');
+  if (cls) cv.className = cls;
   cv.width = src.width;
   cv.height = src.height;
   const ctx = cv.getContext('2d');
@@ -175,7 +176,7 @@ export class Hud {
   // full-screen splash when the fighter has either splash layer, else the banner. o.secs = how long the world is frozen.
   superCutin(i, asset, color, name, o = {}) {
     const L = o.tier === 'ult' ? asset?.ult : asset?.super;
-    if (o.tier === 'ult' && (L?.bg || L?.fg)) return this.ultSplash(i, L, color, name, o.secs ?? 0.8);
+    if (o.tier === 'ult' && (L?.bg || L?.fg)) return this.ultSplash(i, L, color, name, o.secs ?? 0.8, asset?.cutin);
     this.splash?.remove();
     const c = this.cutin;
     c.innerHTML = '';
@@ -186,7 +187,8 @@ export class Hud {
       c.classList.add('art');
       strip.append(layerImg(L.bg, 'cutin-bg', i === 1));
     }
-    if (!L?.fg && asset?.cutin) strip.append(mirroredCanvas(asset.cutin, i === 1));
+    // no fighter layer: the eye strip, as a framed panel on the fighter's side when a backdrop fills the band
+    if (!L?.fg && asset?.cutin) strip.append(mirroredCanvas(asset.cutin, i === 1, L?.bg ? 'cutin-eyes' : ''));
     const label = h('div', 'cutin-name', `<span>${name}</span>`);
     c.append(strip);
     if (L?.fg) {
@@ -214,7 +216,7 @@ export class Hud {
 
   // The ultimate's full-screen splash: a colored flash in, letterbox bars, the backdrop slowly pushing in, the
   // fighter sliding over it from their side, the move name large. It lives for the frozen frames and then fades.
-  ultSplash(i, L, color, name, secs) {
+  ultSplash(i, L, color, name, secs, eyes = null) {
     this.cutin.className = 'cutin';
     this.splash?.remove();
     const s = h('div', `splash ${i === 1 ? 'p2' : 'p1'}`);
@@ -222,6 +224,7 @@ export class Hud {
     s.style.setProperty('--d', `${Math.max(0.5, secs).toFixed(2)}s`);
     if (L.bg) s.append(layerImg(L.bg, 'sp-bg', i === 1));
     if (L.fg) s.append(layerImg(L.fg, 'sp-fg', i === 1));
+    else if (eyes) s.append(mirroredCanvas(eyes, i === 1, 'sp-eyes')); // no fighter layer yet: the eye strip as a band
     s.append(h('div', 'sp-bar top'), h('div', 'sp-bar bot'), h('div', 'sp-name', `<span>${name}</span>`), h('div', 'sp-flash'));
     this.root.parentNode.append(s);
     this.splash = s;
