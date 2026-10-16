@@ -1,0 +1,75 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  art/characters/sasuke/production/round4/diagnostic-final
+  anims: animGuide.js + art/characters/sasuke/production/round4/diagnostic-manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== sasuke ======================================================
+  packed 42 anims, 175 frames -> sheet 4096x2816, 48 colors, COMPLETE (game will use it)
+    idle         8     <- raw/idle_v07.png             x0.337  (re-imported: replaces frames/ cleaned from raw/idle_v01.png)
+    run          8     <- raw/run_v05.png              x0.331  (re-imported: replaces frames/ cleaned from raw/run_v02.png)
+    dash         2     <- raw/dash_v07.png             x0.35  (re-imported: replaces frames/ cleaned from raw/dash_v01.png; candidate v07 (approved: v05))
+    backDash     3     <- raw/backDash_v07.png         x0.322  (re-imported: replaces frames/ cleaned from raw/backDash_v01.png; auto-head fit x0.9328 (head 1.07, feet 1.18 of idle))
+    superDash    2     <- raw/superDash_v07.png        x0.214  (re-imported: replaces frames/ cleaned from raw/superDash_v01.png; candidate v07 (approved: v05); auto-head fit x1.33 (head 0.70, feet 0.76 of idle))
+    jumpSquat    1     <- raw/jumpSquat_v06.png        x0.333  (re-imported: replaces frames/ cleaned from raw/jumpSquat_v01.png; candidate v06 (approved: v03))
+    jumpUp       2     <- raw/jumpUp_v05.png           x0.281  (re-imported: replaces frames/ cleaned from raw/jumpUp_v01.png)
+    jumpFall     2     <- raw/jumpFall_v05.png         x0.282  (re-imported: replaces frames/ cleaned from raw/jumpFall_v01.png)
+    land         2     <- raw/land_v03.png             x0.247  (re-imported: replaces frames/ cleaned from raw/land_v01.png)
+    light1       7     <- raw/light1_v09.png           x0.356  (re-imported: replaces frames/ cleaned from raw/light1_v01.png)
+    light2       7     <- raw/light2_v07.png           x0.359  (re-imported: replaces frames/ cleaned from raw/light2_v01.png)
+    light3       7     <- raw/light3_v08.png           x0.364  (re-imported: replaces frames/ cleaned from raw/light3_v01.png)
+    light4       8     <- raw/light4_v08.png           x0.405  (re-imported: replaces frames/ cleaned from raw/light4_v01.png)
+    heavy        8     <- raw/heavy_v11.png            x0.397  (re-imported: replaces frames/ cleaned from raw/heavy_v02.png)
+    airLight1    5     <- raw/airLight1_v04.png        x0.337  (re-imported: replaces frames/ cleaned from raw/airLight1_v01.png)
+    airLight2    5     <- raw/airLight2_v04.png        x0.438  (removed 12 specks; re-imported: replaces frames/ cleaned from raw/airLight2_v02.png)
+    airLight3    6     <- raw/airLight3_v07.png        x0.298  (re-imported: replaces frames/ cleaned from raw/airLight3_v01.png)
+    airHeavy     6     <- raw/airHeavy_v04.png         x0.327  (re-imported: replaces frames/ cleaned from raw/airHeavy_v02.png)
+    guard        2     <- raw/guard_v04.png            x0.25  (re-imported: replaces frames/ cleaned from raw/guard_v01.png)
+    block        2     <- raw/block_v07.png            x0.252  (re-imported: replaces frames/ cleaned from raw/block_v01.png)
+    hurtHigh     3     <- raw/hurtHigh_v05.png         x0.266  (re-imported: replaces frames/ cleaned from raw/hurtHigh_v02.png)
+    hurtLow      3     <- raw/hurtLow_v03.png          x0.253  (re-imported: replaces frames/ cleaned from raw/hurtLow_v01.png)
+    launched     2     <- raw/launched_v07.png         x0.247  (re-imported: replaces frames/ cleaned from raw/launched_v01.png; candidate v07 (approved: v01))
+    spin         4     <- frames/spin/ (raw/spin_v01.png) x1
+    airRecover   3     <- frames/airRecover/ (raw/airRecover_v01.png) x1
+    down         2     <- raw/down_v08.png             x0.276  (re-imported: replaces frames/ cleaned from raw/down_v01.png; candidate v08 (approved: v01))
+    getup        5     <- raw/getup_v05.png            x0.392  (removed 4 specks; re-imported: replaces frames/ cleaned from raw/getup_v01.png)
+    charge       4     <- raw/charge_v12.png           x0.327  (re-imported: replaces frames/ cleaned from raw/charge_v02.png)
+    throw        4     <- raw/throw_v07.png            x0.33  (re-imported: replaces frames/ cleaned from raw/throw_v01.png)
+    beamCharge   3     <- raw/beamCharge_v05.png       x0.311  (removed 9 specks; re-imported: replaces frames/ cleaned from raw/beamCharge_v01.png)
+    beamFire     3     <- raw/beamFire_v07.png         x0.333  (re-imported: replaces frames/ cleaned from raw/beamFire_v01.png; candidate v07 (approved: v05); auto-head fit x0.8482 (head 1.18, feet 1.58 of idle))
+    vanish       2     <- raw/vanish_v05.png           x0.243  (dropped 2 stray mark(s) far from the body; re-imported: replaces frames/ cleaned from raw/vanish_v01.png)
+    stagger      4     <- raw/stagger_v08.png          x0.371  (re-imported: replaces frames/ cleaned from raw/stagger_v01.png)
+    ko           1     <- raw/ko_v07.png               x0.148  (re-imported: replaces frames/ cleaned from raw/ko_v02.png; candidate v07 (approved: v02))
+    special      8     <- raw/special_v13.png          x0.358  (re-imported: replaces frames/ cleaned from raw/special_v02.png; auto-head fit x0.8711 (head 1.15, feet 1.24 of idle))
+    intro        4     <- raw/intro_v03.png            x0.32  (re-imported: replaces frames/ cleaned from raw/intro_v01.png; auto-head fit x1.065 (head 0.94, feet 0.74 of idle))
+    taunt        2     <- raw/taunt_v03.png            x0.251  (re-imported: replaces frames/ cleaned from raw/taunt_v01.png)
+    win          4     <- raw/win_v04.png              x0.299  (re-imported: replaces frames/ cleaned from raw/win_v01.png)
+    specialForward  7     <- raw/specialForward_v10.png   x0.37  (re-imported: replaces frames/ cleaned from raw/specialForward_v02.png; auto-head fit x0.8636 (head 1.16, feet 1.36 of idle))
+    specialUp    6     <- raw/specialUp_v09.png        x0.323  (re-imported: replaces frames/ cleaned from raw/specialUp_v02.png; auto-head fit x1.0834 (head 0.92, feet 0.75 of idle))
+    specialDown  4     <- raw/specialDown_v04.png      x0.317  (re-imported: replaces frames/ cleaned from raw/specialDown_v01.png; auto-head fit x0.8961 (head 1.12, feet 1.19 of idle))
+    superPose    4     <- frames/superPose/ (raw/superPose_v01.png) x1
+  scale gate (warn; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 31 ok, 1 unmeasured, 9 manual
+  missing optional (3): techGround, techRoll, wallTech
+  ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384)
+  - palette snapped to 48 colors
+  - hitboxes.json beamFire: boxes and hand anchors scaled x0.848 about the pivot (auto-head fit x0.8482); re-measure them and set "_scale": 0.8482
+  - 38 hitbox override(s) from hitboxes.json
+  - 8 active frame(s) had no clear strike limb - hitbox = front 28% of the body (check them in the Sprite Lab or add hitboxes.json overrides)
+  ! superDash: auto-head fit x1.42 is outside 0.75-1.33 - clamped; redraw the strip at the idle's size
+  ! superDash: auto-head fit clips 2 frame(s) (#0 right 10px, #1 right 4px) - repose those frames inside the cell
+  ! scale: the idle head is 39x38 px, 42x41 in art/scale/scale-baseline.json - every strip is now measured against this idle (check the lineup; npm run scale -- --baseline accepts it)
+  ! scale: jumpSquat: the manual QA record (scaleManualQA) is for v03 but the packed strip is v06 - check this version and record it again
+  ! scale: block: the manifest's scale exemption was written for v01 but the packed strip is v07 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 7
+  ! scale: spin head 1.54 was 1.40 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: airRecover head 1.05 was 0.94 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! scale: beamCharge: the manifest's scale exemption was written for v01 but the packed strip is v05 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 5
+  ! scale: superPose head 1.01 was 0.95 in art/scale/scale-baseline.json at the same version v01 - a sidecar, bodyHeight or packer change resized it (npm run scale -- --baseline accepts an intended change)
+  ! down: 1 lying frame(s) float above the floor line (#1: 9% of the body within 6px of y 240, worst fifth 12px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  ! ko: 1 lying frame(s) float above the floor line (#0: 13% of the body within 6px of y 240, worst fifth 33px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020)
+  wrote art/characters/sasuke/production/round4/diagnostic-final/characters/sasuke/portrait.png
+  wrote art/characters/sasuke/production/round4/diagnostic-final/characters/sasuke/cutin.png
+  wrote art/characters/sasuke/production/round4/diagnostic-final/characters/sasuke/select.png
+  wrote art/characters/sasuke/production/round4/diagnostic-final/characters/sasuke/sheet.png
+  wrote art/characters/sasuke/production/round4/diagnostic-final/characters/sasuke/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 11 warning(s).
