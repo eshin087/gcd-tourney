@@ -15,6 +15,42 @@ How it works:
 
 ---
 
+## Goku core: re-assemble at the idle's density (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+**Why the scale kept varying (Claude's review of 441b2910 / e9ffcd38):**
+1. **The manifest was unreadable.** 441b2910 rewrote `art/manifest.json` pretty-printed (3032 -> 13362 lines) and left
+   a literal `\n` after the closing brace. The packer couldn't read it and packed every strip at template
+   `bodyHeight`s (the idle came out x0.876). Claude repaired it on `art/goku-core` at **728fa9d7** (compact format back,
+   no value changed). Edit the manifest in place from now on: never re-serialize or pretty-print it.
+2. **Every strip was fitted to the cell, not to the idle.** Almost every source strip's tallest frame is exactly
+   239-240 px (a full cell), so each strip has its own scale: arms-up or tall poses shrink the body, crouches enlarge it.
+   No `bodyHeight` can fix that reliably afterwards, because the scale to undo differs per strip.
+3. **The probe reads 0.50 on frames that look right.** The new strips use brighter gold hair shades than idle v02, so
+   the idle's automatic head palette misses part of the hair. Claude will declare Goku's head colours once the strips
+   are re-cut (that's Claude's file).
+
+**Goal:** the user-approved v04 attacks (light2, light3, light4, heavy, airLight1, airHeavy) and every other existing
+candidate are re-assembled from their existing sources at one shared, measured density, the idle's, so Claude can set
+the `bodyHeight`s and run the gate. **No new image calls.** **Done when** items 1-4 are ticked; then hand back in
+docs/agents/CLAUDE_ART_HANDOFF.md and ring `goku-luffy`.
+
+- [ ] 1. Measure the source-to-cell factor of each strip's existing generation source on stable body landmarks shared
+  with idle v02 (boot top to sole, belt width, forearm, eye-to-chin), not the hair and not the strip's height. Record the
+  landmarks, factor and uncertainty per strip in its sidecar (`measurement: "manual"`, `--landmarks`, `--uncertainty`).
+- [ ] 2. Re-assemble each strip at its measured factor into the next free version (`npm run stitch` with `--factor`,
+  or a single-part strip with the same factor). Don't fit to the cell: a frame that no longer fits is reported, not
+  rescaled. The user's v04 approvals cover the drawings; a uniform re-scale of an approved drawing is calibration, so
+  record it as "re-assembled from approved v04 at the measured density" (not a new design).
+- [ ] 3. Preflight before handing back: a one-scale contact sheet (idle f0 beside every frame, lines at the idle's top and
+  y240), and per strip the native max height of each frame. Put both in art/characters/goku/production/scale-qa/.
+- [ ] 4. Commit; do not run `--update-manifest` or change `bodyHeight`, exemptions or `scaleManualQA` (Claude sets them
+  from your heights). Note which strips are still missing or held for the user (jumpUp, jumpFall, land, guard, hurtHigh,
+  charge, beamCharge, beamFire, special, win have used their 3 calls).
+
+Then continue with "Luffy core: the user's decisions" below. Same rules as "Goku core animations".
+
+---
+
 ## Super banners and ultimate splashes: Sasuke pilot (2026-10-15, Claude) - chat "7 - Effects and ground", relay lane `effects`
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** supers, ultimates and specials should
