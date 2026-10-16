@@ -381,3 +381,5 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 
 | ART-R5-APPROVE-NARUTO-ALTS | Record round5 user decisions | Codex | review | User approved airLight1Alt v01, airLight2Alt v01, airLight3Alt v01, heavyAlt v02, hurtHighAlt v01, hurtLowAlt v01, light1Alt v01, light3Alt v02, light4Alt v01 as drawn. Claude owns integration checks; no merge/deploy by Codex. |
 | ART-GOJO-RUN-JKL | Gojo cocky one-hand run (far hand in pocket, near arm swinging) + matching dash/backDash/superDash; replaces the run v12 hover-glide | Codex | todo | User decided 2026-10-15 in Claude chat: no energy effects, 3 studies (J/K/L) first, user picks, then production. CODEX_INBOX item, relay lane `gojo-run`, branch art/gojo-run (port 5243). Claude integrates and re-measures dash/run contact after phase 2. |
+
+| ART-LOOSE-NARUTO-20261015 | Scale loose ends | Codex | review | One authorized call each for light2Alt05 and airHeavyAlt04; normal scale gate fails; diagnostic-only atlas and Astra review for Claude calibration. No image approved; no merge/deploy. |
