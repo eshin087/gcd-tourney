@@ -223,8 +223,7 @@ Branches: the round-5 branches are merged and gone. Start `npm run pr -- start a
   angle, so the head floats 16-24 px over the floor line in game. Redraw both side-on at the spec camera (about 12 degrees
   down) with head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020), same anatomy as the
   approved neutral cell.
-- [ ] 5. **Gojo run G cleanup**: continue the existing task (leg-phase and loop-join cleanup, anatomical checks) toward a
-  production candidate, under its existing authorization.
+- [x] 5. 2026-10-15: user explicitly directed this batch to leave Gojo to the separate J/K/L chat. No G cleanup or Gojo call in the scale lane.
 - [ ] 6. **Astra audits** of every new candidate (every frame, transitions and loop; head, torso, limbs, shoes), then
   one phone review page with the new candidates beside their bases or predecessors, the approved idle and the
   neutral/combat cells at one density.

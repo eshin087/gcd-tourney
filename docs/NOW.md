@@ -8,6 +8,8 @@ paused._
 
 ## Your next actions
 
+**Scale loose ends in progress:** five authorized one-call redraws (Naruto light2Alt05/airHeavyAlt04; Killua charge14/down08/ko09), followed by Astra audits and one diagnostic review page for Claude calibration. No user review is requested yet. User confirmed Gojo stays with the separate J/K/L chat.
+
 **Round5 review complete:** the user approved all24 remaining strips as drawn on 2026-10-15. No further review is needed for this batch. Approval commits: Gojo d17bc8d; Naruto 4fb4d04; Naruto alts56ef2b2; Killua e5539ff; Sasuke b410b29. The earlier gallery labels are superseded by these decisions.
 
 **Live (2026-10-15):** Claude merged all five art branches (Killua `768fecd`, Sasuke `35e275e`, Gojo `1301c0c`, Naruto `74f312d`, Naruto alts `8049098`), ran the in-game check and a 3-match CPU soak (0 violations, clean console) and deployed production `8049098` to https://gcd-tourney.vercel.app. Naruto plays 9 attack alts; light2Alt and airHeavyAlt stay held, so those slots play the base move.
