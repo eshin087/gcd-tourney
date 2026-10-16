@@ -351,3 +351,5 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 | ART-luffy-core | Luffy core animations (the remaining 22 CORE strips after idle) | Codex | todo | branch art/luffy-core (--art luffy) from main after PR #93; files: art/characters/luffy/**, the luffy block of art/manifest.json and art/TRACKER.md |
 | CHAR-goku-balance | Six-fighter CPU round-robin with Goku; log in ADR 0011 | Claude | todo | after his core art lands |
 | CHAR-luffy-balance | Six-fighter CPU round-robin with Luffy; Gigant Pistol cell margins on his drawn beamCharge/beamFire | Claude | todo | after his core art lands |
+
+| ART-R5-APPROVE-KILLUA | Record round5 user decisions | Codex | review | User approved guard v09, idle v11, superDash v08 as drawn. Claude owns integration checks; no merge/deploy by Codex. |

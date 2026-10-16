@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(killua): record user visual approval of guard v09, idle v11, superDash v08; retain technical evidence and unrelated holds.
+
 - art(killua): stagger — User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
 
 - ART-SCALE-R4-KIL: one authorized imagegen call patched Killua stagger v07 f3; v08 preserves f0-f2 pixel-for-pixel. Actual-manifest diagnostic pack uses unchanged bodyHeight186 and byte-identical auto-head sidecar; packed probe reads head1.025/feet1.235, with shoe/body review still held and approval pending.
