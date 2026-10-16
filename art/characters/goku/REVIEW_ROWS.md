@@ -1,5 +1,11 @@
 # Proposed Goku review rows
 
+## Current technical interpretation (2026-10-15)
+
+Earlier automatic head ratios below are preserved as historical reports, **not confirmed anatomy measurements**. The unchanged approved idle fails the same detector (0.50-2.667, median detected region only 6x10px). The old cell-fit assembly and a second template-height normalization also changed apparent size; Claude repaired the malformed manifest at `728fa9d7`. These findings supersede assertions that a low ratio alone means a redraw is required.
+
+See [workflow and diagnosis](production/WORKFLOW.md), [frozen diagnostic inventory](production/preflight-v01/inventory.json), [measurement controls](production/preflight-v01/measurement-controls.json) and [Astra audit](production/preflight-v01/astra/AUDIT.md). Astra inspected 23 rows / 108 frames per diagnostic atlas. Genuine clipping, light3 arm damage and charge loop discontinuity remain. Raw-only low-pose comparisons for launched06/down04/getup03 do not certify the packed atlas; Claude must supersede the corresponding calibration records. User approvals are unchanged. No new image calls were used for this diagnosis or source reassembly.
+
 The parent task keeps shared review files untouched. Claude should copy the candidate row into art/REVIEW.md when integrating the PR. These proposed rows preserve the user's explicit title-style v01 withdrawal and the dependent-reference hold.
 
 | date | character | asset | file | version | status | what changed | QA notes |

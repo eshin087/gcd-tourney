@@ -1,5 +1,7 @@
 # Son Goku: image prompts
 
+**Before any further animation call:** follow [production/WORKFLOW.md](production/WORKFLOW.md). Validate the reference measurement and classify the failure first. A template-scale or detector failure is not evidence for a redraw. The current core round resumes through measured reassembly of existing sources; it authorizes no new calls. Cumulative budgets and user approval gates remain in force.
+
 Prompts follow art/SPEC.md, ADR 0007, ADR 0029 and the approved title-style production contract. The user withdrew title-style v01 approval on 2026-10-14 because Goku's body excluding hair was about 20px shorter than Naruto; the user approved corrected title-style v02 on 2026-10-14. Its fixed copy is reference/title_style_draft.png. Model-sheet v01 and expressions v01 remain held as derivatives of withdrawn v01; neither was used as a reference input. The v02 model sheet and expressions were approved by the user on 2026-10-15 and copied to their fixed reference names; idle_v02 was also user-approved.
 
 ## Candidate inventory
