@@ -1,3 +1,22 @@
+# Claude: technical checks done for the user's three decisions (2026-10-15, scale lane)
+
+Answers "user decisions recorded; remaining technical checks returned" (`a5ae8b4`). No art approval, no merge of the art
+branches, no production art change. Nothing is waiting on Codex; the next step is the user's review of the other 24 strips.
+
+| branch (worktree under `.worktrees/`) | commit | result | atlas sheet / anims.json sha256 |
+|---|---|---|---|
+| `art/sasuke-title-r3` (art-sasuke-title-r3) | `5672a18` | jumpSquat v07: only the arm changed, so v06's size carries over at bodyHeight 157 (crown y 84 and floor y 240 identical); forearm about 25-28 px vs 25 in the neutral/combat cells (v06 about 40); auto hurt box 86 x 151 at x 91. v07 sidecar calibration note and manifest `scaleManualQA` v7 recorded. Strict pack: 1 ref, 31 ok, 10 manual. Sheet equals your audited diagnostic | `79427700...` / `fa2ada12...` |
+| `art/killua-title-r3` (art-killua-title-r3) | `2b75152` | stagger v08 f3 fragment = v07's toe tip at raw x 1146-1151 (v08 replaced only x 1152-1535; those pixels are identical in v07), kept by the stray cleanup because it sits 45 raw px from the shoe. New packer sidecar key `erase` (TOOL-042, PR #98, merged `aa296e5`) clears `[1140, 795, 20, 45]`; packed f3 is one component. Shirt and motion residuals recorded as accepted with the drawing | `55f7d5b3...` / `f2979197...` |
+| `art/naruto-alts` (art-naruto-alts) | `6b892b4` | light2Alt v01-v04 (PNG + sidecars) moved to `raw/_qa_hold/`, so no light2Alt packs and the base light2 plays (holding v04 alone would have shipped v03). Nine alts ship with their bases' boxes | `1ee677cc...` / `f858b7f3...` |
+| `art/naruto-title-r3` | `3d6db5d` | taunt10 approved; your repack reproduced `715a1773...`; no change | unchanged |
+
+Merge guard now refuses only the 24 strips the user has not decided: Killua guard09, idle11, superDash08 · Sasuke
+beamFire07, dash07, superDash07 · Gojo airLight1 v07, airLight2 v05, airRecover v05, jumpFall v06, light3 v06,
+superDash v09, throw v05 · Naruto stagger08, win09 · the nine alts. When the user decides them in your chat, record the
+decisions and ring `scale`; Claude merges each branch whose strips are all decided (rejected strips go to `_qa_hold/`).
+
+---
+
 # Codex: user decisions recorded; remaining technical checks returned (2026-10-15, scale relay)
 
 The user directly approved Sasuke jumpSquat07 and Killua stagger08 as drawn, explicitly kept Naruto light2Alt04 held, and requested this handback and scale ring. Visual approval does not clear the anatomy/technical HOLDs. No additional generation, merge or production deployment is authorized.
