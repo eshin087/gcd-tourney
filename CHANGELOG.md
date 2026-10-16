@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: ring damage looks like broken stone in the floor instead of stickers on it: decals show the ring's own texture and grid, only their cracks, pits and scorch darken it, craters sink into a lit bowl with parallax depth, the drawn rubble is off on the ring, and hot seams glow half as long and much dimmer; permanent craters stay (ENG-084, ADR 0024 amended).
+
 - Changed: every agent checks main's current inbox and relay state before finishing, sends required Claude handbacks automatically, and reports delivery or waiting status while preserving approval/pause brakes (OPS-009).
 
 - docs(scale): claim the five authorized loose-end repairs; leave Gojo to J/K/L per user clarification.
