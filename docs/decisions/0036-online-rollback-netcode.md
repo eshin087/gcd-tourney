@@ -77,7 +77,7 @@ off, and reports the first frame where the two runs differ and which values diff
    in effects, ground decals and three.js color and rotation code. The prototype `src/net/dmath.js` (hypot, sin and
    cos from `+ - * /` and `Math.sqrt`, within 1–2 ulp of V8) is installed by the test's `detMath` option; the
    fixtures are re-recorded with it and replay exactly in Chrome even with `Math.hypot` deliberately skewed by one
-   ulp (without it, the skew splits at frame 97). With it, the user's iPhone matched the Chrome reference on every frame of both fixtures (2026-10-15: naruto-sasuke-s7, 4250 frames; gojo-killua-s3, 5242 frames). Firefox: not run yet.
+   ulp (without it, the skew splits at frame 97). With it, the user's iPhone matched the Chrome reference on every frame of both fixtures (2026-10-15: naruto-sasuke-s7, 4250 frames; gojo-killua-s3, 5242 frames). After main brought in the melee clash (ADR 0038) the fixtures were re-recorded; a census on that code still finds only hypot, sin and cos on gameplay paths. Firefox: not run yet.
    Also found on the way: replaying an already-normalized stick normalizes it twice (a length of 1.0000000000000002
    rescales it), so the wire must carry the raw stick.
 
