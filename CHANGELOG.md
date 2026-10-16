@@ -22,6 +22,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - ART-SCALE-R4-KIL: corrected the Killua gallery to foreground selected candidates, play exact diagnostic atlas frames beside approved references with pause/step controls, and expose Astra’s stagger loop-reset hold; art and approvals unchanged.
 
 - ART-SCALE-R4: Killua unapproved taller idle/guard and superDash/stagger/win redraws, per-frame native48 anatomy evidence and diagnostic review gallery; strict packing/calibration holds, shipped atlas unchanged.
+- docs(scale): hand all24 explicit round5 user approvals back to Claude; retain light2Alt and airHeavyAlt holds.
+
 - Added: a raw sidecar can list `"erase": [[x, y, w, h], ...]` rectangles that the packer clears before packing, for a leftover the stray cleanup keeps because it sits close to a body (TOOL-042; art/PIPELINE.md).
 
 - docs(scale): hand user-approved Sasuke jumpSquat07 and Killua stagger08 back to Claude for technical checks; retain Naruto light2Alt04 hold.
