@@ -1,3 +1,52 @@
+# Codex: Goku/Luffy repair previews ready; three drawings to review, two holds (2026-10-16, goku-luffy)
+
+Answers USER DECISION relays #8 and #9. Permission was for calls only: Luffy "Fix down, Fix getup, Fix special (4th call)" and Goku "light3: B: one redraw call. heavy: B: one redraw call." All five authorized calls were consumed; four returned images, one failed input validation. No image approval, merge or production deployment occurred. Every version remains preserved.
+
+## Decisions for Claude 0 - Approvals
+
+- Review **Goku heavy v14**, **Luffy down v03** and **Luffy getup v03**. These three repaired drawings pass final anatomy/scale screening within measured uncertainty and still need the user's image decisions.
+- **Goku light3 v11 stays on technical HOLD and is excluded from the atlas.** At the supported idle density it loses 800 foreground pixels in a 256px cell (680 in f4). The complete 280px companion has zero lost pixels and is shown at the same density. The source anatomy is coherent; a separate shrink would change fighter scale. Choose keep held, or authorize one sixth redraw call for a more compact pose at true size. No further call is authorized by this handoff.
+- **Luffy special v01 stays on HOLD and is excluded.** Call4 failed before rendering because the request supplied six references when the tool permits five. This was our request-setup error; it counts as 4/4 and produced no special v02. Choose keep held, or authorize one fifth call with at most five references, preserving f0-f5. No retry was made.
+- New version numbers include assembly revisions, not extra generations: Goku light3 call5 source v10 -> assembly v11; heavy call5 source v12 -> v13 -> final v14. Luffy down/getup call2 sources -> v02 -> final v03. Cumulative calls: light3 5, heavy 5, down 2, getup 2, special 4. Earlier held versions remain evidence, not competing approval requests.
+
+## Delivery and exact audited pixels
+
+| Fighter | Worktree / branch | Art commit; docs HEAD; published slim HEAD | Direct review |
+|---|---|---|---|
+| Goku | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core`; `art/goku-core` | `1a0b198d`; `11a9c270`; `40bdbcb` | [PR #123](https://github.com/eshin087/gcd-tourney/pull/123), [r4 preview](https://gcd-tourney-4hfbyo2rn-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html) |
+| Luffy | `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-luffy-core`; `art/luffy-core` | `3a0476c9`; `a00f091c`; `42d890cc` | [PR #96](https://github.com/eshin087/gcd-tourney/pull/96), [r5 preview](https://gcd-tourney-82qk6yott-eshin087s-projects.vercel.app/characters/luffy/calibration-r5/index.html) |
+
+Both actual branch packs exited 0 and reproduce their audited 48-color outputs. Goku: 22 animations / 101 frames, only light3 missing CORE. Luffy: 22 animations / 100 frames, only special missing CORE. GPT-6 Astra at medium independently inspected all **201 final quantized frames**, anatomy/build/clothing and static sequence/loop relationships against approved title cells and idle. All selected animations pass within documented measurement uncertainty; hidden joints receive no invented numeric pass. Each atlas's 93 retained frames have identical alpha masks to its prior atlas; shared-palette RGB changed and was separately inspected.
+
+| Public file | SHA256 (also matched on hosted preview) |
+|---|---|
+| Goku sheet.png | `f117d996d5d9f225b13bfc6d7b19a741e603fa04a329b1410422263eadd824f2` |
+| Goku anims.json | `2ee25e2a2103a145f1a888700b5e55cd19ddb0fd7a755649f1056226e6fdbbd6` |
+| Luffy sheet.png | `0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122` |
+| Luffy anims.json | `dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f` |
+
+## Measurements, provenance and safeguards
+
+Goku heavy14 uses one source factor .720, the rounded median .719591 of nine visible torso/boot/belt ratios across f0/f6/f7. Native bodyHeight235 packs at x1; measured x offsets -28/-35/-31 on f3-f5 preserve the punches without resizing. Luffy down03 uses .205 for corrected f1, native bodyHeight106; getup03 uses uniform .477 for five complete connected figures, bodyHeight209. Both pack at x1. Measurements, endpoint overlays and uncertainty are recorded in each branch's production directory. No pose was shrunk to standing height or to make a bounding box fit.
+
+Exact call/prompt/input/output receipts are in Goku `production/relay9-generation/` and Luffy `production/relay8-generation/`. Goku heavy's returned path was captured directly. Light3's wrapper omitted the returned path hint; its source was recovered from the exact agent session and exact call window (one matching output), with prompt/visual match and SHA256 recorded in `light3-call05-recovery-receipt.json`. This is recovered source attribution, not a captured original receipt; no global-newest lookup or replacement call was used. Future calls must preflight the five-reference maximum and persist the returned output hint immediately.
+
+Final evidence:
+- Goku `art/characters/goku/production/manual-audit-r4/FINAL_STRICT_AUDIT.md`, `FINAL_PIXEL_HASHES.json`, `HEAVY_MULTIFRAME_ESTIMATOR.json`, and the diagnostic light3 evidence.
+- Luffy `art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md`, `FINAL_PIXEL_HASHES.json`, `V03_CANDIDATE_AUDIT.md`.
+- Parent gallery/game smoke records: respective `relay9-generation/PARENT_BROWSER_R4.md` and `relay8-generation/PARENT_BROWSER_R5.md`. The Luffy game-load and real-input repack additionally confirmed by parent after that branch note: 07:19:20.994Z custom-sheet22/incomplete log, real-input exit0 and exact hashes.
+- Proposed shared review rows are in each fighter's root `REVIEW_ROWS.md` and PR body. Shared manifest formatting was checked before commit; the Goku whole-file formatting change was caught and restored, leaving only the four intended Goku field changes.
+
+## QA limits and Claude handback
+
+Both committed preview builds pass. Local galleries load all images, preserve native 256px comparison density, play/step/reset repaired moves and show technical holds explicitly. Goku heavy14 completes 8 frames; actual idle loop wraps correctly. Luffy down03 and getup03 complete 2 and 5 frames. Both local fight pages load the respective 22-animation custom sheet with no local warning/error in the smoke check. Hosted sheet/metadata hashes and review HTML were verified through authenticated Vercel retrieval. The hosted browser reaches Vercel login, so hosted interactive playback is not claimed.
+
+Existing warnings are retained: Goku getup floor/contact; Luffy six prior warnings for accepted run/light3/light4/airLight1 edge placements plus the light4 margin. Luffy beamFire arm-only continuation remains Claude's runtime responsibility. Final audit is not timed gameplay, contact/hurtbox, grounding or integration certification. No test suite was added or run.
+
+Claude owns shared REVIEW/TASKS/CHANGELOG consolidation, approval lineage, runtime/contact checks, guarded sequential integration and cleanup of the worktrees after merge. Candidate approvals and both hold decisions go to **0 - Approvals**. Ring once after this handoff is committed with `--for user --kind approval`, both direct links and exact versions/holds; then stop. No agent will silently continue generation.
+
+---
+
 # Codex: Goku/Luffy strict packs published; three repair-call decisions for the desk (2026-10-16, goku-luffy)
 
 Answers relay #7 and inbox "probe policy resolved, calibration bound". **Zero new image calls.** Existing source drawings were reassembled, calibrated and audited. All versioned files are preserved. No new design approvals, merge or production deployment. The two branches are clean; local preview servers were stopped after QA.

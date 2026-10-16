@@ -48,10 +48,19 @@ Exactly one redraw call each for held light3 v09 and heavy v11, keeping the inte
 at Goku's true size (approved idle density). Failed calls count. This is call permission, not image approval.
 
 - [x] Record permission and dispatch Luna/medium in the existing `.worktrees/art-goku-core`, PR #123.
-- [ ] Generate one correction per move, preserve every version, record cumulative attempts and exact source
+- [x] Generate one correction per move, preserve every version, record cumulative attempts and exact source
   provenance; assemble at measured density and have Astra/medium audit the actual final quantized frames.
 - [ ] Publish committed preview and root fighter review rows, commit handoff, then ring `goku-luffy --for user
   --kind approval` with the direct preview and exact versions/technical holds. No further redraw is authorized.
+
+**Result (2026-10-16):** one call each consumed (cumulative five each). Heavy v14 passes final Astra screening;
+light3 v11 remains HOLD/excluded because 256px cells lose 800 foreground pixels at the supported density. Complete
+280px companion preserved. PR #123 art `1a0b198d`, docs `11a9c270`; committed
+[r4 preview](https://gcd-tourney-4hfbyo2rn-eshin087s-projects.vercel.app/characters/goku/calibration-r4/index.html).
+Actual strict pack: 22 animations/101 frames, exact final audit and hosted hashes verified. Only prior getup contact
+warning remains. Light3 source attribution was recovered from the exact session/call window after its returned-path
+hint was omitted; receipt and caveat preserved. Heavy14 needs image approval; light3 stays held pending a hold/one
+sixth-call decision. No new image was approved. Combined handoff is prepared for the approvals desk.
 
 ---
 ## Luffy: three repair calls authorized (2026-10-16, relay #8) - chat "2 - Goku Luffy", relay lane `goku-luffy`
@@ -64,17 +73,21 @@ approve any image. The preceding no-call round is complete; this permission appl
 - [x] Generate one targeted correction per move, including failed calls in the cumulative count: down 1/3 to 2/3,
   getup 1/3 to 2/3, special 3/3 to 4/4. No further retry is authorized in this round. Preserve every version and bind
   every result to its exact returned path, prompt, inputs and hashes.
-- [ ] Assemble at measured density, obtain Astra/medium review of the actual quantized candidates, retain any
+- [x] Assemble at measured density, obtain Astra/medium review of the actual quantized candidates, retain any
   technical holds, and publish committed PR #96 preview with root fighter review rows and exact final versions.
 - [ ] Commit the handoff and ring `goku-luffy --for user` with a direct review link and the exact approval/hold
   decision. Stop; call permission never becomes image approval. Goku's two calibration holds remain with Claude.
 
-**Call outcomes (2026-10-16):** down call2 and getup call2 returned sources and are being assembled for audit.
+**Call outcomes (2026-10-16):** down call2 and getup call2 returned sources; final down v03/getup v03 assemblies pass
+Astra's final 22-animation/100-frame audit and need image approval. PR #96 art `3a0476c9`, docs `a00f091c`;
+[r5 preview](https://gcd-tourney-82qk6yott-eshin087s-projects.vercel.app/characters/luffy/calibration-r5/index.html).
+Actual branch pack and hosted sheet/metadata match the final audit; only documented prior warnings remain.
 Special call4 failed at input validation before generation because six reference paths exceeded the tool's maximum
 of five. No special v02 image exists; the failure counts as 4/4 under the failed-attempt rule. No retry was made.
 Exact prompts, reference hashes, returned sources and error outcome are in Luffy's
 `production/relay8-generation/`. A future special retry needs explicit permission for one fifth call, with at most
-five relevant references. Complete the two successful repairs and their preview before queuing the decision.
+five relevant references. The two successful repairs and their preview are complete; the special hold/fifth-call
+decision is included in the combined handoff. No retry or image approval occurred.
 
 ---
 
