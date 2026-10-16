@@ -1,6 +1,6 @@
-# Codex: Sasuke super / ultimate pilot — v03 user decision required (2026-10-15, effects lane)
+# Codex: Sasuke super / ultimate pilot — v03 approved; packed preview ready for Claude (2026-10-15, effects lane)
 
-**Latest:** branch `art/sasuke-super-art`, worktree `.worktrees/art-sasuke-super-art`, commit `24413f7c` (published PR #111). The user authorized 3 additional calls each via Claude relay effects #5; v03 candidates used all 3 (6/6 cumulative). Both are recorded at the top of `art/REVIEW.md`, remain unapproved, and Astra holds both: Kirin eyes remain open/round and chin slightly raised; Amaterasu eye blades are faint at fit and blood remains under the uncovered eye. Purple rear rope knot and horizontal Kusanagi pass. Review gallery: `https://gcd-tourney-eqwi6f2f2-eshin087s-projects.vercel.app/reviews/super-art-sasuke-r1/`. In-game route: `https://gcd-tourney-eqwi6f2f2-eshin087s-projects.vercel.app/?fight=sasuke,sasuke&mode=solo&level=hard`. Decision is now the user's: accept either image despite its hold, leave it held, or authorize more generation. No production pack, merge, deploy or image approval is recorded.
+**Latest:** branch art/sasuke-super-art, worktree .worktrees/art-sasuke-super-art; relay #6 approved both v03 foregrounds via Claude despite Astra holds. Sources copied to approved ui/ files and packed into public game outputs; no engine changes, merge or production deploy. After the next commit and preview, Claude can integrate/review the approved visuals. The gallery and game preview will be refreshed.
 
 # Previous handoff — Sasuke super / ultimate pilot (2026-10-15)
 

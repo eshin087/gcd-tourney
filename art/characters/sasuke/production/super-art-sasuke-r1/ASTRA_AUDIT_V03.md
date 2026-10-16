@@ -11,3 +11,8 @@ Date: 2026-10-15. Auditor: GPT-6 Astra, medium. Candidate files inspected at sou
 ## Limits and decision
 
 No numeric body ratio pass is claimed. Confidence is high on blood placement and source dimensions, moderate on chin/eye likeness, and low on exact body ratios. This technical audit is not user approval. The user-authorized extra budget is exhausted at 3/3 calls each in this round, 6/6 cumulative. Ask the user whether to accept either foreground despite its hold, leave it rejected/held, or authorize another budget.
+
+
+## User decision
+
+On 2026-10-15 the user approved both v03 images via Claude relay effects #6 despite these holds. This is the visual approval state; technical findings and uncertainty above remain unchanged.

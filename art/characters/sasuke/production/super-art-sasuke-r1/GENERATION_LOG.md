@@ -44,3 +44,11 @@ Originals and unselected attempts remain in E:\Vibe Coding\.codex\generated_imag
 ## V03 Astra follow-up
 
 Astra audited the raw sources and nearest-neighbor fits: both candidates remain HOLD. Kirin face narrows but eyes remain open/round and chin slightly raised; overhead arm passes. Amaterasu eye has a connected three-blade motif at source scale, but blades are faint at fitted size. Blood remains below the uncovered right eye with a separate red mark near the hand; rear purple rope and horizontal sheath pass. Lower-leg scale concern is uncertain. Whole-canvas unique RGB counts are 100,743 and 127,235, so ≤48-color hard-pixel final output is not established. See ASTRA_AUDIT_V03.md. User decision required; no approval recorded.
+
+
+## User approval — relay effects #6
+
+The user approved Sasuke ui_super_fg v03 and ui_ult_fg v03 in Claude's question box on 2026-10-15 despite the recorded Astra holds. The answer was: Kirin cutout ui_super_fg v03: Approve v03. Amaterasu cutout ui_ult_fg v03: Approve v03. Approved source hashes remain C20201B8C72004C3EEF74C26DD605CF3E5E5BD93F7A9B36FC43105B02CCC1921 and 3D29960B196D14B177B3B60B00511787E5AF84B7C390FD24F0F1CD513D7683F2. Copies were promoted to art/characters/sasuke/ui/super_fg.png and ult_fg.png for packing. User art approval does not convert Astra technical holds into passes.
+
+
+Packing note: the approved UI sources produced final 384×240 super_fg and 576×432 ult_fg. To avoid rewriting unrelated character outputs while using the character packer, it packed Sasuke into an isolated temporary output folder, then only the two relevant packer-created PNGs were promoted to public/characters/sasuke/. The run reported nine existing character-art warnings unrelated to these two UI images, including the standing-body baseline, historic strip exemptions/scale findings, palette count for sprite animations, and approved down/ko lying-frame findings. The temporary export was removed; no animation sheets were changed.

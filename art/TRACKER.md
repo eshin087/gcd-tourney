@@ -703,8 +703,8 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 | Fighter | Asset | Latest | Status | Approved | Notes |
 |---|---|---|---|---|---|
 | Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; packed to public/characters/sasuke/super_bg.png. |
-| Sasuke | super_fg | v03 (needs review) | raw | — | 3/3 additional calls (6/6 cumulative). Astra v03 HOLD: eye remains open/round, chin up slightly; overhead arm passes. |
+| Sasuke | super_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; arm passes, eyes remain relatively open/round and chin slightly elevated. |
 | Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; packed to public/characters/sasuke/ult_bg.png. |
-| Sasuke | ult_fg | v03 (needs review) | raw | — | 3/3 additional calls (6/6 cumulative). Astra v03 HOLD: connected eye blades are faint at fit; blood below uncovered eye; rope and sword pass. |
+| Sasuke | ult_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; connected eye motif faint at fit and blood remains below uncovered eye; rope and sword pass. |
 
-User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Only the backdrops are approved. Foreground v01s were rejected; v02s were superseded after user-authorized redraws via relay #5. v03s await user review; each used 3 additional calls (cumulative 6/6). See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Both v01 backdrops and both v03 foregrounds are approved. Foreground v01s were rejected; v02s were superseded after user-authorized redraws via relay #5. v03s were approved by the user via Claude relay effects #6 despite Astra holds; each used 3 additional calls (cumulative 6/6). See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
