@@ -223,6 +223,9 @@ off, and reports the first frame where the two runs differ and which values diff
     rollbacks), gojo-killua (4 ± 3, 10 %, local as player 2), goku-luffy (9 ± 1, 2 %, delay 3) and killua-sasuke
     (6 ± 2, 5 %), no desyncs; a tampered input at frame 600 is reported as a desync at frame 600. A `?net=sim`
     match against the CPU ran to its KO with 289 rollbacks and a clean console, and a 3-match soak is clean.
+  - Both fixtures were stale on production (recorded before later gameplay changes; same split at frame 821 there)
+    and are re-recorded on this build: both MATCH on `?det=`, and `det.netplay` matches them at 10 ± 4 frames with
+    12 % loss and at 6 ± 2 with 5 % loss as player 2.
   - Known gaps for ENG-094:
     - The CPU brain on the far side of `?net=sim` thinks on the predicted present, not the confirmed past; online
       matches are person vs person.
