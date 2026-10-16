@@ -104,6 +104,11 @@ custom keys.
   Fire yours into theirs (a beam, Hollow Purple or the Four-Tails pounce) and they **clash**: press Light, Heavy
   or Special as each ring closes on the target, then hold the last one (FINAL PUSH). Better timing pushes harder,
   presses off the beat push you back, and the winner's ultimate lands.
+- **Melee clash**: throw a Light into their Light (or a Heavy into their Heavy) as theirs comes out and the strikes
+  meet: CLASH!, no damage, the strikes held together with sparks in both fighters' colors as the camera pushes in on
+  the fists, then you are both pushed back a step. Press again while they're held and the next swings meet too:
+  CLASH ×2, ×3... with a bigger spray and ki for both each time, until the 5th skids you both far back (CLASH BREAK!).
+  A Light that meets a Heavy loses (CRUSH!).
 - **Special clash**: two rush specials meeting head-on (Rasengan into Chidori) get one ring; the closer press wins.
 - **Beam clash**: fire an energy special (Killua's Narukami, Gojo's → Red, Sasuke's → Chidori Spear or air Fireball)
   into the opponent's, or drive Naruto's Rasengan into it, or fire yours while theirs flies at you: BEAM CLASH! Both

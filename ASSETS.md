@@ -43,6 +43,13 @@ art/SPEC.md "Tech poses"): `techGround` (tech in place), `techRoll` (tech roll) 
 fighter has one, the game keeps showing `land` / `airRecover` / `jumpUp` for that tech. Per-frame brief and prompts:
 `art/characters/TECH_POSES_BRIEF.md`.
 
+Every fighter with an energy move (all but Luffy) can draw one optional **struggle** strip
+([ADR 0034](docs/decisions/0034-beam-clash-visuals.md)): `beamStruggle`, braced and pushing that move into the
+other side's in a beam clash, and `beamStruggleAir`, the same from the air for a fighter with an air energy shot. Until
+they exist the clash shows `beamFire` and the `throw` release frame. Brief: `art/characters/BEAM_STRUGGLE_BRIEF.md`.
+The beam clash also reads five optional VFX effects (`clashBurst`, `streamBolt`, `streamLance`, `streamFlame`,
+`redOrb`; art/vfx/EFFECTS.md "Beam clash"); each falls back to a procedural stand-in.
+
 Every attack and both hit reactions can also have one optional **alt** strip
 ([ADR 0031](docs/decisions/0031-attack-alt-animations.md), art/SPEC.md "Attack alts"): `light1Alt`, `light2Alt`,
 `light3Alt`, `light4Alt`, `heavyAlt`, `airLight1Alt`, `airLight2Alt`, `airLight3Alt`, `airHeavyAlt`, `hurtHighAlt` and

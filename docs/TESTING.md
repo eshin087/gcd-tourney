@@ -48,6 +48,7 @@ npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 | `soak(n, opts)` | n CPU vs CPU matches back to back on the fixed step (ENG-012), every frame checked for NaN positions / velocities, a fighter outside the ring barrier outside a KO, a non-idle state running 600+ frames, console and uncaught errors, a stalled game. `opts`: `pairs` (`[['naruto','sasuke'], ...]`, cycled), `level`, `stuck`, `maxFrames`, `seed`. Returns the live status at once (also `window.__soak`); see **Soak** below |
 | `comboStats()` | the CPU combos since the page loaded (ADR 0026): hit histogram, 12+ hit combos per match, matches with a handball (2+ wall bounces) or 3 wall bounces, in-combo vanishes per match, distinct routes, repeats of a CPU's previous route, combo-time share, round lengths, how combos ended, link success, personas, edge counts. Raw data: `comboRecs`, `comboLog` (with each decision's options in `steps`), `comboLinks`, `roundRecs` |
 | `?seed=N` | fixes the match seed: the same CPU personas and combo draws (the rest of the sim still uses `Math.random`) |
+| `det.*`, `?det=<fixture>` | the online-play determinism test (ADR 0036): record / replay / diagnose a match; see **Determinism test** below |
 
 Solo key codes: `KeyW/A/S/D` move, `KeyJ` light, `KeyK` heavy, `KeyL` special, `Space` jump, `ShiftLeft`
 guard, `KeyO` dash.
@@ -167,6 +168,13 @@ The fastest way to check a change by hand, locally or on a PR's preview link (`n
       their side, the bar follows the score, FINAL PUSH fills the target → OVERWHELMED! (250) or DRAW! (90 each).
       Pressing every frame scores OFF BEAT and loses. Lab **Special clash** (Naruto vs Sasuke): one ring, the closer
       press wins.
+- [ ] Melee clash (ADR 0038), lab **Melee clash chain (light vs light)**: CLASH!, no damage, the strikes held
+      together (no slow-mo) with orange / blue (the fighters' colors) sparks, no white flash, the camera pushed in on
+      the fists, then a short pushback (no bounce, the spacing stays about 1.2-1.7 through the chain); the presses
+      while the strikes are held chain it (CLASH ×2, ×3, ×4, a bigger spray each time, both ki bars grow), and the 5th
+      is CLASH BREAK! (spray, crater, both skid about a unit back on their feet, no damage). Lab **Heavy beats
+      light**: CRUSH! on the dummy, you are launched. In a match: Light into the CPU's Light as it comes out clashes;
+      a Light 6+ frames after theirs is hit as before. `game.meleeChain.n` counts the running chain.
 - [ ] Beam clash (ADR 0027), lab **Beam clash (energy vs energy)** in every pairing but the Naruto mirror (which says
       it can't): BEAM CLASH! with both attack names on their sides, two streams in each shot's colors (Narukami blue,
       Red red, Chidori Spear deep blue, Fireball orange) meeting halfway, or the stream meeting Naruto's Rasengan in
@@ -588,6 +596,35 @@ window.rrStep = (budget) => {
    several runs before tuning, change one or two numbers at a time, and log every run in ADR 0011's balance log.
 4. The CPU is a stand-in for players: also check that each fighter's kit moves get used (count `kitState` /
    named moves), and trust hands-on play over CPU numbers when they disagree.
+
+## Determinism test (ADR 0036)
+
+Online rollback needs the same inputs to give the same fight on every machine. `src/net/detTest.js` checks it
+(`?debug` exposes `window.det`; run long calls as an un-awaited async function, they take seconds):
+
+| Call | Does |
+|---|---|
+| `det.record({ p1, p2, seed, fixedBasis, detMath, name, maxFrames })` | a CPU vs CPU match; keeps both pads' inputs per frame and the state hashes (`det.last`) |
+| `det.replay(log, { dt, noDraw, randomSeed, stopAt, dumpAt })` | the same inputs, brains replaced by idle stand-ins; `{ match, first: { frame, groups }, step, frame, rollback8 }`. `dt`: `'60'`, `'120'`, `'144'`, `'jitter'` (render rates) |
+| `det.diagnose(log, { dt, randomSeed })` | two replays (the second at `dt` / another `Math.random` sequence); where they split, the values that differ |
+| `det.save(log)` / `det.load(name)` | write / read `public/det/<name>.json` (save: dev server only) |
+| `?det=<name>[&dt=120]` | no `?debug` needed: replays the fixture in this browser against its reference checkpoints and prints MATCH or SPLIT, the art check, and the step timing (8 re-simulated frames vs the 16.7 ms budget) |
+
+Every run starts from a fresh camera, frame counter 0 and render clock 0. `fixedBasis: true` pins the control basis
+to the world axes (the stand-in for a simulation-owned basis); without it, the rendered camera's smoothing, shake and
+window aspect feed the controls, so only the same render cadence replays. `detMath: true` swaps in `src/net/dmath.js` for `Math.hypot` / `sin` / `cos` (Safari's `hypot` differs from Chrome's in the last bit). Fixtures (`naruto-sasuke-s7`,
+`gojo-killua-s3`) are recorded with both, and carry one hash per frame, so a split reports its exact frame.
+
+Expected today: `replay` of a fresh recording at `'60'` and two `randomSeed`s match; `'120'`, `'144'` and `'jitter'`
+split around frame 96 (round flow on wall-clock time, ADR 0036). Cross-browser (an iPhone matched on
+2026-10-15): open each fixture in Safari (iPhone) and Firefox and read the verdict, on production or a branch preview
+(https://gcd-tourney.vercel.app/?det=naruto-sasuke-s7 and https://gcd-tourney.vercel.app/?det=gojo-killua-s3).
+A split inside a window the fixture has a trace for (`log.traces`, added with `det.addTrace(log, from, to)` then
+`det.save(log)`) also prints the first differing frame, the fields and that browser's values; compare them with
+`det.replay(log, { stopAt: k + 1, dumpAt: k })` here. Compare the per-frame hashes, never the final result: a
+split replay usually still ends with the same winner and HP. Each fixture records the simulation fingerprint it was made on (`import.meta.env.SIM_ID`, a hash of `src/game`, `src/characters`, the input, hash and math code and every `anims.json`; `vite.config.js` simId); a build with other gameplay code prints STALE FIXTURE above the verdict. After a change to the simulation, re-record the fixtures
+(`det.record({ ..., fixedBasis: true, detMath: true, name })`, `det.save(det.last)`), re-add their traces, and commit them with the
+change.
 
 ## Performance budget
 

@@ -3,6 +3,32 @@
 Project instructions for Claude Code. Read this first in every session. Codex and other agents read
 [AGENTS.md](AGENTS.md), which covers the same rules with a focus on the art workflow.
 
+## Durable control-chat coordination
+
+At every session start, read the main checkout's [docs/COORDINATION.md](docs/COORDINATION.md) and
+[docs/agents/CONTROL_CHAT.json](docs/agents/CONTROL_CHAT.json). They define the persistent control-chat
+role, status aggregation, scoped user-message routing and reset procedure. The control chat discovers
+workers; workers publish their status and use the Claude relay. Claude remains the integration and
+approval desk under ADR 0037. Do not start duplicate coordinators or monitors.
+
+## Approvals desk (user decision, 2026-10-15; ADR 0039)
+
+Only the Claude chat titled **`0 - Approvals`** asks the user for an approval or decision; it runs `/desk`
+(`.claude/skills/desk/SKILL.md`) and watches one queue with `node tools/relay.mjs wait all`. **Every other Claude
+chat never asks the user itself** (no AskUserQuestion for approvals or decisions): it runs
+`node tools/relay.mjs ask --from "<this chat's title>" --session <its local_ id from get_session self> --kind
+approval|decision|blocked --note "<question; versions>" --link <review url>`, then stops; the desk asks, and sends
+the answer back with SendMessage (`USER APPROVAL|REJECTION|DECISION via the approvals desk ...`). Codex rings
+`--for user` reach the desk the same way; lane watchers leave them to it. A SessionStart hook (`relay brief`)
+prints this rule and the queue size in every new chat. After chats are deleted, a chat named `0 - Approvals` types
+`/desk`. Routine technical questions to the user that need no decision (a quick clarification while they are
+talking to this chat) are fine; anything they must approve or decide goes through the desk.
+
+When the user says "Initialize this as the gcdTourney control chat", follow that document to rebind
+the control identity, discover replacement workers, restore one attention monitor and notify existing
+workers. Deleted chats do not erase task records or approve work. Missing mappings and stopped watchers
+must be reported honestly; no background service is implied by the rules alone.
+
 ## Agent model selection (user direction, 2026-10-12)
 
 For every newly spawned Codex agent, select the model and reasoning effort explicitly:
@@ -115,7 +141,7 @@ documentation that stays true.
 | `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
-| `npm run relay -- <cmd>` | Claude-Codex relay (ADR 0033, `tools/relay.mjs`): `lanes`, `add <lane> --thread <id\|title>`, `send <lane>` (queue the inbox prompt into the lane's Codex chat), `ring <lane>` (Codex wakes Claude), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; state in git-ignored `.relay/` |
+| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`; state in git-ignored `.relay/` |
 | `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
 | `npm run sprites` | pack all characters' art from `art/` into `public/characters/<id>/` + every world-art kind (vfx, crowd, stage, npc, ui; approved items only) |
 | `npm run sprites naruto` | pack one character |
@@ -334,7 +360,7 @@ A change is done when:
 
 - **Codex** produces the art: it generates every image with its built-in image generator from the prompts
   in `art/`, saves it with a `_vNN` version, runs `npm run sprites`, does QA, adds a row to `art/REVIEW.md`,
-  then stops for the user's `approve vNN` and updates the statuses. It can make small code/data changes that
+  then rings Claude for the user's approval (ADR 0037) and updates the statuses. It can make small code/data changes that
   follow AGENTS.md. Session prompts: [docs/agents/CODEX_PROMPT.md](docs/agents/CODEX_PROMPT.md).
 - **The user** reviews and approves every image (and can still generate one by hand in ChatGPT; it gets the
   same naming and review).
@@ -343,16 +369,77 @@ A change is done when:
   problem, fix the tool, not the output.
 - The handoff protocol is in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md). In short: claim a task in
   docs/TASKS.md, make the change, log it in CHANGELOG, then hand back with a status and a note.
-- **The relay replaces paste-in prompts** ([ADR 0033](docs/decisions/0033-claude-codex-relay.md)). A lane is one
-  Codex chat (`npm run relay -- lanes`, then `add <lane> --thread <uuid|title>`). To hand a lane to Codex: write the
-  CODEX_INBOX item as usual, run `npm run relay -- send <lane> --note "<one line>"`, then start
-  `node tools/relay.mjs wait <lane>` as a **background** command whose description starts with "Relay watcher"
-  (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue. If `send`
-  fails, give the user the paste-in prompt instead.
-  Brakes: don't send when the next step is the user's (an image to approve, BLOCKED, their decision) or when `send`
-  exits 3 (4 round trips without them); notify the user (PushNotification) and stop. After the user replies on a
-  lane, run `npm run relay -- reset <lane>`. "Stop the relay" means `npm run relay -- pause all`. Never put an
-  approval in a relay note. "status" also reports `npm run relay -- status`.
+- **The relay replaces paste-in prompts** ([ADR 0033](docs/decisions/0033-claude-codex-relay.md); call
+  `node tools/relay.mjs` directly, npm swallows some flags). A lane is one Codex chat (`lanes`, then
+  `add <lane> <chat uuid|title>`). To hand a lane to Codex: write the CODEX_INBOX item as usual, run
+  `send <lane> --note "<one line>"` (a one-off question without an inbox item: `send <lane> --direct --note "..."`),
+  then start `node tools/relay.mjs wait <lane>` as a **background** command whose description starts with
+  "Relay watcher" (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue.
+  If the watcher exits 2 saying it is still Codex's turn, start it again. If `send` fails, give the user the
+  paste-in prompt instead. **Never tell the user to paste a decision into Codex**: relay it.
+- **All approvals happen in Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)), **at the desk**
+  `0 - Approvals` ([ADR 0039](docs/decisions/0039-approvals-desk.md); the rest of this bullet is the desk's job).
+  In any other chat, a lane watcher that says "Codex needs the USER" means the desk is off: send one PushNotification
+  pointing at `0 - Approvals` and `/desk`, ask nothing, restart the watcher. When the desk's `wait all` wakes it, send a
+  PushNotification (what is waiting, one line), then ask with **AskUserQuestion**:
+  one question per approval or decision, the review link and versions in the question, options such as
+  "Approve vNN" / "Reject (say why)" / "Hold"; several strips can be one multi-select question. Relay the answer
+  word for word: `send <lane> --user-approved "<asset vNN>" --quote "<their answer>"`, `--user-rejected ... --note
+  "<their feedback>"`, or `--user-decision "<what>" --quote "..."` for non-image decisions, then restart the watcher.
+  Use these only with an answer the user gave in this conversation, never one you inferred; a plain `--note` that
+  says "approve" is refused. A relayed answer starts the round-trip count again; other brakes: when `send` exits 3
+  (4 round trips without the user), notify and stop; after the user replies on a lane otherwise, `reset <lane>`.
+  "Stop the relay" means `pause all`. "status" also reports `node tools/relay.mjs status` (turn "you" = waiting on
+  the user).
+
+### Mandatory Claude handoff check (every chat and agent, 2026-10-15)
+
+At session start and before every final response or task handback, check whether Claude needs a reply,
+even for direct user tasks without a relay prefix. Read the main checkout's current AGENTS.md relay rules
+and docs/agents/CODEX_INBOX.md (your section plus Every thread); an older task-worktree copy is insufficient.
+Locate main with git worktree list. Run node tools/relay.mjs status from main.
+
+- Identify the lane from the relay message, inbox section or registered chat mapping. Never guess, broadcast
+  or ring another chat's lane. If Claude needs the result but no lane can be identified, preserve the written
+  handoff and report the missing mapping instead of silently omitting the handback.
+- When Claude has the next actionable step (review, calibration, integration, requested report or follow-up),
+  commit the handoff with branch/worktree, commit, results and remaining holds, then run
+  node tools/relay.mjs ring <lane> --note "<what is ready; commit; next Claude action>" from main.
+  This user-authorized handback needs no reminder or further permission. Check the command result: a written
+  handoff alone is not a sent notification. Ring once per new handoff, not on every status response.
+- Preserve approval, BLOCKED and pause brakes. If only the user's approval or decision remains, ring once with
+  `--for user --kind approval|decision|blocked` (ADR 0037: Claude asks the user with buttons), update NOW.md and
+  stop; that ring never authorizes further production. Proceed only on a relayed `USER APPROVAL`/`USER DECISION`
+  or the user's own message. Do not reset/resume a paused lane or bypass a hop limit to complete this check.
+- Subagents report the handoff requirement to their parent; the owning chat rings once unless the handback
+  was explicitly delegated. Claude maintains a background watcher for each active lane and reads the
+  committed handoff when notified. A ring without a watcher is queued, not proof that Claude read it.
+- Briefly report the outcome in the final response: Claude notified (lane and commit), already notified,
+  waiting for the user, no Claude action needed, or delivery blocked (reason). On failure, retain the
+  handoff and report the exact failure; never claim successful delivery.
+
+### Mandatory user-facing status (every Codex chat, 2026-10-15)
+
+Every final response or task handback must end with these four short status lines, even when there is
+no action needed. Use current evidence from this task, main's inbox and relay state; never make the user
+infer who acts next from "done", "ready", a commit, or a preview link:
+
+- **Status:** Complete / Waiting for you / Waiting for Claude / Blocked / In progress. If multiple waits
+  apply, name each. Complete means the requested scope is finished, with no required approval, validation,
+  delivery or handoff outstanding. Distinguish this task's completion from the larger project's completion.
+- **Your action:** None, or the exact approval/decision/test/input needed. Link the specific candidate or
+  review page, name its version, and say what reply to give. Separate visual approval from technical holds.
+- **Claude:** None, or the exact next action/reply awaited and handoff delivery state (sent/queued/failed,
+  lane and commit when applicable). If Claude asked Codex for unfinished work, say so and identify that work.
+  Do not claim Claude has read or completed anything without evidence; mark unknown status as unverified.
+- **Next:** Who acts next and what resumes afterward. Say whether Codex is continuing, waiting for a relay,
+  waiting for the user's reply, or finished with no follow-up. Never imply background work or monitoring
+  continues unless it is actually running.
+
+When code/art is only committed locally or on a preview, say so; do not imply merged, deployed, approved
+or fully validated. Keep these lines concise and actionable. An idle rule-reminder turn reports the current
+wait without starting unrequested work. Subagents give the same facts to their parent for the final handback.
+Read this rule from main alongside the mandatory Claude handoff check; it applies to older worktrees too.
 
 ## Gotchas
 

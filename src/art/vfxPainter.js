@@ -341,6 +341,102 @@ const PAINTERS = {
       ctx.beginPath(); ctx.arc(x - r * 0.15, y - r * 0.3, r * 0.55, 0, Math.PI * 2); ctx.fill();
     }
   },
+  // ---- beam clash (ADR 0034): stand-ins until the Codex art in art/vfx/EFFECTS.md is approved. The stream bands
+  // tile horizontally (every shape is periodic over the cell width, ends on the center line) and are laid end to end
+  // along a stream by Effects.streamBand
+  // the knot where two streams meet: a roiling core spraying jagged spikes up and down and back along both streams
+  clashBurst(i, n, ctx) {
+    const R = rng(410 + i * 13);
+    ctx.translate(32, 32);
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    for (let k = 0; k < 28; k++) {
+      const a = (k / 28) * Math.PI * 2;
+      const vert = Math.abs(Math.sin(a)); // spikes favour straight up and down: the spray off a collision
+      const rr = k % 2 ? 7 + R() * 3 : 10 + vert * (8 + R() * 13) + R() * 4;
+      ctx.lineTo(Math.cos(a) * rr * 1.1, Math.sin(a) * rr);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#e6e6e6';
+    ctx.beginPath(); ctx.arc(0, 0, 6 + (i % 3), 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath(); ctx.arc(0, 0, 4, 0, Math.PI * 2); ctx.fill();
+    for (let k = 0; k < 5; k++) ctx.fillRect(Math.round((R() - 0.5) * 50), Math.round((R() - 0.5) * 54), 2, 2);
+  },
+  // Narukami: a thick zigzag of lightning with forks, a different shape each frame
+  streamBolt(i, n, ctx) {
+    const R = rng(520 + i * 31);
+    const zig = (amp, w, col) => {
+      ctx.strokeStyle = col;
+      ctx.lineWidth = w;
+      ctx.beginPath();
+      ctx.moveTo(0, 32);
+      const pts = [];
+      for (let k = 1; k < 8; k++) pts.push([k * 8, 32 + (R() - 0.5) * amp]);
+      pts.forEach(([x, y]) => ctx.lineTo(x, y));
+      ctx.lineTo(64, 32);
+      ctx.stroke();
+      return pts;
+    };
+    zig(12, 3, '#c8c8c8');
+    const main = zig(18, 6, '#e6e6e6');
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0, 32); main.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(64, 32); ctx.stroke();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#ffffff';
+    for (let k = 0; k < 3; k++) {
+      const [x, y] = main[1 + Math.floor(R() * 5)], s = R() < 0.5 ? -1 : 1;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 3 + R() * 4, y + s * (4 + R() * 4)); ctx.lineTo(x + 6 + R() * 4, y + s * (8 + R() * 5)); ctx.stroke();
+    }
+  },
+  // Chidori Spear: a thin straight blade of lightning with crackle around it
+  streamLance(i, n, ctx) {
+    const R = rng(640 + i * 19);
+    ctx.fillStyle = '#c8c8c8';
+    ctx.fillRect(0, 26, 64, 12);
+    ctx.fillStyle = '#e6e6e6';
+    ctx.fillRect(0, 28, 64, 8);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 30, 64, 4);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1;
+    for (let k = 0; k < 4; k++) {
+      const x = 6 + R() * 48, s = k % 2 ? -1 : 1;
+      ctx.beginPath(); ctx.moveTo(x, 32 + s * 6); ctx.lineTo(x + 2 + R() * 3, 32 + s * (9 + R() * 3)); ctx.lineTo(x + 5 + R() * 3, 32 + s * (8 + R() * 6)); ctx.stroke();
+    }
+  },
+  // Great Fireball: a rolling torrent of fire (fixed colors); the bulges are periodic over the cell so it tiles
+  streamFlame(i, n, ctx) {
+    const cols = ['#c42a10', '#f05a14', '#ff9a24', '#ffd04a', '#fff4c0'];
+    const ph = (i / n) * Math.PI * 2;
+    cols.forEach((c, k) => {
+      ctx.fillStyle = c;
+      const base = 13 - k * 2.6;
+      for (let x = 0; x < 64; x++) {
+        const u = (x / 64) * Math.PI * 2;
+        const h = Math.max(1, base + 3 * Math.sin(u * 2 - ph) + 2 * Math.sin(u * 3 + ph * 2 + k));
+        ctx.fillRect(x, Math.round(32 - h), 1, Math.round(h * 2));
+      }
+    });
+  },
+  // Reversal: Red: a crimson sphere with a white-hot core, a ring pushing outward (fixed colors)
+  redOrb(i, n, ctx) {
+    ctx.translate(32, 32);
+    const t = i / n;
+    ctx.strokeStyle = '#ff3048';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(0, 0, 15 + t * 13, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = '#a00c22';
+    ctx.beginPath(); ctx.arc(0, 0, 14 + (i % 2), 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ff3048';
+    ctx.beginPath(); ctx.arc(0, 0, 11, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffd8dc';
+    ctx.beginPath(); ctx.arc(0, 0, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath(); ctx.arc(-1, -1, 3, 0, Math.PI * 2); ctx.fill();
+  },
   crater(i, n, ctx) {
     const R = rng(5 + i);
     ctx.translate(32, 32);
@@ -386,6 +482,12 @@ export const VFX_ANIMS = {
   naruto_chakraTail: { n: 6, ms: 60, levels: [0, 255] },
   // ground damage (ADR 0024)
   dustWave: { n: 6, ms: 60, levels: [0, 255] },
+  // beam clash (ADR 0034)
+  clashBurst: { n: 6, ms: 45, levels: [0, 255] },
+  streamBolt: { n: 4, ms: 40, levels: [0, 255] },
+  streamLance: { n: 4, ms: 40, levels: [0, 255] },
+  streamFlame: { n: 4, ms: 50, levels: [0, 255] },
+  redOrb: { n: 6, ms: 40, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.

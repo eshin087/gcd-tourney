@@ -992,6 +992,8 @@ function main() {
   attackAltTests(base);
   standingHitBoxTests(base);
   sidecarEraseTests(base);
+  approvedIdleRefTests(base);
+  sidecarFlipTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1829,6 +1831,61 @@ function sidecarEraseTests(base) {
       `erase: the sidecar rect clears it and the report says so (width ${gone.w(2)} vs ${gone.w(3)}; ${gone.notes.filter((n) => /erase/.test(n)).join(' | ')})`);
     check(anyWarn(gone.C.warnings, /sidecar "erase" \[1,2,3\] ignored/), `erase: a malformed rect warns and is skipped (${gone.C.warnings.filter((w) => /erase/.test(w)).join(' | ')})`);
   }
+}
+
+// TOOL-040: a new idle candidate (the newest raw) must not become the scale gate's reference while an approved idle exists
+function approvedIdleRefTests(base) {
+  const iraw = (n) => path.join(ART, 'characters', 'idley', 'raw', n);
+  const bobs = [0, 0, 1, 1, 1, 0, 0, 1];
+  savePng(iraw('idle_v01.png'), scaleStrip(bobs.map((bob) => ({ bob })), 1001)); // approved
+  savePng(iraw('idle_v02.png'), scaleStrip(bobs.map((bob) => ({ bob, thinHair: true })), 1002)); // candidate: narrower hair
+  savePng(iraw('light1_v01.png'), scaleStrip(Array.from({ length: 7 }, () => ({})), 1003));
+  const manPath = path.join(ART, 'manifest.json');
+  const setApproved = (v) => {
+    const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+    man.characters.idley = { name: 'Idley', scaleGate: 'warn', animations: {
+      idle: { frames: 8, loop: true, bodyHeight: 204, approvedVersion: v },
+      light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204, approvedVersion: 1 } } };
+    fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  };
+  const run = () => pack([...base, 'idley']).json?.characters.find((c) => c.id === 'idley');
+  setApproved(1);
+  const c1 = run();
+  const s1 = c1?.scale?.anims;
+  check(s1 && Math.abs(s1.light1.head - 1) < 0.05 && s1.light1.verdict === 'ok' && s1.idle.verdict === 'drift',
+    `approved idle ref: with candidate idle v02 packed, light1 is measured against approved v01 (${s1?.light1?.head} ${s1?.light1?.verdict}) and the candidate idle is gated (${s1?.idle?.verdict})`);
+  check((c1?.notes || []).some((n) => /measured against the approved idle v01, not the packed candidate v02/.test(n)), 'approved idle ref: the report says which idle the strips were measured against');
+  // control: once v02 is the approved idle it is the reference again, and light1's normal hair reads big against it
+  setApproved(2);
+  const s2 = run()?.scale?.anims;
+  check(s2?.idle?.verdict === 'ref' && s2.light1.head > 1.1, `approved idle ref: an approved v02 is the reference again (idle ${s2?.idle?.verdict}, light1 ${s2?.light1?.head})`);
+}
+
+// sidecar "flipX": a pose drawn facing the other way is mirrored frame by frame, frame order kept
+function sidecarFlipTests(base) {
+  const fraw = (n) => path.join(ART, 'characters', 'flippy', 'raw', n);
+  savePng(fraw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 1101, specks: 0 }));
+  savePng(fraw('light1_v01.png'), strip([{}, { punch: 2 }, { punch: 16 }, { punch: 16 }, { punch: 9 }, { punch: 4 }, {}], { seed: 1102, specks: 0 }));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.flippy = { name: 'Flippy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204 } } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const reach = () => {
+    const r = pack([...base, 'flippy']);
+    const C = r.json?.characters.find((c) => c.id === 'flippy');
+    const meta = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'flippy', 'anims.json'), 'utf8'));
+    const sheet = loadPng(path.join(OUT, 'characters', 'flippy', 'sheet.png'));
+    const px = meta.pivot[0];
+    // how far the pose reaches right and left of the pivot, per frame
+    return { C, f: meta.animations.light1.frames.map((i) => { const b = bb(cell(sheet, i)); return { right: b.x1 - px, left: px - b.x0 }; }) };
+  };
+  const a = reach();
+  check(a.f[2].right > a.f[2].left + 20, `flipX: without it the jab reaches right of the pivot (right ${a.f[2].right}, left ${a.f[2].left})`);
+  fs.writeFileSync(fraw('light1_v01.json'), JSON.stringify({ flipX: true }));
+  const b = reach();
+  const notes = b.C?.packed.find((p) => p.anim === 'light1')?.notes || [];
+  check(b.f[2].left > b.f[2].right + 20 && notes.some((n) => /mirrored left-right \(sidecar flipX\)/.test(n)), `flipX: the jab now reaches left and the report says so (right ${b.f[2].right}, left ${b.f[2].left})`);
+  check(b.f[2].left > b.f[1].left + 10 && b.f[5].left < b.f[3].left, 'flipX: frame order is kept (the fist extends on f2-f3 and comes back on f5)');
 }
 
 function finish() {

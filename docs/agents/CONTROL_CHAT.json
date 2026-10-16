@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "role": "gcdTourney control chat",
+  "hostId": "local",
+  "threadId": "01a142a5-2c36-71b0-be8a-78ccb6bfb692",
+  "titleAtRegistration": "0 - G",
+  "registeredOn": "2026-10-15",
+  "procedure": "docs/COORDINATION.md",
+  "monitor": {
+    "id": "gcd-tourney-attention-queue",
+    "name": "GCD Tourney attention queue",
+    "status": "ACTIVE",
+    "scheduling": "adaptive-bounded",
+    "initialIntervalMinutes": 15,
+    "minIntervalMinutes": 5,
+    "maxIntervalMinutes": 60,
+    "sessionExpiresAt": "2026-10-16T08:00:00Z",
+    "maxSessionHours": 4,
+    "unchangedChecksBeforePause": 3,
+    "recommendedModel": "gpt-6-luna",
+    "recommendedReasoning": "medium",
+    "modelChanged": false,
+    "configurationNote": "Setup snapshot only; inspect the automation for live schedule/status."
+  },
+  "workerBindings": "Read live relay lanes and discover current project chats; do not hardcode worker UUIDs here."
+}

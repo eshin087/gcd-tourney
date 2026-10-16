@@ -379,6 +379,22 @@ section's table when its strips are generated (the manifest gets the same entrie
 | killua | todo | todo | todo | title-style production branch (PR #70) |
 | gojo | todo | todo | todo | title-style production branch (PR #72) |
 
+## Beam clash struggle (ADR 0034)
+
+One optional strip for every fighter with an energy move (step 9): `beamStruggle` (3 frames, loop, 70 ms), braced and
+pushing the 1-bar energy technique into the other side's, and `beamStruggleAir` for a fighter with an air energy shot
+(the same, hovering). Until a fighter's strip is packed, the clash shows `beamFire` / the `throw` release frame.
+Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characters/BEAM_STRUGGLE_BRIEF.md)
+(ART-BEAM-CLASH). Luffy has no energy move and draws none.
+
+| fighter | beamStruggle | beamStruggleAir | the technique | notes |
+|---|---|---|---|---|
+| naruto | todo | - | Rasengan, two-handed push | no air energy shot |
+| sasuke | todo | todo | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | |
+| killua | todo | todo | Narukami, open palm (in the air driven down) | |
+| gojo | todo | todo | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | |
+| goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
+
 ## Attack alts (ADR 0031)
 
 Eleven optional strips per fighter (step 9), one alternate of each attack and hit reaction: `light1Alt`, `light2Alt`,
@@ -427,6 +443,11 @@ ones.
 | ripple | 5 | 50 | white (tinted) | center | approved | v02 | v02 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | naruto_chakraTail | 6 | 60 (loop) | white (tinted) | bottom | approved | v01 | v01 | User explicitly approved; normal atlas repacked; ready for Claude integration. |
 | dustWave | 6 | 60 | full color | bottom | todo | - | - | New for ground damage (ENG-070, ADR 0024): rolling dust walls around big craters; procedural until approved. Brief in EFFECTS.md. |
+| clashBurst | 6 | 45 | white (tinted) | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash (ADR 0034, ART-BEAM-CLASH): the knot where two streams collide; procedural until approved. Brief in EFFECTS.md "Beam clash". |
+| streamBolt | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Narukami stream band; exact 128 x 128 tiles in frames/streamBolt/. |
+| streamLance | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Chidori Spear stream band; exact tiles. |
+| streamFlame | 4 | 50 | full color | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Great Fireball stream band; exact tiles. |
+| redOrb | 6 | 40 | full color | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Reversal: Red held in a struggle. |
 
 ## Shared UI (step 11)
 
@@ -681,3 +702,14 @@ Killua corrections checkpoint: light2v06/light4v10 improve combat recovery; spec
 Killua latest QA: specialDown07 retained after final hair-only correction; diagnostic reference28 ok/8 unmeasured/5 flagged. Block151/specialUp197 measured fits retained after peer anatomy review. Full production remains blocked; no new image approved.
 Title-style pilot v01: all four sheets and neutral/combat lineups approved by user 2026-10-11. Full animation production authorized; new strips require final review. Original down/KO poses retained with new style.
 
+
+## Sasuke super / ultimate UI pilot (ART-SUPER-ART)
+
+| Fighter | Asset | Latest | Status | Approved | Notes |
+|---|---|---|---|---|---|
+| Sasuke | super_bg | v01 | approved | v01 | Kirin; approved via Claude relay effects #2; not packed. |
+| Sasuke | super_fg | v01 (rejected) | raw | — | Kirin; user rejected via Claude relay effects #3; source archived. |
+| Sasuke | ult_bg | v01 | approved | v01 | Amaterasu; approved via Claude relay effects #2; not packed. |
+| Sasuke | ult_fg | v01 (rejected) | raw | — | Amaterasu; user rejected via Claude relay effects #3; source archived. |
+
+User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Only the backdrops are approved; foreground technical holds remain documented. See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
