@@ -5,7 +5,7 @@
 | Character | Asset | Version | Review state | Technical finding |
 |---|---|---:|---|---|
 | Goku | light3 | [v10 source](raw/_qa_hold/light3_v10.png) | technical hold; not ready for user review | One authorized redraw call; source is 2172x724; measured .62 assembly is v11. The 256px diagnostic has 800 clipped foreground-mask pixels; its complete 280px companion is preserved at the same density. Exact output recovery evidence and source/prompt/reference hashes in `production/relay9-generation/GENERATION_LEDGER.md` and `raw/_qa_hold/light3_v10.json`. No scale or anatomy pass claimed. |
-| Goku | heavy | [v12 source](raw/_qa_hold/heavy_v12.png) | technical hold; not ready for user review | One authorized redraw call; source is 2172x724; measured assemblies v13 (.73) and v14 (.720) are preserved. v14 is pending quick recheck in the normal combined atlas. Exact source/prompt/reference hashes in `production/relay9-generation/GENERATION_LEDGER.md` and `raw/_qa_hold/heavy_v12.json`. No scale or anatomy pass claimed. |
+| Goku | heavy | [v12 source](raw/_qa_hold/heavy_v12.png) | technical hold; not ready for user review | One authorized redraw call; source is 2172x724; measured assemblies v13 (.73) and v14 (.720) are preserved. v14 passed Astra review in the exact normal combined atlas; the drawing still awaits user review. Exact source/prompt/reference hashes in `production/relay9-generation/GENERATION_LEDGER.md` and `raw/_qa_hold/heavy_v12.json`. No scale or anatomy pass claimed. |
 
 These entries document the generated sources and later measured assemblies. The user-approved v04 drawings remain historical; neither relay9 call authorization nor a technical audit approves a new drawing.
 
