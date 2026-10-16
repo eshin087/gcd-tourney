@@ -2,7 +2,7 @@
 
 ## Review
 
-- **Current gallery:** local `/characters/goku/calibration-r5/index.html` (the exact preview URL will be added after preview deployment).
+- **Current gallery:** [calibration r5 preview](https://gcd-tourney-9rbjxyx11-eshin087s-projects.vercel.app/characters/goku/calibration-r5/index.html) from committed branch HEAD `3bc9169b`.
 - The gallery shows the approved title-style neutral/combat strip at native 256px cells, approved identity references, light3 v13 and heavy v14 players using exact cells extracted from the audited atlas, the historical v11 light3 hold, source provenance, and current audit state.
 - **Please review and approve Goku light3 v13** as a drawing. This is separate from its technical audit pass. Heavy v14 remains approved by the user via Claude relay #10 (“Approved”).
 
@@ -41,5 +41,5 @@ Cumulative attempts: light3 six calls (relay #11 authorized and used call 6; no 
 - Final audit: `art/characters/goku/production/manual-audit-r5/FINAL_ATLAS_AUDIT.md`.
 - Source measurements and candidate audit: `production/manual-audit-r5/SOURCE_SCREEN.md`, `SOURCE_MEASUREMENTS.json`, and `CANDIDATE_AUDIT.md`.
 - Generation receipt, prompt, assembly and exact pack reports: `production/relay11-generation/` and `production/manual-audit-r5/`.
-- Parent local browser QA from relay #9 is historical (`production/relay9-generation/PARENT_BROWSER_R4.md`). The parent CUA browser session was unavailable for r5; no new interactive browser QA is claimed. The r5 page loads the branch's actual `sheet.png` and `anims.json`; hosted preview byte verification will be recorded after deployment.
+- Parent local browser QA from relay #9 is historical (`production/relay9-generation/PARENT_BROWSER_R4.md`). The parent CUA browser session was unavailable for r5; no new interactive browser QA is claimed. The r5 page loads the branch's actual `sheet.png` and `anims.json`. The committed preview build succeeded; hosted byte verification is pending the parent's independent check.
 - No gameplay contact, hidden-knee/ankle measurement, runtime timing, merge or production deployment is claimed.
