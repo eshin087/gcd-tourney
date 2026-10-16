@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: online-play determinism test (ENG-090, ADR 0036): `src/net/simHash.js` (per-frame state hash in groups, dumps to diff), `src/net/detTest.js` (`?debug` -> `det.record/replay/diagnose`, `?det=<fixture>` replays a saved match against its reference in any browser), fixtures in `public/det/` (per-frame hashes, per-field traces), `src/net/dmath.js` (deterministic hypot/sin/cos: Safari's `Math.hypot` differs from Chrome's), and ADR 0036 (rollback netcode, lobby server and the leaks the spike found).
 - Added: melee clash (ENG-096, ADR 0038): two lights or two heavies meeting while both are live cancel out (CLASH!, no damage: the strikes held together with sparks in both fighters' colors and the camera pushing in, then a short pushback, free to act); pressing again chains it (CLASH ×2, ×3... with growing effects and ki for both) until the 5th skids both far back (CLASH BREAK!); a light that meets a heavy loses (CRUSH!). The CPUs seek clashes at a per-level rate; lab scenarios **Melee clash chain** and **Heavy beats light**.
 - docs(scale): hand back calibrated five-candidate Astra re-audit and corrected protected preview; oversizing/clipping resolved, precise contact/grounding/aura follow-up retained for Claude. No image approvals or new generation.
 

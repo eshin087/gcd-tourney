@@ -83,6 +83,14 @@ src/game/
   hitFlash.js               the victim's hit flash (ENG-064): tier per hit, render-only envelope (pop, lift,
                             rim, fade) on Game.frameNo, hitstop shake, ?flash=<style>; numbers in HIT_FLASH
   constants.js              world/ruleset constants (ring size, gravity, HP, ki, round time, PPUs)
+src/net/                    online play (ADR 0036), so far its determinism spike:
+  simHash.js                hashSim (per-frame state hash in groups: game flow, each fighter, pads, shots, camera
+                            basis), dumpSim / diffDumps (flat value maps to diff two runs); view-only keys skipped
+  detTest.js                debug only (?debug -> window.det, ?det=<fixture>): record a CPU match's pad inputs and
+                            hashes, replay them (brains off, other render rates), report the first split and its
+                            values, time the fixed step; fixtures in public/det/, saved via the dev server
+  dmath.js                  deterministic hypot / sin / cos from + - * / and Math.sqrt (Safari's Math.hypot differs
+                            from Chrome's in the last bit); installDetMath() swaps them in for a test run
 src/characters/             one file per fighter + index.js (ROSTER, getChar)
 src/art/
   animGuide.js              canonical animation list (frames, phases, pose text) + ChatGPT prompt builder
