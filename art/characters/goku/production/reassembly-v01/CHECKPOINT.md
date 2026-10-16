@@ -1,6 +1,6 @@
 # Goku reassembly checkpoint
 
-Date: 2026-10-15. This is a bounded calibration checkpoint, not completion of the 22-strip batch. No generation, packing, manifest edit, or approval change occurred.
+Date: 2026-10-15. This is a bounded calibration checkpoint, not completion of the 22-strip batch. No new generation, production pack, calibration-field edit, or approval change occurred. The parent recorded only newest-version metadata for guard v05, light2 v05, beamCharge v06 and beamFire v06; those version fields do not approve or clear any candidate.
 
 ## Provisional calibration pilots for Claude
 
