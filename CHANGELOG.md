@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: the approvals desk stops itself when all work is done (TOOL-051, ADR 0039): Claude chats report `relay chat active|done`, and `relay wait all` exits after 15 quiet minutes with no open ask, no lane waiting on Codex and no active chat; `relay status` says what keeps it awake.
+
 - art(killua): record user approval via Claude relay scale#6 (“i approve those 5”) for charge v14, down v08 and ko v09 as drawn. Calibration uncertainty remains; charge aura retention and runtime grounding/state-transition checks remain on technical hold for Claude.
 
 - art(killua): Astra re-audited calibrated charge v14, down v08 and mirrored ko v09; gross scale/clipping defects resolved and visual anatomy screening passes. Runtime grounding and aura retention remain unverified; calibration uncertainties remain. User approval is recorded in the entry above. No new generation or calibration edits.
