@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Sasuke round4: file jumpSquat v07 from the single authorized arm-repair call; exact generation event and SHA256 recorded, candidate awaits review and packed anatomy QA.
 - Sasuke round4: audit the calibrated a2a8faed atlas (8 frames), resolve prior fist clipping, record native bilateral segment evidence and remaining anatomy HOLDs; jumpSquat extended-arm concern, existing v06 manual QA preserved.
 
 - Added Sasuke round-4 calibration handoff with exact source/candidate hashes, strict-pack evidence and remaining call budgets; superDash v07 remains held for Claude's measured placement review.

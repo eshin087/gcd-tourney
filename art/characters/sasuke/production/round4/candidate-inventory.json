@@ -1,6 +1,74 @@
 {
   "fighter": "sasuke",
   "authorization": "Round4 user decision: up to3 NEW calls per named or measured-failed image; no automatic reset",
+  "extraAuthorizedRepairCalls": [
+    {
+      "asset": "jumpSquat",
+      "count": 1,
+      "purpose": "Repair the projected overlong reaching arm in jumpSquat_v06 while preserving the crouch pose and body.",
+      "result": "Completed; the functions.exec wrapper omitted the image tool output, then the exact item_completed event was recovered from this session's rollout log. No retry was made.",
+      "generationId": "exec-d006ed27-5a55-43b4-98a7-25c633e8ec02",
+      "event": {
+        "session": "E:/Vibe Coding/.codex/sessions/2026/10/15/rollout-2026-10-15T17-37-27-01a14224-73ee-7803-bcfc-76c1b74422f8.jsonl",
+        "threadId": "01a14224-73ee-7803-bcfc-76c1b74422f8",
+        "timestamp": "2026-10-16T00:38:23.614Z",
+        "type": "item_completed",
+        "status": "completed",
+        "failure": null,
+        "wrapperOutput": "{}; no output_hint or image metadata surfaced"
+      },
+      "toolSavedPath": "E:/Vibe Coding/.codex/generated_images/01a14224-73ee-7803-bcfc-76c1b74422f8/exec-d006ed27-5a55-43b4-98a7-25c633e8ec02.png",
+      "savedCandidate": "art/characters/sasuke/raw/jumpSquat_v07.png",
+      "sha256": "8b8cb826e0d4105e5bc66dc1bd25e6c6e8399b1d7b8930f778b35428ed3ad1bb"
+    }
+  ],
+  "extraAuthorizedRepairInitialPackAttempt": {
+    "candidate": "art/characters/sasuke/raw/jumpSquat_v07.png",
+    "command": "node tools/pack-sprites.mjs sasuke --quantize 48 --out C:/Users/Codex/AppData/Local/Temp/gcd-sasuke-jumpsquat-v07-diagnostic",
+    "exitCode": 1,
+    "selectedSource": "raw/jumpSquat_v07.png",
+    "bodyHeightUsed": 162,
+    "bodyHeightSource": "art/manifest.json; this first pack attempt occurred before the byte-identical v06 sidecar was copied to v07",
+    "scaleGate": "FAILED: 1 ref, 31 ok, 1 unmeasured, 9 manual; jumpSquat low-confidence pose and v06 manual QA does not certify v07",
+    "written": false,
+    "outputDirectoryError": "EPERM creating diagnostic output under C:/Users/Codex/AppData/Local/Temp"
+  },
+  "extraAuthorizedRepairStandardPackAfterSidecar": {
+    "command": "node tools/pack-sprites.mjs sasuke --quantize 48 --no-writeback --dry-run --json",
+    "exitCode": 1,
+    "source": "raw/jumpSquat_v07.png",
+    "bodyHeightUsed": 157,
+    "scaleGate": "FAILED: 1 ref, 31 ok, 1 unmeasured, 9 manual; jumpSquat strict=true, verdict=unmeasured, head=0.985, feet=0.829",
+    "warnings": [
+      "jumpSquat is a low-confidence tucked/crouched pose requiring a version-specific manual anatomy/scale comparison",
+      "scaleManualQA is recorded for v06, not the packed v07"
+    ],
+    "written": false,
+    "report": "art/characters/sasuke/production/round6/diagnostic-v07/standard-pack-report.json",
+    "reportSha256": "7233a58e6163ce426706330416b1f2072e15fec216498851f1bc5a62ae184734"
+  },
+  "extraAuthorizedRepairDiagnosticPack": {
+    "command": "node tools/pack-sprites.mjs sasuke --quantize 48 --no-writeback --manifest art/characters/sasuke/production/round6/diagnostic-v07/manifest.json --out art/characters/sasuke/production/round6/diagnostic-v07/packed --json",
+    "exitCode": 0,
+    "source": "art/characters/sasuke/raw/jumpSquat_v07.png",
+    "sidecar": "art/characters/sasuke/raw/jumpSquat_v07.json",
+    "sidecarSha256": "479caef8366ee22fe038e4f9cc34c41f075a7fff87da727ddb12a8f74d36e96",
+    "sidecarNote": "Byte-identical copy of jumpSquat_v06.json; no calibration values changed.",
+    "diagnosticManifest": "art/characters/sasuke/production/round6/diagnostic-v07/manifest.json",
+    "manifestOverride": "characters.sasuke.scaleGate=warn only; actual art/manifest.json remains auto and unmodified for this diagnostic override.",
+    "productionManifestSha256": "007bc4eb7bf9efda2dc99de563d61db50ad88eaab572558fb4945a815632cfd1",
+    "bodyHeightUsed": 157,
+    "packed": "42 animations, 175 frames, 4096x2816 sheet, 48 colors",
+    "jumpSquatScale": 0.322,
+    "scaleAudit": "unmeasured; head=0.985, feet=0.829; strict=false due diagnostic warn mode. No manual QA or approval inferred.",
+    "warningCount": 9,
+    "sheet": "art/characters/sasuke/production/round6/diagnostic-v07/packed/characters/sasuke/sheet.png",
+    "sheetSha256": "79427700a78d5a158407d86a8b1ab68f092d34cd880a45f0d47ccc321f14b6c9",
+    "anims": "art/characters/sasuke/production/round6/diagnostic-v07/packed/characters/sasuke/anims.json",
+    "animsSha256": "30a5dcc5b50cf6fbca30aa938c317202c787f3a2c105a8bd4aeccf868d870043",
+    "report": "art/characters/sasuke/production/round6/diagnostic-v07/pack-report.json",
+    "reportSha256": "8ec05794695e4f713c3d2dec4511cddde3b10d6e705e44db48d8b083fa391de9"
+  },
   "beforeRound4": "Existing version history is preserved; no claim about unknown earlier cumulative call totals.",
   "approval": "None. Selected candidates and earlier prematurely filed attempts all need review; no anatomical pass.",
   "images": {
@@ -15,15 +83,16 @@
       "anatomyFit": "Packer measured auto-head, no bodyHeight/offset changes"
     },
     "jumpSquat": {
-      "selected": "art/characters/sasuke/raw/jumpSquat_v06.png",
+      "selected": "art/characters/sasuke/raw/jumpSquat_v07.png",
       "round4Calls": 3,
       "remainingRound4Calls": 0,
-      "sha256": "5a100831589c45c9d4207b687b2ddc22800954bb058482677de774fcd67ed741",
+      "sha256": "8b8cb826e0d4105e5bc66dc1bd25e6c6e8399b1d7b8930f778b35428ed3ad1bb",
       "earlierFiled": [
         "v04",
-        "v05"
+        "v05",
+        "v06"
       ],
-      "anatomyFit": "Legacy pose-height packing; no manual pass entered"
+      "anatomyFit": "Diagnostic pack used bodyHeight 157 from the byte-identical v06 sidecar; scaleAudit remains unmeasured and no manual pass entered"
     },
     "beamFire": {
       "selected": "art/characters/sasuke/raw/beamFire_v07.png",
