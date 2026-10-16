@@ -8,20 +8,20 @@
 </style>
 </head>
 <body>
-<h1>Goku Relay 11 — light3 v13 candidate review</h1>
+<h1>Goku Relay 11 — light3 v13 approval record</h1>
 <section class="panel state" aria-live="polite">
 <p>Drawing approval: <span id="drawingApproval"></span></p>
 <p>Technical audit: <span id="technicalAudit"></span></p>
 <p>Hold decision: <span id="holdDecision"></span></p>
-<p class="small">These decisions are separate. Heavy v14 remains user-approved via Claude relay #10 ("Approved"). Relay #11 authorized one light3 call only; it did not approve the image. Light3 v13 passed Astra’s exact 108-frame atlas audit at x1; user drawing approval is pending.</p>
+<p class="small">These decisions are separate. Heavy v14 remains user-approved via Claude relay #10 ("Approved"). Relay #11 authorized one light3 call only; it did not approve the image. Light3 v13 passed Astra’s exact 108-frame atlas audit at x1; user drawing approval was recorded via Claude relay #12 ("Approve Goku light3 v13 and Luffy special v02 as drawn.").</p>
 </section>
-<section class="panel state"><h2>Review request: approve Goku light3 v13</h2><p><b>Identity:</b> face, hair, orange gi, blue clothing and boots match the approved references.</p><p><b>Proportions and pose:</b> compact stomach-height front kick with chamber, two extensions, bent-knee retraction and guard recovery; anatomy is consistent within stated measurement uncertainty.</p><p><b>Technical:</b> exact 108-frame strict 48-color atlas PASS at x1 with zero retained-frame alpha differences; top margin is narrow but there is no clipping. Existing getup grounding/contact warning remains separate for Claude.</p><p>Technical PASS is not drawing approval. Please review the light3 v13 candidate above.</p></section>
+<section class="panel state"><h2>Approved drawing: Goku light3 v13</h2><p><b>Identity:</b> face, hair, orange gi, blue clothing and boots match the approved references.</p><p><b>Proportions and pose:</b> compact stomach-height front kick with chamber, two extensions, bent-knee retraction and guard recovery; anatomy is consistent within stated measurement uncertainty.</p><p><b>Technical:</b> exact 108-frame strict 48-color atlas PASS at x1 with zero retained-frame alpha differences; top margin is narrow but there is no clipping. Existing getup grounding/contact warning remains separate for Claude.</p><p>The user approved light3 v13 as drawn via Claude relay #12. The approval does not certify runtime contacts, timing or gameplay.</p></section>
 <section class="panel">
 <h2>Native candidate player</h2>
 <div class="row"><label>Move <select id="move"></select></label><button id="play">Pause</button><button id="replay">Replay from frame 0</button><button id="prev">Previous</button><button id="next">Next</button><span id="caption" class="badge"></span><span id="phase" class="badge phase"></span></div>
 <div class="row" style="margin-top:12px"><div><p class="small">Exact quantized candidate cell</p><img id="candidate" class="frame" alt="Exact 48-color candidate frame"></div><div style="flex:1;min-width:220px"><p class="small">Nearest-neighbor enlargement</p><img id="zoom" class="zoom" alt="Enlarged exact candidate cell"></div></div>
 <div id="contactWrap" class="contacts"></div>
-<p class="small">Light3 v13 is the new compact stomach-height front-kick sequence; heavy v14 remains the approved reference candidate. Timed playback follows the recorded durations; both are one-shots.</p>
+<p class="small">Light3 v13 is the approved compact stomach-height front-kick sequence; heavy v14 remains user-approved. Timed playback follows the recorded durations; both are one-shots.</p>
 </section>
 <section class="panel">
 <h2>Approved identity and scale references</h2>
@@ -46,11 +46,11 @@
 </section>
 <section class="panel">
 <h2>Actual branch atlas after exact final audit</h2>
-<p id="finalAtlasState">This actual branch atlas contains 23 animations / 108 frames. Astra passed the exact 48-color pixels; light3 v13 is technically included at x1, but user drawing approval remains pending. Heavy v14 remains user-approved via relay #10.</p>
+<p id="finalAtlasState">This actual branch atlas contains 23 animations / 108 frames. Astra passed the exact 48-color pixels; light3 v13 is included at x1 and user-approved via Claude relay #12. Heavy v14 remains user-approved via relay #10.</p>
 <p class="small">Sheet SHA256 <code>ebb27850371179a0fdc9da5d76816ebdb52b747712643b60cd40e14bfe6460ca</code> · metadata SHA256 <code>b43af90a609dc0a36e688bad916c50694962ce2fced6fb02384cd400bcd814ca</code> · all 108 frames at x1, 48 colors.</p>
 <div class="row"><label>Atlas animation <select id="atlasMove"></select></label><button id="atlasPlay">Pause</button><button id="atlasReplay">Replay</button><button id="atlasPrev">Previous</button><button id="atlasNext">Next</button><span id="atlasCaption" class="badge"></span></div>
 <div class="row" style="margin-top:12px"><div><p class="small">Exact final-atlas cell</p><img id="atlasCell" class="frame" alt="Exact final strict atlas cell"></div><div style="flex:1;min-width:220px"><p class="small">Nearest-neighbor enlargement</p><img id="atlasZoom" class="zoom" alt="Enlarged final strict atlas cell"></div></div><div id="atlasContact" class="contacts"></div>
-<p class="small">The player below reads the exact audited branch public sheet and anims.json. Light3 v13 is technically included; drawing approval remains pending.</p></section>
+<p class="small">The player below reads the exact audited branch public sheet and anims.json. Light3 v13 is user-approved via Claude relay #12. Runtime contact and timing approval remain separate.</p></section>
 <section class="panel">
 <h2>Source and QA evidence</h2>
 <details><summary>Measured source screen, original source images, factors, and exact hashes</summary>

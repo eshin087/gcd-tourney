@@ -1,9 +1,9 @@
 {
   "status": {
-    "drawingApproval": "PENDING — review request: approve Goku light3 v13. Heavy v14 remains user-approved via Claude relay #10 (“Approved”).",
-    "technicalAudit": "PASS — exact 23-animation/108-frame strict atlas. Light3 v13 passed anatomy/scale at x1; heavy v14 remains passed. These technical findings do not approve the light3 drawing.",
-    "holdDecision": "Light3 v13 is technically audited and presented for drawing approval; no separate hold decision is recorded.",
-    "finalAtlas": "Exact branch strict atlas audited PASS by Astra: 23 animations / 108 frames. Light3 v13 is included technically; user drawing approval remains pending."
+    "drawingApproval": "APPROVED via Claude relay #12: “Approve Goku light3 v13 and Luffy special v02 as drawn.” This Goku approval applies to light3 v13 only. Heavy v14 remains user-approved via Claude relay #10 (“Approved”).",
+    "technicalAudit": "PASS — exact 23-animation/108-frame strict atlas. Light3 v13 passed anatomy/scale at x1; heavy v14 remains passed. The drawing approval is recorded separately; runtime contacts and timing remain Claude review.",
+    "holdDecision": "Light3 v13 drawing approval is recorded via Claude relay #12. Runtime contact/timing review remains separate.",
+    "finalAtlas": "Exact branch strict atlas audited PASS by Astra: 23 animations / 108 frames. Light3 v13 is user-approved via Claude relay #12. Runtime contact/timing remains separate."
   },
   "animations": {
     "light3": {
@@ -40,7 +40,7 @@
         "assets/frames-final/light3-f06.png"
       ],
       "contact": "assets/final-atlas/light3-contact.png",
-      "auditState": "Exact final atlas cells; Astra PASS, user drawing approval pending."
+      "auditState": "Exact final atlas cells; Astra PASS; user approved the drawing via Claude relay #12."
     },
     "heavy": {
       "version": 14,
