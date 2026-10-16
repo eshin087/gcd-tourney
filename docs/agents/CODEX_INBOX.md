@@ -15,6 +15,57 @@ How it works:
 
 ---
 
+## Gojo running: new run + dashes, studies first (2026-10-15, Claude) - chat "3 - Gojo Running", relay lane `gojo-run`
+
+**The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** replace Gojo's shipped run (v12, the
+hands-in-pockets hover-glide) with a real, cool running stride. Choices:
+- **Style: cocky one-hand run.** A true run (contact, down, passing, flight with both feet off the floor) with the
+  **far (L) hand in his pocket** and the **near, camera-side (R) arm swinging loosely**, hand open and relaxed. Long
+  effortless stride, chin up, lazy smile, blindfold on. Check which arm is near the camera against the approved combat
+  cell before drawing; the current superDash spec already uses "L hand in pocket, R arm forward".
+- **Effects: none.** Hair tips and the jacket hem stream back, trouser legs ripple. No aura, cursed energy, trail or
+  afterimage in any sprite.
+- **Process: 2-3 direction studies first**, the user picks one, then production strips.
+- **Dashes are redone too, in the same one-hand pose:** dash = a low burst lunge forward; backDash = a quick hop back;
+  superDash = a stretched, blur-speed version of the pose. Frame counts stay as in art/characters/gojo/ANIMATIONS.md
+  (run 8, dash 2, backDash 3, superDash 2). Dashes come after the run is picked (phase 2).
+
+Anchors: reference/title_style_approved.png, reference/title_neutral_approved.png, reference/idle_approved.png and
+art/scale/title-style-pilot/PRODUCTION_CONTRACT.md (ADR 0029). Earlier run studies (B-I, all walks or glides) are in
+art/characters/gojo/production/run-def/ and run-ghi/; G's relaxed arm swing is a good arm reference, but G is a walk.
+Its QA holds (ambiguous leg identity, seam) are the main thing to avoid: the two legs must stay readable as L and R
+in every frame, and f0-f3 vs f4-f7 must be true mirror phases.
+
+**Phase 1 - studies (do now):**
+- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-run --art gojo` (dev port 5243). Work only there.
+- [ ] 2. Generate 3 review studies of the cocky one-hand run, 8 frames each, lettered J/K/L (continuing B-I), at most
+  3 calls per study (failed ones count):
+  - **J, easy long stride:** torso lean ~20°, long loping strides, swinging arm low and loose. Unbothered.
+  - **K, fast athletic:** torso lean ~35°, strong knee drive, the arm pumps bent ~90°. Clearly fast, still smiling.
+  - **L, showboat:** upright torso, chin high, head tilted slightly, bounding strides with a big flight phase; the
+    arm swings wide. Pure arrogance.
+  Native 256 px cells, pivot [128,240], at the approved idle's density, whole figures only, no divider lines.
+- [ ] 3. Per study: an 8-frame contact sheet beside idle f0 at one scale, a looping GIF and MP4 at 60 ms/frame, and a
+  combined J/K/L comparison GIF, in art/characters/gojo/production/run-jkl/ and public/reviews/gojo-run-jkl/. Check
+  height against the approved neutral, leg identity and the loop seam; note holds honestly.
+- [ ] 4. Review rows (`needs review`, study v01) in art/characters/gojo/REVIEW_ROWS.md, commit, `npm run pr -- open`
+  and `npm run pr -- preview`. Add a handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls
+  used, links to the three contact sheets and the comparison GIF) and run
+  `node tools/relay.mjs ring gojo-run --note "<one line>"`. **Then stop:** the pick is the user's.
+
+**Phase 2 - production (only after Claude relays the user's pick here):** the next free `raw/run_vNN.png` in the picked
+direction, then dash, backDash and superDash in the same pose; update their sections of
+art/characters/gojo/ANIMATIONS.md; pack with `--quantize 48`; Astra audit of every frame and loop. Claude will write
+this as its own item with the exact budget.
+
+Rules: Luna/medium for all generation; Astra/medium for the final audit (phase 2). Edit only art/characters/gojo/**,
+public/reviews/gojo-run-jkl/**, the gojo block of art/manifest.json and the "## gojo" section of art/TRACKER.md. Not
+art/REVIEW.md, CHANGELOG.md, docs/TASKS.md, docs/NOW.md, src/, tools/, other fighters, or the shipped run v12 /
+dash / superDash raws. No merge, no production deploy, no approvals. Blocked: write BLOCKED under the item and in
+NOW.md, tell the user and do not ring.
+
+---
+
 ## Luffy core: the user's decisions (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:**
