@@ -56,7 +56,8 @@ That explicitly selects this chat as coordinator and authorizes restoring this c
    overwrite an active worker, or create new chats unless the user asks. Report missing workers together.
 5. Find the previous monitor by its saved id/name through the app automation tools. Disable the superseded
    monitor if present, then update or recreate it on this chat; never assume it transferred. Save its returned
-   id and actual schedule. Reuse an existing matching monitor instead of creating duplicates.
+   id and actual schedule with a fixed four-hour session expiration. Reuse an existing matching monitor
+   instead of creating duplicates. Never restore an unbounded recurrence.
 6. Send existing workers a scoped setup notice to read main's current rules. Claude reads the same procedure
    through CLAUDE.md and restores the lane watchers. Report watcher-off states, never claim Claude is listening
    merely because a ring succeeded. Do not remove pauses during setup.
@@ -69,9 +70,28 @@ with an unclear role asks once whether it is the control chat or a worker, inste
 
 ## Attention monitor
 
-Preferred schedule: one heartbeat in the control chat every five minutes. Use the Codex automation tool,
-not shell timers or a second standalone job. The registry records the actual configured state. Read-only
-monitoring must not edit shared project files, commit, start production, forward new work or send relay rings.
+Use one adaptive, bounded heartbeat in the control chat, through the Codex automation tool. No shell timers
+or second standalone job. Recommend GPT-6 Luna/medium for routine coordination; preserve Astra for final
+anatomy audits. The heartbeat tool has no separate model selector, so do not claim a model change based on
+prompt text; the user selects the chat model. The registry records configuration at setup, not live status.
+Read the actual automation to verify current scheduling. Monitoring may update or pause ONLY its own
+automation; it must not edit project files, commit, start production, message workers or ring relay lanes.
+
+Start at 15 minutes. After each run, estimate the earliest useful next check from observed worker progress:
+5 minutes for a verified near-complete operation, 15 for progressing work without a reliable ETA, 30 for
+long generation/audits or one unchanged check, and 60 for waiting on Claude without observed progress.
+ETAs are estimates, not promises. Preserve the same absolute expiration on every schedule update.
+
+Pause automatically when no relevant work or actions remain; when only already-reported user decisions
+remain and no worker is active; after three consecutive checks without meaningful progress (including stale
+active flags or unavailable tools); when the control chat is superseded; or at the session deadline.
+Explain the pause once and preserve unresolved actions without marking them complete. Never auto-resume.
+If a schedule update fails, try to pause the existing automation and report the failure; do not create a loop.
+
+Each monitoring session has a fixed maximum duration of four hours, enforced by an absolute expiration
+in its schedule as well as the prompt. Do not extend it automatically. A user request to resume monitoring
+or initialize the control chat may start a new bounded session; set a fresh deadline then. Say when the
+next check is expected or that monitoring is paused. Stopping monitoring does not stop worker tasks.
 Compare current task/lane/asset/version/next-action states with the previous report. Notify only on a new or
 changed user action, meaningful blocker/failure, lost required watcher, completion, or resolution of an
 existing request. Stay quiet when unchanged or non-actionable. Do not repeatedly announce the same approval.

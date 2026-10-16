@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: the control-chat monitor backs off according to progress, pauses on completion/user-only waits/stalls, and retains a fixed four-hour maximum session expiration; no endless five-minute loop (OPS-012).
+
 - Added: the drawn beam clash effects (ADR 0034, ART-BEAM-CLASH): clashBurst, streamBolt, streamLance, streamFlame and redOrb v01, approved by the user, replace the procedural stand-ins. Packed with every existing effect kept (Codex's branch atlas, packed in a sparse worktree without the VFX raws, had dropped glow, bubble, wisp, arc, ripple and naruto_chakraTail).
 
 - Added: persistent control-chat coordination procedure, replaceable control identity, consolidated attention monitoring and recovery after chat deletion; Claude approval routing remains governed by ADR 0037 (OPS-011).
