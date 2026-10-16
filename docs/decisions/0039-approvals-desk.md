@@ -43,6 +43,11 @@ instructions to Codex workers, but leaves approvals to Claude.
 6. **Status shows what is real.** `npm run status` opens with "Needs you now" (the open asks). REVIEW.md rows still
    marked for review follow as bookkeeping: only each asset's newest row counts.
 
+7. **The desk stops itself when the work is done** (user request 2026-10-15, TOOL-051). Claude chats report
+   `relay chat active|done`; `wait all` exits (code 5) after 15 quiet minutes with no open ask, no lane where it is
+   Codex's turn, an unread ring or a running lane watcher, and no chat reporting `active`. Anything older than a day
+   is stale, so a chat closed mid-task cannot keep the desk awake forever. `/approvals` restarts it.
+
 ## Alternatives considered
 
 - **The Codex control chat as the only desk.** It has no question box that reaches the phone (ADR 0037), cannot

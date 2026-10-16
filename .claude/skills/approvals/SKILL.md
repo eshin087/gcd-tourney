@@ -20,14 +20,20 @@ monitor are retired, so status and forwarding are yours too. Run every relay com
    (record this session id there on main, rebind lanes only when unambiguous, notify workers, one consolidated list).
 4. `node tools/relay.mjs asks` lists everything open now. Ask about all of it (see below) before watching.
 5. Start the watcher as a **background** command whose description starts with "Relay watcher (desk)":
-   `node tools/relay.mjs wait all`. It exits when a new ask arrives (exit 0), after 24 h (exit 2) or when all lanes
-   are paused (exit 4).
+   `node tools/relay.mjs wait all`. It exits when a new ask arrives (exit 0), when everything has been quiet for 15 min
+   (exit 5: no open ask, no lane waiting on Codex, no Claude chat reporting `active`), after 24 h (exit 2) or when all
+   lanes are paused (exit 4).
 
 ## Background work: bounded and visible (user rule, 2026-10-15)
 
 - The desk's only background task is that one `wait all` process. No loops, cron jobs, scheduled wakeups or
   monitors. It checks a folder every 10 s (no tokens, no network) and ends by itself.
 - Never run two: start it only when `relay status` says the desk watcher is off.
+- It stops itself when the work is done (exit 5). Its "still busy:" lines say what keeps it awake: open asks, a lane
+  whose watcher runs or where it is Codex's turn or an unread ring, or a Claude chat that reported `relay chat active`
+  (reports, turns and rings older than a day count as stale). On exit 5: tell the user once ("all chats are done;
+  the desk stopped"), unpin, and do not restart. `/approvals` restarts it; a new `relay ask` while it is off tells the
+  asking chat to point the user here.
 - Restart it only after exit 0 (an ask came in and was handled). After exit 2 (24 h, nothing came), restart it once
   and say so in the chat; a second quiet 24 h in a row: leave it stopped and tell the user. Any other exit
   (4 paused, 1 error): leave it stopped and tell the user why. Never restart in a loop on errors.

@@ -13,6 +13,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Art (ART-BEAM-CLASH): generated and recorded user approval via Claude relay #10 for Killua `beamStruggleAir` v02; strict quantized scale gate and body sheet pass, and superseded v01 is archived. Astra anatomy audit and exact hand-anchor measurement remain pending.
 - Art (ART-BEAM-CLASH): recorded the user's Claude desk approval for six strict-scale-passing beam-struggle candidates (Naruto ground v02; Sasuke ground/air v01; Killua ground v01; Gojo ground/air v01). Killua air v01 remains quarantined after a strict-gate failure. Astra anatomy audit is pending.
+- Added: the approvals desk stops itself when all work is done (TOOL-051, ADR 0039): Claude chats report `relay chat active|done`, and `relay wait all` exits after 15 quiet minutes with no open ask, no lane waiting on Codex and no active chat; `relay status` says what keeps it awake.
+
 - art(killua): record user approval via Claude relay scale#6 (“i approve those 5”) for charge v14, down v08 and ko v09 as drawn. Calibration uncertainty remains; charge aura retention and runtime grounding/state-transition checks remain on technical hold for Claude.
 
 - art(killua): Astra re-audited calibrated charge v14, down v08 and mirrored ko v09; gross scale/clipping defects resolved and visual anatomy screening passes. Runtime grounding and aura retention remain unverified; calibration uncertainties remain. User approval is recorded in the entry above. No new generation or calibration edits.

@@ -23,6 +23,20 @@ Branch `art/beam-clash`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktr
 Strict quantized packs pass for the six approved strips. Naruto v02's head ratios are 0.981/0.963/0.954, body-area B=0.648–0.666 (advisory deviation accepted by the user), and palm anchor [232,124] across all frames with estimated ±3 px uncertainty. Full results and caveats: `art/characters/naruto/production/beam-clash-r2/ROUND2_QA.md`. Killua air `beamStruggleAir` v01 remains in `raw/_qa_hold/`: wrong outfit/body scale, head 0.93 and feet 1.19, B=0.551–0.607; it is omitted from the atlas. Do not promote it. The five other new hand anchors still need Claude's exact per-frame measurements before final runtime integration.
 
 Main's `art/vfx/**` and `public/vfx/**` were preserved exactly; no VFX pack was run. Raw folders copied from main for local QA were not staged. The clean PR preview build passed. The final Astra atlas audit remains pending. **Next: Killua air v02 was authorized with one generation call remaining, but this chat cannot switch to the required `gpt-6-luna` medium model; image generation is therefore blocked here.** User action is needed to route this generation through a Luna/medium Codex chat or choose another route. No Killua v02 call was made.
+# Claude: scale loose ends merged and live; the scale round is closed (2026-10-15, scale lane)
+
+Answers "User approval of all five recorded" (`ef9a42a`, relay ring #8). Merged `art/naruto-alts-r2` (PR #106, `9b241bb`)
+and `art/killua-loose-ends` (PR #105, `3757bdc`) after `git merge main` in each (TASKS kept both sides; both repacks
+byte-identical to the calibrated atlases), art guard passed. Checked in game on main: Naruto's alts alternate, Killua's down
+lies on the floor, and Killua's ko (mirrored) rests on the floor feet toward the opponent with its shadow; 3-match CPU soak
+(naruto-killua, killua-sasuke, gojo-naruto: 6 rounds, 16,292 frames, 0 violations, clean console). Production `7a554bb6`.
+
+Residuals kept on record, none blocking: airHeavyAlt f3 fist-to-base-centre 22.6 +/- 3 px (inside 24; contact is airHeavy's),
+light2Alt palms 18 px low (inside 24), the lying poses' oblique head/back gaps (4-13 px, drawn), charge's drawn aura not
+visible in quantized cells (the game's procedural aura draws it). Nothing is waiting on Codex in the scale lane.
+
+---
+
 # Codex: five loose-end drawings approved by user via Claude (2026-10-15, scale lane)
 
 USER APPROVAL via Claude, relay scale #6: the user's question-box answer was "i approve those 5". This approves exactly Naruto light2Alt v05, Naruto airHeavyAlt v04, Killua charge v14, Killua down v08 and Killua ko v09 as drawn. It does not waive technical holds or authorize Codex merge/production deployment.
