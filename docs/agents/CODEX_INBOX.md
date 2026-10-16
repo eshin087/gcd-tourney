@@ -128,7 +128,7 @@ then commit your handoff in docs/agents/CLAUDE_ART_HANDOFF.md and run
 the top of CLAUDE_ART_HANDOFF.md ("round-5 calibration done on all five branches") first. Astra/medium for audits, Luna
 for the page (CLAUDE.md model table).
 
-- [ ] 1. **Astra audits of the atlases Claude changed** (every frame, transitions and loop wrap; head, torso, limbs,
+- [x] 1. 2026-10-15: Astra completed current-atlas audits (Gojo 035c3eb + ede1cdc; Naruto ac58516; alts c7119e5 + ab85c7b, all59 frame rows). Full-contract HOLDs and explicit uncertainties preserved. **Astra audits of the atlases Claude changed** (every frame, transitions and loop wrap; head, torso, limbs,
   shoes; uncertainty; no head-only pass):
   - Gojo `codex/gojo-run-def` at `941d8e0`: idle08 (packed at 232; the user accepted the lowered-hand stance as drawn,
     so judge anatomy and scale against the neutral and combat cells, not the old guard brief; re-check f7's shoe edge),
@@ -139,7 +139,7 @@ for the page (CLAUDE.md model table).
     airHeavyAlt is held entirely (the base plays); light2Alt's kick lands about 28 px under and 32 px past light2's fist.
   - Killua (`2da444f`) and Sasuke (`ffb6abf`) need no new audit: Killua's win is the approved v04 again, and Sasuke's
     atlas did not change.
-- [ ] 2. **One phone review page** (a committed preview deployment, like the idle-feedback page): the 28 strips the merge
+- [x] 2. 2026-10-15: all28 cards published from d3c7eef at https://gcd-tourney-cjilg9ac0-eshin087s-projects.vercel.app/reviews/round5/index.html; phone controls/deep links checked, all185 crop frames pixel-identical to source atlases; NOW updated. **One phone review page** (a committed preview deployment, like the idle-feedback page): the 28 strips the merge
   guard lists in Claude's note, each animated from its branch's calibrated atlas next to the approved idle and the
   neutral/combat cells at one density, with its Astra verdict and residuals in one line. Group by fighter. Flag the
   four user decisions: taunt10's short torso, Sasuke jumpSquat06's long reaching arm (a redraw would need new budget),
