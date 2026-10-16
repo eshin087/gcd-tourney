@@ -30,19 +30,10 @@ review link in the note. Never ask the user in the Codex chat. Only a relayed `U
 `gpt-6-luna` medium, the `fg` anatomy check under `gpt-6-astra` medium.
 
 **Round 2a (do now): Naruto, Killua, Gojo, 12 images**
-- [ ] 1. From the main checkout: `npm run pr -- start art/super-art-r2 --art naruto,killua,gojo` (dev port 5281). Work
-  only there; reuse it for every later version of these three.
-- [ ] 2. Prompts into each fighter's PROMPTS.md (new UI sections after the eye strip), then the four images per fighter
-  (`raw/ui_super_bg|super_fg|ult_bg|ult_fg_vNN.png`), at most 3 calls each. Apply the pilot lessons: face checked
-  against the approved cells before review, identity details as hard constraints, edit the face region of a close
-  version instead of regenerating.
-- [ ] 3. Astra check of the six `fg` images. Pack the candidates for the review only (do not copy anything to `ui/` until
-  approved).
-- [ ] 4. One phone review page `public/reviews/super-art-r2/` (per fighter: each image at final size and 3x, the banner
-  mock, the splash mock at 16:9 and 4:3, heads beside the approved cells). REVIEW.md rows, manifest/tracker rows;
-  commit, `npm run pr -- open`, `npm run pr -- preview`. Handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md, then
-  ring the desk: `node tools/relay.mjs ring effects --for user --kind approval --note "<12 images, versions, holds;
-  review link>"`. **Then stop.**
+- [x] 1. Created `art/super-art-r2` from the main checkout (worktree `.worktrees/art-super-art-r2`, branch `art/super-art-r2`); reused it for all three fighters (2026-10-16).
+- [x] 2. Added prompts and generated all 12 v01 images within the per-image call limits; provenance recorded (2026-10-16).
+- [x] 3. Astra checked the six `fg` images; all six remain technical HOLD. Candidate-only packing produced review fits; nothing copied to `ui/` (2026-10-16).
+- [x] 4. Review page, records, handoff, PR #129 and preview are ready; approval request is routed to the desk (2026-10-16).
 - [ ] 5. After the desk relays the user's answers: copy each approved image to `ui/`, `npm run sprites <id>` (commit only
   the new `public/characters/<id>/super_*|ult_*` files and the art records; never commit repacked frames or sheets you
   did not mean to change), redo rejected ones within budget, then ring Claude (`ring effects --note ...`) for the
