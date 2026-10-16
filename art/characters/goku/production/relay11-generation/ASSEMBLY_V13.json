@@ -1,0 +1,187 @@
+{
+  "schema": "goku-relay11-light3-assembly-v13",
+  "state": "exact 23-animation/108-frame Astra technical PASS; user drawing approval remains pending",
+  "source": "art/characters/goku/raw/_qa_hold/light3_v12.png",
+  "sourceSha256": "C2320840541EF2B9A9EBD5919F632BF40F733092CE2C2DDCD54F37467447DCB1",
+  "sourceDimensions": [
+    1659,
+    948
+  ],
+  "sourceForegroundRule": "not (R>200 and B>200 and G<80)",
+  "componentDiscovery": "9x9 rectangular morphological close used only to assign source foreground into separated connected figure components; source colors/pixels remain unchanged before uniform nearest-neighbor scaling",
+  "expectedFrames": 7,
+  "foundFigureComponents": 7,
+  "unassignedSourceForegroundPixels": 0,
+  "uniformDensityFactor": 0.696133,
+  "factorBasis": "Astra multi-reference median torso/boot/belt ratio: 0.696133442603862 (operational .696133); not selected from posed bounding-box height",
+  "cellSize": 256,
+  "pivotBottomY": 240,
+  "resampling": "nearest-neighbor; same uniform factor for all seven frames",
+  "frames": [
+    {
+      "frame": 0,
+      "sourceComponentLabel": 1,
+      "sourceComponentBoundsXYWH": [
+        23,
+        291,
+        202,
+        342
+      ],
+      "sourceComponentForegroundPixels": 31317,
+      "uniformDensityFactor": 0.696133,
+      "scaledCellBoundsXYWH": [
+        61,
+        2,
+        141,
+        238
+      ],
+      "scaledForegroundPixels": 15191,
+      "resamplingPixelDelta": 16126,
+      "clippedForegroundPixels": 0,
+      "sourceCentroidX": 119.794
+    },
+    {
+      "frame": 1,
+      "sourceComponentLabel": 4,
+      "sourceComponentBoundsXYWH": [
+        250,
+        292,
+        145,
+        335
+      ],
+      "sourceComponentForegroundPixels": 25858,
+      "uniformDensityFactor": 0.696133,
+      "scaledCellBoundsXYWH": [
+        75,
+        7,
+        101,
+        233
+      ],
+      "scaledForegroundPixels": 12516,
+      "resamplingPixelDelta": 13342,
+      "clippedForegroundPixels": 0,
+      "sourceCentroidX": 326.475
+    },
+    {
+      "frame": 2,
+      "sourceComponentLabel": 5,
+      "sourceComponentBoundsXYWH": [
+        443,
+        293,
+        237,
+        334
+      ],
+      "sourceComponentForegroundPixels": 28222,
+      "uniformDensityFactor": 0.696133,
+      "scaledCellBoundsXYWH": [
+        68,
+        7,
+        165,
+        233
+      ],
+      "scaledForegroundPixels": 13679,
+      "resamplingPixelDelta": 14543,
+      "clippedForegroundPixels": 0,
+      "sourceCentroidX": 529.743
+    },
+    {
+      "frame": 3,
+      "sourceComponentLabel": 6,
+      "sourceComponentBoundsXYWH": [
+        702,
+        293,
+        242,
+        334
+      ],
+      "sourceComponentForegroundPixels": 28561,
+      "uniformDensityFactor": 0.696133,
+      "scaledCellBoundsXYWH": [
+        66,
+        7,
+        168,
+        233
+      ],
+      "scaledForegroundPixels": 13804,
+      "resamplingPixelDelta": 14757,
+      "clippedForegroundPixels": 0,
+      "sourceCentroidX": 790.553
+    },
+    {
+      "frame": 4,
+      "sourceComponentLabel": 7,
+      "sourceComponentBoundsXYWH": [
+        981,
+        292,
+        142,
+        335
+      ],
+      "sourceComponentForegroundPixels": 25568,
+      "uniformDensityFactor": 0.696133,
+      "scaledCellBoundsXYWH": [
+        76,
+        7,
+        99,
+        233
+      ],
+      "scaledForegroundPixels": 12389,
+      "resamplingPixelDelta": 13179,
+      "clippedForegroundPixels": 0,
+      "sourceCentroidX": 1055.184
+    },
+    {
+      "frame": 5,
+      "sourceComponentLabel": 2,
+      "sourceComponentBoundsXYWH": [
+        1168,
+        291,
+        214,
+        342
+      ],
+      "sourceComponentForegroundPixels": 31493,
+      "uniformDensityFactor": 0.696133,
+      "scaledCellBoundsXYWH": [
+        53,
+        2,
+        149,
+        238
+      ],
+      "scaledForegroundPixels": 15266,
+      "resamplingPixelDelta": 16227,
+      "clippedForegroundPixels": 0,
+      "sourceCentroidX": 1275.564
+    },
+    {
+      "frame": 6,
+      "sourceComponentLabel": 3,
+      "sourceComponentBoundsXYWH": [
+        1423,
+        291,
+        202,
+        342
+      ],
+      "sourceComponentForegroundPixels": 31301,
+      "uniformDensityFactor": 0.696133,
+      "scaledCellBoundsXYWH": [
+        60,
+        2,
+        141,
+        238
+      ],
+      "scaledForegroundPixels": 15197,
+      "resamplingPixelDelta": 16104,
+      "clippedForegroundPixels": 0,
+      "sourceCentroidX": 1520.639
+    }
+  ],
+  "output": "art/characters/goku/raw/_qa_hold/light3_v13.png",
+  "outputDimensions": [
+    1792,
+    256
+  ],
+  "outputSha256": "3A55C5C25E389C6336A3938EF9716929EEEA7D6A90B7D834FAF0ED06A701CBC8",
+  "clippedForegroundPixels": 0,
+  "status": "technical final-atlas PASS at x1; user drawing approval pending",
+  "finalAudit": "art/characters/goku/production/manual-audit-r5/FINAL_ATLAS_AUDIT.md",
+  "finalAtlasSheetSha256": "ebb27850371179a0fdc9da5d76816ebdb52b747712643b60cd40e14bfe6460ca",
+  "finalAtlasMetadataSha256": "b43af90a609dc0a36e688bad916c50694962ce2fced6fb02384cd400bcd814ca"
+}

@@ -1,0 +1,190 @@
+{
+  "schema": "goku-relay11-final-atlas-fixture-v1",
+  "status": "exact 48-color combined pack passed final Astra audit; drawing approval pending",
+  "scaleGate": "strict with a fixture-only candidate-level Astra record; no production manualQA",
+  "quantizeColors": 48,
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    240
+  ],
+  "selected": [
+    {
+      "animation": "idle",
+      "version": 2,
+      "bodyHeight": 233,
+      "frames": 8
+    },
+    {
+      "animation": "run",
+      "version": 9,
+      "bodyHeight": 237,
+      "frames": 8
+    },
+    {
+      "animation": "dash",
+      "version": 9,
+      "bodyHeight": 207,
+      "frames": 2
+    },
+    {
+      "animation": "jumpUp",
+      "version": 4,
+      "bodyHeight": 206,
+      "frames": 2
+    },
+    {
+      "animation": "jumpFall",
+      "version": 4,
+      "bodyHeight": 232,
+      "frames": 2
+    },
+    {
+      "animation": "land",
+      "version": 7,
+      "bodyHeight": 235,
+      "frames": 2
+    },
+    {
+      "animation": "light1",
+      "version": 4,
+      "bodyHeight": 237,
+      "frames": 7
+    },
+    {
+      "animation": "light2",
+      "version": 5,
+      "bodyHeight": 236,
+      "frames": 7
+    },
+    {
+      "animation": "light4",
+      "version": 9,
+      "bodyHeight": 237,
+      "frames": 8
+    },
+    {
+      "animation": "light3",
+      "version": 13,
+      "bodyHeight": 237,
+      "frames": 7
+    },
+    {
+      "animation": "heavy",
+      "version": 14,
+      "bodyHeight": 235,
+      "frames": 8
+    },
+    {
+      "animation": "airLight1",
+      "version": 7,
+      "bodyHeight": 237,
+      "frames": 5
+    },
+    {
+      "animation": "airHeavy",
+      "version": 6,
+      "bodyHeight": 237,
+      "frames": 6
+    },
+    {
+      "animation": "guard",
+      "version": 5,
+      "bodyHeight": 229,
+      "frames": 2
+    },
+    {
+      "animation": "hurtHigh",
+      "version": 8,
+      "bodyHeight": 223,
+      "frames": 3
+    },
+    {
+      "animation": "launched",
+      "version": 8,
+      "bodyHeight": 200,
+      "frames": 2
+    },
+    {
+      "animation": "down",
+      "version": 5,
+      "bodyHeight": 115,
+      "frames": 2
+    },
+    {
+      "animation": "getup",
+      "version": 11,
+      "bodyHeight": 237,
+      "frames": 5
+    },
+    {
+      "animation": "charge",
+      "version": 5,
+      "bodyHeight": 237,
+      "frames": 4
+    },
+    {
+      "animation": "beamCharge",
+      "version": 7,
+      "bodyHeight": 236,
+      "frames": 3
+    },
+    {
+      "animation": "beamFire",
+      "version": 7,
+      "bodyHeight": 233,
+      "frames": 3
+    },
+    {
+      "animation": "special",
+      "version": 5,
+      "bodyHeight": 237,
+      "frames": 8
+    },
+    {
+      "animation": "win",
+      "version": 5,
+      "bodyHeight": 237,
+      "frames": 4
+    }
+  ],
+  "selectedAnimationCount": 23,
+  "expectedFrameCount": 108,
+  "candidate": {
+    "animation": "light3",
+    "version": 13,
+    "bodyHeight": 237,
+    "source": "art/characters/goku/raw/_qa_hold/light3_v13.png",
+    "sourceSha256": "3a55c5c25e389c6336a3938ef9716929eeea7d6a90b7d834faf0ed06a701cbc8",
+    "assembled": "art/characters/goku/raw/_qa_hold/light3_v13.png",
+    "assembledSha256": "3a55c5c25e389c6336a3938ef9716929eeea7d6a90b7d834faf0ed06a701cbc8",
+    "sourceFactor": 0.696133442603862,
+    "operationalFactor": 0.696133,
+    "manifestBodyHeight": 237,
+    "actualNativeScaleRatio": 1,
+    "nativeSizeRetainedByPackerTolerance": true,
+    "packedScale": 1,
+    "allFrameScales": 1,
+    "scaleManualQA": "fixture-only candidate pass; no production record yet, final combined audit remains pending"
+  },
+  "priorApprovedCandidate": {
+    "animation": "heavy",
+    "version": 14,
+    "userApproval": "relay #10",
+    "finalAudit": "art/characters/goku/production/manual-audit-r4/FINAL_STRICT_AUDIT.md"
+  },
+  "omittedOnHold": [],
+  "retainedBaseline": "relay9 final6 baseline plus light3 v13; independent extraction found 101 retained-frame alpha differences: 0",
+  "finalFixtureSheetSha256": "ebb27850371179a0fdc9da5d76816ebdb52b747712643b60cd40e14bfe6460ca",
+  "finalFixtureMetadataSha256": "b43af90a609dc0a36e688bad916c50694962ce2fced6fb02384cd400bcd814ca",
+  "packReportSha256": "8729003a5e3dd7e2be172f21f1dd754853a0ccdf034ca11fc55b193d5dbdaa21",
+  "sourceFixtureBuildsSha256": "ef0a6b9b5debd11ae5382d79a4e0c99b3cc8ddc006d6a51040a2b2adad2d73b7",
+  "manifestSnapshotSha256": "6dc7a65c370b433b2d7bb747979e3815c140626ba3d8daca73df3bd5a9b042a6",
+  "actualBranchPublicAtlasTouched": true,
+  "finalAudit": "art/characters/goku/production/manual-audit-r5/FINAL_ATLAS_AUDIT.md",
+  "realBranchStrictPackReproducedFixture": true,
+  "realPackReportSha256": "5bb6457a15ad00bca088fc52cb3def3b43c60bb4f0de36e0ba9b19d99602f13d"
+}

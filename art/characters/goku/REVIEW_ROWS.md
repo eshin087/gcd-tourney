@@ -9,6 +9,13 @@
 
 These entries document the generated sources and later measured assemblies. Relay9 call authorization and technical audit were not drawing approval; the later relay10 user approval applies only to heavy v14. Earlier v04 approvals remain preserved.
 
+## Relay 11 light3 repair (2026-10-16)
+
+| Character | Asset | Version | Review state | Technical finding |
+|---|---|---:|---|---|
+| Goku | light3 | [v12 source](raw/_qa_hold/light3_v12.png) | exact 108-frame technical PASS; user drawing approval pending | Sixth cumulative call, authorized via Claude relay #11 (user quote: “Goku luffy retry”). Exact tool result, output path, prompt/reference hashes and source hash are in `production/relay11-generation/light3_v12_call_receipt.json`; source is 1659x948 SHA-256 `C2320840541EF2B9A9EBD5919F632BF40F733092CE2C2DDCD54F37467447DCB1`. Seven canonical stomach-height kick/recovery phases; all figures visible. |
+| Goku | light3 | [v13 assembled candidate](raw/light3_v13.png) | exact 108-frame technical PASS; user drawing approval pending | Uniform source factor .696133442603862, selected from approved-reference torso/boot/belt landmarks. Complete source components preserved, no per-pose resizing or clipping. Final atlas audit: `production/manual-audit-r5/FINAL_ATLAS_AUDIT.md`; exact branch pack reproduces audited hashes. `_qa_hold/light3_v13.png` remains preserved byte-identically. The atlas includes v13 technically; user drawing approval is still pending. |
+
 ## Relay 9 measured assemblies (2026-10-16)
 
 | Character | Asset | Version | Review state | Technical finding |
@@ -17,7 +24,7 @@ These entries document the generated sources and later measured assemblies. Rela
 | Goku | heavy | [v14 assembly](raw/_qa_hold/heavy_v14.png) | user approved via Claude relay #10 ("Approved"); Astra technical PASS | Uniform factor .720 from independent f0/f6/f7 visible torso, boot and belt ratios; 8-connected component ownership; no clipped foreground pixels; native bodyHeight235 and pack x1. Final exact 22-animation/101-frame atlas PASS at hashes recorded in `production/manual-audit-r4/FINAL_STRICT_AUDIT.md`. See `production/relay9-generation/HEAVY_V14_ASSEMBLY.json` and `QUANTIZED_FIXTURE_R4_V14.json`. |
 | Goku | heavy | [v13 preserved assembly](raw/_qa_hold/heavy_v13.png) | superseded diagnostic; preserved | Earlier uniform .73 assembly, initially inspected at top y=1. Retained unchanged as version history; v14 uses the independent multi-frame estimator and provides additional margin. |
 
-Call allowance remains exactly five generation calls per move; these assemblies used no new image-generation calls.
+Relay 11 changes the cumulative light3 allowance to exactly six calls; no further call is authorized. Its one image call generated v12; v13 is a deterministic measured assembly. Heavy v14 remains approved via relay #10 and is unchanged.
 
 ## Final r03 reassembly and strict audit (2026-10-16)
 

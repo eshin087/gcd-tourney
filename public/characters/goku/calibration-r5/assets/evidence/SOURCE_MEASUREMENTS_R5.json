@@ -1,0 +1,225 @@
+{
+  "source": "light3_v12.png",
+  "sourceSha256": "c2320840541ef2b9a9ebd5919f632bf40f733092ce2c2ddcd54f37467447dcb1",
+  "method": "Median27 projected target/source ratios:3 source guards x3 visible landmarks x3 approved reference cells. Not independent statistical samples. Explicit sensitivity: idle-only central approximately.72, title targets smaller. No pass based on overlap alone.",
+  "referenceTargets": {
+    "torso": [
+      37,
+      37.36308338453881,
+      38.1
+    ],
+    "boot": [
+      39.6232255123179,
+      40.024992192379,
+      43.7
+    ],
+    "belt": [
+      32,
+      33,
+      36
+    ]
+  },
+  "referenceUncertainty": {
+    "torso": 5,
+    "boot": 4,
+    "belt": 4
+  },
+  "rows": [
+    {
+      "frame": 0,
+      "origin": [
+        0,
+        280
+      ],
+      "torso": {
+        "endpointsLocal": [
+          [
+            122,
+            108
+          ],
+          [
+            113,
+            160
+          ]
+        ],
+        "length": 52.77309920783504,
+        "uncertainty": 6,
+        "ratios": [
+          0.7011147830125304,
+          0.7079948675629731,
+          0.721958736021011
+        ]
+      },
+      "boot": {
+        "endpointsLocal": [
+          [
+            53,
+            291
+          ],
+          [
+            36,
+            349
+          ]
+        ],
+        "length": 60.4400529450463,
+        "uncertainty": 6,
+        "ratios": [
+          0.6555789345245013,
+          0.6622262926998226,
+          0.7230304718583421
+        ]
+      },
+      "belt": {
+        "endpointsLocal": [
+          [
+            92,
+            160
+          ],
+          [
+            139,
+            160
+          ]
+        ],
+        "length": 47,
+        "uncertainty": 6,
+        "ratios": [
+          0.6808510638297872,
+          0.7021276595744681,
+          0.7659574468085106
+        ]
+      }
+    },
+    {
+      "frame": 5,
+      "origin": [
+        1160,
+        280
+      ],
+      "torso": {
+        "endpointsLocal": [
+          [
+            124,
+            108
+          ],
+          [
+            110,
+            160
+          ]
+        ],
+        "length": 53.85164807134504,
+        "uncertainty": 6,
+        "ratios": [
+          0.6870727512550919,
+          0.6938150404429322,
+          0.7074992384545676
+        ]
+      },
+      "boot": {
+        "endpointsLocal": [
+          [
+            38,
+            291
+          ],
+          [
+            22,
+            349
+          ]
+        ],
+        "length": 60.166435825965294,
+        "uncertainty": 6,
+        "ratios": [
+          0.658560291437742,
+          0.6652378796070534,
+          0.726318576131128
+        ]
+      },
+      "belt": {
+        "endpointsLocal": [
+          [
+            85,
+            160
+          ],
+          [
+            135,
+            160
+          ]
+        ],
+        "length": 50,
+        "uncertainty": 6,
+        "ratios": [
+          0.64,
+          0.66,
+          0.72
+        ]
+      }
+    },
+    {
+      "frame": 6,
+      "origin": [
+        1410,
+        280
+      ],
+      "torso": {
+        "endpointsLocal": [
+          [
+            116,
+            108
+          ],
+          [
+            105,
+            160
+          ]
+        ],
+        "length": 53.150729063673246,
+        "uncertainty": 6,
+        "ratios": [
+          0.696133442603862,
+          0.7029646449398421,
+          0.7168293017083012
+        ]
+      },
+      "boot": {
+        "endpointsLocal": [
+          [
+            41,
+            291
+          ],
+          [
+            25,
+            349
+          ]
+        ],
+        "length": 60.166435825965294,
+        "uncertainty": 6,
+        "ratios": [
+          0.658560291437742,
+          0.6652378796070534,
+          0.726318576131128
+        ]
+      },
+      "belt": {
+        "endpointsLocal": [
+          [
+            81,
+            160
+          ],
+          [
+            129,
+            160
+          ]
+        ],
+        "length": 48,
+        "uncertainty": 6,
+        "ratios": [
+          0.6666666666666666,
+          0.6875,
+          0.75
+        ]
+      }
+    }
+  ],
+  "median": 0.696133442603862,
+  "factor": 0.696133442603862,
+  "maxPredictedExtent": 238.07763737052082,
+  "limits": "Forearm pose projection changes; knee/ankle skeletal joints concealed by gi. No invented shin measurement. Final actual quantized anatomy mandatory."
+}
