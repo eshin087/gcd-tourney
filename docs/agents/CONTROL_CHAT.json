@@ -9,9 +9,18 @@
   "monitor": {
     "id": "gcd-tourney-attention-queue",
     "name": "GCD Tourney attention queue",
-    "desiredIntervalMinutes": 5,
     "status": "ACTIVE",
-    "configuredIntervalMinutes": 5
+    "scheduling": "adaptive-bounded",
+    "initialIntervalMinutes": 15,
+    "minIntervalMinutes": 5,
+    "maxIntervalMinutes": 60,
+    "sessionExpiresAt": "2026-10-16T08:00:00Z",
+    "maxSessionHours": 4,
+    "unchangedChecksBeforePause": 3,
+    "recommendedModel": "gpt-6-luna",
+    "recommendedReasoning": "medium",
+    "modelChanged": false,
+    "configurationNote": "Setup snapshot only; inspect the automation for live schedule/status."
   },
   "workerBindings": "Read live relay lanes and discover current project chats; do not hardcode worker UUIDs here."
 }

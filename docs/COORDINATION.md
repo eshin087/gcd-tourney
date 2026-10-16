@@ -10,9 +10,11 @@ Read this from the main checkout at the start of every Codex or Claude session, 
   the app's thread tools before sending; a title alone or a stale UUID is not proof of identity.
 - Worker chats execute their assigned tasks and report Status / Your action / Claude / Next. Their
   assignment is in `docs/agents/CODEX_INBOX.md` and `docs/TASKS.md`, not just chat history.
-- Claude remains integration coordinator and the default approval desk under ADR 0037. Codex rings
-  the lane with `--for user --kind approval|decision|blocked` when the user must act. The control chat
-  lists the same decision, review link and holds; it does not create a competing approval request.
+- Claude remains integration coordinator and the approval desk under ADR 0037. Since ADR 0039 the desk is
+  one Claude chat, titled `0 - Approvals`: the only chat that asks the user. Codex rings the lane with
+  `--for user --kind approval|decision|blocked` when the user must act, and other Claude chats queue with
+  `relay ask`; both land in `node tools/relay.mjs asks`. The control chat lists the same decision, review link
+  and holds and points the user to `0 - Approvals`; it does not create a competing approval request.
 - Branches, commits, versioned candidates, REVIEW/manifest, and CLAUDE_ART_HANDOFF preserve work.
   `docs/NOW.md` is the durable next-actions page. `.relay/lanes.json` is the machine-local worker mapping;
   use the relay CLI to maintain it rather than editing it by hand. Never store credentials here.
@@ -23,6 +25,8 @@ Discover current project chats with list_threads and project/worktree evidence; 
 list of chat names. Inspect compact wait_threads snapshots, then read_thread only for missing context.
 Read main's inbox, NOW and relay status. An idle/completed turn is not proof the user's task is finished.
 Report four groups: Needs you, Waiting for Claude, Working, Finished. Show unresolved blockers explicitly.
+"Needs you" starts from `node tools/relay.mjs asks` (the desk's queue) and says where to answer: the Claude chat
+`0 - Approvals`. If `relay status` shows the desk watcher off while asks are open, report that as a lost watcher.
 Each actionable item names the exact chat/lane, asset/version, review link, next actor, requested answer,
 technical holds and last-checked time. Mark unavailable or conflicting evidence as unverified.
 
@@ -56,10 +60,12 @@ That explicitly selects this chat as coordinator and authorizes restoring this c
    overwrite an active worker, or create new chats unless the user asks. Report missing workers together.
 5. Find the previous monitor by its saved id/name through the app automation tools. Disable the superseded
    monitor if present, then update or recreate it on this chat; never assume it transferred. Save its returned
-   id and actual schedule. Reuse an existing matching monitor instead of creating duplicates.
+   id and actual schedule with a fixed four-hour session expiration. Reuse an existing matching monitor
+   instead of creating duplicates. Never restore an unbounded recurrence.
 6. Send existing workers a scoped setup notice to read main's current rules. Claude reads the same procedure
-   through CLAUDE.md and restores the lane watchers. Report watcher-off states, never claim Claude is listening
-   merely because a ring succeeded. Do not remove pauses during setup.
+   through CLAUDE.md and restores the lane watchers; the user restores the approvals desk by naming one Claude chat
+   `0 - Approvals` and typing `/desk` (ADR 0039). Report watcher-off states (lanes and desk), never claim Claude is
+   listening merely because a ring succeeded. Do not remove pauses during setup.
 7. Present one consolidated attention queue. State missing bindings or tool limitations and the minimal action
    needed to restore them. No per-worker reminder from the user should be necessary.
 
@@ -69,9 +75,28 @@ with an unclear role asks once whether it is the control chat or a worker, inste
 
 ## Attention monitor
 
-Preferred schedule: one heartbeat in the control chat every five minutes. Use the Codex automation tool,
-not shell timers or a second standalone job. The registry records the actual configured state. Read-only
-monitoring must not edit shared project files, commit, start production, forward new work or send relay rings.
+Use one adaptive, bounded heartbeat in the control chat, through the Codex automation tool. No shell timers
+or second standalone job. Recommend GPT-6 Luna/medium for routine coordination; preserve Astra for final
+anatomy audits. The heartbeat tool has no separate model selector, so do not claim a model change based on
+prompt text; the user selects the chat model. The registry records configuration at setup, not live status.
+Read the actual automation to verify current scheduling. Monitoring may update or pause ONLY its own
+automation; it must not edit project files, commit, start production, message workers or ring relay lanes.
+
+Start at 15 minutes. After each run, estimate the earliest useful next check from observed worker progress:
+5 minutes for a verified near-complete operation, 15 for progressing work without a reliable ETA, 30 for
+long generation/audits or one unchanged check, and 60 for waiting on Claude without observed progress.
+ETAs are estimates, not promises. Preserve the same absolute expiration on every schedule update.
+
+Pause automatically when no relevant work or actions remain; when only already-reported user decisions
+remain and no worker is active; after three consecutive checks without meaningful progress (including stale
+active flags or unavailable tools); when the control chat is superseded; or at the session deadline.
+Explain the pause once and preserve unresolved actions without marking them complete. Never auto-resume.
+If a schedule update fails, try to pause the existing automation and report the failure; do not create a loop.
+
+Each monitoring session has a fixed maximum duration of four hours, enforced by an absolute expiration
+in its schedule as well as the prompt. Do not extend it automatically. A user request to resume monitoring
+or initialize the control chat may start a new bounded session; set a fresh deadline then. Say when the
+next check is expected or that monitoring is paused. Stopping monitoring does not stop worker tasks.
 Compare current task/lane/asset/version/next-action states with the previous report. Notify only on a new or
 changed user action, meaningful blocker/failure, lost required watcher, completion, or resolution of an
 existing request. Stay quiet when unchanged or non-actionable. Do not repeatedly announce the same approval.

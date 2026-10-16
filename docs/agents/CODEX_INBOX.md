@@ -15,6 +15,40 @@ How it works:
 
 ---
 
+## Goku and Luffy: Claude's calibration answer (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
+
+Answers Codex's handoff "Goku/Luffy workflow repair" (cf35f1c3). **No new image calls in this round.**
+
+**The head probe can't certify Goku or Luffy, so don't wait for it.** Claude's controls on Goku's packed idle v02
+(main's `public/characters/goku`): the automatic palette reads the idle itself at 0.50-2.67 (a 6x10 px blob), a
+declared gold palette at 0.52-1.25, and a broad hair palette at 0.45-1.05; the idle resampled to x0.8 reads 0.45-1.03
+instead of 0.80. Cause: his spiky hair has dark inner outlines and shares shades with the gi, so the hair breaks into
+small blobs. Luffy's hat shares the sash/vest/skin colours (CALIBRATION.md). A shape-based head probe is now a Claude
+tooling task (TOOL-GOKU-PROBE); until it lands, **the gate for both fighters is `scaleManualQA` on body landmarks**,
+exactly as Astra measured Luffy natively: boot/sandal top to sole, shin (knee to ankle), neck base to belt/sash, belt
+width, forearm, each against the approved idle and title-style cells at one density with uncertainty.
+
+**Luffy:** Claude set win's `bodyHeight` to **236** on `art/luffy-core` (ce3d7e14; WIN_LIGHT1.md): win v03 now packs at
+x0.99 of its neutral-matched source. light1 v02 already packs at about x1 (`bodyHeight` 204). Both can leave
+`_qa_hold` for the audit.
+
+**Goku pilots:** the probe can't confirm guard_v05 (.282) or light2_v05 (.613); confirm them on landmarks instead. If the
+landmarks of the pilots' packed frames match idle v02's within their uncertainty, use the same method for the other 18
+strips.
+
+- [ ] 1. **Luffy:** move win_v03 and light1_v02 out of `_qa_hold`, pack with `--quantize 48` (the strict probe will
+  still flag Luffy: record it, don't exempt), then Astra measures the landmarks above on every frame of win, light1 and
+  the strips from the earlier list. For each strip that matches, write `scaleManualQA` (version, result pass, by Astra,
+  note with the landmarks and uncertainty, evidence path). You may commit `public/characters/luffy/` on the branch for
+  the preview; Claude repacks on merge.
+- [ ] 2. **Goku:** Astra measures the same landmarks on the two pilots' packed frames against idle v02. If they match,
+  re-assemble the other 18 strips the same way (no new image calls), pack, and record `scaleManualQA` per strip that
+  matches; report every strip that doesn't, with its measured factor error.
+- [ ] 3. Commit, `npm run pr -- open` and `npm run pr -- preview` on both branches, review rows in REVIEW_ROWS.md, then
+  hand back and ring `goku-luffy`. The user reviews the previews after that.
+
+---
+
 ## Goku core: re-assemble at the idle's density (2026-10-15, Claude) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **2026-10-15 Codex checkpoint (ec37e3ae):** the user's workflow-improvement request produced two provisional calibration pilots, guardv05/light2v05, plus four disputed beam experiments in `_qa_hold`. Eighteen strips remain unreassembled; items1-3 are not complete. Detector controls also fail on unchanged approved idle. Exact evidence and the required Claude baseline/calibration check are at the top of CLAUDE_ART_HANDOFF.md. Zero new Goku calls. Expansion waits for verified pilot measurements rather than repeating uncertain factors across the batch.
@@ -54,6 +88,8 @@ Then continue with "Luffy core: the user's decisions" below. Same rules as "Goku
 ---
 
 ## Super banners and ultimate splashes: Sasuke pilot (2026-10-15, Claude) - chat "7 - Effects and ground", relay lane `effects`
+
+**Latest state (2026-10-15, effects relay #5):** the user authorized 3 additional calls each for the Sasuke v02 foreground redraws. Codex completed v03, Astra audited, and both remain on technical HOLD. PR #111 commit `753409cb` has the updated gallery and game preview; see docs/NOW.md. The next step is the user's decision whether to accept either v03 despite its hold, leave it held, or authorize more generation. Do not ring Claude; Codex routes the decision through the existing effects relay.
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** supers, ultimates and specials should
 have "the iconic anime/manga stunning epic feel". Ultimates must show more than a partial face; the banner's empty
@@ -126,25 +162,23 @@ until the strip exists it holds the `throw` release frame). Contract and per-fig
 **art/characters/BEAM_STRUGGLE_BRIEF.md** ("Per fighter" and "The air strip"). **Naruto: the user chose "Redraw v02"
 (2026-10-15, in Claude's chat):** `beamStruggle_v02`, one call (his 2nd of 3), drawn to his approved idle's scale (v01 failed
 at head 1.40x, feet 0.62x), the same two-handed Rasengan push; it joins this round's page. Leave v01 where it is.
-**The five effects are live** (Claude shipped them from main in PR #116, fad4e68c). PR #110's `public/vfx/atlas.*` must
-not ship: packed in the sparse worktree without the VFX raws, it dropped glow, bubble, wisp, arc, ripple and
-naruto_chakraTail.
-- [ ] 1. In `.worktrees/art-beam-clash`: `git merge main` (brings the `beamStruggleAir` contract, the packer tables and the
-  shipped effects); resolve every `art/vfx/**`, `public/vfx/**` and vfx manifest conflict by taking main's side
-  (`git checkout main -- public/vfx art/vfx`), commit the merge. Never run `npm run sprites vfx` in this worktree.
-- [ ] 2. `beamStruggle_v01` for Sasuke (Chidori Spear thrust), Killua (Narukami, open palm), Gojo (Red at two fingertips,
-  other hand in the pocket); at most 3 calls each, failed ones count.
-- [ ] 3. `beamStruggleAir_v01` for Killua (palm driven down, knees up), Sasuke (Great Fireball blown from the mouth, tiger
-  sign at the lips; `hand` = the mouth), Gojo (two fingers pointed down, relaxed); at most 3 calls each. Legs never
-  stand on an invisible floor.
-- [ ] 4. Per strip: the title-style contract, `hand` on every frame in hitboxes.json (within about 6 px across the loop),
-  `npm run sprites <id>` strict, the body sheet, then the Astra audit of the quantized atlas; a strip that fails stays a
+**The five effects are live** (Claude shipped them from main in PR #116, fad4e68c). After merging main, keep main's
+`art/vfx/**` and `public/vfx/**`; never repack VFX in `art/beam-clash`. The sparse branch atlas dropped six live effects:
+glow, bubble, wisp, arc, ripple and naruto_chakraTail. PR #110's `public/vfx/atlas.*` must not ship.
+- [x] 1. Merged latest main into `.worktrees/art-beam-clash`; merge commit **881562f4**. Resolved all `art/vfx/**` and
+  `public/vfx/**` conflicts using main's versions; verified they match main. Never run any VFX repack in this worktree.
+- [x] 2. Generated and filed ground `beamStruggle_v01` for Sasuke, Killua and Gojo (max 3 calls each).
+- [x] 3. Generated and filed `beamStruggleAir_v01` for Sasuke, Killua and Gojo (max 3 calls each). Also generated Naruto
+  `beamStruggle_v02` using the user's relayed decision (one call, 2nd of 3); this is not approval.
+- [ ] 4. Per strip: the title-style contract, `hand` on every frame in hitboxes.json (within about 6 px across the
+  loop), `npm run sprites <id>` strict, the body sheet, then the Astra audit of the quantized atlas; a strip that fails stays a
   technical hold (say so on the page; do not present it for approval).
-- [ ] 5. One phone review page public/reviews/beam-clash-r2/ (each strip beside the fighter's approved idle and beamFire /
-  throw at one density, a looping GIF at 70 ms); REVIEW.md rows, manifest versions, tracker rows; commit,
-  `npm run pr -- open`, `npm run pr -- preview`; a handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md with the
-  **direct review page URL**; then `node tools/relay.mjs ring beam-clash --for user --kind approval --note "<one line with
-  the review URL>"`. **Then stop:** Claude asks the user (ADR 0037).
+  **BLOCKED:** Sasuke ground scale ratios head 1.54 / feet 1.84 and air 1.18 / 1.16; Killua air 1.06 / 1.32; Gojo air
+  0.94 / 1.06. Naruto v02 head gate 2 ok but body sheet garment-area ratio B=0.60 vs idle in all frames. Killua/Gojo
+  ground body/contact checks are incomplete because the gate failure prevented a pack. Astra audit unavailable in this chat.
+  Candidates are on technical hold; do not request image approval.
+- [ ] 5. Phone review page `public/reviews/beam-clash-r2/` and PR preview are not ready because the candidates are held.
+  No review URL exists. Claude must arrange the remaining technical/audit path before the user reviews any image.
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
@@ -181,6 +215,8 @@ single 8-frame image doesn't get the generator to swap legs, so the swap gets it
 
 Rules: as in phase 1 below. Budget: 3 calls total for run v13 (A + B + one retry or fix); no other new images.
 Blocked: write BLOCKED under the item and in NOW.md, tell the user and do not ring.
+
+**BLOCKED (2026-10-15):** After the initial 3 calls, the user authorized one extra Part B call. It repeated A's lead-leg sequence and is preserved in `_qa_hold/run_v13_B_attempt02.png`; the additional budget is spent. Part A remains saved, but no complete run_v13, stitch, pack, Astra audit or preview exists. Updated handoff and attempt ledger are in `PHASE3_HANDOFF_v01.md` / `phase3_run_v13_attempt_inventory_v01.json` on `art/gojo-run` commit `56a1d071`. Relay #4 sent a blocked decision asking whether to authorize another Part B budget or hold the run. No dashes were generated.
 
 ---
 
