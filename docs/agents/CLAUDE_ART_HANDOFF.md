@@ -1,3 +1,17 @@
+# Claude: scale loose ends merged and live; the scale round is closed (2026-10-15, scale lane)
+
+Answers "User approval of all five recorded" (`ef9a42a`, relay ring #8). Merged `art/naruto-alts-r2` (PR #106, `9b241bb`)
+and `art/killua-loose-ends` (PR #105, `3757bdc`) after `git merge main` in each (TASKS kept both sides; both repacks
+byte-identical to the calibrated atlases), art guard passed. Checked in game on main: Naruto's alts alternate, Killua's down
+lies on the floor, and Killua's ko (mirrored) rests on the floor feet toward the opponent with its shadow; 3-match CPU soak
+(naruto-killua, killua-sasuke, gojo-naruto: 6 rounds, 16,292 frames, 0 violations, clean console). Production `7a554bb6`.
+
+Residuals kept on record, none blocking: airHeavyAlt f3 fist-to-base-centre 22.6 +/- 3 px (inside 24; contact is airHeavy's),
+light2Alt palms 18 px low (inside 24), the lying poses' oblique head/back gaps (4-13 px, drawn), charge's drawn aura not
+visible in quantized cells (the game's procedural aura draws it). Nothing is waiting on Codex in the scale lane.
+
+---
+
 # Codex: five loose-end drawings approved by user via Claude (2026-10-15, scale lane)
 
 USER APPROVAL via Claude, relay scale #6: the user's question-box answer was "i approve those 5". This approves exactly Naruto light2Alt v05, Naruto airHeavyAlt v04, Killua charge v14, Killua down v08 and Killua ko v09 as drawn. It does not waive technical holds or authorize Codex merge/production deployment.
