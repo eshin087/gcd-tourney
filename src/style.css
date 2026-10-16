@@ -134,7 +134,10 @@ body:has(#touch.show:not(.spectate)) .tags.k2 { top: calc(var(--u) * 13); right:
 .announce.fight span { font-size: calc(var(--u) * 22); background: linear-gradient(180deg, #ffffff 0 18%, #ffe080 18% 40%, #ff7a1a 40% 70%, #e0281a 70%); -webkit-background-clip: text; background-clip: text; }
 .announce.ko span { font-size: calc(var(--u) * 26); background: linear-gradient(180deg, #ffffff 0 15%, #ffb0a0 15% 40%, #ff3a2a 40% 72%, #a8101a 72%); -webkit-background-clip: text; background-clip: text; }
 .announce.ko.go span { animation: shake 0.08s 8; }
-.announce.clash span { font-size: calc(var(--u) * 13); background: linear-gradient(180deg, #ffffff 0 20%, #c8f0ff 20% 45%, #5ab8ff 45% 72%, #2a5ad8 72%); -webkit-background-clip: text; background-clip: text; }
+/* `clash-call`, never `clash`: that is also the rhythm HUD's class (.clash below), whose absolute 50%-left box shoved
+   these calls right, over a fighter (ADR 0034). `top`: under the health bars, above the fighters' heads */
+.announce.clash-call.top { align-items: flex-start; padding-top: calc(var(--u) * 14); }
+.announce.clash-call span { font-size: calc(var(--u) * 12); background: linear-gradient(180deg, #ffffff 0 20%, #c8f0ff 20% 45%, #5ab8ff 45% 72%, #2a5ad8 72%); -webkit-background-clip: text; background-clip: text; }
 .announce.win span { font-size: calc(var(--u) * 12); }
 .announce.time span { font-size: calc(var(--u) * 15); }
 @keyframes annIn { from { opacity: 0; transform: scale(2.4) rotate(-4deg); } to { opacity: 1; transform: scale(1); } }
@@ -150,7 +153,7 @@ body:has(#touch.show:not(.spectate)) .tags.k2 { top: calc(var(--u) * 13); right:
 @keyframes cardR { from { transform: translateX(120%) skewX(-14deg); } to { transform: skewX(-14deg); } }
 @keyframes vsIn { from { transform: scale(3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-.clash { position: absolute; left: 50%; bottom: calc(var(--u) * 12); transform: translateX(-50%); width: min(70vw, calc(var(--u) * 110)); display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.2); }
+.clash { position: absolute; left: 50%; bottom: calc(var(--u) * 4); transform: translateX(-50%); width: min(70vw, calc(var(--u) * 110)); display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.2); }
 .clash-bar { position: relative; width: 100%; height: calc(var(--u) * 3); display: flex; border: calc(var(--u) * 0.45) solid #fff; outline: calc(var(--u) * 0.35) solid var(--ink); transform: skewX(-20deg); background: #1a1530; }
 .clash-a { background: linear-gradient(180deg, #fff, var(--ca) 40%, color-mix(in srgb, var(--ca) 70%, #000)); }
 .clash-b { background: linear-gradient(180deg, #fff, var(--cb) 40%, color-mix(in srgb, var(--cb) 70%, #000)); }

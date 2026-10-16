@@ -62,7 +62,8 @@ src/game/
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
   projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
-                            pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette) with HDR shader
+                            pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette and shape:
+                            the HDR ribbon shader, or a VFX atlas band tiled along it, or Red's orb; STREAM_STYLES)
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,

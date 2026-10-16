@@ -68,6 +68,7 @@ right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW
 | [specialDown](#specialdown) | 4 | 2/1/1 | - | 204 | - (kit) | 9 |
 | [superPose](#superpose) | 4 | - | yes | 208 | - (kit) | 9 |
 | [beamStruggle](#beamstruggle) | 3 | - | yes | 198 | - (struggle) | 9 |
+| [beamStruggleAir](#beamstruggleair) | 3 | - | yes | 190 | - (struggle) | 9 |
 | [techGround](#techground) | 4 | 1/2/1 beats | - | 204 | - (tech) | 9 |
 | [techRoll](#techroll) | 6 | 1/4/1 beats | - | 162 | - (tech) | 9 |
 | [wallTech](#walltech) | 5 | 2/1/2 beats | - | 209 | - (tech) | 9 |
@@ -813,6 +814,22 @@ Brief and per-fighter poses: [BEAM_STRUGGLE_BRIEF.md](../BEAM_STRUGGLE_BRIEF.md)
 | 00 | loop | braced push: front knee bent, back leg straight and driving, torso leaning in, technique hand forward at the stream origin | _{{fill in}}_ |
 | 01 | loop | strain: shoved back a few px at the hips and shoulders, the hand held on its point, teeth gritted | _{{fill in}}_ |
 | 02 | loop | surge: leaning further in, hair and clothes whipped back harder; loops into 00 | _{{fill in}}_ |
+
+## beamStruggleAir
+
+**beam clash struggle from the air: hovering, driving the technique down-forward (loop)**
+3 frames · loops · body height 190 px · optional (struggle, ADR 0034) · step 9 · default ms 70, 70, 70
+
+Only if the kit has an air energy shot (an air special whose projectile has `clash: 'beam'`). The fighter hovers low,
+about one body height up, above an opponent standing in front of them, for the whole clash. Legs tucked under the body
+(never standing on an invisible floor), the technique hand driven down-forward at the `hand` point, kept within about 6 px
+across the loop. Draw the hand empty in its gesture. Missing → the `throw` release frame, held.
+
+| # | phase | generic pose | {{NAME}} specifics |
+|---|---|---|---|
+| 00 | loop | hovering, knees drawn up, torso leaning toward the target, technique hand driven down-forward | _{{fill in}}_ |
+| 01 | loop | strain: shoulders and hips 3-5 px back and up, the hand held on its point, teeth gritted | _{{fill in}}_ |
+| 02 | loop | surge: leaning into it harder, hair and clothes streaming back and up; loops into 00 | _{{fill in}}_ |
 
 ## techGround
 
