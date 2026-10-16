@@ -4,6 +4,7 @@ import { loadImage } from './sprites.js';
 import { fetchAtlasJson } from '../core/artIndex.js';
 import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { GroundDamage } from './ground.js';
+import { Sigils } from './sigil.js';
 
 const VERT = /* glsl */ `
   uniform vec4 uvRect;
@@ -82,6 +83,7 @@ export class Effects {
     this.cellWorld = meta.cell / PPU;
     this.camFwd = new THREE.Vector3(0, 0, -1);
     this.ground = new GroundDamage(scene, this); // craters, cracks, scorches, wall marks (ADR 0024)
+    this.sigils = new Sigils(scene); // Sharingan / Mangekyō behind an eye technique (ADR 0035)
   }
 
   // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`: approved effects only;
@@ -226,6 +228,7 @@ export class Effects {
 
   update(dt, camera) {
     camera.getWorldDirection(this.camFwd);
+    this.sigils.update(dt, camera, this.camFwd);
     const now = performance.now();
     for (const [id, it] of this.keepers) {
       if (now - it.seenAt > 90) { it.life = -1; this.keepers.delete(id); }
@@ -306,6 +309,7 @@ export class Effects {
     this.items.length = 0;
     this.keepers.clear();
     this.ground.clear();
+    this.sigils.clear();
     for (const r of this.rocks) this.scene.remove(r.mesh);
     this.rocks.length = 0;
     for (const w of this.walls) {
@@ -363,6 +367,28 @@ export class Effects {
       const a = Math.random() * Math.PI * 2;
       const sp = 2.5 + Math.random() * (kind === 'smash' ? 5 : 3);
       this.spawn('star', x, y, z, { ...top, scale: 0.2, vel: [Math.cos(a) * sp, Math.sin(a) * sp + 1.5, (Math.random() - 0.5) * sp], grav: 12, life: 0.26, frame: 2, color: 0xfff2b0, glow: 0.8 });
+    }
+  }
+
+  // MELEE CLASH (ADR 0038): two strikes meeting. A crisp contact star, sparks and arcs in both fighters' colors
+  // sprayed out of the contact point, a thin shockwave ring and speed lines; no white glow, so the frozen strikes
+  // stay readable. `power` grows the spray with the chain.
+  clashSpark(x, y, z, colA, colB, power = 1) {
+    const top = { depthTest: false, order: 8 };
+    this.spawn('star', x, y, z, { ...top, scale: 0.42 * power, color: 0xfff6e0, glow: 0.35 });
+    for (const col of [colA, colB]) {
+      this.spawn('spark', x, y, z, { ...top, scale: 0.6 * power, rot: Math.random() * Math.PI * 2, color: col, glow: 0.3 });
+      this.spawn('arc', x, y, z, { ...top, order: 7, scale: 0.7 * power, rot: Math.random() * Math.PI * 2, color: col, glow: 0.25, opacity: 0.85 });
+    }
+    this.spawn('ring', x, y, z, { ...top, order: 7, scale: 0.45, color: 0xf4f0ff, glow: 0.1, opacity: 0.75, grow: 4.5 * power, fade: true, life: 0.32 });
+    this.spawn('lines', x, y, z, { ...top, scale: 0.8 * power, color: 0xffffff, opacity: 0.35, rot: Math.random() * 6 });
+    const n = Math.round(6 + 3 * power);
+    for (let k = 0; k < n * 2; k++) {
+      const a = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 4 * power;
+      this.spawn('star', x, y, z, {
+        ...top, scale: 0.16 + Math.random() * 0.08, vel: [Math.cos(a) * sp, Math.sin(a) * sp * 0.8 + 1.5, (Math.random() - 0.5) * sp],
+        grav: 10, life: 0.3 + Math.random() * 0.15, frame: 2, color: k % 2 ? colA : colB, glow: 0.45,
+      });
     }
   }
 

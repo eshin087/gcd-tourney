@@ -2,7 +2,7 @@
 // so one tap plays a move or a whole scenario exactly the same way every time. Everything is read from the fighter
 // data (kits, MOVES, SPECIAL_MOVES, SUPERS), so a new fighter or a new move shows up here without lab changes.
 import { ACTIONS } from '../core/input.js';
-import { MOVES, SPECIAL_MOVES, SUPERS, ULTIMATE, THROW, DEFENSE, VANISH, SUPER_DASH } from '../game/moves.js';
+import { MOVES, SPECIAL_MOVES, SUPERS, ULTIMATE, THROW, DEFENSE, VANISH, SUPER_DASH, MELEE_CLASH } from '../game/moves.js';
 import { kitOf, specialFor, towardSide, clashable, energyMoves, airEnergyMoves, canBeamClash } from '../game/kit.js';
 import { impactAhead } from '../game/aiTech.js';
 
@@ -190,6 +190,16 @@ export const SCENARIOS = [
     id: 'spClash', name: 'Special clash (rush vs rush)', info: 'Both rush specials meet head-on: one ring, press as it closes. The closer press wins.',
     needs: (defs) => (defs.every((d) => specialFor(d, 'neutral')?.kind === 'rush') ? null : 'needs two rush specials, e.g. Naruto vs Sasuke'),
     setup: { gap: 3.2, kiA: 100, kiB: 100 }, a: [tap(0, 'special')], b: [tap(0, 'special')],
+  },
+  {
+    id: 'meleeClash', name: 'Melee clash chain (light vs light)', info: `Both jab at once: the swings meet, CLASH!, no damage, sparks in both colors, then a short pushback. Both press again while the strikes are held, so it chains (CLASH ×2, ×3 ...) and the ${MELEE_CLASH.finale}th skids them far back (CLASH BREAK!). Two heavies clash the same way (ADR 0038).`,
+    setup: { gap: 1.8 },
+    a: [tap(0, 'light'), tap(14, 'light'), tap(34, 'light'), tap(56, 'light'), tap(80, 'light')],
+    b: [tap(0, 'light'), tap(14, 'light'), tap(34, 'light'), tap(56, 'light'), tap(80, 'light')],
+  },
+  {
+    id: 'heavyCrush', name: 'Heavy beats light', info: 'The dummy swings a heavy; your jab meets it while it is live: CRUSH!, the heavy blows through and launches you.',
+    setup: { gap: 1.8 }, a: [tap(5, 'light')], b: [tap(0, 'heavy')],
   },
   {
     id: 'beamClash', name: 'Beam clash (energy vs energy)', info: 'Both fire an energy special at once (Narukami, Reversal: Red, Chidori Spear; Naruto drives a Rasengan in): BEAM CLASH!, two streams meet in the middle and the rhythm chart decides it. The winner\'s stream runs through and wall-bounces the loser; a dead heat blows both back.',
