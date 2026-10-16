@@ -132,7 +132,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
 ## sasuke
 
-Round4: superDash v07, jumpSquat v06, beamFire v07, dash v07 need review. All9 strips inspected; numerical joint/skull certification remains inconclusive, SD clips10/4px, strict pack holds JS. Production atlas preserved. [Audit](characters/sasuke/production/round4/SEGMENT_AUDIT.md).
+Round4: superDash v07, jumpSquat v07, beamFire v07, dash v07 need review. jumpSquat v07 is the one-call reaching-arm repair candidate; standard strict pack fails because v06 manual QA does not apply. A separate gate-warn diagnostic atlas is filed under `production/round6/diagnostic-v07/`; its head/body scale verdict remains unmeasured. All9 prior strips inspected; numerical joint/skull certification remains inconclusive, SD clips10/4px, strict pack holds JS. Production atlas preserved. [Audit](characters/sasuke/production/round4/SEGMENT_AUDIT.md).
 
 
 **Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview; `approved` = the exact version that played for the 33 title-style strips. The preview also played throw v05 and stagger v06: approved, but they fail the strict scale gate and stay in raw/_rejected, so the approved originals ship. The approved originals also ship for launched, spin, airRecover, down, ko, specialUp and superPose (scale-checked against the new idle). UI: the preview showed v01 labelled v02, so v02 is still unreviewed and v01 ships. Not shipped yet: see docs/NOW.md.
@@ -176,7 +176,7 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 8 | win | 4 | - | **yes** | 212 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | backDash | 3 | - | no | 180 | approved | v07 | v07 | User approved v07 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 9 | superDash | 2 | - | no | 108 | approved | v07 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | jumpSquat | 1 | - | no | 162 | approved | v06 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | jumpSquat | 1 | - | no | 162 | approved | v07 | v03 | v07 arm-repair candidate needs review; v03 remains the approved fallback. |
 | 9 | airLight2 | 5 | 1/2/2 | no | 207 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 201 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | block | 2 | - | no | 180 | approved | v07 | v07 | User approved v07 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
