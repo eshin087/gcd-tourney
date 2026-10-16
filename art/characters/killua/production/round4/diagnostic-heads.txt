@@ -1,0 +1,11 @@
+
+== killua: idle head 40x31 px (auto palette #36356f #3d3e79 #cdc8e8 #7a5eb4 #6a5c8b #f0eff6 #b2acd3 #bdb8d7 #8a80b4)
+   31 ok, 3 drift, 8 manual
+   superDash       v08  head -17%  feet  +5%  DRIFT    f: 0.82 0.84
+   guard           v09  head -10%  feet  +7%  DRIFT    f: 0.90 0.91
+   charge          v13  head  -8%  feet  +4%  DRIFT    f: 0.92 0.92 0.94 0.90
+   ! win: the manifest's scale exemption was written for v04 but the packed strip is v05 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 5
+   ! specialUp: the manifest's scale exemption was written for v02 but the packed strip is v08 - measured; if this drawing hides the head too (check the heads sheet), re-exempt it with "scaleExemptVersion": 8
+   wrote art\characters\killua\production\round4\diagnostic-heads\heads-killua.png
+
+[scale] 3 flagged strip(s); wrote art\characters\killua\production\round4\diagnostic-heads\scale-report.json and scale-baseline.json. Fixes: art/scale/SCALE_FIX_BRIEF.md

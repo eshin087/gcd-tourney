@@ -11,6 +11,17 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- art(killua): record user visual approval of guard v09, idle v11, superDash v08; retain technical evidence and unrelated holds.
+
+- art(killua): stagger — User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
+
+- ART-SCALE-R4-KIL: one authorized imagegen call patched Killua stagger v07 f3; v08 preserves f0-f2 pixel-for-pixel. Actual-manifest diagnostic pack uses unchanged bodyHeight186 and byte-identical auto-head sidecar; packed probe reads head1.025/feet1.235, with shoe/body review still held and approval pending.
+
+- Audit Killua calibrated idle11, guard09, superDash08 and win05 from exact atlas hashes: stance heights pass; explicit head target and upright win torso remain HOLD, with all16 per-frame bilateral measurements and uncertainty. No art approval or output changes.
+
+- ART-SCALE-R4-KIL: corrected the Killua gallery to foreground selected candidates, play exact diagnostic atlas frames beside approved references with pause/step controls, and expose Astra’s stagger loop-reset hold; art and approvals unchanged.
+
+- ART-SCALE-R4: Killua unapproved taller idle/guard and superDash/stagger/win redraws, per-frame native48 anatomy evidence and diagnostic review gallery; strict packing/calibration holds, shipped atlas unchanged.
 - docs(scale): hand all24 explicit round5 user approvals back to Claude; retain light2Alt and airHeavyAlt holds.
 
 - Added: a raw sidecar can list `"erase": [[x, y, w, h], ...]` rectangles that the packer clears before packing, for a leftover the stray cleanup keeps because it sits close to a body (TOOL-042; art/PIPELINE.md).
@@ -681,3 +692,5 @@ Reconstructed from the codebase when the changelog was introduced.
 [0.1.0]: #010---2026-10-04
 
 - Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
+
+- ART-SCALE-R4-KIL: added hash-verified source-to-fit calibration handoff for Killua idle11, guard09, superDash08, stagger07 and win05; no art, fit data, packer or shipped atlas changed.
