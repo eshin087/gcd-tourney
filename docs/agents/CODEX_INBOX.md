@@ -179,9 +179,10 @@ glow, bubble, wisp, arc, ripple and naruto_chakraTail. PR #110's `public/vfx/atl
   https://gcd-tourney-m1mjwpw3c-eshin087s-projects.vercel.app/reviews/beam-clash-r2/ (preview build passed).
   Main VFX sources and atlas were preserved unchanged. No VFX pack was run.
 
-**Next:** Killua air `beamStruggleAir_v02` is authorized (one call remains), but this chat cannot switch to the required
-`gpt-6-luna` medium model. No image call was made. Continue the redraw in a Codex chat configured to Luna/medium;
-the Astra anatomy audit remains pending and does not block the recorded image approvals.
+**Completed 2026-10-16 (Codex):** Killua air `beamStruggleAir_v02` was generated, passed the strict quantized scale
+gate and body sheet, and was approved by the user via Claude relay #10. The superseded v01 is archived. Approval is
+recorded in REVIEW, manifest and TRACKER; the updated page and branch handoff are in progress. Astra anatomy audit and
+exact hand-anchor measurements remain pending for Claude before runtime integration.
 
 Then Goku's `beamStruggle` once his core art is on main (Claude will write it).
 
