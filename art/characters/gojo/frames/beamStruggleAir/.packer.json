@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/beamStruggleAir_v01.png",
+  "version": 1,
+  "source": [
+    "characters/gojo/raw/beamStruggleAir_v01.png"
+  ],
+  "sourceHash": "343cbb047970d773c11ff208677f631d0f3d319b",
+  "bodyHeight": 215,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "beamStruggleAir_00.png": "7b1fcce7cbf6cfa01c247ee579c31abf5cc97a97",
+    "beamStruggleAir_01.png": "9378d1ca2e6c24e0c6c77d40466f0569f2782eac",
+    "beamStruggleAir_02.png": "b8ed45a716b333789a2229b0c2d99b95780d701f"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/beamStruggle_v01.png",
+  "version": 1,
+  "source": [
+    "characters/killua/raw/beamStruggle_v01.png"
+  ],
+  "sourceHash": "c4fd5bff77d3f404a74dadf4b35f5226fa5d8d31",
+  "bodyHeight": 123,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "beamStruggle_00.png": "8a046812265177f9093b651ff7b2cce8ccec6aef",
+    "beamStruggle_01.png": "00192a7efca785134700bed32de7da4e86fc8f7a",
+    "beamStruggle_02.png": "9fcba0c154b7e4b5fc588a2692a9736a78463f08"
+  }
+}

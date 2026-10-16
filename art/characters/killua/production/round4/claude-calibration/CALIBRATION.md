@@ -65,3 +65,14 @@ the neutral's 50 (Astra), and the loop's coarse motion (head step f2 -> f3 about
 
 Atlas: sheet sha256 `55f7d5b3386b42069445845f1076ab4d89d75ceb4b90b374c21a0d4f202ada9d`, anims.json sha256
 `f2979197db289c5952f078794e24f53407d72cf5d8b31865155b70e3d9b4686a`.
+
+# Loose ends (2026-10-15): charge v14, down v08, ko v09, specialUp exemption
+
+| strip | Claude change | result |
+|---|---|---|
+| charge v14 | bodyHeight 125 -> 115 (`raw/charge_v14.json`) | head 1.002 (frames 0.99-1.01), feet 1.065: the old recorded exception (head 0.92) is gone |
+| down v08 (side-on) | bodyHeight 90 -> 57 (`raw/down_v08.json`); manifest `scaleManualQA` v8 | the probe cannot read lying poses; shoe area 0.21-0.23, a straight body at the 186 px neutral height 0.231, hair area 0.27 (floor-shaded hair undercounts): 57 sits between. f1 about 192 px long, heads within about 5-10 % of idle11's, no clipping, no floating frame (the old v07 floated 16-24 px) |
+| ko v09 (side-on) | bodyHeight 78 -> 45 and `flipX` (TOOL-044, PR #112) in `raw/ko_v09.json`; manifest `scaleManualQA` v9 | drawn head-right where down v08 and the approved ko v08 lie head-left (ko replaces down on the KO landing): mirrored. Shoe 0.137 / hair 0.169, the same ko/down ratio as down. About 170 px long with bent knees, inside the cell, on the floor |
+| specialUp v08 | manifest `scaleExemptFrames` / `scaleExemptVersion` (written for v02) removed | v08 measures head 0.993 (frames 0.94-1.05): the exemption no longer applied to anything |
+
+Hurt boxes: down [71,186,120,55] / [63,198,123,43] and ko [53,199,109,42], lower and flatter than the old top-down poses' (they rest on the floor now). Pack: `node tools/pack-sprites.mjs killua --quantize 48`, gate 33 ok, 9 manual, no drift, no floating or clipped frame. Atlas: sheet sha256 `aabe89b82fc8e1eb5886e233fb20b5c18ea9a9235d3686f52d659d3998d9ed25`, anims.json sha256 `9ed1703e018f22709dbf018afa8235aa35e27ca7c7b4e0da135d745163405696`.

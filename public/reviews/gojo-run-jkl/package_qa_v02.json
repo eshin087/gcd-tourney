@@ -1,0 +1,421 @@
+{
+  "date": "2026-10-15",
+  "branch": "art/gojo-run",
+  "redo": [
+    "J_v02",
+    "L_v02"
+  ],
+  "unchangedDirectionReference": "K_v01",
+  "approvedNeutralHairWidthPx": 35,
+  "comparison": {
+    "frames": 8,
+    "durationMs": 60,
+    "infiniteLoop": true
+  },
+  "studies": {
+    "J": {
+      "study": "J",
+      "version": "v02",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "frameCount": 8,
+      "cellSize": [
+        256,
+        256
+      ],
+      "scale": 0.3867403314917127,
+      "uniformScale": true,
+      "neutralHairWidthPx": 35,
+      "maxHairToSolePx": 208,
+      "frames": [
+        {
+          "frame": 0,
+          "sourceFigureBounds": [
+            0,
+            100,
+            253,
+            636
+          ],
+          "sourceHairWidth": 92,
+          "uniformScale": 0.3867403314917127,
+          "normalizedFigureBounds": [
+            64,
+            33,
+            162,
+            240
+          ],
+          "hairToSolePx": 207,
+          "posedWidthPx": 98,
+          "normalizedHairWidth": 36,
+          "hairWidthDeltaFromNeutralPct": 2.86
+        },
+        {
+          "frame": 1,
+          "sourceFigureBounds": [
+            258,
+            100,
+            516,
+            639
+          ],
+          "sourceHairWidth": 91,
+          "uniformScale": 0.3867403314917127,
+          "normalizedFigureBounds": [
+            58,
+            33,
+            158,
+            241
+          ],
+          "hairToSolePx": 208,
+          "posedWidthPx": 100,
+          "normalizedHairWidth": 35,
+          "hairWidthDeltaFromNeutralPct": 0.0
+        },
+        {
+          "frame": 2,
+          "sourceFigureBounds": [
+            499,
+            101,
+            789,
+            627
+          ],
+          "sourceHairWidth": 92,
+          "uniformScale": 0.3867403314917127,
+          "normalizedFigureBounds": [
+            47,
+            33,
+            159,
+            236
+          ],
+          "hairToSolePx": 203,
+          "posedWidthPx": 112,
+          "normalizedHairWidth": 34,
+          "hairWidthDeltaFromNeutralPct": -2.86
+        },
+        {
+          "frame": 3,
+          "sourceFigureBounds": [
+            754,
+            96,
+            1085,
+            587
+          ],
+          "sourceHairWidth": 90,
+          "uniformScale": 0.3867403314917127,
+          "normalizedFigureBounds": [
+            38,
+            33,
+            166,
+            223
+          ],
+          "hairToSolePx": 190,
+          "posedWidthPx": 128,
+          "normalizedHairWidth": 34,
+          "hairWidthDeltaFromNeutralPct": -2.86
+        },
+        {
+          "frame": 4,
+          "sourceFigureBounds": [
+            1036,
+            100,
+            1330,
+            638
+          ],
+          "sourceHairWidth": 90,
+          "uniformScale": 0.3867403314917127,
+          "normalizedFigureBounds": [
+            45,
+            33,
+            159,
+            241
+          ],
+          "hairToSolePx": 208,
+          "posedWidthPx": 114,
+          "normalizedHairWidth": 34,
+          "hairWidthDeltaFromNeutralPct": -2.86
+        },
+        {
+          "frame": 5,
+          "sourceFigureBounds": [
+            1324,
+            101,
+            1581,
+            639
+          ],
+          "sourceHairWidth": 90,
+          "uniformScale": 0.3867403314917127,
+          "normalizedFigureBounds": [
+            58,
+            33,
+            157,
+            241
+          ],
+          "hairToSolePx": 208,
+          "posedWidthPx": 99,
+          "normalizedHairWidth": 34,
+          "hairWidthDeltaFromNeutralPct": -2.86
+        },
+        {
+          "frame": 6,
+          "sourceFigureBounds": [
+            1568,
+            100,
+            1856,
+            629
+          ],
+          "sourceHairWidth": 91,
+          "uniformScale": 0.3867403314917127,
+          "normalizedFigureBounds": [
+            54,
+            33,
+            165,
+            238
+          ],
+          "hairToSolePx": 205,
+          "posedWidthPx": 111,
+          "normalizedHairWidth": 35,
+          "hairWidthDeltaFromNeutralPct": 0.0
+        },
+        {
+          "frame": 7,
+          "sourceFigureBounds": [
+            1823,
+            98,
+            2155,
+            590
+          ],
+          "sourceHairWidth": 90,
+          "uniformScale": 0.3867403314917127,
+          "normalizedFigureBounds": [
+            36,
+            33,
+            164,
+            223
+          ],
+          "hairToSolePx": 190,
+          "posedWidthPx": 128,
+          "normalizedHairWidth": 34,
+          "hairWidthDeltaFromNeutralPct": -2.86
+        }
+      ],
+      "visualQA": "Review leg identity, far-hand pocket continuity, mirrored phases, and f7-to-f0 seam; posed envelope is not body-height approval.",
+      "studyStatus": "needs review; technical hold",
+      "holds": [
+        "Frames 4\u20137 appear to reuse the same lead-leg pattern rather than mirror f0\u2013f3.",
+        "Source f0 touches the left edge of the generation canvas (sourceFigureBounds x0=0); normalization cannot recover missing edge pixels."
+      ],
+      "paletteColors": 48,
+      "loopMedia": {
+        "mp4DecodeExitCode": 0,
+        "mp4Cycles": 8,
+        "fps": "50/3",
+        "gifFrames": 8,
+        "gifDurationMs": 60,
+        "gifInfiniteLoop": true
+      }
+    },
+    "L": {
+      "study": "L",
+      "version": "v02",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "frameCount": 8,
+      "cellSize": [
+        256,
+        256
+      ],
+      "scale": 0.4431818181818182,
+      "uniformScale": true,
+      "neutralHairWidthPx": 35,
+      "maxHairToSolePx": 234,
+      "frames": [
+        {
+          "frame": 0,
+          "sourceFigureBounds": [
+            15,
+            87,
+            283,
+            615
+          ],
+          "sourceHairWidth": 80,
+          "uniformScale": 0.4431818181818182,
+          "normalizedFigureBounds": [
+            58,
+            7,
+            177,
+            241
+          ],
+          "hairToSolePx": 234,
+          "posedWidthPx": 119,
+          "normalizedHairWidth": 35,
+          "hairWidthDeltaFromNeutralPct": 0.0
+        },
+        {
+          "frame": 1,
+          "sourceFigureBounds": [
+            267,
+            88,
+            530,
+            612
+          ],
+          "sourceHairWidth": 77,
+          "uniformScale": 0.4431818181818182,
+          "normalizedFigureBounds": [
+            60,
+            7,
+            177,
+            239
+          ],
+          "hairToSolePx": 232,
+          "posedWidthPx": 117,
+          "normalizedHairWidth": 35,
+          "hairWidthDeltaFromNeutralPct": 0.0
+        },
+        {
+          "frame": 2,
+          "sourceFigureBounds": [
+            552,
+            93,
+            779,
+            615
+          ],
+          "sourceHairWidth": 76,
+          "uniformScale": 0.4431818181818182,
+          "normalizedFigureBounds": [
+            77,
+            7,
+            178,
+            238
+          ],
+          "hairToSolePx": 231,
+          "posedWidthPx": 101,
+          "normalizedHairWidth": 34,
+          "hairWidthDeltaFromNeutralPct": -2.86
+        },
+        {
+          "frame": 3,
+          "sourceFigureBounds": [
+            745,
+            84,
+            1074,
+            588
+          ],
+          "sourceHairWidth": 75,
+          "uniformScale": 0.4431818181818182,
+          "normalizedFigureBounds": [
+            40,
+            7,
+            186,
+            230
+          ],
+          "hairToSolePx": 223,
+          "posedWidthPx": 146,
+          "normalizedHairWidth": 33,
+          "hairWidthDeltaFromNeutralPct": -5.71
+        },
+        {
+          "frame": 4,
+          "sourceFigureBounds": [
+            1088,
+            91,
+            1368,
+            615
+          ],
+          "sourceHairWidth": 81,
+          "uniformScale": 0.4431818181818182,
+          "normalizedFigureBounds": [
+            52,
+            7,
+            176,
+            239
+          ],
+          "hairToSolePx": 232,
+          "posedWidthPx": 124,
+          "normalizedHairWidth": 35,
+          "hairWidthDeltaFromNeutralPct": 0.0
+        },
+        {
+          "frame": 5,
+          "sourceFigureBounds": [
+            1353,
+            88,
+            1616,
+            612
+          ],
+          "sourceHairWidth": 77,
+          "uniformScale": 0.4431818181818182,
+          "normalizedFigureBounds": [
+            60,
+            7,
+            177,
+            239
+          ],
+          "hairToSolePx": 232,
+          "posedWidthPx": 117,
+          "normalizedHairWidth": 35,
+          "hairWidthDeltaFromNeutralPct": 0.0
+        },
+        {
+          "frame": 6,
+          "sourceFigureBounds": [
+            1637,
+            92,
+            1865,
+            615
+          ],
+          "sourceHairWidth": 76,
+          "uniformScale": 0.4431818181818182,
+          "normalizedFigureBounds": [
+            76,
+            7,
+            177,
+            239
+          ],
+          "hairToSolePx": 232,
+          "posedWidthPx": 101,
+          "normalizedHairWidth": 33,
+          "hairWidthDeltaFromNeutralPct": -5.71
+        },
+        {
+          "frame": 7,
+          "sourceFigureBounds": [
+            1830,
+            84,
+            2160,
+            588
+          ],
+          "sourceHairWidth": 75,
+          "uniformScale": 0.4431818181818182,
+          "normalizedFigureBounds": [
+            40,
+            7,
+            186,
+            230
+          ],
+          "hairToSolePx": 223,
+          "posedWidthPx": 146,
+          "normalizedHairWidth": 33,
+          "hairWidthDeltaFromNeutralPct": -5.71
+        }
+      ],
+      "visualQA": "Review leg identity, far-hand pocket continuity, mirrored phases, and f7-to-f0 seam; posed envelope is not body-height approval.",
+      "studyStatus": "needs review; technical hold",
+      "holds": [
+        "f0/f4 and f3/f7 repeat the same lead leg; the required mirrored phase and leg identity remain unresolved."
+      ],
+      "paletteColors": 48,
+      "loopMedia": {
+        "mp4DecodeExitCode": 0,
+        "mp4Cycles": 8,
+        "fps": "50/3",
+        "gifFrames": 8,
+        "gifDurationMs": 60,
+        "gifInfiniteLoop": true
+      }
+    }
+  },
+  "approval": "Unapproved direction studies only; user review required."
+}

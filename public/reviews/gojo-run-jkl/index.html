@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gojo run direction studies J/K/L</title><style>
+:root{color-scheme:dark}body{margin:0;background:#101622;color:#e7eef5;font:16px system-ui,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:24px}p{line-height:1.5}section{margin:28px 0;padding:20px;background:#192333;border-radius:12px;overflow:auto}
+img.contact{display:block;width:min(100%,1152px);height:auto;image-rendering:pixelated;margin:16px 0}
+video{width:min(100%,256px);height:auto;background:#f0f}a{color:#9bd5ff}figure img{display:block;width:min(100%,768px);image-rendering:pixelated}
+</style></head><body><main><h1>Gojo run direction studies J / K / L</h1>
+<p>Unapproved direction candidates. Each contact sheet shows approved idle f0 beside run frames 0–7 at one scale.
+Playback is 60 ms per frame. Compare stride, leg identity, hand placement, and the loop seam. The selected direction
+will still need a separate production strip and technical review.</p>
+<section><h2>Run v14 — fix for the Astra hold on v13</h2>
+<p><strong>Needs your review; not approved.</strong> Astra held v13: in f6 (Part B’s third pose) the near arm and fist are missing, so the fist pops out for one frame. That pose is drawn that way in the source; it is not a packing error. v14 uses <strong>Part A for both halves</strong> (no new calls): every frame has the fist, and the ~10 px dip of the Part B half is gone. Both halves already led with the same leg, so the stride reads the same. Auto-head fit ×0.923, scale gate ok; offsets hold the head at x 166 and lift both flight frames 28 px.</p>
+<img class="contact" src="run_v14_contact_v01.png" alt="Gojo run v14 packed cells beside idle f0">
+<figure><img src="run_v14_loop_v01.gif" alt="Gojo run v14 loop at 60 ms per frame" style="width:min(100%,384px)"></figure>
+<p>In game: <a href="/?fight=gojo,naruto&mode=solo">/?fight=gojo,naruto&amp;mode=solo</a> (hold D to run).</p></section>
+<section><h2>Run v13 — production candidate (K direction)</h2>
+<p><strong>Needs your review; not approved.</strong> Part A (f0–f3, left leg forward) plus the held Part B attempt 02 (f4–f7), stitched with no new calls at your request. Packed at Gojo's idle head size (auto-head fit ×0.938, scale gate ok). The packed cells are shown: idle f0 first, then run f0–f7, with the floor at y 240.</p>
+<p>Known holds: both halves put the same leg forward (with navy trousers and black shoes on both legs, it is hard to see in motion). The near fist stays forward in every frame, a held-fist look rather than a pumping arm. The second half sits about 10 px lower (more crouched), so there is a small bob each stride. Claude set per-frame offsets so the head holds still (the foot-centre anchor slid the body ~95 px) and lifted the flight frames f3/f7 to their drawn height. No Astra audit has been run on v13.</p>
+<img class="contact" src="run_v13_contact_v01.png" alt="Gojo run v13 packed cells beside idle f0">
+<figure><img src="run_v13_loop_v01.gif" alt="Gojo run v13 loop at 60 ms per frame" style="width:min(100%,384px)"></figure>
+<p>In game: <a href="/?fight=gojo,naruto&mode=solo">/?fight=gojo,naruto&amp;mode=solo</a> (hold D to run).</p></section>
+<section><h2>J and L redo — v02</h2>
+<p>The user favored K and requested new J and L studies. K_v01 is unchanged; J_v02 and L_v02 are new direction
+studies only. The new contact sheets put approved idle f0 beside each study's eight frames at one scale. The
+combined loop compares J_v02 / K_v01 / L_v02, at 60 ms per frame.</p>
+<p><strong>Both new studies remain on technical hold and unapproved.</strong> J_v02 repeats the lead-leg pattern in
+the second half; its source f0 also touches the left generation-canvas edge, so missing pixels cannot be recovered
+by normalization. L_v02 repeats the same lead leg at f0/f4 and f3/f7. Each used its full 3/3 call budget.</p>
+<p><a href="JKL_comparison_v02.gif">J_v02 / K_v01 / L_v02 comparison GIF</a> ·
+<a href="package_qa_v02.json">v02 package measurements and QA</a> ·
+<a href="attempt_inventory_v02.json">generation provenance and hashes</a></p>
+<h3>J — easy long stride v02</h3><p><a href="J_contact_v02.png">contact sheet</a> · <a href="J_loop_v02.gif">GIF</a> ·
+<a href="J_loop_v02.mp4">MP4</a> · <a href="J_strip_v02.png">normalized strip</a></p>
+<img class="contact" src="J_contact_v02.png" alt="Approved idle f0 beside J v02 run frames zero through seven">
+<video controls loop muted playsinline preload="metadata"><source src="J_loop_v02.mp4" type="video/mp4"></video>
+<h3>K — fast athletic v01, unchanged</h3><p><a href="K_contact_v01.png">contact sheet</a> ·
+<a href="K_loop_v01.gif">GIF</a> · <a href="K_loop_v01.mp4">MP4</a> · <a href="K_strip_v01.png">normalized strip</a></p>
+<h3>L — upright showboat v02</h3><p><a href="L_contact_v02.png">contact sheet</a> · <a href="L_loop_v02.gif">GIF</a> ·
+<a href="L_loop_v02.mp4">MP4</a> · <a href="L_strip_v02.png">normalized strip</a></p>
+<img class="contact" src="L_contact_v02.png" alt="Approved idle f0 beside L v02 run frames zero through seven">
+<video controls loop muted playsinline preload="metadata"><source src="L_loop_v02.mp4" type="video/mp4"></video>
+</section>
+<section><h2>Phase 2 audit result — technical hold</h2>
+<p><strong>No production strip is review-ready.</strong> K is the selected direction only; this is not image approval.
+Dash v09 passed the packer scale gate, then independent Astra audit held the actual quantized atlas: slot 17 loses
+the near/right arm pump behind the torso, the torso garment axis appears shortened versus approved references, and
+the head shifts about 37 px across the loop. The candidate is preserved under <code>raw/_qa_hold/</code>; it has no
+remaining generation budget. The atlas shown here is the audited technical hold, not a release candidate.</p>
+<p>The contact sheet compares approved idle f0 with packed dash frames 0 and 1 at one scale. Measured pose envelopes
+are 103×231 px for idle f0, 143×174 px for dash f0, and 134×174 px for dash f1, with soles at y=240. These are posed
+bounds, not skeleton measurements. <a href="dash_v09_contact_v01.png">Audited dash v09 contact sheet</a> ·
+<a href="phase2_dash_qa_v01.json">Quantitative QA record</a> ·
+<a href="phase2_attempt_inventory_v01.json">Attempt/provenance inventory</a></p>
+<p>Run v13 has no image after 3/3 calls failed the mirrored-phase requirement. BackDash v05/v06 and SuperDash
+v10/v11 are held after exhausted budgets. See the inventory for exact hashes and reasons.</p>
+<img class="contact" src="dash_v09_contact_v01.png" alt="Approved idle frame zero beside the held quantized dash v09 frames zero and one at native cell scale">
+</section>
+<figure><figcaption>J / K / L comparison loop</figcaption><img src="JKL_comparison_v01.gif" alt="J, K, and L side by side through their eight frames"></figure>
+
+<section><h2>J — Easy long stride</h2>
+<p><a href="J_contact_v01.png">Contact sheet (idle f0 + frames 0–7)</a> ·
+<a href="J_loop_v01.gif">GIF</a> · <a href="J_loop_v01.mp4">MP4</a> ·
+<a href="J_strip_v01.png">8 × 256 strip</a></p>
+<img class="contact" src="J_contact_v01.png" alt="J contact sheet with approved idle frame 0 and run frames 0 through 7">
+<video controls loop muted playsinline preload="metadata"><source src="J_loop_v01.mp4" type="video/mp4"></video>
+</section>
+<section><h2>K — Fast athletic</h2>
+<p><a href="K_contact_v01.png">Contact sheet (idle f0 + frames 0–7)</a> ·
+<a href="K_loop_v01.gif">GIF</a> · <a href="K_loop_v01.mp4">MP4</a> ·
+<a href="K_strip_v01.png">8 × 256 strip</a></p>
+<img class="contact" src="K_contact_v01.png" alt="K contact sheet with approved idle frame 0 and run frames 0 through 7">
+<video controls loop muted playsinline preload="metadata"><source src="K_loop_v01.mp4" type="video/mp4"></video>
+</section>
+<section><h2>L — Upright showboat</h2>
+<p><a href="L_contact_v01.png">Contact sheet (idle f0 + frames 0–7)</a> ·
+<a href="L_loop_v01.gif">GIF</a> · <a href="L_loop_v01.mp4">MP4</a> ·
+<a href="L_strip_v01.png">8 × 256 strip</a></p>
+<img class="contact" src="L_contact_v01.png" alt="L contact sheet with approved idle frame 0 and run frames 0 through 7">
+<video controls loop muted playsinline preload="metadata"><source src="L_loop_v01.mp4" type="video/mp4"></video>
+</section></main></body></html>

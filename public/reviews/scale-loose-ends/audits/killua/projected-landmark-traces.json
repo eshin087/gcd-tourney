@@ -1,0 +1,271 @@
+{
+  "method": "Manual approximate projected visible-joint coordinate traces on native crops; not automated segmentation. Endpoints +/-4px or more where covered; identify one most-visible limb only. These traces are supporting evidence, not intrinsic-length passes. Far limbs are excluded. Repeated traces mean differences below manual uncertainty, not pixel-identical frames. In lying frames garment joints and shoulders are especially uncertain (+/-8px).",
+  "frames": {
+    "charge-f0": {
+      "shoulder_elbow_wrist": [
+        [
+          116,
+          167
+        ],
+        [
+          101,
+          181
+        ],
+        [
+          90,
+          194
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          128,
+          197
+        ],
+        [
+          106,
+          209
+        ],
+        [
+          94,
+          230
+        ]
+      ],
+      "projected_arm_lengths": [
+        20.5,
+        17.0
+      ],
+      "projected_leg_lengths": [
+        25.1,
+        24.2
+      ]
+    },
+    "charge-f1": {
+      "shoulder_elbow_wrist": [
+        [
+          116,
+          167
+        ],
+        [
+          101,
+          181
+        ],
+        [
+          90,
+          194
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          128,
+          197
+        ],
+        [
+          106,
+          209
+        ],
+        [
+          94,
+          230
+        ]
+      ],
+      "projected_arm_lengths": [
+        20.5,
+        17.0
+      ],
+      "projected_leg_lengths": [
+        25.1,
+        24.2
+      ]
+    },
+    "charge-f2": {
+      "shoulder_elbow_wrist": [
+        [
+          116,
+          167
+        ],
+        [
+          101,
+          181
+        ],
+        [
+          90,
+          194
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          128,
+          197
+        ],
+        [
+          106,
+          209
+        ],
+        [
+          94,
+          230
+        ]
+      ],
+      "projected_arm_lengths": [
+        20.5,
+        17.0
+      ],
+      "projected_leg_lengths": [
+        25.1,
+        24.2
+      ]
+    },
+    "charge-f3": {
+      "shoulder_elbow_wrist": [
+        [
+          116,
+          167
+        ],
+        [
+          101,
+          181
+        ],
+        [
+          90,
+          194
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          128,
+          197
+        ],
+        [
+          106,
+          209
+        ],
+        [
+          94,
+          230
+        ]
+      ],
+      "projected_arm_lengths": [
+        20.5,
+        17.0
+      ],
+      "projected_leg_lengths": [
+        25.1,
+        24.2
+      ]
+    },
+    "down-f0": {
+      "shoulder_elbow_wrist": [
+        [
+          69,
+          203
+        ],
+        [
+          63,
+          228
+        ],
+        [
+          87,
+          232
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          129,
+          211
+        ],
+        [
+          175,
+          162
+        ],
+        [
+          204,
+          208
+        ]
+      ],
+      "projected_arm_lengths": [
+        25.7,
+        24.3
+      ],
+      "projected_leg_lengths": [
+        67.2,
+        54.4
+      ]
+    },
+    "down-f1": {
+      "shoulder_elbow_wrist": [
+        [
+          62,
+          209
+        ],
+        [
+          62,
+          230
+        ],
+        [
+          84,
+          232
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          130,
+          215
+        ],
+        [
+          179,
+          218
+        ],
+        [
+          225,
+          220
+        ]
+      ],
+      "projected_arm_lengths": [
+        21.0,
+        22.1
+      ],
+      "projected_leg_lengths": [
+        49.1,
+        46.0
+      ]
+    },
+    "ko-f0": {
+      "shoulder_elbow_wrist": [
+        [
+          226,
+          203
+        ],
+        [
+          208,
+          224
+        ],
+        [
+          234,
+          234
+        ]
+      ],
+      "hip_knee_ankle": [
+        [
+          160,
+          214
+        ],
+        [
+          112,
+          224
+        ],
+        [
+          68,
+          218
+        ]
+      ],
+      "projected_arm_lengths": [
+        27.7,
+        27.9
+      ],
+      "projected_leg_lengths": [
+        49.0,
+        44.4
+      ]
+    }
+  }
+}

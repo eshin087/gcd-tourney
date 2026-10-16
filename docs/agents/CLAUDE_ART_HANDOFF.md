@@ -1,4 +1,139 @@
 # Codex: Sasuke super / ultimate pilot — v03 approved; packed preview ready for Claude (2026-10-15, effects lane)
+# Codex: Goku/Luffy calibration r2 audited and published; Claude technical work next (2026-10-15, goku-luffy)
+
+Answers relay #6, inbox "Goku and Luffy: Claude's calibration answer". **Zero new image calls.** All versioned art is preserved. Existing user drawing approvals remain; these audits do not approve new images or authorize production. Both review galleries are published from committed work. No merge or production deploy.
+
+## Delivery
+
+| Fighter | Local branch / worktree | Source + final docs commit | PR / published slim head | Preview |
+|---|---|---|---|---|
+| Goku | art/goku-core; E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-goku-core | 7f934fda + 1366aec7 | [#123](https://github.com/eshin087/gcd-tourney/pull/123); 257a952e | [Latest reassemblies](https://gcd-tourney-97ul7l7o2-eshin087s-projects.vercel.app/characters/goku/calibration-r2/reassembly/index.html), [pilots](https://gcd-tourney-97ul7l7o2-eshin087s-projects.vercel.app/characters/goku/calibration-r2/index.html); preview source7f934fda |
+| Luffy | art/luffy-core; E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-luffy-core | 69458e91 + 12586584 | [#96](https://github.com/eshin087/gcd-tourney/pull/96); 0e4ed774 | [All candidates](https://gcd-tourney-auxet8r2u-eshin087s-projects.vercel.app/characters/luffy/calibration-r2/index.html); preview source69458e91 |
+
+Previews require Vercel sign-in. Local browser checks passed for image loading, frame stepping, one-shot controls, version/absence labels and observed console output. Hosted browser stopped at login; authenticated Vercel fetch verified committed audit records. Goku hosted FINAL_AUDIT.md SHA2565888caf794e675305f05c1c19171539b421d032460cb399c464e987464df90fc (Git LF bytes); Luffy astra-result.json SHA256000e3f1a32fa67e3c748de491f83cbd639586cd30e968c443338a0436b3ee7dc. Both adapter builds passed; Goku hosted build passed. These checks do not certify gameplay contacts or every timed loop. No tests added or run.
+
+Raw art stays in the local worktrees and is excluded from slim PR publication/deploy exports. Public diagnostic galleries contain the exact audited atlas/crops/reports. Both PR bodies and fighter REVIEW_ROWS.md contain proposed review rows; Claude owns shared REVIEW/TASKS/CHANGELOG integration. Keep the worktrees until integration and source preservation are complete. The prune dry-run found only preserved non-worktree residue to audit, no task worktree was removed.
+
+## Luffy: 18 manual body-scale passes; strict pack still writes nothing
+
+Astra inspected all23 animations/108 quantized frames. Report: art/characters/luffy/production/manual-audit-r2/AUDIT.md, measurements.json and pixel-hashes.json. Exact atlas SHA25667152fadd32053fb70ab5682b9dde97df94a4c9d818edf233a6d1caa061d2f6e; metadata17e1b30bba502d6508ffd37e99d5fbbb8e31ab40a1cc4fc0aab4f5e3f01d711c. All findings are within visible-landmark uncertainty, with concealed/foreshortened segments qualified.
+
+Version-bound scaleManualQA entries were written for run01, dash02, jumpUp01, jumpFall03, land01, light102, light201, light302, light402, heavy01, airLight101, airHeavy01, guard01, hurtHigh01, charge01, beamCharge01, beamFire02 and win03. Those sources are out of _qa_hold with hashes unchanged. Claude's ce3d7e14 win236 and existing light1204 calibration retained. No exemptions or tool changes.
+
+Four holds remain: launched01 real undersize; special01 severed recovery frames6/7; down01/getup01 clipping/grounding and uncertain recovery. Accepted rear-foot/toe/fist placement on run/light3/light4/airLight1 remains separate from body scale. Claude's beamFire arm-only exception is recorded. jumpFall03 retains a17px/80ms loop-continuity concern. Runtime contact fallback28% still needs Claude review. All Luffy core image approvals remain pending. Calls unchanged: light1 total4 (one extra authorization unused), win total2 (single correction used), special total3 spent.
+
+Strict command node tools/pack-sprites.mjs luffy --quantize 48 still exits1 with11 false measured head findings and writes nothing. Log: production/strict-pack-after-manual-audit-r2.log. **Exact policy mismatch:** tools/scale-probe.mjs judgeStrip honors manualQA for unmeasured/partial; false drift/uniform/pop findings are still rejected. This is not a missing manualQA implementation. Claude owns the scoped probe/policy fix; do not add blanket exemptions. Old untracked gameplay sheet/anims remain unchanged and are not certified by r2 (sheet307f96d497147975c7932628cf0ed59a45be8324e59f59cd9c660260ecd63631; animsdb8345df426b8460b3cd269622a6821d1b19e7f579c021259f37b8578c9887f4).
+
+## Goku: 15 reassemblies, 3 source holds, proposed calibration only
+
+Latest outputs: run05, dash04, jumpUp04, jumpFall04, land04, light103, light305, light405, heavy05, airLight105, hurtHigh08, launched07, getup05, special03, win04. All stay in raw/_qa_hold. Intermediate jumpFall03/getup04 are preserved and listed. All18 requested source slots are inventoried; airHeavy/down/charge have no new candidate because reliable landmark/sequence evidence is unresolved. Beam experiments remain unchanged, disputed and outside r2.
+
+Final report: art/characters/goku/production/manual-audit-r2/REASSEMBLY_R02_FINAL_AUDIT.md; all81 quantized frames/16 animations inspected. Atlas c77417967595b060c9981c5d55c6d1cc32fb748a2e7361ea658746e0adb0bfa0; metadata dec929ae11544546e7a8a8f3c23c860ffa33f4844882bfda2cc9313d7cab9167. Forty-eight opaque RGB colors independently counted. All62 retained frames changed RGB in the final palette and were visually rechecked; alpha masks matched. Reference collar-center to belt38.1±5px, belt36±4, boot43.7±4; every-frame evidence/pose uncertainty in FIXTURE2_MEASUREMENTS. No hidden shin/knee numeric certification.
+
+- Proposed visible-anatomy PASS: jumpUp04 at bodyHeight206 (tucked boot projection qualified), jumpFall04 at232, hurtHigh08 at223.
+- light103 body-only PASS at238; hair at y3 remains a1px intrusion into the4px margin.
+- Separate native-height pilot PASS: guard05 at229 and light205 at236, exact atlas b319f07b217b76f1292eeba0f1559464b6d6104d7091790180bc8db7293abfe8 / metadata b4df0fed72369440395e697d5a78cde9a0487f9c6a443830ad497c92e94cf324. Production198/204 shrinks them about13.5% and remains HOLD. Approved light2v04 drawing approval survives calibration.
+- Body undersize holds: run05 torso/boot32.5/32.9 (screening correction1.17/1.33); dash04 25.8/26.2 (1.48/1.67); land04 recovery28.2/35.4 (1.23–1.35); light405 recovery30.1/35.7 (1.22–1.27); heavy05 27.9/34.8 (1.26–1.37); getup05 25/32.6 (1.33–1.52). Ratios are screening evidence, NOT approved uniform factors; re-mark source endpoints first.
+- Fit/source holds: run rear bootsf3/f6; dash rear bootf1; light3 detached/cut armf1–3 and top cropf4 (raw already lost11rows); light4 kickf4/f5; heavy arms/fragmentsf3–5; airLight1 attack armsf2/f3; launched head left bothframes; special all8 hair top/raw loss768pixels; win all4 hair top/f2 fist/staging loss928pixels. Body-consistent but cut outputs are not full anatomy passes. Roomy diagnostic companions preserve overflow where available.
+- Source-only holds: airHeavy prior boot endpoint was in background (no proven anatomy mismatch; needs reliable re-marking); down prior torso endpoints were on head/upper torso (needs second stable segment); charge has neutral/combat loop snap, while central ratios alone do not prove impossible anatomy. No new generation requested or authorized here.
+
+Consolidated inventory and proposed-only settings: production/reassembly-r02/FINAL_INVENTORY.json and PROPOSED_CALIBRATION.json. Manifest diff is exactly15 .version token changes, with approval/status/bodyHeight untouched. **No unconditional Goku scaleManualQA was written against production settings that render different pixels.** Existing raw-only low-pose manualQA for launched06/down04/getup03 needs Claude review/supersession, not reuse as final atlas proof. Current strict production pack remains held and writes nothing.
+
+## Concrete next action for Claude
+
+1. Resolve the known-invalid head classification/manualQA policy for these audited versions under TOOL-GOKU-PROBE; no broad exemptions. Luffy's18 records already exist. Goku settings/passes are proposed and must stay bound to the audited pixels.
+2. Choose Goku calibration, re-pack into actual production candidates, compare frame hashes and send changed final pixels for Astra recheck. Correct remaining source factors/placement from reliable endpoints; three source holds and beams remain unresolved. Do not use bbox-height fitting or diagnostic ratios as blind rescale factors.
+3. Strict re-pack Luffy, compare final cell pixels to r2 and have changed pixels rechecked; resolve its four holds, loop/grounding and contact findings. Then provide the technically dispositioned preview for the user's image decisions through 0 - Approvals.
+4. Carry these review rows/status into shared records when integrating. No merge or production release authorization is supplied by this handoff.
+
+**Status:** Waiting for Claude; not ready for a blanket image approval. **User action:** none for this checkpoint. Codex stops after committing and ringing goku-luffy; no generation/monitor continues. Remaining Goku reassemblies are explicitly unfinished because evidence is insufficient, not silently marked complete.
+
+---
+
+# Codex: Killua air v02 approved; technical follow-up to Claude (2026-10-15, beam-clash)
+
+The user approved Killua `beamStruggleAir_v02` as drawn via Claude relay #10 (“Approve v02”). Approval is recorded in REVIEW, manifest and TRACKER. Superseded v01 is preserved at `art/characters/killua/raw/_rejected/beamStruggleAir_v01.png`; v02's strict quantized pack passed (48 colors), no scale-gate finding for this strip, and the body sheet has H=.97–1.03 / B=.97–.99 with zero flags. Astra anatomy audit remains pending and exact hand-anchor measurements are still required before runtime integration. See `art/characters/killua/production/beam-clash-r2/ROUND2_QA.md` and `GENERATION_LOG.md`. The full Killua atlas was refreshed locally but its outputs were not committed because they also changed other move metadata; Claude owns the clean integration pack. No VFX was packed.
+
+Next: reconcile the approved air v02 into integration, complete the Astra atlas audit and exact hand-anchor measurement, then run runtime/integration checks. The updated review page is under `public/reviews/beam-clash-r2/`.
+
+---
+
+# Codex: Killua air v02 ready for user review (2026-10-15, beam-clash)
+
+Superseded by the user's approval via relay #10; see the current note above.
+
+The user approved the one retry call via relay #9. Killua `beamStruggleAir_v02` is filed and on the updated round-2 review page as `needs review`; this is not an image approval. Strict quantized pack passed (48 colors), no scale-gate finding for the strip, and the body sheet has H=.97–1.03 / B=.97–.99 with 0 flags. Astra anatomy audit remains pending and exact hand-anchor measurements are still required before runtime integration. See `art/characters/killua/production/beam-clash-r2/ROUND2_QA.md` and `GENERATION_LOG.md`. v01 remains held, and no other raw strip was touched.
+
+The packer rewrote other ignored/derived local outputs while running the candidate check. Cleanup was declined by automatic approval review because it bundled broad restores/deletes. Only explicit beam-clash v02 and review-page paths will be committed; unrelated pack outputs remain local.
+
+---
+
+# Codex: beam clash Round 2 approvals recorded; Killua air v02 blocked (2026-10-15, beam-clash)
+
+Branch `art/beam-clash`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-beam-clash`; current main merge **2de7bbb0**; approval bookkeeping **b98d262b**. Final PR #110 preview: https://gcd-tourney-m1mjwpw3c-eshin087s-projects.vercel.app/reviews/beam-clash-r2/ (built from branch handoff commit **568d5624**). The user approved six candidates via Claude approval desk relay #7 (“Approve all 6”): Naruto ground `beamStruggle` v02; Sasuke ground and air v01; Killua ground v01; Gojo ground and air v01. Their manifest versions, REVIEW rows and tracker entries record approval. This does not complete Astra's anatomy audit.
+
+Strict quantized packs pass for the six approved strips. Naruto v02's head ratios are 0.981/0.963/0.954, body-area B=0.648–0.666 (advisory deviation accepted by the user), and palm anchor [232,124] across all frames with estimated ±3 px uncertainty. Full results and caveats: `art/characters/naruto/production/beam-clash-r2/ROUND2_QA.md`. Killua air `beamStruggleAir` v01 remains in `raw/_qa_hold/`: wrong outfit/body scale, head 0.93 and feet 1.19, B=0.551–0.607; it is omitted from the atlas. Do not promote it. The five other new hand anchors still need Claude's exact per-frame measurements before final runtime integration.
+
+Main's `art/vfx/**` and `public/vfx/**` were preserved exactly; no VFX pack was run. Raw folders copied from main for local QA were not staged. The clean PR preview build passed. The final Astra atlas audit remains pending. **Next: Killua air v02 was authorized with one generation call remaining, but this chat cannot switch to the required `gpt-6-luna` medium model; image generation is therefore blocked here.** User action is needed to route this generation through a Luna/medium Codex chat or choose another route. No Killua v02 call was made.
+# Claude: scale loose ends merged and live; the scale round is closed (2026-10-15, scale lane)
+
+Answers "User approval of all five recorded" (`ef9a42a`, relay ring #8). Merged `art/naruto-alts-r2` (PR #106, `9b241bb`)
+and `art/killua-loose-ends` (PR #105, `3757bdc`) after `git merge main` in each (TASKS kept both sides; both repacks
+byte-identical to the calibrated atlases), art guard passed. Checked in game on main: Naruto's alts alternate, Killua's down
+lies on the floor, and Killua's ko (mirrored) rests on the floor feet toward the opponent with its shadow; 3-match CPU soak
+(naruto-killua, killua-sasuke, gojo-naruto: 6 rounds, 16,292 frames, 0 violations, clean console). Production `7a554bb6`.
+
+Residuals kept on record, none blocking: airHeavyAlt f3 fist-to-base-centre 22.6 +/- 3 px (inside 24; contact is airHeavy's),
+light2Alt palms 18 px low (inside 24), the lying poses' oblique head/back gaps (4-13 px, drawn), charge's drawn aura not
+visible in quantized cells (the game's procedural aura draws it). Nothing is waiting on Codex in the scale lane.
+
+---
+
+# Codex: five loose-end drawings approved by user via Claude (2026-10-15, scale lane)
+
+USER APPROVAL via Claude, relay scale #6: the user's question-box answer was "i approve those 5". This approves exactly Naruto light2Alt v05, Naruto airHeavyAlt v04, Killua charge v14, Killua down v08 and Killua ko v09 as drawn. It does not waive technical holds or authorize Codex merge/production deployment.
+
+- Naruto art/naruto-alts-r2, worktree .worktrees/art-naruto-alts-r2, approval commit 1216e707, PR #106 updated. REVIEW approved, manifest status approved and approvedVersion 5/4, TRACKER updated.
+- Killua art/killua-loose-ends, worktree .worktrees/art-killua-loose-ends, approval commit c9b2f9bc, PR #105 updated. REVIEW approved, approvedVersion charge14/down8/ko9, TRACKER updated.
+- Earlier pending versions of these same assets are marked rejected as superseded; all source files remain intact at their recorded paths, including existing _qa_hold. Latest selected source matches each approved version. Duplicate charge output remains quarantined and unused.
+
+Both branch builds and calibrated quantized dry-runs passed (Naruto 44 ok/7 manual/1 historical unmeasured; Killua 33 ok/9 manual). Manifest structural diff is exactly the five approvedVersion changes plus Naruto's two raw-to-approved status changes. No calibration fields, sidecars, hitboxes, source images or public atlases changed. Dry-run warnings remain for historical baseline data, Naruto stale win/specialDown exemptions and untouched Naruto down/ko floor contours; no new fix or numeric whole-body pass is claimed.
+
+Claude next: finish airHeavyAlt04 f3 contact metric/runtime confirmation (22.6 +/-3px center distance versus 8.5px edge distance), Killua down08/ko09 grounding/state-transition checks and charge14 aura verification, then handle integration under the applicable user release authorization. Astra's visual anatomy screening pass stands, while hidden/foreshortened intrinsic +/-6% remains uncertain. No further user review is needed for these five drawings.
+
+[Reviewed calibrated preview](https://gcd-tourney-d2l8ht4cf-eshin087s-projects.vercel.app/reviews/scale-loose-ends/index.html) is unchanged at dfad51d5 and still carries historical pre-approval labels; this explicit decision record supersedes those labels. No new preview or art generation is needed for bookkeeping. Commit this handoff and ring scale once.
+
+---
+# Codex: Gojo run v14 Astra recheck PASS (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, inspected source commit `65ff1ea1`. Astra audited the actual quantized atlas run cells 8–15 against the approved title-style neutral/combat cells and packed idle. **PASS for visible atlas anatomy and discrete-frame continuity:** the v13 f6 free-arm/fist dropout is resolved; no new visible defect was established. V14 repeats Part A for both halves, so all four second-half cells are exact RGBA repeats of the first half. The user's accepted same-lead-leg and forward-fist choices were recorded, not failed.
+
+Audit: `art/characters/gojo/production/run-jkl/ASTRA_RUN_V14_AUDIT_v01.md` (SHA256 `DF47A1B2AF24D20B6425D5ACC529D6F0BEEB5E85DBCBA8C49628F7DE6192A54E`). Audited packed atlas `public/characters/gojo/sheet.png` SHA256 `F20E42CB8DB1D7A1A109AFB2CF6FEF5B2548579DB5604797AA1C8F1C4D11094F`. The eight 60 ms review-GIF frames match the atlas pixels. This is not strict ±6% certification of hidden/foreshortened segments, successful live browser playback, runtime-contact QA, user approval, or merge clearance. No images, pack outputs, sidecars, manifest or approval rows were edited; no new calls or pack were run.
+
+Next: Claude handles live playback/runtime checks and technical disposition. This audit is not a new image approval. The parent committed the report and this handoff, then rang `gojo-run` with the scoped PASS.
+
+---
+
+# Codex: Gojo run v13 user-approved; Astra HOLD (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, PR #102. User approved the stitched and packed run v13 via relay #6: "Approve run v13." This approval is recorded in `art/REVIEW.md`, Gojo `REVIEW_ROWS.md` and manifest `run.approvedVersion=13`. Astra audited the actual packed atlas and returned **HOLD** for a new defect: f6 / slot 14 has no separately visible free arm/fist, which disappears between f5 and f7. Exact hashes, per-frame measurements, uncertainty, and the browser playback timeout are in `art/characters/gojo/production/run-jkl/ASTRA_RUN_V13_AUDIT_v01.md` (report SHA256 `BA77A42F1EB2AE279B6F3E2FDFD373EB6FB0B2A502BC5BA7C1C07A72DE6D2445`; atlas SHA256 `610E84DC5972D2F810EC5114D4521E21282C3C4C87DFD89B0E92E9E8380B49D2`). The user's accepted same-leg, forward-fist and B-half-height differences were not failed. Visual approval stands; technical clearance and merge do not.
+
+Generation provenance: Part A is in `raw/_parts/run_v13_A.png`; the extra Part B attempt is held at `raw/_qa_hold/run_v13_B_attempt02.png`, then Claude stitched that exact attempt into the reviewed v13 without new calls. Full call history is in `phase3_run_v13_attempt_inventory_v01.json`. The candidate remains branch-only; no production merge/deploy is claimed. Next Claude decides the disposition of the new f6 defect. Dashes remain a separate task and are not authorized here.
+
+---
+
+# Codex: Gojo phase 2 dash audit hold (2026-10-15, gojo-run lane)
+
+Branch `art/gojo-run`, worktree `.worktrees/art-gojo-run`, PR #102. Phase 2 handoff commit: `f14a6966` (includes the independent Astra audit); this shared handoff update follows on the same branch. User selected K as direction only; no production image is approved.
+
+Generation was directed under gpt-6-luna / medium. Cumulative calls: run v13 3/3 (no saved candidate; mirrored phases failed); dash v07-v09 3/3 (v07/v08/v09 all preserved in `art/characters/gojo/raw/_qa_hold/`); backDash v05/v06 3/3 (both held); superDash v10/v11 3/3 (both held; call 3 unsaved). Exact per-attempt source paths and hashes are in `art/characters/gojo/production/run-jkl/phase2_attempt_inventory_v01.json`.
+
+Dash v09 passed the packer's scale gate, but Astra/medium audited the actual quantized atlas SHA256 `7CB18EB86F22FAAF9ABF05BEA18EC21C500CF51D1B7637B5CD4082B290C52252` and returned **HOLD**: atlas slot 17 loses the near/right arm pump behind the torso, the projected torso garment axis appears shortened versus approved refs, and the head shifts about 37 px across the loop. Full measurement uncertainty and evidence are in `art/characters/gojo/production/run-jkl/ASTRA_DASH_AUDIT_v01.md`. No image is review-ready; do not merge or deploy production.
+
+The public review page labels every production candidate as held and distinguishes the audited atlas from a release candidate: `public/reviews/gojo-run-jkl/index.html`. `npm run build` passed with existing optional-animation-default warnings. `npm run pr -- preview` succeeded for commit `ee9c41e8`: https://gcd-tourney-ncaxh7yr0-eshin087s-projects.vercel.app (PR #102 preview comment: https://github.com/eshin087/gcd-tourney/pull/102#issuecomment-6207426423). An initial non-escalated attempt failed at `EPERM` creating the external scratch directory; the authorized escalated retry completed with Vercel build success. No relay ring was sent because the audit hold and exhausted call budgets block further work. Next user decision: whether to authorize a new repair task/budget after reviewing the audit; this is not an approval request for any current image.
+
+---
+
 # Codex: Goku/Luffy workflow repair and resumed source checkpoint (2026-10-15, goku-luffy)
 
 The user asked for a better workflow and then resumed production. This is a technical calibration handback, not a completed fighter batch or an image-approval request. No merge or production deploy. **Claude acts next; the user has no action yet.**
@@ -620,4 +755,15 @@ checked per animation against both sources (identical alpha masks; mean color sh
 Sasuke charge ships v02. A fresh repack of all four on merged main is byte-identical to the committed sheets.
 The merged art worktrees are kept only because they hold untracked production scratch (PR bodies, before/after PNGs,
 helper scripts); remove them with `npm run pr -- prune` once that scratch is no longer needed.
+# Codex: beam-clash effects approved; Naruto pilot held (2026-10-15, beam-clash lane)
+
+Branch `art/beam-clash`, worktree `.worktrees/art-beam-clash`. PR #110 contains the recorded approval and approved atlas repack. Phone review page: `public/reviews/beam-clash-r1/index.html`.
+
+The user explicitly approved all five VFX v01 candidates in Codex chat on 2026-10-15: `clashBurst_v01` (2 generation calls), `streamBolt_v01`, `streamLance_v01`, `streamFlame_v01`, and `redOrb_v01` (1 call each). The three stream strips use four exact 128x128 frames; doubled seam checks are included. Their review rows and manifest approval fields are updated, and `npm run sprites -- vfx` repacked the approved atlas. It reports six missing-source warnings for unrelated sparse-worktree legacy effects; the five new effects pack cleanly.
+
+Naruto `beamStruggle_v01` used 3 generation calls and is a technical hold. Strict quantized packing failed the scale gate (head/hair 1.40x approved idle; feet 0.62x); estimated hand centers vary beyond the 6 px contact stability limit. The body sheet could not be produced because the required idle atlas was unavailable to that tool run; the final GPT-6 Astra anatomy audit is pending. The review page asks the user not to approve this as production art. The approved atlas was restored unchanged.
+
+The approval is visual approval of these five VFX only; it does not clear the Naruto pilot, authorize the other fighters' strips, or merge/deploy this branch. Relay this user verdict to the coordination lane after the approval commit and preview update. Round two remains gated on Claude relaying the verdict back here and writing its item.
+
+---
 
