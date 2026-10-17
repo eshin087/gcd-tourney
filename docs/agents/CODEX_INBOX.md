@@ -15,6 +15,57 @@ How it works:
 
 ---
 
+## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
+
+**User request (2026-10-17, in Claude "1 - Camera and Art"):** "identify which art frames and sprites have size issues
+and use existing codex chat '1 - Art and Camera' to fix any art". Claude checked the camera first: every fighter is
+drawn at one scale (ppu 128, pivot [128,240]) and the fight camera's depth correction (ENG-067) is working, so **no
+camera or engine change is wanted**. What remains is strips whose body is drawn bigger or smaller than the fighter's
+idle while the head matches (the packer sizes every strip by its head, so the head probe reads ~1.00 and the body is
+off). Task `ART-SIZE-R6`, branch `art/size-r6` (sparse: `npm run pr -- start art/size-r6 --art naruto,sasuke,killua,gojo`,
+or a managed worktree plus `npm run pr -- art ...`), dev port 5246.
+
+Evidence: `node tools/body-sheet.mjs --out <your scratch>` on main `27631c38` flags 75 strips (|B - 1| > 0.12). B is
+advisory (+-10 %, palette and pose dependent). Claude looked at the worst ones beside idle f0 and the approved combat
+cell (`node tools/body-sheet.mjs <id> <anim...> --out <scratch>`):
+
+- **Confirmed by eye, fix first (tier 1):** Gojo `heavy` v05 (body clearly shorter and thinner, head 0.89-0.94),
+  Gojo `airLight1` v07, Gojo `hurtLow` v04, Sasuke `airLight3` v07 (BIG: f0-f2 and f4 B 1.13-1.23, torso visibly
+  larger), Sasuke `beamStruggle` v01 (whole body small, B 0.71, head 0.92-0.95), Killua `airLight2` v07 (B 0.65-0.74,
+  thinner and shorter legs).
+- **Likely, confirm by segments (tier 2):** Gojo airLight2 v05, airLight3 v12, light1 v05, light3 v06, land v06,
+  special v07, throw v05; Sasuke hurtLow v03, specialUp v09 (f0-f3), run, spin, airRecover, getup, vanish; Killua
+  airLight1 v06, light3 v05, light4 v10, dash v05, backDash v04, hurtLow v06, beamFire v09, specialForward v12,
+  win v04 (BIG 1.18 with head 1.09; the raised arms add garment, so check the head and torso first).
+- **Measurement artifacts, do not redraw unless segments disagree:** Naruto's `*Alt` strips (B 0.53-0.70; by eye
+  light3Alt, light4Alt and heavyAlt are the idle's size; the garment palette match misses them). Killua guard v09 and
+  Gojo backDash/superDash were user-approved in round 5 and the dash round; check, but a crossed-arm or turned pose
+  lowers B on its own.
+- **Not intended to change:** Gojo's idle v08 stands upright with the hands down, so it reads ~40 % taller than
+  Naruto's crouched idle. That is the approved pose, not a scale error. Leave it.
+
+Do, in order (Luna/medium for every generation per CLAUDE.md "Agent model selection"; final audit Astra/medium):
+
+- [ ] 1. In the task worktree, measure every tier-1 and tier-2 strip by segments against the idle and the approved
+  title-style combat cell (head, collar to belt, arm, leg, shoe; PRODUCTION_CONTRACT.md QA lessons), at one density.
+  Commit one table `art/scale/size-r6/CONFIRMED.md`: strip, version, segment ratios, uncertainty, verdict
+  (redraw / re-assemble at the idle's density with no new call / ok). Also add `bodyColors` for Goku and Luffy to
+  `art/scale/builds.json` so the body sheet covers them, and list any of their strips it flags.
+- [ ] 2. Fix the confirmed strips, tier 1 first. Prefer a no-call re-assembly where only the packed size is off; a
+  redraw where the drawing's proportions are off. Budget: at most 3 image calls per strip (cumulative, per the
+  contract); a strip that fails 3 times goes to `raw/_qa_hold/` with notes and stays on its current version. New
+  versions only (`_vNN`), REVIEW.md rows, `npm run sprites`, body sheet and lineup beside the idle for each.
+- [ ] 3. After tier 1 (and again after tier 2): one review page with every candidate beside its old version, idle f0
+  and the combat cell, playable frame by frame; `npm run pr -- open` and `npm run pr -- preview`; then
+  `ring art-camera --for user --kind approval --note "<exact strips and versions; holds; review link>"` and stop on
+  that item. The approvals desk is OFF (ADR 0040), so Claude "1 - Camera and Art" asks the user. Nothing is approved
+  until a relayed `USER APPROVAL`.
+- [ ] 4. After approval: record `approvedVersion`, re-run `node tools/pr.mjs check art/size-r6` until it passes, Astra
+  final audit of the changed strips in the packed atlas, commit, ring `art-camera` for Claude's contact check and merge.
+  No merge or production deploy by Codex.
+
+---
+
 ## Goku/Luffy: all remaining core drawings approved (2026-10-16, relay #14) - chat "2 - Goku Luffy", relay lane `goku-luffy`
 
 **USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." Exact versions are in the new shared REVIEW.md section and the final full-set handoff. All 23 core drawings per fighter are now user-approved when combined with prior approvals; runtime/integration checks remain separate. No new image calls.
