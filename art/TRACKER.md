@@ -281,7 +281,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 9 | backDash | 3 | - | no | 160 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | superDash | 2 | - | no | 98 | approved | v08 | v08 | User approved superDash v08 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | jumpSquat | 1 | - | no | 115 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | airLight2 | 5 | 1/2/2 | no | 170 | approved | v08 | v07 | v08 generated in ART-SIZE-R6; held under raw/_qa_hold after strict pack failed (head 1.06, feet 1.21). v07 remains the approved version. Segment evidence does not justify the correction yet; no user approval requested for v08. |
 | 9 | airLight3 | 6 | 2/2/2 | no | 180 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | block | 2 | - | no | 151 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | hurtLow | 3 | - | no | 149 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |

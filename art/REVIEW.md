@@ -8,6 +8,7 @@ Reviewed pages: [Goku full core set](https://gcd-tourney-le661omg1-eshin087s-pro
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
+| 2026-10-17 | killua | airLight2 | [airLight2_v08.png](characters/killua/raw/_qa_hold/airLight2_v08.png) | v08 | needs review | Unapproved diagnostic redraw attempt; preserved in `_qa_hold`, not submitted for user approval. | Strict pack failed `airLight2 head 1.06, feet 1.21 of idle`; no frames/atlas were written. v07 segment evidence does not justify a lower-body correction yet. Preserve v07 approved; no approval requested for v08. See [generation ledger](characters/killua/production/size-r6/GENERATION_LEDGER.md). |
 | 2026-10-16 | goku | run | [run_v09.png](characters/goku/raw/run_v09.png) | v09 | approved | Approved by the user via Claude relay #14, as drawn; exact quote above. No pixels changed. | Final strict r5 atlas audit retained; runtime contact/timing checks remain Claude’s. |
 | 2026-10-16 | goku | dash | [dash_v09.png](characters/goku/raw/dash_v09.png) | v09 | approved | Approved by the user via Claude relay #14, as drawn; exact quote above. No pixels changed. | Final strict r5 atlas audit retained; runtime contact/timing checks remain Claude’s. |
 | 2026-10-16 | goku | jumpUp | [jumpUp_v04.png](characters/goku/raw/jumpUp_v04.png) | v04 | approved | Approved by the user via Claude relay #14, as drawn; exact quote above. No pixels changed. | Final strict r5 atlas audit retained; runtime contact/timing checks remain Claude’s. |
