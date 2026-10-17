@@ -48,18 +48,18 @@ factor lands near x1.0 (0.93-1.07), instead of blowing a small drawing up.
 
 Do, in order (Luna/medium for generation, Astra/medium for the final audit, per CLAUDE.md "Agent model selection"):
 
-- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-dash-size --art gojo` (or a managed worktree plus
+- [x] 1. From the main checkout: `npm run pr -- start art/gojo-dash-size --art gojo` (or a managed worktree plus
   `npm run pr -- art gojo`), dev port 5245. Work only there.
-- [ ] 2. **dash** `raw/dash_v11.png` and **superDash** `raw/superDash_v13.png` (next free versions; never overwrite a
+- [x] 2. **dash** `raw/dash_v11.png` and **superDash** `raw/superDash_v13.png` (next free versions; never overwrite a
   `_vNN`, `_qa_hold` and `_rejected` included). Budget: **3 new image calls per strip** (user-authorized by this request).
   A strip that misses the targets after 3 calls goes to `raw/_qa_hold/` with the reason; the live version stays.
-- [ ] 3. Manifest `version` with status `needs review` (leave `approvedVersion`; carry over v10/v12 frameOffsets as a
+- [x] 3. Manifest `version` with status `needs review` (leave `approvedVersion`; carry over v10/v12 frameOffsets as a
   start and re-centre the head: dash head x ~166, superDash ~168), ANIMATIONS.md §dash/§superDash, pack with
   `node tools/pack-sprites.mjs gojo --quantize 48`, body sheet + `npm run lineup`.
-- [ ] 4. Astra/medium audits every frame and loop of both strips in the packed atlas against idle f0 and the
+- [x] 4. Astra/medium audits every frame and loop of both strips in the packed atlas against idle f0 and the
   neutral/combat cells (segments, jacket/sleeve volume, fist and pocket hand). Luna fixes holds within the remaining
   budget; Astra rechecks.
-- [ ] 5. A review page `public/reviews/gojo-dash-size/` showing, at one density and on one floor line: idle f0, the
+- [x] 5. A review page `public/reviews/gojo-dash-size/` showing, at one density and on one floor line: idle f0, the
   combat cell, old dash v10 and new dash, old superDash v12 and new superDash, with B/head/feet labels and loop GIFs.
   Review rows, commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the branch's
   docs/agents/CLAUDE_ART_HANDOFF.md, then from main `node tools/relay.mjs ring gojo-run --for user --kind approval
@@ -72,6 +72,8 @@ Rules: edit only art/characters/gojo/**, public/reviews/gojo-dash-size/**, publi
 the gojo block of art/manifest.json, the "## gojo" section of art/TRACKER.md and art/REVIEW.md rows. `art/size-r6`
 (lane `art-camera`) also covers Gojo; it leaves dash and superDash to this task, so neither branch touches the other's
 strips. Blocked: write BLOCKED under the item and in NOW.md, and ring `gojo-run --for user --kind blocked`.
+
+Completed 2026-10-17: commit 43419831, PR #141, preview https://gcd-tourney-384ldjalw-eshin087s-projects.vercel.app/reviews/gojo-dash-size/. Both technical holds; user decision sent via gojo-run #10. Browser check blocked by Vercel SSO/project authorization and local socket restrictions; no visual verification claimed. Step 6 remains pending user approval/decision.
 
 ---
 
