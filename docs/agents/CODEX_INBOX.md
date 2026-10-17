@@ -365,7 +365,32 @@ the two `fg` images under `gpt-6-astra` medium against the approved title-style 
 **Round 2 (only after Claude relays the user's verdict here):** Naruto, Killua, Gojo, then Goku and Luffy, with the
 same recipe; Claude writes each fighter's direction into the brief first.
 
-## Beam clash art: struggle poses and clash effects (2026-10-15, Claude) - chat "5 - beam clash chat", relay lane `beam-clash`
+## Beam clash art: struggle poses and clash effects (2026-10-15, Claude) - chat "4 - Beam" (was "5 - beam clash chat"), relay lane `beam-clash`
+
+**Round 3 (do now, 2026-10-17, Claude chat "4 - Beam"; the lane now points at Codex "4 - Beam").** Rounds 1-2 are
+merged and live (PR #116 effects, PR #110 seven struggle strips, fb4ac16e). Claude re-checked all seven hand anchors on
+the packed sheets: six sit on the drawn fingertips/palm/mouth; Naruto's `[232,124]` floated 24-49 px in front of his
+palm and Claude is fixing it on its own branch (`art/characters/naruto/hitboxes.json`; don't touch it). Two things are
+yours:
+- [ ] 1. **Astra atlas audit of the seven live struggle strips** (never done): spawn a `gpt-6-astra` / `medium` agent
+  (`fork_turns: "none"`) on main's packed sheets: Naruto `beamStruggle` v02; Sasuke `beamStruggle` v01 +
+  `beamStruggleAir` v01; Killua `beamStruggle` v01 + `beamStruggleAir` v02; Gojo `beamStruggle` v01 + `beamStruggleAir`
+  v01 (frames 175-180 of each `public/characters/<id>/sheet.png`). Compare every frame and the loop against the approved
+  title-style neutral/combat cells (`public/art-review/title-style-pilot/`) per PRODUCTION_CONTRACT.md: head, torso,
+  limb lengths, build, clothing volume; record versions, evidence and measurement uncertainty; pass/hold per strip.
+  Read-only: no new images, no repack. Write it to `art/characters/BEAM_STRUGGLE_ASTRA_AUDIT_v01.md` on a branch
+  `art/beam-clash-r3` (`npm run pr -- start art/beam-clash-r3 --art goku`). The strips are already user-approved as
+  drawn, so a hold is a finding for the user, not a redraw order.
+- [ ] 2. **Goku `beamStruggle_v01`** (ground only; Dragon Fist has no air version, so no `beamStruggleAir`): his core
+  art is on main now (PR #123). Same worktree. Brief: BEAM_STRUGGLE_BRIEF.md "Per fighter" Goku row and "Rules for this
+  batch" (`gpt-6-luna` medium, at most 3 calls, his approved idle + `beamFire` v07 as pose/scale references, bodyHeight
+  first guess from his approved `beamFire`). QA: `npm run sprites goku`, `npm run body goku beamStruggle`, the `hand`
+  point (the front knuckles) on every frame, then the same Astra check on the packed strip. Add it to the
+  `public/reviews/beam-clash-r2/` page style as `public/reviews/beam-clash-r3/`, REVIEW/manifest/tracker rows
+  (`needs review`), `npm run pr -- open` and `npm run pr -- preview`.
+- [ ] 3. Handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls, audit verdicts, review link),
+  then `node tools/relay.mjs ring beam-clash --note "<one line>"`. **Then stop:** the user approves Goku's strip via
+  Claude "4 - Beam" (the desk is off).
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** the beam clash should look much better
 and more like each character. Each move keeps its own shape in the struggle, and Codex draws three things: **struggle
