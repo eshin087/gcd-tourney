@@ -12,6 +12,8 @@ monitor are retired, so status and forwarding are yours too. Run every relay com
 
 ## Start (every time /approvals runs)
 
+0. If `node tools/relay.mjs desk` says the desk is switched OFF, typing `/approvals` is the user turning it back on:
+   run `node tools/relay.mjs desk on` and say so in one line (ADR 0040).
 1. Title this chat `0 - Approvals` (`set_session_title` with `self`) if it isn't already, and pin it
    (`set_pinned self true`) only while asks are open.
 2. Check that no other chat is already the desk: `node tools/relay.mjs status` names the desk watcher. If it is on
@@ -22,7 +24,20 @@ monitor are retired, so status and forwarding are yours too. Run every relay com
 5. Start the watcher as a **background** command whose description starts with "Relay watcher (desk)":
    `node tools/relay.mjs wait all`. It exits when a new ask arrives (exit 0), when everything has been quiet for 15 min
    (exit 5: no open ask, no lane waiting on Codex, no Claude chat reporting `active`), after 24 h (exit 2) or when all
-   lanes are paused (exit 4).
+   lanes are paused (exit 4) or the user switched the desk off (exit 6).
+
+## Switching the desk off and on (user request 2026-10-17, ADR 0040)
+
+- "Turn the desk off" / "stop funnelling everything here" (in any chat, only on the user's word):
+  `node tools/relay.mjs desk off --note "<their reason>"`. While it is off, `relay ask` queues nothing (exit 6),
+  lane watchers wake their own Claude chat to ask the user, and the SessionStart brief tells new chats to ask
+  directly. A running `wait all` stops at its next check (exit 6): tell the user the desk is off, unpin, don't
+  restart it.
+- `desk off` lists asks queued earlier. Ask the user about them before going quiet, or hand each one back:
+  SendMessage the Claude chat that asked ("the desk is off; ask the user yourself") and close it with
+  `answer <id> --dismiss "desk switched off; handed back to <chat>"`. Leave a Codex lane's ask open and tell the
+  Claude chat that owns the lane.
+- "Turn the desk on" or `/approvals`: `node tools/relay.mjs desk on`, then the Start steps above.
 
 ## Background work: bounded and visible (user rule, 2026-10-15)
 

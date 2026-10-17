@@ -8,6 +8,10 @@ chat. It asks the user every approval and decision, gives the overview ("status"
 to Codex chats, and runs the reset after chats are deleted. The Codex control chat ("0 - G") and its attention
 monitor are retired: no Codex chat coordinates, monitors or asks the user for approvals any more.
 
+**Off switch (user request 2026-10-17, ADR 0040):** on the user's word, `node tools/relay.mjs desk off` turns the desk
+off and `desk on` turns it back on. While it is off, each chat asks the user itself (the ADR 0037 way) and nothing is
+queued for `0 - Approvals`. `relay status` and the SessionStart brief say so.
+
 ## Roles and durable records
 
 - **Central chat (Claude `0 - Approvals`)**: runs `/approvals` (`.claude/skills/approvals/SKILL.md`). Its identity

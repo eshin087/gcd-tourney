@@ -277,6 +277,42 @@ check(relay(['brief'], { RELAY_HOME: path.join(FIX, 'nowhere') }).code === 0, 'b
   check(/chat active/.test(q(['brief']).out), 'brief: tells new chats to report their task state');
 }
 
+// ---- the user's switch: while the desk is off nobody queues, and each chat asks the user itself
+{
+  const OHOME = path.join(FIX, 'off-home');
+  const o = (args, extra = {}) => relay(args, { RELAY_HOME: OHOME, ...extra });
+  check(o(['desk', 'maybe']).code === 1, 'desk: takes on, off or nothing');
+  check(/approvals desk is ON/.test(o(['desk']).out), 'desk: on by default');
+  o(['add', 'goku', GOKU]);
+  o(['ring', 'goku', '--for', 'user', '--kind', 'approval', '--note', 'luffy win v04']);
+  r = o(['desk', 'off', '--note', 'working in two chats today']);
+  check(r.code === 0 && /desk is OFF \(since .*: working in two chats today\)/.test(r.out), 'desk off: recorded with the reason');
+  check(/1 ask\(s\) queued earlier still wait/.test(r.out) && r.out.includes('lane-goku-1'), 'desk off: lists the asks still queued so none is lost');
+  r = o(['ask', '--from', 'Effects', '--note', 'ship it?']);
+  check(r.code === 6 && /nothing was queued: ask the user yourself in this chat/.test(r.out) && !fs.readdirSync(path.join(OHOME, 'asks')).some((f) => f.startsWith('claude-')), 'ask: refused while the desk is off (exit 6), nothing queued');
+  r = o(['wait', 'goku', '--timeout', '5s', '--interval', '50ms']);
+  check(r.code === 0 && /needs the USER on lane goku/.test(r.out) && /switched off .*ask the user here/.test(r.out) && !/do not ask the user here/.test(r.out), 'wait: with the desk off, the lane\'s own chat asks the user');
+  check(o(['wait', 'all', '--timeout', '1s', '--interval', '50ms']).code === 6, 'wait all: refuses to start while the desk is off (exit 6)');
+  r = o(['brief']);
+  check(r.code === 0 && /SWITCHED OFF by the user/.test(r.out) && /every chat asks the user itself/.test(r.out) && !/run \/approvals/.test(r.out), 'brief: new chats learn the desk is off');
+  check(/APPROVALS DESK SWITCHED OFF/.test(o(['status']).out) && /SWITCHED OFF/.test(o(['asks']).out), 'status and asks: say the desk is off');
+  r = o(['desk', 'on']);
+  check(r.code === 0 && /desk is ON/.test(r.out) && /only the Claude chat "0 - Approvals" asks/.test(o(['brief']).out), 'desk on: back to the desk rule');
+  check(o(['ask', '--from', 'Effects', '--note', 'ship it?']).code === 0, 'ask: queues again once the desk is on');
+  // A running desk watcher stops when the user switches it off (the asks are shown first, so they do not wake it).
+  check(o(['wait', 'all', '--timeout', '5s', '--interval', '50ms']).code === 0, 'wait all: works again once the desk is on');
+  const run = spawnSync(process.execPath, ['-e', `
+    const { spawn } = require('node:child_process');
+    const env = { ...process.env, RELAY_HOME: ${JSON.stringify(OHOME)} };
+    const w = spawn(process.execPath, [${JSON.stringify(RELAY)}, 'wait', 'all', '--timeout', '10s', '--interval', '50ms'], { env });
+    let out = ''; w.stdout.on('data', (d) => (out += d)); w.stderr.on('data', (d) => (out += d));
+    setTimeout(() => spawn(process.execPath, [${JSON.stringify(RELAY)}, 'desk', 'off'], { env }), 400);
+    w.on('exit', (code) => { console.log(JSON.stringify({ code, out })); });
+  `], { encoding: 'utf8' });
+  const ran = JSON.parse(run.stdout.trim().split('\n').pop() || '{}');
+  check(ran.code === 6 && /was switched off; it stopped watching/.test(ran.out), 'wait all: a running desk stops when it is switched off (exit 6)');
+}
+
 // ---- an archived chat is unarchived and the send retried once
 const archived = path.join(FIX, 'archived.flag');
 fs.writeFileSync(archived, SCALE);
