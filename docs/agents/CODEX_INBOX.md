@@ -15,6 +15,59 @@ How it works:
 
 ---
 
+## Gojo proportion study: less lanky, variations for the user to pick (2026-10-17, Claude) - chat "3 - Gojo", relay lane `gojo-run`
+
+**User request (2026-10-17, in Claude "3- Gojo"):** "gojo seems a bit lanky due to his long legs. is there anyway we can
+fix this? it might be his hit sprites and frames. have codex give some variations on his new art model for me to review
+and decide". Task `ART-GOJO-PROPORTIONS`. **This is a study, not production:** nothing ships, no strip is redrawn and no
+manifest version changes. The user picks a direction first; Claude then plans the production round.
+
+Context: Gojo's approved title-style cells (`public/art-review/title-style-pilot/gojo-neutral_v01.png`,
+`gojo-combat_v01.png`, 91 x 236 px standing, ADR 0029) are the anatomy baseline every strip copies. In the cast lineup
+(`art/scale/lineup.png`) his legs read long and thin next to Naruto, Sasuke and Killua, most of all in the hit frames
+(hurtHigh, hurtLow, launched), where the straight legs make him look like stilts. Changing his model later means
+re-proportioning his strips, so the user decides here on the cheapest good option.
+
+Do, in order (Luna/medium for generation and measuring; Astra/medium checks the finished variants):
+
+- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-proportions --art gojo` (dev port 5247). Work only there.
+- [ ] 2. **Diagnose first (no image calls).** Measure leg length (hip/belt line to sole) and leg share of standing
+  height in the approved neutral and combat cells, idle v08 f0, and every frame of hurtHigh, hurtLow, launched, run v14,
+  dash v11, light1 and heavy in the packed atlas, at one density, with uncertainty. Commit
+  `art/characters/gojo/production/proportions/DIAGNOSIS.md`: which strips have legs **longer than his own approved
+  cells** (drift, fixable per strip) versus strips that are faithful to a model that is itself long-legged.
+- [ ] 3. **Variations of the model, neutral + combat cell each**, drawn from the approved cells as references, same
+  face, hair, blindfold, outfit and head size, same pixel density (head ~38-40 px):
+  - **A. Current** (no call): the approved cells as they are, for comparison.
+  - **B. Shorter legs**: legs about 8 % shorter, torso and head unchanged, so he stands about 4 % shorter.
+  - **C. Shorter legs + sturdier build**: legs about 10 % shorter, slightly broader shoulders and a fuller jacket
+    (the run v14 / dash v11 sleeve weight), trousers a touch wider so the legs stop reading as sticks.
+  - **D. Same anatomy, posture fix**: today's proportions, but a lower, wider combat stance with more knee bend, and
+    straighter-looking legs avoided in hit poses. Cheapest option: keeps the approved model, only changes how poses
+    are drawn.
+  At most 3 image calls per cell (B, C, D: 2 cells each). Name them `gojo-neutral_study-B_v01.png` and so on under
+  `art/characters/gojo/production/proportions/`; never overwrite a `_vNN`.
+- [ ] 4. **Mockup in his worst frame (no image calls):** for each of A-D, a quick hurtHigh f0 and idle f0 mockup (pixel
+  resample of the leg region for B and C, a pose note for D) so the user sees the change where it hurts most. Label
+  mockups as mockups.
+- [ ] 5. One review page `public/reviews/gojo-proportions/`: A-D side by side, each beside the other three fighters'
+  approved neutral cells on one floor line at one density, with leg length, leg share of height and standing height
+  labelled; then the hurtHigh/idle mockups; then the diagnosis summary and, per variant, what production would cost
+  (how many strips need a redraw vs a no-call fix). Astra/medium checks the variants against each other for matching
+  head size, face and outfit (not against the old leg length, which is the thing being changed).
+- [ ] 6. Commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the branch's
+  docs/agents/CLAUDE_ART_HANDOFF.md, then from main `node tools/relay.mjs ring gojo-run --for user --kind decision
+  --note "<variants; numbers; cost per option; preview link>"` and stop. The approvals desk is OFF (ADR 0040), so
+  Claude "3- Gojo" asks the user. Nothing is decided until a relayed `USER DECISION`.
+
+Rules: edit only art/characters/gojo/production/proportions/**, public/reviews/gojo-proportions/** and the "## gojo"
+section of art/TRACKER.md. Do not touch `raw/`, the manifest, the packed atlas or the approved title-style cells. No merge,
+no production deploy. `art/size-r6` (lane `art-camera`) may also be redrawing Gojo strips; this study does not block it,
+but note in the handoff any of its Gojo strips that a model change would redo. Blocked: write BLOCKED under the item and
+in NOW.md, and ring `gojo-run --for user --kind blocked`.
+
+---
+
 ## Gojo dash and superDash at the idle's size (2026-10-17, Claude) - chat "3 - Gojo", relay lane `gojo-run`
 
 **User request (2026-10-17, in Claude "3- Gojo"):** "the dash and superdash are too different. have codex redraw it to
