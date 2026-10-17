@@ -10,7 +10,7 @@ Review page now includes diagnostic playback and equal-density references. It mu
 
 Art/evidence commit `950aec4a`; build and strict failure evidence checked. Hosted Chrome review verified loaded comparison/candidate and working frame stepping/playback on preview https://gcd-tourney-8mysanbz3-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ . One audit-link correction follows in the next preview; no art changed.
 
-Both diagnostic loops and references are now on public/reviews/beam-clash-r3/. Final combined preview follows. Goku no new calls; Sasuke 3 new calls; all air strips unchanged.
+Both diagnostic loops and references are now on public/reviews/beam-clash-r3/. Final combined preview (commit3660bec4): https://gcd-tourney-83k6bsnop-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ . Vercel build READY (Vite3.23s); hosted Chrome rendering and Sasuke frame-step/playback verified, Goku player previously verified unchanged; local link audit passed. Goku no new calls; Sasuke 3 new calls; all air strips unchanged.
 
 ---
 # Beam clash round 3 — 2026-10-17 — technical handoff
