@@ -132,6 +132,8 @@ Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`
 **Claude's calibration answer to ring #1 (2026-10-17, handoff `65c74bb5`).** Read this before the older text below; it
 replaces the tier lists and the method in item 1.
 
+**Codex expanded-scope handoff (2026-10-17):** coverage inventory/screening for all 230 packed strips across the six fighters is committed on `art/size-r6` at `b94ab5ad`, PR #142. See `art/scale/size-r6/HANDOFF.md`, `PACKED_INVENTORY.md` and `FILTERED_CANDIDATES.md` in that branch; the review page is deployed at https://gcd-tourney-ira31xf50-eshin087s-projects.vercel.app. This is partial evidence, not a completed segment audit or a confirmed size fix. Sasuke `beamStruggle` v03 is still technical hold; the approved production manifest/atlas is unchanged. The preview build passed, but browser visual QA did not: local port 5246 was inaccessible, and hosted review navigation redirected to Vercel where auto-review denied origin permission for the signed-in session. No bypass was attempted. Next Claude action: mark homologous Sasuke sash endpoints on idle/combat and all three beam frames; continue the filtered segment checks after that. No user art approval is requested until a valid candidate exists.
+
 1. **Sasuke `beamStruggle` v01 is packed about 20 % small; the probe's 0.95 is wrong.** Its head box (x112-148,
    y119-153, `meta.scaleAudit.anims.beamStruggle.boxes`) takes in the navy sleeve of the outstretched arm, which is in
    the hair palette, so the "head" reads near the idle's size. By hand on the packed frames at one density: crown to
@@ -551,28 +553,11 @@ yours:
 Round 3 result (Codex, 79933f88 / PR #140): items 1-3 done. Astra: Naruto, Killua, Gojo ground PASS; Sasuke ground,
 Sasuke air, Killua air, Gojo air HOLD. Goku v01 held: packed at bodyHeight 233 it clips 11/12/18 px.
 
-**Round 4 (do now, 2026-10-17, Claude chat "4 - Beam").** Same branch `art/beam-clash-r3`, same worktree.
-- [ ] 1. **Goku `beamStruggle_v01`: calibrate, don't redraw (Claude's assessment).** 233 is his upright-ish
-  `beamFire` height; this lunge is deeper and wider, so 233 makes his head ~15 % larger than in his approved `beamFire`
-  and the pose 262-270 px wide. Claude's side-by-side with packed `beamFire` f0 (Goku #93): the head (crown to chin,
-  ~60 px) and boots match at about x0.34 of the source (pose ~229-237 x ~205 px, it fits the cell). Measure it properly
-  from landmarks (head crown-chin, boot length, fist/wristband) against `beamFire` v07 and the approved combat cell,
-  record factor + uncertainty (`measurement: "manual"`), set `bodyHeight` from it (expected about 200-210), never from the
-  cell width. Then the strict quantize-48 pack, `npm run body goku beamStruggle`, `hand` on the front knuckles per
-  frame, and the Astra check of the packed strip; watch the arm/shoulder bulk, which looks heavier than his
-  `beamFire`. No image calls. Move v01 out of `_qa_hold` only once it packs and Astra has looked.
-- [ ] 2. **USER DECISION (2026-10-17, in Claude "4 - Beam"): "Redraw Sasuke ground".** Sasuke `beamStruggle_v02`:
-  Astra's hold on v01 is the compressed torso (~24 px vs ~41 in his idle) and legs (~65 vs ~85) with a normal-size
-  head. Draw v02 to his approved idle/combat anatomy in the same Chidori Spear push (BEAM_STRUGGLE_BRIEF.md, Sasuke row;
-  `gpt-6-luna` medium; his idle, combat cell and `beamFire` as references). Attempts: whatever remains of 3 for this
-  image after v01's calls (check the round 1-2 log); if none remain, ring `--for user --kind blocked` instead. QA as
-  item 1 (strict pack, body sheet, `hand` on the fingertips, Astra). The three air holds stay as they are (user's call).
-  v01 stays approved and live until the user approves v02.
-- [ ] 3. Add both to `public/reviews/beam-clash-r3/` beside v01 and the references, REVIEW/manifest/tracker rows
-  (`needs review`), update PR #140 + preview, handoff at the top of CLAUDE_ART_HANDOFF.md, ring `beam-clash`.
-  **Then stop:** the user approves Goku v01 and Sasuke v02 in Claude "4 - Beam".
-
-**Round 4 handoff (2026-10-17):** relay #14 user quote "Up to 3 more calls" authorized Sasuke ground v02; all 3 used (6 cumulative). Goku no-call calibration205 diagnostic remains strict/Astra HOLD. Sasuke v02 strict gate passes but Astra torso/arm/loop HOLD. Both sources quarantined, official atlases unchanged; air strips retained per relay#13. PR140/art3660bec4 combined preview and audit reports ready; no approval claimed. Production clearance portions of items1–2 remain held.
+**Round 4 (2026-10-17, Claude chat "4 - Beam").** Same branch `art/beam-clash-r3`, same worktree.
+- [x] 1. Calibrated Goku ground v01 at bodyHeight 205/factor .338 without new calls; measurement and Astra HOLD recorded. (2026-10-17)
+- [x] 2. Generated Sasuke ground v02 using the three additional calls authorized by relay #14 (6/6 cumulative); Astra HOLD recorded. (2026-10-17)
+- [x] 3. USER APPROVAL via Claude relay #15: “Goku v01: Approve v01. Sasuke v02: Approve v02.” Recorded approvedVersion Goku 1 / Sasuke 2 in REVIEW, manifest and TRACKER; versioned sources restored to `raw/`, review page and PR #140 preview updated, branch handoff committed as `bd15c3dd`. Approval is visual only; technical holds remain. All three air strips stay unchanged. Claude owns contact/technical integration; no public sprite atlas was promoted. (2026-10-17)
+**Round 4 handoff updated (2026-10-17, supersedes pre-approval note):** USER APPROVAL via Claude relay #15: “Goku v01: Approve v01. Sasuke v02: Approve v02.” Both are recorded approved by the user in REVIEW/manifest/TRACKER and committed on `art/beam-clash-r3` at `bd15c3dd`; sources are in `raw/`. Technical holds remain; no atlas promotion. PR #140 review preview: https://gcd-tourney-kaum84un9-eshin087s-projects.vercel.app/reviews/beam-clash-r3/. Claude owns technical/contact integration. The three air strips remain unchanged.
 
 **Round 3 handoff (2026-10-17):** PR #140, art commit 9aa20296. Seven-strip Astra report complete (3 visible PASS / 4 HOLD); Goku v01 selected from 3 calls but quarantined after strict pack clipping, no new atlas. Items 2-3 remain technically incomplete pending calibration/budget disposition; review page deployed, handoff committed on art/beam-clash-r3. No new art approved.
 
