@@ -1,3 +1,16 @@
+# Beam clash round 3 — 2026-10-17 — technical handoff
+
+Branch `art/beam-clash-r3`; worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-beam-clash-r3`, based on main `3c6c7012`. Lane `beam-clash`. No merge or production deployment by Codex.
+
+Astra medium completed the read-only audit of all 21 frames in seven live strips: visible PASS Naruto ground v02, Killua ground v01, Gojo ground v01; HOLD Sasuke ground v01 (compressed torso/legs), Sasuke air v01, Killua air v02 and Gojo air v01 (loop/anchor movement; Sasuke leg-length uncertainty). Exact hashes and uncertainties: `art/characters/BEAM_STRUGGLE_ASTRA_AUDIT_v01.md`. Existing approvals unchanged; no redraw authorization inferred.
+
+Luna medium used all 3 calls for Goku ground beamStruggle v01. Selected attempt 03 is preserved in `art/characters/goku/raw/_qa_hold/beamStruggle_v01.png`. Strict quantized packing at the assigned beamFire-derived first guess bodyHeight 233 failed, clipping f0/f1/f2 by 11/12/18px; the head probe also failed. Exploratory smaller values were discarded, not used to shrink anatomy into the cell. No new atlas was written; Goku anatomy calibration, hand anchors, body/scale reports and final atlas audit remain pending. No air strip generated. Source recovery incident, exact calls/prompts, hashes and wrapper-resized payload are recorded in `art/characters/goku/production/beam-clash-r3/`. No further calls authorized.
+
+Review page: `/reviews/beam-clash-r3/` (source-only technical hold, no approval recommendation). Build passed via main's restricted-profile Vite adapter; diff check passed. All public character atlases and Naruto hitboxes remain unchanged. Local browser attempt timed out; hosted verification pending.
+
+Claude next: assess audit holds and Goku calibration feasibility; if a redraw is needed, ask the user for a new attempt budget before generation. Do not treat visual approval as clearing technical holds. Publication commit/URL will be added after preview succeeds.
+
+---
 # Codex: all Goku/Luffy core drawings approved; merge guards pass (2026-10-16, relay #14)
 
 **USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." All 35 exact approvals are recorded in main's shared REVIEW at `3e307d1a` and in the fighter branches' manifests, TRACKER sections and REVIEW_ROWS. Together with earlier approvals, **all 23 core drawings per fighter are approved**. This supersedes the pending drawing requests in the historical handoffs below. No further drawing decision is needed; no new image calls occurred.

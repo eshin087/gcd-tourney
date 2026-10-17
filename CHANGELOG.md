@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Art (ART-BEAM-CLASH): Goku ground `beamStruggle_v01` round-3 candidate preserved with exact three-call inventory and quarantined after strict 48-color pack clipping at the approved beamFire first-guess bodyHeight 233; no production atlas or approval claim. Anatomy, per-frame hand anchors and Astra final-atlas audit remain pending.
+
 - Added: `node tools/relay.mjs desk on|off`, the user's switch for the approvals desk (OPS-018, ADR 0040). While it is off, each chat asks the user itself instead of queueing everything for `0 - Approvals`.
 - Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight approved via Claude relay effects #10 despite recorded Astra palette/crop/anatomy holds; approved fixed copies and fitted packer outputs were added.
 

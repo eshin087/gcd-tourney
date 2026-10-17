@@ -409,7 +409,7 @@ Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characte
 | sasuke | approved | approved | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | Ground and air v01 approved via Claude approval desk relay #7. Strict packs pass after bodyHeight calibration; ground B=.71-.80 advisory accepted, air B=.84-.91. Astra audit pending; see Round 2 review page. |
 | killua | approved | approved | Narukami, open palm (in the air driven down) | Ground v01 approved via Claude approval desk relay #7; air v02 approved as drawn via relay #10 (“Approve v02”). Air v01 remains preserved as rejected/superseded in raw/_rejected after its technical gate failure. V02 strict quantized pack passes; body sheet H=.97–1.03, B=.97–.99, no body flag. Astra audit and exact hand-anchor measurement remain before runtime integration. See Round 2 review page. |
 | gojo | approved | approved | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | Ground and air v01 approved via Claude approval desk relay #7; strict packs pass. Astra audit pending; see Round 2 review page. |
-| goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
+| goku | raw | v01 | Dragon Fist lunge | ground only; v01 quarantined in `raw/_qa_hold/` after 48-color strict pack clipping (233 first guess from approved `beamFire_v07`); body/anatomy and hand-anchor audit incomplete; no air strip |
 
 ## Attack alts (ADR 0031)
 

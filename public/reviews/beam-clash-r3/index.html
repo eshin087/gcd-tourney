@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beam Clash — Round 3 Goku Technical Hold</title>
+<style>
+:root{color-scheme:dark;--bg:#101318;--panel:#1a2029;--line:#313b49;--text:#f2f5fa;--muted:#a8b3c2;--accent:#7dcfff;--hold:#ffc96b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}main{max-width:1080px;margin:auto;padding:24px 16px 64px}h1{font-size:1.8rem;line-height:1.2}h2{font-size:1.3rem;margin:1.5rem 0 .5rem}p,li{color:var(--muted)}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:18px 0}.badge{display:inline-block;border:1px solid #806329;border-radius:999px;padding:3px 10px;color:var(--hold);font-size:.85rem}img{display:block;width:100%;height:auto;border-radius:8px;background:#191c22;image-rendering:pixelated;margin:12px 0}.scroll{overflow-x:auto}.scroll img{min-width:720px}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{text-align:left;vertical-align:top;padding:8px;border-bottom:1px solid var(--line)}code{color:#d8c6ff}
+</style></head>
+<body><main>
+<h1>Beam clash struggle poses — round 3</h1>
+<p><span class="badge">TECHNICAL HOLD · SOURCE ONLY · NOT APPROVED</span></p>
+<p>This page shows Goku’s ground-only <code>beamStruggle_v01</code> drawing. The selected attempt uses a deep forward lunge, an empty forward fist, and a braced rear leg. Three image-generation calls were used; the cumulative call budget is exhausted. No air strip was requested or generated. This candidate has no approval recommendation.</p>
+<section class="card"><h2>Selected attempt 03 — original tool output (2172 × 724)</h2><div class="scroll"><img src="goku-attempt03-source.png" alt="Goku beamStruggle v01 original generated source, three ground poses"></div><p>SHA-256: <code>9035EBC7B62956461469954A0ABCFA3C5CFA26FC110D76877FBC79BD551A3E98</code>. The source is quarantined in the branch under <code>art/characters/goku/raw/_qa_hold/beamStruggle_v01.png</code>.</p></section>
+<section class="card"><h2>Wrapper-emitted payload (2048 × 683)</h2><div class="scroll"><img src="goku-attempt03-returned.png" alt="Wrapper-emitted Goku beamStruggle v01 payload"></div><p>SHA-256: <code>B0D6379DD5AEA8050DA172E07E03167A1C527A7107CDF670753C19C8A07CD6D5</code>. This is a distinct resized payload. Pixel identity with the 2172 × 724 source is not asserted.</p></section>
+<section class="card"><h2>Generation record</h2><p>The calls attached Goku’s approved <code>idle_approved.png</code> and assigned <code>beamFire_v07.png</code> pose reference. The latter is marked approved in the manifest while its sidecar labels it technical hold; it was used only as the assigned pose reference. Prompts asked for three right-facing ground poses (push, strain, surge), an empty fist, no VFX, and reference-matched anatomy.</p><table><thead><tr><th>Attempt</th><th>Call ID</th><th>Output SHA-256</th><th>Selection note</th></tr></thead><tbody>
+<tr><td>01</td><td><code>call_0b73139b56574231939bd49a1cfd5575</code></td><td><code>EC2122479AA2155A12FB810F04D81F5793264BF9785A478CEF334A67FDC1452E</code></td><td>Discarded: frame 2 arm/body anatomy and loop were less clear.</td></tr>
+<tr><td>02</td><td><code>call_ef7231793395490baa96f5b14621d868</code></td><td><code>A41481D130CCAC3D187864603DED9115057A5DC70D5AFC20C1CD0C6581C34A4E</code></td><td>Discarded: less deep lunge and weaker pose loop.</td></tr>
+<tr><td>03</td><td><code>call_558663b69d644a799bd65d7b01fd9b7b</code></td><td><code>9035EBC7B62956461469954A0ABCFA3C5CFA26FC110D76877FBC79BD551A3E98</code></td><td>Selected: deepest lunge and clearest braced loop.</td></tr>
+</tbody></table><p>Call/output timestamps from the agent session log, UTC: 23:03:17 / 23:03:39; 23:03:43 / 23:03:59; 23:04:12 / 23:04:34. The exact prompts, reference paths, and call record are preserved in the task branch.</p></section>
+<section class="card"><h2>Technical findings</h2><ul>
+<li>Body height remains 233, copied as the first guess from approved <code>beamFire_v07</code>. It has not been validated anatomically for this lunge.</li>
+<li>Strict 48-color pack at bodyHeight 233 failed and wrote no atlas frames: right-edge clipping was 11, 12, and 18 px for frames 0–2. Raw v01 is quarantined.</li>
+<li>Goku’s automatic head probe is known to misread approved art. No version-bound manual landmark audit or numeric head-scale pass exists for this candidate.</li>
+<li>Head, torso, limb lengths, and clothing volume have not been fully compared against approved idle and title-style combat cells. Clipping must not be “fixed” by unverified body-height tuning.</li>
+<li>Front-knuckle hand position was not measured per frame. No hitbox override was authored.</li>
+<li>No packed candidate, body sheet, scale report, final-atlas Astra audit, or user approval exists for Goku v01.</li>
+</ul></section>
+<section class="card"><h2>Other round 3 audit status</h2><p>The parallel Astra audit reports visible PASS for Naruto, Killua, and Gojo ground strips; Sasuke ground anatomy is HOLD. Air-loop holds: Sasuke, Killua, and Gojo; Sasuke also has occluded-length uncertainty. These findings do not certify visual approval. Goku’s final-atlas audit remains pending because no atlas was produced.</p></section>
+</main></body></html>
