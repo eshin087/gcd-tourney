@@ -59,21 +59,18 @@ Do, in order (Luna/medium for generation, Astra/medium for the final audit, per 
 - [x] 4. Astra/medium audits every frame and loop of both strips in the packed atlas against idle f0 and the
   neutral/combat cells (segments, jacket/sleeve volume, fist and pocket hand). Luna fixes holds within the remaining
   budget; Astra rechecks.
-- [x] 5. A review page `public/reviews/gojo-dash-size/` showing, at one density and on one floor line: idle f0, the
-  combat cell, old dash v10 and new dash, old superDash v12 and new superDash, with B/head/feet labels and loop GIFs.
-  Review rows, commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the branch's
-  docs/agents/CLAUDE_ART_HANDOFF.md, then from main `node tools/relay.mjs ring gojo-run --for user --kind approval
-  --note "<exact versions; numbers; holds; preview link>"` and stop. The approvals desk is OFF (ADR 0040), so Claude
-  "3- Gojo" asks the user. Nothing is approved until a relayed `USER APPROVAL`.
-- [ ] 6. After approval: record `approvedVersion`, `node tools/pr.mjs check art/gojo-dash-size` passes, commit, ring
-  `gojo-run` for Claude's contact check and merge. No merge or production deploy by Codex.
+- [x] 5. Review page, review records, handoff and initial preview published on PR #141 (initial candidate commit
+  43419831; later approval and updated committed preview are recorded below).
+- [x] 6. 2026-10-17, user approved dash v11 and superDash v13 as drawn via Claude gojo-run #11 (“Approve both (Recommended)”), despite numeric holds. Recorded approvedVersion 11/13, repacked with `--quantize 48` (both packed hashes match the audited candidate), post-merge art guard passed, and committed on PR #141. Claude contact/integration check and coordinator-controlled merge remain; no new image calls.
+  Sent normal handoff via gojo-run #12 with the final commit and preview.
+  No merge or production deploy by Codex.
 
 Rules: edit only art/characters/gojo/**, public/reviews/gojo-dash-size/**, public/characters/gojo/** via the packer,
 the gojo block of art/manifest.json, the "## gojo" section of art/TRACKER.md and art/REVIEW.md rows. `art/size-r6`
 (lane `art-camera`) also covers Gojo; it leaves dash and superDash to this task, so neither branch touches the other's
 strips. Blocked: write BLOCKED under the item and in NOW.md, and ring `gojo-run --for user --kind blocked`.
 
-Completed 2026-10-17: commit 43419831, PR #141, preview https://gcd-tourney-384ldjalw-eshin087s-projects.vercel.app/reviews/gojo-dash-size/. Both technical holds; user decision sent via gojo-run #10. Browser check blocked by Vercel SSO/project authorization and local socket restrictions; no visual verification claimed. Step 6 remains pending user approval/decision.
+Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`, PR #141, preview https://gcd-tourney-hbm3toqo2-eshin087s-projects.vercel.app/reviews/gojo-dash-size/. User approved dash v11 and superDash v13 as drawn via gojo-run #11 (“Approve both (Recommended)”), despite documented technical holds. Quantized atlas hashes match the Astra-audited candidate; post-merge art guard and production build passed. Normal Claude handoff sent via gojo-run #12. Claude contact/integration check and coordinator-controlled merge remain. Vercel SSO blocked browser verification; no browser visual pass claimed.
 
 ---
 
