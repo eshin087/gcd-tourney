@@ -15,7 +15,70 @@ How it works:
 
 ---
 
+## Gojo dash and superDash at the idle's size (2026-10-17, Claude) - chat "3 - Gojo", relay lane `gojo-run`
+
+**User request (2026-10-17, in Claude "3- Gojo"):** "the dash and superdash are too different. have codex redraw it to
+make sure both animations are the same size as the default image". Task `ART-GOJO-DASH-SIZE`. This lane now points at
+the Codex chat "3 - Gojo" (it was "3 - Gojo Running"). The live versions stay live until the user approves a
+replacement: dash v10, superDash v12 (approved 2026-10-15, merged `06bb00db`). backDash v07 is not part of this task.
+
+What is wrong (packed atlas on main): the packer sizes every strip by its head, and both heads match the idle (probe
+dash 0.999, superDash 1.006), so the difference is in the **body**. Dash v10 was drawn small and blown up (auto-head
+x1.2626): heavy jacket and sleeves, garment area B 1.07 of idle f0, feet 1.13 (Astra v02: sleeves ~22 px vs ~18 in
+run v14, pocket-arm chain ~75 px vs ~65). SuperDash v12 is the opposite: thin and small, B 0.85, feet 0.885. Side by
+side in a match the two read as different-sized Gojos.
+
+"The default image" = Gojo's approved idle v08 (f0) and his approved title-style neutral/combat cells
+(`public/art-review/title-style-pilot/gojo-neutral_v01.png`, `gojo-combat_v01.png`), which share one scale. **Same size
+means the same body scale, not the same bounding box** (ADR 0029): head, collar-to-belt torso, upper arm, forearm, thigh,
+shin, shoe and jacket/sleeve volume match the idle; a lunge or flight pose is still lower and wider than standing. Do
+not stretch a pose to standing height.
+
+Keep the approved poses (the user liked them): dash = v10's low burst lunge (2 frames, loop), superDash = v12's flight
+pose angled up along the flight line (2 frames, loop). Same look as run v14: far (L) hand in his pocket, near (R) arm
+bent with the fist forward and visible in every frame, navy jacket and trousers, black shoes, blindfold. No effects.
+References for every call: the current `raw/dash_v10.png` / `raw/superDash_v12.png` (pose), idle v08 and the
+neutral/combat cells (size and build), `raw/_parts/run_v14_A.png` (jacket and sleeve weight).
+
+Targets, measured in the packed atlas against idle f0 at one density (both strips, every frame):
+head probe 0.97-1.03; feet 0.94-1.06; body sheet B 0.93-1.07 (`npm run body gojo dash superDash`), and dash B within
+0.05 of superDash B; visible segments within +/-6 % of the idle/combat cell with the uncertainty written down (an
+occluded or foreshortened segment is "unmeasured", not a pass). Draw at the idle's density so the packer's auto-head
+factor lands near x1.0 (0.93-1.07), instead of blowing a small drawing up.
+
+Do, in order (Luna/medium for generation, Astra/medium for the final audit, per CLAUDE.md "Agent model selection"):
+
+- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-dash-size --art gojo` (or a managed worktree plus
+  `npm run pr -- art gojo`), dev port 5245. Work only there.
+- [ ] 2. **dash** `raw/dash_v11.png` and **superDash** `raw/superDash_v13.png` (next free versions; never overwrite a
+  `_vNN`, `_qa_hold` and `_rejected` included). Budget: **3 new image calls per strip** (user-authorized by this request).
+  A strip that misses the targets after 3 calls goes to `raw/_qa_hold/` with the reason; the live version stays.
+- [ ] 3. Manifest `version` with status `needs review` (leave `approvedVersion`; carry over v10/v12 frameOffsets as a
+  start and re-centre the head: dash head x ~166, superDash ~168), ANIMATIONS.md §dash/§superDash, pack with
+  `node tools/pack-sprites.mjs gojo --quantize 48`, body sheet + `npm run lineup`.
+- [ ] 4. Astra/medium audits every frame and loop of both strips in the packed atlas against idle f0 and the
+  neutral/combat cells (segments, jacket/sleeve volume, fist and pocket hand). Luna fixes holds within the remaining
+  budget; Astra rechecks.
+- [ ] 5. A review page `public/reviews/gojo-dash-size/` showing, at one density and on one floor line: idle f0, the
+  combat cell, old dash v10 and new dash, old superDash v12 and new superDash, with B/head/feet labels and loop GIFs.
+  Review rows, commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the branch's
+  docs/agents/CLAUDE_ART_HANDOFF.md, then from main `node tools/relay.mjs ring gojo-run --for user --kind approval
+  --note "<exact versions; numbers; holds; preview link>"` and stop. The approvals desk is OFF (ADR 0040), so Claude
+  "3- Gojo" asks the user. Nothing is approved until a relayed `USER APPROVAL`.
+- [ ] 6. After approval: record `approvedVersion`, `node tools/pr.mjs check art/gojo-dash-size` passes, commit, ring
+  `gojo-run` for Claude's contact check and merge. No merge or production deploy by Codex.
+
+Rules: edit only art/characters/gojo/**, public/reviews/gojo-dash-size/**, public/characters/gojo/** via the packer,
+the gojo block of art/manifest.json, the "## gojo" section of art/TRACKER.md and art/REVIEW.md rows. `art/size-r6`
+(lane `art-camera`) also covers Gojo; it leaves dash and superDash to this task, so neither branch touches the other's
+strips. Blocked: write BLOCKED under the item and in NOW.md, and ring `gojo-run --for user --kind blocked`.
+
+---
+
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
+
+**Gojo dash and superDash are excluded from this round (2026-10-17):** the user asked for their redraw in Claude "3- Gojo";
+lane `gojo-run`, branch `art/gojo-dash-size` does them. Do not measure-fix or redraw those two here.
 
 **User request (2026-10-17, in Claude "1 - Camera and Art"):** "identify which art frames and sprites have size issues
 and use existing codex chat '1 - Art and Camera' to fix any art". Claude checked the camera first: every fighter is
