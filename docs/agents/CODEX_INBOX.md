@@ -25,6 +25,11 @@ idle while the head matches (the packer sizes every strip by its head, so the he
 off). Task `ART-SIZE-R6`, branch `art/size-r6` (sparse: `npm run pr -- start art/size-r6 --art naruto,sasuke,killua,gojo`,
 or a managed worktree plus `npm run pr -- art ...`), dev port 5246.
 
+**Scope widened by the user (2026-10-17, same chat):** "lets have codex analyze all the characters and fix it and leave
+the camera alone". So item 1 covers **every packed strip of all six fighters** (Naruto, Sasuke, Killua, Gojo, Goku,
+Luffy, including the `*Alt` strips), not only the lists below; the lists are Claude's starting evidence and fix order.
+The camera stays as it is (no change to `SPRITE_DEPTH_COMP`, camera.js or sprites.js).
+
 Evidence: `node tools/body-sheet.mjs --out <your scratch>` on main `27631c38` flags 75 strips (|B - 1| > 0.12). B is
 advisory (+-10 %, palette and pose dependent). Claude looked at the worst ones beside idle f0 and the approved combat
 cell (`node tools/body-sheet.mjs <id> <anim...> --out <scratch>`):
@@ -46,7 +51,7 @@ cell (`node tools/body-sheet.mjs <id> <anim...> --out <scratch>`):
 
 Do, in order (Luna/medium for every generation per CLAUDE.md "Agent model selection"; final audit Astra/medium):
 
-- [ ] 1. In the task worktree, measure every tier-1 and tier-2 strip by segments against the idle and the approved
+- [ ] 1. In the task worktree, measure every packed strip of all six fighters by segments (tier 1 and 2 first) against the idle and the approved
   title-style combat cell (head, collar to belt, arm, leg, shoe; PRODUCTION_CONTRACT.md QA lessons), at one density.
   Commit one table `art/scale/size-r6/CONFIRMED.md`: strip, version, segment ratios, uncertainty, verdict
   (redraw / re-assemble at the idle's density with no new call / ok). Also add `bodyColors` for Goku and Luffy to
