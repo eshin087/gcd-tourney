@@ -15,6 +15,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight approved via Claude relay effects #10 despite recorded Astra palette/crop/anatomy holds; approved fixed copies and fitted packer outputs were added.
 
 - Changed: online work is paused at the user's call (2026-10-16) with its core live: rollback netcode, private and public rooms, quick-chat and moderation, spectating, rejoining after a drop (ENG-094/095/097). Open follow-ups: peer-to-peer private rooms (ENG-098), switching on the anti-bot check (ENG-099), the licensing decision before promoting public play (OPS-017).
+- Fixed: in a beam clash Naruto's Rasengan stream started in the air 24-49 px in front of his hand; his `beamStruggle` hand anchors are re-measured on the packed sheet (palm, following the drawn strain frame) (ART-BEAM-CLASH).
 - Fixed: the determinism page reported STALE FIXTURE after the Goku and Luffy art changed the simulation fingerprint (every anims.json counts); both fixtures are re-recorded and MATCH.
 - Added: Goku and Luffy play with their own title-style art: all 23 core animations each, user-approved, calibrated at the approved density and Astra-audited (PRs #123 and #96). Known and accepted for now: Luffy edge clips on run/light3/light4/airLight1, the Gigant Pistol arm leaving the cell, Goku getup f0 floating ~8 px (TASKS ART-LUFFY-EDGECLIPS, ART-LUFFY-GIGANT-ARM, ART-GOKU-GETUP-FLOAT).
 
