@@ -24,6 +24,13 @@ prints this rule and the queue size in every new chat. After chats are deleted, 
 `/approvals`. Routine technical questions to the user that need no decision (a quick clarification while they are
 talking to this chat) are fine; anything they must approve or decide goes through the desk.
 
+**The user can switch the desk off** (user request 2026-10-17; [ADR 0040](docs/decisions/0040-desk-on-off-switch.md)):
+on their word, any chat runs `node tools/relay.mjs desk off` (`desk on` undoes it; `desk` shows the state). While it
+is off, every chat asks the user itself for its own approvals and decisions, and lane watchers wake their own chat
+for Codex's `--for user` rings. That chat relays the answer with `send <lane> --user-approved|--user-rejected|--user-decision
+... --quote`. `relay ask` then queues nothing (exit 6), and `relay brief` says the desk is off. Never switch it
+yourself.
+
 **Report your task state so the desk can stop itself** (user request 2026-10-15): every Claude chat other than the desk
 runs `node tools/relay.mjs chat active --from "<this chat's title>" --session <its local_ id>` when it starts or resumes
 a task, and `node tools/relay.mjs chat done` (same flags, optional `--note`) when the task is finished: merged or handed
@@ -145,7 +152,7 @@ documentation that stays true.
 | `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
-| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`; state in git-ignored `.relay/` |
+| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`, `desk [on\|off]` (the user's switch, ADR 0040); state in git-ignored `.relay/` |
 | `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
 | `npm run lobby` | the online lobby server locally (`server/`, wrangler dev on `ws://127.0.0.1:8787`; a page on localhost uses it by itself). Deploy: `server/README.md` (the user's Cloudflare account) |
 | `npm run test:lobby` | lobby room rules test (`server/test/room.test.mjs`: RoomCore with a fake clock: line, relay, feed, results, forfeit, timeout); run after changes to `server/src/roomCore.js` |

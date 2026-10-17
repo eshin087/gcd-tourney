@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: `node tools/relay.mjs desk on|off`, the user's switch for the approvals desk (OPS-018, ADR 0040). While it is off, each chat asks the user itself instead of queueing everything for `0 - Approvals`.
 - Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight approved via Claude relay effects #10 despite recorded Astra palette/crop/anatomy holds; approved fixed copies and fitted packer outputs were added.
 
 - Changed: online work is paused at the user's call (2026-10-16) with its core live: rollback netcode, private and public rooms, quick-chat and moderation, spectating, rejoining after a drop (ENG-094/095/097). Open follow-ups: peer-to-peer private rooms (ENG-098), switching on the anti-bot check (ENG-099), the licensing decision before promoting public play (OPS-017).

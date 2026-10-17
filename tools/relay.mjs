@@ -27,6 +27,8 @@
 //   node tools/relay.mjs brief                          one-paragraph rule + queue size (the SessionStart hook)
 //   node tools/relay.mjs chat active|done --from "<title>" --session <local_ id> [--note]   a Claude chat reports
 //        its task state; `wait all` stops itself once no chat is active, no lane waits on Codex and no ask is open
+//   node tools/relay.mjs desk [on|off] [--note "..."]   the user's switch for the desk itself: while it is off, `ask`
+//        queues nothing and every chat asks the user itself (the ADR 0037 way); `desk` alone shows the state
 // (`npm run relay -- ...` works too, but npm swallows some flags such as --thread: prefer node.)
 //
 // Why this shape: Claude can type into a Codex chat (`codex queue`), but nothing outside can type into a Claude
@@ -41,12 +43,15 @@
 // a `--user-approved` send carries the user's own answer word for word; a plain note still may not say "approve".
 // Round trips count only the sends that answer a new ring (a follow-up does not), and a relayed user answer
 // starts the count again. Exit codes: 0 ok, 1 error, 2 wait timed out, 3 round-trip limit reached, 4 paused,
-// 5 the desk stopped itself because everything was quiet (`wait all`).
+// 5 the desk stopped itself because everything was quiet (`wait all`), 6 the desk is switched off (`ask`, `wait all`).
 // Why one desk (ADR 0039): with a watcher per lane, every Claude chat could ask the user, so the user had to visit
 // each one to learn whether anything waited. Asks now land in .relay/asks/ (one file each, so a Codex ring and a
 // Claude ask never race on one file) and only the desk's `wait all` wakes on them; lane watchers skip rings for the
 // user. A Codex ring for the user becomes an ask by itself (id lane-<lane>-<ring>), and a later send closes it.
 // The Codex control chat (docs/COORDINATION.md) reads the same queue for its overview; it never answers it.
+// Why an off switch (user request 2026-10-17): some days the user works in one or two chats and wants each chat to
+// ask them directly instead of sending everything to "0 - Approvals". Off is a file (.relay/desk/off.json), not the
+// watcher's absence: a stopped watcher still means "queue it and wait for the desk", off means "nobody queues".
 
 import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -144,6 +149,9 @@ export const deskAlive = () => {
   const w = readJson(path.join(HOME, 'desk', 'watcher.json'), null);
   return w && Date.now() - Date.parse(w.lastCheck) < 2 * 6e4 ? w : null;
 };
+// The user's switch (`relay desk off`); null while the desk is on.
+export const deskOff = () => readJson(path.join(HOME, 'desk', 'off.json'), null);
+const offSince = (off) => `since ${stamp(off.at)}${off.note ? `: ${off.note}` : ''}`;
 const stamp = (iso) => (iso ? new Date(iso).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-');
 const askSource = (a) => (a.source === 'codex' ? `Codex lane ${a.lane}`
   : a.source === 'codex-chat' ? `Codex chat "${a.from}" (no lane yet)`
@@ -449,6 +457,11 @@ async function cmdWait() {
       log(lane, { event: 'woke', seq: rang.seq, ...(rang.for && { for: rang.for }) });
       if (rang.for === 'user') {
         console.log(`[relay] Codex needs the USER on lane ${lane} (${rang.kind}, #${rang.seq} at ${clock(rang.at)}): ${rang.note}`);
+        if (deskOff()) {
+          console.log(`[relay] the approvals desk is switched off (the user's choice), so ask the user here: one question with the versions (review links as clickable links in the chat, never inside the question box), `
+            + `then relay their answer word for word with node tools/relay.mjs send ${lane} --user-approved|--user-rejected|--user-decision "<what>" --quote "<their answer>", then start this watcher again.`);
+          return;
+        }
         console.log(`[relay] the approvals desk is not running, so it is queued for it: do not ask the user here. Send one push notification "Waiting for you: open the Claude chat '${DESK_TITLE}' and type /approvals", then start this watcher again.`);
       } else {
         console.log(`[relay] Codex rang lane ${lane} (#${rang.seq} at ${clock(rang.at)}): ${rang.note || '(no note)'}`);
@@ -485,6 +498,8 @@ async function cmdStatus() {
   if (!positional) {
     const desk = deskAlive();
     const open = openAsks();
+    const off = deskOff();
+    if (off) console.log(`APPROVALS DESK SWITCHED OFF, ${offSince(off)}: each chat asks you itself (node tools/relay.mjs desk on)`);
     console.log(`Approvals desk "${DESK_TITLE}": watcher ${desk ? `on (checked ${clock(desk.lastCheck)})` : 'off'}; `
       + `${open.length} open ask(s) for you (node tools/relay.mjs asks)`);
     const busy = busyReasons(open);
@@ -542,6 +557,11 @@ function cmdAsk() {
   }
   if (!KINDS.includes(kind)) die(`--kind is one of ${KINDS.join(', ')}`);
   if (from === DESK_TITLE) die('the desk asks the user itself; ask is for the other chats');
+  const off = deskOff();
+  if (off) {
+    die(`the approvals desk is switched off (${offSince(off)}), so nothing was queued: ask the user yourself in this chat `
+      + "(one question with the versions; review links as clickable links in the chat, never inside the question box) and continue with their answer. Relay a Codex lane's answer with send <lane> --user-approved|--user-rejected|--user-decision.", 6);
+  }
   const id = `claude-${now().replace(/\D/g, '').slice(0, 14)}-${Math.random().toString(36).slice(2, 6)}`;
   const app = opt('--app') ?? 'claude';
   if (!['claude', 'codex'].includes(app)) die('--app is claude or codex');
@@ -557,7 +577,8 @@ function cmdAsks() {
   const open = openAsks();
   const list = flag('--all') ? listAsks() : open;
   const desk = deskAlive();
-  console.log(`Approvals desk "${DESK_TITLE}": watcher ${desk ? `on (checked ${clock(desk.lastCheck)})` : 'off'}; ${open.length} open`);
+  const off = deskOff();
+  console.log(`Approvals desk "${DESK_TITLE}": ${off ? `SWITCHED OFF, ${offSince(off)}; ` : ''}watcher ${desk ? `on (checked ${clock(desk.lastCheck)})` : 'off'}; ${open.length} open`);
   for (const a of list) {
     console.log(`- ${a.id}  [${a.kind}${a.status === 'open' ? '' : `, ${a.status}`}] ${stamp(a.at)} from ${askSource(a)}`);
     console.log(`    ${a.note}${a.link ? `  ${a.link}` : ''}`);
@@ -622,6 +643,7 @@ async function cmdDeskWait() {
   // Quiet must last a while before the desk stops, so a send about to land or a chat between two steps does not end
   // it; --no-auto-stop keeps it running until the timeout.
   const idle = flag('--no-auto-stop') ? Infinity : parseDuration(opt('--idle'), 15 * 6e4);
+  if (deskOff()) die(`the approvals desk is switched off (${offSince(deskOff())}); turn it on first: node tools/relay.mjs desk on`, 6);
   console.log(`[relay] the approvals desk is watching every lane and Claude chat (every ${interval / 1e3}s, up to ${Math.round(timeout / 6e4)} min`
     + `${Number.isFinite(idle) ? `; stops itself after ${Math.round(idle / 6e4)} quiet min` : ''})`);
   let lastBeat = 0;
@@ -629,6 +651,10 @@ async function cmdDeskWait() {
   let lastBusy = null;
   for (;;) {
     if (fs.existsSync(path.join(HOME, 'paused'))) die('all lanes were paused; the desk stopped watching', 4);
+    if (deskOff()) {
+      fs.rmSync(watcherFile, { force: true });
+      die('the approvals desk was switched off; it stopped watching (node tools/relay.mjs desk on brings it back)', 6);
+    }
     const open = openAsks();
     const seen = new Set(readJson(seenFile, { ids: [] }).ids);
     const fresh = open.filter((a) => !seen.has(a.id));
@@ -673,6 +699,15 @@ function cmdBrief() {
   try {
     const open = openAsks();
     const desk = deskAlive();
+    const off = deskOff();
+    if (off) {
+      console.log(`[relay] The approvals desk "${DESK_TITLE}" is SWITCHED OFF by the user (${offSince(off)}): every chat asks the user itself `
+        + 'for its own approvals and decisions (AskUserQuestion with the versions; review links as clickable links in the chat, never inside the question box), and relays a Codex lane\'s answer '
+        + 'word for word with node tools/relay.mjs send <lane> --user-approved|--user-rejected|--user-decision "<what>" --quote "<their answer>". '
+        + 'relay ask queues nothing while it is off. Only the user turns it back on (node tools/relay.mjs desk on).');
+      if (open.length) console.log(`[relay] ${open.length} ask(s) queued before it went off still wait (node tools/relay.mjs asks).`);
+      return;
+    }
     console.log(`[relay] Approvals desk (ADR 0039): only the Claude chat "${DESK_TITLE}" asks the user for approvals or decisions. `
       + 'Any other chat that needs the user runs node tools/relay.mjs ask --from "<this chat\'s title>" --session <its local_ id (get_session self)> '
       + '--kind approval|decision|blocked --note "<question; versions>" --link <review url>, then stops; the desk sends the answer back. '
@@ -703,11 +738,40 @@ function cmdChat() {
     : ' Report `relay chat done` when the task is finished and nothing is pending from Codex.'}`);
 }
 
+// The user's switch for the desk. Only on the user's word: the command cannot tell who asked, so the rule is in
+// CLAUDE.md/AGENTS.md. Asks queued before it went off stay in the queue for whoever answers them.
+function cmdDesk() {
+  const file = path.join(HOME, 'desk', 'off.json');
+  const want = positional;
+  if (want && !['on', 'off'].includes(want)) die('usage: relay desk [on|off] [--note "<why>"]');
+  if (want === 'off') {
+    writeJson(file, { at: now(), note: noteArg() });
+    log('desk', { event: 'desk-off', note: noteArg() });
+  } else if (want === 'on') {
+    fs.rmSync(file, { force: true });
+    log('desk', { event: 'desk-on' });
+  }
+  const off = deskOff();
+  const open = openAsks();
+  if (off) {
+    console.log(`[relay] the approvals desk is OFF (${offSince(off)}): every chat asks the user itself; relay ask queues nothing; `
+      + 'a running wait all stops at its next check.');
+    if (open.length) {
+      console.log(`[relay] ${open.length} ask(s) queued earlier still wait and nobody asks them while the desk is off: answer them now, `
+        + 'or tell each asking chat (a Claude chat: SendMessage; a Codex lane: the Claude chat that owns it) to ask the user itself:');
+      for (const a of open) console.log(`- ${a.id} [${a.kind}] from ${askSource(a)}: ${a.note}`);
+    }
+  } else {
+    console.log(`[relay] the approvals desk is ON: other chats queue their questions for "${DESK_TITLE}" (relay ask). `
+      + `${deskAlive() ? 'Its watcher runs.' : `Its watcher is off: in "${DESK_TITLE}" type /approvals.`} ${open.length} open ask(s).`);
+  }
+}
+
 const COMMANDS = {
   lanes: cmdLanes, add: cmdAdd, remove: cmdRemove, send: cmdSend, ring: cmdRing,
   wait: () => (positional === 'all' ? cmdDeskWait() : cmdWait()), status: cmdStatus,
   reset: cmdReset, pause: () => cmdPause(true), resume: () => cmdPause(false),
-  ask: cmdAsk, asks: cmdAsks, answer: cmdAnswer, brief: cmdBrief, chat: cmdChat,
+  ask: cmdAsk, asks: cmdAsks, answer: cmdAnswer, brief: cmdBrief, chat: cmdChat, desk: cmdDesk,
 };
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   if (!COMMANDS[cmd]) die(`usage: relay ${Object.keys(COMMANDS).join('|')} ... (header of tools/relay.mjs)`);

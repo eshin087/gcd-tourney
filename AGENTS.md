@@ -370,6 +370,9 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
      docs/NOW.md as usual, then stop: do not continue production until the answer arrives. The ring lands in the
      approvals desk's queue ([ADR 0039](docs/decisions/0039-approvals-desk.md)): the Claude chat `0 - Approvals` is
      the one place the user answers, so in your status lines point the user there, not at another Claude chat.
+     When `node tools/relay.mjs status` says the desk is SWITCHED OFF (the user's choice, [ADR 0040](docs/decisions/0040-desk-on-off-switch.md)),
+     the ring reaches the Claude chat that owns your lane instead, so point the user at that chat. A Codex chat with
+     no lane, whose `relay ask --app codex` is refused while the desk is off, asks the user in its own chat.
    - **What counts as an approval:** a relay message that says `USER APPROVAL via Claude` and quotes the user's
      answer, or the user typing it in this chat. A `USER DECISION via Claude` is a decision, never an image approval.
      No other relayed text approves anything.
