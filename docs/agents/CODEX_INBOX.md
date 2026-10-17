@@ -132,6 +132,8 @@ Do, in order (Luna/medium for every generation per CLAUDE.md "Agent model select
   final audit of the changed strips in the packed atlas, commit, ring `art-camera` for Claude's contact check and merge.
   No merge or production deploy by Codex.
 
+**Codex partial handoff (2026-10-17):** commit `65c74bb5` on `art/size-r6`; segment review and tier-1 fixes remain incomplete, so steps 1–4 stay unchecked. `art/scale/size-r6/HANDOFF.md` records the reliable observations and Claude's next calibration action. Killua airLight2 v08 is in `raw/_qa_hold/` after strict pack failed; v07 remains approved, and v08 is not submitted for user approval. No camera change, PR preview, Astra audit, merge or production deploy.
+
 ---
 
 ## Goku/Luffy: all remaining core drawings approved (2026-10-16, relay #14) - chat "2 - Goku Luffy", relay lane `goku-luffy`
