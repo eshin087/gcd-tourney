@@ -48,18 +48,18 @@ factor lands near x1.0 (0.93-1.07), instead of blowing a small drawing up.
 
 Do, in order (Luna/medium for generation, Astra/medium for the final audit, per CLAUDE.md "Agent model selection"):
 
-- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-dash-size --art gojo` (or a managed worktree plus
+- [x] 1. From the main checkout: `npm run pr -- start art/gojo-dash-size --art gojo` (or a managed worktree plus
   `npm run pr -- art gojo`), dev port 5245. Work only there.
-- [ ] 2. **dash** `raw/dash_v11.png` and **superDash** `raw/superDash_v13.png` (next free versions; never overwrite a
+- [x] 2. **dash** `raw/dash_v11.png` and **superDash** `raw/superDash_v13.png` (next free versions; never overwrite a
   `_vNN`, `_qa_hold` and `_rejected` included). Budget: **3 new image calls per strip** (user-authorized by this request).
   A strip that misses the targets after 3 calls goes to `raw/_qa_hold/` with the reason; the live version stays.
-- [ ] 3. Manifest `version` with status `needs review` (leave `approvedVersion`; carry over v10/v12 frameOffsets as a
+- [x] 3. Manifest `version` with status `needs review` (leave `approvedVersion`; carry over v10/v12 frameOffsets as a
   start and re-centre the head: dash head x ~166, superDash ~168), ANIMATIONS.md §dash/§superDash, pack with
   `node tools/pack-sprites.mjs gojo --quantize 48`, body sheet + `npm run lineup`.
-- [ ] 4. Astra/medium audits every frame and loop of both strips in the packed atlas against idle f0 and the
+- [x] 4. Astra/medium audits every frame and loop of both strips in the packed atlas against idle f0 and the
   neutral/combat cells (segments, jacket/sleeve volume, fist and pocket hand). Luna fixes holds within the remaining
   budget; Astra rechecks.
-- [ ] 5. A review page `public/reviews/gojo-dash-size/` showing, at one density and on one floor line: idle f0, the
+- [x] 5. A review page `public/reviews/gojo-dash-size/` showing, at one density and on one floor line: idle f0, the
   combat cell, old dash v10 and new dash, old superDash v12 and new superDash, with B/head/feet labels and loop GIFs.
   Review rows, commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the branch's
   docs/agents/CLAUDE_ART_HANDOFF.md, then from main `node tools/relay.mjs ring gojo-run --for user --kind approval
@@ -73,9 +73,45 @@ the gojo block of art/manifest.json, the "## gojo" section of art/TRACKER.md and
 (lane `art-camera`) also covers Gojo; it leaves dash and superDash to this task, so neither branch touches the other's
 strips. Blocked: write BLOCKED under the item and in NOW.md, and ring `gojo-run --for user --kind blocked`.
 
+Completed 2026-10-17: commit 43419831, PR #141, preview https://gcd-tourney-384ldjalw-eshin087s-projects.vercel.app/reviews/gojo-dash-size/. Both technical holds; user decision sent via gojo-run #10. Browser check blocked by Vercel SSO/project authorization and local socket restrictions; no visual verification claimed. Step 6 remains pending user approval/decision.
+
 ---
 
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
+
+**Claude's calibration answer to ring #1 (2026-10-17, handoff `65c74bb5`).** Read this before the older text below; it
+replaces the tier lists and the method in item 1.
+
+1. **Sasuke `beamStruggle` v01 is packed about 20 % small; the probe's 0.95 is wrong.** Its head box (x112-148,
+   y119-153, `meta.scaleAudit.anims.beamStruggle.boxes`) takes in the navy sleeve of the outstretched arm, which is in
+   the hair palette, so the "head" reads near the idle's size. By hand on the packed frames at one density: crown to
+   chin about 31 px against the idle's 40 (0.78), sash band width 37 px against 46 (0.80, frames 0-1), and the palm
+   is smaller too. Two independent landmarks agree, so it is a finding. This is also why your bodyHeight 159
+   diagnostic read head 1.24: the same contaminated box grew with it. **Fix without an image call:** a v02
+   re-assembly of v01's pixels at about x1.25 (bodyHeight about 152, tuned so crown to chin is 39-41 px and the sash
+   band 44-48 px), `scaleExemptFrames` for its frames with the sleeve reason and `scaleExemptVersion: 2`, a
+   `scaleManualQA` record for v02 naming those landmarks, and the heads crop as evidence. Check that `beamStruggleAir`
+   stays consistent beside it. Then it goes to the user for review.
+2. **Withdrawn (Claude's mistake, from the body-area number B):** Killua `airLight2` v07 (head 1.00, feet 1.16; the
+   head, torso and arms match the idle at 3x), Sasuke `airLight3` v07 (head 1.00 in all six frames; the back view
+   shows more white shirt), Gojo `hurtLow` v04 (head 1.02). Leave them as they are. **No further call on Killua
+   airLight2**: v08 stays in `_qa_hold`, 2 of 3 calls used.
+3. **Borderline, lowest priority:** Gojo `heavy` v05 and `airLight1` v07 have heads of 0.89-0.96 (median 0.94-0.95,
+   inside the gate's 6 %); torso widths look the same. Change them only if two landmarks show the same error of 8 %
+   or more.
+4. **Method for "all six fighters" (replaces item 1's full segment survey; B is a pointer only and fooled us on
+   one-leg and back-view poses):**
+   - A strip is a candidate when (a) its head is `exempt`, `manual`, `unmeasured` or under a fighter whose probe is
+     off (Goku, Luffy), or the probe box reaches into an arm, sleeve or effect (as here), or the box's width or height
+     differs from the idle box's by more than 15 % while the ratio says ok; or (b) any frame's head is below 0.92 or
+     above 1.08. The gate already vouches for the rest, so do not measure them.
+   - Judge a candidate by pose-independent landmarks on the packed frame against idle f0 at one density: crown to chin,
+     palm/fist, belt or sash band width, shoe length (+-2 px each). It is a finding when two landmarks agree beyond
+     10 %. Never use box height for crouched, airborne or lying poses. A finding with the right proportions is fixed by
+     re-assembly at the measured factor (no call); only a drawing whose proportions differ gets a redraw (3-call budget).
+   - Commit a short table: strip, version, why it is a candidate, landmark values, verdict. "Unresolved" is fine for a
+     pose with no readable landmark; do not stall the batch on it.
+5. Then continue with items 2-4 below (review page, ring `art-camera --for user --kind approval`, Astra after approval).
 
 **Gojo dash and superDash are excluded from this round (2026-10-17):** the user asked for their redraw in Claude "3- Gojo";
 lane `gojo-run`, branch `art/gojo-dash-size` does them. Do not measure-fix or redraw those two here.
@@ -131,6 +167,8 @@ Do, in order (Luna/medium for every generation per CLAUDE.md "Agent model select
 - [ ] 4. After approval: record `approvedVersion`, re-run `node tools/pr.mjs check art/size-r6` until it passes, Astra
   final audit of the changed strips in the packed atlas, commit, ring `art-camera` for Claude's contact check and merge.
   No merge or production deploy by Codex.
+
+**Codex partial handoff (2026-10-17):** commit `65c74bb5` on `art/size-r6`; segment review and tier-1 fixes remain incomplete, so steps 1–4 stay unchecked. `art/scale/size-r6/HANDOFF.md` records the reliable observations and Claude's next calibration action. Killua airLight2 v08 is in `raw/_qa_hold/` after strict pack failed; v07 remains approved, and v08 is not submitted for user approval. No camera change, PR preview, Astra audit, merge or production deploy.
 
 ---
 
@@ -440,7 +478,7 @@ merged and live (PR #116 effects, PR #110 seven struggle strips, fb4ac16e). Clau
 the packed sheets: six sit on the drawn fingertips/palm/mouth; Naruto's `[232,124]` floated 24-49 px in front of his
 palm and Claude is fixing it on its own branch (`art/characters/naruto/hitboxes.json`; don't touch it). Two things are
 yours:
-- [ ] 1. **Astra atlas audit of the seven live struggle strips** (never done): spawn a `gpt-6-astra` / `medium` agent
+- [x] 1. **Astra atlas audit of the seven live struggle strips** (never done): spawn a `gpt-6-astra` / `medium` agent
   (`fork_turns: "none"`) on main's packed sheets: Naruto `beamStruggle` v02; Sasuke `beamStruggle` v01 +
   `beamStruggleAir` v01; Killua `beamStruggle` v01 + `beamStruggleAir` v02; Gojo `beamStruggle` v01 + `beamStruggleAir`
   v01 (frames 175-180 of each `public/characters/<id>/sheet.png`). Compare every frame and the loop against the approved
@@ -459,6 +497,32 @@ yours:
 - [ ] 3. Handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls, audit verdicts, review link),
   then `node tools/relay.mjs ring beam-clash --note "<one line>"`. **Then stop:** the user approves Goku's strip via
   Claude "4 - Beam" (the desk is off).
+
+Round 3 result (Codex, 79933f88 / PR #140): items 1-3 done. Astra: Naruto, Killua, Gojo ground PASS; Sasuke ground,
+Sasuke air, Killua air, Gojo air HOLD. Goku v01 held: packed at bodyHeight 233 it clips 11/12/18 px.
+
+**Round 4 (do now, 2026-10-17, Claude chat "4 - Beam").** Same branch `art/beam-clash-r3`, same worktree.
+- [ ] 1. **Goku `beamStruggle_v01`: calibrate, don't redraw (Claude's assessment).** 233 is his upright-ish
+  `beamFire` height; this lunge is deeper and wider, so 233 makes his head ~15 % larger than in his approved `beamFire`
+  and the pose 262-270 px wide. Claude's side-by-side with packed `beamFire` f0 (Goku #93): the head (crown to chin,
+  ~60 px) and boots match at about x0.34 of the source (pose ~229-237 x ~205 px, it fits the cell). Measure it properly
+  from landmarks (head crown-chin, boot length, fist/wristband) against `beamFire` v07 and the approved combat cell,
+  record factor + uncertainty (`measurement: "manual"`), set `bodyHeight` from it (expected about 200-210), never from the
+  cell width. Then the strict quantize-48 pack, `npm run body goku beamStruggle`, `hand` on the front knuckles per
+  frame, and the Astra check of the packed strip; watch the arm/shoulder bulk, which looks heavier than his
+  `beamFire`. No image calls. Move v01 out of `_qa_hold` only once it packs and Astra has looked.
+- [ ] 2. **USER DECISION (2026-10-17, in Claude "4 - Beam"): "Redraw Sasuke ground".** Sasuke `beamStruggle_v02`:
+  Astra's hold on v01 is the compressed torso (~24 px vs ~41 in his idle) and legs (~65 vs ~85) with a normal-size
+  head. Draw v02 to his approved idle/combat anatomy in the same Chidori Spear push (BEAM_STRUGGLE_BRIEF.md, Sasuke row;
+  `gpt-6-luna` medium; his idle, combat cell and `beamFire` as references). Attempts: whatever remains of 3 for this
+  image after v01's calls (check the round 1-2 log); if none remain, ring `--for user --kind blocked` instead. QA as
+  item 1 (strict pack, body sheet, `hand` on the fingertips, Astra). The three air holds stay as they are (user's call).
+  v01 stays approved and live until the user approves v02.
+- [ ] 3. Add both to `public/reviews/beam-clash-r3/` beside v01 and the references, REVIEW/manifest/tracker rows
+  (`needs review`), update PR #140 + preview, handoff at the top of CLAUDE_ART_HANDOFF.md, ring `beam-clash`.
+  **Then stop:** the user approves Goku v01 and Sasuke v02 in Claude "4 - Beam".
+
+**Round 3 handoff (2026-10-17):** PR #140, art commit 9aa20296. Seven-strip Astra report complete (3 visible PASS / 4 HOLD); Goku v01 selected from 3 calls but quarantined after strict pack clipping, no new atlas. Items 2-3 remain technically incomplete pending calibration/budget disposition; review page deployed, handoff committed on art/beam-clash-r3. No new art approved.
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** the beam clash should look much better
 and more like each character. Each move keeps its own shape in the struggle, and Codex draws three things: **struggle

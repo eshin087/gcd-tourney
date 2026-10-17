@@ -1,16 +1,19 @@
 #!/usr/bin/env node
-// Regression test for the deploy export (TOOL-052, tools/export-head.mjs).
+// Regression test for the deploy export (TOOL-052, tools/export-head.mjs) and its clean-up (TOOL-053, tools/scratch-dir.mjs,
+// tools/rm-later.mjs).
 //   node tools/test-deploy-export.mjs   (part of `npm run test:guard`; add --keep to keep tools/.test-fixtures/deploy-export/)
 // Builds a throw-away repository with a sparse worktree like `pr start` makes (raw/ outside the sparse definition) and
 // exports HEAD from both checkouts: on 2026-10-16 `git rm --cached art` skipped the sparse paths in a worktree, every raw
-// PNG reached the export and each Luffy preview deploy left 4.9 GB on C:.
+// PNG reached the export and each Luffy preview deploy left 4.9 GB on C:. Then exports Windows still held locked when
+// the deploy ended waited for the next deploy's sweep: 29 GB in E:gcd-scratch.
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { exportTree } from './export-head.mjs';
 import { SPARSE } from './sparse-art.mjs';
+import { isScratchCopy, removeCopy, scratchDir, sweepStale } from './scratch-dir.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const BASE = path.join(TOOL_DIR, '.test-fixtures', 'deploy-export');
@@ -55,6 +58,48 @@ function exportOf(root, name) {
   return { dest, n, err, files: err ? [] : files(dest) };
 }
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function cleanup() {
+  // a scratch folder of our own, so nothing real is swept
+  const SCR = path.join(BASE, 'scratch');
+  process.env.GCD_SCRATCH_DIR = SCR;
+  process.env.GCD_RM_LATER_INTERVAL_MS = '300';
+  process.env.GCD_RM_LATER_TIMEOUT_MS = '20000';
+  check(path.resolve(scratchDir()) === path.resolve(SCR), 'GCD_SCRATCH_DIR picks the scratch folder');
+  const copy = (name) => { const d = path.join(SCR, name); fs.mkdirSync(path.join(d, 'sub'), { recursive: true }); fs.writeFileSync(path.join(d, 'sub', 'f'), 'x'); return d; };
+
+  // only a tool's own copy directly in a scratch root may be deleted
+  check(isScratchCopy(path.join(SCR, 'gcd-deploy-AbC123')) && isScratchCopy(path.join(SCR, 'gcd-deploy-77.index')), 'isScratchCopy: an export and its index file');
+  check(!isScratchCopy(path.join(SCR, 'other')) && !isScratchCopy(SCR) && !isScratchCopy(path.join(SCR, 'x', 'gcd-deploy-AbC123'))
+    && !isScratchCopy(path.join(REPO, 'gcd-deploy-AbC123')), 'isScratchCopy: not another name, the folder itself, a nested copy or a copy elsewhere');
+  const keep = path.join(BASE, 'gcd-deploy-notscratch');
+  fs.mkdirSync(keep, { recursive: true });
+  const refused = spawnSync(process.execPath, [path.join(TOOL_DIR, 'rm-later.mjs'), keep], { encoding: 'utf8' });
+  check(refused.status === 2 && fs.existsSync(keep), `rm-later refuses a path outside the scratch folder (exit ${refused.status})`);
+
+  // the sweep: copies older than an hour go, a fresh one (a deploy running now) stays
+  const old = copy('gcd-deploy-old111'), fresh = copy('gcd-art-guard-new222');
+  const hourAgo = new Date(Date.now() - 2 * 60 * 60 * 1000); fs.utimesSync(old, hourAgo, hourAgo);
+  const swept = sweepStale({ log: () => {} });
+  check(!fs.existsSync(old) && fs.existsSync(fresh) && swept.length === 1, `sweepStale removes only the stale copy (${swept})`);
+  check(removeCopy(fresh).removed && !fs.existsSync(fresh), 'removeCopy deletes an unlocked copy at once');
+
+  // a locked export (a process whose cwd is inside it: Windows refuses to delete it) is left to rm-later, which deletes
+  // it once the lock is gone
+  if (process.platform === 'win32') {
+    const locked = copy('gcd-deploy-lock333');
+    const holder = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 2500)'], { cwd: path.join(locked, 'sub'), stdio: 'ignore' });
+    await sleep(300);
+    const r = removeCopy(locked, { tries: 1, retryDelay: 50 });
+    check(!r.removed && r.later && /^E[A-Z]+$/.test(String(r.code)), `removeCopy hands a locked copy to rm-later with its error code (${JSON.stringify(r)})`);
+    let gone = false;
+    for (let i = 0; i < 40 && !gone; i++) { await sleep(500); gone = !fs.existsSync(locked); }
+    check(gone, 'rm-later deletes the copy once the lock is released');
+    holder.kill();
+  }
+}
+
 function main() {
   buildRepo();
   check(!fs.existsSync(path.join(WT, 'art/characters/naruto/raw/idle_v01.png')) && fs.existsSync(path.join(WT, 'art/characters/naruto/hitboxes.json')),
@@ -84,7 +129,7 @@ function main() {
   check(threw, 'exportTree refuses an export that holds art/');
 }
 
-try { main(); } catch (e) { failures++; console.log(`  FAIL crashed: ${e.stack}`); }
+try { main(); await cleanup(); } catch (e) { failures++; console.log(`  FAIL crashed: ${e.stack}`); }
 finally {
   if (!KEEP) {
     try { git(REPO, 'worktree', 'remove', '--force', WT); } catch { /* already gone */ }
