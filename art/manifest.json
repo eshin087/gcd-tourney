@@ -565,7 +565,7 @@
           "step": 8,
           "status": "approved",
           "version": 11,
-          "approvedVersion": 10
+          "approvedVersion": 11
         },
         "backDash": {
           "frames": 3,
@@ -594,7 +594,7 @@
           "step": 9,
           "status": "approved",
           "version": 13,
-          "approvedVersion": 12
+          "approvedVersion": 13
         },
         "jumpSquat": {
           "frames": 1,

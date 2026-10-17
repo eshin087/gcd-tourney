@@ -196,11 +196,11 @@ QA: with his long legs the flight stride is about 165 px wide; keep it inside x 
 Two-frame low burst-lunge toward screen-right, using the approved run v14 as its pose and anatomy
 reference. Keep the far/left hand in his pocket and the near/right arm bent with the fist forward in
 both frames. Torso leans forward; head and shoulders stay low while the lead knee drives under the
-chest and the rear leg extends behind. No aura, trail, smear effect or speed lines. Dash v11 is the
-current technical-HOLD candidate after three calls: packed head .995/.971, feet 1.091/1.094, body B
-.957/.929; auto-head correction factor 1.0. Its frameOffsets centre head x at 165.5/166.5. See
-[Astra audit](production/dash-size/ASTRA_AUDIT.md) and [review gallery](../../../public/reviews/gojo-dash-size/).
-The candidate stays in `raw/_qa_hold/`; approved dash v10 remains live until user review.
+chest and the rear leg extends behind. No aura, trail, smear effect or speed lines. Dash v11 was approved by the user via Claude relay gojo-run #11 (“Approve both (Recommended)”), despite
+the technical size hold. Packed head .995/.971, feet 1.091/1.094, body B .957/.929; auto-head
+correction factor 1.0. Its frameOffsets centre head x at 165.5/166.5. The audit remains at
+[ASTRA_AUDIT.md](production/dash-size/ASTRA_AUDIT.md); exact approval is at
+[USER_DECISION.md](production/dash-size/USER_DECISION.md) and the [review gallery](../../../public/reviews/gojo-dash-size/).
 
 - **f0**: low burst-lunge, far hand pocketed, near fist forward, rear leg extended.
 - **f1**: wider stride with the lead knee driven forward; keep both legs identifiable and leave safe
@@ -225,11 +225,11 @@ after auto-head fit x0.8569; the sidecar frameOffsets lift f1 25 px so the tucke
 Two-frame fast flight toward screen-right, angled about 30° upward and stretched thinner than tall.
 Keep the far/left hand in the pocket and the near/right arm bent with the fist forward. Drive the lead
 knee forward-up while the rear leg extends back, keeping both legs distinct. Head stays up with the
-blindfold and lazy smile; no aura or trail. SuperDash v13 is the current technical-HOLD candidate after
-three calls: packed head 1.003/1.019, feet .985/.953, body B .903/.906; auto-head correction factor
-1.1455. Its frameOffsets centre head x at 168/168.5. See [Astra audit](production/dash-size/ASTRA_AUDIT.md)
-and [review gallery](../../../public/reviews/gojo-dash-size/). The candidate stays in `raw/_qa_hold/`;
-approved superDash v12 remains live until user review.
+blindfold and lazy smile; no aura or trail. SuperDash v13 was approved by the user via Claude relay gojo-run #11 (“Approve both (Recommended)”), despite
+the technical size hold. Packed head 1.003/1.019, feet .985/.953, body B .903/.906; auto-head
+correction factor 1.1455. Its frameOffsets centre head x at 168/168.5. The audit remains at
+[ASTRA_AUDIT.md](production/dash-size/ASTRA_AUDIT.md); exact approval is at
+[USER_DECISION.md](production/dash-size/USER_DECISION.md) and the [review gallery](../../../public/reviews/gojo-dash-size/).
 
 - **f0**: flight pose with hair crown flattened back and jacket hem streaming behind.
 - **f1**: knees bent slightly more and apart; hem flutters differently; keep every limb inside the cell.

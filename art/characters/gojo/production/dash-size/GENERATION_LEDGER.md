@@ -33,3 +33,8 @@ The selected returned source sizes were 1774×887 (dash) and 1774×887 (superDas
 Candidates are held because the final quantized atlas misses task-specific targets. Dash feet proxies are 1.091/1.094, and B is .929 on f1 (target .93–1.07; reported .001 miss retained without rounding). SuperDash B is .903/.906 and auto-head correction is 1.1455 (target .93–1.07). Per-frame dash-versus-superDash B difference is .054 on f0 (target <=.05) and .023 on f1; medians do not replace the per-frame test. Head factors pass. Some visible-segment comparisons have pose occlusion/foreshortening uncertainty, so they remain unmeasured. Full measurement details, uncertainty, cell hashes, atlas hashes and no-clipping audit are in [ASTRA_AUDIT.md](ASTRA_AUDIT.md).
 
 The candidate atlas is retained at `candidate-atlas-final/`; its pre-offset state is retained at `candidate-atlas-pre-offset/`. `public/reviews/gojo-dash-size/assets/candidate-sheet.png` and metadata show the corrected candidate cells. Live public atlas was restored from approved dash v10 / superDash v12; its files match the base main atlas. Manifest versions advance to 11/13 with status still `approved`, and `approvedVersion` remains 10/12. No image is approved by this record.
+
+
+## Subsequent user approval
+
+After the technical decision above, the user approved both exact versions via Claude relay `gojo-run` #11 with the quote “Approve both (Recommended)”, explicitly despite the holds. The user decision record is [USER_DECISION.md](USER_DECISION.md). The source pixels were not altered. The exact quantized atlas regenerated from these approved sources matches the final candidate atlas snapshots byte for byte.

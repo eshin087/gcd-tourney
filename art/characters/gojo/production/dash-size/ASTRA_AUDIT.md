@@ -95,3 +95,7 @@ Dash hair centers are now (165.5,78.5) -> (166.5,82), a 1 px horizontal change. 
 Final sidecar SHA256: `raw/dash_v11.json` = `f5479cd25ba928ffd9d36319c95c1274c862091f6f2628b9f3bb4c9eea3e468d`; `raw/superDash_v13.json` = `b2be4699f0cc33cfe50b6254f81d463b59db3f48451501356470cc0bb9a69132`.
 
 Only this report is edited by the auditor; temporary decoded comparison images live outside the repository. No art generation, repair, repack, manifest/REVIEW edits, build, commit or relay is performed by this auditor. Parent owns further corrections within authorized budget, bookkeeping and Claude handoff. New pixels require re-audit; user approval remains separate.
+
+## Post-audit user decision
+
+After this technical audit was completed, Claude relay `gojo-run` #11 delivered the user's exact quote **“Approve both (Recommended)”** for dash v11 and superDash v13, explicitly despite the numeric holds. This is art approval only; all measurement findings above remain unchanged. The repacked production-atlas candidate was hash-identical to the audited corrected candidate atlas. Exact approval receipt: [USER_DECISION.md](USER_DECISION.md).
