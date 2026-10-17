@@ -460,6 +460,30 @@ yours:
   then `node tools/relay.mjs ring beam-clash --note "<one line>"`. **Then stop:** the user approves Goku's strip via
   Claude "4 - Beam" (the desk is off).
 
+Round 3 result (Codex, 79933f88 / PR #140): items 1-3 done. Astra: Naruto, Killua, Gojo ground PASS; Sasuke ground,
+Sasuke air, Killua air, Gojo air HOLD. Goku v01 held: packed at bodyHeight 233 it clips 11/12/18 px.
+
+**Round 4 (do now, 2026-10-17, Claude chat "4 - Beam").** Same branch `art/beam-clash-r3`, same worktree.
+- [ ] 1. **Goku `beamStruggle_v01`: calibrate, don't redraw (Claude's assessment).** 233 is his upright-ish
+  `beamFire` height; this lunge is deeper and wider, so 233 makes his head ~15 % larger than in his approved `beamFire`
+  and the pose 262-270 px wide. Claude's side-by-side with packed `beamFire` f0 (Goku #93): the head (crown to chin,
+  ~60 px) and boots match at about x0.34 of the source (pose ~229-237 x ~205 px, it fits the cell). Measure it properly
+  from landmarks (head crown-chin, boot length, fist/wristband) against `beamFire` v07 and the approved combat cell,
+  record factor + uncertainty (`measurement: "manual"`), set `bodyHeight` from it (expected about 200-210), never from the
+  cell width. Then the strict quantize-48 pack, `npm run body goku beamStruggle`, `hand` on the front knuckles per
+  frame, and the Astra check of the packed strip; watch the arm/shoulder bulk, which looks heavier than his
+  `beamFire`. No image calls. Move v01 out of `_qa_hold` only once it packs and Astra has looked.
+- [ ] 2. **USER DECISION (2026-10-17, in Claude "4 - Beam"): "Redraw Sasuke ground".** Sasuke `beamStruggle_v02`:
+  Astra's hold on v01 is the compressed torso (~24 px vs ~41 in his idle) and legs (~65 vs ~85) with a normal-size
+  head. Draw v02 to his approved idle/combat anatomy in the same Chidori Spear push (BEAM_STRUGGLE_BRIEF.md, Sasuke row;
+  `gpt-6-luna` medium; his idle, combat cell and `beamFire` as references). Attempts: whatever remains of 3 for this
+  image after v01's calls (check the round 1-2 log); if none remain, ring `--for user --kind blocked` instead. QA as
+  item 1 (strict pack, body sheet, `hand` on the fingertips, Astra). The three air holds stay as they are (user's call).
+  v01 stays approved and live until the user approves v02.
+- [ ] 3. Add both to `public/reviews/beam-clash-r3/` beside v01 and the references, REVIEW/manifest/tracker rows
+  (`needs review`), update PR #140 + preview, handoff at the top of CLAUDE_ART_HANDOFF.md, ring `beam-clash`.
+  **Then stop:** the user approves Goku v01 and Sasuke v02 in Claude "4 - Beam".
+
 **Round 3 handoff (2026-10-17):** PR #140, art commit 9aa20296. Seven-strip Astra report complete (3 visible PASS / 4 HOLD); Goku v01 selected from 3 calls but quarantined after strict pack clipping, no new atlas. Items 2-3 remain technically incomplete pending calibration/budget disposition; review page deployed, handoff committed on art/beam-clash-r3. No new art approved.
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** the beam clash should look much better
