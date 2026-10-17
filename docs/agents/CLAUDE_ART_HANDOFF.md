@@ -8,7 +8,7 @@ Luna medium used all 3 calls for Goku ground beamStruggle v01. Selected attempt 
 
 Review page: `/reviews/beam-clash-r3/` (source-only technical hold, no approval recommendation). Build passed via main's restricted-profile Vite adapter; diff check passed. All public character atlases and Naruto hitboxes remain unchanged. Local browser attempt timed out; hosted verification pending.
 
-Claude next: assess audit holds and Goku calibration feasibility; if a redraw is needed, ask the user for a new attempt budget before generation. Do not treat visual approval as clearing technical holds. Publication commit/URL will be added after preview succeeds.
+Claude next: assess audit holds and Goku calibration feasibility; if a redraw is needed, ask the user for a new attempt budget before generation. Do not treat visual approval as clearing technical holds. Delivery: art commit `9aa20296`, PR #140 https://github.com/eshin087/gcd-tourney/pull/140; committed preview https://gcd-tourney-5r5mf1qj9-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ (READY; Vite build 3.07s). Authenticated CLI fetched the correct HTML. Browser redirected to Vercel login; automatic review rejected a temporary share URL because it expands protected-deployment access. Protection unchanged; visual browser verification pending. Deploy export E:/gcd-scratch/gcd-deploy-Xpg3vm remained locked; coordinator should clean it after locks release. Main has since merged Naruto anchor PR #139; this branch does not edit that file.
 
 ---
 # Codex: all Goku/Luffy core drawings approved; merge guards pass (2026-10-16, relay #14)
