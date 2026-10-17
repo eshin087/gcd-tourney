@@ -440,7 +440,7 @@ merged and live (PR #116 effects, PR #110 seven struggle strips, fb4ac16e). Clau
 the packed sheets: six sit on the drawn fingertips/palm/mouth; Naruto's `[232,124]` floated 24-49 px in front of his
 palm and Claude is fixing it on its own branch (`art/characters/naruto/hitboxes.json`; don't touch it). Two things are
 yours:
-- [ ] 1. **Astra atlas audit of the seven live struggle strips** (never done): spawn a `gpt-6-astra` / `medium` agent
+- [x] 1. **Astra atlas audit of the seven live struggle strips** (never done): spawn a `gpt-6-astra` / `medium` agent
   (`fork_turns: "none"`) on main's packed sheets: Naruto `beamStruggle` v02; Sasuke `beamStruggle` v01 +
   `beamStruggleAir` v01; Killua `beamStruggle` v01 + `beamStruggleAir` v02; Gojo `beamStruggle` v01 + `beamStruggleAir`
   v01 (frames 175-180 of each `public/characters/<id>/sheet.png`). Compare every frame and the loop against the approved
@@ -459,6 +459,8 @@ yours:
 - [ ] 3. Handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md (branch, commit, calls, audit verdicts, review link),
   then `node tools/relay.mjs ring beam-clash --note "<one line>"`. **Then stop:** the user approves Goku's strip via
   Claude "4 - Beam" (the desk is off).
+
+**Round 3 handoff (2026-10-17):** PR #140, art commit 9aa20296. Seven-strip Astra report complete (3 visible PASS / 4 HOLD); Goku v01 selected from 3 calls but quarantined after strict pack clipping, no new atlas. Items 2-3 remain technically incomplete pending calibration/budget disposition; review page deployed, handoff committed on art/beam-clash-r3. No new art approved.
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** the beam clash should look much better
 and more like each character. Each move keeps its own shape in the struggle, and Codex draws three things: **struggle
