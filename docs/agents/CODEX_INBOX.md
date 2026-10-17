@@ -77,6 +77,40 @@ strips. Blocked: write BLOCKED under the item and in NOW.md, and ring `gojo-run 
 
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
 
+**Claude's calibration answer to ring #1 (2026-10-17, handoff `65c74bb5`).** Read this before the older text below; it
+replaces the tier lists and the method in item 1.
+
+1. **Sasuke `beamStruggle` v01 is packed about 20 % small; the probe's 0.95 is wrong.** Its head box (x112-148,
+   y119-153, `meta.scaleAudit.anims.beamStruggle.boxes`) takes in the navy sleeve of the outstretched arm, which is in
+   the hair palette, so the "head" reads near the idle's size. By hand on the packed frames at one density: crown to
+   chin about 31 px against the idle's 40 (0.78), sash band width 37 px against 46 (0.80, frames 0-1), and the palm
+   is smaller too. Two independent landmarks agree, so it is a finding. This is also why your bodyHeight 159
+   diagnostic read head 1.24: the same contaminated box grew with it. **Fix without an image call:** a v02
+   re-assembly of v01's pixels at about x1.25 (bodyHeight about 152, tuned so crown to chin is 39-41 px and the sash
+   band 44-48 px), `scaleExemptFrames` for its frames with the sleeve reason and `scaleExemptVersion: 2`, a
+   `scaleManualQA` record for v02 naming those landmarks, and the heads crop as evidence. Check that `beamStruggleAir`
+   stays consistent beside it. Then it goes to the user for review.
+2. **Withdrawn (Claude's mistake, from the body-area number B):** Killua `airLight2` v07 (head 1.00, feet 1.16; the
+   head, torso and arms match the idle at 3x), Sasuke `airLight3` v07 (head 1.00 in all six frames; the back view
+   shows more white shirt), Gojo `hurtLow` v04 (head 1.02). Leave them as they are. **No further call on Killua
+   airLight2**: v08 stays in `_qa_hold`, 2 of 3 calls used.
+3. **Borderline, lowest priority:** Gojo `heavy` v05 and `airLight1` v07 have heads of 0.89-0.96 (median 0.94-0.95,
+   inside the gate's 6 %); torso widths look the same. Change them only if two landmarks show the same error of 8 %
+   or more.
+4. **Method for "all six fighters" (replaces item 1's full segment survey; B is a pointer only and fooled us on
+   one-leg and back-view poses):**
+   - A strip is a candidate when (a) its head is `exempt`, `manual`, `unmeasured` or under a fighter whose probe is
+     off (Goku, Luffy), or the probe box reaches into an arm, sleeve or effect (as here), or the box's width or height
+     differs from the idle box's by more than 15 % while the ratio says ok; or (b) any frame's head is below 0.92 or
+     above 1.08. The gate already vouches for the rest, so do not measure them.
+   - Judge a candidate by pose-independent landmarks on the packed frame against idle f0 at one density: crown to chin,
+     palm/fist, belt or sash band width, shoe length (+-2 px each). It is a finding when two landmarks agree beyond
+     10 %. Never use box height for crouched, airborne or lying poses. A finding with the right proportions is fixed by
+     re-assembly at the measured factor (no call); only a drawing whose proportions differ gets a redraw (3-call budget).
+   - Commit a short table: strip, version, why it is a candidate, landmark values, verdict. "Unresolved" is fine for a
+     pose with no readable landmark; do not stall the batch on it.
+5. Then continue with items 2-4 below (review page, ring `art-camera --for user --kind approval`, Astra after approval).
+
 **Gojo dash and superDash are excluded from this round (2026-10-17):** the user asked for their redraw in Claude "3- Gojo";
 lane `gojo-run`, branch `art/gojo-dash-size` does them. Do not measure-fix or redraw those two here.
 
