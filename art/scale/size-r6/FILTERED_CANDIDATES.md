@@ -1,18 +1,18 @@
-# R6 packed-strip filter and screening disposition
+# R6 packed-strip triage and screening disposition
 
-This filter covers the 230 packed strips in the hash-bound baseline inventory. It excludes Gojo `dash` and `superDash` per the separate lane. Numeric tool flags are triage only: B is the body-color-area proxy, H is the packer head probe, and neither is a segment measurement or a pass/fail anatomy judgment. The independent screening notes below are visual leads; exact segment findings remain separate.
+This report covers the 230 packed strips in the hash-bound baseline inventory. It excludes Gojo `dash` and `superDash` per the separate lane. The table below summarizes available B/H diagnostics only; it is **not** the complete revised candidate filter and does not certify anatomy. B is advisory body-color area, and H is the head probe. Box-axis width/height comparisons are absent from the inventory, so that part of the revised filter remains incomplete and must be checked from the packed `anims.json`/frames before calling candidate coverage complete.
 
-| Fighter | Strips | Manual/unmeasured H | H outside 0.92–1.08 | B flagged | Union of numeric flags |
+| Fighter | Strips | Manual/unmeasured H | H outside 0.92–1.08 | B flagged (advisory only) | Known candidates before box-axis check |
 |---|---:|---:|---:|---:|---:|
-| Naruto | 54 | 8 | 11 | 23 | 29 |
-| Sasuke | 44 | 10 | 9 | 13 | 18 |
-| Killua | 44 | 9 | 6 | 19 | 23 |
-| Gojo (excluding dash/superDash) | 42 | 8 | 7 | 19 | 22 |
-| Goku | 23 | 22 | 23 | 1 | 23 |
-| Luffy | 23 | 22 | 15 | 7 | 22 |
-| **Total** | **230** | **79** | **71** | **82** | **137** |
+| Naruto | 54 | 8 | 11 | 23 | 15 |
+| Sasuke | 44 | 10 | 9 | 13 | 12 |
+| Killua | 44 | 9 | 6 | 19 | 10 |
+| Gojo (excluding dash/superDash) | 42 | 8 | 7 | 19 | 11 |
+| Goku (probe off) | 23 | 22 | 23 | 1 | 23 |
+| Luffy (probe off) | 23 | 22 | 15 | 7 | 23 |
+| **Total** | **230** | **79** | **71** | **82** | **94** |
 
-The flags overlap. “Manual/unmeasured H” counts probe verdicts, “H outside” counts any per-frame head probe value outside 0.92–1.08, and B counts the advisory body-color-area flag. The union includes each strip flagged by any of those conditions; it is triage, not anatomy confirmation. All 230 are present in `all-strip-sheets/inventory.json` with the raw input hash, packed animation/frame IDs, atlas/anims hashes, per-frame probe values, body-report outputs, approved reference provenance and per-strip page hashes. There are 40 comparison pages (up to six animations/page). Combat references are present on Naruto, Sasuke, Killua and Gojo pages; Goku and Luffy pilot pages are explicitly idle-only because their approved combat cells are not in that title-style pilot directory. Luffy's separate approved native audit combat reference is recorded in the reference inventory, not falsely shown on those pages.
+The known-candidate count is the union of manual/unmeasured H, any per-frame H outside 0.92–1.08, and all strips for probe-off Goku/Luffy. B is kept as advisory context and does not add candidates by itself. Goku and Luffy are fully included as candidates (23 each), despite the 22 diagnostic rows whose saved H values are manual/unmeasured; the global probe-off rule takes precedence. This known count is provisional until box-axis width/height changes >15% are checked; those flags may add candidates. No claim of complete revised-filter coverage is made. All 230 are present in `all-strip-sheets/inventory.json` with raw input hash, packed animation/frame IDs, atlas/anims hashes, per-frame probe values, body-report outputs, approved reference provenance and per-strip page hashes. There are 40 comparison pages (up to six animations/page). Combat references are present on Naruto, Sasuke, Killua and Gojo pages; Goku and Luffy pilot pages are explicitly idle-only because their approved combat cells are not in that title-style pilot directory. Luffy's separate approved native audit combat reference is recorded in the reference inventory, not falsely shown on those pages.
 
 ## Visual screening versus endpoint evidence
 
@@ -20,7 +20,7 @@ Independent readers visually screened all six fighters' packed strips. Naruto/Sa
 
 Killua's 44 strips were screened and no additional redraw was justified. `airLight2` v07 remains unresolved: the available native grid suggests a one-leg airborne pose; earlier `.65–.76` leg and `.78–.90` shoe ratios were withdrawn. v08 is preserved in `_qa_hold` after its pack gate failed; no user approval is requested for it.
 
-Filter leads still needing segment-level disposition include Naruto launched/spin/down/getup/ko, light1Alt f4, heavyAlt f3-f5 and specialUp f4-f5; Sasuke jumpUp, airHeavy, guard/launched/spin/airRecover/down/getup, beamCharge and superDash f0. Reported head-box/box-size anomalies in these poses are not automatically size findings. No second homologous endpoint measurement confirmed them. Sasuke `beamStruggle` is the only corrected-calibration candidate in this task branch; see [its technical hold](SASUKE_BEAMSTRUGGLE_V03.md).
+Known H/manual leads still needing segment-level disposition include Naruto launched/spin/down/getup/ko, light1Alt f4, heavyAlt f3-f5 and specialUp f4-f5; Sasuke jumpUp, airHeavy, guard/launched/spin/airRecover/down/getup, beamCharge and superDash f0. Reported head-box/box-size anomalies in these poses are not automatically size findings. No second homologous endpoint measurement confirmed them. The missing box-axis check may add further rows across all fighters. Sasuke `beamStruggle` is the only corrected-calibration candidate in this task branch; see [its technical hold](SASUKE_BEAMSTRUGGLE_V03.md).
 
 Gojo `heavy` and `airLight1` remain visual leads only: no two-landmark segment measurements confirmed the earlier size claims. Gojo `hurtLow` stays unchanged as explicitly directed. Goku and Luffy have no confirmed size correction in this pass; the Goku/Luffy inventory screen uses their idle columns, with the approved native title references separately identified by hash.
 

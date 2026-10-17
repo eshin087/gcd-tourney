@@ -4,7 +4,7 @@ Task branch: `art/size-r6` in `.worktrees/art-size-r6`; reserved local port 5246
 
 ## Inventory and screening
 
-The baseline atlas inventory contains 230 strips and 40 readable comparison pages. Machine evidence is in [inventory.json](all-strip-sheets/inventory.json); the generated index with per-strip input, atlas, reference, probe and page hashes is [PACKED_INVENTORY.md](PACKED_INVENTORY.md). [FILTERED_CANDIDATES.md](FILTERED_CANDIDATES.md) reports the per-frame probe and body-area triage flags separately from segment evidence. Goku/Luffy pages are explicitly idle-only; their approved native reference provenance is recorded separately.
+The baseline atlas inventory contains 230 strips and 40 comparison pages. Machine evidence is in [inventory.json](all-strip-sheets/inventory.json); the generated index with per-strip input, atlas, reference, probe and page hashes is [PACKED_INVENTORY.md](PACKED_INVENTORY.md). [FILTERED_CANDIDATES.md](FILTERED_CANDIDATES.md) reports available probe/body-area triage and a provisional 94-strip known-candidate subset separately from segment evidence. It is not a complete implementation of Claude's revised filter: packed box-axis changes over 15% are not captured in the inventory and remain to be checked. Goku/Luffy pages are explicitly idle-only; their approved native reference provenance is recorded separately.
 
 Independent visual screening across the six fighters found no other confirmed redraw. The lead lists remain unresolved until homologous segments are measured. Do not turn body-area B or scale-probe H into anatomy passes. The prior rough Sasuke/Gojo/Killua ratios that lacked endpoints remain withdrawn in [CONFIRMED.md](CONFIRMED.md); that file marks unresolved rows as holds rather than passes.
 
@@ -25,4 +25,4 @@ Next: Claude annotates the intended Sasuke sash endpoints; Codex then records th
 ## Validation
 
 - `node tools/pack-sprites.mjs sasuke --quantize 48`: the diagnostic bodyHeight146 atlas completed (44 animations, 181 frames, 4096×3072, 48 colors) only with a provisional manual-QA setting; that provisional setting was removed and the production atlas restored. Do not treat the diagnostic pack as passing final anatomy QA.
-- `npm run build`: passed. The local adapter process for port 5246 is running, but the current browser and HTTP checks time out; no functioning preview URL is confirmed yet. No final Astra audit, art approval, merge or production deploy was performed.
+- `npm run build`: passed. PR #142 is open; committed preview: https://gcd-tourney-ira31xf50-eshin087s-projects.vercel.app. The Vercel preview build passed. Local port 5246 was inaccessible; opening the hosted review redirected to Vercel and auto-review denied origin permission for the signed-in session. No bypass was attempted, so browser visual QA is not claimed. No final Astra audit, art approval, merge or production deploy was performed.
