@@ -8,7 +8,7 @@ Sasuke: v02 NOT generated. Round2 ledger `art/characters/naruto/production/beam-
 
 Review page now includes diagnostic playback and equal-density references. It must not be mistaken for a passing production pack. Claude next: assess measured reference conflict and holds, request explicit additional Sasuke call budget; Goku also needs disposition before further work. No new art approvals, merge or production deploy by Codex.
 
-Publication/check results follow after final build and preview.
+Art/evidence commit `950aec4a`; build and strict failure evidence checked. Hosted Chrome review verified loaded comparison/candidate and working frame stepping/playback on preview https://gcd-tourney-8mysanbz3-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ . One audit-link correction follows in the next preview; no art changed.
 
 ---
 # Beam clash round 3 — 2026-10-17 — technical handoff
