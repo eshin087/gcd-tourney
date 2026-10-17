@@ -11,15 +11,16 @@
 
 import { execFileSync, execSync } from 'node:child_process';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { exportTree } from './export-head.mjs';
-import { scratchDir } from './scratch-dir.mjs';
+import { removeCopy, scratchDir, sweepStale } from './scratch-dir.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const git = (...args) => execFileSync('git', args, { cwd: ROOT }).toString().trim();
-const sh = (cmd, cwd) => execSync(cmd, { cwd, stdio: 'inherit' });
+// no telemetry: the CLI's background flush outlived `vercel deploy` and kept files in the export locked (TOOL-053)
+const VERCEL_ENV = { ...process.env, VERCEL_TELEMETRY_DISABLED: '1' };
+const sh = (cmd, cwd) => execSync(cmd, { cwd, stdio: 'inherit', env: VERCEL_ENV });
 const PREVIEW = process.argv.includes('--preview');
 
 const head = git('rev-parse', '--short', 'HEAD');
@@ -37,38 +38,13 @@ if (!PREVIEW && branch !== 'main') {
   process.exit(1);
 }
 
-// Sweep exports that earlier runs left behind (a locked file outlived the retries, or the run was
-// killed before `finally`). Each one is a few hundred MB, and parallel agents deploy often, so
-// without this they piled up to tens of GB in %TEMP%. Only folders older than an hour are touched,
-// so a deploy running concurrently in another worktree keeps its export.
-// Exports live in the scratch folder (tools/scratch-dir.mjs: the project's drive, not a small system
-// drive); the OS temp folder is swept too, for exports that older versions of this script left there, and so are
-// its `codex-gcd-*` folders: Codex pointed GCD_SCRATCH_DIR at a new %TEMP%\codex-gcd-<task> per run, whose 4.9 GB
-// exports no sweep looked at (TOOL-052).
+// Sweep exports that earlier runs left behind (rm-later.mjs gave up, or the run was killed before `finally`). Each one
+// is several hundred MB, and parallel agents deploy often, so without this they piled up to tens of GB. Only copies
+// older than an hour are touched, so a deploy running concurrently in another worktree keeps its export. The scratch
+// folder (tools/scratch-dir.mjs) is on the project's drive; the temp folders and their `codex-gcd-*` folders are swept
+// too (TOOL-052).
 const SCRATCH = scratchDir();
-const STALE_MS = 60 * 60 * 1000;
-const subdirs = (dir, prefix) => {
-  try {
-    return fs.readdirSync(dir, { withFileTypes: true }).filter((e) => e.isDirectory() && e.name.startsWith(prefix)).map((e) => path.join(dir, e.name));
-  } catch { return []; }
-};
-// Each agent may have its own TEMP (Claude's is on E:, Codex's on C:), so the Windows user temp folder is swept too.
-const temps = [...new Set([os.tmpdir(), process.env.LOCALAPPDATA && path.join(process.env.LOCALAPPDATA, 'Temp')].filter(Boolean))];
-for (const dir of new Set([SCRATCH, ...temps, ...temps.flatMap((t) => subdirs(t, 'codex-gcd-'))])) {
-  let names = [];
-  try { names = fs.readdirSync(dir); } catch { continue; }
-  for (const name of names) {
-    if (!name.startsWith('gcd-deploy-')) continue;
-    const p = path.join(dir, name);
-    try {
-      if (Date.now() - fs.statSync(p).mtimeMs < STALE_MS) continue;
-      fs.rmSync(p, { recursive: true, force: true, maxRetries: 3, retryDelay: 200 });
-      console.log(`deploy: removed stale temp export ${p}`);
-    } catch {
-      // still locked; the next deploy tries again
-    }
-  }
-}
+sweepStale({ log: (m) => console.log(`deploy: ${m}`) });
 
 const work = fs.mkdtempSync(path.join(SCRATCH, 'gcd-deploy-'));
 // export HEAD minus art/ with git itself (tools/export-head.mjs: a private index, safe in sparse art worktrees)
@@ -80,7 +56,7 @@ try {
   if (PREVIEW) {
     sh('vercel build', work);
     // the CLI prints the deployment URL on stdout (progress goes to stderr)
-    const out = execSync('vercel deploy --prebuilt', { cwd: work, stdio: ['ignore', 'pipe', 'inherit'] }).toString();
+    const out = execSync('vercel deploy --prebuilt', { cwd: work, stdio: ['ignore', 'pipe', 'inherit'], env: VERCEL_ENV }).toString();
     const url = (out.match(/https:\/\/\S+\.vercel\.app/g) || []).pop();
     console.log(`\npreview of ${branch} at ${head} (committed work only): ${url ?? out.trim()}`);
     if (url) console.log(`PREVIEW_URL=${url}`);
@@ -91,13 +67,13 @@ try {
   }
   if (dirty.length) console.log(`not deployed: ${dirty.length} uncommitted change(s) outside art/ (commit them first if they should go live)`);
 } finally {
-  // `vercel build` installs its own node_modules into the export (from package-lock.json); Windows can
-  // hold file locks for a while after the CLI exits, so retry (~15 s) before giving up; anything left
-  // is swept by the next deploy
-  try {
-    fs.rmSync(work, { recursive: true, force: true, maxRetries: 30, retryDelay: 500 });
-  } catch {
-    console.warn(`deploy: could not delete the temp export ${work} (locked); the next deploy removes it`);
+  // `vercel build` installs its own node_modules into the export (from package-lock.json). Windows keeps some of its
+  // files locked for a little while after the CLI exits (esbuild.exe, Defender), so a copy that will not go yet is
+  // handed to a detached tools/rm-later.mjs, which keeps trying for ~10 min after this process ends (TOOL-053)
+  for (const p of [work, index]) {
+    const r = removeCopy(p);
+    if (r.removed) continue;
+    console.warn(`deploy: could not delete ${p} yet (${r.code}); `
+      + (r.later ? 'a background cleaner retries for 10 min' : 'the next sweep removes it'));
   }
-  fs.rmSync(index, { force: true });
 }
