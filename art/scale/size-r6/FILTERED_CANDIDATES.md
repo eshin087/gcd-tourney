@@ -12,7 +12,25 @@ This report covers the 230 packed strips in the hash-bound baseline inventory. I
 | Luffy (probe off) | 23 | 22 | 15 | 7 | 23 |
 | **Total** | **230** | **79** | **71** | **82** | **94** |
 
-The known-candidate count is the union of manual/unmeasured H, any per-frame H outside 0.92–1.08, and all strips for probe-off Goku/Luffy. B is kept as advisory context and does not add candidates by itself. Goku and Luffy are fully included as candidates (23 each), despite the 22 diagnostic rows whose saved H values are manual/unmeasured; the global probe-off rule takes precedence. This known count is provisional until box-axis width/height changes >15% are checked; those flags may add candidates. No claim of complete revised-filter coverage is made. All 230 are present in `all-strip-sheets/inventory.json` with raw input hash, packed animation/frame IDs, atlas/anims hashes, per-frame probe values, body-report outputs, approved reference provenance and per-strip page hashes. There are 40 comparison pages (up to six animations/page). Combat references are present on Naruto, Sasuke, Killua and Gojo pages; Goku and Luffy pilot pages are explicitly idle-only because their approved combat cells are not in that title-style pilot directory. Luffy's separate approved native audit combat reference is recorded in the reference inventory, not falsely shown on those pages.
+The initial known-candidate count is the union of manual/unmeasured H, any per-frame H outside 0.92–1.08, and all non-idle strips for probe-off Goku/Luffy. B is advisory and does not add candidates. This gives 92 candidate strips before box-axis screening. The idle strip is the reference, not its own candidate.
+
+## Packed box-axis screening (2026-10-18)
+
+I compared each animation frame's saved `scaleAudit.anims.<name>.boxes` width and height with the same fighter's idle reference box. A frame is an additional candidate when either axis differs by more than 15% while its head ratio remains in 0.92–1.08. This test is a screening signal only: head rotation, pose, and probe-region contamination can change the bounding box without changing anatomy. Those strips require the two-landmark check; a box-axis flag is never itself a finding.
+
+| Fighter | Additional box-axis candidates before withdrawals | New candidates after overlap with base candidate set and Claude withdrawals |
+|---|---:|---:|
+| Naruto | 8 | 8 |
+| Sasuke | 5 | 4 |
+| Killua | 4 | 4 |
+| Gojo (excluding dash/superDash) | 5 | 4 |
+| Goku | 0 (all 22 non-idle strips already candidates: probe off) | 0 |
+| Luffy | 0 (all 22 non-idle strips already candidates: probe off) | 0 |
+| **Total** | **22** | **20** |
+
+New box-axis leads: Naruto `run` f2, `dash` f0, `land` f0, `light2` f6, `heavy` f4, `hurtHigh` f0-f1, `specialDown` f2, `light1Alt` f4; Sasuke `backDash` f1, `superDash` f0, `light4` f1, `beamCharge` f0-f2; Killua `jumpUp` f0, `hurtHigh` f0, `specialForward` f3, `specialUp` f4-f5; Gojo `jumpUp` f0, `hurtHigh` f0, `charge` f0-f3, `beamStruggleAir` f2. Sasuke `airLight3` and Gojo `hurtLow` were in the raw box-axis list but are excluded per Claude's explicit withdrawals. The confirmed Sasuke `beamStruggle` sleeve contamination is an additional candidate reason even though its saved box axes do not exceed this threshold. The resulting candidate set is 113 strips (92 base + 20 new box-axis leads + Sasuke `beamStruggle`); candidates are not confirmed defects.
+
+All 230 strips are present in `all-strip-sheets/inventory.json` with raw input hash, packed animation/frame IDs, atlas/anims hashes, per-frame probe values, body-report outputs, approved reference provenance and per-strip page hashes. There are 40 comparison pages (up to six animations/page). Combat references are present on Naruto, Sasuke, Killua and Gojo pages; Goku and Luffy pilot pages are explicitly idle-only because their approved combat cells are not in that title-style pilot directory. Luffy's separate approved native audit combat reference is recorded in the reference inventory, not falsely shown on those pages.
 
 ## Visual screening versus endpoint evidence
 
