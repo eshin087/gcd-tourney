@@ -564,7 +564,7 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 10,
+          "version": 11,
           "approvedVersion": 10
         },
         "backDash": {
@@ -593,7 +593,7 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 12,
+          "version": 13,
           "approvedVersion": 12
         },
         "jumpSquat": {

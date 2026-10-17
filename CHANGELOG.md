@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added: Gojo dash v11 and superDash v13 size-redraw candidates, exact call provenance, packed-atlas Astra audit and review gallery (ART-GOJO-DASH-SIZE). Both candidates remain technical holds in `raw/_qa_hold/`; approved v10/v12 stay live pending the user.
+
 - Added: `node tools/relay.mjs desk on|off`, the user's switch for the approvals desk (OPS-018, ADR 0040). While it is off, each chat asks the user itself instead of queueing everything for `0 - Approvals`.
 - Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight approved via Claude relay effects #10 despite recorded Astra palette/crop/anatomy holds; approved fixed copies and fitted packer outputs were added.
 

@@ -1,3 +1,13 @@
+# ART-GOJO-DASH-SIZE handoff (2026-10-17)
+
+Branch `art/gojo-dash-size`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-dash-size`, based on main `0c04b89e`. Task produced dash v11 and superDash v13 using the authorized three calls each. Exact paths and hashes are in `art/characters/gojo/production/dash-size/GENERATION_LEDGER.md`.
+
+Both candidates remain technical HOLDs after final Astra inspection of the corrected quantized atlas. Dash v11: head .995/.971, feet 1.091/1.094, body B .957/.929. SuperDash v13: head 1.003/1.019, feet .985/.953, B .903/.906; auto-head correction 1.1455 exceeds target. Per-frame B delta is .054 on f0 (fails .05 max) and .023 on f1. Dash B f1 .929 is .001 below .93 at reported precision; retained as fail. Some segment checks remain unmeasured because of pose occlusion. Full evidence and uncertainty are in `art/characters/gojo/production/dash-size/ASTRA_AUDIT.md`. Both selected raw versions are under `raw/_qa_hold/`; approved v10/v12 remain live and the public atlas matches main's approved atlas.
+
+Review gallery: https://gcd-tourney-3tvwasro7-eshin087s-projects.vercel.app/reviews/gojo-dash-size/ (preview root https://gcd-tourney-3tvwasro7-eshin087s-projects.vercel.app), PR #141. Build/deployment succeeded. Hosted browser verification is blocked by Vercel Authentication; the in-app browser reached Vercel login and the authenticated Vercel fetch connector returned 403 for project access. The local server is blocked by this worker profile's socket restrictions. User decision needed in Claude `3 - Gojo`: accept these versions with recorded holds or request another round. Three-call budgets are exhausted. No approval, merge or production deployment is implied.
+
+---
+
 # Codex: all Goku/Luffy core drawings approved; merge guards pass (2026-10-16, relay #14)
 
 **USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." All 35 exact approvals are recorded in main's shared REVIEW at `3e307d1a` and in the fighter branches' manifests, TRACKER sections and REVIEW_ROWS. Together with earlier approvals, **all 23 core drawings per fighter are approved**. This supersedes the pending drawing requests in the historical handoffs below. No further drawing decision is needed; no new image calls occurred.
