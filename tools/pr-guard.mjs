@@ -18,7 +18,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { scratchDir } from './scratch-dir.mjs';
+import { removeCopy, scratchDir, sweepStale } from './scratch-dir.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PACKER = path.join(TOOL_DIR, 'pack-sprites.mjs');
@@ -190,6 +190,7 @@ function materialize(root, head, ids, dir) {
 }
 
 function scaleRun(root, head, ids) {
+  sweepStale({ log: () => {} }); // leftovers of any tool (deploy exports too) need not wait for the next deploy
   const tmp = fs.mkdtempSync(path.join(scratchDir(), 'gcd-art-guard-'));
   try {
     materialize(root, head, ids, tmp);
@@ -200,7 +201,7 @@ function scaleRun(root, head, ids) {
       return { error: `the packer dry run gave no report (exit ${r.status}): ${(r.stderr || r.stdout || '').trim().split('\n').slice(-3).join(' | ')}` };
     }
   } finally {
-    fs.rmSync(tmp, { recursive: true, force: true });
+    removeCopy(tmp);
   }
 }
 
