@@ -1,0 +1,116 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:33.739Z",
+ "fighters": {
+  "killua": {
+   "idleGarmentPx": 1467,
+   "anims": {
+    "beamFire": {
+     "v": 9,
+     "body": [
+      0.796,
+      0.79,
+      0.804
+     ],
+     "head": [
+      0.996,
+      0.992,
+      0.997
+     ],
+     "median": 0.796,
+     "headMedian": 0.996,
+     "flag": "small"
+    },
+    "vanish": {
+     "v": 4,
+     "body": [
+      0.901,
+      0.897
+     ],
+     "head": [
+      1,
+      1.009
+     ],
+     "median": 0.899,
+     "headMedian": 1.005,
+     "flag": null
+    },
+    "stagger": {
+     "v": 8,
+     "body": [
+      0.938,
+      0.956,
+      0.943,
+      0.954
+     ],
+     "head": [
+      1.032,
+      1.025,
+      0.975,
+      1.026
+     ],
+     "median": 0.948,
+     "headMedian": 1.026,
+     "flag": null
+    },
+    "ko": {
+     "v": 9,
+     "body": [
+      0.827
+     ],
+     "head": [
+      0.986
+     ],
+     "median": 0.827,
+     "headMedian": 0.986,
+     "flag": "small"
+    },
+    "special": {
+     "v": 7,
+     "body": [
+      0.964,
+      0.993,
+      0.706,
+      0.949,
+      0.911,
+      0.903,
+      0.887,
+      0.839
+     ],
+     "head": [
+      0.973,
+      0.975,
+      0.975,
+      1,
+      1.006,
+      1.025,
+      0.993,
+      1
+     ],
+     "median": 0.907,
+     "headMedian": 0.996,
+     "flag": null
+    },
+    "intro": {
+     "v": 4,
+     "body": [
+      1.016,
+      1.052,
+      1.023,
+      1.011
+     ],
+     "head": [
+      1,
+      0.975,
+      1.01,
+      1.008
+     ],
+     "median": 1.019,
+     "headMedian": 1.004,
+     "flag": null
+    }
+   }
+  }
+ }
+}

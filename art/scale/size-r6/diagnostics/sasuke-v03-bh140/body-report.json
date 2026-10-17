@@ -1,0 +1,44 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:43:27.462Z",
+ "fighters": {
+  "sasuke": {
+   "idleGarmentPx": 2822,
+   "anims": {
+    "beamStruggle": {
+     "v": 3,
+     "body": [
+      0.801,
+      0.812,
+      0.923
+     ],
+     "head": [
+      1.103,
+      1.053,
+      1.136
+     ],
+     "median": 0.812,
+     "headMedian": 1.103,
+     "flag": "small"
+    },
+    "beamStruggleAir": {
+     "v": 1,
+     "body": [
+      0.907,
+      0.837,
+      0.914
+     ],
+     "head": [
+      0.943,
+      1.016,
+      1
+     ],
+     "median": 0.907,
+     "headMedian": 1,
+     "flag": null
+    }
+   }
+  }
+ }
+}

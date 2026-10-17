@@ -1,0 +1,44 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:35.437Z",
+ "fighters": {
+  "killua": {
+   "idleGarmentPx": 1467,
+   "anims": {
+    "beamStruggle": {
+     "v": 1,
+     "body": [
+      0.892,
+      0.912,
+      0.925
+     ],
+     "head": [
+      0.951,
+      0.961,
+      1.03
+     ],
+     "median": 0.912,
+     "headMedian": 0.961,
+     "flag": null
+    },
+    "beamStruggleAir": {
+     "v": 2,
+     "body": [
+      0.918,
+      0.933,
+      0.928
+     ],
+     "head": [
+      0.975,
+      1.014,
+      1.028
+     ],
+     "median": 0.928,
+     "headMedian": 1.014,
+     "flag": null
+    }
+   }
+  }
+ }
+}

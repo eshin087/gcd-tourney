@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- ART-SIZE-R6: added segment-evidence and calibration hold notes; preserved Killua airLight2 v08 in `_qa_hold` after the strict pack failure. This is a partial technical handoff; tier-1 fixes and approval are not complete.
+- ART-SIZE-R6: inventoried all 230 packed strips with per-strip probe/reference hashes and comparison pages; preserved Killua airLight2 v08 and Sasuke beamStruggle v03 under `_qa_hold`. Sasuke v03 remains a technical hold; tier-1 corrections and approval are incomplete.
 
 - Added: `node tools/relay.mjs desk on|off`, the user's switch for the approvals desk (OPS-018, ADR 0040). While it is off, each chat asks the user itself instead of queueing everything for `0 - Approvals`.
 - Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight approved via Claude relay effects #10 despite recorded Astra palette/crop/anatomy holds; approved fixed copies and fitted packer outputs were added.

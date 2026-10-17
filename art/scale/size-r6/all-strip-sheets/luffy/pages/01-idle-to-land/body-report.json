@@ -1,0 +1,120 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:45.861Z",
+ "fighters": {
+  "luffy": {
+   "idleGarmentPx": 1121,
+   "anims": {
+    "idle": {
+     "v": 1,
+     "body": [
+      1,
+      0.996,
+      0.993,
+      0.982,
+      0.973,
+      1.006,
+      0.982,
+      0.987
+     ],
+     "head": [
+      0.996,
+      0.986,
+      1.053,
+      1,
+      1,
+      0.975,
+      0.982,
+      1.001
+     ],
+     "median": 0.99,
+     "headMedian": 0.998,
+     "flag": null
+    },
+    "run": {
+     "v": 1,
+     "body": [
+      1.023,
+      1.046,
+      1.029,
+      1.044,
+      1.023,
+      1.042,
+      1.028,
+      1.031
+     ],
+     "head": [
+      1.14,
+      1.175,
+      1.158,
+      1.14,
+      1.123,
+      1.189,
+      1.123,
+      1.123
+     ],
+     "median": 1.03,
+     "headMedian": 1.14,
+     "flag": null
+    },
+    "dash": {
+     "v": 2,
+     "body": [
+      1.082,
+      1.064
+     ],
+     "head": [
+      1.018,
+      1.027
+     ],
+     "median": 1.073,
+     "headMedian": 1.023,
+     "flag": null
+    },
+    "jumpUp": {
+     "v": 1,
+     "body": [
+      1.236,
+      1.262
+     ],
+     "head": [
+      1.16,
+      1.26
+     ],
+     "median": 1.249,
+     "headMedian": 1.21,
+     "flag": "big"
+    },
+    "jumpFall": {
+     "v": 3,
+     "body": [
+      0.952,
+      0.982
+     ],
+     "head": [
+      1.049,
+      1.018
+     ],
+     "median": 0.967,
+     "headMedian": 1.034,
+     "flag": null
+    },
+    "land": {
+     "v": 1,
+     "body": [
+      1,
+      0.975
+     ],
+     "head": [
+      0.906,
+      0.908
+     ],
+     "median": 0.988,
+     "headMedian": 0.907,
+     "flag": null
+    }
+   }
+  }
+ }
+}

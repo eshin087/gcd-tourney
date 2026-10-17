@@ -1,0 +1,150 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:36.906Z",
+ "fighters": {
+  "gojo": {
+   "idleGarmentPx": 7687,
+   "anims": {
+    "land": {
+     "v": 6,
+     "body": [
+      0.779,
+      0.783
+     ],
+     "head": [
+      1.022,
+      0.998
+     ],
+     "median": 0.781,
+     "headMedian": 1.01,
+     "flag": "small"
+    },
+    "light1": {
+     "v": 5,
+     "body": [
+      0.847,
+      0.874,
+      0.908,
+      0.89,
+      0.875,
+      0.864,
+      0.868
+     ],
+     "head": [
+      0.955,
+      0.955,
+      0.971,
+      0.99,
+      0.971,
+      0.971,
+      0.998
+     ],
+     "median": 0.874,
+     "headMedian": 0.971,
+     "flag": "small"
+    },
+    "light2": {
+     "v": 6,
+     "body": [
+      0.948,
+      0.893,
+      0.9,
+      0.898,
+      0.955,
+      0.959,
+      0.962
+     ],
+     "head": [
+      1,
+      1,
+      1.049,
+      1.045,
+      1,
+      1.011,
+      1.012
+     ],
+     "median": 0.948,
+     "headMedian": 1.011,
+     "flag": null
+    },
+    "light3": {
+     "v": 6,
+     "body": [
+      0.855,
+      0.871,
+      0.878,
+      0.867,
+      0.896,
+      0.951,
+      0.958
+     ],
+     "head": [
+      0.985,
+      0.989,
+      0.971,
+      0.972,
+      1,
+      1,
+      1.014
+     ],
+     "median": 0.878,
+     "headMedian": 0.989,
+     "flag": "small"
+    },
+    "light4": {
+     "v": 8,
+     "body": [
+      0.911,
+      0.876,
+      0.862,
+      0.842,
+      0.816,
+      0.912,
+      0.912,
+      0.932
+     ],
+     "head": [
+      1,
+      0.934,
+      0.955,
+      0.98,
+      1.004,
+      0.985,
+      0.998,
+      0.969
+     ],
+     "median": 0.894,
+     "headMedian": 0.982,
+     "flag": null
+    },
+    "heavy": {
+     "v": 5,
+     "body": [
+      0.807,
+      0.769,
+      0.849,
+      0.845,
+      0.82,
+      0.888,
+      0.862,
+      0.95
+     ],
+     "head": [
+      0.943,
+      0.914,
+      0.886,
+      0.967,
+      0.907,
+      0.914,
+      0.943,
+      0.955
+     ],
+     "median": 0.847,
+     "headMedian": 0.929,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

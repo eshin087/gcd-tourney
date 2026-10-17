@@ -1,0 +1,114 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:39.750Z",
+ "fighters": {
+  "gojo": {
+   "idleGarmentPx": 7687,
+   "anims": {
+    "getup": {
+     "v": 5,
+     "body": [
+      0.649,
+      0.801,
+      0.82,
+      0.846,
+      0.958
+     ],
+     "head": [
+      1.001,
+      0.994,
+      0.965,
+      1.045,
+      0.971
+     ],
+     "median": 0.82,
+     "headMedian": 0.994,
+     "flag": "small"
+    },
+    "charge": {
+     "v": 7,
+     "body": [
+      0.954,
+      0.936,
+      0.943,
+      0.931
+     ],
+     "head": [
+      1.029,
+      1.016,
+      0.987,
+      0.98
+     ],
+     "median": 0.94,
+     "headMedian": 1.002,
+     "flag": null
+    },
+    "throw": {
+     "v": 5,
+     "body": [
+      0.849,
+      0.881,
+      0.877,
+      0.882
+     ],
+     "head": [
+      1,
+      1.029,
+      0.987,
+      0.992
+     ],
+     "median": 0.879,
+     "headMedian": 0.996,
+     "flag": "small"
+    },
+    "beamCharge": {
+     "v": 3,
+     "body": [
+      1.024,
+      1.005,
+      1.024
+     ],
+     "head": [
+      1.012,
+      1.029,
+      1.022
+     ],
+     "median": 1.024,
+     "headMedian": 1.022,
+     "flag": null
+    },
+    "beamFire": {
+     "v": 4,
+     "body": [
+      0.894,
+      0.883,
+      0.885
+     ],
+     "head": [
+      0.999,
+      1.002,
+      0.987
+     ],
+     "median": 0.885,
+     "headMedian": 0.999,
+     "flag": null
+    },
+    "vanish": {
+     "v": 3,
+     "body": [
+      0.893,
+      0.813
+     ],
+     "head": [
+      1.012,
+      1
+     ],
+     "median": 0.853,
+     "headMedian": 1.006,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

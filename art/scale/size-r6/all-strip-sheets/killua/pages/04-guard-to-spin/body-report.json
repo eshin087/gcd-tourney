@@ -1,0 +1,104 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:32.389Z",
+ "fighters": {
+  "killua": {
+   "idleGarmentPx": 1467,
+   "anims": {
+    "guard": {
+     "v": 9,
+     "body": [
+      0.763,
+      0.78
+     ],
+     "head": [
+      1.035,
+      1.037
+     ],
+     "median": 0.772,
+     "headMedian": 1.036,
+     "flag": "small"
+    },
+    "block": {
+     "v": 7,
+     "body": [
+      0.833,
+      0.81
+     ],
+     "head": [
+      1.032,
+      0.998
+     ],
+     "median": 0.822,
+     "headMedian": 1.015,
+     "flag": "small"
+    },
+    "hurtHigh": {
+     "v": 6,
+     "body": [
+      0.946,
+      0.913,
+      0.875
+     ],
+     "head": [
+      0.999,
+      1.05,
+      1.013
+     ],
+     "median": 0.913,
+     "headMedian": 1.013,
+     "flag": null
+    },
+    "hurtLow": {
+     "v": 6,
+     "body": [
+      0.775,
+      0.78,
+      0.909
+     ],
+     "head": [
+      1.027,
+      1,
+      0.975
+     ],
+     "median": 0.78,
+     "headMedian": 1,
+     "flag": "small"
+    },
+    "launched": {
+     "v": 5,
+     "body": [
+      0.91,
+      0.98
+     ],
+     "head": [
+      0.5,
+      0.585
+     ],
+     "median": 0.945,
+     "headMedian": 0.543,
+     "flag": null
+    },
+    "spin": {
+     "v": 4,
+     "body": [
+      0.718,
+      0.779,
+      0.771,
+      0.71
+     ],
+     "head": [
+      1.025,
+      0.464,
+      0.6,
+      0.993
+     ],
+     "median": 0.744,
+     "headMedian": 0.797,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

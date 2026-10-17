@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sasuke beamStruggle v03 · technical hold</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#14121c;color:#f1eef8}body{max-width:1100px;margin:2rem auto;padding:0 1rem}h1{font-size:1.6rem}h2{font-size:1.15rem;margin-top:2rem}.hold{border:1px solid #d69b49;background:#302515;padding:1rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem}.cell{background:#211e2c;border:1px solid #403b50;padding:.5rem}.cell img{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;background:#171521}.label{font-weight:650}.small{color:#c7c1d3;font-size:.9rem}button{font:inherit;padding:.35rem .7rem;margin:.25rem;background:#45365f;color:white;border:1px solid #8d79ae;border-radius:.3rem}button[aria-pressed=true]{background:#7052a5}code{font-size:.9em}
+</style>
+</head>
+<body>
+<h1>Sasuke <code>beamStruggle</code> v03 — technical hold</h1>
+<p class="hold"><strong>Not an approval request.</strong> v03 is a no-call body-height calibration from approved v01 source pixels. The intended sash-width endpoints are unclear, so manual scale QA remains pending. Approved v01 remains the production reference.</p>
+<p class="small">Comparison sources: packed baseline sheet <code>40AB6E099DD4C0201A072F1666CDF1696751A7EDCB578D8A4A6DCC4B872BE873</code>; diagnostic candidate sheet at bodyHeight 146 <code>F986CBDC5E9B1D48EF0B125DEB00CA4B71D4D200EEABE06D5464D456D23188BB</code>. All crops are one packed cell at 3× nearest-neighbor.</p>
+<h2>Approved references</h2><div class="grid">
+<div class="cell"><div class="label">Approved idle f0</div><img src="idle-f0.png" alt="Approved idle frame 0"></div>
+<div class="cell"><div class="label">Approved title-style combat</div><img src="approved-combat-v01.png" alt="Approved Sasuke combat reference"></div>
+</div>
+<h2>Old packed v01</h2><div class="grid">
+<div class="cell"><div class="label">v01 f0</div><img src="old-v01-f0.png" alt="Old packed v01 frame 0"></div>
+<div class="cell"><div class="label">v01 f1</div><img src="old-v01-f1.png" alt="Old packed v01 frame 1"></div>
+<div class="cell"><div class="label">v01 f2</div><img src="old-v01-f2.png" alt="Old packed v01 frame 2"></div>
+</div>
+<h2>Unchanged approved air strip v01</h2><div class="grid">
+<div class="cell"><div class="label">beamStruggleAir f0</div><img src="air-v01-f0.png" alt="Approved beam struggle air frame 0"></div>
+<div class="cell"><div class="label">beamStruggleAir f1</div><img src="air-v01-f1.png" alt="Approved beam struggle air frame 1"></div>
+<div class="cell"><div class="label">beamStruggleAir f2</div><img src="air-v01-f2.png" alt="Approved beam struggle air frame 2"></div>
+</div>
+<h2>Candidate v03 packed preview</h2><div class="cell" style="max-width:320px"><div class="label">Frame <span id="frame-label">0</span></div><img id="candidate" src="v03-f0.png" alt="Candidate Sasuke beamStruggle frame 0"><div><button id="prev" type="button">Previous</button><button id="play" type="button" aria-pressed="false">Play</button><button id="next" type="button">Next</button></div><div id="frame-buttons" aria-label="Select frame"></div></div>
+<p class="small">The playable preview cycles the three diagnostic frames at 70 ms per frame. It is not in the game atlas. Measurement notes and hashes: <a href="../../../../art/scale/size-r6/SASUKE_BEAMSTRUGGLE_V03.md">Sasuke v03 technical record</a>.</p>
+<script>
+const frames=['v03-f0.png','v03-f1.png','v03-f2.png'];let n=0,t=null;const img=document.getElementById('candidate'),label=document.getElementById('frame-label'),play=document.getElementById('play'),buttons=document.getElementById('frame-buttons');function set(i){n=(i+frames.length)%frames.length;img.src=frames[n];img.alt=`Candidate Sasuke beamStruggle frame ${n}`;label.textContent=n;[...buttons.children].forEach((b,j)=>b.setAttribute('aria-pressed',String(j===n)))}for(let i=0;i<3;i++){const b=document.createElement('button');b.textContent=`Frame ${i}`;b.type='button';b.onclick=()=>set(i);buttons.appendChild(b)}document.getElementById('prev').onclick=()=>set(n-1);document.getElementById('next').onclick=()=>set(n+1);play.onclick=()=>{if(t){clearInterval(t);t=null;play.textContent='Play';play.setAttribute('aria-pressed','false')}else{t=setInterval(()=>set(n+1),70);play.textContent='Pause';play.setAttribute('aria-pressed','true')}};set(0);
+</script>
+</body></html>

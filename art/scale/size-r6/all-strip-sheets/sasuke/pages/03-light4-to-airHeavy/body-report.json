@@ -1,0 +1,148 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:09.996Z",
+ "fighters": {
+  "sasuke": {
+   "idleGarmentPx": 2824,
+   "anims": {
+    "light4": {
+     "v": 8,
+     "body": [
+      0.935,
+      1.083,
+      1.005,
+      1.263,
+      1.011,
+      0.951,
+      0.961,
+      0.989
+     ],
+     "head": [
+      1.051,
+      0.975,
+      0.981,
+      0.989,
+      0.985,
+      0.996,
+      1.051,
+      0.974
+     ],
+     "median": 0.997,
+     "headMedian": 0.987,
+     "flag": null
+    },
+    "heavy": {
+     "v": 11,
+     "body": [
+      0.928,
+      0.973,
+      1.034,
+      1.013,
+      0.86,
+      0.938,
+      0.973,
+      1.029
+     ],
+     "head": [
+      1,
+      1.016,
+      1,
+      1.019,
+      1,
+      0.974,
+      0.993,
+      1.004
+     ],
+     "median": 0.973,
+     "headMedian": 1,
+     "flag": null
+    },
+    "airLight1": {
+     "v": 4,
+     "body": [
+      0.876,
+      0.975,
+      0.952,
+      0.912,
+      0.87
+     ],
+     "head": [
+      1.005,
+      1.027,
+      1.008,
+      1.02,
+      0.993
+     ],
+     "median": 0.912,
+     "headMedian": 1.008,
+     "flag": null
+    },
+    "airLight2": {
+     "v": 4,
+     "body": [
+      0.797,
+      1.057,
+      0.932,
+      0.785,
+      0.852
+     ],
+     "head": [
+      0.995,
+      0.997,
+      1,
+      1.002,
+      1.012
+     ],
+     "median": 0.852,
+     "headMedian": 1,
+     "flag": "small"
+    },
+    "airLight3": {
+     "v": 7,
+     "body": [
+      1.18,
+      1.19,
+      1.229,
+      1.045,
+      1.129,
+      0.975
+     ],
+     "head": [
+      1,
+      0.986,
+      1.019,
+      1.023,
+      1.015,
+      0.974
+     ],
+     "median": 1.155,
+     "headMedian": 1.007,
+     "flag": "big"
+    },
+    "airHeavy": {
+     "v": 4,
+     "body": [
+      1.007,
+      1.049,
+      0.988,
+      0.986,
+      0.97,
+      0.907
+     ],
+     "head": [
+      0.495,
+      0.939,
+      1.011,
+      1.024,
+      0.982,
+      0.974
+     ],
+     "median": 0.987,
+     "headMedian": 0.978,
+     "flag": null
+    }
+   }
+  }
+ }
+}
