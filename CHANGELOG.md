@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Art (ART-BEAM-CLASH): Goku ground `beamStruggle_v01` round-3 candidate preserved with exact three-call inventory and quarantined after strict 48-color pack clipping at the approved beamFire first-guess bodyHeight 233; no production atlas or approval claim. Anatomy, per-frame hand anchors and Astra final-atlas audit remain pending.
+- Art (ART-BEAM-CLASH): Goku ground `beamStruggle_v01` remains quarantined; round-4 manual landmarks set a diagnostic bodyHeight 205/factor .338, but strict 48-color packing still fails for unmeasured head scale and a 1 px frame-2 clip. Equal-density measurements record the head/boot disagreement between approved combat and beamFire references, hand anchors beyond the brief zone, and Astra's shoulder/chest anatomy HOLD; no production atlas or approval claim. Sasuke ground redraw requested by relay #13 is blocked before generation because v01 used all 3 calls; approved v01 and all three air strips stay unchanged. See `public/reviews/beam-clash-r3/` and the Goku measurement ledger.
 
 - Added: `node tools/relay.mjs desk on|off`, the user's switch for the approvals desk (OPS-018, ADR 0040). While it is off, each chat asks the user itself instead of queueing everything for `0 - Approvals`.
 - Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight approved via Claude relay effects #10 despite recorded Astra palette/crop/anatomy holds; approved fixed copies and fitted packer outputs were added.

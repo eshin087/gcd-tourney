@@ -20,13 +20,14 @@ The call inputs attach the approved Goku `reference/idle_approved.png` and `raw/
 
 Prompt objective: exactly three ground poses in one row, Dragon Fist push/strain/surge, empty forward fist, right-facing, no VFX, no flight, no extra character. Attempt 03 used concise rephrasing of that same objective.
 
-## QA and holds
+## Round 4 calibration and QA (2026-10-17)
 
-- `bodyHeight` remains 233, the first guess copied from approved `beamFire_v07`; no anatomy-led measurement validates it for the lunge.
-- `node tools/pack-sprites.mjs goku --quantize 48` at this value failed strict scale/clip validation and wrote no candidate atlas or frame images. Reported right clipping: f0 11 px, f1 12 px, f2 18 px. The raw strip was moved to `_qa_hold` so the packer skips it.
-- No later body-height reductions are used. Head, torso, limbs, clothing volume and equal-density comparisons must be measured against approved idle and title-style combat cells before choosing another value.
-- Goku's automatic head probe is known unreliable; no numeric result from it is claimed. There is no version-bound manual scale QA.
-- Per-frame front-knuckle positions remain unmeasured. No hitbox override has been added.
-- No scale report, body sheet, packed frames, strict passing atlas, Astra final-atlas audit, or user approval exists for Goku v01.
+The candidate remains **technical hold, raw only**. The initial 233 copied from `beamFire_v07` was a bad lunge assumption. Landmark comparison supports a diagnostic `bodyHeight` 205 (factor 0.338), and the official Goku manifest records 205, but this is not a certified manual scale pass. The raw source remains in `_qa_hold`; only isolated scratch outputs were packed and copied to the public review page. No official atlas was changed.
+
+- Strict diagnostic command, isolated scratch root and result are preserved in scratch `round4/strict-pack-205.log` (SHA-256 `A5C510A27A675BF43523A1785E86B31247FEF7571D8B79556576D9A12FAE9E11`). Exit 1: packer reports `1 ref, 22 manual, 1 unmeasured`; Goku's known-unreliable automatic head probe has no version-bound manual pass. It writes no candidate sheet/frames. It also reports frame 2 right clipping by 1 px. This is a strict-gate failure, not a pass.
+- A non-strict scratch quantized 48-color diagnostic snapshot is in `public/reviews/beam-clash-r3/goku-atlas-205-diagnostic.png` (SHA-256 `991182A67FE71939373DB9758348465141F8C09EBED8264D7185E0A0DAC7140B`) and its animation metadata is beside it (SHA-256 `D7FFAEACF6EB6DD07C871DE3FD193CDADEA8AC49253D385B9C41B5A6A1FE1F0D`). Neither is a production pack.
+- Version-bound equal-density landmark measurements, uncertainty, references, contact deviation and the independent Astra anatomy hold are recorded in [`MEASUREMENTS.md`](MEASUREMENTS.md). Head/boot evidence does not support solving the uncertainty by shrinking; torso/shoulder construction remains a separate drawing concern.
+- Diagnostic body sheet (`goku-body-205-diagnostic.png`, SHA-256 `BB52890E861BF078DD3478B28FEEFFEEBFC09F8BF949AB4BCFFE2A564A0CECC6`) uses a custom scratch-only 18-shade orange palette because Goku has no declared `bodyColors`; its B values are advisory and not a canonical body sheet.
+- No scale report or strict passing atlas exists. No user approval exists. Do not move the source out of `_qa_hold` or promote the diagnostic atlas.
 
 The generation calls were launched under this agent's exact worktree and captured in its session. This call-to-emitted-file mapping is recorded from the retained call order, output paths and session log; the tool wrapper emitted a resized payload, so reviewers should consider that transformation when evaluating source binding.
