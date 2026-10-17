@@ -1,3 +1,15 @@
+# ART-GOJO-DASH-SIZE handoff (2026-10-17, user approved via Claude relay #11)
+
+**USER APPROVAL via Claude:** “Approve both (Recommended)” for Gojo dash v11 and superDash v13, explicitly despite the numeric holds. Verified from main `.relay/gojo-run/send.json`, seq 11, kind `approved`. Exact relay record: `art/characters/gojo/production/dash-size/USER_DECISION.md`. No new image calls were authorized.
+
+Restored both exact approved sources from `_qa_hold` without pixel changes; set `approvedVersion` 11/13 with manifest status still `approved`. Quantize-48 packing produced 44 animations / 181 frames / 48 colors. Packed sheet SHA-256 `CE87CC8D31F6CA7336BE020F477A178BC909A4804BD16002D7A70B96F9DE7EF7` and anims SHA-256 `0134EC68B48889310BD6FE85711C4FFE1126D120751FAD9F96AEB4E9EADACB6C` match the final Astra-audited atlas exactly. The prior audit's technical HOLD measurements remain true and available alongside the user's art approval.
+
+Branch `art/gojo-dash-size`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-dash-size`; approval commit `19582aa3`, PR #141. The updated gallery at `public/reviews/gojo-dash-size/` labels v11/v13 approved and shows prior v10/v12. Production build passed. `node tools/pr.mjs check art/gojo-dash-size` passed the art guard; the helper noted documentation merge conflicts because main advanced after this branch base, so coordinator must resolve normal docs conflicts during integration. The most recent preview URL is linked in PR #141.
+
+Claude's next action: contact/runtime integration check, then follow the sequential merge workflow. Codex did not merge or production-deploy. The task worktree is retained for Claude.
+
+---
+
 # Codex: all Goku/Luffy core drawings approved; merge guards pass (2026-10-16, relay #14)
 
 **USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." All 35 exact approvals are recorded in main's shared REVIEW at `3e307d1a` and in the fighter branches' manifests, TRACKER sections and REVIEW_ROWS. Together with earlier approvals, **all 23 core drawings per fighter are approved**. This supersedes the pending drawing requests in the historical handoffs below. No further drawing decision is needed; no new image calls occurred.

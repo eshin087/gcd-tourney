@@ -564,8 +564,8 @@
           "required": true,
           "step": 8,
           "status": "approved",
-          "version": 10,
-          "approvedVersion": 10
+          "version": 11,
+          "approvedVersion": 11
         },
         "backDash": {
           "frames": 3,
@@ -593,8 +593,8 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 12,
-          "approvedVersion": 12
+          "version": 13,
+          "approvedVersion": 13
         },
         "jumpSquat": {
           "frames": 1,
