@@ -519,6 +519,8 @@ Sasuke air, Killua air, Gojo air HOLD. Goku v01 held: packed at bodyHeight 233 i
   (`needs review`), update PR #140 + preview, handoff at the top of CLAUDE_ART_HANDOFF.md, ring `beam-clash`.
   **Then stop:** the user approves Goku v01 and Sasuke v02 in Claude "4 - Beam".
 
+**Round 4 handoff (2026-10-17):** relay #14 user quote "Up to 3 more calls" authorized Sasuke ground v02; all 3 used (6 cumulative). Goku no-call calibration205 diagnostic remains strict/Astra HOLD. Sasuke v02 strict gate passes but Astra torso/arm/loop HOLD. Both sources quarantined, official atlases unchanged; air strips retained per relay#13. PR140/art3660bec4 combined preview and audit reports ready; no approval claimed. Production clearance portions of items1–2 remain held.
+
 **Round 3 handoff (2026-10-17):** PR #140, art commit 9aa20296. Seven-strip Astra report complete (3 visible PASS / 4 HOLD); Goku v01 selected from 3 calls but quarantined after strict pack clipping, no new atlas. Items 2-3 remain technically incomplete pending calibration/budget disposition; review page deployed, handoff committed on art/beam-clash-r3. No new art approved.
 
 **The user decided on 2026-10-15 (in Claude's chat), recorded here by Claude:** the beam clash should look much better
