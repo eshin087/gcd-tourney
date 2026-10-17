@@ -4,11 +4,13 @@ Branch/worktree: `art/beam-clash-r3`, `E:/Vibe Coding/Claude Code/gcdTourney/.wo
 
 Goku: ZERO image calls. The 205px / x0.338 quantized diagnostic matches beamFire v07 density broadly by crown/chin and boot landmarks, but differs from approved title-combat v02; uncertainty is recorded rather than declared a pass. Strict isolated pack fails; f2 clips 1px right. Front-knuckle points [247,100], [247,100], [253,100] (+/-2px) exceed the brief contact zone. Astra completed the frozen diagnostic audit: HOLD chest/shoulder consistency, strict scale uncertainty, loop/contact/clipping. Near-arm thickness is not demonstrably inflated; global shrinking is not supported. Report: `art/characters/goku/production/beam-clash-r4/ASTRA_AUDIT_v01.md`. Source v01 remains quarantined; no production atlas or hand overrides promoted.
 
-Sasuke: v02 NOT generated. Round2 ledger `art/characters/naruto/production/beam-clash-r2/GENERATION_LOG.md` records all 3 calls already used for ground v01. Per round4 instructions, additional explicit budget is required. Blocker sent via beam-clash ring #11 while Goku work continued. Approved v01 remains live; all air strips unchanged.
+Sasuke: relay #14 USER DECISION quote "Up to 3 more calls" resolved the budget blocker. All 3 additional calls used (6/6 cumulative), selected attempt03 preserved as v02 in raw/_qa_hold. Candidate153px strict quantize48 pack exits0 (heads .991/.993/1.004), but Astra HOLD: torso32–35 vs39–44, uncertain arms, fingertips move15px. Legs81–86 vs83–90 improved. Report art/characters/sasuke/production/beam-clash-r4/ASTRA_AUDIT_v01.md. Official bodyHeight stays122 for approved v01, version2/approvedVersion1. No official atlas changed.
 
-Review page now includes diagnostic playback and equal-density references. It must not be mistaken for a passing production pack. Claude next: assess measured reference conflict and holds, request explicit additional Sasuke call budget; Goku also needs disposition before further work. No new art approvals, merge or production deploy by Codex.
+Review page now includes diagnostic playback and equal-density references. It must not be mistaken for a passing production pack. Claude next: present Goku v01 and Sasuke v02 with their technical holds and ask the user for disposition. No further image calls remain in either budget. Image approval alone does not resolve technical holds. No new art approvals, merge or production deploy by Codex.
 
 Art/evidence commit `950aec4a`; build and strict failure evidence checked. Hosted Chrome review verified loaded comparison/candidate and working frame stepping/playback on preview https://gcd-tourney-8mysanbz3-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ . One audit-link correction follows in the next preview; no art changed.
+
+Both diagnostic loops and references are now on public/reviews/beam-clash-r3/. Final combined preview follows. Goku no new calls; Sasuke 3 new calls; all air strips unchanged.
 
 ---
 # Beam clash round 3 — 2026-10-17 — technical handoff

@@ -169,6 +169,10 @@ User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical
 
 ## sasuke
 
+Beam clash round 4: ground `beamStruggle_v02` selected from attempt03 after relay #14 authorized 3 additional calls (cumulative 6/6). Quantized candidate auto head gate passes against idle; Astra holds torso (32–35 px vs39–44) and hand stability (fingertips x214/199/208 ±2 move 15/9 px); legs improve to 81–86 vs83–90 px. v02 remains in `raw/_qa_hold/`, v01 stays approved/live (`approvedVersion` 1), no production atlas or user approval. See [generation ledger](characters/sasuke/production/beam-clash-r4/GENERATION_LOG.md), [measurements](characters/sasuke/production/beam-clash-r4/MEASUREMENTS.md), and [round-4 review assets](../public/reviews/beam-clash-r3/). All three air strips unchanged.
+
+
+
 Round4: superDash v07, beamFire v07, dash v07 need review. jumpSquat v07 is user-approved as drawn; technical HOLD remains; standard strict pack fails because v06 manual QA does not apply. A separate gate-warn diagnostic atlas is filed under `production/round6/diagnostic-v07/`; its head/body scale verdict remains unmeasured. All9 prior strips inspected; numerical joint/skull certification remains inconclusive, SD clips10/4px, strict pack holds JS. Production atlas preserved. [Audit](characters/sasuke/production/round4/SEGMENT_AUDIT.md).
 
 
