@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beam Clash — Round 4 Approved Drawings and Technical Holds</title>
+<style>
+:root{color-scheme:dark;--bg:#101318;--panel:#1a2029;--line:#313b49;--text:#f2f5fa;--muted:#a8b3c2;--accent:#7dcfff;--hold:#ffc96b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}main{max-width:1080px;margin:auto;padding:24px 16px 64px}h1{font-size:1.8rem;line-height:1.2}h2{font-size:1.3rem;margin:1.5rem 0 .5rem}p,li{color:var(--muted)}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:18px 0}.badge{display:inline-block;border:1px solid #806329;border-radius:999px;padding:3px 10px;color:var(--hold);font-size:.85rem}img{display:block;width:100%;height:auto;border-radius:8px;background:#191c22;image-rendering:pixelated;margin:12px 0}.scroll{overflow-x:auto}.scroll img{min-width:720px}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{text-align:left;vertical-align:top;padding:8px;border-bottom:1px solid var(--line)}code{color:#d8c6ff}
+</style></head>
+<body><main>
+<h1>Beam clash struggle poses — round 4</h1>
+<p><span class="badge">USER APPROVED AS DRAWN · TECHNICAL HOLDS REMAIN</span></p>
+<p>The user approved Goku ground v01 and Sasuke ground v02 via Claude relay beam-clash #15: “Goku v01: Approve v01. Sasuke v02: Approve v02.” This records visual approval only. The technical findings below remain unresolved; these diagnostic files are not the production atlas. Sasuke v01 is superseded by approved v02; all three air strips remain unchanged.</p>
+<section class="card"><h2>Goku v01 — calibrated diagnostic, not production</h2><p>The earlier bodyHeight 233 was copied from the upright beamFire move. Equal-density manual landmarks support a diagnostic 205 (factor 0.338), but the references disagree: candidate head extents are near beamFire and 6–13% above title combat; boot widths match beamFire and exceed title combat. This does not establish the required ±6% match across both approved references. Astra's final audit holds shoulder/chest anatomy and the loop. The approved drawing is recorded; technical clearance and runtime integration remain pending.</p><div class="scroll"><img src="goku-landmark-comparison-205.png" alt="Approved title combat, approved beamFire frame 93, and three Goku beam struggle frames compared at equal pixel density"></div><p><a href="goku-atlas-205-diagnostic.png">Diagnostic 48-color packed atlas</a> (SHA-256 <code>991182A67FE71939373DB9758348465141F8C09EBED8264D7185E0A0DAC7140B</code>) · <a href="goku-anims-205-diagnostic.json">paired animation metadata</a> (SHA-256 <code>D7FFAEACF6EB6DD07C871DE3FD193CDADEA8AC49253D385B9C41B5A6A1FE1F0D</code>) · <a href="goku-body-205-diagnostic.png">advisory body sheet</a>. These are scratch-only review outputs, not the official atlas.</p><p>Strict quantized pack at 48 colors exited 1 and wrote no atlas or frames: the known head probe lacks version-bound manual QA, and f2 clips right by 1 px. The candidate hand's estimated knuckle-tip anchors are [247,100], [247,100], [253,100] (±2 px); the last is clipped and the anchors exceed the brief's x≤240 contact zone by 7, 7 and 13 px. Full measurements and uncertainty: <a href="goku-measurements-205.md">MEASUREMENTS.md</a>. <a href="goku-strict-pack-205.log">complete strict-pack log</a>. Final Astra audit: <a href="goku-astra-audit-v01.md">Goku v01 audit</a>. No manual scale pass or approval is claimed.</p></section>
+<section class="card"><h2>Sasuke ground v02 — gate passed, anatomy/loop HOLD</h2><p>User decisions: “Redraw Sasuke ground” (relay #13), then “Up to 3 more calls” (relay #14). The additional three calls are used; cumulative budget is 6/6. Selected attempt 03 is preserved as v02 and is now user-approved as drawn; technical holds remain. Approved v01 is superseded by user-approved v02.</p><div class="scroll"><img src="sasuke-comparison-v02.png" alt="Sasuke approved reference, idle, old v01 and new v02 comparison at equal density"></div><p>Strict quantize-48 candidate pack exited 0. Head ratios vs idle: 0.991 / 0.993 / 1.004. Astra finds improved head/leg scale, but torso remains about 32–35 px vs 39–44 px reference; arm-length confidence is limited. Fingertips remain within the contact zone but move about 15 px across the loop. A gate pass does not clear these holds.</p><p><a href="sasuke-astra-audit-v01.md">Full Astra audit</a> · <a href="sasuke-strict-pack-v02.log">Pack log</a> · <a href="sasuke-body-v02.png">Body sheet</a> · <a href="sasuke-v02-source.png">Versioned source</a></p><canvas id="sasuke-loop" width="256" height="256" style="width:256px;height:256px;image-rendering:pixelated;background:#303744" aria-label="Sasuke held diagnostic animation"></canvas><p><button id="sasuke-toggle">Play Sasuke</button> <button id="sasuke-step">Next Sasuke frame</button> <span id="sasuke-label">Frame 0 / 2</span></p><p>70 ms per frame; diagnostic atlas only. User image approval received via Claude relay beam-clash #15; no production promotion.</p></section>
+<section class="card"><h2>Selected attempt 03 — original tool output (2172 × 724)</h2><div class="scroll"><img src="goku-attempt03-source.png" alt="Goku beamStruggle v01 original generated source, three ground poses"></div><p>SHA-256: <code>9035EBC7B62956461469954A0ABCFA3C5CFA26FC110D76877FBC79BD551A3E98</code>. The approved source is stored at <code>art/characters/goku/raw/beamStruggle_v01.png</code>.</p></section>
+<section class="card"><h2>Wrapper-emitted payload (2048 × 683)</h2><div class="scroll"><img src="goku-attempt03-returned.png" alt="Wrapper-emitted Goku beamStruggle v01 payload"></div><p>SHA-256: <code>B0D6379DD5AEA8050DA172E07E03167A1C527A7107CDF670753C19C8A07CD6D5</code>. This is a distinct resized payload. Pixel identity with the 2172 × 724 source is not asserted.</p></section>
+<section class="card"><h2>Generation record</h2><p>The calls attached Goku’s approved <code>idle_approved.png</code> and assigned <code>beamFire_v07.png</code> pose reference. The latter is marked approved in the manifest while its sidecar labels it technical hold; it was used only as the assigned pose reference. Prompts asked for three right-facing ground poses (push, strain, surge), an empty fist, no VFX, and reference-matched anatomy.</p><table><thead><tr><th>Attempt</th><th>Call ID</th><th>Output SHA-256</th><th>Selection note</th></tr></thead><tbody>
+<tr><td>01</td><td><code>call_0b73139b56574231939bd49a1cfd5575</code></td><td><code>EC2122479AA2155A12FB810F04D81F5793264BF9785A478CEF334A67FDC1452E</code></td><td>Discarded: frame 2 arm/body anatomy and loop were less clear.</td></tr>
+<tr><td>02</td><td><code>call_ef7231793395490baa96f5b14621d868</code></td><td><code>A41481D130CCAC3D187864603DED9115057A5DC70D5AFC20C1CD0C6581C34A4E</code></td><td>Discarded: less deep lunge and weaker pose loop.</td></tr>
+<tr><td>03</td><td><code>call_558663b69d644a799bd65d7b01fd9b7b</code></td><td><code>9035EBC7B62956461469954A0ABCFA3C5CFA26FC110D76877FBC79BD551A3E98</code></td><td>Selected: deepest lunge and clearest braced loop.</td></tr>
+</tbody></table><p>Call/output timestamps from the agent session log, UTC: 23:03:17 / 23:03:39; 23:03:43 / 23:03:59; 23:04:12 / 23:04:34. The exact prompts, reference paths, and call record are preserved in the task branch.</p></section>
+<section class="card"><h2>Round 3 baseline (superseded calibration)</h2><ul><li>The first bodyHeight 233 was a copied upright-beamFire guess. Its strict 48-color pack clipped frames 0–2 by 11/12/18 px; that result motivated the new manual measurement and is not the current diagnostic height.</li><li>Round 4 isolated diagnostic at bodyHeight 205/factor 0.338 still fails strict scale validation and clips f2 by 1 px. The approved source remains versioned in raw; this diagnostic does not alter the official atlas.</li><li>Goku automatic head probe is known to misread approved art. The candidate has no version-bound manual scale pass; exact uncertainty and comparator measurements are linked above.</li><li>Front-knuckle positions are now estimated per frame, but exceed the brief contact zone. No hitbox override was authored.</li><li>The drawings are approved via Claude relay beam-clash #15; no production atlas is promoted. Astra completed the frozen diagnostic audit with HOLD.</li></ul></section>
+<section class="card"><h2>Other round 3 audit status</h2><p>The parallel Astra audit reports visible PASS for Naruto, Killua, and Gojo ground strips; Sasuke ground anatomy is HOLD. Air-loop holds: Sasuke, Killua, and Gojo; Sasuke also has occluded-length uncertainty. These findings do not certify visual approval. The user retained all three air strips unchanged. Goku diagnostic audit is complete with HOLD; there is no production-pack pass.</p></section>
+<section class="card"><h2>Goku diagnostic loop</h2><p><a href="goku-astra-audit-v01.md">Full Astra audit</a> · <a href="goku-strict-pack-205.log">Strict failure log</a></p><canvas id="loop" width="256" height="256" style="width:256px;height:256px;image-rendering:pixelated;background:#303744" aria-label="Held diagnostic animation"></canvas><p><button id="toggle">Play</button> <button id="step">Next frame</button> <span id="frame-label">Frame 0 / 2</span></p><p>70 ms per frame. Diagnostic only; official game sprites unchanged.</p></section>
+<script>
+const ctx = document.getElementById('loop').getContext('2d');
+ctx.imageSmoothingEnabled = false;
+const atlas = new Image();
+let frame = 0;
+let timer = null;
+function draw() {
+  const index = 108 + frame;
+  ctx.clearRect(0, 0, 256, 256);
+  ctx.drawImage(atlas, (index % 16) * 256, Math.floor(index / 16) * 256, 256, 256, 0, 0, 256, 256);
+  document.getElementById('frame-label').textContent = `Frame ${frame} / 2`;
+}
+function advance() { if (atlas.complete && atlas.naturalWidth) { frame = (frame + 1) % 3; draw(); } }
+atlas.onload = draw;
+atlas.src = 'goku-atlas-205-diagnostic.png';
+document.getElementById('step').onclick = advance;
+document.getElementById('toggle').onclick = () => {
+  if (timer) { clearInterval(timer); timer = null; } else { timer = setInterval(advance, 70); }
+  document.getElementById('toggle').textContent = timer ? 'Pause' : 'Play';
+};
+</script></main><script>
+{
+  const ctx = document.getElementById('sasuke-loop').getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  const atlas = new Image();
+  let frame = 0;
+  let timer = null;
+  function draw() {
+    const index = 175 + frame;
+    ctx.clearRect(0, 0, 256, 256);
+    ctx.drawImage(atlas, (index % 16) * 256, Math.floor(index / 16) * 256, 256, 256, 0, 0, 256, 256);
+    document.getElementById('sasuke-label').textContent = `Frame ${frame} / 2`;
+  }
+  function advance() { if (atlas.complete && atlas.naturalWidth) { frame = (frame + 1) % 3; draw(); } }
+  atlas.onload = draw;
+  atlas.src = 'sasuke-atlas-v02-diagnostic.png';
+  document.getElementById('sasuke-step').onclick = advance;
+  document.getElementById('sasuke-toggle').onclick = () => {
+    if (timer) { clearInterval(timer); timer = null; } else { timer = setInterval(advance, 70); }
+    document.getElementById('sasuke-toggle').textContent = timer ? 'Pause Sasuke' : 'Play Sasuke';
+  };
+}
+</script></body></html>

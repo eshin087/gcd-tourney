@@ -38,7 +38,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { scratchDir } from './scratch-dir.mjs';
+import { removeCopy, scratchDir, sweepStale } from './scratch-dir.mjs';
 import { readPng, encodePng, newImage, crop, blit, bbox, removeBackground, removeSpecks, splitStrip, figureSplit, resample, placeCharFrame, readJson, loadScaleReference } from './pack-sprites.mjs';
 import { palettesFromIdle, makeReference, measureFrame, measurementCells, median, resolveGate } from './scale-probe.mjs';
 import { loadPacked } from './scale-audit.mjs';
@@ -53,6 +53,7 @@ function fail(msg) { console.error(`[stitch] ${msg}`); return 1; }
 // sidecars and frames/idle/), packed without --quantize in warn mode. Returns the loadPacked() result or { error }.
 function freshIdle(id, artDir) {
   const charDir = path.join(artDir, 'characters', id), rawDir = path.join(charDir, 'raw');
+  sweepStale({ log: () => {} });
   const tmp = fs.mkdtempSync(path.join(scratchDir(), 'gcd-stitch-ref-'));
   try {
     const tArt = path.join(tmp, 'art'), tChar = path.join(tArt, 'characters', id);
@@ -71,7 +72,7 @@ function freshIdle(id, artDir) {
     const packed = loadPacked(id, out);
     if (!packed) return { error: `packing the idle failed: ${(r.stderr || r.stdout || '').trim().split('\n').slice(-2).join(' ')}` };
     return packed;
-  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+  } finally { removeCopy(tmp); }
 }
 
 // a cleaned part: background removed, specks dropped, its poses as whole figures (source resolution). layout

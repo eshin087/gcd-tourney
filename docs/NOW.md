@@ -7,11 +7,15 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
+**Gojo proportion study decision (2026-10-17, relay gojo-run #13):** Choose A/B/C/D or give another direction. [Review PR #143](https://github.com/eshin087/gcd-tourney/pull/143) · [latest study preview](https://gcd-tourney-aaf1jnvjg-eshin087s-projects.vercel.app/reviews/gojo-proportions/). A is current (106±5px legs; 215px body; 49.3%). B targets −8%; C targets −10% plus sturdier build but its neutral v02 is on Astra hold for smaller relative head, and its call budget is exhausted. D keeps A anatomy and changes pose direction. Nothing is approved or shipped.
+
+**ART-SIZE-R6 — user review needed (2026-10-17, relay #6):** the user rejected Sasuke `beamStruggle` v04 at bodyHeight152 (head template match 1.11–1.17 of idle). v04 is preserved under `_rejected`; v05 is a no-call re-assembly of the same v01 pixels at bodyHeight134 (~1.10×), with sleeve probe exemptions. Review [v05 on PR #142 preview](https://gcd-tourney-okk81f4to-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v05/): approve v05 as an alternate or give feedback. Main currently retains user-approved v02 at bodyHeight153 from PR #140; the page compares v02, v01, rejected v04 and candidate v05. Gojo heavy remains approved v05; 1.08× was cell-limited at cap237. R6 follow-up remains open. Build passed; diagnostics remain outside the branch. No camera/engine change or production merge/deploy.
+
+**Beam clash done (2026-10-17, PR #140 + #139, live):** every fighter with an energy move has its clash pose in the game: Goku's Dragon Fist v01 and Sasuke's redrawn Chidori Spear v02 joined, Naruto's hand anchor was fixed. Sasuke v02 remains the live approved strip. Relay #6 later requested review of an alternate v05 re-assembly of v01; see the current R6 approval note above. Astra holds on Sasuke, Killua and Gojo's air poses stay as known (your call).
+
 **Super art Round 2b approved (2026-10-16):** the user approved all eight Goku and Luffy v01 images via Claude relay effects #10, including the four cutouts despite Astra holds. Approved source copies and fitted UI pack outputs are committed on `art/super-art-r2b` (`b41d344d`, PR #131). [Review gallery preview](https://gcd-tourney-8bi197074-eshin087s-projects.vercel.app/reviews/super-art-r2b/). The Vercel preview build passed; the art worktree is sparse and its pack report has missing animation sheets, so Claude owns the full-checkout pack and in-game/runtime integration check. No production merge or deploy is claimed.
 
 **Super art round 2a approved (2026-10-16):** all 12 Naruto, Killua and Gojo v01s were approved via Claude relay effects #8, including the six foregrounds with Astra holds. Sources and fitted UI outputs are committed on PR #129. Claude's next step is the full-checkout pack/runtime check and integration; the sparse worktree pack emitted missing-animation warnings, documented in the [handoff](agents/CLAUDE_ART_HANDOFF.md). [Approved preview](https://gcd-tourney-891njl4yw-eshin087s-projects.vercel.app/reviews/super-art-r2/).
-
-**Beam clash art Round 2:** all seven poses are approved, including Killua `beamStruggleAir` v02 (Claude approval desk relay #10). The updated gallery is at [round-2 review](https://gcd-tourney-em7kwfazh-eshin087s-projects.vercel.app/reviews/beam-clash-r2/). Claude's next step is the pending Astra anatomy audit and exact hand-anchor measurements before runtime integration. See the newest beam-clash handoff in [CLAUDE_ART_HANDOFF.md](agents/CLAUDE_ART_HANDOFF.md).
 
 **One place to answer (2026-10-15, ADR 0039, PR #117):** every approval and decision now comes to the Claude chat **"0 - Approvals"** (pinned while something waits, plus a phone notification). Other Claude chats and Codex lanes queue their questions there instead of asking you. `npm run status` opens with "Needs you now". It is also the one central chat: say "status" there for the overview, or "tell the <x> chat ..." to reach a Codex chat. The Codex "0 - G" control chat and its monitor are retired (you can archive 0 - G). After deleting chats: name a Claude chat `0 - Approvals` and type `/approvals`.
 
@@ -29,9 +33,8 @@ paused._
 
 **Gojo run v14 (2026-10-15):** Astra's packed-atlas recheck passes visible anatomy and discrete-frame continuity; the v13 f6 arm/fist dropout is resolved. No new visible defect was established. The eight 60 ms GIF frames match the atlas. Strict hidden-segment measurements, live browser playback and runtime contacts remain unverified; Claude owns those checks and technical disposition. V14 repeats Part A for both halves, preserving the accepted same-lead-leg and forward-fist choices. The report and handoff are committed on `art/gojo-run` at `9b25a5a8`: [audit](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-run/art/characters/gojo/production/run-jkl/ASTRA_RUN_V14_AUDIT_v01.md>) · [review GIF](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-run/public/reviews/gojo-run-jkl/run_v14_loop_v01.gif>). This is technical screening, not a new visual approval; Claude will return with the review step after runtime checks. No art, pack or sidecar was changed in the audit.
 
-**Gojo dashes (2026-10-16):** backDash v07 is packed for technical review and Astra holds it on tucked-frame placement and uncertain occluded anatomy; dash v10 and superDash v12 remain quarantined after scale/clipping failures. No user action yet: Claude must review contact/root placement and decide whether the candidates can proceed. [PR #124 preview](https://gcd-tourney-p0i2vm96d-eshin087s-projects.vercel.app/reviews/gojo-dashes/) · [handoff](agents/CLAUDE_ART_HANDOFF.md).
+**Gojo dashes (2026-10-17):** dash v11 and superDash v13 (redrawn at the idle's body size) are approved and live (PR #141, `ca5e1fdd`); backDash v07 unchanged. Nothing waiting.
 
-**Beam clash (2026-10-16):** engine fixes and five effects are live. All seven round-2 poses are approved, including Killua air v02. Claude owns the pending Astra audit, exact hand-anchor measurements and runtime integration. The [round-2 phone page](https://gcd-tourney-em7kwfazh-eshin087s-projects.vercel.app/reviews/beam-clash-r2/) reflects the approval.
 
 **Scale loose ends: all five drawings approved via Claude.** User approved Naruto light2Alt05/airHeavyAlt04 and Killua charge14/down08/ko09 on 2026-10-15 (relay scale#6). Recorded on PR106 at1216e707 and PR105 atc9b2f9bc. [Reviewed preview](https://gcd-tourney-d2l8ht4cf-eshin087s-projects.vercel.app/reviews/scale-loose-ends/index.html) has historical pre-approval labels. No user action remains for these five. Claude owns final contact/grounding/aura checks and integration; no merge or production deployment by Codex.
 
@@ -53,11 +56,11 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-16 17:29 UTC._
+_Generated by `npm run status` at 2026-10-18 00:21 UTC._
 
-### Needs you now (0)
-_Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is on._
-- nothing
+### Needs you now (1)
+_Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
+- **decision** from Codex lane gojo-run: Gojo proportion study ready; choose A/B/C/D or another direction. Review preview: https://gcd-tourney-le2925xxp-eshin087s-projects.vercel.app/reviews/gojo-proportions/. A=current: neutral leg 106±5px / 215px standing bo…
 
 ### Still marked "needs review" in art/REVIEW.md (39)
 _Bookkeeping: the newest row of each asset. Anything the user must actually answer is in "Needs you now"._
@@ -74,7 +77,7 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 
 | fighter | references | core anims | all anims | next asset |
 |---|---|---|---|---|
-| goku | 3/3 | 23/23 | 23/58 | backDash (step 9, todo) |
+| goku | 3/3 | 23/23 | 24/58 | backDash (step 9, todo) |
 | luffy | 3/3 | 23/23 | 23/56 | backDash (step 9, todo) |
 | naruto | 2/3 | 23/23 | 54/54 | proportionSample (step 1, raw v02) |
 | sasuke | 2/3 | 23/23 | 44/55 | proportionSample (step 1, raw v01) |
@@ -94,17 +97,17 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - ART-KIL-TITLE-20261011: Killua full title-style redraw from the approved pilot [in-progress]
 - ART-TITLE-R3: Title-style round-3 redraws and movement scale reports [blocked]
 
-### Finished, waiting for a check (65)
-- ART-KIL-TITLE-R2 (Codex), ART-SCALE-R4-NAR (Codex Naruto worker), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), OPS-013 (Claude), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ART-BEAM-CLASH (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), QA-R4-ASTRA (Codex), ART-SCALE-R4-KIL (Codex), ART-SCALE-R4-SAS (Codex Sasuke sub-agent), TOOL-045 (Claude), TOOL-048 (Claude), TOOL-052 (Claude), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex), ART-R5-APPROVE-NARUTO (Codex), ART-R5-APPROVE-GOJO (Codex), ART-DECISION-SASUKE-20261015 (Codex), ART-R5-APPROVE-SASUKE (Codex), ART-DECISION-KILLUA-20261015 (Codex), ART-R5-APPROVE-KILLUA (Codex), ART-DECISION-NARUTO-20261015 (Codex), ART-R5-APPROVE-NARUTO-ALTS (Codex), ART-GOJO-RUN-JKL (Codex + Claude), ART-SCALE-LOOSE-20261015 (Codex), ART-LOOSE-NARUTO-20261015 (Codex), ART-LOOSE-KILLUA-20261015 (Codex)
+### Finished, waiting for a check (66)
+- ART-KIL-TITLE-R2 (Codex), ART-SCALE-R4-NAR (Codex Naruto worker), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), OPS-013 (Claude), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), QA-R4-ASTRA (Codex), ART-SCALE-R4-KIL (Codex), ART-SCALE-R4-SAS (Codex Sasuke sub-agent), TOOL-045 (Claude), TOOL-048 (Claude), TOOL-053 (Claude), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex), ART-R5-APPROVE-NARUTO (Codex), ART-R5-APPROVE-GOJO (Codex), ART-DECISION-SASUKE-20261015 (Codex), ART-R5-APPROVE-SASUKE (Codex), ART-DECISION-KILLUA-20261015 (Codex), ART-R5-APPROVE-KILLUA (Codex), ART-DECISION-NARUTO-20261015 (Codex), ART-R5-APPROVE-NARUTO-ALTS (Codex), ART-GOJO-RUN-JKL (Codex + Claude), ART-SCALE-LOOSE-20261015 (Codex), ART-LOOSE-NARUTO-20261015 (Codex), ART-SIZE-R6 (Codex + Claude), ART-LOOSE-KILLUA-20261015 (Codex), ART-GOJO-PROPORTIONS (Codex + Claude)
 
 ### Open user decisions
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
-- 2e6b47cb 10-16 10:29 fix(docs): restore CLAUDE_ART_HANDOFF.md emptied by the PR #131 conflict resolution
-- 5f52a02c 10-16 10:28 Merge branch 'art/super-art-r2b'
-- 6653b70a 10-16 09:59 Merge branch 'fix/deploy-sparse-art'
-- 83eec729 10-16 09:59 Merge branch 'main' into art/super-art-r2b
-- d36f9155 10-16 09:48 docs(tasks): online play live and paused; follow-ups ENG-098, ENG-099, OPS-017
-- 67262341 10-16 09:38 Merge branch 'fix/det-fixtures-refresh'
+- b76b3651 10-17 17:20 Merge branch 'art/beam-clash-r3'
+- 17698b2c 10-17 17:19 docs(now): queue Gojo proportion study decision
+- ad08c4d6 10-17 17:16 docs(agents): update ART-SIZE-R6 approval handoff
+- ed5dc42d 10-17 17:08 docs(agents): hand off Sasuke calibration review
+- 3e321c7b 10-17 17:03 test(net): re-record the determinism fixtures after the Goku and Sasuke struggle strips
+- 5c0ed0bf 10-17 17:03 docs(agents): ART-SIZE-R6 measured correction (beamStruggle x1.10, Gojo heavy borderline)
 <!-- status:end -->

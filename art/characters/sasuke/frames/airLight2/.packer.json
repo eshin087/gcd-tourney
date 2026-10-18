@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/airLight2_v02.png",
-  "version": 2,
+  "sourceFile": "raw/airLight2_v04.png",
+  "version": 4,
   "source": [
-    "characters/sasuke/raw/airLight2_v02.png"
+    "characters/sasuke/raw/airLight2_v04.png"
   ],
-  "sourceHash": "240a55b02635834dea12d434a6ffe17547bea3a6",
-  "bodyHeight": 207,
+  "sourceHash": "9d39a4d01f8985d634162c6fea0d232be335461d",
+  "bodyHeight": 203,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,10 +17,10 @@
     ]
   },
   "files": {
-    "airLight2_00.png": "59b23264f0d45f86b6efc6bea59db175da55c367",
-    "airLight2_01.png": "34a888b561e423403f09bea18f0f4f911ecf9f5e",
-    "airLight2_02.png": "841d169f152caf247eeef564a3bbe70eb311ded8",
-    "airLight2_03.png": "a897c1dcfce279997adbf31f055b0946911c97bb",
-    "airLight2_04.png": "4e02559bb681140a83f597e29a1df9fba8360dd1"
+    "airLight2_00.png": "fd649c2e333dec5e40ead2a7ed2cd2e4af55b7cb",
+    "airLight2_01.png": "569f627c0fd0c386758a4accee6d9e650a77fb4a",
+    "airLight2_02.png": "4fca9f86430ecb725dfcc4ad8159a6182e8cd215",
+    "airLight2_03.png": "4f4d5fd936fa223441b6bd8285b771b403798b32",
+    "airLight2_04.png": "88d73cfee6026bd779a9fa9d0c58c24674fbd565"
   }
 }

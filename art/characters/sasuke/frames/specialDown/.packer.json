@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/specialDown_v01.png",
-  "version": 1,
+  "sourceFile": "raw/specialDown_v04.png",
+  "version": 4,
   "source": [
-    "characters/sasuke/raw/specialDown_v01.png"
+    "characters/sasuke/raw/specialDown_v04.png",
+    "characters/sasuke/raw/specialDown_v04.json"
   ],
-  "sourceHash": "2236fcba9757df67f2d362c2eb755c41ab60829e",
+  "sourceHash": "16cc2c451c8d1f4f0e1a88689e646b0012dabcfb",
   "bodyHeight": 204,
   "cell": {
     "frameWidth": 256,
@@ -16,10 +17,11 @@
       240
     ]
   },
+  "autoHead": 0.8961,
   "files": {
-    "specialDown_00.png": "4ecf3e4754f7e766543909373307cdd28f58a021",
-    "specialDown_01.png": "2d3dda1a13bbc3ba25b783b011f0897f6ad74670",
-    "specialDown_02.png": "e205cb401585efd7ccb1ae04e7b5ab9fb9c9288f",
-    "specialDown_03.png": "44a3ba66f2555d9882e3ee0429d9d9c281241e97"
+    "specialDown_00.png": "417f19102ff3cd802da5e4b82fa6de36dfeb502f",
+    "specialDown_01.png": "d2874f0a3dd1aac31772bda742080541c1279b27",
+    "specialDown_02.png": "9ad6893cdd49b0d00e5a02a04f4296f3c4019d95",
+    "specialDown_03.png": "89a7a37cd75c78647f5f366101dbcd8bf1f45379"
   }
 }

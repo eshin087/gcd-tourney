@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/beamFire_v01.png",
-  "version": 1,
+  "sourceFile": "raw/beamFire_v07.png",
+  "version": 7,
   "source": [
-    "characters/sasuke/raw/beamFire_v01.png"
+    "characters/sasuke/raw/beamFire_v07.png",
+    "characters/sasuke/raw/beamFire_v07.json"
   ],
-  "sourceHash": "a689fa2b93a57c0fcc30371c9f5acca5cda3bced",
+  "sourceHash": "006476d0b27c32733259a6a35e2329e409d22886",
   "bodyHeight": 198,
   "cell": {
     "frameWidth": 256,
@@ -16,9 +17,10 @@
       240
     ]
   },
+  "autoHead": 0.8482,
   "files": {
-    "beamFire_00.png": "af29478892dce643bed804ddc9001046b97407f0",
-    "beamFire_01.png": "062f1cfc6052e23eee8131b74b51c5099e58e96e",
-    "beamFire_02.png": "70dbc10543eb2c50d305b5e3c574bff0e07ea860"
+    "beamFire_00.png": "9dee0abe09e8fd13982fcfc19fe69d2d660bcc7f",
+    "beamFire_01.png": "aaa8c1ad848927af495383482a9e5fa1dede91f9",
+    "beamFire_02.png": "6192d1da764935a67c07d4cc81c99a18ccb62352"
   }
 }

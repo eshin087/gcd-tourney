@@ -169,6 +169,10 @@ User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical
 
 ## sasuke
 
+Beam clash round 4: ground `beamStruggle_v02` selected from attempt03 after relay #14 authorized 3 additional calls (cumulative 6/6). Quantized candidate auto head gate passes against idle; Astra holds torso (32–35 px vs39–44) and hand stability (fingertips x214/199/208 ±2 move 15/9 px); legs improve to 81–86 vs83–90 px. v02 remains in `raw/_qa_hold/`, v01 stays approved/live (`approvedVersion` 1), no production atlas or user approval. See [generation ledger](characters/sasuke/production/beam-clash-r4/GENERATION_LOG.md), [measurements](characters/sasuke/production/beam-clash-r4/MEASUREMENTS.md), and [round-4 review assets](../public/reviews/beam-clash-r3/). All three air strips unchanged.
+
+
+
 Round4: superDash v07, beamFire v07, dash v07 need review. jumpSquat v07 is user-approved as drawn; technical HOLD remains; standard strict pack fails because v06 manual QA does not apply. A separate gate-warn diagnostic atlas is filed under `production/round6/diagnostic-v07/`; its head/body scale verdict remains unmeasured. All9 prior strips inspected; numerical joint/skull certification remains inconclusive, SD clips10/4px, strict pack holds JS. Production atlas preserved. [Audit](characters/sasuke/production/round4/SEGMENT_AUDIT.md).
 
 
@@ -281,7 +285,7 @@ activation, `superPose` = Whirlwind pose. 42 animations = 175 frames = an 11-row
 | 9 | backDash | 3 | - | no | 160 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | superDash | 2 | - | no | 98 | approved | v08 | v08 | User approved superDash v08 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | jumpSquat | 1 | - | no | 115 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | airLight2 | 5 | 1/2/2 | no | 170 | approved | v08 | v07 | v08 generated in ART-SIZE-R6; held under raw/_qa_hold after strict pack failed (head 1.06, feet 1.21). v07 remains the approved version. Segment evidence does not justify the correction yet; no user approval requested for v08. |
+| 9 | airLight2 | 5 | 1/2/2 | no | 170 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight3 | 6 | 2/2/2 | no | 180 | approved | v09 | v09 | Title-style v09 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | block | 2 | - | no | 151 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | hurtLow | 3 | - | no | 149 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -348,13 +352,13 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 7 | beamCharge | 3 | - | **yes** | 215 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | beamFire | 3 | - | **yes** | 215 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | special | 8 | 3/3/2 | **yes** | 232 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
-| 8 | dash | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 8 | dash | 2 | - | **yes** | 174 | approved | v11 | v11 | User approved v11 via Claude relay gojo-run #11 despite Astra size holds; values and uncertainty remain in the audit. Packed v11 is in this branch; Claude owns contact check before merge. [Review](../public/reviews/gojo-dash-size/) |
 | 8 | jumpUp | 2 | - | **yes** | 215 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | jumpFall | 2 | - | **yes** | 227 | approved | v06 | v06 | User approved jumpFall v06 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 8 | land | 2 | - | **yes** | 189 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | win | 4 | - | **yes** | 230 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | backDash | 3 | - | no | 225 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | superDash | 2 | - | no | 140 | approved | v09 | v09 | User approved superDash v09 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
+| 9 | superDash | 2 | - | no | 140 | approved | v13 | v13 | User approved v13 via Claude relay gojo-run #11 despite Astra size holds; values and uncertainty remain in the audit. Packed v13 is in this branch; Claude owns contact check before merge. [Review](../public/reviews/gojo-dash-size/) |
 | 9 | jumpSquat | 1 | - | no | 176 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v05 | v05 | User approved airLight2 v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v12 | v12 | User approved v12 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. v12 needs review; full strict ok (0.972), all x59..214, six heel-kick phases. Impact heel reach requires Claude gameplay/contact check. A1/B2 budget exhausted. Approved v10 retained. |
@@ -406,10 +410,10 @@ Brief, per-fighter poses and rules: [characters/BEAM_STRUGGLE_BRIEF.md](characte
 | fighter | beamStruggle | beamStruggleAir | the technique | notes |
 |---|---|---|---|---|
 | naruto | approved | - | Rasengan, two-handed push | v02 approved as drawn via Claude approval desk relay #7 (“Approve all 6”); v01 remains held. Strict pack passes (head .95-.98); body-area B=.65-.67 advisory accepted. Palm anchor [232,124] across frames. Astra audit pending; see Round 2 review page. |
-| sasuke | approved | approved | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | Ground and air v01 approved via Claude approval desk relay #7. ART-SIZE-R6 v04 was rejected via Claude relay #6 as too large (packed head template match 1.11-1.17 at bodyHeight152). v05 is a no-call copy of v01 pixels at bodyHeight134 and awaits user review; main currently has approved v02 (PR #140), so v05 is an alternate candidate. See `scale/size-r6/SASUKE_BEAMSTRUGGLE_V04.md` and `SASUKE_BEAMSTRUGGLE_V05.md`. |
+| sasuke | approved | approved | Chidori Spear thrust; in the air the Great Fireball (blown from the mouth, hand sign at the lips) | Ground v02 approved by the user via Claude relay beam-clash #15 (quote: “Goku v01: Approve v01. Sasuke v02: Approve v02.”); approvedVersion 2. Packer head gate passes, but Astra holds torso/loop and arm certainty; approval does not clear technical holds. Three air strips unchanged. See Round 4 review page and audit. |
 | killua | approved | approved | Narukami, open palm (in the air driven down) | Ground v01 approved via Claude approval desk relay #7; air v02 approved as drawn via relay #10 (“Approve v02”). Air v01 remains preserved as rejected/superseded in raw/_rejected after its technical gate failure. V02 strict quantized pack passes; body sheet H=.97–1.03, B=.97–.99, no body flag. Astra audit and exact hand-anchor measurement remain before runtime integration. See Round 2 review page. |
 | gojo | approved | approved | Reversal: Red at two fingertips, other hand in the pocket (in the air pointed down) | Ground and air v01 approved via Claude approval desk relay #7; strict packs pass. Astra audit pending; see Round 2 review page. |
-| goku | todo | - | Dragon Fist lunge | after his core art is on main; no air energy shot |
+| goku | approved | v01 | Dragon Fist lunge | Ground-only v01 approved by the user via Claude relay beam-clash #15 (quote: “Goku v01: Approve v01. Sasuke v02: Approve v02.”); bodyHeight 205/factor .338. Technical holds remain: strict quantized diagnostic fails unmeasured-head gate and clips f2 right 1 px; title-combat vs beamFire head/boot density differs, front knuckles exceed brief zone, Astra holds shoulder/chest anatomy. Diagnostic atlas is not official and no runtime offsets/anchors promoted; no air strip. See Round 4 review and MEASUREMENTS.md. |
 
 ## Attack alts (ADR 0031)
 

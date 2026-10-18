@@ -1,14 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/ko_v02.png",
-  "version": 2,
+  "sourceFile": "raw/ko_v07.png",
+  "version": 7,
   "source": [
-    "characters/sasuke/raw/ko_v02.png",
-    "characters/sasuke/raw/ko_v02.json"
+    "characters/sasuke/raw/ko_v07.png"
   ],
-  "sourceHash": "856a23cf8e7049281693ab7affb4bc84f49aee8f",
-  "bodyHeight": 64,
+  "sourceHash": "8872f2c2fa8e488d75364a4f5d3a52784db84e37",
+  "bodyHeight": 86,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -18,6 +17,6 @@
     ]
   },
   "files": {
-    "ko_00.png": "7dfcc01f4e24c99bce877e68db34282a2403b2ee"
+    "ko_00.png": "e05f7f9651ec6f08c59154ab14e5aa40a582c2e8"
   }
 }

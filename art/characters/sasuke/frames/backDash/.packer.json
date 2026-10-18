@@ -1,13 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/backDash_v01.png",
-  "version": 1,
+  "sourceFile": "raw/backDash_v07.png",
+  "version": 7,
   "source": [
-    "characters/sasuke/raw/backDash_v01.png"
+    "characters/sasuke/raw/backDash_v07.png",
+    "characters/sasuke/raw/backDash_v07.json"
   ],
-  "sourceHash": "f1edccc8150b4a64b19085c27e51da9dcff87123",
-  "bodyHeight": 207,
+  "sourceHash": "85d6b7ec4de15f7a94f9dee2e91bed706882b5f3",
+  "bodyHeight": 180,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -16,9 +17,10 @@
       240
     ]
   },
+  "autoHead": 0.9328,
   "files": {
-    "backDash_00.png": "99378b720b4a9b397d1921c99459d02d082be498",
-    "backDash_01.png": "80764de47f3ce27b8ec5418249e4d800f235e8f5",
-    "backDash_02.png": "613d048dc33d26375dbf9412bc0cf8034e77eaa2"
+    "backDash_00.png": "3c83a885aa4ee4b1657a474844bcef14af58d8a0",
+    "backDash_01.png": "7588e168e0d672462ffa2bd26b4ee508f6b58d41",
+    "backDash_02.png": "a428930a9487410efed5514a04f93395070027ce"
   }
 }

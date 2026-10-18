@@ -1,14 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/airHeavy_v02.png",
-  "version": 2,
+  "sourceFile": "raw/airHeavy_v04.png",
+  "version": 4,
   "source": [
-    "characters/sasuke/raw/airHeavy_v02.png",
-    "characters/sasuke/raw/airHeavy_v02.json"
+    "characters/sasuke/raw/airHeavy_v04.png",
+    "characters/sasuke/raw/airHeavy_v04.json"
   ],
-  "sourceHash": "8862aab2e77c2a06feff8b5e5915b8a2255c34e1",
-  "bodyHeight": 198,
+  "sourceHash": "ef999cc08b3d78507e91e784de3c6a8e9789c70c",
+  "bodyHeight": 208,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -18,11 +18,11 @@
     ]
   },
   "files": {
-    "airHeavy_00.png": "0a1222d49705b0dd59944e605f397d775376a031",
-    "airHeavy_01.png": "9b0653c67b08b18f9896063eb954a707287345f1",
-    "airHeavy_02.png": "0524d84f2c14650c09c33a2f9ec8e09b2fcbf879",
-    "airHeavy_03.png": "a164b91b6c26162f460be3fae27fa2895a1372b2",
-    "airHeavy_04.png": "52d56a1789937ae294430b1d21cd0823bf7207e3",
-    "airHeavy_05.png": "5943bbb648235b193d4962cc50bbbc92fb39360a"
+    "airHeavy_00.png": "1508d4676b805b21ae07d344fc79db9cdac30bb6",
+    "airHeavy_01.png": "a9a99af2634a738e9202aa8d62b30252201daa71",
+    "airHeavy_02.png": "6d53f131f59100463800a7c31ab5320367302c41",
+    "airHeavy_03.png": "c9a22a14b576ab793e5233de303e58356b1ce906",
+    "airHeavy_04.png": "44b1ff6039621d50ce34a0224cedb8c12db2dbc2",
+    "airHeavy_05.png": "6540afbce78529d65029e897f6e5f2e19db36f62"
   }
 }

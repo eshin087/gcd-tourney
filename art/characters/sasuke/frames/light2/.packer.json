@@ -1,14 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/light2_v01.png",
-  "version": 1,
+  "sourceFile": "raw/light2_v07.png",
+  "version": 7,
   "source": [
-    "characters/sasuke/raw/light2_v01.png",
-    "characters/sasuke/raw/light2_v01.json"
+    "characters/sasuke/raw/light2_v07.png",
+    "characters/sasuke/raw/light2_v07.json"
   ],
-  "sourceHash": "cb991bbff48874bdf10bbb47ceab3e716c3c47f0",
-  "bodyHeight": 204,
+  "sourceHash": "77b61687766a4931b67ccba2d9f2dfe4873e7e99",
+  "bodyHeight": 180,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -18,12 +18,12 @@
     ]
   },
   "files": {
-    "light2_00.png": "e52d23f38d70cb5565f611b654ae507538d4910e",
-    "light2_01.png": "8e8f0ddd8058b0d01c3d8012ac3f7e22e0e48f35",
-    "light2_02.png": "35494fb5331cf1725dbd419108e4e0dc7791b32e",
-    "light2_03.png": "4cf79c3c5d925aad425da48953599364de3c37ab",
-    "light2_04.png": "78bd6fe9492d9e1cb904dd9e17e6cc627e87c974",
-    "light2_05.png": "bfaf79e463e31051c306c656d226e4a9947b2dea",
-    "light2_06.png": "62ed0a6d15e8a1a45fc30f1dd99a62ea9cda6bff"
+    "light2_00.png": "72459d41d73291e895d9e3b99a2d653712497247",
+    "light2_01.png": "4a370eb981ca6ccf858fa6d5f6b2903b5a3274d8",
+    "light2_02.png": "9a4ee49b2ba44f9077f86c51b8da9552457866ac",
+    "light2_03.png": "42f2401ec7f6c651dfd7e76ff74fd0a789050094",
+    "light2_04.png": "bd83a75fb6331f28043de12482e13b64cf61cba1",
+    "light2_05.png": "0d3637868d5761b7a4545391713997e909b27653",
+    "light2_06.png": "b7b4fe8dcc63da092cd7c821991a7176f77f015e"
   }
 }
