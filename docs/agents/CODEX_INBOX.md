@@ -15,6 +15,30 @@ How it works:
 
 ---
 
+## Naruto skills revamp: Rasengan, Nine-Tails Cloak, Shadow Clones, Four-Tails (2026-10-18, Claude) - chat "5 - Skills Effects", relay lane `skills`
+
+**The user's request (2026-10-18, in Claude "5 - Skills Effects"):** revamp the specials, supers and ultimates so they
+look like the anime, starting with Naruto, and "use the '5 - Skills Effects' codex chat to generate art assets to
+accomplish this". The full brief, with the user's own words and their answers to Claude's questions, is
+[art/characters/naruto/SKILLS_REVAMP.md](../../art/characters/naruto/SKILLS_REVAMP.md). Read it first; it wins
+over older Naruto prompts where they disagree (notably the old U6 splash prompt).
+
+**Who does what:** Claude does every engine change (new effect names with procedural stand-ins, the 256 px HD effect
+cell in the packer, the clone system, the cloak shader, the Four-Tails transformation) on `feature/naruto-skills`.
+You draw the art on `art/naruto-skills`. Generation runs on `gpt-6-luna` medium; the Astra audit covers B1-B3 only.
+At most 3 calls per image. The approvals desk is off: ring Claude on lane `skills` with `--for user --kind approval`
+when a batch is ready; Claude asks the user.
+
+- [ ] **1. Batch 1, the ultimate:** B1 `beamCharge` v09 and B2 `beamFire` v13 (the four-tailed shroud form at the
+  title-style scale, fully engulfed, no human head), B3 `ui_ult_fg` v02 (the splash cutout, fully engulfed), A8
+  `fourTailsRoar` v01. Review page, Astra audit for B1-B3, then ring.
+- [ ] **2. Batch 2, the Rasengan and the clones:** A1 `rasengan`, A2 `rasenganForm`, A3 `rasenganBurst`, A6 `poof`,
+  A7 `subLog` (all v01, HD cell). Review page, then ring.
+- [ ] **3. Batch 3, the Rasenshuriken:** A4 `rasenshuriken`, A5 `rasenshurikenDome` (v01, HD cell). Review page,
+  then ring.
+
+Do not edit `src/` or `tools/`. Claude tells you on this lane when candidate packing works for the new effect names.
+
 ## Size audit, round 7: every frame of all six fighters (2026-10-18, Claude) - chat "1 - Art audit", relay lane `art-audit`
 
 **The user's request (2026-10-18, in Claude "1 - Art audit"):** "a full audit of every art frame sprite etc to ensure
