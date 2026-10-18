@@ -158,7 +158,12 @@ behind / both sides), `feet` (a light pop: they land on their feet) and `charge`
 - **Smash air** (not juggling): the facing holds through the jump (a back air hits behind; jumping over someone is a
   cross-up), aerials fall with normal gravity and air control, a jump can carry several aerials, each aerial has its own
   landing lag. **The DBFZ juggle** (an air attack started beside an opponent reeling in the air, within 3.2 units) floats
-  level with them, turns to them, rides the air string along and keeps one air string per jump, as before.
+  level with them, turns to them, rides the air string along and keeps one air string per jump, as before. In a DBFZ
+  juggle (they reel from a launch, a spike, a bounce, a super dash or the air string, not from a light pop) **Light is
+  the air string whatever the stick says** and ↓ + Light the spike (`Fighter.dbfzJuggle`, ENG-113): the stick held toward
+  them to follow the launcher no longer swaps the string for a single forward air, and an up air there can't land them
+  on their feet and end the combo. The C-stick still picks its aerial; after a light pop (up tilt, up / forward air) the
+  directional aerials are back.
 - **Light pops land on the feet** (`feet`: up tilt, dash attack, forward and up air): a short landing (4 frames), no
   knockdown, no floor bounce.
 - **Stand-in strips.** Until a fighter's sheet has its own strip, a move shows the strip `FALLBACK` names (forward

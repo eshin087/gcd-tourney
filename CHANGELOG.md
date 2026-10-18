@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed (ENG-113, ADR 0042 amended): the DBFZ air combos are back. In a juggle off a launcher, spike, bounce, super dash or the air string, Light is the air string again whatever direction you hold (↓ + Light the spike), so following the launcher with the stick held toward them no longer cuts the string to one forward air; the CPUs stop ending those juggles with an up air that landed the victim on their feet. The directional aerials stay for the open air and after a light pop, and the C-stick still picks them. Also fixed: a vanish started right after an air string's juggle tracking stepped the fighter toward a victim pinned on the barrier could leave them a hair past it for the vanish (a soak ring violation).
 - Changed (ART-SIZE-R7): archived the Codex audit worktree after PR #153 merged the independent table; no redraws or image calls were needed.
 
 - Changed (ART-SIZE-R7, ADR 0041): Goku and Luffy are 8 % smaller in game (user option A, 2026-10-18), on the cast's 1.17 px per cm of canon height: Goku had shipped at 1.08x his approved reference and stood as tall as Gojo, and Luffy's reference was drawn large. New manifest field `packScale` makes the packer resize a whole fighter (every strip's bodyHeight, frameOffsets and hitboxes.json anchors); no drawing changed. Their hit boxes shrink with the art (Goku heavy reaches 117 px instead of 127). `npm run test:sprites` covers it.
