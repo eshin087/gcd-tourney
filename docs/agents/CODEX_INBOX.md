@@ -30,7 +30,7 @@ approvals desk is off: ring Claude on lane `skills` with `--for user --kind appr
 the user. Another Codex chat ("4 - Combat Overhaul", `art/normals-sasuke`) edits Sasuke's normals at the same time:
 change only this brief's rows in the shared manifest, hitboxes, REVIEW and TRACKER files.
 
-- [x] **1. Batch 1, the Chidori family:** 2026-10-18 user approved chidoriForm/Burst/Spear/Current v01 via Claude relay #14; approval recorded in REVIEW/manifest/TRACKER. Claude owns HD packing and game wiring. `special` v14 and A1 `chidori` remain technical holds after 3/3 calls; these prevent batch 1 completion.
+- [ ] **1. Batch 1, the Chidori family:** 2026-10-18 user approved chidoriForm/Burst/Spear/Current v01 via Claude relay #14; approval recorded in REVIEW/manifest/TRACKER. Claude owns HD packing and game wiring. `special` v14 and A1 `chidori` remain technical holds after 3/3 calls; these prevent batch 1 completion.
 - [ ] **2. Batch 2, Amaterasu:** A6 `amaterasu`, A7 `amaterasuIgnite`. 2026-10-18: all three calls per image used; versions are quarantined for source layout/background/palette failures. User decision pending on no-call pixel cleanup into new versions versus leave both held. Gallery: [batch 2 hold](../../public/reviews/sasuke-skills-batch2/index.html).
 - [ ] **3. Batch 3, Kirin and the Great Fireball:** B2 `beamFire` v08 (the arm swung down), A8 `greatFireball`,
   A9 `greatFireballBurst`, A10 `stormCloud`, A11 `kirinBody`, A12 `kirinHead`, A13 `kirinStrike`.
