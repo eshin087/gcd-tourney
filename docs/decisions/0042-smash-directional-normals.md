@@ -54,7 +54,11 @@ The user's answers to the design questions (2026-10-17):
    own landing lag (`landLag`, `autoCancel` on its recovery's tail).
 5. **The DBFZ juggle stays** where it was: an air attack started beside an opponent reeling in the air (within
    `AIR.juggle`, 3.2 units) floats level with them, turns to them, rides along with the air string and keeps the one air
-   string per jump. The launcher's chase is unchanged.
+   string per jump. The launcher's chase is unchanged. **Amended 2026-10-18 (ENG-113, the user: "air combo extensions
+   from the previous combat engine is gone"):** in a DBFZ juggle (not after a `feet` light pop) Light is the air string
+   whatever the stick says, ↓ + Light the spike, as before this ADR. Holding toward the opponent to follow the launcher
+   had turned the string into one forward air (5 hits instead of 7), and the CPUs' up air there landed the victim on
+   their feet and ended combos that used to run 13+ hits. The C-stick still picks a directional aerial.
 6. **Light pops land on the feet** (`feet` on up tilt, dash attack, forward and up air): the victim lands in a short
    landing instead of a knockdown, like Smash's low knockback. Everything else tumbles as before.
 7. **Stand-in art.** Each new strip is an optional animation (`animGuide.js`) with a `FALLBACK` to the nearest strip the
