@@ -15,6 +15,47 @@ How it works:
 
 ---
 
+## Gojo posture fix (option D): bent-knee hit reactions (2026-10-17, Claude) - chat "3 - Gojo", relay lane `gojo-run`
+
+**User decision (2026-10-17, in Claude "3- Gojo"), on the proportion study (branch `art/gojo-proportions`, d7cc62a9):**
+"D: posture fix (Recommended)". Gojo keeps his approved anatomy (title-style cells unchanged, ADR 0029); what changes is
+how his hit reactions are posed, so the straight, narrow legs stop reading as stilts. Task `ART-GOJO-POSTURE-D`
+(the study `ART-GOJO-PROPORTIONS` is done; B and C are not pursued). Idle, run and the dashes stay as they are.
+
+Scope: the three reaction strips the study named: **hurtHigh** (live v03), **hurtLow** (v04), **launched** (v06).
+Redraw each at the same body scale as the idle (head probe 0.97-1.03, body sheet B 0.93-1.07, segments within +/-6 %
+of the approved cells where visible), using the study's D fighting stance (`gojo-combat_study-D_v01.png`) as the
+reference for knee bend and stance width:
+- **hurtHigh**: knees bent and feet apart while the upper body snaps back; no two straight parallel legs in any frame.
+- **hurtLow**: keep the existing bent knees (the study found them fine); widen the stance to match D and keep the fold.
+- **launched**: legs tucked or split (one knee up, one trailing) instead of a straight pair.
+Same look: blindfold, navy jacket and trousers, black shoes; far hand pocketed only where today's strip has it.
+
+Do, in order (Luna/medium for generation; Astra/medium final audit, per CLAUDE.md "Agent model selection"):
+
+- [ ] 1. Reuse the study worktree or start `npm run pr -- start art/gojo-posture-d --art gojo` (dev port 5247). Work only
+  on that branch; the study's commits may ride along.
+- [ ] 2. `raw/hurtHigh_v04.png`, `raw/hurtLow_v05.png`, `raw/launched_v07.png` (next free versions; never overwrite a
+  `_vNN`, `_qa_hold` and `_rejected` included). Budget: **3 image calls per strip** (authorized by this decision). A strip
+  that misses after 3 calls goes to `raw/_qa_hold/` with the reason; the live version stays.
+- [ ] 3. Manifest `version` with status `needs review` (leave `approvedVersion`), ANIMATIONS.md sections, pack with
+  `node tools/pack-sprites.mjs gojo --quantize 48`, body sheet + `npm run lineup`.
+- [ ] 4. Astra/medium audits every frame and loop of the three strips in the packed atlas against idle f0 and the
+  approved neutral/combat cells (scale, knee bend actually present, no stilt pose). Luna fixes holds within budget.
+- [ ] 5. Review page `public/reviews/gojo-posture-d/`: old vs new for each strip, frame by frame and as a loop GIF,
+  beside idle f0 and the other three fighters' hurtHigh at one density; review rows, commit, `npm run pr -- open`,
+  `npm run pr -- preview`, handoff at the top of the branch's CLAUDE_ART_HANDOFF.md, then from main
+  `node tools/relay.mjs ring gojo-run --for user --kind approval --note "<versions; numbers; holds; preview link>"`
+  and stop. Claude "3- Gojo" asks the user (desk is off). Nothing is approved until a relayed `USER APPROVAL`.
+- [ ] 6. After approval: `approvedVersion`, `node tools/pr.mjs check <branch>` passes, commit, ring `gojo-run` for
+  Claude's contact check and merge. No merge or production deploy by Codex.
+
+Rules: edit only art/characters/gojo/**, public/reviews/gojo-posture-d/**, public/characters/gojo/** via the packer,
+the gojo block of art/manifest.json, the "## gojo" section of art/TRACKER.md and art/REVIEW.md rows. `art/size-r6`
+leaves Gojo hurtHigh, hurtLow and launched to this task (noted in its section).
+
+---
+
 ## Gojo proportion study: less lanky, variations for the user to pick (2026-10-17, Claude) - chat "3 - Gojo", relay lane `gojo-run`
 
 **User request (2026-10-17, in Claude "3- Gojo"):** "gojo seems a bit lanky due to his long legs. is there anyway we can
@@ -184,6 +225,7 @@ replaces the tier lists and the method in item 1.
 
 **Gojo dash and superDash are excluded from this round (2026-10-17):** the user asked for their redraw in Claude "3- Gojo";
 lane `gojo-run`, branch `art/gojo-dash-size` does them. Do not measure-fix or redraw those two here.
+**Gojo hurtHigh, hurtLow and launched are excluded too (2026-10-17):** the user picked a posture fix for them in Claude "3- Gojo" (lane `gojo-run`, task ART-GOJO-POSTURE-D).
 
 **User request (2026-10-17, in Claude "1 - Camera and Art"):** "identify which art frames and sprites have size issues
 and use existing codex chat '1 - Art and Camera' to fix any art". Claude checked the camera first: every fighter is
