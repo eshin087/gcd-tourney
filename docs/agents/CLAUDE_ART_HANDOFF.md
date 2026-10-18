@@ -1,6 +1,6 @@
 # Codex: ART-SIZE-R6 updated after Sasuke v02 shipped (2026-10-18, art-camera relay #7)
 
-Merged current main into `art/size-r6`. Sasuke `beamStruggle` remains exactly on main's approved v02 (bodyHeight153, PR #140); main's manifest entry, hitboxes and packed atlas were retained, then Sasuke was repacked from the merged main source at 48 colors. Superseded v04/v05 are quarantined in `raw/_qa_hold/` with `beamStruggle_SUPERSEDED.txt`; neither candidate ships. Killua airLight2 v08 remains held, Gojo heavy remains unchanged. No camera or engine changes. Next: run art guard, build, commit and open/update the PR; Claude owns merge. The stale v05 user approval ask was dismissed. 
+Merged current main into `art/size-r6`. Sasuke `beamStruggle` remains exactly on main's approved v02 (bodyHeight153, PR #140); main's manifest entry, hitboxes and packed atlas were retained, then Sasuke was repacked from the merged main source at 48 colors. Superseded v05 is quarantined in `raw/_qa_hold/` with `beamStruggle_SUPERSEDED.txt`; rejected v04 remains in `raw/_rejected/`. Neither candidate ships. Killua airLight2 v08 remains held, Gojo heavy remains unchanged. No camera or engine changes. Next: run art guard, build, commit and open/update the PR; Claude owns merge. The stale v05 user approval ask was dismissed. 
 
 ---
 # Beam clash round 4 — user approvals recorded; technical holds remain (relay #15)
@@ -1116,4 +1116,6 @@ Branch `art/gojo-dashes`, worktree `.worktrees/art-gojo-dashes`. New candidates:
 Machine manifest versions reflect the latest candidates while preserving approvedVersion, bodyHeight, frame offsets and hitboxes. No user approval, merge or production deployment. Build passes locally and on the Vercel preview. The phone-first preview is [Gojo dash family](https://gcd-tourney-p0i2vm96d-eshin087s-projects.vercel.app/reviews/gojo-dashes/) (PR #124); browser playback/live game QA could not be verified from this environment. Claude owns contact/root placement and any calibration; do not spend new calls without a new authorization. Review rows and attempt provenance: `art/characters/gojo/REVIEW_ROWS.md` and `production/dashes/ATTEMPT_INVENTORY.md`.
 
 ---
+## Relay #8 correction (2026-10-18)
 
+Claude confirmed the v05 approval ask was superseded by shipped Sasuke v02. Keep v05 under `raw/_qa_hold/`; keep user-rejected v04 under `raw/_rejected/` with its rejection record. Main’s v02 manifest entry, hitboxes and packed sheet remain unchanged. Gojo heavy and Gojo hurtHigh/hurtLow/launched remain untouched by this task.

@@ -169,6 +169,7 @@ Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`
 ---
 
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
+- [x] **Relay #7 superseding plan (2026-10-18):** main was merged into `art/size-r6`; Sasuke beamStruggle v02 from PR #140 was kept in manifest, hitboxes and the repacked atlas. v04/v05 moved to `raw/_qa_hold/` with a superseded note, and the obsolete v05 approval ask was closed. Art guard and production build pass; PR #142 is refreshed and waiting for Claude to merge. No user review needed. Killua airLight2 v08 remains held, Gojo heavy unchanged, camera left alone; broader candidate audit remains open.
 
 - [x] **Codex relay #6 rejection and v05 response (2026-10-17):** user rejected v04 (bodyHeight152, head match1.11-1.17) and requested a no-call v05 at bodyHeight134 from the same v01 pixels. v04 is preserved under `_rejected`; v05 retains the sleeve exemptions. PR #142 branch commits `a8edd690` and `4baec978`. The refreshed page includes current main-approved v02 (PR #140) beside v01, rejected v04 and v05: https://gcd-tourney-okk81f4to-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v05/. Build and preview build passed. The updated approval request is relay #7; v02 remains live on main until any future integration. Gojo heavy unchanged; diagnostics remain outside branch; no camera/engine change.
 
@@ -1983,3 +1984,4 @@ Direct user direction supersedes the earlier recommendation for model v02: v02 w
 - [x] **(2026-10-09) ART-CRWD-FIX:** superseded 2026-10-10: the user keeps the Killua and Gojo spectators in the
   crowd (approved with the rest). Do not replace them.
 - Noted by Claude: TOOL-018 (queue named flags lost through `npm run queue --` on PowerShell) is on Claude's list.
+

@@ -427,5 +427,6 @@ ART-GOJO-TITLE | Codex | in-progress | Approved title-style all42+3UI. All sourc
 
 | ART-LOOSE-NARUTO-20261015 | Scale loose ends | Codex | review | User approved light2Alt v05 and airHeavyAlt v04 as drawn via Claude relay on 2026-10-15. Approval bookkeeping recorded; strict contact/anatomy holds remain for Claude calibration. No atlas promotion, merge or deploy. |
 
-| ART-SIZE-R6 | Size consistency round 6, all six fighters; leave camera alone | Codex + Claude | review | Relay #7 plan executed: merged main; Sasuke beamStruggle v02 (PR #140) retained as the only packed version, v04/v05 moved to raw/_qa_hold with supersession note. Guard and production build pass; PR #142 refreshed for Claude merge. Broader candidate audit remains open. No camera/engine change. |
+| ART-SIZE-R6 | Size consistency round 6, all six fighters; leave camera alone | Codex + Claude | review | Relay #8 correction: main merged; Sasuke beamStruggle v02 (PR #140) kept in manifest/hitboxes/pack. v05 is quarantined under raw/_qa_hold with supersession note; rejected v04 stays under raw/_rejected. PR #142 refreshed for Claude merge; guard and build pass. Broad candidate audit remains open; no camera/engine change. |
+
 
