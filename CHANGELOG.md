@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (OPS-019): `tools/capped.ps1` runs a command (a dev server) under a memory cap and ends it with the shell that started it; `npm run dev:capped` is the normal dev server through it, and `npm run devs` (`tools/dev-servers.ps1`) lists the dev servers running now with their memory and warns when the machine's committed memory is near its limit. Nothing is scheduled or left running. Prompted by a Vite dev server that reached 131 GB of committed memory on 2026-10-17.
+
 - Fixed (ENG-113, ADR 0042 amended): the DBFZ air combos are back. In a juggle off a launcher, spike, bounce, super dash or the air string, Light is the air string again whatever direction you hold (↓ + Light the spike), so following the launcher with the stick held toward them no longer cuts the string to one forward air; the CPUs stop ending those juggles with an up air that landed the victim on their feet. The directional aerials stay for the open air and after a light pop, and the C-stick still picks them. Also fixed: a vanish started right after an air string's juggle tracking stepped the fighter toward a victim pinned on the barrier could leave them a hair past it for the vanish (a soak ring violation).
 - Changed (ART-SIZE-R7): archived the Codex audit worktree after PR #153 merged the independent table; no redraws or image calls were needed.
 
