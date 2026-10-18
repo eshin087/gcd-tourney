@@ -17,6 +17,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Fixed (ENG-116): Sasuke's Lion's Barrage no longer carries its victim past the ring barrier. The heel drop holds them a step beyond him, and with Sasuke as P2 his move runs after their physics, so a victim kicked up at the barrier hung up to 0.1 outside it for the slam (soak() `ring` violations, about 6 in 1,000 Impossible matches, all `launched` victims at x or z = ±8.63-8.65). A held body is now always placed inside the barrier (`kit.js` holdAt). The determinism fixtures are re-recorded on the new simulation fingerprint (62f829ffd0c7); both replay frame for frame.
+- Changed: the determinism fixtures are re-recorded after Killua's last three Smash moves (fingerprint 7b0732ad1069); both replay frame for frame.
+
+- Changed (ENG-112 Killua R2, relay #28): restored the user-approved uTilt v03, uSmash v02 and uair v02 drawings to the whole-character pack with measured, version-bound importer fits; recorded the accepted uair body-volume advisory, Astra's final fitted-atlas inspection and rebuilt packed review crops. Claude contact check remains.
 - Changed: the determinism fixtures are re-recorded after Killua's Smash-move art (fingerprint 85c19280c0f7); both replay frame for frame.
 
 - Added (ENG-112): Killua directional-normal v02 candidates for all ten moves, exact-call provenance and a packed review page; nine v02 strips were approved via Claude relay combat #20. dSmash v02 was not approved; the one authorized v03 round used three calls, selected attempt01, and produced a packed review page. All ten retain technical holds pending scale/layout/anatomy follow-up.
