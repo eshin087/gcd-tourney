@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (OPS-020): the relay authorizes each send once. A queued `codex queue` message arrives only after the Codex turn ends and cannot be withdrawn; on 2026-10-18 Codex read the user's decisions in NOW.md and `.relay/` early, made the image rounds, then made them again when sends #9 and #10 arrived (6 unwanted image calls). Every relay message now says to act on a user decision only from its own delivered `[relay <lane> #N]` message and to run `node tools/relay.mjs check <lane> <N>` first (DONE or VOID: do nothing, exit 7) and `done <lane> <N>` after; `send --supersedes <N>` voids a queued send it replaces, and `relay status <lane>` lists the last sends as open, done or void. Rules in AGENTS.md, CLAUDE.md, AI_COLLABORATION.md, ADR 0033 amended.
+
 - Changed (ART-SKL-SAS): the user authorized a third `art/sasuke-skills` worktree alongside the two Smash normals worktrees (relay skills #13); the two-worktree cap remains for Smash normals rounds. Batch 1 is in progress; no image approval is implied.
 - Fixed (TOOL-PALETTE-RESERVE, ADR 0046): Naruto's Four-Tails fox is crimson in game again, as approved (beamCharge v17, beamFire v15), instead of red-brown with a peach mouth. Packed at 48 colours, his orange jumpsuit took the fox's colours; the new manifest field `paletteReserve` gives the fox 8 of the 48, taken from near-duplicate dark greys the rest of his strips barely miss (2 % of their pixels move, by 2-10 levels; nothing visible). `npm run test:sprites` covers it.
 

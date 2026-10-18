@@ -154,7 +154,7 @@ documentation that stays true.
 | `npm run devs` | read-only list of the dev servers running now (`tools/dev-servers.ps1`): ports, age, committed memory, browser connections, folder, and the machine's committed memory against its limit; flags servers with no browser connected for an hour and servers over 2 GB. Check it when a task ends and stop your own idle servers (`Stop-Process -Id <PID>`) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
-| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`, `desk [on\|off]` (the user's switch, ADR 0040); state in git-ignored `.relay/` |
+| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`; `--supersedes <N>` voids a queued send it replaces), `check <lane> <N>` (Codex, before acting on `#N`: open, or DONE/VOID exit 7), `done <lane> <N>` (send `#N` carried out; OPS-020), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`, `desk [on\|off]` (the user's switch, ADR 0040); state in git-ignored `.relay/` |
 | `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
 | `npm run lobby` | the online lobby server locally (`server/`, wrangler dev on `ws://127.0.0.1:8787`; a page on localhost uses it by itself). Deploy: `server/README.md` (the user's Cloudflare account) |
 | `npm run test:lobby` | lobby room rules test (`server/test/room.test.mjs`: RoomCore with a fake clock: line, relay, feed, results, forfeit, timeout); run after changes to `server/src/roomCore.js` |
@@ -415,6 +415,10 @@ A change is done when:
   "Relay watcher" (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue.
   If the watcher exits 2 saying it is still Codex's turn, start it again. If `send` fails, give the user the
   paste-in prompt instead. **Never tell the user to paste a decision into Codex**: relay it.
+  A send waits in the Codex chat's queue until its current turn ends, and nothing withdraws it (OPS-020). Codex acts
+  on each `#N` once: it runs `relay check <lane> <N>` on delivery and `relay done <lane> <N>` when finished. To replace
+  a send that may still be queued, send the new one with `--supersedes <N>` (its delivery then says VOID); when a ring
+  shows Codex already did a queued send's work, run `relay done <lane> <N> --note "<where>"` so its delivery does nothing.
 - **All approvals happen in Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)), **at the desk**
   `0 - Approvals` ([ADR 0039](docs/decisions/0039-approvals-desk.md); the rest of this bullet is the desk's job).
   In any other chat, a lane watcher that says "Codex needs the USER" means the desk is off: send one PushNotification
@@ -448,7 +452,10 @@ Locate main with git worktree list. Run node tools/relay.mjs status from main.
 - Preserve approval, BLOCKED and pause brakes. If only the user's approval or decision remains, ring once with
   `--for user --kind approval|decision|blocked` (ADR 0037: Claude asks the user with buttons), update NOW.md and
   stop; that ring never authorizes further production. Proceed only on a relayed `USER APPROVAL`/`USER DECISION`
-  or the user's own message. Do not reset/resume a paused lane or bypass a hop limit to complete this check.
+  or the user's own message. A relayed one counts once it is delivered as its own `[relay <lane> #N]` message and
+  `relay check` calls it open; reading NOW.md, the inbox or relay status for this check never authorizes acting on a
+  decision whose message is still queued (AGENTS.md relay rules, OPS-020). Do not reset/resume a paused lane or
+  bypass a hop limit to complete this check.
 - Subagents report the handoff requirement to their parent; the owning chat rings once unless the handback
   was explicitly delegated. Claude maintains a background watcher for each active lane and reads the
   committed handoff when notified. A ring without a watcher is queued, not proof that Claude read it.

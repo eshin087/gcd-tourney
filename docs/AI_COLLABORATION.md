@@ -224,6 +224,14 @@ Stops:  4 round trips without the user (send exits 3; only sends that answer a n
 - The relay carries no content: the inbox, `CLAUDE_ART_HANDOFF.md` and the branches still hold the handoff. Approvals
   happen in Claude ([ADR 0037](decisions/0037-approvals-in-claude.md)): only a `USER APPROVAL via Claude` relay
   quoting the user's answer (or the user typing in the Codex chat) approves an image; a plain relay note cannot.
+- **One delivery, one authorization** (OPS-020). `codex queue` delivers a send only after the chat's current turn
+  ends, and a queued send cannot be withdrawn. On 2026-10-18 Codex read the user's decisions in NOW.md and `.relay/`
+  during one long turn, made the authorized image rounds early, then made them again when the queued sends arrived.
+  So Codex acts on a user decision only from its own delivered `[relay <lane> #N]` message, runs
+  `relay check <lane> <N>` first (DONE or VOID, exit 7: do nothing) and `relay done <lane> <N> --note "..."` once
+  the work is finished. Claude replaces a queued send with `send <lane> ... --supersedes <N>` (the old one becomes
+  VOID), or records one as done when a ring shows Codex already did its work. `relay status <lane>` lists the last
+  sends as open, done or void once a lane has records (`.relay/<lane>/sends/<N>.json`).
 - If `codex queue` fails, Claude gives the user the paste-in prompt, as before (an archived chat is unarchived
   and retried first). `node tools/relay.mjs status` shows whose turn each lane is (Claude, Codex or you), its round
   trips and whether a watcher is running.
