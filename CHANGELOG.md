@@ -14,6 +14,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: the determinism fixtures (public/det/naruto-sasuke-s7, gojo-killua-s3) are re-recorded on the current simulation after Sasuke's Smash-move art changed his anims.json (fingerprint ee21fe2e1574); both replay frame for frame.
+
 - Recorded the user's relay #12 selection of Sasuke dTilt low-kick attempt 3 for v05 review, with measured x0.8511 auto-head import fit, full quantized pack and updated frame/loop review page; drawing approval remains pending.
 
 - Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
