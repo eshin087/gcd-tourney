@@ -2,6 +2,8 @@
 
 Date: 2026-10-18. Source brief: `art/characters/naruto/SKILLS_REVAMP.md`, A4/A5.
 
+User approval: relay skills #10, “Approve rasenshuriken v01 and rasenshurikenDome v01.”
+
 | asset | calls | selected output and source SHA-256 | filed strip SHA-256 |
 |---|---:|---|---|
 | `rasenshuriken` v01 | 3/3 | built-in imagegen call 3; `rasenshuriken_v01_generated.png`; `574d97c6bacb7c8c8ef48ee477e82f17b74168e95927b0c32eb7779bb0b54bb4` | `d669ab4dcf4136d117e174b6669f4e944f32ace96eba88ab174d0d7fc5731a19` |
@@ -9,4 +11,4 @@ Date: 2026-10-18. Source brief: `art/characters/naruto/SKILLS_REVAMP.md`, A4/A5.
 
 `rasenshuriken` call 1 and call 2 outputs were generated but not retained after tool output capture failed; they are counted against the cumulative three-call budget and were not filed. Call 3 was selected. `rasenshurikenDome` used one call. No user references were attached. Each selected source was center-cropped into eight equal square cells (source canvases 1774x887 and 2172x724), nearest-neighbor resampled to 256x256 per cell, then quantized to its brief's hard-edged blue-white palette; magenta/pink fringe pixels were restored to exact `#FF00FF`. The filed raw strips are 2048x256. The review contacts and GIFs are derived from these strips.
 
-Technical state: visual source review only; no HD effect packer or in-game runtime check was available on this branch. Art awaits user approval.
+Technical state: visual source review only; no HD effect packer or in-game runtime check was available on this branch. Visual approval is recorded; engine packing and in-game integration checks remain with Claude.
