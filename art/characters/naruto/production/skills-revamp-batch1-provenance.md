@@ -36,3 +36,8 @@ No new image-generation calls were used. The cumulative budgets remain 3/3 for b
 - `fourTailsRoar_v01.png` is unchanged (SHA-256 `af5036ffa46e3dbe4a91531ef2e4faab0c42effd73815c1306e7a462f92a842d`). Temporary local merge of `feature/naruto-skills` at `7ff4c256` enabled candidate packing; it produced an 8-frame 2048x256 HD atlas. The merge was aborted afterward, so no Claude engine changes are included in this art branch.
 
 The review page is a static review artifact. It does not certify runtime splash rendering, final character atlas packing, contact zones, or scale. Astra's audit v02 records the raw seam and the remaining evidence boundary.
+
+
+## Four-Tails roar circular correction (relay skills #3, 2026-10-18)
+
+No image-generation call was made. `fourTailsRoar_v02.png` (SHA-256 `c73b1d3e54be81e284af19b4d99cd2284758d986113b727b23f63adeba45cbd7`) is a pixel edit derived from the previously packed `fourTailsRoar_v01` HD candidate atlas (v01 atlas SHA-256 `ca9fb92683b474066393484c3ab75352d26037ac69541fc896be641dbb613bd1`). Each of the eight 256px cells received a hard circular mask centered at (128,128), radius 118px. The vfx manifest sets fill to 0.922 (target 236px) to prevent the packer from scaling the burst back to cell edges. Candidate packing on a temporary feature/naruto-skills merge (aborted after packing) produced eight cells at x1.000; all alpha pixels measured within radius 117.99px of each cell center, with no cell-edge contact. FourTailsRoar packer reported 14 isolated specks removed and no effect-specific warnings. No engine/tool changes are included in the art branch.
