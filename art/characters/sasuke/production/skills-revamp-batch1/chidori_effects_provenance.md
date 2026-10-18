@@ -2,7 +2,7 @@
 
 Generated with built-in imagegen. Prompt source: art/characters/sasuke/SKILLS_REVAMP.md sections 2–3, A1–A5, with HD VFX style rules from art/SPEC.md / ADR 0044. Effects were generated independently without fighter reference images. Style-only VFX samples were inspected but not attached because their soft/noisy rendering conflicts with the hard-pixel brief.
 
-All assets use the specified lightning palette: #FFFFFF #E8F7FF #BFE8FF #7CC8FF #3E8CFF #2350D8 #141E78. Four effect candidates are now versioned and listed in the manifest/review queue; no image is approved.
+All assets use the specified lightning palette: #FFFFFF #E8F7FF #BFE8FF #7CC8FF #3E8CFF #2350D8 #141E78. Four effect candidates are versioned and listed in the manifest/review queue. The user approved all four via Claude relay skills #14: “Approve all four: Codex records the approval; I pack them in HD and wire them into the game.”.
 
 ## Candidate pack QA (2026-10-18)
 
@@ -11,7 +11,7 @@ Command: `node tools/pack-sprites.mjs vfx --candidates --no-writeback`.
 - Candidate manifest entries specify `hd: true`, but `normalizeManifest()` in `tools/pack-sprites.mjs` does not preserve that field. The pack therefore writes only `public/preview/vfx/atlas.png` at 128 px cells and does not create `atlas_hd.png`. This is a packer/tooling hold for Claude; Codex did not edit `tools/`.
 - Packer frame counts after adding source sidecars `{"split":"even"}`: `chidoriForm` 6/6, `chidoriBurst` 8/8, `chidoriSpear` 8/8, `chidoriCurrent` 8/8. The Spear preview reports one clipped frame; it needs review before the source can be considered technically clean.
 - The source sidecars change only layout parsing and do not alter the generated PNGs. First pack trial wrote derived frame folders at the standard 128 px size; those generated folders were removed. The second pack trial used `--no-writeback`.
-- The four raw images are shown at [the batch 1 gallery](../../../../../public/reviews/sasuke-skills-batch1/index.html). Their image approval is still pending.
+- The four raw images are shown at [the batch 1 gallery](../../../../../public/reviews/sasuke-skills-batch1/index.html). The user approved all four via Claude relay skills #14 (quote recorded in REVIEW.md and manifest); Claude owns HD packing and integration.
 
 ## Saved source files
 
