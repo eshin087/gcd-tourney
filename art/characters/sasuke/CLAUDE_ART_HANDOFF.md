@@ -1,5 +1,19 @@
 # ENG-112 Sasuke normals handoff
 
+## uTilt deterministic head edit (2026-10-18, user decision via Claude relay combat #11)
+
+The user authorized no generation: enlarge only the hair-to-chin head of approved uTilt v01 about 8% around the neck/jaw,
+preserving poses and strip layout, then return it for seam review. v02 and v03 were already occupied by failed image edits,
+and a destructive local v04 operation exposed magenta seams, so the selected candidate is the next free version, uTilt v05.
+The source pixels and output hash, anchors, per-frame changed regions, and failed v04 record are documented in
+`production/uTilt_v05_pixel_edit.md`. The default quantized pack passes with Astra's version-bound f2/f3 arm-probe
+exemptions; the full strict-scale dry run fails on dTilt v06. Astra inspected packed cells 181–187: the requested head-edit
+seam/pose passes for review, but full numerical scale remains HOLD (readable f6 head .921 with ±2–3 px uncertainty; body
+B median .917 below the .93 advisory target). The user has not approved v05; v01 remains `approvedVersion`, and fallback
+remains active. Review page includes the raw edit, frame loop, before/after and measurement sheets. Next: request user seam
+review for v05 while clearly stating that drawing approval does not clear the numeric hold. No engine contact/runtime check
+was done by Codex.
+
 ## dTilt low-kick retry (2026-10-18, user decision via Claude relay combat #10)
 
 The user authorized one more round of up to three image calls specifically for a genuine crouched low kick, with arms in guard and no fist strike. Calls #8 and #9 were already spent in the prior turn; #10 was the only new call budget. Selected attempt 03 byte-for-byte as `raw/dTilt_v06.png` (six poses; kick in f2/f3, retraction f4, crouch f5). Attempts 01–03 remain under `raw/_qa_hold/`; exact prompts, call IDs, original/saved hashes, dimensions and dispositions are in `production/dTilt_v06_generation_attempts.md`.

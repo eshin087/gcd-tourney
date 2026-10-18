@@ -1,5 +1,17 @@
 # Art review queue
 
+## 2026-10-18 — Sasuke uTilt v05 — needs review, technical hold pending strict scale gate
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | sasuke | uTilt | [uTilt_v05](characters/sasuke/raw/uTilt_v05.png) · [before/after](../public/reviews/normals-sasuke/uTilt_head_before_after_v05.png) · [ENG-112 review](../public/reviews/normals-sasuke/#utile-v05) | v05 | needs review | Per user decision via Claude relay combat #11, deterministically enlarged only the head/hair to chin about 8% from approved v01 pixels, preserving pose and strip geometry. | No image generation calls. Nearest-neighbor 1.08 enlargement around seven neck/jaw anchors; canvas 2172x724. Default quantized gate passes with Astra-evidenced v05-only f2/f3 raised-arm probe exemptions; head median .996, range .079, feet metric 1.27. Astra inspected quantized cells 181–187: seam/pose PASS for review, but full numerical clearance HOLD: readable f6 head .921 with ±2–3 packed-pixel uncertainty and body-sheet B median .917 (below .93 target; advisory). User seam approval pending; no production promotion. Review atlas was packed with dTilt v06 temporarily held out, so this v05 candidate atlas includes approved dTilt v05. Strict all-strips dry-run fails on dTilt v06 (head 1.09, feet 1.50). Prior v02/v03 calls and v04 local edit attempt are preserved and not reused. [Pixel-edit/Astra record](characters/sasuke/production/uTilt_v05_pixel_edit.md). |
+
+## 2026-10-18 — Sasuke uTilt v04 deterministic edit attempt — technical reject, no candidate
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | sasuke | uTilt | [v04 edit attempt](characters/sasuke/raw/_qa_hold/uTilt_v04_edit_attempt.png) | v04 | rejected technically; no candidate | First local deterministic head enlargement attempt under relay combat #11. | Erasing the old head mask exposed magenta seams at the collar/back hair. Preserved in `_qa_hold`; not packed or presented as the selected edit. |
+
 ## 2026-10-18 — Sasuke dTilt v06 — needs review, technical hold
 
 | date | character | asset | file | version | status | what changed | QA notes |
