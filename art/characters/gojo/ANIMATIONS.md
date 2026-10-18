@@ -868,3 +868,44 @@ at cheek height, **never above the top of his hair**. Big grin, head tilted. Bli
 packed the game shows `land` / `airRecover` / `jumpUp` for the techs. Per-frame poses, this fighter's flavor, the
 prompt blocks and the QA: [TECH_POSES_BRIEF.md](../TECH_POSES_BRIEF.md) (ART-TECH-01); the generic rows:
 [_template/ANIMATIONS.md](../_template/ANIMATIONS.md#techground).
+
+## Directional normals (ADR 0042)
+
+These are optional visual replacements for the current stand-ins. Use Gojo's relaxed, economical style and mostly
+kicks; the serious adult proportions, small approved head, black blindfold, high collar, dark uniform, black shoes,
+facing-right 3/4 view, cell margins and height ceiling above still apply. A hand that stays in a pocket does not come
+out between frames. The per-move pocket schedule is stated below; every final recovery returns both hands to the
+pockets. In all body sprites the blindfold stays on, and no effects, speed lines or background are drawn.
+
+| Animation | What Gojo does |
+|---|---|
+| fTilt | A fast straight near-hand palm strike at chest height; the far hand stays pocketed. |
+| uTilt | An effortless rising kick arcing from in front of the face to above the opponent's head; both hands stay pocketed. |
+| dTilt | A compact crouched toe/instep poke at the opponent's shins; both hands stay pocketed. |
+| dashAttack | Carries his run into a low forward lunge and side kick to the opponent's body; far hand stays pocketed, near hand balances. |
+| fSmash | Holds frame 2 while charging, then drives a full-body near-palm blow forward at chest height; the far arm guards. |
+| uSmash | Drops into a crouch, then snaps a straight vertical kick upward to opponent-head height; both arms counterbalance. |
+| dSmash | Spins low and sweeps both legs to strike the front and back sides together at shin height; arms counterbalance. |
+| fair | Airborne near-leg front kick at the opponent's body height. |
+| bair | Facing right, snaps the near heel screen-left behind him at body height. |
+| uair | Airborne straight-up kick that reaches above the opponent's head; keep the foot below Gojo's own hair top. |
+
+**Pockets schedule for these strips:** fTilt: R hand out f0-f5 while L stays pocketed; both pocketed f6. uTilt and dTilt:
+both hands pocketed throughout. dashAttack: R hand out f0-f5 for balance while L stays pocketed; both pocketed f6. fSmash:
+both hands out f0-f7 for the charge, strike and recovery; both pocketed f8. uSmash and dSmash: both hands out through f6
+for balance; both pocketed on f7. fair, bair and uair: both hands out through f4; both pocketed on f5. Keep each pocketed
+hand hidden below the jacket hem with its elbow hanging in the same shape; do not draw a hand emerging mid-strip unless
+this schedule explicitly frees it.
+
+| Animation | Frames / phases | Pose and contact guidance |
+|---|---|---|
+| fTilt | 7, 2/2/3 | f0-f1 small shoulder turn and palm chamber; f2-f3 R palm heel forward at chest height (MID), fingers up; f4-f5 retract; f6 idle. |
+| uTilt | 7, 2/2/3 | f0-f1 knee chambers; f2 the near instep crosses the opponent's face-height space; f3 the rising arc reaches above the opponent's head without exceeding Gojo's hair ceiling; f4-f5 fold/recover; f6 idle. |
+| dTilt | 6, 2/2/2 | f0-f1 crouch; f2-f3 near toe/instep extends forward at shin height (LOW); f4 retracts; f5 idle. |
+| dashAttack | 7, 2/2/3 | f0-f1 carry the running stride into a low lunge; f2-f3 near leg extends forward at body height (MID); f4-f5 leg returns under him; f6 idle. |
+| fSmash | 9, 4/2/3 | f0 coil; f1 chambers; f2 is the held charge pose required by art/SPEC.md; f3 loads the full-body blow; f4-f5 R open palm extends at chest height (MID); f6-f7 retract; f8 idle. |
+| uSmash | 8, 3/2/3 | f0-f2 crouched anticipation; f3-f4 near leg drives straight upward to opponent-head height; f5-f6 descend/recover; f7 idle. |
+| dSmash | 8, 3/2/3 | f0-f2 crouch and turn; f3-f4 both legs sweep simultaneously, one toward screen-right and the other screen-left, at shin height (LOW); f5-f6 complete the turn/recover; f7 idle. |
+| fair | 6, 2/2/2 | f0-f1 airborne guard and knee chamber; f2-f3 near leg extends forward at body height; f4 retract; f5 air neutral with hands pocketed. |
+| bair | 6, 2/2/2 | f0-f1 airborne coil facing right; f2-f3 near heel strikes screen-left behind the torso at body height; f4 retract; f5 air neutral with hands pocketed. |
+| uair | 6, 2/2/2 | f0-f1 airborne chamber; f2-f3 near leg kicks vertically above opponent-head height but below Gojo's own hair top; f4 retract; f5 air neutral with hands pocketed. |

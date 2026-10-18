@@ -353,6 +353,8 @@ User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatom
 
 ## gojo
 
+**ENG-112 Smash normals (2026-10-18):** the user approved the first nine drawings as drawn via Claude relay combat #30 and `uair` v01 as drawn via relay combat #35; versions and approval sources are recorded in the [Gojo review page](../public/reviews/normals-gojo/) and manifest. The whole-character atlas contains 54 animations / 251 frames with packed `uair_v01`. The strict scale gate passes after measured auto-head fit ×0.9434 and frame 2 offset [-11,0] (cells 245–250; head median 1.000, feet proxy 1.057, no clipping). The [packed uair review page](../public/reviews/normals-gojo/uair-r2/retry-34/) records the approved drawing. Relay #36 sets uair phases to [2,1,3], making f2 the only active frame and f3 recovery. Astra's body-volume uncertainty remains on technical HOLD; Claude still owns runtime contact verification.
+
 **2026-10-18 Gojo posture D user approval via Claude relay #14:** USER APPROVAL via Claude relay gojo-run #14: “hurtHigh: Approve v04 (Recommended). hurtLow: Keep v04 (Recommended). launched: Approve v08 (Recommended).” The approved artwork is visual-only; technical holds remain (hurtHigh v04 strict head/feet 1.23/1.35; launched v08 torso 66±4px vs neutral 78±4px). hurtLow v05-v07 were rejected and approved v04 stays. No candidate atlas is promoted; see posture-D handoff and generation ledger.
 
 **2026-10-15 idle decision:** User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
@@ -490,7 +492,7 @@ manifest lists all ten per fighter (status `todo`, bodyHeight copied from that f
 | naruto | todo | todo | todo | todo | ENG-112, branch art/normals-naruto (last, after TOOL-060) |
 | sasuke | fTilt v03 approved, held; uTilt v05 approved; dTilt v05 approved | dashAttack v05 approved | fSmash v02 approved; uSmash v05 approved; dSmash stand-in | fair v03, bair v01, uair v01 approved | ENG-112, branch art/normals-sasuke; strict pack passes with 52 animations / 236 frames; fTilt decision pending; runtime contact check by Claude |
 | killua | fTilt v02 approved; dTilt v02 approved | dashAttack v02 approved | fSmash v02 approved; uSmash stand-in; dSmash v03 approved | fair/bair v02 approved; uair stand-in | ENG-112: all ten drawings approved via Claude relays #20/#22. Relay #24 first pack d62a961c ships seven; uTilt/uSmash/uair remain in _qa_hold for follow-up; contact crops in public/reviews/normals-killua/ship-seven/. |
-| gojo | todo | todo | todo | todo | ENG-112, branch art/normals-gojo |
+| gojo | fTilt v01, uTilt v01, dTilt v02 approved | dashAttack v01 approved | fSmash/uSmash/dSmash v01 approved | fair v01, bair v02, uair v01 approved | ENG-112: all ten drawings approved via Claude relays #30/#35. Nine-move branch merged; uair v01 reviewed at retry-34. Astra technical holds and Claude runtime contact check remain. |
 | goku | todo | todo | todo | todo | ENG-112, branch art/normals-goku |
 | luffy | todo | todo | todo | todo | ENG-112, branch art/normals-luffy |
 
