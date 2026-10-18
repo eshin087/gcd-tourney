@@ -1,6 +1,6 @@
 /* Test lab panel (ADR 0018): a dev tool over the training room, right side on desktop, a full-height drawer on phones */
 .lab {
-  position: fixed; top: 8px; right: 8px; bottom: 8px; width: min(380px, 46vw); z-index: 50;
+  position: fixed; top: 8px; right: 8px; bottom: 8px; width: min(420px, 50vw); z-index: 50;
   display: flex; flex-direction: column; gap: 6px; padding: 8px;
   font: 12px/1.35 system-ui, sans-serif; color: #f2eefc;
   background: rgba(14, 10, 26, 0.88); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 10px;
@@ -11,7 +11,7 @@
   position: fixed; right: 10px; bottom: 10px; z-index: 51; font-weight: 700; letter-spacing: 0.08em;
   background: #ffcc33; color: #1a1030; border: none;
 }
-.lab:not(.hidden) ~ .lab-fab { right: calc(min(380px, 46vw) + 18px); }
+.lab:not(.hidden) ~ .lab-fab { right: calc(min(420px, 50vw) + 18px); }
 .lab-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
 .lab-title { font-weight: 800; letter-spacing: 0.12em; color: #ffcc33; margin-right: auto; }
 .lab-pick { display: flex; align-items: center; gap: 4px; }
@@ -28,7 +28,7 @@
 .lab-btn.on { background: #5a3cff; border-color: #8f7bff; }
 .lab-btn.play { min-width: 34px; color: #ffcc33; font-weight: 800; }
 .lab-group { margin: 10px 0 4px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 10px; letter-spacing: 0.14em; color: #ffcc33; }
-.lab-group small { display: block; margin-top: 1px; letter-spacing: 0; font-size: 11px; color: #8a84a0; }
+.lab-group small { margin-left: 4px; letter-spacing: 0; font-size: 11px; color: #8a84a0; }
 .lab-count { color: #b8b0d0; letter-spacing: 0.04em; }
 .lab-menu { font-weight: 700; }
 .lab-hint { color: #b8b0d0; font-size: 11px; }
@@ -37,13 +37,36 @@
   background: rgba(14, 10, 26, 0.96);
 }
 .lab-chips .lab-btn { min-height: 26px; padding: 3px 7px; font-size: 10px; letter-spacing: 0.04em; }
-.lab-tap { flex: 1; cursor: pointer; border-radius: 6px; padding: 2px 4px; }
-.lab-tap:hover, .lab-tap.open { background: rgba(255, 255, 255, 0.06); }
 .lab-detail { margin: 0 0 6px 40px; padding: 6px 8px; font-size: 11px; color: #d8d2ea; background: rgba(0, 0, 0, 0.3); border-left: 2px solid #ffcc33; border-radius: 4px; }
-.lab-grid .lab-btn.miss { opacity: 0.4; border-style: dashed; }
-.lab-tool-note { margin: 0 0 4px 50px; }
+/* label column + chips that wrap in their own column (tools, animation groups) */
+.lab-trow { display: grid; grid-template-columns: 64px 1fr; gap: 6px; align-items: start; margin: 3px 0; }
+.lab-tlabel { padding-top: 6px; font-size: 10px; line-height: 1.2; letter-spacing: 0.08em; color: #b8b0d0; }
+.lab-tchips { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; }
+.lab-tchips .lab-btn { min-height: 26px; padding: 3px 8px; font-size: 11px; }
+.lab-tnote { font-size: 10.5px; color: #8a84a0; }
+/* animations: every group on one screen, an alt chip glued to its base */
+.lab-agrid .lab-trow { margin: 0; padding: 5px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.lab-agrid .lab-tlabel { padding-top: 2px; color: #ffcc33; }
+.lab-tchips .lab-anim { min-height: 22px; padding: 2px 6px; font-size: 10.5px; }
+.lab-tchips .lab-anim.miss { opacity: 0.4; border-style: dashed; }
+.lab-pair { display: inline-flex; }
+.lab-pair .lab-anim:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.lab-tchips .lab-alt { padding: 2px 5px; border-left: none; border-radius: 0 6px 6px 0; font-size: 9.5px; color: #ffcc33; }
+/* scenarios: two columns of cards; the open one's description spans both under its row */
+.lab-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.lab-card {
+  display: flex; gap: 5px; align-items: flex-start; min-width: 0; padding: 4px; cursor: pointer;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px;
+}
+.lab-card:hover { background: rgba(255, 255, 255, 0.08); }
+.lab-card.open { border-color: #ffcc33; }
+.lab-card .play { min-width: 26px; min-height: 26px; padding: 2px; }
+.lab-card .lab-move { min-width: 0; }
+.lab-card .lab-move b { font-size: 11.5px; line-height: 1.2; }
+.lab-card .lab-move small { font-size: 10.5px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.lab-card.dim b { color: #8a84a0; }
+.lab-cards .lab-detail { grid-column: 1 / -1; margin: 0; }
 .lab-row { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
-.lab-tools { flex-wrap: wrap; }
 .lab-move { display: flex; flex-direction: column; }
 .lab-move small { color: #b8b0d0; }
 .lab-move.dim b { color: #8a84a0; }
