@@ -17,6 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Changed (ENG-112 Goku): filed fTilt/fair v01 with attempt provenance and Claude's measured strip fits (1.0/.92); added their 48-color diagnostic atlas and Astra's per-frame audit. Both remain on technical scale hold because occluded landmarks cannot establish ±6%; no redraw or extra fit was recommended.
+- Changed (ENG-112 Goku): recorded all ten candidate versions, the dSmash v02 divider cleanup and packed-atlas import audit; Astra holds all ten pending defensible landmark scale evidence, with uTilt/uSmash undersized and dSmash upper-body volume oversized. No strip is approved or cleared to ship.
 - Changed: the determinism fixtures are re-recorded after Gojo's Smash moves (fingerprint 02e3e1d09ed4); both replay frame for frame.
 ### Changed
 - (ENG-112) Set Gojo uair v01 phases to `[2,1,3]` so only the full kick is active.
