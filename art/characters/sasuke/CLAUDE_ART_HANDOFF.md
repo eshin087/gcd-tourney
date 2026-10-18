@@ -1,7 +1,9 @@
 # ENG-112 Sasuke normals handoff
 
 Branch `art/normals-sasuke`; real worktree `.worktrees/art-normals-sasuke`. This handoff is at
-the Astra/medium final audit result: HOLD for all six packed candidates. No drawing is user-approved, and no merge or
+the Astra/medium final audit result: HOLD for all six packed candidates. The user has since approved uTilt v01,
+fSmash v02, fair v03, bair v01 and uair v01 as drawings via Claude relay combat #3. Those approvals do not clear
+the Astra technical holds; dTilt v02 and the remaining four moves have no user drawing approval. No merge or
 production deployment was performed.
 
 ## Candidate state
@@ -11,15 +13,15 @@ The separate Astra audit returned HOLD for all six packed candidates. Four other
 | Move | Saved version | Calls | Current state | QA evidence |
 |---|---:|---:|---|---|
 | fTilt | v01 | 3/3 | Technical hold; `raw/_qa_hold/` | Packed QA split figures across columns. No atlas strip. |
-| uTilt | v01 | 1/3 | Technical hold | Astra found f3 hitbox on foot; override now covers overhead hand/forearm, f2 remains on rising hand. No certified idle scale baseline or lab check. |
+| uTilt | v01 | 1/3 | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra found f3 hitbox on foot; override now covers overhead hand/forearm, f2 remains on rising hand. No certified idle scale baseline or lab check. |
 | dTilt | v02 | 2/3 + 3 unusable extra calls | Technical hold | Astra found waist/stomach strike instead of shin height. Source unchanged; no retained replacement. Scale baseline absent. |
 | dashAttack | v03 | 3/3 | Technical hold; versions v01-v03 in `_qa_hold/` | f2 has no clear strike limb; the source pose group still touches across frame columns. No atlas strip. |
-| fSmash | v02 | 3/3 cumulative | Technical hold | Astra HOLD; no certified idle body/head scale baseline. f1 is the charge pose. No calls remain. |
+| fSmash | v02 | 3/3 cumulative | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra HOLD; no certified idle body/head scale baseline. f1 is the charge pose. No calls remain. |
 | uSmash | v03 | 3/3 | Technical hold; versions v01-v03 in `_qa_hold/` | Active f3 remains a guarded pose without an overhead strike. No atlas strip. |
 | dSmash | v03 | 3/3 | Technical hold; versions v01-v03 in `_qa_hold/` | Active f4 clips 1 px past the 4 px cell margin. No atlas strip. |
-| fair | v03 | 3/3 | Technical hold | Astra HOLD; no certified idle body/head scale baseline. Lab contact unverified. |
-| bair | v01 | 1/3 | Technical hold | Astra found f2/f3 boxes pointed forward; overrides now follow rear kicking foot screen-left. No certified idle scale baseline or lab check. |
-| uair | v01 | 1/3 | Technical hold | Astra HOLD; no certified idle body/head scale baseline. Lab contact unverified. |
+| fair | v03 | 3/3 | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra HOLD; no certified idle body/head scale baseline. Lab contact unverified. |
+| bair | v01 | 1/3 | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra found f2/f3 boxes pointed forward; overrides now follow rear kicking foot screen-left. No certified idle scale baseline or lab check. |
+| uair | v01 | 1/3 | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra HOLD; no certified idle body/head scale baseline. Lab contact unverified. |
 
 ## Generation provenance
 
