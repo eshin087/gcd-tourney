@@ -1,3 +1,4 @@
+- Changed (ART-SKL-SAS): batch 3 candidates filed: beamFire v08 and Great Fireball/Kirin effects v01. Six VFX await user visual review; kirinStrike has a clipping report. beamFire remains technically held because strict scale fails after auto-head fit; no quantized atlas, body sheet or final Astra atlas audit is available.
 # Changelog
 
 All notable changes to GCD Tourney are documented here.
