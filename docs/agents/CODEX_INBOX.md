@@ -111,24 +111,23 @@ Do, per fighter (Luna/medium for generation; Astra/medium final audit, per CLAUD
 
 **Claude's integration check of art/normals-sasuke (2026-10-18, after relay #3 at e49d6ed6): three blockers before merge.**
 
-- [ ] **B1. The committed Sasuke pack is partial.** public/characters/sasuke/anims.json on the branch has 6 animations
+- [x] **B1. The committed Sasuke pack is partial.** (2026-10-18: restored the complete source pack and added dTilt v05; branch atlas has 49 animations / 214 frames.) public/characters/sasuke/anims.json on the branch has 6 animations
   (main ships 44) and sheet.png shrank from 3.1 MB to 0.7 MB: the worktree only holds the 11 new raws, so the packer
   packed just those. Merged, live Sasuke would lose his art and fall back to the 3D placeholder. In the worktree run
   `npm run pr -- art sasuke` (brings every Sasuke raw back on disk), re-pack the whole character the way the live pack
   was made (`npm run sprites sasuke`; match the options in main's anims.json `packer` field), check anims.json lists all 44
   live animations plus the new strips, and commit. Every later fighter: start with `npm run pr -- start art/normals-<id>
   --art <id>` so the raws are there, and compare the animation count with main's before you ring.
-- [ ] **B2. Strict scale gate** (`npm run pr -- check art/normals-sasuke`, run by Claude from main because your sandbox
+- [ ] **B2. Strict scale gate — partial / HOLD.** (2026-10-18: fair v03 has measured auto-head import fit; complete pack/default quantized gate passes. uTilt v01 remains user-approved but readable head median .924 is still 7.6% small; its three-call v02 round and authorized single head-only edit yielded no candidate. A full strict gate cannot be claimed until the coordinator resolves the remaining uTilt hold.) (`npm run pr -- check art/normals-sasuke`, run by Claude from main because your sandbox
   cannot write E:gcd-scratch): uTilt v01 "pops inside the strip: f2 0.54 vs f1 0.95 of the idle head"; uair v01 "f1 0.61 vs
   f0 1.03"; fair v03 "head 1.06 of idle (feet 1.18): the whole figure is off". Per art/CHARACTER_SCALE.md: where the
   measurement is wrong (the head hidden behind a raised arm), record a version-bound `scaleManualQA` with Astra's
   evidence; where the figure really is off, fix the import (measured re-stitch or the auto head fit) without changing the
   drawing. The user accepted these drawings as drawn: a redraw would need the user again, so ring before any redraw.
-- [ ] **B3. dTilt:** the newest raw is v01, not accepted (v02 is in `_rejected/`). The retry round replaces it; if no dTilt
-  is accepted in the end, move the remaining candidates to `raw/_qa_hold/` so the guard passes and the stand-in stays.
+- [x] **B3. dTilt.** (2026-10-18: user selected low-kick attempt 3 as dTilt v05 for packing via relay #12; actual quantized candidate and Astra audit are on the branch; awaiting the user's image approval.) The newest raw is v01, not accepted (v02 is in `_rejected/`). The retry round replaces it; if no dTilt is accepted in the end, move the remaining candidates to `raw/_qa_hold/` so the guard passes and the stand-in stays.
 - [ ] Then ring `combat` (not for the user) with the commit: Claude reruns the guard, checks contact in play and merges.
 
-Progress (tick per fighter): - [ ] sasuke - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
+Progress (tick per fighter): - [ ] sasuke (dTilt v05 awaiting user review; B2/uTilt hold remains) - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
 
 Rules: edit only art/characters/<id>/** (raw/, ANIMATIONS.md, hitboxes.json, CLAUDE_ART_HANDOFF.md),
 public/characters/<id>/** via the packer, public/reviews/normals-<id>/**, the <id> block of art/manifest.json, the
