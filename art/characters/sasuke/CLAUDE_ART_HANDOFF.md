@@ -8,6 +8,15 @@ fSmash v02, fair v03, bair v01 and uair v01 as drawings via Claude relay combat 
 the Astra technical holds; dTilt v02 and the remaining four moves have no user drawing approval. No merge or
 production deployment was performed.
 
+## Drawing approvals received (2026-10-18, Claude relay combat #7)
+
+The user approved fTilt v03, dashAttack v05 and uSmash v05 **as drawn** (quoted answer: “Approve fTilt v03; Approve
+dashAttack v05; Approve uSmash v05”). Recorded as approved by the user via Claude in `art/REVIEW.md`, the Sasuke
+manifest, and `art/TRACKER.md`. These are drawing approvals only: Astra's scale/anatomy/phase findings remain open,
+the files remain in `raw/_qa_hold/`, and the gameplay stand-ins remain active. The updated local review page is
+`public/reviews/normals-sasuke/index.html`; Vercel quota still prevents a fresh hosted preview. Strict quantized pack
+and production build were rerun after recording the decisions.
+
 ## Candidate state
 
 The separate Astra audit returned HOLD for all six packed candidates. Four other moves remain on their established gameplay fallback after layout/contact failures. Older saved versions remain preserved in `raw/` or `raw/_qa_hold/`.

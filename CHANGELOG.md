@@ -11,6 +11,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
+
+- Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
+
 - Changed (ENG-112): restored all Sasuke source raws in the art worktree and rebuilt a full 53-animation quantized diagnostic atlas for the approved-strip scale audit. Held dTilt v01 after the relay #6 three-call retry produced no exportable v04 candidate; the stand-in remains active.
 - Fixed (ENG-113, ADR 0042 amended): the DBFZ air combos are back. In a juggle off a launcher, spike, bounce, super dash or the air string, Light is the air string again whatever direction you hold (↓ + Light the spike), so following the launcher with the stick held toward them no longer cuts the string to one forward air; the CPUs stop ending those juggles with an up air that landed the victim on their feet. The directional aerials stay for the open air and after a light pop, and the C-stick still picks them. Also fixed: a vanish started right after an air string's juggle tracking stepped the fighter toward a victim pinned on the barrier could leave them a hair past it for the vanish (a soak ring violation).
 - Changed (ART-SIZE-R7): archived the Codex audit worktree after PR #153 merged the independent table; no redraws or image calls were needed.
