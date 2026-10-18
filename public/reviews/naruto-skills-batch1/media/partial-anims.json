@@ -1,0 +1,48 @@
+{
+  "frameWidth": 256,
+  "frameHeight": 256,
+  "columns": 16,
+  "pivot": [128, 240],
+  "pixelsPerUnit": 128,
+  "facing": "right",
+  "spec": "hi-res sprite spec v2",
+  "source": "art-pack",
+  "character": "naruto",
+  "packer": 2,
+  "complete": false,
+  "missingCore": [
+    "idle",
+    "run",
+    "dash",
+    "jumpUp",
+    "jumpFall",
+    "land",
+    "light1",
+    "light2",
+    "light3",
+    "light4",
+    "heavy",
+    "airLight1",
+    "airHeavy",
+    "guard",
+    "hurtHigh",
+    "launched",
+    "down",
+    "getup",
+    "charge",
+    "special",
+    "win"
+  ],
+  "animations": {
+    "beamCharge": { "frames": [0, 1, 2], "durations": [50, 50, 50], "loop": true },
+    "beamFire": { "frames": [3, 4, 5], "durations": [50, 50, 50], "loop": true }
+  },
+  "boxes": {
+    "0": { "hurt": [[65, 77, 116, 164]], "hand": [100, 153] },
+    "1": { "hurt": [[51, 78, 126, 163]], "hand": [99, 153] },
+    "2": { "hurt": [[53, 91, 123, 150]], "hand": [99, 154] },
+    "3": { "hurt": [[85, 107, 134, 134]], "hand": [206, 125] },
+    "4": { "hurt": [[90, 94, 130, 147]], "hand": [206, 125] },
+    "5": { "hurt": [[52, 95, 132, 146]], "hand": [207, 125] }
+  }
+}

@@ -115,8 +115,8 @@ are authoritative, and attacks are time-stretched over the move phases anyway.
 | [`getup`](#getup) | kip-up | 5 |  |  | **CORE** | 204 | 70, 60, 60, 80, 70 | A14 | 1 |
 | [`stagger`](#stagger) | dazed stagger (loop) | 4 |  | yes |  | 207 | 150, 150, 150, 150 | A35 | 1 |
 | [`charge`](#charge) | powering up (loop) | 4 |  | yes | **CORE** | 198 | 50, 50, 50, 50 | A15 | 1 |
-| [`beamCharge`](#beamcharge) | charging the Rasen Cannon (loop) | 3 |  | yes | **CORE** | 198 | 50, 50, 50 | A16 | 1 |
-| [`beamFire`](#beamfire) | firing the Rasen Cannon (loop) | 3 |  | yes | **CORE** | 198 | 50, 50, 50 | A17 | 1 |
+| [`beamCharge`](#beamcharge) | Four-Tails roar, low all-fours crouch (loop) | 3 |  | yes | **CORE** | 171 | 50, 50, 50 | A16 | 1 |
+| [`beamFire`](#beamfire) | Four-Tails pounce and claw slams (loop) | 3 |  | yes | **CORE** | 153 | 50, 50, 50 | A17 | 1 |
 | [`vanish`](#vanish) | crouch before teleporting | 2 |  |  |  | 221 | 50, 50 | A34 | 1 |
 | [`special`](#special) | RASENGAN rush | 8 | 3/3/2 |  | **CORE** | 204 | 120, 120, 120, 120, 120, 160, 110, 70 | A18 | 2 (A + B) |
 | [`intro`](#intro) | shadow-clone hand seal (loop) | 4 |  | yes |  | 210 | 150, 150, 150, 150 | A37 | 1 |
@@ -896,36 +896,33 @@ blown upward. f3 must flow back into f0 without a pop. The engine draws the aura
 
 <a id="beamcharge"></a>
 
-### `beamCharge`: charging the Rasen Cannon (loop)
+### `beamCharge`: Four-Tails roar (loop)
 
-3 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50 · prompt A16
+3 frames · loops · **CORE** · bodyHeight 171 · ms 50/50/50 · prompt A16
 
-Ultimate wind-up during the super flash. The engine draws the aura and speed lines; the hands stay empty.
+Low all-fours roar pose during the ultimate flash. The whole body is engulfed in the Four-Tails shroud: near-black crimson body, bubbling blood-red rim, two pointed ears, blank white eyes, jagged white mouth, four thick chakra tails, clawed hands and feet. No human skin, hair, headband, clothes or sandals. Nothing outside the body outline; the engine adds chakra bubbles and tail flames.
 
-- **Hair and cloth:** Hair spikes and tails blown upward and back.
+- **Scale:** match the approved title-style skull length without counting ears; keep the crouch short and wide rather than scaling to standing height.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
-| f0 | `beamCharge_00` | loop | Low wide stance (L leg forward and bent, R leg back); torso twisted away toward the viewer (about 35°); both hands cupped together at the R (rear) hip, palms facing each other as if holding a ball, but EMPTY (no energy drawn); elbows bent back; head turned toward the target (screen-right). | shout |  |
-| f1 | `beamCharge_01` | loop | Same, trembling 1 px, hands 1 px further apart. | shout | Hair/tails: second flicker shape |
-| f2 | `beamCharge_02` | loop | Same, trembling back. | shout |  |
+| f0 | `beamCharge_00` | loop | Crouched low on all fours facing screen-right, front claws planted, head thrown back and mouth wide open in a roar, four tails raised and fanned behind. | shout | Candidate v10 currently shows 3 readable tails in f0; Astra hold. |
+| f1 | `beamCharge_01` | loop | Same crouch, trembling 1 to 2 px; tails sway to a second shape and rim bubbles change. | shout | Candidate v10 shows four tails in f1. |
+| f2 | `beamCharge_02` | loop | Same crouch, trembling back; third tail shape. | shout | Candidate v10 shows 3 readable tails in f2; Astra hold. |
 
 <a id="beamfire"></a>
 
-### `beamFire`: firing the Rasen Cannon (loop)
+### `beamFire`: Four-Tails pounce and claw slams (loop)
 
-3 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50 · prompt A17
+3 frames · loops · **CORE** · bodyHeight 153 · ms 50/50/50 · prompt A17
 
-Holding the beam. The engine draws the beam from just in front of his palms.
-
-- **Strike target:** Beam origin **(230, 122)** (0.8 units in front, 0.92 up): both palms in the zone **x 222-238, y 112-132** on every frame.
-- **Hair and cloth:** Recoil wind: hair and tails blown straight back hard.
+The engine uses this strip for the pounce and for the repeated claw slams. The whole body is engulfed in the Four-Tails shroud; nothing is drawn outside its outline.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
-| f0 | `beamFire_00` | loop | Firing: both arms thrust straight forward horizontally at chest height, heels of the palms together, palms open and facing the target, fingers spread; wide braced stance (L leg forward and bent, R leg straight behind pushing against the recoil); torso leaning forward about 14°; head behind the arms, eyes on the target. | shout | QA: palms x 230 ±8, y 122 (zone x 222-238, y 112-132) |
-| f1 | `beamFire_01` | loop | Same, recoil tremble: arms 1 px back, rear heel slides 1 px. | shout |  |
-| f2 | `beamFire_02` | loop | Same, tremble forward. | shout |  |
+| f0 | `beamFire_00` | loop | Launching: body stretched long and low toward screen-right, front claws reaching forward at chest height, back legs pushing off, four tails streaming straight back. | shout | Candidate v14 clips the front claws at the right cell edge. |
+| f1 | `beamFire_01` | loop | Mid-air: claws forward, mouth open, four tails trailing. | shout | Candidate v14 clips the front claws at the right cell edge. |
+| f2 | `beamFire_02` | loop | Striking: one claw slams down in front at hip height; four tails trail behind. | shout | Candidate v14 reads as a landing rather than a clear single-claw slam; Astra hold. |
 
 <a id="vanish"></a>
 

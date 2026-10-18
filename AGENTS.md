@@ -101,6 +101,11 @@ adapter documented in docs/AI_COLLABORATION.md. It passed the production build w
 the ordinary npm/Vite launcher still requires denied ancestor access. Git CLI integration remains a
 separate documented limitation; do not mistake a Git file-write probe for a passing worktree workflow.
 
+Start any dev server that will run unattended through the memory cap (OPS-019): set `PORT`, then run
+`powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 node --preserve-symlinks --preserve-symlinks-main <main checkout>/.codex/vite.mjs dev`
+(a worktree that predates `tools/capped.ps1` uses the main checkout's copy). `npm run devs` lists the dev servers
+running; stop your own when the task ends. Details: docs/AI_COLLABORATION.md.
+
 ## The project in one paragraph
 
 GCD Tourney is a browser HD-2D pixel-art anime arena fighter (Three.js + Vite, plain JavaScript ES modules)

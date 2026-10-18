@@ -1,6 +1,14 @@
+Naruto skills revamp batch 3 (2026-10-18): user approved rasenshuriken v01 (3 calls; selected call 3) and rasenshurikenDome v01 (1 call) via Claude relay skills #10. Approval is recorded; neither has candidate pack or runtime QA on this branch. Claude owns integration. [Gallery](../public/reviews/naruto-skills-batch3/index.html) · [provenance](characters/naruto/production/skills-revamp-batch3-provenance.md).
+
+Naruto skills revamp batch 2 (2026-10-18): user approved rasengan, rasenganForm, rasenganBurst, poof and subLog v01 via Claude relay skills #9. Visual approval is recorded; no candidate pack or runtime check on this branch. Claude owns integration. Gallery: [batch 2](../public/reviews/naruto-skills-batch2/index.html).
+
+Naruto Four-Tails beam round 2 (2026-10-18): user approved beamCharge v17, fourTailsRoar v02, beamFire v15 (+13px sidecar), beastBall v01 and beastBeamRing v01 via Claude relay skills #7. beamFire placement clears the candidate pack 4px margin; Claude confirmed effect pack/game placement. Visual approvals do not clear the headless character scale gate or contact/integration checks. Gallery: [round 2](../public/reviews/naruto-skills-round2/index.html).
+
 > 2026-10-11 title-style pilot: Naruto, Sasuke, Killua and Gojo title_style_draft v01 and both lineups **approved**; they are the scale and anatomy baseline ([contract](scale/title-style-pilot/PRODUCTION_CONTRACT.md), ADR 0029). Production strips on PR69-72 are separate candidates.
 
 # Art tracker
+
+Naruto skills revamp batch 1 (2026-10-18): user approved beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01 via Claude relay skills #7. Earlier beamFire v14 pounce approval is superseded for this ultimate; ui_ult_fg v04 remains approved. Technical HOLD remains for the headless character scale gate and Claude-owned contacts/integration; do not claim final pack clearance. No new image calls.
 
 Gojo dash family v10/v07/v12 (2026-10-15): backDash v07 is packed and remains needs review under Astra HOLD for tucked-frame placement and uncertain occluded torso/limb measurements; dash v10 and superDash v12 are quarantined after clipping/scale failures. Approved versions remain dash v06, backDash v04 and superDash v09. All call budgets are exhausted except one unused backDash call; no further generation authorized. See [Gojo review rows](characters/gojo/REVIEW_ROWS.md), [Astra audit](characters/gojo/production/dashes/ASTRA_DASHES_AUDIT_v01.md), and [preview](../public/reviews/gojo-dashes/index.html). No user approval, merge or production deploy.
 
@@ -93,6 +101,8 @@ Title-style production in progress on `art/naruto-title-production`: the user ap
 
 Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
+**Palette (2026-10-18, ADR 0046):** the Four-Tails fox (beamCharge, beamFire) packs with 8 of the 48 colours of its own (`paletteReserve.fourTails` in the manifest), so it keeps the approved crimson and white eyes/teeth; a new fox version keeps the reserve (re-check the packed strip against its raw at one scale).
+
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved v03 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. v03 seven-head candidate needs review with lineup; see PROPORTION_REDRAW.md and v03 QA. User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |
@@ -145,7 +155,7 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 11 | ui/super_bg.png (768x192) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Source 1536x1024; final 4:1 crop and hard-pixel/color checks are pending. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
 | 11 | ui/super_fg.png (384x240) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Astra HOLD: required clone silhouettes absent, palm angles viewer-left; source has soft edges, excessive colors/partial alpha. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
 | 11 | ui/ult_bg.png (768x432) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Source 1672x941; final crop and hard-pixel/color checks are pending. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
-| 11 | ui/ult_fg.png (576x432) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Astra HOLD: substantial normal hair, skin and orange clothing remain exposed rather than a continuous Four-Tails shroud; soft edges/excessive colors/partial alpha. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. |
+| 11 | ui/ult_fg.png (576x432) | - | - | no | - | approved | v01 | v01 | Round 2a Naruto candidate; approval pending via the desk. Astra HOLD: substantial normal hair, skin and orange clothing remain exposed rather than a continuous Four-Tails shroud; soft edges/excessive colors/partial alpha. User approved v01 via Claude relay effects #8 (2026-10-16); technical findings retained where applicable. New v04 was also approved via Claude relay skills #4 on 2026-10-18 and is the current approved source. |
 
 User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical HOLD retained; no further generation authorized.
 
