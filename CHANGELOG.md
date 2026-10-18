@@ -12,6 +12,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Added (OPS-019): `tools/capped.ps1` runs a command (a dev server) under a memory cap and ends it with the shell that started it; `npm run dev:capped` is the normal dev server through it, and `npm run devs` (`tools/dev-servers.ps1`) lists the dev servers running now with their memory and warns when the machine's committed memory is near its limit. Nothing is scheduled or left running. Prompted by a Vite dev server that reached 131 GB of committed memory on 2026-10-17.
+- Changed (ENG-SKL-NAR-2): Naruto round 2, from the user's review of the live build. The Nine-Tails Cloak is the aura only (no tail). The Shadow Clone Barrage summons its clones one at a time, fast, each poofing in on its own side to land its own attack (punch, flying kick, uppercut, roundhouse, heel drop...) while Naruto holds the seal, then the U-ZU-MA-KI kick-up and the Rasengan drop. The ultimate is now **Four-Tails: Tailed Beast Ball**, a beam (ADR 0045): the chakra swallows him into the four-tailed form during the flash, red and blue chakra gather into a ball at the mouth, and a red-white blast with shock rings fires from it with Codex's approved art: the fox gathering (beamCharge v17) and firing from its mouth (beamFire v15), the chakra ball (beastBall v01), the shock rings (beastBeamRing v01), the roar (fourTailsRoar v02) and the fully engulfed ultimate splash (ui_ult_fg v04). The Four-Tails pounce and mauling are retired. Codex's approved batch 2 effects ship too: the Rasengan (held, forming, spiral blast), the clone poof and the Substitution log, and batch 3: the Rasenshuriken's wind blades and its dome of wind blades (the two full-sphere frames loop while it grinds).
 
 - Fixed (ENG-113, ADR 0042 amended): the DBFZ air combos are back. In a juggle off a launcher, spike, bounce, super dash or the air string, Light is the air string again whatever direction you hold (↓ + Light the spike), so following the launcher with the stick held toward them no longer cuts the string to one forward air; the CPUs stop ending those juggles with an up air that landed the victim on their feet. The directional aerials stay for the open air and after a light pop, and the C-stick still picks them. Also fixed: a vanish started right after an air string's juggle tracking stepped the fighter toward a victim pinned on the barrier could leave them a hair past it for the vanish (a soak ring violation).
 - Changed (ART-SIZE-R7): archived the Codex audit worktree after PR #153 merged the independent table; no redraws or image calls were needed.
@@ -27,7 +28,25 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Changed (ENG-105): the test lab panel docks beside the game on screens 900 px and wider (the game, HUD and flash overlay shrink to the space left, so nothing is covered; the renderer and overlay now size to their own box). Every tab is one kind of list: foldable group headers with counts and rows of ▶ / name / note; YOU and DUMMY are dropdowns on one line; the text sizes itself to fit the screen so Moves, Animations and Tools need no scrolling.
 
 - Changed (ENG-104): the lab panel's text and buttons scale with the screen (14 to 18 px, 13 px on phones; the panel 380 to 540 px wide) and option buttons stretch to fill their row, so TOOLS and ANIMATIONS read larger with no empty gap beside them.
+- Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #10 for rasenshuriken and rasenshurikenDome v01; HD packing and gameplay integration checks remain with Claude.
 
+
+
+- Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #9 for rasengan, rasenganForm, rasenganBurst, poof and subLog v01; visual approval is separate from Claude-owned packing and gameplay checks.
+
+
+
+- Added (ART-SKL-NAR): prepared Naruto skills batch 3 HD effect candidates rasenshuriken v01 and rasenshurikenDome v01; added generation provenance, manifest/review records and gallery. Awaiting user visual approval and Claude pack/game integration checks.
+
+
+- Changed (ART-SKL-NAR): prepared Naruto skills batch 2 HD candidates rasengan, rasenganForm, rasenganBurst, poof and subLog v01 (one image call each); added manifest/review/provenance records and gallery. Awaiting user visual approval and Claude pack/game integration checks.
+
+- Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #7 for beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01; superseded beamCharge v12-v16 and fourTailsRoar v01 are preserved under `_rejected/`. Character scale/contact/integration holds remain.
+
+- Changed (ART-SKL-NAR): prepared Four-Tails mouth-beam art candidates for round 2: beamFire v15 plus HD beastBall and beastBeamRing v01; v14 pounce approval is superseded for the ultimate. Claude confirmed local effect packing/placement; beamFire received a +13px final-cell placement sidecar with no rescale. Visual approval and character scale/contact checks remain pending.
+
+- Changed (ART-NAR-SKILLS-B1): recorded the user approval of beamFire v14 + sidecar and ui_ult_fg v04 via Claude relay skills #4; promoted the approved UI source. beamCharge v17 and fourTailsRoar v02 remain unapproved candidates for review.
+- Changed (ART-NAR-SKILLS-B1): edited beamCharge v17 to clean the f0/f2 tail joins with no image call; fourTailsRoar v02 keeps the 236px circular mask, with all eight packed frames inside a 117.99px radius.
 - Changed (ENG-102): faster first load. The title shows after ~0.5 MB (title art and fighter metadata) instead of all 31.5 MB of art; fighters, crowd, stage and effects load in parallel behind it, and a fight waits for them on the loading screen. Art is requested by its plain URL (ETag revalidation) instead of `?v=<now>`, so a repeat visit downloads ~30 kB instead of 31 MB. A real loading bar (byte-weighted, title art and logo behind it) replaces "BAKING FIGHTERS...", and portrait phones see the logo and title art above a smaller rotate hint (ADR 0043).
 - Changed (ART-SIZE-R7): recorded the Codex independent audit of 230 packed fighter strips on `art/size-r7-codex` (`903b9b63`); Claude will reconcile measurements and provide the redraw list.
 - Changed (ENG-101): lab layout pass. TOOLS rows line up (a label column, options wrap beside it, short notes); SCENARIOS show as two columns of cards capped at two lines, the open card's description spanning both columns under its row; ANIMATIONS fit on one screen, one compact row per group with each alt strip as an `alt` chip beside its base. The panel is a little wider (420 px).

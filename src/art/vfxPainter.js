@@ -507,6 +507,32 @@ const PAINTERS = {
       ctx.beginPath(); ctx.arc(Math.cos(a) * d, Math.sin(a) * d, Math.max(1, 2.5 * (1 - t * 0.6)), 0, Math.PI * 2); ctx.fill();
     }
   },
+  // the Tailed Beast Ball gathering: a black-red core, red and blue orbs spiraling into it
+  beastBall(i, n, ctx) {
+    ctx.translate(32, 32);
+    for (const [col, r] of [['#5a0606', 15], ['#1a0204', 12]]) { ctx.fillStyle = col; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill(); }
+    for (let k = 0; k < 8; k++) {
+      const a = (i / n) * Math.PI * 2 + k * 0.785, r = 9 + (k % 3) * 4;
+      ctx.fillStyle = k % 2 ? '#3a8aff' : '#ff3a2a';
+      ctx.beginPath(); ctx.arc(Math.cos(a) * r, Math.sin(a) * r, 2.5, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.strokeStyle = '#c8281e';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(0, 0, 15, (i / n) * 6.28, (i / n) * 6.28 + 4); ctx.stroke();
+  },
+  // the shock ring round the root of the beam, almost edge-on: a tall thin ellipse
+  beastBeamRing(i, n, ctx) {
+    const t = i / (n - 1);
+    ctx.translate(32, 32);
+    ctx.scale(0.25, 1);
+    const r = 8 + t * 21;
+    ctx.strokeStyle = '#ff6a3a';
+    ctx.lineWidth = 8 * (1 - t * 0.6);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = '#fff4e6';
+    ctx.lineWidth = 4 * (1 - t * 0.7);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+  },
   // ---- ground damage (ADR 0024)
   // side view: a low, wide wall of chunky dust rolling outward and up, then breaking apart (rings of these roll
   // out of big craters, see Effects.dustRing)
@@ -685,6 +711,8 @@ export const VFX_ANIMS = {
   poof: { n: 7, ms: 40, levels: [0, 255] },
   subLog: { n: 5, ms: 70, levels: [0, 255] },
   fourTailsRoar: { n: 8, ms: 45, levels: [0, 255] },
+  beastBall: { n: 8, ms: 45, levels: [0, 255] },
+  beastBeamRing: { n: 6, ms: 40, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.
