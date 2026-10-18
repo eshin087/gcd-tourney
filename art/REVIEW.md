@@ -1,5 +1,11 @@
 # Art review queue
 
+## 2026-10-18 — Sasuke uTilt v03 head-only retry — no candidate
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | sasuke | uTilt | [attempt 01](characters/sasuke/raw/_qa_hold/uTilt_v03_attempt01.png) · [attempt 02](characters/sasuke/raw/_qa_hold/uTilt_v03_attempt02.png) · [attempt 03](characters/sasuke/raw/_qa_hold/uTilt_v03_attempt03.png) · [attempt ledger](characters/sasuke/production/uTilt_v03_head_edit_attempts.md) | v03 attempts | rejected technically; no candidate | Per user decision via Claude relay combat #9, edited only the head of approved uTilt v01 toward the approved idle while preserving each pose. | All three changed 91.01–97.18% of the canvas, including background and non-head regions. None qualifies as a head-only edit. Attempts are preserved in `_qa_hold`; no `raw/uTilt_v03.png`, manifest increment, or atlas update. Approved v01 remains technically held; stand-in stays active pending the user's next decision. |
+
 ## 2026-10-18 — Sasuke dTilt v05 — needs review
 
 | date | character | asset | file | version | status | what changed | QA notes |

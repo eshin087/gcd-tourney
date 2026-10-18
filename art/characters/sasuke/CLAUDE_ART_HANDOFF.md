@@ -1,5 +1,9 @@
 # ENG-112 Sasuke normals handoff
 
+## uTilt head-only retry (2026-10-18, relay combat #9)
+
+The user authorized up to three edits of only the head on user-approved uTilt v01, matching the approved idle while preserving the pose. All three image calls repainted most or all of the canvas (91.01–97.18% changed pixels). No candidate was selected or packed; v01 remains technically held and the stand-in stays active. Exact call provenance, hashes, prompts and diff metrics are in `production/uTilt_v03_head_edit_attempts.md`; attempts are preserved in `raw/_qa_hold/uTilt_v03_attempt01.png` through `uTilt_v03_attempt03.png`. The review queue and gallery intro record the outcome. Next: ask the user whether to keep approved v01 as a technical hold with the stand-in, or authorize another correction method. This is a decision request, not an image approval.
+
 Branch `art/normals-sasuke`; real worktree `.worktrees/art-normals-sasuke`. This handoff is at
 the Astra/medium final audit result: HOLD for all six packed candidates. By user decision via Claude relay combat #4,
 up to three additional image calls per move are authorized for fTilt, dashAttack, uSmash, dSmash, and dTilt. This is
