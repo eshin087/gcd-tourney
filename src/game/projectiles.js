@@ -515,9 +515,17 @@ export class Vortex {
     this.t++;
     const grow = Math.min(1, this.t / 8) * (this.t > m.len - 6 ? Math.max(0, (m.len - this.t) / 6) : 1);
     const C = this.colors;
-    fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: 0.25 + 1.0 * grow, color: C.orb, order: 8, glow: 0.9 });
-    fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 2.2 * grow, color: C.glow, opacity: 0.5, order: 3, glow: 1 });
-    if (this.t % 4 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: 1.8 * grow, color: C.ring, glow: 0.8, life: 0.2, fade: true, order: 7 });
+    if (m.dome) {
+      // the Rasenshuriken's sphere of wind blades (ENG-SKL-NAR): f0-f1 open it, f2-f4 loop while it grinds, f5-f7 end it
+      const it = fx.keep(this.id, m.dome, p.x, p.y, p.z, { scale: 0.95 * Math.max(0.35, grow), order: 8, glow: 0 });
+      const left = m.len - this.t;
+      it.frame = this.t < 4 ? (this.t < 2 ? 0 : 1) : left < 8 ? 5 + Math.min(2, Math.floor((8 - left) / 3)) : 2 + (Math.floor(this.t / 3) % 3);
+      fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 1.6 * grow, color: C.glow, opacity: 0.2, order: 3, glow: 0.3 });
+    } else {
+      fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: 0.25 + 1.0 * grow, color: C.orb, order: 8, glow: 0.9 });
+      fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 2.2 * grow, color: C.glow, opacity: 0.5, order: 3, glow: 1 });
+      if (this.t % 4 === 0) fx.spawn('ring', p.x, p.y, p.z, { scale: 1.8 * grow, color: C.ring, glow: 0.8, life: 0.2, fade: true, order: 7 });
+    }
     if (this.t % 2 === 0) {
       const a = Math.random() * Math.PI * 2, r = 2.2;
       const sx = p.x + dmath.cos(a) * r, sy = p.y + dmath.sin(a) * r * 0.6, sz = p.z + dmath.sin(a * 1.7) * 0.5;

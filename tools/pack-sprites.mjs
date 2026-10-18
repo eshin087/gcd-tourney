@@ -154,6 +154,9 @@ const FALLBACK_GUIDE = {
 // baseX: bottom effects centered on the mean x of their base rows (keeps a leaning tip leaning).
 // lumaAlpha: drawn as opaque grey rings on magenta; packed as white with alpha = grey value.
 const VFX = Object.freeze({ cell: 128, ppu: 56, baseline: 120 });
+// Signature effects (ADR 0044): twice the cell and the density, the same world size per cell (256 / 112 = 128 / 56).
+// They pack into their own page, atlas_hd.png, described by atlas.json's `hd` block.
+const VFX_HD = Object.freeze({ cell: 256, ppu: 112, baseline: 240 });
 const VFX_EFFECTS = {
   spark: { frames: 5, ms: 30, tinted: true, fill: 0.85 },
   burst: { frames: 5, ms: 35, tinted: true, fill: 0.9 },
@@ -184,6 +187,15 @@ const VFX_EFFECTS = {
   streamLance: { frames: 4, ms: 40, tinted: true, fill: 1, tile: true },
   streamFlame: { frames: 4, ms: 50, tinted: false, fill: 1, tile: true },
   redOrb: { frames: 6, ms: 40, tinted: false, fill: 0.5 },
+  // Naruto's signature techniques (ENG-SKL-NAR, ADR 0044): HD cells, art/characters/naruto/SKILLS_REVAMP.md
+  rasengan: { frames: 8, ms: 40, tinted: false, fill: 0.55, hd: true },
+  rasenganForm: { frames: 6, ms: 45, tinted: false, fill: 0.55, hd: true },
+  rasenganBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
+  rasenshuriken: { frames: 8, ms: 35, tinted: false, fill: 0.9, hd: true },
+  rasenshurikenDome: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true },
+  poof: { frames: 7, ms: 40, tinted: false, fill: 0.75, hd: true },
+  subLog: { frames: 5, ms: 70, tinted: false, fill: 0.85, anchor: 'bottom', hd: true },
+  fourTailsRoar: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 
@@ -1464,12 +1476,12 @@ function hasTransparency(img) {
   return false;
 }
 
-function framesFromFolder(dir, files, mode, env, warn, label) {
+function framesFromFolder(dir, files, mode, env, warn, label, vfxCell = VFX.cell) {
   const out = [];
   for (const f of files) {
     let img;
     try { img = readPng(path.join(dir, f)); } catch (e) { warn(`${label}: cannot read frames/${f} (${e.message})`); continue; }
-    if (mode === 'vfx' && img.w === VFX.cell && img.h === VFX.cell) { quantizeAlpha(img); out.push({ img, final: true }); continue; }
+    if (mode === 'vfx' && img.w === vfxCell && img.h === vfxCell) { quantizeAlpha(img); out.push({ img, final: true }); continue; }
     removeBackground(img, { tol: env.tol, mode });
     // a forgotten stray pixel would change the trimmed size (and so the scale of the whole anim)
     const stray = mode === 'char' ? removeSpecks(img, { frac: 0, min: 3 }).removed : 0;
@@ -2570,7 +2582,8 @@ function reachesSides(img) {
 // 2026-10-15), so the atlas is refused until the raws are back or --allow-drop says the loss is intended.
 function lostVfx(env, outVfx, R) {
   if (env.candidates || env.allowDrop) return [];
-  const shipped = readJson(path.join(outVfx, 'atlas.json')).data?.anims;
+  const data = readJson(path.join(outVfx, 'atlas.json')).data;
+  const shipped = data?.anims && { ...data.anims, ...data.hd?.anims };
   const lost = shipped ? Object.keys(shipped).filter((n) => R.missing.includes(n) && !R.unapproved.includes(n)) : [];
   if (!lost.length) return lost;
   const skipped = isDir(env.artDir) ? skippedFiles(env.artDir, 'vfx/raw').filter((p) => !/\/(_rejected|_old)\//.test(p)) : [];
@@ -2593,7 +2606,7 @@ function packVfx(env) {
   if (!isDir(vfxDir)) {
     R.missing = Object.keys(effects);
     if ((R.refused = lostVfx(env, outVfx, R)).length) return R;
-    removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R);
+    removeOutputs(env, outVfx, ['atlas.png', 'atlas_hd.png', 'atlas.json'], R);
     return R;
   }
   const names = Object.keys(effects);
@@ -2616,7 +2629,7 @@ function packVfx(env) {
       if (src.kind === 'stale') { warn(staleText(name, name, src)); R.missing.push(name); continue; }
       let items, notes = [], sourceLabel, origin = null, version = null;
       if (src.kind === 'frames') {
-        items = framesFromFolder(framesDir, src.framePngs, 'vfx', env, warn, name);
+        items = framesFromFolder(framesDir, src.framePngs, 'vfx', env, warn, name, (e.hd ? VFX_HD : VFX).cell);
         sourceLabel = `frames/${name}/`;
         if (src.origin) ({ file: origin, version } = src.origin);
       } else {
@@ -2638,21 +2651,22 @@ function packVfx(env) {
         continue;
       }
       const loose = items.filter((it) => !it.final).map((it) => it.img);
-      const target = Math.round(VFX.cell * (e.fill || 0.8));
+      const C = e.hd ? VFX_HD : VFX;
+      const target = Math.round(C.cell * (e.fill || 0.8));
       const maxDim = loose.length ? Math.max(...loose.map((s) => Math.max(s.w, s.h))) : 0;
       let scale = loose.length ? target / maxDim : 1;
       if (Math.abs(maxDim - target) <= 1) scale = 1;
       const cells = items.map((it) => {
         if (it.final) return it.img;
         const s = resample(it.img, scale, { coverage: 0.34, alphaMin: 40 });
-        const cell = newImage(VFX.cell, VFX.cell);
+        const cell = newImage(C.cell, C.cell);
         // keep the frame's offset inside its strip row (vfxAnchors); no anchor = center on its own bbox
         const a = it.img.anchor;
-        const half = VFX.cell / 2;
-        let dx = a ? Math.round(half - a.cx * scale) : Math.round((VFX.cell - s.w) / 2);
-        let dy = a ? Math.round(half - a.cy * scale) : Math.round((VFX.cell - s.h) / 2);
+        const half = C.cell / 2;
+        let dx = a ? Math.round(half - a.cx * scale) : Math.round((C.cell - s.w) / 2);
+        let dy = a ? Math.round(half - a.cy * scale) : Math.round((C.cell - s.h) / 2);
         if (e.anchor === 'bottom') {
-          dy = VFX.baseline - (s.h - 1) - (a ? Math.round(a.gap * scale) : 0);
+          dy = C.baseline - (s.h - 1) - (a ? Math.round(a.gap * scale) : 0);
           if (e.baseX) dx = Math.round(half - (footAnchor(s) + 0.5));
         }
         if (blit(cell, s, dx, dy)) notes.push('clipped');
@@ -2664,7 +2678,7 @@ function packVfx(env) {
       }
       if (e.lumaAlpha) cells.forEach((c, k) => { if (!items[k].final) lumaToAlpha(c); });
       // a stream band is laid end to end along the stream (ADR 0034): every frame must reach both cell edges
-      if (e.tile) cells.forEach((c, k) => { if (!reachesSides(c)) warn(`${name}: frame ${k} does not reach both cell edges, so it cannot tile along a stream (deliver exact 128 x 128 tiles in frames/${name}/)`); });
+      if (e.tile) cells.forEach((c, k) => { if (!reachesSides(c)) warn(`${name}: frame ${k} does not reach both cell edges, so it cannot tile along a stream (deliver exact ${C.cell} x ${C.cell} tiles in frames/${name}/)`); });
       for (const c of cells) quantizeAlpha(c);
       if (cells.length !== e.frames) warn(`${name}: ${cells.length} frame(s), expected ${e.frames}`);
       packed.push({ name, e, cells, src, sourceLabel, notes, scale, origin, version, edited: !!src.edited, handMade: src.kind === 'frames' && !src.packerMade });
@@ -2675,19 +2689,32 @@ function packVfx(env) {
     }
   }
   if ((R.refused = lostVfx(env, outVfx, R)).length) return R;
-  if (!packed.length) { removeOutputs(env, outVfx, ['atlas.png', 'atlas.json'], R); return R; }
+  if (!packed.length) { removeOutputs(env, outVfx, ['atlas.png', 'atlas_hd.png', 'atlas.json'], R); return R; }
 
-  const cols = Math.max(...packed.map((p) => p.cells.length));
-  const atlas = newImage(cols * VFX.cell, packed.length * VFX.cell);
-  const meta = { cell: VFX.cell, cols, rows: packed.length, ppu: VFX.ppu, source: 'art-pack', packer: PACKER_VERSION, anims: {} };
-  packed.forEach((p, row) => {
-    p.cells.forEach((c, i) => blit(atlas, c, i * VFX.cell, row * VFX.cell));
-    meta.anims[p.name] = { row, n: p.cells.length, ms: p.e.ms ?? 50 };
-    R.packed.push({ effect: p.name, frames: p.cells.length, expected: p.e.frames, source: p.sourceLabel, from: p.origin, version: p.version, edited: p.edited, handMade: p.handMade, scale: +p.scale.toFixed(3), notes: [...new Set(p.notes)] });
-    R.frames += p.cells.length;
-  });
-  R.atlas = `${atlas.w}x${atlas.h}`;
-  writeFile(env, path.join(outVfx, 'atlas.png'), encodePng(atlas), R);
+  // one page per cell size: the shared 128 px effects in atlas.png, the HD signature effects in atlas_hd.png
+  const page = (list, C) => {
+    const cols = Math.max(1, ...list.map((p) => p.cells.length));
+    const img = newImage(cols * C.cell, Math.max(1, list.length) * C.cell);
+    const anims = {};
+    list.forEach((p, row) => {
+      p.cells.forEach((c, i) => blit(img, c, i * C.cell, row * C.cell));
+      anims[p.name] = { row, n: p.cells.length, ms: p.e.ms ?? 50 };
+      R.packed.push({ effect: p.name, frames: p.cells.length, expected: p.e.frames, source: p.sourceLabel, from: p.origin, version: p.version, edited: p.edited, handMade: p.handMade, scale: +p.scale.toFixed(3), notes: [...new Set(p.notes)], ...(p.e.hd ? { hd: true } : {}) });
+      R.frames += p.cells.length;
+    });
+    return { img, cols, rows: list.length, anims };
+  };
+  const std = page(packed.filter((p) => !p.e.hd), VFX);
+  const hdList = packed.filter((p) => p.e.hd);
+  const meta = { cell: VFX.cell, cols: std.cols, rows: std.rows, ppu: VFX.ppu, source: 'art-pack', packer: PACKER_VERSION, anims: std.anims };
+  R.atlas = `${std.img.w}x${std.img.h}`;
+  writeFile(env, path.join(outVfx, 'atlas.png'), encodePng(std.img), R);
+  if (hdList.length) {
+    const hd = page(hdList, VFX_HD);
+    meta.hd = { image: 'atlas_hd.png', cell: VFX_HD.cell, cols: hd.cols, rows: hd.rows, ppu: VFX_HD.ppu, anims: hd.anims };
+    R.atlasHd = `${hd.img.w}x${hd.img.h}`;
+    writeFile(env, path.join(outVfx, 'atlas_hd.png'), encodePng(hd.img), R);
+  } else removeOutputs(env, outVfx, ['atlas_hd.png'], R);
   writeFile(env, path.join(outVfx, 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
   for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, {});
   return R;
@@ -3250,7 +3277,7 @@ function printReport(rep, env) {
     if (v.refused?.length) L(`  NOT WRITTEN: the atlas would lose ${v.refused.join(', ')} (source missing on disk; see the ! line below)`);
     else if (!v.packed.length) L(`  nothing packed${v.unapproved.length && !v.preview ? ' (no approved effects)' : ' (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/)'} - the game keeps its procedural effects`);
     else {
-      L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas} (missing ones stay procedural)`);
+      L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas}${v.atlasHd ? ` + HD ${v.atlasHd}` : ''} (missing ones stay procedural)`);
       for (const p of v.packed) L(`    ${p.effect.padEnd(11)} ${(String(p.frames).padStart(2) + (p.frames !== p.expected ? '/' + p.expected : '')).padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
     }
     if (v.missing.length && v.packed.length) L(`  missing (procedural fallback): ${v.missing.join(', ')}`);
