@@ -8,7 +8,7 @@ paused._
 
 ## Your next actions
 
-**Sasuke skills revamp (ART-SKL-SAS, ENG-SKL-SAS): done and live** (PR #165, merge 03a5b994, deployed 2026-10-18): Chidori v15, Kirin strike v08 and the 13 effects you approved are in production at https://gcd-tourney.vercel.app . Nothing left for you here; Codex closes PR #163 and its worktree.
+**Sasuke skills revamp (ART-SKL-SAS, ENG-SKL-SAS): done and live** (PR #165, merge 03a5b994, deployed 2026-10-18): Chidori v15, Kirin strike v08 and the 13 effects you approved are in production at https://gcd-tourney.vercel.app . Nothing left for you here; PR #163 is merged; the Sasuke worktree and local branch are removed.
 
 **ENG-112 Sasuke normals:** fTilt v03 is promoted unchanged at packScale 0.92; strict gate passes, with Astra body-parity HOLD documented. Codex committed `5d6d2712` and refreshed the [branch review page](https://gcd-tourney-r0bb43l3y-eshin087s-projects.vercel.app/reviews/normals-sasuke/). Claude’s next action is final integration/contact disposition; no user art decision is waiting.
 
