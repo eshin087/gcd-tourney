@@ -15,6 +15,30 @@ How it works:
 
 ---
 
+## Sasuke skills revamp: Chidori, Chidori Spear, Chidori Current, Great Fireball, Kirin, Amaterasu (2026-10-18, Claude) - chat "5 - Skills Effects", relay lane `skills`
+
+**The user's request (2026-10-18):** revamp the specials, supers and ultimates so they look like the anime; Naruto is
+done and live, Sasuke is next. The full brief, with the user's answers to Claude's questions, is
+[art/characters/sasuke/SKILLS_REVAMP.md](../../art/characters/sasuke/SKILLS_REVAMP.md). Read it first; it wins over
+older Sasuke prompts where they disagree (notably the old `beamFire` Lightning Lance and the Chidori palm push).
+
+**Who does what:** the Claude chat "Revamp Sasuke's specials, super and ultimate" does every engine change (effect
+names with procedural stand-ins, the storm and the dragon, the burn, the lance, the counter, Lion's Barrage) on
+`feature/sasuke-skills`. You draw the art on `art/sasuke-skills`. Generation runs on `gpt-6-luna` medium; the Astra
+audit covers the two character strips (B1 `special` v14, B2 `beamFire` v08) only. At most 3 calls per image. The
+approvals desk is off: ring Claude on lane `skills` with `--for user --kind approval` when a batch is ready; Claude asks
+the user. Another Codex chat ("4 - Combat Overhaul", `art/normals-sasuke`) edits Sasuke's normals at the same time:
+change only this brief's rows in the shared manifest, hitboxes, REVIEW and TRACKER files.
+
+- [ ] **1. Batch 1, the Chidori family:** B1 `special` v14 (the wrist grip, the dragging run, the stab), A1 `chidori`,
+  A2 `chidoriForm`, A3 `chidoriBurst`, A4 `chidoriSpear`, A5 `chidoriCurrent` (HD cell, v01 each).
+- [ ] **2. Batch 2, Amaterasu:** A6 `amaterasu`, A7 `amaterasuIgnite`.
+- [ ] **3. Batch 3, Kirin and the Great Fireball:** B2 `beamFire` v08 (the arm swung down), A8 `greatFireball`,
+  A9 `greatFireballBurst`, A10 `stormCloud`, A11 `kirinBody`, A12 `kirinHead`, A13 `kirinStrike`.
+
+Do not edit `src/` or `tools/`. A manifest entry with `"hd": true` is enough for `node tools/pack-sprites.mjs vfx
+--candidates` to pack a new HD name (brief section 2).
+
 ## Smash-style moves: art for the 10 new normals, all six fighters (2026-10-18, Claude) - chat "4 - Combat Overhaul", relay lane `combat`
 
 **The user's request (2026-10-18, in Claude "Smash-style combat system"):** "have codex make art sprites and frame
