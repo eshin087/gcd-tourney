@@ -29,7 +29,17 @@ number would spend image calls and approvals on drawings that are already right.
    too. Each drawing keeps its pose; only its size changes.
 2. **Goku and Luffy pack at x0.92** (user's option A from a lineup of x1.00 / x0.92 / x0.85). That puts both on the
    cast's 1.17 px per cm: Goku about 206 px of body, Luffy about 200 px.
-3. **New fighters** are placed at about 1.17 px per cm of canon standing height (body without hair or hat), measured
+3. **One strip drawn at the wrong size** gets `animations.<anim>.packScale` (same range), which multiplies the
+   fighter's. An attack alt never inherits its base's. The automatic head fit (`anatomy: auto-head`) keeps it: the
+   fit is measured on cells that already carry it, so it is applied after the fit instead of being fitted away. The
+   audit that sets these numbers (ART-SIZE-R7) acts only where the median of independent measures (head template,
+   body area, hand landmarks) is 6 % or more off the fighter's other strips; one measure alone misreads turned heads
+   and folded poses by up to 10 %.
+4. **`--keep-palette`** (with `--quantize`) snaps a repack to the colours of the fighter's current `sheet.png`, and
+   each source colour to the palette colour it got last time wherever a strip kept its shape. Resizing one strip then
+   leaves every other strip byte for byte; a fresh median cut moved up to 2,500 px of Gojo's untouched idle by up to
+   87 levels.
+5. **New fighters** are placed at about 1.17 px per cm of canon standing height (body without hair or hat), measured
    on the title-style neutral beside the four approved cells. The lineup is still the user's call (ADR 0029); this
    number is where the first candidate starts.
 

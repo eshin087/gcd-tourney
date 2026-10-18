@@ -1963,6 +1963,33 @@ function packScaleTests(base) {
   check(Array.isArray(b.hand) && b.hand[0] === Math.round(128 + 100 * 0.9) && b.hand[1] === Math.round(240 - 100 * 0.9),
     `packScale: a hitboxes.json hand anchor is scaled about the pivot ([228,140] -> ${JSON.stringify(b.hand)})`);
   check((b.C?.notes || []).some((n) => /packScale x0\.9/.test(n)), 'packScale: the report says the fighter was resized');
+  // a strip's own packScale multiplies the fighter's, and leaves the other strips alone
+  {
+    const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+    man.characters.sizey.animations.light1.packScale = 0.8;
+    fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  }
+  const d = run();
+  check(Math.abs(d.box('light1', 0).h / la - 0.72) < 0.02 && Math.abs(d.box('idle', 0).h - hb) <= 1,
+    `packScale: a strip's own x0.8 stacks on the fighter's x0.9 (light1 ${la} -> ${d.box('light1', 0).h} px, idle stays ${d.box('idle', 0).h})`);
+  // --keep-palette: a quantized repack after one strip changes keeps the sheet's colours, so the other strips stay put
+  {
+    const qpack = (extra) => pack([...base, 'sizey', '--quantize', '8', ...extra]);
+    const sheetFile = path.join(OUT, 'characters', 'sizey', 'sheet.png');
+    const colours = (img) => { const s = new Set(); for (let i = 0; i < img.data.length; i += 4) if (img.data[i + 3]) s.add((img.data[i] << 16) | (img.data[i + 1] << 8) | img.data[i + 2]); return s; };
+    qpack([]);
+    const before = loadPng(sheetFile), metaB = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'sizey', 'anims.json'), 'utf8'));
+    const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+    man.characters.sizey.animations.light1.packScale = 0.7;
+    fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+    const r = qpack(['--keep-palette']);
+    const after = loadPng(sheetFile), metaA = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'sizey', 'anims.json'), 'utf8'));
+    const pb = colours(before), pa = colours(after);
+    check(r.code === 0 && [...pa].every((k) => pb.has(k)) && /palette kept from the current sheet\.png/.test(r.out + JSON.stringify(r.json ?? {})),
+      `--keep-palette: the repack uses only the previous sheet's colours (${pa.size} of ${pb.size})`);
+    const idleSame = metaB.animations.idle.frames.every((f, k) => Buffer.compare(cell(before, f).data, cell(after, metaA.animations.idle.frames[k]).data) === 0);
+    check(idleSame, '--keep-palette: the untouched idle packs byte for byte');
+  }
   setScale(3);
   const c = run();
   check(c.r.code === 0 && Math.abs(c.box('idle', 0).h - ha) <= 1 && /packScale is 3 - must be a number 0\.5-1\.5/.test(c.r.out + JSON.stringify(c.r.json ?? {})),

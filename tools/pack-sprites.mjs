@@ -222,6 +222,8 @@ options
   --dry-run         analyse and report, write nothing
   --no-writeback    do not write cleaned frames back to art/.../frames/<anim>/
   --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 48
+  --keep-palette    with --quantize: snap to the colours of the character's current sheet.png instead of a new median
+                    cut, so a pack that resizes one strip leaves every other strip byte for byte (ADR 0041)
   --tolerance <n>   background color tolerance (RGB distance, default 72)
   --update-manifest raise "status" in art/manifest.json: packed anims/effects/ui -> "packed",
                     raw that could not be packed -> "raw". Never lowers a status ("approved" stays).
@@ -275,6 +277,7 @@ function parseArgs(argv) {
       case '--strict-scale': o.strictScale = true; break;
       case '--fit-head': o.fitHead.push(...val().split(',').map((s) => s.trim()).filter(Boolean)); break;
       case '--quantize': o.quantize = Math.round(num()); break;
+      case '--keep-palette': o.keepPalette = true; break;
       case '--tolerance': case '--tol': o.tol = num(); break;
       case '-h': case '--help': o.help = true; break;
       default:
@@ -1049,6 +1052,8 @@ function normalizeAnimEntry(v) {
   if (typeof v.status === 'string') o.status = v.status;
   if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) o.approvedVersion = v.approvedVersion;
   if (typeof v.altOf === 'string') o.altOf = v.altOf;
+  // a strip drawn at the wrong size against its own fighter (ADR 0041): its bodyHeight fit times this, 0.5-1.5
+  if (typeof v.packScale === 'number' && v.packScale >= 0.5 && v.packScale <= 1.5) o.packScale = v.packScale;
   return o;
 }
 
@@ -1160,6 +1165,8 @@ function animDefsFor(id, env) {
       durations: ms(c) ?? ms(b) ?? ms(d) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? DEFAULT_MS[altOf] ?? 100,
       hitbox: (c.hitbox ?? b.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
       approvedVersion: c.approvedVersion ?? null,
+      // the strip's own size correction; an alt is its own drawing, so it never inherits its base's
+      packScale: c.packScale ?? 1,
     };
   });
 }
@@ -1845,6 +1852,35 @@ function hitBox(cell, ref, T) {
   return { box: pad(front), rule: 'front' };
 }
 
+// the opaque colours of a packed sheet, or null when it is missing or has more than n of them (not a quantized pack)
+function sheetPalette(file, n) {
+  if (!fs.existsSync(file)) return null;
+  const img = readPng(file), seen = new Set();
+  for (let i = 0; i < img.data.length; i += 4) if (img.data[i + 3]) seen.add((img.data[i] << 16) | (img.data[i + 1] << 8) | img.data[i + 2]);
+  return seen.size && seen.size <= n ? { img, palette: [...seen].map((k) => [k >> 16, (k >> 8) & 255, k & 255]) } : null;
+}
+
+// For --keep-palette: every strip whose cells have the same shape as in the current sheet (anims.json next to it) shows
+// which palette colour each of its source colours became last time; strips that changed shape teach nothing
+function learnPalette(anims, sheet, metaFile, spec) {
+  const meta = readJson(metaFile).data;
+  if (!meta?.animations) return null;
+  const learned = new Map(), fw = spec.frameWidth, cols = meta.columns ?? spec.columns;
+  for (const a of anims) {
+    const old = meta.animations[a.def.name]?.frames;
+    if (!old || old.length !== a.cells.length) continue;
+    const olds = old.map((f) => crop(sheet, (f % cols) * fw, Math.floor(f / cols) * fw, fw, fw));
+    if (!a.cells.every((c, k) => c.data.every((v, i) => (i & 3) !== 3 || (v > 0) === (olds[k].data[i] > 0)))) continue;
+    a.cells.forEach((c, k) => {
+      for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
+        const key = (c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2];
+        if (!learned.has(key)) learned.set(key, (olds[k].data[i] << 16) | (olds[k].data[i + 1] << 8) | olds[k].data[i + 2]);
+      }
+    });
+  }
+  return learned;
+}
+
 function validBox(b) { return Array.isArray(b) && b.length === 4 && b.every((v) => Number.isFinite(v)); }
 
 function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = null, notes = null, hitSet = null) {
@@ -1895,12 +1931,13 @@ function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = n
 }
 
 // Median-cut palette over all opaque pixels, then snap every pixel to it.
-function quantizeFrames(cells, n) {
+function quantizeFrames(cells, n, fixed = null, learned = null) {
   const colors = new Map();
   for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
     const k = (c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2];
     colors.set(k, (colors.get(k) || 0) + 1);
   }
+  if (fixed) return mapToPalette(cells, fixed, learned);
   if (colors.size <= n) return colors.size;
   let boxes = [[...colors.entries()].map(([k, cnt]) => [k >> 16, (k >> 8) & 255, k & 255, cnt])];
   while (boxes.length < n) {
@@ -1925,7 +1962,14 @@ function quantizeFrames(cells, n) {
     for (const p of bx) { r += p[0] * p[3]; g += p[1] * p[3]; b += p[2] * p[3]; t += p[3]; }
     return [Math.round(r / t), Math.round(g / t), Math.round(b / t)];
   });
-  const cache = new Map();
+  return mapToPalette(cells, palette);
+}
+
+// every opaque pixel to its nearest palette colour (RGB distance); the palette's own colours map to themselves
+// learned: source colour -> the palette colour the previous pack chose for it (--keep-palette), so a colour that is as
+// near to two palette entries as to each other lands where it did before, whatever order the palette is in
+function mapToPalette(cells, palette, learned = null) {
+  const cache = new Map(learned ? [...learned].map(([k, v]) => [k, [v >> 16, (v >> 8) & 255, v & 255]]) : []);
   for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
     const k = (c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2];
     let p = cache.get(k);
@@ -2004,7 +2048,7 @@ function approvedIdleReference(id, defs, anims, rawIdx, env, R, warn) {
   const side = readSidecars(raw.sidecars, warn, 'idle');
   const { frames } = framesFromRaw(raw.files, def.frames, side, env, 'char', () => {}, 'idle', raw.strip);
   if (!frames.length) return;
-  const packScale = env.manifest.characters[id]?.packScale ?? 1;
+  const packScale = (env.manifest.characters[id]?.packScale ?? 1) * def.packScale;
   const bodyHeight = Math.round((Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight) * packScale);
   const maxH = Math.max(...frames.map((s) => s.h));
   const scale = Math.abs(maxH - bodyHeight) <= 1 ? 1 : bodyHeight / maxH;
@@ -2062,7 +2106,9 @@ function fitHeads(id, anims, env, R) {
       R.warnings.push(...a.fit.placeWarn); // not fitted: the pre-fit cells are the ones that ship
       continue;
     }
-    let f = 1 / s.head;
+    // the head was measured on cells that already carry the strip's own packScale (ADR 0041): fitting the head back to
+    // the idle's would undo that correction, so the fit keeps it (the probe misreads some strips, Gojo light1 v05)
+    let f = a.def.packScale / s.head;
     if (f < g.fitMin || f > g.fitMax) {
       R.warnings.push(`${a.def.name}: auto-head fit x${f.toFixed(2)} is outside ${g.fitMin}-${g.fitMax} - clamped; redraw the strip at the idle's size`);
       f = Math.min(g.fitMax, Math.max(g.fitMin, f));
@@ -2184,7 +2230,9 @@ function packCharacter(id, env) {
       if (raw?.version != null) R.versions[def.name] = raw.version;
       const side = readSidecars(raw?.sidecars, warn, alabel);
       const fitHead = side.anatomy?.measurement === 'auto-head' || env.fitHead.has(`${id}:${def.name}`);
-      let bodyHeight = Math.round((Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight) * packScale);
+      const stripScale = packScale * def.packScale; // the fighter's packScale times this strip's own
+      if (def.packScale !== 1) R.notes.push(`${alabel}: packScale x${def.packScale} (this strip, ADR 0041)`);
+      let bodyHeight = Math.round((Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight) * stripScale);
       let tooTall = null;
       if (!(bodyHeight >= 8 && bodyHeight <= maxBody)) {
         const fixed = Math.min(maxBody, Math.max(8, bodyHeight || DEFAULT_BODY_HEIGHT));
@@ -2233,7 +2281,7 @@ function packCharacter(id, env) {
         if (maxH !== bodyHeight && src.kind === 'frames' && !src.packerMade) notes.push(`kept native size (${maxH}px vs ${bodyHeight}px)`);
         scale = 1;
       }
-      const anatomyScales = anatomicalScalesFor(side, sprites.length, warn, alabel)?.map((k) => k * packScale) ?? null;
+      const anatomyScales = anatomicalScalesFor(side, sprites.length, warn, alabel)?.map((a) => a * stripScale) ?? null;
       if (anatomyScales) {
         // Cached or hand-edited cells already have their final anatomy. Never normalize them
         // to bodyHeight again; source/sidecar hash invalidation handles fresh raw imports.
@@ -2245,7 +2293,7 @@ function packCharacter(id, env) {
       const autoHead = src.kind === 'frames' && fitHead ? src.autoHead ?? null : null;
       if (autoHead != null && autoHead !== 1) { scale = 1; notes.push(`auto-head fit x${autoHead} (from the import)`); }
       if (scale > 1) warn(`${alabel}: art is smaller than the target (${maxH}px < ${bodyHeight}px) - upscaled x${scale.toFixed(2)} (nearest); generate it bigger`);
-      const frameOffsets = scaleOffsets(frameOffsetsFor(side, sprites.length, spec, warn, alabel), packScale);
+      const frameOffsets = scaleOffsets(frameOffsetsFor(side, sprites.length, spec, warn, alabel), stripScale);
       const wallFrames = beatFrames(def.phases, sprites.length, TECH_POSES[def.name]?.wall);
       const cells = [];
       const frameScales = [];
@@ -2315,7 +2363,13 @@ function packCharacter(id, env) {
 
   // 2b) optional palette snap (across the whole character so colors stay consistent)
   const allCells = anims.flatMap((a) => a.cells);
-  if (env.quantize) R.notes.push(`palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
+  if (env.quantize) {
+    const outChar = path.join(env.outDir, 'characters', id);
+    const kept = env.keepPalette ? sheetPalette(path.join(outChar, 'sheet.png'), env.quantize) : null;
+    if (env.keepPalette && !kept) warn(`--keep-palette: no current sheet.png with at most ${env.quantize} colours for ${id} - median cut instead`);
+    const learned = kept ? learnPalette(anims, kept.img, path.join(outChar, 'anims.json'), spec) : null;
+    R.notes.push(kept ? `palette kept from the current sheet.png (${quantizeFrames(allCells, env.quantize, kept.palette, learned)} colors)` : `palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
+  }
   R.colors = countColors(allCells);
   if (R.colors > spec.warnColors) warn(`palette has ${R.colors} colors (> ${spec.warnColors}; spec target <= ${spec.maxColors}) - clean the art or re-run with --quantize ${spec.maxColors}`);
   else if (R.colors > spec.maxColors) R.notes.push(`palette has ${R.colors} colors: above the spec target of ${spec.maxColors} (warned above ${spec.warnColors})`);
@@ -2378,7 +2432,7 @@ function packCharacter(id, env) {
     });
   }
   if (big.length) warn(`large auto hitbox (> 40% of the body) on ${big.join(', ')} - check in the Sprite Lab, add hitboxes.json overrides if needed`);
-  const fits = new Map(anims.map((a) => [a.def.name, (a.autoHead ?? 1) * packScale]).filter(([, f]) => f !== 1));
+  const fits = new Map(anims.map((a) => [a.def.name, (a.autoHead ?? 1) * packScale * a.def.packScale]).filter(([, f]) => f !== 1));
   const overridden = new Set(); // frames whose hit box hitboxes.json replaced
   const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label, fits, spec.pivot, R.notes, overridden);
   if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
@@ -3279,7 +3333,7 @@ async function main() {
   for (const s of manifest.specIssues) rep.warnings.push(`manifest ${s}`);
   rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
   rep.spec = manifest.spec;
-  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, allowDrop: opts.allowDrop, quantize: opts.quantize, tol: opts.tol, candidates: opts.candidates };
+  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, allowDrop: opts.allowDrop, quantize: opts.quantize, keepPalette: !!opts.keepPalette, tol: opts.tol, candidates: opts.candidates };
   // scale gate inputs (TOOL-025): thresholds from spec.scaleGate, declared head/feet colours, the committed baseline
   const gateIssues = [];
   Object.assign(env, {
