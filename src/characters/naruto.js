@@ -162,14 +162,13 @@ export default {
   },
   // Ultimate (the user, 2026-10-18, ADR 0045): the four-tailed fox fires a chakra blast from its mouth (Tenchi Bridge).
   // The shared beam ultimate with: `flashPose` / `flashPhase` held through the flash while the red-black chakra
-  // swallows him (`shroud`, as SUPERS shrouds: `hold` 1 keeps the drawn body a boiling silhouette until the four-tails
-  // strips ship, then 0; `tails` chakra tails behind him until then), red and blue chakra gathering into the `gather`
-  // ball at the drawn hand anchor (the mouth on the four-tails frames) during the charge, and shock rings (`muzzle`)
-  // sent down the beam while it fires.
+  // swallows him (`shroud`: the engulf only during the flash, `hold` 0, since beamCharge v17 / beamFire v15 draw the
+  // fox and its tails), red and blue chakra gathering into the `gather` ball at the drawn hand anchor (the fox's mouth,
+  // hitboxes.json) during the charge, and shock rings (`muzzle`) sent down the beam while it fires.
   beam: {
     core: '#fff4e6', mid: '#ff7a3a', edge: '#c41c0a', name: 'FOUR-TAILS: TAILED BEAST BALL', width: 1.7,
     flashPose: 'specialDown', flashPhase: 1,
-    shroud: { chakra: 0xb0140c, core: 0x1a0204, rim: 0xc8281e, hold: 1, tails: 4 },
+    shroud: { chakra: 0xb0140c, core: 0x1a0204, rim: 0xc8281e, hold: 0, tails: 0 },
     gather: { fx: 'beastBall', scale: 0.6, colors: [0xff3a2a, 0x3a8aff] },
     muzzle: { fx: 'beastBeamRing', every: 10, scale: 0.9, speed: 7 },
   },

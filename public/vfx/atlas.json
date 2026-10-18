@@ -31,5 +31,17 @@
     "streamLance": { "row": 22, "n": 4, "ms": 40 },
     "streamFlame": { "row": 23, "n": 4, "ms": 50 },
     "redOrb": { "row": 24, "n": 6, "ms": 40 }
+  },
+  "hd": {
+    "image": "atlas_hd.png",
+    "cell": 256,
+    "cols": 8,
+    "rows": 3,
+    "ppu": 112,
+    "anims": {
+      "fourTailsRoar": { "row": 0, "n": 8, "ms": 45 },
+      "beastBall": { "row": 1, "n": 8, "ms": 45 },
+      "beastBeamRing": { "row": 2, "n": 6, "ms": 40 }
+    }
   }
 }

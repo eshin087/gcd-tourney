@@ -378,8 +378,7 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   the red-black chakra swallows him from the feet up (`def.beam.flashPose` held, `shroud`); the fox roars as the
   charge starts, red and blue chakra converge into a dark ball at its mouth (`gather`), and the beam (width 1.7, red
   and white) leaves the mouth with shock rings running down it (`muzzle`). The shroud bursts off him when it ends.
-  Until Codex's four-tails strips are approved, the drawn body is a boiling silhouette of his human beam poses with
-  four chakra tails.
+  `beamCharge` v17 is the fox gathering, `beamFire` v15 the fox firing; their `hand` anchors sit on the mouth.
 - **Heavy + Special** (5-frame buffer), 3 bars. 46-frame windup (14 when answering, see below), invulnerable
   through the windup. A 42-frame super flash with a cut-in strip (`cutin.png` or the baked eye strip), stage dim
   72%, focus camera.

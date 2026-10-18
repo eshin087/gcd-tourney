@@ -1,28 +1,359 @@
 {
   "_comment": "256px frame-local hit boxes on the striking limb's contact end, measured by Claude 2026-10-11 on the title-style art (quantize-48 pack of light4 v08, heavy v12, airHeavy v09, special v08, specialUp v04; airLight3 v09 and light2 v06 f3 re-measured 2026-10-12, see _airLight3V09 / _light2V06). They replace auto boxes that took in a smear trail, the other hand, the knee, the hair (heavy) or the front 28% of the body (special f3), and the old-art boxes that sat on the torso or in the air. Auto boxes that already cover only the striking limb stay: light1-3, light4 f4, airLight1-2, special f5, specialForward f2-f3, specialUp f3. Re-measure any strip whose packed version changes.",
-  "light4": {"3": {"hit": [[213, 88, 33, 19]]}},
-  "light1Alt": {"2": {"hit": [[177, 107, 31, 18]]}, "3": {"hit": [[164, 108, 31, 20]]}},
-  "light2Alt": {"2": {"hit": [[181, 104, 25, 23]]}, "3": {"hit": [[181, 104, 25, 23]]}},
+  "light4": {
+    "3": {
+      "hit": [
+        [
+          213,
+          88,
+          33,
+          19
+        ]
+      ]
+    }
+  },
+  "light1Alt": {
+    "2": {
+      "hit": [
+        [
+          177,
+          107,
+          31,
+          18
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          164,
+          108,
+          31,
+          20
+        ]
+      ]
+    }
+  },
+  "light2Alt": {
+    "2": {
+      "hit": [
+        [
+          181,
+          104,
+          25,
+          23
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          181,
+          104,
+          25,
+          23
+        ]
+      ]
+    }
+  },
   "_light2Alt": "Claude 2026-10-15 (loose ends): the drawn palm strike of v05 f2/f3 at bodyHeight 165, for the packer's visual check only (an alt ships its base's boxes). At the calibrated size the auto finder read the strike at knee height; the palm lands 9-13 px short of and 18 px under light2's hit, inside 24 px.",
-  "airHeavyAlt": {"2": {"hit": [[210, 164, 21, 36]]}, "3": {"hit": [[223, 190, 21, 42]]}},
+  "airHeavyAlt": {
+    "2": {
+      "hit": [
+        [
+          210,
+          164,
+          21,
+          36
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          223,
+          190,
+          21,
+          42
+        ]
+      ]
+    }
+  },
   "_airHeavyAlt": "Claude 2026-10-15 (loose ends): the drawn double fist of v04 f2/f3 at bodyHeight 170 with the f3 offset +40 px, for the packer's visual check only (an alt ships its base's boxes). f2 lands 14 px short of and 10 px over airHeavy's hit, f3 about 5 px short and 10 px under.",
-  "heavyAlt": {"3": {"hit": [[124, 46, 42, 25]]}, "4": {"hit": [[158, 54, 19, 25]]}},
+  "heavyAlt": {
+    "3": {
+      "hit": [
+        [
+          124,
+          46,
+          42,
+          25
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          158,
+          54,
+          19,
+          25
+        ]
+      ]
+    }
+  },
   "_heavyAlt": "Claude 2026-10-14 (QA-NAR-ALTS-CAL round 2): the kicking foot of v02 f3/f4 at bodyHeight 205, for the packer's visual check only (an alt ships its base's boxes). The auto finder read the strike at chest height; the drawn foot lands within 19 px of heavy's uppercut.",
   "_light1Alt": "Claude 2026-10-14 (QA-NAR-ALTS-CAL): the drawn hook fist on v01 f2/f3 in the calibrated pack (bodyHeight 168). Only the packer's visual check reads these: an alt ships its base's boxes (ADR 0031 amendment). The auto finder had read the strike at knee height.",
-  "light2": {"3": {"hit": [[190, 86, 24, 21]]}},
+  "light2": {
+    "3": {
+      "hit": [
+        [
+          190,
+          86,
+          24,
+          21
+        ]
+      ]
+    }
+  },
   "_light2V06": "light2 v06 f3 (Claude, 2026-10-12, measured on the title-style art at bodyHeight 185): since the size pass (180 -> 185) the auto rule \"rising strike above the idle head\" picks the hair (box x 91-169, y 61-90); the jab fist is at x 194-211, y 89-104 (cuff from x 190). f2 keeps its auto fist box.",
-  "heavy": {"3": {"hit": [[156, 50, 24, 54]]}, "4": {"hit": [[177, 21, 19, 25]]}},
+  "heavy": {
+    "3": {
+      "hit": [
+        [
+          156,
+          50,
+          24,
+          54
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          177,
+          21,
+          19,
+          25
+        ]
+      ]
+    }
+  },
   "_heavyV12": "R fist + cuff boxes on heavy v12 (Claude, 2026-10-11, measured on the title-style art). f3: the uppercut fist rises straight up in front of the face (x 157-175, y 52-72), 5-23 px short of the SPEC F03 zone; the box covers the fist and the rising forearm down to the elbow (x 156-180, y 50-104) so the launcher meets the short cast on every active frame, on the drawn limb, no reach extension. f4: fist above the forehead, x 179-193, y 23-43.",
-  "airLight3": {"2": {"hit": [[215, 117, 31, 34]]}, "3": {"hit": [[215, 117, 31, 34]]}},
+  "airLight3": {
+    "2": {
+      "hit": [
+        [
+          215,
+          117,
+          31,
+          34
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          215,
+          117,
+          31,
+          34
+        ]
+      ]
+    }
+  },
   "_airLight3V09": "Kicking-foot boxes re-measured by Claude 2026-10-12 on the title-style airLight3 v09 packed at bodyHeight 192 with sidecar offsets f2/f3 [-2,0] (the v07 boxes sat under the foot, on the shin and in the air). f2 and f3 are the same extended kick (f2 with the crescent): the sandal from the ankle to the sole, x 215-245, y 118-150; the crescent (effect) is not part of the box. Front edge x 246 = 0.92 units ahead of the pivot.",
-  "airHeavy": {"2": {"hit": [[219, 178, 29, 26]]}, "3": {"hit": [[224, 187, 27, 26]]}},
-  "specialUp": {"2": {"hit": [[212, 2, 37, 45]]}},
+  "airHeavy": {
+    "2": {
+      "hit": [
+        [
+          219,
+          178,
+          29,
+          26
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          224,
+          187,
+          27,
+          26
+        ]
+      ]
+    }
+  },
+  "specialUp": {
+    "2": {
+      "hit": [
+        [
+          212,
+          2,
+          37,
+          45
+        ]
+      ]
+    }
+  },
   "_hands": "hand: palm/fingertip point (256 cell) for hand effects, shots and beams, measured by Claude 2026-10-11 on the title-style art (throw v09, beamCharge v08, beamFire v12, special v08, specialForward v04): the Rasengan forms between the cupped hands (special f0-f1: midpoint of the two hands, about 13-15 px from each), then sits in the R palm (f2-f5; the post-hit recovery frames keep f5's point, the impact); the Rasenshuriken sits on the raised palm (specialForward f0-f1), then the thrust palm (f2-f3; recovery keeps f3's point); shuriken leave the open R hand (throw f1, f2 = follow-through hand); the beam leaves the front of both palms (beamFire); beamCharge marks the pocket between the cupped hands at the rear hip.",
-  "special": {"0": {"hand": [163, 139]}, "1": {"hand": [160, 149]}, "2": {"hand": [200, 146]}, "3": {"hit": [[174, 142, 27, 24]], "hand": [188, 150]}, "4": {"hit": [[202, 130, 29, 24]], "hand": [217, 141]}, "5": {"hand": [231, 123]}},
-  "specialForward": {"0": {"hand": [164, 44]}, "1": {"hand": [166, 55]}, "2": {"hand": [242, 114]}, "3": {"hand": [242, 114]}},
-  "throw": {"1": {"hand": [216, 124]}, "2": {"hand": [207, 158]}, "_refit": "scaled x1.0277 about the pivot with the strip's bodyHeight 163 -> 168 (size consistency pass, 2026-10-11)"},
-  "beamCharge": {"0": {"hand": [100, 153]}, "1": {"hand": [99, 153]}, "2": {"hand": [99, 154]}, "_refit": "scaled x0.9804 about the pivot with the strip's bodyHeight 174 -> 171 (size consistency pass, 2026-10-11)"},
-  "beamFire": {"0": {"hand": [206, 125]}, "1": {"hand": [206, 125]}, "2": {"hand": [207, 125]}},
-  "beamStruggle": {"0": {"hand": [204, 125]}, "1": {"hand": [179, 125]}, "2": {"hand": [209, 125]}},
+  "special": {
+    "0": {
+      "hand": [
+        163,
+        139
+      ]
+    },
+    "1": {
+      "hand": [
+        160,
+        149
+      ]
+    },
+    "2": {
+      "hand": [
+        200,
+        146
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          174,
+          142,
+          27,
+          24
+        ]
+      ],
+      "hand": [
+        188,
+        150
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          202,
+          130,
+          29,
+          24
+        ]
+      ],
+      "hand": [
+        217,
+        141
+      ]
+    },
+    "5": {
+      "hand": [
+        231,
+        123
+      ]
+    }
+  },
+  "specialForward": {
+    "0": {
+      "hand": [
+        164,
+        44
+      ]
+    },
+    "1": {
+      "hand": [
+        166,
+        55
+      ]
+    },
+    "2": {
+      "hand": [
+        242,
+        114
+      ]
+    },
+    "3": {
+      "hand": [
+        242,
+        114
+      ]
+    }
+  },
+  "throw": {
+    "1": {
+      "hand": [
+        216,
+        124
+      ]
+    },
+    "2": {
+      "hand": [
+        207,
+        158
+      ]
+    },
+    "_refit": "scaled x1.0277 about the pivot with the strip's bodyHeight 163 -> 168 (size consistency pass, 2026-10-11)"
+  },
+  "beamCharge": {
+    "0": {
+      "hand": [
+        181,
+        163
+      ]
+    },
+    "1": {
+      "hand": [
+        183,
+        164
+      ]
+    },
+    "2": {
+      "hand": [
+        185,
+        163
+      ]
+    },
+    "_hands": "mouth of the four-tailed fox (ADR 0045): the Tailed Beast Ball gathers and the beam leaves here; measured on the packed cells (white mouth patch, front edge), 2026-10-18"
+  },
+  "beamFire": {
+    "0": {
+      "hand": [
+        206,
+        198
+      ]
+    },
+    "1": {
+      "hand": [
+        205,
+        198
+      ]
+    },
+    "2": {
+      "hand": [
+        205,
+        199
+      ]
+    },
+    "_hands": "mouth of the four-tailed fox (ADR 0045): the Tailed Beast Ball gathers and the beam leaves here; measured on the packed cells (white mouth patch, front edge), 2026-10-18"
+  },
+  "beamStruggle": {
+    "0": {
+      "hand": [
+        204,
+        125
+      ]
+    },
+    "1": {
+      "hand": [
+        179,
+        125
+      ]
+    },
+    "2": {
+      "hand": [
+        209,
+        125
+      ]
+    }
+  },
   "_beamStruggle": "v02 cupped palm, 4 px inside its front edge like beamFire; re-measured by Claude 2026-10-17 on the packed sheet (palm front x208/183/213, y115-136; f1 'strain' pulls the arm back 25 px as drawn). The earlier [232,124] on every frame floated 24-49 px in front of the palm."
 }
