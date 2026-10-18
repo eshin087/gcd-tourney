@@ -1,6 +1,106 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-10-18T06:59:27.603Z",
- "fighters": {}
+ "generated": "2026-10-18T08:02:28.285Z",
+ "fighters": {
+  "sasuke": {
+   "idleGarmentPx": 2841,
+   "anims": {
+    "fSmash": {
+     "v": 2,
+     "body": [
+      1.064,
+      1.043,
+      0.961,
+      1.004,
+      1.082,
+      1.154,
+      0.94,
+      1.034,
+      1.061
+     ],
+     "head": [
+      1.051,
+      0.996,
+      1.103,
+      1.04,
+      1.049,
+      1.039,
+      1.047,
+      1.077,
+      1.025
+     ],
+     "median": 1.043,
+     "headMedian": 1.047,
+     "flag": null
+    },
+    "fair": {
+     "v": 3,
+     "body": [
+      0.757,
+      0.728,
+      0.791,
+      0.809,
+      0.768,
+      0.754
+     ],
+     "head": [
+      0.974,
+      0.974,
+      1.007,
+      1,
+      1,
+      0.984
+     ],
+     "median": 0.763,
+     "headMedian": 0.992,
+     "flag": "small"
+    },
+    "bair": {
+     "v": 1,
+     "body": [
+      1.019,
+      0.921,
+      0.888,
+      0.913,
+      0.898,
+      1.019
+     ],
+     "head": [
+      1.039,
+      1.053,
+      1.077,
+      1.019,
+      1.039,
+      1.053
+     ],
+     "median": 0.917,
+     "headMedian": 1.046,
+     "flag": null
+    },
+    "uair": {
+     "v": 1,
+     "body": [
+      0.896,
+      0.872,
+      0.867,
+      0.881,
+      0.862,
+      0.896
+     ],
+     "head": [
+      1.026,
+      0.615,
+      0.97,
+      0.974,
+      1,
+      1.015
+     ],
+     "median": 0.877,
+     "headMedian": 0.987,
+     "flag": "small"
+    }
+   }
+  }
+ }
 }
