@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SIZE-R7): archived the Codex audit worktree after PR #153 merged the independent table; no redraws or image calls were needed.
+
 - Changed (ART-SIZE-R7, ADR 0041): Goku and Luffy are 8 % smaller in game (user option A, 2026-10-18), on the cast's 1.17 px per cm of canon height: Goku had shipped at 1.08x his approved reference and stood as tall as Gojo, and Luffy's reference was drawn large. New manifest field `packScale` makes the packer resize a whole fighter (every strip's bodyHeight, frameOffsets and hitboxes.json anchors); no drawing changed. Their hit boxes shrink with the art (Goku heavy reaches 117 px instead of 127). `npm run test:sprites` covers it.
 
 - Fixed (ART-SIZE-R7): 12 strips that were drawn 5-14 % bigger or smaller than the rest of their fighter are resized to match (manifest `animations.<anim>.packScale`, ADR 0041): Goku dash, special, beamCharge, win; Luffy charge, jumpUp, getup, airLight1, land, light4, beamCharge; Gojo heavy. Measured on every frame of all six fighters (head templates, body area, hand landmarks); no drawing changed. New packer flag `--keep-palette` keeps the current sheet's colours on a repack, so the other strips stay byte for byte.

@@ -7,7 +7,7 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
-**Size audit round 7 live (2026-10-18, PR [#153](https://github.com/eshin087/gcd-tourney/pull/153), `cd5c3ea2`, ART-SIZE-R7):** Goku and Luffy at 92 % on the cast's scale, and 12 moves drawn off their fighter's size evened out (Goku 4, Luffy 7, Gojo heavy); you approved all three and kept Naruto's back dash as drawn. No drawing changed. Nothing waiting on you.
+**Size audit round 7 live (2026-10-18, PR [#153](https://github.com/eshin087/gcd-tourney/pull/153), `cd5c3ea2`, ART-SIZE-R7):** Goku and Luffy at 92 % on the cast's scale, and 12 moves drawn off their fighter's size evened out (Goku 4, Luffy 7, Gojo heavy); you approved all three and kept Naruto's back dash as drawn. The audit table is merged; Codex's managed audit worktree is archived. No drawing changed, no image approval is implied, and nothing is waiting on you.
 
 **CPUs play the Smash moves, live (2026-10-18, PR [#150](https://github.com/eshin087/gcd-tourney/pull/150), `b013d2ef`, ENG-111):** every CPU level uses up tilt anti-airs, tilt pokes, short-hop / fast-fall / back airs, charged smash punishes and dash attacks, with the links down tilt → jab, up tilt → up tilt / short hop → up air, short-hop aerial → down tilt. Try it: https://gcd-tourney.vercel.app/?fight=killua,naruto&mode=cpu. Nothing to do; stand-in strips until ENG-112.
 

@@ -85,9 +85,9 @@ characters and feels out of place." Claude and this chat do it together; this ch
   ratio, verdict, note), on a task branch `art/size-r7-codex` in your managed worktree. Then
   `node tools/relay.mjs ring art-audit --note "<counts per verdict; commit>"`.
   Completed in `art/size-r7/CODEX_AUDIT.md`; commit `903b9b63` (230 strips: 207 ok, 21 unresolved,
-  one height-pop and one scale-off). Claude's next action is reconciling the table with its measurements and sending
-  the redraw list; no image calls were made.
+  one height-pop and one scale-off). PR #153 merged the table; no redraws or image calls were needed.
 - [x] **2. Redraws: closed 2026-10-18, none needed.** Every fix was a resize: PR #153, live as `cd5c3ea2` (Goku/Luffy x0.92 plus 12 strips; your table is in the PR as `art/scale/size-r7/CODEX_AUDIT.md`). The user kept Naruto backDash as drawn ("Keep it"). No image calls in this round.
+  After merge, the Codex managed worktree was archived on 2026-10-18; confirmation sent on `art-audit`.
 
 ## Gojo posture fix (option D): bent-knee hit reactions (2026-10-17, Claude) - chat "3 - Gojo", relay lane `gojo-run`
 
