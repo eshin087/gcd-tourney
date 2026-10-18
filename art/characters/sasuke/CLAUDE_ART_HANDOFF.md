@@ -1,5 +1,14 @@
 # ENG-112 Sasuke normals handoff
 
+## Relay combat #15: uTilt approval and strict-pack repair (2026-10-18)
+
+The user approved Sasuke uTilt v05 (the deterministic head-only edit of approved v01) via Claude: “Approve uTilt v05”. Recorded in REVIEW, manifest (approvedVersion: 5; exact relay quote in approvalSource) and TRACKER. No optional jaw/hair pixel cleanup was made; source pixels remain unchanged. This approval supersedes pending seam-review relay #18. Strict pack includes uTilt v05 with the documented f2/f3 false-arm probe exemptions; B=.917 and readable f6 head .921 ±2–3px remain advisory, and runtime contact is Claude's check.
+
+Technical fixes authorized in #15: phases are fTilt [3,2,2], dashAttack [3,2,2], dTilt [3,2,1]. Approved dashAttack v05 was promoted from _qa_hold, given auto-head import fit x0.7502, and passes strict scale. Its active punch is f3/f4. dTilt v05 active kick is f3/f4; boxes follow the shin/foot. uSmash v05 was promoted with uniform manifest packScale 1.111, supported by Astra's corrected-atlas measurements. Version-bound f3/f4 exemptions document raised-arm probe misses. Astra rechecked final atlas SHA 757c68ccd749c8184221d9e2082c6961f867b469756ec3d2f5fb79a9f04f6a1a: PASS for visual anatomy/assembly/clipping, head .968–1.000 (median .996), f4 has four empty top rows with complete fist, soles y240 and sandals coherent. Intrinsic segment tolerances and runtime contact are not certified. Hitboxes for dashAttack f3/f4 and uSmash f3/f4 now sit on the striking fist.
+
+fTilt v03 remains in _qa_hold: strict gate reports true head drift 1.14× idle while feet are 1.04×, and auto-head cannot correct the head/body proportion. Phase correction [3,2,2] is recorded, but promotion would fail strict scale. Drawing remains user-approved via relay #7; no further image generation or deterministic pixel edit is authorized. dSmash remains the stand-in. Current strict atlas is 52 animations / 236 frames and passes with fTilt held. Review crops/loops were rebuilt from that exact atlas for the eight packed approved strips. User decision needed: keep fTilt v03 held with its stand-in, or authorize a deterministic head-only proportion edit as a new candidate (the new version would return for user image approval). Review page: public/reviews/normals-sasuke/.
+
+
 ## uTilt deterministic head edit (2026-10-18, user decision via Claude relay combat #11)
 
 The user authorized no generation: enlarge only the hair-to-chin head of approved uTilt v01 about 8% around the neck/jaw,
@@ -10,9 +19,7 @@ The source pixels and output hash, anchors, per-frame changed regions, and faile
 exemptions; after relay #14 moved rejected dTilt v06 out of raw, the strict-scale pack passes (1 ref, 39 ok, 10 manual).
 Astra inspected packed cells 181–187: the requested head-edit
 seam/pose passes for review, but full numerical scale remains HOLD (readable f6 head .921 with ±2–3 px uncertainty; body
-B median .917 below the .93 advisory target). The user has not approved v05; v01 remains `approvedVersion`, and fallback
-remains active. Review page includes the raw edit, frame loop, before/after and measurement sheets. Next: request user seam
-review for v05 while clearly stating that drawing approval does not clear the numeric hold. No engine contact/runtime check
+B median .917 below the .93 advisory target). The user approved v05 via Claude relay combat #15 (“Approve uTilt v05”); manifest approvedVersion is 5. Review page includes the edit, frame loop, before/after and measurement sheets. Numerical advisory remains; runtime contact is Claude's check. No engine contact/runtime check
 was done by Codex.
 
 ## dTilt low-kick retry (2026-10-18, user decision via Claude relay combat #10)
