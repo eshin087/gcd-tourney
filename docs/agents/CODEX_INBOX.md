@@ -126,7 +126,7 @@ Do, per fighter (Luna/medium for generation; Astra/medium final audit, per CLAUD
   evidence; where the figure really is off, fix the import (measured re-stitch or the auto head fit) without changing the
   drawing. The user accepted these drawings as drawn: a redraw would need the user again, so ring before any redraw.
 - [x] **B3. dTilt.** (2026-10-18: user approved dTilt v05 as drawn via Claude relay combat #13 after reviewing packed cells 181–186. Relay #10 authorized one new kick-specific round; attempt 03 was selected byte-identically as raw v06. Its quantized scale gate fails (auto-head fit .68 outside .75–1.33; clamp still leaves the figure oversized and clips active frames), so no v06 atlas or final Astra audit exists. The raw drawing is shown on the branch review page with the technical hold disclosed; v05 remains the approved drawing, v06 review is separate.) Earlier relay #12 selected v05 from a previous round; it was not image approval. v02 remains in `_rejected/`.
-- [ ] Then ring `combat` (not for the user) with the commit: Claude reruns the guard, checks contact in play and merges.
+- [x] Then ring `combat` (not for the user) with the commit: Claude reruns the guard, checks contact in play and merges. (2026-10-18: relay #19 sent after committed uTilt v05 handoff `4e730edf`; user seam review is separately queued as relay #18.)
 
 Progress (tick per fighter): - [ ] sasuke (dTilt v05 approved; v06 drawing review under technical hold; uTilt next) - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
 
