@@ -4,7 +4,7 @@
 - Call 2: `E:\Vibe Coding\.codex\generated_images\01a14e2c-2647-74e2-b35c-606129c1b031\exec-4e682c32-8932-425a-848e-d74664bddb63.png`; preserved as `special_v14_call02_attempt.png`.
 - Call 3: `E:\Vibe Coding\.codex\generated_images\01a14e2c-2647-74e2-b35c-606129c1b031\exec-1d65da57-8952-4e5a-a5e6-0b2b3881e864.png`; preserved as `special_call03_hold.png`.
 - Calls used: 3 of 3.
-- Status: **technical hold; no selected source candidate**. All three outputs remain painterly/anti-aliased, and attempts 2-3 repeat poses in f5-f6 instead of showing a distinct 4-6px follow-through. No file is placed at `raw/special_v14.png`.
+- Original status before user direction: technical hold; no selected source candidate. Via Claude relay skills #15, the user specifically authorized attempt 3 as `raw/special_v14.png` for review. It remains the original 3/3 call output; no redraw was made. See the version-bound pack and Astra findings in `special_v14_astra_audit_2026-10-18.md`; technical hold remains.
 - Call 2 SHA-256: `CACB3C5F9FD89E348BADF074A1F928F25842241F7E64B3C3EEAF1695438BD608`.
 - Call 3 SHA-256: `6A34E5E4A76BBFA536487E06D81ABC2252EA2B71A1B44395D27BA1EA42CDEBE9`.
 
