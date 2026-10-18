@@ -8,7 +8,7 @@ paused._
 
 ## Your next actions
 
-**Sasuke special redraw decision (ART-SKL-SAS, relay #18):** redraw `special` as v15 with one additional image call (4 cumulative), matching Sasuke's approved idle build (`bodyHeight` 180) across the same eight poses; keep all poses within the 256-cell/pivot and the stab fingertips around x220–236. The user said v13 stays in game until v15 is approved. v14 has been moved to `raw/_qa_hold/` so the packer selects v13. v15 is now filed at `raw/_qa_hold/special_v15.png`, with a gallery copy. It failed strict pack: splitter boundaries, scale mismatch and edge clips; there is no v15 atlas/body/Astra evidence. The body tool measured v13 only. Next, choose whether to accept the drawing while held, authorize no-call pixel/placement fixes, or authorize another generation budget. The review is on the updated PR #163 batch 1 gallery; no approval is implied.
+**Sasuke special redraw decision (ART-SKL-SAS, relay #18):** redraw `special` as v15 with one additional image call (4 cumulative), matching Sasuke's approved idle build (`bodyHeight` 180) across the same eight poses; keep all poses within the 256-cell/pivot and the stab fingertips around x220–236. The user said v13 stays in game until v15 is approved. v14 has been moved to `raw/_qa_hold/` so the packer selects v13. v15 is now filed at `raw/_qa_hold/special_v15.png`, with a gallery copy. It failed strict pack: splitter boundaries, scale mismatch and edge clips; there is no v15 atlas/body/Astra evidence. The body tool measured v13 only. Next, choose whether to accept the drawing while held, authorize no-call pixel/placement fixes, or authorize another generation budget. Review gallery: https://gcd-tourney-9aahjbj5f-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/ PR #163 head is a10b6f48; Vercel preview content was built from 4188bb90, whose gallery/art files are identical to the current head (the later commit only adds this handoff URL). Choose one: accept v15 visually with technical holds, authorize no-call pixel/placement edits, or authorize a new image-call budget. No approval is implied.
 
 
 **Sasuke skills revamp (ART-SKL-SAS), batch 3:** six HD effects (`greatFireball` v01, `greatFireballBurst` v01, `stormCloud` v01, `kirinBody` v01, `kirinHead` v01, `kirinStrike` v01) are ready for your visual review in Claude. [PR #163 review gallery](https://gcd-tourney-5pirksvwu-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/). `kirinStrike` has a clipping hold. `beamFire` v08 is held at strict scale 1.15x after auto-head fit; `special` v14 is moved to `_qa_hold/`; v13 remains active while v15 is prepared at the approved idle build. User approval will not clear technical holds. Via relay #17, you visually approved batch 1 `special` v14 as drawn (keep head/clothing fullness; Claude fixes frame split) and `chidori` v01 (Claude HD packs it for the hand-held placeholder). Their technical holds remain; no merge/integration is claimed.
@@ -139,6 +139,7 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - fa8d99cc 10-18 00:33 docs(now): Sasuke dTilt gets a fresh round; pack and size fixes before merge (ENG-112)
 - aee1e30f 10-18 00:32 docs(tasks): ENG-112 Sasuke state, TOOL-061 guard gap (dropped animations)
 <!-- status:end -->
+
 
 
 
