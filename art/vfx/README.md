@@ -75,7 +75,7 @@ stand-in until its art is approved.
 | `rasenganForm` | 6 | 45 | full color | center | the Rasengan forming during the startup |
 | `rasenganBurst` | 8 | 45 | full color | center | the Rasengan's hit: grind, then spiral blast |
 | `rasenshuriken` | 8 | 35 | full color | center | the Rasenshuriken held in his hand (loop) |
-| `rasenshurikenDome` | 8 | 50 | full color | center | the sphere of wind blades grinding the victim (f2-f4 loop) |
+| `rasenshurikenDome` | 8 | 50 | full color | center | the sphere of wind blades grinding the victim (f2-f3 loop while it grinds, f4-f7 break it apart) |
 | `poof` | 7 | 40 | full color | center | a shadow clone appearing or vanishing; the Substitution puff |
 | `subLog` | 5 | 70 | full color | bottom | the Substitution log left where he stood |
 | `fourTailsRoar` | 8 | 45 | full color | center | the Four-Tails chakra roar as the transformation completes |
