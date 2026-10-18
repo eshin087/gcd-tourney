@@ -1,0 +1,48 @@
+GCD Tourney sprite packer v2
+  art:  ../../../../.codex/visualizations/2026/10/17/01a14c11-bc07-7bb1-9cbb-4f8be60be9e1/round4/art
+  out:  ../../../../.codex/visualizations/2026/10/17/01a14c11-bc07-7bb1-9cbb-4f8be60be9e1/round4/strict-public
+  anims: animGuide.js + ../../../../.codex/visualizations/2026/10/17/01a14c11-bc07-7bb1-9cbb-4f8be60be9e1/round4/art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== goku ========================================================
+  packed 24 anims, 111 frames -> sheet 4096x1792, 48 colors, NOT WRITTEN (the scale gate failed, see below)
+    idle         8     <- raw/idle_v02.png             x1
+    run          8     <- raw/run_v09.png              x1
+    dash         2     <- raw/dash_v09.png             x1
+    jumpUp       2     <- raw/jumpUp_v04.png           x1
+    jumpFall     2     <- raw/jumpFall_v04.png         x1
+    land         2     <- raw/land_v07.png             x1
+    light1       7     <- raw/light1_v04.png           x1
+    light2       7     <- raw/light2_v05.png           x1
+    light3       7     <- raw/light3_v13.png           x1  (removed 4 specks)
+    light4       8     <- raw/light4_v09.png           x1
+    heavy        8     <- raw/heavy_v14.png            x1
+    airLight1    5     <- raw/airLight1_v07.png        x1
+    airHeavy     6     <- raw/airHeavy_v06.png         x1
+    guard        2     <- raw/guard_v05.png            x1
+    hurtHigh     3     <- raw/hurtHigh_v08.png         x1
+    launched     2     <- raw/launched_v08.png         x1
+    down         2     <- raw/down_v05.png             x1
+    getup        5     <- raw/getup_v11.png            x1
+    charge       4     <- raw/charge_v05.png           x1
+    beamCharge   3     <- raw/beamCharge_v07.png       x1
+    beamFire     3     <- raw/beamFire_v07.png         x1
+    special      8     <- raw/special_v05.png          x1
+    win          4     <- raw/win_v05.png              x1
+    beamStruggle  3     <- raw/beamStruggle_v01.png     x0.338
+  scale gate (strict; head with hair vs the idle, art/CHARACTER_SCALE.md): 1 ref, 22 manual, 1 unmeasured  FAILED: beamStruggle - nothing written
+  missing optional (34): backDash, superDash, jumpSquat, airLight2, airLight3, block, hurtLow, spin, airRecover, throw, vanish, stagger, ko, intro, taunt, specialForward, specialUp, specialDown, superPose, beamStruggleAir, techGround, techRoll, wallTech, light1Alt, light2Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  ui: super_bg (fitted to 768x192), super_fg (fitted to 384x240), ult_bg (fitted to 768x432), ult_fg (fitted to 576x432)
+  - palette snapped to 48 colors
+  - 4 active frame(s) had no clear strike limb - hitbox = front 28% of the body (light1#2, light4#3, airLight1#1, airHeavy#3; check them in the Sprite Lab or add hitboxes.json overrides)
+  ! beamStruggle: 1 frame(s) clipped by the 256x256 cell (#2 right 1px) - pose too wide/tall for the pivot; lower bodyHeight or redraw
+  ! scale gate: beamStruggle: head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA - compare every frame with the approved idle at one scale (npm run scale contact sheet); if the head and body match, record it: "scaleManualQA": { "version": <v>, "result": "pass", "by": "<who>", "note": "<what was compared>", "evidence": "<image>" } in the manifest animation [v01, strict]
+  ! getup: 1 lying frame(s) float above the floor line (#0: 35% of the body within 6px of y 240, worst fifth 8px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md "Lying poses", ADR 0020); v11 is the approved version: queue a side-on redraw
+  ! scale gate: did not write ../../../../.codex/visualizations/2026/10/17/01a14c11-bc07-7bb1-9cbb-4f8be60be9e1/round4/strict-public/characters/goku/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion
+  wrote ../../../../.codex/visualizations/2026/10/17/01a14c11-bc07-7bb1-9cbb-4f8be60be9e1/round4/strict-public/characters/goku/super_bg.png
+  wrote ../../../../.codex/visualizations/2026/10/17/01a14c11-bc07-7bb1-9cbb-4f8be60be9e1/round4/strict-public/characters/goku/super_fg.png
+  wrote ../../../../.codex/visualizations/2026/10/17/01a14c11-bc07-7bb1-9cbb-4f8be60be9e1/round4/strict-public/characters/goku/ult_bg.png
+  wrote ../../../../.codex/visualizations/2026/10/17/01a14c11-bc07-7bb1-9cbb-4f8be60be9e1/round4/strict-public/characters/goku/ult_fg.png
+
+SCALE GATE FAILED: goku (beamStruggle) - not written; see art/CHARACTER_SCALE.md "Scale gate (automatic)"
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 4 warning(s).

@@ -1,3 +1,43 @@
+# Beam clash round 4 — user approvals recorded; technical holds remain (relay #15)
+
+Branch `art/beam-clash-r3`; worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-beam-clash-r3`; PR #140 review page: https://gcd-tourney-lcybsfkfk-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ .
+
+**USER APPROVAL via Claude relay beam-clash #15:** “Goku v01: Approve v01. Sasuke v02: Approve v02.” Both are recorded as user-approved in `art/REVIEW.md`, `art/manifest.json` (`approvedVersion` 1 and 2), and `art/TRACKER.md`. Sources were moved from `_qa_hold/` to each fighter's `raw/`. Sasuke v01 is superseded; all three air strips remain unchanged.
+
+Approval is visual only. Goku v01 at bodyHeight 205 still fails the strict diagnostic gate (manual head QA missing, f2 clips 1 px), has combat/beamFire landmark disagreement and front-knuckle placement outside the brief zone, and Astra holds shoulder/chest anatomy. Sasuke v02 at bodyHeight 153 passes automatic head ratios, but Astra holds torso length (32–35 px vs39–44), loop fingertip stability (15/9 px drift vs ~6 px), and arm measurement certainty. These findings do not establish pack/runtime clearance. No public sprite atlas, hand anchors, or Naruto `hitboxes.json` was changed; no production integration or merge by Codex.
+
+Review/evidence remains at `public/reviews/beam-clash-r3/`, with exact audits and measurements under the Goku and Sasuke production ledgers. Claude next: perform contact/technical integration checks and decide how to resolve or explicitly retain the documented holds. Art/evidence commit and refreshed PR preview follow below.
+
+---
+
+# Beam clash round 4 — 2026-10-17 — calibration audited, holds remain
+
+Branch/worktree: `art/beam-clash-r3`, `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-beam-clash-r3`; PR #140. Main merged at `427cf4ad`, preserving Claude's Naruto anchor fix. USER DECISION relay #13: "Redraw Sasuke ground"; all three air strips stay unchanged. This is not image approval.
+
+Goku: ZERO image calls. The 205px / x0.338 quantized diagnostic matches beamFire v07 density broadly by crown/chin and boot landmarks, but differs from approved title-combat v02; uncertainty is recorded rather than declared a pass. Strict isolated pack fails; f2 clips 1px right. Front-knuckle points [247,100], [247,100], [253,100] (+/-2px) exceed the brief contact zone. Astra completed the frozen diagnostic audit: HOLD chest/shoulder consistency, strict scale uncertainty, loop/contact/clipping. Near-arm thickness is not demonstrably inflated; global shrinking is not supported. Report: `art/characters/goku/production/beam-clash-r4/ASTRA_AUDIT_v01.md`. Source v01 remains quarantined; no production atlas or hand overrides promoted.
+
+Sasuke: relay #14 USER DECISION quote "Up to 3 more calls" resolved the budget blocker. All 3 additional calls used (6/6 cumulative), selected attempt03 preserved as v02 in raw/_qa_hold. Candidate153px strict quantize48 pack exits0 (heads .991/.993/1.004), but Astra HOLD: torso32–35 vs39–44, uncertain arms, fingertips move15px. Legs81–86 vs83–90 improved. Report art/characters/sasuke/production/beam-clash-r4/ASTRA_AUDIT_v01.md. Official bodyHeight stays122 for approved v01, version2/approvedVersion1. No official atlas changed.
+
+Review page now includes diagnostic playback and equal-density references. It must not be mistaken for a passing production pack. Claude next: present Goku v01 and Sasuke v02 with their technical holds and ask the user for disposition. No further image calls remain in either budget. Image approval alone does not resolve technical holds. No new art approvals, merge or production deploy by Codex.
+
+Art/evidence commit `950aec4a`; build and strict failure evidence checked. Hosted Chrome review verified loaded comparison/candidate and working frame stepping/playback on preview https://gcd-tourney-8mysanbz3-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ . One audit-link correction follows in the next preview; no art changed.
+
+Both diagnostic loops and references are now on public/reviews/beam-clash-r3/. Final combined preview (commit3660bec4): https://gcd-tourney-lcybsfkfk-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ . Vercel build READY (Vite3.23s); hosted Chrome rendering and Sasuke frame-step/playback verified, Goku player previously verified unchanged; local link audit passed. Goku no new calls; Sasuke 3 new calls; all air strips unchanged.
+
+---
+# Beam clash round 3 — 2026-10-17 — technical handoff
+
+Branch `art/beam-clash-r3`; worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-beam-clash-r3`, based on main `3c6c7012`. Lane `beam-clash`. No merge or production deployment by Codex.
+
+Astra medium completed the read-only audit of all 21 frames in seven live strips: visible PASS Naruto ground v02, Killua ground v01, Gojo ground v01; HOLD Sasuke ground v01 (compressed torso/legs), Sasuke air v01, Killua air v02 and Gojo air v01 (loop/anchor movement; Sasuke leg-length uncertainty). Exact hashes and uncertainties: `art/characters/BEAM_STRUGGLE_ASTRA_AUDIT_v01.md`. Existing approvals unchanged; no redraw authorization inferred.
+
+Luna medium used all 3 calls for Goku ground beamStruggle v01. Selected attempt 03 is preserved in `art/characters/goku/raw/_qa_hold/beamStruggle_v01.png`. Strict quantized packing at the assigned beamFire-derived first guess bodyHeight 233 failed, clipping f0/f1/f2 by 11/12/18px; the head probe also failed. Exploratory smaller values were discarded, not used to shrink anatomy into the cell. No new atlas was written; Goku anatomy calibration, hand anchors, body/scale reports and final atlas audit remain pending. No air strip generated. Source recovery incident, exact calls/prompts, hashes and wrapper-resized payload are recorded in `art/characters/goku/production/beam-clash-r3/`. No further calls authorized.
+
+Review page: `/reviews/beam-clash-r3/` (source-only technical hold, no approval recommendation). Build passed via main's restricted-profile Vite adapter; diff check passed. All public character atlases and Naruto hitboxes remain unchanged. Local browser attempt timed out; hosted verification pending.
+
+Claude next: assess audit holds and Goku calibration feasibility; if a redraw is needed, ask the user for a new attempt budget before generation. Do not treat visual approval as clearing technical holds. Delivery: art commit `9aa20296`, PR #140 https://github.com/eshin087/gcd-tourney/pull/140; committed preview https://gcd-tourney-5r5mf1qj9-eshin087s-projects.vercel.app/reviews/beam-clash-r3/ (READY; Vite build 3.07s). Authenticated CLI fetched the correct HTML. Browser redirected to Vercel login; automatic review rejected a temporary share URL because it expands protected-deployment access. Protection unchanged; visual browser verification pending. Deploy export E:/gcd-scratch/gcd-deploy-Xpg3vm remained locked; coordinator should clean it after locks release. Main has since merged Naruto anchor PR #139; this branch does not edit that file.
+
+---
 # ART-GOJO-DASH-SIZE handoff (2026-10-17, user approved via Claude relay #11)
 
 **USER APPROVAL via Claude:** “Approve both (Recommended)” for Gojo dash v11 and superDash v13, explicitly despite the numeric holds. Verified from main `.relay/gojo-run/send.json`, seq 11, kind `approved`. Exact relay record: `art/characters/gojo/production/dash-size/USER_DECISION.md`. No new image calls were authorized.
