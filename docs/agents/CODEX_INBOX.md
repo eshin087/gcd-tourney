@@ -114,12 +114,12 @@ when a batch is ready; Claude asks the user.
 - [ ] **3. Batch 3, the Rasenshuriken:** A4 `rasenshuriken`, A5 `rasenshurikenDome` (v01, HD cell). Review page,
   then ring.
 
-- [ ] **4. Round 2 (2026-10-18, the user's new direction): the ultimate is the Four-Tails beam.** Read
+- [x] **4. Round 2 (2026-10-18, the user's new direction): the ultimate is the Four-Tails beam.** Read
   [SKILLS_REVAMP.md section 7](../../art/characters/naruto/SKILLS_REVAMP.md#7-round-2-2026-10-18-the-ultimate-becomes-the-four-tails-beam):
   a new `beamFire` v15 (the fox firing from its mouth; the approved pounce v14 will not ship as beamFire), new HD
   effects `beastBall` and `beastBeamRing`; beamCharge v12 and fourTailsRoar v02 continue as the gathering pose and
   the transformation roar. The user's two reference stills are in the git-ignored `reference/source/` folder.
-  Codex art handoff committed as `73fbffda` on `art/naruto-skills` (branch PR #152): beamFire v15 has a source-bound +13px placement sidecar, and beastBall v01 / beastBeamRing v01 are filed at their canonical VFX raw paths and registered in the manifest. Claude confirmed effect candidate packing and game placement on `feature/naruto-skills-2` / PR #154; its measured mouth anchors are recorded for Claude's hitbox integration. The full character candidate write remains held by the headless scale gate. beamCharge v17, fourTailsRoar v02 and beamFire v15 remain unapproved; ui_ult_fg v04 stays approved. Updated preview, build complete: https://gcd-tourney-i68ea31uu-eshin087s-projects.vercel.app/reviews/naruto-skills-round2/ . Claude is currently asking the user about beamCharge v17, fourTailsRoar v02, beamFire v15, beastBall v01 and beastBeamRing v01. Wait for the relayed answer before making approval changes.
+  User approval arrived via Claude relay skills #7 for beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01. Codex recorded it in REVIEW/manifest/TRACKER and preserved superseded beamCharge v12-v16 and roar v01 under `_rejected/`; commit `71d87613` on `art/naruto-skills` (PR #152). Build passed. Updated preview: https://gcd-tourney-8eict71qe-eshin087s-projects.vercel.app/reviews/naruto-skills-round2/ . Claude confirmed local effect packing/game placement and recorded mouth anchors for integration. The full character candidate write remains held by automatic headless scale detection; no scaleManualQA pass was added. Claude owns scale/contact/hitbox integration. Round 2 approval handoff is complete; batch 2 and batch 3 remain open in items 2-3.
 
 Do not edit `src/` or `tools/`. Claude tells you on this lane when candidate packing works for the new effect names.
 
