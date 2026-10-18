@@ -11,7 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Changed (ART-SKL-SAS): the user authorized a third `art/sasuke-skills` worktree alongside the two Smash normals worktrees (relay skills #13); the two-worktree cap remains for Smash normals rounds. Batch 1 is in progress; no image approval is implied.
+- Changed (ART-SKL-SAS): via Claude relay skills #14, recorded user approval of Sasuke `chidoriForm`, `chidoriBurst`, `chidoriSpear` and `chidoriCurrent` v01. Amaterasu v01/v02 attempts are preserved on technical hold; user decision pending on no-call pixel cleanup.
+- Changed (ART-SKL-SAS): the user authorized a third `art/sasuke-skills` worktree alongside the two Smash normals worktrees (relay skills #13); the two-worktree cap remains for Smash normals rounds.
 - Fixed (TOOL-PALETTE-RESERVE, ADR 0046): Naruto's Four-Tails fox is crimson in game again, as approved (beamCharge v17, beamFire v15), instead of red-brown with a peach mouth. Packed at 48 colours, his orange jumpsuit took the fox's colours; the new manifest field `paletteReserve` gives the fox 8 of the 48, taken from near-duplicate dark greys the rest of his strips barely miss (2 % of their pixels move, by 2-10 levels; nothing visible). `npm run test:sprites` covers it.
 
 - Added (OPS-019): `tools/capped.ps1` runs a command (a dev server) under a memory cap and ends it with the shell that started it; `npm run dev:capped` is the normal dev server through it, and `npm run devs` (`tools/dev-servers.ps1`) lists the dev servers running now with their memory and warns when the machine's committed memory is near its limit. Nothing is scheduled or left running. Prompted by a Vite dev server that reached 131 GB of committed memory on 2026-10-17.
