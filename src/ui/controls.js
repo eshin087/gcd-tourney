@@ -17,10 +17,10 @@ const LAYOUTS = [['keyboard', 'KEYBOARD'], ['playstation', 'PLAYSTATION'], ['xbo
 // On-screen controls (src/core/touch.js): what each one does
 const TOUCH_ROWS = [
   ['move', 'Joystick (left half)', 'Move · flick twice to dash'],
-  ['light', 'LIGHT', 'Light attack · auto combo'],
-  ['heavy', 'HEAVY', 'Heavy / launcher'],
+  ['light', 'LIGHT', 'Light: jab string · + stick: tilts (air: aerials)'],
+  ['heavy', 'HEAVY', 'Heavy: launcher · + stick: smash attacks (hold to charge)'],
   ['special', 'SPECIAL', 'Signature rush · hold to charge ki'],
-  ['jump', 'JUMP', 'Jump · chase after a launcher'],
+  ['jump', 'JUMP', 'Jump (tap: short hop, again: double jump) · chase after a launcher'],
   ['guard', 'GUARD', 'Block (or hold the stick away) · tap to parry · hold while hit: tech / tech roll'],
   ['dash', 'DASH', 'Dash with the stick · super dash without'],
   ['ult', 'ULT', 'Ultimate (Heavy + Special, 3 bars)'],

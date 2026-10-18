@@ -146,6 +146,13 @@ that shows one group (ALL by default) and counts what this pairing has; the tab 
 **Offense**
 - [ ] Light ×4 auto combo. light4 wall-bounces at the barrier.
 - [ ] Light ×3 → Heavy launches. Jump chases. Air L L → air Heavy spikes. The victim ground-bounces.
+- [ ] Directional normals (ADR 0042, lab MOVES tab): → / ↑ / ↓ + Light give the forward, up and down tilts, → / ↑ / ↓ +
+      Heavy the smash attacks (holding Heavy glows, trembles and hits harder), Light in a dash with the stick held the dash
+      attack. Links: down tilt → jab, up tilt → up tilt → short-hop up air. A tilt never chains into another normal.
+- [ ] Smash air: a tapped Jump is a short hop (about half the height), Jump + Light a short-hop neutral air, Jump in the
+      air a double jump, ↓ past the top a fast fall. Jump away, press ← toward them: a back air (mirrored airLight3 until
+      its strip exists) sends them away from you. After the launcher's chase the air string still floats and rides along.
+- [ ] A CPU still plays the jab string and the launcher (ENG-111 teaches it the new moves).
 - [ ] Bounce budget (ADR 0026): at most 3 wall bounces (air stun 32 / 28 / 22) and 2 ground bounces (30 / 24) per
       combo; a 4th wall-bounce hit just knocks them down. Lab **Handball (3 wall bounces)**: WALL BOUNCE!, WALL BOUNCE
       ×2!, HANDBALL!, chips WALL ▸ DASH ▸ WALL ▸ VANISH ▸ WALL beside the counter, 9 hits with each of the four fighters.
