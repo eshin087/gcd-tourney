@@ -1421,7 +1421,9 @@
       "streamLance": {"frames":4,"ms":40,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
       "streamFlame": {"frames":4,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
       "redOrb": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
-      "fourTailsRoar": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":2,"approvedVersion":null,"hd":true,"fill":0.922}
+      "fourTailsRoar": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":2,"approvedVersion":null,"hd":true,"fill":0.922},
+      "beastBall": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.5},
+      "beastBeamRing": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.95}
     }
   },
   "decals": {
