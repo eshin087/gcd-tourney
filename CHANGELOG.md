@@ -13,7 +13,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Changed (ART-SKL-SAS): recorded relay #18 and generated Sasuke special v15 using the final authorized call (4/4 cumulative). v14 is quarantined and approved v13 remains active pending v15 approval. v15 remains on technical HOLD after strict pack failure for split boundaries, scale mismatch and clipping; no v15 body measurement or Astra atlas audit is claimed.
+- Changed (ART-SKL-SAS): recorded user approvals via Claude skills #19 for beamFire v08 and all six batch 3 effects, including the user's halfway beamFire sizing direction. Also recorded special v15 approval via skills send #20, restored v15 from `_qa_hold/`, and updated its review/provenance to distinguish Claude's passing trial pack from the earlier unadjusted failure; Claude owns final pack setup, anchor remeasurement and integration.
+
+- Changed (ART-SKL-SAS, historical status superseded by relay send #20): generated Sasuke special v15 using the final authorized call (4/4 cumulative). The initial unadjusted strict pack failed for split boundaries, scale mismatch and clipping; Claude's later trial pack uses a whole-figure split and sidecar/bodyHeight fit. The user approved v15 and Claude owns final integration and audit.
 
 - Changed (ART-SKL-SAS): via user approval relayed by Claude #16, restored and recorded Amaterasu v01 and AmaterasuIgnite v01 as approved HD candidates with no pixel cleanup; Claude's trial pack split their grids and keyed/quantized near-magenta. Amaterasu uses fill 0.9 to keep its tallest tips in bounds. Codex is proceeding to batch 3.
 - Changed (ART-SKL-SAS): relay #15 authorized Sasuke `special` attempt 3 as v14 for pack/body/Astra review and a fresh 3-call A1 `chidori` budget. `special` v14 remains on technical HOLD; the fresh `chidori` v01 is queued for user review with source-layout and HD-packing caveats.
@@ -901,12 +903,3 @@ Reconstructed from the codebase when the changelog was introduced.
 - Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
 
 - ART-SCALE-R4-KIL: added hash-verified source-to-fit calibration handoff for Killua idle11, guard09, superDash08, stagger07 and win05; no art, fit data, packer or shipped atlas changed.
-
-
-
-
-
-
-
-
-
