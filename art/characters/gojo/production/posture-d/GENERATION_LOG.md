@@ -1,6 +1,6 @@
 # Gojo posture D generation and technical record
 
-Date: 2026-10-17. Decision relay #13: “D: posture fix (Recommended).” Generator-directing Codex model: GPT-6 Luna, medium. User approval: pending through Claude `0 - Approvals`; no candidate is approved or promoted.
+Date: 2026-10-17. Decision relay #13: “D: posture fix (Recommended).” Generator-directing Codex model: GPT-6 Luna, medium. USER APPROVAL via Claude relay gojo-run #14: “hurtHigh: Approve v04 (Recommended). hurtLow: Keep v04 (Recommended). launched: Approve v08 (Recommended).” hurtHigh v04 and launched v08 are approved as drawings; hurtLow v04 remains approved, and v05-v07 are rejected. Technical holds remain; the approved candidates are packed only in this unmerged PR branch.
 
 Scope was limited to `hurtHigh`, `hurtLow`, and `launched`. Identity attachments were the approved `reference/model_sheet.png`, `reference/expressions.png`, and `reference/idle_approved.png`; the D posture direction was `production/proportions/gojo-combat_study-D_v01.png`. Each animation used the inbox’s exact posture target: hurtHigh has bent knees and separated feet in every frame while the upper body snaps back; hurtLow retains the fold and bent knees while widening stance; launched keeps one knee tucked/up and the other leg trailing/split, never a straight pair. Outfit/head/model anatomy stays approved.
 
@@ -18,7 +18,13 @@ Each strip used its cumulative three-call budget. An attempt means one image-gen
 | launched 2 | `generation-source/launched_v07_attempt02.png` | `740935A4E76418E52368B6A4A1911DF69AE8197E777DECF9B73ECCDDAFFEE918` | `raw/_qa_hold/launched_v07.png` | D knee split present; Astra found torso ~59–61±5px against neutral ~78±4px; head/limb segments uncertain. HOLD. |
 | launched 3 | `generation-source/launched_v07_attempt03.png` | `8EC2242DA411EF38AFB3A77F2557FDF9D422527334793E6F3FA6A36CDBBD92E4` | `raw/_qa_hold/launched_v08.png` | D split-knee pose present. Astra estimated collar-to-hem 66±4px against neutral 78±4px (about 0.85); head/limbs not certifiable within ±6%. HOLD. Budget exhausted. Live v06 unchanged. |
 
-The full final pre-pack anatomy audit, images, connected-component measurements, source hashes and uncertainty are in [ASTRA_PREPACK.md](ASTRA_PREPACK.md). In v08, figures touch/overlap by x-coordinate but are separate components; the packer split them into 3 then kept 2. No scaleManualQA pass or exemption is added. All failed candidates are held under `_qa_hold/`; live approved versions remain hurtHigh v03, hurtLow v04, launched v06.
+The full final pre-pack anatomy audit, images, connected-component measurements, source hashes and uncertainty are in [ASTRA_PREPACK.md](ASTRA_PREPACK.md). In v08, figures touch/overlap by x-coordinate but are separate components; the packer split them into 3 then kept 2. No scaleManualQA pass or exemption is added. After the user decision, hurtHigh v04 and launched v08 are approved as drawings and moved to active raw; hurtLow v05-v07 and launched v07 are rejected under `_rejected/`. The approved candidates are packed only in this unmerged PR branch; technical holds remain.
+
+### User approval via Claude relay #14
+
+USER APPROVAL via Claude relay gojo-run #14: “hurtHigh: Approve v04 (Recommended). hurtLow: Keep v04 (Recommended). launched: Approve v08 (Recommended).”
+
+Approved as drawings: hurtHigh v04 and launched v08. Kept: hurtLow v04. Rejected files moved to raw/_rejected/: hurtLow v05/v06/v07 and launched v07. Technical holds remain; approval does not certify scale, anatomy or runtime contacts. Pack and PR guard outcomes are recorded in the branch handoff.
 
 ### Final-call launched prompt
 
