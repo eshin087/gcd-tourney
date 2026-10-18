@@ -299,6 +299,7 @@ if (qs.has('debug')) {
             M.rounds = game.round;
             M.wins = game.fighters.map((f) => f.wins);
             M.seconds = +(M.frames / 60).toFixed(1);
+            M.used = game.brains.map((b) => ({ ...(b?.show?.used ?? {}) })); // each CPU's tools this match (Showcase, ADR 0016)
             matches.push(M);
             ringState.fill(null); stuckState.fill(null);
             S.done++;

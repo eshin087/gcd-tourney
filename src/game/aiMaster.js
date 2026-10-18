@@ -13,9 +13,10 @@ import { ARENA_LIMIT } from './constants.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
 import { mixDefense, reachT } from './aiDefense.js';
 import { rng } from './rng.js';
-import { ComboComposer, makePersona } from './aiCombo.js';
+import { ComboComposer, makePersona, artBox, lungeTo, aerialFor } from './aiCombo.js';
 import { TechTimer } from './aiTech.js';
 import { seekClash } from './aiClash.js';
+import { NORMAL_INPUT, AIM_FRAMES, FULL_HOP, SHORT_HOP, aimStick, noFlick, canFastFall } from './aiNormals.js';
 
 const BUTTONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
@@ -24,6 +25,8 @@ const PARRY = DEFENSE.parry, SPOT = DEFENSE.spotDodge, WD = DEFENSE.wavedash;
 const LIGHT_REACH = 1.25;
 const THROWABLE_NOW = new Set(['guard', 'idle', 'run', 'land', 'charge', 'wavedash']); // states worth throwing at
 const DASH_LIGHT_REACH = 1.55; // the light out of a dash lunges further
+const DASH_ATTACK_REACH = 2.3; // the dash attack carries the dash in (lunge 10, ADR 0042)
+const NO_AIM = new Set(['launched', 'airRecover', 'impactTech', 'techRoll', 'down', 'getup', 'held', 'burst']); // the stick is the tech's there
 
 // react   frames before it knows an attack started (humans: ~15; its fastest answer to a 5-frame jab is a guess)
 // parry   chance to go for a parry when a blockable attack it saw is coming (else dodge / block / counter)
@@ -85,7 +88,7 @@ function lungeLeft(m, t) {
 }
 
 // distance from p to the ring barrier along screen direction s (+1 = screen right)
-function roomAlong(p, s, R) {
+export function roomAlong(p, s, R) {
   const dx = R.x * s, dz = R.z * s;
   let t = 99;
   if (Math.abs(dx) > 1e-3) t = Math.min(t, ((dx > 0 ? ARENA_LIMIT : -ARENA_LIMIT) - p.x) / dx);
@@ -99,6 +102,8 @@ export class MasterBrain {
   // seed: this brain's share of the match seed (its persona and combo routes); persona: force one (the lab)
   constructor(fighter, style = 'impossible', seed = (Math.random() * 4294967296) >>> 0, persona = null) {
     this.f = fighter;
+    this.aimsNormals = true; // its stick picks the directional normals, its jumps are short or full hops (ADR 0042)
+    this.aim = null; // the normal pressed last and its stick, held until the fighter reads it (normal())
     this.style = STYLES[style] ? style : 'impossible';
     this.S = STYLES[this.style];
     this.rng = rng(seed);
@@ -129,19 +134,57 @@ export class MasterBrain {
 
   // ------------------------------------------------------------------ pad output
   // press `name` for `frames` frames; a button already held is released for one frame first, so the press
-  // is a new edge (parries, vanish and the chains all read edges)
+  // is a new edge (parries, vanish and the chains all read edges). Light or Heavy on its own is the neutral normal (the
+  // jab, the launcher, the neutral air): its stick is held neutral until the fighter reads it (normal() aims elsewhere)
   tap(name, frames = 2) {
     if (this.hold[name] > 0) return;
     this.hold[name] = frames;
     this.fresh.add(name);
+    if (name === 'light' || name === 'heavy') this.aim = { btn: name, dir: 'neutral', air: false, at: this.f.pad.frame, live: false };
+  }
+
+  // The normal `name` (NORMALS in moves.js: 'light1' the jab, 'uTilt', 'fSmash', 'fair' ...; ADR 0042): its button, with
+  // the stick held on its direction from the press until the fighter has read it (aiNormals.js). `frames`: how long the
+  // button stays down (a smash attack held past its charge frame charges). False when the button is still held.
+  normal(name, frames = 2) {
+    const N = NORMAL_INPUT[name];
+    if (!N || this.hold[N.btn] > 0) return false;
+    this.tap(N.btn, frames);
+    this.aim = { btn: N.btn, dir: N.dir, air: N.air, at: this.f.pad.frame, live: false };
+    return true;
+  }
+
+  // A fast fall (Smash air): ↓ this frame; the stick kept off ↓ the frame before makes it a fresh press
+  fastFall() {
+    if (!canFastFall(this.f) || this.f.pad.prevDir.d) return false;
+    this.mx = 0;
+    this.my = -1;
+    this.ffWant = true;
+    return true;
+  }
+
+  // The stick for the normal pressed last, until the fighter has read the press (consumed it) or the buffer is over
+  aimNow(pad) {
+    const a = this.aim;
+    if (!a) return;
+    // (hit before it came out: the stick is the tech's or the roll's again)
+    if ((a.live && pad.b[a.btn].lastPress < 0) || pad.frame - a.at > AIM_FRAMES || NO_AIM.has(this.f.state)) { this.aim = null; return; }
+    [this.mx, this.my] = aimStick(this.f, a.dir, a.air, this.c?.toward);
+    // Guard + ↓ would be a spot dodge, not the down tilt or smash: let go of Guard for it
+    if (this.my < 0 && !this.f.air) { this.keep.delete('guard'); this.hold.guard = 0; }
   }
 
   flush() {
-    const pad = this.f.pad;
+    const f = this.f, pad = f.pad;
     if (this.spT > 0) {
       this.spT--;
       this.stickFor(this.spSlot);
+    } else {
+      this.aimNow(pad);
+      // steering in the air never flicks into a fast fall it doesn't mean (an air dodge reads its own stick)
+      if (!this.ffWant && !(this.hold.guard > 0) && !this.keep.has('guard')) this.my = noFlick(f, this.my);
     }
+    this.ffWant = false;
     pad.setMove(this.mx, this.my);
     pad.dashDir = null; // stick work must never read as a double-tap dash: dashes go through the button
     for (const n of BUTTONS) {
@@ -153,6 +196,7 @@ export class MasterBrain {
       }
       pad.set(n, want);
     }
+    if (this.aim && !this.aim.live && pad.b[this.aim.btn].pressed) this.aim.live = true;
     this.keep.clear();
   }
 
@@ -485,6 +529,10 @@ export class MasterBrain {
     const f = this.f, o = f.opp;
     if (f.state === 'attack' && f.move) {
       this.comboStep(game, c);
+      // a Smash aerial past its active frames (ADR 0042): fast fall, so it lands sooner (into its link, or out of reach);
+      // a late short hop's at once (a fast-fall aerial: it hits low)
+      const m = f.move, ffNow = this.plan?.name === 'hop' && this.plan.late;
+      if (f.air && m.air && !f.juggleMove && (ffNow || f.t + 1 > m.startup + m.active) && o.state !== 'launched') this.fastFall();
       return true;
     }
     // a throw's toss: the combo composer follows it (super dash or vanish from its frame 6, or its wall bounce)
@@ -514,19 +562,26 @@ export class MasterBrain {
     const juggle = o.state === 'launched' && !o.ko && o.hittable;
     const d3 = Math.hypot(c.sx, c.dy);
     const R = Math.random, showy = this.S.show >= 0.5;
-    // our combo in the air (after a launcher chase, a super dash contact, a Blink...): the combo composer's
-    // (aiCombo.js); once it has ended its combo, drop down and play neutral
-    if (juggle && this.composer.live && (this.composer.drive('air', c) || this.composer.done)) return true;
+    // our combo in the air (after a launcher chase, a super dash contact, a Blink...), or a short-hop aerial's link to
+    // the down tilt once we land (ADR 0042): the combo composer's (aiCombo.js); once it has ended its combo, drop down
+    // and play neutral
+    if ((juggle || this.composer.linking()) && this.composer.live && (this.composer.drive('air', c) || this.composer.done)) return true;
     if (f.chase > 0) return true;
-    // an opponent we can reach in the air with an attack
-    if (!f.airAttack && o.hittable && d3 < 1.5 && Math.abs(c.sd) < 0.6 && (o.air || c.dy > -0.6)) {
-      this.tap(o.state === 'launched' || Math.random() < 0.6 ? 'light' : 'heavy');
-      return true;
-    }
-    // falling onto a grounded opponent from above (a Blink, a high jump-in): the spike reaches down
-    if (!f.airAttack && o.hittable && !o.air && Math.abs(c.sx) < 1.3 && Math.abs(c.sd) < 0.6 && c.dy < -0.6 && c.dy > -2.6 && f.vel.y <= 1) {
-      this.tap('heavy');
-      return true;
+    // an opponent we can reach in the air with an attack: in a juggle the air string; in Smash air (ADR 0042) the
+    // aerial that fits where they are from our jump (up, back, forward or neutral air), the spike once we're falling
+    // onto them from above (a Blink, a high jump-in)
+    // a late short hop: the aerial from its top with a fast fall right after the press (ownMove), so it hits low and lands
+    // at once, with their hit stun to spare for the down tilt (the composer's HOP link)
+    const late = this.plan?.name === 'hop' && this.plan.late && !f.airAttack;
+    if (!f.airAttack && o.hittable && Math.abs(c.sd) < 0.6) {
+      let a = null;
+      if (o.state === 'launched') a = d3 < 1.5 ? 'airLight1' : null;
+      else {
+        a = aerialFor(f, c.R, late);
+        if (a === 'airHeavy' && (o.air || c.dy < -2.6 || f.vel.y > 1)) a = null;
+        if (a && a !== 'airHeavy' && c.dy < 0 && f.vel.y > (late ? 0.5 : 4)) a = null; // still rising past them: on the way down
+      }
+      if (a) { this.normal(a); return true; }
     }
     if (this.plan?.name === 'jumpin') {
       this.mx = c.toward;
@@ -1256,6 +1311,9 @@ export class MasterBrain {
     const sx = Math.abs(c.sx), lane = Math.abs(c.sd) < 0.9;
     // showman: punish with a special the viewer hasn't seen when it fits the opening (decided once per opening)
     if (this.S.show >= 0.5 && this.specialPunish(c, w)) return true;
+    // a smash attack (ADR 0042) when the opening outlasts its startup, charged by what is left of it (decided once per
+    // opening), or the forward tilt from just outside the jab's reach
+    if (lane && r === 'ground' && this.smashPunish(c, w)) return true;
     const timeToLight = (sx > LIGHT_REACH ? (sx - LIGHT_REACH) / 9 * 60 : 0) + MOVES.light1.startup;
     if (lane && sx < LIGHT_REACH + 0.05 && w.to >= MOVES.light1.startup + 1 && w.from <= MOVES.light1.startup) {
       if (w.to >= MOVES.heavy.startup + 2 && sx < 1.3 && Math.random() < 0.35) this.tap('heavy');
@@ -1272,7 +1330,10 @@ export class MasterBrain {
       return true;
     }
     if (r === 'dash' && this.route.dashIn) {
+      // the lunging jab (stick let go), or the dash attack (stick held, ADR 0042) a step further out
+      this.route.da ??= Math.random() < 0.35 * Math.sqrt(this.show.bias('dashAttack')); // decided once per dash
       if (sx < DASH_LIGHT_REACH) this.tap('light');
+      else if (this.route.da && sx < DASH_ATTACK_REACH && f.t + 1 >= 4) this.normal('dashAttack');
       this.mx = c.toward;
       return true;
     }
@@ -1315,6 +1376,34 @@ export class MasterBrain {
     if (U?.kind === 'rampage' && c.dist < (U.range ?? 8) - 0.6 && Math.abs(c.sd) < 1 && w.to > (U.roar ?? 16) + 8) { this.tap('heavy'); this.tap('special'); return true; }
     if ((!U || U.kind === 'orb') && w.to > 40 && c.dist > 2.5 && Math.abs(c.sd) < 1) { this.tap('heavy'); this.tap('special'); return true; } // beam / Hollow Purple
     return false;
+  }
+
+  // A smash attack into an opening that outlasts its startup (ADR 0042: slow and -8 to -10 on block, so a punish),
+  // charged by the frames the opening has to spare (Heavy held past the charge frame), or the forward tilt from just
+  // outside the jab's reach. Decided once per opening against the jab / heavy punish below; the showman leans on the
+  // ones the viewer hasn't seen.
+  smashPunish(c, w) {
+    const f = this.f, o = f.opp, sh = this.show, showy = this.S.show >= 0.5;
+    if (this.smRoll === this.oppSerial) return false;
+    this.smRoll = this.oppSerial;
+    const sx = Math.abs(c.sx), opts = {}, low = o.pos.y < 0.3;
+    const fits = (name, lead = 2) => {
+      const m = MOVES[name], b = artBox(f, name), far = b.far + lungeTo(m) - 0.1;
+      return w.to >= m.startup + lead && w.from <= m.startup && sx < far && (m.both || sx > Math.max(0, b.near));
+    };
+    if (low && fits('fSmash')) opts.fSmash = (c.oppRoom < 3 ? 1.3 : 1) * Math.sqrt(sh.bias('fSmash'));
+    if (low && fits('dSmash')) opts.dSmash = 0.8 * Math.sqrt(sh.bias('dSmash'));
+    if (o.pos.y < 2 && fits('uSmash')) opts.uSmash = (o.pos.y > 0.4 ? 1.5 : 0.5) * Math.sqrt(sh.bias('uSmash'));
+    if (low && sx > LIGHT_REACH && fits('fTilt')) opts.fTilt = 1.2 * Math.sqrt(sh.bias('fTilt'));
+    if (!Object.keys(opts).length) return false;
+    opts.none = showy ? 1.2 : 2.2; // the jab or heavy punish and its combo
+    const pick = pickW(opts);
+    if (!pick || pick === 'none') return false;
+    const m = MOVES[pick], G = m.charge;
+    const spare = G ? Math.min(G.max, w.to - m.startup - 6) : 0; // a few frames kept for the read
+    this.normal(pick, G && spare >= 6 ? G.at + spare : 2);
+    this.route = {};
+    return true;
   }
 
   // Showman: a rush, shot, teleport or dive that reaches them before the opening closes, weighted toward the
@@ -1432,25 +1521,35 @@ export class MasterBrain {
     this.resetWd = false;
     // a guard held this long, right in front of us: throw it
     if (o.state === 'guard' && o.t > 20 && this.inThrowRange(c) && Math.random() < S.throw * 0.25) { this.throwNow(); return true; }
-    // anti-air: an opponent dropping in on us
+    // anti-air: an opponent dropping in on us (a jump-in, a Smash aerial)
     if (o.air && (o.state === 'air' || (o.state === 'attack' && o.move?.air)) && c.dy > 0.3 && Math.abs(c.sx) < 3.2 && Math.abs(c.sd) < 1.2) {
-      if (this.aaRoll == null) this.aaRoll = Math.random() < S.antiAir;
-      if (!this.aaRoll) return false;
-      // where they'll be when the launcher's active frames start
-      const T = MOVES.heavy.startup / 60;
-      const py = o.pos.y + o.vel.y * T - 0.5 * 42 * T * T;
-      const ox = o.pos.x + o.vel.x * T, oz = o.pos.z + o.vel.z * T;
-      const px = (ox - f.pos.x) * c.R.x + (oz - f.pos.z) * c.R.z;
-      if (Math.abs(px) < 1.5 && py < 1.9 && py > -0.2) {
+      // once per jump of theirs: whether to meet it, and with what. The launcher (12 f), the up tilt (ADR 0042: half the
+      // startup, pops them over our head into another up tilt or an up air), the showman's up smash (slower, it tosses
+      // them high), or a rising dive special; each pressed in its own window, so the slow one isn't always first in
+      const showy = S.show >= 0.5, sh = this.show;
+      if (this.aaRoll == null) {
+        this.aaRoll = Math.random() < S.antiAir;
         const dive = specialFor(f.def, 'up');
-        const showy = S.show >= 0.5;
-        if (dive?.kind === 'dive' && dive.riseHit && f.ki >= dive.cost + (showy ? 0 : 100) && Math.random() < S.flair * 0.4 * (showy ? this.show.bias(specialId(dive)) : 1)) this.special('up', 2);
-        else this.tap('heavy');
-        this.aaRoll = null;
-        return true;
+        const diveOk = dive?.kind === 'dive' && dive.riseHit && f.ki >= dive.cost + (showy ? 0 : 100);
+        this.aaMove = pickW({
+          heavy: 1, uTilt: (showy ? 1.1 : 0.8) * Math.sqrt(sh.bias('uTilt')), uSmash: showy ? 0.3 * Math.sqrt(sh.bias('uSmash')) : 0,
+          dive: diveOk ? S.flair * 0.4 * (showy ? sh.bias(specialId(dive)) : 1) : 0,
+        });
       }
-      // not yet in range: hold the spacing so they land in front of us
-      return false;
+      if (!this.aaRoll) return false;
+      const m = MOVES[this.aaMove === 'dive' ? 'heavy' : this.aaMove];
+      // where they'll be when its first active frame comes (a falling body, at their own gravity)
+      const T = m.startup / 60, g = 42 * (o.gravityScale?.() ?? 1);
+      const px = (o.pos.x + o.vel.x * T - f.pos.x) * c.R.x + (o.pos.z + o.vel.z * T - f.pos.z) * c.R.z;
+      const py = o.pos.y + o.vel.y * T - 0.5 * g * T * T;
+      const reach = { heavy: [1.5, -0.2, 1.9], uTilt: [1.2, 0.15, 2.0], uSmash: [1.1, 0.2, 2.2] }[this.aaMove] ?? [1.5, -0.2, 1.9];
+      if (!(Math.abs(px) < reach[0] && py > reach[1] && py < reach[2])) return false; // not yet: keep the spacing so they land in front
+      if (this.aaMove === 'dive') this.special('up', 2);
+      else if (this.aaMove === 'heavy') this.tap('heavy');
+      else this.normal(this.aaMove);
+      this.route = {};
+      this.aaRoll = null;
+      return true;
     }
     this.aaRoll = null;
     return false;
@@ -1512,6 +1611,13 @@ export class MasterBrain {
       w.bait = 0.6 + this.mem.mashAfterBlock * 0.05;
       w.space = 0.4;
     }
+    // Smash neutral (ADR 0042): a tilt poke at its range, a short-hop aerial in, a back air after running off
+    if (dist < 3.4) {
+      const k = showy ? 1 : 0.6;
+      w.hop = (0.5 + S.aggro * 0.4) * k * Math.sqrt(sh.bias(dist < 1.6 ? 'nair' : 'fair'));
+      if (dist < 2.4) w.poke = (0.7 + S.aggro * 0.6) * k * Math.sqrt((sh.bias('dTilt') + sh.bias('fTilt')) / 2);
+      if (dist < 2.2 && c.myRoom > 2) w.bair = 0.45 * k * Math.sqrt(sh.bias('bair'));
+    }
     // three bars: the beam from afar (an opponent with three bars can fire back: CLASH), or a kit super
     const K = kitOf(f.def);
     let big = null;
@@ -1556,7 +1662,7 @@ export class MasterBrain {
     if (lead > 0.25 && game.timeLeft < 30) { w.space = (w.space ?? 0) + 1.5; w.guard = (w.guard ?? 0) + 1; }
     if (lead < -0.3) { w.pressure = (w.pressure ?? 0) * 1.3; w.approach = (w.approach ?? 0) * 1.3; }
     const name = pickW(w) || 'approach';
-    const len = { approach: 70, zone: 50, charge: 70 + R() * 50, mode: 30, space: 40 + R() * 40, jumpin: 45, kit: 30, pressure: 50, guard: 25 + R() * 30, bait: 40, beam: 90, airShot: 50, big: 40, powerUp: 150 }[name];
+    const len = { approach: 70, zone: 50, charge: 70 + R() * 50, mode: 30, space: 40 + R() * 40, jumpin: 45, kit: 30, pressure: 50, guard: 25 + R() * 30, bait: 40, beam: 90, airShot: 50, big: 40, powerUp: 150, poke: 40, hop: 50, bair: 45 }[name];
     const p = { name, t: 0, len, done: false };
     if (name === 'challenge') { p.len = 80; p.em = this.energyChallenge(); }
     if (name === 'space' && cue === 'answer') p.gap = 4 + R() * 1.5;
@@ -1668,6 +1774,9 @@ export class MasterBrain {
           return;
         }
         if (r === 'dash' && Math.abs(c.sx) < DASH_LIGHT_REACH) { this.tap('light'); this.route = {}; p.done = true; return; }
+        // now and then the dash attack instead, from further out (ADR 0042; -6 on block: a read, not pressure)
+        p.da ??= Math.random() < 0.25 * (S.show >= 0.5 ? Math.sqrt(this.show.bias('dashAttack')) : 1);
+        if (r === 'dash' && p.da && Math.abs(c.sx) < DASH_ATTACK_REACH && Math.abs(c.sd) < 0.5) { this.normal('dashAttack'); this.route = {}; p.done = true; return; }
         this.approach(c, 0.95);
         return;
       }
@@ -1676,7 +1785,8 @@ export class MasterBrain {
         // else a jab (delayed against parry-happy players) or the launcher; then walk to its spacing
         if (!p.act) {
           const guardy = (o.state === 'guard' ? 1 : 0.25) + Math.min(1, this.mem.blockAfterBlock * 0.1);
-          p.act = R() < S.throw * guardy ? 'throw' : R() < 0.15 ? 'heavy' : 'light';
+          // (a down tilt now and then: low, safe on block, and a hit links into the jab string, ADR 0042)
+          p.act = R() < S.throw * guardy ? 'throw' : R() < 0.15 ? 'heavy' : R() < 0.22 * Math.sqrt(this.show.bias('dTilt')) ? 'dTilt' : 'light';
         }
         this.approach(c, p.act === 'throw' ? 0.75 : 0.95);
         const inRange = p.act === 'throw' ? this.inThrowRange(c) : Math.abs(c.sx) < LIGHT_REACH && Math.abs(c.sd) < 0.5;
@@ -1684,6 +1794,7 @@ export class MasterBrain {
           // only grab what can be grabbed right now (a throw into block stun or a jump whiffs for 34 frames)
           if (p.act === 'throw' && !THROWABLE_NOW.has(o.state)) p.act = 'light';
           if (p.act === 'throw') this.throwNow();
+          else if (p.act === 'dTilt') this.normal('dTilt');
           else this.tap(p.act);
           this.route = {};
           p.done = true;
@@ -1725,6 +1836,13 @@ export class MasterBrain {
           this.wavedash(c.toward * Math.sign(want), Math.abs(c.sd) > 0.3 ? Math.sign(c.sd) * 0.5 : 0);
           return;
         }
+        // they step into the forward tilt's reach: poke them there (ADR 0042), once per spell of footsies
+        if (!p.poked && r === 'ground' && Math.abs(c.sd) < 0.5 && Math.abs(c.sx) < this.pokeRange('fTilt') && ['idle', 'run', 'land'].includes(o.state) && R() < 0.12 * Math.sqrt(this.show.bias('fTilt'))) {
+          p.poked = true;
+          this.normal('fTilt');
+          this.route = {};
+          return;
+        }
         this.approach(c, p.gap);
         if (c.myRoom < 1.4) p.done = true; // cornered: stop backing up
         return;
@@ -1732,9 +1850,8 @@ export class MasterBrain {
       case 'jumpin': {
         if (!p.jumped) {
           p.jumped = true;
-          this.mx = c.toward;
-          this.my = Math.abs(c.sd) > 0.3 ? Math.sign(c.sd) * 0.5 : 0;
-          this.tap('jump', 2);
+          // a full hop (Jump held through the squat), now and then a short hop (ADR 0042): the aerial comes from airStep
+          this.jumpTo(c.toward, Math.abs(c.sd) > 0.3 ? Math.sign(c.sd) * 0.5 : 0, R() < (S.show >= 0.5 ? 0.3 : 0.2) ? SHORT_HOP : FULL_HOP);
           return;
         }
         p.done = f.state !== 'jumpSquat' && !f.air;
@@ -1825,8 +1942,7 @@ export class MasterBrain {
         if (Math.abs(c.sd) > 0.5 && p.t < 20) { this.my = Math.sign(c.sd); return; }
         p.jumped = true;
         const dive = specialFor(f.def, p.slot)?.kind === 'dive';
-        this.mx = dive ? c.toward : c.dist < 3.5 ? -c.toward : 0;
-        this.tap('jump', 2);
+        this.jumpTo(dive ? c.toward : c.dist < 3.5 ? -c.toward : 0, 0, FULL_HOP); // a full hop: the shot near its top
         return;
       }
       case 'big': {
@@ -1854,7 +1970,56 @@ export class MasterBrain {
         if (!p.fired && f.ki >= VANISH.cost) { p.fired = true; this.keep.add('guard'); this.tap('special', 2); this.route = {}; }
         p.done = p.t > 3;
         return;
+      case 'poke': {
+        // a tilt at its range (ADR 0042): the down tilt (low, +1 on block, links into a jab) or the forward tilt (the
+        // longest normal, +4 on hit); a hit hands the combo to the composer
+        if (!p.move) p.move = pickW({ dTilt: Math.sqrt(this.show.bias('dTilt')), fTilt: 0.8 * Math.sqrt(this.show.bias('fTilt')) });
+        const gap = this.pokeRange(p.move) - 0.3;
+        const there = this.approach(c, gap);
+        if ((there || Math.abs(c.sx) < gap + 0.2) && Math.abs(c.sd) < 0.5 && p.t > 2 && r === 'ground') {
+          this.normal(p.move);
+          this.route = {};
+          p.done = true;
+        }
+        return;
+      }
+      case 'hop': {
+        // a short-hop aerial in (ADR 0042). Rising: Jump + Light together, the aerial out as it leaves the floor (the
+        // forward air from a step out, its jump drifting in on the held stick; the neutral air close up). Late: the hop
+        // first, the aerial on the way down (airStep), fast-falling after it, so it lands with their hit stun to spare
+        // for the down tilt (the composer's HOP link)
+        if (p.jumped) { p.done = f.state !== 'jumpSquat' && !f.air; return; }
+        const sx = Math.abs(c.sx);
+        if (Math.abs(c.sd) > 0.4 || sx > 2.3) { this.approach(c, 1.9); if (p.t > 40) p.done = true; return; }
+        if (r !== 'ground' || f.side !== c.toward) return;
+        p.jumped = true;
+        p.late ??= Math.random() < 0.55;
+        this.route = {};
+        if (p.late) { this.jumpTo(sx > 1.4 ? c.toward : 0, 0, SHORT_HOP); return; }
+        this.tap('jump', SHORT_HOP);
+        this.normal(sx < 1.25 ? 'airLight1' : 'fair');
+        return;
+      }
+      case 'bair': {
+        // a back air after running off (ADR 0042): run away a few frames (the facing turns with the run), then Jump +
+        // Light with ← along that facing, toward them: the jump drifts back in and the strongest aerial hits behind
+        if (p.jumped) { p.done = f.state !== 'jumpSquat' && !f.air; return; }
+        if (c.myRoom < 1.2 || Math.abs(c.sx) > 2.4 || p.t > 30) { p.done = true; return; }
+        if (Math.abs(c.sd) > 0.4) { this.my = Math.sign(c.sd); return; }
+        if (r !== 'ground') return;
+        if (f.side === c.toward || (p.ran = (p.ran ?? 0) + 1) < 4) { this.mx = -c.toward; return; }
+        p.jumped = true;
+        this.tap('jump', SHORT_HOP);
+        this.normal('bair');
+        this.route = {};
+        return;
+      }
     }
+  }
+
+  // How far out a ground normal still meets a standing opponent (its art's hit box, its lunge): the gap to poke from
+  pokeRange(name) {
+    return artBox(this.f, name).far + lungeTo(MOVES[name]) - 0.15;
   }
 
   // ------------------------------------------------------------------ clashes (ADR 0017)

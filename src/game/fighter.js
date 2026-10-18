@@ -248,14 +248,13 @@ export class Fighter {
   }
 
   // ---- directional normals and Smash air (ADR 0042, numbers in NORMALS / AIR)
-  // The CPU brains don't play the directional normals yet (phase 2 of ADR 0042): their Light / Heavy read as a neutral
-  // stick and their jump taps as full hops, so they keep the moves they were built around. A person's pad, a lab script
-  // or replay, or a brain that sets `aimsNormals` aims them. Like holdingBack, a CPU slot without its brain (a replay of
-  // a CPU match) reads the same way, so a recorded match plays back identically.
+  // A brain that doesn't set `aimsNormals` has its Light / Heavy read as a neutral stick and its jump taps as full hops
+  // (phase 1 of ADR 0042 held the CPUs there). Every CPU brain aims since ENG-111 (aiNormals.js), as do a person's pad
+  // and a lab script or replay; a CPU slot without its brain (a replay of a CPU match) aims too, so a recorded match
+  // plays back identically.
   aimsNormals() {
     const b = this.game.brains[this.index];
-    if (b) return !!(b.aimsNormals || b.autoBlock);
-    return this.game.kinds?.[this.index] !== 'cpu';
+    return b ? !!(b.aimsNormals || b.autoBlock) : true;
   }
 
   // The opponent is reeling in the air close by: the DBFZ juggle (air attacks float level with them and keep turning to

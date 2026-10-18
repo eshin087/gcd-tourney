@@ -170,8 +170,9 @@ behind / both sides), `feet` (a light pop: they land on their feet) and `charge`
   back air) while the left stick keeps the drift; flicked during the jump squat it comes out as the jump leaves the
   floor; out of a super dash it is that attack. Holding it does nothing more; flicking another way is a new press. Not
   rebindable, no keyboard binding.
-- **CPUs** (until ENG-111): a brain that doesn't set `aimsNormals` reads as a neutral stick at the press and a held
-  jump, so the CPUs keep the jab string, the launcher and their full hops.
+- **CPUs** (ENG-111): every brain aims its stick and plays the short and full hops (CPU AI, "Directional normals"). A
+  brain that doesn't set `aimsNormals` would read as a neutral stick at the press and a held jump; none is left, and a
+  CPU slot without its brain (a replayed CPU match) aims too.
 
 ### Launcher and chase
 - `heavy` hops and launches the victim upward ([2.4, 15.5]).
@@ -648,6 +649,31 @@ than legacy fighters. At 3 bars they split between the second super (if its `ran
 ultimate (a beam wants some distance; a kit ultimate fires from anywhere). A counter may sit on ↓ or ←, and
 the CPU dashes out of a Kirin mark.
 
+**Directional normals** (ADR 0042, ENG-111, `src/game/aiNormals.js`). The stick picks the normal as the attack starts,
+so a brain presses one with `normal(name)` ('uTilt', 'fSmash', 'fair' ...; a plain Light or Heavy is the neutral one)
+and holds the stick on its direction from the press until the fighter has read the button (or the buffer's 12 frames
+are over, or it got hit first: the stick is the tech's then). Jumps: Jump held 8 frames is a full hop (the squat's 4
+plus a buffered start), a 2-frame tap a short hop, Jump + Light a short hop with the aerial out at once. In the air the
+stick is kept off a fresh ↓ (a fast fall) unless the brain means one; an air dodge and an air ↓ special read their own
+stick. The aerial out of a jump is the one whose art hit box meets the opponent at its first active frame
+(`aerialFor` in aiCombo.js: up air above, back air behind the jump's facing, neutral or forward air in front, the spike
+below; the air string in a juggle). Both brains fast-fall a Smash aerial past its active frames. They aim with the
+left stick only (the C-stick gives smash attacks, never the tilts, and would leave the jump's drift to the left stick).
+
+- `CpuBrain` (Easy, Normal, Hard): up tilt or launcher anti-airs (`antiAir` per jump of theirs: 10 / 30 / 55 %, each
+  pressed in its own window), smash attacks into a whiff with time to spare (`smash` per whiffed move: 10 / 25 / 40 %,
+  charged by the frames left over), and in neutral tilt pokes, short-hop aerials (rising, or the late one below) and
+  back airs after running off. Links: down tilt → jab; up tilt → up tilt or short hop → up air; a short-hop aerial on a
+  standing victim → down tilt once it lands (`linkDt`), each decided once per hit at the level's `combo` rate.
+- `MasterBrain`: anti-airs picked once per jump (launcher, up tilt, the showman's up smash, a rising dive special),
+  `smashPunish` (forward / down / up smash or the forward tilt from past the jab's reach, decided once per opening and
+  charged by its spare frames), the dash attack out of a dash-in now and then, and neutral plans `poke` (down or
+  forward tilt at its art's reach), `hop` (rising Jump + Light, or late: the aerial from the hop's top with a fast fall
+  right after the press, so it hits low and lands with their stun to spare) and `bair` (run off four frames, Jump +
+  Light with ← along the turned facing). Jump-ins are full hops now and then short ones, with the stick held through
+  the squat. The Showcase counts every new normal (`fTilt` ... `uair`, `nair` for airLight1 out of a jump), so the
+  showman reaches for the ones the viewer hasn't seen.
+
 Melee clash (ADR 0038, `src/game/aiClash.js`): once per opposing light or heavy that has just started in reach,
 the CPU presses the same button at its level's `meleeClash` rate (Easy 4 %, Normal 8 %, Hard 12 %, ×1.5 when
 spectated; INSANE 8 %, IMPOSSIBLE 10 %, the CPU-vs-CPU showman 18 %), and once per clash slide it goes again at
@@ -746,11 +772,19 @@ out (`done`), parries, evades and rallies.
 ### Combo composer (ADR 0026, `src/game/aiCombo.js`)
 
 MasterBrain's combos come from a `ComboComposer`. At each decision point of a combo it runs (a ground light, the
-launcher or an air light connected; another move connected; free in the air beside the victim; air-locked after an
-air string; the victim bounced off the barrier or the floor; free on the ground while they reel) it picks one
-**edge**: a chain, launch, chase, super dash, vanish (a 2nd and 3rd in one combo are the ping-pong), any kit special
-by its kind, waiting for a bounce that is coming, meeting the victim from the ground (the handball light off the wall,
-a jab, a dash-in light, a heavy relaunch), a three-bar move that carries the combo on, or the end.
+launcher or an air light connected; the down or up tilt connected; a short-hop aerial connected on a standing victim;
+another move connected; free in the air beside the victim; air-locked after an air string; the victim bounced off the
+barrier or the floor; free on the ground while they reel) it picks one **edge**: a chain, launch, chase, super dash,
+vanish (a 2nd and 3rd in one combo are the ping-pong), any kit special by its kind, waiting for a bounce that is
+coming, meeting the victim from the ground (the handball light off the wall, a jab, a dash-in light, a heavy relaunch,
+an up or down tilt), a short hop under them for the up air, a three-bar move that carries the combo on, or the end.
+
+- **Smash links** (ADR 0042, ENG-111): nodes `DT` (down tilt hit: the jab string, a special cancel, a vanish), `UT` (up
+  tilt hit: another up tilt, a short hop whose up air the free-air node then leans on, the super dash) and `HOP` (a
+  short-hop aerial on a standing victim: the down tilt or the jab once it lands). A link chosen there carries on after
+  the move ends, through the landing, until it is pressed (`linking()`). Every link is checked like the rest: the
+  predicted flight (a light pop lands on the feet and ends the combo there), a Smash aerial's own landing lag, the
+  art's boxes.
 
 - **Only true links.** Each edge's link gap is checked against the victim's stun left with **2+ frames of margin**
   (a victim holding Guard techs on the first open frame), using `JUGGLE`, a forecast of the victim's flight (barrier

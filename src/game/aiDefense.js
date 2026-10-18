@@ -7,6 +7,7 @@
 import { MOVES, VANISH, DEFENSE } from './moves.js';
 import { specialFor } from './kit.js';
 import { specialId, pickW } from './aiShow.js';
+import { FULL_HOP } from './aiNormals.js';
 
 const PARRY = DEFENSE.parry, SPOT = DEFENSE.spotDodge;
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
@@ -362,13 +363,14 @@ class Defense {
 
   // A jump toward screen direction sx (+1 right) and depth sd. The fighter reads the jump's direction on the squat's
   // last frame, not on the press, so the stick has to stay there through the squat: recover() holds wdDir there (the
-  // wavedash's slot, cleared once the squat is over).
-  jumpTo(sx, sd = 0) {
+  // wavedash's slot, cleared once the squat is over). `hold`: frames Jump stays down, a full hop held through the squat
+  // or a short hop's tap (ADR 0042).
+  jumpTo(sx, sd = 0, hold = FULL_HOP) {
     this.wdDir = [sx, sd];
     this.wdAt = this.clock;
     this.mx = sx;
     this.my = sd;
-    this.tap('jump', 2);
+    this.tap('jump', hold);
   }
 
   // A dodge right after another is slower (spot dodge staleness): the showman picks one less often then.
