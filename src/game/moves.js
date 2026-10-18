@@ -236,6 +236,7 @@ export const SPECIAL_MOVES = {
     kind: 'rush', anim: 'specialForward', startup: 30, cancelStartup: 18, active: 20, recovery: 24, dmg: 40, reach: 1.35, width: 1.1,
     hitstun: 60, push: 0, hitstop: 12, rush: 13, cost: 100, special: true, big: true, shake: 0.6, selfDmg: 25,
     fx: 'rasenshuriken', sfxLoop: 'rasengan', color: '#cfeaff', name: 'RASENSHURIKEN', spark: 'smash', ground: 'wind', clash: 'rush',
+    blastFx: { fx: null }, // its blast is the vortex's dome of wind blades (ENG-SKL-NAR)
     vortex: {
       len: 40, pull: 12, radius: 2.2, tick: 6, colors: { orb: 0xe8f6ff, glow: 0x8ac8ff, ring: 0xffffff }, ground: 'wind', dome: 'rasenshurikenDome',
       tickHit: { dmg: 12, minScale: 0.8, hitstun: 24, push: 0, airPop: 1, hitstop: 2, spark: 'light' },
@@ -261,7 +262,7 @@ export const SPECIAL_MOVES = {
     fx: 'chakra', auraColor: '#ff5a1a', auraCore: [1.0, 0.8, 0.5], name: 'NINE-TAILS CLOAK', color: '#ff6a2a',
     charge: { level: 1 }, // powering up in the cloak looks one bar further along (chargeFx.js)
     cloak: {
-      fill: '#ff4a14', edge: '#ffb43a', opacity: 0.4, rim: '#ff6a1a', core: '#ffd27a', speck: '#ff3a10', rimOpacity: 0.7, width: 0.06,
+      fill: '#d8300e', edge: '#ff9a3a', opacity: 0.42, rim: '#ff5a14', core: '#ffb050', speck: '#ff3a10', rimOpacity: 0.75, width: 0.06,
       bubble: '#ff6a2a', tail: { color: '#ff5a1a', scale: 0.75, opacity: 0.75 },
     },
   },

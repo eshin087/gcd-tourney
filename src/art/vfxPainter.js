@@ -425,7 +425,7 @@ const PAINTERS = {
     const r = i < 2 ? 12 + i * 8 : i < 5 ? 29 : 29 + (i - 4) * 1.5;
     const fade = i < 5 ? 1 : 1 - (i - 4) / 4;
     if (i < 5) {
-      ctx.fillStyle = 'rgba(220,240,255,0.9)';
+      ctx.fillStyle = '#9fd0f2';
       ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#7fb8ec';
       ctx.beginPath(); ctx.arc(0, 0, r * 0.45, 0, Math.PI * 2); ctx.fill();

@@ -186,13 +186,13 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 
 | kind | does | examples |
 |---|---|---|
-| `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use) and `vortex` (a grind `Vortex` spawned where it connects) | Rasengan, Chidori, Rasenshuriken |
+| `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use), `vortex` (a grind `Vortex` spawned where it connects; `dome`: its look as one HD effect) and `blastFx` (its own hit blast instead of the generic explosion, ADR 0044) | Rasengan, Chidori, Rasenshuriken |
 | `shot` | a projectile from a `shot`/`throw` move; feet planted | Narukami, Reversal: Red, shuriken |
 | `teleport` | optional `anim` wind-up for `startup` frames, then a puff and hide for `hide` frames, reappear `behind` or `above` (with afterimages), optional `recovery` frames of the same animation and an optional `follow` strike | Rhythm Echo, Blink |
 | `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop` | Lapse: Blue |
-| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `riseFx: 'clones'`, `landFx: 'thunder' \| 'dust'` | Thunderbolt, Uzumaki Barrage, Lion's Barrage |
-| `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (smoke + log, teleport behind, `follow`) | Infinity, Sharingan, Substitution |
-| `mode` | a timed buff on `f.mode`: `speed` ×, `damage` ×, `defense` (divides damage taken), `blinkDash`; look: `fx: 'lightning' \| 'chakra'`, `auraColor`/`auraCore`; drains a HUD bar | Godspeed, Nine-Tails Cloak |
+| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `clones` (that many shadow clones poof out and kick up beside him, ADR 0044; `riseCallout` when the rise hits), `landFx: 'thunder' \| 'dust'` | Thunderbolt, Uzumaki Barrage, Lion's Barrage |
+| `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (a puff where he stood, the log left in it with `log`, teleport behind, `follow`) | Infinity, Sharingan, Substitution |
+| `mode` | a timed buff on `f.mode`: `speed` ×, `damage` ×, `defense` (divides damage taken), `blinkDash`; look: `fx: 'lightning' \| 'chakra'`, `auraColor`/`auraCore`, or a `cloak` on the body (see-through chakra over it, a boiling rim, one tail; ADR 0044); drains a HUD bar | Godspeed, Nine-Tails Cloak |
 
 - Named kit moves get the special callout and an 8-frame flash. A kit move hit out of startup is
   cancelled cleanly (`kitState` cleared, the fighter made visible again).
@@ -210,9 +210,13 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - 3 bars, on the ground or in the air, out of guard or a dash, or as a cancel from a normal. Invulnerable
   through the flash and 12 frames past it.
 - **Flurry** (`speedOfLightning`, Killua's Godspeed: Speed of Lightning; `shadowCloneBarrage`, Naruto): a 34-frame flash, then a 14-frame dash
-  (range 6.5). On contact the opponent is `held` and the fighter teleports around them (8 × 22 for Killua,
-  7 × 22 with clone smoke for Naruto), then a 130 slam from above with a ground bounce (lightning, or a Giant
-  Rasengan). It whiffs if the dash misses.
+  (range 6.5). On contact the opponent is `held` and the fighter teleports around them (8 × 22 for Killua), then a
+  130 slam from above with a ground bounce. It whiffs if the dash misses.
+- **Shadow Clone Barrage** (Naruto, a flurry with `crew`, ADR 0044): six clones poof out round him as he dashes and
+  close in on the target from every side. Caught, they take turns striking it (5 × 18, Naruto among them), four clones
+  kick it skyward one after another (4 × 14, "U! ZU! MA! KI!"), and Naruto drops on it from above with a big Rasengan
+  (130, ground bounce). Same dash, range and catch as the plain flurry; a whiff poofs every clone away. The clones are
+  drawn only: every hit is Naruto's.
 - **Sky strike** (`kirin`, Sasuke): a 40-frame flash, then the storm **marks the spot** where the opponent
   stands and a lightning dragon hits it 40 frames later (280, unblockable, radius 2). The opponent can dash
   out of the mark ("DODGED!"). Uses Sasuke's `beamCharge` / `beamFire` poses.
@@ -232,8 +236,10 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Four-Tails** (Naruto, kind `rampage`): a 46-frame flash in the four-tailed shroud, a 16-frame roar, then a pounce
   at 20 units/s for up to 8 units (26 frames), committed to the line chosen as the roar starts (3 % steering per
   frame). A catch holds them for 3 claw slams of 45 every 13 frames and a 120 chakra roar into the barrier (minScale
-  0.9, ~255 in all); a whiff leaves him open for 34 frames. Until Codex draws the shroud form, the roar uses
-  `specialDown`, the pounce `dash` and the slams `heavy`, with the shroud as a dark red tint.
+  0.9, ~255 in all); a whiff leaves him open for 34 frames. During the flash the red-black chakra swallows him from
+  the feet up (the body shader's `engulf`, ADR 0044); when the move ends it bursts off him. Until Codex's shroud frames
+  are approved, the roar and slams use his `specialDown` crouch and the pounce `dash`, drawn as a boiling silhouette
+  with four chakra tails.
 - **Godspeed: Whirlwind** (Killua, kind `reflex`): a 40-frame flash, then for 300 frames his body answers up to 4
   blockable strikes or shots by itself (`Fighter.takeHit` → `kit.reflexCounter`): the hit misses, a melee attacker
   is held for 12 frames, he blinks behind the attacker (the thrower, for a shot) and lands the Rhythm Echo strike

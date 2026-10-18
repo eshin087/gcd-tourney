@@ -594,8 +594,8 @@ export class Effects {
       // the wind shuriken: four blades spinning round a Rasengan core, held high in startup and thrust forward in active
       const p = phase === 0 ? at(0.25, 1.55) : at(0.7, 0.8);
       const s = (phase === 0 ? 0.25 + prog * 0.4 : 0.65) * k;
-      this.keep('hand' + f.index, 'rasenshuriken', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.5 });
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.6, color: 0x8ac8ff, opacity: 0.35 * halo, order: 3, glow: 1 });
+      this.keep('hand' + f.index, 'rasenshuriken', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.15 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 0.9, color: 0x8ac8ff, opacity: 0.25 * halo, order: 3, glow: 0.4 });
       if (Math.random() < 0.35) {
         const a = Math.random() * Math.PI * 2;
         this.spawn('streak', p.x + Math.cos(a) * s * 1.2, p.y + Math.sin(a) * s * 0.6, p.z, { scale: 0.3, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });

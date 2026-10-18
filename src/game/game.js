@@ -1774,8 +1774,9 @@ export class Game {
       // beam ticks draw their own sparks
     } else if (m.special) {
       const col = new THREE.Color(m.color);
-      // the technique's own blast (ENG-SKL-NAR) in place of the generic fireball, which would white it out
-      if (m.blastFx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, col);
+      // the technique's own blast (ENG-SKL-NAR) in place of the generic fireball, which would white it out; a
+      // blastFx without fx draws its blast elsewhere (the Rasenshuriken's dome is its vortex)
+      if (m.blastFx) { if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, col); }
       else this.fx.explosion(x, y, z, col);
       audio.play('specialHit');
       this.cam.shake(0.9, dir);

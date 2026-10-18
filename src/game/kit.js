@@ -501,10 +501,11 @@ function crewOut(g, crew) {
   }
 }
 
-// a point `r` from the target at angle `a` on the screen plane (depth squashed, so the circle reads on camera)
+// a point `r` from the target at angle `a`: beside them along the screen, and in depth mostly behind them (the camera
+// side is squashed), so a ring of clones crowds round the target without hiding it
 function around(f, o, a, r) {
   const R = f.game.basis.right, F = f.game.basis.fwd;
-  const ox = dmath.cos(a) * r, oz = dmath.sin(a) * r * 0.65;
+  const ox = dmath.cos(a) * r, oz = (0.25 + 0.5 * dmath.sin(a)) * r;
   return {
     x: THREE.MathUtils.clamp(o.pos.x + R.x * ox + F.x * oz, -ARENA_LIMIT, ARENA_LIMIT),
     z: THREE.MathUtils.clamp(o.pos.z + R.z * ox + F.z * oz, -ARENA_LIMIT, ARENA_LIMIT),
@@ -1167,7 +1168,7 @@ const UPDATE = {
       k.dir = dirTo(f, o);
       const p = f.pos;
       g.fx.spawn('ring', p.x, p.y + 0.8, p.z, { scale: 3.2, color: C.chakra, glow: 1, order: 8, depthTest: false });
-      g.fx.spawn('fourTailsRoar', p.x, p.y + 0.8, p.z, { scale: 1.5, order: 8, depthTest: false });
+      g.fx.spawn('fourTailsRoar', p.x, p.y + 0.8, p.z, { scale: 1.1, order: 8, depthTest: false });
       g.fx.debris(p.x, p.z, 10, 1.1);
       g.cam.shake(0.9);
       audio.play('smash', 0.9);
@@ -1242,7 +1243,7 @@ const UPDATE = {
       f.actor.setPhase(S.pose ?? 'beamCharge', 1, 0.5);
       o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, d);
       g.fx.spawn('ring', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 3.6, color: C.chakra, glow: 1.2, order: 8, depthTest: false });
-      g.fx.spawn('fourTailsRoar', f.pos.x + d.x * 0.6, f.pos.y + 0.9, f.pos.z + d.y * 0.6, { scale: 1.8, order: 8, depthTest: false });
+      g.fx.spawn('fourTailsRoar', f.pos.x + d.x * 0.6, f.pos.y + 0.9, f.pos.z + d.y * 0.6, { scale: 1.4, order: 8, depthTest: false });
       g.fx.explosion(p.x, p.y + 0.9, p.z, new THREE.Color(C.chakra));
       g.fx.ground.impact(f.pos, { kind: 'roar', style: S.roarGround, tint: C.chakra, dir: d, origin: true, noMerge: true });
       g.fx.overlay.impactFrame(4);

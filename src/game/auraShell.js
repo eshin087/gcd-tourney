@@ -174,16 +174,16 @@ const CLOAK_FRONT = /* glsl */ `
   void main() {
     if (solid(vUv) < 0.5) discard;
     vec2 px = floor(vUv / texel / grain);
-    // near the drawn outline (any of 8 neighbours within 3 art pixels empty): the brighter skin of the chakra
+    // near the drawn outline (any of 8 neighbours within 1.5 art pixels empty): the brighter skin of the chakra
     float edgeHit = 0.0;
     for (int i = 0; i < 8; i++) {
       float a = float(i) * 0.785398;
-      edgeHit = max(edgeHit, 1.0 - solid(vUv + vec2(cos(a), sin(a)) * texel * grain * 3.0));
+      edgeHit = max(edgeHit, 1.0 - solid(vUv + vec2(cos(a), sin(a)) * texel * grain * 1.5));
     }
     float b = vnoise(vec2(px.x * 0.22, px.y * 0.16 - time * 2.6));
     vec3 col = mix(fill, edge, step(0.7, b) * 0.6);
     float a = opacity * (0.75 + 0.25 * step(0.45, b));
-    if (edgeHit > 0.5) { col = edge; a = min(1.0, opacity * 1.6); }
+    if (edgeHit > 0.5) { col = edge; a = min(1.0, opacity * 1.5); }
     gl_FragColor = vec4(col, a);
     #include <colorspace_fragment>
   }`;

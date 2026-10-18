@@ -517,10 +517,10 @@ export class Vortex {
     const C = this.colors;
     if (m.dome) {
       // the Rasenshuriken's sphere of wind blades (ENG-SKL-NAR): f0-f1 open it, f2-f4 loop while it grinds, f5-f7 end it
-      const it = fx.keep(this.id, m.dome, p.x, p.y, p.z, { scale: 0.95 * Math.max(0.35, grow), order: 8, glow: 0.3 });
+      const it = fx.keep(this.id, m.dome, p.x, p.y, p.z, { scale: 0.95 * Math.max(0.35, grow), order: 8, glow: 0 });
       const left = m.len - this.t;
       it.frame = this.t < 4 ? (this.t < 2 ? 0 : 1) : left < 8 ? 5 + Math.min(2, Math.floor((8 - left) / 3)) : 2 + (Math.floor(this.t / 3) % 3);
-      fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 1.6 * grow, color: C.glow, opacity: 0.35, order: 3, glow: 1 });
+      fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 1.6 * grow, color: C.glow, opacity: 0.2, order: 3, glow: 0.3 });
     } else {
       fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: 0.25 + 1.0 * grow, color: C.orb, order: 8, glow: 0.9 });
       fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 2.2 * grow, color: C.glow, opacity: 0.5, order: 3, glow: 1 });
