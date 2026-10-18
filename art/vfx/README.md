@@ -81,8 +81,22 @@ stand-in until its art is approved.
 | `fourTailsRoar` | 8 | 45 | full color | center | the Four-Tails chakra roar as the transformation completes |
 | `beastBall` | 8 | 45 | full color | center | the Tailed Beast Ball gathering at the fox's mouth during the charge (loop) |
 | `beastBeamRing` | 6 | 40 | full color | center | the shock rings sent down the Tailed Beast Ball beam |
+| `chidori` | 8 | 35 | full color | center | Sasuke's Chidori in his hand (crackle loop; arcs trail screen-left, mirrored when he faces left) |
+| `chidoriForm` | 6 | 40 | full color | center | the Chidori forming in his gripped hand during the startup |
+| `chidoriBurst` | 8 | 40 | full color | center | the Chidori piercing them (its hit, and the Chidori Spear's) |
+| `chidoriSpear` | 8 | 35 | full color | center | the Chidori Spear's blade grown from his hand, laid along the shot (f3-f5 held while it is out) |
+| `chidoriCurrent` | 8 | 40 | full color | center | Chidori Current bursting from his body on a Sharingan read (the body area left clear) |
+| `amaterasu` | 8 | 60 | full color | bottom | Amaterasu's black flames clinging to a burning body (loop; one copy behind, one in front) |
+| `amaterasuIgnite` | 6 | 45 | full color | center | the black flames bursting on them as the gaze lands |
+| `greatFireball` | 8 | 45 | full color | center | the Great Fireball flying screen-right, turned along its flight (loop); the Kirin's fireball into the sky |
+| `greatFireballBurst` | 8 | 50 | full color | center | the Great Fireball exploding |
+| `stormCloud` | 4 | 120 | full color | center | the Kirin's thunderclouds over the marked spot (copies side by side) |
+| `kirinBody` | 4 | 40 | full color | center | the Kirin's bolt body, stacked from the clouds to the head; exact 256 x 256 frames that tile top to bottom |
+| `kirinHead` | 6 | 40 | full color | center | the Kirin's head diving straight down (loop) |
+| `kirinStrike` | 8 | 45 | full color | bottom | the Kirin hitting the floor |
 
-The frame-by-frame brief is [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md).
+The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md) and
+[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)
 
