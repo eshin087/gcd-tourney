@@ -33,8 +33,8 @@ number would spend image calls and approvals on drawings that are already right.
    fighter's. An attack alt never inherits its base's. The automatic head fit (`anatomy: auto-head`) keeps it: the
    fit is measured on cells that already carry it, so it is applied after the fit instead of being fitted away. The
    audit that sets these numbers (ART-SIZE-R7) acts only where the median of independent measures (head template,
-   body area, hand landmarks) is 6 % or more off the fighter's other strips; one measure alone misreads turned heads
-   and folded poses by up to 10 %.
+   body area, hand landmarks) is 6 % or more off the fighter's other strips (Gojo heavy at 5 %: all three measures and
+   round 6 agree); one measure alone misreads turned heads and folded poses by up to 10 %.
 4. **`--keep-palette`** (with `--quantize`) snaps a repack to the colours of the fighter's current `sheet.png`, and
    each source colour to the palette colour it got last time wherever a strip kept its shape. Resizing one strip then
    leaves every other strip byte for byte; a fresh median cut moved up to 2,500 px of Gojo's untouched idle by up to
