@@ -1,5 +1,11 @@
 # ENG-112 Sasuke normals handoff
 
+## dTilt low-kick retry (2026-10-18, user decision via Claude relay combat #10)
+
+The user authorized one more round of up to three image calls specifically for a genuine crouched low kick, with arms in guard and no fist strike. Calls #8 and #9 were already spent in the prior turn; #10 was the only new call budget. Selected attempt 03 byte-for-byte as `raw/dTilt_v06.png` (six poses; kick in f2/f3, retraction f4, crouch f5). Attempts 01–03 remain under `raw/_qa_hold/`; exact prompts, call IDs, original/saved hashes, dimensions and dispositions are in `production/dTilt_v06_generation_attempts.md`.
+
+The full quantized pack failed the automatic scale gate and wrote no v06 atlas. Source head ratio 1.47 and feet 1.96 require auto-head fit 0.68, below the supported 0.75–1.33 band; the clamped 0.75 result still measures head 1.09 / feet 1.50 and clips the two active frames at the cell edge. The auto-head sidecar is preserved as measured evidence, not a passing fit. The new review page shows the selected raw strip at `public/reviews/normals-sasuke/#dtilt-v06` and labels it drawing-review only; Astra's final quantized-atlas audit is pending because the pack was not written. No image approval or technical clearance is implied. The old v05 review candidate remains preserved. Next: request the user's drawing review for v06 while clearly retaining the technical hold, or their direction on whether v05 remains preferred.
+
 ## uTilt head-only retry (2026-10-18, relay combat #9)
 
 The user authorized up to three edits of only the head on user-approved uTilt v01, matching the approved idle while preserving the pose. All three image calls repainted most or all of the canvas (91.01–97.18% changed pixels). No candidate was selected or packed; v01 remains technically held and the stand-in stays active. Exact call provenance, hashes, prompts and diff metrics are in `production/uTilt_v03_head_edit_attempts.md`; attempts are preserved in `raw/_qa_hold/uTilt_v03_attempt01.png` through `uTilt_v03_attempt03.png`. The review queue and gallery intro record the outcome. Next: ask the user whether to keep approved v01 as a technical hold with the stand-in, or authorize another correction method. This is a decision request, not an image approval.

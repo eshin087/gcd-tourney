@@ -1,5 +1,11 @@
 # Art review queue
 
+## 2026-10-18 — Sasuke dTilt v06 — needs review, technical hold
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | sasuke | dTilt | [dTilt_v06](characters/sasuke/raw/dTilt_v06.png) · [ENG-112 review page](../public/reviews/normals-sasuke/#dtilt-v06) | v06 | needs review | Per user decision via Claude relay combat #10, generated a six-frame low kick: crouch, chamber, shin-height kick, held kick, retract, crouch. Fists stay guarded; sword stays sheathed. | Attempt 03 selected from the 3-call round and saved byte-identically; all attempts are preserved in `_qa_hold`. Default quantized scale gate fails: source head 1.47× idle / feet 1.96×; auto-head fit 0.68 is below the 0.75–1.33 limit. Clamped fit still gives head 1.09× / feet 1.50× and clips active frames; no packed v06 atlas or Astra final audit. Drawing review only; technical hold remains and it cannot ship. [Generation ledger](characters/sasuke/production/dTilt_v06_generation_attempts.md). |
+
 ## 2026-10-18 — Sasuke uTilt v03 head-only retry — no candidate
 
 | date | character | asset | file | version | status | what changed | QA notes |
