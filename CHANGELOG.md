@@ -17,6 +17,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 ### Changed
+- (ENG-112) Set Gojo uair v01 phases to `[2,1,3]` so only the full kick is active.
+- (ENG-112) Recorded user approval via Claude relay combat #35 for Gojo uair v01 as drawn; retained Astra's technical hold and Claude's pending runtime contact check.
 - (ENG-112) Recorded user approval via Claude relay combat #35 for Gojo uair v01 as drawn; retained Astra's technical hold and Claude's pending runtime contact check.
 
 - Changed: the determinism fixtures are re-recorded after Killua's last three Smash moves (fingerprint 7b0732ad1069); both replay frame for frame.
