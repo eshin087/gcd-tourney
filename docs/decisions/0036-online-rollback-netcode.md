@@ -192,7 +192,9 @@ off, and reports the first frame where the two runs differ and which values diff
   - `Game.quiet(fn)` runs re-simulated steps with the HUD, camera, effects, stages and menus replaced by a no-op
     stand-in, sound off (`audio.quiet`), no afterimages (`actorView.quiet`) and no effect ticks.
   - `Game.syncView()` keeps the stage in step with the domain every frame. After a restore it also resets the
-    clash camera and bar and the beam, orb, charge and clash hums.
+    clash camera, bar and hint and the beam, orb, charge and clash hums: the clash camera follows the restored copy
+    of `Game.clash` (or cuts to a clash the quiet frames started; ENG-115), and `Hud.clashBeat` rebuilds its rings
+    for a clash it never started (ENG-114).
   - Test: `det.replay(log, { rollback: { every, depth } })` saves every `every` frames, plays `depth` frames on
     random inputs, restores, re-simulates quietly on the right inputs, and checks every frame against the
     recording.
