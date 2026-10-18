@@ -99,7 +99,7 @@ and Tools at 1366 × 768 and up; Scenarios fits once a group or two is folded). 
   - *Tech & escape* (the dummy gets out, ADR 0022 / 0028): hold Guard to tech, tech roll, timed tech off a spike, tech
     too early (locked out), wall tech, wall-jump tech, burst, burst bait.
   - *Combos* (ADR 0026): air combo, wall bounce, handball (3 wall bounces), vanish ping-pong, blue combo.
-  - *Fighter kits*: counter stance, Whirlwind vs attacks, Hollow Purple vs a projectile.
+  - *Fighter kits*: counter stance, the rising kick follow-up (Lion's Barrage), Whirlwind vs attacks, Hollow Purple vs a projectile.
   - *Look & feel*: counter hit (hit flash), attack alts, ground damage.
 
   A scenario that the current pair can't show is dimmed and says why (for example "needs two rush specials"); the

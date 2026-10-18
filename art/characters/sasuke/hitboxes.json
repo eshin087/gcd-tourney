@@ -214,76 +214,86 @@
   "special": {
     "0": {
       "hand": [
-        69,
-        175
+        125,
+        227
       ]
     },
     "1": {
       "hand": [
-        74,
-        188
+        123,
+        231
       ]
     },
     "2": {
       "hand": [
-        73,
-        191
+        81,
+        219
       ]
     },
     "3": {
       "hand": [
-        104,
-        182
+        95,
+        186
       ],
       "hit": [
         [
-          176,
-          92,
-          36,
+          180,
+          110,
+          44,
           44
         ]
       ]
     },
     "4": {
       "hand": [
-        53,
-        145
+        122,
+        202
       ],
       "hit": [
         [
-          138,
-          80,
-          29,
-          40
-        ],
-        [
-          155,
-          138,
-          19,
-          19
+          180,
+          110,
+          44,
+          44
         ]
       ]
     },
     "5": {
       "hand": [
-        207,
-        118
+        234,
+        135
+      ],
+      "hit": [
+        [
+          212,
+          118,
+          38,
+          32
+        ]
       ]
     },
     "6": {
       "hand": [
-        246,
-        132
+        216,
+        134
+      ],
+      "hit": [
+        [
+          194,
+          118,
+          38,
+          32
+        ]
       ]
     },
     "7": {
       "hand": [
-        180,
-        126
+        132,
+        148
       ]
     },
-    "_scale": 0.8711,
-    "_note": "v13 with the auto-head fit x0.8711 and f6's -6 px offset, measured on the packed cells. The open R hand holds the lightning: beside the hip on f3, trailing back at chest height on f4. f3-f4 hit with the leading head/shoulder (f4: the head and the forward L fist); f5 keeps the auto box on the thrust palm (the old f5 box sat below it)."
+    "_scale": 0.905,
+    "_note": "v15 (the anime Chidori, ART-SKL-SAS) with the auto-head fit x0.905 at bodyHeight 157, measured by Claude 2026-10-18 on the packed 48-color cells. hand = the open R palm holding the Chidori: gripped low between the knees (f0-f1), swept down behind the front foot (f2), trailing low behind him through the run (f3-f4), the spear-hand stab (f5-f6), drawn back to the chest (f7). hit: f3-f4 a box in front of his chest at the stab's height and reach (the Chidori connects whenever the run reaches them and the engine jumps to the f5 stab, hitPose), f5-f6 the stab from the palm to the fingertips."
   },
   "specialForward": {
     "0": {
@@ -378,24 +388,24 @@
   "beamFire": {
     "0": {
       "hand": [
-        199,
-        112
+        219,
+        207
       ]
     },
     "1": {
       "hand": [
-        201,
-        112
+        219,
+        207
       ]
     },
     "2": {
       "hand": [
-        198,
-        113
+        219,
+        207
       ]
     },
-    "_scale": 0.8482,
-    "_note": "the pointing open R palm tip, re-measured by Claude 2026-10-14 on v07 at its auto-head fit x0.8482 (the v06-era points, scaled, sat 17-19 px in front of the palm and 12 px low); the old points sat on the sleeve end 45 px behind it."
+    "_scale": 1,
+    "_note": "v08 (the Kirin strike, ART-SKL-SAS): the R fingertips pointing down at the strike spot, measured by Claude 2026-10-18 on the packed 48-color cells at bodyHeight 138 (no auto fit; the user's halfway sizing). Kirin itself does not read it; it marks the drawn hand for any effect placed there."
   },
   "beamStruggle": {
     "0": {

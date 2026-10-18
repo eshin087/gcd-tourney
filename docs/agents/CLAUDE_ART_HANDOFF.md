@@ -1,3 +1,41 @@
+# ART-SKL-SAS — batch 3 and special v15 approvals recorded (2026-10-18, relay skills #19 and send #20)
+
+USER APPROVAL via Claude relay skills #19: the user approved `greatFireball` v01, `greatFireballBurst` v01, `stormCloud` v01, `kirinBody` v01, `kirinHead` v01 and `kirinStrike` v01 for Claude's HD packing/integration. The user also approved `beamFire` v08 and chose the halfway size: Claude sets its bodyHeight so the head is about 8% over idle and the low-lunge body about 7% under (low-lunge pose reads smaller). The prior auto-fit floor produced head 1.15x; at matched body the drawn head read 1.16. This sizing is recorded as the user's decision, not a Codex numeric measurement. The cell-top reach on kirinStrike is as briefed, not an accidental clipping defect.
+
+Recorded approval sources and versions in `art/REVIEW.md`, `art/manifest.json`, `art/TRACKER.md` and this branch's CHANGELOG. Claude owns beamFire bodyHeight selection, HD packing, in-game replacement and technical checks. Batch 3 gallery: https://gcd-tourney-467ofrysf-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/ (PR #163).
+
+The user separately approved special v15 via Claude skills send #20 with the quote: “Approve v15 (Recommended): I ship it with the size fit that clears Codex’s holds; it replaces v13 in game.” Claude reports a trial whole-figure split with `special_v15.json` (`anatomy: auto-head`, `bodyHeight: 157`), auto-head x0.905, head 1.10, no clipping and a passing scale gate. v15 is restored to `raw/`; v14 remains held. Claude owns applying these settings, remeasuring hand anchors and integrating v15 in place of v13. This Codex handoff does not claim final atlas/Astra/runtime validation.
+
+---
+# ART-SKL-SAS — special v15 candidate / decision needed (2026-10-18, relay skills #18)
+
+User decision via Claude #18 authorized one more generation call (4/4 cumulative) to redraw the same eight special poses at Sasuke's approved idle build, with all poses inside 256px cells. v15 was generated and filed as `art/characters/sasuke/raw/special_v15.png` (2172x724; SHA-256 `754E3CCF20A8071F00CD228C9B6CCED94DF79D67705FD8C02E8D14F512D7E232`). The v14 source was moved into `raw/_qa_hold/`; v13 remains approved and active until v15 approval.
+
+The candidate is not ready for a clean technical pass: strict pack detected 8 frames but failed the scale gate and wrote no atlas. Its splitter cuts five pose boundaries; head ratio f7/f1 is 1.23/1.36 of idle; f3/f5/f6 clip 6/25/3 px. `npm run body -- sasuke special` reports v13 only. No v15 body evidence or final Astra atlas audit exists. Full prompt and provenance: `art/characters/sasuke/production/skills-revamp-batch1/special_v15_provenance.md`; review gallery: https://gcd-tourney-9aahjbj5f-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/ (PR #163, commit `4188bb90`).
+
+The review request should ask what to do next: accept the drawing with technical holds, authorize deterministic pixel/placement fixes without new image calls, or authorize a fresh call budget. Do not record approval unless user approves v15.
+
+---
+# ART-SKL-SAS — batch 1 approval recorded (2026-10-18, relay skills #17)
+
+USER APPROVAL via Claude relay skills #17: the user approved `chidori` v01 and `special` v14. Quote: “Chidori ball: Approve v01 (Recommended): I pack it in HD and it replaces my placeholder ball in his hand. Chidori strip: Approve v14: Approve the drawing as it is; I fix the frame split, and the head/clothing fullness stays as drawn.”
+
+Recorded in `art/REVIEW.md`, `art/manifest.json` and `art/TRACKER.md`. `special` v14 is visually approved with `approvedVersion: 14`; technical scale/Astra/clipping holds remain. Claude owns correcting its frame split without changing the user's approved fullness. `chidori` v01 is visually approved with `approvedVersion: 1`; Claude owns the HD pack and game replacement. Raw source-layout/palette caveats remain for integration disposition. No image pixels or dimensions were changed by this bookkeeping.
+
+---
+
+# ART-SKL-SAS — batch 3 candidates (2026-10-18)
+
+Branch `art/sasuke-skills`; worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-sasuke-skills`. Candidate commit is being prepared. Review gallery: [Sasuke skills batch 3](https://gcd-tourney-huua9kkyv-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/); [PR #163](https://github.com/eshin087/gcd-tourney/pull/163), branch commit `20170eb0`. Six effects A8-A13 (`greatFireball` v01, `greatFireballBurst` v01, `stormCloud` v01, `kirinBody` v01, `kirinHead` v01, `kirinStrike` v01) are ready for user visual review; candidate pack detects the brief frame counts, but `kirinStrike` reports clipping and several source geometry/seam issues need Claude's HD in-game review. No visual approval or integration is implied.
+
+`beamFire` v08 is filed from selected attempt 03 (3/3 calls). Strict scale pack reported unadjusted head 1.52x idle, clipped at the right; the auto-head sidecar measured 0.66 but clamps to 0.75 and still leaves head 1.15x idle. `special` v14 also blocks writing the candidate Sasuke atlas. Therefore no accepted quantized sheet, body sheet for v08, or final Astra atlas audit exists. Keep `beamFire` held; do not claim Astra pass or shipping clearance. Candidate review row, manifest, provenance and limitations are committed with the gallery.
+
+Batch 2 approvals are recorded on this branch at `8b7a4c46`: user via Claude relay skills #16 approved Amaterasu v01 and AmaterasuIgnite v01 with the exact quoted approval in REVIEW/manifest/TRACKER. Sources were restored from `_qa_hold` without edits; manifest says `hd:true`, Amaterasu fill 0.9 and Ignite fill 0.95. Claude owns HD packing and game integration.
+
+Next: serve/open the branch PR preview and ring lane `skills` with an approval request for the six VFX and gallery link, noting `beamFire` remains a technical hold. Keep batch 1 `special` v14 and `chidori` v01 unresolved; the user has not approved them. Claude owns pack/game integration and technical hold disposition. Main-only `docs/NOW.md`, inbox, tasks and changelog remain coordinator bookkeeping.
+
+---
+
 # ART-GOJO-POSTURE-D — user approval recorded (2026-10-18, relay gojo-run #14)
 
 USER APPROVAL via Claude relay gojo-run #14: “hurtHigh: Approve v04 (Recommended). hurtLow: Keep v04 (Recommended). launched: Approve v08 (Recommended).”
@@ -1169,6 +1207,3 @@ Machine manifest versions reflect the latest candidates while preserving approve
 ## Relay #8 correction (2026-10-18)
 
 Claude confirmed the v05 approval ask was superseded by shipped Sasuke v02. Keep v05 under `raw/_qa_hold/`; keep user-rejected v04 under `raw/_rejected/` with its rejection record. Main’s v02 manifest entry, hitboxes and packed sheet remain unchanged. Gojo heavy and Gojo hurtHigh/hurtLow/launched remain untouched by this task.
-
-
-
