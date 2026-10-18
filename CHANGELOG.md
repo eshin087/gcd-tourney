@@ -27,6 +27,14 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Changed (ENG-105): the test lab panel docks beside the game on screens 900 px and wider (the game, HUD and flash overlay shrink to the space left, so nothing is covered; the renderer and overlay now size to their own box). Every tab is one kind of list: foldable group headers with counts and rows of ▶ / name / note; YOU and DUMMY are dropdowns on one line; the text sizes itself to fit the screen so Moves, Animations and Tools need no scrolling.
 
 - Changed (ENG-104): the lab panel's text and buttons scale with the screen (14 to 18 px, 13 px on phones; the panel 380 to 540 px wide) and option buttons stretch to fill their row, so TOOLS and ANIMATIONS read larger with no empty gap beside them.
+- Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #9 for rasengan, rasenganForm, rasenganBurst, poof and subLog v01; visual approval is separate from Claude-owned packing and gameplay checks.
+
+
+
+- Added (ART-SKL-NAR): prepared Naruto skills batch 3 HD effect candidates rasenshuriken v01 and rasenshurikenDome v01; added generation provenance, manifest/review records and gallery. Awaiting user visual approval and Claude pack/game integration checks.
+
+
+- Changed (ART-SKL-NAR): prepared Naruto skills batch 2 HD candidates rasengan, rasenganForm, rasenganBurst, poof and subLog v01 (one image call each); added manifest/review/provenance records and gallery. Awaiting user visual approval and Claude pack/game integration checks.
 
 - Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #7 for beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01; superseded beamCharge v12-v16 and fourTailsRoar v01 are preserved under `_rejected/`. Character scale/contact/integration holds remain.
 
