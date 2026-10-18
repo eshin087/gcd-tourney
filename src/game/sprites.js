@@ -26,6 +26,10 @@ export const FALLBACK = {
   // beam clash struggle (ADR 0034): the clash plays it only when the sheet has its own strip, so this covers direct
   // lookups; the 3D placeholder bakes none
   beamStruggle: 'beamFire', beamStruggleAir: 'throw', // the clash holds throw's release frame when the strip is missing
+  // directional normals (ADR 0042): the nearest strip the fighter already has, its boxes included. A back air without
+  // its own strip shows airLight3 mirrored (Fighter.mirrorPose); the 3D placeholder bakes none of them
+  fTilt: 'light2', uTilt: 'heavy', dTilt: 'light3', dashAttack: 'light4', fSmash: 'light4', uSmash: 'heavy', dSmash: 'light3',
+  fair: 'airLight2', bair: 'airLight3', uair: 'heavy',
 };
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
