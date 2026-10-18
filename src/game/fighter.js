@@ -271,6 +271,12 @@ export class Fighter {
     return o.air && !o.ko && (o.state === 'launched' || o.state === 'held') && this.distTo() < AIR.juggle;
   }
 
+  // A DBFZ juggle: reeling from a launch, a spike, a bounce, a super dash or the air string itself, not from a Smash light
+  // pop (`feet`: up tilt, up / forward air, dash attack), which stays Smash's to follow up.
+  dbfzJuggle() {
+    return this.juggling() && !this.opp.feetLand;
+  }
+
   // The normal the stick picks for `btn` ('light' | 'heavy'): the stick now, or the one held at the press when it is
   // neutral by now (a quick tap of direction and button). Vertical wins when the stick is mostly up or down, as for specials.
   normalFor(btn, aim = null) {
@@ -282,6 +288,9 @@ export class Fighter {
     }
     const dir = Math.abs(y) > 0.6 && Math.abs(y) > Math.abs(x) ? (y > 0 ? 'up' : 'down')
       : Math.abs(x) > 0.5 ? (this.air && x * this.side < 0 ? 'back' : 'forward') : 'neutral';
+    // In a DBFZ juggle Light is the air string whatever the stick says (↓: the spike), as before ADR 0042: the stick held
+    // toward them to follow the launch must not swap the string for a single forward air. The C-stick still picks.
+    if (this.air && btn === 'light' && !aim && this.dbfzJuggle()) return dir === 'down' ? 'airHeavy' : 'airLight1';
     return NORMALS[this.air ? 'air' : 'ground'][btn][dir];
   }
 
@@ -505,6 +514,10 @@ export class Fighter {
     this.hidden = true;
     this.invuln = VANISH.hideFrames + 6;
     this.vel.set(0, 0, 0);
+    // physics() skips the vanish, barrier and all: an air string's juggle tracking can have stepped us a hair past the
+    // barrier this frame (toward a victim pinned on it), and we would wait out the hide there
+    this.pos.x = THREE.MathUtils.clamp(this.pos.x, -ARENA_LIMIT, ARENA_LIMIT);
+    this.pos.z = THREE.MathUtils.clamp(this.pos.z, -ARENA_LIMIT, ARENA_LIMIT);
     this.actor.setVisible(false);
     this.game.onVanish(this, 'out');
   }

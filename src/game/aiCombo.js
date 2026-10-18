@@ -688,6 +688,9 @@ function buildEdges(def) {
   add({
     id: 'uair', nodes: ['AFREE'], tags: ['air', 'link'], w: 0.5, opt: 1.2, act: 'airNormal', meet: { move: 'uair' },
     pre: (x) => {
+      // not in a DBFZ juggle: Light is the air string there (Fighter.normalFor), and an up air's light pop would land
+      // them on their feet and end the combo the air string carries on
+      if (x.f.dbfzJuggle()) return null;
       const g = gapAirReach(x, 'uair');
       if (g != null && x.z.hopFor === 'uair') { x.wk = 6; x.optk = 2.5; }
       return g;
