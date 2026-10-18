@@ -7,11 +7,11 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
+**ART-SIZE-R6 partial handoff (2026-10-18):** Codex inventoried and visually screened 230 packed strips across six fighters (40 comparison pages; Gojo dash/superDash excluded) on branch `art/size-r6`, PR [#142](https://github.com/eshin087/gcd-tourney/pull/142). The [technical handoff](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-size-r6/art/scale/size-r6/HANDOFF.md>) separates diagnostic flags from anatomy findings. Box-axis screening is complete: 113 total candidates (92 probe/manual/off candidates, 20 added box-axis leads, plus Sasuke beamStruggle sleeve-probe contamination). These are not 113 confirmed defects; remaining landmark measurements and repair decisions are incomplete. Sasuke beamStruggle v03 stays on technical hold, approved production data is unchanged, and Killua airLight2 v08 stays held while v07 remains approved. Latest preview build passed at https://gcd-tourney-arixng9ut-eshin087s-projects.vercel.app. Browser visual QA was not completed: local port 5246 was inaccessible, and opening hosted review redirected to Vercel where auto-review denied origin permission for the signed-in session. No bypass was attempted. Next: Claude annotates Sasuke sash landmarks; Codex measures filtered candidate rows and fixes confirmed issues, then Astra audits completed art. No user art approval is requested now. No camera change, merge or production deploy.
+
 **Super art Round 2b approved (2026-10-16):** the user approved all eight Goku and Luffy v01 images via Claude relay effects #10, including the four cutouts despite Astra holds. Approved source copies and fitted UI pack outputs are committed on `art/super-art-r2b` (`b41d344d`, PR #131). [Review gallery preview](https://gcd-tourney-8bi197074-eshin087s-projects.vercel.app/reviews/super-art-r2b/). The Vercel preview build passed; the art worktree is sparse and its pack report has missing animation sheets, so Claude owns the full-checkout pack and in-game/runtime integration check. No production merge or deploy is claimed.
 
 **Super art round 2a approved (2026-10-16):** all 12 Naruto, Killua and Gojo v01s were approved via Claude relay effects #8, including the six foregrounds with Astra holds. Sources and fitted UI outputs are committed on PR #129. Claude's next step is the full-checkout pack/runtime check and integration; the sparse worktree pack emitted missing-animation warnings, documented in the [handoff](agents/CLAUDE_ART_HANDOFF.md). [Approved preview](https://gcd-tourney-891njl4yw-eshin087s-projects.vercel.app/reviews/super-art-r2/).
-
-**Beam clash Round 4 (2026-10-17, Claude/Codex "4 - Beam", lane `beam-clash`):** Astra audited the seven live poses: 3 pass, 4 held (all stay approved and live). You chose to redraw only Sasuke ground; Codex is drawing Sasuke `beamStruggle` v02 and calibrating Goku's v01 (no redraw needed, it was packed too large). Both come to you for approval in Claude "4 - Beam" ([PR #140](https://github.com/eshin087/gcd-tourney/pull/140)).
 
 **One place to answer (2026-10-15, ADR 0039, PR #117):** every approval and decision now comes to the Claude chat **"0 - Approvals"** (pinned while something waits, plus a phone notification). Other Claude chats and Codex lanes queue their questions there instead of asking you. `npm run status` opens with "Needs you now". It is also the one central chat: say "status" there for the overview, or "tell the <x> chat ..." to reach a Codex chat. The Codex "0 - G" control chat and its monitor are retired (you can archive 0 - G). After deleting chats: name a Claude chat `0 - Approvals` and type `/approvals`.
 
@@ -29,9 +29,9 @@ paused._
 
 **Gojo run v14 (2026-10-15):** Astra's packed-atlas recheck passes visible anatomy and discrete-frame continuity; the v13 f6 arm/fist dropout is resolved. No new visible defect was established. The eight 60 ms GIF frames match the atlas. Strict hidden-segment measurements, live browser playback and runtime contacts remain unverified; Claude owns those checks and technical disposition. V14 repeats Part A for both halves, preserving the accepted same-lead-leg and forward-fist choices. The report and handoff are committed on `art/gojo-run` at `9b25a5a8`: [audit](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-run/art/characters/gojo/production/run-jkl/ASTRA_RUN_V14_AUDIT_v01.md>) · [review GIF](<E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-run/public/reviews/gojo-run-jkl/run_v14_loop_v01.gif>). This is technical screening, not a new visual approval; Claude will return with the review step after runtime checks. No art, pack or sidecar was changed in the audit.
 
-**Gojo dashes (2026-10-17):** dash v10, backDash v07 and superDash v12 are approved and live (PR #124, `06bb00db`). The user asked for dash and superDash to be redrawn at the idle's body size (they read as different sizes); Codex "3 - Gojo" is on it (ART-GOJO-DASH-SIZE, branch `art/gojo-dash-size`), and Claude "3- Gojo" will ask for approval. Nothing to do until then.
+**Gojo dashes (2026-10-17):** dash v11 and superDash v13 (redrawn at the idle's body size) are approved and live (PR #141, `ca5e1fdd`); backDash v07 unchanged. Nothing waiting.
 
-**Beam clash (2026-10-17):** engine, five effects and seven struggle poses are live, hand anchors checked (Naruto fixed in PR #139). Open: the Astra audit and Goku's strip (Codex "4 - Beam").
+**Beam clash (2026-10-17):** engine, five effects and seven live struggle poses are in place; Naruto hand anchor fix is in PR #139. Astra audit is complete, and Goku v01 / Sasuke v02 are user-approved as drawings. Claude owns the remaining technical/contact holds and integration.
 
 **Scale loose ends: all five drawings approved via Claude.** User approved Naruto light2Alt05/airHeavyAlt04 and Killua charge14/down08/ko09 on 2026-10-15 (relay scale#6). Recorded on PR106 at1216e707 and PR105 atc9b2f9bc. [Reviewed preview](https://gcd-tourney-d2l8ht4cf-eshin087s-projects.vercel.app/reviews/scale-loose-ends/index.html) has historical pre-approval labels. No user action remains for these five. Claude owns final contact/grounding/aura checks and integration; no merge or production deployment by Codex.
 
@@ -53,7 +53,7 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-17 23:18 UTC._
+_Generated by `npm run status` at 2026-10-17 23:46 UTC._
 
 ### Needs you now (0)
 _Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
@@ -102,10 +102,10 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
-- b40915f2 10-17 16:18 docs(inbox): beam clash round 4: calibrate Goku beamStruggle v01, redraw Sasuke ground (user decision)
-- 897092e9 10-17 16:15 docs(beam-clash): record round 3 audit and Goku hold
-- 0c3c4f85 10-17 16:10 Merge branch 'fix/deploy-self-clean'
-- 0c04b89e 10-17 16:07 docs(agents): Gojo dash and superDash redraw at the idle's size (ART-GOJO-DASH-SIZE)
-- 986766bf 10-17 16:05 docs(now): beam clash round 3: Naruto hand anchor live (PR #139); Astra audit and Goku strip with Codex 4 - Beam
-- 5c9279f1 10-17 16:04 Merge branch 'fix/naruto-struggle-hand'
+- d5e042c7 10-17 16:42 docs(now): Gojo dash v11 and superDash v13 live (PR #141); ART-GOJO-DASH-SIZE done
+- ca5e1fdd 10-17 16:41 Merge branch 'art/gojo-dash-size'
+- 61fe61a2 10-17 16:41 Merge main into art/gojo-dash-size
+- a2e2baa0 10-17 16:41 docs(agents): record the user's approval of Gojo dash v11 and superDash v13 (ART-GOJO-DASH-SIZE)
+- dc0d02cb 10-17 16:37 Merge branch 'main' into art/gojo-dash-size
+- c8ecf09a 10-17 16:35 docs(agents): hand off approved Gojo dash size art
 <!-- status:end -->
