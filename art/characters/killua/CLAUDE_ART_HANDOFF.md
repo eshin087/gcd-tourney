@@ -1,28 +1,21 @@
 # Claude art handoff — ENG-112 Killua normals
 
-## Status
+## Current status (2026-10-18; relay combat #19 complete)
 
-**Blocked for technical correction and a user scope decision. Do not merge or ship the selected v01 strips.** The worker branch is `art/normals-killua`; the full Killua source inventory is present. Whole-character live pack output remains the complete 44-animation / 181-frame pack. The ten unapproved v01 candidates remain in the manifest as `raw` and do not appear in that live atlas.
+The authorized fresh round is complete on branch `art/normals-killua`. All ten selected v02 source strips are saved with exact-call provenance, hash-matched against their selected held attempts; all v01 and prior attempt files remain untouched. The branch manifest lists v02 as `raw`, with no approved version. **All ten remain technical HOLD; none is ready to ship.** User visual review is requested for feedback/approval of the drawings, with the caveat that visual approval does not clear technical holds.
 
-The branch includes a diagnostic review page at `public/reviews/normals-killua/index.html`. It compares every packed candidate frame and cycle with the current fallback strip and approved idle. The crops came from a separate 48-color whole-character pack with a temporary manifest and are marked technical holds. All original generated attempts remain under `raw/_qa_hold/`; selected v01 files are copies of their chosen attempts. All moves used their 3/3 calls. No new generation calls remain authorized by the current batch.
+- Packed v02 review page (frame-by-frame and loop beside stand-in and approved idle): [public/reviews/normals-killua/v02/index.html](../../../public/reviews/normals-killua/v02/index.html). Root review URL redirects to v02. v01 review crops/page are preserved at `public/reviews/normals-killua/v01/`.
+- Astra audit: `production/ENG112_NORMALS_V02_AUDIT.md`; it inspected all 70 cells (indices 181–250) from the exact atlas below.
+- Generation log: `raw/_qa_hold/ENG112_NORMALS_V02_PROVENANCE.md`; contains exact prompts, call UUIDs/source paths, references, dimensions, hashes and cumulative call counts. fTilt call01 was consumed but its output path/UUID were not returned by the wrapper; the selected fTilt attempt02 is traceable.
+- Diagnostic whole-character atlas: **54 animations / 251 frames**, 48-color quantization; SHA-256 `b66a685b321f548570f4ddbb70392068972dcc20d9c3b08e8bd26e5fde69b41a`; anims JSON SHA `60b4dddc3d139aeb6cc92089688eecdd42b7f5ba9e5ed28e2d10eaf30d69edbf`. A temporary external manifest marked v02 approved only to extract diagnostic frames. Nothing from that pack is copied into the branch's shipped `public/characters/killua/` atlas.
+- Standard strict quantized pack exited 1 and refused the candidate atlas; scale gate flags fTilt, dTilt, dashAttack, fSmash, uSmash, dSmash, fair, bair and uair. uTilt is also held by anatomy/assembly, despite no scale-gate flag. The committed pack remains the full 44-animation / 181-frame character baseline.
+- Source-layout/style holds remain for every move: all ten generated canvases miss their requested one-row square-cell dimensions and have smooth illustrated rendering rather than compliant hard-pixel source art. Packer also noted touching/cut-figure groups on eight strips.
 
-## Verification and audit
+Astra’s corrected atlas findings: dTilt's shin kick and fair's body-height aerial read well (fair f2 is x253, 2 px past the x251 safety margin); fTilt is connected but reads near shoulder/face; dashAttack misses the first active strike timing; fSmash’s charge and blow are usable but full-body parity is unmeasured; uTilt contains disconnected/severed lower-leg/shoe pieces and puts its strongest overhead extension in recovery; uSmash starts its overhead extension after its first active frame; dSmash’s active frames alternate sides rather than both striking sides in each active frame; bair is clipped at x0 and reads grounded; uair’s visible head is consistently enlarged. See the audit for exact H/F proxy measurements, corrected findings and uncertainties.
 
-- `npm run pr -- art killua`: restored / verified all 305 tracked Killua raw files in the task worktree.
-- Whole-character pack before candidate selection: 44 animations / 181 frames; `packer: 2`.
-- Diagnostic candidate atlas: 54 animations / 251 frames; all ten moves split to 70 frames (fSmash uses a versioned `split: even` sidecar). Diagnostic atlas SHA-256 `b9b99d8812d7cdb1f38e96bc5143fd2f1d4666b47a595dcb1ace041deecef130`.
-- `node tools/pack-sprites.mjs killua --quantize 48`: failed the automatic scale gate for all ten candidates; did not write the candidate character atlas. The previously packed full character remains in `public/characters/killua/`.
-- GPT-6 Astra medium inspected all 70 actual quantized candidate frames. All ten are HOLD. The detailed per-move findings, uncertainty and limitations are in `production/ENG112_NORMALS_AUDIT.md`; exact H/F frame metrics and atlas metadata are in `production/ENG112_NORMALS_METRICS.json`.
-- Known issues include detached hand fragments (uTilt), clipped active frames (dTilt, dashAttack, fair), overlapping neighboring figures/severed legs (fSmash), body/head mismatch not repairable by a measured uniform scale (dSmash and others), and incorrect automatic head selection for uair f2/f3. Full body segment measurements within ±6% remain unverified. The source contours are smooth/illustrated, not verified as hard-pixel style.
-- No runtime contact check was run; the strips are not ready for that check.
+## Next steps
 
-## User decision requested
-
-The review page is for a **decision**, not image approval. Please ask the user whether to authorize a new, explicit correction-generation budget for the held moves, or keep the current stand-ins and continue to Gojo. Exact v01 versions and the page are in `art/REVIEW.md`. No strip has been visually approved.
-
-## Integration notes
-
-- The diagnostic output is temporary evidence only; do not replace `public/characters/killua/` with it.
-- Do not apply uniform packScale based only on the packer's pre-quantization head proxy: Astra found disproportional head/body and/or clipping on every strip. `bair` is the strongest measured-scale trial but still lacks body parity evidence.
-- Existing candidate assets, sidecar, review page, full pack updates, manifest, tracker and review rows are committed on this branch.
-- This branch is not ready for `npm run pr -- check art/normals-killua`, approval, or merge. Re-enter after the user decision; if new calls are authorized, keep each old v01 and attempt unchanged and allocate the new version per the chosen scope.
+1. Get the user's visual decisions on all ten v02s through relay combat; do not infer approval from an unchecked item. Review page: the URL in the PR preview under `/reviews/normals-killua/v02/`.
+2. If approved visually, preserve that approval separately from technical holds. Do not merge or ship. Repair work requiring new drawings needs a new user authorization; measured packing or scripted edits may be proposed only when applicable and supported by measurements.
+3. After an approval/rejection relay, record REVIEW, manifest and TRACKER accordingly. Claude owns runtime hit/contact validation and integration.
+4. This branch is the active PR #166 worktree; no merge/deploy by Codex.

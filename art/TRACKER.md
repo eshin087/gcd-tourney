@@ -128,6 +128,16 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | land | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | win | 4 | - | **yes** | 193 | approved | v09 | v09 | User approved win v09 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
+| 9 | fTilt | 7 | 2/2/3 | no | 160 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#fTilt). |
+| 9 | uTilt | 7 | 2/2/3 | no | 214 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#uTilt). |
+| 9 | dTilt | 6 | 2/2/2 | no | 171 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#dTilt). |
+| 9 | dashAttack | 7 | 2/2/3 | no | 166 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#dashAttack). |
+| 9 | fSmash | 9 | 4/2/3 | no | 166 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#fSmash). |
+| 9 | uSmash | 8 | 3/2/3 | no | 214 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#uSmash). |
+| 9 | dSmash | 8 | 3/2/3 | no | 171 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#dSmash). |
+| 9 | fair | 6 | 2/2/2 | no | 174 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#fair). |
+| 9 | bair | 6 | 2/2/2 | no | 180 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#bair). |
+| 9 | uair | 6 | 2/2/2 | no | 214 | raw | v02 | — | ENG-112 candidate needs visual review; technical HOLD (strip dimensions, scale/anatomy, and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#uair). |
 | 9 | backDash | 3 | - | no | 180 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | superDash | 2 | - | no | 120 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | jumpSquat | 1 | - | no | 128 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -250,6 +260,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 User approved v07 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
 
 ## killua
+
+ENG-112 Killua v02 (2026-10-18): ten new selected candidates await user visual review; all remain technically held. Temporary quantized atlas: 54 animations / 251 frames; the shipped branch atlas remains 44 animations / 181 frames. Nine new strips fail the automatic scale gate; all raws miss the requested exact strip canvas dimensions. Review: [packed v02 page](../public/reviews/normals-killua/v02/index.html); [generation provenance](characters/killua/raw/_qa_hold/ENG112_NORMALS_V02_PROVENANCE.md).
 
 **Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips and UI portrait v02, cutin v03, select v02, promoted to ui/); `approved` = the exact version that played. The scale gate measures against the approved title-style combat cell (art/scale/builds.json scaleReference). Not shipped yet: see the holds per row and docs/NOW.md.
 
