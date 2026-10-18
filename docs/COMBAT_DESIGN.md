@@ -244,12 +244,12 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 
 | kind | does | examples |
 |---|---|---|
-| `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use), `vortex` (a grind `Vortex` spawned where it connects; `dome`: its look as one HD effect) and `blastFx` (its own hit blast instead of the generic explosion, ADR 0044) | Rasengan, Chidori, Rasenshuriken |
-| `shot` | a projectile from a `shot`/`throw` move; feet planted | Narukami, Reversal: Red, shuriken |
+| `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use), `vortex` (a grind `Vortex` spawned where it connects; `dome`: its look as one HD effect), `blastFx` (its own hit blast instead of the generic explosion, ADR 0044), `trench` (a ground style torn along the floor where the drawn hand drags through the run) and `hitPose` (contact jumps to the drawn strike: that frame's place in the active phase; ADR 0047) | Rasengan, Chidori, Rasenshuriken |
+| `shot` | a projectile from a `shot`/`throw` move; feet planted. The projectile may name its look: `lance` (an HD blade laid from the hand along the shot), `orient` (its sprite turned along its flight), `burstFx` (its own hit blast; ADR 0047) | Narukami, Reversal: Red, shuriken, Chidori Spear, Great Fireball |
 | `teleport` | optional `anim` wind-up for `startup` frames, then a puff and hide for `hide` frames, reappear `behind` or `above` (with afterimages), optional `recovery` frames of the same animation and an optional `follow` strike | Rhythm Echo, Blink |
 | `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop` | Lapse: Blue |
-| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `clones` (that many shadow clones poof out and kick up beside him, ADR 0044; `riseCallout` when the rise hits), `landFx: 'thunder' \| 'dust'` | Thunderbolt, Uzumaki Barrage, Lion's Barrage |
-| `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (a puff where he stood, the log left in it with `log`, teleport behind, `follow`) | Infinity, Sharingan, Substitution |
+| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `clones` (that many shadow clones poof out and kick up beside him, ADR 0044; `riseCallout` when the rise hits), `shadow` (when the rising kick connects he blinks behind them as they rise, lands `hits` in the air, flips over them and carries them down into the floor with the slam; ADR 0047), `landFx: 'thunder' \| 'dust'` | Thunderbolt, Uzumaki Barrage, Lion's Barrage |
+| `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (a puff where he stood, the log left in it with `log`, teleport behind, `follow`); `current`: an effect bursting from his body on the read, with an afterimage (Chidori Current, ADR 0047) | Infinity, Sharingan, Substitution |
 | `mode` | a timed buff on `f.mode`: `speed` ×, `damage` ×, `defense` (divides damage taken), `blinkDash`; look: `fx: 'lightning' \| 'chakra'`, `auraColor`/`auraCore`, or a `cloak` on the body (see-through chakra over it, a boiling rim, one tail; ADR 0044); drains a HUD bar | Godspeed, Nine-Tails Cloak |
 
 - Named kit moves get the special callout and an 8-frame flash. A kit move hit out of startup is
@@ -278,7 +278,10 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   every hit is Naruto's.
 - **Sky strike** (`kirin`, Sasuke): a 40-frame flash, then the storm **marks the spot** where the opponent
   stands and a lightning dragon hits it 40 frames later (280, unblockable, radius 2). The opponent can dash
-  out of the mark ("DODGED!"). Uses Sasuke's `beamCharge` / `beamFire` poses.
+  out of the mark ("DODGED!"). Uses Sasuke's `beamCharge` / `beamFire` poses. Its `storm` (ADR 0047) plays the
+  anime inside those frames: a Great Fireball breathed into the sky, thunderclouds over the spot (the stage dims and
+  the camera tips up), lightning crawling on the spot, his arm swung down 9 frames before the strike and the dragon
+  diving out of the clouds for the last 6. Frame data unchanged.
 - **Domain** (`unlimitedVoid`, Gojo): a 50-frame flash, then the stage becomes the void
   (`src/world/voidStage.js`) and the opponent is `held` for 150 frames (~2.5 s) while Gojo combos freely.
   The domain ends early on a KO.
@@ -302,7 +305,8 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Amaterasu** (Sasuke, kind `ignite`): a 46-frame flash, then the Mangekyō gaze ignites black flames on
   the opponent wherever they are (no range limit, can't be blocked, misses only if they're invulnerable or
   hidden): 80 on ignition, then a **burn** status, 14 every 20 frames for 200 frames. Burn ticks never stun
-  or add to the combo, but they can KO.
+  or add to the combo, but they can KO. The flames burst on them with no white flash (`hitFlash: 'ignite'`), and
+  while they burn the black blaze clings to the body and the body itself burns black (ADR 0047).
 - **Gear Third: Gigant Pistol** (Luffy, kind `laneStrike`, ADR 0032): a 44-frame flash, a 34-frame windup while the
   arm blows up, then the giant fist shoots down the lane he faces to 7 units in 8 frames and hits once for 270
   (unblockable, wall bounce) anything within 1.1 of the lane and below 2.0 up. It commits to the lane when the punch

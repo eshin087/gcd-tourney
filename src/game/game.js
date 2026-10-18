@@ -809,6 +809,7 @@ export class Game {
   separate() {
     const [a, b] = this.fighters;
     if (a.ko || b.ko || this.clash || a.hidden || b.hidden) return;
+    if ((a.state === 'kit' && a.kitState?.hold) || (b.state === 'kit' && b.kitState?.hold)) return; // a kit move places both bodies itself (Lion's Barrage)
     const dx = b.pos.x - a.pos.x, dz = b.pos.z - a.pos.z;
     const d = dmath.hypot(dx, dz);
     if (d < 0.72 && Math.abs(a.pos.y - b.pos.y) < 1.3) {
@@ -1788,11 +1789,18 @@ export class Game {
     this.fx.ground.hit(att, def, m, dmg); // the floor under them, or where they come down
     if (m.beam) {
       // beam ticks draw their own sparks
+    } else if (m.blastFx && !m.special) {
+      // a kit super's own blast (Amaterasu's black flames bursting on them, ENG-SKL-SAS): its art, no white spark
+      if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, new THREE.Color(m.color ?? 0xffffff), m.blastFx.smoke);
+      this.cam.shake(m.shake ?? 0.6, dir);
+      this.excite = 1;
+    } else if (kind === 'none') {
+      this.cam.shake(m.shake ?? 0.6, dir); // its effect is drawn by the move itself (the Kirin's strike)
     } else if (m.special) {
       const col = new THREE.Color(m.color);
       // the technique's own blast (ENG-SKL-NAR) in place of the generic fireball, which would white it out; a
       // blastFx without fx draws its blast elsewhere (the Rasenshuriken's dome is its vortex)
-      if (m.blastFx) { if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, col); }
+      if (m.blastFx) { if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, col, m.blastFx.smoke); }
       else this.fx.explosion(x, y, z, col);
       audio.play('specialHit');
       this.cam.shake(0.9, dir);
@@ -2269,7 +2277,10 @@ export class Game {
       }
     }
     // stage dimming for super flashes
-    this.dim += (this.dimTarget - this.dim) * Math.min(1, dt * (this.dimTarget > this.dim ? 18 : 5));
+    // a storm overhead (the Kirin's thunderclouds, kit.js stormTick) keeps the stage dark while its kit move runs
+    const storm = this.frameNo - (this.stormAt ?? -9) <= 2 ? this.stormDim ?? 0 : 0;
+    const dimTo = Math.max(this.dimTarget, storm);
+    this.dim += (dimTo - this.dim) * Math.min(1, dt * (dimTo > this.dim ? 18 : 5));
     this.arena.setDim(this.dim);
     this.room.setDim(this.dim);
     this.voidStage.setDim(this.dim);

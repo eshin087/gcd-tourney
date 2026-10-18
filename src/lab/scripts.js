@@ -388,6 +388,12 @@ export const SCENARIOS = [
     a: (defs) => [tap(0, 'special', { stick: specialFor(defs[0], 'down')?.kind === 'counter' ? 'down' : 'away' })], b: [tap(8, 'light')],
   },
   {
+    id: 'shadowDive', group: 'kit', name: 'Rising kick follow-up', brief: 'the up-special kick lands: behind them, air blows, heel drop',
+    info: 'Your up special connects on a standing dummy: the Shadow of the Dancing Leaf (he blinks behind them as they rise, strikes in the air and carries them into the floor; ADR 0047).',
+    needs: ([a]) => (specialFor(a, 'up')?.shadow ? null : 'your fighter\'s up special has no follow-up (Sasuke\'s Lion\'s Barrage)'),
+    setup: { gap: 0.9, kiA: 100 }, a: [tap(0, 'special', { stick: 'up' })], b: [],
+  },
+  {
     id: 'reflex', group: 'kit', name: 'Whirlwind vs attacks', brief: 'reflex ultimate vs three attacks',
     info: 'Your reflex ultimate, then the dummy attacks three times.',
     needs: ([a]) => (kindOf(a) === 'reflex' ? null : 'your fighter\'s ultimate is not a reflex (Killua)'),

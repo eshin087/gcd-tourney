@@ -198,6 +198,21 @@ const VFX_EFFECTS = {
   fourTailsRoar: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
   beastBall: { frames: 8, ms: 45, tinted: false, fill: 0.5, hd: true },
   beastBeamRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
+  // Sasuke's signature techniques (ENG-SKL-SAS): HD cells, art/characters/sasuke/SKILLS_REVAMP.md. kirinBody is stacked
+  // end to end down the dragon, so it ships as exact 256 x 256 frames in art/vfx/frames/kirinBody/ (never rescaled)
+  chidori: { frames: 8, ms: 35, tinted: false, fill: 0.6, hd: true },
+  chidoriForm: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true },
+  chidoriBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  chidoriSpear: { frames: 8, ms: 35, tinted: false, fill: 0.98, hd: true },
+  chidoriCurrent: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  amaterasu: { frames: 8, ms: 60, tinted: false, fill: 0.9, anchor: 'bottom', hd: true },
+  amaterasuIgnite: { frames: 6, ms: 45, tinted: false, fill: 0.95, hd: true },
+  greatFireball: { frames: 8, ms: 45, tinted: false, fill: 0.9, hd: true },
+  greatFireballBurst: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true },
+  stormCloud: { frames: 4, ms: 120, tinted: false, fill: 0.98, hd: true },
+  kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true },
+  kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
+  kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 
@@ -1155,7 +1170,8 @@ function normalizeManifest(raw) {
     else if (typeof v.colorRule === 'string') e.tinted = /tint|white/i.test(v.colorRule);
     else if (typeof v.color === 'string') e.tinted = /white|tint/i.test(v.color);
     if (typeof v.fill === 'number') e.fill = v.fill;
-    for (const k of ['lumaAlpha', 'baseX']) if (typeof v[k] === 'boolean') e[k] = v[k];
+    // hd / tile: an effect the packer's table does not know yet (a new signature effect) still gets its page and tiling
+    for (const k of ['lumaAlpha', 'baseX', 'hd', 'tile']) if (typeof v[k] === 'boolean') e[k] = v[k];
     if (v.anchor === 'bottom' || v.bottomAnchored === true) e.anchor = 'bottom';
     else if (v.anchor === 'center') e.anchor = 'center';
     if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) e.approvedVersion = v.approvedVersion;
@@ -2767,7 +2783,9 @@ function packVfx(env) {
       if (!env.candidates && !e.approvedVersion) { R.unapproved.push(name); continue; }
       // ship the approved version even when a newer candidate is waiting for review
       const raw = env.candidates ? latest : pickRaw(rawIdx.get(name), name, e.approvedVersion);
-      const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: null, artDir: env.artDir }, warn, name);
+      // an HD effect's frames/ carry their 256 px cell: untouched frames cleaned at the 128 px cell (before its manifest
+      // entry said hd) re-import from raw/ instead of being upscaled
+      const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: e.hd ? VFX_HD.cell : null, artDir: env.artDir }, warn, name);
       if (!src) { R.missing.push(name); continue; }
       if (src.kind === 'stale') { warn(staleText(name, name, src)); R.missing.push(name); continue; }
       let items, notes = [], sourceLabel, origin = null, version = null;
@@ -2859,7 +2877,7 @@ function packVfx(env) {
     writeFile(env, path.join(outVfx, 'atlas_hd.png'), encodePng(hd.img), R);
   } else removeOutputs(env, outVfx, ['atlas_hd.png'], R);
   writeFile(env, path.join(outVfx, 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
-  for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, {});
+  for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, p.e.hd ? { cell: VFX_HD.cell } : {});
   return R;
 }
 

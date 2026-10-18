@@ -273,18 +273,32 @@ export class ShotViews {
       if (p.dead) continue;
       seen.add(p.id);
       let v = this.shots.get(p.id);
-      if (!v || v.sprite.life < 0) {
-        const P = p.P;
-        v = { sprite: fx.spawn(P.sprite, p.pos.x, p.pos.y, p.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random }) };
-        if (P.glowColor) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
+      if (!v || (v.sprite && v.sprite.life < 0)) {
+        const P = p.P, L = P.lance;
+        if (L) {
+          // a blade growing out of the hand (the Chidori Spear, ENG-SKL-SAS): drawn once along the shot's line from
+          // where it left the hand, and it plays out by itself after the shot is spent
+          const d = tmpA.copy(p.vel).normalize();
+          v = { lance: fx.span(L.fx, p.from ?? p.pos, d, L.len, g.cam.right, { seq: L.seq, ms: L.ms, order: 8, glow: L.glow ?? 0.3, depthTest: false }) };
+        } else {
+          v = { sprite: fx.spawn(P.sprite, p.pos.x, p.pos.y, p.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random }) };
+          if (P.glowColor) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
+        }
         this.shots.set(p.id, v);
       }
+      if (!v.sprite) continue;
       v.sprite.mesh.position.set(p.pos.x, p.pos.y + RING_TOP, p.pos.z);
+      if (p.P.orient) {
+        // drawn flying screen-right (the Great Fireball's tongues stream back): turned to its flight on screen
+        const R = g.cam.right, sx = p.vel.x * R.x + p.vel.z * R.z, flip = sx < 0, phi = dmath.atan2(p.vel.y, sx);
+        v.sprite.rot = flip ? phi - Math.PI : phi;
+        v.sprite.mesh.scale.x = Math.abs(v.sprite.mesh.scale.x) * (flip ? -1 : 1);
+      }
       if (v.glow) v.glow.mesh.position.copy(v.sprite.mesh.position);
     }
     for (const [id, v] of this.shots) {
       if (seen.has(id)) continue;
-      fx.kill(v.sprite);
+      if (v.sprite) fx.kill(v.sprite);
       if (v.glow) fx.kill(v.glow);
       this.shots.delete(id);
     }
@@ -328,6 +342,7 @@ export class Projectile {
     this.vel = dir.clone().multiplyScalar(P.speed);
     this.life = P.life;
     this.dead = false;
+    if (P.lance) this.from = this.pos.clone(); // the blade is drawn from the hand (ShotViews)
   }
 
   update() {
@@ -339,7 +354,10 @@ export class Projectile {
     if (this.P.trail === 'bolt') fx.spawn('lightning', back.x, this.pos.y, back.z, { scale: 0.55, random: true, life: 0.06, color: 0xd8f0ff, rot: Math.random() * 6.28, order: 7, glow: 1.6 });
     if (this.P.trail === 'red' && Math.random() < 0.6) fx.spawn('glow', back.x, this.pos.y, back.z, { scale: 0.8, life: 0.12, color: 0xff3048, opacity: 0.6, fade: true, order: 6 });
     if (this.pos.y < 0.1 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4 || this.life <= 0) {
-      if (this.pos.y < 0.1 && this.P.burst === 'explosion') {
+      if (this.pos.y < 0.1 && this.P.burstFx) {
+        fx.blast(this.P.burstFx.fx, this.pos.x, 0.4, this.pos.z, this.P.burstFx.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), this.P.burstFx.smoke);
+        audio.play('hitHeavy', 0.7);
+      } else if (this.pos.y < 0.1 && this.P.burst === 'explosion') {
         fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
         audio.play('hitHeavy', 0.7);
       }
@@ -377,7 +395,13 @@ export class Projectile {
     if (d < this.P.radius + 0.42) {
       const dir = new THREE.Vector2(this.vel.x, this.vel.z).normalize();
       const r = o.takeHit(this.owner, { ...this.P, hitstop: this.P.big ? 10 : 4, projectileHit: true, big: this.P.big }, dir);
-      if (this.P.burst === 'explosion') {
+      const B = this.P.burstFx;
+      if (B) {
+        // the technique's own blast (the Great Fireball, the Chidori Spear piercing): its art, not the white-out
+        fx.blast(B.fx, this.pos.x, this.pos.y, this.pos.z, B.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), B.smoke);
+        audio.play(B.sfx ?? (r === 'hit' ? 'hitHeavy' : 'block'), 0.8);
+        this.game.cam.shake(B.shake ?? 0.4);
+      } else if (this.P.burst === 'explosion') {
         fx.explosion(this.pos.x, this.pos.y, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
         audio.play('explosion', 0.7);
         this.game.cam.shake(0.5);

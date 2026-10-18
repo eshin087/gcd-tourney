@@ -47,6 +47,43 @@ function sphere(ctx, r, spin) {
   ctx.beginPath(); ctx.arc(0, 0, Math.max(1.5, r * 0.32), 0, Math.PI * 2); ctx.fill();
 }
 
+// a jagged lightning path from (x0, y0) to (x1, y1): `n` kinks up to `j` px off the straight line
+function zigzag(R, x0, y0, x1, y1, n = 5, j = 3) {
+  const dx = x1 - x0, dy = y1 - y0, l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l, pts = [[x0, y0]];
+  for (let k = 1; k < n; k++) {
+    const s = k / n, o = (R() - 0.5) * 2 * j;
+    pts.push([x0 + dx * s + nx * o, y0 + dy * s + ny * o]);
+  }
+  pts.push([x1, y1]);
+  return pts;
+}
+
+// one lightning bolt in hard bands: a dark-blue rim, the blue body and a pale core along the same path
+function bolt(ctx, pts, w = 2, cols = ['#2350d8', '#7cc8ff', '#e8f7ff']) {
+  cols.forEach((c, k) => {
+    ctx.strokeStyle = c;
+    ctx.lineWidth = Math.max(1, w * (1 - k * 0.38));
+    ctx.beginPath();
+    pts.forEach(([x, y], s) => (s ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+    ctx.stroke();
+  });
+}
+
+function disc(ctx, x, y, r, col) {
+  ctx.fillStyle = col;
+  ctx.beginPath(); ctx.arc(x, y, Math.max(0.5, r), 0, Math.PI * 2); ctx.fill();
+}
+
+// a flame tongue standing on (x, y): `h` tall, `w` wide at its base, its tip swaying by `sway` px
+function tongue(ctx, x, y, w, h, sway, col) {
+  ctx.fillStyle = col;
+  ctx.beginPath();
+  ctx.moveTo(x - w / 2, y);
+  ctx.quadraticCurveTo(x - w * 0.45 + sway * 0.3, y - h * 0.55, x + sway, y - h);
+  ctx.quadraticCurveTo(x + w * 0.45 + sway * 0.3, y - h * 0.55, x + w / 2, y);
+  ctx.fill();
+}
+
 const PAINTERS = {
   // white crescent slash + small star (video-style hit spark)
   spark(i, n, ctx) {
@@ -533,6 +570,192 @@ const PAINTERS = {
     ctx.lineWidth = 4 * (1 - t * 0.7);
     ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
   },
+  // ---- Sasuke's signature techniques (ENG-SKL-SAS). Stand-ins until Codex's HD art is approved
+  // (art/characters/sasuke/SKILLS_REVAMP.md): full color, drawn small, never tinted.
+  // the Chidori in his hand: a crackling knot, its arcs streaming back (screen-left) behind the running hand
+  chidori(i, n, ctx) {
+    const R = rng(700 + i * 13);
+    ctx.translate(34, 32);
+    for (let k = 0; k < 9; k++) {
+      const a = (k / 9) * Math.PI * 2 + R() * 0.5, back = Math.cos(a) < 0 ? 1.6 : 1;
+      const l = (7 + R() * 9) * back;
+      bolt(ctx, zigzag(R, 0, 0, Math.cos(a) * l, Math.sin(a) * l * 0.8, 4, 2.2), 2);
+    }
+    disc(ctx, 0, 0, 5, '#7cc8ff');
+    disc(ctx, 0, 0, 3, '#ffffff');
+  },
+  chidoriForm(i, n, ctx) {
+    const t = i / (n - 1), R = rng(720 + i * 7);
+    ctx.translate(34, 32);
+    for (let k = 0; k < 2 + i * 1.4; k++) {
+      const a = R() * Math.PI * 2, l = 3 + t * 13 * R();
+      bolt(ctx, zigzag(R, 0, 0, Math.cos(a) * l, Math.sin(a) * l, 3, 1.5), 1 + t);
+    }
+    if (i === 0) for (let k = 0; k < 5; k++) disc(ctx, (R() - 0.5) * 18, (R() - 0.5) * 18, 1, '#bfe8ff');
+    else disc(ctx, 0, 0, 1 + t * 3, '#ffffff');
+  },
+  // the pierce: a spike of lightning straight through them (screen-right), then bolts bursting out and breaking up
+  chidoriBurst(i, n, ctx) {
+    const t = i / (n - 1), R = rng(740 + i * 5);
+    ctx.translate(30, 32);
+    if (i < 2) bolt(ctx, zigzag(R, 0, 0, 33, (R() - 0.5) * 4, 5, 2), 3 + i);
+    const count = i < 2 ? 6 : 10, reach = i < 2 ? 14 : i < 4 ? 28 : 30;
+    for (let k = 0; k < count; k++) {
+      if (i > 4 && R() < 0.4 + (i - 5) * 0.2) continue;
+      const a = (k / count) * Math.PI * 2 + R() * 0.4, l = reach * (0.6 + R() * 0.4);
+      const r0 = i > 3 ? l * 0.5 : 0;
+      bolt(ctx, zigzag(R, Math.cos(a) * r0, Math.sin(a) * r0, Math.cos(a) * l, Math.sin(a) * l, 4, 2.5), i > 4 ? 1 : 2);
+    }
+    const core = i < 2 ? 6 + i : 5 * (1 - t);
+    if (core > 1) { disc(ctx, 0, 0, core + 2, '#7cc8ff'); disc(ctx, 0, 0, core, '#ffffff'); }
+  },
+  // Chidori Sharp Spear: the blade growing out of the hand (the left edge) to its point, crackling, then breaking up
+  chidoriSpear(i, n, ctx) {
+    const R = rng(760 + i * 11), len = [22, 42, 62, 62, 62, 62, 62, 62][i] ?? 62;
+    disc(ctx, 4, 32, 4, '#7cc8ff');
+    disc(ctx, 4, 32, 2, '#ffffff');
+    if (i === 7) {
+      for (let k = 0; k < 9; k++) disc(ctx, 4 + R() * 56, 32 + (R() - 0.5) * 4, 1, '#bfe8ff');
+      return;
+    }
+    const pts = zigzag(R, 2, 32, len, 32, Math.max(3, len / 6), 1);
+    if (i === 6) {
+      for (let s = 0; s + 1 < pts.length; s += 2) bolt(ctx, [pts[s], pts[s + 1]], 2);
+      return;
+    }
+    bolt(ctx, pts, 3);
+    for (let k = 0; k < 3; k++) {
+      const x = 8 + R() * (len - 12), sd = k % 2 ? -1 : 1;
+      bolt(ctx, zigzag(R, x, 32, x + 3 + R() * 4, 32 + sd * (4 + R() * 4), 2, 1.5), 1);
+    }
+    if (i === 2) { disc(ctx, 62, 32, 3, '#ffffff'); }
+  },
+  // Chidori Current: bolts bursting outward from the edge of his body (left clear for the sprite), then snapping back
+  chidoriCurrent(i, n, ctx) {
+    const R = rng(780 + i * 3);
+    ctx.translate(32, 32);
+    const out = [6, 18, 26, 30, 14, 6, 4, 2][i] ?? 2;
+    for (let k = 0; k < 12; k++) {
+      if (i > 5 && k % 2) continue;
+      const a = (k / 12) * Math.PI * 2 + R() * 0.3, ex = Math.cos(a) * 9, ey = Math.sin(a) * 22;
+      const ox = Math.cos(a) * out, oy = Math.sin(a) * out * 0.6;
+      bolt(ctx, zigzag(R, ex, ey, ex + ox, ey + oy, 3, 2), i < 4 ? 2 : 1);
+    }
+  },
+  // Amaterasu's black flames on a burning body: tall black tongues with dark crimson rims, gaps between them
+  amaterasu(i, n, ctx) {
+    const ph = (i / n) * Math.PI * 2;
+    ctx.translate(32, 60);
+    const T = [[-12, 34, 9], [-6, 46, 10], [0, 54, 11], [6, 44, 10], [12, 32, 9], [-3, 26, 12], [8, 22, 10]];
+    T.forEach(([x, h, w], k) => {
+      const sway = 3 * Math.sin(ph + k * 1.7), hh = h * (0.85 + 0.15 * Math.sin(ph * 2 + k));
+      tongue(ctx, x, 0, w + 2, hh + 2, sway, '#5c1226');
+      tongue(ctx, x, 0, w, hh, sway, k % 3 ? '#07040a' : '#140a14');
+    });
+    ctx.fillStyle = '#22101c';
+    for (let k = 0; k < 3; k++) ctx.fillRect(-14 + ((i * 7 + k * 11) % 28), -50 - ((i * 5 + k * 9) % 10), 2, 2);
+  },
+  amaterasuIgnite(i, n, ctx) {
+    ctx.translate(32, 32);
+    if (i === 0) {
+      ctx.strokeStyle = '#5c1226'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(0, 0, 5, 0, Math.PI * 2); ctx.stroke();
+      disc(ctx, 0, 0, 3, '#000000');
+      return;
+    }
+    const r = [0, 12, 22, 28, 26, 22][i] ?? 22;
+    for (let k = 0; k < 10; k++) {
+      const a = (k / 10) * Math.PI * 2 - Math.PI / 2, up = i > 2 ? Math.max(0, -Math.sin(a)) : 0;
+      ctx.save();
+      ctx.rotate(a + Math.PI / 2 - up * 0.6 * Math.sign(Math.cos(a)));
+      tongue(ctx, 0, 0, 9, r * (0.7 + up * 0.4), 0, '#5c1226');
+      tongue(ctx, 0, 0, 7, r * (0.65 + up * 0.4), 0, '#07040a');
+      ctx.restore();
+    }
+    disc(ctx, 0, 0, Math.max(2, 9 - i), '#000000');
+  },
+  // the Great Fireball flying screen-right: a rolling sphere, flame tongues streaming back
+  greatFireball(i, n, ctx) {
+    const ph = (i / n) * Math.PI * 2;
+    ctx.translate(35, 32);
+    for (let k = 0; k < 5; k++) {
+      const y = (k - 2) * 5, l = 16 + 6 * Math.sin(ph + k * 1.3);
+      ctx.fillStyle = k % 2 ? '#e8420e' : '#ff7a1a';
+      ctx.beginPath(); ctx.moveTo(0, y - 4); ctx.lineTo(-l - 12, y + 2 * Math.sin(ph + k)); ctx.lineTo(0, y + 4); ctx.fill();
+    }
+    for (const [c, r] of [['#a81e0a', 17], ['#e8420e', 15], ['#ff7a1a', 12.5], ['#ffb43a', 9.5], ['#ffe07a', 6.5], ['#fff6c8', 3.5]]) disc(ctx, 0, 0, r + (r > 10 ? Math.sin(ph * 2 + r) : 0), c);
+  },
+  greatFireballBurst(i, n, ctx) {
+    const R = rng(800);
+    ctx.translate(32, 34);
+    if (i === 0) {
+      ctx.save(); ctx.scale(0.55, 1);
+      for (const [c, r] of [['#e8420e', 17], ['#ffb43a', 12], ['#fff6c8', 6]]) disc(ctx, 0, 0, r, c);
+      ctx.restore();
+      return;
+    }
+    const size = [0, 0.75, 1, 1, 0.9, 0.7, 0.55, 0.4][i] ?? 0.4, smoke = i >= 4;
+    for (let k = 0; k < 9; k++) {
+      const a = R() * Math.PI * 2, d = (4 + R() * 12) * (0.6 + size), r = (6 + R() * 5) * size;
+      disc(ctx, Math.cos(a) * d, Math.sin(a) * d - (smoke ? i * 1.5 : 0), r, smoke ? (k % 2 ? '#3a2a26' : '#6a5a54') : k % 3 ? '#e8420e' : '#a81e0a');
+    }
+    if (!smoke) for (const [c, r] of [['#ff7a1a', 12], ['#ffb43a', 8], ['#ffe07a', 4]]) disc(ctx, 0, 0, r * size, c);
+    else if (i < 6) disc(ctx, 0, -2, 4, '#ff7a1a');
+  },
+  // the Kirin's storm: a dark thunderhead across the cell, lit from inside on f1 and f3
+  stormCloud(i, n, ctx) {
+    const R = rng(820), off = i * 1.5;
+    const B = [[6, 36, 9], [16, 30, 12], [28, 27, 13], [40, 29, 12], [52, 33, 10], [60, 38, 7], [22, 38, 10], [44, 39, 10]];
+    B.forEach(([x, y, r]) => disc(ctx, x + Math.sin(off + x) * 1.2, y, r, '#1a1e36'));
+    B.forEach(([x, y, r]) => disc(ctx, x + Math.sin(off + x) * 1.2, y - r * 0.4, r * 0.6, '#2a3052'));
+    B.slice(1, 5).forEach(([x, y, r]) => disc(ctx, x, y - r * 0.75, r * 0.3, '#3e4670'));
+    ctx.fillStyle = '#0e1020';
+    ctx.fillRect(4, 42, 56, 3);
+    if (i % 2) {
+      const cx = i === 1 ? 24 : 42;
+      disc(ctx, cx, 33, 6, '#7cc8ff');
+      disc(ctx, cx, 33, 3, '#bfe8ff');
+      if (i === 3) bolt(ctx, zigzag(R, cx, 42, cx + 4, 58, 4, 2), 1.5);
+    }
+  },
+  // the Kirin's body: a thick column of lightning that tiles top to bottom (its core leaves and enters at x 32)
+  kirinBody(i, n, ctx) {
+    const R = rng(840 + i * 17);
+    const core = zigzag(R, 32, 0, 32, 64, 6, 4);
+    bolt(ctx, core, 12, ['#141e78', '#3e8cff', '#bfe8ff']);
+    bolt(ctx, core, 4, ['#ffffff']);
+    for (let k = 0; k < 4; k++) {
+      const [x, y] = core[1 + (k % 5)], s = k % 2 ? 1 : -1;
+      bolt(ctx, zigzag(R, x, y, x + s * (10 + R() * 14), y + (R() - 0.5) * 12, 3, 2), 1.5);
+    }
+  },
+  // the Kirin diving: a beast head of lightning, snout down, jaws open, its mane streaming up into the body
+  kirinHead(i, n, ctx) {
+    const R = rng(860 + i * 9);
+    for (let k = 0; k < 5; k++) bolt(ctx, zigzag(R, 32 + (k - 2) * 4, 30, 32 + (k - 2) * 7, 0, 4, 3), 2.5);
+    ctx.fillStyle = '#3e8cff';
+    ctx.beginPath(); ctx.moveTo(18, 26); ctx.lineTo(46, 26); ctx.lineTo(42, 46); ctx.lineTo(36, 61); ctx.lineTo(32, 50); ctx.lineTo(27, 61); ctx.lineTo(22, 46); ctx.fill();
+    ctx.fillStyle = '#bfe8ff';
+    ctx.beginPath(); ctx.moveTo(22, 28); ctx.lineTo(42, 28); ctx.lineTo(39, 44); ctx.lineTo(35, 56); ctx.lineTo(32, 46); ctx.lineTo(29, 56); ctx.lineTo(25, 44); ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(30, 30, 4, 14);
+    disc(ctx, 38, 34, 2, '#ffffff');
+    bolt(ctx, zigzag(R, 20, 27, 10, 18, 3, 2), 2);
+    bolt(ctx, zigzag(R, 44, 27, 54, 18, 3, 2), 2);
+  },
+  // the Kirin hitting the floor (bottom anchored, the floor is y = 60): the column, the splash and a dome of arcs
+  kirinStrike(i, n, ctx) {
+    const R = rng(880 + i * 5);
+    const colW = [8, 6, 5, 4, 0, 0, 0, 0][i] ?? 0;
+    if (colW) bolt(ctx, zigzag(R, 32, 0, 32, 60, 6, 2), colW, ['#3e8cff', '#bfe8ff', '#ffffff']);
+    const w = [18, 28, 30, 30, 26, 22, 18, 14][i] ?? 14, h = [4, 14, 20, 20, 14, 8, 5, 3][i] ?? 3;
+    const arcs = i < 4 ? 9 : 6 - (i - 4);
+    for (let k = 0; k < arcs; k++) {
+      const a = Math.PI + (k / Math.max(1, arcs - 1)) * Math.PI, r = 0.6 + R() * 0.4;
+      bolt(ctx, zigzag(R, 32, 60, 32 + Math.cos(a) * w * r, 60 + Math.sin(a) * h * r, 3, 2), i < 4 ? 2 : 1);
+    }
+    if (i < 2) { ctx.fillStyle = '#ffffff'; ctx.fillRect(32 - w * 0.7, 58, w * 1.4, 2); }
+  },
   // ---- ground damage (ADR 0024)
   // side view: a low, wide wall of chunky dust rolling outward and up, then breaking apart (rings of these roll
   // out of big craters, see Effects.dustRing)
@@ -713,6 +936,20 @@ export const VFX_ANIMS = {
   fourTailsRoar: { n: 8, ms: 45, levels: [0, 255] },
   beastBall: { n: 8, ms: 45, levels: [0, 255] },
   beastBeamRing: { n: 6, ms: 40, levels: [0, 255] },
+  // Sasuke's signature techniques (ENG-SKL-SAS): HD art cells when packed (ADR 0044), these small stand-ins until then
+  chidori: { n: 8, ms: 35, levels: [0, 255] },
+  chidoriForm: { n: 6, ms: 40, levels: [0, 255] },
+  chidoriBurst: { n: 8, ms: 40, levels: [0, 255] },
+  chidoriSpear: { n: 8, ms: 35, levels: [0, 255] },
+  chidoriCurrent: { n: 8, ms: 40, levels: [0, 255] },
+  amaterasu: { n: 8, ms: 60, levels: [0, 255] },
+  amaterasuIgnite: { n: 6, ms: 45, levels: [0, 255] },
+  greatFireball: { n: 8, ms: 45, levels: [0, 255] },
+  greatFireballBurst: { n: 8, ms: 50, levels: [0, 255] },
+  stormCloud: { n: 4, ms: 120, levels: [0, 255] },
+  kirinBody: { n: 4, ms: 40, levels: [0, 255] },
+  kirinHead: { n: 6, ms: 40, levels: [0, 255] },
+  kirinStrike: { n: 8, ms: 45, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.
