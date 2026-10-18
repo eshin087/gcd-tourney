@@ -16,7 +16,7 @@
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
-| 2026-10-18 | sasuke | dTilt | [dTilt_v05](characters/sasuke/raw/dTilt_v05.png) · [ENG-112 page](../public/reviews/normals-sasuke/) | v05 | needs review | User selected the third low-kick attempt for packing via Claude relay combat #12. Crouched shin-height kick; no image approval implied. | Measured auto-head fit x0.8511, head 1.18 and feet 1.48 before fit; default quantized pack passes (1 ref, 38 ok, 10 manual). Astra visual anatomy/contact PASS; B=.73 remains a quantitative advisory and runtime hit landing is unverified. [Packed loop](../public/reviews/normals-sasuke/dTilt_loop_v05.gif) · [body sheet](../public/reviews/normals-sasuke/body/dTilt_v05.png) · [Astra audit](characters/sasuke/production/dTilt-v05-astra-audit.md). |
+| 2026-10-18 | sasuke | dTilt | [dTilt_v05](characters/sasuke/raw/dTilt_v05.png) · [ENG-112 page](../public/reviews/normals-sasuke/) | v05 | approved | User approved v05 as drawn via Claude relay combat #13 after reviewing the packed sheet cells 181–186. | Measured auto-head fit x0.8511, head 1.18 and feet 1.48 before fit; default quantized pack passes (1 ref, 38 ok, 10 manual). Astra visual anatomy/contact PASS; B=.73 remains a quantitative advisory and runtime hit landing is unverified. [Packed loop](../public/reviews/normals-sasuke/dTilt_loop_v05.gif) · [body sheet](../public/reviews/normals-sasuke/body/dTilt_v05.png) · [Astra audit](characters/sasuke/production/dTilt-v05-astra-audit.md). |
 
 ## Goku/Luffy full core approval via Claude relay #14 (2026-10-16)
 
