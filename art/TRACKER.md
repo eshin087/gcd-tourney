@@ -1,3 +1,5 @@
+Naruto skills revamp batch 2 (2026-10-18): rasengan, rasenganForm, rasenganBurst, poof and subLog v01 are filed as HD candidates; one image call each. Awaiting visual approval; no candidate pack or runtime check on this branch. Gallery: [batch 2](../public/reviews/naruto-skills-batch2/index.html).
+
 Naruto Four-Tails beam round 2 (2026-10-18): user approved beamCharge v17, fourTailsRoar v02, beamFire v15 (+13px sidecar), beastBall v01 and beastBeamRing v01 via Claude relay skills #7. beamFire placement clears the candidate pack 4px margin; Claude confirmed effect pack/game placement. Visual approvals do not clear the headless character scale gate or contact/integration checks. Gallery: [round 2](../public/reviews/naruto-skills-round2/index.html).
 
 > 2026-10-11 title-style pilot: Naruto, Sasuke, Killua and Gojo title_style_draft v01 and both lineups **approved**; they are the scale and anatomy baseline ([contract](scale/title-style-pilot/PRODUCTION_CONTRACT.md), ADR 0029). Production strips on PR69-72 are separate candidates.
