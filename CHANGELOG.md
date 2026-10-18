@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SIZE-R7): recorded the Codex independent audit of 230 packed fighter strips on `art/size-r7-codex` (`903b9b63`); Claude will reconcile measurements and provide the redraw list.
 - Changed (ENG-101): lab layout pass. TOOLS rows line up (a label column, options wrap beside it, short notes); SCENARIOS show as two columns of cards capped at two lines, the open card's description spanning both columns under its row; ANIMATIONS fit on one screen, one compact row per group with each alt strip as an `alt` chip beside its base. The panel is a little wider (420 px).
 
 - Record user approval via Claude relay gojo-run #14 for Gojo hurtHigh v04 and launched v08, keep hurtLow v04, preserve rejected alternates, and document the final packed-atlas technical holds on PR #143.

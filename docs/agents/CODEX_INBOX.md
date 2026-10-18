@@ -41,7 +41,7 @@ characters and feels out of place." Claude and this chat do it together; this ch
 - You: an **independent visual audit** (item 1) and every **redraw** (item 2, only on Claude's list). Use
   `gpt-6-luna` medium for the audit and redraws; the final Astra audit applies to redrawn candidates only.
 
-- [ ] **1. Independent audit of every packed strip (no image calls).** Main's packed atlases
+- [x] **1. (2026-10-18) Independent audit of every packed strip (no image calls).** Main's packed atlases
   (`public/characters/<id>/sheet.png` + `anims.json`), all six fighters, every animation including alts,
   beamStruggle(Air), supers and tech poses. Compare each frame with that fighter's idle f0 and its approved combat
   cell at one density (`npm run body <id> <anims>` sheets help; keep them in your scratch folder, not the branch).
@@ -62,6 +62,9 @@ characters and feels out of place." Claude and this chat do it together; this ch
   Commit one table, `art/scale/size-r7/CODEX_AUDIT.md` (fighter, strip, version, frames, landmarks idle vs frame,
   ratio, verdict, note), on a task branch `art/size-r7-codex` in your managed worktree. Then
   `node tools/relay.mjs ring art-audit --note "<counts per verdict; commit>"`.
+  Completed in `art/size-r7/CODEX_AUDIT.md`; commit `903b9b63` (230 strips: 207 ok, 21 unresolved,
+  one height-pop and one scale-off). Claude's next action is reconciling the table with its measurements and sending
+  the redraw list; no image calls were made.
 - [ ] **2. Redraws: wait for Claude's list.** Claude reconciles your table with its measurement and sends the strips
   that need a new drawing (with the target scale, pose notes and the 3-attempt budget per image). Do not generate
   before that list arrives.

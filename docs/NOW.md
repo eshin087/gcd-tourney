@@ -7,6 +7,8 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
+**ART-SIZE-R7 audit (2026-10-18):** Codex committed the independent packed-strip audit on `art/size-r7-codex` at `903b9b63`; all 230 in-scope strips were reviewed (207 ok, 21 unresolved, one height-pop, one scale-off). [Audit table](<E:/Vibe Coding/.codex/worktrees/art-size-r7-codex/gcdTourney/art/scale/size-r7/CODEX_AUDIT.md>). Claude is reconciling its per-frame measurements and will send the redraw list. No image calls were made; Codex must wait for that list before drawing.
+
 **Gojo posture D (2026-10-18, relay gojo-run #14):** User approved hurtHigh v04 and launched v08 as drawn, and chose to keep hurtLow v04. Recorded in REVIEW/manifest/TRACKER and committed on the PR branch; hurtLow v05-v07 and launched v07 are preserved as rejected. The packed candidate atlas and final Astra audit are in PR #143; [review preview](https://gcd-tourney-qpj816em9-eshin087s-projects.vercel.app/reviews/gojo-posture-d/). Both new approved drawings retain technical anatomy/scale holds; Claude’s next step is contact/integration review and disposition of those holds. The PR guard also refuses launched v08 until version-bound `scaleManualQA` evidence exists; no bypass or pass was added. No merge or production deploy is claimed.
 
 **ART-SIZE-R6 — merged (2026-10-18):** PR #142 was merged by Claude as `d5304303`. Sasuke `beamStruggle` v02 from PR #140 remains approved and live; rejected v04 is in `raw/_rejected/`, and superseded v05 is in `raw/_qa_hold/`. No user review is needed. The R6 review found no other confirmed size defect; camera/engine unchanged.
