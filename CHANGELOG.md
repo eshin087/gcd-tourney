@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-SAS): batch 1 has four HD effect source candidates queued for user review; `special` v14 and `chidori` remain technical holds. Candidate frame splitting is documented with source sidecars; HD atlas packing remains blocked by the packer dropping the manifest `hd` flag, and Chidori Spear has one clipped frame. No images are approved.
 - Changed (ART-SKL-SAS): the user authorized a third `art/sasuke-skills` worktree alongside the two Smash normals worktrees (relay skills #13); the two-worktree cap remains for Smash normals rounds. Batch 1 is in progress; no image approval is implied.
 - Fixed (TOOL-PALETTE-RESERVE, ADR 0046): Naruto's Four-Tails fox is crimson in game again, as approved (beamCharge v17, beamFire v15), instead of red-brown with a peach mouth. Packed at 48 colours, his orange jumpsuit took the fox's colours; the new manifest field `paletteReserve` gives the fox 8 of the 48, taken from near-duplicate dark greys the rest of his strips barely miss (2 % of their pixels move, by 2-10 levels; nothing visible). `npm run test:sprites` covers it.
 

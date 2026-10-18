@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sasuke skills batch 1 review</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#10141c;color:#edf2fa}body{max-width:1050px;margin:0 auto;padding:24px}h1,h2{line-height:1.15}p{color:#c2cad6}.notice{border-left:4px solid #e4a63a;background:#292319;padding:12px 16px;margin:20px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}.card{background:#1a202b;border:1px solid #354052;border-radius:10px;padding:14px}.card img{width:100%;height:auto;background:#ff00ff;image-rendering:pixelated;border-radius:5px}.hold img{background:#222}.meta{font-size:.9rem;color:#b6c0ce}.tag{display:inline-block;padding:2px 8px;border-radius:20px;background:#164b3b;color:#b7f5d6}.hold .tag{background:#593b18;color:#ffe1a5}code{color:#cbd8ff}
+</style><body>
+<h1>Sasuke skills revamp · batch 1</h1><p>Raw image review candidates from <code>art/sasuke-skills</code>. No image is approved yet. Four effect images are candidates for visual approval; the Chidori body strip and Chidori hand effect are technical holds and are not approval candidates.</p>
+<div class="notice"><b>Technical status:</b> source pack produced eight frames for Form, Burst, Spear and Current after two <code>{"split":"even"}</code> sidecars. The current packer output is the 128 px page and drops manifest <code>hd:true</code> during normalization, so no 256 px HD atlas was produced. The Spear pack also reports one clipped frame. Claude needs a packer-side fix/repack before integration; these source images remain raw and versioned.</div>
+<h2>Effect candidates · v01</h2><div class="grid">
+<article class="card"><h3>chidoriForm v01 <span class="tag">visual review</span></h3><img src="media/chidoriForm_v01.png"><p class="meta">6 frames · 3/3 calls · growing sparks into the formed Chidori knot. Packer found 6 frames; soft halo remains visible.</p></article>
+<article class="card"><h3>chidoriBurst v01 <span class="tag">visual review</span></h3><img src="media/chidoriBurst_v01.png"><p class="meta">8 frames · 2/3 calls · piercing spike, expanding lightning and fade. Packer found 10 automatically; source sidecar now requests even 8-frame splitting. Specks were removed in preview.</p></article>
+<article class="card"><h3>chidoriSpear v01 <span class="tag">visual review</span></h3><img src="media/chidoriSpear_v01.png"><p class="meta">8 frames · 1/3 calls · thin blade grows, holds, then breaks into sparks. Packer found 9 automatically; source sidecar requests even 8-frame splitting. One packed frame clips.</p></article>
+<article class="card"><h3>chidoriCurrent v01 <span class="tag">visual review</span></h3><img src="media/chidoriCurrent_v01.png"><p class="meta">8 frames · 1/3 calls · outward discharge around a clear body area. Packer found 8 frames; it detected one touching pose group.</p></article>
+</div>
+<h2>Technical holds · not approval candidates</h2><div class="grid">
+<article class="card hold"><h3>special v14 · attempt 2</h3><img src="media/special_v14_call02_attempt.png"><p class="meta">3/3 calls used. Painterly/anti-aliased rendering; frames 5–6 do not show a distinct follow-through. No production raw candidate filed.</p></article>
+<article class="card hold"><h3>special v14 · attempt 3</h3><img src="media/special_call03_hold.png"><p class="meta">Same technical hold; preserved for provenance only. No production raw candidate filed.</p></article>
+<article class="card hold"><h3>chidori · invalid attempt 3</h3><img src="media/chidori_attempt03.png"><p class="meta">3/3 calls used. Contains Sasuke inside the effect strip, violating the effect-only requirement. Kept under <code>_qa_hold/</code>; not a candidate.</p></article>
+</div>
+<p class="meta">Attempt ledger and hashes: <code>art/characters/sasuke/production/skills-revamp-batch1/</code>. The packed atlas report, including unrelated sparse-checkout warnings, is in the handoff.</p>
+</body></html>
