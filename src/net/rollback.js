@@ -1,31 +1,31 @@
 // Rollback netcode (ADR 0036, ENG-093), GGPO-style and transport-agnostic.
 //
-// A player's input for one frame is one packed number (packInput: the stick quantized to signed 8 bits per axis,
-// the seven buttons as bits), so it fits a wire message and every machine applies exactly the same values. Local
-// inputs are scheduled `delay` frames ahead and sent at once, unacknowledged ones repeated in every message so a
-// lost packet costs nothing. A remote input that hasn't arrived is predicted (the last one received, repeated). When
-// the real one arrives and differs from what was used, the session restores the state saved before that frame and
-// re-simulates up to the present quietly (Game.quiet: nothing drawn or heard twice). It never runs more than
-// `maxRollback` frames past the newest remote input: past that it stalls a frame, which is also how two machines
-// keep pace. Time sync: each message carries the sender's frame advantage (how far its frame is past the newest
-// frame it has heard of from the other side); a side whose advantage is clearly bigger than the other's waits half
-// the difference, so a machine that started a little earlier doesn't make the other roll back on every frame.
-// Every `checkEvery` frames both sides exchange the state hash of a frame they have both confirmed; a different
-// hash is a desync.
+// A player's input for one frame is one packed number (packInput: the stick quantized to signed 8 bits per axis, the
+// seven buttons and the four C-stick ways as bits), so it fits a wire message and every machine applies exactly the
+// same values. Local inputs are scheduled `delay` frames ahead and sent at once, unacknowledged ones repeated in
+// every message so a lost packet costs nothing. A remote input that hasn't arrived is predicted (the last one
+// received, repeated). When the real one arrives and differs from what was used, the session restores the state saved
+// before that frame and re-simulates up to the present quietly (Game.quiet: nothing drawn or heard twice). It never
+// runs more than `maxRollback` frames past the newest remote input: past that it stalls a frame, which is also how
+// two machines keep pace. Time sync: each message carries the sender's frame advantage (how far its frame is past the
+// newest frame it has heard of from the other side); a side whose advantage is clearly bigger than the other's waits
+// half the difference, so a machine that started a little earlier doesn't make the other roll back on every frame.
+// Every `checkEvery` frames both sides exchange the state hash of a frame they have both confirmed; a different hash
+// is a desync.
 //
 // The link is anything with send(msg), receive() -> [msg] and optionally pump(tick) (netSim.js simulates one; the
 // lobby server's relay will be another, ENG-094).
-import { ACTIONS } from '../core/input.js';
+import { PAD_INPUTS } from '../core/input.js';
 import { hashSim } from './simHash.js';
 
 const SYNC_EVERY = 60; // ticks between time-sync checks
 const q8 = (v) => Math.max(-127, Math.min(127, Math.round(v * 127)));
 const s8 = (b) => (b << 24) >> 24;
 
-// stick (screen right / up, -1..1) and buttons ({ light: true, ... }) -> one 23-bit number
+// stick (screen right / up, -1..1) and buttons ({ light: true, ..., cUp: true ... }) -> one 27-bit number
 export function packInput(x, y, b) {
   let bits = 0;
-  ACTIONS.forEach((a, j) => { if (b?.[a]) bits |= 1 << j; });
+  PAD_INPUTS.forEach((a, j) => { if (b?.[a]) bits |= 1 << j; });
   return (q8(x || 0) & 0xff) | ((q8(y || 0) & 0xff) << 8) | (bits << 16);
 }
 
@@ -33,7 +33,7 @@ export function packInput(x, y, b) {
 export function applyInput(pad, v) {
   pad.tick();
   pad.setMove(s8(v & 0xff) / 127, s8((v >> 8) & 0xff) / 127);
-  ACTIONS.forEach((a, j) => pad.set(a, !!((v >> (16 + j)) & 1)));
+  PAD_INPUTS.forEach((a, j) => pad.set(a, !!((v >> (16 + j)) & 1)));
 }
 
 // the six group hashes of one frame folded into one (the same fold as the determinism test's per-frame hashes)

@@ -36,6 +36,7 @@ const GradeShader = {
 // chunky pixel grid (the "HD-2D" look). Bright (>1.0) effects bloom.
 export class PixelRenderer {
   constructor(container) {
+    this.container = container;
     this.renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: 'high-performance', preserveDrawingBuffer: true });
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.NoToneMapping;
@@ -77,7 +78,8 @@ export class PixelRenderer {
   }
 
   resize() {
-    const w = window.innerWidth, h = window.innerHeight;
+    // the container's box, not the window: the test lab docks its panel beside the game and shrinks #app (ADR 0018)
+    const w = this.container.clientWidth || window.innerWidth, h = this.container.clientHeight || window.innerHeight;
     let scale;
     if (this.pixelSize === 'auto') scale = this.detail === 'hd' ? Math.max(1, Math.floor(h / 600)) : Math.max(1, Math.round(h / 340));
     else scale = +this.pixelSize;

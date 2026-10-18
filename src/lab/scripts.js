@@ -1,7 +1,7 @@
 // Test lab scripts (ADR 0018): input timelines that drive a fighter's Pad frame by frame, the way a CPU brain does,
 // so one tap plays a move or a whole scenario exactly the same way every time. Everything is read from the fighter
 // data (kits, MOVES, SPECIAL_MOVES, SUPERS), so a new fighter or a new move shows up here without lab changes.
-import { ACTIONS } from '../core/input.js';
+import { PAD_INPUTS } from '../core/input.js';
 import { MOVES, SPECIAL_MOVES, SUPERS, ULTIMATE, THROW, DEFENSE, VANISH, SUPER_DASH, MELEE_CLASH, AIR } from '../game/moves.js';
 import { kitOf, specialFor, towardSide, clashable, energyMoves, airEnergyMoves, canBeamClash } from '../game/kit.js';
 import { impactAhead } from '../game/aiTech.js';
@@ -9,6 +9,11 @@ import { impactAhead } from '../game/aiTech.js';
 // A step holds buttons (and a stick) from frame `t` for `len` frames. Sticks: 'toward' / 'away' the opponent,
 // 'up' / 'down', or [mx, my] in screen space. A `tech: n` step is the timed impact tech (ADR 0028): between t and
 // t + len it presses Guard (3 frames) once, when the fighter's next floor or wall impact is n live frames away.
+// The C-stick in scripts and recordings (ADR 0042): 'cToward' / 'cAway' flick it at or away from the opponent, and a
+// recording keeps cLeft / cRight relative to them, like the stick, so P1's recording does the same on the dummy.
+const C_SIDE = { cToward: 1, cAway: -1 };
+const cFor = (f, b) => (b in C_SIDE ? (C_SIDE[b] * towardSide(f) > 0 ? 'cRight' : 'cLeft') : b);
+const cMirror = (b, side) => (side < 0 && (b === 'cLeft' || b === 'cRight') ? (b === 'cLeft' ? 'cRight' : 'cLeft') : b);
 const stick = (f, s) => {
   if (!s) return [0, 0];
   if (Array.isArray(s)) return s;
@@ -34,7 +39,7 @@ export class ScriptBrain {
     const down = new Set();
     for (const s of this.steps) {
       if (t < s.t || t >= s.t + (s.len ?? 3)) continue;
-      for (const b of s.btn || []) down.add(b);
+      for (const b of s.btn || []) down.add(cFor(this.f, b));
       if (s.stick) mv = stick(this.f, s.stick);
       if (s.tech != null && !this.fired.has(s)) {
         const a = impactAhead(this.f);
@@ -44,7 +49,7 @@ export class ScriptBrain {
     for (const at of this.fired.values()) if (t < at + 3) down.add('guard');
     pad.setMove(mv[0], mv[1]);
     pad.dashDir = null; // a scripted stick never reads as a double-tap dash
-    for (const b of ACTIONS) pad.set(b, down.has(b));
+    for (const b of PAD_INPUTS) pad.set(b, down.has(b));
     if (t === this.end) this.done?.();
   }
 }
@@ -64,20 +69,22 @@ export class ReplayBrain {
     const pad = this.f.pad;
     pad.tick();
     if (this.i >= this.frames.length) {
-      if (!this.loop) { pad.setMove(0, 0); for (const b of ACTIONS) pad.set(b, false); return; }
+      if (!this.loop) { pad.setMove(0, 0); for (const b of PAD_INPUTS) pad.set(b, false); return; }
       this.i = 0;
     }
     const fr = this.frames[this.i++];
     pad.setMove(fr.mx * towardSide(this.f), fr.my);
     pad.dashDir = null;
-    for (const b of ACTIONS) pad.set(b, fr.b.includes(b));
+    const side = towardSide(this.f);
+    for (const b of PAD_INPUTS) pad.set(b, fr.b.includes(cMirror(b, side)));
   }
 }
 
 // One recorded frame of a pad (see ReplayBrain).
 export function recordFrame(f) {
   const pad = f.pad;
-  return { mx: pad.mx * towardSide(f), my: pad.my, b: ACTIONS.filter((b) => pad.b[b].down) };
+  const side = towardSide(f);
+  return { mx: pad.mx * side, my: pad.my, b: PAD_INPUTS.filter((b) => pad.b[b].down).map((b) => cMirror(b, side)) };
 }
 
 const tap = (t, btn, extra = {}) => ({ t, btn: [].concat(btn), len: 3, ...extra });
@@ -143,6 +150,8 @@ export function moveList(def) {
   add('Movement', 'Dash', '', [{ t: 0, btn: ['dash'], len: 5, stick: 'toward' }], 4);
   add('Movement', 'Back dash', '', [{ t: 0, btn: ['dash'], len: 5, stick: 'away' }], 2);
   add('Movement', 'Super dash (dash, no direction)', `${SUPER_DASH.dmg} dmg on contact`, [tap(0, 'dash')], 6);
+  add('Normals', 'C-stick → on the ground: forward smash (uncharged)', dm('fSmash'), [tap(0, 'cToward', { len: 2 })], 1.4);
+  add('Normals', 'C-stick in the air: back air (run off, hop, C toward them)', dm('bair'), [{ t: 0, stick: 'away', len: 4 }, tap(4, 'jump', { len: 2 }), tap(6, 'cToward', { len: 2 })], 0.9);
   add('Movement', 'Short hop (tap Jump)', `${AIR.shortHop} u/s vs ${AIR.fullHop} held`, [tap(0, 'jump', { len: 2 })], 4);
   add('Movement', 'Double jump', `${AIR.doubleJump} u/s, back on landing`, [hop(0), tap(20, 'jump')], 4);
   add('Movement', 'Fast fall (↓ past the top)', `${AIR.fastFall} u/s`, [hop(0), { t: 24, stick: 'down', len: 8 }], 4);

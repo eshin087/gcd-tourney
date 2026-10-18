@@ -61,18 +61,23 @@ The user's answers to the design questions (2026-10-17):
    fighter has, and uses that strip's hit boxes. A back air without its own strip shows `airLight3` mirrored, boxes and
    all (`Fighter.mirrorPose`). Up tilt and up smash step forward a little (`lunge`) so the borrowed uppercut reaches a
    standing opponent. The move data never depends on the drawing.
-8. **The CPUs keep their game for now** (phase 1). A brain that doesn't set `aimsNormals` (every CPU level and the
+8. **The C-stick** (added at the user's request before merging, 2026-10-18): the gamepad's right stick, Smash's default
+   setting. A flick one way is a smash attack that way on the ground (never charged), the aerial that way in the air,
+   with the left stick still steering. It travels as four pseudo-buttons after the seven (`CSTICK`, `PAD_INPUTS` in
+   `src/core/input.js`), so the online input grows from 23 to 27 bits: **the lobby server's input check is widened to
+   match and must be deployed before the game** (an older server drops a message holding a C-stick input).
+9. **The CPUs keep their game for now** (phase 1). A brain that doesn't set `aimsNormals` (every CPU level and the
    training dummy) has its Light / Heavy read as a neutral stick and its jump taps as full hops, so it plays exactly the
    moves its combo composer and threat reads were built on. Lab scripts and replays stand in for a player and aim. A CPU
    slot without its brain (a replayed CPU match) reads the same way, so recordings play back identically. Teaching the
    CPUs the new moves is ENG-111.
-9. **Phase 2 (ENG-111, 2026-10-17): the CPUs aim.** Every brain sets `aimsNormals` and presses a normal through
-   `normal(name)` (`src/game/aiNormals.js`), holding the stick on its direction from the press until the fighter reads
-   it; a plain Light / Heavy holds it neutral, so walking in depth while jabbing never turns into a tilt. A full hop holds
-   Jump through the squat, and in the air the stick is kept off a fresh ↓ unless the brain means a fast fall. A CPU slot
-   without its brain now aims too (no brain left that doesn't), so a replayed CPU match still plays back identically; the
-   determinism fixtures were re-recorded on it. Neutral use, punishes and the composer's link edges are in
-   COMBAT_DESIGN.md (CPU AI).
+10. **Phase 2 (ENG-111, 2026-10-17): the CPUs aim.** Every brain sets `aimsNormals` and presses a normal through
+    `normal(name)` (`src/game/aiNormals.js`), holding the stick on its direction from the press until the fighter reads
+    it; a plain Light / Heavy holds it neutral, so walking in depth while jabbing never turns into a tilt. A full hop holds
+    Jump through the squat, and in the air the stick is kept off a fresh ↓ unless the brain means a fast fall. A CPU slot
+    without its brain now aims too (no brain left that doesn't), so a replayed CPU match still plays back identically; the
+    determinism fixtures were re-recorded on it. Neutral use, punishes and the composer's link edges are in
+    COMBAT_DESIGN.md (CPU AI).
 
 ## Alternatives considered
 

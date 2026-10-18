@@ -40,6 +40,7 @@ export const MOVES_HTML = `
       <tr><td>Tilts</td><td>→ / ↑ / ↓ + Light: forward tilt (poke), up tilt (anti-air), down tilt (low); they link, not chain</td></tr>
       <tr><td>Smash attacks</td><td>→ / ↑ / ↓ + Heavy, hold Heavy to charge <small>(up to ×1.4)</small></td></tr>
       <tr><td>Aerials</td><td>in the air: Light (neutral air), → / ← / ↑ + Light (forward, back, up air), ↓ + Light or Heavy (spike)</td></tr>
+      <tr><td>C-stick</td><td>gamepad right stick: a smash attack that way, in the air that aerial <small>(your drift stays)</small></td></tr>
       <tr><td>Jumps</td><td>tap Jump: short hop · Jump + Light: short-hop aerial · Jump again: double jump · ↓ past the top: fast fall</td></tr>
       <tr><td>Dash attack</td><td>Light in a dash with the stick held</td></tr>
       <tr><td>Super dash</td><td>Dash with no direction: homing flight (once per jump)</td></tr>

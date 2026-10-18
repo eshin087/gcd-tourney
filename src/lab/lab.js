@@ -2,7 +2,8 @@
 // all 42 animations with their hit and hurt boxes on the real art, replay the shared mechanics (clashes, throws,
 // dodges, bounces) and change time and the dummy. A separate page, opened from SELECT MODE → LAB or directly:
 //   /lab.html?p1=naruto&p2=sasuke
-// Each tab lists its rows in groups with a chip bar to show one group, so related checks sit next to each other.
+// On a wide screen the panel docks beside the game (which shrinks to the space left); every tab is the same kind of
+// list: foldable groups of rows, ▶ on the left, a short note on the right, and the text sizes itself to fit.
 // Keys: the solo keyboard plays P1 as usual; P pauses, . steps one frame, ` hides the panel.
 import { PixelRenderer } from '../core/renderer.js';
 import { InputManager } from '../core/input.js';
@@ -40,18 +41,18 @@ const L = {
   speed: 1, paused: false, step: 0, dummy: 'stand', clashLevel: 'normal', infiniteKi: true, tab: 'moves',
   running: null, viewer: null, rec: [], recording: false, replay: false, note: '',
   cpuP1: null, // YOU played by the showman CPU with this combo persona (ADR 0026), or null
-  filter: { moves: 'all', scen: 'all' }, // the group chip picked on each list tab
+  fold: new Set(), // folded groups, as 'tab:group'
   open: null, // the scenario row showing its full description
-  scroll: {}, // list scroll per tab + filter, so a ▶ (which repaints the panel) keeps your place
+  scroll: {}, // list scroll per tab, so a ▶ (which repaints the panel) keeps your place
 };
 // the tab and its chips survive a reload (a per-viewer convenience: storage may be blocked)
 const SAVED = 'gcd.lab.view';
 try {
   const v = JSON.parse(localStorage.getItem(SAVED) || 'null');
   if (v?.tab) L.tab = v.tab;
-  if (v?.filter) Object.assign(L.filter, v.filter);
+  if (Array.isArray(v?.fold)) L.fold = new Set(v.fold);
 } catch { /* private window: defaults */ }
-const saveView = () => { try { localStorage.setItem(SAVED, JSON.stringify({ tab: L.tab, filter: L.filter })); } catch { /* ignore */ } };
+const saveView = () => { try { localStorage.setItem(SAVED, JSON.stringify({ tab: L.tab, fold: [...L.fold] })); } catch { /* ignore */ } };
 
 // Animation groups for the viewer, in ANIM_GUIDE terms. An alt strip (altOf) sits right after its base as a small
 // "alt" chip, so a pair is checked together; a name added to the guide without a group here still shows, under Other.
@@ -269,96 +270,106 @@ function toggleReplay() {
 
 // ------------------------------------------------------------------ panel
 const root = el('div', 'lab');
-const fab = button('LAB', () => { root.classList.toggle('hidden'); }, 'lab-fab');
+const fab = button('LAB', () => { root.classList.toggle('hidden'); dock(); }, 'lab-fab');
 document.body.append(root, fab);
 
-const TABS = [
-  ['moves', 'MOVES', 'YOU plays one move on the dummy'],
-  ['scen', 'SCENARIOS', 'both fighters scripted: a mechanic between them'],
-  ['anims', 'ANIMATIONS', 'YOU shows one strip frame by frame, with boxes'],
-  ['tools', 'TOOLS', 'time, the dummy, display and resets'],
-];
-const scrollKey = () => L.tab + ':' + (L.filter[L.tab] ?? '');
+// Docked: the game, its HUD and overlay take the space left of the panel (style.css + lab.css), so nothing is covered.
+// A phone keeps the panel as a drawer over the game: docking there would leave the fight a sliver.
+let docked = null;
+function dock() {
+  const on = !root.classList.contains('hidden') && window.innerWidth >= 900;
+  if (on === docked) return;
+  docked = on;
+  document.body.classList.toggle('lab-docked', on);
+  window.dispatchEvent(new Event('resize')); // the renderer and overlay re-measure their (narrower) box
+}
+window.addEventListener('resize', () => { dock(); fit(); });
+
+const TABS = [['moves', 'Moves'], ['scen', 'Scenarios'], ['anims', 'Animations'], ['tools', 'Tools']];
 
 function render() {
   const oldBody = root.querySelector('.lab-body');
-  if (oldBody) L.scroll[scrollKey()] = oldBody.scrollTop;
+  if (oldBody) L.scroll[L.tab] = oldBody.scrollTop;
   root.innerHTML = '';
-  const head = el('div', 'lab-head');
+  // one line: back to the menu, YOU vs DUMMY as dropdowns, swap
+  const top = el('div', 'lab-top');
   const pick = (key, label) => {
-    const row = el('div', 'lab-pick');
-    const go = (d) => { L[key] = ids[(ids.indexOf(L[key]) + d + ids.length) % ids.length]; start(); };
-    const def = ROSTER.find((c) => c.id === L[key]);
-    const name = el('b', '', def.name);
-    name.style.color = def.color;
-    row.append(el('span', 'lab-k', label), button('◀', () => go(-1)), name, button('▶', () => go(1)));
-    return row;
+    const sel = el('select', 'lab-sel');
+    sel.title = label;
+    for (const c of ROSTER) sel.append(Object.assign(document.createElement('option'), { value: c.id, textContent: c.name }));
+    sel.value = L[key];
+    sel.style.color = ROSTER.find((c) => c.id === L[key]).color;
+    sel.addEventListener('change', () => { L[key] = sel.value; sel.blur(); start(); });
+    return sel;
   };
-  head.append(button('‹ MENU', () => { location.href = '/'; }, 'lab-menu'), el('div', 'lab-title', 'TEST LAB'),
-    pick('p1', 'YOU'), pick('p2', 'DUMMY'), button('⇄ swap', () => { [L.p1, L.p2] = [L.p2, L.p1]; start(); }));
+  top.append(button('‹', () => { location.href = '/'; }, 'lab-back'), el('span', 'lab-k', 'YOU'), pick('p1', 'YOU'),
+    el('span', 'lab-vs', 'vs'), el('span', 'lab-k', 'DUMMY'), pick('p2', 'DUMMY'),
+    button('⇄', () => { [L.p1, L.p2] = [L.p2, L.p1]; start(); }, 'lab-swap'));
+  top.lastChild.title = 'swap fighters';
   const tabs = el('div', 'lab-tabs');
-  for (const [id, label] of TABS) {
-    tabs.append(button(label, () => { L.tab = id; saveView(); render(); }, L.tab === id ? 'on' : ''));
-  }
-  const hint = el('div', 'lab-hint', TABS.find(([id]) => id === L.tab)?.[2] ?? '');
+  for (const [id, label] of TABS) tabs.append(button(label, () => { L.tab = id; saveView(); render(); }, L.tab === id ? 'on' : ''));
   const body = el('div', 'lab-body');
-  if (L.tab === 'moves') body.append(movesTab());
-  else if (L.tab === 'anims') body.append(animsTab());
-  else if (L.tab === 'scen') body.append(scenariosTab());
-  else body.append(toolsTab());
-  const status = el('div', 'lab-status');
-  root.append(head, tabs, hint, body, status);
-  body.scrollTop = L.scroll[scrollKey()] ?? 0;
+  const inner = el('div', 'lab-fit');
+  inner.append(L.tab === 'moves' ? movesTab() : L.tab === 'anims' ? animsTab() : L.tab === 'scen' ? scenariosTab() : toolsTab());
+  body.append(inner);
+  root.append(top, tabs, body, el('div', 'lab-status'));
+  fit();
+  body.scrollTop = L.scroll[L.tab] ?? 0;
   paintStatus();
   paintViewer();
 }
 
-// The chip bar over a grouped list: ALL, or one group. `groups` = [[name, label]]; the label carries a count.
-function chips(groups) {
-  const bar = el('div', 'lab-chips');
-  const cur = L.filter[L.tab];
-  const set = (g) => { L.filter[L.tab] = g; saveView(); render(); };
-  bar.append(button('ALL', () => set('all'), cur === 'all' ? 'on' : ''));
-  for (const [name, label] of groups) bar.append(button(label, () => set(name), cur === name ? 'on' : ''));
-  return bar;
+// Size the list's text so the whole tab fits the panel without scrolling: the largest step from FIT_MAX down to
+// FIT_MIN that fits. Below FIT_MIN (a phone, a short window) it stays readable and scrolls instead.
+const FIT_MIN = 0.74, FIT_MAX = 1.3;
+function fit() {
+  const body = root.querySelector('.lab-body'), inner = body?.firstChild;
+  if (!inner || root.classList.contains('hidden')) return;
+  let lo = FIT_MIN, hi = FIT_MAX;
+  const fits = (s) => { inner.style.fontSize = s + 'em'; return inner.scrollHeight <= body.clientHeight; };
+  if (fits(hi)) return;
+  for (let i = 0; i < 7; i++) { const m = (lo + hi) / 2; if (fits(m)) lo = m; else hi = m; }
+  fits(lo);
 }
-// a filter left on a group this pairing doesn't have (a fighter swap) falls back to ALL
-const shown = (name, names) => {
-  if (!names.includes(L.filter[L.tab])) L.filter[L.tab] = 'all';
-  return L.filter[L.tab] === 'all' || L.filter[L.tab] === name;
-};
-const groupHead = (name, info = '', count = '') =>
-  el('div', 'lab-group', `${name.toUpperCase()}${count ? ` <span class="lab-count">${count}</span>` : ''}${info ? ` <small>${info}</small>` : ''}`);
-// One aligned row: a fixed label column, then items that wrap inside their own column (never under the label).
-const labeled = (label, ...items) => {
-  const r = el('div', 'lab-trow');
-  const c = el('div', 'lab-tchips');
-  c.append(...items);
-  r.append(el('span', 'lab-tlabel', label), c);
+
+// A foldable group: the header shows its name and count; a tap folds or opens it.
+function group(box, id, name, count = '', info = '') {
+  const key = L.tab + ':' + id, folded = L.fold.has(key);
+  const head = el('button', 'lab-ghead' + (folded ? ' folded' : ''), `<span class="lab-caret">${folded ? '▸' : '▾'}</span>${name}${count ? `<span class="lab-count">${count}</span>` : ''}`);
+  if (info) head.title = info;
+  head.addEventListener('mousedown', (e) => e.preventDefault());
+  head.addEventListener('click', (e) => { e.stopPropagation(); folded ? L.fold.delete(key) : L.fold.add(key); saveView(); render(); });
+  box.append(head);
+  if (folded) return null;
+  const list = el('div', 'lab-list');
+  box.append(list);
+  return list;
+}
+// The one row: ▶ (optional), a name, a muted note on the right, then any extra controls.
+function item(list, { play, name, note = '', cls = '', onName, extra = [] }) {
+  const r = el('div', 'lab-item ' + cls);
+  if (play) r.append(button('▶', play, 'play'));
+  const n = el('span', 'lab-name', name);
+  if (onName) { n.classList.add('tap'); n.addEventListener('click', onName); }
+  const t = el('span', 'lab-note', note);
+  t.title = note; // the full text when the note is cut short
+  r.append(n, t, ...extra);
+  list.append(r);
   return r;
-};
+}
 
 function movesTab() {
   const box = el('div');
-  const def = fighters()[0].def;
   const groups = [];
-  for (const row of moveList(def)) {
+  for (const row of moveList(fighters()[0].def)) {
     let g = groups.find(([name]) => name === row.group);
     if (!g) groups.push(g = [row.group, []]);
     g[1].push(row);
   }
-  box.append(chips(groups.map(([name, rows]) => [name, `${name} ${rows.length}`])));
-  const names = groups.map(([name]) => name);
   for (const [name, rows] of groups) {
-    if (!shown(name, names)) continue;
-    box.append(groupHead(name));
-    for (const row of rows) {
-      const r = el('div', 'lab-row');
-      r.append(button('▶', () => playMove(row), 'play'), el('div', 'lab-move', `<b>${row.name}</b><small>${row.info}</small>`));
-      box.append(r);
-    }
+    const list = group(box, name, name, rows.length);
+    if (list) for (const row of rows) item(list, { play: () => playMove(row), name: row.name, note: row.info });
   }
-  box.append(el('p', 'lab-help', 'Each ▶ resets the positions to a distance that suits the move and plays it on YOU against the dummy. Swap to see the other fighter\'s moves; moves that need the dummy to react are under SCENARIOS.'));
   return box;
 }
 
@@ -367,36 +378,34 @@ function animsTab() {
   const f = fighters()[0], have = f.asset.meta?.animations;
   const missing = (n) => !!have && !have[n];
   if (L.viewer) {
-    const ctl = el('div', 'lab-row lab-ctl');
+    const ctl = el('div', 'lab-ctl');
     ctl.append(
       button('◀', () => viewerFrame(-1)),
       button(L.viewer.playing ? '❚❚' : '▶', () => { L.viewer.playing = !L.viewer.playing; render(); }),
       button('▶|', () => viewerFrame(1)),
-      button(game.showBoxes ? 'boxes ON' : 'boxes OFF', () => { game.showBoxes = !game.showBoxes; render(); }, game.showBoxes ? 'on' : ''),
+      button(game.showBoxes ? 'boxes on' : 'boxes off', () => { game.showBoxes = !game.showBoxes; render(); }, game.showBoxes ? 'on' : ''),
       button('done', exitViewer),
     );
     box.append(ctl, el('div', 'lab-info lab-viewer'));
   }
-  const chip = (n, label = n, cls = '') => {
-    const b = button(label, () => viewAnim(n), ['lab-anim', cls, L.viewer?.name === n ? 'on' : '', missing(n) ? 'miss' : ''].join(' '));
-    b.title = n + (missing(n) ? ': not in this sheet, plays a fallback' : '');
-    return b;
-  };
-  const grid = el('div', 'lab-agrid');
-  for (const [name, list] of animGroups()) {
-    const all = list.flatMap((n) => [n, ...(ALTS_OF[n] ?? [])]);
-    const items = list.map((n) => {
-      const alts = ALTS_OF[n] ?? [];
-      if (!alts.length) return chip(n);
-      const pair = el('span', 'lab-pair');
-      pair.append(chip(n), ...alts.map((a) => chip(a, 'alt', 'lab-alt')));
-      return pair;
-    });
-    const row = labeled('', ...items);
-    row.firstChild.innerHTML = `${name.toUpperCase()}<br><span class="lab-count">${all.filter((n) => !missing(n)).length}/${all.length}</span>`;
-    grid.append(row);
+  for (const [name, names] of animGroups()) {
+    const all = names.flatMap((n) => [n, ...(ALTS_OF[n] ?? [])]);
+    const list = group(box, name, name, `${all.filter((n) => !missing(n)).length}/${all.length}`);
+    if (!list) continue;
+    list.classList.add('cols');
+    for (const n of names) {
+      const alts = (ALTS_OF[n] ?? []).map((a) => {
+        const b = button('alt', () => viewAnim(a), ['lab-alt', L.viewer?.name === a ? 'on' : '', missing(a) ? 'miss' : ''].join(' '));
+        b.title = a + (missing(a) ? ': not in this sheet' : '');
+        return b;
+      });
+      item(list, {
+        play: () => viewAnim(n), name: n, note: missing(n) ? 'fallback' : '', extra: alts,
+        cls: [L.viewer?.name === n ? 'on' : '', missing(n) ? 'miss' : ''].join(' '),
+      });
+    }
   }
-  box.append(grid, el('p', 'lab-help', '<b>alt</b> = the alternate strip of the one before it. Dim = not in this fighter\'s sheet (plays a fallback); the counts are strips the sheet has. In the viewer: hurt boxes blue, hit boxes red, the idle head size white around this frame\'s head (gold, orange when the packer flagged the strip).'));
+  box.append(el('p', 'lab-help', 'alt = the alternate strip. Dim = not in this fighter\'s sheet (plays a fallback). Boxes: hurt blue, hit red; head check: idle size white, this frame gold.'));
   return box;
 }
 
@@ -405,83 +414,76 @@ function scenariosTab() {
   const defs = fighters().map((f) => f.def);
   const groupOf = (sc) => sc.group ?? 'other', known = SCENARIO_GROUPS.map((g) => g.id);
   const extra = [...new Set(SCENARIOS.map(groupOf))].filter((id) => !known.includes(id)).map((id) => ({ id, name: id }));
-  const groups = [...SCENARIO_GROUPS, ...extra]
-    .map((g) => ({ ...g, list: SCENARIOS.filter((sc) => groupOf(sc) === g.id) }))
-    .filter((g) => g.list.length);
   const ok = (sc) => !sc.needs?.(defs);
-  box.append(chips(groups.map((g) => [g.id, `${g.name} ${g.list.filter(ok).length}/${g.list.length}`])));
-  box.append(el('div', 'lab-hint', `${defs[0].name} vs ${defs[1].name}: ${SCENARIOS.filter(ok).length} of ${SCENARIOS.length} play here · dim = needs another pairing · tap a card for its description`));
-  const gids = groups.map((g) => g.id);
-  for (const g of groups) {
-    if (!shown(g.id, gids)) continue;
-    box.append(groupHead(g.name, g.info, `${g.list.filter(ok).length}/${g.list.length}`));
-    const cards = el('div', 'lab-cards');
-    // the open card's description spans both columns under its row (after the pair it sits in)
-    const at = g.list.findIndex((sc) => sc.id === L.open);
-    const rowEnd = at < 0 ? -1 : Math.min(at | 1, g.list.length - 1);
-    g.list.forEach((sc, i) => {
+  for (const g of [...SCENARIO_GROUPS, ...extra]) {
+    const scs = SCENARIOS.filter((sc) => groupOf(sc) === g.id);
+    if (!scs.length) continue;
+    const list = group(box, g.id, g.name, `${scs.filter(ok).length}/${scs.length}`, g.info);
+    if (!list) continue;
+    for (const sc of scs) {
       const need = sc.needs?.(defs), open = L.open === sc.id;
-      const card = el('div', 'lab-card' + (need ? ' dim' : '') + (open ? ' open' : ''));
-      const text = el('div', 'lab-move', `<b>${sc.name}</b><small>${need ? '⚠ ' + need : sc.brief ?? sc.info}</small>`);
-      card.addEventListener('click', () => { L.open = open ? null : sc.id; render(); });
-      card.append(button('▶', () => playScenario(sc), 'play'), text);
-      cards.append(card);
-      if (i === rowEnd) {
-        const o = g.list[at], oNeed = o.needs?.(defs);
-        cards.append(el('div', 'lab-detail', `<b>${o.name}</b> · ${o.info}${oNeed ? `<br><span class="lab-warn">⚠ ${oNeed}</span>` : ''}`));
-      }
-    });
-    box.append(cards);
+      item(list, {
+        play: () => playScenario(sc), name: sc.name, note: need ? 'needs another pair' : sc.brief ?? '',
+        cls: (need ? 'miss' : '') + (open ? ' open' : ''), onName: () => { L.open = open ? null : sc.id; render(); },
+      });
+      if (open) list.append(el('div', 'lab-detail', sc.info + (need ? `<br><span class="lab-warn">⚠ ${need}</span>` : '')));
+    }
   }
+  box.append(el('p', 'lab-help', 'Tap a name for its full description. Dim rows need another pair of fighters.'));
   return box;
 }
 
 function toolsTab() {
   const box = el('div');
-  const row = (label, ...items) => box.append(labeled(label, ...items));
-  const note = (text) => box.append(labeled('', el('div', 'lab-tnote', text)));
   const chip = (label, on, fn) => button(label, fn, on ? 'on' : '');
+  const row = (list, name, ...ctl) => {
+    const seg = el('span', 'lab-seg');
+    seg.append(...ctl);
+    item(list, { name, extra: [seg], cls: 'tool' });
+  };
 
-  box.append(groupHead('Time'));
-  row('SPEED', ...[[1, '1×'], [0.5, '½×'], [0.25, '¼×'], [0.1, '⅒×']].map(([s, t]) => chip(t, L.speed === s, () => { L.speed = s; render(); })));
-  row('STEP', chip(L.paused ? '▶ play' : '❚❚ pause', L.paused, () => { L.paused = !L.paused; render(); }),
-    button('+1 frame', () => { L.paused = true; L.step += 1; render(); }), button('+10', () => { L.paused = true; L.step += 10; render(); }));
-  note('keys: P pause, . one frame · the readout below shows both fighters every frame');
-
-  box.append(groupHead('Dummy'));
-  row('DOES', ...[['stand', 'STAND'], ['guard', 'GUARD'], ['jump', 'JUMP'], ['cpu', 'CPU']].map(([id, t]) => chip(t, !L.replay && L.dummy === id, () => {
-    L.dummy = id;
-    L.replay = false;
-    game.setDummy(id);
-    game.brains[1] = dummyBrain();
-    render();
-  })));
-  // how well the dummy plays a rhythm clash (its CPU level's timing); a running scenario script keeps its brain
-  row('CLASH', ...CPU_LEVELS.map((id) => chip(id.toUpperCase(), L.clashLevel === id, () => {
-    L.clashLevel = id;
-    if (game.brains[1] instanceof DummyBrain) game.brains[1] = dummyBrain();
-    render();
-  })));
-  row('RECORD', chip(L.recording ? '■ stop' : '● record YOU', L.recording, toggleRecord),
-    chip(L.replay ? 'replaying' : `replay (${(L.rec.length / 60).toFixed(1)} s)`, L.replay, toggleReplay));
-  note('CLASH: how well it plays a rhythm clash · RECORD: play a few seconds, stop, and the dummy loops it back at you');
-
-  box.append(groupHead('You'));
-  row('METER', chip(L.infiniteKi ? 'infinite (both)' : 'normal', L.infiniteKi, () => { L.infiniteKi = !L.infiniteKi; game.trainingCfg.infiniteKi = L.infiniteKi; render(); }));
-  // the combo composer (ADR 0026): YOU as the CPU with a persona
-  row('CPU YOU', chip('OFF', !L.cpuP1, () => cpuYou(null)), chip('AUTO', L.cpuP1 === 'auto', () => cpuYou('auto')),
-    ...Object.keys(PERSONAS).map((p) => chip(p.toUpperCase(), L.cpuP1 === p, () => cpuYou(p))));
-  note('the showman CPU plays you with a combo persona; its route shows in the readout');
-
-  box.append(groupHead('Display'));
-  row('BOXES', chip(game.showBoxes ? 'ON' : 'OFF', game.showBoxes, () => { game.showBoxes = !game.showBoxes; render(); }));
-  // A/B the victim's hit flash live (ENG-064): the table is read every frame, so the next hit shows the change
-  row('HIT FLASH', ...FLASH_STYLES.map((s) => chip(s.toUpperCase(), HIT_FLASH.style === s, () => { HIT_FLASH.style = s; render(); })));
-  row('STRENGTH', ...[0.5, 0.75, 1, 1.25].map((v) => chip(v + '×', HIT_FLASH.strength === v, () => { HIT_FLASH.strength = v; render(); })));
-
-  box.append(groupHead('Reset'));
-  row('RESET', button('positions', () => { stopScripts(); place(3.2); }), button('refill HP', () => { for (const f of fighters()) f.hp = 1000; }));
-  box.append(el('p', 'lab-help', '` hides the panel. The art packer\'s Sprite Lab is still at /sprites.html.'));
+  let list = group(box, 'time', 'Time', '', 'P pauses, . steps one frame');
+  if (list) {
+    row(list, 'Speed', ...[[1, '1×'], [0.5, '½×'], [0.25, '¼×'], [0.1, '⅒×']].map(([s, t]) => chip(t, L.speed === s, () => { L.speed = s; render(); })));
+    row(list, 'Step', chip(L.paused ? '▶ play' : '❚❚ pause', L.paused, () => { L.paused = !L.paused; render(); }),
+      button('+1', () => { L.paused = true; L.step += 1; render(); }), button('+10', () => { L.paused = true; L.step += 10; render(); }));
+  }
+  list = group(box, 'dummy', 'Dummy', '', 'what the other fighter does');
+  if (list) {
+    row(list, 'Does', ...[['stand', 'stand'], ['guard', 'guard'], ['jump', 'jump'], ['cpu', 'CPU']].map(([id, t]) => chip(t, !L.replay && L.dummy === id, () => {
+      L.dummy = id;
+      L.replay = false;
+      game.setDummy(id);
+      game.brains[1] = dummyBrain();
+      render();
+    })));
+    // how well the dummy plays a rhythm clash (its CPU level's timing); a running scenario script keeps its brain
+    row(list, 'Clash skill', ...CPU_LEVELS.map((id) => chip(id, L.clashLevel === id, () => {
+      L.clashLevel = id;
+      if (game.brains[1] instanceof DummyBrain) game.brains[1] = dummyBrain();
+      render();
+    })));
+    row(list, 'Record', chip(L.recording ? '■ stop' : '● record you', L.recording, toggleRecord),
+      chip(L.replay ? 'replaying' : `replay ${(L.rec.length / 60).toFixed(1)} s`, L.replay, toggleReplay));
+  }
+  list = group(box, 'you', 'You');
+  if (list) {
+    row(list, 'Meter', chip('infinite', L.infiniteKi, () => { L.infiniteKi = true; game.trainingCfg.infiniteKi = true; render(); }),
+      chip('normal', !L.infiniteKi, () => { L.infiniteKi = false; game.trainingCfg.infiniteKi = false; render(); }));
+    // the combo composer (ADR 0026): YOU as the showman CPU with a persona; its route shows in the readout
+    row(list, 'CPU plays you', chip('off', !L.cpuP1, () => cpuYou(null)), chip('auto', L.cpuP1 === 'auto', () => cpuYou('auto')),
+      ...Object.keys(PERSONAS).map((p) => chip(p, L.cpuP1 === p, () => cpuYou(p))));
+  }
+  list = group(box, 'display', 'Display');
+  if (list) {
+    row(list, 'Hit boxes', chip('on', game.showBoxes, () => { game.showBoxes = true; render(); }), chip('off', !game.showBoxes, () => { game.showBoxes = false; render(); }));
+    // A/B the victim's hit flash live (ENG-064): the table is read every frame, so the next hit shows the change
+    row(list, 'Hit flash', ...FLASH_STYLES.map((s) => chip(s, HIT_FLASH.style === s, () => { HIT_FLASH.style = s; render(); })));
+    row(list, 'Flash strength', ...[0.5, 0.75, 1, 1.25].map((v) => chip(v + '×', HIT_FLASH.strength === v, () => { HIT_FLASH.strength = v; render(); })));
+  }
+  list = group(box, 'reset', 'Reset');
+  if (list) row(list, 'Reset', button('positions', () => { stopScripts(); place(3.2); }), button('refill HP', () => { for (const f of fighters()) f.hp = 1000; }));
+  box.append(el('p', 'lab-help', 'Keys: P pause, . one frame, ` hides the panel. Record: play a few seconds, stop, and the dummy loops it back at you. The Sprite Lab is at /sprites.html.'));
   return box;
 }
 
@@ -505,7 +507,7 @@ function paintStatus() {
 window.addEventListener('keydown', (e) => {
   if (e.code === 'KeyP') { L.paused = !L.paused; render(); }
   else if (e.code === 'Period') { L.paused = true; L.step += 1; }
-  else if (e.code === 'Backquote') root.classList.toggle('hidden');
+  else if (e.code === 'Backquote') { root.classList.toggle('hidden'); dock(); }
 });
 
 let last = performance.now();
@@ -545,5 +547,6 @@ function tick(dt) {
 const ready = game.init({ waitAll: true }).then(() => game.assetsReady);
 ready.then(() => {
   start();
+  dock();
   requestAnimationFrame(loop);
 });

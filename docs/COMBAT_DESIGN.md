@@ -51,6 +51,7 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Short hop aerial | Jump + Light / Heavy together | ✕ + □ / △ |
 | Fast fall | ↓ at or past the top of a jump | stick ↓ |
 | Dash attack | Light during a dash, stick still held | □ in a dash |
+| C-stick: smash attack that way (in the air: that aerial) | - | right stick |
 | Guard | Shift (or hold back: blocks on the ground) | L1 / LB (or hold the stick back) |
 | Dash (+direction) / super dash (neutral), or double-tap a direction | O | R1 / RB (also R2 / RT) |
 | Ultimate | Heavy + Special | △ + ○ |
@@ -163,6 +164,12 @@ behind / both sides), `feet` (a light pop: they land on their feet) and `charge`
 - **Stand-in strips.** Until a fighter's sheet has its own strip, a move shows the strip `FALLBACK` names (forward
   tilt `light2`, up tilt / up smash / up air `heavy`, down tilt / down smash `light3`, dash attack / forward smash
   `light4`, forward air `airLight2`) and uses its hit boxes; the back air shows `airLight3` mirrored, boxes too.
+- **C-stick** (gamepad right stick, Smash's default): a flick past half way is an attack that way, read like a buffered
+  button (`cUp` / `cDown` / `cLeft` / `cRight` on the Pad, its dominant axis picks the way). On the ground a smash
+  attack (never charged: Heavy isn't held), during a dash too; in the air the aerial that way (← behind the facing is a
+  back air) while the left stick keeps the drift; flicked during the jump squat it comes out as the jump leaves the
+  floor; out of a super dash it is that attack. Holding it does nothing more; flicking another way is a new press. Not
+  rebindable, no keyboard binding.
 - **CPUs** (ENG-111): every brain aims its stick and plays the short and full hops (CPU AI, "Directional normals"). A
   brain that doesn't set `aimsNormals` would read as a neutral stick at the press and a held jump; none is left, and a
   CPU slot without its brain (a replayed CPU match) aims too.
@@ -650,7 +657,8 @@ plus a buffered start), a 2-frame tap a short hop, Jump + Light a short hop with
 stick is kept off a fresh ↓ (a fast fall) unless the brain means one; an air dodge and an air ↓ special read their own
 stick. The aerial out of a jump is the one whose art hit box meets the opponent at its first active frame
 (`aerialFor` in aiCombo.js: up air above, back air behind the jump's facing, neutral or forward air in front, the spike
-below; the air string in a juggle). Both brains fast-fall a Smash aerial past its active frames.
+below; the air string in a juggle). Both brains fast-fall a Smash aerial past its active frames. They aim with the
+left stick only (the C-stick gives smash attacks, never the tilts, and would leave the jump's drift to the left stick).
 
 - `CpuBrain` (Easy, Normal, Hard): up tilt or launcher anti-airs (`antiAir` per jump of theirs: 10 / 30 / 55 %, each
   pressed in its own window), smash attacks into a whiff with time to spare (`smash` per whiffed move: 10 / 25 / 40 %,
