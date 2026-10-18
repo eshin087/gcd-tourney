@@ -1,7 +1,9 @@
 # ENG-112 Sasuke normals handoff
 
 Branch `art/normals-sasuke`; real worktree `.worktrees/art-normals-sasuke`. This handoff is at
-the Astra/medium final audit result: HOLD for all six packed candidates. The user has since approved uTilt v01,
+the Astra/medium final audit result: HOLD for all six packed candidates. By user decision via Claude relay combat #4,
+up to three additional image calls per move are authorized for fTilt, dashAttack, uSmash, dSmash, and dTilt. This is
+retry authorization only, not approval of any image. The user has since approved uTilt v01,
 fSmash v02, fair v03, bair v01 and uair v01 as drawings via Claude relay combat #3. Those approvals do not clear
 the Astra technical holds; dTilt v02 and the remaining four moves have no user drawing approval. No merge or
 production deployment was performed.
@@ -12,16 +14,31 @@ The separate Astra audit returned HOLD for all six packed candidates. Four other
 
 | Move | Saved version | Calls | Current state | QA evidence |
 |---|---:|---:|---|---|
-| fTilt | v01 | 3/3 | Technical hold; `raw/_qa_hold/` | Packed QA split figures across columns. No atlas strip. |
+| fTilt | v03 | 3/3 retry calls | Candidate v03 awaiting user drawing review; Astra technical HOLD | Head estimate 48–52 px vs combat 43–48; thighs/trouser volume narrower and legs read shorter. Packer split touching source groups across frames 1/2 through 4/5. Punch appears f3/f4 while active metadata is f2/f3. v02 remains in `raw/_qa_hold/` for soft shading. |
 | uTilt | v01 | 1/3 | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra found f3 hitbox on foot; override now covers overhead hand/forearm, f2 remains on rising hand. No certified idle scale baseline or lab check. |
-| dTilt | v02 | 2/3 + 3 unusable extra calls | User-rejected via combat relay; redraw blocked pending fresh budget decision | User requested redraw; Astra found waist/stomach strike instead of shin height. v02 preserved in `raw/_rejected/`. Three accidental extra calls exceeded the authorized round budget; no further calls until the user authorizes a fresh budget. |
-| dashAttack | v03 | 3/3 | Technical hold; versions v01-v03 in `_qa_hold/` | f2 has no clear strike limb; the source pose group still touches across frame columns. No atlas strip. |
+| dTilt | v02 | 2/3 original + 3 accidental + 3 authorized retry calls | User-rejected via combat relay; retry round technical hold | User requested redraw. All three authorized retries still put the active fist above shin height; no v03 saved. v02 is preserved in `raw/_rejected/`. |
+| dashAttack | v05 | 3/3 retry calls | Candidate v05 awaiting user drawing review; Astra technical HOLD | Upright endpoints occupy 193 px vs 180 px combat; head/upper body read larger. Active f2 has arms back, punch appears f3/f4 while active metadata is f2/f3; generic active f2 box and touching source group across f3/f4. v04 clipping is preserved in `raw/_qa_hold/`. |
 | fSmash | v02 | 3/3 cumulative | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra HOLD; no certified idle body/head scale baseline. f1 is the charge pose. No calls remain. |
-| uSmash | v03 | 3/3 | Technical hold; versions v01-v03 in `_qa_hold/` | Active f3 remains a guarded pose without an overhead strike. No atlas strip. |
-| dSmash | v03 | 3/3 | Technical hold; versions v01-v03 in `_qa_hold/` | Active f4 clips 1 px past the 4 px cell margin. No atlas strip. |
+| uSmash | v05 | 3/3 retry calls | Candidate v05 awaiting user drawing review; Astra technical HOLD | Eight frames; active f3/f4 clearly overhead, feet y240 and no clipping. Manual f0 landmarks: hair–chin 37±3 vs combat 40±3; neck–belt 34±4 vs 39±4; arm chain 53–59 vs 70–76; near leg chain 64–72 vs 86–94; sandal 23–27 vs 30–34. Medium confidence, not numeric certification; no packed idle. Active rectangles f3 `[148,61,34,183]`, f4 `[148,25,35,219]` span nearly the body and require Claude's runtime contact review. v04 remains held in `raw/_qa_hold/`. |
+| dSmash | v03 | 3/3 original + 3/3 retry calls | Technical hold; no v04 saved | Retry attempts could not keep the active two-sided sweep within cell width without touching/overlapping column boundaries. Existing v03 remains in `_qa_hold/`. |
 | fair | v03 | 3/3 | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra HOLD; no certified idle body/head scale baseline. Lab contact unverified. |
 | bair | v01 | 1/3 | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra found f2/f3 boxes pointed forward; overrides now follow rear kicking foot screen-left. No certified idle scale baseline or lab check. |
 | uair | v01 | 1/3 | User-approved drawing via Claude relay combat #3; Astra technical HOLD | Astra HOLD; no certified idle body/head scale baseline. Lab contact unverified. |
+
+## Retry generation ledger (user decision via Claude relay combat #4)
+
+The user authorized up to three additional built-in image-generation calls each for fTilt, dashAttack, uSmash,
+dSmash and dTilt. This authorizes attempts only; it does not approve any drawing. All calls used `gpt-6-luna`
+medium directing the built-in image generator. Source outputs are retained in the generated-images session
+`01a14de5-aad1-7a83-8ca5-62cccdc7fdf9` when selected or listed below.
+
+| Move | Retry calls and outcomes | Retained file / SHA-256 |
+|---|---|---|
+| fTilt | `da72bba2-417f-4382-877c-327de23c7e40` saved then held for soft shading; `dede2303-6257-4792-abce-7b8549bb23b3` white dividers; `1e47101a-b755-4564-884b-225f8601409c` selected with clearer hard-pixel contours, though interior soft shading still needs review. | v02 held: `93958904AF1B511E1CED88C3A27B4AB884829586D5D4E65048BE6268CEA90E79`; v03: `8BEADFCD2FF7D0490BE491D123D55C5F1F25D0ED4E8019A12C5D7DB3A8FCF440` |
+| dashAttack | `8def27b5-91da-4c2b-b16e-53d2f9a4ff6e` smooth shading, not retained; `b546c84a-f23c-475c-9cbf-90e5a40c84c6` v04 selected then held after pack clipping; `cd4b9982-dd7b-497f-992d-fbd652619eb6` v05 selected, with remaining right-side margin to verify in pack. | v04 held: `E01F17884A226715AE736B3ECA49E21D750485AA4C80DA24DD371C9CD3D8650A`; v05: `52BAE32C2EA6F9035D54B2C3180C38FBDC3D4C984FA7DDA2782241101BF8FB5C` |
+| uSmash | `cb12916d-995a-4ed7-8541-c936ff809b7b` smooth shading, not retained; `f7910bf5-65c0-4fe2-aad0-5836173a3f34` v04 selected then held by Astra for underscale; `0e6a8406-cbd0-4aa5-a592-054ef8b5a2cd` v05 selected as the final authorized call. | v04 held: `4ADA7B2C88675D39FE8899F3590469E7027220D7F5CA667F7095D2962384A9C8`; v05: `F045866844854D730DA55FDC83A1C916F8315902A54E40F650FE08F3E62B3962` |
+| dSmash | `3cc1706a-5099-4213-a9ee-ace23e127fd0`, `64015bd2-eb4d-41f0-8e91-08ea32b5ba04`, `9ce4976f-fea5-467f-bf8e-6b3b7bf9de5d`; all attempts either lacked two-sided active contact or exceeded cell boundaries. | No new candidate saved. |
+| dTilt | `47826c26-c7be-4f0d-a6c1-8300f314277f`, `f992d9cc-1c36-4855-a64e-85e16c904e9c`, `07831e14-7ef7-4ae3-aa99-4ac46ecb4337`; all active fist contacts stayed at thigh/knee height above shins. | No new candidate saved; rejected v02 remains preserved. |
 
 ## Generation provenance
 
@@ -107,3 +124,11 @@ Body B uses selected garment colors and has about ±10% pose noise plus cross-pa
 Review export validation: all 40 packed review PNG crops match their atlas cells exactly, including RGBA. Six GIFs have correct frame counts; fSmash and bair durations match metadata, while the other four round 35/45 ms to GIF's 30/40 ms 10 ms resolution. GIF palette conversion changes some opaque RGB and makes transparent pixels black, so use exact-cell PNGs for pixel/color inspection.
 
 No merge, PR, approval request, or production deployment was performed.
+
+## Retry-round packed audit update (2026-10-18)
+
+- Repacked with `node tools/pack-sprites.mjs sasuke --quantize 48`: 9 eligible animations, 62 frames, 4096×1024, 48 colors. Selected sources: fTilt v03, dashAttack v05, uSmash v05. No packed idle exists in this sparse checkout, so scale gate, body sheet and lineup cannot certify idle-relative anatomy.
+- Packer findings: fTilt pose groups split across frames 1/2 through 4/5; dashAttack group touches across f3/f4; active boxes fell back to generic rectangles for dashAttack f2 and uSmash f3/f4. Existing dTilt v01 fallback clips right by 10/39 px. Runtime contact remains unverified.
+- Astra/medium audited uSmash v05 frames 36–43 against approved title-style neutral/combat references. HOLD: reduced arm/leg chains and clothing volume. Measured ranges and uncertainty are in the v05 REVIEW row. Atlas SHA-256 `7ABE729D96978B158E8685C3F075B49BE02C0989C89279BA2363450447914A24`.
+- Astra holds fTilt v03 for proportions and phase/contact mismatch, and dashAttack v05 for endpoint size and phase mismatch; findings are recorded in REVIEW.md. No drawing approval is implied by technical audits or retry authorization.
+- Review page: `public/reviews/normals-sasuke/index.html`, with exact quantized crops and loops for the three new candidates. Production build passed with the documented `.codex/vite.mjs` adapter. `node tools/pr.mjs open` could not publish because this checkout has no Git remote configured; local publish-cache cloning failed, so a fresh hosted review URL remains unavailable.
