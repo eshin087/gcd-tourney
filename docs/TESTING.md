@@ -75,27 +75,38 @@ console warnings on purpose; the console without the flag stays clean.
 
 ## Test lab (`/lab.html`, ADR 0018)
 
-The fastest way to check a change by hand, locally or on a PR's preview link (`npm run pr -- preview`):
+The fastest way to check a change by hand, locally or on a PR's preview link (`npm run pr -- preview`). Open it from
+SELECT MODE → **LAB** (‹ MENU goes back) or at `/lab.html`. Every list is grouped, with a chip bar on top that shows
+one group (ALL by default) and counts what this pairing has; the tab and chips are remembered.
 
-- **MOVES**: every move of YOU (normals, movement, defense, each directional special, SUPER, ultimate) with its frame
-  data; ▶ resets the distance for that move and plays it against the dummy. Swap fighters with ⇄.
-- **ANIMATIONS**: all 42 animations frame by frame on the real sheet, with hurt (blue) and hit (red) boxes, the
+- **MOVES**: every move of YOU in groups (Normals, Movement, Defense, Specials, Supers) with its frame data; ▶ resets
+  the distance for that move and plays it against the dummy. Swap fighters with ⇄.
+- **ANIMATIONS**: every animation in groups (Stance & movement, Attacks, Specials & supers, Guard & hit, Tech, Alts,
+  Show; the counts are strips YOU's sheet has, dim names play a fallback), frame by frame on the real sheet, with hurt (blue) and hit (red) boxes, the
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown). The scale
   check draws the approved idle's head size (white box) around this frame's measured head (gold, orange when the
   packer flagged the strip) and prints both numbers (TOOL-025).
-- **SCENARIOS**: both fighters scripted: ultimate clash, answering an ultimate, special clash, beam clash, answering an
-  energy shot, beam clash from the air (the dummy plays clashes at Normal timing; you press), throw and break, parry,
-  spot dodge, air dodge, wavedash, hold Guard to tech, tech roll, timed tech off a spike, wall tech, wall-jump tech,
-  tech too early (locked out) (ADR 0028), blue combo, burst, burst bait (ADR 0022), air combo,
-  wall bounce, ground damage, handball (3 wall bounces) and vanish ping-pong (ADR 0026), vanish, super dash, counter
-  hit (hit flash), counter stance, Whirlwind, Hollow Purple vs a projectile. A scenario that the current pair can't
-  show says so (for example "needs two rush specials").
-- **TOOLS**: time (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.), the dummy's behavior, record YOU and replay it on the
-  dummy, infinite meter, boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and strength, **CPU YOU** (you play
-  as the showman CPU with a combo persona, or AUTO; with DUMMY STAND every route the combo composer plans shows, and
-  the readout names the persona and the route), reset. ` hides the panel; the keyboard and touch controls still play YOU.
+- **SCENARIOS**: both fighters scripted, one line each (tap the name for the full description), in six groups:
+  - *Clashes*, smallest to biggest: melee clash chain, heavy beats light, special clash, beam clash, answer an energy
+    shot, beam clash from the air, ultimate clash, answer an ultimate (the dummy plays clashes at the TOOLS → CLASH level).
+  - *Defense* (the dummy attacks): hold back to block, parry, spot dodge, air dodge, backstep, break a throw.
+  - *Tech & escape* (the dummy gets out, ADR 0022 / 0028): hold Guard to tech, tech roll, timed tech off a spike, tech
+    too early (locked out), wall tech, wall-jump tech, burst, burst bait.
+  - *Combos* (ADR 0026): air combo, wall bounce, handball (3 wall bounces), vanish ping-pong, blue combo.
+  - *Fighter kits*: counter stance, Whirlwind vs attacks, Hollow Purple vs a projectile.
+  - *Look & feel*: counter hit (hit flash), attack alts, ground damage.
+
+  A scenario that the current pair can't show is dimmed and says why (for example "needs two rush specials"); the
+  chips count how many of each group play here. Single moves without a dummy reaction (wavedash, vanish, super dash,
+  a plain throw) are on MOVES.
+- **TOOLS**, in sections: *Time*: speed (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.); *Dummy*: its behavior, its
+  CLASH level, record YOU and replay it on the dummy; *You*: infinite meter and **CPU YOU** (you play as the showman
+  CPU with a combo persona, or AUTO; with DUMMY STAND every route the combo composer plans shows, and the readout
+  names the persona and the route); *Display*: boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and
+  strength; *Reset*. ` hides the panel; the keyboard and touch controls still play YOU.
 - Scripts are timelines on the fighter's pad (`src/lab/scripts.js`), built from the kit data, so new fighters and moves
-  appear without lab changes. Add a scenario to `SCENARIOS` when a new shared mechanic lands.
+  appear without lab changes. Add a scenario to `SCENARIOS` when a new shared mechanic lands, with a `group` from
+  `SCENARIO_GROUPS` and a one-line `brief`.
 
 ## Smoke test (every change)
 
