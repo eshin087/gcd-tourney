@@ -10,6 +10,8 @@
 //     files directly in raw/, so _qa_hold/, _rejected/, _parts/ never ship), or
 //   - fails the packer's strict scale gate (a dry run of `pack-sprites.mjs <id> --strict-scale` on the merge result,
 //     materialised in a scratch folder: nothing under art/ or public/ is ever written), or is shadowed by old hand edits.
+// It also refuses a fighter whose committed pack (public/characters/<id>/anims.json) the merge changes when that pack no
+// longer lists every animation main's pack lists (TOOL-061): one packed in a worktree that held only the new raws.
 // Only strips the branch changed can refuse: older mismatches on main (they exist) are listed as notes, so a branch is
 // never blamed for what it did not touch. `--force-art "<reason>"` overrides and records the reason in the merge commit.
 // A branch without art changes costs one `git diff --name-only`.
@@ -144,6 +146,39 @@ function changedStrips(root, base, head, paths) {
   return out;
 }
 
+// The animation names a committed pack lists: null when the tree has no such file, false when it does not parse.
+function packedNames(root, treeish, file) {
+  let text;
+  try { text = gitText(root, ['show', `${treeish}:${file}`]); } catch { return null; }
+  try { return Object.keys(JSON.parse(text.replace(/^\uFEFF/, '')).animations || {}); } catch { return false; }
+}
+
+// The packer writes only the animations it finds raws (or frames/) for, so a pack made in a worktree that held just the
+// new raws lists only those: art/normals-sasuke went from main's 44 animations to 9, and live Sasuke would have fallen
+// back to the placeholder. Every animation main's pack lists must still be in the merge result's pack (TOOL-061); names
+// compare exactly, since the game looks them up that way. Retiring one on purpose takes --force-art.
+function droppedAnims(root, base, head, paths) {
+  const out = [];
+  for (const p of paths) {
+    const id = /^public\/characters\/([^/_.][^/]*)\/anims\.json$/.exec(p)?.[1];
+    const was = id && packedNames(root, base, p);
+    if (!was || !was.length) continue; // not a pack, or a fighter main does not ship yet
+    const now = packedNames(root, head, p);
+    const kept = new Set(now || []);
+    const gone = was.filter((a) => !kept.has(a));
+    if (!gone.length) continue;
+    const list = `${gone.length} animation${gone.length === 1 ? '' : 's'} main ships (${gone.join(', ')})`;
+    const refusal = { id, anim: '*', kind: 'dropped', dropped: gone,
+      text: `the pack drops ${list}: it lists ${kept.size}, main ${was.length}`,
+      fix: `re-pack from a worktree with every raw (npm run pr -- art ${id}, then npm run sprites ${id}); retiring an animation on purpose takes --force-art "<reason>"` };
+    if (now === null) refusal.text = `the merge deletes ${p}: it drops all ${list}`;
+    if (now === false) Object.assign(refusal, { text: `${p} in the merge result does not parse (a merge conflict in the generated pack?): it drops all ${list}`,
+      fix: `merge main into the branch's worktree, then npm run sprites ${id} there` });
+    out.push(refusal);
+  }
+  return out;
+}
+
 // The version the packer would ship per animation: the highest raw/<anim>_vNN.png directly in raw/ (case-insensitive).
 function newestRaw(files, id) {
   const prefix = `art/characters/${id}/raw/`;
@@ -209,10 +244,12 @@ function scaleRun(root, head, ids) {
 const vv = (n) => (n == null ? '-' : `v${String(n).padStart(2, '0')}`);
 
 // -> { ok, skipped, changed: { id: [anim] }, refusals: [{ id, anim, kind, newest, approved, shipped, text, fix }], notes: [] }
+// (a 'dropped' refusal has anim '*' and dropped: [anim] instead of the versions)
 export function checkArt({ root, base = 'main', head, scale = true }) {
   const res = { ok: true, skipped: false, changed: {}, refusals: [], notes: [] };
   const paths = gitText(root, ['diff', '--name-only', '-z', '--no-renames', base, head, '--', ...WATCHED]).split('\0').filter(Boolean);
   if (!paths.length) { res.skipped = true; return res; }
+  res.refusals.push(...droppedAnims(root, base, head, paths));
   const strips = changedStrips(root, base, head, paths);
   const manifestH = showJson(root, head, 'art/manifest.json')?.characters || {};
   const scaleIds = [];
@@ -277,7 +314,8 @@ export function formatReport(res, branch = '') {
   const ids = Object.entries(res.changed).map(([id, a]) => `${id} (${a.length} strip${a.length === 1 ? '' : 's'})`).join(', ');
   L.push(`[pr] art guard: ${tag}changed ${ids || 'no judged strips'}`);
   for (const r of res.refusals) {
-    L.push(`[pr]   REFUSED ${r.id} ${r.anim}  newest ${vv(r.newest)}  approved ${vv(r.approved)}  (${r.kind})`, `[pr]     ${r.text}`, `[pr]     fix: ${r.fix}`);
+    const ver = r.dropped ? '' : `  newest ${vv(r.newest)}  approved ${vv(r.approved)}`;
+    L.push(`[pr]   REFUSED ${r.id} ${r.anim}${ver}  (${r.kind})`, `[pr]     ${r.text}`, `[pr]     fix: ${r.fix}`);
   }
   for (const n of res.notes) L.push(`[pr]   note: ${n}`);
   L.push(res.ok ? '[pr] art guard: passed' : `[pr] art guard: ${res.refusals.length} refusal(s)`);
@@ -286,6 +324,7 @@ export function formatReport(res, branch = '') {
 
 // the merge commit paragraphs that record a --force-art override
 export function overrideMessage(branch, reason, res) {
-  const list = res.refusals.map((r) => `${r.id} ${r.anim} (${r.kind}; newest ${vv(r.newest)}, approved ${vv(r.approved)})`).join('; ');
+  const list = res.refusals.map((r) => (r.dropped ? `${r.id} (dropped ${r.dropped.length}: ${r.dropped.join(', ')})`
+    : `${r.id} ${r.anim} (${r.kind}; newest ${vv(r.newest)}, approved ${vv(r.approved)})`)).join('; ');
   return [`Merge branch '${branch}'`, `art guard override (--force-art): ${reason}`, `Overrode: ${list}`];
 }
