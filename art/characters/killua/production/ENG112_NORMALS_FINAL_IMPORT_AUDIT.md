@@ -24,3 +24,9 @@ The seven successfully fitted strips preserve cell margins: fair f2/f3 x=97–24
 ## Disposition
 
 HOLD. Do not ship or represent the guard as passing. A user decision is needed on new source candidates for uTilt, uSmash and uair; dSmash also needs a defensible full-body measurement before final clearance. Approved visual sources remain preserved unchanged.
+
+## Relay combat #24 ship-order follow-up
+
+User decision: first merge only fTilt, dTilt, dashAttack, fSmash, fair, bair v02 and dSmash v03; uTilt/uSmash/uair use existing stand-ins on this branch and continue separately. Moved the approved v02 sources and sidecars unchanged to `raw/_qa_hold/`; older v01 raws were also held because the packer otherwise selected them instead of stand-ins.
+
+Repacked the whole character: 51 animations, 230 frames, 48 colors; three deferred normals are absent and therefore use game fallbacks. Added frame-local contact overrides measured from the final quantized cells: fTilt f2/f3 target the fist, bair f2/f3 target the leftward striking shoe, and dSmash f3/f4 target both low shoes. The `hitboxes.json` `_scale` values match each fitted atlas strip so the packer does not transform these final-cell coordinates a second time. Review crops and red-box overlays are in `public/reviews/normals-killua/ship-seven/`.
