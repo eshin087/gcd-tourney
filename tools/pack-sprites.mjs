@@ -1154,7 +1154,8 @@ function normalizeManifest(raw) {
     else if (typeof v.colorRule === 'string') e.tinted = /tint|white/i.test(v.colorRule);
     else if (typeof v.color === 'string') e.tinted = /white|tint/i.test(v.color);
     if (typeof v.fill === 'number') e.fill = v.fill;
-    for (const k of ['lumaAlpha', 'baseX']) if (typeof v[k] === 'boolean') e[k] = v[k];
+    // hd / tile: an effect the packer's table does not know yet (a new signature effect) still gets its page and tiling
+    for (const k of ['lumaAlpha', 'baseX', 'hd', 'tile']) if (typeof v[k] === 'boolean') e[k] = v[k];
     if (v.anchor === 'bottom' || v.bottomAnchored === true) e.anchor = 'bottom';
     else if (v.anchor === 'center') e.anchor = 'center';
     if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) e.approvedVersion = v.approvedVersion;

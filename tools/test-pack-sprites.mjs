@@ -349,6 +349,10 @@ function makeFixtures() {
       rect(lg, cx - (wdt / 2) * s4, floor - hgt * s4, wdt * s4, hgt * s4, [140, 90, 50], rand);
     });
     savePng(path.join(V, 'raw', 'subLog_v01.png'), lg);
+    // newHd: an HD effect only the manifest names ("hd": true), not the packer's table: two blue squares
+    const nh = image(2 * 80 * s4, 90 * s4, [255, 0, 255], rand);
+    [16, 28].forEach((wdt, k) => rect(nh, (40 + k * 80 - wdt / 2) * s4, (45 - wdt / 2) * s4, wdt * s4, wdt * s4, [60, 130, 240], rand));
+    savePng(path.join(V, 'raw', 'newHd_v01.png'), nh);
   }
 
   // crowd (ADR 0008): one raw per spectator, 3 poses (idle, cheer, shocked) on a 1536 x 1024 magenta canvas
@@ -429,7 +433,8 @@ function makeFixtures() {
     },
     // world art is approval-gated: every fixture effect is approved (spark at v02, its highest version)
     vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: 2 }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo', approvedVersion: 1 },
-      orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 }, subLog: { approvedVersion: 1 } } },
+      orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 }, subLog: { approvedVersion: 1 },
+      newHd: { frames: 2, ms: 50, colorRule: 'fullColor', anchor: 'center', fill: 0.5, hd: true, approvedVersion: 1 } } },
     worldArt: { crowd: { batches: {
       'crowd-testers-01': { status: 'approved', items: { 'c-001': { approvedVersion: 1 }, 'c-002': { approvedVersion: null }, 'c-003': { approvedVersion: 1 }, 'c-004': { approvedVersion: 1 }, 'c-005': { approvedVersion: 1 }, 'c-006': { approvedVersion: 1 } } },
       'crowd-testers-01-r1': { status: 'approved', items: { 'c-003': { approvedVersion: 2 } } },
@@ -629,9 +634,11 @@ function main() {
     check(!anyWarn(rep.vfx.warnings, /spark/), 'vfx: versioned spark files accepted silently');
     // HD effects (ADR 0044) go to their own 256 px page: the 128 px atlas above keeps its 6 rows
     const hd = am.hd, hdImg = fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && loadPng(path.join(OUT, 'vfx', 'atlas_hd.png'));
-    check(hd?.image === 'atlas_hd.png' && hd.cell === 256 && hd.ppu === 112 && hd.rows === 1 && hd.anims.subLog?.row === 0 && hd.anims.subLog.n === 5 && hd.anims.subLog.ms === 70 && !am.anims.subLog,
+    check(hd?.image === 'atlas_hd.png' && hd.cell === 256 && hd.ppu === 112 && hd.rows === 2 && hd.anims.subLog?.n === 5 && hd.anims.subLog.ms === 70 && !am.anims.subLog,
       `atlas.json hd block (${JSON.stringify(hd && { cell: hd.cell, ppu: hd.ppu, rows: hd.rows, subLog: hd.anims.subLog })})`);
-    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 256, `atlas_hd.png ${hdImg?.w}x${hdImg?.h}`);
+    // a manifest-only "hd": true keeps the effect on the HD page (the manifest normalizer once dropped the flag)
+    check(hd?.anims.newHd?.n === 2 && !am.anims.newHd, `manifest-only HD effect on the HD page (${JSON.stringify(hd?.anims.newHd)}, standard page: ${!!am.anims.newHd})`);
+    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 2 * 256, `atlas_hd.png ${hdImg?.w}x${hdImg?.h}`);
     if (hdImg) {
       const lb = [0, 1, 2, 3, 4].map((i) => bb(cell(hdImg, i, 256, 5)));
       const big = Math.max(...lb.map((b) => Math.max(b.w, b.h)));
