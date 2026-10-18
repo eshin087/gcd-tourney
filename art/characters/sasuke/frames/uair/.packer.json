@@ -1,0 +1,27 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/uair_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/uair_v01.png"
+  ],
+  "sourceHash": "5f2599ad438a4c98db2d83ff4ecb734e2f6a1985",
+  "bodyHeight": 213,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "uair_00.png": "ae537143067ecb8e7ec48fa7eec5e6abb20cc92e",
+    "uair_01.png": "af3bf1b206f5948c88856bfdcc67103f78dae27b",
+    "uair_02.png": "b0e11e5018ac9002fee0b292f9e40c8f99c82155",
+    "uair_03.png": "1396c70fc57a98528ea40216083dadcb0ec86173",
+    "uair_04.png": "6851009b642ce5c4d83ea7603050b7fe749622f6",
+    "uair_05.png": "b70dd9a8ab60aee3732aa14f394b650a01be3337"
+  }
+}

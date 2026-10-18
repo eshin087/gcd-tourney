@@ -902,10 +902,16 @@ export class Game {
         lines = Math.max(lines, chargeTick(this, f, f.t, frozen)); // canon power-up per fighter (ENG-069)
         this.linesFocus = f;
       } else if (f.state === 'beamCharge') {
-        this.fx.auraTick(f, 1.8, this.cam.right);
+        // a beam with a `gather` (Naruto's Tailed Beast Ball) draws its chakra converging instead of the ki aura
+        if (f.def.beam?.gather) this.fx.gatherTick(f, f.def.beam.gather, Math.min(1, f.t / (f.windup || 1)), frozen);
+        else this.fx.auraTick(f, 1.8, this.cam.right);
         lines = 1;
         this.linesFocus = f;
-      } else if (f.state === 'beamFire') this.fx.auraTick(f, 0.6, this.cam.right);
+      } else if (f.state === 'beamFire') {
+        if (f.def.beam?.gather) this.fx.dropGather(f);
+        if (f.def.beam?.muzzle && f.beam && !f.beam.dead && !frozen) this.fx.muzzleTick(f, f.beam, f.def.beam.muzzle);
+        if (!f.shroud) this.fx.auraTick(f, 0.6, this.cam.right);
+      }
       else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0); // a thin aura behind the body: the flames and streaks hid it
       const held = f.state === 'clash' ? this.clashHand(f) : null;
       if (f.state === 'attack' && f.move?.fx) {

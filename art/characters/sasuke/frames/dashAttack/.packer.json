@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/dashAttack_v03.png",
+  "version": 3,
+  "source": [
+    "characters/sasuke/raw/dashAttack_v03.png"
+  ],
+  "sourceHash": "f553ea0793ff3bc1486a77338e274eb58561fb85",
+  "bodyHeight": 193,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "dashAttack_00.png": "56ce9019f693a776ec30126e03467cc1459b5a48",
+    "dashAttack_01.png": "023d26c4481bae4a5a2f892ba6522fe4c662691d",
+    "dashAttack_02.png": "18b2df4768311d977c01c61ade7fbc6edff66f69",
+    "dashAttack_03.png": "667c49bee9a4988b5c82a71327c0e3813d46effc",
+    "dashAttack_04.png": "7e4d06511f4d91152ac26b92e6ea9904d009ce16",
+    "dashAttack_05.png": "4b34e848344755c6b4744dfda98b6a9070c2ba95",
+    "dashAttack_06.png": "2da9013d63e1fbbd17a49eb72c2b88706cc5b1c0"
+  }
+}

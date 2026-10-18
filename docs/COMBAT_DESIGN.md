@@ -36,7 +36,7 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 
 | Character | speed | power | defense | special | projectile | ultimate |
 |---|---|---|---|---|---|---|
-| Naruto | 5.9 | 1.0 | 1.0 | Rasengan | Shuriken ×3 | Four-Tails |
+| Naruto | 5.9 | 1.0 | 1.0 | Rasengan | Shuriken ×3 | Four-Tails: Tailed Beast Ball (beam) |
 | Sasuke | 6.2 | 1.05 | 0.95 | Chidori | Fireball | Amaterasu |
 
 ## Controls (default bindings, rebindable)
@@ -270,11 +270,12 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Flurry** (`speedOfLightning`, Killua's Godspeed: Speed of Lightning; `shadowCloneBarrage`, Naruto): a 34-frame flash, then a 14-frame dash
   (range 6.5). On contact the opponent is `held` and the fighter teleports around them (8 × 22 for Killua), then a
   130 slam from above with a ground bounce. It whiffs if the dash misses.
-- **Shadow Clone Barrage** (Naruto, a flurry with `crew`, ADR 0044): six clones poof out round him as he dashes and
-  close in on the target from every side. Caught, they take turns striking it (5 × 18, Naruto among them), four clones
-  kick it skyward one after another (4 × 14, "U! ZU! MA! KI!"), and Naruto drops on it from above with a big Rasengan
-  (130, ground bounce). Same dash, range and catch as the plain flurry; a whiff poofs every clone away. The clones are
-  drawn only: every hit is Naruto's.
+- **Shadow Clone Barrage** (Naruto, a flurry with `crew`, ADR 0044): he dashes in alone and lands the first blow
+  (13), then holds the seal while 8 clones come one at a time, one every 5 frames: each poofs in on its own side of
+  the target, plays its own attack (punch, flying kick, uppercut, roundhouse, heel drop...) and poofs out (8 × 13).
+  Four clones then kick it skyward one after another (4 × 12, "U! ZU! MA! KI!"), and Naruto drops on it from above
+  with a big Rasengan (120, ground bounce). Same dash, range and catch as the plain flurry. The clones are drawn only:
+  every hit is Naruto's.
 - **Sky strike** (`kirin`, Sasuke): a 40-frame flash, then the storm **marks the spot** where the opponent
   stands and a lightning dragon hits it 40 frames later (280, unblockable, radius 2). The opponent can dash
   out of the mark ("DODGED!"). Uses Sasuke's `beamCharge` / `beamFire` poses.
@@ -285,19 +286,15 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - A fighter without a second super fires their ultimate from SUPER.
 
 ### Non-beam ultimates (`kit.ultimate`, ADR 0017)
-- Heavy + Special fires the shared beam only for a fighter without a `kit.ultimate`; the cast keeps one beam at most
-  (Goku's Kamehameha). Every other ultimate is a `SUPERS` entry of its own kind, started with `kitState.ultimate`.
+- Heavy + Special fires the shared beam for a fighter without a `kit.ultimate` (Goku's Kamehameha; Naruto's Tailed
+  Beast Ball since the user's call of 2026-10-18, ADR 0045). Every other ultimate is a `SUPERS` entry of its own kind,
+  started with `kitState.ultimate`.
 - **Hollow Purple** (Gojo, kind `orb`): a 46-frame flash, then Red (near hand) and Blue (far hand) drift together
   for 26 frames and fuse 0.9 ahead of him; the orb (radius 1.45) rolls forward at 15 units/s for up to 2.4 s,
   erases the opponent's projectiles and vortices, carves a trench, and hits once for 260 (unblockable, unscaled,
   wall bounce). Gojo recovers 24 frames after the release. Avoid it by leaving its lane or vanishing.
-- **Four-Tails** (Naruto, kind `rampage`): a 46-frame flash in the four-tailed shroud, a 16-frame roar, then a pounce
-  at 20 units/s for up to 8 units (26 frames), committed to the line chosen as the roar starts (3 % steering per
-  frame). A catch holds them for 3 claw slams of 45 every 13 frames and a 120 chakra roar into the barrier (minScale
-  0.9, ~255 in all); a whiff leaves him open for 34 frames. During the flash the red-black chakra swallows him from
-  the feet up (the body shader's `engulf`, ADR 0044); when the move ends it bursts off him. Until Codex's shroud frames
-  are approved, the roar and slams use his `specialDown` crouch and the pounce `dash`, drawn as a boiling silhouette
-  with four chakra tails.
+- **Rampage** (kind `rampage`, ADR 0017): a roar, a pounce on all fours committed to its line, a mauling for what it
+  catches. Naruto's old Four-Tails; no fighter uses it since ADR 0045, the kind stays for a future one.
 - **Godspeed: Whirlwind** (Killua, kind `reflex`): a 40-frame flash, then for 300 frames his body answers up to 4
   blockable strikes or shots by itself (`Fighter.takeHit` → `kit.reflexCounter`): the hit misses, a melee attacker
   is held for 12 frames, he blinks behind the attacker (the thrower, for a shot) and lands the Rhythm Echo strike
@@ -380,15 +377,20 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - Each new bar still fires `Game.onChargeBar` ("MAX POWER!" with a louder chime on the last one).
 
 ### Ultimate, super flash and ultimate clash
-- The shared beam below is the ultimate of a fighter without a `kit.ultimate` (none in the current cast; Goku's
-  Kamehameha next).
+- The shared beam below is the ultimate of a fighter without a `kit.ultimate` (Goku's Kamehameha, Naruto's Tailed
+  Beast Ball).
+- **Four-Tails: Tailed Beast Ball** (Naruto, ADR 0045): the shared beam in the four-tailed shroud. Through the flash
+  the red-black chakra swallows him from the feet up (`def.beam.flashPose` held, `shroud`); the fox roars as the
+  charge starts, red and blue chakra converge into a dark ball at its mouth (`gather`), and the beam (width 1.7, red
+  and white) leaves the mouth with shock rings running down it (`muzzle`). The shroud bursts off him when it ends.
+  `beamCharge` v17 is the fox gathering, `beamFire` v15 the fox firing; their `hand` anchors sit on the mouth.
 - **Heavy + Special** (5-frame buffer), 3 bars. 46-frame windup (14 when answering, see below), invulnerable
   through the windup. A 42-frame super flash with a cut-in strip (`cutin.png` or the baked eye strip), stage dim
   72%, focus camera.
 - The beam travels at 34 u/s up to 26 units long, ticks 12 dmg every 5 frames, and adds 130 on the final hit.
-- **Answering an ultimate:** firing yours into the opponent's running beam, Hollow Purple or Four-Tails (started on
-  an earlier frame) gives a 20-frame flash ("COUNTER!") and a short windup: the beam's 14 frames, Purple merges in
-  8 (`answerMerge`), the Four-Tails roar is 6 (`answerRoar`). Then the two can meet.
+- **Answering an ultimate:** firing yours into the opponent's running beam or Hollow Purple (started on an earlier
+  frame) gives a 20-frame flash ("COUNTER!") and a short windup: the beam's 14 frames, Purple merges in 8
+  (`answerMerge`), a rampage's roar is `answerRoar`. Then the two can meet.
 - **Ultimate clash** (a rhythm duel, ADR 0017, `src/game/clash.js`): two clashable ultimates (beam, orb, rampage)
   that meet head-on lock where they met. A beam still charging or a Purple still merging can be met too; it goes
   off on the spot. Both fighters are invulnerable; the round timer stops.

@@ -108,7 +108,9 @@ Strike height zones on a same-size opponent: **HIGH** (face) y 58-90 · **MID** 
   larger budget is for realistic form shading on skin, hair and the main cloth, not for noise.
 - **1 px dark outline**; selective or colored outlines (darker shade of the fill) are welcome.
 - **Palette <= 48 colors per character** (the packer warns above 64), built from the character's hex
-  palette (`art/characters/<id>/CHARACTER.md`). Same colors in every frame.
+  palette (`art/characters/<id>/CHARACTER.md`). Same colors in every frame. A strip drawn in colours the fighter
+  never uses (a transformation: Naruto's crimson Four-Tails fox) can keep its own share of the 48 with the
+  manifest's `paletteReserve` (ADR 0046).
 - Same design, size and proportions in every frame. Details that are hard to keep consistent
   (logos, tiny symbols) should be simplified to a few clear pixels.
 - **Smear frames** are drawn as solid shapes in the limb's colors (or a pale tint of them), never as
@@ -775,8 +777,7 @@ strip is split at empty columns, or by the expected frame count. It removes the 
 background (corner color / magenta, flood fill from the edges plus near-magenta pixels), trims,
 downscales with palette-preserving "mode" sampling so the tallest frame equals `bodyHeight` (times the fighter's
 `packScale`, ADR 0041: a whole fighter resized against the cast, its `frameOffsets` and `hitboxes.json` points with it; a
-strip's own `animations.<anim>.packScale` multiplies it for one strip drawn at the wrong size). `--quantize 48 --keep-palette`
-keeps the current sheet's palette and each colour's previous choice, so a repack that resizes one strip changes no other
+strip's own `animations.<anim>.packScale` multiplies it for one strip drawn at the wrong size)
 (nearest-neighbor if upscaling, with a warning), puts the feet center (mean x of opaque pixels in the
 bottom 20 % of rows) on x 128 and the lowest opaque pixel on y 240, and writes 256x256 cells into the
 16-column sheet (16 rows per page; past 256 frames `sheet2.png` ..., [Sheet pages](#sheet-pages)). It computes boxes,
@@ -785,6 +786,13 @@ applies `hitboxes.json`, writes cleaned frames back to `frames/<anim>/` when the
 fits and copies `ui/*.png`, and prints a report (packed animations and source files, missing core
 animations, frame-count mismatches, frames clipped by the cell margin, palettes over 64 colors, attack alts whose frame
 count, phases or strike differ from their base's: [Attack alts](#attack-alts)). Missing folders never crash it.
+
+**Palette** (`--quantize 48`): one median cut over all of a fighter's strips, so every frame shares its colours.
+`--quantize 48 --keep-palette` keeps the current sheet's palette and each colour's previous choice, so a repack that
+resizes one strip changes no other (ADR 0041). A strip drawn in colours the rest never uses (a transformation) gets
+its own share with the fighter's `paletteReserve` (`{ "<group>": { "colors": n, "animations": [...] } }`,
+[ADR 0046](../docs/decisions/0046-palette-reserve.md)): n colours cut from those strips' own pixels, while the shared
+palette gives up the n entries the other strips need least (merged into their nearest neighbours).
 
 Packer-written `frames/<anim>/` folders carry a `.packer.json` marker: they are re-imported
 automatically when the chosen raw file changes (a new `_vNN` counts as a change). Delete

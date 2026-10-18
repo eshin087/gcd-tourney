@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
-import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH, NORMALS, AIR } from './moves.js';
+import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH, NORMALS, AIR, CLASH } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
 import { Pad, CSTICK } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -26,6 +26,8 @@ const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.s
 // ADR 0022: leaving one of these opens the REVERSAL window; starting one of the actions inside it is a reversal
 const STUN_STATES = new Set(['hitstun', 'launched', 'down', 'block', 'getup', 'airRecover', 'techRoll', 'impactTech', 'held']);
 const REVERSAL_STATES = new Set(['attack', 'kit', 'throw', 'vanish', 'superDash', 'beamCharge']);
+// the states an ultimate's shroud (kit.beginShroud) lasts through
+const SHROUD_STATES = new Set(['kit', 'clash', 'beamCharge', 'beamFire']);
 // A KO'd body lies up to about 2 units long (254 px / 128 ppu) across the screen. Within half that of the ring edge it
 // would rest with its head or feet hanging over the drop (or sunk in the lip), so it keeps sliding off onto the grass.
 const KO_EDGE = 1.0;
@@ -170,6 +172,9 @@ export class Fighter {
 
   // --------------------------------------------------------------- helpers
   setState(s, anim = s) {
+    // knocked out of an ultimate (a lost clash launches him during its freeze, before an update could): the shroud
+    // ends with it (kit.tickShroud ends the other ways)
+    if (this.shroud && !SHROUD_STATES.has(s)) kit.endShroud(this);
     if (this.state === 'attack' && s !== 'attack') {
       this.endMoveFx();
       this.mirrorPose = false;
@@ -442,7 +447,14 @@ export class Fighter {
     this.invuln = this.windup + 8;
     this.vel.set(0, 0, 0);
     this.faceOpponent();
+    const B = this.def.beam;
     this.actor.play('beamCharge', true);
+    // a transformation (def.beam.shroud): the chakra swallows him through the flash in `flashPose`, then the charge
+    if (B?.flashPose) {
+      this.actor.play(B.flashPose, true);
+      if (B.flashPhase != null) this.actor.setPhase(B.flashPose, B.flashPhase, 0.5);
+    }
+    if (B?.shroud) kit.beginShroud(this, B.shroud, counter ? CLASH.answerFlash : ULTIMATE.flash);
     audio.play('beamCharge');
     this.game.onUltimateStart(this, counter);
   }
@@ -1415,6 +1427,11 @@ export class Fighter {
       }
       case 'beamCharge':
         this.vel.multiplyScalar(0.5);
+        if (this.def.beam?.flashPose && this.actor.animName === this.def.beam.flashPose) {
+          // the flash is over: the transformation completes with a roar, and the charge pose takes over
+          this.actor.play('beamCharge', true);
+          if (this.def.beam.shroud) this.game.fx.spawn('fourTailsRoar', this.pos.x, this.pos.y + 0.8, this.pos.z, { scale: 1.1, order: 8, depthTest: false });
+        }
         if (this.t < this.windup - 4) this.faceOpponent();
         if (this.t >= this.windup) {
           this.setState('beamFire');
@@ -2157,7 +2174,7 @@ export class Fighter {
       const cs = chargeStyle(this);
       u.flashColor.value.copy(cs.tint);
       flash = Math.max(flash, cs.bodyTint);
-    } else if (this.state === 'beamCharge' || this.smashCharging) {
+    } else if ((this.state === 'beamCharge' && !this.shroud) || this.smashCharging) {
       u.flashColor.value.set(this.def.color);
       flash = Math.max(flash, 0.12 + 0.1 * dmath.sin(time * 30));
     } else u.flashColor.value.set(0xffffff);

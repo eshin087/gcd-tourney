@@ -516,10 +516,11 @@ export class Vortex {
     const grow = Math.min(1, this.t / 8) * (this.t > m.len - 6 ? Math.max(0, (m.len - this.t) / 6) : 1);
     const C = this.colors;
     if (m.dome) {
-      // the Rasenshuriken's sphere of wind blades (ENG-SKL-NAR): f0-f1 open it, f2-f4 loop while it grinds, f5-f7 end it
+      // the Rasenshuriken's sphere of wind blades (ENG-SKL-NAR): f0-f1 open it, the two full spheres (f2-f3) loop while it
+      // grinds, and f4-f7 break it apart as it ends (Codex's dome already starts breaking on f4)
       const it = fx.keep(this.id, m.dome, p.x, p.y, p.z, { scale: 0.95 * Math.max(0.35, grow), order: 8, glow: 0 });
       const left = m.len - this.t;
-      it.frame = this.t < 4 ? (this.t < 2 ? 0 : 1) : left < 8 ? 5 + Math.min(2, Math.floor((8 - left) / 3)) : 2 + (Math.floor(this.t / 3) % 3);
+      it.frame = this.t < 4 ? (this.t < 2 ? 0 : 1) : left < 10 ? 4 + Math.min(3, Math.floor((10 - left) / 2.5)) : 2 + (Math.floor(this.t / 3) % 2);
       fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 1.6 * grow, color: C.glow, opacity: 0.2, order: 3, glow: 0.3 });
     } else {
       fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: 0.25 + 1.0 * grow, color: C.orb, order: 8, glow: 0.9 });

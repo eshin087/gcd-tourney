@@ -1,0 +1,3 @@
+Call 1 and call 2 used earlier prompt variants; their outputs could not be retained due to capture handling. Selected output is call 3 (3/3).
+
+One wide landscape pixel-art VFX sprite strip, exactly 8 equal square frames in one horizontal row on flat #FF00FF. HD hard-edged pixels, maximum 16 hard colors, no text, blur, gradients, anti-aliasing, noise, borders. Centered with good margin. A face-on slightly perspective tilted Wind Style Rasenshuriken, bright white-cyan core about 70px, flat white ring about 120px, four large curved shuriken-point wind blades of white and pale blue #BFE6FF, overall about 230px across within 256px cell. Blade set rotates 11.25 degrees each frame, seamlessly from frame 7 to 0. Exact 8-cell looping strip.

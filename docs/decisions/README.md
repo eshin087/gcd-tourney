@@ -69,6 +69,8 @@ when a decision should be revisited.
 | [0042](0042-smash-directional-normals.md) | Smash-style directional normals: the stick picks tilts, smash attacks (charged) and forward / back / up airs; only the jab strings chain, the rest link; short hop, double jump, fast fall, facing held through a jump; the DBFZ juggle kept; stand-in strips until the art; CPUs keep their moves until ENG-111 | Accepted |
 | [0043](0043-fast-boot-and-loading-screen.md) | Title first, the rest behind it: boot loads only the title art and fighter metadata (~0.5 MB), the fighters and world art load in parallel behind the title and fights wait for them (`whenLoaded`); plain art URLs revalidated by ETag instead of `?v=<now>`; a byte-weighted loading bar; portrait phones see the logo and title art | Accepted |
 | [0044](0044-signature-techniques.md) | Signature techniques: 256 px HD effect cells on their own page (`atlas_hd.png`), shadow clones as `kitState.crew` data drawn by `CloneCrew`, cloaks (`ChakraShroud`) and transformations (`engulf`) drawn on the body, a rush special's own `blastFx` | Accepted |
+| [0045](0045-naruto-four-tails-beam.md) | Naruto's ultimate is the Four-Tails beam (Tailed Beast Ball): the shared beam with the transformation as `def.beam` data (`flashPose`, `shroud`, `gather`, `muzzle`); amends ADR 0017's one-beam rule (user decision) | Accepted |
+| [0046](0046-palette-reserve.md) | `paletteReserve` in the manifest gives strips drawn in other colours (a transformation) their own share of a fighter's 48 colours, taken from the shared entries the other strips need least; Naruto's Four-Tails fox reserves 8 | Accepted |
 
 ## Template
 

@@ -9,6 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "dev:alt": "vite --port 5200",
+    "dev:capped": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 node node_modules/vite/bin/vite.js",
+    "devs": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/dev-servers.ps1",
     "sprites": "node tools/pack-sprites.mjs",
     "review:export": "node tools/export-art-review.mjs",
     "test:sprites": "node tools/test-pack-sprites.mjs",
