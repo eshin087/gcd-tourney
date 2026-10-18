@@ -541,9 +541,9 @@ function tick(dt) {
   if (++statusT % 6 === 0) paintStatus();
 }
 
-const ready = new Promise((r) => setTimeout(r, 30)).then(() => game.init());
+// the lab starts in training at once: its loading screen stays up until every fighter is in (ENG-102)
+const ready = game.init({ waitAll: true }).then(() => game.assetsReady);
 ready.then(() => {
-  document.getElementById('loading')?.classList.add('done');
   start();
   requestAnimationFrame(loop);
 });

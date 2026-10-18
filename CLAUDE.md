@@ -481,7 +481,9 @@ Read this rule from main alongside the mandatory Claude handoff check; it applie
 
 - `step()` sets `window.__manualStep = true`, which stops the rAF loop from driving the game. Call
   `resumeLoop()` before testing in real time.
-- Startup bakes every fighter on the main thread (blocking). Keep the bake under ~1 s per character.
+- Startup shows the title after the title art and the fighters' anims.json only; sheets and world art load behind it
+  (ADR 0043). Code that needs fighters right after `game.init()` waits for `game.assetsReady` or uses `whenLoaded`.
+  A fighter without a complete pack is baked on the main thread (blocking): keep the bake under ~1 s per character.
 - Gamepads only take control after one of their buttons is pressed (`InputManager.activeGamepads`).
 - Audio needs a user gesture (first pointerdown/keydown calls `audio.init()`). `M` toggles mute.
 - The renderer draws into a small buffer (360 px tall at 1080p; integer scale = round(height / 340)) and upscales with nearest-neighbor. Sub-pixel jitter in

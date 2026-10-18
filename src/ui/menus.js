@@ -370,6 +370,7 @@ export class Menus {
 
   // mode: 'solo' | 'versus' | 'cpu' | 'training'. onBack overrides where Esc on the first pick goes.
   charSelect(mode, onBack = null) {
+    if (!this.game.loaded) return this.game.whenLoaded(() => this.charSelect(mode, onBack)); // it shows every fighter's art
     this.clear();
     this.screen = 'chars';
     this.root.classList.add('char-screen');

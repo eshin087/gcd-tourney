@@ -726,7 +726,7 @@ counted; a late joiner fast-forwards about 650 frames and then watches about 20 
 | VFX atlas | ≤ 2048 × 2048 px | packer report |
 | Live effects | no unbounded growth in `game.fx.items`, ghosts or decals over a soak | check the array lengths before and after a soak |
 | Ground damage | ≤ 40 floor decal meshes, ≤ 8 permanent marks, ≤ 128 rim chunks, ≤ 20 slabs, ≤ 4 barrier cracks and 4 wall holes, ≤ 4 decal pages per match | `game.fx.ground.stats()` during a soak (track the maximum of each) |
-| Boot | menu interactive in < 3 s with 2 characters on a warm cache | stopwatch or Performance panel |
+| Boot | title screen after < 1 MB on a cold cache (the title art and anims.json only, ADR 0043); a repeat visit downloads only what a deploy changed | `performance.getEntriesByName('gcd:title')` / `'gcd:loaded'` and the resource list in the console (ENG-102) |
 
 When adding characters, remember the bake is per roster entry at boot. Past ~6 placeholder characters,
 consider lazy baking on select (a roadmap item).

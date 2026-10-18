@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ENG-102): faster first load. The title shows after ~0.5 MB (title art and fighter metadata) instead of all 31.5 MB of art; fighters, crowd, stage and effects load in parallel behind it, and a fight waits for them on the loading screen. Art is requested by its plain URL (ETag revalidation) instead of `?v=<now>`, so a repeat visit downloads ~30 kB instead of 31 MB. A real loading bar (byte-weighted, title art and logo behind it) replaces "BAKING FIGHTERS...", and portrait phones see the logo and title art above a smaller rotate hint (ADR 0043).
 - Changed (ART-SIZE-R7): recorded the Codex independent audit of 230 packed fighter strips on `art/size-r7-codex` (`903b9b63`); Claude will reconcile measurements and provide the redraw list.
 - Changed (ENG-101): lab layout pass. TOOLS rows line up (a label column, options wrap beside it, short notes); SCENARIOS show as two columns of cards capped at two lines, the open card's description spanning both columns under its row; ANIMATIONS fit on one screen, one compact row per group with each alt strip as an `alt` chip beside its base. The panel is a little wider (420 px).
 
