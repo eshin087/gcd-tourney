@@ -250,7 +250,8 @@ options
   --guide <file>    animation guide module (default: src/art/animGuide.js)
   --dry-run         analyse and report, write nothing
   --no-writeback    do not write cleaned frames back to art/.../frames/<anim>/
-  --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 48
+  --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 48; a fighter's
+                    "paletteReserve" in the manifest gives the strips it lists their own share of the n (ADR 0046)
   --keep-palette    with --quantize: snap to the colours of the character's current sheet.png instead of a new median
                     cut, so a pack that resizes one strip leaves every other strip byte for byte (ADR 0041)
   --tolerance <n>   background color tolerance (RGB distance, default 72)
@@ -1141,7 +1142,22 @@ function normalizeManifest(raw) {
       if (ps >= 0.5 && ps <= 1.5) packScale = ps;
       else m.specIssues.push(`characters.${id}.packScale is ${JSON.stringify(c.packScale)} - must be a number 0.5-1.5; using 1`);
     }
-    m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? Math.round(sb * packScale) : null, packScale };
+    // paletteReserve: strips drawn in colours the rest of the fighter never uses (a transformation) get their own share of
+    // the --quantize palette instead of being snapped to his usual colours (ADR 0046)
+    const paletteReserve = [], reserved = new Set();
+    for (const [name, g] of entries(c.paletteReserve)) {
+      const colors = Number(g.colors), list = Array.isArray(g.animations) ? g.animations.filter((a) => typeof a === 'string' && a) : [];
+      if (!Number.isInteger(colors) || colors < 1 || colors > 32 || !list.length) {
+        m.specIssues.push(`characters.${id}.paletteReserve.${name} must be { "colors": 1-32, "animations": ["<anim>", ...] } - ignored`);
+        continue;
+      }
+      const twice = list.filter((a) => reserved.has(a));
+      if (twice.length) m.specIssues.push(`characters.${id}.paletteReserve.${name}: ${twice.join(', ')} already in another group - kept there`);
+      const own = [...new Set(list.filter((a) => !reserved.has(a)))];
+      own.forEach((a) => reserved.add(a));
+      if (own.length) paletteReserve.push({ name, colors, animations: own });
+    }
+    m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? Math.round(sb * packScale) : null, packScale, paletteReserve };
   }
   const vfx = raw.vfx?.effects ?? raw.vfx ?? raw.effects;
   for (const [name, v] of entries(vfx)) {
@@ -1962,13 +1978,25 @@ function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = n
 
 // Median-cut palette over all opaque pixels, then snap every pixel to it.
 function quantizeFrames(cells, n, fixed = null, learned = null) {
+  if (fixed) return mapToPalette(cells, fixed, learned);
+  const colors = colourCounts(cells);
+  if (colors.size <= n) return colors.size;
+  return mapToPalette(cells, medianCut(colors, n));
+}
+
+// opaque colour (0xRRGGBB) -> pixel count, in the order the pixels are met
+function colourCounts(cells) {
   const colors = new Map();
   for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
     const k = (c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2];
     colors.set(k, (colors.get(k) || 0) + 1);
   }
-  if (fixed) return mapToPalette(cells, fixed, learned);
-  if (colors.size <= n) return colors.size;
+  return colors;
+}
+
+// n colours for a colour -> count map (its own colours when it has no more than n)
+function medianCut(colors, n) {
+  if (colors.size <= n) return [...colors.keys()].map((k) => [k >> 16, (k >> 8) & 255, k & 255]);
   let boxes = [[...colors.entries()].map(([k, cnt]) => [k >> 16, (k >> 8) & 255, k & 255, cnt])];
   while (boxes.length < n) {
     let bi = -1, bestRange = -1, ch = 0;
@@ -1987,12 +2015,116 @@ function quantizeFrames(cells, n, fixed = null, learned = null) {
     for (let i = 0; i < bx.length - 1; i++) { acc += bx[i][3]; if (acc >= total / 2) { cut = i + 1; break; } }
     boxes.splice(bi, 1, bx.slice(0, cut), bx.slice(cut));
   }
-  const palette = boxes.map((bx) => {
+  return boxes.map((bx) => {
     let r = 0, g = 0, b = 0, t = 0;
     for (const p of bx) { r += p[0] * p[3]; g += p[1] * p[3]; b += p[2] * p[3]; t += p[3]; }
     return [Math.round(r / t), Math.round(g / t), Math.round(b / t)];
   });
-  return mapToPalette(cells, palette);
+}
+
+// --quantize with a paletteReserve (ADR 0046). A strip drawn in colours the rest of the fighter never uses (Naruto's
+// crimson Four-Tails fox) loses them in one median cut that his orange jumpsuit dominates. Here the shared palette is
+// the usual one (the median cut over every strip, or the kept sheet's colours) less the entries the other strips need
+// least, merged into their nearest neighbours; each group then gets that many colours cut from its own strips, and its
+// strips snap to the shared palette plus their own. The other strips keep their colours (only pixels on a merged entry
+// move, to the next nearest) and never pick a group's colour, so a group's art never moves them.
+// groups: [{ name, colors, anims: [anim, ...] }]; kept: { palette, reserved: Set of the colours only the groups' strips
+// used last time } with --keep-palette; learn(anims): learnPalette for those strips
+function quantizeReserved(anims, n, groups, kept = null, learn = () => null) {
+  const own = new Set(groups.flatMap((g) => g.anims));
+  const shared = anims.filter((a) => !own.has(a)), sharedCells = shared.flatMap((a) => a.cells);
+  const all = colourCounts(anims.flatMap((a) => a.cells));
+  if (!kept && all.size <= n) return { colors: all.size, shared: all.size, merged: 0 }; // every colour fits as drawn
+  const ck = (p) => (p[0] << 16) | (p[1] << 8) | p[2];
+  const base = kept ? kept.palette.filter((p) => !kept.reserved.has(ck(p))) : medianCut(all, n);
+  const learnedShared = learn(shared);
+  const sharedPal = shrinkPalette(colourCounts(sharedCells), base, n - groups.reduce((s, g) => s + g.colors, 0), learnedShared);
+  // a learned target that was merged away is no target any more
+  const onlyTo = (learned, pal) => {
+    if (!learned) return null;
+    const keys = new Set(pal.map(ck));
+    return new Map([...learned].filter(([, v]) => keys.has(v)));
+  };
+  mapToPalette(sharedCells, sharedPal, onlyTo(learnedShared, sharedPal));
+  const sharedKeys = new Set(sharedPal.map(ck));
+  for (const g of groups) {
+    const cells = g.anims.flatMap((a) => a.cells);
+    const pal = [...sharedPal, ...medianCut(colourCounts(cells), g.colors).filter((p) => !sharedKeys.has(ck(p)))];
+    mapToPalette(cells, pal, onlyTo(learn(g.anims), pal));
+  }
+  return { colors: countColors(anims.flatMap((a) => a.cells)), shared: sharedPal.length, merged: base.length - sharedPal.length };
+}
+
+// Drops palette entries until `target` are left, each time the one whose pixels lose least by moving to their nearest
+// remaining entry (pixels x squared RGB distance, summed over colors: colour -> count). Near-duplicate shades go first.
+// learned (--keep-palette): where a colour went last time; it stays there while that entry is left.
+function shrinkPalette(colors, palette, target, learned = null) {
+  const m = palette.length;
+  if (m <= target) return palette;
+  const keys = [...colors.keys()], cnt = keys.map((k) => colors.get(k)), U = keys.length;
+  const at = new Map(palette.map((p, i) => [(p[0] << 16) | (p[1] << 8) | p[2], i]));
+  const alive = new Uint8Array(m).fill(1), cost = new Float64Array(m);
+  const first = new Int32Array(U), second = new Int32Array(U), loss = new Float64Array(U);
+  const d2 = (k, p) => ((k >> 16) - p[0]) ** 2 + (((k >> 8) & 255) - p[1]) ** 2 + ((k & 255) - p[2]) ** 2;
+  // the entry a colour sits on (learned, else the nearest; ties to the earlier entry, as mapToPalette) and what it
+  // would lose by moving to the nearest other one
+  const scan = (j) => {
+    const k = keys[j], li = learned?.has(k) ? at.get(learned.get(k)) : undefined;
+    const pinned = li !== undefined && alive[li] === 1;
+    let a = pinned ? li : -1, da = pinned ? d2(k, palette[li]) : Infinity, b = -1, db = Infinity;
+    for (let i = 0; i < m; i++) {
+      if (!alive[i] || i === a) continue;
+      const d = d2(k, palette[i]);
+      if (!pinned && d < da) { b = a; db = da; a = i; da = d; }
+      else if (d < db) { b = i; db = d; }
+    }
+    first[j] = a; second[j] = b; loss[j] = b < 0 ? 0 : cnt[j] * (db - da);
+  };
+  for (let j = 0; j < U; j++) { scan(j); cost[first[j]] += loss[j]; }
+  for (let left = m; left > target; left--) {
+    let e = -1;
+    for (let i = 0; i < m; i++) if (alive[i] && (e < 0 || cost[i] < cost[e])) e = i;
+    alive[e] = 0;
+    for (let j = 0; j < U; j++) if (first[j] === e || second[j] === e) {
+      if (first[j] !== e) cost[first[j]] -= loss[j];
+      scan(j);
+      cost[first[j]] += loss[j];
+    }
+  }
+  return palette.filter((_, i) => alive[i]);
+}
+
+// the colours a packed sheet shows only in the cells of the named animations (a reserved group's own, last pack)
+function onlyIn(sheet, metaFile, names, spec) {
+  const meta = readJson(metaFile).data, inside = new Set(), outside = new Set();
+  if (!meta?.animations) return inside;
+  const fw = spec.frameWidth, cols = meta.columns ?? spec.columns;
+  for (const [name, a] of Object.entries(meta.animations)) for (const f of a.frames || []) {
+    const set = names.has(name) ? inside : outside, x0 = (f % cols) * fw, y0 = Math.floor(f / cols) * fw;
+    for (let y = y0; y < y0 + fw && y < sheet.h; y++) for (let x = x0; x < x0 + fw; x++) {
+      const i = (y * sheet.w + x) * 4;
+      if (sheet.data[i + 3]) set.add((sheet.data[i] << 16) | (sheet.data[i + 1] << 8) | sheet.data[i + 2]);
+    }
+  }
+  return new Set([...inside].filter((k) => !outside.has(k)));
+}
+
+// the fighter's paletteReserve groups with the strips this pack has; null when they would leave too little to share
+function reserveGroups(id, anims, names, env, warn) {
+  const list = env.manifest.characters[id]?.paletteReserve || [];
+  const groups = [];
+  for (const g of list) {
+    const unknown = g.animations.filter((a) => !names.has(a));
+    if (unknown.length) warn(`paletteReserve.${g.name}: ${unknown.join(', ')} is not an animation of ${id} - ignored`);
+    const strips = anims.filter((a) => g.animations.includes(a.def.name));
+    if (strips.length) groups.push({ name: g.name, colors: g.colors, anims: strips });
+  }
+  const reserve = groups.reduce((s, g) => s + g.colors, 0);
+  if (reserve > env.quantize / 2) {
+    warn(`paletteReserve asks for ${reserve} of the ${env.quantize} colours: at most half can be reserved - ignored, one shared palette`);
+    return [];
+  }
+  return groups;
 }
 
 // every opaque pixel to its nearest palette colour (RGB distance); the palette's own colours map to themselves
@@ -2394,14 +2526,23 @@ function packCharacter(id, env) {
   // numbers (ART-KIL-PROBE); the probe reduces colours to the idle's own palette instead (scale-probe measurementCells)
   const scaleAudit = scaleGate(id, anims, env, R);
 
-  // 2b) optional palette snap (across the whole character so colors stay consistent)
+  // 2b) optional palette snap (across the whole character so colors stay consistent; a paletteReserve gives strips
+  // drawn in other colours their own share, ADR 0046)
   const allCells = anims.flatMap((a) => a.cells);
   if (env.quantize) {
-    const outChar = path.join(env.outDir, 'characters', id);
+    const outChar = path.join(env.outDir, 'characters', id), metaFile = path.join(outChar, 'anims.json');
     const kept = env.keepPalette ? sheetPalette(path.join(outChar, 'sheet.png'), env.quantize) : null;
     if (env.keepPalette && !kept) warn(`--keep-palette: no current sheet.png with at most ${env.quantize} colours for ${id} - median cut instead`);
-    const learned = kept ? learnPalette(anims, kept.img, path.join(outChar, 'anims.json'), spec) : null;
-    R.notes.push(kept ? `palette kept from the current sheet.png (${quantizeFrames(allCells, env.quantize, kept.palette, learned)} colors)` : `palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
+    const learn = (list) => (kept ? learnPalette(list, kept.img, metaFile, spec) : null);
+    const groups = reserveGroups(id, anims, new Set(names), env, warn);
+    if (groups.length) {
+      const own = new Set(groups.flatMap((g) => g.anims.map((a) => a.def.name)));
+      const q = quantizeReserved(anims, env.quantize, groups, kept && { palette: kept.palette, reserved: onlyIn(kept.img, metaFile, own, spec) }, learn);
+      const shares = groups.map((g) => `${g.name} ${g.colors} (${g.anims.map((a) => a.def.name).join(', ')})`).join(', ');
+      R.notes.push(`${kept ? 'palette kept from the current sheet.png' : 'palette snapped'}: ${q.colors} colors, ${q.shared} shared${q.merged ? ` (${q.merged} merged into their nearest neighbours)` : ''} + paletteReserve ${shares}`);
+    } else {
+      R.notes.push(kept ? `palette kept from the current sheet.png (${quantizeFrames(allCells, env.quantize, kept.palette, learn(anims))} colors)` : `palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
+    }
   }
   R.colors = countColors(allCells);
   if (R.colors > spec.warnColors) warn(`palette has ${R.colors} colors (> ${spec.warnColors}; spec target <= ${spec.maxColors}) - clean the art or re-run with --quantize ${spec.maxColors}`);

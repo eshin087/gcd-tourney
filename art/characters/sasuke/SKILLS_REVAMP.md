@@ -263,7 +263,9 @@ stretches them over the move and keeps the run's distance.
 - **f7 · R:** recovering: the R arm drawn back to the chest, rising out of the lunge toward the stance.
 
 **Anchors (hitboxes.json `special`):** record the **open R palm** (the center of the Chidori) as `hand` in every
-frame, measured on the packed cells, and a `hit` box on the f5 and f6 fingertips. Keep his head within the strict
+frame, measured on the packed cells. `hit` boxes on **f3, f4, f5 and f6**: f5-f6 on the stab's fingertips; f3-f4 keep
+a box in front of his chest at the stab's height and reach (like v13's f3 box `[176, 92, 36, 44]`), because the
+Chidori connects whenever the run reaches them and the engine then jumps to the f5 stab. Keep his head within the strict
 scale gate against idle (the packer's auto head fit), and keep every foot on the floor line (y = 240) except the
 pushing rear foot in f3-f4.
 
