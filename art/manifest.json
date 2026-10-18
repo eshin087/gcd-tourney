@@ -536,7 +536,7 @@
         "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 166, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 166, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 214, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
-        "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 171, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "raw", "version": 2, "approvedVersion": null },
+        "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 171, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "raw", "version": 3, "approvedVersion": null },
         "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 174, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 180, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "uair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 }

@@ -1,0 +1,47 @@
+{
+  "candidate": "dSmash_v03",
+  "selectedAttempt": 1,
+  "callsUsed": 3,
+  "sourceDimensions": [
+    2172,
+    724
+  ],
+  "expectedStripDimensions": [
+    2048,
+    256
+  ],
+  "candidateAtlasSha256": "15025afeef5c3945b6a3ce7d5245a71d8e1bd051d3391453cca4bdc9108109e9",
+  "previousV02AtlasSha256": "b66a685b321f548570f4ddbb70392068972dcc20d9c3b08e8bd26e5fde69b41a",
+  "animsSha256": "09d11c86aa52c6698673484a1f443cb5d6df1fb219f26425d275a810e3cf4261",
+  "frames": [
+    225,
+    226,
+    227,
+    228,
+    229,
+    230,
+    231,
+    232
+  ],
+  "priorFrames": [
+    225,
+    226,
+    227,
+    228,
+    229,
+    230,
+    231,
+    232
+  ],
+  "standinFrames": [
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50
+  ],
+  "technicalHold": true,
+  "temporaryManifestNote": "The external diagnostic manifest marked dSmash v03 approved solely to quantize and extract its actual review cells. The branch manifest remains raw with no approvedVersion; no diagnostic atlas is shipped."
+}
