@@ -1,21 +1,594 @@
 {
-  "_comment": "Final 256 px cell coordinates, measured on the title-style art (quantize-48 packed cells) by Claude 2026-10-11. Hit boxes sit on the striking limb's contact end (fist, palm, foot) padded about 3 px; smear streaks and arcs drawn ahead of or around the limb are left out, so a hit needs the drawn fist or foot to reach the body. Kept auto boxes: light1 f3 (forearm end + fist) and special f5 (the thrust palm). Chidori (special) f3-f4 hit with the leading head/shoulder (SPEC 'Strikes and contact zones'). _scale = the strip's auto-head fit these numbers were measured at (no re-scaling). Round 3 (Claude, 2026-10-12, measured on the title-style art): heavy v11 (bodyHeight 213), throw v07 (bodyHeight 208) and specialUp v09 (auto-head fit x1.0834) re-measured on their packed cells; the other strips' versions and sizes are unchanged since their measurement.",
+  "_comment": "Final 256 px cell coordinates, measured on the title-style art (quantize-48 packed cells) by Claude 2026-10-11. Hit boxes sit on the striking limb's contact end (fist, palm, foot) padded about 3 px; smear streaks and arcs drawn ahead of or around the limb are left out, so a hit needs the drawn fist or foot to reach the body. Kept auto boxes: light1 f3 (forearm end + fist) and special f5 (the thrust palm). Chidori (special) f3-f4 hit with the leading head/shoulder (SPEC 'Strikes and contact zones'). _scale = the strip's auto-head fit these numbers were measured at (no re-scaling). Round 3 (Claude, 2026-10-12, measured on the title-style art): heavy v11 (bodyHeight 213), throw v07 (bodyHeight 208) and specialUp v09 (auto-head fit x1.0834) re-measured on their packed cells; the other strips' versions and sizes are unchanged since their measurement. ENG-112 import/contact pass: dTilt and dashAttack boxes measured on quantized candidate cells; uSmash boxes follow overhead fist after packScale x1.111. See CLAUDE_ART_HANDOFF.md.",
   "_hands": "hand: palm/fingertip point (256 cell) for hand effects, shots and beams; measured by Claude 2026-10-11 on the title-style art from the packed frames: the Chidori lightning hand on every special frame (startup, run, thrust, impact, recovery), the Chidori Sharp Spear's open L palm (specialForward f0-f3; the spear leaves from f2), the raised Kirin palm (beamCharge) and the pointing palm (beamFire, the clash-stream origin). throw f1 is Sasuke's open mouth (v07, re-measured 2026-10-12), the Great Fireball's release point (ANIMATIONS.md), with the raised R fingers just in front of it.",
-  "light1": {"_note": "f2: the lead fist (x 203-213); the auto box also took the navy smear streak drawn ahead of the fist (x 215-233). f3 keeps the auto box (forearm end + fist).", "2": {"hit": [[194, 96, 23, 17]]}},
-  "light2": {"_note": "the rear fist reaches only x 207-208 (3 px past the idle guard). f2 auto box took the smear streak ahead of the fist (to x 236); f3 auto box was the front 28% of the body down to the front foot.", "2": {"hit": [[190, 96, 22, 18]]}, "3": {"hit": [[190, 96, 21, 17]]}},
-  "light3": {"_note": "the kicking foot (sole forward, toes up) at x 236-249, y 98-128; the auto boxes covered the whole shin and the smear wisps (59x43, 58x47).", "2": {"hit": [[239, 87, 21, 39]]}, "3": {"hit": [[239, 87, 20, 39]]}, "_refit": "scaled x1.0537 about the pivot with the strip's bodyHeight 190 -> 200 (size consistency pass, 2026-10-11)"},
-  "light4": {"_note": "the kicking foot at head height; f3's auto box covered the whole white crescent smear (x 196-253, y 71-185), f4's the shin and the guard fist.", "3": {"hit": [[234, 82, 20, 35]]}, "4": {"hit": [[232, 81, 19, 36]]}},
-  "heavy": {"_note": "v11 at bodyHeight 213 (round 3, 2026-10-12; measured on the packed 48-colour cells): f3 the R foot kicking forward-up (sandal and toes x 224-248, y 63-97; the old v10 box [210, 61, 26, 34] covered only the ankle and heel half), f4 the R foot overhead (x 186-206, y 28-62). f4 sits above a standing defender's hurt box (top y 71): it connects with airborne or taller targets only; f3 is the grounded hit.", "3": {"hit": [[222, 61, 29, 38]]}, "4": {"hit": [[185, 25, 24, 39]]}},
-  "airLight1": {"_note": "the lead fist; the auto boxes ran from the sleeve (x 194) to the fist (61 and 56 px wide).", "1": {"hit": [[232, 79, 23, 19]]}, "2": {"hit": [[227, 79, 23, 19]]}},
-  "airLight2": {"_note": "the kicking R foot; the auto rising-strike rule put both boxes on the hair and the rear arm (x 47-131).", "1": {"hit": [[207, 88, 24, 27]]}, "2": {"hit": [[204, 93, 25, 32]]}, "_refit": "scaled x0.9785 about the pivot with the strip's bodyHeight 207 -> 203 (size consistency pass, 2026-10-11)"},
-  "airLight3": {"_note": "the kicking heel; f2's auto box covered the white crescent smear (to x 253, down to y 192), f3's the whole lower leg.", "2": {"hit": [[204, 136, 24, 34]]}, "3": {"hit": [[229, 138, 21, 33]]}, "_refit": "scaled x0.9643 about the pivot with the strip's bodyHeight 201 -> 194 (size consistency pass, 2026-10-11)"},
-  "airHeavy": {"_note": "the clasped fists; the auto boxes covered the navy smear arc above them (45x99, 41x87). boxPad [0.5, 0.45] still grows them a lot.", "2": {"hit": [[191, 147, 22, 21]]}, "3": {"hit": [[189, 158, 22, 21]]}, "_refit": "scaled x1.0482 about the pivot with the strip's bodyHeight 198 -> 208 (size consistency pass, 2026-10-11)"},
-  "throw": {"_note": "v07 at bodyHeight 208 (round 3, 2026-10-12, measured on the packed cells). No melee box (projectile). f1 is the release frame: the fireball spawns at Sasuke's mouth (lips x 225-228, y 90-93, nose x 230 y 88); the raised R fingers sit just in front of it (x 229-242, y 88-106). The v01 point [208, 89] now lands on the neck.", "1": {"hand": [228, 92]}},
-  "special": {"0":{"hand":[125,227]},"1":{"hand":[123,231]},"2":{"hand":[81,219]},"3":{"hand":[95,186],"hit":[[180,110,44,44]]},"4":{"hand":[122,202],"hit":[[180,110,44,44]]},"5":{"hand":[234,135],"hit":[[212,118,38,32]]},"6":{"hand":[216,134],"hit":[[194,118,38,32]]},"7":{"hand":[132,148]},"_scale":0.905,"_note":"v15 (the anime Chidori, ART-SKL-SAS) with the auto-head fit x0.905 at bodyHeight 157, measured by Claude 2026-10-18 on the packed 48-color cells. hand = the open R palm holding the Chidori: gripped low between the knees (f0-f1), swept down behind the front foot (f2), trailing low behind him through the run (f3-f4), the spear-hand stab (f5-f6), drawn back to the chest (f7). hit: f3-f4 a box in front of his chest at the stab's height and reach (the Chidori connects whenever the run reaches them and the engine jumps to the f5 stab, hitPose), f5-f6 the stab from the palm to the fingertips."},
-  "specialForward": {"_scale": 0.8636, "_note": "v10 with the auto-head fit x0.8636. Projectile move (no melee): the boxes mark the open L palm; the spear spawns at the f2 hand. The palm is drawn upright, fingers up, not as a level spear-hand.", "0": {"hand": [179, 134]}, "1": {"hand": [144, 140]}, "2": {"hand": [226, 106], "hit": [[215, 90, 20, 32]]}, "3": {"hand": [228, 107], "hit": [[217, 91, 20, 31]]}},
-  "specialUp": {"_scale": 1.0834, "_note": "v09 with the auto-head fit x1.0834, measured on the packed cells (round 3, 2026-10-12): f2 the R foot rising forward (sandal x 187-202, y 81-109, toes up), f3 the R foot overhead (x 185-199, y 43-70). The v02 boxes, scaled by the fit, sat in empty air above the f2 foot and on the f3 shin. The hit itself is still checked by distance in kit.js.", "2": {"hit": [[185, 79, 20, 32]]}, "3": {"hit": [[182, 41, 21, 31]]}},
-  "beamCharge": {"_note": "the raised open R palm (Kirin call); the old points sat 55 px right of it in empty air.", "0": {"hand": [113, 34]}, "1": {"hand": [114, 32]}, "2": {"hand": [114, 32]}, "_refit": "scaled x0.9747 about the pivot with the strip's bodyHeight 230 -> 224 (size consistency pass, 2026-10-11)"},
-  "beamFire": {"0":{"hand":[219,207]},"1":{"hand":[219,207]},"2":{"hand":[219,207]},"_scale":1,"_note":"v08 (the Kirin strike, ART-SKL-SAS): the R fingertips pointing down at the strike spot, measured by Claude 2026-10-18 on the packed 48-color cells at bodyHeight 138 (no auto fit; the user's halfway sizing). Kirin itself does not read it; it marks the drawn hand for any effect placed there."},
-  "beamStruggle": {"0": {"hand": [213, 124]}, "1": {"hand": [198, 124]}, "2": {"hand": [206, 124]}, "_note": "v02: the Chidori Spear fingertips, 3 px inside the hand's front edge (x216/201/209, y113-135; f1 strain pulls the arm back 15 px as drawn); Claude 2026-10-17 on the packed approved strip at bodyHeight 153, stream origin for the beam clash (ADR 0034). v01 was [192-196,153]."},
-  "beamStruggleAir": {"0": {"hand": [170, 106]}, "1": {"hand": [175, 114]}, "2": {"hand": [191, 118]}, "_note": "the lips (Great Fireball blown from the mouth), set by eye +-3 px; Claude 2026-10-15 on the packed approved strip (48 colours), stream origin for the beam clash (ADR 0034)"}
+  "light1": {
+    "2": {
+      "hit": [
+        [
+          194,
+          96,
+          23,
+          17
+        ]
+      ]
+    },
+    "_note": "f2: the lead fist (x 203-213); the auto box also took the navy smear streak drawn ahead of the fist (x 215-233). f3 keeps the auto box (forearm end + fist)."
+  },
+  "light2": {
+    "2": {
+      "hit": [
+        [
+          190,
+          96,
+          22,
+          18
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          190,
+          96,
+          21,
+          17
+        ]
+      ]
+    },
+    "_note": "the rear fist reaches only x 207-208 (3 px past the idle guard). f2 auto box took the smear streak ahead of the fist (to x 236); f3 auto box was the front 28% of the body down to the front foot."
+  },
+  "light3": {
+    "2": {
+      "hit": [
+        [
+          239,
+          87,
+          21,
+          39
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          239,
+          87,
+          20,
+          39
+        ]
+      ]
+    },
+    "_note": "the kicking foot (sole forward, toes up) at x 236-249, y 98-128; the auto boxes covered the whole shin and the smear wisps (59x43, 58x47).",
+    "_refit": "scaled x1.0537 about the pivot with the strip's bodyHeight 190 -> 200 (size consistency pass, 2026-10-11)"
+  },
+  "light4": {
+    "3": {
+      "hit": [
+        [
+          234,
+          82,
+          20,
+          35
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          232,
+          81,
+          19,
+          36
+        ]
+      ]
+    },
+    "_note": "the kicking foot at head height; f3's auto box covered the whole white crescent smear (x 196-253, y 71-185), f4's the shin and the guard fist."
+  },
+  "heavy": {
+    "3": {
+      "hit": [
+        [
+          222,
+          61,
+          29,
+          38
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          185,
+          25,
+          24,
+          39
+        ]
+      ]
+    },
+    "_note": "v11 at bodyHeight 213 (round 3, 2026-10-12; measured on the packed 48-colour cells): f3 the R foot kicking forward-up (sandal and toes x 224-248, y 63-97; the old v10 box [210, 61, 26, 34] covered only the ankle and heel half), f4 the R foot overhead (x 186-206, y 28-62). f4 sits above a standing defender's hurt box (top y 71): it connects with airborne or taller targets only; f3 is the grounded hit."
+  },
+  "airLight1": {
+    "1": {
+      "hit": [
+        [
+          232,
+          79,
+          23,
+          19
+        ]
+      ]
+    },
+    "2": {
+      "hit": [
+        [
+          227,
+          79,
+          23,
+          19
+        ]
+      ]
+    },
+    "_note": "the lead fist; the auto boxes ran from the sleeve (x 194) to the fist (61 and 56 px wide)."
+  },
+  "airLight2": {
+    "1": {
+      "hit": [
+        [
+          207,
+          88,
+          24,
+          27
+        ]
+      ]
+    },
+    "2": {
+      "hit": [
+        [
+          204,
+          93,
+          25,
+          32
+        ]
+      ]
+    },
+    "_note": "the kicking R foot; the auto rising-strike rule put both boxes on the hair and the rear arm (x 47-131).",
+    "_refit": "scaled x0.9785 about the pivot with the strip's bodyHeight 207 -> 203 (size consistency pass, 2026-10-11)"
+  },
+  "airLight3": {
+    "2": {
+      "hit": [
+        [
+          204,
+          136,
+          24,
+          34
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          229,
+          138,
+          21,
+          33
+        ]
+      ]
+    },
+    "_note": "the kicking heel; f2's auto box covered the white crescent smear (to x 253, down to y 192), f3's the whole lower leg.",
+    "_refit": "scaled x0.9643 about the pivot with the strip's bodyHeight 201 -> 194 (size consistency pass, 2026-10-11)"
+  },
+  "airHeavy": {
+    "2": {
+      "hit": [
+        [
+          191,
+          147,
+          22,
+          21
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          189,
+          158,
+          22,
+          21
+        ]
+      ]
+    },
+    "_note": "the clasped fists; the auto boxes covered the navy smear arc above them (45x99, 41x87). boxPad [0.5, 0.45] still grows them a lot.",
+    "_refit": "scaled x1.0482 about the pivot with the strip's bodyHeight 198 -> 208 (size consistency pass, 2026-10-11)"
+  },
+  "throw": {
+    "1": {
+      "hand": [
+        228,
+        92
+      ]
+    },
+    "_note": "v07 at bodyHeight 208 (round 3, 2026-10-12, measured on the packed cells). No melee box (projectile). f1 is the release frame: the fireball spawns at Sasuke's mouth (lips x 225-228, y 90-93, nose x 230 y 88); the raised R fingers sit just in front of it (x 229-242, y 88-106). The v01 point [208, 89] now lands on the neck."
+  },
+  "special": {
+    "0": {
+      "hand": [
+        125,
+        227
+      ]
+    },
+    "1": {
+      "hand": [
+        123,
+        231
+      ]
+    },
+    "2": {
+      "hand": [
+        81,
+        219
+      ]
+    },
+    "3": {
+      "hand": [
+        95,
+        186
+      ],
+      "hit": [
+        [
+          180,
+          110,
+          44,
+          44
+        ]
+      ]
+    },
+    "4": {
+      "hand": [
+        122,
+        202
+      ],
+      "hit": [
+        [
+          180,
+          110,
+          44,
+          44
+        ]
+      ]
+    },
+    "5": {
+      "hand": [
+        234,
+        135
+      ],
+      "hit": [
+        [
+          212,
+          118,
+          38,
+          32
+        ]
+      ]
+    },
+    "6": {
+      "hand": [
+        216,
+        134
+      ],
+      "hit": [
+        [
+          194,
+          118,
+          38,
+          32
+        ]
+      ]
+    },
+    "7": {
+      "hand": [
+        132,
+        148
+      ]
+    },
+    "_scale": 0.905,
+    "_note": "v15 (the anime Chidori, ART-SKL-SAS) with the auto-head fit x0.905 at bodyHeight 157, measured by Claude 2026-10-18 on the packed 48-color cells. hand = the open R palm holding the Chidori: gripped low between the knees (f0-f1), swept down behind the front foot (f2), trailing low behind him through the run (f3-f4), the spear-hand stab (f5-f6), drawn back to the chest (f7). hit: f3-f4 a box in front of his chest at the stab's height and reach (the Chidori connects whenever the run reaches them and the engine jumps to the f5 stab, hitPose), f5-f6 the stab from the palm to the fingertips."
+  },
+  "specialForward": {
+    "0": {
+      "hand": [
+        179,
+        134
+      ]
+    },
+    "1": {
+      "hand": [
+        144,
+        140
+      ]
+    },
+    "2": {
+      "hand": [
+        226,
+        106
+      ],
+      "hit": [
+        [
+          215,
+          90,
+          20,
+          32
+        ]
+      ]
+    },
+    "3": {
+      "hand": [
+        228,
+        107
+      ],
+      "hit": [
+        [
+          217,
+          91,
+          20,
+          31
+        ]
+      ]
+    },
+    "_scale": 0.8636,
+    "_note": "v10 with the auto-head fit x0.8636. Projectile move (no melee): the boxes mark the open L palm; the spear spawns at the f2 hand. The palm is drawn upright, fingers up, not as a level spear-hand."
+  },
+  "specialUp": {
+    "2": {
+      "hit": [
+        [
+          185,
+          79,
+          20,
+          32
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          182,
+          41,
+          21,
+          31
+        ]
+      ]
+    },
+    "_scale": 1.0834,
+    "_note": "v09 with the auto-head fit x1.0834, measured on the packed cells (round 3, 2026-10-12): f2 the R foot rising forward (sandal x 187-202, y 81-109, toes up), f3 the R foot overhead (x 185-199, y 43-70). The v02 boxes, scaled by the fit, sat in empty air above the f2 foot and on the f3 shin. The hit itself is still checked by distance in kit.js."
+  },
+  "beamCharge": {
+    "0": {
+      "hand": [
+        113,
+        34
+      ]
+    },
+    "1": {
+      "hand": [
+        114,
+        32
+      ]
+    },
+    "2": {
+      "hand": [
+        114,
+        32
+      ]
+    },
+    "_note": "the raised open R palm (Kirin call); the old points sat 55 px right of it in empty air.",
+    "_refit": "scaled x0.9747 about the pivot with the strip's bodyHeight 230 -> 224 (size consistency pass, 2026-10-11)"
+  },
+  "beamFire": {
+    "0": {
+      "hand": [
+        219,
+        207
+      ]
+    },
+    "1": {
+      "hand": [
+        219,
+        207
+      ]
+    },
+    "2": {
+      "hand": [
+        219,
+        207
+      ]
+    },
+    "_scale": 1,
+    "_note": "v08 (the Kirin strike, ART-SKL-SAS): the R fingertips pointing down at the strike spot, measured by Claude 2026-10-18 on the packed 48-color cells at bodyHeight 138 (no auto fit; the user's halfway sizing). Kirin itself does not read it; it marks the drawn hand for any effect placed there."
+  },
+  "beamStruggle": {
+    "0": {
+      "hand": [
+        213,
+        124
+      ]
+    },
+    "1": {
+      "hand": [
+        198,
+        124
+      ]
+    },
+    "2": {
+      "hand": [
+        206,
+        124
+      ]
+    },
+    "_note": "v02: the Chidori Spear fingertips, 3 px inside the hand's front edge (x216/201/209, y113-135; f1 strain pulls the arm back 15 px as drawn); Claude 2026-10-17 on the packed approved strip at bodyHeight 153, stream origin for the beam clash (ADR 0034). v01 was [192-196,153]."
+  },
+  "beamStruggleAir": {
+    "0": {
+      "hand": [
+        170,
+        106
+      ]
+    },
+    "1": {
+      "hand": [
+        175,
+        114
+      ]
+    },
+    "2": {
+      "hand": [
+        191,
+        118
+      ]
+    },
+    "_note": "the lips (Great Fireball blown from the mouth), set by eye +-3 px; Claude 2026-10-15 on the packed approved strip (48 colours), stream origin for the beam clash (ADR 0034)"
+  },
+  "uTilt": {
+    "2": {
+      "hit": [
+        [
+          143,
+          67,
+          22,
+          36
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          145,
+          26,
+          29,
+          43
+        ]
+      ]
+    },
+    "_note": "ENG-112 uTilt v01: packed-cell contact overrides after Astra preliminary audit. f2 covers the rising near hand/forearm; f3 now covers the raised overhead hand/forearm, not the foot."
+  },
+  "bair": {
+    "2": {
+      "hit": [
+        [
+          25,
+          165,
+          47,
+          43
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          8,
+          132,
+          45,
+          39
+        ]
+      ]
+    },
+    "_note": "ENG-112 bair v01: packed-cell contact override after Astra preliminary audit; f2/f3 kick screen-left behind Sasuke, so boxes follow the extended near foot rather than the default front/right box."
+  },
+  "dTilt": {
+    "3": {
+      "hit": [
+        [
+          216,
+          169,
+          40,
+          28
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          216,
+          169,
+          40,
+          28
+        ]
+      ]
+    },
+    "_scale": 0.8511,
+    "_note": "ENG-112 dTilt v05: active frames f3/f4 are the forward low kick. Boxes follow shin/foot at shin height on quantized cells after auto-head fit x0.8511."
+  },
+  "dashAttack": {
+    "3": {
+      "hit": [
+        [
+          223,
+          94,
+          31,
+          23
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          223,
+          94,
+          31,
+          23
+        ]
+      ]
+    },
+    "_scale": 0.7502,
+    "_note": "ENG-112 dashAttack v05: phases [3,2,2] make f3/f4 the lead-fist punch. Boxes follow the fist at the front of the arm on quantized cells after auto-head fit x0.7502."
+  },
+  "uSmash": {
+    "3": {
+      "hit": [
+        [
+          159,
+          5,
+          18,
+          21
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          159,
+          0,
+          18,
+          21
+        ]
+      ]
+    },
+    "_scale": 1.111,
+    "_note": "ENG-112 uSmash v05: phases [3,2,3] make f3/f4 the overhead fist. Boxes follow the raised fist on the quantized cells after uniform packScale x1.111."
+  },
+  "fTilt": {
+    "3": {
+      "hit": [
+        [
+          199,
+          116,
+          13,
+          17
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          199,
+          116,
+          13,
+          17
+        ]
+      ]
+    },
+    "_scale": 0.92,
+    "_note": "ENG-112 fTilt v03 active punch frames 3/4 after user-authorized unchanged-source packScale 0.92. Boxes follow the leading fist at the front of the extended arm on quantized cells; crops are rebuilt from current atlas cells 184/185."
+  }
 }

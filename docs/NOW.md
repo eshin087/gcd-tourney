@@ -7,9 +7,16 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
-**Sasuke skills revamp (ART-SKL-SAS), batch 1 partly approved.** Via Claude relay #14, you approved `chidoriForm`, `chidoriBurst`, `chidoriSpear` and `chidoriCurrent` v01; Codex recorded it. Claude will pack them in HD and wire them into the game. The previous 128 px candidate pack had a tooling hold (`hd:true` dropped) and a clipped Spear preview; Claude owns the HD technical check. `special` v14 and A1 `chidori` remain held after 3/3 calls each. Batch 2 Amaterasu effects are now being generated. [Gallery](https://gcd-tourney-8kpkmsj09-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/) · [PR #163](https://github.com/eshin087/gcd-tourney/pull/163).
 
-**Smash-style move art (ENG-112), Sasuke first:** the user approved eight drawings: uTilt v01, fSmash v02, fair v03, bair v01, uair v01 (relay #3), plus fTilt v03, dashAttack v05 and uSmash v05 (relay #7). dTilt v05 remains approved; the user rejected v06 via relay #14, so v05 stays selected and v06 stays held. Relay #11 authorized a deterministic head-only enlargement of approved uTilt v01, with no image calls. Candidate v05 preserves v01 and prior attempts; v02/v03 and a failed v04 edit are retained. Please review jaw/collar seams and the before/after on [PR #156 preview](https://gcd-tourney-6qv9wxs7h-eshin087s-projects.vercel.app/reviews/normals-sasuke/#utile-v05). Astra passes seam/pose for review but holds numerical scale (f6 head .921 ±2–3 px; body B median .917); the all-strips strict dry run also fails on dTilt v06 (head 1.09, feet 1.50). Drawing approval cannot clear those holds. dSmash keeps its stand-in. The review is queued through combat relay #18; branch handoff is commit `4e730edf`, PR #156. Killua is next, then Gojo, Goku, Luffy and Naruto last after TOOL-060.
+**Sasuke skills revamp (ART-SKL-SAS):** approvals are recorded via Claude. Special v15 was approved via skills send #20; Claude's trial pack uses `special_v15.json` (`anatomy: auto-head`, `bodyHeight: 157`) and reports head 1.10, no clipping and a passing scale gate. Claude owns applying the settings, remeasuring hand anchors and integrating v15 in place of v13. Batch 3 beamFire v08 and all six effects were approved via relay #19; Claude owns HD packing/integration and applies the user's halfway size direction (head ~8% over idle; low-lunge body ~7% under). [Batch 1 review](https://gcd-tourney-9aahjbj5f-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/) · [batch 3 review](https://gcd-tourney-467ofrysf-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/). No user action is pending from this Codex handoff.
+
+**Sasuke skills revamp (ART-SKL-SAS), batch 3:** the user approved beamFire v08 and all six effects (greatFireball, greatFireballBurst, stormCloud, kirinBody, kirinHead, kirinStrike v01) via Claude relay skills #19. Claude owns HD packing/integration and applies the chosen size for beamFire (head ~8% over idle, low-lunge body ~7% under). kirinStrike reaching the top is as briefed. [Updated PR #163 gallery](https://gcd-tourney-467ofrysf-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/).
+
+**ENG-112 Sasuke normals:** fTilt v03 is promoted unchanged at packScale 0.92; strict gate passes, with Astra body-parity HOLD documented. Codex committed `5d6d2712` and refreshed the [branch review page](https://gcd-tourney-r0bb43l3y-eshin087s-projects.vercel.app/reviews/normals-sasuke/). Claude’s next action is final integration/contact disposition; no user art decision is waiting.
+
+Batch 2 Amaterasu v01 and AmaterasuIgnite v01 were approved via #16. Batch 3 assets are approved via #19; Claude owns their HD pack and game integration. [Batch 2 gallery](https://gcd-tourney-572nd3x31-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch2/) · [Batch 3 gallery](https://gcd-tourney-467ofrysf-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/) · [PR #163](https://github.com/eshin087/gcd-tourney/pull/163).
+
+**Smash-style move art (ENG-112): Sasuke is live (2026-10-18, PR [#156](https://github.com/eshin087/gcd-tourney/pull/156), `03d8e27a`).** His up tilt, forward tilt, down tilt, dash attack, forward and up smash, and forward, back and up air play their new art on https://gcd-tourney.vercel.app ; down smash keeps its stand-in. Try them: https://gcd-tourney.vercel.app/lab.html?p1=sasuke&p2=naruto . Killua is next in Codex's "4 - Combat Overhaul" chat, then Gojo, Goku, Luffy, and Naruto last (after TOOL-060); each comes to you for review.
 
 **DBFZ air combos back, live (2026-10-18, PR [#155](https://github.com/eshin087/gcd-tourney/pull/155), `49840bf2`):** in a launcher / spike / bounce juggle Light is the air string again whatever direction you hold (↓ + Light the spike), and the CPUs reach 13+ hit combos again, on https://gcd-tourney.vercel.app . Nothing to do.
 
@@ -130,6 +137,10 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - fa8d99cc 10-18 00:33 docs(now): Sasuke dTilt gets a fresh round; pack and size fixes before merge (ENG-112)
 - aee1e30f 10-18 00:32 docs(tasks): ENG-112 Sasuke state, TOOL-061 guard gap (dropped animations)
 <!-- status:end -->
+
+
+
+
 
 
 

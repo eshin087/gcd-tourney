@@ -30,12 +30,9 @@ approvals desk is off: ring Claude on lane `skills` with `--for user --kind appr
 the user. Another Codex chat ("4 - Combat Overhaul", `art/normals-sasuke`) edits Sasuke's normals at the same time:
 change only this brief's rows in the shared manifest, hitboxes, REVIEW and TRACKER files.
 
-- [ ] **1. Batch 1, the Chidori family:** user decision via Claude relay skills #13 allows the third worktree `art/sasuke-skills` alongside `art/normals-sasuke` and `art/normals-killua`; the two-worktree cap remains for Smash normals rounds. Start B1 `special` v14 (the wrist grip, the dragging run, the stab), A1 `chidori`,
-  A2 `chidoriForm`, A3 `chidoriBurst`, A4 `chidoriSpear`, A5 `chidoriCurrent` (HD cell, v01 each).
-  Progress 2026-10-18: user approved chidoriForm/Burst/Spear/Current v01 via Claude relay #14; recorded in REVIEW/manifest/TRACKER. Claude owns HD packing and game wiring. special v14 and A1 chidori remain technical holds after 3/3 calls. Batch 2 Amaterasu generation is underway. Batch 1 is not complete.
-- [ ] **2. Batch 2, Amaterasu:** A6 `amaterasu`, A7 `amaterasuIgnite`.
-- [ ] **3. Batch 3, Kirin and the Great Fireball:** B2 `beamFire` v08 (the arm swung down), A8 `greatFireball`,
-  A9 `greatFireballBurst`, A10 `stormCloud`, A11 `kirinBody`, A12 `kirinHead`, A13 `kirinStrike`.
+- [x] **1. Batch 1, the Chidori family** (2026-10-18): relay #15 authorized special v14 attempt 3 and a fresh three-call budget for A1 `chidori`; user approved chidori v01 and special v14 via #17. User later approved special v15 via skills send #20 after the final redraw (4/4); Claude's trial pack reports whole-figure split, auto-head x0.905, head 1.10, no clipping with `special_v15.json` and bodyHeight 157. v15 is restored to raw; v14 stays held. Claude owns applying the settings, remeasuring hand anchors and integrating v15 in place of v13. Chidori's source-layout/background/palette caveats remain for Claude integration. Updated review records and provenance are committed on `art/sasuke-skills`; Updated batch 1 preview: https://gcd-tourney-hq6is7vx1-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/.
+- [x] **2. Batch 2, Amaterasu** (2026-10-18): user approved `amaterasu` v01 and `amaterasuIgnite` v01 via Claude relay skills #16, quote: “Approve both v01 (Recommended): Approve amaterasu v01 and amaterasuIgnite v01 as they pack; I put them in the game and Codex moves on to the Kirin batch.” Restored both selected files from `_qa_hold/` to `art/vfx/raw/` with no pixel cleanup; manifest HD entries approved, Amaterasu fill 0.9, Ignite 0.95. Claude's trial pack split the 4x2/3x2 grids and keyed/quantized near-magenta; Claude owns HD game integration. Records and updated gallery committed on `art/sasuke-skills` at `8b7a4c46`.
+- [x] **3. Batch 3, Kirin and the Great Fireball** (2026-10-18): via Claude relay skills #19, the user approved beamFire v08 and greatFireball, greatFireballBurst, stormCloud, kirinBody, kirinHead, kirinStrike v01. For beamFire, the user chose head about 8% over idle and low-lunge body about 7% under; Claude sets bodyHeight and owns HD pack/integration. The cell-top reach on kirinStrike is as briefed. Approval records are committed on art/sasuke-skills; updated gallery https://gcd-tourney-467ofrysf-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/.
 
 Do not edit `src/` or `tools/`. A manifest entry with `"hd": true` is enough for `node tools/pack-sprites.mjs vfx
 --candidates` to pack a new HD name (brief section 2).
@@ -125,10 +122,18 @@ Do, per fighter (Luna/medium for generation; Astra/medium final audit, per CLAUD
   measurement is wrong (the head hidden behind a raised arm), record a version-bound `scaleManualQA` with Astra's
   evidence; where the figure really is off, fix the import (measured re-stitch or the auto head fit) without changing the
   drawing. The user accepted these drawings as drawn: a redraw would need the user again, so ring before any redraw.
-- [x] **B3. dTilt.** (2026-10-18: relay #12's instruction is already completed on `art/normals-sasuke`: `raw/dTilt_v05.png` is byte-identical to `_qa_hold/dTilt_v05_attempt03.png` (SHA-256 `A5C6A920847732F086810B498F8B79C15B9C82BC46F6D44B2554102706932123`), packed cells 181–186 and `dTilt_loop_v05.gif` are in the review page, and phases `[2,2,2]` place the kick in active frames f2/f3. Astra found drawn shin-height contact in those frames; runtime hit landing/timing remains Claude's check. The user later approved v05 via relay #13. They rejected v06 via relay #14 and said no more dTilt work; v05 remains the approved drawing. Strict all-strips checking still sees raw v06 and reports its scale failure, so Claude should keep rejected v06 out of any shipping pack. No new image calls or candidate copy were made for this delayed relay #12.)
-- [x] Then ring `combat` (not for the user) with the commit: Claude reruns the guard, checks contact in play and merges. (2026-10-18: relay #19 sent after committed uTilt v05 handoff `4e730edf`; user seam review is separately queued as relay #18.)
+- [x] **B3. dTilt.** (2026-10-18: `raw/dTilt_v05.png` is byte-identical to `_qa_hold/dTilt_v05_attempt03.png` (SHA-256 `A5C6A920847732F086810B498F8B79C15B9C82BC46F6D44B2554102706932123`), packed cells 181–186 and `dTilt_loop_v05.gif` are in the review page. Relay #15 corrected phases to `[3,2,1]`, placing the low kick in active f3/f4. Astra found drawn shin-height contact; runtime landing/timing remains Claude's check. The user approved v05 via relay #13 (“Approve dTilt v05”), then rejected v06 via #14 (“v05 stays the approved dTilt; keep v06 on file, no more dTilt work”); v06 remains preserved in `_rejected/`. Strict pack passes.)
+- [x] **B4. Relay #15 approval and technical integration follow-up.** (2026-10-18: user approved uTilt v05 via Claude (“Approve uTilt v05”); recorded in REVIEW/manifest/TRACKER. Strict pack now passes with 52 animations / 236 frames. DashAttack v05 passes after measured auto-head fit x0.7502; uSmash v05 passes after Astra-supported packScale 1.111 and corrected-atlas audit; dTilt phases [3,2,1]. Branch commit `03fe0a72`, PR #156 preview refreshed at https://gcd-tourney-r2gjj80pw-eshin087s-projects.vercel.app/reviews/normals-sasuke/. The merge guard passes when run on the branch, although it reports the expected stale TASKS/CHANGELOG conflicts for Claude to resolve at integration. fTilt's earlier decision prompt was superseded by relay #16. dSmash remains stand-in. Runtime contact checks remain Claude's integration work.)
+- [x] **B5. Relay #16 fTilt deterministic head edit.** (Historical; superseded by #17. The authorized edit attempt left magenta seams in prototypes; no v04 was saved and the approved v03 source stayed unchanged. See the updated scale decision below.)
+- [x] **B6. Relay #17 fTilt import scale and final handoff.** (2026-10-18: promoted approved v03 unchanged from `_qa_hold` at manifest packScale 0.92; source SHA-256 unchanged. Strict pack passes, 53 animations / 243 frames; head median 1.031 (1.026–1.063), feet median .991 (0.881–1.053), seven frames. Review crops rebuilt and verified against sheet cells 181–187. Astra audit recorded technical HOLD for body parity: garment proxy .826 (±10% uncertainty), shoulders/clothing and apparent lower-body proportions look reduced; this is not a segment-length measurement. Candidate and audit committed at `5d6d2712`; build and branch guard pass; preview refreshed at https://gcd-tourney-r0bb43l3y-eshin087s-projects.vercel.app/reviews/normals-sasuke/. Claude integration/contact disposition remains; no new image/user decision requested.)
 
-Progress (tick per fighter): - [ ] sasuke (dTilt v05 approved; v06 rejected via relay #14; uTilt v05 seam review pending) - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
+Progress (tick per fighter): - [x] sasuke (merged and live 2026-10-18, 03d8e27a: nine new strips; dSmash keeps its stand-in; Claude accepted the fTilt / fair / dTilt body-volume notes as advisory after the contact check) - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
+
+**Lessons from Sasuke for every later fighter (Claude, 2026-10-18):** start the worktree with `--art <id>` so every raw
+is on disk, re-pack the whole character and compare the animation count with main's before you ring; build review crops and
+loops from the packed sheet cells (anims.json), never from a stale folder; act on a user decision only from its delivered
+relay message, once (never from NOW.md or relay state); a head-only fix is a scripted pixel edit or a measured
+packScale, never an image-generation "edit" (it repaints the whole strip).
 
 Rules: edit only art/characters/<id>/** (raw/, ANIMATIONS.md, hitboxes.json, CLAUDE_ART_HANDOFF.md),
 public/characters/<id>/** via the packer, public/reviews/normals-<id>/**, the <id> block of art/manifest.json, the
@@ -2195,6 +2200,10 @@ Direct user direction supersedes the earlier recommendation for model v02: v02 w
 - [x] **(2026-10-09) ART-CRWD-FIX:** superseded 2026-10-10: the user keeps the Killua and Gojo spectators in the
   crowd (approved with the rest). Do not replace them.
 - Noted by Claude: TOOL-018 (queue named flags lost through `npm run queue --` on PowerShell) is on Claude's list.
+
+
+
+
 
 
 
