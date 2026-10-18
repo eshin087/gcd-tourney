@@ -458,7 +458,7 @@
           "status": "approved",
           "version": 3,
           "approvedVersion": 3,
-          "approvalSource": "user via Claude relay combat #7: Approve fTilt v03"
+          "approvalSource": "user via Claude relay combat #7: Approve fTilt v03", "packScale": 0.92
         },
         "uTilt": {
           "frames": 7,

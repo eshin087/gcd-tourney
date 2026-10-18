@@ -556,5 +556,29 @@
     },
     "_scale": 1.111,
     "_note": "ENG-112 uSmash v05: phases [3,2,3] make f3/f4 the overhead fist. Boxes follow the raised fist on the quantized cells after uniform packScale x1.111."
+  },
+  "fTilt": {
+    "3": {
+      "hit": [
+        [
+          199,
+          116,
+          13,
+          17
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          199,
+          116,
+          13,
+          17
+        ]
+      ]
+    },
+    "_scale": 0.92,
+    "_note": "ENG-112 fTilt v03 active punch frames 3/4 after user-authorized unchanged-source packScale 0.92. Boxes follow the leading fist at the front of the extended arm on quantized cells; crops are rebuilt from current atlas cells 184/185."
   }
 }

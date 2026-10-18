@@ -1,5 +1,12 @@
 # Art review queue
 
+## 2026-10-18 — Sasuke fTilt v03 — approved drawing, import-scale gate pass
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | sasuke | fTilt | [fTilt_v03](characters/sasuke/raw/fTilt_v03.png) · [packed frames](../public/reviews/normals-sasuke/packed/fTilt/) · [ENG-112 review](../public/reviews/normals-sasuke/#ftilt-v03) | v03 | approved | Per user decision via Claude relay combat #17, import-scale the previously approved v03 pixels at packScale 0.92; preserve source bytes, poses and phases [3,2,2]. | User drawing approval via relay #7 remains unchanged. Source SHA-256 `8BEADFCD2FF7D0490BE491D123D55C5F1F25D0ED4E8019A12C5D7DB3A8FCF440`. No generation or pixel edits. Strict quantized scale gate passes; head median 1.031× idle (range 1.026–1.063), feet median 0.991× (range 0.881–1.053). Astra audit HOLD for full body parity: garment proxy median .826 (range .812–.848; about ±10% uncertainty), reduced shoulder/clothing volume and shorter apparent lower-body proportions at frames 0/6; not a segment-length measurement. Crops rebuilt from exact sheet cells 181–187 and pixel-verified. Claude integration/contact check remains. [Astra audit](characters/sasuke/production/fTilt_v03_packScale_audit.md). Relay #16 edit blocker is superseded by #17 scale decision; no v04 was saved. |
+
+
 ## 2026-10-18 — Sasuke uTilt v05 — approved by user; technical advisories remain
 
 | date | character | asset | file | version | status | what changed | QA notes |

@@ -1,6 +1,12 @@
+## Relay combat #17: fTilt v03 import-scale decision (2026-10-18)
+
+The user authorized import scaling only: preserve the approved v03 source pixels and import with packScale 0.92; no pixel edits, image calls or redraw. Promoted raw/_qa_hold/fTilt_v03.png to raw/fTilt_v03.png; source SHA-256 remains 8beadfcd2ff7d0490be491d123d55c5f1f25d0ed4e8019a12c5d7db3a8fcf440. Phases [3,2,2]. Strict quantized pack passes (53 animations / 243 frames; 42 ok / 10 manual), no fTilt scale refusal. Scale report head median 1.031× (range 1.026–1.063), feet median .991× (range .881–1.053); rebuilt review crops now match atlas cells 181–187 pixel-for-pixel. Active fist boxes are on f3/f4.
+
+GPT-6 Astra medium audit compared actual sheet cells 181–187 to actual idle f0 and approved neutral/combat cells. Head/pose continuity/clipping pass; the body garment proxy is .826 median (range .812–.848, about ±10% pose/palette uncertainty), and visual inspection notes reduced shoulder/clothing volume and shorter apparent lower-body proportions, especially frames 0/6. Astra disposition: HOLD for full anatomical parity; this proxy is not a segment-length measurement. Evidence and limits: production/fTilt_v03_packScale_audit.md, contact sheet at E:/Vibe Coding/.codex/visualizations/2026/10/18/01a14c8c-4884-7102-a8e0-efa63fbe6bb6/sasuke-ftilt-audit.png. Strict scale gate itself passes and drawing approval via relay #7 remains. Request Claude's final integration/contact check with this technical HOLD visible; no new user art decision requested by relay #17. The earlier relay #16 pixel-edit blocker is superseded; no v04 was saved.
+
 # ENG-112 Sasuke normals handoff
 
-## Relay combat #16: fTilt v03 head shrink blocked (2026-10-18)
+## Relay combat #16: fTilt v03 head shrink blocked (superseded by relay #17) (2026-10-18)
 
 The user authorized one deterministic, no-generation edit: shrink only fTilt v03's hair-to-chin head about 12% around the
 neck, preserve v03 and phases [3,2,2], and return v04 for seam review. The source remains byte-identical at
