@@ -12,6 +12,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
+- Recorded the exhausted authorized Sasuke dTilt v04 and uTilt head-only correction rounds; no compliant candidates were selected, and all dTilt outputs remain preserved for provenance.
 
 - Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
 

@@ -17,6 +17,26 @@ the files remain in `raw/_qa_hold/`, and the gameplay stand-ins remain active. T
 `public/reviews/normals-sasuke/index.html`; Vercel quota still prevents a fresh hosted preview. Strict quantized pack
 and production build were rerun after recording the decisions.
 
+## Authorized correction rounds exhausted (2026-10-18, main NOW / combat sends #8-#9)
+
+The user-authorized dTilt v04 round used all three calls. None was compliant: outputs were 2171–2172×724 painterly
+strips; attempts 2 and 3 kept active fists at knee/thigh height rather than the shins. Copies are preserved in
+`raw/_qa_hold/dTilt_v04_attempt01.png` through `attempt03.png`; no candidate v04 was selected. Call IDs and SHA-256:
+
+| Call | File | SHA-256 |
+|---|---|---|
+| `fc86ddf1-f193-4042-b313-627c5a0c4bb5` | `dTilt_v04_attempt01.png` | `B7F2A12F2BF7E83C3A70554686A132BFD6A511FF9674D95FF77E139F0F0B2858` |
+| `e49525f1-eda5-4337-b5db-47444e4f32ed` | `dTilt_v04_attempt02.png` | `CA8CFE13EB0609F2D9A177FF83660DE2EFA4369470C1505179B204B1111ECB2C` |
+| `6da78495-3435-4cc8-8fc2-ef2aceb9d613` | `dTilt_v04_attempt03.png` | `75315FEF7A127EC6C97B8AE01C477642EF43B6BC7E2E6D02F24CC8215EED9A4E` |
+
+The user-authorized uTilt head-only correction round also used all three calls. Each output repainted pixels across the
+full strip, so none qualifies as a head-only edit; no v02 was saved and approved v01 remains untouched in
+`raw/_qa_hold/`. Calls/hashes: `0e4fd29c-a016-4fed-a542-a6b68cbf859a` / `6BF04F2C15A3C48AE262922467401E003DEE0C85CD65B74CA4B85D6F5D9572DF`,
+`a43176ae-c7dd-4b0a-b618-74387ed805f6` / `629AA97068BA4D5ABE3D01BE0027E5794BE62B35550A514703490E4325D99B88`,
+`545c61e4-0913-43cd-9747-8835ff10234a` / `6C4C59FE0D1EF911949ABF74887F7DF1EB7C742A083ED379DDD0CDC50A0610B4`.
+No further calls are authorized by those rounds. The user must decide whether to authorize another capped attempt for
+either move or retain its stand-in. dTilt v01/v03 and approved uTilt v01 remain held; no new candidate or image approval.
+
 ## Candidate state
 
 The separate Astra audit returned HOLD for all six packed candidates. Four other moves remain on their established gameplay fallback after layout/contact failures. Older saved versions remain preserved in `raw/` or `raw/_qa_hold/`.
