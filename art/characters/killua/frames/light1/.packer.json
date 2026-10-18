@@ -1,13 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/light1_v02.png",
-  "version": 2,
+  "sourceFile": "raw/light1_v10.png",
+  "version": 10,
   "source": [
-    "characters/killua/raw/light1_v02.png"
+    "characters/killua/raw/light1_v10.png",
+    "characters/killua/raw/light1_v10.json"
   ],
-  "sourceHash": "fbeb11040420666382aed67750affc70bdfe1e06",
-  "bodyHeight": 186,
+  "sourceHash": "8eb43faced9a7b73ba21110d6434e1bdcf6d10dd",
+  "bodyHeight": 151,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,12 +18,12 @@
     ]
   },
   "files": {
-    "light1_00.png": "111d4370ef7c1f5636d3873b00a8d887c0623bab",
-    "light1_01.png": "5991b3d1a31c1b21b3142ac16b191fea1e1b9e62",
-    "light1_02.png": "4036c80cd03b733d399be348f032f0c51769f9a1",
-    "light1_03.png": "09dcf9e76fd4ea8f5cd949a3c688fdaa443f2402",
-    "light1_04.png": "cebb4bf2ef6f909f2109f9f0c3cf18542a598d19",
-    "light1_05.png": "ace6fdc990257447da872d81e65d3a3bce7ec309",
-    "light1_06.png": "2e72b5dd11f60167bb49e5fc2f3b4a3835d75db2"
+    "light1_00.png": "635687a195ee1b577087441ec82c402f1df96c9e",
+    "light1_01.png": "eb89febeff70de799e0c1fc33e30893cf2047890",
+    "light1_02.png": "993b0d96bffbfa3ee5a5eab1e6a68bd42abca32b",
+    "light1_03.png": "cf2c2ed822cc1c11894c3b33e36bd3a520b4a39a",
+    "light1_04.png": "0d9515d80877258314574970b7d55f4f0160ebe5",
+    "light1_05.png": "731c00b5c6081ad5f1aeb0da94dcd6c56704b718",
+    "light1_06.png": "de84cbf38a70374c0008b506d0f47ee598c6517c"
   }
 }

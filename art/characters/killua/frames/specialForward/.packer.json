@@ -1,13 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/specialForward_v04.png",
-  "version": 4,
+  "sourceFile": "raw/specialForward_v12.png",
+  "version": 12,
   "source": [
-    "characters/killua/raw/specialForward_v04.png"
+    "characters/killua/raw/specialForward_v12.png",
+    "characters/killua/raw/specialForward_v12.json"
   ],
-  "sourceHash": "6455cbea5938f6825a1a527f5eed6cf3194b7812",
-  "bodyHeight": 186,
+  "sourceHash": "ee7ab856798c0b6e75e662fcf6c2bd06daf8b00b",
+  "bodyHeight": 139,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,12 +18,12 @@
     ]
   },
   "files": {
-    "specialForward_00.png": "edf2199220a8d694f56d1c357f2af555b70c722e",
-    "specialForward_01.png": "96831c2ac20cb44f9beb8f91f3eb860121eb6e20",
-    "specialForward_02.png": "ccb3605e1e5be094291a531d903664418297d33e",
-    "specialForward_03.png": "4e7a4485546bf5e671239c16016c9f48273eb5f8",
-    "specialForward_04.png": "4bd0f662f046bdb4f1c6f1be3d2619e6c9644c3c",
-    "specialForward_05.png": "81f0437ef099534a4f656711f89dea9f1e431b94",
-    "specialForward_06.png": "478fba87e6bae8ede4bedc49effbab50b9cdfd68"
+    "specialForward_00.png": "5614efcb0c7886ef49f4dfdf941f4cd3854ec589",
+    "specialForward_01.png": "fad0f2de78273bda3d5e72a7d5fb0baf460446f6",
+    "specialForward_02.png": "790a3d095b171551e3994fbdd5cd724853271ef5",
+    "specialForward_03.png": "79dfb5dbf67d4a65cf8283efb75137ad558e9a7a",
+    "specialForward_04.png": "94bd7cb700215dbbf10638c41ee8e730554ba8c0",
+    "specialForward_05.png": "1c3365afbc6cb0eb1ab6ac4eeb51add5b9f84ef5",
+    "specialForward_06.png": "bdc598a036ef6db69091ebbe218730d4b4135649"
   }
 }

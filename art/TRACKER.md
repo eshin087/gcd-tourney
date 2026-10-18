@@ -457,7 +457,7 @@ manifest lists all ten per fighter (status `todo`, bodyHeight copied from that f
 |---|---|---|---|---|---|
 | naruto | todo | todo | todo | todo | ENG-112, branch art/normals-naruto (last, after TOOL-060) |
 | sasuke | todo | todo | todo | todo | ENG-112, branch art/normals-sasuke |
-| killua | todo | todo | todo | todo | ENG-112, branch art/normals-killua |
+| killua | technical hold | technical hold | technical hold | technical hold | ENG-112: all ten v01 candidates held by Astra; review page is for a retry/stand-in decision, not image approval. |
 | gojo | todo | todo | todo | todo | ENG-112, branch art/normals-gojo |
 | goku | todo | todo | todo | todo | ENG-112, branch art/normals-goku |
 | luffy | todo | todo | todo | todo | ENG-112, branch art/normals-luffy |
@@ -782,4 +782,3 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 | Sasuke | ult_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; connected eye motif faint at fit and blood remains below uncovered eye; rope and sword pass. |
 
 User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Both v01 backdrops and both v03 foregrounds are approved. Foreground v01s were rejected; v02s were superseded after user-authorized redraws via relay #5. v03s were approved by the user via Claude relay effects #6 despite Astra holds; each used 3 additional calls (cumulative 6/6). See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
-

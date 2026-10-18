@@ -1,13 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/light4_v02.png",
-  "version": 2,
+  "sourceFile": "raw/light4_v10.png",
+  "version": 10,
   "source": [
-    "characters/killua/raw/light4_v02.png"
+    "characters/killua/raw/light4_v10.png",
+    "characters/killua/raw/light4_v10.json"
   ],
-  "sourceHash": "3698ca3ea86ed59c5ab23b8590798059e2188dbe",
-  "bodyHeight": 188,
+  "sourceHash": "dad06fbc814f5eb19587591b763d9ae721f03136",
+  "bodyHeight": 166,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,13 +18,13 @@
     ]
   },
   "files": {
-    "light4_00.png": "cdcac65ce3ceadb8ee59b1a3454b5d6d2f047ac0",
-    "light4_01.png": "d9bcc4f89a66b47c5856896a92dd6195d0cc0cf8",
-    "light4_02.png": "27f2aa2cf4046787a06a6e587d2dec324b65dd7e",
-    "light4_03.png": "8b33f57f016496b77756c3f6eb80bdddadfa7081",
-    "light4_04.png": "1e30d457eb88abb2172bd835b626a2ce6d08291e",
-    "light4_05.png": "cb46c429298a370e3e9ccbbe1e180434268b197d",
-    "light4_06.png": "126858c768fceab13b19b5c0a47e1583337dbd9c",
-    "light4_07.png": "a33f60ecac73b90b2b713aef472bf9ad2d1c360b"
+    "light4_00.png": "cbfd359d3a880b5498430867612c8973db916fbc",
+    "light4_01.png": "2314ebf45eb694901603fbf57adea44baae09022",
+    "light4_02.png": "78f591c2cf465e33df71e7ff4b93ef88a08c7bc0",
+    "light4_03.png": "44d6b0d1d8c98da392e63e2cbe92ed0271d6647b",
+    "light4_04.png": "455700d9b05fa50d97ba19d23ab5a3c39130443b",
+    "light4_05.png": "5dff30b7991f3ed1951d7d16f8978bee648e5b6c",
+    "light4_06.png": "ebab88ed4fe18c1d304b4bd061670a2454e0847e",
+    "light4_07.png": "35cc3c0a1c3cc81c268a318c9dd5799d5941d553"
   }
 }

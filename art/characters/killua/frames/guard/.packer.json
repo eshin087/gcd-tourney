@@ -1,13 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/guard_v03.png",
-  "version": 3,
+  "sourceFile": "raw/guard_v09.png",
+  "version": 9,
   "source": [
-    "characters/killua/raw/guard_v03.png"
+    "characters/killua/raw/guard_v09.png",
+    "characters/killua/raw/guard_v09.json"
   ],
-  "sourceHash": "35beb4d09206b1184b30cae590f0e2efd69e3149",
-  "bodyHeight": 180,
+  "sourceHash": "0eb81d5d53bc15728757b8c87119f71e1feb6fa1",
+  "bodyHeight": 152,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,7 +18,7 @@
     ]
   },
   "files": {
-    "guard_00.png": "014bdd3e7dd9a1977832a49d97c2e3b9009ae0eb",
-    "guard_01.png": "080970c050765142af5bcfa1470eb7f498e98618"
+    "guard_00.png": "ed7d2b620a47cd148034512ec165997f06e5711a",
+    "guard_01.png": "0bb6c3f602a07da3fd3720ea4f1b93014d64c663"
   }
 }

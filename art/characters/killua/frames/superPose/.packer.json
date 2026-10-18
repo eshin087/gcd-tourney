@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/superPose_v03.png",
-  "version": 3,
+  "sourceFile": "raw/superPose_v08.png",
+  "version": 8,
   "source": [
-    "characters/killua/raw/superPose_v03.png"
+    "characters/killua/raw/superPose_v08.png"
   ],
-  "sourceHash": "927be3a83327b618eb10436aefccfc3c0d1ed492",
-  "bodyHeight": 191,
+  "sourceHash": "d071cc036e4516c8690c0eb568029d25c497f0ce",
+  "bodyHeight": 186,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,9 +17,9 @@
     ]
   },
   "files": {
-    "superPose_00.png": "db04f37c8c574b7212c7ae14ece509a39f9edf9f",
-    "superPose_01.png": "c052cb56f5fbb635ede7f7025a126d21bf33b701",
-    "superPose_02.png": "4e90bb8713fc34628fc858c235cb2a9b8013426b",
-    "superPose_03.png": "f90e24bf85cf5962e7b499a4ace7b3ade4ac75d5"
+    "superPose_00.png": "50f67842572dcdd81539528ce8dc1882af03c32e",
+    "superPose_01.png": "3a7c8da10e54fa5c80df4724c40c021fd87484f3",
+    "superPose_02.png": "50ed5b1723fb40d991db5a29776fda0aa994876f",
+    "superPose_03.png": "c3e7a3587edcefb085336c61c836ff9052ff3ec2"
   }
 }

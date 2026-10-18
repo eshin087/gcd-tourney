@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/backDash_v01.png",
-  "version": 1,
+  "sourceFile": "raw/backDash_v04.png",
+  "version": 4,
   "source": [
-    "characters/killua/raw/backDash_v01.png"
+    "characters/killua/raw/backDash_v04.png"
   ],
-  "sourceHash": "2a01140951c9730200afcc4bae21cc1602f380f6",
-  "bodyHeight": 188,
+  "sourceHash": "4625c7deaf348ee5dc53e7efafce02892e19ca58",
+  "bodyHeight": 154,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,8 +17,8 @@
     ]
   },
   "files": {
-    "backDash_00.png": "b5ee35ef58e92169ab9ee2d0d6cdc8ca2b47f500",
-    "backDash_01.png": "872263de0186f838a20b7cf2296b8e376563536b",
-    "backDash_02.png": "55ba85a44d5829ec98cddb549a527ec211f4e5ca"
+    "backDash_00.png": "29cc861572adbdaa4e4aea5969d3553c8dd3f838",
+    "backDash_01.png": "2199d8ab4e5a931c023de1d847f1d473d4ba4e5a",
+    "backDash_02.png": "d5a545e692ad944365baa670206057e102c1a5c9"
   }
 }

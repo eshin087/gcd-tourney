@@ -1,14 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/hurtLow_v02.png",
-  "version": 2,
+  "sourceFile": "raw/hurtLow_v06.png",
+  "version": 6,
   "source": [
-    "characters/killua/raw/hurtLow_v02.png",
-    "characters/killua/raw/hurtLow_v02.json"
+    "characters/killua/raw/hurtLow_v06.png"
   ],
-  "sourceHash": "4224a8f695ec98362211caf33c725c15790ab413",
-  "bodyHeight": 167,
+  "sourceHash": "55e2211799985ab0892a8504661376eed79c0de2",
+  "bodyHeight": 149,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -18,8 +17,8 @@
     ]
   },
   "files": {
-    "hurtLow_00.png": "b811338826bc2cd8f2173db947b7c3f980c70fdd",
-    "hurtLow_01.png": "00b64af8c7fcfcc6a99c8670ac45a152a78f2e31",
-    "hurtLow_02.png": "50a8538b7d7a52f44226e2d82d830a1e095015a4"
+    "hurtLow_00.png": "0260650d9c41741a04c60601828cb1bb48e850d9",
+    "hurtLow_01.png": "9d1527431d39f99b7363e9a1213111447b76bf9b",
+    "hurtLow_02.png": "9b7fbb8484ba874a7e3f7e525b10747aab6c10c1"
   }
 }

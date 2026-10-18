@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/taunt_v01.png",
-  "version": 1,
+  "sourceFile": "raw/taunt_v05.png",
+  "version": 5,
   "source": [
-    "characters/killua/raw/taunt_v01.png"
+    "characters/killua/raw/taunt_v05.png"
   ],
-  "sourceHash": "b20e7f7df9eff33da4ebd57c77130df0499ff156",
-  "bodyHeight": 193,
+  "sourceHash": "3a84472b19aa022ef2b76a1d5bfdcf0965d130ec",
+  "bodyHeight": 186,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,7 +17,7 @@
     ]
   },
   "files": {
-    "taunt_00.png": "1be26785bb65af61bae2e2a2a364a4cf54e02871",
-    "taunt_01.png": "ab5836de66dc2aeb2f624ba8f1d7445af2188f2d"
+    "taunt_00.png": "05b4c2495a6769987b9175839acf025f448c0e6b",
+    "taunt_01.png": "582d1cde29a7d785ab9c8141b26edf826db196cf"
   }
 }

@@ -880,3 +880,20 @@ mouth, one tiny fang), eyes curved shut.
 packed the game shows `land` / `airRecover` / `jumpUp` for the techs. Per-frame poses, this fighter's flavor, the
 prompt blocks and the QA: [TECH_POSES_BRIEF.md](../TECH_POSES_BRIEF.md) (ART-TECH-01); the generic rows:
 [_template/ANIMATIONS.md](../_template/ANIMATIONS.md#techground).
+
+## Directional normals
+
+Optional, ADR 0042 and art/SPEC.md "Directional normals": these Smash-style moves are visual replacements for the existing stand-ins. Until the user approves a packed strip, the move keeps its fallback. Strikes land in the required zone: fTilt/fSmash at chest height; dTilt/dSmash at shin height (dSmash reaches both sides); uTilt/uSmash rise from in front of the face to above the head; uair goes straight up; fair reaches forward at body height; bair faces right and strikes screen-left behind Killua. `fSmash` frame 01 is the charge pose held while Heavy is held. The descriptions below match the selected v01 candidate poses and do not record approval.
+
+| Animation | What this fighter does |
+|---|---|
+| fTilt | A quick stepping straight punch at chest height, followed by a guarded recovery. |
+| uTilt | A rising forearm arc from in front of the face to above the hair, with a short recovery. |
+| dTilt | A crouched, low forward kick aimed at the opponent's shins. |
+| dashAttack | Carries Killua's run into a low forward lunge and straight punch at body height. |
+| fSmash | Holds a coiled charge pose, then drives a full-body straight punch forward and recovers to guard. |
+| uSmash | Drops into a crouch, then rises into an overhead arm strike with forward reach. |
+| dSmash | Drops low into a two-sided shin-height sweep, then recovers to guard. |
+| fair | A forward mid-air kick at the opponent's body height. |
+| bair | Facing right, snaps a kick screen-left behind the body, then recovers in the air. |
+| uair | Leaps into a straight upward kick above the head and settles back into an aerial guard. |

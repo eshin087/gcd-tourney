@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/getup_v02.png",
-  "version": 2,
+  "sourceFile": "raw/getup_v07.png",
+  "version": 7,
   "source": [
-    "characters/killua/raw/getup_v02.png"
+    "characters/killua/raw/getup_v07.png"
   ],
-  "sourceHash": "e0ac7359948d58ba760e479f8e51041324c1df68",
-  "bodyHeight": 186,
+  "sourceHash": "8a33e33106d4253237f171e2c5a2b6782feef617",
+  "bodyHeight": 158,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,10 +17,10 @@
     ]
   },
   "files": {
-    "getup_00.png": "47cc8175fc2a8fed6114d29db88e3582585cf140",
-    "getup_01.png": "f8ebb1e7a2ef1c2764d726f0a95998a173d9f2ab",
-    "getup_02.png": "f920149ccca86c18643e2ababa5559c3e1a64a18",
-    "getup_03.png": "f77ebe69145cad5516033c5c3f4c5816b6404322",
-    "getup_04.png": "a195f88a9ec6ffe52131a1bff34aa990c859ea29"
+    "getup_00.png": "b0b344fe1bc5f9feda69c5c696df2e55b4d84e52",
+    "getup_01.png": "49252cbbfdccf49943c5eb566adda367c42f8ee4",
+    "getup_02.png": "8c1a90a01cb6b62422d105f8614626258fcba38b",
+    "getup_03.png": "b69ac67e13acbf6ae89ecb2c5efff73b5c741e6e",
+    "getup_04.png": "b502c3b234cba78b1df520cba5150c4c40246f45"
   }
 }
