@@ -240,7 +240,7 @@ function viewerInfo() {
   const off = sa && ['uniform', 'drift', 'pop'].includes(sa.verdict);
   return [
     `<b>${V.name}</b> ${own ? '' : `<span class="lab-warn">not in this sheet: falls back to ${used ?? '?'}</span>`}`,
-    `frame ${act.fi + 1} / ${A.frames.length} · sheet cell ${act.frame} · ${A.durations?.[act.fi] ?? 100} ms${phase ? ' · ' + phase : ''}`,
+    `frame ${act.fi + 1} / ${A.frames.length} · sheet cell ${act.frame}${f.asset.textures?.length > 1 ? ` (page ${act.page + 1} of ${f.asset.textures.length})` : ''} · ${A.durations?.[act.fi] ?? 100} ms${phase ? ' · ' + phase : ''}`,
     ph ? `phases ${ph.join(' / ')} (startup / active / recovery)` : '',
     `boxes: ${boxes('hurt')} hurt, ${boxes('hit')} hit · art: ${f.asset.source ?? (f.asset.meta?.source || 'baked')}`,
     sa ? `head ${fh == null ? '-' : fh.toFixed(2)} of the idle's · strip ${sa.head == null ? '-' : sa.head.toFixed(2)} <span class="${off ? 'lab-warn' : ''}">${sa.verdict}</span> (white box = idle head size, gold = this frame's head)` : '',

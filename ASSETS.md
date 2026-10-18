@@ -30,6 +30,12 @@ The game uses a character's packed sheet once every core animation exists (`"com
 of each strip. Anything missing falls back to the procedural art, so characters and effects can be
 replaced one at a time.
 
+**Sheet format:** 256 x 256 cells, 16 columns, row-major, at most 16 rows (4096 x 4096 px, 256 frames) per sheet page, so
+a phone with a 4096 px texture limit shows every frame sharp. A fighter with more frames ships `sheet.png` +
+`sheet2.png` (+ `sheet3.png` ...), its frames numbered straight through, and `anims.json` lists them
+(`"pages": ["sheet.png", "sheet2.png"], "pageFrames": 256`); a fighter with 256 frames or fewer has one `sheet.png`
+and no page keys. Details: [art/SPEC.md "Sheet pages"](art/SPEC.md#sheet-pages) (TOOL-060).
+
 Every fighter has a kit ([ADR 0009](docs/decisions/0009-move-system-v2.md), baseline
 [ADR 0011](docs/decisions/0011-kit-baseline-and-balance.md)), so every fighter has four extra optional strips:
 `specialForward`, `specialUp`, `specialDown` and `superPose` (Naruto's and Sasuke's briefs:
@@ -76,7 +82,8 @@ pick `public/characters/<id>/sheet.png` and `anims.json`. It can also:
   body-height scaling, feet alignment), then **Download sheet.png / anims.json**.
 
 The Sprite Lab importer was built for the old 112 px placeholder cells. For the hi-res production
-art (256 px cells, spec v2), use `npm run sprites`, which follows [art/SPEC.md](art/SPEC.md).
+art (256 px cells, spec v2), use `npm run sprites`, which follows [art/SPEC.md](art/SPEC.md). It edits one-page
+sheets only: it refuses an `anims.json` with `pages` (view a two-page fighter in the test lab, `/lab.html`).
 
 ## Placeholder art
 

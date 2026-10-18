@@ -13,6 +13,12 @@ import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import { decalTests } from './test-pack-decals.mjs';
 import * as probe from './scale-probe.mjs';
+import { loadPacked } from './scale-audit.mjs';
+import * as THREE from 'three';
+
+// the engine's sheet classes for the page checks (TOOL-060); the module reads URL flags at load, so location is stubbed
+globalThis.location = globalThis.location || { search: '' };
+const { SheetAsset, SpriteActor, sheetProblem } = await import('../src/game/sprites.js');
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PACKER = path.join(TOOL_DIR, 'pack-sprites.mjs');
@@ -1013,6 +1019,7 @@ function main() {
   approvedIdleRefTests(base);
   sidecarFlipTests(base);
   packScaleTests(base);
+  sheetPageTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -2012,6 +2019,129 @@ function packScaleTests(base) {
   const c = run();
   check(c.r.code === 0 && Math.abs(c.box('idle', 0).h - ha) <= 1 && /packScale is 3 - must be a number 0\.5-1\.5/.test(c.r.out + JSON.stringify(c.r.json ?? {})),
     `packScale: an out-of-range value is reported and ignored (idle ${c.box('idle', 0).h} px)`);
+}
+
+// ---------------------------------------------------------------- sheet pages (TOOL-060)
+// A fighter past 256 frames ships as sheet.png + sheet2.png (each at most 4096 x 4096 px), its frames numbered straight
+// through (src/art/sheetPages.js). The same art packed onto one tall page (--page-rows 64) is the reference: paging may
+// move cells, never change a pixel, a box or a hand anchor. Expectations use plain arithmetic (frame f on page
+// floor(f / 256) at cell f % 256), not the helper under test.
+const PAGE_ANIMS = ['idle', 'run', 'light1', 'light2', 'light3', 'light4', 'heavy', 'jumpUp', 'jumpFall', 'guard', 'hurtHigh', 'hurtLow', 'dash', 'special', 'charge', 'land', 'taunt', 'win', 'intro', 'throw'];
+function sheetPageTests(base) {
+  // 20 strips of 13 hand-made frames: 260 frames, so the 20th strip (frames 247-259) runs across the page boundary
+  const P = path.join(ART, 'characters', 'pagey');
+  PAGE_ANIMS.forEach((name, a) => {
+    for (let k = 0; k < 13; k++) {
+      const rand = mulberry(1300 + a * 13 + k);
+      const img = image(FW, FW, null, rand);
+      const rects = figure({ punch: k, bob: a % 3 });
+      for (const [x0, x1, y0, y1] of rects) rect(img, 110 + (x0 - 1) * 3, 246 - (y1 + 1) * 3, (x1 - x0 + 2) * 3, (y1 - y0 + 2) * 3, COL.outline, rand, 0);
+      for (const [x0, x1, y0, y1, c] of rects) rect(img, 110 + x0 * 3, 246 - y1 * 3, (x1 - x0) * 3, (y1 - y0) * 3, c, rand, 0);
+      savePng(path.join(P, 'frames', name, `${name}_${String(k).padStart(2, '0')}.png`), img);
+    }
+  });
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.pagey = { name: 'Pagey', scaleGate: 'warn', animations: Object.fromEntries(PAGE_ANIMS.map((n) => [n, { frames: 13, bodyHeight: 204 }])) };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  const OUT1 = path.join(FIX, 'out-onepage');
+  const dir = (out) => path.join(out, 'characters', 'pagey');
+  const metaOf = (out) => JSON.parse(fs.readFileSync(path.join(dir(out), 'anims.json'), 'utf8'));
+  const one = pack(['--root', ART, '--out', OUT1, '--json', '--page-rows', '64', 'pagey']);
+  const two = pack([...base, 'pagey']);
+  const C = two.json?.characters.find((c) => c.id === 'pagey');
+  if (!fs.existsSync(path.join(dir(OUT), 'anims.json')) || !fs.existsSync(path.join(dir(OUT1), 'anims.json'))) {
+    check(false, `sheet pages: pagey packed (${one.code}/${two.code} ${(C?.warnings || []).join(' | ').slice(0, 400)} ${two.err.slice(0, 400)})`);
+    return;
+  }
+  const m1 = metaOf(OUT1), m2 = metaOf(OUT);
+  const frames = Object.values(m2.animations).flatMap((a) => a.frames).sort((x, y) => x - y);
+  check(frames.length === 260 && frames.every((f, i) => f === i), `sheet pages: 260 frames numbered straight through 0-259 (${frames.length}, last ${frames.at(-1)})`);
+  check(JSON.stringify(m2.pages) === '["sheet.png","sheet2.png"]' && m2.pageFrames === 256 && !('pages' in m1) && !('pageFrames' in m1),
+    `sheet pages: anims.json lists the pages only when there are two (${JSON.stringify(m2.pages)} x ${m2.pageFrames}; one page: ${'pages' in m1})`);
+  const p1 = loadPng(path.join(dir(OUT), 'sheet.png')), p2 = loadPng(path.join(dir(OUT), 'sheet2.png')), tall = loadPng(path.join(dir(OUT1), 'sheet.png'));
+  check(p1.w === 4096 && p1.h === 4096 && p2.w === 4096 && p2.h === 256 && tall.h === 17 * 256 && !fs.existsSync(path.join(dir(OUT1), 'sheet2.png')),
+    `sheet pages: sheet.png 4096x4096 (16 full rows) + sheet2.png 4096x256 (the 4 frames left) (got ${p1.w}x${p1.h} + ${p2.w}x${p2.h}; one page ${tall.w}x${tall.h})`);
+  check(C?.sheet === '4096x4096 + 4096x256' && JSON.stringify(C?.pages) === JSON.stringify(m2.pages), `sheet pages: the report names both pages (${C?.sheet}, ${JSON.stringify(C?.pages)})`);
+  const pages = [p1, p2];
+  const differ = frames.filter((f) => Buffer.compare(cell(pages[Math.floor(f / 256)], f % 256).data, cell(tall, f).data) !== 0);
+  check(differ.length === 0, `sheet pages: every cell is the one-page pack's, pixel for pixel (${differ.length} differ: ${differ.slice(0, 8).join(', ')})`);
+  const { pages: _pages, pageFrames: _per, ...rest } = m2;
+  check(JSON.stringify(rest) === JSON.stringify(m1), 'sheet pages: animations, boxes and hand anchors are the one-page pack\'s (only the page keys are new)');
+  const across = Object.entries(m2.animations).find(([, a]) => a.frames.includes(255) && a.frames.includes(256));
+  check(!!across, `sheet pages: a strip runs across the page boundary (${across?.[0]}: ${across?.[1].frames[0]}-${across?.[1].frames.at(-1)})`);
+  // the scale audit and body sheet read every page (tools/scale-audit.mjs loadPacked)
+  const L2 = loadPacked('pagey', OUT), L1 = loadPacked('pagey', OUT1);
+  const lp = L2 && L1 && L2.anims.every((a, i) => a.cells.every((c, k) => Buffer.compare(Buffer.from(c.data), Buffer.from(L1.anims[i].cells[k].data)) === 0));
+  check(!!lp, 'sheet pages: npm run scale / body read the cells from both pages');
+
+  // --keep-palette reads the palette of both pages: a quantized repack of unchanged art keeps both pages byte for byte
+  {
+    const q = pack([...base, 'pagey', '--quantize', '12']);
+    const b1 = fs.readFileSync(path.join(dir(OUT), 'sheet.png')), b2 = fs.readFileSync(path.join(dir(OUT), 'sheet2.png'));
+    const k = pack([...base, 'pagey', '--quantize', '12', '--keep-palette']);
+    const kc = k.json?.characters.find((c) => c.id === 'pagey');
+    check(q.code === 0 && k.code === 0 && (kc?.notes || []).some((n) => /palette kept from the current sheet\.png/.test(n))
+      && Buffer.compare(b1, fs.readFileSync(path.join(dir(OUT), 'sheet.png'))) === 0 && Buffer.compare(b2, fs.readFileSync(path.join(dir(OUT), 'sheet2.png'))) === 0,
+    `sheet pages: --keep-palette learns from both pages (${(kc?.notes || []).find((n) => /palette/.test(n)) ?? kc?.warnings?.find((w) => /palette/.test(w))})`);
+  }
+
+  // a repack onto one page removes the old sheet2.png (a dry run only says it would)
+  const dry = pack([...base, '--dry-run', '--page-rows', '64', 'pagey']);
+  const dc = dry.json?.characters.find((c) => c.id === 'pagey');
+  check(fs.existsSync(path.join(dir(OUT), 'sheet2.png')) && (dc?.notes || []).some((n) => /would remove .*sheet2\.png/.test(n)), 'sheet pages: a dry run keeps sheet2.png and says it would remove it');
+  const shrink = pack([...base, '--page-rows', '64', 'pagey']);
+  const sc = shrink.json?.characters.find((c) => c.id === 'pagey');
+  check(!fs.existsSync(path.join(dir(OUT), 'sheet2.png')) && !('pages' in metaOf(OUT)) && (sc?.notes || []).some((n) => /removed .*sheet2\.png: the pack has 1 page/.test(n)),
+    'sheet pages: a pack back on one page removes the stale sheet2.png');
+  // a pack with nothing left removes every page with the sheet
+  fs.writeFileSync(path.join(dir(OUT), 'sheet3.png'), 'stale');
+  fs.renameSync(path.join(P, 'frames'), path.join(P, '_frames'));
+  const gone = pack([...base, 'pagey']);
+  fs.renameSync(path.join(P, '_frames'), path.join(P, 'frames'));
+  check(gone.code === 0 && !['anims.json', 'sheet.png', 'sheet3.png'].some((f) => fs.existsSync(path.join(dir(OUT), f))), 'sheet pages: the stale-pack cleanup removes the extra pages too');
+
+  // the engine: the page follows the frame (SheetAsset.page / uv / cell, SpriteActor.usePage), so a loaded rollback
+  // state needs no page of its own; a missing or short page is refused by the loader (sheetProblem)
+  const img1 = { width: 4096, height: 4096 }, img2 = { width: 4096, height: 256 };
+  const asset = new SheetAsset([img1, img2], m2, 'custom');
+  check(asset.textures.length === 2 && asset.texture === asset.textures[0] && asset.page(255) === 0 && asset.page(256) === 1 && asset.page(259) === 1,
+    `sheet pages: SheetAsset has a texture per page and finds each frame's (${asset.textures.length}, ${asset.page(255)}/${asset.page(256)})`);
+  const c257 = asset.cell(257), c40 = asset.cell(40);
+  check(c257.image === img2 && c257.x === 256 && c257.y === 0 && c40.image === img1 && c40.x === 8 * 256 && c40.y === 2 * 256, 'sheet pages: SheetAsset.cell gives the page image and cell (HUD, select screen)');
+  const near = (v, x) => Math.abs(v - x) < 1e-9;
+  const u = asset.uv(256, new THREE.Vector4()), u40 = asset.uv(40, new THREE.Vector4());
+  check(near(u.x, 0.02 / 4096) && near(u.y, 1 - (256 - 0.02) / 256) && near(u.z, (256 - 0.02) / 4096) && near(u.w, 1 - 0.02 / 256)
+    && near(u40.y, 1 - (3 * 256 - 0.02) / 4096) && near(u40.w, 1 - (2 * 256 + 0.02) / 4096), 'sheet pages: uv is measured on the frame\'s own page');
+  const flat = new SheetAsset({ width: 4096, height: 17 * 256 }, m1, 'custom'), uf = flat.uv(259, new THREE.Vector4());
+  check(flat.textures.length === 1 && flat.page(259) === 0 && near(uf.x, (3 * 256 + 0.02) / 4096) && near(uf.y, 1 - (17 * 256 - 0.02) / (17 * 256)),
+    'sheet pages: a one-page sheet keeps the old cell math');
+  const scene = new THREE.Scene();
+  const actor = new SpriteActor(asset, scene);
+  const shell = actor.auraShell(), cloak = actor.chakraShroud();
+  const onPage = (a, p) => a.page === p && a.mat.uniforms.map.value === asset.textures[p] && a.caster.customDepthMaterial.map === a.shadowTexs[p]
+    && a.mat.uniforms.texSize.value.y === [4096, 256][p] && near(a.texel.value.y, 1 / [4096, 256][p]);
+  check(onPage(actor, 0), 'sheet pages: an actor starts on page 1 (the idle)');
+  actor.play(across[0]);
+  actor.setFrame(256);
+  check(onPage(actor, 1) && shell.mat.uniforms.map.value === asset.textures[1] && cloak.frontMat.uniforms.map.value === asset.textures[1] && near(shell.mat.uniforms.texel.value.y, 1 / 256),
+    'sheet pages: a frame on sheet2.png switches the body, its shadow caster, the aura shell and the cloak to that page');
+  actor.ghost(0xffffff);
+  check(actor.ghosts[0]?.mesh.material.uniforms.map.value === asset.textures[1], 'sheet pages: an afterimage echoes the page of its frame');
+  const saved = actor.saveState();
+  actor.setFrame(255);
+  check(onPage(actor, 0), 'sheet pages: the strip goes back to page 1 at its frame 255');
+  const other = new SpriteActor(asset, scene);
+  other.loadState(saved);
+  check(!('page' in saved) && other.frame === 256 && onPage(other, 1), 'sheet pages: a loaded state (rollback) lands on the page of its frame, which is not saved');
+  actor.dispose();
+  other.dispose();
+  const files = ['sheet.png', 'sheet2.png'];
+  check(sheetProblem(m2, files, [img1, img2]) === null && /sheet2\.png is missing/.test(sheetProblem(m2, files, [img1, null]) ?? '')
+    && /frame 256 lies outside sheet2\.png/.test(sheetProblem(m2, files, [img1, { width: 4096, height: 0 }]) ?? '')
+    && /frame 256 lies outside sheet\.png/.test(sheetProblem(m1, ['sheet.png'], [{ width: 4096, height: 4096 }]) ?? ''),
+  `sheet pages: the loader refuses a missing or short page (falls back to the placeholder) (${sheetProblem(m2, files, [img1, { width: 4096, height: 0 }])})`);
 }
 
 function finish() {

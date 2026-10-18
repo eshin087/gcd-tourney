@@ -91,9 +91,9 @@ export function portraitCanvas(asset, size = 34) {
   c.height = size;
   const ctx = c.getContext('2d');
   ctx.imageSmoothingEnabled = false;
-  const col = f % asset.cols, row = Math.floor(f / asset.cols);
-  const sx = col * m.frameWidth + px - S / 2 + ppu * 0.05, sy = row * m.frameHeight + py - Math.round(ppu * 1.62);
-  ctx.drawImage(asset.image, sx, sy, S, S, 0, 0, size, size);
+  const at = asset.cell(f); // its sheet page and cell
+  const sx = at.x + px - S / 2 + ppu * 0.05, sy = at.y + py - Math.round(ppu * 1.62);
+  ctx.drawImage(at.image, sx, sy, S, S, 0, 0, size, size);
   return c;
 }
 

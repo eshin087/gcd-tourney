@@ -128,6 +128,8 @@ $('custom').onchange = async (e) => {
   const json = files.find((f) => f.name.endsWith('.json'));
   if (!png) { status.textContent = 'Pick a .png (and optionally its .json)'; return; }
   const meta = json ? JSON.parse(await json.text()) : current.meta;
+  // a pack of more than 256 frames is split over sheet.png, sheet2.png ... (src/art/sheetPages.js): this lab edits one image
+  if (meta.pages?.length > 1) { status.textContent = `${json?.name ?? 'anims.json'} spans ${meta.pages.length} sheet pages: the Sprite Lab edits one-page sheets; view it in the test lab (lab.html) instead`; return; }
   const img = await loadImage(png);
   const cv = toCanvas(img);
   status.textContent = `Loaded ${png.name}${json ? ' + ' + json.name : ' with the current anims.json'}`;

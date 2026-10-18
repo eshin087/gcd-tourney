@@ -816,7 +816,8 @@ class SpritePreview {
     ctx.clearRect(0, 0, W, H);
     ctx.save();
     if (this.flip) { ctx.translate(W, 0); ctx.scale(-1, 1); }
-    ctx.drawImage(asset.image, (f % asset.cols) * m.frameWidth, Math.floor(f / asset.cols) * m.frameHeight, m.frameWidth, m.frameHeight, 0, 0, W, H);
+    const at = asset.cell(f); // its sheet page and cell
+    ctx.drawImage(at.image, at.x, at.y, m.frameWidth, m.frameHeight, 0, 0, W, H);
     ctx.restore();
   }
 }

@@ -1,6 +1,7 @@
 // Read-only art review using exported originals and packed sprite metadata.
 // Timings come from each animation; this page never changes approval records.
 import './artReview.css';
+import { frameCell } from './art/sheetPages.js';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, text) => {
@@ -19,7 +20,7 @@ let catalog = null;
 let character = null;
 let asset = null;
 let animation = null;
-let sheet = null;
+let sheets = null; // the sheet pages (one image unless the export lists `sheets`, TOOL-060)
 let meta = null;
 let frameStarts = [];
 let durations = [];
@@ -88,12 +89,13 @@ function syncFrameControls() {
 }
 
 function drawFrame() {
-  if (!animation || !sheet || !meta) return;
+  if (!animation || !sheets || !meta) return;
   const fw = meta.frameWidth, fh = meta.frameHeight;
   const tile = animation.frames[frameIndex];
   ctx.clearRect(0, 0, fw, fh);
   ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(sheet, (tile % meta.columns) * fw, Math.floor(tile / meta.columns) * fh, fw, fh, 0, 0, fw, fh);
+  const at = frameCell(meta, tile);
+  ctx.drawImage(sheets[at.page], at.x, at.y, fw, fh, 0, 0, fw, fh);
   if ($('guides').checked && Array.isArray(meta.pivot)) {
     ctx.fillStyle = '#78e7c5';
     for (let x = 0; x < fw; x += 6) ctx.fillRect(x, meta.pivot[1], 3, 1);
@@ -136,13 +138,13 @@ function tick(now) {
   requestAnimationFrame(tick);
 }
 
-function validateAnimation(nextMeta, nextAnimation, nextSheet) {
+function validateAnimation(nextMeta, nextAnimation, nextSheets) {
   const { frameWidth, frameHeight, columns } = nextMeta;
   if (![frameWidth, frameHeight, columns].every((n) => Number.isInteger(n) && n > 0)) return false;
   if (!Array.isArray(nextAnimation?.frames) || !nextAnimation.frames.length) return false;
   if (!nextAnimation.frames.every((n) => Number.isInteger(n) && n >= 0)) return false;
-  if (columns * frameWidth > nextSheet.width) return false;
-  return nextAnimation.frames.every((n) => (Math.floor(n / columns) + 1) * frameHeight <= nextSheet.height);
+  if (nextSheets.some((page) => columns * frameWidth > page.width)) return false;
+  return nextAnimation.frames.every((n) => { const at = frameCell(nextMeta, n); return nextSheets[at.page] && at.y + frameHeight <= nextSheets[at.page].height; });
 }
 
 async function selectAsset(id) {
@@ -150,7 +152,7 @@ async function selectAsset(id) {
   asset = character.assets.find((item) => item.id === id) || character.assets[0];
   const selectedAsset = asset;
   animation = null;
-  sheet = null;
+  sheets = null;
   meta = null;
   frameIndex = 0;
   playhead = 0;
@@ -180,16 +182,16 @@ async function selectAsset(id) {
   history.replaceState(null, '', `${window.location.pathname}?${params}${window.location.hash}`);
   try {
     if (asset.kind === 'animation') {
-      const [nextMeta, nextSheet] = await Promise.all([loadMeta(asset.meta), loadImage(asset.sheet)]);
+      const [nextMeta, nextSheets] = await Promise.all([loadMeta(asset.meta), Promise.all((asset.sheets ?? [asset.sheet]).map(loadImage))]);
       if (requestId !== loadId) return;
       const nextAnimation = nextMeta.animations?.[selectedAsset.animation];
-      if (!validateAnimation(nextMeta, nextAnimation, nextSheet)) throw new Error('Animation unavailable');
+      if (!validateAnimation(nextMeta, nextAnimation, nextSheets)) throw new Error('Animation unavailable');
       if (!Array.isArray(nextAnimation.durations) || nextAnimation.durations.length !== nextAnimation.frames.length ||
           !nextAnimation.durations.every((duration) => Number.isFinite(duration) && duration > 0)) {
         throw new Error('Frame timings unavailable');
       }
       meta = nextMeta;
-      sheet = nextSheet;
+      sheets = nextSheets;
       animation = nextAnimation;
       durations = nextAnimation.durations;
       cycleDuration = durations.reduce((sum, duration) => sum + duration, 0);

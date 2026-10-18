@@ -6,6 +6,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
+import { sheetFiles, frameCell } from '../src/art/sheetPages.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = path.join(ROOT, 'public');
@@ -68,7 +69,7 @@ function approvedVersion(state, label) {
   return state.approvedVersion;
 }
 
-function validateAnimation(id, asset, state, version, meta, sheet) {
+function validateAnimation(id, asset, state, version, meta, pages) {
   const label = `${id}/${asset.animation}`;
   const animation = meta.animations?.[asset.animation];
   assert(animation && Array.isArray(animation.frames) && animation.frames.length === state.frames,
@@ -78,9 +79,9 @@ function validateAnimation(id, asset, state, version, meta, sheet) {
   assert(Array.isArray(state.ms) && state.ms.length === animation.durations.length
     && state.ms.every((ms, index) => ms === animation.durations[index]), `${label}: packed timing differs from the manifest.`);
   assert(animation.loop === state.loop, `${label}: packed loop setting does not match the manifest.`);
-  const { frameWidth: fw, frameHeight: fh, columns } = meta;
-  const capacity = columns * (sheet.height / fh);
-  assert(animation.frames.every((frame) => Number.isInteger(frame) && frame >= 0 && frame < capacity),
+  const { frameWidth: fw, frameHeight: fh } = meta;
+  const inside = (frame) => { const at = frameCell(meta, frame); return pages[at.page] && at.y + fh <= pages[at.page].height; };
+  assert(animation.frames.every((frame) => Number.isInteger(frame) && frame >= 0 && inside(frame)),
     `${label}: frame index lies outside the packed sheet.`);
 
   const frameDir = `art/characters/${id}/frames/${asset.animation}`;
@@ -93,7 +94,7 @@ function validateAnimation(id, asset, state, version, meta, sheet) {
   for (const [index, frame] of animation.frames.entries()) {
     const source = PNG.sync.read(read(`${frameDir}/${asset.animation}_${versionTag(index)}.png`));
     assert(source.width === fw && source.height === fh, `${label}: cleaned frame ${index} has the wrong dimensions.`);
-    const sx = (frame % columns) * fw, sy = Math.floor(frame / columns) * fh;
+    const { page, x: sx, y: sy } = frameCell(meta, frame), sheet = pages[page];
     for (let y = 0; y < fh; y++) for (let x = 0; x < fw; x++) {
       const sourceAlpha = source.data[(y * fw + x) * 4 + 3];
       const packedAlpha = sheet.data[((sy + y) * sheet.width + sx + x) * 4 + 3];
@@ -116,24 +117,25 @@ function prepare(opts) {
   const characters = CHARACTERS.map(({ id, accent }) => {
     const character = manifest.characters?.[id];
     assert(character, `Missing character in manifest: ${id}`);
-    const sheetBuffer = read(`public/characters/${id}/sheet.png`);
     const metaBuffer = read(`public/characters/${id}/anims.json`);
-    const sheet = PNG.sync.read(sheetBuffer);
     const meta = JSON.parse(metaBuffer.toString('utf8'));
+    // every sheet page (sheet.png, sheet2.png ..., TOOL-060)
+    const pageNames = sheetFiles(meta), sheetBuffers = pageNames.map((f) => read(`public/characters/${id}/${f}`));
+    const pages = sheetBuffers.map((b) => PNG.sync.read(b));
     assert(meta.character === id && meta.source === 'art-pack', `${id}: expected a packed character sheet.`);
     assert([meta.frameWidth, meta.frameHeight, meta.columns].every((n) => Number.isInteger(n) && n > 0)
-      && sheet.width === meta.frameWidth * meta.columns && sheet.height % meta.frameHeight === 0,
+      && pages.every((sheet) => sheet.width === meta.frameWidth * meta.columns && sheet.height % meta.frameHeight === 0),
     `${id}: sheet dimensions do not match animation metadata.`);
     const colors = new Set();
     const maxColors = manifest.spec?.maxColors ?? 48;
     assert(Number.isInteger(maxColors) && maxColors > 0, 'Manifest palette limit must be a positive integer.');
-    for (let i = 0; i < sheet.data.length; i += 4) {
+    for (const sheet of pages) for (let i = 0; i < sheet.data.length; i += 4) {
       const alpha = sheet.data[i + 3];
       assert(alpha === 0 || alpha === 255, `${id}: packed sheet has partially transparent pixels.`);
       if (alpha) colors.add((sheet.data[i] << 16) | (sheet.data[i + 1] << 8) | sheet.data[i + 2]);
     }
     assert(colors.size <= maxColors, `${id}: packed sheet has ${colors.size} colors (maximum ${maxColors}).`);
-    const sheetUrl = addFile(`art-review/${id}/sheet-${hash(sheetBuffer).slice(0, 12)}.png`, sheetBuffer);
+    const sheetUrls = sheetBuffers.map((b, k) => addFile(`art-review/${id}/${pageNames[k].replace(/\.png$/, '')}-${hash(b).slice(0, 12)}.png`, b));
     const metaUrl = addFile(`art-review/${id}/anims-${hash(metaBuffer).slice(0, 12)}.json`, metaBuffer);
     const assets = ASSETS.map((asset) => {
       const label = `${id}/${asset.id}`;
@@ -179,8 +181,8 @@ function prepare(opts) {
       const recommendation = notes[`${id}.${asset.id}`]?.recommendation;
       if (recommendation !== undefined) entry.recommendation = recommendation;
       if (asset.animation) {
-        validateAnimation(id, asset, state, version, meta, sheet);
-        Object.assign(entry, { animation: asset.animation, sheet: sheetUrl, meta: metaUrl });
+        validateAnimation(id, asset, state, version, meta, pages);
+        Object.assign(entry, { animation: asset.animation, sheet: sheetUrls[0], ...(sheetUrls.length > 1 ? { sheets: sheetUrls } : {}), meta: metaUrl });
       }
       return entry;
     });

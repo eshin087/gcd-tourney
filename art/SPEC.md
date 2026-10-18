@@ -26,7 +26,7 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
 |---|---|
 | cell | one 256x256 frame slot in the sheet; one pose per cell |
 | strip | one raw image with all poses of one animation in a single horizontal row |
-| sheet | `public/characters/<id>/sheet.png`: every cell of a character, 16 columns, row-major |
+| sheet | `public/characters/<id>/sheet.png`: every cell of a character, 16 columns, row-major; past 256 cells it goes on in `sheet2.png` ... ([Sheet pages](#sheet-pages)) |
 | pivot | the cell pixel that sits on the fighter's world position: `[128, 240]` (between the feet, on the floor) |
 | near / far | the side of the body closer to / farther from the camera. Facing right in 3/4 view, the **near** side is the character's right side, drawn over the body; the **far** side is partly hidden behind it |
 | lead / rear | orthodox stance: the **lead** (far, left) hand and foot are forward, the **rear** (near, right) ones are back |
@@ -43,7 +43,7 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
 | property | value |
 |---|---|
 | cell | **256 x 256 px**, transparent PNG, one pose per cell |
-| sheet columns | **16** (sheet width 4096 px; 154 frames per character = 10 rows = 2560 px tall; with the 4 kit animations 175 frames = 11 rows = 2816 px) |
+| sheet columns | **16** (sheet width 4096 px; 154 frames per character = 10 rows = 2560 px tall; with the 4 kit animations 175 frames = 11 rows = 2816 px). At most **16 rows** (4096 px, 256 cells) per sheet page: the frames past them go on `sheet2.png` ([Sheet pages](#sheet-pages)) |
 | facing | **right** (the engine mirrors the sprite when the fighter faces left) |
 | pivot | **[128, 240]**: x 128 = midpoint between the feet / body center line; y 240 = floor line. Soles touch y 240, 16 px empty below |
 | airborne / lying poses | the lowest body pixel also rests on y 240 (the engine moves the sprite in the air). Lying poses are drawn **side-on from the same 12 degree camera**, never from above: head, back, hips and legs rest on y 240 along the body (packer ground check: at least 40 % of the body's width within 6 px of y 240, no fifth of its length more than 12 px above it, at most bodyHeight x 1.15 tall; see [Lying poses](#lying-poses), ADR 0020) |
@@ -233,7 +233,8 @@ Reversal: Red, Goku's Dragon Fist): one more 3-frame strip, and `beamStruggleAir
 (Killua's air Narukami, Sasuke's Great Fireball, Gojo's air Red). `special`, `intro`, `taunt` and
 `win` timings may differ per character (see `manifest.json`). The ten **normal** strips of the
 [Directional normals](#directional-normals) (ADR 0042) add 68 frames: a fighter with every alt and all of them is past the
-256 cells of one 4096 sheet, so the packer gets a second sheet page first (TOOL-060).
+256 cells of one 4096 sheet: the packer puts the frames past them on a second page, `sheet2.png`
+([Sheet pages](#sheet-pages), TOOL-060).
 
 **Pose notes forced by the 256 px width.** A realistic body lying flat or flying is about 210-240 px
 long, so:
@@ -451,7 +452,8 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
 }
 ```
 
-- `frames`: sheet cell indices, row-major (index = row x 16 + column).
+- `frames`: sheet cell indices, row-major (index = row x 16 + column), numbered straight through the pages of a
+  fighter with more than one ([Sheet pages](#sheet-pages)).
 - `durations`: ms per frame. `loop`: whether it cycles.
 - `phases` (attacks only): number of frames in `[startup, active, recovery]`.
 - `boxes`: keyed by **sheet frame index** (string). `[x, y, w, h]` in frame-local px of the 256 cell
@@ -475,6 +477,31 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
   lies left of the pivot, as it usually does). The engine shifts the frame back by it on a wall seen in depth.
 - `wallLine` (with `wallAnchor`): the cell column the packer put the wall-anchored frames' leftmost pixel on (8). On a
   wall at a screen side the engine draws that column on the barrier ([Tech poses](#tech-poses)).
+- `pages` and `pageFrames` (only when the fighter has more than 256 frames): the sheet page files in order and the
+  cells per page ([Sheet pages](#sheet-pages)).
+
+### Sheet pages
+
+A sheet page is at most **4096 x 4096 px** (16 columns x 16 rows of 256 px cells, **256 frames**): the texture limit of
+the phones the game targets, so no page is ever downscaled (blurry) on one. A fighter with more frames (every alt plus
+the [Directional normals](#directional-normals) is about 320) continues on `sheet2.png`, then `sheet3.png` ... in the
+same folder (TOOL-060, [ADR 0007](../docs/decisions/0007-art-spec-v2-shippuden-256.md) amendment 2026-10-18):
+
+```json
+  "columns": 16,
+  "pages": ["sheet.png", "sheet2.png"],
+  "pageFrames": 256,
+```
+
+- Frames are numbered **straight through** the pages: frame `f` is on page `floor(f / pageFrames)` (0 = `sheet.png`),
+  at cell `f % pageFrames` of it, row-major. `boxes`, `footprint`, `wallAnchor` and the animations' `frames` keep these
+  numbers, so nothing else in `anims.json` changes. A strip may run across a page boundary.
+- Every page is 4096 px wide; each is only as tall as its frames need (the last one is usually shorter).
+- A fighter with 256 frames or fewer has no `pages` or `pageFrames` key and one `sheet.png`, exactly as before.
+- `src/art/sheetPages.js` (`frameCell`, `sheetFiles`) is the one place the game, the art review page and the tools
+  find a frame's page and cell. A repack onto fewer pages deletes the pages left over.
+- To see a fighter on two pages before it has 256 frames (engine or tool work), pack it with `--page-rows <n>` (n rows
+  per page, e.g. `node tools/pack-sprites.mjs naruto --page-rows 8`); never commit such a pack.
 
 ## Hitboxes and hurtboxes
 
@@ -752,8 +779,9 @@ strip's own `animations.<anim>.packScale` multiplies it for one strip drawn at t
 keeps the current sheet's palette and each colour's previous choice, so a repack that resizes one strip changes no other
 (nearest-neighbor if upscaling, with a warning), puts the feet center (mean x of opaque pixels in the
 bottom 20 % of rows) on x 128 and the lowest opaque pixel on y 240, and writes 256x256 cells into the
-16-column sheet. It computes boxes, applies `hitboxes.json`, writes cleaned frames back to
-`frames/<anim>/` when they came from `raw/`, writes `public/characters/<id>/sheet.png` + `anims.json`,
+16-column sheet (16 rows per page; past 256 frames `sheet2.png` ..., [Sheet pages](#sheet-pages)). It computes boxes,
+applies `hitboxes.json`, writes cleaned frames back to `frames/<anim>/` when they came from `raw/`, writes
+`public/characters/<id>/sheet.png` (+ its other pages) + `anims.json`,
 fits and copies `ui/*.png`, and prints a report (packed animations and source files, missing core
 animations, frame-count mismatches, frames clipped by the cell margin, palettes over 64 colors, attack alts whose frame
 count, phases or strike differ from their base's: [Attack alts](#attack-alts)). Missing folders never crash it.
@@ -786,8 +814,11 @@ Implemented by the lead engineer (Claude) in `src/`; documented here so art and 
   the procedural placeholder (which stays chibi until a separate restyle task).
 - It reads frame size, pivot and ppu from `anims.json` (`SheetAsset` / `SpriteActor`), so v2 needs no
   engine change. ppu 128 switches the sharper HD render mode on automatically.
-- Sheets are 4096 x 2816: fine on desktop GPUs; a GPU with a 2048 px texture limit gets a downscaled
-  sheet (three.js warns).
+- A sheet page is at most 4096 x 4096 ([Sheet pages](#sheet-pages)): full size on desktop GPUs and on phones with a
+  4096 px texture limit; a GPU with a 2048 px limit gets downscaled pages (three.js warns). The game loads every page
+  `anims.json` lists, uploads them all at match start (no stall on a page's first frame mid-fight) and draws each frame
+  from its page (`SheetAsset.page`, `SpriteActor.usePage`). A page that fails to load, or is too small for its frames,
+  sends the fighter to the placeholder with one `[sprites]` warning.
 - It uses `boxes` for hit detection.
 - It alternates each attack and hit reaction with its `<anim>Alt` strip when the sheet has one, in a fixed pattern
   (`src/game/animAlts.js`; `?alts=0` never, `?alts=1` always), on the base move's timing ([Attack alts](#attack-alts)).

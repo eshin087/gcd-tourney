@@ -251,6 +251,7 @@ export class Game {
     this.fighters = defs.map((d, i) => new Fighter(this, d, assets[i], i));
     if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18); // mirror match tint
     this.fx.ground.prepare(this.fighters, this.renderer.renderer); // their decal pages, uploaded now
+    for (const a of assets) a.prepare(this.renderer.renderer); // and every sheet page (SheetAsset.prepare)
     this.pads = [new Pad(), new Pad()];
     this.fighters.forEach((f, i) => { f.pad = this.pads[i]; f.wins = 0; });
     // 'solo': P1 human vs CPU. 'cpu': spectate two CPUs at the same level (defaults to impossible, the
@@ -299,6 +300,7 @@ export class Game {
     this.fighters = defs.map((d, i) => new Fighter(this, d, assets[i], i));
     if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18);
     this.fx.ground.prepare(this.fighters, this.renderer.renderer);
+    for (const a of assets) a.prepare(this.renderer.renderer);
     this.pads = [new Pad(), new Pad()];
     this.fighters.forEach((f, i) => { f.pad = this.pads[i]; });
     this.kinds = ['person', 'cpu'];

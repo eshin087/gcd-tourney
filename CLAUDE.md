@@ -490,8 +490,10 @@ Read this rule from main alongside the mandatory Claude handoff check; it applie
   sprites shows up as shimmering, so keep sprite placement and scales pixel-consistent. Hi-res packs
   (`pixelsPerUnit` >= 70; spec v2 is 128) switch it to the `hd` detail (scale = floor(height / 600));
   override with `?res=pixel` or `?res=hd`.
-- Spec v2 custom sheets are 4096 × 2816 px (16 columns of 256 px cells). Fine on desktop GPUs; a GPU with a
-  2048 texture limit gets a downscaled sheet and a three.js warning (ADR 0007).
+- Spec v2 custom sheets are 16 columns of 256 px cells, at most 4096 × 4096 px (256 frames) per page; a fighter past
+  that ships `sheet2.png` ... with the frames numbered straight through (`anims.json` `pages`, art/SPEC.md "Sheet pages",
+  TOOL-060). Find a frame's page and cell with `src/art/sheetPages.js`, never `frame % columns` on `sheet.png`. A GPU
+  with a 2048 texture limit gets downscaled pages and a three.js warning (ADR 0007).
 - Simulation randomness: `Math.random()` only reaches the CPU brains and effects (clash charts are seeded), so online
   play doesn't need a seeded RNG (ADR 0036). Gameplay files must use `src/game/dmath.js`, not `Math.sin` / `cos` /
   `hypot` / `atan2` ...: engines round those differently (`npm run lint:simmath`, part of the build, enforces it).
