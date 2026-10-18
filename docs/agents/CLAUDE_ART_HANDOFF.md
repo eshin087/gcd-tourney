@@ -1,3 +1,20 @@
+# ART-GOJO-PROPORTIONS handoff (2026-10-17, user decision requested via relay #13)
+
+**Study only; nothing was approved or shipped.** The diagnosis and A–D review page are in PR [#143](https://github.com/eshin087/gcd-tourney/pull/143), branch `art/gojo-proportions`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-proportions`. Study commit `2b97547e`; A–D page correction `d7cc62a9`; follow-up handoff commit records this note. The current review page preview is [Gojo proportion study](https://gcd-tourney-le2925xxp-eshin087s-projects.vercel.app/reviews/gojo-proportions/) (Vercel Preview, Ready; project SSO applies). Preview contains public copies of all candidate concepts, mockups, title-style references and current Gojo atlas/metadata links. Local build passed; protected preview returned 200 for page, D combat image and atlas via `vercel curl`. No visual browser test was performed.
+
+The packed review used current atlas sheet SHA-256 `CE87CC8D31F6CA7336BE020F477A178BC909A4804BD16002D7A70B96F9DE7EF7` and metadata SHA-256 `0134EC68B48889310BD6FE85711C4FFE1126D120751FAD9F96AEB4E9EADACB6C`. All 33 archived `frames/` previews for requested comparisons differ pixel-for-pixel from the direct atlas crops; review crops use atlas slots instead. `DIAGNOSIS.md` records every measured packed frame with uncertainty, raw source versions/hashes, slot mapping and the low-confidence combat chord. Finding: no confirmed strip leg-length drift outside measurement uncertainty; Gojo's uninterrupted trouser line drives the lanky read.
+
+- **A** current approved neutral + combat cells unchanged: neutral leg 106±5px; standing body 215px; leg share 49.3%±2pp.
+- **B** shorter legs target −8% (97.5px, body 206.5px). Astra: neutral/combat visual-study pass, exact ratios/head preservation unverified.
+- **C** shorter legs target −10% plus fuller outfit (95.4px, body 204.4px). C neutral v02 remains **HOLD**: head is visibly smaller relative to torso/legs than A/B. Attempt 3 was rejected before generation because six refs exceeded tool max five; no v03 exists and the C-neutral budget is exhausted. C combat is a concept pass, but pair-level matching remains held.
+- **D** same A anatomy with a lower, wider combat direction. Astra: posture concept pass; neutral is A, rear leg remains fairly extended; exact ratio preservation and hit-reaction effect are unverified.
+
+No image/design approval was given or implied. The relay decision request is queued as `gojo-run #13`: choose A/B/C/D or another direction. User decision is pending. If B or C is selected, Claude should plan an audit/reassembly of 44 Gojo strips (42 in `art/size-r6` plus dash/superDash) and determine per-strip reuse versus redraw; a planning range of 0–44 redraws is not a generation-call estimate. D reviews hurtHigh, hurtLow and launched (0–3 redraws, with all three reviewed); A needs no proportion-driven redraw. Keep the separate size-r6 leads as unconfirmed and coordinate with its active strip work before any production changes.
+
+No production asset, raw file, manifest, packed atlas, or approved reference changed. No merge or production deploy. Claude's next action: ask the user for the queued decision, then make a separate production plan; do not treat this study or Astra's concept audit as art approval.
+
+---
+
 # ART-GOJO-DASH-SIZE handoff (2026-10-17, user approved via Claude relay #11)
 
 **USER APPROVAL via Claude:** “Approve both (Recommended)” for Gojo dash v11 and superDash v13, explicitly despite the numeric holds. Verified from main `.relay/gojo-run/send.json`, seq 11, kind `approved`. Exact relay record: `art/characters/gojo/production/dash-size/USER_DECISION.md`. No new image calls were authorized.
