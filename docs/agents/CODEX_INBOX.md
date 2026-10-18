@@ -32,6 +32,7 @@ change only this brief's rows in the shared manifest, hitboxes, REVIEW and TRACK
 
 - [ ] **1. Batch 1, the Chidori family:** user decision via Claude relay skills #13 allows the third worktree `art/sasuke-skills` alongside `art/normals-sasuke` and `art/normals-killua`; the two-worktree cap remains for Smash normals rounds. Start B1 `special` v14 (the wrist grip, the dragging run, the stab), A1 `chidori`,
   A2 `chidoriForm`, A3 `chidoriBurst`, A4 `chidoriSpear`, A5 `chidoriCurrent` (HD cell, v01 each).
+  Progress 2026-10-18: four effect sources v01 are queued for image review; special v14 and A1 chidori remain technical holds after 3/3 calls. Packer `hd:true` normalization is a tooling hold; chidoriSpear also reports one clipped frame. Gallery and preview details are in docs/NOW.md. Batch 1 is not complete.
 - [ ] **2. Batch 2, Amaterasu:** A6 `amaterasu`, A7 `amaterasuIgnite`.
 - [ ] **3. Batch 3, Kirin and the Great Fireball:** B2 `beamFire` v08 (the arm swung down), A8 `greatFireball`,
   A9 `greatFireballBurst`, A10 `stormCloud`, A11 `kirinBody`, A12 `kirinHead`, A13 `kirinStrike`.
