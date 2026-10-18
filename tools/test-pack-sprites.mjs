@@ -1012,6 +1012,7 @@ function main() {
   sidecarEraseTests(base);
   approvedIdleRefTests(base);
   sidecarFlipTests(base);
+  packScaleTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1941,6 +1942,76 @@ function sidecarFlipTests(base) {
   const notes = b.C?.packed.find((p) => p.anim === 'light1')?.notes || [];
   check(b.f[2].left > b.f[2].right + 20 && notes.some((n) => /mirrored left-right \(sidecar flipX\)/.test(n)), `flipX: the jab now reaches left and the report says so (right ${b.f[2].right}, left ${b.f[2].left})`);
   check(b.f[2].left > b.f[1].left + 10 && b.f[5].left < b.f[3].left, 'flipX: frame order is kept (the fist extends on f2-f3 and comes back on f5)');
+}
+
+// manifest characters.<id>.packScale (ADR 0041): the whole fighter resized against the cast without new drawings
+function packScaleTests(base) {
+  const sraw = (n) => path.join(ART, 'characters', 'sizey', 'raw', n);
+  savePng(sraw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 1201, specks: 0 }));
+  savePng(sraw('light1_v01.png'), strip([{}, { punch: 2 }, { punch: 16 }, { punch: 16 }, { punch: 9 }, { punch: 4 }, {}], { seed: 1202, specks: 0 }));
+  fs.writeFileSync(sraw('light1_v01.json'), JSON.stringify({ frameOffsets: [[0, 0], [0, 0], [-20, 0], [-20, 0], [0, 0], [0, 0], [0, 0]] }));
+  fs.writeFileSync(path.join(ART, 'characters', 'sizey', 'hitboxes.json'), JSON.stringify({ light1: { 2: { hand: [228, 140] } } }));
+  const manPath = path.join(ART, 'manifest.json');
+  const setScale = (packScale) => {
+    const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+    man.characters.sizey = { name: 'Sizey', scaleGate: 'warn', ...(packScale !== undefined ? { packScale } : {}),
+      animations: { idle: { frames: 8, loop: true, bodyHeight: 204 }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204 } } };
+    fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  };
+  const run = () => {
+    const r = pack([...base, 'sizey']);
+    const C = r.json?.characters.find((c) => c.id === 'sizey');
+    const meta = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'sizey', 'anims.json'), 'utf8'));
+    const sheet = loadPng(path.join(OUT, 'characters', 'sizey', 'sheet.png'));
+    const box = (anim, k) => bb(cell(sheet, meta.animations[anim].frames[k]));
+    return { r, C, meta, box, hand: meta.boxes?.[meta.animations.light1.frames[2]]?.hand };
+  };
+  setScale(undefined);
+  const a = run();
+  setScale(0.9);
+  const b = run();
+  const ha = a.box('idle', 0).h, hb = b.box('idle', 0).h;
+  check(Math.abs(hb / ha - 0.9) < 0.02, `packScale: the idle packs at x0.9 (${ha} -> ${hb} px tall)`);
+  const la = a.box('light1', 0).h, lb = b.box('light1', 0).h;
+  check(Math.abs(lb / la - 0.9) < 0.02, `packScale: every strip follows, not just the idle (light1 ${la} -> ${lb} px)`);
+  check(b.box('idle', 0).y1 === a.box('idle', 0).y1, `packScale: the feet stay on the floor line (y1 ${a.box('idle', 0).y1} vs ${b.box('idle', 0).y1})`);
+  // frameOffsets shift by the same share of the size: -20 px at x1 is -18 px at x0.9 (frame 2 vs frame 1's resting x)
+  const shift = (s) => s.box('light1', 2).x0 - s.box('light1', 1).x0;
+  check(Math.abs(shift(b) - shift(a) * 0.9) <= 3, `packScale: frameOffsets scale with the fighter (frame 2 shift ${shift(a)} -> ${shift(b)} px)`);
+  check(Array.isArray(b.hand) && b.hand[0] === Math.round(128 + 100 * 0.9) && b.hand[1] === Math.round(240 - 100 * 0.9),
+    `packScale: a hitboxes.json hand anchor is scaled about the pivot ([228,140] -> ${JSON.stringify(b.hand)})`);
+  check((b.C?.notes || []).some((n) => /packScale x0\.9/.test(n)), 'packScale: the report says the fighter was resized');
+  // a strip's own packScale multiplies the fighter's, and leaves the other strips alone
+  {
+    const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+    man.characters.sizey.animations.light1.packScale = 0.8;
+    fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  }
+  const d = run();
+  check(Math.abs(d.box('light1', 0).h / la - 0.72) < 0.02 && Math.abs(d.box('idle', 0).h - hb) <= 1,
+    `packScale: a strip's own x0.8 stacks on the fighter's x0.9 (light1 ${la} -> ${d.box('light1', 0).h} px, idle stays ${d.box('idle', 0).h})`);
+  // --keep-palette: a quantized repack after one strip changes keeps the sheet's colours, so the other strips stay put
+  {
+    const qpack = (extra) => pack([...base, 'sizey', '--quantize', '8', ...extra]);
+    const sheetFile = path.join(OUT, 'characters', 'sizey', 'sheet.png');
+    const colours = (img) => { const s = new Set(); for (let i = 0; i < img.data.length; i += 4) if (img.data[i + 3]) s.add((img.data[i] << 16) | (img.data[i + 1] << 8) | img.data[i + 2]); return s; };
+    qpack([]);
+    const before = loadPng(sheetFile), metaB = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'sizey', 'anims.json'), 'utf8'));
+    const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+    man.characters.sizey.animations.light1.packScale = 0.7;
+    fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+    const r = qpack(['--keep-palette']);
+    const after = loadPng(sheetFile), metaA = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'sizey', 'anims.json'), 'utf8'));
+    const pb = colours(before), pa = colours(after);
+    check(r.code === 0 && [...pa].every((k) => pb.has(k)) && /palette kept from the current sheet\.png/.test(r.out + JSON.stringify(r.json ?? {})),
+      `--keep-palette: the repack uses only the previous sheet's colours (${pa.size} of ${pb.size})`);
+    const idleSame = metaB.animations.idle.frames.every((f, k) => Buffer.compare(cell(before, f).data, cell(after, metaA.animations.idle.frames[k]).data) === 0);
+    check(idleSame, '--keep-palette: the untouched idle packs byte for byte');
+  }
+  setScale(3);
+  const c = run();
+  check(c.r.code === 0 && Math.abs(c.box('idle', 0).h - ha) <= 1 && /packScale is 3 - must be a number 0\.5-1\.5/.test(c.r.out + JSON.stringify(c.r.json ?? {})),
+    `packScale: an out-of-range value is reported and ignored (idle ${c.box('idle', 0).h} px)`);
 }
 
 function finish() {
