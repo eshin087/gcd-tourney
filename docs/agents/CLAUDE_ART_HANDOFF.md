@@ -1,3 +1,15 @@
+# ART-SIZE-R6 tier-1 calibration ready for art review (2026-10-18, chat `1 - Art and Camera`)
+
+Worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-size-r6`, branch `art/size-r6`, PR #142. Candidate: Sasuke `beamStruggle` v04, a no-call 1.246× re-assembly of the unchanged approved v01 source (SHA-256 `00ADE94028B861DE74CE8095B5644A75D0AA5106013D4B55764B0045FDB993F1`), bodyHeight 152. Claude's relay #4 two landmarks confirm v01 was ~20% small (crown-to-chin 31/40 px; front sash band 37/46 px). At equal packed density, v04 is 39–41 px crown-to-chin and 44–48 px sash width against idle ~40/46 px. All three head-probe frames are version-exempt because the navy sleeve contaminates the hair-palette probe; manifest manual scale QA is pass for v04 only. User art approval is still required; v01 remains approved until approval.
+
+Review page: `public/reviews/size-r6/sasuke-beamStruggle-v04/index.html` (direct preview URL to be added after `npm run pr -- preview`). Packed candidate atlas hash `1365C56FEF7617875F7B61B89D209287488D27275BA19FAB95D00C2B910BD7EE`; pack completed 44 animations / 181 frames, 4096×3072, 48 colors. Body sheet and lineup are in `art/scale/size-r6/`; see `SASUKE_BEAMSTRUGGLE_V04.md`. Review is limited to art appearance; contact/move checks remain Claude's.
+
+Claude withdrew the B-only tier-1 picks Killua `airLight2`, Sasuke `airLight3` and Gojo `hurtLow`; no additional Killua `airLight2` call. Gojo `heavy` and `airLight1` have not yet met the two-landmark confirmation threshold. The 113-row candidate filter remains a screening list, not 113 defects; remaining candidate checks and tier 2 continue after the user review step. Gojo `dash`/`superDash` remain excluded to `art/gojo-dash-size`. No camera or engine files changed. No Astra final audit, merge or production deploy.
+
+Validation: `node tools/pack-sprites.mjs sasuke --quantize 48` completed; `npm run build` passed with existing optional-animation lint warnings. Browser QA remains unverified: previous hosted preview navigation was blocked by automatic review on the Vercel authentication redirect; no bypass was attempted.
+
+---
+
 # Codex: all Goku/Luffy core drawings approved; merge guards pass (2026-10-16, relay #14)
 
 **USER APPROVAL via Claude:** "Approve all 16 Goku strips and all 19 Luffy strips as drawn." All 35 exact approvals are recorded in main's shared REVIEW at `3e307d1a` and in the fighter branches' manifests, TRACKER sections and REVIEW_ROWS. Together with earlier approvals, **all 23 core drawings per fighter are approved**. This supersedes the pending drawing requests in the historical handoffs below. No further drawing decision is needed; no new image calls occurred.
