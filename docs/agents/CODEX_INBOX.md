@@ -15,6 +15,60 @@ How it works:
 
 ---
 
+## Size audit, round 7: every frame of all six fighters (2026-10-18, Claude) - chat "1 - Art audit", relay lane `art-audit`
+
+**The user's request (2026-10-18, in Claude "1 - Art audit"):** "a full audit of every art frame sprite etc to ensure
+every character frame is the same size. for example, it seems like narutos back dash is a little bigger than the
+default model. ensure every character is consistent. goku and luffy model sizes seem way bigger than the other
+characters and feels out of place." Claude and this chat do it together; this chat generates any new art.
+
+**The user's decisions (2026-10-18, in Claude's question box):**
+- Goku and Luffy: **option A, 92 %**, which puts them on the cast's 1.17 px per cm of canon height (Goku 175 cm,
+  Luffy 172 cm; Naruto 195 px / 166 cm, Sasuke 197 / 168, Gojo 222 / 190). Goku shipped at 1.08x his approved
+  title_style_draft v02 combat cell; Luffy's approved reference was drawn large. **Claude does this rescale**
+  (bodyHeight / reassembly factor x0.92 from the high-res sources, no image call). Audit Goku and Luffy only against
+  their own idle.
+- Fix method: **resize first, redraw only when the drawing itself is wrong** (a head too big for the body, a
+  limb chain of the wrong length, frames of one strip drawn at different sizes that a single factor cannot fix).
+- Tolerance: **a frame is off-size at 5 % or more** body scale versus that fighter's idle.
+- Review: **one page per fighter**, old vs new beside the rest of the cast. Claude publishes those pages and asks the
+  user; you never ask the user (the desk is off, so ring `--for user` only if Claude asks you to).
+
+**Who does what**
+- Claude: per-frame head-scale measurement for all 6 fighters (masked template search over scale, rotation and
+  mirror against idle f0's head; controls x0.85 / x0.92 / x1.08 / x1.15 read within about 3 %), the Goku/Luffy x0.92
+  rescale, every no-call bodyHeight fix, packing, review pages, integration. Claude sends you its measured list.
+- You: an **independent visual audit** (item 1) and every **redraw** (item 2, only on Claude's list). Use
+  `gpt-6-luna` medium for the audit and redraws; the final Astra audit applies to redrawn candidates only.
+
+- [x] **1. (2026-10-18) Independent audit of every packed strip (no image calls).** Main's packed atlases
+  (`public/characters/<id>/sheet.png` + `anims.json`), all six fighters, every animation including alts,
+  beamStruggle(Air), supers and tech poses. Compare each frame with that fighter's idle f0 and its approved combat
+  cell at one density (`npm run body <id> <anims>` sheets help; keep them in your scratch folder, not the branch).
+  For each strip give one verdict:
+  - `scale-off`: two landmarks agree on the same deviation of 5 % or more. Landmarks (packed px, +-2 px each):
+    crown to chin, fist width, belt or sash band width, shoe length. Record the pixel coordinates you read.
+  - `height-pop`: same body scale, but a ground pose that stands visibly taller or lower than the idle, so the
+    figure seems to grow or shrink when the move starts. Example, already measured by Claude: Naruto `backDash` f0
+    has the idle's head (template 1.00), belt (40 vs 41 px) and shoe (38 vs 37 px) but stands 16 px taller (180 vs
+    165 px). Note how many px and which frames.
+  - `anatomy`: proportions inside the frame differ from the idle (head vs torso, limb length, build) so a resize
+    cannot fix it.
+  - `ok`, or `unresolved` for a pose with no readable landmark (do not stall on it).
+  Lessons from round 6: the body-area number B and the head-probe H are pointers only and misled us on one-leg,
+  back-view and sleeve-over-head poses; never use bounding-box height for crouched, airborne or lying poses; two
+  agreeing landmarks or it is not a finding.
+  **Out of scope:** Gojo `hurtHigh`, `hurtLow`, `launched` (PR #143 in lane `gojo-run`, not merged yet).
+  Commit one table, `art/scale/size-r7/CODEX_AUDIT.md` (fighter, strip, version, frames, landmarks idle vs frame,
+  ratio, verdict, note), on a task branch `art/size-r7-codex` in your managed worktree. Then
+  `node tools/relay.mjs ring art-audit --note "<counts per verdict; commit>"`.
+  Completed in `art/size-r7/CODEX_AUDIT.md`; commit `903b9b63` (230 strips: 207 ok, 21 unresolved,
+  one height-pop and one scale-off). Claude's next action is reconciling the table with its measurements and sending
+  the redraw list; no image calls were made.
+- [ ] **2. Redraws: wait for Claude's list.** Claude reconciles your table with its measurement and sends the strips
+  that need a new drawing (with the target scale, pose notes and the 3-attempt budget per image). Do not generate
+  before that list arrives.
+
 ## Gojo posture fix (option D): bent-knee hit reactions (2026-10-17, Claude) - chat "3 - Gojo", relay lane `gojo-run`
 
 **User decision (2026-10-17, in Claude "3- Gojo"), on the proportion study (branch `art/gojo-proportions`, d7cc62a9):**
