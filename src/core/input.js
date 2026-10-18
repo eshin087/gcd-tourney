@@ -5,6 +5,18 @@ import * as dmath from '../game/dmath.js';
 
 export const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash', 'super'];
 export const DIRECTIONS = ['up', 'down', 'left', 'right'];
+// The C-stick (ADR 0042): the gamepad's right stick flicked one way is an attack that way, like Smash's. It travels as
+// four pseudo-buttons, so online inputs, replays and lab scripts carry it like any button; it is not rebindable.
+export const CSTICK = ['cUp', 'cDown', 'cLeft', 'cRight'];
+// every input the simulation reads besides the stick, in the order rollback.js packs them as bits
+export const PAD_INPUTS = [...ACTIONS, ...CSTICK];
+const CSTICK_DEAD = 0.5; // how far the right stick has to go before it counts
+
+// The C-stick way a right stick at (x, y) (gamepad axes: y down) points, or null: its dominant axis picks it.
+function cstickOf(x, y) {
+  if (dmath.hypot(x, y) < CSTICK_DEAD) return null;
+  return Math.abs(x) > Math.abs(y) ? (x > 0 ? 'cRight' : 'cLeft') : y < 0 ? 'cUp' : 'cDown';
+}
 
 export const ACTION_LABELS = {
   up: 'Up', down: 'Down', left: 'Left', right: 'Right',
@@ -95,7 +107,7 @@ export class Pad {
   constructor() {
     this.mx = 0; // screen-right
     this.my = 0; // screen-up (away from camera)
-    this.b = Object.fromEntries(ACTIONS.map((a) => [a, makeBtn()]));
+    this.b = Object.fromEntries(PAD_INPUTS.map((a) => [a, makeBtn()]));
     this.dirTaps = { l: -99, r: -99, u: -99, d: -99 };
     this.dirPress = { l: -99, r: -99, u: -99, d: -99 }; // frame each stick direction was last pushed (spot dodge)
     this.prevDir = { l: false, r: false, u: false, d: false };
@@ -155,7 +167,7 @@ export class Pad {
   }
 
   clear() {
-    for (const a of ACTIONS) Object.assign(this.b[a], makeBtn());
+    for (const a of PAD_INPUTS) Object.assign(this.b[a], makeBtn());
     for (const k of Object.keys(this.dirPress)) this.dirPress[k] = -99;
     this.mx = this.my = 0;
   }
@@ -332,7 +344,7 @@ export class InputManager {
     return gps.find((p) => p.index === this.lastPad) || gps[0] || null;
   }
 
-  // Every bound player's controls right now, without touching a pad: [{ x, y, b: { light: bool, ... } }], the stick
+  // Every bound player's controls right now, without touching a pad: [{ x, y, b: { light: bool, ..., cUp: bool ... } }], the stick
   // as screen right / up in -1..1. poll() puts it on the pads; online play (ADR 0036) sends it as that frame's input.
   sample() {
     const capturing = !!this.capture;
@@ -365,6 +377,8 @@ export class InputManager {
       if (t && (t.mx || t.my)) { x = t.mx; y = t.my; }
       const b = {};
       for (const a of ACTIONS) b[a] = k(keymap[a]) || !!gb(PAD_BUTTONS[a]) || !!t?.isHeld(a);
+      const c = g ? cstickOf(g.axes[2] || 0, g.axes[3] || 0) : null;
+      for (const a of CSTICK) b[a] = c === a;
       return { x, y, b };
     });
     this.tapped.clear();
@@ -376,7 +390,7 @@ export class InputManager {
       const pad = this.bindings[bi].pad;
       pad.tick();
       pad.setMove(s.x, s.y);
-      for (const a of ACTIONS) pad.set(a, s.b[a]);
+      for (const a of PAD_INPUTS) pad.set(a, s.b[a]);
     });
   }
 

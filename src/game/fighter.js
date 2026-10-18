@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
 import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH, NORMALS, AIR } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
-import { Pad } from '../core/input.js';
+import { Pad, CSTICK } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import * as kit from './kit.js';
 import { chargeStyle } from './chargeFx.js';
@@ -18,6 +18,8 @@ const FRAME_MS = 1000 / 60;
 const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
 // out of a wavedash slide, these keep sliding (attacks, guard, specials); jumps and dashes set their own speed
 const CARRY_STATES = new Set(['attack', 'guard', 'kit', 'charge', 'throw']);
+// the C-stick's ways as a stick (screen right, up): the aim normalFor reads instead of the left stick
+const C_AIM = { cUp: [0, 1], cDown: [0, -1], cLeft: [-1, 0], cRight: [1, 0] };
 const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.separate's 0.72)
 // ADR 0022: leaving one of these opens the REVERSAL window; starting one of the actions inside it is a reversal
 const STUN_STATES = new Set(['hitstun', 'launched', 'down', 'block', 'getup', 'airRecover', 'techRoll', 'impactTech', 'held']);
@@ -265,9 +267,10 @@ export class Fighter {
 
   // The normal the stick picks for `btn` ('light' | 'heavy'): the stick now, or the one held at the press when it is
   // neutral by now (a quick tap of direction and button). Vertical wins when the stick is mostly up or down, as for specials.
-  normalFor(btn) {
+  normalFor(btn, aim = null) {
     let x = 0, y = 0;
-    if (this.aimsNormals()) {
+    if (aim) [x, y] = aim; // the C-stick's way, whatever the left stick does
+    else if (this.aimsNormals()) {
       x = this.pad.mx; y = this.pad.my;
       if (Math.abs(x) < 0.5 && Math.abs(y) < 0.6) { x = this.atkMx; y = this.atkMy; }
     }
@@ -276,9 +279,25 @@ export class Fighter {
     return NORMALS[this.air ? 'air' : 'ground'][btn][dir];
   }
 
-  startNormal(btn) {
-    const name = this.normalFor(btn);
+  startNormal(btn, aim = null) {
+    const name = this.normalFor(btn, aim);
     this.startMove(name, MOVES[name]);
+  }
+
+  // The C-stick (ADR 0042, Smash's): the right stick flicked one way, a buffered press like a button's. The newest way
+  // pressed within `win` frames, or null.
+  cPress(win) {
+    const p = this.pad;
+    let best = null;
+    for (const k of CSTICK) if (p.buffered(k, win) && (!best || p.b[k].lastPress > p.b[best].lastPress)) best = k;
+    return best;
+  }
+
+  // On the ground a smash attack that way (never charged: Heavy isn't held), in the air the aerial that way; the left
+  // stick keeps steering the jump, so a back air never turns the drift around.
+  startC(k) {
+    for (const c of CSTICK) this.pad.consume(c);
+    this.startNormal(this.air ? 'light' : 'heavy', C_AIM[k]);
   }
 
   // Air control: the stick steers the jump (and a Smash aerial) up to the run speed.
@@ -969,6 +988,8 @@ export class Fighter {
       this.shortHop = true;
       return true;
     }
+    const c = this.cPress(6);
+    if (c) { this.startC(c); return true; }
     if (p.buffered('heavy', 6) && !b.special.down) {
       p.consume('heavy');
       this.startNormal('heavy');
@@ -1009,6 +1030,8 @@ export class Fighter {
       if (b.jump.pressed && !this.jumped2 && this.chase <= 0) { this.doubleJump(); return true; }
       return false;
     }
+    const c = this.cPress(5);
+    if (c) { this.startC(c); return true; }
     if (p.buffered('heavy', 5)) { p.consume('heavy'); this.startNormal('heavy'); return true; }
     if (p.buffered('light', 5)) { p.consume('light'); this.startNormal('light'); return true; }
     if (b.special.pressed) { this.spPending = false; return this.doProjectile(); }
@@ -1100,6 +1123,8 @@ export class Fighter {
           if (kit.wantsSuper(this)) { kit.startSuper(this); break; }
           if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); break; }
           if (this.wantsThrow()) { p.consume('light'); p.consume('heavy'); this.startThrow(); break; }
+          const c = this.cPress(6);
+          if (c) { this.startC(c); break; }
           if (p.buffered('heavy', 6)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); break; }
           if (p.buffered('light', 6)) {
             p.consume('light');
@@ -1226,11 +1251,13 @@ export class Fighter {
           audio.play('jump');
           this.game.fx.dust(this.pos, 0.7);
           // Jump + attack: the aerial out on the first airborne frame (its press can be `chord` frames older than the squat)
-          if (this.shortHop) {
-            this.shortHop = false;
+          const c = this.cPress(6); // the C-stick flicked during the squat: that aerial as it leaves the floor
+          if (c) this.startC(c);
+          else if (this.shortHop) {
             const btn = p.buffered('heavy', AIR.chord + 6) ? 'heavy' : p.buffered('light', AIR.chord + 6) ? 'light' : null;
             if (btn) { p.consume(btn); this.startNormal(btn); }
           }
+          this.shortHop = false;
         } else if (this.t <= AIR.chord && this.aimsNormals() && (p.b.light.pressed || p.b.heavy.pressed)) this.shortHop = true; // attack right after Jump
         freeAnim();
         break;
@@ -1466,6 +1493,12 @@ export class Fighter {
     if (this.t % 6 === 0) audio.play('whoosh', 0.4);
     const p = this.pad;
     // cancel into an attack
+    const c = this.t >= 6 && this.cPress(6);
+    if (c) {
+      this.vel.multiplyScalar(0.25);
+      this.startC(c);
+      return;
+    }
     if (this.t >= 6 && (p.buffered('light', 6) || p.buffered('heavy', 6))) {
       const heavy = p.buffered('heavy', 6);
       p.consume('light'); p.consume('heavy');

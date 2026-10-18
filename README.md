@@ -106,7 +106,8 @@ custom keys.
   the stick held is the **dash attack**. They **link** instead of chaining: land the next move inside the hit stun
   (down tilt → jab, up tilt → up tilt → up air). Tap Jump for a **short hop** (Jump + Light: a short-hop aerial), jump
   again for a **double jump**, ↓ past the top of a jump to **fast fall**. Your facing holds through a jump, so jump away
-  and press ← toward them for a back air.
+  and press ← toward them for a back air. On a gamepad the **right stick is the C-stick**, as in Smash: flick it for a
+  smash attack that way, or in the air for that aerial (your drift stays with the left stick).
 - **Launcher**: Heavy (or Light ×3 → Heavy). Press **Jump** on hit to super-jump after them.
 - **Air combo**: Light ×3 in the air, or end with **Heavy** (double-axe spike) for a **ground bounce**.
 - **Super dash**: Dash with no direction. Homing flight that hits on contact, once per trip through the air.

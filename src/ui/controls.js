@@ -1,7 +1,7 @@
 // Controls panel: keyboard / PlayStation / Xbox layouts with live input
 // highlights and rebinding. Mouse-driven inside the live training room, and
 // keyboard/gamepad navigable (nav()) on the pause / menu controls page.
-import { ACTIONS, DIRECTIONS, ACTION_LABELS, KEYMAPS, PAD_BUTTONS, PAD_NAMES, RESERVED_KEYS, keyLabel } from '../core/input.js';
+import { ACTIONS, CSTICK, DIRECTIONS, ACTION_LABELS, KEYMAPS, PAD_BUTTONS, PAD_NAMES, RESERVED_KEYS, keyLabel } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import { IS_TOUCH_DEVICE } from '../core/touch.js';
 
@@ -37,6 +37,7 @@ const FACE = {
 };
 
 const SHORT = { light: 'Light', heavy: 'Heavy', special: 'Special', jump: 'Jump', guard: 'Guard', dash: 'Dash', super: 'Super' };
+const C_GLYPH = { cUp: 'C↑', cDown: 'C↓', cLeft: 'C←', cRight: 'C→' }; // the C-stick in the input history (ADR 0042)
 
 // Gamepad diagram: button index -> [x, y] in a 440x250 viewBox.
 const SPOTS = {
@@ -209,7 +210,7 @@ export class ControlsPanel {
     let svg = `<svg class="ctl-svg" viewBox="0 0 440 250" xmlns="http://www.w3.org/2000/svg">
       <path class="pad-body" d="M78 62 Q100 44 150 48 L290 48 Q340 44 362 62 Q406 112 414 184 Q418 232 374 234 Q342 236 312 194 L128 194 Q98 236 66 234 Q22 232 26 184 Q34 112 78 62 Z"/>
       <circle class="pad-stick" data-stick="0" cx="172" cy="160" r="22"/><circle class="pad-stick" cx="268" cy="160" r="22"/>
-      <circle class="pad-nub" cx="172" cy="160" r="9"/>`;
+      <circle class="pad-nub" cx="172" cy="160" r="9"/><circle class="pad-nub c-nub" cx="268" cy="160" r="9"/>`;
     for (const [i, [x, y]] of Object.entries(SPOTS)) {
       const n = +i;
       const isFace = n <= 3, isShoulder = n >= 4 && n <= 7, isDpad = n >= 12;
@@ -229,12 +230,14 @@ export class ControlsPanel {
       }
     }
     svg += `<text class="pad-act dim" x="172" y="200" text-anchor="middle">Move</text>
+      <text class="pad-act" x="268" y="200" text-anchor="middle">C-stick: attacks</text>
       <text class="pad-act dim" x="110" y="172" text-anchor="middle">Move</text>
       <text class="pad-act dim" x="262" y="72" text-anchor="middle">Pause</text>
       <text class="pad-act dim" x="178" y="72" text-anchor="middle">Reset*</text></svg>`;
     const wrap = el('div', 'ctl-svgwrap', svg);
     r.append(wrap);
     this.stickNub = wrap.querySelector('.pad-nub');
+    this.cNub = wrap.querySelector('.c-nub');
 
     const list = el('div', 'ctl-list');
     for (const a of ACTIONS) {
@@ -250,6 +253,7 @@ export class ControlsPanel {
       <div><b>Burst</b>${b('guard')}+${b('special')} while hit</div>
       <div><b>Super dash</b>${b('dash')} stick neutral</div>
       <div><b>Specials</b>${b('special')} + stick direction</div>
+      <div><b>C-stick</b>right stick: a smash attack that way (in the air: that aerial)</div>
       <div><b>*Training</b><kbd>${names[8]}</kbd> resets positions</div>`));
   }
 
@@ -340,6 +344,10 @@ export class ControlsPanel {
       this.stickNub.setAttribute('cx', 172 + ax * 12);
       this.stickNub.setAttribute('cy', 160 + ay * 12);
     }
+    if (this.cNub) {
+      this.cNub.setAttribute('cx', 268 + (g?.axes[2] || 0) * 12);
+      this.cNub.setAttribute('cy', 160 + (g?.axes[3] || 0) * 12);
+    }
   }
 }
 
@@ -368,6 +376,7 @@ export class InputHistory {
       const i = PAD_BUTTONS[a]?.[0];
       return { t: names[i] ?? SHORT[a][0], c: face?.[i] || '' };
     });
+    for (const k of CSTICK) if (pad.b[k].down) btns.push({ t: C_GLYPH[k], c: '' });
     const sig = dir + '|' + btns.map((b) => b.t).join(',');
     if (sig === this.last) {
       if (this.entries[0]) this.entries[0].n++;
