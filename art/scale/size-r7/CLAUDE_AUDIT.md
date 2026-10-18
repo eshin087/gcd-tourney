@@ -296,3 +296,12 @@ Gojo: Killua is unchanged, Gojo's only changed strip is heavy).
 | luffy | beamFire | 1.01 | 1.00 | 1.10 |
 | luffy | special | 1.02 | 1.04 | 1.03 |
 | luffy | win |  |  | 1.10 |
+
+## User approval (2026-10-18, Claude "1 - Art audit" question box, review pages linked in chat)
+
+- Goku (92 % plus dash, special, beamCharge, win): "Approve all"
+- Luffy (92 % plus charge, jumpUp, getup, airLight1, land, light4, beamCharge): "Approve all"
+- Gojo heavy (about 4 % bigger): "Approve"
+- Naruto backDash (same scale, stands 16 px taller): "Keep it" (no redraw)
+
+The approved versions of every strip are unchanged; these approve the packed sizes on PR #153.
