@@ -853,9 +853,11 @@ function shadowStart(f, k, m) {
   audio.play('vanish', 0.8);
 }
 
-// a held body placed exactly (no drift from the held state's friction or its slow fall)
+// a held body placed exactly (no drift from the held state's friction or its slow fall), inside the ring barrier: the
+// heel drop carries them a step past him, and when he is P2 his tick runs after their physics, so nothing else clamps
+// them that frame (a victim lifted at the barrier hung up to 0.1 past ARENA_LIMIT through the slam, ENG-116)
 function holdAt(o, x, y, z) {
-  o.pos.set(x, y, z);
+  o.pos.set(THREE.MathUtils.clamp(x, -ARENA_LIMIT, ARENA_LIMIT), y, THREE.MathUtils.clamp(z, -ARENA_LIMIT, ARENA_LIMIT));
   o.vel.set(0, 0, 0);
   o.air = y > 0.05;
 }
