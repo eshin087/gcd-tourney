@@ -33,3 +33,7 @@ The authorized one-round budget was up to three image calls per move. For uair, 
 - Check runtime contact/hurtbox alignment on the packed cells and active frames; adjust only Gojo `hitboxes.json` overrides if warranted. The art-side review was static and does not establish gameplay contact.
 - All nine drawings are user-approved, but keep them out of production pending the remaining technical holds. The public candidate atlas is branch output only.
 - Main docs merge conflicts, if any, are outside this branch's scope; this handoff did not edit `docs/TASKS.md`, `CHANGELOG.md`, `docs/NOW.md` or the inbox.
+
+## Relay combat #33 — fresh uair round (2026-10-18)
+
+Claude confirmed the nine-move branch merged at `9679cf1d` and authorized the one fresh up-to-three-call uair round from relay #31. It was run on `art/normals-gojo-r2`; all three calls are accounted for. Call 2 and call 3 are preserved unchanged in `raw/_qa_hold/` with prompts, source paths, dimensions and hashes in `uair_fresh_round_2026-10-18.md`. Both show the active shoe above the hair-top ceiling and exceed the intended square-cell height. Call 1 completed but its output path was not captured, so it was not searched for, recovered or filed. No compliant strip exists; no `uair_vNN` candidate, pack, manifest version, REVIEW row or visual approval was created. The existing gameplay stand-in remains. A public review page documents the two held attempts at `public/reviews/normals-gojo/uair-r2/`. The three-call authorization is exhausted; await a new user decision before any further image calls.
