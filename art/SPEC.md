@@ -711,7 +711,8 @@ used** (and notes when that candidate is newer than the manifest's `approvedVers
 version is packed even before it is approved, so a rejected one must move to `raw/_rejected/`). A
 strip is split at empty columns, or by the expected frame count. It removes the flat
 background (corner color / magenta, flood fill from the edges plus near-magenta pixels), trims,
-downscales with palette-preserving "mode" sampling so the tallest frame equals `bodyHeight`
+downscales with palette-preserving "mode" sampling so the tallest frame equals `bodyHeight` (times the fighter's
+`packScale`, ADR 0041: a whole fighter resized against the cast, its `frameOffsets` and `hitboxes.json` points with it)
 (nearest-neighbor if upscaling, with a warning), puts the feet center (mean x of opaque pixels in the
 bottom 20 % of rows) on x 128 and the lowest opaque pixel on y 240, and writes 256x256 cells into the
 16-column sheet. It computes boxes, applies `hitboxes.json`, writes cleaned frames back to

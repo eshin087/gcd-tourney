@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SIZE-R7, ADR 0041): Goku and Luffy are 8 % smaller in game (user option A, 2026-10-18), on the cast's 1.17 px per cm of canon height: Goku had shipped at 1.08x his approved reference and stood as tall as Gojo, and Luffy's reference was drawn large. New manifest field `packScale` makes the packer resize a whole fighter (every strip's bodyHeight, frameOffsets and hitboxes.json anchors); no drawing changed. Their hit boxes shrink with the art (Goku heavy reaches 117 px instead of 127). `npm run test:sprites` covers it.
+
 - Changed (ENG-101): lab layout pass. TOOLS rows line up (a label column, options wrap beside it, short notes); SCENARIOS show as two columns of cards capped at two lines, the open card's description spanning both columns under its row; ANIMATIONS fit on one screen, one compact row per group with each alt strip as an `alt` chip beside its base. The panel is a little wider (420 px).
 
 - Record user approval via Claude relay gojo-run #14 for Gojo hurtHigh v04 and launched v08, keep hurtLow v04, preserve rejected alternates, and document the final packed-atlas technical holds on PR #143.

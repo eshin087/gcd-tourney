@@ -85,6 +85,8 @@
       "displayName": "GOKU",
       "brief": "art/characters/goku/CHARACTER.md",
       "kit": "art/characters/goku/KIT.md",
+      "packScale": 0.92,
+      "_packScale": "user 2026-10-18 (option A, ART-SIZE-R7, ADR 0041): x0.92 puts Goku (175 cm) on the cast's 1.17 px per cm of canon height; every strip keeps its drawing and bodyHeight, the packer resizes it",
       "reference": {
         "titleStyleDraft": { "file": "art/characters/goku/reference/title_style_draft.png", "candidates": "art/characters/goku/reference/title_style_draft_vNN.png", "includes": "title-style neutral + combat reference with native 256 px cells laid beside the four approved cells (ADR 0029); v01 approval withdrawn; user approved v02 on 2026-10-14, body-only measured lineup", "step": 1, "status": "approved", "version": 2, "approvedVersion": 2 },
         "modelSheet": { "file": "art/characters/goku/reference/model_sheet.png", "candidates": "art/characters/goku/reference/model_sheet_vNN.png", "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches; v01 held because derived from withdrawn title-style v01; v02 approved by user 2026-10-15", "step": 1, "status": "approved", "version": 2, "approvedVersion": 2 },
@@ -165,6 +167,8 @@
       "displayName": "LUFFY",
       "brief": "art/characters/luffy/CHARACTER.md",
       "kit": "art/characters/luffy/KIT.md",
+      "packScale": 0.92,
+      "_packScale": "user 2026-10-18 (option A, ART-SIZE-R7, ADR 0041): x0.92 puts Luffy (172 cm) on the cast's 1.17 px per cm of canon height; every strip keeps its drawing and bodyHeight, the packer resizes it",
       "reference": {
         "titleStyleDraft": { "file": "art/characters/luffy/reference/title_style_draft.png", "candidates": "art/characters/luffy/reference/title_style_draft_vNN.png", "includes": "title-style neutral + combat reference with native 256 px cells laid beside the four approved cells (ADR 0029); approved neutral and combat lineup; model sheet, expressions and idle each separately approved v01", "step": 1, "status": "approved", "version": 1, "approvedVersion": 1 },
         "modelSheet": { "file": "art/characters/luffy/reference/model_sheet.png", "candidates": "art/characters/luffy/reference/model_sheet_vNN.png", "includes": "turnaround (front, 3/4 right, side, back), fighting stance, palette swatches", "step": 1, "status": "approved", "version": 1, "approvedVersion": 1 },

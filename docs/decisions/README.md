@@ -65,6 +65,7 @@ when a decision should be revisited.
 | [0038](0038-melee-clash.md) | Melee clash: lights / heavies meeting while both are live cancel out and chain (CLASH ×n, CLASH BREAK! at 5); a heavy beats a light; the `clashBack` bounce; CPUs seek clashes | Accepted |
 | [0039](0039-approvals-desk.md) | One approvals desk: only the Claude chat `0 - Approvals` asks the user; Codex rings for the user and other Claude chats' `relay ask` land in one queue (`.relay/asks/`), watched by `relay wait all`; `/approvals` + a SessionStart hook restore it after chats are deleted; amends 0037 | Accepted |
 | [0040](0040-desk-on-off-switch.md) | The user's on/off switch for the desk: `relay desk off` makes every chat ask the user itself (the ADR 0037 way; `relay ask` queues nothing, exit 6), `desk on` restores 0039; amends 0039 | Accepted |
+| [0041](0041-fighter-pack-scale.md) | `packScale` in the manifest resizes a whole fighter when packed (bodyHeight, frameOffsets, hitboxes.json anchors); Goku and Luffy pack at x0.92 to sit on the cast's 1.17 px per cm of canon height; amends 0029 | Accepted |
 
 ## Template
 

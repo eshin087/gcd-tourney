@@ -1099,7 +1099,15 @@ function normalizeManifest(raw) {
     for (const [name, v] of entries(c.animations ?? c.anims)) anims[name] = normalizeAnimEntry(v);
     // standingBodyPx: a genuinely taller/shorter fighter (ADR 0010) scales the hitbox heuristics with its body
     const sb = Number(c.standingBodyPx);
-    m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? sb : null };
+    // packScale: the whole fighter resized against the cast without new drawings (ADR 0041): every strip's bodyHeight,
+    // frameOffsets and hitboxes.json point are multiplied by it, so each drawing keeps its pose and only its size changes
+    let packScale = 1;
+    if (c.packScale !== undefined) {
+      const ps = Number(c.packScale);
+      if (ps >= 0.5 && ps <= 1.5) packScale = ps;
+      else m.specIssues.push(`characters.${id}.packScale is ${JSON.stringify(c.packScale)} - must be a number 0.5-1.5; using 1`);
+    }
+    m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? Math.round(sb * packScale) : null, packScale };
   }
   const vfx = raw.vfx?.effects ?? raw.vfx ?? raw.effects;
   for (const [name, v] of entries(vfx)) {
@@ -1488,6 +1496,9 @@ function frameOffsetsFor(side, count, spec, warn, label) {
   return offsets;
 }
 
+// frameOffsets are cell px measured at packScale 1: a resized fighter moves by the same share of its size
+const scaleOffsets = (offsets, k) => (offsets && k !== 1 ? offsets.map(([dx, dy]) => [Math.round(dx * k), Math.round(dy * k)]) : offsets);
+
 // Anatomical calibration measures skull-to-chin in each raw pose, along the head axis.
 // Hair, raised hands and crouching change bounds without changing the person's scale.
 function anatomicalScalesFor(side, count, warn, label) {
@@ -1845,10 +1856,10 @@ function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = n
     if (anim.startsWith('_') || !frames || typeof frames !== 'object') continue;
     const p = packed.find((a) => a.name === anim);
     if (!p) { warn(`hitboxes.json: "${anim}" is not packed - override skipped`); continue; }
-    // the animation's cells were rescaled by an auto head fit since these boxes were measured (see scaleAboutPivot)
+    // the animation's cells were rescaled by an auto head fit or the fighter's packScale since these boxes were measured (see scaleAboutPivot)
     const fit = fits?.get(anim) ?? 1, measuredAt = Number(frames._scale) > 0 ? Number(frames._scale) : 1;
     const tf = pivot && Math.abs(fit / measuredAt - 1) > 1e-6 ? { k: fit / measuredAt, px: pivot[0], py: pivot[1] } : null;
-    if (tf) notes?.push(`hitboxes.json ${anim}: boxes and hand anchors scaled x${tf.k.toFixed(3)} about the pivot (auto-head fit x${fit}); re-measure them and set "_scale": ${fit}`);
+    if (tf) notes?.push(`hitboxes.json ${anim}: boxes and hand anchors scaled x${tf.k.toFixed(3)} about the pivot (auto-head fit and packScale x${+fit.toFixed(4)}); re-measure them and set "_scale": ${+fit.toFixed(4)}`);
     const keys = Object.keys(frames).filter((k) => !k.startsWith('_')).sort((a, b) => (a === '*' ? -1 : b === '*' ? 1 : 0));
     for (const k of keys) {
       const ov = frames[k];
@@ -1993,10 +2004,11 @@ function approvedIdleReference(id, defs, anims, rawIdx, env, R, warn) {
   const side = readSidecars(raw.sidecars, warn, 'idle');
   const { frames } = framesFromRaw(raw.files, def.frames, side, env, 'char', () => {}, 'idle', raw.strip);
   if (!frames.length) return;
-  const bodyHeight = Math.round(Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight);
+  const packScale = env.manifest.characters[id]?.packScale ?? 1;
+  const bodyHeight = Math.round((Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight) * packScale);
   const maxH = Math.max(...frames.map((s) => s.h));
   const scale = Math.abs(maxH - bodyHeight) <= 1 ? 1 : bodyHeight / maxH;
-  const offsets = frameOffsetsFor(side, frames.length, env.spec, () => {}, 'idle');
+  const offsets = scaleOffsets(frameOffsetsFor(side, frames.length, env.spec, () => {}, 'idle'), packScale);
   const cells = frames.map((s, k) => placeCharFrame(resample(s, scale, { coverage: 0.5, alphaMin: 128 }), env.spec, offsets?.[k], null).cell);
   (env.approvedIdleRef ??= {})[id] = { cells, label: `approved idle ${vv(def.approvedVersion)} (${raw.label})` };
   R.notes.push(`scale: measured against the approved idle ${vv(def.approvedVersion)}, not the packed candidate ${vv(live.version)}`);
@@ -2145,6 +2157,12 @@ function packCharacter(id, env) {
     return R;
   }
   const defs = animDefsFor(id, env);
+  const packScale = env.manifest.characters[id]?.packScale ?? 1;
+  if (packScale !== 1) {
+    R.notes.push(`packScale x${packScale}: every strip, frameOffsets and hitboxes.json point resized about the pivot (ADR 0041)`);
+    const decl = env.builds?.[id] || {};
+    if (decl.scaleReference || decl.standingReference) warn(`packScale x${packScale}: builds.json scaleReference/standingReference cells are compared at their own size - cut them again at the new size`);
+  }
   const names = defs.map((d) => d.name);
   const rawIdx = scanRaw(path.join(charDir, 'raw'), names, warn, `${label}/raw`);
   const framesRoot = path.join(charDir, 'frames');
@@ -2166,7 +2184,7 @@ function packCharacter(id, env) {
       if (raw?.version != null) R.versions[def.name] = raw.version;
       const side = readSidecars(raw?.sidecars, warn, alabel);
       const fitHead = side.anatomy?.measurement === 'auto-head' || env.fitHead.has(`${id}:${def.name}`);
-      let bodyHeight = Math.round(Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight);
+      let bodyHeight = Math.round((Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight) * packScale);
       let tooTall = null;
       if (!(bodyHeight >= 8 && bodyHeight <= maxBody)) {
         const fixed = Math.min(maxBody, Math.max(8, bodyHeight || DEFAULT_BODY_HEIGHT));
@@ -2215,7 +2233,7 @@ function packCharacter(id, env) {
         if (maxH !== bodyHeight && src.kind === 'frames' && !src.packerMade) notes.push(`kept native size (${maxH}px vs ${bodyHeight}px)`);
         scale = 1;
       }
-      const anatomyScales = anatomicalScalesFor(side, sprites.length, warn, alabel);
+      const anatomyScales = anatomicalScalesFor(side, sprites.length, warn, alabel)?.map((k) => k * packScale) ?? null;
       if (anatomyScales) {
         // Cached or hand-edited cells already have their final anatomy. Never normalize them
         // to bodyHeight again; source/sidecar hash invalidation handles fresh raw imports.
@@ -2227,7 +2245,7 @@ function packCharacter(id, env) {
       const autoHead = src.kind === 'frames' && fitHead ? src.autoHead ?? null : null;
       if (autoHead != null && autoHead !== 1) { scale = 1; notes.push(`auto-head fit x${autoHead} (from the import)`); }
       if (scale > 1) warn(`${alabel}: art is smaller than the target (${maxH}px < ${bodyHeight}px) - upscaled x${scale.toFixed(2)} (nearest); generate it bigger`);
-      const frameOffsets = frameOffsetsFor(side, sprites.length, spec, warn, alabel);
+      const frameOffsets = scaleOffsets(frameOffsetsFor(side, sprites.length, spec, warn, alabel), packScale);
       const wallFrames = beatFrames(def.phases, sprites.length, TECH_POSES[def.name]?.wall);
       const cells = [];
       const frameScales = [];
@@ -2360,7 +2378,7 @@ function packCharacter(id, env) {
     });
   }
   if (big.length) warn(`large auto hitbox (> 40% of the body) on ${big.join(', ')} - check in the Sprite Lab, add hitboxes.json overrides if needed`);
-  const fits = new Map(anims.filter((a) => a.autoHead != null && a.autoHead !== 1).map((a) => [a.def.name, a.autoHead]));
+  const fits = new Map(anims.map((a) => [a.def.name, (a.autoHead ?? 1) * packScale]).filter(([, f]) => f !== 1));
   const overridden = new Set(); // frames whose hit box hitboxes.json replaced
   const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label, fits, spec.pivot, R.notes, overridden);
   if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
