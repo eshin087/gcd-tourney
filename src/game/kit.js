@@ -289,10 +289,19 @@ export function counterHit(f, att, m) {
     att.setState('held', 'stagger');
   }
   g.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 1.6, color: C.color ?? 0xd8f2ff, glow: 1.2, depthTest: false, order: 9 });
-  g.fx.spawn('glow', p.x, p.y + 0.9, p.z, { scale: 2, color: C.color ?? 0x9fd8ff, opacity: 0.6, glow: 1 });
+  if (!C.current) g.fx.spawn('glow', p.x, p.y + 0.9, p.z, { scale: 2, color: C.color ?? 0x9fd8ff, opacity: 0.6, glow: 1 }); // the Current is the light
   g.hud.callout(f.index, C.callout ?? 'COUNTER!', C.color ?? '#d8f2ff');
   g.fx.overlay.flash(C.color ?? '#d8f2ff', 0.35);
   if (C.sigil) g.fx.sigils.burst(f); // the read: the pattern spins up and flares
+  if (C.current) {
+    // Chidori Current (ENG-SKL-SAS): lightning bursts out of his whole body and the attacker is caught in it; the
+    // hit passes through the afterimage he leaves as he slips it
+    f.actor.ghost(C.current.ghost ?? 0xbfe8ff, 0.5, 0.45);
+    g.fx.spawn(C.current.fx, p.x, p.y + 0.85, p.z, { scale: C.current.scale ?? 1, order: 8, depthTest: false });
+    const a = att.pos;
+    for (let i = 0; i < 5; i++) g.fx.spawn('arc', a.x + (Math.random() - 0.5) * 0.6, a.y + 0.3 + Math.random() * 1.1, a.z, { scale: 0.45, life: 0.14, color: 0xe8f7ff, rot: Math.random() * 6.28, order: 9, glow: 1.4 });
+    audio.play('flash', 0.9);
+  }
   g.freeze = Math.max(g.freeze, 6);
   audio.play('block', 1.2);
   if (C.onCounter === 'behind') {
@@ -308,15 +317,35 @@ export function counterHit(f, att, m) {
   return 'miss';
 }
 
-// Damage over time (Amaterasu): ticks never stun or add to the combo, but can still KO.
+// Damage over time (Amaterasu): ticks never stun or add to the combo, but can still KO. With `fx` (ENG-SKL-SAS) the
+// black blaze clings to the body (a kept effect at their feet, one copy behind them and one in front) while the body
+// itself burns black (Fighter.sync, burnLevel); otherwise loose black flame licks.
 export function tickBurn(f) {
   const B = f.burn;
   if (!B) return;
-  if (f.ko || --B.t <= 0) { f.burn = null; return; }
-  const g = f.game, p = f.renderPos || f.pos;
-  if (B.t % 2 === 0) burst(g, 'black', p.x + (Math.random() - 0.5) * 0.7, p.y + 0.3 + Math.random() * 0.9, p.z, null, 0.8 + Math.random() * 0.5);
+  const g = f.game, p = f.renderPos || f.pos, id = 'burn' + f.index;
+  if (f.ko || --B.t <= 0) {
+    f.burn = null;
+    g.fx.drop(id);
+    g.fx.drop(id + 'b');
+    return;
+  }
+  if (B.fx) {
+    const k = burnLevel(f), lying = f.state === 'down' || f.state === 'ko' || f.state === 'getup';
+    g.fx.keep(id + 'b', B.fx, p.x, p.y, p.z, { bottom: true, scale: (lying ? 0.8 : 1.0) * k, opacity: 0.9, order: 1, flipX: true });
+    g.fx.keep(id, B.fx, p.x, p.y, p.z, { bottom: true, scale: (lying ? 0.7 : 0.88) * k, opacity: 0.8, order: 4 });
+    if (B.t % 6 === 0) burst(g, 'black', p.x + (Math.random() - 0.5) * 0.6, p.y + 0.6 + Math.random() * 0.9, p.z, null, 0.5);
+  } else if (B.t % 2 === 0) burst(g, 'black', p.x + (Math.random() - 0.5) * 0.7, p.y + 0.3 + Math.random() * 0.9, p.z, null, 0.8 + Math.random() * 0.5);
   if (B.t % B.every === 0) f.dot(B.att, B.dmg);
   if (B.ground && B.t % 40 === 0 && f.pos.y < 0.3) g.fx.ground.impact(f.pos, { kind: 'burn', style: B.ground, tint: B.color, quiet: true, noMerge: true });
+}
+
+// How fully the black flames cover a burning body, 0..1: they flare up over the first frames and die down at the end
+export function burnLevel(f) {
+  const B = f.burn;
+  if (!B?.fx) return 0;
+  const age = (B.len ?? B.t) - B.t;
+  return Math.min(1, (age + 1) / 8, B.t / 30);
 }
 
 // Per-frame mode upkeep: timer and the mode's look (Godspeed crackle, Nine-Tails chakra cloak).
@@ -492,6 +521,60 @@ function inLane(f, o, tol = 1.0) {
 function beastPose(f, S) {
   if (S.poseAt) f.actor.setPhase(S.pose, S.poseAt[0], S.poseAt[1]);
   else loop(f, S.pose ?? 'beamCharge');
+}
+
+// ------------------------------------------------------------------ the Kirin's storm (ENG-SKL-SAS)
+// Drawn from the kit state each frame (S.storm): the Great Fireball breathed into the sky, the thunderclouds gathering
+// over the marked spot while the stage darkens under them (Game reads stormDim), lightning crawling on the spot, the
+// dragon falling out of the clouds onto it, and its bolt body lingering a moment after the strike. Effects only: a
+// re-simulated frame draws nothing (Game.quiet), and nothing here feeds the fight.
+function stormTick(f, k, S, W) {
+  const g = f.game, a = k.at, R = g.basis.right, id = 'kirin' + f.index, t = k.t0, mark = k.phase === 'mark';
+  const level = mark ? Math.min(1, Math.max(0, (t - W.cloudAt) / W.gather)) : Math.max(0, 1 - t / S.recovery);
+  g.stormAt = g.frameNo;
+  g.stormDim = level * W.dim;
+  g.stormLift = level * W.lift; // the camera tips up to take in the clouds (camera.js)
+  if (mark && t === 2) {
+    // breathed up out of his mouth (his head is tipped back in the call pose)
+    g.fx.spawn('greatFireball', f.pos.x + f.face.x * 0.12, f.pos.y + 1.45, f.pos.z + f.face.y * 0.12, { scale: 0.55, rot: Math.PI / 2, vel: [0, (W.height - 1.2) / (W.heat / 60), 0], life: W.heat / 60, loop: true, order: 8 });
+    audio.play('fireball', 0.9);
+  }
+  if (mark && t === 2 + W.heat) g.fx.spawn('greatFireballBurst', f.pos.x, W.height + 0.3, f.pos.z, { scale: 0.85, order: 3 });
+  for (let i = 0; i < W.clouds; i++) {
+    if (level <= 0) { g.fx.drop(id + 'c' + i); continue; }
+    const off = (i - (W.clouds - 1) / 2) * W.spread;
+    const it = g.fx.keep(id + 'c' + i, 'stormCloud', a.x + R.x * off, W.height + 0.18 * dmath.sin(i * 1.7), a.z + R.z * off, { scale: W.cloudScale * (0.85 + 0.15 * level), opacity: level, order: 1, flipX: i % 2 === 1 });
+    if (it.t === 0) it.t = i * 0.13; // the copies flash out of step
+  }
+  if (mark) {
+    // electricity crawling on the spot it will strike (the dodge cue, in place of the old glow dome)
+    if (t % 2 === 0) {
+      const r = Math.random() * S.radius * 0.9, q = Math.random() * Math.PI * 2;
+      g.fx.spawn('arc', a.x + dmath.cos(q) * r, 0.12, a.z + dmath.sin(q) * r * 0.6, { scale: 0.35, life: 0.1, color: 0xd8f0ff, rot: q, order: 7, glow: 1 });
+    }
+    if (level > 0.6 && Math.random() < 0.07) {
+      const off = (Math.random() - 0.5) * W.spread * W.clouds * 0.8;
+      g.fx.spawn('lightning', a.x + R.x * off, W.height - 0.7, a.z + R.z * off, { scale: 0.8, random: true, life: 0.08, color: 0xd8f0ff, rot: Math.PI / 2, order: 2, glow: 1.6 });
+    }
+  }
+  // the Kirin: the head falls from inside the clouds to the spot over the last `dive` frames, its body stacked above it
+  const from = S.delay - W.dive;
+  let headY = null, alpha = 1;
+  if (mark && t > from) {
+    const u = (t - from) / W.dive, e = u * u;
+    headY = W.height + 0.2 + (W.headLand - W.height - 0.2) * e;
+    g.fx.keep(id + 'h', 'kirinHead', a.x, headY, a.z, { scale: W.headScale, order: 9, depthTest: false, glow: 0.5 });
+  } else if (!mark && t <= W.linger) {
+    g.fx.drop(id + 'h');
+    headY = W.headLand - 0.6; // the column reaches the ground once the head is spent
+    alpha = 1 - t / (W.linger + 1);
+  }
+  const seg = W.bodyScale * 2.29 * 0.98; // a tile's world height (HD cell at scale 1 is 2.29 units)
+  for (let j = 0; j < 4; j++) {
+    const y = headY == null ? null : headY + W.headScale * 1.0 + seg * (j + 0.5) - seg * 0.5;
+    if (y == null || y - seg / 2 > W.height + 0.3) { g.fx.drop(id + 'b' + j); continue; }
+    g.fx.keep(id + 'b' + j, 'kirinBody', a.x, y, a.z, { scale: W.bodyScale, opacity: alpha, order: 8, depthTest: false, glow: 0.5 });
+  }
 }
 
 // ------------------------------------------------------------------ shadow clones (ENG-SKL-NAR)
@@ -742,6 +825,117 @@ function crewFlurry(f, k, S) {
   if (k.t0 >= 14) finish(f);
 }
 
+// ------------------------------------------------------------------ Lion's Barrage (ENG-SKL-SAS)
+// A dive's `shadow`: the rising kick sends them up and he follows in their shadow (the Shadow of the Dancing Leaf):
+// he blinks to their far side as they rise, lands `hits` blows into them in the air, turns over above them and drives
+// them into the floor with the heel drop (the slam carries them under him; kit.onLand deals `hit`). Every blow is
+// his and the victim is held through it; a KO mid-way lets them go and the slam lands alone.
+function shadowStart(f, k, m) {
+  const g = f.game, o = f.opp, W = m.shadow, d = dirTo(f, o);
+  k.phase = 'shadow';
+  k.t0 = 0;
+  k.i = 0;
+  k.dir = { x: d.x, z: d.y }; // from him to them at the kick: he comes up on the far side
+  k.y0 = o.pos.y;
+  k.vx = o.pos.x; // where they hang (the push-apart is off while he places both bodies: k.hold)
+  k.vz = o.pos.z;
+  k.hold = true;
+  o.endMoveFx();
+  o.move = null;
+  o.heldT = W.follow + W.hits.reduce((n, h) => n + h.len, 0) + W.over + 60;
+  o.setState('held', 'launched');
+  o.air = true;
+  f.actor.ghost(m.color, 0.45, 0.6); // the afterimage he leaves at the kick
+  g.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.0, glow: 0.5, depthTest: false, order: 8 });
+  audio.play('vanish', 0.8);
+}
+
+// a held body placed exactly (no drift from the held state's friction or its slow fall)
+function holdAt(o, x, y, z) {
+  o.pos.set(x, y, z);
+  o.vel.set(0, 0, 0);
+  o.air = y > 0.05;
+}
+
+function shadowTick(f, k, m) {
+  const g = f.game, o = f.opp, W = m.shadow;
+  const lim = (v) => THREE.MathUtils.clamp(v, -ARENA_LIMIT, ARENA_LIMIT);
+  if (o.ko) {
+    // knocked out mid-way: let the body fly and land the drop alone
+    o.heldT = 0;
+    k.hold = false;
+    f.hidden = false;
+    f.actor.setVisible(true);
+    k.phase = 'hang';
+    k.t0 = 0;
+    k.rose = true;
+    return;
+  }
+  f.vel.set(0, 0, 0);
+  o.heldT = Math.max(o.heldT, 20);
+  const bx = lim(k.vx + k.dir.x * W.behind), bz = lim(k.vz + k.dir.z * W.behind);
+  if (k.phase === 'shadow') {
+    // both rising: they carried up by the kick, he right behind them in their shadow
+    const u = Math.min(1, k.t0 / W.follow), y = k.y0 + W.climb * (1 - (1 - u) * (1 - u));
+    holdAt(o, k.vx, y, k.vz);
+    k.vy = y;
+    if (k.t0 < W.blink) {
+      f.hidden = true;
+      f.actor.setVisible(false);
+    } else {
+      if (f.hidden) {
+        f.hidden = false;
+        f.actor.setVisible(true);
+        f.teleport(bx, y - W.below, bz); // the blink: no in-between frames
+        g.onVanish(f, 'in');
+      } else f.pos.set(bx, y - W.below, bz);
+      f.faceOpponent();
+    }
+    loop(f, 'jumpUp');
+    if (k.t0 >= W.follow) { k.phase = 'combo'; k.t0 = 0; k.i = 0; }
+    return;
+  }
+  if (k.phase === 'combo') {
+    // the blows, one after another, both hanging in the air
+    const H = W.hits[k.i];
+    holdAt(o, k.vx, k.vy, k.vz);
+    f.pos.set(bx, o.pos.y - W.below, bz);
+    f.faceOpponent();
+    pose(f, H.anim, k.t0, H.at, H.at + 2, H.len);
+    if (k.t0 === H.at) {
+      f.hitPoint = { x: (f.pos.x + o.pos.x) / 2, y: o.pos.y + 0.9, z: (f.pos.z + o.pos.z) / 2 };
+      o.takeHit(f, { dmg: H.dmg, minScale: 0.8, hitstun: 40, push: 0, airPop: 0, hitstop: 4, unblockable: true, spark: H.spark ?? 'heavy' }, dirTo(f, o));
+      f.hitPoint = null;
+      if (!o.ko) holdAt(o, k.vx, k.vy, k.vz);
+      g.cam.shake(0.3);
+    }
+    if (k.t0 >= H.len) {
+      k.t0 = 0;
+      if (++k.i >= W.hits.length) {
+        k.phase = 'over';
+        k.ox = f.pos.x;
+        k.oy = f.pos.y;
+        k.oz = f.pos.z;
+        g.hud.callout(f.index, W.callout ?? m.name, m.color);
+        audio.play('whooshHeavy');
+      }
+    }
+    return;
+  }
+  // 'over': he flips up over them into the heel drop (specialUp's last frames are drawn to flow into airHeavy f0)
+  holdAt(o, k.vx, k.vy, k.vz);
+  const u = Math.min(1, k.t0 / W.over), e = u * (2 - u);
+  const tx = k.vx - k.dir.x * 0.15, ty = k.vy + W.above, tz = k.vz - k.dir.z * 0.15;
+  f.pos.set(k.ox + (tx - k.ox) * e, k.oy + (ty - k.oy) * e, k.oz + (tz - k.oz) * e);
+  f.faceOpponent();
+  f.actor.setPhase('specialUp', 2, Math.min(0.999, u));
+  if (k.t0 >= W.over) {
+    k.phase = 'slam';
+    k.t0 = 0;
+    k.carry = true;
+  }
+}
+
 // ------------------------------------------------------------------ kinds: start
 const START = {
   rush(f, m) {
@@ -900,12 +1094,14 @@ const UPDATE = {
       f.actor.setPhase('specialUp', k.t0 < m.rise * 0.4 ? 0 : 1, Math.min(0.999, k.t0 / m.rise));
       if (m.riseHit && !k.riseHit && o.hittable && f.distTo() < 1.25 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o)) {
         k.riseHit = true;
-        o.takeHit(f, m.riseHit, dirTo(f, o));
+        const r = o.takeHit(f, m.riseHit, dirTo(f, o));
         if (m.riseCallout) f.game.hud.callout(f.index, m.riseCallout, m.color);
+        if (m.shadow && r === 'hit' && !o.ko) return shadowStart(f, k, m);
       }
       if (k.t0 >= m.rise) { k.phase = 'hang'; k.t0 = 0; crewOut(f.game, k.crew); }
       return;
     }
+    if (k.phase === 'shadow' || k.phase === 'combo' || k.phase === 'over') return shadowTick(f, k, m);
     if (k.phase === 'hang') {
       if (k.crew) crewOut(f.game, k.crew); // an air dive skips the rise
       f.vel.set(0, 0.5, 0);
@@ -918,6 +1114,15 @@ const UPDATE = {
         k.t0 = 0;
         audio.play('whooshHeavy');
       }
+      return;
+    }
+    if (k.phase === 'slam' && k.carry) {
+      // the heel drop drives them straight down into the floor under him (Lion's Barrage)
+      f.vel.set(0, m.slamV, 0);
+      f.actor.setPhase('airHeavy', 1, 0.5);
+      if (o.ko) k.carry = k.hold = false;
+      else holdAt(o, f.pos.x + k.dir.x * 0.25, Math.max(0, f.pos.y - m.shadow.under), f.pos.z + k.dir.z * 0.25);
+      if (k.t0 > 90) finish(f);
       return;
     }
     if (k.phase === 'slam') {
@@ -1065,8 +1270,10 @@ const UPDATE = {
     if (k.t0 >= 14) finish(f);
   },
 
-  // ---- Amaterasu (Sasuke): the Mangekyō gaze ignites black flames on the opponent wherever they
-  // stand (no range, no block); they keep burning (tickBurn) while the fight goes on
+  // ---- Amaterasu (Sasuke): the Mangekyō gaze ignites black flames on the opponent wherever they stand (no range, no
+  // block); they keep burning (tickBurn) while the fight goes on. The anime's look (ENG-SKL-SAS): the flames burst on
+  // them out of nothing (`blastFx`), no white spark or flash (`hitFlash: 'ignite'`), and the black blaze clings to
+  // their whole body while it burns
   ignite(f, k, S) {
     const g = f.game, o = f.opp;
     if (k.phase === 'flash') { k.phase = 'gaze'; k.t0 = 0; }
@@ -1074,11 +1281,14 @@ const UPDATE = {
     f.actor.setPhase('superPose', 1, 0.5);
     if (k.t0 === S.delay) {
       if (!o.ko && !o.hidden && o.invuln <= 0) {
-        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, noTech: true, hitstop: 14, unblockable: true, big: true, shake: 0.8, spark: 'heavy', hitFlash: 'special' }, dirTo(f, o));
-        // color: the hit flash rim per tick and the burn mark's tint; ground: the floor style under a burning body
-        o.burn = { t: S.burn.len, every: S.burn.every, dmg: S.burn.dmg, att: f, ground: S.ground, color: S.color };
+        f.hitPoint = { x: o.pos.x, y: o.pos.y + 0.9, z: o.pos.z };
+        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, noTech: true, hitstop: 14, unblockable: true, big: true, shake: 0.8, spark: 'none', hitFlash: S.hitFlash ?? 'special', blastFx: S.blastFx, color: S.color }, dirTo(f, o));
+        f.hitPoint = null;
+        // color: the hit flash rim per tick and the burn mark's tint; ground: the floor style under a burning body;
+        // len: how long it burns in all (the blaze's look ramps with it, Fighter.sync)
+        o.burn = { t: S.burn.len, len: S.burn.len, every: S.burn.every, dmg: S.burn.dmg, att: f, ground: S.ground, color: S.color, fx: S.burn.fx };
         if (o.pos.y < 0.3) g.fx.ground.impact(o.pos, { kind: 'ignite', style: S.ground, tint: S.color, quiet: true });
-        for (let i = 0; i < 10; i++) burst(g, 'black', o.pos.x + (Math.random() - 0.5) * 1.1, o.pos.y + Math.random() * 1.2, o.pos.z, null, 1.6);
+        if (!S.blastFx) for (let i = 0; i < 10; i++) burst(g, 'black', o.pos.x + (Math.random() - 0.5) * 1.1, o.pos.y + Math.random() * 1.2, o.pos.z, null, 1.6);
         g.hud.callout(f.index, S.callout ?? S.name, S.color);
         g.fx.overlay.flash('#000000', 0.5);
         audio.play('fireball', 1.2);
@@ -1090,31 +1300,49 @@ const UPDATE = {
     if (k.t0 >= S.delay + S.recovery) finish(f);
   },
 
-  // ---- Kirin (Sasuke): the storm marks where the opponent stands and a lightning dragon strikes
-  // that spot `delay` frames later. Huge and unblockable, but they can still dash out of it.
+  // ---- Kirin (Sasuke): the storm marks where the opponent stands and a lightning dragon strikes that spot `delay`
+  // frames later. Huge and unblockable, but they can still dash out of it. With `storm` (ENG-SKL-SAS), the anime's
+  // sequence inside the same frames: he breathes a Great Fireball into the sky, thunderclouds gather over the spot and
+  // the stage darkens, he swings his arm down and the Kirin dives out of the clouds onto it. The timing (the mark, the
+  // strike on `delay`, the recovery) is the plain sky strike's, which the CPUs read.
   skyStrike(f, k, S) {
-    const g = f.game, o = f.opp;
+    const g = f.game, o = f.opp, W = S.storm;
     if (k.phase === 'flash') { k.phase = 'mark'; k.t0 = 0; k.at = o.pos.clone(); }
     k.t0++;
+    if (W) stormTick(f, k, S, W);
     if (k.phase === 'mark') {
-      f.actor.setPhase(S.pose ?? 'beamCharge', 1, 0.5);
+      f.actor.setPhase(W && k.t0 >= S.delay - W.swing ? S.strikePose ?? 'beamFire' : S.pose ?? 'beamCharge', 1, 0.5);
       const a = k.at;
-      g.fx.keep('kirin' + f.index, 'glow', a.x, 0.1, a.z, { scale: S.radius * (1 + 0.15 * dmath.sin(k.t0 * 0.5)), color: S.color, opacity: 0.55, order: 2, glow: 1 });
-      if (k.t0 % 5 === 0) g.fx.spawn('lightning', a.x + (Math.random() - 0.5) * 1.4, 3.2 + Math.random(), a.z, { scale: 0.9, random: true, life: 0.1, color: 0xd8f0ff, order: 9, glow: 2 });
+      if (!W) {
+        g.fx.keep('kirin' + f.index, 'glow', a.x, 0.1, a.z, { scale: S.radius * (1 + 0.15 * dmath.sin(k.t0 * 0.5)), color: S.color, opacity: 0.55, order: 2, glow: 1 });
+        if (k.t0 % 5 === 0) g.fx.spawn('lightning', a.x + (Math.random() - 0.5) * 1.4, 3.2 + Math.random(), a.z, { scale: 0.9, random: true, life: 0.1, color: 0xd8f0ff, order: 9, glow: 2 });
+      }
       if (k.t0 >= S.delay) {
         g.fx.drop('kirin' + f.index);
-        g.fx.thunder(a.x, a.z, 0xd8f0ff);
-        g.fx.thunder(a.x + 0.4, a.z, 0x9fd8ff);
-        g.fx.explosion(a.x, 0.8, a.z, new THREE.Color(0x9fd8ff));
+        if (W) {
+          // the dragon lands: its own strike and the floor, a short impact frame, no white-out
+          g.fx.spawn(W.strikeFx, a.x, 0, a.z, { bottom: true, scale: W.strikeScale, order: 8, depthTest: false });
+          g.fx.spawn('ring', a.x, 0.1, a.z, { scale: S.radius * 1.4, color: S.color, glow: 0.6, order: 7 });
+          for (let i = 0; i < 6; i++) {
+            const r = Math.random() * S.radius, t = Math.random() * Math.PI * 2;
+            g.fx.spawn('arc', a.x + dmath.cos(t) * r, 0.15, a.z + dmath.sin(t) * r * 0.6, { scale: 0.5, life: 0.12, color: 0xe8f7ff, rot: t, order: 8, glow: 1.2 });
+          }
+          g.fx.debris(a.x, a.z, 10, 1.2);
+          g.fx.overlay.impactFrame(2);
+        } else {
+          g.fx.thunder(a.x, a.z, 0xd8f0ff);
+          g.fx.thunder(a.x + 0.4, a.z, 0x9fd8ff);
+          g.fx.explosion(a.x, 0.8, a.z, new THREE.Color(0x9fd8ff));
+          g.fx.overlay.impactFrame(4);
+        }
         g.fx.ground.impact(a, { kind: 'kirin', style: S.ground, tint: S.color, d: S.radius * 3.2 });
-        g.fx.overlay.impactFrame(4);
         g.cam.shake(1.2);
         audio.play('explosion', 1.3);
         const dx = o.pos.x - a.x, dz = o.pos.z - a.z;
         if (o.hittable && dmath.hypot(dx, dz) < S.radius && o.pos.y < 3) {
           const d = tmp.set(dx, dz);
           if (d.lengthSq() < 1e-4) d.set(f.face.x, f.face.y);
-          o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special' }, d.clone().normalize());
+          o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1, spark: W ? 'none' : 'smash', hitFlash: 'special' }, d.clone().normalize());
           g.excite = 1;
         } else g.tag(o, 'dodge');
         k.phase = 'recover';
@@ -1346,6 +1574,12 @@ export function onLand(f) {
   if (!k) return finish(f);
   if (k.kind === 'dive' && k.phase === 'slam') {
     const g = f.game, o = f.opp, m = k.m;
+    if (k.carry) {
+      // the carried victim hits the floor with him (Lion's Barrage)
+      o.heldT = 0;
+      k.hold = false;
+      holdAt(o, o.pos.x, 0, o.pos.z);
+    }
     const hit = o.hittable && f.distTo() < m.area && Math.abs(o.pos.y - f.pos.y) < 1.3 && inLane(f, o, 1.1) ? o.takeHit(f, m.hit, dirTo(f, o)) : null;
     if (m.landFx === 'thunder') g.fx.thunder(f.pos.x, f.pos.z, 0xd8f0ff);
     else g.fx.dust(f.pos, 1.6);

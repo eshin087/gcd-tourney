@@ -198,6 +198,21 @@ const VFX_EFFECTS = {
   fourTailsRoar: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
   beastBall: { frames: 8, ms: 45, tinted: false, fill: 0.5, hd: true },
   beastBeamRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
+  // Sasuke's signature techniques (ENG-SKL-SAS): HD cells, art/characters/sasuke/SKILLS_REVAMP.md. kirinBody is stacked
+  // end to end down the dragon, so it ships as exact 256 x 256 frames in art/vfx/frames/kirinBody/ (never rescaled)
+  chidori: { frames: 8, ms: 35, tinted: false, fill: 0.6, hd: true },
+  chidoriForm: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true },
+  chidoriBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  chidoriSpear: { frames: 8, ms: 35, tinted: false, fill: 0.98, hd: true },
+  chidoriCurrent: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  amaterasu: { frames: 8, ms: 60, tinted: false, fill: 0.95, anchor: 'bottom', hd: true },
+  amaterasuIgnite: { frames: 6, ms: 45, tinted: false, fill: 0.95, hd: true },
+  greatFireball: { frames: 8, ms: 45, tinted: false, fill: 0.9, hd: true },
+  greatFireballBurst: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true },
+  stormCloud: { frames: 4, ms: 120, tinted: false, fill: 0.98, hd: true },
+  kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true },
+  kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
+  kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 

@@ -220,7 +220,9 @@ export class Effects {
       follow: o.follow ?? null,
       random: !!o.random,
       stretch: o.stretch ?? 1,
+      seq: o.seq ?? null, // frames played in this order, one per `ms`, then it ends (a strip with a held loop inside)
     };
+    if (it.seq) it.life = (it.seq.length * ms) / 1000;
     it.max = it.life;
     if (it.stretch !== 1) mesh.scale.x *= it.stretch;
     this.uv(name, 0, mat.uniforms.uvRect.value);
@@ -283,7 +285,8 @@ export class Effects {
         it.mesh.position.addScaledVector(it.vel, dt);
       }
       let f;
-      if (it.frame >= 0) f = it.frame;
+      if (it.seq) f = it.seq[Math.min(it.seq.length - 1, Math.floor((it.t * 1000) / it.ms))];
+      else if (it.frame >= 0) f = it.frame;
       else if (it.random) f = Math.floor(Math.random() * it.a.n);
       else {
         f = Math.floor((it.t * 1000) / it.ms);
@@ -607,15 +610,33 @@ export class Effects {
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.5, color: 0xffd84a, opacity: 0.55 * halo, order: 3, glow: 1 });
       if (Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
     } else if (kind === 'chidori') {
+      // the thousand birds (ENG-SKL-SAS): it crackles to life in his gripped hand through most of the startup
+      // (chidoriForm), then the HD knot rides the drawn palm; a small glow only, the art carries the light (the old
+      // 128 px lightning tile under a big glow read as a white blob)
       const p = phase === 2 ? at(0.7, 0.78) : at(-0.5, 0.32);
-      const s = (phase === 0 ? 0.4 + prog * 0.5 : 0.9) * k;
-      const it = this.keep('hand' + f.index, 'lightning', p.x, p.y, p.z, { scale: s * (quiet ? 0.6 : 1), color: 0xd8f0ff, order: 9, glow: quiet ? 0.5 : 1.0 });
-      it.random = true;
-      it.rot = Math.random() * 6.28;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.1, color: 0x5aa8ff, opacity: 0.5 * halo, order: 3, glow: 1 });
-      if (Math.random() < (quiet ? 0.3 : 0.6)) {
+      const forming = phase === 0 && prog < 0.6 && !quiet;
+      const flip = f.side < 0; // drawn trailing screen-left: mirrored when he faces screen-left
+      if (forming) {
+        this.drop('hand' + f.index);
+        const it = this.keep('handForm' + f.index, 'chidoriForm', p.x, p.y, p.z, { scale: 0.55 * k, order: 9, glow: 0.4, flipX: flip });
+        it.frame = Math.min(it.a.n - 1, Math.floor((prog / 0.6) * it.a.n));
+      } else {
+        this.drop('handForm' + f.index);
+        this.keep('hand' + f.index, 'chidori', p.x, p.y, p.z, { scale: (quiet ? 0.4 : 0.55) * k, order: 9, glow: quiet ? 0.3 : 0.5, flipX: flip });
+      }
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: (forming ? 0.3 + prog * 0.4 : 0.6) * k, color: 0x5aa8ff, opacity: 0.28 * halo, order: 3, glow: 0.6 });
+      if (Math.random() < (quiet ? 0.2 : 0.45)) {
         const a = Math.random() * Math.PI * 2;
-        this.spawn('lightning', p.x + Math.cos(a) * 0.3, p.y + Math.sin(a) * 0.3, p.z, { scale: 0.35, random: true, life: 0.08, color: 0xffffff, rot: a, order: 9, glow: quiet ? 1 : 2 });
+        this.spawn('arc', p.x + Math.cos(a) * 0.25, p.y + Math.sin(a) * 0.2, p.z, { scale: 0.3, life: 0.08, color: 0xe8f7ff, rot: a, order: 9, glow: quiet ? 0.8 : 1.4 });
+      }
+      // the run with the hand dragged low behind him (the strip's run frames): it tears a trench in the floor and
+      // throws up sparks and chips where it touches
+      const T = f.move?.trench;
+      if (T && phase === 1 && !f.moveHit && !quiet && p.y - P.y < 0.6 && (p.x - P.x) * fx + (p.z - P.z) * fz < 0.1) {
+        const g = { x: p.x, y: 0, z: p.z };
+        this.ground.trail('trench' + f.index, g, { x: fx, z: fz }, 0.32, T, f.move.color);
+        if (Math.random() < 0.5) this.spawn('spark', g.x, 0.08, g.z, { scale: 0.35, rot: Math.random() * 6.28, color: 0xbfe8ff, glow: 0.8, order: 8 });
+        if (Math.random() < 0.25) this.spawn('dust', g.x - fx * 0.2, 0, g.z - fz * 0.2, { bottom: true, scale: 0.35, opacity: 0.7, order: 6 });
       }
     }
   }
@@ -628,11 +649,23 @@ export class Effects {
 
   // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
   // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
-  // generic explosion's bloom so its shape reads
-  blast(name, x, y, z, scale, color) {
+  // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind)
+  blast(name, x, y, z, scale, color, smoke = 3) {
     this.spawn(name, x, y, z, { scale, order: 8, depthTest: false });
     this.spawn('ring', x, y, z, { scale: 2.2 * scale, color, glow: 0.4, order: 7, depthTest: false });
-    for (let k = 0; k < 3; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
+    for (let k = 0; k < smoke; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
+  }
+
+  // A straight effect drawn pointing screen-right (the Chidori Spear's blade, ENG-SKL-SAS), laid from `from` along `dir`
+  // for `len` world units: turned to that line's angle on screen and mirrored when it points screen-left. `fill`: the
+  // share of the cell the drawn length spans.
+  span(name, from, dir, len, camRight, o = {}) {
+    const sx = dir.x * camRight.x + dir.z * camRight.z, flip = sx < 0, phi = Math.atan2(dir.y, sx);
+    const it = this.spawn(name, from.x + (dir.x * len) / 2, from.y + (dir.y * len) / 2, from.z + (dir.z * len) / 2, { ...o, flipX: flip, rot: flip ? phi - Math.PI : phi });
+    const s = len / (it.cellWorld * (o.fill ?? 0.95));
+    it.base = s;
+    it.mesh.scale.set(flip ? -s : s, s, s);
+    return it;
   }
 
   // A shadow clone appearing or vanishing (the anime's poof)
