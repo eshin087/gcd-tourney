@@ -154,7 +154,7 @@ documentation that stays true.
 | `npm run devs` | read-only list of the dev servers running now (`tools/dev-servers.ps1`): ports, age, committed memory, browser connections, folder, and the machine's committed memory against its limit; flags servers with no browser connected for an hour and servers over 2 GB. Check it when a task ends and stop your own idle servers (`Stop-Process -Id <PID>`) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
-| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`, `desk [on\|off]` (the user's switch, ADR 0040); state in git-ignored `.relay/` |
+| `node tools/relay.mjs <cmd>` | Claude-Codex relay (ADR 0033/0037; `npm run relay -- <cmd>` swallows some flags): `lanes`, `add <lane> <chat id\|title>`, `remove <lane>`, `send <lane>` (inbox prompt; `--direct`; `--user-approved\|--user-rejected\|--user-decision "<what>" --quote "<answer>"`; `--supersedes <N>` voids a queued send it replaces), `check <lane> <N>` (Codex, before acting on `#N`: open, or DONE/VOID exit 7), `done <lane> <N>` (send `#N` carried out; OPS-020), `ring <lane>` (`--for user --kind approval\|decision\|blocked`), `wait <lane>` (Claude's background watcher), `status`, `reset <lane>`, `pause\|resume <lane\|all>`; approvals desk (ADR 0039): `ask`, `asks`, `answer <id>`, `wait all`, `brief`, `desk [on\|off]` (the user's switch, ADR 0040); state in git-ignored `.relay/` |
 | `npm run test:relay` | relay regression test (`tools/test-relay.mjs`: fake `codex` and chat index, throw-away `.relay/`); run after changes to `tools/relay.mjs` |
 | `npm run lobby` | the online lobby server locally (`server/`, wrangler dev on `ws://127.0.0.1:8787`; a page on localhost uses it by itself). Deploy: `server/README.md` (the user's Cloudflare account) |
 | `npm run test:lobby` | lobby room rules test (`server/test/room.test.mjs`: RoomCore with a fake clock: line, relay, feed, results, forfeit, timeout); run after changes to `server/src/roomCore.js` |
@@ -171,7 +171,7 @@ documentation that stays true.
 | `npm run pr -- art <id>[,<id>]` | (inside a sparse worktree) add more raw art there with the same patterns as `start --art`, drop patterns a shell rewrote (`C:/Program Files/Git/art/...`), and verify the raws are on disk. Use it instead of a hand-typed `git sparse-checkout add` |
 | `npm run pr -- open` | (in a worktree on a named branch, never detached HEAD) publish the branch slim and open or update its GitHub PR |
 | `npm run pr -- preview` | (in the worktree) deploy the branch to a Vercel preview URL and link it on the PR, so the user can try it on a phone (ADR 0018; previews need a Vercel sign-in) |
-| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it). **Art guard first (TOOL-028, `tools/pr-guard.mjs`):** for every fighter strip the merge changes it refuses an unapproved newest raw (newest `raw/<anim>_vNN.png` != manifest `approvedVersion`; approve it or move it to `raw/_qa_hold/`, which the packer skips), a committed pack of an unapproved version, or a strict-scale-gate failure (packer dry run on scratch copies). Code branches skip it. `--force-art "<reason>"` overrides and records the reason in the merge commit |
+| `npm run pr -- merge <branch>` | (in the main checkout) `--no-ff` merge, publish main (PR shows merged), remove the worktree, then deploy main to production (`--no-deploy` skips it). **Art guard first (TOOL-028, `tools/pr-guard.mjs`):** for every fighter strip the merge changes it refuses an unapproved newest raw (newest `raw/<anim>_vNN.png` != manifest `approvedVersion`; approve it or move it to `raw/_qa_hold/`, which the packer skips), a committed pack of an unapproved version, or a strict-scale-gate failure (packer dry run on scratch copies); for every fighter pack the merge changes it refuses one that drops animations main's pack lists, and names them (packed in a worktree without every raw: re-pack after `npm run pr -- art <id>`; TOOL-061). Code branches skip it. `--force-art "<reason>"` overrides and records the reason in the merge commit |
 | `npm run pr -- check <branch>` | the art guard alone, read-only, from any checkout: prints what `merge` would refuse (exit 1 when it would) |
 | `npm run pr -- prune [--dry-run]` | (in the main checkout) remove clean worktrees whose branch was merged; lists dirty ones and non-worktree copies in `.worktrees/` |
 | `npm run lineup` | the cast side by side on one floor line (idle, run, heavy) with standing height and shoulder width per fighter, flagged against `art/scale/builds.json`; writes `art/scale/lineup.png` + `.json`. Attach it to every model sheet and idle review |
@@ -415,6 +415,10 @@ A change is done when:
   "Relay watcher" (the `relay-status` footer mod shows it). When it wakes you, read the newest handoff and continue.
   If the watcher exits 2 saying it is still Codex's turn, start it again. If `send` fails, give the user the
   paste-in prompt instead. **Never tell the user to paste a decision into Codex**: relay it.
+  A send waits in the Codex chat's queue until its current turn ends, and nothing withdraws it (OPS-020). Codex acts
+  on each `#N` once: it runs `relay check <lane> <N>` on delivery and `relay done <lane> <N>` when finished. To replace
+  a send that may still be queued, send the new one with `--supersedes <N>` (its delivery then says VOID); when a ring
+  shows Codex already did a queued send's work, run `relay done <lane> <N> --note "<where>"` so its delivery does nothing.
 - **All approvals happen in Claude** ([ADR 0037](docs/decisions/0037-approvals-in-claude.md)), **at the desk**
   `0 - Approvals` ([ADR 0039](docs/decisions/0039-approvals-desk.md); the rest of this bullet is the desk's job).
   In any other chat, a lane watcher that says "Codex needs the USER" means the desk is off: send one PushNotification
@@ -448,7 +452,10 @@ Locate main with git worktree list. Run node tools/relay.mjs status from main.
 - Preserve approval, BLOCKED and pause brakes. If only the user's approval or decision remains, ring once with
   `--for user --kind approval|decision|blocked` (ADR 0037: Claude asks the user with buttons), update NOW.md and
   stop; that ring never authorizes further production. Proceed only on a relayed `USER APPROVAL`/`USER DECISION`
-  or the user's own message. Do not reset/resume a paused lane or bypass a hop limit to complete this check.
+  or the user's own message. A relayed one counts once it is delivered as its own `[relay <lane> #N]` message and
+  `relay check` calls it open; reading NOW.md, the inbox or relay status for this check never authorizes acting on a
+  decision whose message is still queued (AGENTS.md relay rules, OPS-020). Do not reset/resume a paused lane or
+  bypass a hop limit to complete this check.
 - Subagents report the handoff requirement to their parent; the owning chat rings once unless the handback
   was explicitly delegated. Claude maintains a background watcher for each active lane and reads the
   committed handoff when notified. A ring without a watcher is queued, not proof that Claude read it.
@@ -492,8 +499,10 @@ Read this rule from main alongside the mandatory Claude handoff check; it applie
   sprites shows up as shimmering, so keep sprite placement and scales pixel-consistent. Hi-res packs
   (`pixelsPerUnit` >= 70; spec v2 is 128) switch it to the `hd` detail (scale = floor(height / 600));
   override with `?res=pixel` or `?res=hd`.
-- Spec v2 custom sheets are 4096 × 2816 px (16 columns of 256 px cells). Fine on desktop GPUs; a GPU with a
-  2048 texture limit gets a downscaled sheet and a three.js warning (ADR 0007).
+- Spec v2 custom sheets are 16 columns of 256 px cells, at most 4096 × 4096 px (256 frames) per page; a fighter past
+  that ships `sheet2.png` ... with the frames numbered straight through (`anims.json` `pages`, art/SPEC.md "Sheet pages",
+  TOOL-060). Find a frame's page and cell with `src/art/sheetPages.js`, never `frame % columns` on `sheet.png`. A GPU
+  with a 2048 texture limit gets downscaled pages and a three.js warning (ADR 0007).
 - Simulation randomness: `Math.random()` only reaches the CPU brains and effects (clash charts are seeded), so online
   play doesn't need a seeded RNG (ADR 0036). Gameplay files must use `src/game/dmath.js`, not `Math.sin` / `cos` /
   `hypot` / `atan2` ...: engines round those differently (`npm run lint:simmath`, part of the build, enforces it).

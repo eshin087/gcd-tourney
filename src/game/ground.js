@@ -90,6 +90,7 @@ export const GROUND_STYLES = {
   chakraBlast: { replace: 'scorch_chakra', heat: 1.0 },
   lightning: { overlay: 'burn_lightning', big: 'burn_lightning_big', heat: 1.2 },
   lightningBig: { replace: 'burn_lightning_big', satellites: 'burn_lightning', heat: 1.4 },
+  lightningTrench: { trail: 'erasure_trench', heat: 1.2 }, // the Chidori dragged along the floor (ENG-SKL-SAS)
   fire: { overlay: 'burn_fire', heat: 1.6 },
   blackFire: { replace: 'burn_black', heat: 0, life: 1.5, noRubble: true },
   cursed: { overlay: 'fracture_cursed', big: 'fracture_cursed_big', heat: 0.8 },
@@ -258,6 +259,7 @@ function stylesOf(def) {
     const m = SPECIAL_MOVES[id];
     if (!m) continue;
     add(m.ground);
+    add(m.trench); // a rush dragged along the floor (the Chidori)
     add(m.vortex?.ground);
     if (m.proj) add(PROJECTILES[m.proj]?.ground);
   }

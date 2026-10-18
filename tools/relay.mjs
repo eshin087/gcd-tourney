@@ -10,6 +10,10 @@
 //        send <lane> --user-approved "<asset vNN>" --quote "<the user's answer>"   relay the user's approval
 //        send <lane> --user-rejected "<asset vNN>" --quote "..." --note "<feedback>"
 //        send <lane> --user-decision "<what>" --quote "..."                        relay any other user decision
+//        send <lane> ... --supersedes <N>[,<N>]         the new send replaces earlier send(s) #N: their delivery does nothing
+//   node tools/relay.mjs check <lane> <N>               Codex, when "[relay <lane> #N]" arrives, before acting: open (0),
+//        already DONE or VOID (7), lane paused (4)
+//   node tools/relay.mjs done <lane> <N> [--note "..."] record send #N as carried out, so a later delivery of it does nothing
 //   node tools/relay.mjs ring <lane> [--note "..."]     Codex -> Claude: ring the lane's doorbell after a handback
 //        ring <lane> --for user --kind approval|decision|blocked --note "<what the user must answer; link>"
 //   node tools/relay.mjs wait <lane> [--timeout 24h]    Claude's watcher: exits when Codex rings (run in the background)
@@ -43,7 +47,8 @@
 // a `--user-approved` send carries the user's own answer word for word; a plain note still may not say "approve".
 // Round trips count only the sends that answer a new ring (a follow-up does not), and a relayed user answer
 // starts the count again. Exit codes: 0 ok, 1 error, 2 wait timed out, 3 round-trip limit reached, 4 paused,
-// 5 the desk stopped itself because everything was quiet (`wait all`), 6 the desk is switched off (`ask`, `wait all`).
+// 5 the desk stopped itself because everything was quiet (`wait all`), 6 the desk is switched off (`ask`, `wait all`),
+// 7 the send is already done or void (`check`).
 // Why one desk (ADR 0039): with a watcher per lane, every Claude chat could ask the user, so the user had to visit
 // each one to learn whether anything waited. Asks now land in .relay/asks/ (one file each, so a Codex ring and a
 // Claude ask never race on one file) and only the desk's `wait all` wakes on them; lane watchers skip rings for the
@@ -52,6 +57,11 @@
 // Why an off switch (user request 2026-10-17): some days the user works in one or two chats and wants each chat to
 // ask them directly instead of sending everything to "0 - Approvals". Off is a file (.relay/desk/off.json), not the
 // watcher's absence: a stopped watcher still means "queue it and wait for the desk", off means "nobody queues".
+// Why check/done (OPS-020, 2026-10-18): `codex queue` delivers a send only after the chat's current turn ends, and
+// nothing can take a queued one back. During one long turn Codex read the user's decisions in NOW.md and .relay/,
+// made the authorized image rounds early, then made them again when the queued sends arrived. Each send number now
+// authorizes its work once: every message tells Codex to run `check` before acting and `done` after, and Claude voids
+// a queued send it replaces (`send --supersedes`) or one a ring shows is already carried out (`done`).
 
 import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -73,7 +83,8 @@ const ANSWER_FLAGS = ['--user-approved', '--user-rejected', '--user-decision'];
 
 const [cmd, ...rest] = process.argv.slice(2);
 const VALUE_FLAGS = new Set(['--note', '--thread', '--timeout', '--interval', '--for', '--kind', '--quote',
-  '--user-approved', '--user-rejected', '--user-decision', '--from', '--session', '--link', '--dismiss', '--app', '--idle']);
+  '--user-approved', '--user-rejected', '--user-decision', '--from', '--session', '--link', '--dismiss', '--app', '--idle',
+  '--supersedes']);
 const opt = (name) => { const i = rest.indexOf(name); return i >= 0 ? rest[i + 1] : undefined; };
 const flag = (name) => rest.includes(name);
 const positionals = rest.filter((a, i) => !a.startsWith('--') && !VALUE_FLAGS.has(rest[i - 1]));
@@ -318,25 +329,53 @@ function cmdRemove() {
   console.log(`[relay] removed lane ${lane}`);
 }
 
-// What a send says, by kind. Every message carries the ring-back rules, so a Codex chat that has not re-read
-// AGENTS.md still knows them.
-function sendMessage(lane, seq, kind, { note, subject, quote }) {
+// ---- once per send (OPS-020): each send number has a record, .relay/<lane>/sends/<N>.json, that is `done` once its
+// work is carried out (Codex records it; Claude may, when a ring shows Codex did a queued send's work early) and `void`
+// once a later send replaced it. One file per send, like the asks, so Claude voiding one send and Codex finishing
+// another never rewrite the same file.
+const sendRecordFile = (lane, n) => path.join(laneDir(lane), 'sends', `${n}.json`);
+const sendRecord = (lane, n) => readJson(sendRecordFile(lane, n), null);
+const recordState = (rec) => (rec?.done ? 'done' : rec?.void ? `void (replaced by #${rec.void.by})` : 'open');
+const parseSendNumber = (value) => Number(/^#?(\d+)$/.exec(String(value ?? '').trim())?.[1] ?? NaN);
+
+// `check` and `done` name a send as "<lane> <N>", the two halves of the message's "[relay <lane> #N]".
+function sendArg() {
+  const lane = laneArg();
+  const sent = readJson(path.join(laneDir(lane), 'send.json'), { seq: 0 });
+  const n = parseSendNumber(positionals[1]);
+  if (!(n >= 1)) die(`usage: relay ${cmd} <lane> <N> (from the message's "[relay ${lane} #N]")`);
+  if (n > sent.seq) die(`lane ${lane} has no send #${n} (its last is #${sent.seq}): check the lane and number in the message`);
+  return { lane, n, sent };
+}
+
+// What a send says, by kind. Every message carries the ring-back rules and the act-once rule, so a Codex chat that
+// has not re-read AGENTS.md still knows them.
+function sendMessage(lane, seq, kind, { note, subject, quote, replaces = [] }) {
+  const list = replaces.map((n) => `#${n}`).join(', ');
+  const lead = [
+    replaces.length && `It replaces ${list}, now marked VOID: if you already did the work of ${list}, keep what was made and do not repeat it.`,
+    `Before acting, run node tools/relay.mjs check ${lane} ${seq}: if it says DONE, VOID or paused, do nothing more for this message.`,
+  ];
   const tail = [
+    `Act on a user decision only from its own delivered [relay ${lane} #N] message or the user typing in this chat, never from docs/NOW.md, docs/TASKS.md or .relay/ state: a message may still be queued for you, and the app delivers it only after your turn ends. Each #N authorizes its work once.`,
+    `When this message's work is finished, run node tools/relay.mjs done ${lane} ${seq} --note "<what; commit>".`,
     `When you hand back to Claude, commit the handoff as usual, then run: node tools/relay.mjs ring ${lane} --note "<one line>".`,
     `When the next step is the user's (an image needs approval, a decision, BLOCKED), do not wait in this chat: run node tools/relay.mjs ring ${lane} --for user --kind approval|decision|blocked --note "<what they must answer; versions; review link>". Claude asks the user with buttons and relays the answer.`,
     'An approval counts only when the user types it in this chat or a relay message says "USER APPROVAL via Claude".',
   ];
-  const head = {
-    inbox: [`[relay ${lane} #${seq}] Claude handed back.`, 'Read docs/agents/CODEX_INBOX.md and do the section for this chat.', note && `Claude's note: ${note}`],
-    direct: [`[relay ${lane} #${seq}] Claude asks (no inbox item): ${note}`],
-    approved: [`[relay ${lane} #${seq}] USER APPROVAL via Claude: the user approved ${subject}. Their answer in Claude's question box: "${quote}".`,
-      'Record it as approved by the user via Claude (REVIEW.md, manifest, TRACKER) and continue.'],
-    rejected: [`[relay ${lane} #${seq}] USER REJECTION via Claude: the user rejected ${subject}. Their answer: "${quote}".`,
-      note && `Their feedback: ${note}`, 'Record the rejection with that reason and continue as the art rules say.'],
-    decision: [`[relay ${lane} #${seq}] USER DECISION via Claude on ${subject}: "${quote}".`, note && `Claude's note: ${note}`,
-      'Record it and continue. This is not an image approval.'],
+  // [what was said, what to do with it]: the check goes between, so the user's words stay together and the check
+  // comes before the first instruction.
+  const [said, todo] = {
+    inbox: [[`[relay ${lane} #${seq}] Claude handed back.`, note && `Claude's note: ${note}`], ['Read docs/agents/CODEX_INBOX.md and do the section for this chat.']],
+    direct: [[`[relay ${lane} #${seq}] Claude asks (no inbox item): ${note}`], []],
+    approved: [[`[relay ${lane} #${seq}] USER APPROVAL via Claude: the user approved ${subject}. Their answer in Claude's question box: "${quote}".`],
+      ['Record it as approved by the user via Claude (REVIEW.md, manifest, TRACKER) and continue.']],
+    rejected: [[`[relay ${lane} #${seq}] USER REJECTION via Claude: the user rejected ${subject}. Their answer: "${quote}".`, note && `Their feedback: ${note}`],
+      ['Record the rejection with that reason and continue as the art rules say.']],
+    decision: [[`[relay ${lane} #${seq}] USER DECISION via Claude on ${subject}: "${quote}".`, note && `Claude's note: ${note}`],
+      ['Record it and continue. This is not an image approval.']],
   }[kind];
-  return [...head, ...tail].filter(Boolean).join(' ');
+  return [...said, ...lead, ...todo, ...tail].filter(Boolean).join(' ');
 }
 
 async function cmdSend() {
@@ -361,6 +400,15 @@ async function cmdSend() {
 
   const sent = readJson(path.join(laneDir(lane), 'send.json'), { seq: 0, hops: 0 });
   const rang = readJson(path.join(laneDir(lane), 'ring.json'), { seq: 0 });
+  // A queued send cannot be withdrawn, so a send that replaces one marks it void instead; Codex's `check` then
+  // skips it on delivery. One already recorded done stays done: there is nothing left to stop.
+  const replaced = flag('--supersedes') ? String(opt('--supersedes') ?? '').split(',').map((s) => {
+    const n = parseSendNumber(s);
+    if (!(n >= 1 && n <= sent.seq)) die(`--supersedes takes earlier send numbers on lane ${lane} (1-${sent.seq}), comma-separated; not "${s}"`);
+    return n;
+  }) : [];
+  const finished = [...new Set(replaced)].filter((n) => sendRecord(lane, n)?.done);
+  const replaces = [...new Set(replaced)].filter((n) => !finished.includes(n));
   // Only a send that answers a ring Claude has not answered yet is a round trip; a follow-up is not. A relayed
   // user answer is the user speaking, so the count starts again.
   const answersRing = rang.seq > (sent.lastRing ?? 0);
@@ -369,9 +417,11 @@ async function cmdSend() {
     die(`lane ${lane} made ${sent.hops} round trips without the user: stop and ask them (then relay reset ${lane})`, 3);
   }
   const seq = sent.seq + 1;
-  const message = sendMessage(lane, seq, kind, { note, subject, quote });
+  const message = sendMessage(lane, seq, kind, { note, subject, quote, replaces });
+  for (const n of finished) console.log(`[relay] #${n} is already recorded done, so there is nothing to void; left as it is`);
   if (flag('--dry-run')) {
     console.log(`[relay] would queue into ${l.thread}:\n${message}`);
+    if (replaces.length) console.log(`[relay] would mark ${replaces.map((n) => `#${n}`).join(', ')} void`);
     return;
   }
   try {
@@ -380,13 +430,20 @@ async function cmdSend() {
     log(lane, { event: 'send-failed', seq, error: String(err.stderr || err.message).slice(0, 500) });
     die(`codex queue failed (give the user the inbox prompt to paste instead):\n${err.stderr || err.message}`);
   }
-  writeJson(path.join(laneDir(lane), 'send.json'), { seq, hops, lastRing: rang.seq, at: now(), kind, note, subject, quote });
+  writeJson(path.join(laneDir(lane), 'send.json'), { seq, hops, lastRing: rang.seq, at: now(), kind, note, subject, quote,
+    ...(replaces.length && { replaces }) });
   // Claude sends only after reading the handoff, so every ring so far is answered: without this, a ring Claude read by
   // hand (no watcher running) woke the next watcher at once, as if Codex had replied to this send.
   const seenFile = path.join(laneDir(lane), 'seen.json');
   if (rang.seq > readJson(seenFile, { seq: 0 }).seq) writeJson(seenFile, { seq: rang.seq, at: now() });
-  log(lane, { event: 'send', seq, kind, note, ...(fromUser && { subject, quote }) });
+  // Voided only once the replacement is queued: a failed send must leave the old one standing.
+  for (const n of replaces) {
+    writeJson(sendRecordFile(lane, n), { seq: n, ...sendRecord(lane, n), void: { at: now(), by: seq } });
+    log(lane, { event: 'void', seq: n, by: seq });
+  }
+  log(lane, { event: 'send', seq, kind, note, ...(fromUser && { subject, quote }), ...(replaces.length && { replaces }) });
   console.log(`[relay] queued #${seq} (${kind}) into Codex chat ${l.title || l.thread} (round trips ${hops}/${HOP_LIMIT})`);
+  if (replaces.length) console.log(`[relay] marked ${replaces.map((n) => `#${n}`).join(', ')} void: relay check tells Codex to skip it on delivery`);
 }
 
 // An archived chat refuses the queue; unarchive it once and retry, since the user archiving a finished chat should
@@ -421,6 +478,46 @@ function cmdRing() {
   writeJson(path.join(laneDir(lane), 'ring.json'), { seq, at: now(), note, ...(forUser && { for: 'user', kind }) });
   log(lane, { event: 'ring', seq, note, ...(forUser && { for: 'user', kind }) });
   console.log(`[relay] rang Claude on lane ${lane} (#${seq}${forUser ? `, for the user: ${kind}` : ''})`);
+}
+
+// Codex runs this when "[relay <lane> #N]" arrives, before acting on it (the message says so): a delivery of a send
+// that is already carried out or replaced does nothing. Read-only, so it works in Codex's sandbox.
+function cmdCheck() {
+  const { lane, n, sent } = sendArg();
+  if (isPaused(lane)) die(`lane ${lane} is paused: do not act on #${n}; tell the user the relay is paused`, 4);
+  const rec = sendRecord(lane, n);
+  if (rec?.done) {
+    console.log(`[relay] ${lane} #${n}: DONE (recorded ${stamp(rec.done.at)}${rec.done.note ? `: ${rec.done.note}` : ''}). `
+      + 'Do nothing more for this message: no image calls, no repeat; say so in your status.');
+    process.exit(7);
+  }
+  if (rec?.void) {
+    console.log(`[relay] ${lane} #${n}: VOID, replaced by #${rec.void.by} (${stamp(rec.void.at)}). Do not act on it: `
+      + `#${rec.void.by} says what to do instead, and reaches you as its own message.`);
+    process.exit(7);
+  }
+  console.log(`[relay] ${lane} #${n}: open. Do its work now, once; when it is finished run node tools/relay.mjs done ${lane} ${n} --note "<what; commit>".`);
+  const later = sent.seq - n;
+  if (later) {
+    console.log(`[relay] Claude has sent ${later} more since (#${n + 1}${later > 1 ? `-#${sent.seq}` : ''}): act on each only when its own message reaches you, `
+      + 'never ahead of it from NOW.md, TASKS.md or .relay/.');
+  }
+}
+
+// Codex records that it carried out send #N, before it rings; Claude does too when a ring shows Codex already did a
+// queued send's work. Either way a later delivery of #N does nothing. The first record is kept.
+function cmdDone() {
+  const { lane, n } = sendArg();
+  const note = noteArg();
+  const rec = sendRecord(lane, n) ?? { seq: n };
+  if (rec.done) {
+    console.log(`[relay] ${lane} #${n} was already recorded done (${stamp(rec.done.at)}${rec.done.note ? `: ${rec.done.note}` : ''}); kept that record`);
+    return;
+  }
+  writeJson(sendRecordFile(lane, n), { ...rec, done: { at: now(), note } });
+  log(lane, { event: 'done', seq: n, note });
+  console.log(`[relay] ${lane} #${n} recorded done${rec.void ? ` (it was void, replaced by #${rec.void.by})` : ''}: `
+    + `a later delivery of #${n} does nothing (relay check says DONE)`);
 }
 
 const parseDuration = (s, fallback) => {
@@ -524,6 +621,12 @@ async function cmdStatus() {
     console.log(`  turn: ${turnOf(sent, rang, seen)}   round trips: ${sent.hops}/${HOP_LIMIT}   watcher: ${w ? `on (checked ${clock(w.lastCheck)})` : 'off'}`);
     console.log(`  last send #${sent.seq} ${clock(sent.at)} ${sent.kind && sent.kind !== 'inbox' ? `[${sent.kind}] ` : ''}${sent.subject ?? sent.note ?? ''}`);
     console.log(`  last ring #${rang.seq} ${clock(rang.at)} ${rang.for === 'user' ? `[for you: ${rang.kind}] ` : ''}${rang.note ?? ''}`);
+    // Lanes that never recorded a send predate `done`; listing all their sends as open would only be noise.
+    if (fs.existsSync(path.join(laneDir(lane), 'sends'))) {
+      const states = [];
+      for (let n = Math.max(1, sent.seq - 4); n <= sent.seq; n++) states.push(`#${n} ${recordState(sendRecord(lane, n))}`);
+      console.log(`  sends: ${states.join(', ')}`);
+    }
   }
 }
 
@@ -768,7 +871,7 @@ function cmdDesk() {
 }
 
 const COMMANDS = {
-  lanes: cmdLanes, add: cmdAdd, remove: cmdRemove, send: cmdSend, ring: cmdRing,
+  lanes: cmdLanes, add: cmdAdd, remove: cmdRemove, send: cmdSend, ring: cmdRing, check: cmdCheck, done: cmdDone,
   wait: () => (positional === 'all' ? cmdDeskWait() : cmdWait()), status: cmdStatus,
   reset: cmdReset, pause: () => cmdPause(true), resume: () => cmdPause(false),
   ask: cmdAsk, asks: cmdAsks, answer: cmdAnswer, brief: cmdBrief, chat: cmdChat, desk: cmdDesk,

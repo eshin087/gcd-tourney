@@ -251,6 +251,7 @@ export class Game {
     this.fighters = defs.map((d, i) => new Fighter(this, d, assets[i], i));
     if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18); // mirror match tint
     this.fx.ground.prepare(this.fighters, this.renderer.renderer); // their decal pages, uploaded now
+    for (const a of assets) a.prepare(this.renderer.renderer); // and every sheet page (SheetAsset.prepare)
     this.pads = [new Pad(), new Pad()];
     this.fighters.forEach((f, i) => { f.pad = this.pads[i]; f.wins = 0; });
     // 'solo': P1 human vs CPU. 'cpu': spectate two CPUs at the same level (defaults to impossible, the
@@ -299,6 +300,7 @@ export class Game {
     this.fighters = defs.map((d, i) => new Fighter(this, d, assets[i], i));
     if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18);
     this.fx.ground.prepare(this.fighters, this.renderer.renderer);
+    for (const a of assets) a.prepare(this.renderer.renderer);
     this.pads = [new Pad(), new Pad()];
     this.fighters.forEach((f, i) => { f.pad = this.pads[i]; });
     this.kinds = ['person', 'cpu'];
@@ -713,7 +715,7 @@ export class Game {
   }
 
   // The view follows the simulation where events alone can't keep it right after a rollback: the stage every frame,
-  // and once after a restore the clash camera and bar and the looping hums.
+  // and once after a restore the clash camera, bar and hint and the looping hums.
   syncView() {
     const stage = this.domain ? 'void' : this.training ? 'training' : 'arena';
     if (this.fighters.length === 2 && stage !== this.stageKind) this.setStage(stage);
@@ -723,6 +725,14 @@ export class Game {
     if (!c) {
       this.hud.clash(false);
       if (this.cam.mode === 'clash') this.cam.set('fight');
+    } else {
+      // a restore copies the clash (snapshot.js), and a re-simulated frame may have started it with the camera and HUD
+      // stood in for: the clash shot follows the live copy's struggle point without restarting its orbit, or cuts to a
+      // clash it never framed; the one-beat clash keeps the fight camera. Hud.clashBeat rebuilds the rings (ENG-114).
+      if (c.lite) { if (this.cam.mode === 'clash') this.cam.set('fight'); }
+      else if (this.cam.mode === 'clash') this.cam.data = c;
+      else if (this.cam.mode === 'fight') this.cam.set('clash', c);
+      this.hud.clash(true, c.t, null, clashHint(this.cfg.mode, deviceLayout(this.input)));
     }
     for (const f of this.fighters) {
       const i = f.index;
@@ -809,6 +819,7 @@ export class Game {
   separate() {
     const [a, b] = this.fighters;
     if (a.ko || b.ko || this.clash || a.hidden || b.hidden) return;
+    if ((a.state === 'kit' && a.kitState?.hold) || (b.state === 'kit' && b.kitState?.hold)) return; // a kit move places both bodies itself (Lion's Barrage)
     const dx = b.pos.x - a.pos.x, dz = b.pos.z - a.pos.z;
     const d = dmath.hypot(dx, dz);
     if (d < 0.72 && Math.abs(a.pos.y - b.pos.y) < 1.3) {
@@ -1788,11 +1799,18 @@ export class Game {
     this.fx.ground.hit(att, def, m, dmg); // the floor under them, or where they come down
     if (m.beam) {
       // beam ticks draw their own sparks
+    } else if (m.blastFx && !m.special) {
+      // a kit super's own blast (Amaterasu's black flames bursting on them, ENG-SKL-SAS): its art, no white spark
+      if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, new THREE.Color(m.color ?? 0xffffff), m.blastFx.smoke);
+      this.cam.shake(m.shake ?? 0.6, dir);
+      this.excite = 1;
+    } else if (kind === 'none') {
+      this.cam.shake(m.shake ?? 0.6, dir); // its effect is drawn by the move itself (the Kirin's strike)
     } else if (m.special) {
       const col = new THREE.Color(m.color);
       // the technique's own blast (ENG-SKL-NAR) in place of the generic fireball, which would white it out; a
       // blastFx without fx draws its blast elsewhere (the Rasenshuriken's dome is its vortex)
-      if (m.blastFx) { if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, col); }
+      if (m.blastFx) { if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, col, m.blastFx.smoke); }
       else this.fx.explosion(x, y, z, col);
       audio.play('specialHit');
       this.cam.shake(0.9, dir);
@@ -2269,7 +2287,10 @@ export class Game {
       }
     }
     // stage dimming for super flashes
-    this.dim += (this.dimTarget - this.dim) * Math.min(1, dt * (this.dimTarget > this.dim ? 18 : 5));
+    // a storm overhead (the Kirin's thunderclouds, kit.js stormTick) keeps the stage dark while its kit move runs
+    const storm = this.frameNo - (this.stormAt ?? -9) <= 2 ? this.stormDim ?? 0 : 0;
+    const dimTo = Math.max(this.dimTarget, storm);
+    this.dim += (dimTo - this.dim) * Math.min(1, dt * (dimTo > this.dim ? 18 : 5));
     this.arena.setDim(this.dim);
     this.room.setDim(this.dim);
     this.voidStage.setDim(this.dim);

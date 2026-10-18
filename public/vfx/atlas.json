@@ -36,7 +36,7 @@
     "image": "atlas_hd.png",
     "cell": 256,
     "cols": 8,
-    "rows": 10,
+    "rows": 23,
     "ppu": 112,
     "anims": {
       "rasengan": { "row": 0, "n": 8, "ms": 40 },
@@ -48,7 +48,20 @@
       "subLog": { "row": 6, "n": 5, "ms": 70 },
       "fourTailsRoar": { "row": 7, "n": 8, "ms": 45 },
       "beastBall": { "row": 8, "n": 8, "ms": 45 },
-      "beastBeamRing": { "row": 9, "n": 6, "ms": 40 }
+      "beastBeamRing": { "row": 9, "n": 6, "ms": 40 },
+      "chidori": { "row": 10, "n": 8, "ms": 35 },
+      "chidoriForm": { "row": 11, "n": 6, "ms": 40 },
+      "chidoriBurst": { "row": 12, "n": 8, "ms": 40 },
+      "chidoriSpear": { "row": 13, "n": 8, "ms": 35 },
+      "chidoriCurrent": { "row": 14, "n": 8, "ms": 40 },
+      "amaterasu": { "row": 15, "n": 8, "ms": 60 },
+      "amaterasuIgnite": { "row": 16, "n": 6, "ms": 45 },
+      "greatFireball": { "row": 17, "n": 8, "ms": 45 },
+      "greatFireballBurst": { "row": 18, "n": 8, "ms": 50 },
+      "stormCloud": { "row": 19, "n": 4, "ms": 120 },
+      "kirinBody": { "row": 20, "n": 4, "ms": 40 },
+      "kirinHead": { "row": 21, "n": 6, "ms": 40 },
+      "kirinStrike": { "row": 22, "n": 8, "ms": 45 }
     }
   }
 }

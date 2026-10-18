@@ -9,10 +9,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import { decalTests } from './test-pack-decals.mjs';
 import * as probe from './scale-probe.mjs';
+import { loadPacked } from './scale-audit.mjs';
+import * as THREE from 'three';
+
+// the engine's sheet classes for the page checks (TOOL-060); the module reads URL flags at load, so location is stubbed
+globalThis.location = globalThis.location || { search: '' };
+const { SheetAsset, SpriteActor, sheetProblem } = await import('../src/game/sprites.js');
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PACKER = path.join(TOOL_DIR, 'pack-sprites.mjs');
@@ -112,16 +119,17 @@ function figure(p = {}) {
   if (p.smear) R.push([7 + p.punch + 2, 7 + p.punch + 5, 42 + b, 46 + b, [250, 250, 250]]); // detached smear, 1 art px gap
   return R;
 }
-function drawFigure(img, footX, floorY, p, rand) {
-  const rects = figure(p);
+// recolor: Map of COL entries to the colours to draw instead (a transformation drawn in other colours)
+function drawFigure(img, footX, floorY, p, rand, recolor = null) {
+  const rects = figure(p), col = (c) => recolor?.get(c) ?? c;
   for (const [x0, x1, y0, y1, c] of rects) {
     if (c[0] === 250) continue;
-    rect(img, footX + (x0 - 1) * S, floorY - (y1 + 1) * S, (x1 - x0 + 2) * S, (y1 - y0 + 2) * S, COL.outline, rand);
+    rect(img, footX + (x0 - 1) * S, floorY - (y1 + 1) * S, (x1 - x0 + 2) * S, (y1 - y0 + 2) * S, col(COL.outline), rand);
   }
-  for (const [x0, x1, y0, y1, c] of rects) rect(img, footX + x0 * S, floorY - y1 * S, (x1 - x0) * S, (y1 - y0) * S, c, rand);
+  for (const [x0, x1, y0, y1, c] of rects) rect(img, footX + x0 * S, floorY - y1 * S, (x1 - x0) * S, (y1 - y0) * S, col(c), rand);
 }
 // a strip: poses left->right on magenta. spacing in art px (array or number)
-function strip(poses, { spacing = 46, seed = 1, height = 100, specks = 4, rows = 1, bg = 'flat' } = {}) {
+function strip(poses, { spacing = 46, seed = 1, height = 100, specks = 4, rows = 1, bg = 'flat', recolor = null } = {}) {
   const rand = mulberry(seed);
   const perRow = Math.ceil(poses.length / rows);
   const sp = Array.isArray(spacing) ? spacing : Array(perRow).fill(spacing);
@@ -138,7 +146,7 @@ function strip(poses, { spacing = 46, seed = 1, height = 100, specks = 4, rows =
   poses.forEach((p, k) => {
     const row = Math.floor(k / perRow), col = k % perRow;
     const x = (30 + sp.slice(0, col).reduce((a, c) => a + c, 0)) * S;
-    drawFigure(img, x, (row + 1) * height * S - 10 * S, p, rand);
+    drawFigure(img, x, (row + 1) * height * S - 10 * S, p, rand, recolor);
   });
   if (bg !== 'checker') fringe(img, rand);
   for (let k = 0; k < specks; k++) rect(img, Math.floor(rand() * (img.w - 4)), 2 + Math.floor(rand() * 8), 2, 2, [128, 128, 128], rand, 0);
@@ -349,6 +357,10 @@ function makeFixtures() {
       rect(lg, cx - (wdt / 2) * s4, floor - hgt * s4, wdt * s4, hgt * s4, [140, 90, 50], rand);
     });
     savePng(path.join(V, 'raw', 'subLog_v01.png'), lg);
+    // newHd: an HD effect only the manifest names ("hd": true), not the packer's table: two blue squares
+    const nh = image(2 * 80 * s4, 90 * s4, [255, 0, 255], rand);
+    [16, 28].forEach((wdt, k) => rect(nh, (40 + k * 80 - wdt / 2) * s4, (45 - wdt / 2) * s4, wdt * s4, wdt * s4, [60, 130, 240], rand));
+    savePng(path.join(V, 'raw', 'newHd_v01.png'), nh);
   }
 
   // crowd (ADR 0008): one raw per spectator, 3 poses (idle, cheer, shocked) on a 1536 x 1024 magenta canvas
@@ -429,7 +441,8 @@ function makeFixtures() {
     },
     // world art is approval-gated: every fixture effect is approved (spark at v02, its highest version)
     vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: 2 }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo', approvedVersion: 1 },
-      orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 }, subLog: { approvedVersion: 1 } } },
+      orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 }, subLog: { approvedVersion: 1 },
+      newHd: { frames: 2, ms: 50, colorRule: 'fullColor', anchor: 'center', fill: 0.5, hd: true, approvedVersion: 1 } } },
     worldArt: { crowd: { batches: {
       'crowd-testers-01': { status: 'approved', items: { 'c-001': { approvedVersion: 1 }, 'c-002': { approvedVersion: null }, 'c-003': { approvedVersion: 1 }, 'c-004': { approvedVersion: 1 }, 'c-005': { approvedVersion: 1 }, 'c-006': { approvedVersion: 1 } } },
       'crowd-testers-01-r1': { status: 'approved', items: { 'c-003': { approvedVersion: 2 } } },
@@ -629,9 +642,11 @@ function main() {
     check(!anyWarn(rep.vfx.warnings, /spark/), 'vfx: versioned spark files accepted silently');
     // HD effects (ADR 0044) go to their own 256 px page: the 128 px atlas above keeps its 6 rows
     const hd = am.hd, hdImg = fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && loadPng(path.join(OUT, 'vfx', 'atlas_hd.png'));
-    check(hd?.image === 'atlas_hd.png' && hd.cell === 256 && hd.ppu === 112 && hd.rows === 1 && hd.anims.subLog?.row === 0 && hd.anims.subLog.n === 5 && hd.anims.subLog.ms === 70 && !am.anims.subLog,
+    check(hd?.image === 'atlas_hd.png' && hd.cell === 256 && hd.ppu === 112 && hd.rows === 2 && hd.anims.subLog?.n === 5 && hd.anims.subLog.ms === 70 && !am.anims.subLog,
       `atlas.json hd block (${JSON.stringify(hd && { cell: hd.cell, ppu: hd.ppu, rows: hd.rows, subLog: hd.anims.subLog })})`);
-    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 256, `atlas_hd.png ${hdImg?.w}x${hdImg?.h}`);
+    // a manifest-only "hd": true keeps the effect on the HD page (the manifest normalizer once dropped the flag)
+    check(hd?.anims.newHd?.n === 2 && !am.anims.newHd, `manifest-only HD effect on the HD page (${JSON.stringify(hd?.anims.newHd)}, standard page: ${!!am.anims.newHd})`);
+    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 2 * 256, `atlas_hd.png ${hdImg?.w}x${hdImg?.h}`);
     if (hdImg) {
       const lb = [0, 1, 2, 3, 4].map((i) => bb(cell(hdImg, i, 256, 5)));
       const big = Math.max(...lb.map((b) => Math.max(b.w, b.h)));
@@ -730,6 +745,27 @@ function main() {
   check(meta1 === fs.readFileSync(metaPath, 'utf8'), 'run 2: anims.json identical');
   check(Buffer.compare(atlas1, fs.readFileSync(path.join(OUT, 'vfx', 'atlas.png'))) === 0, 'run 2: atlas.png identical');
   check(r2.json.characters.find((c) => c.id === 'testy').packed.find((p) => p.anim === 'idle').source === 'frames/idle/', 'run 2: idle now read from frames/');
+  {
+    // an HD effect's written-back frames carry the 256 px cell; untouched frames cleaned at the 128 px cell (written
+    // before the manifest said hd) re-import from raw/ instead of being upscaled (Sasuke's chidori, 2026-10-18)
+    const hdDir = path.join(ART, 'vfx', 'frames', 'newHd'), mk = path.join(hdDir, '.packer.json');
+    const m = fs.existsSync(mk) && JSON.parse(fs.readFileSync(mk, 'utf8'));
+    check(m && m.cell === 256, `run 2: HD frames/ marker records the 256 px cell (${m && m.cell})`);
+    if (m) {
+      const files = {};
+      for (const f of Object.keys(m.files)) {
+        const r7 = mulberry(7), im = image(128, 128, null, r7);
+        rect(im, 54, 54, 20, 20, [60, 130, 240], r7);
+        savePng(path.join(hdDir, f), im);
+        files[f] = createHash('sha1').update(fs.readFileSync(path.join(hdDir, f))).digest('hex');
+      }
+      delete m.cell;
+      fs.writeFileSync(mk, JSON.stringify({ ...m, files }, null, 2));
+      const rHd = pack(base);
+      const nh = rHd.json?.vfx.packed.find((p) => p.effect === 'newHd');
+      check(rHd.code === 0 && nh?.source === 'raw/newHd_v01.png', `128 px frames/ of an HD effect re-import from raw/ (source ${nh?.source})`);
+    }
+  }
 
   // run 3: a new raw idle replaces untouched written-back frames
   const before = fs.readFileSync(path.join(idleDir, 'idle_00.png'));
@@ -1013,6 +1049,8 @@ function main() {
   approvedIdleRefTests(base);
   sidecarFlipTests(base);
   packScaleTests(base);
+  sheetPageTests(base);
+  paletteReserveTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -2012,6 +2050,191 @@ function packScaleTests(base) {
   const c = run();
   check(c.r.code === 0 && Math.abs(c.box('idle', 0).h - ha) <= 1 && /packScale is 3 - must be a number 0\.5-1\.5/.test(c.r.out + JSON.stringify(c.r.json ?? {})),
     `packScale: an out-of-range value is reported and ignored (idle ${c.box('idle', 0).h} px)`);
+}
+
+// ---------------------------------------------------------------- sheet pages (TOOL-060)
+// A fighter past 256 frames ships as sheet.png + sheet2.png (each at most 4096 x 4096 px), its frames numbered straight
+// through (src/art/sheetPages.js). The same art packed onto one tall page (--page-rows 64) is the reference: paging may
+// move cells, never change a pixel, a box or a hand anchor. Expectations use plain arithmetic (frame f on page
+// floor(f / 256) at cell f % 256), not the helper under test.
+const PAGE_ANIMS = ['idle', 'run', 'light1', 'light2', 'light3', 'light4', 'heavy', 'jumpUp', 'jumpFall', 'guard', 'hurtHigh', 'hurtLow', 'dash', 'special', 'charge', 'land', 'taunt', 'win', 'intro', 'throw'];
+function sheetPageTests(base) {
+  // 20 strips of 13 hand-made frames: 260 frames, so the 20th strip (frames 247-259) runs across the page boundary
+  const P = path.join(ART, 'characters', 'pagey');
+  PAGE_ANIMS.forEach((name, a) => {
+    for (let k = 0; k < 13; k++) {
+      const rand = mulberry(1300 + a * 13 + k);
+      const img = image(FW, FW, null, rand);
+      const rects = figure({ punch: k, bob: a % 3 });
+      for (const [x0, x1, y0, y1] of rects) rect(img, 110 + (x0 - 1) * 3, 246 - (y1 + 1) * 3, (x1 - x0 + 2) * 3, (y1 - y0 + 2) * 3, COL.outline, rand, 0);
+      for (const [x0, x1, y0, y1, c] of rects) rect(img, 110 + x0 * 3, 246 - y1 * 3, (x1 - x0) * 3, (y1 - y0) * 3, c, rand, 0);
+      savePng(path.join(P, 'frames', name, `${name}_${String(k).padStart(2, '0')}.png`), img);
+    }
+  });
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.pagey = { name: 'Pagey', scaleGate: 'warn', animations: Object.fromEntries(PAGE_ANIMS.map((n) => [n, { frames: 13, bodyHeight: 204 }])) };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  const OUT1 = path.join(FIX, 'out-onepage');
+  const dir = (out) => path.join(out, 'characters', 'pagey');
+  const metaOf = (out) => JSON.parse(fs.readFileSync(path.join(dir(out), 'anims.json'), 'utf8'));
+  const one = pack(['--root', ART, '--out', OUT1, '--json', '--page-rows', '64', 'pagey']);
+  const two = pack([...base, 'pagey']);
+  const C = two.json?.characters.find((c) => c.id === 'pagey');
+  if (!fs.existsSync(path.join(dir(OUT), 'anims.json')) || !fs.existsSync(path.join(dir(OUT1), 'anims.json'))) {
+    check(false, `sheet pages: pagey packed (${one.code}/${two.code} ${(C?.warnings || []).join(' | ').slice(0, 400)} ${two.err.slice(0, 400)})`);
+    return;
+  }
+  const m1 = metaOf(OUT1), m2 = metaOf(OUT);
+  const frames = Object.values(m2.animations).flatMap((a) => a.frames).sort((x, y) => x - y);
+  check(frames.length === 260 && frames.every((f, i) => f === i), `sheet pages: 260 frames numbered straight through 0-259 (${frames.length}, last ${frames.at(-1)})`);
+  check(JSON.stringify(m2.pages) === '["sheet.png","sheet2.png"]' && m2.pageFrames === 256 && !('pages' in m1) && !('pageFrames' in m1),
+    `sheet pages: anims.json lists the pages only when there are two (${JSON.stringify(m2.pages)} x ${m2.pageFrames}; one page: ${'pages' in m1})`);
+  const p1 = loadPng(path.join(dir(OUT), 'sheet.png')), p2 = loadPng(path.join(dir(OUT), 'sheet2.png')), tall = loadPng(path.join(dir(OUT1), 'sheet.png'));
+  check(p1.w === 4096 && p1.h === 4096 && p2.w === 4096 && p2.h === 256 && tall.h === 17 * 256 && !fs.existsSync(path.join(dir(OUT1), 'sheet2.png')),
+    `sheet pages: sheet.png 4096x4096 (16 full rows) + sheet2.png 4096x256 (the 4 frames left) (got ${p1.w}x${p1.h} + ${p2.w}x${p2.h}; one page ${tall.w}x${tall.h})`);
+  check(C?.sheet === '4096x4096 + 4096x256' && JSON.stringify(C?.pages) === JSON.stringify(m2.pages), `sheet pages: the report names both pages (${C?.sheet}, ${JSON.stringify(C?.pages)})`);
+  const pages = [p1, p2];
+  const differ = frames.filter((f) => Buffer.compare(cell(pages[Math.floor(f / 256)], f % 256).data, cell(tall, f).data) !== 0);
+  check(differ.length === 0, `sheet pages: every cell is the one-page pack's, pixel for pixel (${differ.length} differ: ${differ.slice(0, 8).join(', ')})`);
+  const { pages: _pages, pageFrames: _per, ...rest } = m2;
+  check(JSON.stringify(rest) === JSON.stringify(m1), 'sheet pages: animations, boxes and hand anchors are the one-page pack\'s (only the page keys are new)');
+  const across = Object.entries(m2.animations).find(([, a]) => a.frames.includes(255) && a.frames.includes(256));
+  check(!!across, `sheet pages: a strip runs across the page boundary (${across?.[0]}: ${across?.[1].frames[0]}-${across?.[1].frames.at(-1)})`);
+  // the scale audit and body sheet read every page (tools/scale-audit.mjs loadPacked)
+  const L2 = loadPacked('pagey', OUT), L1 = loadPacked('pagey', OUT1);
+  const lp = L2 && L1 && L2.anims.every((a, i) => a.cells.every((c, k) => Buffer.compare(Buffer.from(c.data), Buffer.from(L1.anims[i].cells[k].data)) === 0));
+  check(!!lp, 'sheet pages: npm run scale / body read the cells from both pages');
+
+  // --keep-palette reads the palette of both pages: a quantized repack of unchanged art keeps both pages byte for byte
+  {
+    const q = pack([...base, 'pagey', '--quantize', '12']);
+    const b1 = fs.readFileSync(path.join(dir(OUT), 'sheet.png')), b2 = fs.readFileSync(path.join(dir(OUT), 'sheet2.png'));
+    const k = pack([...base, 'pagey', '--quantize', '12', '--keep-palette']);
+    const kc = k.json?.characters.find((c) => c.id === 'pagey');
+    check(q.code === 0 && k.code === 0 && (kc?.notes || []).some((n) => /palette kept from the current sheet\.png/.test(n))
+      && Buffer.compare(b1, fs.readFileSync(path.join(dir(OUT), 'sheet.png'))) === 0 && Buffer.compare(b2, fs.readFileSync(path.join(dir(OUT), 'sheet2.png'))) === 0,
+    `sheet pages: --keep-palette learns from both pages (${(kc?.notes || []).find((n) => /palette/.test(n)) ?? kc?.warnings?.find((w) => /palette/.test(w))})`);
+  }
+
+  // a repack onto one page removes the old sheet2.png (a dry run only says it would)
+  const dry = pack([...base, '--dry-run', '--page-rows', '64', 'pagey']);
+  const dc = dry.json?.characters.find((c) => c.id === 'pagey');
+  check(fs.existsSync(path.join(dir(OUT), 'sheet2.png')) && (dc?.notes || []).some((n) => /would remove .*sheet2\.png/.test(n)), 'sheet pages: a dry run keeps sheet2.png and says it would remove it');
+  const shrink = pack([...base, '--page-rows', '64', 'pagey']);
+  const sc = shrink.json?.characters.find((c) => c.id === 'pagey');
+  check(!fs.existsSync(path.join(dir(OUT), 'sheet2.png')) && !('pages' in metaOf(OUT)) && (sc?.notes || []).some((n) => /removed .*sheet2\.png: the pack has 1 page/.test(n)),
+    'sheet pages: a pack back on one page removes the stale sheet2.png');
+  // a pack with nothing left removes every page with the sheet
+  fs.writeFileSync(path.join(dir(OUT), 'sheet3.png'), 'stale');
+  fs.renameSync(path.join(P, 'frames'), path.join(P, '_frames'));
+  const gone = pack([...base, 'pagey']);
+  fs.renameSync(path.join(P, '_frames'), path.join(P, 'frames'));
+  check(gone.code === 0 && !['anims.json', 'sheet.png', 'sheet3.png'].some((f) => fs.existsSync(path.join(dir(OUT), f))), 'sheet pages: the stale-pack cleanup removes the extra pages too');
+
+  // the engine: the page follows the frame (SheetAsset.page / uv / cell, SpriteActor.usePage), so a loaded rollback
+  // state needs no page of its own; a missing or short page is refused by the loader (sheetProblem)
+  const img1 = { width: 4096, height: 4096 }, img2 = { width: 4096, height: 256 };
+  const asset = new SheetAsset([img1, img2], m2, 'custom');
+  check(asset.textures.length === 2 && asset.texture === asset.textures[0] && asset.page(255) === 0 && asset.page(256) === 1 && asset.page(259) === 1,
+    `sheet pages: SheetAsset has a texture per page and finds each frame's (${asset.textures.length}, ${asset.page(255)}/${asset.page(256)})`);
+  const c257 = asset.cell(257), c40 = asset.cell(40);
+  check(c257.image === img2 && c257.x === 256 && c257.y === 0 && c40.image === img1 && c40.x === 8 * 256 && c40.y === 2 * 256, 'sheet pages: SheetAsset.cell gives the page image and cell (HUD, select screen)');
+  const near = (v, x) => Math.abs(v - x) < 1e-9;
+  const u = asset.uv(256, new THREE.Vector4()), u40 = asset.uv(40, new THREE.Vector4());
+  check(near(u.x, 0.02 / 4096) && near(u.y, 1 - (256 - 0.02) / 256) && near(u.z, (256 - 0.02) / 4096) && near(u.w, 1 - 0.02 / 256)
+    && near(u40.y, 1 - (3 * 256 - 0.02) / 4096) && near(u40.w, 1 - (2 * 256 + 0.02) / 4096), 'sheet pages: uv is measured on the frame\'s own page');
+  const flat = new SheetAsset({ width: 4096, height: 17 * 256 }, m1, 'custom'), uf = flat.uv(259, new THREE.Vector4());
+  check(flat.textures.length === 1 && flat.page(259) === 0 && near(uf.x, (3 * 256 + 0.02) / 4096) && near(uf.y, 1 - (17 * 256 - 0.02) / (17 * 256)),
+    'sheet pages: a one-page sheet keeps the old cell math');
+  const scene = new THREE.Scene();
+  const actor = new SpriteActor(asset, scene);
+  const shell = actor.auraShell(), cloak = actor.chakraShroud();
+  const onPage = (a, p) => a.page === p && a.mat.uniforms.map.value === asset.textures[p] && a.caster.customDepthMaterial.map === a.shadowTexs[p]
+    && a.mat.uniforms.texSize.value.y === [4096, 256][p] && near(a.texel.value.y, 1 / [4096, 256][p]);
+  check(onPage(actor, 0), 'sheet pages: an actor starts on page 1 (the idle)');
+  actor.play(across[0]);
+  actor.setFrame(256);
+  check(onPage(actor, 1) && shell.mat.uniforms.map.value === asset.textures[1] && cloak.frontMat.uniforms.map.value === asset.textures[1] && near(shell.mat.uniforms.texel.value.y, 1 / 256),
+    'sheet pages: a frame on sheet2.png switches the body, its shadow caster, the aura shell and the cloak to that page');
+  actor.ghost(0xffffff);
+  check(actor.ghosts[0]?.mesh.material.uniforms.map.value === asset.textures[1], 'sheet pages: an afterimage echoes the page of its frame');
+  const saved = actor.saveState();
+  actor.setFrame(255);
+  check(onPage(actor, 0), 'sheet pages: the strip goes back to page 1 at its frame 255');
+  const other = new SpriteActor(asset, scene);
+  other.loadState(saved);
+  check(!('page' in saved) && other.frame === 256 && onPage(other, 1), 'sheet pages: a loaded state (rollback) lands on the page of its frame, which is not saved');
+  actor.dispose();
+  other.dispose();
+  const files = ['sheet.png', 'sheet2.png'];
+  check(sheetProblem(m2, files, [img1, img2]) === null && /sheet2\.png is missing/.test(sheetProblem(m2, files, [img1, null]) ?? '')
+    && /frame 256 lies outside sheet2\.png/.test(sheetProblem(m2, files, [img1, { width: 4096, height: 0 }]) ?? '')
+    && /frame 256 lies outside sheet\.png/.test(sheetProblem(m1, ['sheet.png'], [{ width: 4096, height: 4096 }]) ?? ''),
+  `sheet pages: the loader refuses a missing or short page (falls back to the placeholder) (${sheetProblem(m2, files, [img1, { width: 4096, height: 0 }])})`);
+}
+
+// manifest characters.<id>.paletteReserve (ADR 0046): a strip drawn in colours the rest of the fighter never uses (Naruto's
+// crimson Four-Tails fox against his orange) keeps them under --quantize, and the other strips keep theirs
+function paletteReserveTests(base) {
+  const fraw = (n) => path.join(ART, 'characters', 'foxy', 'raw', n);
+  const FOX = new Map([[COL.outline, [40, 6, 10]], [COL.pants, [110, 6, 10]], [COL.orange, [205, 22, 28]], [COL.skin, [252, 252, 248]], [COL.hair, [235, 48, 36]], [COL.fist, [160, 14, 20]]]);
+  savePng(fraw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 1301, specks: 0 }));
+  savePng(fraw('light1_v01.png'), strip([{}, { punch: 2 }, { punch: 16 }, { punch: 16 }, { punch: 9 }, { punch: 4 }, {}], { seed: 1302, specks: 0 }));
+  savePng(fraw('beamFire_v01.png'), strip([{ punch: 12 }, { punch: 14 }, { punch: 12 }], { seed: 1303, specks: 0, recolor: FOX }));
+  const manPath = path.join(ART, 'manifest.json');
+  const setReserve = (paletteReserve) => {
+    const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+    man.characters.foxy = { name: 'Foxy', scaleGate: 'warn', ...(paletteReserve ? { paletteReserve } : {}),
+      animations: { idle: { frames: 8, loop: true, bodyHeight: 204 }, light1: { frames: 7, phases: [2, 2, 3], bodyHeight: 204 }, beamFire: { frames: 3, loop: true, bodyHeight: 204 } } };
+    fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  };
+  const dir = path.join(OUT, 'characters', 'foxy');
+  const run = (extra = []) => {
+    const r = pack([...base, 'foxy', '--no-writeback', ...extra]);
+    const meta = JSON.parse(fs.readFileSync(path.join(dir, 'anims.json'), 'utf8'));
+    const sheet = loadPng(path.join(dir, 'sheet.png'));
+    return { r, C: r.json?.characters.find((c) => c.id === 'foxy'), sheet, cells: (anims) => anims.flatMap((a) => meta.animations[a].frames.map((f) => cell(sheet, f))) };
+  };
+  const key = (c, i) => (c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2];
+  const colours = (cs) => { const s = new Set(); for (const c of cs) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) s.add(key(c, i)); return s; };
+  const err = (q, src) => {
+    let e = 0, n = 0;
+    q.forEach((c, k) => { for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) { e += Math.hypot(c.data[i] - src[k].data[i], c.data[i + 1] - src[k].data[i + 1], c.data[i + 2] - src[k].data[i + 2]); n++; } });
+    return e / n;
+  };
+  const sameSheet = (a, b) => Buffer.compare(Buffer.from(a.sheet.data), Buffer.from(b.sheet.data)) === 0;
+  const Q = ['--quantize', '8'], OTHERS = ['idle', 'light1'], fox = (o) => o.cells(['beamFire']), oth = (o) => o.cells(OTHERS);
+  setReserve(null);
+  const src = run(); // no --quantize: the colours as drawn
+  const plain = run(Q);
+  setReserve({ fourTails: { colors: 3, animations: ['beamFire'] } });
+  const res = run(Q);
+  const all = colours([...oth(res), ...fox(res)]), shared = colours(oth(res));
+  check(res.r.code === 0 && all.size <= 8 && shared.size <= 5 && (res.C?.notes || []).some((n) => /paletteReserve fourTails 3 \(beamFire\)/.test(n)),
+    `paletteReserve: the sheet keeps to the 8 colours, 5 of them shared, and the report says so (${all.size} colours, ${shared.size} shared)`);
+  const eP = err(fox(plain), fox(src)), eR = err(fox(res), fox(src));
+  check(eR < eP * 0.6, `paletteReserve: the reserved strip keeps its own colours (mean error ${eP.toFixed(1)} -> ${eR.toFixed(1)})`);
+  // the other strips change only where their colour was merged away, and never pick up a reserved colour
+  let kept = 0, moved = 0, wrong = 0;
+  const pc = oth(plain), rc = oth(res);
+  pc.forEach((c, k) => { for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) { if (!shared.has(key(c, i))) moved++; else if (key(c, i) === key(rc[k], i)) kept++; else wrong++; } });
+  check(wrong === 0 && kept > moved * 4, `paletteReserve: the other strips keep every pixel whose colour is still shared (${kept} kept, ${moved} on merged colours, ${wrong} moved anyway)`);
+  check([...colours(fox(res))].some((k) => !shared.has(k)), 'paletteReserve: the reserved strip has colours the others never use');
+  // --keep-palette: repacking a sheet that already has its reserve leaves it byte for byte
+  const again = run([...Q, '--keep-palette']);
+  check(again.r.code === 0 && sameSheet(again, res) && (again.C?.notes || []).some((n) => /palette kept from the current sheet\.png: .*paletteReserve fourTails/.test(n)),
+    '--keep-palette: a sheet packed with its reserve repacks byte for byte');
+  // too large a share, or a malformed group: reported, one shared palette as before
+  setReserve({ fourTails: { colors: 5, animations: ['beamFire'] } });
+  const big = run(Q);
+  check(sameSheet(big, plain) && (big.C?.warnings || []).some((w) => /asks for 5 of the 8 colours: at most half/.test(w)),
+    'paletteReserve: more than half the palette is refused (one shared palette)');
+  setReserve({ fourTails: { colors: 0, animations: ['beamFire'] }, ghost: { colors: 2, animations: ['nope'] } });
+  const bad = run(Q);
+  check(sameSheet(bad, plain) && (bad.r.json?.warnings || []).some((w) => /paletteReserve\.fourTails must be/.test(w))
+    && (bad.C?.warnings || []).some((w) => /nope is not an animation of foxy/.test(w)), 'paletteReserve: a malformed group and an unknown animation are reported and ignored');
 }
 
 function finish() {

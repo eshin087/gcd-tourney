@@ -23,6 +23,7 @@ import { PNG } from 'pngjs';
 import { auditCharacter, compactAudit, resolveGate, exemptionsFrom, verdictText, staleExemptText, FLAGGED, hex } from './scale-probe.mjs';
 import { packDecals, printDecalReport, updateDecalStatus } from './pack-decals.mjs';
 import { skippedFiles } from './sparse-art.mjs';
+import { PAGE_PX, pageFile, sheetFiles, frameCell } from '../src/art/sheetPages.js';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
@@ -198,6 +199,21 @@ const VFX_EFFECTS = {
   fourTailsRoar: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
   beastBall: { frames: 8, ms: 45, tinted: false, fill: 0.5, hd: true },
   beastBeamRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
+  // Sasuke's signature techniques (ENG-SKL-SAS): HD cells, art/characters/sasuke/SKILLS_REVAMP.md. kirinBody is stacked
+  // end to end down the dragon, so it ships as exact 256 x 256 frames in art/vfx/frames/kirinBody/ (never rescaled)
+  chidori: { frames: 8, ms: 35, tinted: false, fill: 0.6, hd: true },
+  chidoriForm: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true },
+  chidoriBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  chidoriSpear: { frames: 8, ms: 35, tinted: false, fill: 0.98, hd: true },
+  chidoriCurrent: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  amaterasu: { frames: 8, ms: 60, tinted: false, fill: 0.9, anchor: 'bottom', hd: true },
+  amaterasuIgnite: { frames: 6, ms: 45, tinted: false, fill: 0.95, hd: true },
+  greatFireball: { frames: 8, ms: 45, tinted: false, fill: 0.9, hd: true },
+  greatFireballBurst: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true },
+  stormCloud: { frames: 4, ms: 120, tinted: false, fill: 0.98, hd: true },
+  kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true },
+  kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
+  kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 
@@ -235,7 +251,8 @@ options
   --guide <file>    animation guide module (default: src/art/animGuide.js)
   --dry-run         analyse and report, write nothing
   --no-writeback    do not write cleaned frames back to art/.../frames/<anim>/
-  --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 48
+  --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 48; a fighter's
+                    "paletteReserve" in the manifest gives the strips it lists their own share of the n (ADR 0046)
   --keep-palette    with --quantize: snap to the colours of the character's current sheet.png instead of a new median
                     cut, so a pack that resizes one strip leaves every other strip byte for byte (ADR 0041)
   --tolerance <n>   background color tolerance (RGB distance, default 72)
@@ -257,11 +274,13 @@ options
   --fit-head <list> auto head fit for these strips, e.g. killua:airLight1,killua:hurtHigh (same as the sidecar
                     anatomy { "measurement": "auto-head" }): a raw strip drawn at the wrong size is rescaled so
                     its head matches the idle's. Only a 'uniform' verdict is fitted
+  --page-rows <n>   test aid: at most n cell rows per sheet page instead of the 4096 px limit (16 rows of 256 px),
+                    to see a fighter on two pages (sheet.png + sheet2.png, TOOL-060) before it has 256 frames
   -h, --help        this help
 `;
 
 function parseArgs(argv) {
-  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, allowDrop: false, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [] };
+  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, allowDrop: false, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [], pageRows: 0 };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const eq = a.indexOf('=');
@@ -293,6 +312,7 @@ function parseArgs(argv) {
       case '--quantize': o.quantize = Math.round(num()); break;
       case '--keep-palette': o.keepPalette = true; break;
       case '--tolerance': case '--tol': o.tol = num(); break;
+      case '--page-rows': o.pageRows = num(); break;
       case '-h': case '--help': o.help = true; break;
       default:
         if (a.startsWith('-')) throw new UsageError(`unknown option ${a}`);
@@ -301,6 +321,7 @@ function parseArgs(argv) {
   }
   if (o.quantize && (o.quantize < 2 || o.quantize > 256)) throw new UsageError('--quantize must be between 2 and 256');
   if (!(o.tol > 0 && o.tol <= 442)) throw new UsageError('--tolerance must be between 1 and 442 (RGB distance)');
+  if (o.pageRows && !(Number.isInteger(o.pageRows) && o.pageRows >= 1)) throw new UsageError('--page-rows must be a whole number of rows (1 or more)');
   for (const f of o.fitHead) if (!/^[^:\s]+:[^:\s]+$/.test(f)) throw new UsageError(`--fit-head takes <id>:<anim>[,<id>:<anim>...] (got "${f}")`);
   return o;
 }
@@ -1126,7 +1147,22 @@ function normalizeManifest(raw) {
       if (ps >= 0.5 && ps <= 1.5) packScale = ps;
       else m.specIssues.push(`characters.${id}.packScale is ${JSON.stringify(c.packScale)} - must be a number 0.5-1.5; using 1`);
     }
-    m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? Math.round(sb * packScale) : null, packScale };
+    // paletteReserve: strips drawn in colours the rest of the fighter never uses (a transformation) get their own share of
+    // the --quantize palette instead of being snapped to his usual colours (ADR 0046)
+    const paletteReserve = [], reserved = new Set();
+    for (const [name, g] of entries(c.paletteReserve)) {
+      const colors = Number(g.colors), list = Array.isArray(g.animations) ? g.animations.filter((a) => typeof a === 'string' && a) : [];
+      if (!Number.isInteger(colors) || colors < 1 || colors > 32 || !list.length) {
+        m.specIssues.push(`characters.${id}.paletteReserve.${name} must be { "colors": 1-32, "animations": ["<anim>", ...] } - ignored`);
+        continue;
+      }
+      const twice = list.filter((a) => reserved.has(a));
+      if (twice.length) m.specIssues.push(`characters.${id}.paletteReserve.${name}: ${twice.join(', ')} already in another group - kept there`);
+      const own = [...new Set(list.filter((a) => !reserved.has(a)))];
+      own.forEach((a) => reserved.add(a));
+      if (own.length) paletteReserve.push({ name, colors, animations: own });
+    }
+    m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? Math.round(sb * packScale) : null, packScale, paletteReserve };
   }
   const vfx = raw.vfx?.effects ?? raw.vfx ?? raw.effects;
   for (const [name, v] of entries(vfx)) {
@@ -1139,7 +1175,8 @@ function normalizeManifest(raw) {
     else if (typeof v.colorRule === 'string') e.tinted = /tint|white/i.test(v.colorRule);
     else if (typeof v.color === 'string') e.tinted = /white|tint/i.test(v.color);
     if (typeof v.fill === 'number') e.fill = v.fill;
-    for (const k of ['lumaAlpha', 'baseX']) if (typeof v[k] === 'boolean') e[k] = v[k];
+    // hd / tile: an effect the packer's table does not know yet (a new signature effect) still gets its page and tiling
+    for (const k of ['lumaAlpha', 'baseX', 'hd', 'tile']) if (typeof v[k] === 'boolean') e[k] = v[k];
     if (v.anchor === 'bottom' || v.bottomAnchored === true) e.anchor = 'bottom';
     else if (v.anchor === 'center') e.anchor = 'center';
     if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) e.approvedVersion = v.approvedVersion;
@@ -1866,24 +1903,27 @@ function hitBox(cell, ref, T) {
   return { box: pad(front), rule: 'front' };
 }
 
-// the opaque colours of a packed sheet, or null when it is missing or has more than n of them (not a quantized pack)
-function sheetPalette(file, n) {
-  if (!fs.existsSync(file)) return null;
-  const img = readPng(file), seen = new Set();
-  for (let i = 0; i < img.data.length; i += 4) if (img.data[i + 3]) seen.add((img.data[i] << 16) | (img.data[i + 1] << 8) | img.data[i + 2]);
-  return seen.size && seen.size <= n ? { img, palette: [...seen].map((k) => [k >> 16, (k >> 8) & 255, k & 255]) } : null;
+// the opaque colours of a fighter's packed sheet (every page its anims.json lists), or null when a page is missing or
+// they are more than n (not a quantized pack); pages: the page images, for learnPalette
+function sheetPalette(dir, n) {
+  const files = sheetFiles(readJson(path.join(dir, 'anims.json')).data).map((f) => path.join(dir, f));
+  if (!files.every((f) => fs.existsSync(f))) return null;
+  const pages = files.map(readPng), seen = new Set();
+  for (const img of pages) for (let i = 0; i < img.data.length; i += 4) if (img.data[i + 3]) seen.add((img.data[i] << 16) | (img.data[i + 1] << 8) | img.data[i + 2]);
+  return seen.size && seen.size <= n ? { pages, palette: [...seen].map((k) => [k >> 16, (k >> 8) & 255, k & 255]) } : null;
 }
 
 // For --keep-palette: every strip whose cells have the same shape as in the current sheet (anims.json next to it) shows
 // which palette colour each of its source colours became last time; strips that changed shape teach nothing
-function learnPalette(anims, sheet, metaFile, spec) {
+function learnPalette(anims, pages, metaFile, spec) {
   const meta = readJson(metaFile).data;
   if (!meta?.animations) return null;
   const learned = new Map(), fw = spec.frameWidth, cols = meta.columns ?? spec.columns;
   for (const a of anims) {
     const old = meta.animations[a.def.name]?.frames;
     if (!old || old.length !== a.cells.length) continue;
-    const olds = old.map((f) => crop(sheet, (f % cols) * fw, Math.floor(f / cols) * fw, fw, fw));
+    const olds = old.map((f) => { const at = frameCell(meta, f, cols); return pages[at.page] ? crop(pages[at.page], at.x, at.y, fw, fw) : null; });
+    if (olds.includes(null)) continue;
     if (!a.cells.every((c, k) => c.data.every((v, i) => (i & 3) !== 3 || (v > 0) === (olds[k].data[i] > 0)))) continue;
     a.cells.forEach((c, k) => {
       for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
@@ -1946,13 +1986,25 @@ function applyOverrides(file, packed, boxes, warn, label, fits = null, pivot = n
 
 // Median-cut palette over all opaque pixels, then snap every pixel to it.
 function quantizeFrames(cells, n, fixed = null, learned = null) {
+  if (fixed) return mapToPalette(cells, fixed, learned);
+  const colors = colourCounts(cells);
+  if (colors.size <= n) return colors.size;
+  return mapToPalette(cells, medianCut(colors, n));
+}
+
+// opaque colour (0xRRGGBB) -> pixel count, in the order the pixels are met
+function colourCounts(cells) {
   const colors = new Map();
   for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
     const k = (c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2];
     colors.set(k, (colors.get(k) || 0) + 1);
   }
-  if (fixed) return mapToPalette(cells, fixed, learned);
-  if (colors.size <= n) return colors.size;
+  return colors;
+}
+
+// n colours for a colour -> count map (its own colours when it has no more than n)
+function medianCut(colors, n) {
+  if (colors.size <= n) return [...colors.keys()].map((k) => [k >> 16, (k >> 8) & 255, k & 255]);
   let boxes = [[...colors.entries()].map(([k, cnt]) => [k >> 16, (k >> 8) & 255, k & 255, cnt])];
   while (boxes.length < n) {
     let bi = -1, bestRange = -1, ch = 0;
@@ -1971,12 +2023,118 @@ function quantizeFrames(cells, n, fixed = null, learned = null) {
     for (let i = 0; i < bx.length - 1; i++) { acc += bx[i][3]; if (acc >= total / 2) { cut = i + 1; break; } }
     boxes.splice(bi, 1, bx.slice(0, cut), bx.slice(cut));
   }
-  const palette = boxes.map((bx) => {
+  return boxes.map((bx) => {
     let r = 0, g = 0, b = 0, t = 0;
     for (const p of bx) { r += p[0] * p[3]; g += p[1] * p[3]; b += p[2] * p[3]; t += p[3]; }
     return [Math.round(r / t), Math.round(g / t), Math.round(b / t)];
   });
-  return mapToPalette(cells, palette);
+}
+
+// --quantize with a paletteReserve (ADR 0046). A strip drawn in colours the rest of the fighter never uses (Naruto's
+// crimson Four-Tails fox) loses them in one median cut that his orange jumpsuit dominates. Here the shared palette is
+// the usual one (the median cut over every strip, or the kept sheet's colours) less the entries the other strips need
+// least, merged into their nearest neighbours; each group then gets that many colours cut from its own strips, and its
+// strips snap to the shared palette plus their own. The other strips keep their colours (only pixels on a merged entry
+// move, to the next nearest) and never pick a group's colour, so a group's art never moves them.
+// groups: [{ name, colors, anims: [anim, ...] }]; kept: { palette, reserved: Set of the colours only the groups' strips
+// used last time } with --keep-palette; learn(anims): learnPalette for those strips
+function quantizeReserved(anims, n, groups, kept = null, learn = () => null) {
+  const own = new Set(groups.flatMap((g) => g.anims));
+  const shared = anims.filter((a) => !own.has(a)), sharedCells = shared.flatMap((a) => a.cells);
+  const all = colourCounts(anims.flatMap((a) => a.cells));
+  if (!kept && all.size <= n) return { colors: all.size, shared: all.size, merged: 0 }; // every colour fits as drawn
+  const ck = (p) => (p[0] << 16) | (p[1] << 8) | p[2];
+  const base = kept ? kept.palette.filter((p) => !kept.reserved.has(ck(p))) : medianCut(all, n);
+  const learnedShared = learn(shared);
+  const sharedPal = shrinkPalette(colourCounts(sharedCells), base, n - groups.reduce((s, g) => s + g.colors, 0), learnedShared);
+  // a learned target that was merged away is no target any more
+  const onlyTo = (learned, pal) => {
+    if (!learned) return null;
+    const keys = new Set(pal.map(ck));
+    return new Map([...learned].filter(([, v]) => keys.has(v)));
+  };
+  mapToPalette(sharedCells, sharedPal, onlyTo(learnedShared, sharedPal));
+  const sharedKeys = new Set(sharedPal.map(ck));
+  for (const g of groups) {
+    const cells = g.anims.flatMap((a) => a.cells);
+    const pal = [...sharedPal, ...medianCut(colourCounts(cells), g.colors).filter((p) => !sharedKeys.has(ck(p)))];
+    mapToPalette(cells, pal, onlyTo(learn(g.anims), pal));
+  }
+  return { colors: countColors(anims.flatMap((a) => a.cells)), shared: sharedPal.length, merged: base.length - sharedPal.length };
+}
+
+// Drops palette entries until `target` are left, each time the one whose pixels lose least by moving to their nearest
+// remaining entry (pixels x squared RGB distance, summed over colors: colour -> count). Near-duplicate shades go first.
+// learned (--keep-palette): where a colour went last time; it stays there while that entry is left.
+function shrinkPalette(colors, palette, target, learned = null) {
+  const m = palette.length;
+  if (m <= target) return palette;
+  const keys = [...colors.keys()], cnt = keys.map((k) => colors.get(k)), U = keys.length;
+  const at = new Map(palette.map((p, i) => [(p[0] << 16) | (p[1] << 8) | p[2], i]));
+  const alive = new Uint8Array(m).fill(1), cost = new Float64Array(m);
+  const first = new Int32Array(U), second = new Int32Array(U), loss = new Float64Array(U);
+  const d2 = (k, p) => ((k >> 16) - p[0]) ** 2 + (((k >> 8) & 255) - p[1]) ** 2 + ((k & 255) - p[2]) ** 2;
+  // the entry a colour sits on (learned, else the nearest; ties to the earlier entry, as mapToPalette) and what it
+  // would lose by moving to the nearest other one
+  const scan = (j) => {
+    const k = keys[j], li = learned?.has(k) ? at.get(learned.get(k)) : undefined;
+    const pinned = li !== undefined && alive[li] === 1;
+    let a = pinned ? li : -1, da = pinned ? d2(k, palette[li]) : Infinity, b = -1, db = Infinity;
+    for (let i = 0; i < m; i++) {
+      if (!alive[i] || i === a) continue;
+      const d = d2(k, palette[i]);
+      if (!pinned && d < da) { b = a; db = da; a = i; da = d; }
+      else if (d < db) { b = i; db = d; }
+    }
+    first[j] = a; second[j] = b; loss[j] = b < 0 ? 0 : cnt[j] * (db - da);
+  };
+  for (let j = 0; j < U; j++) { scan(j); cost[first[j]] += loss[j]; }
+  for (let left = m; left > target; left--) {
+    let e = -1;
+    for (let i = 0; i < m; i++) if (alive[i] && (e < 0 || cost[i] < cost[e])) e = i;
+    alive[e] = 0;
+    for (let j = 0; j < U; j++) if (first[j] === e || second[j] === e) {
+      if (first[j] !== e) cost[first[j]] -= loss[j];
+      scan(j);
+      cost[first[j]] += loss[j];
+    }
+  }
+  return palette.filter((_, i) => alive[i]);
+}
+
+// the colours a packed sheet (every page) shows only in the cells of the named animations (a reserved group's own,
+// last pack)
+function onlyIn(pages, metaFile, names, spec) {
+  const meta = readJson(metaFile).data, inside = new Set(), outside = new Set();
+  if (!meta?.animations) return inside;
+  const fw = spec.frameWidth, cols = meta.columns ?? spec.columns;
+  for (const [name, a] of Object.entries(meta.animations)) for (const f of a.frames || []) {
+    const set = names.has(name) ? inside : outside, at = frameCell(meta, f, cols), sheet = pages[at.page];
+    if (!sheet) continue;
+    for (let y = at.y; y < at.y + fw && y < sheet.h; y++) for (let x = at.x; x < at.x + fw; x++) {
+      const i = (y * sheet.w + x) * 4;
+      if (sheet.data[i + 3]) set.add((sheet.data[i] << 16) | (sheet.data[i + 1] << 8) | sheet.data[i + 2]);
+    }
+  }
+  return new Set([...inside].filter((k) => !outside.has(k)));
+}
+
+// the fighter's paletteReserve groups with the strips this pack has; null when they would leave too little to share
+function reserveGroups(id, anims, names, env, warn) {
+  const list = env.manifest.characters[id]?.paletteReserve || [];
+  const groups = [];
+  for (const g of list) {
+    const unknown = g.animations.filter((a) => !names.has(a));
+    if (unknown.length) warn(`paletteReserve.${g.name}: ${unknown.join(', ')} is not an animation of ${id} - ignored`);
+    const strips = anims.filter((a) => g.animations.includes(a.def.name));
+    if (strips.length) groups.push({ name: g.name, colors: g.colors, anims: strips });
+  }
+  const reserve = groups.reduce((s, g) => s + g.colors, 0);
+  if (reserve > env.quantize / 2) {
+    warn(`paletteReserve asks for ${reserve} of the ${env.quantize} colours: at most half can be reserved - ignored, one shared palette`);
+    return [];
+  }
+  return groups;
 }
 
 // every opaque pixel to its nearest palette colour (RGB distance); the palette's own colours map to themselves
@@ -2001,6 +2159,12 @@ function countColors(cells) {
   const s = new Set();
   for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) s.add((c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2]);
   return s.size;
+}
+
+// The sheet pages in a fighter's output folder past the first n (sheet2.png is page 2): left over from a bigger pack.
+function stalePages(dir, n) {
+  if (!isDir(dir)) return [];
+  return fs.readdirSync(dir).filter((f) => { const m = /^sheet([1-9]\d*)\.png$/.exec(f); return m && Number(m[1]) >= 2 && Number(m[1]) > n; }).map((f) => path.join(dir, f));
 }
 
 function writeFile(env, file, buf, R) {
@@ -2359,7 +2523,7 @@ function packCharacter(id, env) {
     if (isFile(existing)) {
       const old = readJson(existing).data;
       if (old?.source === 'art-pack') {
-        const stale = [existing, path.join(outChar, 'sheet.png')].filter(isFile);
+        const stale = [existing, path.join(outChar, 'sheet.png'), ...stalePages(outChar, 1)].filter(isFile);
         if (!env.dryRun) for (const f of stale) fs.unlinkSync(f);
         R.removed = stale.map((f) => rel(env.cwd, f));
         R.notes.push(`${env.dryRun ? 'would remove' : 'removed'} the stale art pack (nothing packable left): ${R.removed.join(', ')}; the game uses the placeholder`);
@@ -2378,22 +2542,37 @@ function packCharacter(id, env) {
   // numbers (ART-KIL-PROBE); the probe reduces colours to the idle's own palette instead (scale-probe measurementCells)
   const scaleAudit = scaleGate(id, anims, env, R);
 
-  // 2b) optional palette snap (across the whole character so colors stay consistent)
+  // 2b) optional palette snap (across the whole character so colors stay consistent; a paletteReserve gives strips
+  // drawn in other colours their own share, ADR 0046)
   const allCells = anims.flatMap((a) => a.cells);
   if (env.quantize) {
-    const outChar = path.join(env.outDir, 'characters', id);
-    const kept = env.keepPalette ? sheetPalette(path.join(outChar, 'sheet.png'), env.quantize) : null;
+    const outChar = path.join(env.outDir, 'characters', id), metaFile = path.join(outChar, 'anims.json');
+    const kept = env.keepPalette ? sheetPalette(outChar, env.quantize) : null;
     if (env.keepPalette && !kept) warn(`--keep-palette: no current sheet.png with at most ${env.quantize} colours for ${id} - median cut instead`);
-    const learned = kept ? learnPalette(anims, kept.img, path.join(outChar, 'anims.json'), spec) : null;
-    R.notes.push(kept ? `palette kept from the current sheet.png (${quantizeFrames(allCells, env.quantize, kept.palette, learned)} colors)` : `palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
+    const learn = (list) => (kept ? learnPalette(list, kept.pages, metaFile, spec) : null);
+    const groups = reserveGroups(id, anims, new Set(names), env, warn);
+    if (groups.length) {
+      const own = new Set(groups.flatMap((g) => g.anims.map((a) => a.def.name)));
+      const q = quantizeReserved(anims, env.quantize, groups, kept && { palette: kept.palette, reserved: onlyIn(kept.pages, metaFile, own, spec) }, learn);
+      const shares = groups.map((g) => `${g.name} ${g.colors} (${g.anims.map((a) => a.def.name).join(', ')})`).join(', ');
+      R.notes.push(`${kept ? 'palette kept from the current sheet.png' : 'palette snapped'}: ${q.colors} colors, ${q.shared} shared${q.merged ? ` (${q.merged} merged into their nearest neighbours)` : ''} + paletteReserve ${shares}`);
+    } else {
+      R.notes.push(kept ? `palette kept from the current sheet.png (${quantizeFrames(allCells, env.quantize, kept.palette, learn(anims))} colors)` : `palette snapped to ${quantizeFrames(allCells, env.quantize)} colors`);
+    }
   }
   R.colors = countColors(allCells);
   if (R.colors > spec.warnColors) warn(`palette has ${R.colors} colors (> ${spec.warnColors}; spec target <= ${spec.maxColors}) - clean the art or re-run with --quantize ${spec.maxColors}`);
   else if (R.colors > spec.maxColors) R.notes.push(`palette has ${R.colors} colors: above the spec target of ${spec.maxColors} (warned above ${spec.warnColors})`);
 
-  // 3) sheet layout + metadata (the engine reads frame size, pivot and ppu from here)
+  // 3) sheet layout + metadata (the engine reads frame size, pivot and ppu from here). A page holds at most PAGE_PX of
+  // cell rows (16 at spec v2, 256 frames): a fighter with more frames goes on sheet2.png ..., numbered straight through
+  // (src/art/sheetPages.js, TOOL-060). A one-page pack gets no page keys, so it is byte for byte what it was.
+  const total = anims.reduce((n, a) => n + a.cells.length, 0);
+  const perPage = spec.columns * (env.pageRows || Math.max(1, Math.floor(PAGE_PX / spec.frameHeight)));
+  const nPages = Math.max(1, Math.ceil(total / perPage));
   const meta = {
-    frameWidth: spec.frameWidth, frameHeight: spec.frameHeight, columns: spec.columns, pivot: [...spec.pivot], pixelsPerUnit: spec.pixelsPerUnit,
+    frameWidth: spec.frameWidth, frameHeight: spec.frameHeight, columns: spec.columns,
+    ...(nPages > 1 ? { pages: Array.from({ length: nPages }, (_, p) => pageFile(p)), pageFrames: perPage } : {}), pivot: [...spec.pivot], pixelsPerUnit: spec.pixelsPerUnit,
     facing: spec.facing, spec: spec.name, source: 'art-pack', character: id, packer: PACKER_VERSION, complete: R.missingCore.length === 0,
     missingCore: R.missingCore, animations: {}, boxes: {},
   };
@@ -2478,16 +2657,16 @@ function packCharacter(id, env) {
   altCheck(packed, meta, spec, warn, R);
   inheritAltBoxes(packed, meta, R);
 
-  // 5) write sheet + json (+ write-back of cleaned frames)
+  // 5) write the sheet page(s) + json (+ write-back of cleaned frames); each page is only as tall as its frames need
   const cols = spec.columns;
-  const rows = Math.ceil(idx / cols);
-  const sheet = newImage(cols * spec.frameWidth, rows * spec.frameHeight);
+  const pages = Array.from({ length: nPages }, (_, p) => newImage(cols * spec.frameWidth, Math.ceil(Math.min(perPage, idx - p * perPage) / cols) * spec.frameHeight));
   for (const p of packed) p.cells.forEach((cell, k) => {
-    const f = p.indices[k];
-    blit(sheet, cell, (f % cols) * spec.frameWidth, Math.floor(f / cols) * spec.frameHeight);
+    const at = frameCell(meta, p.indices[k]);
+    blit(pages[at.page], cell, at.x, at.y);
   });
   R.frames = idx;
-  R.sheet = `${sheet.w}x${sheet.h}`;
+  R.sheet = pages.map((pg) => `${pg.w}x${pg.h}`).join(' + ');
+  if (nPages > 1) R.pages = meta.pages;
   R.complete = meta.complete;
   const outDir = path.join(env.outDir, 'characters', id);
   // a strict strip that failed the scale gate refuses the pack (ADR 0021): neither public/ nor frames/ is written, so
@@ -2498,7 +2677,15 @@ function packCharacter(id, env) {
     R.refused = true;
     warn(`scale gate: ${env.dryRun ? 'would not write' : 'did not write'} ${rel(env.cwd, outDir)}/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion`);
   }
-  if (!refused) writeFile(env, path.join(outDir, 'sheet.png'), encodePng(sheet), R);
+  if (!refused) {
+    pages.forEach((pg, p) => writeFile(env, path.join(outDir, pageFile(p)), encodePng(pg), R));
+    // a pack that needs fewer pages than the last one leaves no old page behind for the art index to ship
+    const old = stalePages(outDir, nPages);
+    if (old.length) {
+      if (!env.dryRun) for (const f of old) fs.unlinkSync(f);
+      R.notes.push(`${env.dryRun ? 'would remove' : 'removed'} ${old.map((f) => rel(env.cwd, f)).join(', ')}: the pack has ${nPages} page(s) now`);
+    }
+  }
   if (!refused) writeFile(env, path.join(outDir, 'anims.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
   for (const a of anims) {
     R.packed.push({
@@ -2626,7 +2813,9 @@ function packVfx(env) {
       if (!env.candidates && !e.approvedVersion) { R.unapproved.push(name); continue; }
       // ship the approved version even when a newer candidate is waiting for review
       const raw = env.candidates ? latest : pickRaw(rawIdx.get(name), name, e.approvedVersion);
-      const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: null, artDir: env.artDir }, warn, name);
+      // an HD effect's frames/ carry their 256 px cell: untouched frames cleaned at the 128 px cell (before its manifest
+      // entry said hd) re-import from raw/ instead of being upscaled
+      const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: e.hd ? VFX_HD.cell : null, artDir: env.artDir }, warn, name);
       if (!src) { R.missing.push(name); continue; }
       if (src.kind === 'stale') { warn(staleText(name, name, src)); R.missing.push(name); continue; }
       let items, notes = [], sourceLabel, origin = null, version = null;
@@ -2718,7 +2907,7 @@ function packVfx(env) {
     writeFile(env, path.join(outVfx, 'atlas_hd.png'), encodePng(hd.img), R);
   } else removeOutputs(env, outVfx, ['atlas_hd.png'], R);
   writeFile(env, path.join(outVfx, 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
-  for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, {});
+  for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, p.e.hd ? { cell: VFX_HD.cell } : {});
   return R;
 }
 
@@ -3249,7 +3438,7 @@ function printReport(rep, env) {
       L('  nothing packed yet (no PNGs in raw/ or frames/<anim>/) - see art/PIPELINE.md');
       if (!c.removed?.length) L('  public/ was not touched for the sheet.');
     } else {
-      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}, ${c.colors} colors, ${c.refused ? `NOT WRITTEN (${c.blocked?.length ? `old hand edits shadow ${c.blocked.join(', ')}` : 'the scale gate failed'}, see below)` : c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
+      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}${c.pages ? ` (${c.pages.length} pages: ${c.pages.join(', ')})` : ''}, ${c.colors} colors, ${c.refused ? `NOT WRITTEN (${c.blocked?.length ? `old hand edits shadow ${c.blocked.join(', ')}` : 'the scale gate failed'}, see below)` : c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
       for (const p of c.packed) {
         const n = `${p.frames}`.padStart(2) + (p.frames !== p.expected ? `/${p.expected}` : '');
         L(`    ${p.anim.padEnd(11)} ${n.padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
@@ -3365,7 +3554,7 @@ async function main() {
   for (const s of manifest.specIssues) rep.warnings.push(`manifest ${s}`);
   rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
   rep.spec = manifest.spec;
-  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, allowDrop: opts.allowDrop, quantize: opts.quantize, keepPalette: !!opts.keepPalette, tol: opts.tol, candidates: opts.candidates };
+  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, allowDrop: opts.allowDrop, quantize: opts.quantize, keepPalette: !!opts.keepPalette, tol: opts.tol, candidates: opts.candidates, pageRows: opts.pageRows };
   // scale gate inputs (TOOL-025): thresholds from spec.scaleGate, declared head/feet colours, the committed baseline
   const gateIssues = [];
   Object.assign(env, {

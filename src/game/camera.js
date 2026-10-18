@@ -127,9 +127,11 @@ export class CameraDirector {
         // frame for the visible width (the training panel can cover part of the screen)
         const visAspect = (cam.aspect || 1.7) * (1 - (game.viewCover || 0));
         const aspectK = Math.max(1, 1.7 / visAspect);
-        let dist = THREE.MathUtils.clamp(9.6 + sep * 0.78 + hd * 0.7, 11, 21) * aspectK;
-        const pitch = 0.44 - Math.min(0.12, avgH * 0.035);
-        const mid = new THREE.Vector3((a.x + b.x) / 2, RING_TOP + 0.85 + avgH * 0.55 + Math.max(0, maxH - 2.5) * 0.25, (a.z + b.z) / 2);
+        // a storm overhead (the Kirin's clouds, kit.js stormTick) tips the shot up and back to take in the sky
+        const sky = game.frameNo - (game.stormAt ?? -9) <= 2 ? game.stormLift ?? 0 : 0;
+        let dist = (THREE.MathUtils.clamp(9.6 + sep * 0.78 + hd * 0.7, 11, 21) + sky * 2.5) * aspectK;
+        const pitch = 0.44 - Math.min(0.12, avgH * 0.035) - sky * 0.1;
+        const mid = new THREE.Vector3((a.x + b.x) / 2, RING_TOP + 0.85 + avgH * 0.55 + Math.max(0, maxH - 2.5) * 0.25 + sky * 1.1, (a.z + b.z) / 2);
         const L = this.lean;
         if (L) {
           const IN = 0.14, OUT = 0.6, T = (L.t += dt);

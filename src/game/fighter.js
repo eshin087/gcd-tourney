@@ -13,6 +13,9 @@ import * as dmath from './dmath.js';
 import { cloakStyle } from './auraShell.js';
 import { CloneCrew } from './clones.js';
 
+// a body burning in Amaterasu's black flames: how far up the black climbs, its core and its rim
+const BURN_ENGULF = { level: 0.82, core: 0x050307, rim: 0x5c1226 };
+
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
 const HOLDABLE = new Set(['idle', 'run', 'guard', 'block', 'air', 'land', 'jumpSquat', 'dash', 'charge', 'attack', 'airRecover', 'superDash', 'kit', 'dodge', 'airDodge', 'wavedash', 'throw', 'clashBack']);
@@ -1610,7 +1613,10 @@ export class Fighter {
     }
     const A = m.startup, B = m.startup + m.active, C = B + m.recovery;
     const phase = t < A ? 0 : t < B ? 1 : 2;
-    const prog = phase === 0 ? t / A : phase === 1 ? (t - A) / m.active : (t - B) / m.recovery;
+    let prog = phase === 0 ? t / A : phase === 1 ? (t - A) / m.active : (t - B) / m.recovery;
+    // a rush that connected shows its strike (`hitPose`, the drawn stab's place in the active frames: Sasuke's Chidori)
+    // instead of the run it was in when the body reached them
+    if (phase === 1 && this.moveHit && m.hitPose != null) prog = Math.max(prog, m.hitPose);
     // a move set without startMove (a beam clash resuming a rush, Game) has no pick: it plays its base strip
     this.actor.setPhase(this.moveAnimOf === m ? this.moveAnim : m.anim, phase, Math.min(0.999, prog));
 
@@ -2191,11 +2197,13 @@ export class Fighter {
     if (cloak) this.actor.chakraShroud().show(cloak, time);
     else this.actor.cloak?.hide();
     const sh = this.shroud;
-    u.engulf.value = sh ? kit.shroudLevel(this) : 0;
-    if (sh) {
+    // Amaterasu's black flames burning the body (ENG-SKL-SAS) use the same shader climb in black and dark crimson
+    const burn = !sh && this.burn?.fx ? kit.burnLevel(this) : 0;
+    u.engulf.value = sh ? kit.shroudLevel(this) : burn * BURN_ENGULF.level;
+    if (sh || burn) {
       u.engulfTime.value = time;
-      u.engulfCore.value.set(sh.core);
-      u.engulfRim.value.set(sh.rim);
+      u.engulfCore.value.set(sh ? sh.core : BURN_ENGULF.core);
+      u.engulfRim.value.set(sh ? sh.rim : BURN_ENGULF.rim);
     }
     // the shadow clones a kit move keeps in its state (kit.js crew, clones.js)
     const crew = this.state === 'kit' ? this.kitState?.crew : null;

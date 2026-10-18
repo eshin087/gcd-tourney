@@ -162,7 +162,9 @@ src/style.css               all DOM UI styling
    `loadFighterAsset()` for every roster entry:
    - If `public/characters/<id>/anims.json` + `sheet.png` exist (and are complete, or `?art=custom` is set),
      it builds a `SheetAsset` from them (`source: 'custom'`) and loads `portrait.png` / `cutin.png` / `select.png`
-     and the super/ultimate layers when present, side by side with the sheet.
+     and the super/ultimate layers when present, side by side with the sheet. A fighter past 256 frames has more
+     than one sheet page (`sheet2.png` ..., listed in `anims.json` `pages`; art/SPEC.md "Sheet pages", TOOL-060):
+     every page is loaded and checked against the frames first; a missing or short one means the placeholder.
    - Otherwise it **bakes the 3D placeholder** (`bakeCharacter`, blocking, logs `baked <id> from 3D in N ms`).
    Then `game.loaded` is true (`gcd:loaded` mark) and the strip goes away.
 4. `startMatch`, `startTraining`, `openOnline` and the character select go through `game.whenLoaded()`: before
@@ -235,7 +237,7 @@ cam.update(dt)              CameraDirector mode logic (its yaw is basis.viewYaw(
                             control basis), shake/kick, zoom punch, spriteRefDepth
 fighters.sync again         (uses the camera's new right vector and depth), ghost trails fade
 shotViews.sync, syncView    the shots' sprites and beam ribbons from the simulation; the stage (and after a
-                            restore the clash camera / bar and the hums) follows the simulation
+                            restore the clash camera / bar / hint and the hums) follows the simulation
 fx.update                   VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
 arena.setDim / update       super-flash dimming, crowd excitement
 hud.update                  bars, timer, combo counter
@@ -284,15 +286,17 @@ src/characters/<id>.js ─> rig/anims.js + extraAnims ─> rig/baker.js ──> 
                        └────────────────────────────────────────────────────────────────┘
                        ┌────────────────────────────── custom hi-res art (spec v2) ─────┐
 generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprites ─> public/characters/<id>/sheet.png
-(Codex; reviewed in    (highest version wins; _rejected/ ignored;         (256 px cells, PPU 128, 4096 × 2816)
- art/REVIEW.md)         + frames/, hitboxes.json)                         + anims.json (animations, phases, boxes, complete)
+(Codex; reviewed in    (highest version wins; _rejected/ ignored;         (+ sheet2.png ... past 256 frames; 256 px
+ art/REVIEW.md)         + frames/, hitboxes.json)                          cells, PPU 128, pages <= 4096 × 4096)
+                                                                          + anims.json (animations, phases, boxes, complete)
                                                                           + portrait.png, cutin.png, select.png
                        └────────────────────────────────────────────────────────────────┘
                                           │
                               loadFighterAsset() picks custom if present and complete (or ?art=custom),
                               else bakes. One console line says which.
                                           │
-                              SheetAsset (texture, nearest filtering) -> SpriteActor per fighter
+                              SheetAsset (a texture per sheet page, nearest filtering) -> SpriteActor per fighter
+                              (draws each frame from its page: SpriteActor.usePage; src/art/sheetPages.js)
 ```
 
 - **SheetAsset** wraps the image and meta. `anim(name)` resolves missing animations through `FALLBACK`
