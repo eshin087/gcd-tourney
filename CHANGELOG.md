@@ -11,8 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Changed (ART-NAR-SKILLS-B1): filed versioned Naruto Four-Tails ultimate and roar-effect candidates with source-call provenance, a batch review page and Astra audit. B1-B3 remain on technical hold; no user approval or merge.
-- Changed (ART-NAR-SKILLS-B1): edited fourTailsRoar v02 from its packed v01 candidate with a 236px circular mask; candidate atlas confirms all eight frames stay within a 117.99px radius, with no new image call.
+- Changed (ART-NAR-SKILLS-B1): recorded the user approval of beamFire v14 + sidecar and ui_ult_fg v04 via Claude relay skills #4; promoted the approved UI source. beamCharge v17 and fourTailsRoar v02 remain unapproved candidates for review.
+- Changed (ART-NAR-SKILLS-B1): edited beamCharge v17 to clean the f0/f2 tail joins with no image call; fourTailsRoar v02 keeps the 236px circular mask, with all eight packed frames inside a 117.99px radius.
 - Changed (ENG-102): faster first load. The title shows after ~0.5 MB (title art and fighter metadata) instead of all 31.5 MB of art; fighters, crowd, stage and effects load in parallel behind it, and a fight waits for them on the loading screen. Art is requested by its plain URL (ETag revalidation) instead of `?v=<now>`, so a repeat visit downloads ~30 kB instead of 31 MB. A real loading bar (byte-weighted, title art and logo behind it) replaces "BAKING FIGHTERS...", and portrait phones see the logo and title art above a smaller rotate hint (ADR 0043).
 - Changed (ART-SIZE-R7): recorded the Codex independent audit of 230 packed fighter strips on `art/size-r7-codex` (`903b9b63`); Claude will reconcile measurements and provide the redraw list.
 - Changed (ENG-101): lab layout pass. TOOLS rows line up (a label column, options wrap beside it, short notes); SCENARIOS show as two columns of cards capped at two lines, the open card's description spanning both columns under its row; ANIMATIONS fit on one screen, one compact row per group with each alt strip as an `alt` chip beside its base. The panel is a little wider (420 px).

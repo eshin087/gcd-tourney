@@ -24,3 +24,31 @@ All generated source outputs are under `E:\Vibe Coding\.codex\generated_images\0
 - `npm run scale -- naruto` and `npm run body -- naruto beamCharge beamFire` reported no idle packed and could not measure. No scale exemption or manual QA has been recorded.
 - Claude has not yet reported that candidate packing for the new 256×256 HD effect cell works. `fourTailsRoar_v01` remains raw and unvalidated.
 - The technical evidence page is [public/reviews/naruto-skills-batch1/index.html](../../../../public/reviews/naruto-skills-batch1/index.html). Its poster image CSS was corrected to preserve foreground alpha and avoid rounded-corner clipping; Astra rechecked the rule by source inspection. All candidates are unapproved; no approval request has been sent.
+
+
+## User-directed no-call repairs (relay skills #2, 2026-10-18)
+
+No new image-generation calls were used. The cumulative budgets remain 3/3 for beamCharge, beamFire and ui_ult_fg; fourTailsRoar remains at 2/3.
+
+- `beamCharge_v11.png` is a manual pixel edit from v10: f1's four-tail fan field was copied onto f0 and f2 while preserving pixels outside the 400x400 source fan region in those frames. SHA-256 `9a739a0b8a860c05e1099e739ea11b4757562a39a3fb8cc6491febad35ee8317`. Astra confirms four tails in all three raw frames and identifies a visible rectangular join at f2 local x400, y200-390; this remains an explicit technical hold on the review page.
+- `beamFire_v14.json` records translation-only offsets `[-21,0],[-21,0],[0,0]`, bound to source SHA `82335d9dad17ca81e828c8f3814ed8228c60841cd4c1df55f394c594ecb576e3`. Current sidecar SHA-256 `26d00103aa7cbbc52b5b964c4581488c1fc13f74c70c82d0f56da42bf98359b8`. Diagnostic pack reported no clipping or 4px margin warning; full packed verification remains withheld by the expected no-head scale gate. The user requested f0 as the claw-slam and f2 as landing; Claude's engine mapping is pending.
+- `ui_ult_fg_v04.png` is unchanged (SHA-256 `b82b3ec384dc58868e5dd7992d3864fd10ca3034fcb76845129a70eef5f39088`). The review page uses a stronger warm CSS drop-shadow; product splash CSS is Claude's integration task.
+- `fourTailsRoar_v01.png` is unchanged (SHA-256 `af5036ffa46e3dbe4a91531ef2e4faab0c42effd73815c1306e7a462f92a842d`). Temporary local merge of `feature/naruto-skills` at `7ff4c256` enabled candidate packing; it produced an 8-frame 2048x256 HD atlas. The merge was aborted afterward, so no Claude engine changes are included in this art branch.
+
+The review page is a static review artifact. It does not certify runtime splash rendering, final character atlas packing, contact zones, or scale. Astra's audit v02 records the raw seam and the remaining evidence boundary.
+
+
+## Four-Tails roar circular correction (relay skills #3, 2026-10-18)
+
+No image-generation call was made. `fourTailsRoar_v02.png` (SHA-256 `c73b1d3e54be81e284af19b4d99cd2284758d986113b727b23f63adeba45cbd7`) is a pixel edit derived from the previously packed `fourTailsRoar_v01` HD candidate atlas (v01 atlas SHA-256 `ca9fb92683b474066393484c3ab75352d26037ac69541fc896be641dbb613bd1`). Each of the eight 256px cells received a hard circular mask centered at (128,128), radius 118px. The vfx manifest sets fill to 0.922 (target 236px) to prevent the packer from scaling the burst back to cell edges. Candidate packing on a temporary feature/naruto-skills merge (aborted after packing) produced eight cells at x1.000; all alpha pixels measured within radius 117.99px of each cell center, with no cell-edge contact. FourTailsRoar packer reported 14 isolated specks removed and no effect-specific warnings. No engine/tool changes are included in the art branch.
+
+
+## User approval and final no-call cleanup (relay skills #4, 2026-10-18)
+
+The user approved `beamFire_v14.png` with `beamFire_v14.json` and `ui_ult_fg_v04.png` via Claude relay skills #4: “Approve beamFire v14 (with its sidecar) and ui_ult_fg v04.” `beamFire.approvedVersion` is 14; `ui.ult_fg.approvedVersion` is 4; the fixed-name UI image is copied from v04. Superseded, unapproved `beamFire_v13.png` and `ui_ult_fg_v02.png`/`v03.png` were moved to their `_rejected/` folders under the approval promotion rule.
+
+`beamCharge_v12.png` and `beamCharge_v13.png` are preserved no-call repair history. The current `beamCharge_v14.png` derives from v13 and clears only f0/f2 pixels in the donor-empty source-local region x=500..534, y=173..305, in addition to the irregular fan-field correction. The extra disconnected/forked tail remnants are removed without touching any pixels at y>=436 compared with v11. No new image-generation call was made; cumulative budget remains 3/3. The new candidate is unapproved. Final Astra audit: [ASTRA_AUDIT_v05.md](skills-revamp-batch1/ASTRA_AUDIT_v05.md).
+
+`beamCharge_v13.png` through `beamCharge_v16.png` are successive no-call pixel-edit revisions. Astra audits v03-v05 documented, then helped locate, the detached/stump/fork artifacts and rectangle boundaries. v16 extends the f1 donor fan field through the tail base for f0/f2 and leaves lower-body pixels y>=436 identical to v11. v16 SHA-256: ec041c2c287304471d7b0fa174e17e9681b7a86b376261456965171458df077c. The current image remains unapproved pending [ASTRA_AUDIT_v07.md](skills-revamp-batch1/ASTRA_AUDIT_v07.md) and user review.
+
+`beamCharge_v17.png` is the current no-call repair candidate. It derives from v16 and replaces f0/f2 pixels inside the irregular contour of the f1 rightmost tail, then clears the old f0/f2 remnant where f1 has only background. The mask is not rectangular; no new image-generation call was used. SHA-256: 739422e85c83f572808abcb5a5f4cbd48e4bb68c2a8a879dcdd7ae58787fc9a3. The candidate is unapproved pending [ASTRA_AUDIT_v08.md](skills-revamp-batch1/ASTRA_AUDIT_v08.md).

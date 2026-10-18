@@ -1,0 +1,9 @@
+{
+  "split": "even",
+  "frameOffsets": [[-21, 0], [-21, 0], [0, 0]],
+  "placementRecord": {
+    "sourceSha256": "82335d9dad17ca81e828c8f3814ed8228c60841cd4c1df55f394c594ecb576e3",
+    "method": "Translation-only correction in final cell pixels; f0 and f1 shifted 21 px left. The diagnostic pack clears the 4 px safe margin for both extended front claws; no rescale or vertical change. f2 stays unchanged as the landing pose; user requested f0 as the claw-slam frame, with Claude engine mapping pending.",
+    "decision": "user via Claude relay skills #2, 2026-10-18"
+  }
+}
