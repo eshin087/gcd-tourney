@@ -3,7 +3,7 @@ import { loadProgress } from '../core/loadProgress.js';
 import * as THREE from 'three';
 import { bakeCharacter } from '../art/rig/baker.js';
 import { RING_TOP, RING_HALF, SPRITE_DEPTH_COMP, SPRITE_DEPTH_CLAMP } from './constants.js';
-import { AuraShell } from './auraShell.js';
+import { AuraShell, ChakraShroud } from './auraShell.js';
 import { phaseFrame } from './animPhase.js';
 
 // Missing animations in a custom sheet fall back to something sensible.
@@ -252,7 +252,9 @@ const VERT = /* glsl */ `
   }`;
 
 // lift and rim are the hit flash's hold (src/game/hitFlash.js): both stay 0 outside a hit, so those branches are
-// skipped for every other sprite (ghosts, menus) and a frame without a hit costs what it did before
+// skipped for every other sprite (ghosts, menus) and a frame without a hit costs what it did before.
+// engulf (0..1, ENG-SKL-NAR): a transformation's chakra swallowing the drawn body from the feet up (Naruto's
+// Four-Tails): a near-black core with boiling bands, a red rim on the drawn outline and a bright front line. 0 skips it.
 const FRAG = /* glsl */ `
   uniform sampler2D map;
   uniform vec4 uvRect;
@@ -265,7 +267,18 @@ const FRAG = /* glsl */ `
   uniform float rimPx;
   uniform float opacity;
   uniform float silhouette;
+  uniform float engulf;
+  uniform vec3 engulfCore;
+  uniform vec3 engulfRim;
+  uniform float engulfTime;
+  uniform vec2 texSize;
   varying vec2 vUv;
+  float ehash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+  float enoise(vec2 p) {
+    vec2 i = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(ehash(i), ehash(i + vec2(1.0, 0.0)), f.x), mix(ehash(i + vec2(0.0, 1.0)), ehash(i + vec2(1.0, 1.0)), f.x), f.y);
+  }
   void main() {
     vec2 px = fwidth(vUv) * rimPx; // rim width in render pixels; derivatives are taken before the discard
     vec4 c = texture2D(map, vUv);
@@ -285,6 +298,23 @@ const FRAG = /* glsl */ `
                     - step(0.5, textureLod(map, clamp(vUv + vec2(0.0, px.y), lo, hi), 0.0).a)
                     - step(0.5, textureLod(map, clamp(vUv - vec2(0.0, px.y), lo, hi), 0.0).a);
       col = mix(col, rimColor, rim * min(1.0, e));
+    }
+    if (engulf > 0.0) {
+      vec2 ap = floor(vUv * texSize / 2.0); // two-texel cells: chunky, pixel-art boil
+      float h = (vUv.y - uvRect.y) / max(1e-5, uvRect.w - uvRect.y);
+      float front = engulf * 1.15 - 0.06 + (enoise(vec2(ap.x * 0.2, engulfTime * 1.5)) - 0.5) * 0.1;
+      if (h < front) {
+        float b = enoise(vec2(ap.x * 0.24, ap.y * 0.2 - engulfTime * 3.0));
+        vec3 body = mix(engulfCore, engulfRim * 0.5, step(0.64, b)) + c.rgb * 0.08;
+        vec2 lo = uvRect.xy, hi = uvRect.zw;
+        float e = 4.0 - step(0.5, textureLod(map, clamp(vUv + vec2(px.x, 0.0), lo, hi), 0.0).a)
+                      - step(0.5, textureLod(map, clamp(vUv - vec2(px.x, 0.0), lo, hi), 0.0).a)
+                      - step(0.5, textureLod(map, clamp(vUv + vec2(0.0, px.y), lo, hi), 0.0).a)
+                      - step(0.5, textureLod(map, clamp(vUv - vec2(0.0, px.y), lo, hi), 0.0).a);
+        body = mix(body, engulfRim, min(1.0, e));
+        if (engulf < 1.0 && h > front - 0.03) body = engulfRim + vec3(0.15, 0.05, 0.0); // the line still climbing
+        col = body;
+      }
     }
     col = mix(col, flashColor, flash);
     col = mix(col, flashColor, silhouette);
@@ -306,6 +336,11 @@ export function spriteMaterial(texture, transparent = false) {
       rimPx: { value: 2 },
       opacity: { value: 1 },
       silhouette: { value: 0 },
+      engulf: { value: 0 },
+      engulfCore: { value: new THREE.Color(0x1a0204) },
+      engulfRim: { value: new THREE.Color(0xc8281e) },
+      engulfTime: { value: 0 },
+      texSize: { value: new THREE.Vector2(texture?.image?.width || 1, texture?.image?.height || 1) },
     },
     vertexShader: VERT,
     fragmentShader: FRAG,
@@ -571,6 +606,11 @@ export class SpriteActor {
     return (this.shell ??= new AuraShell(this));
   }
 
+  // The see-through chakra cloak over the frame on screen (a mode's `cloak`, auraShell.js), made on first use.
+  chakraShroud() {
+    return (this.cloak ??= new ChakraShroud(this));
+  }
+
   setVisible(v) {
     this.root.visible = v;
     this.blob.visible = v;
@@ -586,6 +626,7 @@ export class SpriteActor {
     }
     this.ghosts.length = 0;
     this.shell?.dispose();
+    this.cloak?.dispose();
     this.mat.dispose();
     this.caster.material.dispose();
     this.caster.customDepthMaterial.dispose();

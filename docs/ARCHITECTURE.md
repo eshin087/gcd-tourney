@@ -76,7 +76,9 @@ src/game/
   sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique
   chargeFx.js               power-ups (ADR 0023): CHARGE_DEFAULT + per-fighter `charge` styles, the interpreter
                             (shell, emitters, eye glint, bar / MAX beats) and the restraint rules R1-R9
-  auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha)
+  auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha);
+                            ChakraShroud: a mode's see-through `cloak` over the body plus its rim (ADR 0044)
+  clones.js                 CloneCrew: shadow clones drawn from a kit move's `kitState.crew` entries (ADR 0044)
   camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory, results; shake,
                             zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,

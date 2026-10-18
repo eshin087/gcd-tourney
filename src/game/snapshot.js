@@ -16,7 +16,7 @@ export const GAME_STATE = [
   'nextShotId',
 ];
 // a fighter's view state and engine links: kept as they are, never saved or restored
-const FIGHTER_KEEP = new Set(['game', 'def', 'asset', 'actor', 'pad', 'renderPos', 'boxViewer', 'chargeFx', 'hfx', 'groundMark']);
+const FIGHTER_KEEP = new Set(['game', 'def', 'asset', 'actor', 'pad', 'renderPos', 'boxViewer', 'chargeFx', 'hfx', 'groundMark', 'crewView']);
 
 // Objects reachable from the static tables are shared, never copied: a move's identity (f.move === MOVES.x) must
 // survive a restore, and copying the art packs' box tables every frame would cost for nothing.

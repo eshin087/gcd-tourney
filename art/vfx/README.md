@@ -60,6 +60,28 @@ Who does what:
 
 Full detail per effect is in [`EFFECTS.md`](EFFECTS.md).
 
+## Signature effects: the HD cell (ADR 0044)
+
+A fighter's signature techniques are drawn at **twice the detail**: a **256 x 256 cell at 112 px per unit** (the
+same world size per cell as the 128 px effects). The packer puts them on their own page, `public/vfx/atlas_hd.png`,
+described by the `hd` block of `atlas.json`; the game reads each effect from whichever page holds it. Anchors: center
+on (128, 128); bottom centered on x = 128 with the base on y = 240. Cleaned frames in `frames/<effect>/` are exactly
+256 x 256. Everything else in this page applies (versions, approval, fill, color rule). Each has a small procedural
+stand-in until its art is approved.
+
+| Effect | Frames | ms/frame | Color rule | Anchor | Used for |
+|---|---|---|---|---|---|
+| `rasengan` | 8 | 40 | full color | center | Naruto's Rasengan in his palm (loop); the Shadow Clone Barrage's big Rasengan |
+| `rasenganForm` | 6 | 45 | full color | center | the Rasengan forming during the startup |
+| `rasenganBurst` | 8 | 45 | full color | center | the Rasengan's hit: grind, then spiral blast |
+| `rasenshuriken` | 8 | 35 | full color | center | the Rasenshuriken held in his hand (loop) |
+| `rasenshurikenDome` | 8 | 50 | full color | center | the sphere of wind blades grinding the victim (f2-f4 loop) |
+| `poof` | 7 | 40 | full color | center | a shadow clone appearing or vanishing; the Substitution puff |
+| `subLog` | 5 | 70 | full color | bottom | the Substitution log left where he stood |
+| `fourTailsRoar` | 8 | 45 | full color | center | the Four-Tails chakra roar |
+
+The frame-by-frame brief is [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md).
+
 ## Hard rules (every effect)
 
 1. **Cell 128x128 px**, transparent PNG, one frame per cell. The final frames in `frames/<effect>/`

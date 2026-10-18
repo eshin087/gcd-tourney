@@ -25,6 +25,28 @@ function cell() {
   return [c, ctx];
 }
 
+// A Rasengan-style ball: blue shells, a white core and spiral streams wound around it in three directions. `spin`
+// (0..1) turns the streams so consecutive frames loop.
+function sphere(ctx, r, spin) {
+  for (const [col, k] of [['#173c9e', 1], ['#2259d0', 0.9], ['#3a8ef0', 0.75], ['#6ec4ff', 0.55]]) {
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.arc(0, 0, r * k, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.strokeStyle = '#ddf6ff';
+  ctx.lineWidth = Math.max(1, r / 10);
+  for (let k = 0; k < 3; k++) {
+    ctx.save();
+    ctx.rotate(k * 1.05 + spin * Math.PI * 2);
+    ctx.scale(1, 0.45);
+    for (let s = 0; s < 2; s++) {
+      ctx.beginPath(); ctx.arc(0, 0, r * (0.8 - s * 0.25), s * Math.PI, s * Math.PI + 2.2); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath(); ctx.arc(0, 0, Math.max(1.5, r * 0.32), 0, Math.PI * 2); ctx.fill();
+}
+
 const PAINTERS = {
   // white crescent slash + small star (video-style hit spark)
   spark(i, n, ctx) {
@@ -319,6 +341,172 @@ const PAINTERS = {
       dot(x + (nx / l) * r * side, y + (ny / l) * r * side, Math.max(1, r * 0.45), '#e6e6e6');
     }
   },
+  // ---- Naruto's signature techniques (ENG-SKL-NAR, ADR 0044). Stand-ins until Codex's HD art is approved
+  // (art/characters/naruto/SKILLS_REVAMP.md): full color, drawn small, never tinted.
+  rasengan(i, n, ctx) {
+    ctx.translate(32, 32);
+    sphere(ctx, 17, i / n);
+    // wisps flaring off the rim in the spin direction
+    ctx.strokeStyle = '#a8e2ff';
+    ctx.lineWidth = 1.5;
+    for (let k = 0; k < 4; k++) {
+      const a = (i / n) * Math.PI * 2 + k * (Math.PI / 2) + 0.4;
+      ctx.beginPath();
+      ctx.arc(0, 0, 19 + (k % 2) * 2, a, a + 0.7);
+      ctx.stroke();
+    }
+  },
+  rasenganForm(i, n, ctx) {
+    const t = i / (n - 1);
+    ctx.translate(32, 32);
+    // chakra wisps spiraling in, the ball growing at their center
+    ctx.strokeStyle = '#6ec4ff';
+    ctx.lineWidth = 1.5;
+    for (let k = 0; k < 5; k++) {
+      const a0 = k * 1.2566 + t * 2.4;
+      ctx.beginPath();
+      for (let s = 0; s <= 1; s += 0.08) {
+        const r = (28 - t * 12) * (1 - s * 0.85), a = a0 + s * 2.6;
+        s ? ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r) : ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+      }
+      ctx.stroke();
+    }
+    if (t > 0.1) sphere(ctx, 3 + t * 14, t);
+    else { ctx.fillStyle = '#ffffff'; ctx.fillRect(-2, -2, 4, 4); }
+  },
+  rasenganBurst(i, n, ctx) {
+    const t = i / (n - 1);
+    ctx.translate(32, 32);
+    if (i === 0) {
+      // pressed flat against the target, grinding
+      ctx.save(); ctx.scale(1, 0.5); sphere(ctx, 20, 0); ctx.restore();
+      ctx.fillStyle = '#ffffff';
+      for (let k = 0; k < 8; k++) { const a = k * 0.785; ctx.fillRect(Math.cos(a) * 24, Math.sin(a) * 9, 2, 2); }
+      return;
+    }
+    // spiral wind arms thrown outward, the core burning out
+    const reach = 10 + t * 21;
+    for (const [col, w] of [['#2259d0', 5], ['#6ec4ff', 3], ['#ddf6ff', 1.5]]) {
+      ctx.strokeStyle = col;
+      ctx.lineWidth = w * (1 - t * 0.5);
+      for (let k = 0; k < 5; k++) {
+        const a0 = k * 1.2566 + t * 1.8;
+        ctx.beginPath();
+        for (let s = 0; s <= 1; s += 0.1) {
+          const r = 3 + s * reach, a = a0 + s * 2.2;
+          if (t > 0.6 && (s * 10) % 3 < 1) { ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r); continue; }
+          s ? ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r) : ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+        }
+        ctx.stroke();
+      }
+    }
+    const core = 9 * (1 - t);
+    if (core > 1) { ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(0, 0, core, 0, Math.PI * 2); ctx.fill(); }
+  },
+  rasenshuriken(i, n, ctx) {
+    ctx.translate(32, 32);
+    ctx.scale(1, 0.82); // the disc tilted toward the camera
+    ctx.rotate((i / n) * (Math.PI / 2));
+    for (let k = 0; k < 4; k++) {
+      ctx.rotate(Math.PI / 2);
+      ctx.fillStyle = '#bfe6ff';
+      ctx.beginPath(); ctx.moveTo(8, -5); ctx.quadraticCurveTo(22, -8, 30, 2); ctx.quadraticCurveTo(20, 1, 8, 5); ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.moveTo(9, -4); ctx.quadraticCurveTo(21, -6, 29, 1); ctx.quadraticCurveTo(20, -2, 9, 0); ctx.fill();
+    }
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(0, 0, 12, 0, Math.PI * 2); ctx.stroke();
+    sphere(ctx, 8, i / n);
+  },
+  rasenshurikenDome(i, n, ctx) {
+    const R = rng(91 + (i % 3));
+    ctx.translate(32, 32);
+    const r = i < 2 ? 12 + i * 8 : i < 5 ? 29 : 29 + (i - 4) * 1.5;
+    const fade = i < 5 ? 1 : 1 - (i - 4) / 4;
+    if (i < 5) {
+      ctx.fillStyle = '#9fd0f2';
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#7fb8ec';
+      ctx.beginPath(); ctx.arc(0, 0, r * 0.45, 0, Math.PI * 2); ctx.fill();
+    }
+    // needles of wind crossing everywhere inside it, breaking apart at the end
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1;
+    const count = Math.round(40 * fade);
+    for (let k = 0; k < count; k++) {
+      const a = R() * Math.PI * 2, d = R() * r, l = 4 + R() * 6, b = R() * Math.PI;
+      const x = Math.cos(a) * d, y = Math.sin(a) * d;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(b) * l, y + Math.sin(b) * l); ctx.stroke();
+    }
+    if (i === 0) { ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(0, 0, 10, 0, Math.PI * 2); ctx.fill(); }
+  },
+  poof(i, n, ctx) {
+    const t = i / (n - 1);
+    const R = rng(33);
+    ctx.translate(32, 33);
+    if (i === 0) {
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(0, 0, 9, 0, Math.PI * 2); ctx.fill();
+      for (let k = 0; k < 6; k++) { const a = k * 1.047; ctx.beginPath(); ctx.arc(Math.cos(a) * 14, Math.sin(a) * 11, 3, 0, Math.PI * 2); ctx.fill(); }
+      return;
+    }
+    const size = t < 0.35 ? 0.75 + t : 1.1 - (t - 0.35) * 0.8;
+    for (let k = 0; k < 11; k++) {
+      const a = R() * Math.PI * 2, d = (5 + R() * 9) * (1 + t * 1.4);
+      const r = (6 + R() * 5) * size;
+      ctx.fillStyle = k % 4 === 0 ? '#9aa3b2' : k % 2 ? '#c9d0da' : '#e9edf2';
+      ctx.beginPath(); ctx.arc(Math.cos(a) * d, Math.sin(a) * d * 0.8 - t * 4, Math.max(1, r), 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.fillStyle = '#ffffff';
+    if (t < 0.6) { ctx.beginPath(); ctx.arc(-2, -3, 9 * size, 0, Math.PI * 2); ctx.fill(); }
+  },
+  subLog(i, n, ctx) {
+    // bottom anchored: the floor is y = 60. Upright in a puff, then it tips over toward screen-right
+    const tilt = [0, 0, 0.35, 1.05, Math.PI / 2][i] ?? Math.PI / 2;
+    ctx.translate(36, 60);
+    ctx.rotate(tilt);
+    ctx.fillStyle = '#6a4326';
+    ctx.fillRect(-10, -40, 10, 40);
+    ctx.fillStyle = '#8c5a34';
+    ctx.fillRect(-8, -40, 4, 40);
+    ctx.fillStyle = '#e2c49a';
+    ctx.fillRect(-10, -42, 10, 3);
+    if (i === 1) { ctx.fillStyle = '#f2e2c4'; ctx.fillRect(-9, -24, 8, 2); } // where the hit landed
+    if (i === 0) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.fillStyle = '#e9edf2';
+      for (const [x, y, r] of [[28, 30, 12], [38, 22, 10], [34, 42, 12], [22, 44, 8]]) { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); }
+    }
+  },
+  fourTailsRoar(i, n, ctx) {
+    const t = i / (n - 1);
+    const R = rng(55);
+    ctx.translate(32, 32);
+    if (i === 0) {
+      ctx.fillStyle = '#c8281e'; ctx.beginPath(); ctx.arc(0, 0, 13, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#1a0204'; ctx.beginPath(); ctx.arc(0, 0, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffe8dc'; ctx.fillRect(-1, -1, 3, 3);
+      return;
+    }
+    // a ring of boiling red-black chakra, bubbles on its rim, then breaking into blobs
+    const r = 10 + t * 20;
+    const broken = t > 0.55;
+    for (const [col, w] of [['#4a0606', 6], ['#c8281e', 3]]) {
+      ctx.strokeStyle = col;
+      ctx.lineWidth = w * (1 - t * 0.5);
+      for (let k = 0; k < 8; k++) {
+        if (broken && k % 2) continue;
+        const a = k * 0.785 + R() * 0.2;
+        ctx.beginPath(); ctx.arc(0, 0, r, a, a + 0.8); ctx.stroke();
+      }
+    }
+    for (let k = 0; k < 10; k++) {
+      const a = R() * Math.PI * 2, d = r + (R() - 0.3) * 6;
+      ctx.fillStyle = k % 3 ? '#7a0c0c' : '#ff4a2a';
+      ctx.beginPath(); ctx.arc(Math.cos(a) * d, Math.sin(a) * d, Math.max(1, 2.5 * (1 - t * 0.6)), 0, Math.PI * 2); ctx.fill();
+    }
+  },
   // ---- ground damage (ADR 0024)
   // side view: a low, wide wall of chunky dust rolling outward and up, then breaking apart (rings of these roll
   // out of big craters, see Effects.dustRing)
@@ -488,6 +676,15 @@ export const VFX_ANIMS = {
   streamLance: { n: 4, ms: 40, levels: [0, 255] },
   streamFlame: { n: 4, ms: 50, levels: [0, 255] },
   redOrb: { n: 6, ms: 40, levels: [0, 255] },
+  // Naruto's signature techniques (ENG-SKL-NAR): HD art cells when packed (ADR 0044), these small stand-ins until then
+  rasengan: { n: 8, ms: 40, levels: [0, 255] },
+  rasenganForm: { n: 6, ms: 45, levels: [0, 255] },
+  rasenganBurst: { n: 8, ms: 45, levels: [0, 255] },
+  rasenshuriken: { n: 8, ms: 35, levels: [0, 255] },
+  rasenshurikenDome: { n: 8, ms: 50, levels: [0, 255] },
+  poof: { n: 7, ms: 40, levels: [0, 255] },
+  subLog: { n: 5, ms: 70, levels: [0, 255] },
+  fourTailsRoar: { n: 8, ms: 45, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.
