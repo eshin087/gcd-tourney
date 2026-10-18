@@ -1,5 +1,9 @@
 # Art review queue
 
+## Sasuke skills batch 2: Amaterasu (2026-10-18)
+
+A6 `amaterasu` and A7 `amaterasuIgnite` used all 3 allowed image calls each. Their initial candidate outputs and final correction attempts remain on technical hold: the sheets do not have the required square-cell source layout, the background is near-magenta rather than exact #FF00FF, and the source colors exceed the requested palette. All saved versions are quarantined under `vfx/raw/_qa_hold/`; no manifest entries or approval rows were created. The user must decide whether to authorize no-call pixel cleanup into new versions or leave both effects held. See the [decision gallery](../public/reviews/sasuke-skills-batch2/index.html) and [full provenance](characters/sasuke/production/skills-revamp-batch2/PROVENANCE.md).
+
 ## Sasuke skills batch 1: Chidori family (2026-10-18)
 
 B1 special v14 is on technical hold; no production strip candidate was filed. A1 chidori has no compliant effect-only candidate after 3/3 calls. The user approved all four A2-A5 source images via Claude relay skills #14. Claude owns HD packing and game wiring. Earlier standard-size candidate packing dropped the `hd` manifest flag and reported one clipped Spear frame; this remains technical QA for Claude, not an image rejection. See [gallery](../public/reviews/sasuke-skills-batch1/index.html) and [attempt/pack provenance](characters/sasuke/production/skills-revamp-batch1/chidori_effects_provenance.md).
