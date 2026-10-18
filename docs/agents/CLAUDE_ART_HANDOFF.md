@@ -1,3 +1,13 @@
+# Codex: ART-SIZE-R6 Sasuke v04 rejection and v05 review (2026-10-17, art-camera relay #6)
+
+The user rejected Sasuke `beamStruggle` v04: “Reject, redo at 1.10x (Recommended)”. Claude measured packed v04 at bodyHeight152 with head ratios 1.11–1.17 of idle. v04 is moved to `art/characters/sasuke/raw/_rejected/`; its rejection reason and historical page are retained.
+
+Candidate v05 is a no-call byte-identical copy of approved v01 at bodyHeight134 (about 1.10x from122). The three sleeve-related `scaleExemptFrames` remain; `scaleManualQA` records relay #5's v01 template readings and relay #6's rejected-v04 measurement/projection. New review page: `public/reviews/size-r6/sasuke-beamStruggle-v05/index.html`. v01 remains approved until the user's v05 decision.
+
+Gojo heavy remains at approved v05: a 1.08x test could not fit without packer cap237. No Gojo candidate and no camera/engine change. PR #142 is refreshed at the new commit; build passes. User approval is the next action. Broader R6 follow-up remains open.
+
+---
+
 
 # Codex: ART-SIZE-R6 corrected Sasuke calibration (2026-10-17, art-camera relay #5)
 
