@@ -604,8 +604,9 @@ class Overlay {
   }
 
   resize() {
-    this.cv.width = Math.floor(window.innerWidth / 2);
-    this.cv.height = Math.floor(window.innerHeight / 2);
+    // its own box (full screen in the game, left of the docked panel in the test lab)
+    this.cv.width = Math.floor((this.cv.clientWidth || window.innerWidth) / 2);
+    this.cv.height = Math.floor((this.cv.clientHeight || window.innerHeight) / 2);
     this.cv.style.imageRendering = 'pixelated';
   }
 
