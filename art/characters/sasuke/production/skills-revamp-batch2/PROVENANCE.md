@@ -3,7 +3,7 @@
 Date: 2026-10-18
 Worktree branch: `art/sasuke-skills`
 Scope: A6 `amaterasu`, A7 `amaterasuIgnite`. No identity references supplied.
-All attempts are on technical hold; no candidate was selected for review. No manifest or packer-visible effect entry was added. User decision is pending on possible no-call pixel cleanup.
+The user approved the initially selected v01 drawings via Claude relay skills #16, with no pixel cleanup. User quote: “Approve both v01 (Recommended): Approve amaterasu v01 and amaterasuIgnite v01 as they pack; I put them in the game and Codex moves on to the Kirin batch.” The v01 files were restored from `_qa_hold/` to `art/vfx/raw/`; manifest records them as approved HD candidates. Claude's trial pack split each source grid and keyed/quantized near-magenta cleanly. The nonselected/final attempts remain quarantined, preserving the call history. Claude owns final HD packing and game integration.
 
 ## A6 `amaterasu`
 
@@ -74,5 +74,5 @@ Verdict: The ignition point, outward burst, and upward flames read in a left-to-
 
 ## Batch disposition after all attempts
 
-The latest attempts are v02; both v01 and v02 versions are quarantined in `_qa_hold`, and neither effect has any packer-visible raw candidate. Both assets remain unapproved and technically held. The image generator did not satisfy the corrected square-cell aspect, exact background or palette after the 3/3 budget. No fourth call was made.
+The latest attempts remain v02 and are quarantined in `_qa_hold`; the user approved the original selected v01 drawings via Claude relay skills #16. Those v01 files are restored to `art/vfx/raw/` without pixel edits, and the manifest marks them approved (`hd: true`; Amaterasu fill 0.9, Ignite fill 0.95). Claude's trial pack confirmed the grid split and clean near-magenta key/quantize; no additional generation call was made. Claude owns final HD packing and in-game validation.
 

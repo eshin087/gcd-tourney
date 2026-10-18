@@ -1,3 +1,15 @@
+# ART-SKL-SAS — batch 3 candidates (2026-10-18)
+
+Branch `art/sasuke-skills`; worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-sasuke-skills`. Candidate commit is being prepared. Review gallery: [Sasuke skills batch 3](https://gcd-tourney-huua9kkyv-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/); [PR #163](https://github.com/eshin087/gcd-tourney/pull/163), branch commit `20170eb0`. Six effects A8-A13 (`greatFireball` v01, `greatFireballBurst` v01, `stormCloud` v01, `kirinBody` v01, `kirinHead` v01, `kirinStrike` v01) are ready for user visual review; candidate pack detects the brief frame counts, but `kirinStrike` reports clipping and several source geometry/seam issues need Claude's HD in-game review. No visual approval or integration is implied.
+
+`beamFire` v08 is filed from selected attempt 03 (3/3 calls). Strict scale pack reported unadjusted head 1.52x idle, clipped at the right; the auto-head sidecar measured 0.66 but clamps to 0.75 and still leaves head 1.15x idle. `special` v14 also blocks writing the candidate Sasuke atlas. Therefore no accepted quantized sheet, body sheet for v08, or final Astra atlas audit exists. Keep `beamFire` held; do not claim Astra pass or shipping clearance. Candidate review row, manifest, provenance and limitations are committed with the gallery.
+
+Batch 2 approvals are recorded on this branch at `8b7a4c46`: user via Claude relay skills #16 approved Amaterasu v01 and AmaterasuIgnite v01 with the exact quoted approval in REVIEW/manifest/TRACKER. Sources were restored from `_qa_hold` without edits; manifest says `hd:true`, Amaterasu fill 0.9 and Ignite fill 0.95. Claude owns HD packing and game integration.
+
+Next: serve/open the branch PR preview and ring lane `skills` with an approval request for the six VFX and gallery link, noting `beamFire` remains a technical hold. Keep batch 1 `special` v14 and `chidori` v01 unresolved; the user has not approved them. Claude owns pack/game integration and technical hold disposition. Main-only `docs/NOW.md`, inbox, tasks and changelog remain coordinator bookkeeping.
+
+---
+
 # ART-GOJO-POSTURE-D — user approval recorded (2026-10-18, relay gojo-run #14)
 
 USER APPROVAL via Claude relay gojo-run #14: “hurtHigh: Approve v04 (Recommended). hurtLow: Keep v04 (Recommended). launched: Approve v08 (Recommended).”
