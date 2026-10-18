@@ -1,3 +1,13 @@
+# Codex: ART-SIZE-R6 final merged status (2026-10-18)
+
+Claude merged PR #142 as `d5304303`. Sasuke `beamStruggle` v02 from PR #140 remains approved/live; v04 remains user-rejected in `raw/_rejected/`; v05 and the older diagnostic v03 are non-shipping holds in `raw/_qa_hold/`. Their review rows are marked superseded, not pending user review. No new art ships. Gojo heavy and the Gojo hit reactions remain with `gojo-run`; camera/engine unchanged. Guard and build passed.
+
+---
+# Codex: ART-SIZE-R6 final merge status (2026-10-18)
+
+Claude merged PR #142 as `d5304303`. Sasuke `beamStruggle` v02 from PR #140 remains approved/live; v04 remains user-rejected in `raw/_rejected/`; v05 alone is in `raw/_qa_hold/` with its supersession note. No new art shipped. Gojo heavy and Gojo hurtHigh/hurtLow/launched were left to `gojo-run`; no camera or engine change. Art guard and build passed on the merged candidate. No R6 user review is pending.
+
+---
 # Codex: ART-SIZE-R6 updated after Sasuke v02 shipped (2026-10-18, art-camera relay #7)
 
 Merged current main into `art/size-r6`. Sasuke `beamStruggle` remains exactly on main's approved v02 (bodyHeight153, PR #140); main's manifest entry, hitboxes and packed atlas were retained, then Sasuke was repacked from the merged main source at 48 colors. Superseded v05 is quarantined in `raw/_qa_hold/` with `beamStruggle_SUPERSEDED.txt`; rejected v04 remains in `raw/_rejected/`. Neither candidate ships. Killua airLight2 v08 remains held, Gojo heavy remains unchanged. No camera or engine changes. Next: run art guard, build, commit and open/update the PR; Claude owns merge. The stale v05 user approval ask was dismissed. 
@@ -1119,3 +1129,5 @@ Machine manifest versions reflect the latest candidates while preserving approve
 ## Relay #8 correction (2026-10-18)
 
 Claude confirmed the v05 approval ask was superseded by shipped Sasuke v02. Keep v05 under `raw/_qa_hold/`; keep user-rejected v04 under `raw/_rejected/` with its rejection record. Main’s v02 manifest entry, hitboxes and packed sheet remain unchanged. Gojo heavy and Gojo hurtHigh/hurtLow/launched remain untouched by this task.
+
+
