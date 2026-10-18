@@ -12,11 +12,11 @@
 |---|---|---|---|---|---|---|---|
 | 2026-10-18 | sasuke | uTilt | [v04 edit attempt](characters/sasuke/raw/_qa_hold/uTilt_v04_edit_attempt.png) | v04 | rejected technically; no candidate | First local deterministic head enlargement attempt under relay combat #11. | Erasing the old head mask exposed magenta seams at the collar/back hair. Preserved in `_qa_hold`; not packed or presented as the selected edit. |
 
-## 2026-10-18 — Sasuke dTilt v06 — needs review, technical hold
+## 2026-10-18 — Sasuke dTilt v06 — rejected by user, preserved
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
-| 2026-10-18 | sasuke | dTilt | [dTilt_v06](characters/sasuke/raw/dTilt_v06.png) · [ENG-112 review page](../public/reviews/normals-sasuke/#dtilt-v06) | v06 | needs review | Per user decision via Claude relay combat #10, generated a six-frame low kick: crouch, chamber, shin-height kick, held kick, retract, crouch. Fists stay guarded; sword stays sheathed. | Attempt 03 selected from the 3-call round and saved byte-identically; all attempts are preserved in `_qa_hold`. Default quantized scale gate fails: source head 1.47× idle / feet 1.96×; auto-head fit 0.68 is below the 0.75–1.33 limit. Clamped fit still gives head 1.09× / feet 1.50× and clips active frames; no packed v06 atlas or Astra final audit. Drawing review only; technical hold remains and it cannot ship. [Generation ledger](characters/sasuke/production/dTilt_v06_generation_attempts.md). |
+| 2026-10-18 | sasuke | dTilt | [dTilt_v06](characters/sasuke/raw/_rejected/dTilt_v06.png) · [ENG-112 review page](../public/reviews/normals-sasuke/#dtilt-v06) | v06 | rejected | User rejected via Claude relay combat #14: “v05 stays the approved dTilt; keep v06 on file, no more dTilt work.” | Preserved under `_rejected/`; the attempted source's scale gate fails (head 1.09× idle / feet 1.50× after clamped fit) and it is excluded from packing. No further dTilt image calls. [Generation ledger](characters/sasuke/production/dTilt_v06_generation_attempts.md). |
 
 ## 2026-10-18 — Sasuke uTilt v03 head-only retry — no candidate
 
@@ -24,11 +24,11 @@
 |---|---|---|---|---|---|---|---|
 | 2026-10-18 | sasuke | uTilt | [attempt 01](characters/sasuke/raw/_qa_hold/uTilt_v03_attempt01.png) · [attempt 02](characters/sasuke/raw/_qa_hold/uTilt_v03_attempt02.png) · [attempt 03](characters/sasuke/raw/_qa_hold/uTilt_v03_attempt03.png) · [attempt ledger](characters/sasuke/production/uTilt_v03_head_edit_attempts.md) | v03 attempts | rejected technically; no candidate | Per user decision via Claude relay combat #9, edited only the head of approved uTilt v01 toward the approved idle while preserving each pose. | All three changed 91.01–97.18% of the canvas, including background and non-head regions. None qualifies as a head-only edit. Attempts are preserved in `_qa_hold`; no `raw/uTilt_v03.png`, manifest increment, or atlas update. Approved v01 remains technically held; stand-in stays active pending the user's next decision. |
 
-## 2026-10-18 — Sasuke dTilt v05 — needs review
+## 2026-10-18 — Sasuke dTilt v05 — approved by user
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
-| 2026-10-18 | sasuke | dTilt | [dTilt_v05](characters/sasuke/raw/dTilt_v05.png) · [ENG-112 page](../public/reviews/normals-sasuke/) | v05 | approved | User approved v05 as drawn via Claude relay combat #13 after reviewing the packed sheet cells 181–186. | Measured auto-head fit x0.8511, head 1.18 and feet 1.48 before fit; default quantized pack passes (1 ref, 38 ok, 10 manual). Astra visual anatomy/contact PASS; B=.73 remains a quantitative advisory and runtime hit landing is unverified. [Packed loop](../public/reviews/normals-sasuke/dTilt_loop_v05.gif) · [body sheet](../public/reviews/normals-sasuke/body/dTilt_v05.png) · [Astra audit](characters/sasuke/production/dTilt-v05-astra-audit.md). |
+| 2026-10-18 | sasuke | dTilt | [dTilt_v05](characters/sasuke/raw/dTilt_v05.png) · [ENG-112 page](../public/reviews/normals-sasuke/) | v05 | approved | Approved by the user via Claude relay combat #13: “Approve dTilt v05”. | Measured auto-head fit x0.8511, head 1.18 and feet 1.48 before fit; default quantized pack passes (1 ref, 38 ok, 10 manual). Astra visual anatomy/contact PASS; B=.73 remains a quantitative advisory and runtime hit landing is unverified. [Packed loop](../public/reviews/normals-sasuke/dTilt_loop_v05.gif) · [body sheet](../public/reviews/normals-sasuke/body/dTilt_v05.png) · [Astra audit](characters/sasuke/production/dTilt-v05-astra-audit.md). |
 
 ## Goku/Luffy full core approval via Claude relay #14 (2026-10-16)
 
