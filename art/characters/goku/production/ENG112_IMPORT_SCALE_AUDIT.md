@@ -33,6 +33,6 @@ The atlas report records the source-divider cleanup and offset repairs. dSmash v
 
 ## Remaining work and boundaries
 
-- Seven passes are recorded version-bound in `art/manifest.json`. User image approval is still pending for all ten.
+- Seven passes are recorded version-bound in `art/manifest.json`; the user approved those seven drawings as drawn via Claude relay combat #40, quote “fTilt v01, dTilt v01, dashAttack v01, fSmash v01 / fair v01, bair v01, uair v01”. uTilt v01, uSmash v01 and dSmash v02 are not approved and remain subject to the separate pending decision.
 - uTilt v01, uSmash v01 and dSmash v02 remain on technical hold pending the user's separate relay #54 decision. Their previous candidate versions and attempts remain preserved.
 - A strict scale-gate result, contact/hurtbox review, timing and runtime/gameplay checks are not claimed by this audit.

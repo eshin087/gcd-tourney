@@ -15,6 +15,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+
+- Changed (ENG-112 Goku, relay combat #40): recorded the user's approval via Claude of fTilt v01, dTilt v01, dashAttack v01, fSmash v01, fair v01, bair v01 and uair v01. Their scale QA records remain technical findings; the three held moves are not approved.
 - Changed (ENG-112 Goku, relay combat #39): applied Astra's clarified visual scale bar to the exact 48-color diagnostic atlas; recorded version-bound scaleManualQA passes for fTilt, dTilt, dashAttack, fSmash, fair, bair and uair, with uncertainty. uTilt/uSmash remain undersized holds and dSmash remains an upper-body-volume hold. No drawing approval or strict-gate pass is implied.
 
 
