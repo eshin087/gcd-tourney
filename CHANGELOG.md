@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed (ENG-114, ADR 0036): a rollback across the start of a beam clash no longer crashes the match (`Hud.clashBeat` read a rhythm ring it never built: the restored clash is a copy, and one the re-simulated frames start never shows its `clashStart`). The HUD now rebuilds the rings, colors and judges when the clash differs from the one they were drawn for; the simulation and its hashes are unchanged.
 - Fixed (ENG-113, ADR 0042 amended): the DBFZ air combos are back. In a juggle off a launcher, spike, bounce, super dash or the air string, Light is the air string again whatever direction you hold (↓ + Light the spike), so following the launcher with the stick held toward them no longer cuts the string to one forward air; the CPUs stop ending those juggles with an up air that landed the victim on their feet. The directional aerials stay for the open air and after a light pop, and the C-stick still picks them. Also fixed: a vanish started right after an air string's juggle tracking stepped the fighter toward a victim pinned on the barrier could leave them a hair past it for the vanish (a soak ring violation).
 - Changed (ART-SIZE-R7): archived the Codex audit worktree after PR #153 merged the independent table; no redraws or image calls were needed.
 
