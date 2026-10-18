@@ -1,3 +1,4 @@
+- Changed (ART-SKL-SAS): via user approval relayed by Claude #17, recorded `chidori` v01 and `special` v14 as visually approved. Relay #18 later directed v14 into `_qa_hold/` and approved v13 to remain active pending the v15 review; Chidori HD integration and raw layout/palette caveats remain.
 - Changed (ART-SKL-SAS): batch 3 candidates filed: beamFire v08 and Great Fireball/Kirin effects v01. Six VFX await user visual review; kirinStrike has a clipping report. beamFire remains technically held because strict scale fails after auto-head fit; no quantized atlas, body sheet or final Astra atlas audit is available.
 # Changelog
 
@@ -15,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 - Changed (ENG-SKL-SAS, ADR 0047): Sasuke's techniques look like the anime (user 2026-10-18). Chidori: it forms in his gripped hand, the hand dragged through the run tears a trench, contact shows the stab and the lightning pierces through them instead of the white-out. Chidori Spear: a blade grows out of his hand along the shot. Great Fireball: a rolling sphere turned along its flight with its own fire blast. Lion's Barrage: on a hit he follows them up from behind, three air blows, then carries them into the floor with the heel drop. Sharingan counter: Chidori Current and an afterimage. Kirin: a fireball into the sky, storm clouds over the spot (the stage dims, the camera tips up), the lightning dragon dives on it. Amaterasu: black flames burst on them and cling while the body burns black, no white flash. 13 HD effect names; procedural stand-ins until Codex's art is approved. Determinism fixtures re-recorded.
 - Fixed (ART-SKL-SAS): the packer keeps a manifest effect's `hd` and `tile` flags, so a new HD effect packs on the 256 px page.
 - Changed (ART-SKL-SAS): batch 1 has four HD effect source candidates queued for user review; `special` v14 and `chidori` remain technical holds. Candidate frame splitting is documented with source sidecars; HD atlas packing remains blocked by the packer dropping the manifest `hd` flag, and Chidori Spear has one clipped frame. No images are approved.
+- Changed (ART-SKL-SAS): recorded relay #18 and generated Sasuke special v15 using the final authorized call (4/4 cumulative). v14 is quarantined and approved v13 remains active pending v15 approval. v15 remains on technical HOLD after strict pack failure for split boundaries, scale mismatch and clipping; no v15 body measurement or Astra atlas audit is claimed.
+
 - Changed (ART-SKL-SAS): via user approval relayed by Claude #16, restored and recorded Amaterasu v01 and AmaterasuIgnite v01 as approved HD candidates with no pixel cleanup; Claude's trial pack split their grids and keyed/quantized near-magenta. Amaterasu uses fill 0.9 to keep its tallest tips in bounds. Codex is proceeding to batch 3.
 - Changed (ART-SKL-SAS): relay #15 authorized Sasuke `special` attempt 3 as v14 for pack/body/Astra review and a fresh 3-call A1 `chidori` budget. `special` v14 remains on technical HOLD; the fresh `chidori` v01 is queued for user review with source-layout and HD-packing caveats.
 - Changed (ART-SKL-SAS): batch 2 Amaterasu attempts exhausted the three-call budgets; all saved versions are quarantined on technical hold for layout/background/palette failures. A no-call pixel cleanup versus leaving the two effects held is pending the user decision.
@@ -901,6 +904,8 @@ Reconstructed from the codebase when the changelog was introduced.
 - Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
 
 - ART-SCALE-R4-KIL: added hash-verified source-to-fit calibration handoff for Killua idle11, guard09, superDash08, stagger07 and win05; no art, fit data, packer or shipped atlas changed.
+
+
 
 
 

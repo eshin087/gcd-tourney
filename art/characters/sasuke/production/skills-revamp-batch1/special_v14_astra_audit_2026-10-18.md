@@ -56,3 +56,8 @@ Every inspected cell is 256x256 and its lowest occupied row is 240, but that doe
 ## Required disposition
 
 Keep v14 on technical hold. Preserve source and all history. Claude/tooling review must first resolve splitting, placement and clipping without silently scaling crouches to standing height, then produce a strict accepted 48-color candidate atlas and fresh body/head evidence tied to v14 and the approved idle. Astra must recheck every final atlas frame, full limb/torso/footwear geometry, contact and recovery transition. Any image repair remains subject to the cumulative 3/3 generation budget and scoped user authorization. A technical pass, if achieved later, still requires separate user art approval.
+
+
+## User visual approval (2026-10-18, relay skills #17)
+
+The user approved special v14 as drawn, explicitly keeping the head and clothing fullness, and asked Claude to fix the frame split. This is a visual design decision only. All technical findings above remain: no valid quantized atlas/body measurement, clipped frames, missing thrust hands, and Astra hold. Do not reinterpret the approval as a scale or shipping pass.
