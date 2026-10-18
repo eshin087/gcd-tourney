@@ -11,7 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- ART-SIZE-R6: re-assembled Sasuke beamStruggle as v04 at bodyHeight152 with no image call; Claude's crown-to-chin and sash-band landmarks now match idle within ~2 px, with per-frame head-probe exemptions for sleeve overlap. User art approval pending; v01 remains approved. The 230-strip/six-fighter candidate screen and remaining two-landmark checks continue; no camera or engine change.
+- ART-SIZE-R6: corrected Sasuke beamStruggle v04 to bodyHeight134 from Claude relay #5 template-match readings; the old 152 calibration was withdrawn. Tested Gojo heavy at 1.08x, but the 4px top margin capped it at 237, so Gojo remains unchanged at approved v05. Sasuke v04 is ready for user review; no camera or engine change.
 
 - Added: `node tools/relay.mjs desk on|off`, the user's switch for the approvals desk (OPS-018, ADR 0040). While it is off, each chat asks the user itself instead of queueing everything for `0 - Approvals`.
 - Added: Round 2b Goku and Luffy super/ultimate image candidates, call/hash ledger, Astra audit and candidate review gallery (ART-SUPER-ART). All eight approved via Claude relay effects #10 despite recorded Astra palette/crop/anatomy holds; approved fixed copies and fitted packer outputs were added.
