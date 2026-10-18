@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: the determinism fixtures are re-recorded after Gojo's Smash moves (fingerprint 02e3e1d09ed4); both replay frame for frame.
+
 - Changed: the determinism fixtures are re-recorded after Killua's last three Smash moves (fingerprint 7b0732ad1069); both replay frame for frame.
 
 - Changed (ENG-112 Killua R2, relay #28): restored the user-approved uTilt v03, uSmash v02 and uair v02 drawings to the whole-character pack with measured, version-bound importer fits; recorded the accepted uair body-volume advisory, Astra's final fitted-atlas inspection and rebuilt packed review crops. Claude contact check remains.
