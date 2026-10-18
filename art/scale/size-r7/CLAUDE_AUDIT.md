@@ -43,15 +43,18 @@ was itself drawn large: about 217 px for 172 cm (1.26 px/cm). Both pack at `pack
 | Luffy | land | x1.085 | 0.91 / 0.91 / 0.93 |
 | Luffy | light4 | x1.075 | 0.92 / 0.91 / 0.94 |
 | Luffy | beamCharge | x1.07 | 0.91 / 0.91 / 0.96 |
-| Killua | beamStruggleAir | x1.10 | 0.90 / 0.90 / 0.91 |
-| Gojo | beamCharge | x0.925 | 1.07 / 1.09 / (1.14 with the effect) |
 | Gojo | heavy | x1.05 (cell caps it at about x1.04) | 0.95 / 0.95 / 0.95; round 6 read 0.90-0.94 |
 
 The packer's automatic head fit keeps a strip's own packScale (it was fitting it away). `--keep-palette` keeps each
 fighter's palette and colour choices, so every other strip is byte for byte the same as before (verified for Killua and
-Gojo, whose only changed strips are the ones above).
+Gojo: Killua is unchanged, Gojo's only changed strip is heavy).
 
 ## Held (no change)
+
+- **Measures disagree with the packer's colour head probe:** Killua beamStruggleAir (head templates 0.90/0.90, body area
+  0.91; the probe read 1.00 before and 1.11 after a x1.10 resize) and Gojo beamCharge (head templates 1.07/1.09; probe
+  1.00 before, 0.93 after x0.925). The gate refused both resizes and nothing visibly hides the head, so no exemption is
+  justified: left as they ship.
 
 - **Within measurement error (about 5 %):** Goku run (1.05 median) and airLight1, Luffy run and light1, Sasuke jumpFall,
   beamStruggleAir and airLight3 (head and area disagree), Gojo light1 (landmarks 0.96-0.97), Killua beamStruggle.

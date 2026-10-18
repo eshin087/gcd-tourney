@@ -468,7 +468,7 @@
         "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 179.597423510467, "ms": [90, 90, 120, 100], "required": false, "step": 9, "status": "approved", "version": 7, "approvedVersion": 7 },
         "superPose": { "frames": 4, "loop": true, "bodyHeight": 186, "ms": [120, 120, 120, 120], "required": false, "step": 9, "status": "approved", "version": 8, "approvedVersion": 8 },
         "beamStruggle": { "frames": 3, "loop": true, "bodyHeight": 123, "ms": [70, 70, 70], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "beamStruggleAir": { "packScale": 1.1, "_packScale": "ART-SIZE-R7 2026-10-18: drawn about 10 % smaller than killua's other strips (median of independent measures vs the fighter's consensus: head templates 0.90/0.90, body area 0.91); resized, drawing unchanged", "scaleManualQA": {"version":2,"result":"pass","by":"Claude (ART-SIZE-R7)","note":"Packed x1.10: head templates 0.90/0.90 and body area 0.91 of Killua's other strips before the resize, matching the idle by eye after it. The colour head probe reads 1.11 (feet 1.24) after the resize and about 1.0 before: it misreads this outstretched airborne pose. Scale only; drawing approval unchanged.","evidence":"art/scale/size-r7/CLAUDE_AUDIT.md"}, "frames": 3, "loop": true, "bodyHeight": 118, "ms": [70, 70, 70], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
+        "beamStruggleAir": { "frames": 3, "loop": true, "bodyHeight": 118, "ms": [70, 70, 70], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2 },
         "light1Alt": { "altOf": "light1", "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 151, "ms": [30, 30, 40, 50, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "light2Alt": { "altOf": "light2", "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 160, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "light3Alt": { "altOf": "light3", "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 171, "ms": [40, 35, 45, 60, 60, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
@@ -1084,9 +1084,6 @@
           "approvedVersion": 5
         },
         "beamCharge": {
-          "packScale": 0.925,
-          "_packScale": "ART-SIZE-R7 2026-10-18: drawn about 8 % larger than gojo's other strips (median of independent measures vs the fighter's consensus: head templates 1.07/1.09 (body area 1.14 includes the effect)); resized, drawing unchanged",
-          "scaleManualQA": {"version":3,"result":"pass","by":"Claude (ART-SIZE-R7)","note":"Packed x0.925: head templates 1.07/1.09 of Gojo's other strips before the resize, matching the idle by eye after it. The colour head probe reads 0.93 after the resize and 1.00 before: the raised hands and their glow sit on his hair. Scale only; drawing approval unchanged.","evidence":"art/scale/size-r7/CLAUDE_AUDIT.md"},
           "frames": 3,
           "loop": true,
           "bodyHeight": 221,

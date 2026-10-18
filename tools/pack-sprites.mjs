@@ -2234,6 +2234,7 @@ function packCharacter(id, env) {
       if (def.packScale !== 1) R.notes.push(`${alabel}: packScale x${def.packScale} (this strip, ADR 0041)`);
       let bodyHeight = Math.round((Number(side.bodyHeight) > 0 ? Number(side.bodyHeight) : def.bodyHeight) * stripScale);
       let tooTall = null;
+      const asked = bodyHeight;
       if (!(bodyHeight >= 8 && bodyHeight <= maxBody)) {
         const fixed = Math.min(maxBody, Math.max(8, bodyHeight || DEFAULT_BODY_HEIGHT));
         tooTall = `${alabel}: bodyHeight ${bodyHeight} does not fit the ${spec.frameHeight}px cell (8-${maxBody}px: floor line y ${spec.pivot[1]}, ${spec.cellMargin}px top margin) - using ${fixed}`;
@@ -2319,7 +2320,9 @@ function packCharacter(id, env) {
       // fit: what the auto head fit needs to rescale a raw strip after the scale audit (raw sources only)
       const fit = fitHead && src.kind === 'raw' ? { sprites, scales: frameScales.slice(), frameOffsets, wallFrames, placeWarn } : null;
       if (fitHead && src.kind !== 'raw' && autoHead == null) notes.push('auto-head fit needs the raw source (frames/ were hand-edited or the raw is gone) - not fitted');
-      anims.push({ def, cells, scale, frameScales, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade, fitHead, autoHead, fit });
+      // what the strip was really resized by: a bodyHeight capped by the cell scales its hitboxes.json points less too
+      const sizeFit = stripScale * (asked > 0 ? bodyHeight / asked : 1);
+      anims.push({ def, cells, scale, frameScales, sizeFit, sourceLabel, src, notes, bodyHeight, origin, version, edited, handMade, fitHead, autoHead, fit });
     } catch (e) {
       warn(`${alabel}: failed - ${e.message}`);
       R.missing.push(def.name);
@@ -2432,7 +2435,7 @@ function packCharacter(id, env) {
     });
   }
   if (big.length) warn(`large auto hitbox (> 40% of the body) on ${big.join(', ')} - check in the Sprite Lab, add hitboxes.json overrides if needed`);
-  const fits = new Map(anims.map((a) => [a.def.name, (a.autoHead ?? 1) * packScale * a.def.packScale]).filter(([, f]) => f !== 1));
+  const fits = new Map(anims.map((a) => [a.def.name, (a.autoHead ?? 1) * (a.sizeFit ?? 1)]).filter(([, f]) => Math.abs(f - 1) > 1e-6));
   const overridden = new Set(); // frames whose hit box hitboxes.json replaced
   const ov = applyOverrides(path.join(charDir, 'hitboxes.json'), packed, meta.boxes, warn, label, fits, spec.pivot, R.notes, overridden);
   if (ov) R.notes.push(`${ov} hitbox override(s) from hitboxes.json`);
