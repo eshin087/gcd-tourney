@@ -124,10 +124,10 @@ Do, per fighter (Luna/medium for generation; Astra/medium final audit, per CLAUD
   measurement is wrong (the head hidden behind a raised arm), record a version-bound `scaleManualQA` with Astra's
   evidence; where the figure really is off, fix the import (measured re-stitch or the auto head fit) without changing the
   drawing. The user accepted these drawings as drawn: a redraw would need the user again, so ring before any redraw.
-- [x] **B3. dTilt.** (2026-10-18: user selected low-kick attempt 3 as dTilt v05 for packing via relay #12; actual quantized candidate and Astra audit are on the branch; awaiting the user's image approval.) The newest raw is v01, not accepted (v02 is in `_rejected/`). The retry round replaces it; if no dTilt is accepted in the end, move the remaining candidates to `raw/_qa_hold/` so the guard passes and the stand-in stays.
+- [x] **B3. dTilt.** (2026-10-18: user approved dTilt v05 as drawn via Claude relay combat #13 after reviewing packed cells 181–186. Relay #10 authorized one new kick-specific round; attempt 03 was selected byte-identically as raw v06. Its quantized scale gate fails (auto-head fit .68 outside .75–1.33; clamp still leaves the figure oversized and clips active frames), so no v06 atlas or final Astra audit exists. The raw drawing is shown on the branch review page with the technical hold disclosed; v05 remains the approved drawing, v06 review is separate.) Earlier relay #12 selected v05 from a previous round; it was not image approval. v02 remains in `_rejected/`.
 - [ ] Then ring `combat` (not for the user) with the commit: Claude reruns the guard, checks contact in play and merges.
 
-Progress (tick per fighter): - [ ] sasuke (dTilt v05 awaiting user review; uTilt remains held with stand-in) - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
+Progress (tick per fighter): - [ ] sasuke (dTilt v05 approved; v06 drawing review under technical hold; uTilt next) - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
 
 Rules: edit only art/characters/<id>/** (raw/, ANIMATIONS.md, hitboxes.json, CLAUDE_ART_HANDOFF.md),
 public/characters/<id>/** via the packer, public/reviews/normals-<id>/**, the <id> block of art/manifest.json, the
