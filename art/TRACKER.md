@@ -1,3 +1,5 @@
+Naruto Four-Tails beam round 2 (2026-10-18): beamFire v15 is a new mouth-fired fox strip (3/3 calls), superseding the earlier approved pounce v14 for this ultimate; beastBall v01 and beastBeamRing v01 are proposed HD effect strips awaiting Claude packer support. beamCharge v17 and fourTailsRoar v02 remain pending review; latest charge is v17 (v12 preserved in history). Gallery: [round 2](../public/reviews/naruto-skills-round2/index.html); candidate status only, no pack or in-game QA.
+
 > 2026-10-11 title-style pilot: Naruto, Sasuke, Killua and Gojo title_style_draft v01 and both lineups **approved**; they are the scale and anatomy baseline ([contract](scale/title-style-pilot/PRODUCTION_CONTRACT.md), ADR 0029). Production strips on PR69-72 are separate candidates.
 
 # Art tracker

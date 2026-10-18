@@ -1,5 +1,15 @@
 # Art review queue
 
+## Naruto skills round 2: Four-Tails beam (2026-10-18)
+
+The user changed the ultimate to the Four-Tails fox firing a beam from its mouth (relay skills #5). v14 remains preserved with its historical approval and sidecar, but is superseded and will not ship as `beamFire`. New drawing candidates are unapproved. The effects are proposed under `art/vfx/raw/_proposed/` until Claude lands packer support; therefore no manifest entry or packed claim is made yet. The beam charge shown below is the branch's latest seam-repaired v17; v12 remains preserved in history. Review gallery: [round 2 candidate set](../public/reviews/naruto-skills-round2/index.html).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | naruto | beamFire | [v15](characters/naruto/raw/beamFire_v15.png) · [round 2 gallery](../public/reviews/naruto-skills-round2/index.html) · [provenance](characters/naruto/production/skills-revamp-round2-provenance.md) | v15 | needs review | Three-frame looping Four-Tails fox firing from its mouth; no beam artwork in the strip (engine supplies beam). | Four distinct tails visible in all three frames. 3/3 image calls used (one first output path was not captured; attempt 2 retained as edit source, attempt 3 selected). Strip fitted into three 256px cells; no packer/atlas/contact check yet. |
+| 2026-10-18 | vfx | beastBall | [proposed v01](vfx/raw/_proposed/naruto_beastBall_v01.png) · [contact sheet](../public/reviews/naruto-skills-round2/media/beastBall_contact.png) · [round 2 gallery](../public/reviews/naruto-skills-round2/index.html) | v01 | needs review | Eight-frame dark red-black chakra sphere with red and blue orbs orbiting. | Proposed HD candidate; no engine packer support or in-game test yet. Grid cropped into eight centered 256px cells and a one-row strip; original generation retained outside repo with hash/provenance. |
+| 2026-10-18 | vfx | beastBeamRing | [proposed v01](vfx/raw/_proposed/naruto_beastBeamRing_v01.png) · [contact sheet](../public/reviews/naruto-skills-round2/media/beastBeamRing_contact.png) · [round 2 gallery](../public/reviews/naruto-skills-round2/index.html) | v01 | needs review | Six-frame white-hot elliptical shock ring with orange-red edge, growing then thinning. | Proposed HD candidate; 60/120/230/215/145/60px frame heights, centered in 256px cells; no packer support or in-game test yet. |
+
 ## Goku/Luffy full core approval via Claude relay #14 (2026-10-16)
 
 The user's exact answer was **"Approve all 16 Goku strips and all 19 Luffy strips as drawn."** Every version below is approved by the user via Claude. Earlier approvals remain in force, so the two complete core sets now have user drawing approval. The source versions and branch manifests are on unmerged PRs #123 / #96. No new image calls, source changes, merge or production deployment are implied.
@@ -7,7 +17,7 @@ The user's exact answer was **"Approve all 16 Goku strips and all 19 Luffy strip
 Reviewed pages: [Goku full core set](https://gcd-tourney-le661omg1-eshin087s-projects.vercel.app/characters/goku/core-review-final/index.html) and [Luffy full core set](https://gcd-tourney-el0gxmsi5-eshin087s-projects.vercel.app/characters/luffy/final-core-review/index.html). Final Astra r5/r6 anatomy audits and measurement uncertainty remain applicable to the unchanged atlases. Known runtime/contact/grounding and placement warnings remain Claude's integration checks.
 
 ## Naruto skills batch 1 approval via Claude relay skills #4 (2026-10-18)
-The user approved beamFire v14 with its placement sidecar and ui_ult_fg v04: “Approve beamFire v14 (with its sidecar) and ui_ult_fg v04. Don't approve beamCharge v11 or fourTailsRoar v01 yet: clean the tail seams in beamCharge f0/f2 and keep the roar burst round, as edits with no new image calls, then show me those two again.” beamCharge v17 and fourTailsRoar v02 remain unapproved and await review. No new image calls were made.
+The user approved beamFire v14 with its placement sidecar and ui_ult_fg v04 via Claude relay skills #4. That approval of the pounce is historical: v14 is now superseded for the ultimate by the round-2 mouth-beam direction; ui_ult_fg v04 remains approved. The user said: “Approve beamFire v14 (with its sidecar) and ui_ult_fg v04. Don't approve beamCharge v11 or fourTailsRoar v01 yet: clean the tail seams in beamCharge f0/f2 and keep the roar burst round, as edits with no new image calls, then show me those two again.” beamCharge v17 and fourTailsRoar v02 remain unapproved and await review. No new image calls were made.
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|

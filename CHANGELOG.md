@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-NAR): prepared Four-Tails mouth-beam art candidates for round 2: beamFire v15 plus proposed HD beastBall and beastBeamRing v01; v14 pounce approval is superseded for the ultimate. Visual review is pending, the new effects await Claude packer support, and no in-game validation is claimed.
+
 - Changed (ART-NAR-SKILLS-B1): recorded the user approval of beamFire v14 + sidecar and ui_ult_fg v04 via Claude relay skills #4; promoted the approved UI source. beamCharge v17 and fourTailsRoar v02 remain unapproved candidates for review.
 - Changed (ART-NAR-SKILLS-B1): edited beamCharge v17 to clean the f0/f2 tail joins with no image call; fourTailsRoar v02 keeps the 236px circular mask, with all eight packed frames inside a 117.99px radius.
 - Changed (ENG-102): faster first load. The title shows after ~0.5 MB (title art and fighter metadata) instead of all 31.5 MB of art; fighters, crowd, stage and effects load in parallel behind it, and a fight waits for them on the loading screen. Art is requested by its plain URL (ETag revalidation) instead of `?v=<now>`, so a repeat visit downloads ~30 kB instead of 31 MB. A real loading bar (byte-weighted, title art and logo behind it) replaces "BAKING FIGHTERS...", and portrait phones see the logo and title art above a smaller rotate hint (ADR 0043).
