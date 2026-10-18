@@ -129,6 +129,20 @@ Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`
 
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
 
+**Correction to the answer below, after ring #2 (2026-10-17, handoff `18577741`).** Claude measured heads by
+scale-search template matching (idle f0's head crop resampled 0.5-1.4x, mirrored too, best normalized
+cross-correlation). Controls: Sasuke idle f3 0.98, combat cell 0.98, light1 1.02, beamFire 1.02, run 0.98.
+- Sasuke `beamStruggle`: **0.92, 0.86, 0.92** (f0-f2, ncc 0.67-0.73). It is about 10 % small, not 20 %: Claude's
+  hand-read 0.78 was wrong. Use **bodyHeight 134** (122 x 1.10) for v04, not 152 (that lands about 1.13). Keep the
+  sleeve `scaleExemptFrames` and record these numbers in `scaleManualQA`.
+- Gojo `heavy` v05: template 0.85-0.89, probe 0.89-0.94, by eye about 0.9: about 8-10 % small. Re-assemble at x1.08
+  only if every frame still fits the cell (crown at y >= 4); otherwise leave it and note "borderline, cell-limited".
+- Everything else stays; the screen is done. Finish: review page for beamStruggle v04 (and Gojo heavy if changed),
+  ring `art-camera --for user --kind approval`.
+- The Vercel browser check is not needed (ring #3): Claude checks the frames locally, so drop that request.
+- Before `pr open`: move the diagnostic sheets and pages (`art/scale/size-r6/all-strip-sheets/`, the coords PNGs,
+  about 90 MB) out of the branch into your scratch folder, keeping only the .md records (storage rule 3).
+
 **Claude's calibration answer to ring #1 (2026-10-17, handoff `65c74bb5`).** Read this before the older text below; it
 replaces the tier lists and the method in item 1.
 
