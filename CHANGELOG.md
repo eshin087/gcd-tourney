@@ -12,6 +12,14 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Recorded the user's relay #12 selection of Sasuke dTilt low-kick attempt 3 for v05 review, with measured x0.8511 auto-head import fit, full quantized pack and updated frame/loop review page; drawing approval remains pending.
+
+- Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
+- Recorded the exhausted authorized Sasuke dTilt v04 and uTilt head-only correction rounds; no compliant candidates were selected, and all dTilt outputs remain preserved for provenance.
+
+- Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
+
+- Changed (ENG-112): restored all Sasuke source raws in the art worktree and rebuilt a full 53-animation quantized diagnostic atlas for the approved-strip scale audit. Held dTilt v01 after the relay #6 three-call retry produced no exportable v04 candidate; the stand-in remains active.
 - Changed (ART-SKL-SAS): recorded via Claude relay skills #16 that the user approved Amaterasu v01 and AmaterasuIgnite v01 as drawn; restored both from quarantine with no pixel cleanup, added approved HD manifest entries (Amaterasu fill 0.9, Ignite 0.95), and updated the review gallery. Claude's trial pack splits each grid and keys/quantizes near-magenta; Claude owns in-game integration. Codex is proceeding with batch 3.
 
 - Updated (ART-SKL-SAS): recorded relay #15 authorization and prepared special v14 plus chidori v01 for review. Special v14 failed strict packing/body measurement and Astra holds it; chidori v01 used the fresh 3-call budget but fails raw layout/background/palette checks. Both are technical holds pending visual review at the PR #163 batch 1 preview.
@@ -906,3 +914,7 @@ Reconstructed from the codebase when the changelog was introduced.
 
 
 
+
+- Recorded relay #8's Sasuke dTilt low-kick retry authorization and dSmash stand-in direction. The capped dTilt v05 round produced only noncompliant painterly outputs; no new candidate was selected.
+
+- Recorded the failed authorized uTilt head-only image edit; the full canvas was repainted, so approved v01 remains held and no v02 candidate was selected.
