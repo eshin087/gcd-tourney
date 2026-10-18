@@ -32,6 +32,7 @@ when a batch is ready; Claude asks the user.
 - [ ] **1. Batch 1, the ultimate:** B1 `beamCharge` v09 and B2 `beamFire` v13 (the four-tailed shroud form at the
   title-style scale, fully engulfed, no human head), B3 `ui_ult_fg` v02 (the splash cutout, fully engulfed), A8
   `fourTailsRoar` v01. Review page, Astra audit for B1-B3, then ring.
+  **BLOCKED (2026-10-18):** candidate art and audit committed on `art/naruto-skills` (`72d137f7`, `2dca4a1b`), review page at `public/reviews/naruto-skills-batch1/`. Astra holds B1 v10 (packed tails 3/4/3, no head/scale pass), B2 v14 (f0/f1 claws clip; f2 reads as landing; no head/scale pass), and B3 v04 (four tails and fit verified, but red-on-red separation and anatomical calibration remain unresolved). All B1-B3 image-call budgets are 3/3. A8 v01 is filed but awaits Claude's HD effect-cell packing support. No image approval requested. Need Claude's technical next steps and user authorization for any new image-call round before resuming generation.
 - [ ] **2. Batch 2, the Rasengan and the clones:** A1 `rasengan`, A2 `rasenganForm`, A3 `rasenganBurst`, A6 `poof`,
   A7 `subLog` (all v01, HD cell). Review page, then ring.
 - [ ] **3. Batch 3, the Rasenshuriken:** A4 `rasenshuriken`, A5 `rasenshurikenDome` (v01, HD cell). Review page,
