@@ -205,3 +205,45 @@ pointed fox ears. This resolves the Astra hold on v01. The backdrop `ui_ult_bg_v
 Each ring names the versions, any holds and the review URL. Record each candidate in `art/REVIEW.md`, and the effect
 entries in `art/manifest.json` (`vfx.<name>`: frames, ms, colorRule, anchor, status, version) and `art/TRACKER.md`.
 Claude integrates each approved batch in game and shows the user an in-game preview.
+
+## 7. Round 2 (2026-10-18): the ultimate becomes the Four-Tails beam
+
+**The user's words (2026-10-18, in Claude, after trying the live build):** "naruto nine tails cloak get rid of the tail
+and just have the aura" · "clone barrage needs to be summoned 1 by 1 really quick with the poof smoke effect and have
+each clone rapidly attack with different attacks" · "narutos ultimate make him do the beam and have him look like the
+4 tail fox like this and have him do the beam from the anime like this", with two anime stills: the four-tailed fox
+standing in a crater with red and blue chakra bubbles gathering, and the fox firing a huge white-hot blast from its
+mouth with a ring of light around the blast's root. Local copies (git-ignored, never upload or commit):
+`art/characters/naruto/reference/source/four_tails_gather_user_ref.png` and `four_tails_beam_user_ref.png`.
+
+The cloak and the clone barrage are engine work (Claude). For the ultimate, Claude moves Naruto onto the shared beam
+ultimate (beamCharge = gathering the chakra, beamFire = firing from the mouth); the pounce and the claw slams are gone.
+
+**What this changes for the art:**
+
+- **B1 `beamCharge` v12** (v11 with the tail seams cleaned) stays: the roaring four-tails crouch is the gathering pose.
+  The engine puts the chakra ball at its open mouth.
+- **B2 `beamFire`: a new strip, v15** (the approved pounce v14 is superseded by the user's new direction and will not
+  ship as `beamFire`): the four-tailed fox **firing the beam from its mouth**, 3 frames that loop, facing screen-right.
+  f0: front claws planted wide and low, head thrust forward at chest height, jaws snapped wide open (the beam leaves
+  the mouth), tails raised and fanned behind. f1, f2: the same braced pose trembling with the recoil, 1-3 px, the tails
+  lashing to new shapes. Fully engulfed (no hair, skin, headband or clothes), four distinct tails in every frame, the
+  same body as B1 at the title-style scale, nothing outside the body outline (the engine draws the beam, the ball and
+  the rings). Match the user's first still for the look: red-brown body with darker hatched texture, a bright
+  orange-red outline, glowing white eyes and mouth. Budget: 3 calls (a new strip).
+- **New HD effects (256 px cell, full color):**
+
+| # | Name | Frames | ms | Plays | Anchor | fill | Used for |
+|---|---|---|---|---|---|---|---|
+| A9 | `beastBall` | 8 | 45 | loop | center | 0.5 | the chakra ball gathering at his mouth during the charge |
+| A10 | `beastBeamRing` | 6 | 40 | once | center | 0.95 | the shock ring around the root of the beam, sent down the beam while it fires |
+
+  **A9 `beastBall`:** a sphere about 120 px across: a black-red core with red and blue chakra orbs spiraling into it
+  (the user's first still), a crackling dark-red rim, small red and blue droplets orbiting. The orbs move about 1/8 turn
+  per frame so f7 flows into f0. **A10 `beastBeamRing`:** the ring of light around the beam's root in the user's second
+  still, seen almost edge-on: a tall thin ellipse (about 4 to 1), white-hot with an orange-red outer glow. f0 about 60 px
+  tall, growing to about 230 px tall by f3, then thinning and fading through f5.
+- `ui_ult_fg` v04 (approved) and `fourTailsRoar` v02 stay (the roar when the transformation completes).
+
+Order: B1 v12 and A8 v02 (already in progress) → B2 v15 + A9 + A10 → batches 2-3. One review page per batch, ring
+`skills --for user --kind approval`.

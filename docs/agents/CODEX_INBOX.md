@@ -35,6 +35,12 @@ when a batch is ready; Claude asks the user.
 - [ ] **3. Batch 3, the Rasenshuriken:** A4 `rasenshuriken`, A5 `rasenshurikenDome` (v01, HD cell). Review page,
   then ring.
 
+- [ ] **4. Round 2 (2026-10-18, the user's new direction): the ultimate is the Four-Tails beam.** Read
+  [SKILLS_REVAMP.md section 7](../../art/characters/naruto/SKILLS_REVAMP.md#7-round-2-2026-10-18-the-ultimate-becomes-the-four-tails-beam):
+  a new `beamFire` v15 (the fox firing from its mouth; the approved pounce v14 will not ship as beamFire), new HD
+  effects `beastBall` and `beastBeamRing`; beamCharge v12 and fourTailsRoar v02 continue as the gathering pose and
+  the transformation roar. The user's two reference stills are in the git-ignored `reference/source/` folder.
+
 Do not edit `src/` or `tools/`. Claude tells you on this lane when candidate packing works for the new effect names.
 
 ## Size audit, round 7: every frame of all six fighters (2026-10-18, Claude) - chat "1 - Art audit", relay lane `art-audit`
