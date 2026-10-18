@@ -90,15 +90,15 @@ const FRAG = /* glsl */ `
 
 export class AuraShell {
   // Lives as a child of the body mesh: it inherits the billboard, the facing flip and any per-frame scale, and
-  // shares the body's uvRect uniform, so it always outlines the frame on screen with no per-frame sync.
+  // shares the body's uvRect and sheet page uniforms, so it always outlines the frame on screen with no per-frame sync.
   constructor(actor) {
     const m = actor.asset.meta;
     this.ppu = m.pixelsPerUnit;
     this.mat = new THREE.ShaderMaterial({
       uniforms: {
-        map: { value: actor.asset.texture },
+        map: actor.mat.uniforms.map, // the body's page (SpriteActor.usePage) and its texel size, shared
         uvRect: actor.mat.uniforms.uvRect,
-        texel: { value: new THREE.Vector2(1 / actor.asset.W, 1 / actor.asset.H) },
+        texel: actor.texel,
         radius: { value: 4 },
         lift: { value: 0.6 },
         noise: { value: 0.8 },
@@ -238,9 +238,9 @@ export class ChakraShroud {
     const m = actor.asset.meta;
     this.ppu = m.pixelsPerUnit;
     const shared = {
-      map: { value: actor.asset.texture },
+      map: actor.mat.uniforms.map, // the body's page and texel size, shared like uvRect (SpriteActor.usePage)
       uvRect: actor.mat.uniforms.uvRect,
-      texel: { value: new THREE.Vector2(1 / actor.asset.W, 1 / actor.asset.H) },
+      texel: actor.texel,
       grain: { value: Math.max(1, Math.round(this.ppu / 44)) },
       time: { value: 0 },
     };

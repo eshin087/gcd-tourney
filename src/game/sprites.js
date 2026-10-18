@@ -5,6 +5,7 @@ import { bakeCharacter } from '../art/rig/baker.js';
 import { RING_TOP, RING_HALF, SPRITE_DEPTH_COMP, SPRITE_DEPTH_CLAMP } from './constants.js';
 import { AuraShell, ChakraShroud } from './auraShell.js';
 import { phaseFrame } from './animPhase.js';
+import { sheetFiles, pageFrames, frameCell } from '../art/sheetPages.js';
 
 // Missing animations in a custom sheet fall back to something sensible.
 export const FALLBACK = {
@@ -69,21 +70,45 @@ export async function loadImage(url) {
 }
 
 export class SheetAsset {
+  // image: the sheet, or its pages in order (anims.json `pages`, src/art/sheetPages.js): one texture per page.
+  // image / texture / W / H are the first page's.
   constructor(image, meta, source) {
     this.meta = meta;
     this.source = source;
-    this.image = image;
-    const tex = new THREE.Texture(image);
-    tex.magFilter = THREE.NearestFilter;
-    // hi-res sheets are often drawn slightly smaller than 1:1; linear minification avoids pixel shimmer
-    tex.minFilter = meta.pixelsPerUnit >= 70 ? THREE.LinearFilter : THREE.NearestFilter;
-    tex.generateMipmaps = false;
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.needsUpdate = true;
-    this.texture = tex;
-    this.W = image.width;
-    this.H = image.height;
+    this.images = Array.isArray(image) ? image : [image];
+    this.image = this.images[0];
+    this.textures = this.images.map((img) => {
+      const tex = new THREE.Texture(img);
+      tex.magFilter = THREE.NearestFilter;
+      // hi-res sheets are often drawn slightly smaller than 1:1; linear minification avoids pixel shimmer
+      tex.minFilter = meta.pixelsPerUnit >= 70 ? THREE.LinearFilter : THREE.NearestFilter;
+      tex.generateMipmaps = false;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.needsUpdate = true;
+      return tex;
+    });
+    this.texture = this.textures[0];
+    this.W = this.image.width;
+    this.H = this.image.height;
     this.cols = meta.columns || Math.floor(this.W / meta.frameWidth);
+  }
+
+  // The page a frame is drawn from (always 0 on a one-page sheet).
+  page(frame) {
+    const per = pageFrames(this.meta);
+    return per ? Math.floor(frame / per) : 0;
+  }
+
+  // A frame's cell for a 2D canvas (the HUD portrait crop, the select screen): its page image and top-left pixel.
+  cell(frame) {
+    const at = frameCell(this.meta, frame, this.cols);
+    return { image: this.images[at.page] ?? this.image, x: at.x, y: at.y };
+  }
+
+  // Uploads every page to the GPU now (match start): a page first drawn mid-fight would stall that frame on a
+  // 4096 px upload. Pages already uploaded cost nothing.
+  prepare(renderer) {
+    if (renderer?.initTexture) for (const t of this.textures) renderer.initTexture(t);
   }
 
   // The sheet has this strip itself (not through FALLBACK): optional poses such as the tech strips switch on with it.
@@ -175,13 +200,31 @@ export class SheetAsset {
     return out;
   }
 
+  // A frame's rectangle in its page's texture (SheetAsset.page says which).
   uv(frame, out) {
     const { frameWidth: fw, frameHeight: fh } = this.meta;
-    const c = frame % this.cols, r = Math.floor(frame / this.cols);
+    const at = frameCell(this.meta, frame, this.cols);
+    const { width: W, height: H } = this.images[at.page] ?? this.image;
     const e = 0.02;
-    out.set((c * fw + e) / this.W, 1 - ((r + 1) * fh - e) / this.H, ((c + 1) * fw - e) / this.W, 1 - (r * fh + e) / this.H);
+    out.set((at.x + e) / W, 1 - (at.y + fh - e) / H, (at.x + fw - e) / W, 1 - (at.y + e) / H);
     return out;
   }
+}
+
+// Why a pack's sheet pages cannot draw its frames (a page did not load, or a frame's cell lies outside its page), or
+// null when they can. Either way the fighter falls back to the placeholder instead of drawing another frame's pixels.
+// Exported for the packer test (tools/test-pack-sprites.mjs).
+export function sheetProblem(meta, files, pages) {
+  const k = pages.findIndex((p) => !p);
+  if (k >= 0) return `anims.json found but ${files[k]} is missing`;
+  const cols = meta.columns || Math.floor(pages[0].width / meta.frameWidth);
+  for (const a of Object.values(meta.animations)) {
+    for (const f of a?.frames || []) {
+      const at = frameCell(meta, f, cols), pg = pages[at.page];
+      if (!pg || at.x + meta.frameWidth > pg.width || at.y + meta.frameHeight > pg.height) return `frame ${f} lies outside ${files[at.page] ?? `sheet page ${at.page + 1}`} (anims.json and the sheet do not match)`;
+    }
+  }
+  return null;
 }
 
 // A fighter's packed anims.json (null without a pack), fetched once: the boot reads every fighter's pixel density to
@@ -214,15 +257,17 @@ export async function loadFighterAsset(def, renderer = null) {
         if (!meta.animations?.idle?.frames?.length) {
           console.info(`[sprites] ${def.id}: art pack has no idle yet, using the placeholder`);
         } else if (meta.complete || ART_MODE === 'custom') {
-          // the sheet and the UI layers download side by side (one after the other cost ~0.5 s per fighter)
-          const [img, layers] = await Promise.all([loadImage(artUrl(`${base}sheet.png`)), ui()]);
-          if (img) {
-            const asset = new SheetAsset(img, meta, 'custom');
+          // the sheet pages and the UI layers download side by side (one after the other cost ~0.5 s per fighter)
+          const files = sheetFiles(meta);
+          const [pages, layers] = await Promise.all([Promise.all(files.map((f) => loadImage(artUrl(`${base}${f}`)))), ui()]);
+          const bad = sheetProblem(meta, files, pages);
+          if (!bad) {
+            const asset = new SheetAsset(pages, meta, 'custom');
             Object.assign(asset, layers);
-            console.info(`[sprites] using custom sheet for ${def.id} (${Object.keys(meta.animations).length} animations${meta.complete ? '' : ', incomplete preview'})`);
+            console.info(`[sprites] using custom sheet for ${def.id} (${Object.keys(meta.animations).length} animations${files.length > 1 ? `, ${files.length} pages` : ''}${meta.complete ? '' : ', incomplete preview'})`);
             return asset;
           }
-          console.warn(`[sprites] ${def.id}: anims.json found but sheet.png is missing`);
+          console.warn(`[sprites] ${def.id}: ${bad}, using the placeholder`);
         } else {
           console.info(`[sprites] ${def.id}: art pack incomplete (core animations missing), using the placeholder. Preview it with ?art=custom`);
         }
@@ -371,9 +416,14 @@ export class SpriteActor {
     this.mesh = new THREE.Mesh(geo, this.mat);
     this.mesh.renderOrder = 2;
     this.root.add(this.mesh);
+    // the sheet page on screen (usePage) and its texel size, which the aura shell and the cloak share (auraShell.js)
+    this.page = 0;
+    this.texel = { value: new THREE.Vector2(1 / asset.W, 1 / asset.H) };
 
-    // silhouette shadow caster: upright plane facing the sun, invisible in the main pass
-    this.shadowTex = asset.texture.clone();
+    // silhouette shadow caster: upright plane facing the sun, invisible in the main pass. One texture per sheet page
+    // (a clone shares its page's image and GPU copy) for the offset and repeat of the frame on screen
+    this.shadowTexs = asset.textures.map((t) => t.clone());
+    this.shadowTex = this.shadowTexs[0];
     this.caster = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false }));
     this.caster.castShadow = true;
     this.caster.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: this.shadowTex, alphaTest: 0.5 });
@@ -421,10 +471,25 @@ export class SpriteActor {
 
   setFrame(f) {
     this.frame = f;
+    const p = this.asset.page(f);
+    if (p !== this.page) this.usePage(p);
     const uv = this.asset.uv(f, this._uv);
     this.mat.uniforms.uvRect.value.copy(uv);
     this.shadowTex.offset.set(uv.x, uv.y);
     this.shadowTex.repeat.set(uv.z - uv.x, uv.w - uv.y);
+  }
+
+  // Draws from sheet page p (TOOL-060): the body, its shadow caster and the shells that share the body's uniforms. The
+  // page follows the frame, so a loaded simulation state (ADR 0036) lands on the right one with no state of its own.
+  usePage(p) {
+    const tex = this.asset.textures[p] ?? this.asset.texture;
+    const { width: w, height: h } = tex.image;
+    this.page = p;
+    this.mat.uniforms.map.value = tex;
+    this.mat.uniforms.texSize.value.set(w, h);
+    this.texel.value.set(1 / w, 1 / h);
+    this.shadowTex = this.shadowTexs[p] ?? this.shadowTexs[0];
+    this.caster.customDepthMaterial.map = this.shadowTex;
   }
 
   // Hand anchor of the frame on screen (or of `name`'s frame `i`); see SheetAsset.hand.
@@ -574,7 +639,7 @@ export class SpriteActor {
 
   ghost(color, life = 0.3, opacity = 0.55) {
     if (actorView.quiet) return;
-    const mat = spriteMaterial(this.asset.texture, true);
+    const mat = spriteMaterial(this.mat.uniforms.map.value, true); // the page of the frame it echoes
     mat.uniforms.uvRect.value.copy(this._uv);
     mat.uniforms.flashColor.value.set(color);
     mat.uniforms.silhouette.value = 0.65;
@@ -616,7 +681,7 @@ export class SpriteActor {
     this.blob.visible = v;
   }
 
-  // Frees every GPU resource the actor created (asset.texture is shared by the roster and stays).
+  // Frees every GPU resource the actor created (the asset's page textures are shared by the roster and stay).
   dispose() {
     this.scene.remove(this.root);
     this.scene.remove(this.blob);
@@ -630,7 +695,7 @@ export class SpriteActor {
     this.mat.dispose();
     this.caster.material.dispose();
     this.caster.customDepthMaterial.dispose();
-    this.shadowTex.dispose(); // a clone sharing the image: three refcounts the source
+    for (const t of this.shadowTexs) t.dispose(); // clones sharing the pages' images: three refcounts the source
     this.blob.geometry.dispose();
     this.blob.material.dispose();
     this.geo.dispose(); // shared by the mesh, the caster and the ghosts

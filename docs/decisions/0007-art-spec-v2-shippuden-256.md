@@ -172,3 +172,11 @@ diagonally, not fully horizontal.
   an animation delivered frame by frame otherwise.
 - 2026-10-08: the auto-hitbox idle slack is **9 px** at v2 (6 px at v1, scaled by standingBodyPx / 136), so
   strike boxes start at about x 174 for an idle front edge at x 182.
+- 2026-10-18 (TOOL-060): **sheet pages.** A sheet page is capped at **4096 x 4096 px** (16 rows, 256 cells). With every
+  alt and the ADR 0042 directional normals a fighter needs about 320 cells, and one sheet of 21 rows (4096 x 5376) would
+  be downscaled, blurry, on every phone with a 4096 px texture limit. The packer puts the frames past 256 on
+  `sheet2.png` (then `sheet3.png` ...), numbered straight through; `anims.json` gets `"pages"` and `"pageFrames"` only
+  then, so a one-page pack is byte for byte what it was. The engine keeps a texture per page and switches the body's
+  texture with the frame, which is free (a uniform), uploads every page at match start, and falls back to the placeholder
+  when a page is missing. A larger sheet "where the GPU allows" was rejected: it needs a second pack for small GPUs and
+  still fails on the phones that matter. art/SPEC.md "Sheet pages" has the format.

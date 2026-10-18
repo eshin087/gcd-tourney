@@ -22,21 +22,25 @@ import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import { auditCharacter, auditFromCompact, resolveGate, exemptionsFrom, staleExemptText, bboxOf, isSkin, hex, FLAGGED, verdictText } from './scale-probe.mjs';
 import { loadScaleReference } from './pack-sprites.mjs';
+import { sheetFiles, frameCell } from '../src/art/sheetPages.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 // ------------------------------------------------------------------ loading
 const readJson = (f) => { try { return JSON.parse(fs.readFileSync(f, 'utf8').replace(/^﻿/, '')); } catch { return null; } };
 
-// The packed sheet of one fighter as cells per animation (sheet order), or null when it is not packed.
+// The packed sheet of one fighter (every page, src/art/sheetPages.js) as cells per animation (sheet order), or null
+// when it is not packed.
 export function loadPacked(id, publicDir = path.join(ROOT, 'public')) {
   const dir = path.join(publicDir, 'characters', id);
   const meta = readJson(path.join(dir, 'anims.json'));
-  if (!meta?.animations || !fs.existsSync(path.join(dir, 'sheet.png'))) return null;
-  const png = PNG.sync.read(fs.readFileSync(path.join(dir, 'sheet.png')));
-  const W = meta.frameWidth, H = meta.frameHeight, C = meta.columns || Math.floor(png.width / W);
+  const files = sheetFiles(meta).map((f) => path.join(dir, f));
+  if (!meta?.animations || !files.every((f) => fs.existsSync(f))) return null;
+  const pages = files.map((f) => PNG.sync.read(fs.readFileSync(f)));
+  const W = meta.frameWidth, H = meta.frameHeight, C = meta.columns || Math.floor(pages[0].width / W);
   const cell = (f) => {
-    const data = new Uint8Array(W * H * 4), ox = (f % C) * W, oy = Math.floor(f / C) * H;
+    const { page, x: ox, y: oy } = frameCell(meta, f, C), png = pages[page];
+    const data = new Uint8Array(W * H * 4);
     for (let y = 0; y < H; y++) data.set(png.data.subarray(((oy + y) * png.width + ox) * 4, ((oy + y) * png.width + ox + W) * 4), y * W * 4);
     return { w: W, h: H, data };
   };

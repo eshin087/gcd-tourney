@@ -26,6 +26,7 @@ import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import { auditPacked } from './scale-audit.mjs';
 import { FLAGGED } from './scale-probe.mjs';
+import { sheetFiles, frameCell } from '../src/art/sheetPages.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -52,15 +53,18 @@ const IDS = args.length ? args : order;
 for (const id of IDS) if (!packed.includes(id)) { console.error(`[lineup] no packed sheet for "${id}" (public/characters/${id}/)`); process.exit(1); }
 
 const readPng = (p) => PNG.sync.read(fs.readFileSync(p));
-const sets = Object.fromEntries(IDS.map((id) => [id, { meta: JSON.parse(fs.readFileSync(path.join(charDir, id, 'anims.json'), 'utf8')), png: readPng(path.join(charDir, id, 'sheet.png')) }]));
+const sets = Object.fromEntries(IDS.map((id) => {
+  const meta = JSON.parse(fs.readFileSync(path.join(charDir, id, 'anims.json'), 'utf8'));
+  return [id, { meta, pages: sheetFiles(meta).map((f) => readPng(path.join(charDir, id, f))) }]; // every sheet page
+}));
 
 // a 256x256 RGBA cell: a packed frame, or the candidate figure placed on the floor line
 function packedCell(S, i) {
-  const { frameWidth: W, frameHeight: H, columns } = S.meta;
-  const x0 = (i % columns) * W, y0 = Math.floor(i / columns) * H, data = new Uint8Array(W * H * 4);
+  const { frameWidth: W, frameHeight: H } = S.meta;
+  const { page, x: x0, y: y0 } = frameCell(S.meta, i), png = S.pages[page], data = new Uint8Array(W * H * 4);
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-    const si = ((y0 + y) * S.png.width + x0 + x) * 4, di = (y * W + x) * 4;
-    for (let c = 0; c < 4; c++) data[di + c] = S.png.data[si + c];
+    const si = ((y0 + y) * png.width + x0 + x) * 4, di = (y * W + x) * 4;
+    for (let c = 0; c < 4; c++) data[di + c] = png.data[si + c];
   }
   return { W, H, data, floor: S.meta.pivot?.[1] ?? 240 };
 }

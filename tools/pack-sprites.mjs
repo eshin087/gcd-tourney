@@ -23,6 +23,7 @@ import { PNG } from 'pngjs';
 import { auditCharacter, compactAudit, resolveGate, exemptionsFrom, verdictText, staleExemptText, FLAGGED, hex } from './scale-probe.mjs';
 import { packDecals, printDecalReport, updateDecalStatus } from './pack-decals.mjs';
 import { skippedFiles } from './sparse-art.mjs';
+import { PAGE_PX, pageFile, sheetFiles, frameCell } from '../src/art/sheetPages.js';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(TOOL_DIR, '..');
@@ -273,11 +274,13 @@ options
   --fit-head <list> auto head fit for these strips, e.g. killua:airLight1,killua:hurtHigh (same as the sidecar
                     anatomy { "measurement": "auto-head" }): a raw strip drawn at the wrong size is rescaled so
                     its head matches the idle's. Only a 'uniform' verdict is fitted
+  --page-rows <n>   test aid: at most n cell rows per sheet page instead of the 4096 px limit (16 rows of 256 px),
+                    to see a fighter on two pages (sheet.png + sheet2.png, TOOL-060) before it has 256 frames
   -h, --help        this help
 `;
 
 function parseArgs(argv) {
-  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, allowDrop: false, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [] };
+  const o = { targets: [], root: null, out: null, manifest: null, guide: null, dryRun: false, writeback: true, allowDrop: false, json: false, strict: false, quantize: 0, tol: 72, updateManifest: false, candidates: false, help: false, strictScale: false, fitHead: [], pageRows: 0 };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const eq = a.indexOf('=');
@@ -309,6 +312,7 @@ function parseArgs(argv) {
       case '--quantize': o.quantize = Math.round(num()); break;
       case '--keep-palette': o.keepPalette = true; break;
       case '--tolerance': case '--tol': o.tol = num(); break;
+      case '--page-rows': o.pageRows = num(); break;
       case '-h': case '--help': o.help = true; break;
       default:
         if (a.startsWith('-')) throw new UsageError(`unknown option ${a}`);
@@ -317,6 +321,7 @@ function parseArgs(argv) {
   }
   if (o.quantize && (o.quantize < 2 || o.quantize > 256)) throw new UsageError('--quantize must be between 2 and 256');
   if (!(o.tol > 0 && o.tol <= 442)) throw new UsageError('--tolerance must be between 1 and 442 (RGB distance)');
+  if (o.pageRows && !(Number.isInteger(o.pageRows) && o.pageRows >= 1)) throw new UsageError('--page-rows must be a whole number of rows (1 or more)');
   for (const f of o.fitHead) if (!/^[^:\s]+:[^:\s]+$/.test(f)) throw new UsageError(`--fit-head takes <id>:<anim>[,<id>:<anim>...] (got "${f}")`);
   return o;
 }
@@ -1898,24 +1903,27 @@ function hitBox(cell, ref, T) {
   return { box: pad(front), rule: 'front' };
 }
 
-// the opaque colours of a packed sheet, or null when it is missing or has more than n of them (not a quantized pack)
-function sheetPalette(file, n) {
-  if (!fs.existsSync(file)) return null;
-  const img = readPng(file), seen = new Set();
-  for (let i = 0; i < img.data.length; i += 4) if (img.data[i + 3]) seen.add((img.data[i] << 16) | (img.data[i + 1] << 8) | img.data[i + 2]);
-  return seen.size && seen.size <= n ? { img, palette: [...seen].map((k) => [k >> 16, (k >> 8) & 255, k & 255]) } : null;
+// the opaque colours of a fighter's packed sheet (every page its anims.json lists), or null when a page is missing or
+// they are more than n (not a quantized pack); pages: the page images, for learnPalette
+function sheetPalette(dir, n) {
+  const files = sheetFiles(readJson(path.join(dir, 'anims.json')).data).map((f) => path.join(dir, f));
+  if (!files.every((f) => fs.existsSync(f))) return null;
+  const pages = files.map(readPng), seen = new Set();
+  for (const img of pages) for (let i = 0; i < img.data.length; i += 4) if (img.data[i + 3]) seen.add((img.data[i] << 16) | (img.data[i + 1] << 8) | img.data[i + 2]);
+  return seen.size && seen.size <= n ? { pages, palette: [...seen].map((k) => [k >> 16, (k >> 8) & 255, k & 255]) } : null;
 }
 
 // For --keep-palette: every strip whose cells have the same shape as in the current sheet (anims.json next to it) shows
 // which palette colour each of its source colours became last time; strips that changed shape teach nothing
-function learnPalette(anims, sheet, metaFile, spec) {
+function learnPalette(anims, pages, metaFile, spec) {
   const meta = readJson(metaFile).data;
   if (!meta?.animations) return null;
   const learned = new Map(), fw = spec.frameWidth, cols = meta.columns ?? spec.columns;
   for (const a of anims) {
     const old = meta.animations[a.def.name]?.frames;
     if (!old || old.length !== a.cells.length) continue;
-    const olds = old.map((f) => crop(sheet, (f % cols) * fw, Math.floor(f / cols) * fw, fw, fw));
+    const olds = old.map((f) => { const at = frameCell(meta, f, cols); return pages[at.page] ? crop(pages[at.page], at.x, at.y, fw, fw) : null; });
+    if (olds.includes(null)) continue;
     if (!a.cells.every((c, k) => c.data.every((v, i) => (i & 3) !== 3 || (v > 0) === (olds[k].data[i] > 0)))) continue;
     a.cells.forEach((c, k) => {
       for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) {
@@ -2094,14 +2102,16 @@ function shrinkPalette(colors, palette, target, learned = null) {
   return palette.filter((_, i) => alive[i]);
 }
 
-// the colours a packed sheet shows only in the cells of the named animations (a reserved group's own, last pack)
-function onlyIn(sheet, metaFile, names, spec) {
+// the colours a packed sheet (every page) shows only in the cells of the named animations (a reserved group's own,
+// last pack)
+function onlyIn(pages, metaFile, names, spec) {
   const meta = readJson(metaFile).data, inside = new Set(), outside = new Set();
   if (!meta?.animations) return inside;
   const fw = spec.frameWidth, cols = meta.columns ?? spec.columns;
   for (const [name, a] of Object.entries(meta.animations)) for (const f of a.frames || []) {
-    const set = names.has(name) ? inside : outside, x0 = (f % cols) * fw, y0 = Math.floor(f / cols) * fw;
-    for (let y = y0; y < y0 + fw && y < sheet.h; y++) for (let x = x0; x < x0 + fw; x++) {
+    const set = names.has(name) ? inside : outside, at = frameCell(meta, f, cols), sheet = pages[at.page];
+    if (!sheet) continue;
+    for (let y = at.y; y < at.y + fw && y < sheet.h; y++) for (let x = at.x; x < at.x + fw; x++) {
       const i = (y * sheet.w + x) * 4;
       if (sheet.data[i + 3]) set.add((sheet.data[i] << 16) | (sheet.data[i + 1] << 8) | sheet.data[i + 2]);
     }
@@ -2149,6 +2159,12 @@ function countColors(cells) {
   const s = new Set();
   for (const c of cells) for (let i = 0; i < c.data.length; i += 4) if (c.data[i + 3]) s.add((c.data[i] << 16) | (c.data[i + 1] << 8) | c.data[i + 2]);
   return s.size;
+}
+
+// The sheet pages in a fighter's output folder past the first n (sheet2.png is page 2): left over from a bigger pack.
+function stalePages(dir, n) {
+  if (!isDir(dir)) return [];
+  return fs.readdirSync(dir).filter((f) => { const m = /^sheet([1-9]\d*)\.png$/.exec(f); return m && Number(m[1]) >= 2 && Number(m[1]) > n; }).map((f) => path.join(dir, f));
 }
 
 function writeFile(env, file, buf, R) {
@@ -2507,7 +2523,7 @@ function packCharacter(id, env) {
     if (isFile(existing)) {
       const old = readJson(existing).data;
       if (old?.source === 'art-pack') {
-        const stale = [existing, path.join(outChar, 'sheet.png')].filter(isFile);
+        const stale = [existing, path.join(outChar, 'sheet.png'), ...stalePages(outChar, 1)].filter(isFile);
         if (!env.dryRun) for (const f of stale) fs.unlinkSync(f);
         R.removed = stale.map((f) => rel(env.cwd, f));
         R.notes.push(`${env.dryRun ? 'would remove' : 'removed'} the stale art pack (nothing packable left): ${R.removed.join(', ')}; the game uses the placeholder`);
@@ -2531,13 +2547,13 @@ function packCharacter(id, env) {
   const allCells = anims.flatMap((a) => a.cells);
   if (env.quantize) {
     const outChar = path.join(env.outDir, 'characters', id), metaFile = path.join(outChar, 'anims.json');
-    const kept = env.keepPalette ? sheetPalette(path.join(outChar, 'sheet.png'), env.quantize) : null;
+    const kept = env.keepPalette ? sheetPalette(outChar, env.quantize) : null;
     if (env.keepPalette && !kept) warn(`--keep-palette: no current sheet.png with at most ${env.quantize} colours for ${id} - median cut instead`);
-    const learn = (list) => (kept ? learnPalette(list, kept.img, metaFile, spec) : null);
+    const learn = (list) => (kept ? learnPalette(list, kept.pages, metaFile, spec) : null);
     const groups = reserveGroups(id, anims, new Set(names), env, warn);
     if (groups.length) {
       const own = new Set(groups.flatMap((g) => g.anims.map((a) => a.def.name)));
-      const q = quantizeReserved(anims, env.quantize, groups, kept && { palette: kept.palette, reserved: onlyIn(kept.img, metaFile, own, spec) }, learn);
+      const q = quantizeReserved(anims, env.quantize, groups, kept && { palette: kept.palette, reserved: onlyIn(kept.pages, metaFile, own, spec) }, learn);
       const shares = groups.map((g) => `${g.name} ${g.colors} (${g.anims.map((a) => a.def.name).join(', ')})`).join(', ');
       R.notes.push(`${kept ? 'palette kept from the current sheet.png' : 'palette snapped'}: ${q.colors} colors, ${q.shared} shared${q.merged ? ` (${q.merged} merged into their nearest neighbours)` : ''} + paletteReserve ${shares}`);
     } else {
@@ -2548,9 +2564,15 @@ function packCharacter(id, env) {
   if (R.colors > spec.warnColors) warn(`palette has ${R.colors} colors (> ${spec.warnColors}; spec target <= ${spec.maxColors}) - clean the art or re-run with --quantize ${spec.maxColors}`);
   else if (R.colors > spec.maxColors) R.notes.push(`palette has ${R.colors} colors: above the spec target of ${spec.maxColors} (warned above ${spec.warnColors})`);
 
-  // 3) sheet layout + metadata (the engine reads frame size, pivot and ppu from here)
+  // 3) sheet layout + metadata (the engine reads frame size, pivot and ppu from here). A page holds at most PAGE_PX of
+  // cell rows (16 at spec v2, 256 frames): a fighter with more frames goes on sheet2.png ..., numbered straight through
+  // (src/art/sheetPages.js, TOOL-060). A one-page pack gets no page keys, so it is byte for byte what it was.
+  const total = anims.reduce((n, a) => n + a.cells.length, 0);
+  const perPage = spec.columns * (env.pageRows || Math.max(1, Math.floor(PAGE_PX / spec.frameHeight)));
+  const nPages = Math.max(1, Math.ceil(total / perPage));
   const meta = {
-    frameWidth: spec.frameWidth, frameHeight: spec.frameHeight, columns: spec.columns, pivot: [...spec.pivot], pixelsPerUnit: spec.pixelsPerUnit,
+    frameWidth: spec.frameWidth, frameHeight: spec.frameHeight, columns: spec.columns,
+    ...(nPages > 1 ? { pages: Array.from({ length: nPages }, (_, p) => pageFile(p)), pageFrames: perPage } : {}), pivot: [...spec.pivot], pixelsPerUnit: spec.pixelsPerUnit,
     facing: spec.facing, spec: spec.name, source: 'art-pack', character: id, packer: PACKER_VERSION, complete: R.missingCore.length === 0,
     missingCore: R.missingCore, animations: {}, boxes: {},
   };
@@ -2635,16 +2657,16 @@ function packCharacter(id, env) {
   altCheck(packed, meta, spec, warn, R);
   inheritAltBoxes(packed, meta, R);
 
-  // 5) write sheet + json (+ write-back of cleaned frames)
+  // 5) write the sheet page(s) + json (+ write-back of cleaned frames); each page is only as tall as its frames need
   const cols = spec.columns;
-  const rows = Math.ceil(idx / cols);
-  const sheet = newImage(cols * spec.frameWidth, rows * spec.frameHeight);
+  const pages = Array.from({ length: nPages }, (_, p) => newImage(cols * spec.frameWidth, Math.ceil(Math.min(perPage, idx - p * perPage) / cols) * spec.frameHeight));
   for (const p of packed) p.cells.forEach((cell, k) => {
-    const f = p.indices[k];
-    blit(sheet, cell, (f % cols) * spec.frameWidth, Math.floor(f / cols) * spec.frameHeight);
+    const at = frameCell(meta, p.indices[k]);
+    blit(pages[at.page], cell, at.x, at.y);
   });
   R.frames = idx;
-  R.sheet = `${sheet.w}x${sheet.h}`;
+  R.sheet = pages.map((pg) => `${pg.w}x${pg.h}`).join(' + ');
+  if (nPages > 1) R.pages = meta.pages;
   R.complete = meta.complete;
   const outDir = path.join(env.outDir, 'characters', id);
   // a strict strip that failed the scale gate refuses the pack (ADR 0021): neither public/ nor frames/ is written, so
@@ -2655,7 +2677,15 @@ function packCharacter(id, env) {
     R.refused = true;
     warn(`scale gate: ${env.dryRun ? 'would not write' : 'did not write'} ${rel(env.cwd, outDir)}/ (it keeps its last pack) or frames/ - fix the failing strips, or exempt a misread head with a reason and its scaleExemptVersion`);
   }
-  if (!refused) writeFile(env, path.join(outDir, 'sheet.png'), encodePng(sheet), R);
+  if (!refused) {
+    pages.forEach((pg, p) => writeFile(env, path.join(outDir, pageFile(p)), encodePng(pg), R));
+    // a pack that needs fewer pages than the last one leaves no old page behind for the art index to ship
+    const old = stalePages(outDir, nPages);
+    if (old.length) {
+      if (!env.dryRun) for (const f of old) fs.unlinkSync(f);
+      R.notes.push(`${env.dryRun ? 'would remove' : 'removed'} ${old.map((f) => rel(env.cwd, f)).join(', ')}: the pack has ${nPages} page(s) now`);
+    }
+  }
   if (!refused) writeFile(env, path.join(outDir, 'anims.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
   for (const a of anims) {
     R.packed.push({
@@ -3408,7 +3438,7 @@ function printReport(rep, env) {
       L('  nothing packed yet (no PNGs in raw/ or frames/<anim>/) - see art/PIPELINE.md');
       if (!c.removed?.length) L('  public/ was not touched for the sheet.');
     } else {
-      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}, ${c.colors} colors, ${c.refused ? `NOT WRITTEN (${c.blocked?.length ? `old hand edits shadow ${c.blocked.join(', ')}` : 'the scale gate failed'}, see below)` : c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
+      L(`  packed ${c.packed.length} anims, ${c.frames} frames -> sheet ${c.sheet}${c.pages ? ` (${c.pages.length} pages: ${c.pages.join(', ')})` : ''}, ${c.colors} colors, ${c.refused ? `NOT WRITTEN (${c.blocked?.length ? `old hand edits shadow ${c.blocked.join(', ')}` : 'the scale gate failed'}, see below)` : c.complete ? 'COMPLETE (game will use it)' : 'PARTIAL (complete=false; preview with ?art=custom)'}`);
       for (const p of c.packed) {
         const n = `${p.frames}`.padStart(2) + (p.frames !== p.expected ? `/${p.expected}` : '');
         L(`    ${p.anim.padEnd(11)} ${n.padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
@@ -3524,7 +3554,7 @@ async function main() {
   for (const s of manifest.specIssues) rep.warnings.push(`manifest ${s}`);
   rep.manifest = mj.data ? ` + ${rel(cwd, manifestPath)}` : mj.exists ? '' : ' (no manifest.json yet - spec defaults)';
   rep.spec = manifest.spec;
-  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, allowDrop: opts.allowDrop, quantize: opts.quantize, keepPalette: !!opts.keepPalette, tol: opts.tol, candidates: opts.candidates };
+  const env = { cwd, artDir, outDir, guide, manifest, manifestRaw: mj.data, spec: manifest.spec, dryRun: opts.dryRun, writeback: opts.writeback, allowDrop: opts.allowDrop, quantize: opts.quantize, keepPalette: !!opts.keepPalette, tol: opts.tol, candidates: opts.candidates, pageRows: opts.pageRows };
   // scale gate inputs (TOOL-025): thresholds from spec.scaleGate, declared head/feet colours, the committed baseline
   const gateIssues = [];
   Object.assign(env, {
