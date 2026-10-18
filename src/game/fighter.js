@@ -502,6 +502,10 @@ export class Fighter {
     this.hidden = true;
     this.invuln = VANISH.hideFrames + 6;
     this.vel.set(0, 0, 0);
+    // physics() skips the vanish, barrier and all: an air string's juggle tracking can have stepped us a hair past the
+    // barrier this frame (toward a victim pinned on it), and we would wait out the hide there
+    this.pos.x = THREE.MathUtils.clamp(this.pos.x, -ARENA_LIMIT, ARENA_LIMIT);
+    this.pos.z = THREE.MathUtils.clamp(this.pos.z, -ARENA_LIMIT, ARENA_LIMIT);
     this.actor.setVisible(false);
     this.game.onVanish(this, 'out');
   }
