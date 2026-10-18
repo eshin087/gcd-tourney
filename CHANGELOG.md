@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: the determinism fixtures are re-recorded after Gojo's up air (fingerprint 030c2b3c3377); both replay frame for frame.
+
 - Changed: the determinism fixtures are re-recorded after Gojo's Smash moves (fingerprint 02e3e1d09ed4); both replay frame for frame.
 ### Changed
 - (ENG-112) Set Gojo uair v01 phases to `[2,1,3]` so only the full kick is active.
