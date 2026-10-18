@@ -35,6 +35,8 @@ paused._
 
 **Gojo dashes (2026-10-17):** dash v11 and superDash v13 (redrawn at the idle's body size) are approved and live (PR #141, `ca5e1fdd`); backDash v07 unchanged. Nothing waiting.
 
+**Gojo posture fix (2026-10-17):** hurtHigh v04 (bent knees, wide stance) and launched v08 (legs tucked) are approved and live (PR #143, `38726c07`); hurtLow stays v04. Nothing waiting.
+
 
 **Scale loose ends: all five drawings approved via Claude.** User approved Naruto light2Alt05/airHeavyAlt04 and Killua charge14/down08/ko09 on 2026-10-15 (relay scale#6). Recorded on PR106 at1216e707 and PR105 atc9b2f9bc. [Reviewed preview](https://gcd-tourney-d2l8ht4cf-eshin087s-projects.vercel.app/reviews/scale-loose-ends/index.html) has historical pre-approval labels. No user action remains for these five. Claude owns final contact/grounding/aura checks and integration; no merge or production deployment by Codex.
 
