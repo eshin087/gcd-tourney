@@ -1,0 +1,68 @@
+[
+  {
+    "id": 93,
+    "rgbaHash": "514afe28cd42cfae57f344f36a9415881b598aebfaf278a693fdb01e3312559f",
+    "bounds": [
+      53,
+      65,
+      189,
+      240
+    ],
+    "opaque": 8871
+  },
+  {
+    "id": 94,
+    "rgbaHash": "f5876f91b33fa782d699ca80db7d4210fdc32987cb66e5b3e6b73f90a3da1f95",
+    "bounds": [
+      62,
+      70,
+      194,
+      240
+    ],
+    "opaque": 8658
+  },
+  {
+    "id": 95,
+    "rgbaHash": "b54e878dc57e011abe7602e05dccd95a2e9838300901c2d9c9bf22972b1b1413",
+    "bounds": [
+      61,
+      66,
+      193,
+      240
+    ],
+    "opaque": 8254
+  },
+  {
+    "id": 99,
+    "rgbaHash": "18a04b0652572cbeea6f67224a48543c1037fdd1e1a6860cabf6c681fb33404d",
+    "bounds": [
+      40,
+      71,
+      207,
+      240
+    ],
+    "opaque": 8206
+  },
+  {
+    "id": 100,
+    "rgbaHash": "76f00f6fb57fee47aaad42b08e4fb7a010e27450246b9ce73dfb6ff4a2e1148e",
+    "bounds": [
+      38,
+      77,
+      190,
+      240
+    ],
+    "opaque": 8286
+  },
+  {
+    "id": 0,
+    "rgbaHash": "3de924dfae2587af992d4e1ce1666ab07c54d6e0215deede896cf5dd28909f99",
+    "bounds": [
+      80,
+      10,
+      182,
+      240
+    ],
+    "opaque": 10572
+  }
+]

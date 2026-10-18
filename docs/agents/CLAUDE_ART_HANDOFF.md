@@ -1,3 +1,43 @@
+# ART-GOJO-POSTURE-D — user approval recorded (2026-10-18, relay gojo-run #14)
+
+USER APPROVAL via Claude relay gojo-run #14: “hurtHigh: Approve v04 (Recommended). hurtLow: Keep v04 (Recommended). launched: Approve v08 (Recommended).”
+
+Branch art/gojo-proportions; PR #143; review preview: https://gcd-tourney-qpj816em9-eshin087s-projects.vercel.app/reviews/gojo-posture-d/index.html. Approved source files: raw/hurtHigh_v04.png and raw/launched_v08.png. HurtLow v04 remains the approved drawing; rejected hurtLow v05/v06/v07 and launched v07 are preserved under raw/_rejected/.
+
+Visual approval only; technical holds remain. Pack `node tools/pack-sprites.mjs gojo --quantize 48` exited 0 (44 animations / 181 frames / 48 colors), selecting hurtHigh v04 and launched v08 in the review-only PR candidate atlas. Final packed sheet SHA-256 `5947C919AE88FBEB5371EA113A624E285B349D61BE0F67D417FAD1206BD32A4F`; anims SHA-256 `1A8F886F683DDD0C397C217DACA8537D1974D18144926BAF99BED78E3A52B8C5`. Astra final audit is [ASTRA_FINAL_ATLAS.md](../../art/characters/gojo/production/posture-d/ASTRA_FINAL_ATLAS.md): hurtHigh head probes .961/1.000/1.029 (auto-fit corrected earlier pre-fit 1.23); full anatomy HOLD at torso ~58–66±7px vs neutral ~78±4px. launched head probes .893/.924, torso ~67/66±5px vs ~78±4px; full scale HOLD. Its old scaleManualQA is for v06, not v08. Both poses/margins pass visual inspection, but no anatomy certification or runtime contact check. Packer also reports the stale v06 QA binding and pre-existing down/ko floor warnings. Final PR guard `node tools/pr.mjs check art/gojo-proportions` refuses launched v08: low-confidence pose has no version-bound `scaleManualQA` pass. Do not bypass or invent a pass; Claude must resolve the technical gate (or keep the strip held) before integration. The guard also notes stale-doc conflicts with main. Claude owns contact/integration and the technical hold disposition; approval does not establish scale, runtime contact or production status.
+
+---
+
+# ART-GOJO-POSTURE-D handoff (2026-10-17, pre-approval snapshot; superseded by the current top entry)
+
+Branch `art/gojo-proportions`; worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-proportions`. This branch merges main at `fe886b48` and retains the earlier Gojo proportion study commits. PR [#143](https://github.com/eshin087/gcd-tourney/pull/143), branch commit `94031762`. Review gallery: [Gojo posture D preview](https://gcd-tourney-ho2a8zzr6-eshin087s-projects.vercel.app/reviews/gojo-posture-d/index.html) (protected preview; `vercel curl` returned the HTML successfully). Local preview port 5247 was occupied by an unknown process and the managed profile denied localhost socket access. Build passed with the main checkout's `.codex/vite.mjs` adapter.
+
+Historical pre-approval snapshot; superseded by the current top entry. At that time no drawing was approved and no new strip was in the atlas. The then-live approved versions were hurtHigh v03, hurtLow v04 and launched v06. Held candidates are hurtHigh v04 (strict head 1.23 / feet 1.35), hurtLow v05/v06/v07 (head/feet 1.20/1.04, 0.90/1.03, 1.19/0.98), and launched v07/v08 (Astra torso estimates ~59–61±5px and 66±4px vs neutral ~78±4px; head/limb scale not certifiable). All three-call budgets are exhausted per strip. Exact file hashes, prompts, and measurement evidence are in [GENERATION_LOG.md](../../art/characters/gojo/production/posture-d/GENERATION_LOG.md) and [ASTRA_PREPACK.md](../../art/characters/gojo/production/posture-d/ASTRA_PREPACK.md). Candidates and sidecars are preserved in `art/characters/gojo/raw/_qa_hold/`.
+
+`node tools/pack-sprites.mjs gojo --quantize 48` passes after holds are moved out of the active raw folder, packing 44 animations / 181 frames / 48 colors from the current raw set; this atlas still uses the old approved hit reactions. Body, lineup and scale diagnostics were generated and copied as current-live context in the review page; held candidates are skipped. The review page includes exact source panels and loop GIFs; it is not evidence that candidates were packed. `npm run build` is not the machine-safe command here; the verified invocation was `node --preserve-symlinks --preserve-symlinks-main <main checkout>/.codex/vite.mjs build`.
+
+Next: open the branch PR and preview, verify the gallery there if deployment access allows, add the preview link to the branch handoff, then ring `gojo-run` for the user through Claude with the six candidate versions and technical holds. Do not update `approvedVersion`, copy any fixed-name reference, merge, or deploy. Main-only task/changelog/NOW/inbox bookkeeping remains for the coordinator.
+
+---
+
+# ART-GOJO-PROPORTIONS handoff (2026-10-17, user decision requested via relay #13)
+
+**Study only; nothing was approved or shipped.** The diagnosis and A–D review page are in PR [#143](https://github.com/eshin087/gcd-tourney/pull/143), branch `art/gojo-proportions`, worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-gojo-proportions`. Study commit `2b97547e`; A–D page correction `d7cc62a9`; follow-up handoff commit records this note. The current review page preview is [Gojo proportion study](https://gcd-tourney-le2925xxp-eshin087s-projects.vercel.app/reviews/gojo-proportions/) (Vercel Preview, Ready; project SSO applies). Preview contains public copies of all candidate concepts, mockups, title-style references and current Gojo atlas/metadata links. Local build passed; protected preview returned 200 for page, D combat image and atlas via `vercel curl`. No visual browser test was performed.
+
+The packed review used current atlas sheet SHA-256 `CE87CC8D31F6CA7336BE020F477A178BC909A4804BD16002D7A70B96F9DE7EF7` and metadata SHA-256 `0134EC68B48889310BD6FE85711C4FFE1126D120751FAD9F96AEB4E9EADACB6C`. All 33 archived `frames/` previews for requested comparisons differ pixel-for-pixel from the direct atlas crops; review crops use atlas slots instead. `DIAGNOSIS.md` records every measured packed frame with uncertainty, raw source versions/hashes, slot mapping and the low-confidence combat chord. Finding: no confirmed strip leg-length drift outside measurement uncertainty; Gojo's uninterrupted trouser line drives the lanky read.
+
+- **A** current approved neutral + combat cells unchanged: neutral leg 106±5px; standing body 215px; leg share 49.3%±2pp.
+- **B** shorter legs target −8% (97.5px, body 206.5px). Astra: neutral/combat visual-study pass, exact ratios/head preservation unverified.
+- **C** shorter legs target −10% plus fuller outfit (95.4px, body 204.4px). C neutral v02 remains **HOLD**: head is visibly smaller relative to torso/legs than A/B. Attempt 3 was rejected before generation because six refs exceeded tool max five; no v03 exists and the C-neutral budget is exhausted. C combat is a concept pass, but pair-level matching remains held.
+- **D** same A anatomy with a lower, wider combat direction. Astra: posture concept pass; neutral is A, rear leg remains fairly extended; exact ratio preservation and hit-reaction effect are unverified.
+
+No image/design approval was given or implied. The relay decision request is queued as `gojo-run #13`: choose A/B/C/D or another direction. User decision is pending. If B or C is selected, Claude should plan an audit/reassembly of 44 Gojo strips (42 in `art/size-r6` plus dash/superDash) and determine per-strip reuse versus redraw; a planning range of 0–44 redraws is not a generation-call estimate. D reviews hurtHigh, hurtLow and launched (0–3 redraws, with all three reviewed); A needs no proportion-driven redraw. Keep the separate size-r6 leads as unconfirmed and coordinate with its active strip work before any production changes.
+
+No production asset, raw file, manifest, packed atlas, or approved reference changed. No merge or production deploy. Claude's next action: ask the user for the queued decision, then make a separate production plan; do not treat this study or Astra's concept audit as art approval.
+
+---
+
+
 # Codex: ART-SIZE-R6 final merged status (2026-10-18)
 
 Claude merged PR #142 as `d5304303`. Sasuke `beamStruggle` v02 from PR #140 remains approved/live; v04 remains user-rejected in `raw/_rejected/`; v05 and the older diagnostic v03 are non-shipping holds in `raw/_qa_hold/`. Their review rows are marked superseded, not pending user review. No new art ships. Gojo heavy and the Gojo hit reactions remain with `gojo-run`; camera/engine unchanged. Guard and build passed.

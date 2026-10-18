@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gojo proportion study · review only</title>
+  <style>
+    :root { color-scheme: dark; font: 15px/1.5 system-ui, sans-serif; background:#11151c; color:#edf1f7 }
+    body { max-width:1220px; margin:0 auto; padding:28px }
+    h1,h2,h3 { line-height:1.2 } h1 { margin-bottom:.25rem } h2 { margin-top:2.5rem }
+    p,li { max-width:85ch } .muted { color:#aeb9c9 } .warning { border-left:4px solid #e3ad50; padding:12px 16px; background:#28241b }
+    .grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px }
+    .card { background:#1a202a; border:1px solid #303b49; border-radius:8px; padding:12px; min-width:0 }
+    .lineup { display:flex; align-items:end; justify-content:center; gap:4px; min-height:272px; border-bottom:1px solid #8391a1; background:#0a0d12 }
+    .lineup figure { margin:0; text-align:center; font-size:11px; color:#c7d0dd }
+    .lineup img { display:block; width:96px; height:256px; object-fit:contain; object-position:center bottom; image-rendering:pixelated }
+    .lineup .candidate { height:256px }
+    .numbers { margin:10px 0 0; font-variant-numeric:tabular-nums; font-size:13px }
+    .numbers b { color:#fff }
+    .cells { display:grid; grid-template-columns:1fr 1fr; gap:8px }
+    .cells figure { margin:0; text-align:center; color:#c7d0dd; font-size:12px }
+    .cells img { display:block; width:100%; max-width:256px; margin:auto; background:#0a0d12; image-rendering:pixelated }
+    .concepts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px }
+    .concepts img { display:block; width:100%; aspect-ratio:1/1; height:auto; object-fit:contain; background:#0a0d12 }
+    table { border-collapse:collapse; width:100%; margin:12px 0 }
+    th,td { border:1px solid #3a4656; padding:8px; text-align:left; vertical-align:top }
+    code { color:#cbdaf0 } a { color:#92c5ff }
+    @media(max-width:850px) { .grid {grid-template-columns:repeat(2,minmax(0,1fr))} .lineup img {width:68px} }
+    @media(max-width:560px) { body {padding:14px} .grid,.concepts {grid-template-columns:1fr} .lineup img {width:72px} }
+  </style>
+</head>
+<body>
+  <h1>Gojo proportion study</h1>
+  <p class="muted">A–D are direction studies for the user to choose. This page is not an approval record. Nothing here changes production art, gameplay, hitboxes, manifest, or packed atlas.</p>
+  <p class="warning"><b>Reading the images:</b> A and D use the approved reference cells. B and C are generated concepts shown on a 256px transparent canvas for comparison; their crop is normalized to the study's calculated visible height, not independently verified pixel density. They are not sprite-ready. B/C mockups below are mechanical nearest-neighbour compressions of the packed leg-to-sole band, not redrawn anatomy. D uses A pixels and a written posture direction.</p>
+
+  <h2>Neutral lineup · height-normalized concept presentation</h2>
+  <p class="muted">A/D and the other fighters use approved 256px cells. B/C concept renders are placed on 256px cells, scaled to the target visible height; this is a layout normalization only and does not verify their pixel density or exact anatomy.</p>
+  <div class="grid">
+    <section class="card">
+      <h3>A · current</h3>
+      <div class="lineup"><figure><img src="../../art-review/title-style-pilot/naruto-neutral_v01.png" alt="Naruto approved neutral"><figcaption>Naruto</figcaption></figure><figure><img src="../../art-review/title-style-pilot/sasuke-neutral_v01.png" alt="Sasuke approved neutral"><figcaption>Sasuke</figcaption></figure><figure><img src="../../art-review/title-style-pilot/killua-neutral_v01.png" alt="Killua approved neutral"><figcaption>Killua</figcaption></figure><figure><img src="../../art-review/title-style-pilot/gojo-neutral_v01.png" alt="Gojo approved neutral"><figcaption>Gojo A</figcaption></figure></div>
+      <p class="numbers"><b>Neutral leg:</b> 106±5px · <b>Body height:</b> 215px · <b>Leg share:</b> 49.3%±2pp<br><b>Neutral visible:</b> 236px incl. hair<br><b>Combat chord:</b> 112±14px · 52%±7pp of neutral body; low-confidence pose chord only</p>
+    </section>
+    <section class="card">
+      <h3>B · shorter legs</h3>
+      <div class="lineup"><figure><img src="../../art-review/title-style-pilot/naruto-neutral_v01.png" alt="Naruto approved neutral"><figcaption>Naruto</figcaption></figure><figure><img src="../../art-review/title-style-pilot/sasuke-neutral_v01.png" alt="Sasuke approved neutral"><figcaption>Sasuke</figcaption></figure><figure><img src="../../art-review/title-style-pilot/killua-neutral_v01.png" alt="Killua approved neutral"><figcaption>Killua</figcaption></figure><figure><img class="candidate" src="concept-neutral-B.png" alt="B generated neutral concept"><figcaption>Gojo B</figcaption></figure></div>
+      <p class="numbers"><b>Design target leg:</b> 97.5±5px · <b>Target body height:</b> 206.5px · <b>Target leg share:</b> 47.2%<br><b>Target visible:</b> 228px incl. hair · legs −8%. Achieved proportions unverified.</p>
+    </section>
+    <section class="card">
+      <h3>C · shorter + sturdier</h3>
+      <div class="lineup"><figure><img src="../../art-review/title-style-pilot/naruto-neutral_v01.png" alt="Naruto approved neutral"><figcaption>Naruto</figcaption></figure><figure><img src="../../art-review/title-style-pilot/sasuke-neutral_v01.png" alt="Sasuke approved neutral"><figcaption>Sasuke</figcaption></figure><figure><img src="../../art-review/title-style-pilot/killua-neutral_v01.png" alt="Killua approved neutral"><figcaption>Killua</figcaption></figure><figure><img class="candidate" src="concept-neutral-C.png" alt="C generated neutral concept"><figcaption>Gojo C v02</figcaption></figure></div>
+      <p class="numbers"><b>Design target leg:</b> 95.4±5px · <b>Target body height:</b> 204.4px · <b>Target leg share:</b> 46.7%<br><b>Target visible:</b> 225px incl. hair · legs −10%, fuller jacket/trousers. Achieved proportions unverified.</p>
+    </section>
+    <section class="card">
+      <h3>D · same anatomy, posture</h3>
+      <div class="lineup"><figure><img src="../../art-review/title-style-pilot/naruto-neutral_v01.png" alt="Naruto approved neutral"><figcaption>Naruto</figcaption></figure><figure><img src="../../art-review/title-style-pilot/sasuke-neutral_v01.png" alt="Sasuke approved neutral"><figcaption>Sasuke</figcaption></figure><figure><img src="../../art-review/title-style-pilot/killua-neutral_v01.png" alt="Killua approved neutral"><figcaption>Killua</figcaption></figure><figure><img src="../../art-review/title-style-pilot/gojo-neutral_v01.png" alt="Gojo approved neutral"><figcaption>Gojo D neutral=A</figcaption></figure></div>
+      <p class="numbers"><b>Neutral leg:</b> 106±5px · <b>Body height:</b> 215px · <b>Leg share:</b> 49.3%±2pp<br><b>Combat chord:</b> 112±14px · 52%±7pp of neutral body; low-confidence pose chord only<br><b>Direction:</b> low, wider base, more knee bend; avoid straight-legged hit poses.</p>
+    </section>
+  </div>
+
+  <h2>Generated model directions</h2>
+  <p>B and C cells are concept images from independent calls, shown on a 512px transparent canvas. D combat is a lower/wider combat-pose concept; A combat remains the approved cell. Exact attempt paths and hashes are recorded in the branch's <code>art/characters/gojo/production/proportions/GENERATION_LOG.md</code>. These images are not equal-density pixel art and are not approval-ready production art. Astra visual study found C neutral v02's head visibly smaller than A/B relative to its torso and legs; that comparison is unresolved because the final C neutral call was rejected by tool validation before generation. C is held as a concept only.</p>
+  <div class="concepts">
+    <section class="card"><h3>A · approved baseline</h3><img src="../../art-review/title-style-pilot/gojo-neutral_v01.png" alt="A approved Gojo neutral"><img src="../../art-review/title-style-pilot/gojo-combat_v01.png" alt="A approved Gojo combat"></section>
+    <section class="card"><h3>B · neutral / combat</h3><img src="source-neutral-B.png" alt="B shorter-leg neutral concept"><img src="source-combat-B.png" alt="B combat concept"></section>
+    <section class="card"><h3>C · neutral v02 / combat</h3><img src="source-neutral-C.png" alt="C corrected neutral concept"><img src="source-combat-C.png" alt="C combat concept"></section>
+    <section class="card"><h3>D · A neutral / combat direction</h3><img src="../../art-review/title-style-pilot/gojo-neutral_v01.png" alt="D reuses approved neutral A"><img src="source-combat-D.png" alt="D lower wider combat concept"></section>
+  </div>
+
+  <h2>Mockups in packed frames</h2>
+  <p>Each column shows idle f0 and hurtHigh f0 from the current quantized atlas, using direct current sheet slots (0 and 93). The archived <code>art/characters/gojo/frames/</code> PNGs are stale: all 33 requested frame files differ from their current atlas crops, so they were excluded. B/C mockups shorten the hip-to-sole band by nearest-neighbour resampling, shift the connected upper body down by the corresponding amount, and pin soles to y=241. The shoes are mechanically resampled too; these crude mockups communicate a length change and do not model a finished redraw. D keeps the pixels and adds the posture direction.</p>
+  <div class="grid">
+    <section class="card"><h3>A · current</h3><div class="cells"><figure><img src="mockup-idle-A.png" alt="A idle mockup"><figcaption>idle f0</figcaption></figure><figure><img src="mockup-hurtHigh-A.png" alt="A hurtHigh mockup"><figcaption>hurtHigh f0</figcaption></figure></div></section>
+    <section class="card"><h3>B · leg band −8%</h3><div class="cells"><figure><img src="mockup-idle-B.png" alt="B idle mechanical mockup"><figcaption>idle f0</figcaption></figure><figure><img src="mockup-hurtHigh-B.png" alt="B hurtHigh mechanical mockup"><figcaption>hurtHigh f0</figcaption></figure></div></section>
+    <section class="card"><h3>C · leg band −10%</h3><div class="cells"><figure><img src="mockup-idle-C.png" alt="C idle mechanical mockup"><figcaption>idle f0</figcaption></figure><figure><img src="mockup-hurtHigh-C.png" alt="C hurtHigh mechanical mockup"><figcaption>hurtHigh f0</figcaption></figure></div></section>
+    <section class="card"><h3>D · posture-only direction</h3><div class="cells"><figure><img src="mockup-idle-D.png" alt="D idle unchanged"><figcaption>idle f0 unchanged</figcaption></figure><figure><img src="mockup-hurtHigh-D.png" alt="D hurtHigh unchanged"><figcaption>hurtHigh f0 unchanged</figcaption></figure></div><p>Pose note: bend knees more and widen the base in hit/reaction drawings. These unchanged cells are shown to make clear that D does not alter the model.</p></section>
+  </div>
+
+  <h2>Diagnosis and possible production cost</h2>
+  <p>Current source-level reference hashes: approved neutral <code>D9FD4DCA67C7CC133E897773A3C8128D6C5320A42402642C11409FEA770175A0</code>, approved combat <code>AB42BC6FACD14659BF35B48A4BCE8682CD17218F200D1E7FCDC6430F58451656</code>. Packed atlas hashes: <code>sheet.png CE87CC8D31F6CA7336BE020F477A178BC909A4804BD16002D7A70B96F9DE7EF7</code>, <code>anims.json 0134EC68B48889310BD6FE85711C4FFE1126D120751FAD9F96AEB4E9EADACB6C</code>. See the source-version SHA-256 and frame-to-slot table in the branch diagnosis. <a href="../../characters/gojo/sheet.png">Open current packed atlas</a> · <a href="../../characters/gojo/anims.json">Open atlas slot metadata</a>.</p>
+  <p>The approved Gojo neutral has an estimated 106±5px hip/belt-to-sole segment within a 215px standing body (49.3%). The other title-style neutrals have 195px Naruto, 197px Sasuke, and 176px Killua bodies; they are different stature baselines, not a shared-height target. Gojo's dark uninterrupted trouser line reads long beside Naruto's trouser breaks, Sasuke's sash/hakama, and Killua's exposed knees. Current packed cells show no confirmed leg-length drift beyond the approved Gojo cells within measurement uncertainty. The detailed frame values and uncertainty are in the branch's <code>DIAGNOSIS.md</code>.</p>
+  <table><thead><tr><th>Option</th><th>Model scope</th><th>Possible strip work</th><th>Production effort boundary</th></tr></thead>
+  <tbody>
+    <tr><td>A · keep current</td><td>No model change.</td><td>No proportion redraw indicated by this study. If pose readability alone is selected, limit review to identified reaction poses.</td><td>0 proportion-driven strips; any separate pose-only work is scoped after user direction.</td></tr>
+    <tr><td>B · −8% leg length</td><td>Changes the model; standing body target ≈206.5px.</td><td>Reassemble and measure all 42 Gojo strips in size-r6's active inventory plus its 2 explicit exclusions, dash and superDash (44 total inventory boundary). Existing poses may be reusable; redraw only where the new segment ratio cannot be retained.</td><td>0–44 redraws is a planning range, not an estimate of generation calls. Minimum requires reviewing/possibly reassembling every affected strip; no-call reuse must still pass scale and anatomy checks.</td></tr>
+    <tr><td>C · −10% and sturdier</td><td>Changes legs, jacket breadth and trouser width; standing body target ≈204.4px.</td><td>Same 44-strip inventory boundary, with additional outfit-volume consistency checks. Each candidate strip may be reused if it already matches the selected build; otherwise redraw.</td><td>0–44 redraws plus body/outfit audit; actual scope depends on comparison of each existing strip to the user-selected model.</td></tr>
+    <tr><td>D · same anatomy, posture</td><td>Keeps approved A model and neutral cell.</td><td>Pose-only pass on reaction set: hurtHigh, hurtLow, launched (3 strips). Some frames can be assembled/reused; redraw only where the bent/wider pose cannot be achieved by no-call assembly.</td><td>0–3 redraws, with three strips reviewed; no model-wide proportion migration.</td></tr>
+  </tbody></table>
+  <p class="muted">“No-call assembly” means rearranging/reusing approved existing source frames without image generation. Counts are inventory/review boundaries, not a promise that every strip must be redrawn. The size-r6 review lists additional box/shape leads but does not prove leg-length drift; its 42-strip scope overlaps this hypothetical model audit.</p>
+  <p class="warning"><b>Decision requested:</b> choose A, B, C, or D, or give a different direction. Choosing a study is not approval of any generated cell or strip; Claude will prepare a separate production plan and obtain the required image approvals before shipping.</p>
+</body>
+</html>

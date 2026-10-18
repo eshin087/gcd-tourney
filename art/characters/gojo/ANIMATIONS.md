@@ -94,9 +94,9 @@ up).
 | [airHeavy](#airheavy) | 6 | 2/2/2 | | 198 | **215** | 50 45 45 70 70 40 | yes | | A09 | f1 (clasped hands behind the head, at hair height) |
 | [guard](#guard) | 2 | | yes | 198 | **215** | 300 each | yes | | A10 | f0 |
 | [block](#block) | 2 | | | 204 | **222** | 60 80 | | | A29 | f1 (settling) |
-| [hurtHigh](#hurthigh) | 3 | | | 195 | **212** | 70 90 100 | yes | | A11 | f2 |
-| [hurtLow](#hurtlow) | 3 | | | 183 | **199** | 70 90 100 | | | A30 | f2 |
-| [launched](#launched) | 2 | | yes | 136 | **148** | 70 each | yes | | A12 | either (arched diagonal body) |
+| [hurtHigh](#hurthigh) | 3 | | | 195 | **212** | 70 90 100 | yes | | A11 | f2; user approved v04 as drawn; scale hold remains |
+| [hurtLow](#hurtlow) | 3 | | | 183 | **199** | 70 90 100 | | | A30 | f2; user kept approved v04; v05-v07 rejected |
+| [launched](#launched) | 2 | | yes | 136 | **148** | 70 each | yes | | A12 | either; user approved v08, scale hold remains |
 | [spin](#spin) | 4 | | yes | 160 | **174** | 60 each | | | A31 | f0 |
 | [airRecover](#airrecover) | 3 | | | 180 | **196** | 50 50 60 | | | A32 | f2 (unfolding) |
 | [down](#down) | 2 | | | 96 | **104** | 80 420 | yes | | A13 | f0 (knees up) |
@@ -485,6 +485,8 @@ slightly, knees bent more than in idle, weight back, L foot forward. Face: focus
 
 ### hurtHigh: hit in the face · 3 frames
 
+> Posture D v04 was approved by the user via Claude relay gojo-run #14 as drawn. In the final quantized atlas, head probes are 0.961/1.000/1.029 (median 1.000; auto-head fit corrected the earlier pre-fit 1.23 issue). Full anatomy remains on technical HOLD: torso estimates 58–66±7px vs neutral ~78±4px, so visible segments are not all certifiable within ±6%. Packed in the unmerged PR candidate only. See `production/posture-d/ASTRA_FINAL_ATLAS.md` and the [review gallery](../../../public/reviews/gojo-posture-d/index.html).
+
 f0 is the peak of the reaction, and it eases back over f1 and f2. The blindfold stays on.
 
 - **f0**: head snapped back (chin up). Torso arched back about 20°, both arms flung back and out,
@@ -497,6 +499,8 @@ f0 is the peak of the reaction, and it eases back over f1 and f2. The blindfold 
 
 ### hurtLow: hit in the stomach · 3 frames
 
+> The user chose to keep approved v04 via Claude relay gojo-run #14; posture D candidates v05-v07 were rejected and moved to `raw/_rejected/`. Their historical head/feet ratios were 1.20/1.04, 0.90/1.03, and 1.19/0.98. See `production/posture-d/GENERATION_LOG.md` and the [review gallery](../../../public/reviews/gojo-posture-d/index.html).
+
 - **f0**: doubled over. Torso bent forward about 40°, head down, both arms clutching the stomach,
   knees bent. Mouth open, teeth gritted. Hair crown swings forward and down.
 - **f1**: about 30 % recovered.
@@ -505,6 +509,8 @@ f0 is the peak of the reaction, and it eases back over f1 and f2. The blindfold 
 <a id="launched"></a>
 
 ### launched: knocked flying backward · 2 frames, loop
+
+> The user approved posture D v08 via Claude relay gojo-run #14 as drawn, superseding rejected v07. Final quantized atlas probes are head 0.893/0.924 and feet color-area 0.868/0.899 (unmeasured, not gate results); torso ~67/66±5px vs neutral ~78±4px. Pose, margins and loop continuity pass visual inspection, but full scale/anatomy remains on technical HOLD. The old scaleManualQA is bound to v06, not v08. Packed in the unmerged PR candidate only; runtime contact remains unchecked. See `production/posture-d/ASTRA_FINAL_ATLAS.md` and the [review gallery](../../../public/reviews/gojo-posture-d/index.html).
 
 Facing right, flying toward screen-left. **Arched diagonally, not fully horizontal.** The body is tilted
 about 60° back from upright and arched like a drawn bow with the belly up: the **hips are the lowest

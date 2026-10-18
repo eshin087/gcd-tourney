@@ -313,6 +313,8 @@ User approved v08 as drawn on 2026-10-15. Visual approval only; all Astra anatom
 
 ## gojo
 
+**2026-10-18 Gojo posture D user approval via Claude relay #14:** USER APPROVAL via Claude relay gojo-run #14: “hurtHigh: Approve v04 (Recommended). hurtLow: Keep v04 (Recommended). launched: Approve v08 (Recommended).” The approved artwork is visual-only; technical holds remain (hurtHigh v04 strict head/feet 1.23/1.35; launched v08 torso 66±4px vs neutral 78±4px). hurtLow v05-v07 were rejected and approved v04 stays. No candidate atlas is promoted; see posture-D handoff and generation ledger.
+
 **2026-10-15 idle decision:** User explicitly approved gojo idle v08 as drawn on 2026-10-15. Visual approval only; Claude calibration, clipping/scale/loop checks and final packed-atlas audit remain pending. No new generation, merge or production deployment authorized. Fixed idle anchor remains unchanged until Claude calibrates the accepted source; existing technical findings remain open.
 
 **Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips); `approved` = the exact version that played. light4 v08 is Claude's re-stitch of the approved v06 parts (review pending). UI: the preview showed v01 labelled v02, so v02 is still unreviewed and v01 ships. Not shipped yet: see the holds per row and docs/NOW.md.
@@ -344,8 +346,8 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v07 | v07 | User approved airLight1 v07 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 6 | guard | 2 | - | **yes** | 218 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
-| 6 | launched | 2 | - | **yes** | 170 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | hurtHigh | 3 | - | **yes** | 216 | approved | v04 | v04 | Approved by the user via Claude relay gojo-run #14, as drawn. Final atlas head probes .961/1.000/1.029; Astra HOLD for anatomy (torso 58–66±7px vs neutral ~78±4px; segments not certifiable ±6%). Packed only in PR #143; runtime/contact pending. [Astra](characters/gojo/production/posture-d/ASTRA_FINAL_ATLAS.md) · [review](../public/reviews/gojo-posture-d/index.html). |
+| 6 | launched | 2 | - | **yes** | 170 | approved | v08 | v08 | Approved by the user via Claude relay gojo-run #14, as drawn. Final atlas head probes .893/.924 and torso ~67/66±5px vs neutral ~78±4px; scale remains unmeasured/HOLD. Old scaleManualQA is v06 only. Packed in PR #143; runtime/contact pending. [Astra](characters/gojo/production/posture-d/ASTRA_FINAL_ATLAS.md) · [review](../public/reviews/gojo-posture-d/index.html). |
 | 6 | down | 2 | - | **yes** | 104 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | getup | 5 | - | **yes** | 234 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | charge | 4 | - | **yes** | 215 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -363,7 +365,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v05 | v05 | User approved airLight2 v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v12 | v12 | User approved v12 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. v12 needs review; full strict ok (0.972), all x59..214, six heel-kick phases. Impact heel reach requires Claude gameplay/contact check. A1/B2 budget exhausted. Approved v10 retained. |
 | 9 | block | 2 | - | no | 222 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | hurtLow | 3 | - | no | 199 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | hurtLow | 3 | - | no | 199 | approved | v07 | v04 | User chose to keep v04 via Claude relay gojo-run #14; v05/v06/v07 rejected; no new art promoted. Historical technical measurements remain in review ledger. |
 | 9 | spin | 4 | - | no | 174 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airRecover | 3 | - | no | 196 | approved | v05 | v05 | User approved airRecover v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | throw | 4 | 1/1/2 | no | 219 | approved | v05 | v05 | User approved throw v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
@@ -753,3 +755,4 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 | Sasuke | ult_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; connected eye motif faint at fit and blood remains below uncovered eye; rope and sword pass. |
 
 User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Both v01 backdrops and both v03 foregrounds are approved. Foreground v01s were rejected; v02s were superseded after user-authorized redraws via relay #5. v03s were approved by the user via Claude relay effects #6 despite Astra holds; each used 3 additional calls (cumulative 6/6). See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+

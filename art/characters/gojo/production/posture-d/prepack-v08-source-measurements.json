@@ -1,0 +1,25 @@
+{
+  "scale": 0.21491782553729458,
+  "components": [
+    {
+      "pixels": 178665,
+      "bounds": [
+        30,
+        132,
+        808,
+        922
+      ],
+      "rgbaHash": "346be0bde2c7aef771bc493f1f486a325a7dc0a026054129addf0164a9d2c33e"
+    },
+    {
+      "pixels": 179965,
+      "bounds": [
+        783,
+        173,
+        1491,
+        933
+      ],
+      "rgbaHash": "4322dab831c6a9bbf044d1d5e9f6205a4fb971655f81633c707a4a8d66ad8416"
+    }
+  ]
+}
