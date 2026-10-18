@@ -1,3 +1,4 @@
+- Changed (ART-SKL-SAS): relay #18 authorizes special v15 at Sasuke idle build (bodyHeight 180) with one extra call, 4 cumulative. Moved user-approved v14 to `_qa_hold` as directed; v13 remains active in game until v15 is approved.
 - Changed (ART-SKL-SAS): recorded relay #17 approvals for Chidori v01 and special v14; user keeps special head/clothing fullness and assigns frame-split correction to Claude. Chidori HD packing and technical follow-through remain Claude integration work; visual approval does not clear scale, clipping or source-layout holds.
 - Changed (ART-SKL-SAS): prepared batch 3 review for the six Great Fireball/Kirin HD effects and filed beamFire v08; PR #163 preview is linked in NOW. beamFire remains held at 1.15x head probe after auto-head fit with no accepted atlas/body/Astra audit, and kirinStrike reports clipping.
 # Changelog
