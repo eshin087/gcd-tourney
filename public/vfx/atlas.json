@@ -36,12 +36,17 @@
     "image": "atlas_hd.png",
     "cell": 256,
     "cols": 8,
-    "rows": 3,
+    "rows": 8,
     "ppu": 112,
     "anims": {
-      "fourTailsRoar": { "row": 0, "n": 8, "ms": 45 },
-      "beastBall": { "row": 1, "n": 8, "ms": 45 },
-      "beastBeamRing": { "row": 2, "n": 6, "ms": 40 }
+      "rasengan": { "row": 0, "n": 8, "ms": 40 },
+      "rasenganForm": { "row": 1, "n": 6, "ms": 45 },
+      "rasenganBurst": { "row": 2, "n": 8, "ms": 45 },
+      "poof": { "row": 3, "n": 7, "ms": 40 },
+      "subLog": { "row": 4, "n": 5, "ms": 70 },
+      "fourTailsRoar": { "row": 5, "n": 8, "ms": 45 },
+      "beastBall": { "row": 6, "n": 8, "ms": 45 },
+      "beastBeamRing": { "row": 7, "n": 6, "ms": 40 }
     }
   }
 }

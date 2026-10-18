@@ -587,8 +587,8 @@ export class Effects {
         this.drop('handForm' + f.index);
         this.keep('hand' + f.index, 'rasengan', p.x, p.y, p.z, { scale: 0.5 * k, order: 9, glow: 0.45 });
       }
-      const s = (forming ? 0.25 + prog * 0.6 : 0.7) * k;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s, color: 0x8ac8ff, opacity: 0.4 * halo, order: 3, glow: 1 });
+      const s = (forming ? 0.2 + prog * 0.3 : 0.45) * k;
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s, color: 0x8ac8ff, opacity: 0.3 * halo, order: 3, glow: 0.8 });
       if (Math.random() < 0.3) this.spawn('star', p.x, p.y, p.z, { scale: 0.18, frame: 2, vel: [(Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
     } else if (kind === 'rasenshuriken') {
       // the wind shuriken: four blades spinning round a Rasengan core, held high in startup and thrust forward in active
