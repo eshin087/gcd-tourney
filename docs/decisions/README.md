@@ -66,6 +66,8 @@ when a decision should be revisited.
 | [0039](0039-approvals-desk.md) | One approvals desk: only the Claude chat `0 - Approvals` asks the user; Codex rings for the user and other Claude chats' `relay ask` land in one queue (`.relay/asks/`), watched by `relay wait all`; `/approvals` + a SessionStart hook restore it after chats are deleted; amends 0037 | Accepted |
 | [0040](0040-desk-on-off-switch.md) | The user's on/off switch for the desk: `relay desk off` makes every chat ask the user itself (the ADR 0037 way; `relay ask` queues nothing, exit 6), `desk on` restores 0039; amends 0039 | Accepted |
 | [0041](0041-fighter-pack-scale.md) | `packScale` in the manifest resizes a whole fighter when packed (bodyHeight, frameOffsets, hitboxes.json anchors); Goku and Luffy pack at x0.92 to sit on the cast's 1.17 px per cm of canon height; amends 0029 | Accepted |
+| [0042](0042-smash-directional-normals.md) | Smash-style directional normals: the stick picks tilts, smash attacks (charged) and forward / back / up airs; only the jab strings chain, the rest link; short hop, double jump, fast fall, facing held through a jump; the DBFZ juggle kept; stand-in strips until the art; CPUs keep their moves until ENG-111 | Accepted |
+| [0043](0043-fast-boot-and-loading-screen.md) | Title first, the rest behind it: boot loads only the title art and fighter metadata (~0.5 MB), the fighters and world art load in parallel behind the title and fights wait for them (`whenLoaded`); plain art URLs revalidated by ETag instead of `?v=<now>`; a byte-weighted loading bar; portrait phones see the logo and title art | Accepted |
 
 ## Template
 

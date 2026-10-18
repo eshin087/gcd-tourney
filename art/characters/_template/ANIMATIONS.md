@@ -83,6 +83,16 @@ right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW
 | [airHeavyAlt](#attack-alts) | 6 | 2/2/2 | - | 198 | - (alt) | 9 |
 | [hurtHighAlt](#attack-alts) | 3 | - | - | 195 | - (alt) | 9 |
 | [hurtLowAlt](#attack-alts) | 3 | - | - | 183 | - (alt) | 9 |
+| [fTilt](#directional-normals) | 7 | 2/2/3 | - | 204 | - (normal) | 9 |
+| [uTilt](#directional-normals) | 7 | 2/2/3 | - | 218 | - (normal) | 9 |
+| [dTilt](#directional-normals) | 6 | 2/2/2 | - | 215 | - (normal) | 9 |
+| [dashAttack](#directional-normals) | 7 | 2/2/3 | - | 207 | - (normal) | 9 |
+| [fSmash](#directional-normals) | 9 | 4/2/3 | - | 207 | - (normal) | 9 |
+| [uSmash](#directional-normals) | 8 | 3/2/3 | - | 218 | - (normal) | 9 |
+| [dSmash](#directional-normals) | 8 | 3/2/3 | - | 215 | - (normal) | 9 |
+| [fair](#directional-normals) | 6 | 2/2/2 | - | 207 | - (normal) | 9 |
+| [bair](#directional-normals) | 6 | 2/2/2 | - | 201 | - (normal) | 9 |
+| [uair](#directional-normals) | 6 | 2/2/2 | - | 218 | - (normal) | 9 |
 
 The four **kit** rows ([ADR 0009](../../../docs/decisions/0009-move-system-v2.md)) are part of every
 fighter's baseline kit ([ADR 0011](../../../docs/decisions/0011-kit-baseline-and-balance.md)): fill them for
@@ -944,3 +954,26 @@ Each alt gets its own section right after its base's, in this format (the exampl
 > | 04 | recovery | _{{fill in}}_ |
 > | 05 | recovery | _{{fill in}}_ |
 > | 06 | recovery | back in light1 f06's recovery pose (close to idle 00) |
+
+## Directional normals
+
+Optional, ADR 0042 and art/SPEC.md "Directional normals": the Smash-style moves the stick picks. Until this fighter has
+a strip, the move plays its fallback (`fTilt` → `light2`; `uTilt`, `uSmash`, `uair` → `heavy`; `dTilt`, `dSmash` →
+`light3`; `dashAttack`, `fSmash` → `light4`; `fair` → `airLight2`; `bair` → `airLight3` mirrored). Draw each strike
+where the move hits: forward tilt and forward smash at the chest, down tilt and down smash at the shins (down smash on
+both sides), up tilt and up smash in an arc from in front of the face to over the head, up air over the head, forward
+air in front, back air BEHIND the body (toward screen-left while facing right). `fSmash` frame 01 is the charge pose
+the game holds while Heavy is held.
+
+| Animation | What this fighter does |
+|---|---|
+| fTilt | _{{fill in: e.g. a stepping straight punch or a side kick at chest height}}_ |
+| uTilt | _{{fill in: e.g. an overhead arc of the arm or a kick swung up and over}}_ |
+| dTilt | _{{fill in: e.g. a crouching shin sweep or a low jab}}_ |
+| dashAttack | _{{fill in: e.g. a flying kick off the run}}_ |
+| fSmash | _{{fill in: e.g. a wound-up haymaker or a spinning heel kick}}_ |
+| uSmash | _{{fill in: e.g. a flipping kick or a rising double fist}}_ |
+| dSmash | _{{fill in: e.g. a spinning leg sweep hitting both sides}}_ |
+| fair | _{{fill in: e.g. a mid-air flying kick or an overhead swing}}_ |
+| bair | _{{fill in: e.g. a mid-air back kick behind the body}}_ |
+| uair | _{{fill in: e.g. a mid-air flip kick straight up}}_ |

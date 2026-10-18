@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { buildArena, loadCrowdAtlas } from '../world/arena.js';
 import { loadStageArt, loadNpcArt, loadUiArt } from '../world/worldArt.js';
 import { loadArtIndex } from '../core/artIndex.js';
+import { loadProgress } from '../core/loadProgress.js';
+import { Loader } from '../ui/loader.js';
 import { buildTrainingRoom } from '../world/trainingRoom.js';
 import { buildVoidStage } from '../world/voidStage.js';
 import { Effects } from './effects.js';
@@ -22,7 +24,7 @@ import { Hud, TAGS } from '../ui/hud.js';
 import { Menus } from '../ui/menus.js';
 import { deviceLayout, matchHint, clashHint } from '../ui/controls.js';
 import { ROSTER, getChar } from '../characters/index.js';
-import { loadFighterAsset, actorView } from './sprites.js';
+import { loadFighterAsset, fighterMeta, actorView } from './sprites.js';
 import { saveState, loadState } from './snapshot.js';
 import { BoxViewer } from './boxViewer.js';
 import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT, MAX_KI } from './constants.js';
@@ -111,6 +113,9 @@ export class Game {
     const ui = document.getElementById('ui');
     this.hud = new Hud(ui);
     this.menus = new Menus(ui, this);
+    this.loader = new Loader(document.getElementById('loading'));
+    this.loaded = false; // every fighter, effect and stage pack is in (loadWorld)
+    this.pendingLoad = null; // the whenLoaded request waiting for them
     this.roster = ROSTER;
     this.rosterAssets = [];
     this.fighters = [];
@@ -155,29 +160,77 @@ export class Game {
     });
   }
 
-  async init() {
+  // Boot (ENG-102, ADR 0043): only what the title screen needs holds it up: the art index, the title art and every
+  // fighter's anims.json (their pixel density picks the render detail), ~0.5 MB. The effects, stage, NPCs, crowd and
+  // fighter sheets (~30 MB) then load behind the title, all at once (assetsReady); a fight or a screen that shows the
+  // fighters waits for them (whenLoaded). waitAll keeps the loading screen up until everything is in (?fight=, the lab).
+  async init({ waitAll = false } = {}) {
     await loadArtIndex();
-    await this.fx.loadCustom();
-    this.fxMeta = this.fx.meta; // the atlas a beam's style checks (never the effects object, which Game.quiet swaps out)
-    await this.fx.ground.loadCustom();
-    const crowd = await loadCrowdAtlas();
-    if (crowd) {
-      this.arena.setCrowdAtlas(crowd);
-      console.info(`[crowd] using custom crowd atlas (${crowd.entries.length} spectators, ${this.arena.seats} seats)`);
-    }
-    // stage slots, NPCs and title art (ADR 0012): approved packs only, ?art=custom shows local candidates
-    const [stage, npcs, ui] = await Promise.all([loadStageArt(), loadNpcArt(), loadUiArt()]);
-    if (stage) console.info(`[stage] custom slots${stage.preview ? ' (candidates)' : ''}: ${this.arena.applyStageArt(stage.slots).join(', ')}`);
-    if (npcs.size) console.info(`[npc] placed ${this.arena.setNpcArt(npcs).join(', ')}${[...npcs.values()].some((n) => n.preview) ? ' (candidates)' : ''}`);
+    // title art (ADR 0012): approved packs only, ?art=custom shows local candidates
+    const [ui, ...metas] = await Promise.all([loadUiArt(), ...ROSTER.map((c) => fighterMeta(c))]);
     this.uiArt = ui;
-    this.rosterAssets = [];
-    for (const c of ROSTER) this.rosterAssets.push(await loadFighterAsset(c, this.renderer.renderer));
-    // hi-res art packs get the sharper render mode (override with ?res=pixel or ?res=hd)
-    const res = new URLSearchParams(location.search).get('res');
-    this.renderer.setDetail(res || (this.rosterAssets.some((a) => a.meta.pixelsPerUnit >= 70) ? 'hd' : 'pixel'));
+    // hi-res art packs get the sharper render mode (override with ?res=pixel or ?res=hd); rechecked once the
+    // fighters are in, should one of them fall back to the baked placeholder after all
+    this.renderer.setDetail(this.detailFor(metas.map((m) => (m?.complete ? m : null))));
     this.cam.set('orbit');
     this.state = 'menu';
     this.menus.title();
+    performance.mark('gcd:title'); // boot timings for docs/TESTING.md: performance.getEntriesByType('mark')
+    this.assetsReady = this.loadWorld();
+    if (waitAll) this.loader.wait();
+    else this.loader.mini();
+  }
+
+  detailFor(metas) {
+    return new URLSearchParams(location.search).get('res') || (metas.some((m) => m?.pixelsPerUnit >= 70) ? 'hd' : 'pixel');
+  }
+
+  // Everything the title screen does not need, requested together (the browser downloads them side by side).
+  async loadWorld() {
+    loadProgress.begin('world');
+    const soft = (p, what) => p.catch((e) => console.error(`[boot] ${what} failed to load`, e));
+    await Promise.all([
+      soft(this.fx.loadCustom(), 'effects atlas'),
+      soft(this.fx.ground.loadCustom(), 'ground decals'),
+      soft(loadCrowdAtlas().then((crowd) => {
+        if (!crowd) return;
+        this.arena.setCrowdAtlas(crowd);
+        console.info(`[crowd] using custom crowd atlas (${crowd.entries.length} spectators, ${this.arena.seats} seats)`);
+      }), 'crowd'),
+      // stage slots and NPCs (ADR 0012): approved packs only, ?art=custom shows local candidates
+      soft(loadStageArt().then((stage) => {
+        if (stage) console.info(`[stage] custom slots${stage.preview ? ' (candidates)' : ''}: ${this.arena.applyStageArt(stage.slots).join(', ')}`);
+      }), 'stage art'),
+      soft(loadNpcArt().then((npcs) => {
+        if (npcs.size) console.info(`[npc] placed ${this.arena.setNpcArt(npcs).join(', ')}${[...npcs.values()].some((n) => n.preview) ? ' (candidates)' : ''}`);
+      }), 'NPC art'),
+      Promise.all(ROSTER.map((c) => loadFighterAsset(c, this.renderer.renderer))).then((assets) => { this.rosterAssets = assets; }),
+    ]);
+    this.fxMeta = this.fx.meta; // the atlas a beam's style checks (never the effects object, which Game.quiet swaps out)
+    const detail = this.detailFor(this.rosterAssets.map((a) => a.meta));
+    if (detail !== this.renderer.detail) this.renderer.setDetail(detail);
+    this.loaded = true;
+    performance.mark('gcd:loaded');
+    if (!this.pendingLoad) this.loader.done();
+  }
+
+  // Runs fn now when everything is loaded; otherwise the loading screen shows the rest coming in over an empty menu
+  // and fn runs once it is there. Only the newest request waits (a second tap replaces the first).
+  whenLoaded(fn) {
+    if (this.loaded) {
+      fn();
+      return true;
+    }
+    this.menus.hide();
+    this.loader.wait();
+    const ticket = this.pendingLoad = {};
+    this.assetsReady.then(() => {
+      if (this.pendingLoad !== ticket) return;
+      this.pendingLoad = null;
+      this.loader.done();
+      fn();
+    });
+    return false;
   }
 
   camDir(mx, my) {
@@ -186,6 +239,7 @@ export class Game {
 
   // ------------------------------------------------------------ match setup
   startMatch(cfg) {
+    if (!this.loaded) return this.whenLoaded(() => this.startMatch(cfg));
     this.cfg = cfg;
     this.menus.hide();
     audio.init();
@@ -227,6 +281,7 @@ export class Game {
 
   // Training room: no timer, no KO, health refills, configurable dummy.
   startTraining(cfg = {}) {
+    if (!this.loaded) return this.whenLoaded(() => this.startTraining(cfg));
     const p1 = cfg.p1 || this.trainingCfg?.p1 || ROSTER[0].id;
     const p2 = cfg.p2 || this.trainingCfg?.p2 || (ROSTER.find((c) => c.id !== p1) || ROSTER[0]).id;
     this.trainingCfg = { p1, p2, dummy: cfg.dummy || this.trainingCfg?.dummy || 'stand', infiniteKi: cfg.infiniteKi ?? this.trainingCfg?.infiniteKi ?? true };
@@ -274,6 +329,7 @@ export class Game {
   // Online play (ADR 0036, ENG-094): the room screens and matches over the lobby server (net/online.js, loaded on
   // first use). code: a room from an invite link (?room=).
   async openOnline(code = '') {
+    if (!this.loaded) return this.whenLoaded(() => this.openOnline(code));
     if (!this.online) {
       const { Online } = await import('../net/online.js');
       this.online = new Online(this);
@@ -883,21 +939,29 @@ export class Game {
     const sx = rx * R.x + rz * R.z, sd = rx * F.x + rz * F.z, sy = def.pos.y - att.pos.y;
     if (Math.abs(sd) > (m.lane ?? LANE)) return;
     let pt = null;
-    const hits = att.asset.boxes(att.actor.frame, 'hit', att.side);
+    // the strip's boxes as drawn; a back air shown on a forward strip is mirrored (Fighter.mirrorPose), and a down smash
+    // swings to both sides (ADR 0042)
+    const side = att.mirrorPose ? -att.side : att.side;
+    const hits = att.asset.boxes(att.actor.frame, 'hit', side);
     if (hits) {
       const hurts = (def.asset.boxes(def.actor.frame, 'hurt', def.side) || DEFAULT_HURT).map(widen);
       const [px, py] = m.boxPad ?? (m.air || m.hover ? AIR_BOX_PAD : BOX_PAD);
-      for (const h of hits) {
-        for (const u of hurts) {
-          const x0 = Math.max(h.x0 - px, u.x0 + sx), x1 = Math.min(h.x1 + px, u.x1 + sx);
-          const y0 = Math.max(h.y0 - py, u.y0 + sy), y1 = Math.min(h.y1 + py, u.y1 + sy);
-          if (x0 < x1 && y0 < y1) { pt = { x: (x0 + x1) / 2, y: (y0 + y1) / 2 }; break; }
+      const sets = m.both ? [hits, att.asset.boxes(att.actor.frame, 'hit', -side)] : [hits];
+      for (const set of sets) {
+        for (const h of set) {
+          for (const u of hurts) {
+            const x0 = Math.max(h.x0 - px, u.x0 + sx), x1 = Math.min(h.x1 + px, u.x1 + sx);
+            const y0 = Math.max(h.y0 - py, u.y0 + sy), y1 = Math.min(h.y1 + py, u.y1 + sy);
+            if (x0 < x1 && y0 < y1) { pt = { x: (x0 + x1) / 2, y: (y0 + y1) / 2 }; break; }
+          }
+          if (pt) break;
         }
         if (pt) break;
       }
     } else {
-      const along = sx * att.side;
-      if (along > -0.25 && along < m.reach + 0.25 && Math.abs(sy) < (m.yTol ?? 1.25)) pt = { x: sx * 0.75, y: sy + 0.85 };
+      const along = sx * (m.back ? -att.side : att.side);
+      const inReach = (a) => a > -0.25 && a < m.reach + 0.25;
+      if ((inReach(along) || (m.both && inReach(-along))) && Math.abs(sy) < (m.yTol ?? 1.25)) pt = { x: sx * 0.75, y: sy + 0.85 };
     }
     if (!pt) {
       // a back dash carrying them just out of the swing's reach is a dodge too (BACKSTEP, ADR 0025)
@@ -908,8 +972,10 @@ export class Game {
     att.hitDone = true;
     // applied after both fighters moved this frame, so two attacks meeting on the same frame trade
     // (P1 updates first; applying at once made P1 win every exchange)
+    // a hit behind the attacker (a back air, a down smash's back swing) sends them the other way
+    const behind = (m.back || m.both) && pt.x * att.side < 0;
     this.pendingMelee.push({
-      att, def, m, dir: att.face.clone(),
+      att, def, m, dir: behind ? att.face.clone().negate() : att.face.clone(),
       at: { x: att.pos.x + R.x * pt.x + F.x * sd * 0.5, y: att.pos.y + pt.y, z: att.pos.z + R.z * pt.x + F.z * sd * 0.5 },
     });
   }
@@ -945,8 +1011,8 @@ export class Game {
         att.t = m.startup + m.active;
         if (m.vortex && def.hp > 0) this.spawnVortex(att, m.vortex, def.pos); // Rasenshuriken grind
       }
-      // air juggles: start riding up with the victim (Fighter.updateAttack keeps following)
-      if (m.air || m.hover) att.vel.y = Math.max(att.vel.y, def.state === 'launched' ? def.vel.y : 2.5);
+      // air juggles: start riding up with the victim (Fighter.updateAttack keeps following); a Smash aerial keeps falling
+      if (m.hover || (m.air && att.juggleMove)) att.vel.y = Math.max(att.vel.y, def.state === 'launched' ? def.vel.y : 2.5);
     }
   }
 

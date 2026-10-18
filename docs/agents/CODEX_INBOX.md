@@ -15,6 +15,28 @@ How it works:
 
 ---
 
+## Naruto skills revamp: Rasengan, Nine-Tails Cloak, Shadow Clones, Four-Tails (2026-10-18, Claude) - chat "5 - Skills Effects", relay lane `skills`
+
+**The user's request (2026-10-18, in Claude "5 - Skills Effects"):** revamp the specials, supers and ultimates so they
+look like the anime, starting with Naruto, and "use the '5 - Skills Effects' codex chat to generate art assets to
+accomplish this". The full brief, with the user's own words and their answers to Claude's questions, is
+[art/characters/naruto/SKILLS_REVAMP.md](../../art/characters/naruto/SKILLS_REVAMP.md). Read it first; it wins
+over older Naruto prompts where they disagree (notably the old U6 splash prompt).
+
+**Who does what:** Claude does every engine change (new effect names with procedural stand-ins, the 256 px HD effect
+cell in the packer, the clone system, the cloak shader, the Four-Tails transformation) on `feature/naruto-skills`.
+You draw the art on `art/naruto-skills`. Generation runs on `gpt-6-luna` medium; the Astra audit covers B1-B3 only.
+At most 3 calls per image. The approvals desk is off: ring Claude on lane `skills` with `--for user --kind approval`
+when a batch is ready; Claude asks the user.
+
+- [x] **1. Batch 1, the ultimate (2026-10-18):** reviewed and committed on `art/naruto-skills` (`75047bb7`, PR #152): beamCharge v11, beamFire v14 + translation sidecar, ui_ult_fg v04, fourTailsRoar v02. No new image calls. Updated preview: https://gcd-tourney-dn8ef3o78-eshin087s-projects.vercel.app/reviews/naruto-skills-batch1/ (Vercel deployment protection may require sign-in). Astra v02 confirms four raw tails in v11 but holds the visible f2 x400 patch join; B2's diagnostic reports clipping cleared, final packed/contact verification remains pending, and the user-requested f0 claw-slam mapping is still Claude engine work. B3 fitted alpha is verified, with contrast/anatomy uncertainty disclosed. A8 v02 has a hard circular mask centered in each 256px cell; maximum packed alpha radius is 117.99px, scale x1.000, 8-frame HD atlas, no edge contact. No new calls. Prior user-approval request #3 still names A8 v01 and is stale; Claude must replace it with a request for the current versions/page. Batches 2 and 3 remain unstarted. Full brief: [art/characters/naruto/SKILLS_REVAMP.md](../../art/characters/naruto/SKILLS_REVAMP.md).
+- [ ] **2. Batch 2, the Rasengan and the clones:** A1 `rasengan`, A2 `rasenganForm`, A3 `rasenganBurst`, A6 `poof`,
+  A7 `subLog` (all v01, HD cell). Review page, then ring.
+- [ ] **3. Batch 3, the Rasenshuriken:** A4 `rasenshuriken`, A5 `rasenshurikenDome` (v01, HD cell). Review page,
+  then ring.
+
+Do not edit `src/` or `tools/`. Claude tells you on this lane when candidate packing works for the new effect names.
+
 ## Size audit, round 7: every frame of all six fighters (2026-10-18, Claude) - chat "1 - Art audit", relay lane `art-audit`
 
 **The user's request (2026-10-18, in Claude "1 - Art audit"):** "a full audit of every art frame sprite etc to ensure
@@ -41,7 +63,7 @@ characters and feels out of place." Claude and this chat do it together; this ch
 - You: an **independent visual audit** (item 1) and every **redraw** (item 2, only on Claude's list). Use
   `gpt-6-luna` medium for the audit and redraws; the final Astra audit applies to redrawn candidates only.
 
-- [ ] **1. Independent audit of every packed strip (no image calls).** Main's packed atlases
+- [x] **1. (2026-10-18) Independent audit of every packed strip (no image calls).** Main's packed atlases
   (`public/characters/<id>/sheet.png` + `anims.json`), all six fighters, every animation including alts,
   beamStruggle(Air), supers and tech poses. Compare each frame with that fighter's idle f0 and its approved combat
   cell at one density (`npm run body <id> <anims>` sheets help; keep them in your scratch folder, not the branch).
@@ -62,6 +84,9 @@ characters and feels out of place." Claude and this chat do it together; this ch
   Commit one table, `art/scale/size-r7/CODEX_AUDIT.md` (fighter, strip, version, frames, landmarks idle vs frame,
   ratio, verdict, note), on a task branch `art/size-r7-codex` in your managed worktree. Then
   `node tools/relay.mjs ring art-audit --note "<counts per verdict; commit>"`.
+  Completed in `art/size-r7/CODEX_AUDIT.md`; commit `903b9b63` (230 strips: 207 ok, 21 unresolved,
+  one height-pop and one scale-off). Claude's next action is reconciling the table with its measurements and sending
+  the redraw list; no image calls were made.
 - [ ] **2. Redraws: wait for Claude's list.** Claude reconciles your table with its measurement and sends the strips
   that need a new drawing (with the target scale, pose notes and the 3-attempt budget per image). Do not generate
   before that list arrives.

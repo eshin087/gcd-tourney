@@ -86,22 +86,22 @@ function loop(now) {
   if (!window.__manualStep) game.frame(dt);
 }
 
-// let the loading text paint before the (blocking) sprite bake starts
-const ready = new Promise((r) => setTimeout(r, 30)).then(() => game.init());
-ready.then(() => {
-  document.getElementById('loading')?.classList.add('done');
-  requestAnimationFrame(loop);
-});
-
 // URL shortcuts for quick testing: ?fight=naruto,sasuke&mode=solo|versus|cpu&level=easy|normal|hard|insane|impossible
 // (mode=cpu spectates two CPUs; its level defaults to impossible); &seed=N fixes the match seed (the CPUs' combo
 // personas and routes, ADR 0026)
 const qs = new URLSearchParams(location.search);
+
+// ready: the title screen is up (its art is in); loaded: the fighters and the rest of the art too (ENG-102). A link
+// straight into a match (or the determinism test) keeps the loading screen up until everything is in.
+const ready = game.init({ waitAll: !!qs.get('fight') || qs.has('det') });
+const loaded = ready.then(() => game.assetsReady);
+ready.then(() => requestAnimationFrame(loop));
+
 // ?net=sim: the local rollback test mode (ADR 0036, src/net/netSim.js): player 2's inputs cross a simulated network
 // (&lag=frames &jitter=frames &loss=% &delay=frames); it is set up before the match so the session starts with it
 const netReady = qs.get('net') === 'sim'
-  ? ready.then(() => import('./net/netSim.js')).then((m) => m.startNetSim(game, qs))
-  : ready;
+  ? loaded.then(() => import('./net/netSim.js')).then((m) => m.startNetSim(game, qs))
+  : loaded;
 if (qs.get('fight')) {
   const [p1, p2] = qs.get('fight').split(',');
   const mode = qs.get('mode') || 'solo';
@@ -114,7 +114,7 @@ if (qs.get('room') && !qs.get('fight')) ready.then(() => game.openOnline(qs.get(
 
 // the online-play determinism test (ADR 0036): window.det with ?debug, and ?det=<log> replays a saved log at once
 // (another browser or a phone checking itself against the reference); loaded only when asked for
-if (qs.has('debug') || qs.has('det')) import('./net/detTest.js').then((m) => m.install(game, ready, qs));
+if (qs.has('debug') || qs.has('det')) import('./net/detTest.js').then((m) => m.install(game, loaded, qs));
 
 // ?debug exposes deterministic stepping helpers for automated testing in the console
 if (qs.has('debug')) {
@@ -299,6 +299,7 @@ if (qs.has('debug')) {
             M.rounds = game.round;
             M.wins = game.fighters.map((f) => f.wins);
             M.seconds = +(M.frames / 60).toFixed(1);
+            M.used = game.brains.map((b) => ({ ...(b?.show?.used ?? {}) })); // each CPU's tools this match (Showcase, ADR 0016)
             matches.push(M);
             ringState.fill(null); stuckState.fill(null);
             S.done++;

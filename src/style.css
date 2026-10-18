@@ -318,8 +318,28 @@ body:has(#touch.show:not(.spectate)) .tags.k2 { top: calc(var(--u) * 13); right:
 .eyeflash canvas { height: 100%; image-rendering: pixelated; }
 @keyframes eyeIn { 0% { opacity: 0; transform: scaleY(0.1); } 15% { opacity: 1; transform: scaleY(1.08); } 25% { transform: scaleY(1); } 75% { opacity: 1; } 100% { opacity: 0; transform: scaleY(0.6); } }
 
-#loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Press Start 2P', monospace; font-size: 14px; color: #fff; background: #0d0b14; letter-spacing: 0.1em; animation: blink 1s steps(2) infinite; }
-#loading.done { display: none; }
+/* ------------------------------------------------------------ loading screen (ENG-102; markup in index.html, bars moved
+   by src/ui/loader.js): the title art behind the logo and a real progress bar; a slim strip over the title screen while
+   the fighters load behind it (.mini) */
+#loading { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; overflow: hidden; color: #fff; background: #0d0b14; font-family: 'Press Start 2P', monospace; transition: opacity 0.3s, visibility 0.3s; }
+#loading::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(13, 11, 20, 0.15) 25%, rgba(13, 11, 20, 0.85)); pointer-events: none; }
+.ld-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; opacity: 0.6; }
+.ld-box { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 18px; width: min(480px, 84vw); }
+.ld-logo { display: block; width: min(480px, 80vw); aspect-ratio: 480 / 180; height: auto; image-rendering: pixelated; filter: drop-shadow(0 0 18px rgba(255, 180, 60, 0.35)); }
+.ld-name { font-family: 'Bangers', 'Press Start 2P', sans-serif; font-size: 48px; font-style: italic; letter-spacing: 0.04em; color: #ffd23a; text-shadow: 3px 3px 0 var(--ink); }
+.ld-logo + .ld-name { display: none; } /* the text name only stands in when the packed logo is missing */
+.ld-bar { position: relative; width: 100%; max-width: 340px; height: 14px; background: #1d1838; border: 2px solid #fff2c0; outline: 2px solid var(--ink); transform: skewX(-20deg); overflow: hidden; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35); }
+.ld-bar i { position: absolute; inset: 0; transform: scaleX(0); transform-origin: left; background: linear-gradient(90deg, #ff6a10, #ffb000 45%, #ffe060 70%, #7ae0ff); transition: transform 0.25s ease-out; }
+.ld-bar::after { content: ''; position: absolute; top: 0; bottom: 0; left: -30%; width: 30%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent); animation: ldShine 1.3s linear infinite; } /* alive before the first byte counts */
+@keyframes ldShine { to { left: 100%; } }
+.ld-label { font-size: 11px; letter-spacing: 0.15em; text-shadow: 2px 2px 0 var(--ink); }
+#loading.mini { top: auto; bottom: calc(var(--u) * 2.5 + env(safe-area-inset-bottom)); background: none; pointer-events: none; overflow: visible; }
+[data-load="world"] .title-screen .foot { visibility: hidden; } /* the strip takes the tagline's place while it shows */
+#loading.mini::after, #loading.mini .ld-art, #loading.mini .ld-logo, #loading.mini .ld-name { display: none; }
+#loading.mini .ld-box { gap: 6px; width: min(240px, 50vw); }
+#loading.mini .ld-bar { height: 8px; border-width: 1px; }
+#loading.mini .ld-label { font-size: 8px; opacity: 0.85; }
+#loading.done { opacity: 0; visibility: hidden; pointer-events: none; }
 
 /* ------------------------------------------------------------ mute toggle (top-right, unobtrusive) */
 #mute { all: unset; position: fixed; top: calc(8px + env(safe-area-inset-top)); right: calc(8px + env(safe-area-inset-right)); z-index: 50; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: rgba(10, 8, 24, 0.3); opacity: 0.32; cursor: pointer; transition: opacity 0.15s, background 0.15s; }
@@ -458,9 +478,22 @@ body:has(#touch.show:not(.spectate)) .tags.k2 { top: calc(var(--u) * 13); right:
 .tr-panel, .controls-page .ctl-panel, .moves-box { touch-action: pan-y; -webkit-overflow-scrolling: touch; }
 
 /* portrait phone: ask for landscape */
-#rotate { display: none; position: fixed; inset: 0; z-index: 100; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #0d0b14; color: #fff; font-family: 'Press Start 2P', monospace; font-size: 12px; text-align: center; padding: 24px; }
-#rotate small { font-family: system-ui, sans-serif; font-size: 12px; color: rgba(255, 255, 255, 0.55); }
-.rot-phone { width: 44px; height: 76px; border: 3px solid #ffd23a; border-radius: 8px; animation: rotPhone 2s ease-in-out infinite; }
+/* portrait phones: the game's name and title art (the packed public/ui/ art), the load bar while loading, and the
+   rotate hint below (ENG-102) */
+#rotate { display: none; position: fixed; inset: 0; z-index: 100; flex-direction: column; align-items: center; justify-content: center; gap: 22px; overflow: hidden; padding: calc(24px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom)); background: #0d0b14; color: #fff; font-family: 'Press Start 2P', monospace; text-align: center; }
+#rotate::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(13, 11, 20, 0.35), rgba(13, 11, 20, 0.8)); pointer-events: none; }
+#rotate > :not(.rot-bg) { position: relative; z-index: 1; }
+.rot-bg { position: absolute; inset: -8%; width: 116%; height: 116%; object-fit: cover; image-rendering: pixelated; opacity: 0.4; filter: blur(5px); }
+.rot-title .ld-logo { width: min(86vw, 420px); }
+.rot-art { display: block; width: min(90vw, 480px); aspect-ratio: 16 / 9; height: auto; image-rendering: pixelated; border: 3px solid #fff2c0; outline: 3px solid var(--ink); box-shadow: 0 0 28px rgba(255, 180, 60, 0.3), 0 8px 0 rgba(0, 0, 0, 0.4); }
+.rot-load { display: flex; flex-direction: column; align-items: center; gap: 8px; width: min(64vw, 260px); }
+.rot-load .ld-bar { height: 10px; }
+.rot-load .ld-label { font-size: 8px; }
+[data-load="done"] .rot-load { display: none; }
+.rot-hint { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 10px; line-height: 1.6; }
+.rot-hint p { margin: 0; }
+#rotate small { font-family: system-ui, sans-serif; font-size: 11px; color: rgba(255, 255, 255, 0.55); }
+.rot-phone { width: 28px; height: 48px; border: 3px solid #ffd23a; border-radius: 6px; animation: rotPhone 2s ease-in-out infinite; }
 @keyframes rotPhone { 0%, 20% { transform: rotate(0deg); } 50%, 80% { transform: rotate(-90deg); } 100% { transform: rotate(0deg); } }
 @media (orientation: portrait) and (pointer: coarse) { #rotate { display: flex; } }
 

@@ -14,6 +14,8 @@ import { pickW } from './rng.js'; // also used locally (rollPersona), so importe
 const SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
 const AIR_SLOTS = ['air', 'airDown'];
 export const TECH = ['vanish', 'superDash', 'wavedash', 'parry', 'spotDodge', 'airDodge', 'throw', 'charge', 'burst', 'backstep', 'vanishWar'];
+// the directional normals (ADR 0042), by move name; 'nair' is airLight1 out of a jump (not the juggle string's first hit)
+export const NORMAL_TOOLS = ['fTilt', 'uTilt', 'dTilt', 'dashAttack', 'fSmash', 'uSmash', 'dSmash', 'nair', 'fair', 'bair', 'uair'];
 
 // Defense personas (ADR 0025): multipliers on the defensive answers' weights. `roll` = how often it is rolled.
 // parry / dodge (spot dodge) / airdodge / wavedash / backstep / vanish / counter / block: the answers themselves;
@@ -73,6 +75,7 @@ export function toolsOf(def) {
   if (SUPERS[K.ultimate]) tools.ultimate = { kind: SUPERS[K.ultimate].kind, m: SUPERS[K.ultimate] };
   else tools.beam = { kind: 'beam' }; // Heavy + Special fires the shared beam (and SUPER does too without a second super)
   for (const id of TECH) tools[id] = { kind: 'tech' };
+  for (const id of NORMAL_TOOLS) tools[id] = { kind: 'normal' };
   return tools;
 }
 
@@ -132,6 +135,8 @@ export class Showcase {
     if (s === 'attack' && f.move !== this.lastMove && (f.moveName === 'special' || f.moveName === 'shot' || f.moveName === 'throw')) {
       this.note(specialId(f.move));
     }
+    // a directional normal (ADR 0042): a tilt, smash attack, dash attack or Smash aerial
+    if (s === 'attack' && f.move !== this.lastMove) this.note(f.moveName === 'airLight1' ? (f.juggleMove ? null : 'nair') : f.moveName);
     // an ultimate clash or a beam clash this fighter is in (not the one-beat special clash)
     const cl = f.game?.clash;
     if (cl && !cl.lite && cl !== this.lastClash && (cl.a?.f === f || cl.b?.f === f)) {

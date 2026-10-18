@@ -13,7 +13,7 @@
     { "step": 6, "name": "reactions", "items": ["guard", "hurtHigh", "launched", "down", "getup"] },
     { "step": 7, "name": "specials", "items": ["charge", "beamCharge", "beamFire", "special"] },
     { "step": 8, "name": "rest (core)", "items": ["dash", "jumpUp", "jumpFall", "land", "win"] },
-    { "step": 9, "name": "rest (optional)", "items": ["backDash", "superDash", "jumpSquat", "airLight2", "airLight3", "block", "hurtLow", "spin", "airRecover", "throw", "vanish", "stagger", "ko", "intro", "taunt", "specialForward", "specialUp", "specialDown", "superPose", "beamStruggle", "beamStruggleAir", "light1Alt", "light2Alt", "light3Alt", "light4Alt", "heavyAlt", "airLight1Alt", "airLight2Alt", "airLight3Alt", "airHeavyAlt", "hurtHighAlt", "hurtLowAlt"] },
+    { "step": 9, "name": "rest (optional)", "items": ["backDash", "superDash", "jumpSquat", "airLight2", "airLight3", "block", "hurtLow", "spin", "airRecover", "throw", "vanish", "stagger", "ko", "intro", "taunt", "specialForward", "specialUp", "specialDown", "superPose", "beamStruggle", "beamStruggleAir", "light1Alt", "light2Alt", "light3Alt", "light4Alt", "heavyAlt", "airLight1Alt", "airLight2Alt", "airLight3Alt", "airHeavyAlt", "hurtHighAlt", "hurtLowAlt", "fTilt", "uTilt", "dTilt", "dashAttack", "fSmash", "uSmash", "dSmash", "fair", "bair", "uair"] },
     { "step": 10, "name": "VFX", "items": ["vfx.spark", "vfx.burst", "vfx.ring", "vfx.dust", "vfx.smoke", "vfx.shuriken", "vfx.fire", "vfx.flame", "vfx.lightning", "vfx.orb", "vfx.glow", "vfx.streak", "vfx.star", "vfx.crater", "vfx.lines"] },
     { "step": 11, "name": "UI", "items": ["ui.portrait", "ui.cutin", "ui.select", "sharedUi.logo", "sharedUi.titleArt"] },
     { "step": 12, "name": "ground decals (style sheet first, ADR 0024)", "items": ["decals.styleSheet", "decals.crack_s", "decals.crack", "decals.crater", "decals.crater_big", "decals.crater_huge", "decals.fracture_ring", "decals.scuff", "decals.skid", "decals.rubble", "decals.dirt_crater", "decals.dirt_skid", "decals.barrier_crack", "decals.crater_wall", "decals.burn_lightning", "decals.burn_lightning_big", "decals.fracture_lightning", "decals.burn_fire", "decals.burn_black", "decals.scour_spiral", "decals.scour_spiral_big", "decals.cut_wind", "decals.claw", "decals.scorch_chakra", "decals.fracture_chakra", "decals.erasure", "decals.erasure_trench", "decals.crush_implode", "decals.gouge_repel", "decals.fracture_cursed", "decals.fracture_cursed_big", "decals.scorch_ki"] }
@@ -77,7 +77,17 @@
     "airLight3Alt": { "altOf": "airLight3", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "airHeavyAlt": { "altOf": "airHeavy", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 198, "ms": [50, 45, 45, 70, 70, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "hurtHighAlt": { "altOf": "hurtHigh", "frames": 3, "loop": false, "bodyHeight": 195, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-    "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
+    "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "fTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "uTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 218, "ms": [40, 35, 40, 60, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "dTilt": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 215, "ms": [35, 30, 50, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 207, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 207, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 218, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 215, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 207, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+    "uair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 218, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
   },
   "characters": {
     "goku": {
@@ -150,7 +160,17 @@
         "airLight3Alt": { "altOf": "airLight3", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "airHeavyAlt": { "altOf": "airHeavy", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 198, "ms": [50, 45, 45, 70, 70, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "hurtHighAlt": { "altOf": "hurtHigh", "frames": 3, "loop": false, "bodyHeight": 195, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
+        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 236, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 235, "ms": [40, 35, 40, 60, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dTilt": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 237, "ms": [35, 30, 50, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 237, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 237, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 235, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 237, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 207, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 235, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
       },
       "ui": {
         "portrait": { "file": "art/characters/goku/ui/portrait.png", "candidates": "art/characters/goku/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
@@ -230,7 +250,17 @@
           "airLight3Alt": { "altOf": "airLight3", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
           "airHeavyAlt": { "altOf": "airHeavy", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 198, "ms": [50, 45, 45, 70, 70, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
           "hurtHighAlt": { "altOf": "hurtHigh", "frames": 3, "loop": false, "bodyHeight": 195, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-          "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
+          "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 183, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "fTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "uTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 218, "ms": [40, 35, 40, 60, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "dTilt": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 215, "ms": [35, 30, 50, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 207, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 207, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 218, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 215, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 207, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 201, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+          "uair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 218, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
       },
       "ui": {
         "portrait": { "file": "art/characters/luffy/ui/portrait.png", "candidates": "art/characters/luffy/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "todo", "version": 0, "approvedVersion": null },
@@ -313,7 +343,17 @@
         "airLight3Alt": { "altOf": "airLight3", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 192, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
         "airHeavyAlt": { "altOf": "airHeavy", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 183, "ms": [50, 45, 45, 70, 70, 40], "required": false, "step": 9, "status": "approved", "version": 4, "approvedVersion": 4, "scaleExemptFrames": { "2": "v04 smash: head tipped down and the orange sleeve highlights fall in the hair colour range (hair area 368 vs about 330 in the other frames, the same as the approved airHeavy f2 390)", "3": "v04 smash: same as f2 (hair area 389; approved airHeavy f3 434)" }, "scaleExemptVersion": 4 },
         "hurtHighAlt": { "altOf": "hurtHigh", "frames": 3, "loop": false, "bodyHeight": 177, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
-        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 170, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 }
+        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 170, "ms": [70, 90, 100], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1 },
+        "fTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 185, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 218, "ms": [40, 35, 40, 60, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dTilt": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 196, "ms": [35, 30, 50, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 192, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 192, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 218, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 196, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 179, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 192, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 218, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
       },
       "ui": {
         "portrait": { "file": "art/characters/naruto/ui/portrait.png", "candidates": "art/characters/naruto/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 },
@@ -394,7 +434,17 @@
         "airLight3Alt": { "altOf": "airLight3", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 194, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "airHeavyAlt": { "altOf": "airHeavy", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 208, "ms": [50, 45, 45, 70, 70, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "hurtHighAlt": { "altOf": "hurtHigh", "frames": 3, "loop": false, "bodyHeight": 174, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 166, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
+        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 166, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 180, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 213, "ms": [40, 35, 40, 60, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dTilt": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 200, "ms": [35, 30, 50, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 193, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 193, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 213, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 200, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 203, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 194, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 213, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
       },
       "ui": {
         "portrait": { "file": "art/characters/sasuke/ui/portrait.png", "candidates": "art/characters/sasuke/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 1, "approvedVersion": 1 },
@@ -479,7 +529,17 @@
         "airLight3Alt": { "altOf": "airLight3", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 180, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "airHeavyAlt": { "altOf": "airHeavy", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 164, "ms": [50, 45, 45, 70, 70, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "hurtHighAlt": { "altOf": "hurtHigh", "frames": 3, "loop": false, "bodyHeight": 158, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 149, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
+        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 149, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 160, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 214, "ms": [40, 35, 40, 60, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dTilt": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 171, "ms": [35, 30, 50, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 166, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 166, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 214, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 171, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 174, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 180, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
       },
       "ui": {
         "portrait": { "file": "art/characters/killua/ui/portrait.png", "candidates": "art/characters/killua/raw/ui_portrait_vNN.png", "size": [96, 96], "step": 11, "status": "approved", "version": 2, "approvedVersion": 2 },
@@ -1337,7 +1397,17 @@
         "airLight3Alt": { "altOf": "airLight3", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 219, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "airHeavyAlt": { "altOf": "airHeavy", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 215, "ms": [50, 45, 45, 70, 70, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "hurtHighAlt": { "altOf": "hurtHigh", "frames": 3, "loop": false, "bodyHeight": 216, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 199, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
+        "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 199, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 232, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 228, "ms": [40, 35, 40, 60, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dTilt": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 216, "ms": [35, 30, 50, 50, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 225, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 225, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 228, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 216, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 225, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 219, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "uair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 228, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null }
       },
       "ui": {
         "portrait": {

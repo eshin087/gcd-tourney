@@ -6,7 +6,7 @@
 // times) to show what still depends on wall-clock time; a saved log (public/det/<name>.json) replays in another
 // browser or on a phone against the reference hashes. Every replay also times the fixed step: a rollback pays it
 // once per re-simulated frame.
-import { ACTIONS } from '../core/input.js';
+import { PAD_INPUTS } from '../core/input.js';
 import { rng } from '../game/rng.js';
 import { GROUPS, hashSim, hashKeys, dumpSim, diffDumps, hashString } from './simHash.js';
 import { RollbackSession, packInput, applyInput, foldHash } from './rollback.js';
@@ -77,7 +77,7 @@ function packedInputs(inputs, frames, neutral = 0) {
     for (let k = 0; k < out.length; k++) {
       while (j < L.length && L[j][0] <= k) {
         const [, mx, my, bits] = L[j++], b = {};
-        ACTIONS.forEach((a, i) => { b[a] = !!(bits & (1 << i)); });
+        PAD_INPUTS.forEach((a, i) => { b[a] = !!(bits & (1 << i)); });
         cur = packInput(mx, my, b);
       }
       out[k] = k < neutral ? 0 : cur;
@@ -96,7 +96,7 @@ function makeFeed(inputs) {
       p.tick();
       p.setMove(mx, my);
       if (!dash) p.dashDir = null; // the brains never double-tap dash (they clear it after the stick)
-      ACTIONS.forEach((a, j) => p.set(a, !!(bits & (1 << j))));
+      PAD_INPUTS.forEach((a, j) => p.set(a, !!(bits & (1 << j))));
     }
   };
 }
@@ -138,7 +138,7 @@ export function install(game, ready, qs) {
         think.call(this, g);
         const p = g.pads[i];
         let bits = 0;
-        ACTIONS.forEach((a, j) => { if (p.b[a].down) bits |= 1 << j; });
+        PAD_INPUTS.forEach((a, j) => { if (p.b[a].down) bits |= 1 << j; });
         const rec = [g.frameNo - f0 - 1, stick[i][0], stick[i][1], bits, p.dashDir ? 1 : 0], L = last[i];
         if (!L || L[1] !== rec[1] || L[2] !== rec[2] || L[3] !== rec[3] || L[4] !== rec[4]) { inputs[i].push(rec); last[i] = rec; }
       };
@@ -224,7 +224,7 @@ export function install(game, ready, qs) {
       for (const p of game.pads) {
         p.tick();
         p.setMove(Math.round(R() * 2 - 1), Math.round(R() * 2 - 1));
-        ACTIONS.forEach((a) => p.set(a, R() < 0.15));
+        PAD_INPUTS.forEach((a) => p.set(a, R() < 0.15));
       }
     };
     const realStep = () => Object.getPrototypeOf(game).fixedUpdate.call(game); // the real step, not the timing hook
@@ -298,7 +298,7 @@ export function install(game, ready, qs) {
     game.brains = [null, null];
     game.director = null;
     const remotePlayer = 1 - localPlayer, link = new SimLink({ latency, jitter, loss, seed });
-    const source = (f) => (table[remotePlayer][f] ?? 0) ^ (tamper != null && f === tamper ? 1 << (16 + ACTIONS.indexOf('jump')) : 0);
+    const source = (f) => (table[remotePlayer][f] ?? 0) ^ (tamper != null && f === tamper ? 1 << (16 + PAD_INPUTS.indexOf('jump')) : 0);
     new SimRemote(link, { player: remotePlayer, delay, maxRollback, source, check: (f) => refFold[f], checkEvery: 60, startAt });
     const session = new RollbackSession(game, { link, local: (p, f) => table[p][f] ?? 0, localPlayers: [localPlayer], remotePlayers: [remotePlayer], delay, maxRollback, hashEvery: 1 });
     const draw = game.renderer.render;

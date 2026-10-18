@@ -32,7 +32,7 @@ docs/TESTING.md.
 2. `npm run deploy`. It prints the address, `https://gcd-tourney-lobby.<subdomain>.workers.dev`.
 3. Put `wss://gcd-tourney-lobby.<subdomain>.workers.dev` in `LOBBY_URL` (src/net/lobby.js) and deploy the game.
 
-Deployed: https://gcd-tourney-lobby.eshin087.workers.dev (2026-10-16). After a change to `src/` here, run
+Deployed: https://gcd-tourney-lobby.eshin087.workers.dev (2026-10-16). Redeployed 2026-10-18 for the 27-bit inputs (the C-stick, ADR 0042): a server older than the game drops messages holding a C-stick input, so deploy the server first whenever the input format grows. After a change to `src/` here, run
 `npm test`, then `npm run deploy` again; the game needs no redeploy unless the protocol changed.
 
 ## The anti-bot check (Cloudflare Turnstile): ready, switched off

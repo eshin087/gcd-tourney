@@ -3,16 +3,39 @@
 // isn't there: on a static host a missing file is a 404, and every 404 is a console error.
 // The Vite dev server answers missing files with index.html instead, so in dev (and when the
 // index can't be read) everything is probed directly, which also picks up freshly packed art.
+// The index also lists the byte size of every large file, so the loading bar can follow bytes (loadProgress.js).
+import { loadProgress } from './loadProgress.js';
+
 let files = null;
+let bytes = {};
 
 export async function loadArtIndex() {
   if (import.meta.env.DEV) return;
   try {
-    const res = await fetch('/art-index.json', { cache: 'no-store' });
-    if (res.ok) files = new Set((await res.json()).files || []);
+    // no-cache, not no-store: the browser revalidates (a 304 when nothing changed) instead of downloading it again
+    const res = await loadProgress.track(fetch('/art-index.json', { cache: 'no-cache' }));
+    if (res.ok) {
+      const data = await res.json();
+      files = new Set(data.files || []);
+      bytes = data.bytes || {};
+    }
   } catch {
     files = null;
   }
+}
+
+// How much a file weighs on the loading bar: its size in kB when the index knows it (files under 32 kB are not
+// listed and count as 16), 16 in dev, where there is no index.
+export function artWeight(path) {
+  return (bytes[path.split('?')[0].replace(/^\/+/, '')] ?? 16384) / 1024;
+}
+
+// The URL to request a packed art file by. Production asks for the plain path: Vercel serves public files with an
+// ETag and `max-age=0, must-revalidate`, so the browser keeps its copy and gets a 304 until a deploy changes the file
+// (ENG-102: a `?v=<now>` here made every visit download all 30 MB of art again). In dev a fresh query keeps a
+// just-packed sheet from being served out of the browser cache.
+export function artUrl(path) {
+  return import.meta.env.DEV ? `${path}?v=${Date.now()}` : path;
 }
 
 // path: '/characters/naruto/portrait.png' (a query string is ignored)
@@ -23,7 +46,7 @@ export function hasArt(path) {
 // Parsed JSON for an optional art file, or null when it is absent or not JSON.
 export async function fetchArtJson(path) {
   if (!hasArt(path)) return null;
-  const res = await fetch(path, { cache: 'no-store' });
+  const res = await loadProgress.track(fetch(path, { cache: 'no-cache' }), artWeight(path));
   if (!res.ok || !(res.headers.get('content-type') || '').includes('json')) return null;
   return res.json();
 }

@@ -15,7 +15,7 @@ import { RING_HALF, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { SPECIAL_MOVES, SUPERS, PROJECTILES } from './moves.js';
 import { kitOf } from './kit.js';
 import { DECALS, bakeDecals, paintDecal } from '../art/decalPainter.js';
-import { fetchAtlasJson } from '../core/artIndex.js';
+import { fetchAtlasJson, artUrl } from '../core/artIndex.js';
 import { loadImage } from './sprites.js';
 
 // All the numbers (tune here).
@@ -438,7 +438,7 @@ export class GroundDamage {
       }
     };
     if (pg.img) return ready();
-    pg.loading ??= loadImage(`${C.dir}/${pg.file}?v=${Date.now()}`).then((img) => {
+    pg.loading ??= loadImage(artUrl(`${C.dir}/${pg.file}`)).then((img) => {
       pg.loading = null;
       if (!img) {
         pg.failed = true;

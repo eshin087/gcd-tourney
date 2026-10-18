@@ -35,8 +35,14 @@ export const MOVES_HTML = `
   <div class="ctl-col">
     <h3>DBFZ-STYLE MOVES</h3>
     <table>
-      <tr><td>Auto combo</td><td>Light ×4 on the ground, Light ×3 in the air</td></tr>
+      <tr><td>Auto combo</td><td>Light ×4 on the ground, Light ×3 in the air <small>(stick neutral)</small></td></tr>
       <tr><td>Bread &amp; butter</td><td>Light ×3 → Heavy (launch) → Jump (chase) → Light ×2 → Heavy (spike)</td></tr>
+      <tr><td>Tilts</td><td>→ / ↑ / ↓ + Light: forward tilt (poke), up tilt (anti-air), down tilt (low); they link, not chain</td></tr>
+      <tr><td>Smash attacks</td><td>→ / ↑ / ↓ + Heavy, hold Heavy to charge <small>(up to ×1.4)</small></td></tr>
+      <tr><td>Aerials</td><td>in the air: Light (neutral air), → / ← / ↑ + Light (forward, back, up air), ↓ + Light or Heavy (spike)</td></tr>
+      <tr><td>C-stick</td><td>gamepad right stick: a smash attack that way, in the air that aerial <small>(your drift stays)</small></td></tr>
+      <tr><td>Jumps</td><td>tap Jump: short hop · Jump + Light: short-hop aerial · Jump again: double jump · ↓ past the top: fast fall</td></tr>
+      <tr><td>Dash attack</td><td>Light in a dash with the stick held</td></tr>
       <tr><td>Super dash</td><td>Dash with no direction: homing flight (once per jump)</td></tr>
       <tr><td>Dash</td><td>Dash + direction, or double-tap a direction</td></tr>
       <tr><td>Vanish</td><td>Guard + Special <small>(1 bar)</small>: teleport behind &amp; smash, works from block</td></tr>
@@ -370,6 +376,7 @@ export class Menus {
 
   // mode: 'solo' | 'versus' | 'cpu' | 'training'. onBack overrides where Esc on the first pick goes.
   charSelect(mode, onBack = null) {
+    if (!this.game.loaded) return this.game.whenLoaded(() => this.charSelect(mode, onBack)); // it shows every fighter's art
     this.clear();
     this.screen = 'chars';
     this.root.classList.add('char-screen');

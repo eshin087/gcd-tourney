@@ -1,4 +1,5 @@
-import { hasArt, fetchArtJson } from '../core/artIndex.js';
+import { hasArt, fetchArtJson, artUrl, artWeight } from '../core/artIndex.js';
+import { loadProgress } from '../core/loadProgress.js';
 import * as THREE from 'three';
 import { bakeCharacter } from '../art/rig/baker.js';
 import { RING_TOP, RING_HALF, SPRITE_DEPTH_COMP, SPRITE_DEPTH_CLAMP } from './constants.js';
@@ -26,6 +27,10 @@ export const FALLBACK = {
   // beam clash struggle (ADR 0034): the clash plays it only when the sheet has its own strip, so this covers direct
   // lookups; the 3D placeholder bakes none
   beamStruggle: 'beamFire', beamStruggleAir: 'throw', // the clash holds throw's release frame when the strip is missing
+  // directional normals (ADR 0042): the nearest strip the fighter already has, its boxes included. A back air without
+  // its own strip shows airLight3 mirrored (Fighter.mirrorPose); the 3D placeholder bakes none of them
+  fTilt: 'light2', uTilt: 'heavy', dTilt: 'light3', dashAttack: 'light4', fSmash: 'light4', uSmash: 'heavy', dSmash: 'light3',
+  fair: 'airLight2', bair: 'airLight3', uair: 'heavy',
 };
 
 // ?art=custom previews incomplete art packs; ?art=procedural ignores custom art entirely.
@@ -55,11 +60,11 @@ export async function loadImage(url) {
   // load/error events, not img.decode(): decode() can stay pending while the tab is in the
   // background, which would freeze boot for a player who opened the game in another tab
   const img = new Image();
-  const ok = await new Promise((resolve) => {
+  const ok = await loadProgress.track(new Promise((resolve) => {
     img.onload = () => resolve(true);
     img.onerror = () => resolve(false);
     img.src = url;
-  });
+  }), artWeight(url));
   return ok && img.naturalWidth > 0 ? img : null;
 }
 
@@ -179,6 +184,15 @@ export class SheetAsset {
   }
 }
 
+// A fighter's packed anims.json (null without a pack), fetched once: the boot reads every fighter's pixel density to
+// pick the render detail before the title shows, and loadFighterAsset reuses it when the sheets load behind the title.
+const metas = new Map();
+export function fighterMeta(def) {
+  if (ART_MODE === 'procedural') return Promise.resolve(null);
+  if (!metas.has(def.id)) metas.set(def.id, fetchArtJson(`/characters/${def.id}/anims.json`).catch(() => null));
+  return metas.get(def.id);
+}
+
 // Packed art (public/characters/<id>/, written by `npm run sprites`) wins when it is
 // complete; otherwise the character is baked from the procedural 3D rig.
 export async function loadFighterAsset(def, renderer = null) {
@@ -195,15 +209,16 @@ export async function loadFighterAsset(def, renderer = null) {
   };
   if (ART_MODE !== 'procedural') {
     try {
-      const meta = await fetchArtJson(base + 'anims.json');
+      const meta = await fighterMeta(def);
       if (meta) {
         if (!meta.animations?.idle?.frames?.length) {
           console.info(`[sprites] ${def.id}: art pack has no idle yet, using the placeholder`);
         } else if (meta.complete || ART_MODE === 'custom') {
-          const img = await loadImage(`${base}sheet.png?v=${Date.now()}`);
+          // the sheet and the UI layers download side by side (one after the other cost ~0.5 s per fighter)
+          const [img, layers] = await Promise.all([loadImage(artUrl(`${base}sheet.png`)), ui()]);
           if (img) {
             const asset = new SheetAsset(img, meta, 'custom');
-            Object.assign(asset, await ui());
+            Object.assign(asset, layers);
             console.info(`[sprites] using custom sheet for ${def.id} (${Object.keys(meta.animations).length} animations${meta.complete ? '' : ', incomplete preview'})`);
             return asset;
           }
