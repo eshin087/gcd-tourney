@@ -40,6 +40,7 @@ when a batch is ready; Claude asks the user.
   a new `beamFire` v15 (the fox firing from its mouth; the approved pounce v14 will not ship as beamFire), new HD
   effects `beastBall` and `beastBeamRing`; beamCharge v12 and fourTailsRoar v02 continue as the gathering pose and
   the transformation roar. The user's two reference stills are in the git-ignored `reference/source/` folder.
+  Codex art preparation committed as `a070737f` on `art/naruto-skills`: beamFire v15 (3/3 calls), proposed beastBall v01 / beastBeamRing v01 (1 call each), provenance, review gallery and version-bound manifest update. The latest seam-repaired beamCharge v17 is shown with v12 preserved; fourTailsRoar v02 continues; ui_ult_fg v04 stays approved. Vercel reports the preview READY: https://gcd-tourney-bx4f3gv3o-eshin087s-projects.vercel.app/reviews/naruto-skills-round2/ . Vercel content-fetch verification was denied to this connection. Claude must land/enable candidate packing for the proposed effect names, check atlas/game placement and refresh/verify the gallery before asking the user for art approval. This item remains open pending those steps and the user's review.
 
 Do not edit `src/` or `tools/`. Claude tells you on this lane when candidate packing works for the new effect names.
 
