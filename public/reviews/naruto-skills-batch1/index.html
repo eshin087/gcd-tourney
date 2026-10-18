@@ -25,7 +25,7 @@
     .poster { position: relative; width: 100%; max-width: 768px; aspect-ratio: 16 / 9; overflow: hidden; background: #1c1c22; }
     .poster img { position: absolute; background: transparent; border-radius: 0; }
     .poster-bg { inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .poster-fg { width: 75%; height: auto; left: 12.5%; bottom: 0; }
+    .poster-fg { width: 75%; height: auto; left: 12.5%; bottom: 0; filter: drop-shadow(0 0 2px #ffe8dc) drop-shadow(0 0 1px #ffe8dc); }
     .status { color: #ffd17e; font-weight: 700; }
     ul { padding-left: 20px; color: #d7dde5; }
     a { color: #8dc8ff; }
@@ -35,42 +35,41 @@
 <body>
   <main>
     <h1>Naruto Skills Revamp · Batch 1</h1>
-    <p>Four-Tails ultimate candidates. Generation and versioned filing are complete for this batch; this page records technical review before any user image approval.</p>
-    <div class="hold"><strong>Not ready for user approval.</strong> The final Astra audit holds all three character assets. The Four-Tails roar effect is awaiting the new HD-cell packer support from Claude.</div>
+    <p>Fixed Four-Tails set for visual approval. B1 and B2 were corrected without new image-generation calls; B3 and the roar effect stay on their original sources.</p>
+    <div class="hold"><strong>Approval requested; technical limits are disclosed.</strong> The strict character packer still withholds the atlas because it cannot detect a human head on the fully engulfed beasts. Per your decision, Claude records version-bound scaleManualQA after visual approval. No scale pass is claimed here.</div>
 
     <div class="grid" style="margin-top:16px">
       <section>
-        <h2>B1 · beamCharge v10 <span class="status">HOLD</span></h2>
-        <figure><img src="media/beamCharge_v10.png" alt="Three Four-Tails roar poses on a magenta background"><figcaption>Raw source · 2172×724 · 3/3 image calls used</figcaption></figure>
-        <ul><li>All three frames inspected in the 48-color partial atlas.</li><li>Readable tail count is 3 / 4 / 3; the fourth tail must remain distinct in every frame.</li><li>Automatic scale gate cannot identify a human head. Anatomy scale remains uncertain.</li></ul>
-        <div class="atlas charge" aria-label="Three quantized beamCharge cells from the partial atlas"></div>
+        <h2>B1 · beamCharge v11 <span class="status">NO-CALL EDIT · TECHNICAL HOLD</span></h2>
+        <figure><img src="media/beamCharge_v11.png" alt="Three Four-Tails roar poses, each with four tails"><figcaption>Raw source · 2172×724 · original 3/3 image calls; v11 uses no generation call</figcaption></figure>
+        <ul><li>f0 and f2 now use the same four-tail fan pixels as f1.</li><li>Body pixels outside the fan field were verified unchanged.</li><li>All frames show four tails. Astra found a visible rectangular join in f2 at x400; it is exposed here for review and remains a technical hold. Anatomy calibration stays with Claude after approval as requested.</li></ul>
       </section>
 
       <section>
-        <h2>B2 · beamFire v14 <span class="status">HOLD</span></h2>
-        <figure><img src="media/beamFire_v14.png" alt="Three Four-Tails pounce poses on a magenta background"><figcaption>Raw source · 2172×724 · 3/3 image calls used</figcaption></figure>
-        <ul><li>The front claws clip at the right edge in packed f0 and f1.</li><li>f2 reads as a landing, not the required single-claw slam.</li><li>Automatic scale gate cannot identify a human head. No further image calls remain.</li></ul>
-        <div class="atlas fire" aria-label="Three quantized beamFire cells from the partial atlas"></div>
+        <h2>B2 · beamFire v14 <span class="status">PLACEMENT FIX</span></h2>
+        <figure><img src="media/beamFire_v14.png" alt="Three Four-Tails pounce and claw poses on a magenta background"><figcaption>Raw source · 2172×724 · original 3/3 image calls; translation-only sidecar, no redraw</figcaption></figure>
+        <ul><li>f0/f1 shift 21 final-cell pixels left; the diagnostic pack reports no clipping or 4px-margin warning.</li><li>Requested engine mapping: f0 becomes the claw-slam frame; f2 remains the landing pose. Claude still needs to apply this mapping.</li><li>Scale gate cannot detect a human head; scaleManualQA is deferred to Claude after approval.</li></ul>
       </section>
 
       <section>
-        <h2>B3 · ui_ult_fg v04 <span class="status">HOLD</span></h2>
+        <h2>B3 · ui_ult_fg v04 <span class="status">REVIEW CANDIDATE · ANATOMY HOLD</span></h2>
         <figure><img src="media/ui_ult_fg_v04.png" alt="Four-Tails fox form roaring in a low crouch"><figcaption>Raw source · 1254×1254 · 3/3 image calls used</figcaption></figure>
-        <ul><li>Astra confirms four distinct tails, two ears, full engulfment and a complete silhouette.</li><li>The existing UI packer fitted this candidate to 576×432; transparency and all four tails survive.</li><li>The silhouette has weak separation from the red backdrop and touches both vertical edges; body-scale comparison remains uncertain.</li></ul>
+        <ul><li>Four tails, two ears, full engulfment, complete silhouette and 576×432 transparency are verified.</li><li>A warm pale CSS outline makes the silhouette easier to separate from the red backdrop in this review composition; source pixels stay unchanged.</li><li>Body-scale comparison remains uncertain and is not presented as a numeric pass.</li></ul>
         <div class="poster" role="img" aria-label="Candidate Four-Tails foreground fitted over the unchanged ultimate backdrop"><img class="poster-bg" src="media/ui_ult_bg_v01.png" alt=""><img class="poster-fg" src="media/ui_ult_fg_v04_fitted.png" alt=""></div>
         <p class="small">Current approved fitted image (v01) still shows the human head: <a href="../../characters/naruto/ult_fg.png">view v01</a>.</p>
       </section>
 
       <section>
-        <h2>A8 · fourTailsRoar v01 <span class="status">PACK HOLD</span></h2>
+        <h2>A8 · fourTailsRoar v01 <span class="status">HD PACKED</span></h2>
         <figure><img src="media/fourTailsRoar_v01.png" alt="Eight-stage dark crimson chakra shockwave effect"><figcaption>Raw source · 1774×887 · 1 successful image call; a failed reference lookup preceded it</figcaption></figure>
-        <ul><li>The art reads as an expanding, breaking chakra shockwave.</li><li>Claude has not yet landed the 256×256 HD effect-cell packer support.</li><li>Frame slicing, center anchor, 16-color limit and final quantized cells are unverified.</li></ul>
+        <ul><li>Candidate packer produced eight 256×256 cells with center anchor in a 2048×256 HD atlas.</li><li>Scale x0.988; 267 isolated specks removed; no fourTailsRoar-specific packing warning.</li><li>The gameplay bundle remains unmerged; this page shows the candidate atlas only.</li></ul>
+        <figure style="margin-top:12px"><img src="media/fourTailsRoar_atlas_hd.png" alt="Eight quantized 256 pixel cells for fourTailsRoar"><figcaption>Actual candidate HD atlas · 2048×256 · eight 256px frames</figcaption></figure>
       </section>
     </div>
 
     <section style="margin-top:16px">
       <h2>Audit and provenance</h2>
-      <p>See the <a href="ASTRA_AUDIT_v01.md">Astra audit</a> and <a href="GENERATION_PROVENANCE.md">generation-call ledger</a>. The 48-color atlas above is partial (only the two Four-Tails strips); the strict full Naruto pack did not write because beamCharge has no detectable head and beamFire fails its framing gate. This page is technical evidence, not an approval request.</p>
+      <p>See the <a href="ASTRA_AUDIT_v02.md">Astra audit</a>, <a href="ASTRA_AUDIT_v01.md">prior audit</a> and <a href="GENERATION_PROVENANCE.md">generation-call and pixel-edit ledger</a>. The strict full Naruto pack did not write the character atlas: both fully engulfed strips lack a detectable human head. The separate HD effect atlas did pack successfully. This review page is for the user's visual approval of the listed versions; the post-approval scale record remains pending with Claude.</p>
     </section>
   </main>
 </body>

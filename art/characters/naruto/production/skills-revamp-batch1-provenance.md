@@ -24,3 +24,15 @@ All generated source outputs are under `E:\Vibe Coding\.codex\generated_images\0
 - `npm run scale -- naruto` and `npm run body -- naruto beamCharge beamFire` reported no idle packed and could not measure. No scale exemption or manual QA has been recorded.
 - Claude has not yet reported that candidate packing for the new 256×256 HD effect cell works. `fourTailsRoar_v01` remains raw and unvalidated.
 - The technical evidence page is [public/reviews/naruto-skills-batch1/index.html](../../../../public/reviews/naruto-skills-batch1/index.html). Its poster image CSS was corrected to preserve foreground alpha and avoid rounded-corner clipping; Astra rechecked the rule by source inspection. All candidates are unapproved; no approval request has been sent.
+
+
+## User-directed no-call repairs (relay skills #2, 2026-10-18)
+
+No new image-generation calls were used. The cumulative budgets remain 3/3 for beamCharge, beamFire and ui_ult_fg; fourTailsRoar remains at 2/3.
+
+- `beamCharge_v11.png` is a manual pixel edit from v10: f1's four-tail fan field was copied onto f0 and f2 while preserving pixels outside the 400x400 source fan region in those frames. SHA-256 `9a739a0b8a860c05e1099e739ea11b4757562a39a3fb8cc6491febad35ee8317`. Astra confirms four tails in all three raw frames and identifies a visible rectangular join at f2 local x400, y200-390; this remains an explicit technical hold on the review page.
+- `beamFire_v14.json` records translation-only offsets `[-21,0],[-21,0],[0,0]`, bound to source SHA `82335d9dad17ca81e828c8f3814ed8228c60841cd4c1df55f394c594ecb576e3`. Current sidecar SHA-256 `26d00103aa7cbbc52b5b964c4581488c1fc13f74c70c82d0f56da42bf98359b8`. Diagnostic pack reported no clipping or 4px margin warning; full packed verification remains withheld by the expected no-head scale gate. The user requested f0 as the claw-slam and f2 as landing; Claude's engine mapping is pending.
+- `ui_ult_fg_v04.png` is unchanged (SHA-256 `b82b3ec384dc58868e5dd7992d3864fd10ca3034fcb76845129a70eef5f39088`). The review page uses a stronger warm CSS drop-shadow; product splash CSS is Claude's integration task.
+- `fourTailsRoar_v01.png` is unchanged (SHA-256 `af5036ffa46e3dbe4a91531ef2e4faab0c42effd73815c1306e7a462f92a842d`). Temporary local merge of `feature/naruto-skills` at `7ff4c256` enabled candidate packing; it produced an 8-frame 2048x256 HD atlas. The merge was aborted afterward, so no Claude engine changes are included in this art branch.
+
+The review page is a static review artifact. It does not certify runtime splash rendering, final character atlas packing, contact zones, or scale. Astra's audit v02 records the raw seam and the remaining evidence boundary.
