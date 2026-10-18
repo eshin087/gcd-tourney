@@ -713,7 +713,7 @@ export class Game {
   }
 
   // The view follows the simulation where events alone can't keep it right after a rollback: the stage every frame,
-  // and once after a restore the clash camera and bar and the looping hums.
+  // and once after a restore the clash camera, bar and hint and the looping hums.
   syncView() {
     const stage = this.domain ? 'void' : this.training ? 'training' : 'arena';
     if (this.fighters.length === 2 && stage !== this.stageKind) this.setStage(stage);
@@ -723,6 +723,14 @@ export class Game {
     if (!c) {
       this.hud.clash(false);
       if (this.cam.mode === 'clash') this.cam.set('fight');
+    } else {
+      // a restore copies the clash (snapshot.js), and a re-simulated frame may have started it with the camera and HUD
+      // stood in for: the clash shot follows the live copy's struggle point without restarting its orbit, or cuts to a
+      // clash it never framed; the one-beat clash keeps the fight camera. Hud.clashBeat rebuilds the rings (ENG-114).
+      if (c.lite) { if (this.cam.mode === 'clash') this.cam.set('fight'); }
+      else if (this.cam.mode === 'clash') this.cam.data = c;
+      else if (this.cam.mode === 'fight') this.cam.set('clash', c);
+      this.hud.clash(true, c.t, null, clashHint(this.cfg.mode, deviceLayout(this.input)));
     }
     for (const f of this.fighters) {
       const i = f.index;

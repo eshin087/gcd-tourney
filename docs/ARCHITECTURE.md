@@ -235,7 +235,7 @@ cam.update(dt)              CameraDirector mode logic (its yaw is basis.viewYaw(
                             control basis), shake/kick, zoom punch, spriteRefDepth
 fighters.sync again         (uses the camera's new right vector and depth), ghost trails fade
 shotViews.sync, syncView    the shots' sprites and beam ribbons from the simulation; the stage (and after a
-                            restore the clash camera / bar and the hums) follows the simulation
+                            restore the clash camera / bar / hint and the hums) follows the simulation
 fx.update                   VFX sprites face the camera, animate, fade; Overlay speed lines/flashes
 arena.setDim / update       super-flash dimming, crowd excitement
 hud.update                  bars, timer, combo counter
