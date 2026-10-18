@@ -1,8 +1,8 @@
 # Sasuke special v15 provenance and QA
 
-Date: 2026-10-18. User decision: Claude relay skills #18 authorizes one additional image call, cumulative budget 4, to redraw the same eight Chidori poses at Sasuke's approved idle build. v13 remains active until v15 is approved; v14 is held under `raw/_qa_hold/`.
+Date: 2026-10-18. User decision via Claude relay skills #18 authorized one additional image call, cumulative budget 4, to redraw the same eight Chidori poses at Sasuke's approved idle build. The user later approved v15 via Claude relay send #20; v14 remains held under `raw/_qa_hold/` while Claude integrates v15.
 
-- Selected image: `art/characters/sasuke/raw/_qa_hold/special_v15.png`
+- Selected image: `art/characters/sasuke/raw/special_v15.png`
 - Dimensions: 2172x724
 - SHA-256: `754E3CCF20A8071F00CD228C9B6CCED94DF79D67705FD8C02E8D14F512D7E232`
 - Generation output: `E:\Vibe Coding\.codex\generated_images\01a14fd6-1a54-7682-8c00-51702d1d97e0\exec-0f1c103e-9ea6-4647-a780-865a1bd52eb7.png`
@@ -31,3 +31,7 @@ Preserve exact head and body proportions across all poses. Readable distinct sil
 
 `node tools/pack-sprites.mjs sasuke --quantize 48` selected v15 and detected eight frames but exited 1 and wrote no atlas. Its whole-figure splitter cuts pose boundaries across f2/f3, f3/f4, f4/f5, f5/f6 and f6/f7. Scale gate failed for v15 f7 head 1.23 relative to f1 1.36 of idle. Reported right-edge clipping: f3 6 px, f5 25 px, f6 3 px into the safety margin. The same run also failed on the pre-existing `beamFire` v08. `npm run body -- sasuke special` measured v13, not v15; its generated report/image are not v15 evidence. No final Astra quantized-atlas audit is available because no atlas was written. Candidate remains visually unapproved and technically held under `_qa_hold/`, so the packer keeps selecting approved v13.
 
+
+## Approval record
+
+Historical unadjusted result: strict pack failed before Claude's later trial. Claude reports a trial using a whole-figure split and `special_v15.json` (`anatomy: auto-head`, `bodyHeight: 157`): auto-head x0.905, head 1.10, no clipping and passing scale gate. The user approved v15 via Claude skills lane send #20. Exact user quote: “Approve v15 (Recommended): I ship it with the size fit that clears Codex’s holds; it replaces v13 in game.” No image calls or pixel edits were made after v15. Claude owns applying the pack-time sidecar/bodyHeight, remeasuring hand anchors and integration; final atlas/Astra/runtime verification is not claimed here.

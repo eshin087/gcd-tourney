@@ -1,4 +1,4 @@
-Sasuke special redraw v15 (2026-10-18): user decision via Claude relay skills #18 authorized one final generation call (4/4 cumulative), at approved idle bodyHeight 180. v14 is in `raw/_qa_hold/`; approved v13 remains active. v15 is in `raw/_qa_hold/`, needs review / technical HOLD: strict quantized pack wrote no atlas (split boundaries, scale mismatch, edge clipping); body tool measured v13 only and no Astra atlas audit is available. [Review gallery](../public/reviews/sasuke-skills-batch1/index.html) · [provenance](characters/sasuke/production/skills-revamp-batch1/special_v15_provenance.md).
+Sasuke special v15 (2026-10-18): user approved via Claude skills relay send #20. Claude reports its trial pack with `special_v15.json` (`anatomy: auto-head`, `bodyHeight: 157`) resolves splitting/scale/clipping: auto-head x0.905, head 1.10, no clipping. v15 is restored to raw and manifest approvedVersion=15; v14 stays held. Claude owns adding sidecar/bodyHeight, remeasuring hand anchors and integration; final atlas/Astra/runtime checks are pending. The earlier unadjusted pack failed; its body report measured v13 only. [Review gallery](../public/reviews/sasuke-skills-batch1/index.html) · [provenance](characters/sasuke/production/skills-revamp-batch1/special_v15_provenance.md).
 
 Sasuke skills revamp batch 1 approval (2026-10-18): user approved `chidori` v01 for Claude HD packing and approved `special` v14 as drawn, with head/clothing fullness preserved; Claude will fix its frame split (relay skills #17). Recorded in REVIEW/manifest. Visual approval does not clear special v14 strict scale/Astra/clipping holds or Chidori source layout/palette caveats; Claude owns technical packing and split correction.
 
@@ -792,8 +792,3 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 | Sasuke | ult_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; connected eye motif faint at fit and blood remains below uncovered eye; rope and sword pass. |
 
 User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Both v01 backdrops and both v03 foregrounds are approved. Foreground v01s were rejected; v02s were superseded after user-authorized redraws via relay #5. v03s were approved by the user via Claude relay effects #6 despite Astra holds; each used 3 additional calls (cumulative 6/6). See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
-
-
-
-
-

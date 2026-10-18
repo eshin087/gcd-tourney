@@ -1,10 +1,10 @@
-# ART-SKL-SAS — batch 3 approvals recorded (2026-10-18, relay skills #19)
+# ART-SKL-SAS — batch 3 and special v15 approvals recorded (2026-10-18, relay skills #19 and send #20)
 
 USER APPROVAL via Claude relay skills #19: the user approved `greatFireball` v01, `greatFireballBurst` v01, `stormCloud` v01, `kirinBody` v01, `kirinHead` v01 and `kirinStrike` v01 for Claude's HD packing/integration. The user also approved `beamFire` v08 and chose the halfway size: Claude sets its bodyHeight so the head is about 8% over idle and the low-lunge body about 7% under (low-lunge pose reads smaller). The prior auto-fit floor produced head 1.15x; at matched body the drawn head read 1.16. This sizing is recorded as the user's decision, not a Codex numeric measurement. The cell-top reach on kirinStrike is as briefed, not an accidental clipping defect.
 
 Recorded approval sources and versions in `art/REVIEW.md`, `art/manifest.json`, `art/TRACKER.md` and this branch's CHANGELOG. Claude owns beamFire bodyHeight selection, HD packing, in-game replacement and technical checks. Batch 3 gallery: https://gcd-tourney-467ofrysf-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/ (PR #163).
 
-The separate `special` v15 choice remains pending in the user queue (relay lane skills #26): v15 is held and v13 remains active. Do not treat #19 as approval or disposition of v15.
+The user separately approved special v15 via Claude skills send #20 with the quote: “Approve v15 (Recommended): I ship it with the size fit that clears Codex’s holds; it replaces v13 in game.” Claude reports a trial whole-figure split with `special_v15.json` (`anatomy: auto-head`, `bodyHeight: 157`), auto-head x0.905, head 1.10, no clipping and a passing scale gate. v15 is restored to `raw/`; v14 remains held. Claude owns applying these settings, remeasuring hand anchors and integrating v15 in place of v13. This Codex handoff does not claim final atlas/Astra/runtime validation.
 
 ---
 # ART-SKL-SAS — special v15 candidate / decision needed (2026-10-18, relay skills #18)
@@ -1207,10 +1207,3 @@ Machine manifest versions reflect the latest candidates while preserving approve
 ## Relay #8 correction (2026-10-18)
 
 Claude confirmed the v05 approval ask was superseded by shipped Sasuke v02. Keep v05 under `raw/_qa_hold/`; keep user-rejected v04 under `raw/_rejected/` with its rejection record. Main’s v02 manifest entry, hitboxes and packed sheet remain unchanged. Gojo heavy and Gojo hurtHigh/hurtLow/launched remain untouched by this task.
-
-
-
-
-
-
-
