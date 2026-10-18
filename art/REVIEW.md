@@ -1,5 +1,14 @@
 # Art review queue
 
+## ENG-112 Goku pilot calibration (2026-10-18): fTilt and fair held for source measurements
+
+These two planted/airborne pilots are internal calibration candidates, not ready for user approval. Goku's production workflow requires Claude to validate source landmarks and pack calibration before the remaining eight move strips are generated. The normal packer's Goku head probe is documented as unreliable; the temporary diagnostic pack recognized both layouts and 7/6 frames, but returned `unmeasured` scale verdicts and refused writing the atlas. The 60-strip task remains in progress.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Goku | fTilt | [v01](characters/goku/raw/fTilt_v01.png) · [attempt ledger](characters/goku/raw/_qa_hold/fTilt_v01_attempt03.md) | v01 | needs review | Selected attempt 3 unchanged as the chest-height punch pilot; attempt 1 output lost and documented, attempt 2 retained, attempt 3 selected. | Exact source SHA256 `D92A4B868BEDDA70A2BCA6CB1866FAC06A8F58FE5E3A71C36413983C17FCD870`; 1792x256, 7 horizontal cells; temporary 48-color pack recognized 7 frames, scale factor 0.609, but scale gate verdict is unmeasured/refused because the Goku head probe is unreliable. Claude calibration required before batch expansion. |
+| 2026-10-18 | Goku | fair | [v01](characters/goku/raw/fair_v01.png) · [attempt ledger](characters/goku/raw/_qa_hold/fair_v01_attempt03.md) | v01 | needs review | Selected attempt 3 unchanged as the airborne kick pilot; attempts 1 and 2 retained. | Exact source SHA256 `89496DA590C79209428BF01FAA98D4163EDA3C48981956A5D024FF54E2069525`; 1536x1024, 3x2 grid; temporary 48-color pack recognized 6 frames, scale factor 0.474, but scale gate verdict is unmeasured/refused because the Goku head probe is unreliable. Claude calibration required before batch expansion. |
+
 ## ENG-112 Gojo directional normals (2026-10-18): ten drawings approved; uair v01 timing corrected
 
 The user approved the first nine drawings via Claude relay combat #30 and approved the diagonal uair v01 as drawn via relay #35. The packed review page compares their actual quantized atlas cells, loops, gameplay stand-ins and approved idle f0: [Gojo normals review](../public/reviews/normals-gojo/). The uair candidate occupies cells 245–250; the review page shows those exact packed cells and the held attempts. The strict packer gate passes for uair; Astra's anatomy audit remains on technical hold. The prior nine candidates retain their technical holds recorded in [Astra audit](../public/reviews/normals-gojo/astra-audit.md).

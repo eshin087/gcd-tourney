@@ -493,7 +493,7 @@ manifest lists all ten per fighter (status `todo`, bodyHeight copied from that f
 | sasuke | fTilt v03 approved, held; uTilt v05 approved; dTilt v05 approved | dashAttack v05 approved | fSmash v02 approved; uSmash v05 approved; dSmash stand-in | fair v03, bair v01, uair v01 approved | ENG-112, branch art/normals-sasuke; strict pack passes with 52 animations / 236 frames; fTilt decision pending; runtime contact check by Claude |
 | killua | fTilt v02 approved; dTilt v02 approved | dashAttack v02 approved | fSmash v02 approved; uSmash stand-in; dSmash v03 approved | fair/bair v02 approved; uair stand-in | ENG-112: all ten drawings approved via Claude relays #20/#22. Relay #24 first pack d62a961c ships seven; uTilt/uSmash/uair remain in _qa_hold for follow-up; contact crops in public/reviews/normals-killua/ship-seven/. |
 | gojo | fTilt v01, uTilt v01, dTilt v02 approved | dashAttack v01 approved | fSmash/uSmash/dSmash v01 approved | fair v01, bair v02, uair v01 approved | ENG-112: all ten drawings approved via Claude relays #30/#35. Nine-move branch merged; uair v01 reviewed at retry-34. Astra technical holds and Claude runtime contact check remain. |
-| goku | todo | todo | todo | todo | ENG-112, branch art/normals-goku |
+| goku | fTilt v01 candidate (pilot; calibration hold); uTilt/dTilt todo | todo | todo | fair v01 candidate (pilot; calibration hold); bair/uair todo | ENG-112, branch art/normals-goku; only the two pilot poses are filed pending source and pack calibration |
 | luffy | todo | todo | todo | todo | ENG-112, branch art/normals-luffy |
 
 ## VFX atlas (step 10)

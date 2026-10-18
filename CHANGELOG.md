@@ -16,6 +16,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ENG-112 Goku): filed fTilt/fair v01 as calibration pilots with attempt provenance; the strict candidate packer recognized 7/6 frames but refused atlas output because the Goku head probe returns unmeasured results. Batch expansion is waiting for Claude's landmark calibration.
 - Changed: the determinism fixtures are re-recorded after Gojo's Smash moves (fingerprint 02e3e1d09ed4); both replay frame for frame.
 ### Changed
 - (ENG-112) Set Gojo uair v01 phases to `[2,1,3]` so only the full kick is active.
