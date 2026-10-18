@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Record user approval via Claude relay gojo-run #14 for Gojo hurtHigh v04 and launched v08, keep hurtLow v04, preserve rejected alternates, and document the final packed-atlas technical holds on PR #143.
+
 - Changed (ENG-100): SELECT MODE's SPRITE LAB row is now **LAB**, the test lab (`/sprites.html` still works by URL). The lab lists every tab in groups with a chip bar to show one group and counts of what the pairing has: scenarios in six groups (Clashes, Defense, Tech & escape, Combos, Fighter kits, Look & feel) with a one-line brief each (tap for the full text), animations in seven groups with missing strips dimmed, tools in sections; ‹ MENU returns to the game, the tab and chips are remembered, and four scenarios that only repeated a MOVES row (wavedash, vanish, super dash, plain throw) are gone.
 
 - ART-SIZE-R6: recorded the user decision “keep v02” for Sasuke beamStruggle via Claude relay art-camera #10; v05 remains not taken and held, with no image approval.

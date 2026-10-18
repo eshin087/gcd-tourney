@@ -33,21 +33,21 @@ Same look: blindfold, navy jacket and trousers, black shoes; far hand pocketed o
 
 Do, in order (Luna/medium for generation; Astra/medium final audit, per CLAUDE.md "Agent model selection"):
 
-- [ ] 1. Reuse the study worktree or start `npm run pr -- start art/gojo-posture-d --art gojo` (dev port 5247). Work only
+- [x] 1. (2026-10-18, reused study worktree `art/gojo-proportions`) Reuse the study worktree or start `npm run pr -- start art/gojo-posture-d --art gojo` (dev port 5247). Work only
   on that branch; the study's commits may ride along.
-- [ ] 2. `raw/hurtHigh_v04.png`, `raw/hurtLow_v05.png`, `raw/launched_v07.png` (next free versions; never overwrite a
+- [x] 2. (2026-10-18, three-call budgets used; approved candidates moved to active raw, rejected alternatives preserved) `raw/hurtHigh_v04.png`, `raw/hurtLow_v05.png`, `raw/launched_v07.png` (next free versions; never overwrite a
   `_vNN`, `_qa_hold` and `_rejected` included). Budget: **3 image calls per strip** (authorized by this decision). A strip
   that misses after 3 calls goes to `raw/_qa_hold/` with the reason; the live version stays.
-- [ ] 3. Manifest `version` with status `needs review` (leave `approvedVersion`), ANIMATIONS.md sections, pack with
+- [x] 3. (2026-10-18, manifest/ANIMATIONS updated; quantized pack passed) Manifest `version` with status `needs review` (leave `approvedVersion`), ANIMATIONS.md sections, pack with
   `node tools/pack-sprites.mjs gojo --quantize 48`, body sheet + `npm run lineup`.
-- [ ] 4. Astra/medium audits every frame and loop of the three strips in the packed atlas against idle f0 and the
+- [x] 4. (2026-10-18, final packed atlas audit recorded; technical scale/anatomy holds remain) Astra/medium audits every frame and loop of the three strips in the packed atlas against idle f0 and the
   approved neutral/combat cells (scale, knee bend actually present, no stilt pose). Luna fixes holds within budget.
-- [ ] 5. Review page `public/reviews/gojo-posture-d/`: old vs new for each strip, frame by frame and as a loop GIF,
+- [x] 5. (2026-10-18, review page/PR #143 updated and preview built) Review page `public/reviews/gojo-posture-d/`: old vs new for each strip, frame by frame and as a loop GIF,
   beside idle f0 and the other three fighters' hurtHigh at one density; review rows, commit, `npm run pr -- open`,
   `npm run pr -- preview`, handoff at the top of the branch's CLAUDE_ART_HANDOFF.md, then from main
   `node tools/relay.mjs ring gojo-run --for user --kind approval --note "<versions; numbers; holds; preview link>"`
   and stop. Claude "3- Gojo" asks the user (desk is off). Nothing is approved until a relayed `USER APPROVAL`.
-- [ ] 6. After approval: `approvedVersion`, `node tools/pr.mjs check <branch>` passes, commit, ring `gojo-run` for
+- [x] 6. (2026-10-18, USER APPROVAL via Claude #14 recorded; guard passed; Claude contact/integration check next) After approval: `approvedVersion`, `node tools/pr.mjs check <branch>` passes, commit, ring `gojo-run` for
   Claude's contact check and merge. No merge or production deploy by Codex.
 
 Rules: edit only art/characters/gojo/**, public/reviews/gojo-posture-d/**, public/characters/gojo/** via the packer,
