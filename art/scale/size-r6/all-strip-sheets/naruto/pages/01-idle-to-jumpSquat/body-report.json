@@ -1,0 +1,120 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:23:59.482Z",
+ "fighters": {
+  "naruto": {
+   "idleGarmentPx": 3265,
+   "anims": {
+    "idle": {
+     "v": 7,
+     "body": [
+      1,
+      0.99,
+      0.993,
+      0.994,
+      0.979,
+      0.976,
+      0.956,
+      0.975
+     ],
+     "head": [
+      1.01,
+      0.967,
+      0.981,
+      1.002,
+      1.028,
+      1,
+      1,
+      0.996
+     ],
+     "median": 0.984,
+     "headMedian": 1,
+     "flag": null
+    },
+    "run": {
+     "v": 7,
+     "body": [
+      0.974,
+      0.739,
+      0.944,
+      0.916,
+      0.967,
+      0.76,
+      0.917,
+      0.907
+     ],
+     "head": [
+      1.002,
+      0.981,
+      0.995,
+      1.022,
+      1.053,
+      1.007,
+      0.966,
+      1.02
+     ],
+     "median": 0.917,
+     "headMedian": 1.005,
+     "flag": null
+    },
+    "dash": {
+     "v": 4,
+     "body": [
+      1.005,
+      0.951
+     ],
+     "head": [
+      1.022,
+      0.966
+     ],
+     "median": 0.978,
+     "headMedian": 0.994,
+     "flag": null
+    },
+    "backDash": {
+     "v": 4,
+     "body": [
+      0.741,
+      0.722,
+      0.719
+     ],
+     "head": [
+      1.002,
+      1.053,
+      1.008
+     ],
+     "median": 0.722,
+     "headMedian": 1.008,
+     "flag": "small"
+    },
+    "superDash": {
+     "v": 3,
+     "body": [
+      0.759,
+      0.771
+     ],
+     "head": [
+      0.973,
+      1
+     ],
+     "median": 0.765,
+     "headMedian": 0.986,
+     "flag": "small"
+    },
+    "jumpSquat": {
+     "v": 4,
+     "body": [
+      0.871
+     ],
+     "head": [
+      1
+     ],
+     "median": 0.871,
+     "headMedian": 1,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

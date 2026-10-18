@@ -1,0 +1,104 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:02.492Z",
+ "fighters": {
+  "naruto": {
+   "idleGarmentPx": 3265,
+   "anims": {
+    "guard": {
+     "v": 5,
+     "body": [
+      1.097,
+      1.089
+     ],
+     "head": [
+      1,
+      1
+     ],
+     "median": 1.093,
+     "headMedian": 1,
+     "flag": null
+    },
+    "block": {
+     "v": 5,
+     "body": [
+      0.954,
+      0.883
+     ],
+     "head": [
+      1.04,
+      1.007
+     ],
+     "median": 0.919,
+     "headMedian": 1.023,
+     "flag": null
+    },
+    "hurtHigh": {
+     "v": 4,
+     "body": [
+      1.055,
+      1.066,
+      1.005
+     ],
+     "head": [
+      0.933,
+      1,
+      1.053
+     ],
+     "median": 1.055,
+     "headMedian": 1,
+     "flag": null
+    },
+    "hurtLow": {
+     "v": 3,
+     "body": [
+      0.874,
+      0.846,
+      0.9
+     ],
+     "head": [
+      1,
+      1,
+      0.952
+     ],
+     "median": 0.874,
+     "headMedian": 1,
+     "flag": "small"
+    },
+    "launched": {
+     "v": 5,
+     "body": [
+      0.974,
+      0.938
+     ],
+     "head": [
+      0.793,
+      0.828
+     ],
+     "median": 0.956,
+     "headMedian": 0.811,
+     "flag": null
+    },
+    "spin": {
+     "v": 7,
+     "body": [
+      0.439,
+      0.468,
+      0.433,
+      0.374
+     ],
+     "head": [
+      1.103,
+      1.171,
+      1.103,
+      1.185
+     ],
+     "median": 0.436,
+     "headMedian": 1.137,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

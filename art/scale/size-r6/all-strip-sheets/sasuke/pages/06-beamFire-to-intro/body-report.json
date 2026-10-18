@@ -1,0 +1,116 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:12.580Z",
+ "fighters": {
+  "sasuke": {
+   "idleGarmentPx": 2824,
+   "anims": {
+    "beamFire": {
+     "v": 7,
+     "body": [
+      1.035,
+      1.142,
+      1.038
+     ],
+     "head": [
+      0.974,
+      0.995,
+      1
+     ],
+     "median": 1.038,
+     "headMedian": 0.995,
+     "flag": null
+    },
+    "vanish": {
+     "v": 5,
+     "body": [
+      0.826,
+      0.844
+     ],
+     "head": [
+      1.051,
+      1.026
+     ],
+     "median": 0.835,
+     "headMedian": 1.039,
+     "flag": "small"
+    },
+    "stagger": {
+     "v": 8,
+     "body": [
+      1.105,
+      1.149,
+      1.042,
+      1.109
+     ],
+     "head": [
+      0.974,
+      0.972,
+      0.984,
+      1
+     ],
+     "median": 1.107,
+     "headMedian": 0.979,
+     "flag": null
+    },
+    "ko": {
+     "v": 7,
+     "body": [
+      0.92
+     ],
+     "head": [
+      0.974
+     ],
+     "median": 0.92,
+     "headMedian": 0.974,
+     "flag": null
+    },
+    "special": {
+     "v": 13,
+     "body": [
+      0.933,
+      0.918,
+      0.894,
+      0.901,
+      1.023,
+      0.948,
+      1.085,
+      0.99
+     ],
+     "head": [
+      0.983,
+      0.993,
+      0.974,
+      0.974,
+      1,
+      1,
+      0.973,
+      0.989
+     ],
+     "median": 0.941,
+     "headMedian": 0.986,
+     "flag": null
+    },
+    "intro": {
+     "v": 3,
+     "body": [
+      0.97,
+      0.976,
+      0.981,
+      0.989
+     ],
+     "head": [
+      1.026,
+      1,
+      1.034,
+      1
+     ],
+     "median": 0.978,
+     "headMedian": 1.013,
+     "flag": null
+    }
+   }
+  }
+ }
+}

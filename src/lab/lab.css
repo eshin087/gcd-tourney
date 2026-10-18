@@ -27,7 +27,21 @@
 .lab-btn:hover { background: rgba(255, 255, 255, 0.16); }
 .lab-btn.on { background: #5a3cff; border-color: #8f7bff; }
 .lab-btn.play { min-width: 34px; color: #ffcc33; font-weight: 800; }
-.lab-group { margin: 8px 0 4px; font-size: 10px; letter-spacing: 0.14em; color: #ffcc33; }
+.lab-group { margin: 10px 0 4px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 10px; letter-spacing: 0.14em; color: #ffcc33; }
+.lab-group small { display: block; margin-top: 1px; letter-spacing: 0; font-size: 11px; color: #8a84a0; }
+.lab-count { color: #b8b0d0; letter-spacing: 0.04em; }
+.lab-menu { font-weight: 700; }
+.lab-hint { color: #b8b0d0; font-size: 11px; }
+.lab-chips {
+  position: sticky; top: 0; z-index: 1; display: flex; flex-wrap: wrap; gap: 4px; padding: 0 0 6px;
+  background: rgba(14, 10, 26, 0.96);
+}
+.lab-chips .lab-btn { min-height: 26px; padding: 3px 7px; font-size: 10px; letter-spacing: 0.04em; }
+.lab-tap { flex: 1; cursor: pointer; border-radius: 6px; padding: 2px 4px; }
+.lab-tap:hover, .lab-tap.open { background: rgba(255, 255, 255, 0.06); }
+.lab-detail { margin: 0 0 6px 40px; padding: 6px 8px; font-size: 11px; color: #d8d2ea; background: rgba(0, 0, 0, 0.3); border-left: 2px solid #ffcc33; border-radius: 4px; }
+.lab-grid .lab-btn.miss { opacity: 0.4; border-style: dashed; }
+.lab-tool-note { margin: 0 0 4px 50px; }
 .lab-row { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
 .lab-tools { flex-wrap: wrap; }
 .lab-move { display: flex; flex-direction: column; }
@@ -49,4 +63,7 @@
   .lab { top: 4px; right: 4px; bottom: 4px; width: min(420px, 62vw); font-size: 11px; }
   .lab:not(.hidden) ~ .lab-fab { right: calc(min(420px, 62vw) + 10px); }
   .lab-btn { min-height: 34px; }
+  /* a phone shows more list: the counts on the chips already say what plays here */
+  .lab-title, .lab-tabs + .lab-hint, .lab-chips + .lab-hint { display: none; }
+  .lab-tabs .lab-btn, .lab-chips .lab-btn { min-height: 28px; }
 }

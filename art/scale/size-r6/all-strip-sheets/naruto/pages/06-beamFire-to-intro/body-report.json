@@ -1,0 +1,116 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:04.183Z",
+ "fighters": {
+  "naruto": {
+   "idleGarmentPx": 3265,
+   "anims": {
+    "beamFire": {
+     "v": 12,
+     "body": [
+      0.982,
+      0.982,
+      0.994
+     ],
+     "head": [
+      1,
+      0.992,
+      0.999
+     ],
+     "median": 0.982,
+     "headMedian": 0.999,
+     "flag": null
+    },
+    "vanish": {
+     "v": 4,
+     "body": [
+      0.912,
+      1.056
+     ],
+     "head": [
+      1.026,
+      1
+     ],
+     "median": 0.984,
+     "headMedian": 1.013,
+     "flag": null
+    },
+    "stagger": {
+     "v": 8,
+     "body": [
+      0.971,
+      0.973,
+      0.964,
+      0.975
+     ],
+     "head": [
+      0.999,
+      1.016,
+      1.013,
+      1.005
+     ],
+     "median": 0.972,
+     "headMedian": 1.009,
+     "flag": null
+    },
+    "ko": {
+     "v": 9,
+     "body": [
+      0.535
+     ],
+     "head": [
+      0.833
+     ],
+     "median": 0.535,
+     "headMedian": 0.833,
+     "flag": "small"
+    },
+    "special": {
+     "v": 8,
+     "body": [
+      0.946,
+      0.937,
+      1.039,
+      0.627,
+      0.617,
+      0.677,
+      0.641,
+      0.614
+     ],
+     "head": [
+      1.013,
+      1.013,
+      0.988,
+      1.029,
+      1.002,
+      1,
+      0.996,
+      1.014
+     ],
+     "median": 0.659,
+     "headMedian": 1.007,
+     "flag": "small"
+    },
+    "intro": {
+     "v": 5,
+     "body": [
+      0.988,
+      1.002,
+      0.993,
+      0.999
+     ],
+     "head": [
+      0.984,
+      1.01,
+      0.981,
+      1.005
+     ],
+     "median": 0.996,
+     "headMedian": 0.994,
+     "flag": null
+    }
+   }
+  }
+ }
+}

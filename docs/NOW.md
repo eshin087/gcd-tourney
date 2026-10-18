@@ -7,11 +7,11 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
-**Gojo proportion study decision (2026-10-17, relay gojo-run #13):** Choose A/B/C/D or give another direction. [Review PR #143](https://github.com/eshin087/gcd-tourney/pull/143) · [latest study preview](https://gcd-tourney-aaf1jnvjg-eshin087s-projects.vercel.app/reviews/gojo-proportions/). A is current (106±5px legs; 215px body; 49.3%). B targets −8%; C targets −10% plus sturdier build but its neutral v02 is on Astra hold for smaller relative head, and its call budget is exhausted. D keeps A anatomy and changes pose direction. Nothing is approved or shipped.
+**Gojo posture D (2026-10-18, relay gojo-run #14):** User approved hurtHigh v04 and launched v08 as drawn, and chose to keep hurtLow v04. Recorded in REVIEW/manifest/TRACKER and committed on the PR branch; hurtLow v05-v07 and launched v07 are preserved as rejected. The packed candidate atlas and final Astra audit are in PR #143; [review preview](https://gcd-tourney-qpj816em9-eshin087s-projects.vercel.app/reviews/gojo-posture-d/). Both new approved drawings retain technical anatomy/scale holds; Claude’s next step is contact/integration review and disposition of those holds. The PR guard also refuses launched v08 until version-bound `scaleManualQA` evidence exists; no bypass or pass was added. No merge or production deploy is claimed.
 
-**ART-SIZE-R6 — nothing for you (2026-10-17):** no review needed. Sasuke `beamStruggle` is settled by the new v02 drawing you approved in "4 - Beam" (PR #140, live); Claude measured its head at 0.97-0.99 of the idle, so the v04/v05 rescales of the old v01 are dropped (held, not shipped). Gojo heavy stays at approved v05 (the 1.08x test hit the cell margin). The 230-strip screen found nothing else off. Codex is closing the branch (PR #142: records and held raws only); Claude merges it. No camera change.
+**ART-SIZE-R6 — merged (2026-10-18):** PR #142 was merged by Claude as `d5304303`. Sasuke `beamStruggle` v02 from PR #140 remains approved and live; rejected v04 is in `raw/_rejected/`, and superseded v05 is in `raw/_qa_hold/`. No user review is needed. The R6 review found no other confirmed size defect; camera/engine unchanged.
 
-**Beam clash done (2026-10-17, PR #140 + #139, live):** every fighter with an energy move has its clash pose in the game: Goku's Dragon Fist v01 and Sasuke's redrawn Chidori Spear v02 joined, Naruto's hand anchor was fixed. Sasuke v02 supersedes the R6 v04 rescale of v01 above (Claude "4 - Beam" told "1 - Camera and Art"). Astra holds on Sasuke, Killua and Gojo's air poses stay as known (your call).
+**Beam clash done (2026-10-17, PR #140 + #139, live):** every fighter with an energy move has its clash pose in the game: Goku's Dragon Fist v01 and Sasuke's redrawn Chidori Spear v02 joined, Naruto's hand anchor was fixed. Sasuke v02 remains the live approved strip. The later v04/v05 R6 alternates were superseded by the shipped v02; no review is pending. Astra holds on Sasuke, Killua and Gojo's air poses stay as known (your call).
 
 **Super art Round 2b approved (2026-10-16):** the user approved all eight Goku and Luffy v01 images via Claude relay effects #10, including the four cutouts despite Astra holds. Approved source copies and fitted UI pack outputs are committed on `art/super-art-r2b` (`b41d344d`, PR #131). [Review gallery preview](https://gcd-tourney-8bi197074-eshin087s-projects.vercel.app/reviews/super-art-r2b/). The Vercel preview build passed; the art worktree is sparse and its pack report has missing animation sheets, so Claude owns the full-checkout pack and in-game/runtime integration check. No production merge or deploy is claimed.
 
@@ -111,3 +111,8 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - 3e321c7b 10-17 17:03 test(net): re-record the determinism fixtures after the Goku and Sasuke struggle strips
 - 5c0ed0bf 10-17 17:03 docs(agents): ART-SIZE-R6 measured correction (beamStruggle x1.10, Gojo heavy borderline)
 <!-- status:end -->
+
+
+
+
+

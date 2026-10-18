@@ -33,22 +33,23 @@ Same look: blindfold, navy jacket and trousers, black shoes; far hand pocketed o
 
 Do, in order (Luna/medium for generation; Astra/medium final audit, per CLAUDE.md "Agent model selection"):
 
-- [ ] 1. Reuse the study worktree or start `npm run pr -- start art/gojo-posture-d --art gojo` (dev port 5247). Work only
+- [x] 1. (2026-10-18, reused study worktree `art/gojo-proportions`) Reuse the study worktree or start `npm run pr -- start art/gojo-posture-d --art gojo` (dev port 5247). Work only
   on that branch; the study's commits may ride along.
-- [ ] 2. `raw/hurtHigh_v04.png`, `raw/hurtLow_v05.png`, `raw/launched_v07.png` (next free versions; never overwrite a
+- [x] 2. (2026-10-18, three-call budgets used; approved candidates moved to active raw, rejected alternatives preserved) `raw/hurtHigh_v04.png`, `raw/hurtLow_v05.png`, `raw/launched_v07.png` (next free versions; never overwrite a
   `_vNN`, `_qa_hold` and `_rejected` included). Budget: **3 image calls per strip** (authorized by this decision). A strip
   that misses after 3 calls goes to `raw/_qa_hold/` with the reason; the live version stays.
-- [ ] 3. Manifest `version` with status `needs review` (leave `approvedVersion`), ANIMATIONS.md sections, pack with
+- [x] 3. (2026-10-18, manifest/ANIMATIONS updated; quantized pack passed) Manifest `version` with status `needs review` (leave `approvedVersion`), ANIMATIONS.md sections, pack with
   `node tools/pack-sprites.mjs gojo --quantize 48`, body sheet + `npm run lineup`.
-- [ ] 4. Astra/medium audits every frame and loop of the three strips in the packed atlas against idle f0 and the
+- [x] 4. (2026-10-18, final packed atlas audit recorded; technical scale/anatomy holds remain) Astra/medium audits every frame and loop of the three strips in the packed atlas against idle f0 and the
   approved neutral/combat cells (scale, knee bend actually present, no stilt pose). Luna fixes holds within budget.
-- [ ] 5. Review page `public/reviews/gojo-posture-d/`: old vs new for each strip, frame by frame and as a loop GIF,
+- [x] 5. (2026-10-18, review page/PR #143 updated and preview built) Review page `public/reviews/gojo-posture-d/`: old vs new for each strip, frame by frame and as a loop GIF,
   beside idle f0 and the other three fighters' hurtHigh at one density; review rows, commit, `npm run pr -- open`,
   `npm run pr -- preview`, handoff at the top of the branch's CLAUDE_ART_HANDOFF.md, then from main
   `node tools/relay.mjs ring gojo-run --for user --kind approval --note "<versions; numbers; holds; preview link>"`
   and stop. Claude "3- Gojo" asks the user (desk is off). Nothing is approved until a relayed `USER APPROVAL`.
-- [ ] 6. After approval: `approvedVersion`, `node tools/pr.mjs check <branch>` passes, commit, ring `gojo-run` for
+- [ ] 6. (2026-10-18, USER APPROVAL via Claude #14 recorded; final guard blocks launched v08) After approval: `approvedVersion`, `node tools/pr.mjs check <branch>` passes, commit, ring `gojo-run` for
   Claude's contact check and merge. No merge or production deploy by Codex.
+  BLOCKED: `node tools/pr.mjs check art/gojo-proportions` refuses launched v08 because the low-confidence pose lacks version-bound `scaleManualQA`; Astra retained the technical hold. Claude must resolve or keep the strip held before integration.
 
 Rules: edit only art/characters/gojo/**, public/reviews/gojo-posture-d/**, public/characters/gojo/** via the packer,
 the gojo block of art/manifest.json, the "## gojo" section of art/TRACKER.md and art/REVIEW.md rows. `art/size-r6`
@@ -168,7 +169,17 @@ Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`
 
 ---
 
+- [x] **Relay #8 correction and merge confirmation (2026-10-18):** v04 remains in `raw/_rejected/`; only v05 is in `raw/_qa_hold/` with the superseded note. Main retains Sasuke v02 and its packed atlas. Claude merged PR #142 as `d5304303`; no user review is needed. Gojo heavy and the Gojo reactions were left to `gojo-run`; camera unchanged.
+
+- [x] **Relay #9 status confirmed (2026-10-18):** v05 is not taken because shipped Sasuke v02 (PR #140) measures the right size; it stays in `raw/_qa_hold/` with that note. The user asked whether this was beam or size work, and made no decision. PR #142 is already merged as `d5304303`; R6 has no user review or camera change.
+
+- [x] **Relay #10 user decision recorded (2026-10-18):** USER DECISION via Claude: “keep v02” for Sasuke beamStruggle. This is not an image approval; v05 remains not taken in `_qa_hold`, v04 remains rejected in `_rejected`, and the main v02 pack is unchanged. PR #142 was already merged as d5304303; no further R6 review or camera change.
+
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
+- [x] **Relay #7 superseding plan (2026-10-18):** main was merged into `art/size-r6`; Sasuke beamStruggle v02 from PR #140 was kept in manifest, hitboxes and the repacked atlas. v05 moved to `raw/_qa_hold/` with a superseded note; user-rejected v04 remains in `raw/_rejected/`, and the obsolete v05 approval ask was closed. Art guard and production build pass; PR #142 was merged by Claude as `d5304303`. No user review needed. Killua airLight2 v08 remains held, Gojo heavy and hit reactions unchanged here; camera left alone. The six-fighter R6 screen is complete.
+
+- [x] **Codex relay #6 rejection and v05 response (2026-10-17):** user rejected v04 (bodyHeight152, head match1.11-1.17) and requested a no-call v05 at bodyHeight134 from the same v01 pixels. v04 is preserved under `_rejected`; v05 retains the sleeve exemptions. PR #142 branch commits `a8edd690` and `4baec978`. The refreshed page includes current main-approved v02 (PR #140) beside v01, rejected v04 and v05: https://gcd-tourney-okk81f4to-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v05/. Build and preview build passed. The updated approval request is relay #7; v02 remains live on main until any future integration. Gojo heavy unchanged; diagnostics remain outside branch; no camera/engine change.
+
 
 - [x] **Codex relay #5 correction (2026-10-17):** committed `88981058` on `art/size-r6`; Sasuke `beamStruggle` v04 now uses bodyHeight134 and has a refreshed review page. Gojo heavy's 1.08x test was cell-limited (packer cap 237), so v05 stays unchanged. Preview build passed: https://gcd-tourney-lxcam7v5w-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v04/. Diagnostics preserved outside the branch (88.3 MB). No camera/engine change. User approval is next; broader filtered-candidate follow-up remains open.
 
@@ -1980,3 +1991,9 @@ Direct user direction supersedes the earlier recommendation for model v02: v02 w
 - [x] **(2026-10-09) ART-CRWD-FIX:** superseded 2026-10-10: the user keeps the Killua and Gojo spectators in the
   crowd (approved with the rest). Do not replace them.
 - Noted by Claude: TOOL-018 (queue named flags lost through `npm run queue --` on PowerShell) is on Claude's list.
+
+
+
+
+
+

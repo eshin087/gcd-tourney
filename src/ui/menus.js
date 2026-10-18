@@ -71,7 +71,7 @@ const MODES = [
   { id: 'online', label: 'ONLINE', sub: 'a room for you and your friends · watch while you wait' },
   { id: 'cpu', label: 'CPU VS CPU', sub: 'sit back and watch two CPUs go all out' },
   { id: 'training', label: 'TRAINING & CONTROLS', sub: 'practice room · PS / Xbox layouts · rebind' },
-  { id: 'sprites', label: 'SPRITE LAB', sub: 'preview & export sprite sheets' },
+  { id: 'lab', label: 'LAB', sub: 'test lab · every move, animation & mechanic in one tap' },
 ];
 
 export class Menus {
@@ -222,7 +222,7 @@ export class Menus {
     const act = {
       training: () => this.game.startTraining(),
       online: () => this.game.openOnline(),
-      sprites: () => window.open('/sprites.html', '_blank'),
+      lab: () => { location.href = '/lab.html'; }, // same tab: a home-screen app has no second one
     };
     const { box, ctrl } = this.list(
       MODES.map((m) => ({ label: m.label, sub: m.sub, action: act[m.id] || (() => this.charSelect(m.id)) })),

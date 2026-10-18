@@ -1,0 +1,114 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:11.765Z",
+ "fighters": {
+  "sasuke": {
+   "idleGarmentPx": 2824,
+   "anims": {
+    "airRecover": {
+     "v": 1,
+     "body": [
+      0.781,
+      0.811,
+      0.915
+     ],
+     "head": [
+      1.055,
+      1.969,
+      1
+     ],
+     "median": 0.811,
+     "headMedian": 1.055,
+     "flag": "small"
+    },
+    "down": {
+     "v": 8,
+     "body": [
+      0.924,
+      0.779
+     ],
+     "head": [
+      2.667,
+      0.981
+     ],
+     "median": 0.852,
+     "headMedian": 1.824,
+     "flag": "small"
+    },
+    "getup": {
+     "v": 5,
+     "body": [
+      0.586,
+      0.717,
+      0.838,
+      0.841,
+      0.942
+     ],
+     "head": [
+      1.075,
+      2.282,
+      1.022,
+      1.087,
+      1.026
+     ],
+     "median": 0.838,
+     "headMedian": 1.075,
+     "flag": "small"
+    },
+    "charge": {
+     "v": 12,
+     "body": [
+      0.994,
+      0.937,
+      0.946,
+      0.99
+     ],
+     "head": [
+      1.051,
+      1.051,
+      1.044,
+      1.035
+     ],
+     "median": 0.968,
+     "headMedian": 1.047,
+     "flag": null
+    },
+    "throw": {
+     "v": 7,
+     "body": [
+      0.789,
+      0.93,
+      0.949,
+      0.824
+     ],
+     "head": [
+      1.003,
+      0.983,
+      0.98,
+      1.026
+     ],
+     "median": 0.877,
+     "headMedian": 0.993,
+     "flag": "small"
+    },
+    "beamCharge": {
+     "v": 5,
+     "body": [
+      1.039,
+      1.008,
+      1.028
+     ],
+     "head": [
+      1,
+      1,
+      0.974
+     ],
+     "median": 1.028,
+     "headMedian": 1,
+     "flag": null
+    }
+   }
+  }
+ }
+}
