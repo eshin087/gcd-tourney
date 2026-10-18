@@ -6,9 +6,9 @@ Review: `public/reviews/normals-gojo/`
 
 ## Candidate state
 
-The whole Gojo character was packed at 48 colors: 53 animations / 245 frames, including the 44 existing animations and nine new candidate strips. The strict candidate head scale gate passed after measured importer fits on fSmash v01 (×0.9208) and fair v01 (×0.8803). No strip is user-approved. Manifest, tracker and review rows mark all nine as awaiting review and technically held. `uair` remains on the gameplay stand-in with manifest version 0; no usable complete candidate was recovered.
+The whole Gojo character was packed at 48 colors: 53 animations / 245 frames, including the 44 existing animations and nine new strips. The strict candidate head scale gate passed after measured importer fits on fSmash v01 (×0.9208) and fair v01 (×0.8803). The user approved all nine drawings as drawn via Claude relay combat #30; manifest, tracker and review rows record that approval. All nine remain technically held by Astra pending the findings below and Claude's runtime contact check. `uair` remains on the gameplay stand-in with manifest version 0; no usable complete candidate was recovered.
 
-Nine candidates shown from the exact packed atlas: fTilt v01, uTilt v01, dTilt v02, dashAttack v01, fSmash v01, uSmash v01, dSmash v01, fair v01 and bair v02. The review page includes per-frame packed crops and loop GIFs beside the matching gameplay stand-in and approved idle f0, plus head/body/lineup sheets, raw sources, provenance and Astra's audit.
+Nine user-approved drawings shown from the exact packed atlas: fTilt v01, uTilt v01, dTilt v02, dashAttack v01, fSmash v01, uSmash v01, dSmash v01, fair v01 and bair v02. The review page includes per-frame packed crops and loop GIFs beside the matching gameplay stand-in and approved idle f0, plus head/body/lineup sheets, raw sources, provenance and Astra's audit.
 
 ## Astra final audit
 
