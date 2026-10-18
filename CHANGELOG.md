@@ -14,6 +14,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-SAS): recorded relay #19 approvals for Sasuke beamFire v08 and six batch 3 effects, plus relay send #20 approval for special v15. Approval records and corrected v15 provenance/gallery are committed on `art/sasuke-skills` (`cca1396f`); PR #163 preview build passed at https://gcd-tourney-hq6is7vx1-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/. Claude owns pack setup, hand-anchor remeasurement, HD packing and gameplay integration.
+
 - Changed: the determinism fixtures (public/det/naruto-sasuke-s7, gojo-killua-s3) are re-recorded on the current simulation after Sasuke's Smash-move art changed his anims.json (fingerprint ee21fe2e1574); both replay frame for frame.
 
 - Recorded the user's relay #12 selection of Sasuke dTilt low-kick attempt 3 for v05 review, with measured x0.8511 auto-head import fit, full quantized pack and updated frame/loop review page; drawing approval remains pending.
