@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed: the determinism fixtures are re-recorded after Killua's Smash-move art (fingerprint 85c19280c0f7); both replay frame for frame.
+
 - Added (ENG-112): Killua directional-normal v02 candidates for all ten moves, exact-call provenance and a packed review page; nine v02 strips were approved via Claude relay combat #20. dSmash v02 was not approved; the one authorized v03 round used three calls, selected attempt01, and produced a packed review page. All ten retain technical holds pending scale/layout/anatomy follow-up.
 - Approved (ENG-112): the user approved Killua dSmash v03 as drawn via Claude relay combat #22. This is visual approval only; its documented technical hold remains.
 - Changed (ENG-112 Killua, relay #24): held approved uTilt/uSmash/uair v02 raws and their sidecars for the follow-up branch, keeping game stand-ins in this pack; corrected fTilt fist, bair rear-foot and both-side dSmash contact boxes; rebuilt seven-move review crops from the packed atlas.
