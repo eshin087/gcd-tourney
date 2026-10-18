@@ -15,6 +15,28 @@ How it works:
 
 ---
 
+## Sasuke skills revamp: Chidori, Chidori Spear, Chidori Current, Great Fireball, Kirin, Amaterasu (2026-10-18, Claude) - chat "5 - Skills Effects", relay lane `skills`
+
+**The user's request (2026-10-18):** revamp the specials, supers and ultimates so they look like the anime; Naruto is
+done and live, Sasuke is next. The full brief, with the user's answers to Claude's questions, is
+[art/characters/sasuke/SKILLS_REVAMP.md](../../art/characters/sasuke/SKILLS_REVAMP.md). Read it first; it wins over
+older Sasuke prompts where they disagree (notably the old `beamFire` Lightning Lance and the Chidori palm push).
+
+**Who does what:** the Claude chat "Revamp Sasuke's specials, super and ultimate" does every engine change (effect
+names with procedural stand-ins, the storm and the dragon, the burn, the lance, the counter, Lion's Barrage) on
+`feature/sasuke-skills`. You draw the art on `art/sasuke-skills`. Generation runs on `gpt-6-luna` medium; the Astra
+audit covers the two character strips (B1 `special` v14, B2 `beamFire` v08) only. At most 3 calls per image. The
+approvals desk is off: ring Claude on lane `skills` with `--for user --kind approval` when a batch is ready; Claude asks
+the user. Another Codex chat ("4 - Combat Overhaul", `art/normals-sasuke`) edits Sasuke's normals at the same time:
+change only this brief's rows in the shared manifest, hitboxes, REVIEW and TRACKER files.
+
+- [x] **1. Batch 1, the Chidori family** (2026-10-18): relay #15 authorized special attempt 3 as v14, plus a fresh three-call budget for effect-only A1 `chidori`. Filed the retained attempt as `art/characters/sasuke/raw/special_v14.png`; ran candidate pack and `npm run body sasuke special`; Astra audited every frame. Technical HOLD: strict quantized pack fails (head-probe mismatch and four right-edge clips), so there is no accepted atlas/body measurement; Astra also holds anatomy/pose clarity. Chidori fresh budget used exactly 3/3 calls; selected attempt 3 as `art/vfx/raw/chidori_v01.png`, with attempts 1-2 preserved under `_qa_hold/`. Candidate VFX pack generated; raw source still fails layout/background/palette requirements and remains technically held. Review records, provenance, audit and gallery are committed on `art/sasuke-skills` (`e137205f`); PR #163 preview: https://gcd-tourney-f5hz7ql3t-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/. User approved special v14 and chidori v01 via Claude relay #17. New user decision relay #18: redraw special v15 at approved idle build (180 px) with one additional call (4 cumulative); move v14 to `_qa_hold` so v13 remains the active in-game/packer version until v15 is approved. Claude measured v14 head ~1.35x idle and f3-f6 clipping 6-55 px; do not shrink body to fit head. Relay #18 decision recorded; v15 is generated with the final call (4/4) and quarantined at `raw/_qa_hold/special_v15.png`, so approved v13 remains the packer/game version. Strict pack fails for segmentation, scale and clipping; body command measured v13 only and no v15 Astra atlas audit exists. Review is pending user direction via the updated PR #163 batch 1 gallery. Claude still owns Chidori HD packing and previously approved effect integration. Claude owns HD packing and game wiring of previously approved effects.
+- [x] **2. Batch 2, Amaterasu** (2026-10-18): user approved `amaterasu` v01 and `amaterasuIgnite` v01 via Claude relay skills #16, quote: “Approve both v01 (Recommended): Approve amaterasu v01 and amaterasuIgnite v01 as they pack; I put them in the game and Codex moves on to the Kirin batch.” Restored both selected files from `_qa_hold/` to `art/vfx/raw/` with no pixel cleanup; manifest HD entries approved, Amaterasu fill 0.9, Ignite 0.95. Claude's trial pack split the 4x2/3x2 grids and keyed/quantized near-magenta; Claude owns HD game integration. Records and updated gallery committed on `art/sasuke-skills` at `8b7a4c46`.
+- [x] **3. Batch 3, Kirin and the Great Fireball** (2026-10-18): filed `beamFire` v08 and effects A8-A13; six effects are ready for visual review at PR #163 preview https://gcd-tourney-5pirksvwu-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/. `beamFire` is held because strict scale fails after auto-head fit (no candidate atlas/body sheet/final Astra audit); `kirinStrike` reports clipping. User review is still pending; no art is cleared for shipping.
+
+Do not edit `src/` or `tools/`. A manifest entry with `"hd": true` is enough for `node tools/pack-sprites.mjs vfx
+--candidates` to pack a new HD name (brief section 2).
+
 ## Smash-style moves: art for the 10 new normals, all six fighters (2026-10-18, Claude) - chat "4 - Combat Overhaul", relay lane `combat`
 
 **The user's request (2026-10-18, in Claude "Smash-style combat system"):** "have codex make art sprites and frame
@@ -85,7 +107,33 @@ Do, per fighter (Luna/medium for generation; Astra/medium final audit, per CLAUD
 - [ ] 6. After a relayed approval: `approvedVersion` for the approved strips, `node tools/pr.mjs check art/normals-<id>`
   passes, commit, ring `combat` for Claude's contact check and merge. No merge or production deploy by Codex.
 
-Progress (tick per fighter): - [ ] sasuke - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
+**Claude's integration check of art/normals-sasuke (2026-10-18, after relay #3 at e49d6ed6): three blockers before merge.**
+
+- [x] **B1. The committed Sasuke pack is partial.** (2026-10-18: restored the complete source pack and added dTilt v05; branch atlas has 49 animations / 214 frames.) public/characters/sasuke/anims.json on the branch has 6 animations
+  (main ships 44) and sheet.png shrank from 3.1 MB to 0.7 MB: the worktree only holds the 11 new raws, so the packer
+  packed just those. Merged, live Sasuke would lose his art and fall back to the 3D placeholder. In the worktree run
+  `npm run pr -- art sasuke` (brings every Sasuke raw back on disk), re-pack the whole character the way the live pack
+  was made (`npm run sprites sasuke`; match the options in main's anims.json `packer` field), check anims.json lists all 44
+  live animations plus the new strips, and commit. Every later fighter: start with `npm run pr -- start art/normals-<id>
+  --art <id>` so the raws are there, and compare the animation count with main's before you ring.
+- [x] **B2. Strict scale gate.** (2026-10-18: Claude's integration guard on `3fa86751` passed with 48 animations: all 44 live animations plus fSmash, fair, bair and uair. uTilt v01 remains drawing-approved but technically held out of the pack; the authorized v03 head-only retry also produced no candidate. Result and attempt provenance are recorded on branch commit `3978d5a7`.) (`npm run pr -- check art/normals-sasuke`, run by Claude from main because your sandbox
+  cannot write E:gcd-scratch): uTilt v01 "pops inside the strip: f2 0.54 vs f1 0.95 of the idle head"; uair v01 "f1 0.61 vs
+  f0 1.03"; fair v03 "head 1.06 of idle (feet 1.18): the whole figure is off". Per art/CHARACTER_SCALE.md: where the
+  measurement is wrong (the head hidden behind a raised arm), record a version-bound `scaleManualQA` with Astra's
+  evidence; where the figure really is off, fix the import (measured re-stitch or the auto head fit) without changing the
+  drawing. The user accepted these drawings as drawn: a redraw would need the user again, so ring before any redraw.
+- [x] **B3. dTilt.** (2026-10-18: `raw/dTilt_v05.png` is byte-identical to `_qa_hold/dTilt_v05_attempt03.png` (SHA-256 `A5C6A920847732F086810B498F8B79C15B9C82BC46F6D44B2554102706932123`), packed cells 181–186 and `dTilt_loop_v05.gif` are in the review page. Relay #15 corrected phases to `[3,2,1]`, placing the low kick in active f3/f4. Astra found drawn shin-height contact; runtime landing/timing remains Claude's check. The user approved v05 via relay #13 (“Approve dTilt v05”), then rejected v06 via #14 (“v05 stays the approved dTilt; keep v06 on file, no more dTilt work”); v06 remains preserved in `_rejected/`. Strict pack passes.)
+- [x] **B4. Relay #15 approval and technical integration follow-up.** (2026-10-18: user approved uTilt v05 via Claude (“Approve uTilt v05”); recorded in REVIEW/manifest/TRACKER. Strict pack now passes with 52 animations / 236 frames. DashAttack v05 passes after measured auto-head fit x0.7502; uSmash v05 passes after Astra-supported packScale 1.111 and corrected-atlas audit; dTilt phases [3,2,1]. Branch commit `03fe0a72`, PR #156 preview refreshed at https://gcd-tourney-r2gjj80pw-eshin087s-projects.vercel.app/reviews/normals-sasuke/. The merge guard passes when run on the branch, although it reports the expected stale TASKS/CHANGELOG conflicts for Claude to resolve at integration. fTilt's earlier decision prompt was superseded by relay #16. dSmash remains stand-in. Runtime contact checks remain Claude's integration work.)
+- [x] **B5. Relay #16 fTilt deterministic head edit.** (Historical; superseded by #17. The authorized edit attempt left magenta seams in prototypes; no v04 was saved and the approved v03 source stayed unchanged. See the updated scale decision below.)
+- [x] **B6. Relay #17 fTilt import scale and final handoff.** (2026-10-18: promoted approved v03 unchanged from `_qa_hold` at manifest packScale 0.92; source SHA-256 unchanged. Strict pack passes, 53 animations / 243 frames; head median 1.031 (1.026–1.063), feet median .991 (0.881–1.053), seven frames. Review crops rebuilt and verified against sheet cells 181–187. Astra audit recorded technical HOLD for body parity: garment proxy .826 (±10% uncertainty), shoulders/clothing and apparent lower-body proportions look reduced; this is not a segment-length measurement. Candidate and audit committed at `5d6d2712`; build and branch guard pass; preview refreshed at https://gcd-tourney-r0bb43l3y-eshin087s-projects.vercel.app/reviews/normals-sasuke/. Claude integration/contact disposition remains; no new image/user decision requested.)
+
+Progress (tick per fighter): - [x] sasuke (merged and live 2026-10-18, 03d8e27a: nine new strips; dSmash keeps its stand-in; Claude accepted the fTilt / fair / dTilt body-volume notes as advisory after the contact check) - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
+
+**Lessons from Sasuke for every later fighter (Claude, 2026-10-18):** start the worktree with `--art <id>` so every raw
+is on disk, re-pack the whole character and compare the animation count with main's before you ring; build review crops and
+loops from the packed sheet cells (anims.json), never from a stale folder; act on a user decision only from its delivered
+relay message, once (never from NOW.md or relay state); a head-only fix is a scripted pixel edit or a measured
+packScale, never an image-generation "edit" (it repaints the whole strip).
 
 Rules: edit only art/characters/<id>/** (raw/, ANIMATIONS.md, hitboxes.json, CLAUDE_ART_HANDOFF.md),
 public/characters/<id>/** via the packer, public/reviews/normals-<id>/**, the <id> block of art/manifest.json, the
@@ -108,19 +156,21 @@ You draw the art on `art/naruto-skills`. Generation runs on `gpt-6-luna` medium;
 At most 3 calls per image. The approvals desk is off: ring Claude on lane `skills` with `--for user --kind approval`
 when a batch is ready; Claude asks the user.
 
-- [x] **1. Batch 1, the ultimate (2026-10-18):** user approved beamFire v14 + placement sidecar and ui_ult_fg v04 via Claude relay skills #4; recorded in REVIEW/manifest/TRACKER. No new image calls. Current visual review pair: beamCharge v17 and fourTailsRoar v02, committed on `art/naruto-skills` as `620e87d7`. Astra v08 passes the major raw tail-contour repair; overall technical HOLD remains for a small ear/neck alignment concern and final packed anatomy/scale/contact evidence. The 236px circular roar mask packs inside a 117.99px radius with no edge contact. The updated review page is committed, but its preview could not be refreshed: Vercel CLI build fails while fetching npm dist tags in this environment. Previous preview (`https://gcd-tourney-dn8ef3o78-eshin087s-projects.vercel.app/reviews/naruto-skills-batch1/`) shows the superseded v11/v01 pair and must not be used for approval. Claude should publish the current commit and then ask the user to review v17/v02. Batches 2 and 3 remain unstarted pending this review. Full brief: [art/characters/naruto/SKILLS_REVAMP.md](../../art/characters/naruto/SKILLS_REVAMP.md).
+- [x] **1. Batch 1, the Four-Tails ultimate:** visual approvals are complete. The user approved beamFire v14 + its sidecar and ui_ult_fg v04 via relay #4, then approved beamCharge v17, fourTailsRoar v02, beamFire v15 (+13px sidecar), beastBall v01 and beastBeamRing v01 via relay #7. Superseded art is retained under `_rejected/`; visual approval is recorded in REVIEW/manifest/TRACKER. PR #154 (`8bc4823f`) is merged to main with the approved Four-Tails assets, version-bound scaleManualQA and anchors. Production deploy awaits Vercel's daily deployment limit; Claude is retrying automatically.
 - [x] **2. Batch 2, the Rasengan and the clones:** A1 `rasengan`, A2 `rasenganForm`, A3 `rasenganBurst`, A6 `poof`,
-  A7 `subLog` v01. User approved all five via Claude relay skills #9; approval is recorded on `art/naruto-skills` commit `81c60101` (PR #152). Visual approval only; Claude owns pack/game integration checks. The updated gallery is committed, but refreshing its preview hit Vercel's 100-deploy daily limit; the prior preview still shows the same drawings with a stale “unapproved” banner: https://gcd-tourney-idkywzs2u-eshin087s-projects.vercel.app/reviews/naruto-skills-batch2/ .
-- [ ] **3. Batch 3, the Rasenshuriken:** A4 `rasenshuriken` v01 (3/3 calls, selected call 3) and A5 `rasenshurikenDome` v01 (1/3 calls). Committed `db426cf3` on `art/naruto-skills` (PR #152). Build passed using the documented Vite adapter; the Vercel preview deployed at https://gcd-tourney-4c9tix7na-eshin087s-projects.vercel.app/reviews/naruto-skills-batch3/ . Both await the user's visual approval. No HD candidate pack or in-game check is available on this branch. Batch 2 is approved and recorded; only Batch 3 art approval remains pending.
+  A7 `subLog` v01. User approved all five via Claude relay skills #9; approval is recorded on `art/naruto-skills` commit `81c60101` (PR #152), and the batch is integrated in merged PR #154 (`8bc4823f`). The old preview banner was stale after Vercel's deploy limit; no action remains for this batch.
+- [x] **3. Batch 3, the Rasenshuriken:** user approved rasenshuriken v01 and rasenshurikenDome v01 via Claude relay skills #10; recorded in REVIEW/manifest/TRACKER and gallery. Approval commit `e7417e6a` on `art/naruto-skills` (PR #152); integrated in merged PR #154 (`8bc4823f`). The old preview banner was stale after Vercel's deploy limit; no action remains for this batch.
 
 - [x] **4. Round 2 (2026-10-18, the user's new direction): the ultimate is the Four-Tails beam.** Read
   [SKILLS_REVAMP.md section 7](../../art/characters/naruto/SKILLS_REVAMP.md#7-round-2-2026-10-18-the-ultimate-becomes-the-four-tails-beam):
   a new `beamFire` v15 (the fox firing from its mouth; the approved pounce v14 will not ship as beamFire), new HD
   effects `beastBall` and `beastBeamRing`; beamCharge v12 and fourTailsRoar v02 continue as the gathering pose and
   the transformation roar. The user's two reference stills are in the git-ignored `reference/source/` folder.
-  User approval arrived via Claude relay skills #7 for beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01. Codex recorded it in REVIEW/manifest/TRACKER and preserved superseded beamCharge v12-v16 and roar v01 under `_rejected/`; commit `71d87613` on `art/naruto-skills` (PR #152). Build passed. Updated preview: https://gcd-tourney-8eict71qe-eshin087s-projects.vercel.app/reviews/naruto-skills-round2/ . Claude confirmed local effect packing/game placement and recorded mouth anchors for integration. The full character candidate write remains held by automatic headless scale detection; no scaleManualQA pass was added. Claude owns scale/contact/hitbox integration. Round 2 approval handoff is complete. Claude reports PR #154 now carries the integrated art branch with version-bound scaleManualQA and anchors, and waits for the user's merge word; current GitHub PR state could not be verified from this environment. Shared 48-colour quantization makes the fox red-brown in-game; Claude owns palette review. Batch 2 is approved and recorded in item 2; Batch 3 approval remains pending in item 3.
+  User approval arrived via Claude relay skills #7 for beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01. Codex recorded it in REVIEW/manifest/TRACKER and preserved superseded beamCharge v12-v16 and roar v01 under `_rejected/`; commit `71d87613` on `art/naruto-skills` (PR #152). Build passed. Updated preview: https://gcd-tourney-8eict71qe-eshin087s-projects.vercel.app/reviews/naruto-skills-round2/ . Claude reports the approved Four-Tails art integrated on feature/naruto-skills-2 / PR #154 with mouth anchors and version-bound scaleManualQA (evidence: `art/characters/naruto/production/skills-revamp-round2/four-tails-body-sheet_v17_v15.png`). PR #154 awaits the user's merge word; current GitHub PR state could not be verified here. Claude noted the shared 48-colour quantization makes the fox red-brown in-game and owns palette review. Batch 2 and Batch 3 art approvals are recorded in items 2-3. The newly approved effect strips still need Claude's pack and in-game integration checks.
 
 Do not edit `src/` or `tools/`. Claude tells you on this lane when candidate packing works for the new effect names.
+
+**Closure update (relay skills #11):** all three approved art batches and the integration are merged to main in PR #154 (`8bc4823f`). Production deployment is pending Vercel's daily limit; Claude retries automatically. This supersedes the pending integration and merge notes above. No more Codex drawing or user action is pending.
 
 ## Size audit, round 7: every frame of all six fighters (2026-10-18, Claude) - chat "1 - Art audit", relay lane `art-audit`
 
@@ -2150,6 +2200,7 @@ Direct user direction supersedes the earlier recommendation for model v02: v02 w
 - [x] **(2026-10-09) ART-CRWD-FIX:** superseded 2026-10-10: the user keeps the Killua and Gojo spectators in the
   crowd (approved with the rest). Do not replace them.
 - Noted by Claude: TOOL-018 (queue named flags lost through `npm run queue --` on PowerShell) is on Claude's list.
+
 
 
 

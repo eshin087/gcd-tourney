@@ -401,7 +401,11 @@ export function reflexCounter(f, att, m) {
 // boiling silhouette (until Codex's shroud frames ship), 0 lets the drawn shroud frames show; `tails` chakra tails
 // lash behind him (Effects.shroudTick). Plain numbers only: f.shroud is saved with the fighter (ADR 0036).
 function startShroud(f, S, flash) {
-  const C = S.shroud;
+  beginShroud(f, S.shroud, flash);
+}
+
+// the same from any ultimate's data (a beam's def.beam.shroud: Fighter.startUltimate)
+export function beginShroud(f, C, flash) {
   f.shroud = { flash, hold: C.hold ?? 1, tails: C.tails ?? 0, core: C.core, rim: C.rim ?? C.chakra, chakra: C.chakra };
 }
 
@@ -429,9 +433,10 @@ export function endShroud(f, quiet = false) {
   audio.play('vanish', 0.7);
 }
 
-// the shroud lasts as long as the rampage (or its clash), whichever way it ends
+// the shroud lasts as long as the ultimate (a rampage, a beam's charge and fire) or its clash, whichever way it ends
 export function tickShroud(f) {
-  if (f.shroud && !((f.state === 'kit' && f.kitState?.kind === 'rampage') || f.state === 'clash')) endShroud(f);
+  const on = (f.state === 'kit' && f.kitState?.kind === 'rampage') || f.state === 'clash' || f.state === 'beamCharge' || f.state === 'beamFire';
+  if (f.shroud && !on) endShroud(f);
 }
 
 // ------------------------------------------------------------------ helpers
@@ -544,41 +549,61 @@ function riseCrew(f, k, m) {
   });
 }
 
-// Shadow Clone Barrage (S.crew): the clones poof out in a fan around him as he dashes in and converge on the target
-// from every side; caught, they pummel it in turn (S.hits beats, one striker per beat), kick it skyward one clone
-// at a time (U-ZU-MA-KI: crew.kicks), and Naruto drops on it from above with a big Rasengan. The dash and the catch
-// are the plain flurry's (the CPUs' timing reads them), and a whiff poofs every clone away.
-const STRIKES = ['light1', 'light2', 'light4', 'heavy', 'light3'];
+// Shadow Clone Barrage (S.crew): he dashes in alone and lands the first blow; then he holds the seal (crew.seal) and the
+// clones come one at a time, fast: every S.every frames one poofs in on its own side of the target, plays its own attack
+// through (crew.attacks; air ones a little higher) with the hit on its crew.hitAt-th frame, and poofs out again. Then
+// `kicks` clones kick the target skyward one after another (U-ZU-MA-KI) and Naruto drops on it from above with a big
+// Rasengan. The dash and the catch are the plain flurry's (the CPUs' timing reads them), every hit is Naruto's (the
+// clones are drawn only), and a whiff ends it at once.
+const AROUND = [Math.PI + 0.35, Math.PI - 0.55, 0.85, -0.95, Math.PI + 1.15, Math.PI - 1.25, 0.25, -0.35];
+
+// a free crew entry (a clone that has poofed out is reused), so a long barrage never needs more than a few actors
+function crewSlot(k) {
+  const free = k.crew.find((c) => !c.vis);
+  if (free) return free;
+  const c = crewMember(0, 0, 0, 1, 0);
+  c.vis = false;
+  k.crew.push(c);
+  return c;
+}
+
+// one clone poofs in at (x, y, z) facing the target, playing `anim` through its `life` frames
+function crewIn(g, o, k, x, y, z, anim, life) {
+  const c = crewSlot(k);
+  c.x = x; c.y = y; c.z = z;
+  faceAt(c, o.pos.x, o.pos.z);
+  c.anim = anim; c.pr = 0; c.age = 0; c.life = life; c.vis = true;
+  g.fx.poof(c.x, c.y + 0.8, c.z, 0.55);
+  return c;
+}
+
+// the clones' clocks: each plays its attack from its wind-up through its recovery, then is gone in a puff
+function crewTick(g, k) {
+  for (const c of k.crew) {
+    if (!c.vis || !c.life) continue;
+    c.age++;
+    c.pr = Math.min(0.99, 0.12 + 0.87 * (c.age / c.life));
+    if (c.age >= c.life) crewOut(g, [c]);
+  }
+}
+
+function crewHit(f, o, at, hit) {
+  f.hitPoint = { x: (at.x + o.pos.x) / 2, y: o.pos.y + 0.9, z: (at.z + o.pos.z) / 2 };
+  o.takeHit(f, hit, dirTo(f, o));
+  f.hitPoint = null;
+  if (!o.ko) o.vel.set(0, 0, 0);
+}
+
 function crewFlurry(f, k, S) {
   const g = f.game, o = f.opp, C = S.crew;
   if (k.phase === 'flash') { k.phase = 'dash'; k.t0 = 0; }
   k.t0++;
   if (k.phase === 'dash') {
-    const d = dirTo(f, o), R = g.basis.right;
-    if (k.t0 === 1) {
-      k.crew = [];
-      k.base = towardSide(f) > 0 ? Math.PI : 0; // the side of the ring he comes from
-      for (let i = 0; i < C.count; i++) {
-        const s = i % 2 ? 1 : -1, j = (i >> 1) + 1;
-        const x = f.pos.x + R.x * s * 0.8 * j - d.x * 0.3 * j, z = f.pos.z + R.z * s * 0.8 * j - d.y * 0.3 * j;
-        const c = crewMember(THREE.MathUtils.clamp(x, -ARENA_LIMIT, ARENA_LIMIT), 0, THREE.MathUtils.clamp(z, -ARENA_LIMIT, ARENA_LIMIT), d.x, d.y, 'dash', 0.5);
-        c.a = k.base + s * (0.6 + 0.55 * j); // where on the ring around the target this one ends up
-        k.crew.push(c);
-        g.fx.poof(c.x, 0.8, c.z, 0.6);
-      }
-      audio.play('vanish', 0.9);
-    }
+    const d = dirTo(f, o);
+    if (k.t0 === 1) { k.crew = []; k.base = towardSide(f) > 0 ? Math.PI : 0; } // the side of the target he comes from
     f.vel.set(d.x * 24, 0, d.y * 24);
     f.actor.setPhase('dash', 1, 0.5);
-    if (k.t0 % 3 === 0) f.actor.ghost(S.color, 0.3, 0.5);
-    for (const c of k.crew) {
-      const t = around(f, o, c.a, C.ring);
-      const dx = t.x - c.x, dz = t.z - c.z, l = dmath.hypot(dx, dz), step = Math.min(l, 26 / 60);
-      if (l > 1e-3) { c.x += (dx / l) * step; c.z += (dz / l) * step; }
-      faceAt(c, o.pos.x, o.pos.z);
-      c.anim = 'dash';
-      c.pr = 0.5;
-    }
+    if (k.t0 % 2 === 0) f.actor.ghost(S.color, 0.3, 0.6);
     const reach = f.distTo() < 1.4 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.3);
     if (reach && o.evading) g.onEvade(o);
     if (reach && !o.ko && !o.hidden && o.invuln <= 0) {
@@ -587,15 +612,17 @@ function crewFlurry(f, k, S) {
       k.i = 0;
       o.endMoveFx();
       o.move = null;
-      o.heldT = S.hits * S.every + C.kicks * C.kickEvery + C.drop + 50;
+      o.heldT = S.hits * S.every + C.hitAt + C.kicks * C.kickEvery + C.drop + 60;
       o.vel.set(0, 0, 0);
       o.setState('held', 'hurtHigh');
       f.vel.set(0, 0, 0);
       g.freeze = Math.max(g.freeze, 4);
-      // the ring closes: every clone on its spot around them
-      for (const c of k.crew) { const t = around(f, o, c.a, C.ring); c.x = t.x; c.z = t.z; faceAt(c, o.pos.x, o.pos.z); c.anim = 'idle'; }
+      // his own blow first, then he jumps back and makes the seal while the clones come
+      f.faceOpponent();
+      f.actor.setPhase('light1', 1, 0.5);
+      crewHit(f, o, f.pos, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 4, unblockable: true, spark: 'heavy' });
+      g.cam.shake(0.3);
     } else if (k.t0 > S.dash) {
-      crewOut(g, k.crew);
       k.phase = 'land';
       k.t0 = 0;
       f.vel.set(0, 0, 0);
@@ -604,10 +631,12 @@ function crewFlurry(f, k, S) {
   }
   if (k.phase === 'hits' || k.phase === 'kick' || k.phase === 'drop') {
     f.vel.set(0, 0, 0);
+    crewTick(g, k);
     if (o.ko) {
       // KO'd mid-barrage: the body flies off on its KO launch; holding it would re-freeze it in the air every hit
       o.heldT = 0;
       crewOut(g, k.crew);
+      g.fx.drop('crewOrb' + f.index);
       k.phase = 'land';
       k.t0 = 0;
       f.hidden = false;
@@ -617,74 +646,54 @@ function crewFlurry(f, k, S) {
     }
   }
   if (k.phase === 'hits') {
-    // everyone keeps a ready stance; on each beat one of them darts in and strikes
-    for (const c of k.crew) {
-      if (!c.vis) continue;
-      if (c.hitT > 0 && --c.hitT === 0) { const t = around(f, o, c.a, C.ring); c.x = t.x; c.z = t.z; c.anim = 'idle'; }
-      if (c.anim === 'idle') c.pr = (k.t0 / 40 + c.a) % 1;
+    if (k.t0 === 6) {
+      const t = around(f, o, k.base, 1.9);
+      f.teleport(t.x, f.pos.y, t.z);
     }
-    f.faceOpponent();
-    if (k.t0 % S.every !== 1) return;
-    if (k.i < S.hits) {
-      const n = k.crew.length + 1, who = k.i % n, kind = STRIKES[k.i % STRIKES.length];
-      let at;
-      if (who === n - 1) {
-        // Naruto himself takes a turn
-        const t = around(f, o, k.base, 0.85);
-        f.teleport(t.x, o.pos.y, t.z);
-        f.faceOpponent();
-        f.actor.setPhase(kind, 1, 0.5);
-        at = f.pos;
-      } else {
-        const c = k.crew[who], t = around(f, o, c.a, 0.8);
-        c.x = t.x; c.z = t.z; c.y = o.pos.y;
-        faceAt(c, o.pos.x, o.pos.z);
-        c.anim = kind;
-        c.pr = 0.55;
-        c.hitT = S.every - 1;
-        at = c;
-      }
-      o.heldT = Math.max(o.heldT, 40);
-      f.hitPoint = { x: (at.x + o.pos.x) / 2, y: o.pos.y + 0.9, z: (at.z + o.pos.z) / 2 };
-      o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
-      f.hitPoint = null;
-      if (!o.ko) o.vel.set(0, 0, 0);
-      g.cam.shake(0.25);
+    if (k.t0 >= 6) {
+      f.faceOpponent();
+      loop(f, C.seal ?? 'superPose');
+    }
+    o.heldT = Math.max(o.heldT, 30);
+    if (k.t0 % S.every === 1 && k.i < S.hits) {
+      // the next clone, on the next side, with the next attack
+      const anim = C.attacks[k.i % C.attacks.length], t = around(f, o, k.base + AROUND[k.i % AROUND.length], C.ring);
+      const y = anim.startsWith('air') ? o.pos.y + 0.45 : o.pos.y;
+      crewIn(g, o, k, t.x, y, t.z, anim, C.life);
       k.i++;
-      return;
     }
-    k.phase = 'kick';
-    k.t0 = 0;
-    k.i = 0;
-    // the clones not kicking leave; the kickers wait under them
-    k.crew.forEach((c, i) => { if (i >= C.kicks) { c.vis = true; crewOut(g, [c]); } });
+    // each clone's blow lands on its hitAt-th frame
+    for (const c of k.crew) {
+      if (!c.vis || c.age !== C.hitAt || c.anim === 'specialUp') continue;
+      // light sparks, a heavy one for a heavy blow: a white burst every 5 frames would hide the clones' attacks
+      crewHit(f, o, c, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: c.anim.startsWith('heavy') ? 'heavy' : 'light' });
+      g.cam.shake(0.22);
+    }
+    if (k.i >= S.hits && k.t0 >= S.hits * S.every + C.hitAt + 1) {
+      k.phase = 'kick';
+      k.t0 = 0;
+      k.i = 0;
+      // he vanishes from the seal to get above them
+      g.fx.poof(f.pos.x, f.pos.y + 0.8, f.pos.z, 0.6);
+      f.hidden = true;
+      f.actor.setVisible(false);
+    }
     return;
   }
   if (k.phase === 'kick') {
-    // U-ZU-MA-KI: one clone after another kicks them higher, then is gone in a puff
+    // U-ZU-MA-KI: one clone after another poofs in under them and kicks them higher
     o.air = true;
     if ((k.t0 - 1) % C.kickEvery === 0 && k.i < C.kicks) {
-      const prev = k.crew[k.i - 1];
-      if (prev) crewOut(g, [prev]);
-      const c = k.crew[k.i] ?? (k.crew[k.i] = crewMember(o.pos.x, 0, o.pos.z, f.face.x, f.face.y));
       const side = k.i % 2 ? 0.35 : -0.35, R = g.basis.right;
-      c.x = o.pos.x + R.x * side;
-      c.z = o.pos.z + R.z * side;
-      c.y = Math.max(0, o.pos.y - 0.9);
+      const c = crewIn(g, o, k, o.pos.x + R.x * side, Math.max(0, o.pos.y - 0.9), o.pos.z + R.z * side, 'specialUp', C.kickEvery + 4);
       faceAt(c, o.pos.x - R.x * side * 4, o.pos.z - R.z * side * 4);
-      if (!c.vis) { c.vis = true; g.fx.poof(c.x, c.y + 0.8, c.z, 0.5); }
-      c.anim = 'specialUp';
-      c.pr = 0.4;
-      f.hitPoint = { x: o.pos.x, y: o.pos.y + 0.3, z: o.pos.z };
-      o.takeHit(f, { dmg: C.kickDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 2, unblockable: true, spark: 'heavy' }, dirTo(f, o));
-      f.hitPoint = null;
+      c.age = 3; // straight into the rising kick
+      crewHit(f, o, { x: o.pos.x, z: o.pos.z }, { dmg: C.kickDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 2, unblockable: true, spark: 'heavy' });
       if (C.callout?.[k.i]) g.hud.callout(f.index, C.callout[k.i], S.color);
       g.cam.shake(0.3);
       k.i++;
     }
     if (!o.ko) o.vel.set(0, C.rise / ((C.kicks * C.kickEvery) / 60), 0);
-    // the real Naruto is out of sight, ready to drop on them
-    if (k.t0 === 1) { f.hidden = true; f.actor.setVisible(false); }
     if (k.t0 >= C.kicks * C.kickEvery) {
       crewOut(g, k.crew);
       k.phase = 'drop';

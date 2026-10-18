@@ -71,6 +71,31 @@ the root, lab, main JS and Three.js module with HTTP 200. Negative probes still 
 global Codex config, another project, outside writes and `.codex` writes. GitHub returned HTTP 200.
 This is build/HTTP verification, not a visual gameplay test or proof of this chat's active policy.
 
+### Capping a dev server's memory (OPS-019)
+
+A dev server once grew to 131 GB of committed memory (memory Windows has promised to the process; only about
+16 GB of it was in RAM). That took the machine's commit charge to 99.5% of its limit, so Windows would have
+refused memory to every program, and it grew `pagefile.sys` to about 58 GB. `tools/capped.ps1` runs a command
+inside a Windows job object: the command and everything it starts share one memory limit (8 GB; `-LimitGB`
+changes it), and they all end when the launcher ends (Ctrl+C, the shell closing, a kill). A process that tries to
+go past the limit is refused the memory and exits with an out-of-memory error; nothing else is affected. Nothing
+is installed, scheduled or left running, and only a command started through it is capped.
+
+```powershell
+$env:PORT = '5247'
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 node --preserve-symlinks --preserve-symlinks-main .codex/vite.mjs dev
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 -LimitGB 4 node ...   # -LimitGB comes first
+```
+
+Outside the restricted profile `npm run dev:capped` does the same for the normal dev server. `npm run devs`
+(`tools/dev-servers.ps1`) only reads: it lists the dev servers listening now with their age, committed memory,
+browser connections and folder, and warns when the machine's committed memory passes 85%. Windows cannot show a
+process's working folder, so a server started with a relative path is named by its helpers' folder when it has
+one. If a capped server dies with an out-of-memory error, the cap did its job: find what grew (a memory log in
+`.codex/vite.mjs` would show when) before raising the limit. Tested with the real adapter under Windows
+PowerShell 5.1 and PowerShell 7: the cap refuses a 2 GB allocation at 1 GB, Vite serves its pages, and killing
+the launcher ends Vite and frees the port.
+
 ### Remaining integration limitation
 
 Real worktree creation passed under the earlier broader-read profile, not the tightened profile.
@@ -95,7 +120,7 @@ sandbox/runtime solution; no broader read access or Git executable modification 
   conflicts in the branch, reruns checks against current main, then uses the existing PR merge script.
 - Routine technical work and eligible merges need no new user confirmation. Art/design gates remain.
 - There is no automatic merge lock yet; coordinator ownership is the enforcement mechanism.
-- **Art guard on every merge (TOOL-028).** `npm run pr -- merge` first judges the merge result (`tools/pr-guard.mjs`): a fighter strip the branch changed must have its newest raw `_vNN` equal to the manifest `approvedVersion`, must not ship an unapproved committed pack, and must pass the packer's strict scale gate (a dry run on scratch copies; `art/` and `public/` are never written). Fix by approving the version (the user's call), or by moving the candidate to `raw/_qa_hold/`. `npm run pr -- check <branch>` previews the verdict read-only. Only the coordinator uses `--force-art "<reason>"`, and only when the user has said the art may ship; the reason is recorded in the merge commit. Code branches are unaffected.
+- **Art guard on every merge (TOOL-028).** `npm run pr -- merge` first judges the merge result (`tools/pr-guard.mjs`): a fighter strip the branch changed must have its newest raw `_vNN` equal to the manifest `approvedVersion`, must not ship an unapproved committed pack, and must pass the packer's strict scale gate (a dry run on scratch copies; `art/` and `public/` are never written). Fix by approving the version (the user's call), or by moving the candidate to `raw/_qa_hold/`. A fighter pack (`public/characters/<id>/anims.json`) the branch changes must still list every animation main's pack lists (TOOL-061): the packer writes only the animations it finds raws for, so a pack made in a worktree that held just the new raws drops the rest. Fix it with `npm run pr -- art <id>` in that worktree, then `npm run sprites <id>`. `npm run pr -- check <branch>` previews the verdict read-only. Only the coordinator uses `--force-art "<reason>"`, and only when the user has said the art may ship; the reason is recorded in the merge commit. Code branches are unaffected.
 - Existing `.worktrees/sandbox-batches/` directories are ordinary copies, not worktrees. Preserve their
   candidates and review history; transfer selected changes into real worktrees before Git operations.
   Never make new copies: each was a full ~2.2 GB project, and seven filled 15 GB. Art worktrees use
@@ -199,6 +224,14 @@ Stops:  4 round trips without the user (send exits 3; only sends that answer a n
 - The relay carries no content: the inbox, `CLAUDE_ART_HANDOFF.md` and the branches still hold the handoff. Approvals
   happen in Claude ([ADR 0037](decisions/0037-approvals-in-claude.md)): only a `USER APPROVAL via Claude` relay
   quoting the user's answer (or the user typing in the Codex chat) approves an image; a plain relay note cannot.
+- **One delivery, one authorization** (OPS-020). `codex queue` delivers a send only after the chat's current turn
+  ends, and a queued send cannot be withdrawn. On 2026-10-18 Codex read the user's decisions in NOW.md and `.relay/`
+  during one long turn, made the authorized image rounds early, then made them again when the queued sends arrived.
+  So Codex acts on a user decision only from its own delivered `[relay <lane> #N]` message, runs
+  `relay check <lane> <N>` first (DONE or VOID, exit 7: do nothing) and `relay done <lane> <N> --note "..."` once
+  the work is finished. Claude replaces a queued send with `send <lane> ... --supersedes <N>` (the old one becomes
+  VOID), or records one as done when a ring shows Codex already did its work. `relay status <lane>` lists the last
+  sends as open, done or void once a lane has records (`.relay/<lane>/sends/<N>.json`).
 - If `codex queue` fails, Claude gives the user the paste-in prompt, as before (an archived chat is unarchived
   and retried first). `node tools/relay.mjs status` shows whose turn each lane is (Claude, Codex or you), its round
   trips and whether a watcher is running.

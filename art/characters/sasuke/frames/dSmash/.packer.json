@@ -1,0 +1,29 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/dSmash_v03.png",
+  "version": 3,
+  "source": [
+    "characters/sasuke/raw/dSmash_v03.png"
+  ],
+  "sourceHash": "31869f8514eda3f533a7c84039c0231e49c1a49b",
+  "bodyHeight": 200,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "dSmash_00.png": "cd21972262b82babc30b1cff27a8672bd668e198",
+    "dSmash_01.png": "b690f1a6d51518d1082543db2f747d8d5820d1c4",
+    "dSmash_02.png": "d5103203ee38cf2a749bc8449ad13ce8e474b22f",
+    "dSmash_03.png": "ca8cd475ea2dc06605f34078c239bb233d24ef6a",
+    "dSmash_04.png": "346df5df08a5d2db79f62b48e3f3fa8938a0090c",
+    "dSmash_05.png": "4dce443414855d4fb74dc855eeb5e4ec8c7018a7",
+    "dSmash_06.png": "f56220ca0dcd347f675954e090dbdeb6873c11ed",
+    "dSmash_07.png": "b509b8f94dc3407c858c588211dd3376a6ee7976"
+  }
+}

@@ -2,8 +2,9 @@
 // Regression test for tools/pr-guard.mjs (TOOL-028: the art guard of `npm run pr -- merge`).
 //   npm run test:guard            (add -- --keep to keep tools/.test-fixtures/pr-guard/ for inspection)
 // Builds a throw-away git repo under tools/.test-fixtures/ (never art/, public/ or the real repository) holding one
-// fake fighter, cuts branches that add approved / unapproved / held / off-size strips, and checks what the guard says
-// about each merge result. The scale gate runs the real packer (dry run) on those fixtures.
+// fake fighter, cuts branches that add approved / unapproved / held / off-size strips or commit a pack that drops
+// animations main ships (TOOL-061), and checks what the guard says about each merge result. The scale gate runs the real
+// packer (dry run) on those fixtures.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -91,10 +92,17 @@ const put = (rel, data) => { const f = path.join(REPO, rel); fs.mkdirSync(path.d
 const readManifest = () => JSON.parse(fs.readFileSync(path.join(REPO, 'art', 'manifest.json'), 'utf8'));
 const writeManifest = (m) => put('art/manifest.json', JSON.stringify(m, null, 2) + '\n');
 const setApproved = (anim, v) => { const m = readManifest(); m.characters.guardy.animations[anim].approvedVersion = v; writeManifest(m); };
+// the committed pack: the animations it lists and the version each ships ({ idle: 1, ... })
+const PACK = 'public/characters/guardy/anims.json';
+const writePack = (vers) => put(PACK, JSON.stringify({
+  animations: Object.fromEntries(Object.keys(vers).map((a) => [a, { start: 0, frames: 1 }])),
+  scaleAudit: { anims: Object.fromEntries(Object.entries(vers).map(([a, v]) => [a, { v }])) },
+}));
 const commit = (msg) => { git('add', '-A'); git('commit', '-q', '-m', msg); };
 const branch = (name, from, fn) => { git('checkout', '-q', '-B', name, from); fn(); commit(name); git('checkout', '-q', 'main'); };
 const RAW = 'art/characters/guardy/raw/';
-const guard = (name) => { const r = resolveHead(REPO, 'main', name); return { r, res: checkArt({ root: REPO, base: r.base, head: r.head }) }; };
+const guard = (name, opts = {}) => { const r = resolveHead(REPO, 'main', name); return { r, res: checkArt({ root: REPO, base: r.base, head: r.head, ...opts }) }; };
+const dropsOf = (res) => res.refusals.filter((r) => r.kind === 'dropped');
 const tmpGuards = () => fs.readdirSync(scratchDir()).filter((n) => n.startsWith('gcd-art-guard-')).length;
 
 function buildRepo() {
@@ -111,7 +119,7 @@ function buildRepo() {
   put(RAW + 'light1_v01.png', GOOD(902));
   put(RAW + 'light2_v01.png', GOOD(903));
   put(RAW + 'light2_v02.png', GOOD(904)); // already on main and not approved: a pre-existing mismatch the guard must not blame a branch for
-  put('public/characters/guardy/anims.json', JSON.stringify({ scaleAudit: { anims: { idle: { v: 1 }, light1: { v: 1 }, light2: { v: 2 } } } }));
+  writePack({ idle: 1, light1: 1, light2: 2 });
   put('src/game/code.js', 'export const x = 1;\n');
   commit('main');
 }
@@ -155,17 +163,52 @@ function main() {
     `an approved but off-size strip fails the strict scale gate (${JSON.stringify(o.refusals.map((r) => [r.anim, r.kind, r.text.slice(0, 60)]))})`);
 
   // 6) a committed pack that ships a version nobody approved
-  branch('shipped', 'main', () => put('public/characters/guardy/anims.json', JSON.stringify({ scaleAudit: { anims: { idle: { v: 1 }, light1: { v: 3 }, light2: { v: 2 } } } })));
+  branch('shipped', 'main', () => writePack({ idle: 1, light1: 3, light2: 2 }));
   const s = guard('shipped').res;
   check(!s.ok && s.refusals.some((r) => r.kind === 'shipped' && r.anim === 'light1' && r.shipped === 3), `a committed pack of an unapproved version refuses (${JSON.stringify(s.refusals.map((r) => [r.anim, r.kind]))})`);
+  check(!dropsOf(s).length, 'shipped: a pack that keeps every animation drops nothing');
 
-  // 7) the verdict is on the merge result: main approves the version after the branch was cut
+  // 7) TOOL-061: packed in a worktree that held only the new raw, the pack lists just that strip and drops main's others
+  branch('sparse', 'main', () => { put(RAW + 'light1_v02.png', GOOD(910)); setApproved('light1', 2); writePack({ light1: 2 }); });
+  const sp = guard('sparse').res, spd = dropsOf(sp);
+  check(!sp.ok && spd.length === 1 && spd[0].id === 'guardy' && JSON.stringify(spd[0].dropped) === '["idle","light2"]',
+    `a pack that drops animations main ships refuses, naming them (${JSON.stringify(spd.map((r) => [r.id, r.dropped]))})`);
+  const spLines = formatReport(sp, 'sparse');
+  check(spLines.some((l) => /REFUSED guardy \*\s+\(dropped\)$/.test(l)) && spLines.some((l) => /the pack drops 2 animations main ships \(idle, light2\): it lists 1, main 3/.test(l)),
+    'sparse: the printed list names the fighter, the count and every missing animation');
+  check(/npm run pr -- art guardy/.test(spd[0]?.fix) && /--force-art/.test(spd[0]?.fix),'sparse: the fix names re-packing with every raw, and the override');
+
+  // 8) a pack that keeps every animation main ships and adds a new one passes
+  branch('grows', 'main', () => {
+    put(RAW + 'light3_v01.png', GOOD(912));
+    const m = readManifest();
+    m.characters.guardy.animations.light3 = { frames: 7, phases: [2, 2, 3], bodyHeight: 204, status: 'approved', approvedVersion: 1 };
+    writeManifest(m);
+    writePack({ idle: 1, light1: 1, light2: 2, light3: 1 });
+  });
+  const g = guard('grows').res;
+  check(g.ok && !dropsOf(g).length && g.changed.guardy?.includes('light3'), `a pack that keeps main's animations and adds one passes (${JSON.stringify(g.refusals.map((r) => [r.anim, r.kind]))})`);
+
+  // 9) a deleted pack, and one that does not parse (a conflict in the generated file), drop everything main ships
+  branch('deleted', 'main', () => fs.rmSync(path.join(REPO, PACK)));
+  const del = dropsOf(guard('deleted', { scale: false }).res);
+  check(del.length === 1 && del[0].dropped.length === 3 && /the merge deletes public\/characters\/guardy\/anims\.json: it drops all 3 animations main ships \(idle, light1, light2\)/.test(del[0].text),
+    `a deleted pack refuses with every animation main ships (${del.map((r) => r.text)})`);
+  branch('garbled', 'main', () => put(PACK, '<<<<<<< ours\n{}\n'));
+  const gb = dropsOf(guard('garbled', { scale: false }).res);
+  check(gb.length === 1 && gb[0].dropped.length === 3 && /does not parse/.test(gb[0].text) && /merge main/.test(gb[0].fix), `a pack that does not parse refuses (${gb.map((r) => r.text)})`);
+
+  // 10) --force-art overrides a drop like any other refusal, and the merge commit records what was dropped
+  const fm = overrideMessage('sparse', 'light2 and idle retired on purpose', sp);
+  check(/--force-art\): light2 and idle retired on purpose/.test(fm[1]) && /guardy \(dropped 2: idle, light2\)/.test(fm[2]), `the override message names the dropped animations (${fm[2]})`);
+
+  // 11) the verdict is on the merge result: main approves the version after the branch was cut
   git('checkout', '-q', 'main');
   setApproved('light1', 2); commit('main approves light1 v02');
   const m = guard('unapproved');
   check(m.r.merged && m.res.ok, `judged on the merge result: main's approval of v02 covers the branch (merged ${m.r.merged}, ok ${m.res.ok})`);
 
-  // 8) arguments and the override message
+  // 12) arguments and the override message
   check(positionalArg(['art/x', '--force-art', 'because I said so']) === 'art/x' && positionalArg(['--force-art', 'why', 'art/x']) === 'art/x' && positionalArg(['--title', 'T', 'fix/y', '--no-deploy']) === 'fix/y',
     'arguments: the --force-art reason never becomes the branch');
   check(forceReason(['b']) === null && forceReason(['b', '--force-art', ' ok ']) === 'ok', 'arguments: --force-art "<reason>" is read, absent means no override');
@@ -177,7 +220,7 @@ function main() {
   const msg = overrideMessage('art/x', 'user approved in chat', u);
   check(msg[0] === "Merge branch 'art/x'" && /--force-art\): user approved in chat/.test(msg[1]) && /guardy light1 \(unapproved; newest v02, approved v01\)/.test(msg[2]), 'the merge commit message records the reason and what was overridden');
 
-  // 9) TOOL-038: which worktree holds a branch, from `git worktree list --porcelain`
+  // 13) TOOL-038: which worktree holds a branch, from `git worktree list --porcelain`
   const porcelain = ['worktree E:/p/main', 'HEAD 1111', 'branch refs/heads/main', '', 'worktree E:/p/.worktrees/art-x', 'HEAD 2222',
     'branch refs/heads/art/x', '', 'worktree E:/p/.worktrees/detached', 'HEAD 3333', 'detached', ''].join('\r\n');
   check(worktreeHolding(porcelain, 'art/x') === 'E:/p/.worktrees/art-x' && worktreeHolding(porcelain, 'main') === 'E:/p/main',

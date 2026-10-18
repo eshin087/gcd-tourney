@@ -25,7 +25,7 @@ commits and a review checklist, especially when two AI agents (Claude and Codex)
   npm run pr -- open                        # from the worktree: slim publish + gh pr create (re-run to update)
   npm run pr -- preview                     # from the worktree: a Vercel preview of the branch, linked on the PR (ADR 0018)
   git merge main                            # in the worktree, only if merge reports conflicts
-  npm run pr -- check art/<name>            # optional, read-only: the art guard's verdict (unapproved or off-size fighter strips)
+  npm run pr -- check art/<name>            # optional, read-only: the art guard's verdict (unapproved or off-size fighter strips, a pack that drops animations)
   npm run pr -- merge feature/<name>        # from the main folder: art guard, --no-ff merge, publish main, remove worktree
   npm run deploy
   ```

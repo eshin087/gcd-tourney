@@ -101,6 +101,11 @@ adapter documented in docs/AI_COLLABORATION.md. It passed the production build w
 the ordinary npm/Vite launcher still requires denied ancestor access. Git CLI integration remains a
 separate documented limitation; do not mistake a Git file-write probe for a passing worktree workflow.
 
+Start any dev server that will run unattended through the memory cap (OPS-019): set `PORT`, then run
+`powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 node --preserve-symlinks --preserve-symlinks-main <main checkout>/.codex/vite.mjs dev`
+(a worktree that predates `tools/capped.ps1` uses the main checkout's copy). `npm run devs` lists the dev servers
+running; stop your own when the task ends. Details: docs/AI_COLLABORATION.md.
+
 ## The project in one paragraph
 
 GCD Tourney is a browser HD-2D pixel-art anime arena fighter (Three.js + Vite, plain JavaScript ES modules)
@@ -263,7 +268,7 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
   available. For a manual CLI session, or when an art task needs this repository's sparse checkout, the optional
   helper is `npm run pr -- start <branch> --art <id>[,<id>]`; never use `--full` for art work. When the work is
   ready, run `npm run pr -- open` and `npm run pr -- preview` in the worktree, then have the coordinator run
-  `npm run pr -- merge <branch>` from the main folder (never the GitHub merge button). The merge runs an art guard first (`tools/pr-guard.mjs`, preview it with `npm run pr -- check <branch>`): it refuses a branch whose changed fighter strips have a newest raw `_vNN` that is not the manifest `approvedVersion`, ship an unapproved pack, or fail the strict scale gate. To keep a candidate out of the shipped atlas, move it to `raw/_qa_hold/` (the packer skips it); only the coordinator may override with `--force-art "<reason>"`. Commits straight to `main`
+  `npm run pr -- merge <branch>` from the main folder (never the GitHub merge button). The merge runs an art guard first (`tools/pr-guard.mjs`, preview it with `npm run pr -- check <branch>`): it refuses a branch whose changed fighter strips have a newest raw `_vNN` that is not the manifest `approvedVersion`, ship an unapproved pack, or fail the strict scale gate, and a branch whose committed fighter pack (`anims.json`) drops animations main ships (a pack made in a worktree without every raw: run `npm run pr -- art <id>`, then re-pack). To keep a candidate out of the shipped atlas, move it to `raw/_qa_hold/` (the packer skips it); only the coordinator may override with `--force-art "<reason>"`. Commits straight to `main`
   are allowed only for docs-only edits, bookkeeping and art approvals for a character that already ships. A new
   character's art goes in batch PRs (`art/<id>-refs`, `art/<id>-core`, `art/<id>-full`), each based on `main`
   after the previous one merged ([docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md#0-plan-user--claude)).
@@ -360,6 +365,15 @@ Handoff protocol (details in [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md
    A message that starts with `[relay <lane> #N]` was queued into this chat by Claude (`node tools/relay.mjs send`);
    treat it as "read the inbox" and do this chat's section of the inbox (a `Claude asks (no inbox item)` message is
    the whole request: answer it, then ring back).
+   - **Act on a delivered message, once** (OPS-020, after duplicate image rounds on 2026-10-18): a user decision or
+     approval reaches you only as its own delivered `[relay <lane> #N]` message, or the user typing in this chat.
+     Never act on one you read in docs/NOW.md, docs/TASKS.md or `.relay/` state: the Codex app delivers a queued
+     message only after your current turn ends, so when `node tools/relay.mjs status <lane>` shows a later send than
+     the last message you received, that message is on its way. Finish your current item, hand back and end the turn.
+     When `#N` arrives, first run `node tools/relay.mjs check <lane> <N>`: DONE or VOID (exit 7) means do nothing
+     more for that message (no image calls, no repeat; say so in your status lines), exit 4 means the lane is paused.
+     Each `#N` authorizes its work once; when that work is finished, run
+     `node tools/relay.mjs done <lane> <N> --note "<what; commit>"` before you ring.
    - **Handing back to Claude:** commit the handoff as usual (`CLAUDE_ART_HANDOFF.md`, branch commits), then run
      `node tools/relay.mjs ring <lane> --note "<one line: what is ready, which commit>"` with the lane the relay
      message named. The ring needs no commit; it wakes the Claude session watching that lane.
@@ -397,7 +411,10 @@ Locate main with git worktree list. Run node tools/relay.mjs status from main.
 - Preserve approval, BLOCKED and pause brakes. If only the user's approval or decision remains, ring once with
   `--for user --kind approval|decision|blocked` (ADR 0037: Claude asks the user with buttons), update NOW.md and
   stop; that ring never authorizes further production. Proceed only on a relayed `USER APPROVAL`/`USER DECISION`
-  or the user's own message. Do not reset/resume a paused lane or bypass a hop limit to complete this check.
+  or the user's own message. A relayed one counts once it is delivered here as its own `[relay <lane> #N]` message
+  and `relay check` calls it open; reading NOW.md, the inbox or relay status for this check never authorizes acting
+  on a decision whose message is still queued ("Act on a delivered message, once" above). Do not reset/resume a paused lane or bypass a hop limit
+  to complete this check.
 - Subagents report the handoff requirement to their parent; the owning chat rings once unless the handback
   was explicitly delegated. Claude maintains a background watcher for each active lane and reads the
   committed handoff when notified. A ring without a watcher is queued, not proof that Claude read it.

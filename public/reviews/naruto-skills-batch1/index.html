@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naruto Skills Revamp · Batch 1 technical review</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.5 system-ui, sans-serif; background: #11151b; color: #f1f3f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px; }
+    main { max-width: 1000px; margin: auto; }
+    h1, h2 { line-height: 1.15; }
+    h1 { font-size: clamp(1.7rem, 5vw, 2.6rem); }
+    h2 { margin-top: 0; font-size: 1.25rem; }
+    p { color: #c8ced6; }
+    .hold { padding: 16px; border: 1px solid #e0a746; border-left: 5px solid #e0a746; border-radius: 8px; background: #302719; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
+    section { min-width: 0; padding: 18px; border: 1px solid #343c47; border-radius: 10px; background: #1a2028; }
+    figure { margin: 0; }
+    img { display: block; width: 100%; height: auto; image-rendering: pixelated; background: #ff00ff; border-radius: 6px; }
+    figcaption { margin-top: 8px; color: #aeb8c4; font-size: .9rem; }
+    .atlas { width: 100%; aspect-ratio: 3 / 1; overflow: hidden; background-image: url('media/partial-atlas.png'); background-repeat: no-repeat; background-size: 533.333% 100%; image-rendering: pixelated; }
+    .charge { background-position: 0 0; }
+    .fire { background-position: 23.08% 0; }
+    .poster { position: relative; width: 100%; max-width: 768px; aspect-ratio: 16 / 9; overflow: hidden; background: #1c1c22; }
+    .poster img { position: absolute; background: transparent; border-radius: 0; }
+    .poster-bg { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .poster-fg { width: 75%; height: auto; left: 12.5%; bottom: 0; filter: drop-shadow(0 0 2px #ffe8dc) drop-shadow(0 0 1px #ffe8dc); }
+    .status { color: #ffd17e; font-weight: 700; }
+    ul { padding-left: 20px; color: #d7dde5; }
+    a { color: #8dc8ff; }
+    .small { font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Naruto Skills Revamp · Batch 1</h1>
+    <p>Two Naruto skills candidates remain for visual approval. Both were edited without new image-generation calls.</p>
+    <div class="hold"><strong>Approval requested; technical limits are disclosed.</strong> The strict character packer still withholds the atlas because it cannot detect a human head on the fully engulfed beasts. Per your decision, Claude records version-bound scaleManualQA after visual approval. No scale pass is claimed here. The v17 raw tail repair passes Astra review; overall anatomy, packed-scale and contact clearance remain on technical hold.</div>
+
+    <div class="hold" style="margin-top:16px"><strong>Already approved via Claude relay skills #4:</strong> beamFire v14 with <a href="media/beamFire_v14.json">its placement sidecar</a>, and ui_ult_fg v04. The requested f0 claw-slam mapping and final packed/contact checks remain Claude integration work.</div>
+
+    <div class="grid" style="margin-top:16px">
+      <section>
+        <h2>B1 · beamCharge v17 <span class="status">NO-CALL PIXEL EDIT</span></h2>
+        <figure><img src="media/beamCharge_v17.png" alt="Three Four-Tails roar poses, each with four tails"><figcaption>Raw source · 2172×724 · original 3/3 image calls; v12-v17 are pixel edits only</figcaption></figure>
+        <ul><li>f0/f2 tail seams were cleaned using f1 as the fan donor; the source image-call budget remains 3/3.</li><li>Forked/detached remnants were removed and the rightmost tail follows an irregular pixel contour through its base. Pixels at y436 and below match v11.</li><li>Four tails are visible in each pose; Astra confirms the main raw contour repair. A small inherited ear/neck alignment concern near x534/535 remains, especially f2 y342–360. The strict scale gate still needs Claude's version-bound scaleManualQA after visual approval.</li></ul>
+      </section>
+
+      <section>
+        <h2>A8 · fourTailsRoar v02 <span class="status">NO-CALL CIRCULAR MASK</span></h2>
+        <figure><img src="media/fourTailsRoar_v02.png" alt="Eight-stage crimson chakra shockwave with round burst silhouettes"><figcaption>Edited source · 2048×256 · derived from the packed v01 candidate; no new image call</figcaption></figure>
+        <ul><li>Hard circular mask keeps every frame inside a 236 px diameter centered in its 256 px cell; no pixels reach cell edges.</li><li>Candidate HD pack produced eight cells in a 2048×256 atlas at scale x1.000. Measured maximum alpha radius is 117.99 px; 14 isolated specks removed.</li><li>v02 is the current round-burst candidate. v01 remains preserved as source history; neither version is approved.</li></ul>
+        <figure style="margin-top:12px"><img src="media/fourTailsRoar_v02_atlas_hd.png" alt="Eight quantized 256 pixel cells for fourTailsRoar"><figcaption>Actual v02 candidate HD atlas · 2048×256 · eight 256px frames</figcaption></figure>
+      </section>
+    </div>
+
+    <section style="margin-top:16px">
+      <h2>Audit and provenance</h2>
+      <p>See the <a href="ASTRA_AUDIT_v08.md">Astra audit</a>, <a href="ASTRA_AUDIT_v01.md">prior audit</a> and <a href="GENERATION_PROVENANCE.md">generation-call and pixel-edit ledger</a>. The strict full Naruto pack did not write the character atlas: both fully engulfed strips lack a detectable human head. The separate HD effect atlas did pack successfully. This review page is for the user's visual approval of beamCharge v17 and fourTailsRoar v02; the post-approval scale record remains pending with Claude.</p>
+    </section>
+  </main>
+</body>
+</html>
