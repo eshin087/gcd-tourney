@@ -1,6 +1,6 @@
 # Sasuke `beamStruggle` v05 calibration
 
-A no-call re-assembly of the unchanged v01 pixels for a new user review. The original drawing is byte-identical: v01, rejected v04 and v05 SHA-256 `00ade94028b861de74ce8095b5644a75d0aa5106013d4b55764b0045fdb993f1`. No image generation call was made. v04 remains preserved under `raw/_rejected/`; v01 remains the approved version.
+A no-call re-assembly of the unchanged v01 pixels for a new user review. The original drawing is byte-identical: v01, rejected v04 and v05 SHA-256 `00ade94028b861de74ce8095b5644a75d0aa5106013d4b55764b0045fdb993f1`. No image generation call was made. v04 remains preserved under `raw/_rejected/`; v01 remains the source drawing for this alternate candidate; main currently ships user-approved v02 at bodyHeight153 via PR #140.
 
 Claude relay #6 reports that the reviewed v04 at bodyHeight152 was too large, with template-match head ratios 1.11–1.17 of idle. Rescaling those readings by 134/152 predicts 0.98–1.03 for v05. Claude’s prior v01 template readings were 0.92 / 0.86 / 0.92 against controls 0.98–1.02; both measurement sets are included in the version-bound manifest `scaleManualQA`. The requested v05 bodyHeight is 134 (about 1.10× the approved v01 setting 122).
 
