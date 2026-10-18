@@ -205,7 +205,7 @@ const VFX_EFFECTS = {
   chidoriBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
   chidoriSpear: { frames: 8, ms: 35, tinted: false, fill: 0.98, hd: true },
   chidoriCurrent: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
-  amaterasu: { frames: 8, ms: 60, tinted: false, fill: 0.95, anchor: 'bottom', hd: true },
+  amaterasu: { frames: 8, ms: 60, tinted: false, fill: 0.9, anchor: 'bottom', hd: true },
   amaterasuIgnite: { frames: 6, ms: 45, tinted: false, fill: 0.95, hd: true },
   greatFireball: { frames: 8, ms: 45, tinted: false, fill: 0.9, hd: true },
   greatFireballBurst: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true },
