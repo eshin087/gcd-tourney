@@ -1,5 +1,16 @@
 # ENG-112 Sasuke normals handoff
 
+## Relay combat #16: fTilt v03 head shrink blocked (2026-10-18)
+
+The user authorized one deterministic, no-generation edit: shrink only fTilt v03's hair-to-chin head about 12% around the
+neck, preserve v03 and phases [3,2,2], and return v04 for seam review. The source remains byte-identical at
+`raw/_qa_hold/fTilt_v03.png` (SHA-256 `8BEADFCD2FF7D0490BE491D123D55C5F1F25D0ED4E8019A12C5D7DB3A8FCF440`).
+Local scripted mask prototypes left magenta breaks through hair/face boundaries; the source head and adjacent collar cannot
+be isolated cleanly with the tested deterministic masks. No v04 was saved, no image-generation calls were made, and no pack
+or manifest version was changed. The requested one-time edit is blocked pending a new user decision on an alternate pixel
+mask/edit method or keeping the approved v03 held with the stand-in. Current review page:
+`https://gcd-tourney-r2gjj80pw-eshin087s-projects.vercel.app/reviews/normals-sasuke/#fTilt`.
+
 ## Relay combat #15: uTilt approval and strict-pack repair (2026-10-18)
 
 The user approved Sasuke uTilt v05 (the deterministic head-only edit of approved v01) via Claude: “Approve uTilt v05”. Recorded in REVIEW, manifest (approvedVersion: 5; exact relay quote in approvalSource) and TRACKER. No optional jaw/hair pixel cleanup was made; source pixels remain unchanged. This approval supersedes pending seam-review relay #18. Strict pack includes uTilt v05 with the documented f2/f3 false-arm probe exemptions; B=.917 and readable f6 head .921 ±2–3px remain advisory, and runtime contact is Claude's check.
