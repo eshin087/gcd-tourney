@@ -845,3 +845,4 @@ Reconstructed from the codebase when the changelog was introduced.
 
 - ART-SCALE-R4-KIL: added hash-verified source-to-fit calibration handoff for Killua idle11, guard09, superDash08, stagger07 and win05; no art, fit data, packer or shipped atlas changed.
 
+

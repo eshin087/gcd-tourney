@@ -9,7 +9,7 @@ paused._
 ## Your next actions
 **Gojo proportion study decision (2026-10-17, relay gojo-run #13):** Choose A/B/C/D or give another direction. [Review PR #143](https://github.com/eshin087/gcd-tourney/pull/143) · [latest study preview](https://gcd-tourney-aaf1jnvjg-eshin087s-projects.vercel.app/reviews/gojo-proportions/). A is current (106±5px legs; 215px body; 49.3%). B targets −8%; C targets −10% plus sturdier build but its neutral v02 is on Astra hold for smaller relative head, and its call budget is exhausted. D keeps A anatomy and changes pose direction. Nothing is approved or shipped.
 
-**ART-SIZE-R6 — waiting for Claude merge (2026-10-18, relay #7):** main is merged into `art/size-r6`. Sasuke `beamStruggle` v02 from PR #140 remains approved and live; v04/v05 are quarantined under `raw/_qa_hold/`, so no user art review is needed. PR #142 is refreshed for Claude's merge. The art guard and production build pass; Killua airLight2 v08 stays held and Gojo heavy is unchanged. Broader candidate audit remains open. No camera/engine change.
+**ART-SIZE-R6 — waiting for Claude merge (2026-10-18, relay #7):** main is merged into `art/size-r6`. Sasuke `beamStruggle` v02 from PR #140 remains approved and live; v05 is quarantined under `raw/_qa_hold/`; rejected v04 remains under `raw/_rejected/`, so no user art review is needed. PR #142 is refreshed for Claude's merge. The art guard and production build pass; Killua airLight2 v08 stays held and Gojo heavy is unchanged. Broader candidate audit remains open. No camera/engine change.
 
 **Beam clash done (2026-10-17, PR #140 + #139, live):** every fighter with an energy move has its clash pose in the game: Goku's Dragon Fist v01 and Sasuke's redrawn Chidori Spear v02 joined, Naruto's hand anchor was fixed. Sasuke v02 remains the live approved strip. The later v04/v05 R6 alternates were superseded by the shipped v02; no review is pending. Astra holds on Sasuke, Killua and Gojo's air poses stay as known (your call).
 
@@ -111,5 +111,6 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - 3e321c7b 10-17 17:03 test(net): re-record the determinism fixtures after the Goku and Sasuke struggle strips
 - 5c0ed0bf 10-17 17:03 docs(agents): ART-SIZE-R6 measured correction (beamStruggle x1.10, Gojo heavy borderline)
 <!-- status:end -->
+
 
 
