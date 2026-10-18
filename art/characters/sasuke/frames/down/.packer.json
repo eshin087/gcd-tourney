@@ -1,14 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/down_v08.png",
-  "version": 8,
+  "sourceFile": "raw/down_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/down_v08.png",
-    "characters/sasuke/raw/down_v08.json"
+    "characters/sasuke/raw/down_v01.png",
+    "characters/sasuke/raw/down_v01.json"
   ],
-  "sourceHash": "ff48f642657db0d76b964789f2a15e2be1723ff9",
-  "bodyHeight": 108,
+  "sourceHash": "5d126c32bad1d5413be679bd4b5e4aeab5e147a7",
+  "bodyHeight": 96,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -18,7 +18,7 @@
     ]
   },
   "files": {
-    "down_00.png": "d84ba12b701f9a0a9319acf9314811a01b6cbf9c",
-    "down_01.png": "37309a1f16da13e1cd521fbf40a51e4e28cb2730"
+    "down_00.png": "ca2587b0670fe0c5e08a73b0c35c52ba52de1c9c",
+    "down_01.png": "e72051cc29918bd51939efbdf96599d5f6dfb3c7"
   }
 }

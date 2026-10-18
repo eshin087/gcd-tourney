@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/taunt_v03.png",
-  "version": 3,
+  "sourceFile": "raw/taunt_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/taunt_v03.png"
+    "characters/sasuke/raw/taunt_v01.png"
   ],
-  "sourceHash": "278614280119e474ca291086f6276beb02c3e9bd",
-  "bodyHeight": 202,
+  "sourceHash": "717bfdd8f15baacae46f9624ecde495fddd75b9c",
+  "bodyHeight": 212,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,7 +17,7 @@
     ]
   },
   "files": {
-    "taunt_00.png": "a1d767e464c3eef9a5c418f90ca025801379e6e5",
-    "taunt_01.png": "bf26cad528df4f1a6df1afeb9ebc885ffa5608ef"
+    "taunt_00.png": "f705ca5ac31a38ec4449589ac066625daca8fbc4",
+    "taunt_01.png": "02a27a80a025e946cecc86419575f18aa3a8166e"
   }
 }

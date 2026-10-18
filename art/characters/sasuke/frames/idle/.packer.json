@@ -1,14 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/idle_v07.png",
-  "version": 7,
+  "sourceFile": "raw/idle_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/idle_v07.png",
-    "characters/sasuke/raw/idle_v07.json"
+    "characters/sasuke/raw/idle_v01.png"
   ],
-  "sourceHash": "cb912941a12eb53521989cf50df2cc4b8a76bc55",
-  "bodyHeight": 180,
+  "sourceHash": "c77cd018d30159fcc567c5b63b8d368c8993a6bc",
+  "bodyHeight": 204,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -18,13 +17,13 @@
     ]
   },
   "files": {
-    "idle_00.png": "97fc11808f4938a357d447ecef2d0ab71b101127",
-    "idle_01.png": "1845acc194525a528110945d35fea0564dd93a04",
-    "idle_02.png": "c8d8ef153ac16838c096602b89b926df08e1c16d",
-    "idle_03.png": "e26db086e3d83ac253483ff90d6bd55c67102027",
-    "idle_04.png": "93a631ab6817716283fa1a150f6da7adff762af3",
-    "idle_05.png": "a784a4b41aac04c0107365450fac2c2ce7ccd303",
-    "idle_06.png": "28ec8e120ec4f958f4944fcb1121eb7dd1737fa3",
-    "idle_07.png": "40e7edd7e7c8b6b397d8294faed0ddb5cbce751b"
+    "idle_00.png": "a9ff7d7d0dfb880c36fd13e2a205a6f954577894",
+    "idle_01.png": "949c5f2e1446ef2d9c54c8284c67697531c02112",
+    "idle_02.png": "9f7dabd3562a8437d736bc5aa0092500f89c9127",
+    "idle_03.png": "3a1e1376031855e276b872519aa5265460f35ffe",
+    "idle_04.png": "539d2c95f7997e6acb9fae74735d3b4cd647d31d",
+    "idle_05.png": "86dc4022333703235d80fd9b4ce490d59029df37",
+    "idle_06.png": "d663ff643252cc6d61069b61a94fb7cac74041e6",
+    "idle_07.png": "c1aaa410f5af6917ca7dcd8c2b015ae9e048b773"
   }
 }

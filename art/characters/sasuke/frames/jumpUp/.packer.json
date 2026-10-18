@@ -1,12 +1,12 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/jumpUp_v05.png",
-  "version": 5,
+  "sourceFile": "raw/jumpUp_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/jumpUp_v05.png"
+    "characters/sasuke/raw/jumpUp_v01.png"
   ],
-  "sourceHash": "e07508a5a558ee08dc2ab95725adb1eb256805b2",
+  "sourceHash": "170476abae109a991273b8bbfd5de7a9f36f881d",
   "bodyHeight": 198,
   "cell": {
     "frameWidth": 256,
@@ -17,7 +17,7 @@
     ]
   },
   "files": {
-    "jumpUp_00.png": "7398481e24085e46dbdb6f1d8369aad799800115",
-    "jumpUp_01.png": "33cd7a76c5b076173d7f29ab7f0a515a6aa9b5be"
+    "jumpUp_00.png": "28fd5f0a99193ae56710b042e8d93be20f56dd9a",
+    "jumpUp_01.png": "b575b6c2c6ff1f6279e9be57dec7188d799f4fea"
   }
 }

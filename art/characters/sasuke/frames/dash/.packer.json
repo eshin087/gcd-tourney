@@ -1,12 +1,12 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/dash_v07.png",
-  "version": 7,
+  "sourceFile": "raw/dash_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/dash_v07.png"
+    "characters/sasuke/raw/dash_v01.png"
   ],
-  "sourceHash": "919dda48a72def9c21f357d4a9eb46fcd8385feb",
+  "sourceHash": "13fd66e8d08e5e7fce55d513fc55e375712ff91d",
   "bodyHeight": 160,
   "cell": {
     "frameWidth": 256,
@@ -17,7 +17,7 @@
     ]
   },
   "files": {
-    "dash_00.png": "ee793aee5290b267bf539ae270f6c94b238a5a87",
-    "dash_01.png": "ab2e41090b8e9edba39d59bd3a8b9a847b2b9e30"
+    "dash_00.png": "4139b2615d451a1a558a34da30d0818c2177883e",
+    "dash_01.png": "8ace47aa70e09ab4e82112bbd5f060d37cc2718c"
   }
 }

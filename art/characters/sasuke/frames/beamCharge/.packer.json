@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/beamCharge_v05.png",
-  "version": 5,
+  "sourceFile": "raw/beamCharge_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/beamCharge_v05.png"
+    "characters/sasuke/raw/beamCharge_v01.png"
   ],
-  "sourceHash": "098fedcd0b4d0e14ffebb8e25869c109c0e663c3",
-  "bodyHeight": 218,
+  "sourceHash": "90dfb3294c21dacac5e443b912cda94dc9cacfc5",
+  "bodyHeight": 230,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,8 +17,8 @@
     ]
   },
   "files": {
-    "beamCharge_00.png": "8a80b00aa0604bfeb0bb38be5837fc869b9c3568",
-    "beamCharge_01.png": "281eeb04f581e75e20cdcee7645e35614c395a7d",
-    "beamCharge_02.png": "734a826721f1fefd9c998a14296e84c778ee6b67"
+    "beamCharge_00.png": "46f699745c39b47877772fc8b2f86010dc2eb81a",
+    "beamCharge_01.png": "ca0765c97783b0923a6e8473a9fb91273946d18a",
+    "beamCharge_02.png": "229933bcd376e08eecb59ead992cb3a26c60ec07"
   }
 }

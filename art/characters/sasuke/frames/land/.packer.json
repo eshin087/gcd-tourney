@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/land_v03.png",
-  "version": 3,
+  "sourceFile": "raw/land_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/land_v03.png"
+    "characters/sasuke/raw/land_v01.png"
   ],
-  "sourceHash": "0ef1d01e9607bded411bc4df0efe246d8564519b",
-  "bodyHeight": 165,
+  "sourceHash": "61bc8d0f607f60141a3f860fe19c6036a5bb7905",
+  "bodyHeight": 174,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,7 +17,7 @@
     ]
   },
   "files": {
-    "land_00.png": "b44714d81e4fdbe4fa45f4a4bfe4ce6532324265",
-    "land_01.png": "c3a840c4debce1681d6a09a8a1281658339b2e78"
+    "land_00.png": "f7aecd83ba79d0e393f684c3cc7cffa65124c04a",
+    "land_01.png": "120e98626c87e3a4133a302261a9a84b2e8dbd56"
   }
 }

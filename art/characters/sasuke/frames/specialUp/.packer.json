@@ -1,14 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/specialUp_v09.png",
-  "version": 9,
+  "sourceFile": "raw/specialUp_v02.png",
+  "version": 2,
   "source": [
-    "characters/sasuke/raw/specialUp_v09.png",
-    "characters/sasuke/raw/specialUp_v09.json"
+    "characters/sasuke/raw/specialUp_v02.png",
+    "characters/sasuke/raw/specialUp_v02.json"
   ],
-  "sourceHash": "2c9b540893b26411e4372e0ac5e152b5c42c7cad",
-  "bodyHeight": 203,
+  "sourceHash": "682834140a61092b4223862661bec3db951952e8",
+  "bodyHeight": 214,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,13 +17,12 @@
       240
     ]
   },
-  "autoHead": 1.0834,
   "files": {
-    "specialUp_00.png": "ac50656896aa86bdca05499cf44780975cb7b5b0",
-    "specialUp_01.png": "820e0ecd2fd22c8776cbb1783851405866c777af",
-    "specialUp_02.png": "de2c58f76281abc2bf9fc2c19c55cab96ef34fc9",
-    "specialUp_03.png": "a2aa90a33211ec4aa098777021306066340b75d8",
-    "specialUp_04.png": "b52b0054864b9160be11bfc21f99157ec9dfe9c6",
-    "specialUp_05.png": "f0966d7e95cbd09e5899ab47048c0e755e1ef189"
+    "specialUp_00.png": "6d2932095fafbdd4c4fafb9d801be37c8a2a87fe",
+    "specialUp_01.png": "147ec71a36b4b1f0ccf7f7039dfeac349cf2e2d2",
+    "specialUp_02.png": "a0c0334c95dd66a49853c357380e167ce026db97",
+    "specialUp_03.png": "69e1ca9f74f54bd5e184869bd31c5a543661b34b",
+    "specialUp_04.png": "9526987a00380f66306c310545546934af20cdfc",
+    "specialUp_05.png": "a1954c48d2548c6bb256193af45188f4309147ed"
   }
 }

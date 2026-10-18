@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/stagger_v08.png",
-  "version": 8,
+  "sourceFile": "raw/stagger_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/stagger_v08.png"
+    "characters/sasuke/raw/stagger_v01.png"
   ],
-  "sourceHash": "2f54d6f2b2cb24e206904d09c79496839e091aae",
-  "bodyHeight": 216,
+  "sourceHash": "86e442bcf81154cd5ce2f4ffc20df00c804e7b58",
+  "bodyHeight": 207,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,9 +17,9 @@
     ]
   },
   "files": {
-    "stagger_00.png": "73c477ae6e44f88f84178a00cba68dfab6f284f5",
-    "stagger_01.png": "9e043c78b2a3d6aa22e32fb61ddcbbe1488a6dbe",
-    "stagger_02.png": "ec5fd46a799dc5f3d6ecf007db42e376a71c6541",
-    "stagger_03.png": "0225d03a5af55fb6742c0cb6c1d5af48ab59b4c2"
+    "stagger_00.png": "3e17b6f6b07d1ce136969da1053765ffaf8de77e",
+    "stagger_01.png": "27b96d62f712471fa2182ff097eb86b79bb17de1",
+    "stagger_02.png": "812c78cef257b1485b20d366ad00d9ee5da777ad",
+    "stagger_03.png": "bb766648d8628dedec90319cad1dc3f11fb1b191"
   }
 }

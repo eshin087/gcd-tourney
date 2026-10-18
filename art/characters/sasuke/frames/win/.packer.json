@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/win_v04.png",
-  "version": 4,
+  "sourceFile": "raw/win_v01.png",
+  "version": 1,
   "source": [
-    "characters/sasuke/raw/win_v04.png"
+    "characters/sasuke/raw/win_v01.png"
   ],
-  "sourceHash": "2104e1fe4dacfc6260a748aecc8746dbf0fea1fa",
-  "bodyHeight": 204,
+  "sourceHash": "d3d8d1412acbed3ad87055b5f289ed41eb372f27",
+  "bodyHeight": 212,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,9 +17,9 @@
     ]
   },
   "files": {
-    "win_00.png": "fe0d8723e96eb9fa730d43bd4a6d427c9c06fabe",
-    "win_01.png": "f1873b37003df830a97b990bb67ffb4aedf074f0",
-    "win_02.png": "dfd5cd18ee613f626deba1c7cf77cdc325970618",
-    "win_03.png": "e6821588af5a4284a6e1170937490ff0499a623c"
+    "win_00.png": "9cd6aed1044184629386e8825cb4e4290068daf3",
+    "win_01.png": "833583b659efee68eac7fca8d7c941cc5a5e744a",
+    "win_02.png": "a3ba9eda71478ecaef20f87444d0283d7f60238d",
+    "win_03.png": "cacc4ac3af071f5249712eb213f6c631bc84f46a"
   }
 }

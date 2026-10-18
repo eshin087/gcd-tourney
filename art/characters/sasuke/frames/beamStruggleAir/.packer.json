@@ -7,7 +7,7 @@
     "characters/sasuke/raw/beamStruggleAir_v01.png"
   ],
   "sourceHash": "66817476f6119f01b5fbf340b86cfb11721f4746",
-  "bodyHeight": 168,
+  "bodyHeight": 198,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,8 +17,8 @@
     ]
   },
   "files": {
-    "beamStruggleAir_00.png": "1dcd349e1cee665a119fd679d0360e81401ce1f2",
-    "beamStruggleAir_01.png": "9c5427b1977db709fafff1a18083ee6af94b5970",
-    "beamStruggleAir_02.png": "ab4951b9dd6dfed27f590e34840018612851896c"
+    "beamStruggleAir_00.png": "e13f01d5a755c1b064c41b9c34da9f73198f3719",
+    "beamStruggleAir_01.png": "60bd321f4c05aba1d5e80aedfff88ca6bec9bac8",
+    "beamStruggleAir_02.png": "028529ac6feb8f2c187ee9d2ffd0f34c1c45c4ac"
   }
 }
