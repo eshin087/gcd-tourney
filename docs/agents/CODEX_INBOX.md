@@ -30,7 +30,7 @@ approvals desk is off: ring Claude on lane `skills` with `--for user --kind appr
 the user. Another Codex chat ("4 - Combat Overhaul", `art/normals-sasuke`) edits Sasuke's normals at the same time:
 change only this brief's rows in the shared manifest, hitboxes, REVIEW and TRACKER files.
 
-- [ ] **1. Batch 1, the Chidori family:** B1 `special` v14 (the wrist grip, the dragging run, the stab), A1 `chidori`,
+- [ ] **1. Batch 1, the Chidori family:** BLOCKED before generation: the brief permits at most two art worktrees, and both are occupied by active `art/normals-sasuke` and `art/normals-killua` tasks with uncommitted/untracked work. Do not remove or reuse either worktree. Resume when a slot is safely released or the user directs a different arrangement. B1 `special` v14 (the wrist grip, the dragging run, the stab), A1 `chidori`,
   A2 `chidoriForm`, A3 `chidoriBurst`, A4 `chidoriSpear`, A5 `chidoriCurrent` (HD cell, v01 each).
 - [ ] **2. Batch 2, Amaterasu:** A6 `amaterasu`, A7 `amaterasuIgnite`.
 - [ ] **3. Batch 3, Kirin and the Great Fireball:** B2 `beamFire` v08 (the arm swung down), A8 `greatFireball`,
