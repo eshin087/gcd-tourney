@@ -7,7 +7,7 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
-**Gojo proportion study decision (2026-10-17, relay gojo-run #13):** Choose A/B/C/D or give another direction. [Review PR #143](https://github.com/eshin087/gcd-tourney/pull/143) · [latest study preview](https://gcd-tourney-aaf1jnvjg-eshin087s-projects.vercel.app/reviews/gojo-proportions/). A is current (106±5px legs; 215px body; 49.3%). B targets −8%; C targets −10% plus sturdier build but its neutral v02 is on Astra hold for smaller relative head, and its call budget is exhausted. D keeps A anatomy and changes pose direction. Nothing is approved or shipped.
+**Gojo posture review (2026-10-18, relay gojo-run):** Review hurtHigh v04, hurtLow v05/v06/v07 and launched v07/v08 against the current approved strips; all six candidates are technical holds, and live approved versions remain v03/v04/v06. The D bent-knee/split-leg direction is present, but anatomy/scale is not certified (launched v08 torso 66±4px vs approved neutral 78±4px); approved atlas unchanged. [PR #143](https://github.com/eshin087/gcd-tourney/pull/143) · [final review preview](https://gcd-tourney-8ylryj94w-eshin087s-projects.vercel.app/reviews/gojo-posture-d/). No image is approved or shipped; approval is queued through gojo-run for the Claude handoff.
 
 **ART-SIZE-R6 — merged (2026-10-18):** PR #142 was merged by Claude as `d5304303`. Sasuke `beamStruggle` v02 from PR #140 remains approved and live; rejected v04 is in `raw/_rejected/`, and superseded v05 is in `raw/_qa_hold/`. No user review is needed. The R6 review found no other confirmed size defect; camera/engine unchanged.
 
