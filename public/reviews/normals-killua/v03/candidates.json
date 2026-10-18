@@ -43,5 +43,6 @@
     50
   ],
   "technicalHold": true,
-  "temporaryManifestNote": "The external diagnostic manifest marked dSmash v03 approved solely to quantize and extract its actual review cells. The branch manifest remains raw with no approvedVersion; no diagnostic atlas is shipped."
+  "temporaryManifestNote": "The external diagnostic manifest marked dSmash v03 approved solely to quantize and extract its actual review cells. The branch manifest now records user visual approval; the atlas remains diagnostic and is not shipped because technical holds remain.",
+  "visualApproval": "Approved as drawn by the user via Claude relay combat #22"
 }
