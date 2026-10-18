@@ -116,7 +116,7 @@ test('bad input messages are ignored', () => {
   const len = () => R.room.match.inputs[0].length;
   R.room.message('a', { t: 'in', start: 2, v: [1.5] });
   R.room.message('a', { t: 'in', start: 2, v: [-1] });
-  R.room.message('a', { t: 'in', start: 2, v: [1 << 23] });
+  R.room.message('a', { t: 'in', start: 2, v: [1 << 27] }); // past the stick, 7 buttons and 4 C-stick bits
   R.room.message('a', { t: 'in', start: 'x', v: [1] });
   R.room.message('a', { t: 'in', start: 2, v: new Array(65).fill(0) });
   R.room.message('a', { t: 'in', start: 9, v: [1] }); // a gap

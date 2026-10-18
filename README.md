@@ -79,10 +79,10 @@ These are the default bindings. You can rebind them in the controls menu.
 | | VS CPU | P1 (2P) | P2 (2P) | Gamepad |
 |---|---|---|---|---|
 | Move | WASD / Arrows | WASD | Arrows | Left stick / D-pad |
-| Light (auto combo) | J | F | , | □ / X |
-| Heavy (launcher) | K | G | . | △ / Y |
+| Light (auto combo; + direction: tilts and aerials) | J | F | , | □ / X |
+| Heavy (launcher; + direction: smash attacks, hold to charge) | K | G | . | △ / Y |
 | Special (tap, + direction) / charge ki (hold) | L | H | / | ○ / B |
-| Jump | Space | Space | L | ✕ / A |
+| Jump (tap: short hop, hold: full hop, again in the air: double jump) | Space | Space | L | ✕ / A |
 | Guard | Shift | L-Shift | ; | L1 / LB |
 | Dash (with direction) / **super dash** (neutral) | O · double-tap | R · double-tap | K · double-tap | R1 / RB |
 | **Ultimate beam** | **K + L** | **G + H** | **. + /** | **△ + ○** |
@@ -99,7 +99,15 @@ custom keys.
 
 ### The DBFZ-style toolkit
 
-- **Auto combo**: Light ×4. The last hit is a smash that can **wall-bounce** off the ring's ki barrier.
+- **Auto combo**: Light ×4 with the stick neutral. The last hit is a smash that can **wall-bounce** off the ring's ki barrier.
+- **Smash-style moves** ([ADR 0042](docs/decisions/0042-smash-directional-normals.md)): → / ↑ / ↓ + Light are the
+  forward, up and down **tilts**; → / ↑ / ↓ + Heavy the **smash attacks** (hold Heavy to charge); in the air Light gives
+  the **neutral air**, → / ← / ↑ + Light the **forward, back and up airs** and ↓ + Light the spike. Light in a dash with
+  the stick held is the **dash attack**. They **link** instead of chaining: land the next move inside the hit stun
+  (down tilt → jab, up tilt → up tilt → up air). Tap Jump for a **short hop** (Jump + Light: a short-hop aerial), jump
+  again for a **double jump**, ↓ past the top of a jump to **fast fall**. Your facing holds through a jump, so jump away
+  and press ← toward them for a back air. On a gamepad the **right stick is the C-stick**, as in Smash: flick it for a
+  smash attack that way, or in the air for that aerial (your drift stays with the left stick).
 - **Launcher**: Heavy (or Light ×3 → Heavy). Press **Jump** on hit to super-jump after them.
 - **Air combo**: Light ×3 in the air, or end with **Heavy** (double-axe spike) for a **ground bounce**.
 - **Super dash**: Dash with no direction. Homing flight that hits on contact, once per trip through the air.

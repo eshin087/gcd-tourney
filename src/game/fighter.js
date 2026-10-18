@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
-import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH } from './moves.js';
+import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH, NORMALS, AIR } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
-import { Pad } from '../core/input.js';
+import { Pad, CSTICK } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import * as kit from './kit.js';
 import { chargeStyle } from './chargeFx.js';
@@ -18,6 +18,8 @@ const FRAME_MS = 1000 / 60;
 const ACTIONS = ['light', 'heavy', 'special', 'jump', 'guard', 'dash'];
 // out of a wavedash slide, these keep sliding (attacks, guard, specials); jumps and dashes set their own speed
 const CARRY_STATES = new Set(['attack', 'guard', 'kit', 'charge', 'throw']);
+// the C-stick's ways as a stick (screen right, up): the aim normalFor reads instead of the left stick
+const C_AIM = { cUp: [0, 1], cDown: [0, -1], cLeft: [-1, 0], cRight: [1, 0] };
 const JUGGLE_GAP = 0.76; // spacing an air juggle closes to (just outside Game.separate's 0.72)
 // ADR 0022: leaving one of these opens the REVERSAL window; starting one of the actions inside it is a reversal
 const STUN_STATES = new Set(['hitstun', 'launched', 'down', 'block', 'getup', 'airRecover', 'techRoll', 'impactTech', 'held']);
@@ -148,6 +150,17 @@ export class Fighter {
     this.rollBack = false; // the running tech roll plays its tumble backward (decided at its start, lockRollPose)
     this.rollFx = this.face.x; // ... and the facing its strip keeps on screen
     this.rollFz = this.face.y;
+    // directional normals and Smash air (ADR 0042)
+    this.atkMx = this.atkMy = 0; // the stick when Light or Heavy was last pressed (normalFor)
+    this.jumped2 = false; // the double jump is used (back on landing or when hit)
+    this.shortHop = false; // the jump squat running was Jump + attack: a short hop, the aerial out at once
+    this.fastFell = false;
+    this.juggleMove = false; // the running air attack started beside a reeling opponent: the DBFZ float, not Smash air
+    this.mirrorPose = false; // a back air shown with a forward strip until its own exists: drawn and boxed mirrored
+    this.feetLand = false; // the last hit was a light pop: land on the feet, not in a knockdown
+    this.chargeT = 0; // frames a smash attack was held charging
+    this.chargeMul = 1;
+    this.chargeDone = false;
     this.endMoveFx();
     this.actor.setVisible(true);
     this.actor.play('idle', true);
@@ -155,7 +168,10 @@ export class Fighter {
 
   // --------------------------------------------------------------- helpers
   setState(s, anim = s) {
-    if (this.state === 'attack' && s !== 'attack') this.endMoveFx();
+    if (this.state === 'attack' && s !== 'attack') {
+      this.endMoveFx();
+      this.mirrorPose = false;
+    }
     if (this.state === 'throw' && s !== 'throw') this.releaseGrab();
     if (this.state === 'kit' && s !== 'kit' && this.kitState) {
       // leaving a kit move by any route (round reset, debug tools) never leaves it half-running
@@ -170,6 +186,7 @@ export class Fighter {
     // state, or 'air' again after an air attack, never replays it
     this.wallJumpPose = 0;
     this.reversal = false; // update() sets it again when the new state is a reversal
+    if (s === 'jumpSquat') this.shortHop = false; // (tryActions sets it again for Jump + attack)
     this.clashOut = null; // whatever ended the clashed swing (a hit, a burst) also cancels its bounce
     this.state = s;
     this.t = 0;
@@ -230,6 +247,90 @@ export class Fighter {
     return this.game.camDir(this.pad.mx, this.pad.my);
   }
 
+  // ---- directional normals and Smash air (ADR 0042, numbers in NORMALS / AIR)
+  // The CPU brains don't play the directional normals yet (phase 2 of ADR 0042): their Light / Heavy read as a neutral
+  // stick and their jump taps as full hops, so they keep the moves they were built around. A person's pad, a lab script
+  // or replay, or a brain that sets `aimsNormals` aims them. Like holdingBack, a CPU slot without its brain (a replay of
+  // a CPU match) reads the same way, so a recorded match plays back identically.
+  aimsNormals() {
+    const b = this.game.brains[this.index];
+    if (b) return !!(b.aimsNormals || b.autoBlock);
+    return this.game.kinds?.[this.index] !== 'cpu';
+  }
+
+  // The opponent is reeling in the air close by: the DBFZ juggle (air attacks float level with them and keep turning to
+  // them, the air string rides along), so the anime air combos stay. Anywhere else the air is Smash's.
+  juggling() {
+    const o = this.opp;
+    return o.air && !o.ko && (o.state === 'launched' || o.state === 'held') && this.distTo() < AIR.juggle;
+  }
+
+  // The normal the stick picks for `btn` ('light' | 'heavy'): the stick now, or the one held at the press when it is
+  // neutral by now (a quick tap of direction and button). Vertical wins when the stick is mostly up or down, as for specials.
+  normalFor(btn, aim = null) {
+    let x = 0, y = 0;
+    if (aim) [x, y] = aim; // the C-stick's way, whatever the left stick does
+    else if (this.aimsNormals()) {
+      x = this.pad.mx; y = this.pad.my;
+      if (Math.abs(x) < 0.5 && Math.abs(y) < 0.6) { x = this.atkMx; y = this.atkMy; }
+    }
+    const dir = Math.abs(y) > 0.6 && Math.abs(y) > Math.abs(x) ? (y > 0 ? 'up' : 'down')
+      : Math.abs(x) > 0.5 ? (this.air && x * this.side < 0 ? 'back' : 'forward') : 'neutral';
+    return NORMALS[this.air ? 'air' : 'ground'][btn][dir];
+  }
+
+  startNormal(btn, aim = null) {
+    const name = this.normalFor(btn, aim);
+    this.startMove(name, MOVES[name]);
+  }
+
+  // The C-stick (ADR 0042, Smash's): the right stick flicked one way, a buffered press like a button's. The newest way
+  // pressed within `win` frames, or null.
+  cPress(win) {
+    const p = this.pad;
+    let best = null;
+    for (const k of CSTICK) if (p.buffered(k, win) && (!best || p.b[k].lastPress > p.b[best].lastPress)) best = k;
+    return best;
+  }
+
+  // On the ground a smash attack that way (never charged: Heavy isn't held), in the air the aerial that way; the left
+  // stick keeps steering the jump, so a back air never turns the drift around.
+  startC(k) {
+    for (const c of CSTICK) this.pad.consume(c);
+    this.startNormal(this.air ? 'light' : 'heavy', C_AIM[k]);
+  }
+
+  // Air control: the stick steers the jump (and a Smash aerial) up to the run speed.
+  airDrift() {
+    const d = this.inputDir(), sp = this.speedStat;
+    this.vel.x += d.x * 0.45; this.vel.z += d.y * 0.45;
+    const h = dmath.hypot(this.vel.x, this.vel.z);
+    if (h > sp) { this.vel.x *= sp / h; this.vel.z *= sp / h; }
+  }
+
+  // Fast fall: a fresh ↓ at or past the top of the jump drops at once (once per fall). Not in the super jump's chase.
+  tryFastFall() {
+    const p = this.pad;
+    if (this.fastFell || this.chase > 0 || this.vel.y > AIR.ffFrom || !this.aimsNormals()) return;
+    if (p.my < -0.6 && p.dirPressed('d', 2)) {
+      this.fastFell = true;
+      this.vel.y = Math.min(this.vel.y, -AIR.fastFall);
+      this.actor.ghost(this.def.color, 0.18, 0.4);
+    }
+  }
+
+  doubleJump() {
+    const d = this.inputDir(), sp = this.speedStat;
+    this.jumped2 = true;
+    this.fastFell = false;
+    // the stick sets the new drift at once (Smash's double jump can turn the jump around); the facing holds
+    this.vel.set(d.x * sp, AIR.doubleJump, d.y * sp);
+    this.setState('air', 'jumpUp');
+    this.actor.ghost(this.def.color, 0.22, 0.45);
+    this.game.fx.ring(this.pos, '#ffffff', 0.45, this.pos.y + 0.1);
+    audio.play('jump', 0.8);
+  }
+
   anyPress() {
     const b = this.pad.b;
     return ACTIONS.some((a) => b[a].pressed);
@@ -259,6 +360,11 @@ export class Fighter {
     return (this.state === 'dodge' || this.state === 'airDodge' || (this.state === 'dash' && this.backDash)) && this.invuln > 0 && !this.ko;
   }
 
+  // holding a smash attack's charge (ADR 0042): the sprite glows and trembles (sync)
+  get smashCharging() {
+    return this.state === 'attack' && !!this.move?.charge && this.chargeT > 0 && !this.chargeDone;
+  }
+
   get hittable() {
     return !this.ko && this.invuln <= 0 && this.state !== 'down' && this.state !== 'getup' && !this.hidden;
   }
@@ -278,7 +384,16 @@ export class Fighter {
     this.t = 0;
     this.hitDone = false;
     this.moveHit = false;
-    this.faceOpponent();
+    this.chargeT = 0;
+    this.chargeMul = 1;
+    this.chargeDone = false;
+    // Smash air (ADR 0042): an aerial out of a jump keeps the jump's facing (screen-aligned), so ← is a back air; one
+    // started beside a reeling opponent is the DBFZ juggle and turns to them
+    this.juggleMove = !!m.air && this.air && this.juggling();
+    if (m.air && this.air && !this.juggleMove) this.setSide(this.side);
+    else this.faceOpponent();
+    // a back air without its own strip shows a forward strip mirrored, hit boxes and all (Fighter.sync, Game.checkMelee)
+    this.mirrorPose = !!m.back && !this.hasStrip(m.anim);
     if (m.air || m.hover) this.airAttack = true;
     if (m.special) {
       audio.loop('sp' + this.index, m.sfxLoop);
@@ -864,14 +979,25 @@ export class Fighter {
       this.startThrow();
       return true;
     }
+    // Jump with Light or Heavy (Ultimate's shortcut, ADR 0042): a short hop, and the button stays buffered so the aerial
+    // comes out as it leaves the floor
+    const C = AIR.chord;
+    if (this.aimsNormals() && p.buffered('jump', C) && (p.buffered('light', C) || p.buffered('heavy', C)) && !b.special.down) {
+      p.consume('jump');
+      this.setState('jumpSquat');
+      this.shortHop = true;
+      return true;
+    }
+    const c = this.cPress(6);
+    if (c) { this.startC(c); return true; }
     if (p.buffered('heavy', 6) && !b.special.down) {
       p.consume('heavy');
-      this.startMove('heavy', MOVES.heavy);
+      this.startNormal('heavy');
       return true;
     }
     if (p.buffered('light', 6)) {
       p.consume('light');
-      this.startMove('light1', MOVES.light1);
+      this.startNormal('light');
       return true;
     }
     if (p.buffered('jump', 5)) {
@@ -897,14 +1023,20 @@ export class Fighter {
     if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); return true; }
     // air dodge works after an air attack too (it's the way out, not another attack)
     if (!this.airDodged && p.buffered('guard', 3)) { p.consume('guard'); this.startAirDodge(); return true; }
+    // one air string per jump in a juggle (DBFZ: airAttack holds until landing, a super dash or a tech); Smash aerials in
+    // the open clear it as they end, so a jump can carry several (ADR 0042)
     if (this.airAttack) {
       if ((b.dash.pressed || p.dashDir) && this.startSuperDash()) return true;
+      if (b.jump.pressed && !this.jumped2 && this.chase <= 0) { this.doubleJump(); return true; }
       return false;
     }
-    if (p.buffered('heavy', 5)) { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return true; }
-    if (p.buffered('light', 5)) { p.consume('light'); this.startMove('airLight1', MOVES.airLight1); return true; }
+    const c = this.cPress(5);
+    if (c) { this.startC(c); return true; }
+    if (p.buffered('heavy', 5)) { p.consume('heavy'); this.startNormal('heavy'); return true; }
+    if (p.buffered('light', 5)) { p.consume('light'); this.startNormal('light'); return true; }
     if (b.special.pressed) { this.spPending = false; return this.doProjectile(); }
     if ((b.dash.pressed || p.dashDir) && this.startSuperDash()) return true;
+    if (b.jump.pressed && !this.jumped2 && this.chase <= 0) { this.doubleJump(); return true; }
     return false;
   }
 
@@ -916,6 +1048,7 @@ export class Fighter {
     this.pad = p;
     this.clock++;
     if (p.b.special.pressed) { this.spPress = p.frame; this.spPending = true; this.spMx = p.mx; this.spMy = p.my; }
+    if (p.b.light.pressed || p.b.heavy.pressed) { this.atkMx = p.mx; this.atkMy = p.my; } // normalFor's fallback stick
     // every Guard press is a parry attempt unless another press came less than `lockout` frames ago
     // (read even during hitstop, so a press in block stun can parry the next hit of a string)
     if (p.b.guard.pressed) {
@@ -990,8 +1123,17 @@ export class Fighter {
           if (kit.wantsSuper(this)) { kit.startSuper(this); break; }
           if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); break; }
           if (this.wantsThrow()) { p.consume('light'); p.consume('heavy'); this.startThrow(); break; }
+          const c = this.cPress(6);
+          if (c) { this.startC(c); break; }
           if (p.buffered('heavy', 6)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); break; }
-          if (p.buffered('light', 6)) { p.consume('light'); this.startMove('light1', { ...MOVES.light1, lunge: 9 }); break; }
+          if (p.buffered('light', 6)) {
+            p.consume('light');
+            // the stick still held through a forward dash: the dash attack (ADR 0042); let go, the lunging jab
+            const aim = this.aimsNormals() && dmath.hypot(p.mx, p.my) > 0.5;
+            if (aim && !this.backDash) this.startMove('dashAttack', MOVES.dashAttack);
+            else this.startMove('light1', { ...MOVES.light1, lunge: 9 });
+            break;
+          }
           if (p.buffered('jump', 5)) { p.consume('jump'); this.setState('jumpSquat'); break; }
         }
         if (this.t >= 15) {
@@ -1098,13 +1240,25 @@ export class Fighter {
             break;
           }
           const sp = this.speedStat;
-          this.vel.set(d.x * sp, 13.6, d.y * sp);
+          // Smash hops (ADR 0042): Jump let go before the squat ends (or pressed with an attack) is a short hop
+          const short = this.shortHop || (this.aimsNormals() && !p.b.jump.down);
+          this.vel.set(d.x * sp, short ? AIR.shortHop : AIR.fullHop, d.y * sp);
           this.air = true;
           this.airAttack = false;
+          this.fastFell = false;
+          this.setSide(this.side); // the facing the jump keeps (screen-aligned: a run in depth turned the body)
           this.setState('air', 'jumpUp');
           audio.play('jump');
           this.game.fx.dust(this.pos, 0.7);
-        }
+          // Jump + attack: the aerial out on the first airborne frame (its press can be `chord` frames older than the squat)
+          const c = this.cPress(6); // the C-stick flicked during the squat: that aerial as it leaves the floor
+          if (c) this.startC(c);
+          else if (this.shortHop) {
+            const btn = p.buffered('heavy', AIR.chord + 6) ? 'heavy' : p.buffered('light', AIR.chord + 6) ? 'light' : null;
+            if (btn) { p.consume(btn); this.startNormal(btn); }
+          }
+          this.shortHop = false;
+        } else if (this.t <= AIR.chord && this.aimsNormals() && (p.b.light.pressed || p.b.heavy.pressed)) this.shortHop = true; // attack right after Jump
         freeAnim();
         break;
       case 'air': {
@@ -1114,14 +1268,12 @@ export class Fighter {
           this.wallJumpPose--;
           this.actor.setPhase(TECH_ART.wall, 1, 1 - this.wallJumpPose / (DEFENSE.impactTech.wallJump.animFrames - 1));
         } else this.actor.play(this.vel.y > 1.5 ? 'jumpUp' : 'jumpFall');
-        if (this.chase <= 0) {
-          const d = this.inputDir();
-          const sp = this.speedStat;
-          this.vel.x += d.x * 0.45; this.vel.z += d.y * 0.45;
-          const h = dmath.hypot(this.vel.x, this.vel.z);
-          if (h > sp) { this.vel.x *= sp / h; this.vel.z *= sp / h; }
-        } else if (this.chase % 2 === 0) this.actor.ghost(this.def.color, 0.2, 0.45);
-        this.faceOpponent();
+        if (this.chase <= 0) this.airDrift();
+        else if (this.chase % 2 === 0) this.actor.ghost(this.def.color, 0.2, 0.45);
+        // Smash air keeps the jump's facing (back airs, cross-ups); the launcher's chase and a juggle turn to them (ADR 0042)
+        if (this.chase > 0 || this.juggling()) this.faceOpponent();
+        else this.setSide(this.side);
+        this.tryFastFall();
         if (this.tryAirActions()) break;
         if (!kick) freeAnim();
         break;
@@ -1279,8 +1431,7 @@ export class Fighter {
         const heavy = p.buffered('heavy', w), light = !heavy && p.buffered('light', w);
         if ((heavy || light) && !p.b.special.down) {
           p.consume(heavy ? 'heavy' : 'light');
-          const name = this.air ? (heavy ? 'airHeavy' : 'airLight1') : heavy ? 'heavy' : 'light1';
-          this.startMove(name, MOVES[name]);
+          this.startNormal(heavy ? 'heavy' : 'light');
           break;
         }
         if (this.air ? this.tryAirActions() : this.tryActions()) break;
@@ -1342,12 +1493,17 @@ export class Fighter {
     if (this.t % 6 === 0) audio.play('whoosh', 0.4);
     const p = this.pad;
     // cancel into an attack
+    const c = this.t >= 6 && this.cPress(6);
+    if (c) {
+      this.vel.multiplyScalar(0.25);
+      this.startC(c);
+      return;
+    }
     if (this.t >= 6 && (p.buffered('light', 6) || p.buffered('heavy', 6))) {
       const heavy = p.buffered('heavy', 6);
       p.consume('light'); p.consume('heavy');
       this.vel.multiplyScalar(0.25);
-      const name = this.air ? (heavy ? 'airHeavy' : 'airLight1') : heavy ? 'heavy' : 'light1';
-      this.startMove(name, MOVES[name]);
+      this.startNormal(heavy ? 'heavy' : 'light');
       return;
     }
     if (dist < 1.0) {
@@ -1399,11 +1555,27 @@ export class Fighter {
 
   updateAttack() {
     const p = this.pad, m = this.move, t = this.t;
-    if (t <= 2 && !this.moveHit && !this.air && ((this.moveName === 'light1' && p.b.heavy.pressed) || (this.moveName === 'heavy' && p.b.light.pressed))) {
+    if (t <= 2 && !this.moveHit && !this.air && ((m.btn === 'light' && p.b.heavy.pressed) || (m.btn === 'heavy' && p.b.light.pressed))) {
       // Light and Heavy a frame or two apart still read as a throw
       p.consume('light'); p.consume('heavy');
       this.startThrow();
       return;
+    }
+    // a smash attack held (ADR 0042): Heavy still down on the charge frame holds the swing there for up to `max` frames,
+    // for up to `mul` × the damage (Fighter.takeHit); the hold is all startup, so it can be hit out of
+    const G = m.charge;
+    if (G && t === G.at && !this.chargeDone) {
+      if (p.b.heavy.down && this.chargeT < G.max) {
+        if (this.chargeT === 0) audio.play('powerUp', 0.45);
+        this.chargeT++;
+        this.t--; // the clock stays on the charge frame (update() steps it again)
+        this.vel.x *= 0.7; this.vel.z *= 0.7;
+        if (this.chargeT % 6 === 0) this.actor.ghost(this.def.color, 0.16, 0.4);
+        this.actor.setPhase(this.moveAnimOf === m ? this.moveAnim : m.anim, 0, t / m.startup);
+        return;
+      }
+      this.chargeDone = true;
+      this.chargeMul = 1 + ((G.mul - 1) * this.chargeT) / G.max;
     }
     const A = m.startup, B = m.startup + m.active, C = B + m.recovery;
     const phase = t < A ? 0 : t < B ? 1 : 2;
@@ -1412,7 +1584,8 @@ export class Fighter {
     this.actor.setPhase(this.moveAnimOf === m ? this.moveAnim : m.anim, phase, Math.min(0.999, prog));
 
     if (t === Math.max(1, A - 2) && m.sfx) audio.play(m.sfx);
-    if (t < A - 1) this.faceOpponent();
+    const smashAir = m.air && this.air && !this.juggleMove; // a Smash aerial: it keeps the jump's facing (ADR 0042)
+    if (t < A - 1 && !smashAir) this.faceOpponent();
     // auto-step into the opponent's depth lane while the attack comes out
     if (t < B && !m.projectile) {
       const { sd } = this.laneOffsets();
@@ -1440,6 +1613,10 @@ export class Fighter {
       } else {
         this.vel.x *= 0.7; this.vel.z *= 0.7;
       }
+    } else if (smashAir) {
+      // Smash air (ADR 0042): the aerial falls with the jump, the stick steers it and ↓ fast-falls; no float, no ride-along
+      this.airDrift();
+      this.tryFastFall();
     } else if ((m.air || m.hover) && this.moveHit && this.opp.state === 'launched' && !this.opp.ko) {
       // DBFZ air juggle: after connecting, ride along with the victim's pop and push, and close in to
       // the closest spacing (separate() keeps 0.72) so the next chained hit is still in range: a launched
@@ -1496,8 +1673,8 @@ export class Fighter {
       if (!m.special && kit.wantsSuper(this)) { kit.startSuper(this); return; }
       if (!m.special && this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); return; }
       if (m.light && p.buffered('heavy', 8)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); return; }
-      if (m.air && !m.next && p.buffered('heavy', 8) && this.moveName !== 'airHeavy') { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
-      if (m.air && m.next && p.buffered('heavy', 8)) { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
+      // the air string ends in the spike; the other aerials link (ADR 0042: only `chain` moves cancel into a normal)
+      if (m.air && m.chain && p.buffered('heavy', 8)) { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
       if (!m.special && !m.air && this.spPending) {
         this.spPending = false;
         this.cancelSpecial = true; // kit.js START.rush reads it for the faster cancelled startup
@@ -1514,6 +1691,7 @@ export class Fighter {
 
     if (t >= C) {
       this.move = null;
+      if (smashAir) this.airAttack = false; // Smash air: the jump can carry another aerial (a juggle string holds the lock)
       if (this.air) this.setState('air', 'jumpFall');
       else this.setState('idle');
     }
@@ -1575,7 +1753,8 @@ export class Fighter {
         if (m && (m.air || m.hop || m.hover)) {
           if (m.hop && this.t < m.startup + m.active) break; // launcher keeps going through its hop
           this.move = null;
-          this.landLag = 8;
+          // each aerial has its own landing lag (ADR 0042); from its `autoCancel` frame on it lands like a plain jump
+          this.landLag = m.autoCancel != null && this.t >= m.autoCancel ? 5 : m.landLag ?? AIR.landLag;
           this.setState('land');
           this.game.fx.dust(this.pos, 0.8);
         }
@@ -1586,6 +1765,18 @@ export class Fighter {
         // timed impact tech (ADR 0028): a fresh Guard press just before the first contact of the fall beats the ground
         // bounce, the hard knockdown and the plain landing alike
         if (!this.bounced && this.tryImpactTech('ground')) break;
+        // a light pop (MOVES `feet`, ADR 0042) lands on the feet like Smash's low knockback: no knockdown, no floor bounce
+        if (this.feetLand && !this.ko && !this.gb && !this.heldT) {
+          this.vel.y = 0;
+          this.vel.x *= 0.4; this.vel.z *= 0.4;
+          this.combo = 0;
+          this.bigLaunch = false;
+          this.landLag = 4;
+          this.setState('land');
+          this.game.fx.dust(this.pos, 0.6);
+          audio.play('land', 0.6);
+          break;
+        }
         // tech roll (ADR 0022): the floor is a way out unless the last hit was a hard knockdown; one not taken is a gap
         const roll = !this.ko && !this.gb && !this.hardKD && !this.heldT;
         if (roll && this.game.inputLive && this.pad.b.guard.down) { this.startTechRoll(); break; }
@@ -1647,7 +1838,7 @@ export class Fighter {
       case 'impactTech':
         return this.techKind === 'wall' ? 0 : 1; // clinging to the barrier
       case 'attack':
-        return this.move?.hover ? 0 : this.move?.air ? 0.35 : 1;
+        return this.move?.hover ? 0 : this.move?.air && this.juggleMove ? 0.35 : 1; // a Smash aerial falls (ADR 0042)
       case 'launched':
         return this.ko ? 0.9 : Math.min(JUGGLE.gravity.max, JUGGLE.gravity.base + this.combo * JUGGLE.gravity.per);
       case 'air':
@@ -1676,7 +1867,7 @@ export class Fighter {
         this.onLand();
       }
       if (!this.air && this.state !== 'superDash') this.airDashes = 0;
-      if (!this.air) this.airDodged = false;
+      if (!this.air) this.airDodged = this.jumped2 = this.fastFell = false;
       if (!this.air) this.vel.y = Math.max(0, this.vel.y);
     } else this.air = true;
     // ring barrier (wall bounce for smash hits)
@@ -1812,13 +2003,15 @@ export class Fighter {
     this.noTech = !!m.noTech; // a super finish's impact can't be timed-teched (ADR 0028)
     this.combo = wasStunned ? this.combo + 1 : 1;
     this.carry.set(0, 0);
-    this.airDodged = false; // getting hit gives the air dodge back (for after the tech)
+    this.airDodged = this.jumped2 = this.fastFell = false; // getting hit gives the air dodge and the double jump back (for after the tech)
+    this.feetLand = !!m.feet && !this.ko; // a light pop lands on the feet (ADR 0042); anything else tumbles
     this.dodgeDir = null;
     if (this.grab) { this.grab = null; this.heldT = 0; } // knocked out of a throw's grip
     if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; this.gbCount = this.wbCount = 0; }
     const J = JUGGLE;
     const scale = Math.max(m.minScale ?? J.scale.floor, 1 - (this.combo - 1) * J.scale.per); // supers keep a higher floor
-    const dmg = Math.max(1, Math.round((m.dmg * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / ((this.def.stats.defense || 1) * (this.mode?.defense ?? 1))));
+    const charged = m.charge && att.move === m ? att.chargeMul : 1; // a held smash attack (ADR 0042)
+    const dmg = Math.max(1, Math.round((m.dmg * charged * scale * (att.def.stats.power || 1) * (att.mode?.damage ?? 1)) / ((this.def.stats.defense || 1) * (this.mode?.defense ?? 1))));
     this.hp = Math.max(0, this.hp - dmg);
     this.comboDmg = wasStunned ? this.comboDmg + dmg : dmg;
     att.ki = Math.min(MAX_KI, att.ki + 4 + dmg * 0.07);
@@ -1882,7 +2075,9 @@ export class Fighter {
       this.stun = Math.max(this.stun, m.lock);
     }
     if (this.combo >= J.cap && this.state === 'launched' && !this.ko) this.forceTech = true; // combo cap
-    this.setSide(-att.side);
+    // they turn to the attacker: in front of them as a rule, behind them for a back air or a down smash's back swing
+    const R = this.game.basis.right, behind = (m.back || m.both) && (dir.x * R.x + dir.y * R.z) * att.side < 0;
+    this.setSide(behind ? att.side : -att.side);
     this.hitstop = hs;
     this.shaking = true;
     if (!m.projectileHit && !m.beam) att.hitstop = hs;
@@ -1916,9 +2111,9 @@ export class Fighter {
       const s = hitShake(this, time);
       x += camRight.x * s;
       z += camRight.z * s;
-    } else if (this.state === 'charge') {
+    } else if (this.state === 'charge' || this.smashCharging) {
       // trembling with the power: a pixel or so, more as it builds
-      const s = dmath.sin(time * 70) * 0.012 * Math.min(1, this.t / 30);
+      const s = dmath.sin(time * 70) * 0.012 * Math.min(1, (this.smashCharging ? this.chargeT : this.t) / 30);
       x += camRight.x * s;
       z += camRight.z * s;
     }
@@ -1937,6 +2132,7 @@ export class Fighter {
       x += camRight.x * s;
       z += camRight.z * s;
     } else if (this.rollPoseShown()) { fx = this.rollFx; fz = this.rollFz; }
+    else if (this.mirrorPose && this.state === 'attack') { fx = -fx; fz = -fz; } // a back air on a forward strip (ADR 0042)
     this.actor.place(x, y, z);
     const cam = this.game.cam; // depth-normalized sprite size, keyed on the camera clock (SpriteActor.syncDepth)
     this.actor.sync(camera, fx, fz, camRight, cam?.spriteRefDepth, cam?.time ?? time);
@@ -1947,7 +2143,7 @@ export class Fighter {
       const cs = chargeStyle(this);
       u.flashColor.value.copy(cs.tint);
       flash = Math.max(flash, cs.bodyTint);
-    } else if (this.state === 'beamCharge') {
+    } else if (this.state === 'beamCharge' || this.smashCharging) {
       u.flashColor.value.set(this.def.color);
       flash = Math.max(flash, 0.12 + 0.1 * dmath.sin(time * 30));
     } else u.flashColor.value.set(0xffffff);

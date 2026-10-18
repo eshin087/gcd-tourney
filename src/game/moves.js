@@ -18,16 +18,46 @@
 //  noTech     the timed impact tech can't beat the floor or barrier impact after this hit (super finishes, ADR 0028)
 //  ground     the floor damage style a special, shot or super leaves (GROUND_STYLES in ground.js, ADR 0024)
 //  meleeClash 'light' | 'heavy': meets the same class head-on in a MELEE CLASH; a heavy beats a light (MELEE_CLASH)
+// Directional normals (ADR 0042; NORMALS below picks them from the stick):
+//  btn        the button that starts it ('light' | 'heavy'): the other one pressed a frame or two later still reads as a throw
+//  chain      a jab-string move (Light × 4, air Light × 3): the only normals that chain into other normals (the next hit, the
+//             launcher, the spike). Every other normal links: the next move has to land inside the hit stun
+//  landLag    an aerial's landing lag (default AIR.landLag); landing from `autoCancel` on (its recovery's tail) is a plain landing
+//  back       hits behind the attacker (a back air): it sends them the other way
+//  both       hits in front and behind (a down smash)
+//  feet       a light pop: the victim lands on their feet instead of in a knockdown (Smash's low-knockback hits)
+//  charge     a smash attack: Heavy held on frame `at` holds the swing up to `max` frames, for up to `mul` × the damage
 export const MOVES = {
-  light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, meleeClash: 'light' },
-  light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 2.4, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, meleeClash: 'light' },
-  light3: { anim: 'light3', startup: 6, active: 4, recovery: 14, dmg: 36, reach: 1.55, width: 1.0, hitstun: 24, push: 2.8, airPop: 6, hitstop: 8, lunge: 5, next: 'light4', cancel: 9, sfx: 'whoosh', spark: 'light', light: true, low: true, meleeClash: 'light' },
-  light4: { anim: 'light4', startup: 9, active: 4, recovery: 22, dmg: 58, reach: 1.65, width: 1.05, launch: [14, 6], hitstop: 13, lunge: 6, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.5, wallBounce: true, meleeClash: 'light' },
-  heavy: { anim: 'heavy', startup: 12, active: 5, recovery: 22, dmg: 64, reach: 1.4, width: 1.05, launch: [2.4, 15.5], hitstop: 12, lunge: 5.5, hop: 5, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.45, launcher: true, yTol: 1.7, boxPad: [0.14, 0.3], meleeClash: 'heavy' },
-  airLight1: { anim: 'airLight1', startup: 4, active: 4, recovery: 9, dmg: 24, reach: 1.4, width: 1.0, hitstun: 20, push: 1.6, airPop: 6.2, hitstop: 7, air: true, yTol: 1.7, next: 'airLight2', cancel: 7, sfx: 'whoosh', spark: 'light', meleeClash: 'light' },
-  airLight2: { anim: 'airLight2', startup: 4, active: 4, recovery: 10, dmg: 26, reach: 1.45, width: 1.0, hitstun: 20, push: 1.8, airPop: 6.4, hitstop: 7, air: true, yTol: 1.7, next: 'airLight3', cancel: 8, sfx: 'whoosh', spark: 'light', meleeClash: 'light' },
-  airLight3: { anim: 'airLight3', startup: 6, active: 4, recovery: 14, dmg: 40, reach: 1.55, width: 1.05, launch: [12, 4.5], hitstop: 11, air: true, yTol: 1.8, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.4, wallBounce: true, meleeClash: 'light' },
-  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hardKnockdown: true, hitstop: 15, air: true, yTol: 2.4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45], meleeClash: 'heavy' },
+  light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, chain: true, btn: 'light', meleeClash: 'light' },
+  light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 2.4, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, chain: true, btn: 'light', meleeClash: 'light' },
+  light3: { anim: 'light3', startup: 6, active: 4, recovery: 14, dmg: 36, reach: 1.55, width: 1.0, hitstun: 24, push: 2.8, airPop: 6, hitstop: 8, lunge: 5, next: 'light4', cancel: 9, sfx: 'whoosh', spark: 'light', light: true, low: true, chain: true, btn: 'light', meleeClash: 'light' },
+  light4: { anim: 'light4', startup: 9, active: 4, recovery: 22, dmg: 58, reach: 1.65, width: 1.05, launch: [14, 6], hitstop: 13, lunge: 6, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.5, wallBounce: true, chain: true, btn: 'light', meleeClash: 'light' },
+  heavy: { anim: 'heavy', startup: 12, active: 5, recovery: 22, dmg: 64, reach: 1.4, width: 1.05, launch: [2.4, 15.5], hitstop: 12, lunge: 5.5, hop: 5, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.45, launcher: true, yTol: 1.7, boxPad: [0.14, 0.3], btn: 'heavy', meleeClash: 'heavy' },
+  // ---- tilts, dash attack and smash attacks (ADR 0042): until Codex draws them they show the strips FALLBACK names
+  // (src/game/sprites.js), whose hit boxes they use
+  // forward tilt: a long poke that pushes them out (+4 on hit, -5 on block)
+  fTilt: { anim: 'fTilt', startup: 7, active: 3, recovery: 15, dmg: 46, reach: 1.6, width: 1.0, hitstun: 22, push: 4, airPop: 5.5, hitstop: 9, lunge: 3, sfx: 'whoosh', spark: 'heavy', btn: 'light', meleeClash: 'light' },
+  // up tilt: an anti-air that pops them just over the head, so it juggles into itself or an up air
+  uTilt: { anim: 'uTilt', startup: 6, active: 6, recovery: 14, dmg: 38, reach: 1.15, width: 1.0, launch: [0.4, 8.5], feet: true, hitstop: 8, lunge: 2.5, yTol: 2.2, boxPad: [0.35, 0.5], sfx: 'whoosh', spark: 'heavy', btn: 'light', meleeClash: 'light' },
+  // down tilt: a quick low poke (+11 on hit: links into a jab or a tilt; +1 on block)
+  dTilt: { anim: 'dTilt', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.5, width: 0.95, hitstun: 26, push: 1.6, airPop: 5, hitstop: 7, lunge: 2, low: true, sfx: 'whoosh', spark: 'light', btn: 'light', meleeClash: 'light' },
+  // dash attack: Light during a dash with the stick held; it carries the dash in and pops them up a little (-6 on block)
+  dashAttack: { anim: 'dashAttack', startup: 8, active: 5, recovery: 25, dmg: 50, reach: 1.5, width: 1.05, launch: [4, 8.5], feet: true, hitstop: 10, lunge: 10, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.3, btn: 'light', meleeClash: 'light' },
+  // smash attacks: slow, punishable (-8 to -10 on block), and Heavy held on frame `charge.at` charges them
+  fSmash: { anim: 'fSmash', startup: 15, active: 4, recovery: 30, dmg: 90, reach: 1.7, width: 1.05, launch: [17, 7], wallBounce: true, hitstop: 14, lunge: 4, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, btn: 'heavy', meleeClash: 'heavy', charge: { at: 6, max: 60, mul: 1.4 } },
+  uSmash: { anim: 'uSmash', startup: 11, active: 6, recovery: 26, dmg: 80, reach: 1.2, width: 1.05, launch: [2, 17], hitstop: 13, lunge: 3, yTol: 2.4, boxPad: [0.35, 0.6], sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.6, btn: 'heavy', meleeClash: 'heavy', charge: { at: 5, max: 60, mul: 1.4 } },
+  dSmash: { anim: 'dSmash', startup: 9, active: 5, recovery: 28, dmg: 76, reach: 1.5, width: 1.0, launch: [12, 4.5], both: true, low: true, hitstop: 13, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.55, btn: 'heavy', meleeClash: 'heavy', charge: { at: 4, max: 60, mul: 1.4 } },
+  // ---- aerials. Neutral air is airLight1 (the air string's first hit) and down air is airHeavy (the spike)
+  airLight1: { anim: 'airLight1', startup: 4, active: 4, recovery: 9, dmg: 24, reach: 1.4, width: 1.0, hitstun: 20, push: 1.6, airPop: 6.2, hitstop: 7, air: true, yTol: 1.7, next: 'airLight2', cancel: 7, landLag: 6, sfx: 'whoosh', spark: 'light', chain: true, meleeClash: 'light' },
+  airLight2: { anim: 'airLight2', startup: 4, active: 4, recovery: 10, dmg: 26, reach: 1.45, width: 1.0, hitstun: 20, push: 1.8, airPop: 6.4, hitstop: 7, air: true, yTol: 1.7, next: 'airLight3', cancel: 8, sfx: 'whoosh', spark: 'light', chain: true, meleeClash: 'light' },
+  airLight3: { anim: 'airLight3', startup: 6, active: 4, recovery: 14, dmg: 40, reach: 1.55, width: 1.05, launch: [12, 4.5], hitstop: 11, air: true, yTol: 1.8, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.4, wallBounce: true, chain: true, meleeClash: 'light' },
+  airHeavy: { anim: 'airHeavy', startup: 9, active: 6, recovery: 16, dmg: 62, reach: 1.45, width: 1.15, launch: [3, -22], groundBounce: true, hardKnockdown: true, hitstop: 15, air: true, yTol: 2.4, landLag: 10, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.7, boxPad: [0.5, 0.45], meleeClash: 'heavy' },
+  // forward air: the main front aerial, a light pop that keeps a juggle going
+  fair: { anim: 'fair', startup: 6, active: 4, recovery: 14, dmg: 42, reach: 1.5, width: 1.0, hitstun: 22, push: 3, airPop: 6.5, feet: true, hitstop: 9, air: true, yTol: 1.8, landLag: 9, autoCancel: 20, sfx: 'whoosh', spark: 'heavy', meleeClash: 'light' },
+  // back air: the strongest aerial, behind the attacker (the facing holds through a jump, so a jump away then ← is one)
+  bair: { anim: 'bair', startup: 7, active: 3, recovery: 15, dmg: 56, reach: 1.5, width: 1.05, launch: [13, 6], wallBounce: true, back: true, hitstop: 12, air: true, yTol: 1.8, landLag: 11, autoCancel: 21, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.45, meleeClash: 'light' },
+  // up air: hits above the head and pops them higher: the juggle tool
+  uair: { anim: 'uair', startup: 5, active: 5, recovery: 12, dmg: 34, reach: 1.1, width: 1.0, launch: [0.4, 9.5], feet: true, hitstop: 8, air: true, yTol: 2.4, boxPad: [0.25, 0.5], landLag: 7, autoCancel: 18, sfx: 'whoosh', spark: 'heavy', meleeClash: 'light' },
   throw: { anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, cost: 50 },
   // Killua's Rhythm Echo follow-up: the claw strike out of the afterimage teleport
   echoStrike: { anim: 'specialForward', startup: 3, active: 4, recovery: 18, dmg: 70, reach: 1.6, width: 1.1, launch: [15, 6], hitstop: 12, spark: 'smash', big: true, shake: 0.5, wallBounce: true, boxPad: [0.2, 0.3], sfx: 'whooshHeavy' },
@@ -39,6 +69,30 @@ export const SUPER_DASH = { speed: 18, maxFrames: 42, dmg: 38, hitstun: 26, push
 
 // Vanish: teleport behind the opponent (1 ki bar), then vanishKick
 export const VANISH = { cost: 100, hideFrames: 9 };
+
+// Directional normals (ADR 0042, Fighter.normalFor): the stick when Light or Heavy is pressed picks the move. On the
+// ground ← and → both give the forward move (a ground attack turns to face them); in the air the facing holds from
+// the jump, so `forward` / `back` are along it. ↓ + Light in the air is the down air, the spike.
+export const NORMALS = {
+  ground: {
+    light: { neutral: 'light1', forward: 'fTilt', up: 'uTilt', down: 'dTilt' },
+    heavy: { neutral: 'heavy', forward: 'fSmash', up: 'uSmash', down: 'dSmash' },
+  },
+  air: {
+    light: { neutral: 'airLight1', forward: 'fair', back: 'bair', up: 'uair', down: 'airHeavy' },
+    heavy: { neutral: 'airHeavy', forward: 'airHeavy', back: 'airHeavy', up: 'airHeavy', down: 'airHeavy' },
+  },
+};
+
+// Smash air (ADR 0042). Speeds in units/s, frames at 60 fps.
+//  fullHop / shortHop  jump speed when Jump is still held as the jump squat ends / let go before (or pressed with an attack
+//             within `chord` frames: the short hop with that aerial out at once)
+//  doubleJump one more jump in the air, back on landing or when hit
+//  fastFall   a fresh ↓ at or past the top of the jump (rising slower than `ffFrom`) drops at once at this speed
+//  landLag    an aerial's landing lag unless the move says otherwise (MOVES landLag / autoCancel)
+//  juggle     how close a reeling opponent in the air has to be for the DBFZ float (air attacks hover level with them and
+//             keep turning to them); anywhere else the air is Smash's: the facing holds and attacks fall with the jump
+export const AIR = { fullHop: 13.6, shortHop: 9.6, doubleJump: 12.6, chord: 2, fastFall: 15, ffFrom: 2.5, landLag: 8, juggle: 3.2 };
 
 // Juggle rules (ADR 0026): read by Fighter.takeHit / physics / onLand and by the CPU combo composer (aiCombo.js), so the
 // planner predicts links with the numbers the engine plays. Frames at 60 fps, speeds in units/s.

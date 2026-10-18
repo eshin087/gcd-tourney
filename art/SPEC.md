@@ -209,6 +209,16 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `airHeavyAlt` | 6 | - | 2/2/2 | 198 | - | 50 45 45 70 70 40 | **alt** of `airHeavy`: e.g. an axe kick chopping down-forward; it still spikes downward. Missing → `airHeavy` |
 | `hurtHighAlt` | 3 | - | - | 195 | - | 70 90 100 | **alt** of `hurtHigh`: another reaction to a hit in the face (e.g. head and shoulders snapped sideways). Missing → `hurtHigh` |
 | `hurtLowAlt` | 3 | - | - | 183 | - | 70 90 100 | **alt** of `hurtLow`: another reaction to a hit in the body (e.g. folding sideways, one arm clutching the ribs). Missing → `hurtLow` |
+| `fTilt` | 7 | - | 2/2/3 | 204 | - | 35 30 40 50 60 50 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): forward tilt: a long strike at chest height (a stepping straight punch or a side kick). Missing → `light2` |
+| `uTilt` | 7 | - | 2/2/3 | 218 | - | 40 35 40 60 60 50 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): up tilt: an anti-air strike in an arc over the head, reaching a standing opponent in front on its way up. Missing → `heavy` |
+| `dTilt` | 6 | - | 2/2/2 | 215 | - | 35 30 50 50 50 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): down tilt: a quick low poke from a crouch, the strike at shin height (LOW). Missing → `light3` |
+| `dashAttack` | 7 | - | 2/2/3 | 207 | - | 40 40 50 60 60 60 40 | **normal** ([Directional normals](#directional-normals), ADR 0042): dash attack: a running lunge strike carrying the run forward (a flying kick or a shoulder charge). Missing → `light4` |
+| `fSmash` | 9 | - | 4/2/3 | 207 | - | 50 60 50 40 40 70 70 60 40 | **normal** ([Directional normals](#directional-normals), ADR 0042): forward smash: a big wind-up into a full-body blow at chest height; frame 2 is the pose it holds while charging. Missing → `light4` |
+| `uSmash` | 8 | - | 3/2/3 | 218 | - | 50 40 30 50 70 70 60 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): up smash: a powerful strike straight up from a crouch, hitting above the head. Missing → `heavy` |
+| `dSmash` | 8 | - | 3/2/3 | 215 | - | 50 40 30 50 70 70 60 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): down smash: a low strike to both sides at once (a spinning sweep, or both fists slammed down on either side); draw the strikes on both sides. Missing → `light3` |
+| `fair` | 6 | - | 2/2/2 | 207 | - | 45 40 50 60 50 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): forward air: a mid-air strike in front, the main aerial. Missing → `airLight2` |
+| `bair` | 6 | - | 2/2/2 | 201 | - | 50 40 50 70 60 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): back air: a mid-air strike BEHIND the body (toward screen-left while the body faces right), the strongest aerial. Missing → `airLight3` mirrored |
+| `uair` | 6 | - | 2/2/2 | 218 | - | 45 40 50 60 50 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): up air: a mid-air strike straight up over the head. Missing → `heavy` |
 
 Totals: 38 animations, 154 frames per character; 23 core animations. Every fighter has a kit
 ([ADR 0011](../docs/decisions/0011-kit-baseline-and-balance.md)), so every fighter also draws the 4 **kit**
@@ -221,7 +231,9 @@ of whatever uses them (Sasuke: Kirin); the names stay, the content follows the k
 follows the fighter's 1-bar energy move the same way (Naruto's Rasengan, Sasuke's Chidori Spear, Killua's Narukami, Gojo's
 Reversal: Red, Goku's Dragon Fist): one more 3-frame strip, and `beamStruggleAir` for a fighter with an air energy shot
 (Killua's air Narukami, Sasuke's Great Fireball, Gojo's air Red). `special`, `intro`, `taunt` and
-`win` timings may differ per character (see `manifest.json`).
+`win` timings may differ per character (see `manifest.json`). The ten **normal** strips of the
+[Directional normals](#directional-normals) (ADR 0042) add 68 frames: a fighter with every alt and all of them is past the
+256 cells of one 4096 sheet, so the packer gets a second sheet page first (TOOL-060).
 
 **Pose notes forced by the 256 px width.** A realistic body lying flat or flying is about 210-240 px
 long, so:
@@ -278,6 +290,26 @@ tech's timing, invulnerability or movement:
 - **Transitions.** `techGround` f3 and `techRoll` f5 hand over to `idle`; `wallTech` f4 hands over to `jumpFall`; their
   first frames follow `launched` / `spin` (a body falling into the floor or the wall). Keep `down` and `ko` separate:
   a tech never lies down.
+
+<a id="directional-normals"></a>
+
+**Directional normals** (`fTilt`, `uTilt`, `dTilt`, `dashAttack`, `fSmash`, `uSmash`, `dSmash`, `fair`, `bair`,
+`uair`; [ADR 0042](../docs/decisions/0042-smash-directional-normals.md)). Smash-style moves picked by the stick: tilts
+(→ / ↑ / ↓ + Light), smash attacks (→ / ↑ / ↓ + Heavy), the dash attack and the forward, back and up airs. All optional:
+until a sheet has one, the move shows the strip in the fallback table below and uses its boxes (the back air shows
+`airLight3` mirrored). The move data in `src/game/moves.js` never depends on the drawing. Drawing rules:
+
+- **Strike where the move hits.** The hit boxes come from the drawn fist or foot on the active frames, so each strike has
+  to reach its zone: `fTilt` and `fSmash` MID (chest), `dTilt` and `dSmash` LOW (shins), `uTilt` and `uSmash` an arc
+  from in front of the face up over the head (an up tilt must still reach a standing opponent in front), `uair` above
+  the head, `fair` in front at the body's height, `bair` behind the body ([Strikes and contact
+  zones](#strikes-and-contact-zones)).
+- **`bair` is drawn facing right with the strike to the LEFT** (behind): the engine knows it hits behind. `dSmash` draws
+  a strike on both sides on its active frames.
+- **`fSmash` frame 2 is the charge pose**: the engine holds it while Heavy is held (up to a second), so it reads as
+  gathering power (weight back, fist or leg cocked).
+- Same title-style body as every other strip ([PRODUCTION_CONTRACT.md](scale/title-style-pilot/PRODUCTION_CONTRACT.md));
+  crouches and lunges are posed, not resized.
 
 <a id="attack-alts"></a>
 
@@ -507,6 +539,9 @@ repeated until something exists (last resort `idle`):
 | techGround, wallTech | land | techRoll | airRecover |
 | light1Alt ... airHeavyAlt | its base (`light1` ...) | hurtHighAlt, hurtLowAlt | hurtHigh, hurtLow |
 | beamStruggle | beamFire | beamStruggleAir | throw (its release frame, held) |
+| fTilt | light2 | uTilt, uSmash, uair | heavy |
+| dTilt, dSmash | light3 | dashAttack, fSmash | light4 |
+| fair | airLight2 | bair | airLight3, mirrored |
 
 The tech strips are also switched on per strip: until a sheet has one, the engine keeps showing exactly what that tech
 showed before (`land`; `airRecover`; the wall tech's `land` cling, `airRecover` kick and `jumpUp` wall jump). An attack alt
