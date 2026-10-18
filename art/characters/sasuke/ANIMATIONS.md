@@ -926,7 +926,7 @@ the small of the back in every frame.
 |---|---|
 | fTilt | Step in with a lead-hand straight punch to the chest, then return to guard. |
 | uTilt | Crouch and sweep the near forearm upward from in front of the face to above the head. |
-| dTilt | Low crouching lead-hand poke toward the opponent's shins. |
+| dTilt | Low crouch into a forward shin-height kick toward the opponent. |
 | dashAttack | Compact running lunge into a lead-hand chest-height punch. |
 | fSmash | Hold a coiled rear-fist charge, then drive a full-body chest-height straight punch. |
 | uSmash | Coil low and rise into a vertical overhead strike. |

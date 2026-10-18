@@ -200,7 +200,13 @@ The user authorized one more capped round of up to three image calls for dTilt, 
 | `f5adad08-247c-4fde-ad1b-2bc62db61e16` | `dTilt_v05_attempt02.png` | `4D6D333977BF5CBFB980A9EE95C54BC986561A92F9D870338B03BF67C3EE6BB5` |
 | `25c6ecfc-88a4-47d1-8d85-cc7d3e4ab3e4` | `dTilt_v05_attempt03.png` | `A5C6A920847732F086810B498F8B79C15B9C82BC46F6D44B2554102706932123` |
 
-The relay #8 budget is exhausted; a fresh user decision is required before more dTilt calls. The earlier approved uTilt v01 remains on technical hold; its three-call head-only v02 round repainted the full strip and yielded no candidate. Whether to authorize another uTilt correction or keep its stand-in is also still open.
+The relay #8 budget is exhausted; no further dTilt calls are authorized by that decision. The earlier approved uTilt v01 remains on technical hold; its three-call head-only v02 round repainted the full strip and yielded no candidate. Whether to authorize another uTilt correction or keep its stand-in is also still open.
+
+### Relay #12: user selected attempt 3 for dTilt v05 review (2026-10-18)
+
+Claude relayed the user's decision: no new image calls; pack the crispest low-kick attempt, `raw/_qa_hold/dTilt_v05_attempt03.png`, as candidate dTilt v05 and bring the packed loop back for review. This supersedes the earlier note above that no v05 candidate was selected. The v05 source is copied byte-for-byte to `raw/dTilt_v05.png` (SHA-256 `A5C6A920847732F086810B498F8B79C15B9C82BC46F6D44B2554102706932123`) and uses `raw/dTilt_v05.json` `{ "anatomy": { "measurement": "auto-head" } }`. The packer's measured fit is x0.8511 (pre-fit head 1.18 and feet 1.48 of idle); default `node tools/pack-sprites.mjs sasuke --quantize 48` passes with 1 ref, 38 ok and 10 manual. Actual atlas cells 181–186 are shown as a frame strip and loop at `public/reviews/normals-sasuke/`; dTilt remains a candidate only and the gameplay stand-in remains active pending user drawing approval and technical disposition.
+
+`npm run scale -- sasuke` reports dTilt head median 0.987 and no flagged strip; its body sheet flags B median 0.727 (frames .883, .794, .702, .711, .719, .735), advisory pending segment inspection. The new Astra audit is in `production/eng112/` and records anatomy/contact, evidence and uncertainty. Runtime landing/timing remains Claude's check. The user's selection is a decision, not image approval.
 
 ### Authorized uTilt head-only image edit (recorded in main NOW, 2026-10-18)
 
