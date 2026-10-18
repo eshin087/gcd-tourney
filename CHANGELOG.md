@@ -11,6 +11,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #10 for rasenshuriken and rasenshurikenDome v01; HD packing and gameplay integration checks remain with Claude.
+
+
+
 - Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #9 for rasengan, rasenganForm, rasenganBurst, poof and subLog v01; visual approval is separate from Claude-owned packing and gameplay checks.
 
 

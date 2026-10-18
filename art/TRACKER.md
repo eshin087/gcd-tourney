@@ -1,4 +1,4 @@
-Naruto skills revamp batch 3 (2026-10-18): rasenshuriken v01 (3 calls; selected call 3) and rasenshurikenDome v01 (1 call) are filed as HD candidates; both await user visual approval. Neither has candidate pack or runtime QA on this branch. [Gallery](../public/reviews/naruto-skills-batch3/index.html) · [provenance](characters/naruto/production/skills-revamp-batch3-provenance.md).
+Naruto skills revamp batch 3 (2026-10-18): user approved rasenshuriken v01 (3 calls; selected call 3) and rasenshurikenDome v01 (1 call) via Claude relay skills #10. Approval is recorded; neither has candidate pack or runtime QA on this branch. Claude owns integration. [Gallery](../public/reviews/naruto-skills-batch3/index.html) · [provenance](characters/naruto/production/skills-revamp-batch3-provenance.md).
 
 Naruto skills revamp batch 2 (2026-10-18): user approved rasengan, rasenganForm, rasenganBurst, poof and subLog v01 via Claude relay skills #9. Visual approval is recorded; no candidate pack or runtime check on this branch. Claude owns integration. Gallery: [batch 2](../public/reviews/naruto-skills-batch2/index.html).
 
