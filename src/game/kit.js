@@ -566,7 +566,7 @@ function stormTick(f, k, S, W) {
   if (mark && t > from) {
     const u = (t - from) / W.dive, e = u * u;
     headY = W.height + 0.2 + (W.headLand - W.height - 0.2) * e;
-    g.fx.keep(id + 'h', 'kirinHead', a.x, headY, a.z, { scale: W.headScale, order: 9, depthTest: false, glow: 0.5 });
+    g.fx.keep(id + 'h', 'kirinHead', a.x, headY, a.z, { scale: W.headScale, order: 9, depthTest: false, glow: 0.5, flipX: f.side < 0 }); // drawn facing screen-right, like him
   } else if (!mark && t <= W.linger) {
     g.fx.drop(id + 'h');
     headY = W.headLand - 0.6; // the column reaches the ground once the head is spent
