@@ -361,7 +361,7 @@ export const SPECIAL_MOVES = {
     kind: 'counter', anim: 'specialDown', cost: 50, len: 20, recovery: 14, stagger: 22, onCounter: 'strike', follow: 'vanishKick',
     name: 'SHARINGAN', callout: 'SHARINGAN!', color: '#ff3040',
     sigil: true, eyeFlash: true, // the fighter's `eyes` pattern behind him and the red eyes in the HUD (ADR 0035)
-    current: { fx: 'chidoriCurrent', scale: 1.05 }, // the read answered with Chidori Current (ENG-SKL-SAS)
+    current: { fx: 'chidoriCurrent', scale: 1.35 }, // the read answered with Chidori Current (ENG-SKL-SAS)
   },
 
   // ---- Killua (Godspeed era)

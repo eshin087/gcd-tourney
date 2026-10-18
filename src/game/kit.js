@@ -288,15 +288,18 @@ export function counterHit(f, att, m) {
     att.heldT = C.stagger ?? 50;
     att.setState('held', 'stagger');
   }
-  g.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 1.6, color: C.color ?? 0xd8f2ff, glow: 1.2, depthTest: false, order: 9 });
+  if (!C.current) g.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 1.6, color: C.color ?? 0xd8f2ff, glow: 1.2, depthTest: false, order: 9 });
   if (!C.current) g.fx.spawn('glow', p.x, p.y + 0.9, p.z, { scale: 2, color: C.color ?? 0x9fd8ff, opacity: 0.6, glow: 1 }); // the Current is the light
   g.hud.callout(f.index, C.callout ?? 'COUNTER!', C.color ?? '#d8f2ff');
   g.fx.overlay.flash(C.color ?? '#d8f2ff', 0.35);
   if (C.sigil) g.fx.sigils.burst(f); // the read: the pattern spins up and flares
   if (C.current) {
     // Chidori Current (ENG-SKL-SAS): lightning bursts out of his whole body and the attacker is caught in it; the
-    // hit passes through the afterimage he leaves as he slips it
+    // hit passes through the afterimage he leaves as he slips it (in place of the counter's ring and glow)
+    const d = dirTo(f, att);
+    f.actor.place(p.x + d.x * 0.4, p.y, p.z + d.y * 0.4); // the afterimage stands where the hit went through
     f.actor.ghost(C.current.ghost ?? 0xbfe8ff, 0.5, 0.45);
+    f.actor.place(p.x, p.y, p.z);
     g.fx.spawn(C.current.fx, p.x, p.y + 0.85, p.z, { scale: C.current.scale ?? 1, order: 8, depthTest: false });
     const a = att.pos;
     for (let i = 0; i < 5; i++) g.fx.spawn('arc', a.x + (Math.random() - 0.5) * 0.6, a.y + 0.3 + Math.random() * 1.1, a.z, { scale: 0.45, life: 0.14, color: 0xe8f7ff, rot: Math.random() * 6.28, order: 9, glow: 1.4 });
