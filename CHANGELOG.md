@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-SAS): via user approval relayed by Claude #16, restored and recorded Amaterasu v01 and AmaterasuIgnite v01 as approved HD candidates with no pixel cleanup; Claude's trial pack split their grids and keyed/quantized near-magenta. Amaterasu uses fill 0.9 to keep its tallest tips in bounds. Codex is proceeding to batch 3.
 - Changed (ART-SKL-SAS): relay #15 authorized Sasuke `special` attempt 3 as v14 for pack/body/Astra review and a fresh 3-call A1 `chidori` budget. `special` v14 remains on technical HOLD; the fresh `chidori` v01 is queued for user review with source-layout and HD-packing caveats.
 - Changed (ART-SKL-SAS): batch 2 Amaterasu attempts exhausted the three-call budgets; all saved versions are quarantined on technical hold for layout/background/palette failures. A no-call pixel cleanup versus leaving the two effects held is pending the user decision.
 - Changed (ART-SKL-SAS): user approved `chidoriForm`, `chidoriBurst`, `chidoriSpear` and `chidoriCurrent` v01 via Claude relay skills #14; approval is recorded. `special` v14 and `chidori` remain technical holds. Candidate frame splitting is documented with source sidecars; Claude owns HD packing/wiring and the remaining technical checks.
