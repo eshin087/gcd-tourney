@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ENG-105): the test lab panel docks beside the game on screens 900 px and wider (the game, HUD and flash overlay shrink to the space left, so nothing is covered; the renderer and overlay now size to their own box). Every tab is one kind of list: foldable group headers with counts and rows of ▶ / name / note; YOU and DUMMY are dropdowns on one line; the text sizes itself to fit the screen so Moves, Animations and Tools need no scrolling.
+
 - Changed (ENG-104): the lab panel's text and buttons scale with the screen (14 to 18 px, 13 px on phones; the panel 380 to 540 px wide) and option buttons stretch to fill their row, so TOOLS and ANIMATIONS read larger with no empty gap beside them.
 
 - Changed (ENG-102): faster first load. The title shows after ~0.5 MB (title art and fighter metadata) instead of all 31.5 MB of art; fighters, crowd, stage and effects load in parallel behind it, and a fight waits for them on the loading screen. Art is requested by its plain URL (ETag revalidation) instead of `?v=<now>`, so a repeat visit downloads ~30 kB instead of 31 MB. A real loading bar (byte-weighted, title art and logo behind it) replaces "BAKING FIGHTERS...", and portrait phones see the logo and title art above a smaller rotate hint (ADR 0043).
