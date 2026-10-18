@@ -2,7 +2,7 @@
 // title-screen art, all written by `npm run sprites stage|npc|ui` (approved art only; `?art=custom` prefers the
 // local candidates in public/preview/). Everything here fails soft: missing art keeps the procedural version.
 import * as THREE from 'three';
-import { fetchAtlasJson } from '../core/artIndex.js';
+import { fetchAtlasJson, artUrl } from '../core/artIndex.js';
 import { loadImage } from '../game/sprites.js';
 
 // public/stage/manifest.json -> Map(slot -> image). A listed file that can't be read keeps the painter.
@@ -13,7 +13,7 @@ export async function loadStageArt() {
     const { data, dir } = found;
     const out = new Map();
     await Promise.all(Object.entries(data.slots).map(async ([slot, s]) => {
-      const img = await loadImage(`${dir}/${s.file}?v=${s.version ?? 0}`);
+      const img = await loadImage(artUrl(`${dir}/${s.file}`));
       if (img) out.set(slot, img);
       else console.warn(`[stage] ${slot}: ${dir}/${s.file} is missing or unreadable, keeping the painted ${slot}`);
     }));
@@ -30,10 +30,13 @@ export async function loadUiArt() {
     const found = await fetchAtlasJson('/ui', 'manifest.json');
     const a = found?.data?.assets;
     if (!a) return null;
-    const url = (n) => (a[n] ? `${found.dir}/${a[n].file}?v=${a[n].version ?? 0}` : null);
+    // the plain path in production: the loading and rotate screens (index.html) already asked for these two files
+    const url = (n) => (a[n] ? artUrl(`${found.dir}/${a[n].file}`) : null);
     const out = { logo: url('logo'), titleArt: url('title_art'), preview: found.dir !== '/ui' };
     // only report what actually loads (fail soft)
-    for (const k of ['logo', 'titleArt']) if (out[k] && !(await loadImage(out[k]))) { console.warn(`[ui] ${out[k]} is missing or unreadable, keeping the text title`); out[k] = null; }
+    await Promise.all(['logo', 'titleArt'].map(async (k) => {
+      if (out[k] && !(await loadImage(out[k]))) { console.warn(`[ui] ${out[k]} is missing or unreadable, keeping the text title`); out[k] = null; }
+    }));
     return out.logo || out.titleArt ? out : null;
   } catch (e) {
     console.warn('[ui] title art failed, keeping the text title', e);
@@ -79,7 +82,7 @@ export async function loadNpcArt() {
         return;
       }
       for (const [name, a] of Object.entries(m.animations)) if (!okFrames(a)) delete m.animations[name]; // a cue falls back to idle
-      const img = await loadImage(`${found.dir}/sheet.png?v=${Date.now()}`);
+      const img = await loadImage(artUrl(`${found.dir}/sheet.png`));
       if (!img) { console.warn(`[npc] ${id}: anims.json found but sheet.png is missing or unreadable, not placed`); return; }
       out.set(id, { meta: found.data, image: img, preview: found.dir.startsWith('/preview') });
     } catch (e) {

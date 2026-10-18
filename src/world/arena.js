@@ -3,7 +3,7 @@ import * as T from '../art/textures.js';
 import { bakeCrowd, bakeAnnouncer, CROWD_W, CROWD_H } from '../art/crowdPainter.js';
 import { CROWD_PPU as PPU } from '../game/constants.js';
 import { RING_HALF, RING_TOP } from '../game/constants.js';
-import { hasArt, fetchAtlasJson } from '../core/artIndex.js';
+import { hasArt, fetchAtlasJson, artUrl } from '../core/artIndex.js';
 import { loadImage } from '../game/sprites.js';
 import { NPCS, NPC_CUES, NpcSprite } from './worldArt.js';
 
@@ -73,7 +73,7 @@ export async function loadCrowdAtlas() {
       console.warn('[crowd] atlas.json found but atlas.png is missing, keeping the procedural crowd');
       return null;
     }
-    const img = await loadImage(`${dir}/atlas.png?v=${Date.now()}`);
+    const img = await loadImage(artUrl(`${dir}/atlas.png`));
     if (!img) {
       console.warn('[crowd] atlas.json found but atlas.png is missing or unreadable, keeping the procedural crowd');
       return null;

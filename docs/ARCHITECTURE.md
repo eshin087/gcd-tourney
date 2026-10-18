@@ -145,13 +145,28 @@ src/style.css               all DOM UI styling
 
 ## Boot sequence
 
+([ADR 0043](decisions/0043-fast-boot-and-loading-screen.md))
+
+0. The loading screen (`#loading`: title art, logo, a bar) and the portrait screen (`#rotate`) are plain markup in
+   `index.html`, so they paint before the scripts arrive. `src/ui/loader.js` moves their bars from
+   `src/core/loadProgress.js`, which every `loadImage` / `fetchArtJson` reports to, weighted by the file sizes in
+   `art-index.json`.
 1. `main.js` creates `PixelRenderer`, `InputManager` and `Game`, and sets `window.game`.
-2. After a 30 ms delay (so "BAKING FIGHTERS..." can paint), `game.init()` runs `loadFighterAsset()` for each
-   roster entry:
+2. `game.init()` loads only what the title screen needs: the art index, the title art (`public/ui/`) and every
+   fighter's `anims.json` (`fighterMeta`; their pixel density picks the render detail). The title menu shows, the
+   camera orbits, and the loading screen shrinks to a strip at the bottom (`gcd:title` performance mark).
+3. `game.loadWorld()` (`game.assetsReady`) then loads the rest in parallel: VFX, decals, crowd, stage, NPCs and
+   `loadFighterAsset()` for every roster entry:
    - If `public/characters/<id>/anims.json` + `sheet.png` exist (and are complete, or `?art=custom` is set),
-     it builds a `SheetAsset` from them (`source: 'custom'`) and loads `portrait.png` / `cutin.png` when present.
+     it builds a `SheetAsset` from them (`source: 'custom'`) and loads `portrait.png` / `cutin.png` / `select.png`
+     and the super/ultimate layers when present, side by side with the sheet.
    - Otherwise it **bakes the 3D placeholder** (`bakeCharacter`, blocking, logs `baked <id> from 3D in N ms`).
-3. The title menu shows, and the camera orbits. With `?fight=a,b` a match starts right away.
+   Then `game.loaded` is true (`gcd:loaded` mark) and the strip goes away.
+4. `startMatch`, `startTraining`, `openOnline` and the character select go through `game.whenLoaded()`: before
+   `game.loaded` they show the loading screen with the fighters' progress and run once they are in. `?fight=a,b`
+   (and the lab, and `?det`) keep the loading screen up until everything is in, then the match starts right away.
+5. Art URLs come from `artUrl()`: the plain path in production (Vercel revalidates it by ETag, so a repeat visit
+   downloads only what a deploy changed), a fresh `?v=` in dev.
 
 ## The frame
 
@@ -334,7 +349,7 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   palm or fingertip of the current frame (from `hand: [x, y]` in `hitboxes.json`, else the frame's hit box,
   else the nearest frame of the animation that has one). Hand effects (Rasengan, Rasenshuriken, Chidori),
   projectile spawns and beam origins start there; the baked placeholder keeps the fixed offsets.
-- When any loaded sheet has `pixelsPerUnit` >= 70 (spec v2: 128), `Game.init` switches the renderer to its
+- When any complete pack has `pixelsPerUnit` >= 70 (spec v2: 128), `Game.init` switches the renderer to its
   `hd` detail (buffer ~600+ px tall instead of ~340), so the extra detail isn't thrown away by the low-res
   buffer. `?res=pixel` / `?res=hd` override it.
 - The contract for art (cell size, pivot, PPU, boxes, naming) is [art/SPEC.md](../art/SPEC.md), with the v2
