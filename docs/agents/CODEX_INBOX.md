@@ -47,8 +47,9 @@ Do, in order (Luna/medium for generation; Astra/medium final audit, per CLAUDE.m
   `npm run pr -- preview`, handoff at the top of the branch's CLAUDE_ART_HANDOFF.md, then from main
   `node tools/relay.mjs ring gojo-run --for user --kind approval --note "<versions; numbers; holds; preview link>"`
   and stop. Claude "3- Gojo" asks the user (desk is off). Nothing is approved until a relayed `USER APPROVAL`.
-- [x] 6. (2026-10-18, USER APPROVAL via Claude #14 recorded; guard passed; Claude contact/integration check next) After approval: `approvedVersion`, `node tools/pr.mjs check <branch>` passes, commit, ring `gojo-run` for
+- [ ] 6. (2026-10-18, USER APPROVAL via Claude #14 recorded; final guard blocks launched v08) After approval: `approvedVersion`, `node tools/pr.mjs check <branch>` passes, commit, ring `gojo-run` for
   Claude's contact check and merge. No merge or production deploy by Codex.
+  BLOCKED: `node tools/pr.mjs check art/gojo-proportions` refuses launched v08 because the low-confidence pose lacks version-bound `scaleManualQA`; Astra retained the technical hold. Claude must resolve or keep the strip held before integration.
 
 Rules: edit only art/characters/gojo/**, public/reviews/gojo-posture-d/**, public/characters/gojo/** via the packer,
 the gojo block of art/manifest.json, the "## gojo" section of art/TRACKER.md and art/REVIEW.md rows. `art/size-r6`
