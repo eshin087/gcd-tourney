@@ -87,9 +87,7 @@ characters and feels out of place." Claude and this chat do it together; this ch
   Completed in `art/size-r7/CODEX_AUDIT.md`; commit `903b9b63` (230 strips: 207 ok, 21 unresolved,
   one height-pop and one scale-off). Claude's next action is reconciling the table with its measurements and sending
   the redraw list; no image calls were made.
-- [ ] **2. Redraws: wait for Claude's list.** Claude reconciles your table with its measurement and sends the strips
-  that need a new drawing (with the target scale, pose notes and the 3-attempt budget per image). Do not generate
-  before that list arrives.
+- [x] **2. Redraws: closed 2026-10-18, none needed.** Every fix was a resize: PR #153, live as `cd5c3ea2` (Goku/Luffy x0.92 plus 12 strips; your table is in the PR as `art/scale/size-r7/CODEX_AUDIT.md`). The user kept Naruto backDash as drawn ("Keep it"). No image calls in this round.
 
 ## Gojo posture fix (option D): bent-knee hit reactions (2026-10-17, Claude) - chat "3 - Gojo", relay lane `gojo-run`
 
