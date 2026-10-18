@@ -1,0 +1,27 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/fair_v03.png",
+  "version": 3,
+  "source": [
+    "characters/sasuke/raw/fair_v03.png"
+  ],
+  "sourceHash": "3119ca267b23d683cbd2e8477f2fae982192eebe",
+  "bodyHeight": 203,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "fair_00.png": "3e0a64cb978b6766ee00c742f0fc99631c5a4378",
+    "fair_01.png": "db28b0f72fe9282b83f96fb986cd1cbea166f64c",
+    "fair_02.png": "8bb8dde2f2607e4eabac50c24df433139ad81bd8",
+    "fair_03.png": "34216e022b8af8a877756e196168b5cf51c95f2b",
+    "fair_04.png": "56f5729b19c8bed4340f9efc24785e76c738e18b",
+    "fair_05.png": "538c02687d119fe3f52d4775e2efc5bdfeb3ba12"
+  }
+}

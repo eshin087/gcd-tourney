@@ -7,7 +7,18 @@ a recorded size exception: Killua's charge (head 8% small) and Naruto's spin (he
 paused._
 
 ## Your next actions
-**Smash-style move art (ENG-112), Sasuke first:** you approved eight drawings: uTilt v01, fSmash v02, fair v03, bair v01, uair v01 (relay combat #3) and fTilt v03, dashAttack v05, uSmash v05 (2026-10-18, relay #7, reviewed on https://claude.ai/artifact/P1BBhjF3mWvvZxCKYX2cr7 because the Vercel deploy quota ran out). dTilt gets one more round as a crouching low kick (relay #8); dSmash keeps its stand-in. Before Sasuke merges, Codex re-packs his whole sheet (the branch dropped 38 of his 44 live animations) and fixes sizes, timing and hit boxes without redrawing (uSmash comes back to you only if its limbs still read short). Killua, Gojo, Goku, Luffy and Naruto follow, one review each. Until a fighter is approved and merged, its moves keep their stand-in animations.
+
+**Sasuke special redraw decision (ART-SKL-SAS, relay #18):** redraw `special` as v15 with one additional image call (4 cumulative), matching Sasuke's approved idle build (`bodyHeight` 180) across the same eight poses; keep all poses within the 256-cell/pivot and the stab fingertips around x220–236. The user said v13 stays in game until v15 is approved. v14 has been moved to `raw/_qa_hold/` so the packer selects v13. v15 is now filed at `raw/_qa_hold/special_v15.png`, with a gallery copy. It failed strict pack: splitter boundaries, scale mismatch and edge clips; there is no v15 atlas/body/Astra evidence. The body tool measured v13 only. Next, choose whether to accept the drawing while held, authorize no-call pixel/placement fixes, or authorize another generation budget. Review gallery: https://gcd-tourney-9aahjbj5f-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/ PR #163 head is a10b6f48; Vercel preview content was built from 4188bb90, whose gallery/art files are identical to the current head (the later commit only adds this handoff URL). Choose one: accept v15 visually with technical holds, authorize no-call pixel/placement edits, or authorize a new image-call budget. No approval is implied.
+
+
+**Sasuke skills revamp (ART-SKL-SAS), batch 3:** six HD effects (`greatFireball` v01, `greatFireballBurst` v01, `stormCloud` v01, `kirinBody` v01, `kirinHead` v01, `kirinStrike` v01) are ready for your visual review in Claude. [PR #163 review gallery](https://gcd-tourney-5pirksvwu-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/). `kirinStrike` has a clipping hold. `beamFire` v08 is held at strict scale 1.15x after auto-head fit; `special` v14 is moved to `_qa_hold/`; v13 remains active while v15 is prepared at the approved idle build. User approval will not clear technical holds. Via relay #17, you visually approved batch 1 `special` v14 as drawn (keep head/clothing fullness; Claude fixes frame split) and `chidori` v01 (Claude HD packs it for the hand-held placeholder). Their technical holds remain; no merge/integration is claimed.
+
+
+**ENG-112 Sasuke normals:** fTilt v03 is promoted unchanged at packScale 0.92; strict gate passes, with Astra body-parity HOLD documented. Codex committed `5d6d2712` and refreshed the [branch review page](https://gcd-tourney-r0bb43l3y-eshin087s-projects.vercel.app/reviews/normals-sasuke/). Claude’s next action is final integration/contact disposition; no user art decision is waiting.
+
+**Sasuke skills revamp (ART-SKL-SAS): batch 1 v15 decision needed; batch 3 needs your review; batch 2 approved.** Via relay #14, you approved `chidoriForm`, `chidoriBurst`, `chidoriSpear` and `chidoriCurrent` v01; Claude owns HD packing and game wiring. Via relay #15, you authorized special v14 and a fresh 3-call `chidori` effect budget. Special v14 (attempt 3) and chidori v01 (attempt 3/3) are on PR #163 and shown in the [batch 1 review page](https://gcd-tourney-f5hz7ql3t-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch1/). Both remain technical HOLDs: special fails strict quantized packing/body measurement and Astra anatomy/pose review; chidori's raw layout/background/palette are nonconforming. Claude owns the v14 frame split correction and Chidori HD pack; technical holds are still open. The user approved `amaterasu` v01 and `amaterasuIgnite` v01 via Claude relay #16; both are restored as approved HD candidates with no pixel cleanup, with Amaterasu fill 0.9. Claude owns integration. Batch 3 effects are ready for review; see the updated batch 3 entry above. beamFire v08 remains on technical hold. [Batch 2 gallery](https://gcd-tourney-572nd3x31-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch2/) · [PR #163](https://github.com/eshin087/gcd-tourney/pull/163).
+
+**Smash-style move art (ENG-112): Sasuke is live (2026-10-18, PR [#156](https://github.com/eshin087/gcd-tourney/pull/156), `03d8e27a`).** His up tilt, forward tilt, down tilt, dash attack, forward and up smash, and forward, back and up air play their new art on https://gcd-tourney.vercel.app ; down smash keeps its stand-in. Try them: https://gcd-tourney.vercel.app/lab.html?p1=sasuke&p2=naruto . Killua is next in Codex's "4 - Combat Overhaul" chat, then Gojo, Goku, Luffy, and Naruto last (after TOOL-060); each comes to you for review.
 
 **DBFZ air combos back, live (2026-10-18, PR [#155](https://github.com/eshin087/gcd-tourney/pull/155), `49840bf2`):** in a launcher / spike / bounce juggle Light is the air string again whatever direction you hold (↓ + Light the spike), and the CPUs reach 13+ hit combos again, on https://gcd-tourney.vercel.app . Nothing to do.
 
@@ -15,7 +26,7 @@ paused._
 
 **CPUs play the Smash moves, live (2026-10-18, PR [#150](https://github.com/eshin087/gcd-tourney/pull/150), `b013d2ef`, ENG-111):** every CPU level uses up tilt anti-airs, tilt pokes, short-hop / fast-fall / back airs, charged smash punishes and dash attacks, with the links down tilt → jab, up tilt → up tilt / short hop → up air, short-hop aerial → down tilt. Try it: https://gcd-tourney.vercel.app/?fight=killua,naruto&mode=cpu. Nothing to do; stand-in strips until ENG-112.
 
-**Naruto skills revamp merged (2026-10-18, PR [#154](https://github.com/eshin087/gcd-tourney/pull/154), `8bc4823f`):** cloak aura without the tail, clones one at a time with their own attacks, the Four-Tails: Tailed Beast Ball beam (the fox gathers the red/blue chakra ball and fires from its mouth), and every approved effect (Rasengan, poof, log, Rasenshuriken and its dome). It goes live at https://gcd-tourney.vercel.app as soon as Vercel's 100-deployments-a-day limit resets (an automatic retry is running in the "5 - Skills Effects" chat). Nothing to do.
+**Naruto skills revamp live (2026-10-18, PR [#154](https://github.com/eshin087/gcd-tourney/pull/154), `8bc4823f`, production `4ad1fd8c`):** cloak aura without the tail, clones one at a time with their own attacks, the Four-Tails: Tailed Beast Ball beam (the fox gathers the red/blue chakra ball and fires from its mouth), and every approved effect (Rasengan, poof, log, Rasenshuriken and its dome) on https://gcd-tourney.vercel.app/?fight=naruto,sasuke&mode=solo . Nothing to do.
 
 **Smash-style combat live (2026-10-18, PR [#147](https://github.com/eshin087/gcd-tourney/pull/147), `4cfdbfc0`):** tilts (→ / ↑ / ↓ + Light), smash attacks (→ / ↑ / ↓ + Heavy, hold to charge), dash attack, forward / back / up airs, the gamepad C-stick (right stick), short hop, double jump, fast fall, links instead of chains (ADR 0042) on https://gcd-tourney.vercel.app . The lobby server was redeployed first for the new input bits. New moves borrow existing animations until Codex draws them after the art audit (ENG-112); the CPUs learn the moves in [ENG-111](TASKS.md), running in its own Claude chat. Nothing to do now.
 
@@ -72,11 +83,11 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-18 08:02 UTC._
+_Generated by `npm run status` at 2026-10-18 08:08 UTC._
 
-### Needs you now (0)
+### Needs you now (1)
 _Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
-- nothing
+- **decision** from Codex lane combat: Sasuke uTilt v01 is already drawing-approved via relay #3. Astra's full atlas audit confirms the f2/f3 probes hit raised arms, but after those version-bound exemptions the readable heads remain median 0.924 (7.6% small)…
 
 ### Still marked "needs review" in art/REVIEW.md (41)
 _Bookkeeping: the newest row of each asset. Anything the user must actually answer is in "Needs you now"._
@@ -121,13 +132,15 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
+- db340ba1 10-18 01:04 docs(tasks): close Naruto skills art handoff
+- 4ad1fd8c 10-18 01:02 docs(tasks): Naruto skills revamp merged (PR #154); deploy waits for Vercel's limit
 - 8bc4823f 10-18 01:02 Merge branch 'feature/naruto-skills-2'
 - 3d757adb 10-18 01:01 docs(now): Sasuke retries approved, dTilt retried as a low kick (ENG-112)
 - fa8d99cc 10-18 00:33 docs(now): Sasuke dTilt gets a fresh round; pack and size fixes before merge (ENG-112)
 - aee1e30f 10-18 00:32 docs(tasks): ENG-112 Sasuke state, TOOL-061 guard gap (dropped animations)
-- d54caea5 10-18 00:32 Merge branch 'feature/dev-server-cap'
-- 605b2dfc 10-18 00:29 feat(tools): cap a dev server's memory and list running dev servers (OPS-019)
 <!-- status:end -->
+
+
 
 
 

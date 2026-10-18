@@ -1,3 +1,6 @@
+- Changed (ART-SKL-SAS): relay #18 authorizes special v15 at Sasuke idle build (bodyHeight 180) with one extra call, 4 cumulative. Moved user-approved v14 to `_qa_hold` as directed; v13 remains active in game until v15 is approved.
+- Changed (ART-SKL-SAS): recorded relay #17 approvals for Chidori v01 and special v14; user keeps special head/clothing fullness and assigns frame-split correction to Claude. Chidori HD packing and technical follow-through remain Claude integration work; visual approval does not clear scale, clipping or source-layout holds.
+- Changed (ART-SKL-SAS): prepared batch 3 review for the six Great Fireball/Kirin HD effects and filed beamFire v08; PR #163 preview is linked in NOW. beamFire remains held at 1.15x head probe after auto-head fit with no accepted atlas/body/Astra audit, and kirinStrike reports clipping.
 # Changelog
 
 All notable changes to GCD Tourney are documented here.
@@ -12,6 +15,27 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Fixed (ENG-115, ADR 0036): after a rollback across a beam clash, the camera follows the restored clash: it framed the old copy's frozen struggle point, and a clash the re-simulated frames started played in the fight shot; that clash now also shows its hint (`Game.syncView`). Both determinism fixtures re-recorded on the new simulation fingerprint.
+- Recorded the user's relay #12 selection of Sasuke dTilt low-kick attempt 3 for v05 review, with measured x0.8511 auto-head import fit, full quantized pack and updated frame/loop review page; drawing approval remains pending.
+
+- Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
+- Recorded the exhausted authorized Sasuke dTilt v04 and uTilt head-only correction rounds; no compliant candidates were selected, and all dTilt outputs remain preserved for provenance.
+
+- Recorded the user's drawing approvals via Claude relay combat #7 for Sasuke fTilt v03, dashAttack v05 and uSmash v05. Their technical holds and active stand-ins remain documented.
+
+- Changed (ENG-112): restored all Sasuke source raws in the art worktree and rebuilt a full 53-animation quantized diagnostic atlas for the approved-strip scale audit. Held dTilt v01 after the relay #6 three-call retry produced no exportable v04 candidate; the stand-in remains active.
+- Changed (ART-SKL-SAS): recorded via Claude relay skills #16 that the user approved Amaterasu v01 and AmaterasuIgnite v01 as drawn; restored both from quarantine with no pixel cleanup, added approved HD manifest entries (Amaterasu fill 0.9, Ignite 0.95), and updated the review gallery. Claude's trial pack splits each grid and keys/quantizes near-magenta; Claude owns in-game integration. Codex is proceeding with batch 3.
+
+- Updated (ART-SKL-SAS): recorded relay #15 authorization and prepared special v14 plus chidori v01 for review. Special v14 failed strict packing/body measurement and Astra holds it; chidori v01 used the fresh 3-call budget but fails raw layout/background/palette checks. Both are technical holds pending visual review at the PR #163 batch 1 preview.
+
+- Changed (ART-SKL-SAS): relay #15 authorizes Sasuke `special` attempt 3 as v14 for pack/body/Astra review and grants a new three-call budget for effect-only `chidori`; work is underway.
+- Changed (ART-SKL-SAS): via Claude relay skills #14, recorded user approval of Sasuke `chidoriForm`, `chidoriBurst`, `chidoriSpear` and `chidoriCurrent` v01. Amaterasu v01/v02 attempts are preserved on technical hold; user decision pending on no-call pixel cleanup.
+- Changed (ART-SKL-SAS): the user authorized a third `art/sasuke-skills` worktree alongside the two Smash normals worktrees (relay skills #13); the two-worktree cap remains for Smash normals rounds.
+- Added (OPS-020): the relay authorizes each send once. A queued `codex queue` message arrives only after the Codex turn ends and cannot be withdrawn; on 2026-10-18 Codex read the user's decisions in NOW.md and `.relay/` early, made the image rounds, then made them again when sends #9 and #10 arrived (6 unwanted image calls). Every relay message now says to act on a user decision only from its own delivered `[relay <lane> #N]` message and to run `node tools/relay.mjs check <lane> <N>` first (DONE or VOID: do nothing, exit 7) and `done <lane> <N>` after; `send --supersedes <N>` voids a queued send it replaces, and `relay status <lane>` lists the last sends as open, done or void. Rules in AGENTS.md, CLAUDE.md, AI_COLLABORATION.md, ADR 0033 amended.
+
+- Changed (ART-SKL-SAS): the user authorized a third `art/sasuke-skills` worktree alongside the two Smash normals worktrees (relay skills #13); the two-worktree cap remains for Smash normals rounds. Batch 1 is in progress; no image approval is implied.
+- Fixed (TOOL-PALETTE-RESERVE, ADR 0046): Naruto's Four-Tails fox is crimson in game again, as approved (beamCharge v17, beamFire v15), instead of red-brown with a peach mouth. Packed at 48 colours, his orange jumpsuit took the fox's colours; the new manifest field `paletteReserve` gives the fox 8 of the 48, taken from near-duplicate dark greys the rest of his strips barely miss (2 % of their pixels move, by 2-10 levels; nothing visible). `npm run test:sprites` covers it.
+- Added (TOOL-061): the art merge guard (`npm run pr -- check|merge`, tools/pr-guard.mjs) refuses a branch whose committed fighter pack drops animations main ships, and names them. art/normals-sasuke had been packed in a worktree that held only its new raws, so its anims.json listed 6 animations against main's 44 and live Sasuke would have fallen back to the placeholder. A deleted or unparseable anims.json drops them all; `--force-art "<reason>"` overrides (an animation retired on purpose). Test: new cases in `npm run test:guard`.
+
 - Added (OPS-019): `tools/capped.ps1` runs a command (a dev server) under a memory cap and ends it with the shell that started it; `npm run dev:capped` is the normal dev server through it, and `npm run devs` (`tools/dev-servers.ps1`) lists the dev servers running now with their memory and warns when the machine's committed memory is near its limit. Nothing is scheduled or left running. Prompted by a Vite dev server that reached 131 GB of committed memory on 2026-10-17.
 - Changed (ENG-SKL-NAR-2): Naruto round 2, from the user's review of the live build. The Nine-Tails Cloak is the aura only (no tail). The Shadow Clone Barrage summons its clones one at a time, fast, each poofing in on its own side to land its own attack (punch, flying kick, uppercut, roundhouse, heel drop...) while Naruto holds the seal, then the U-ZU-MA-KI kick-up and the Rasengan drop. The ultimate is now **Four-Tails: Tailed Beast Ball**, a beam (ADR 0045): the chakra swallows him into the four-tailed form during the flash, red and blue chakra gather into a ball at the mouth, and a red-white blast with shock rings fires from it with Codex's approved art: the fox gathering (beamCharge v17) and firing from its mouth (beamFire v15), the chakra ball (beastBall v01), the shock rings (beastBeamRing v01), the roar (fourTailsRoar v02) and the fully engulfed ultimate splash (ui_ult_fg v04). The Four-Tails pounce and mauling are retired. Codex's approved batch 2 effects ship too: the Rasengan (held, forming, spiral blast), the clone poof and the Substitution log, and batch 3: the Rasenshuriken's wind blades and its dome of wind blades (the two full-sphere frames loop while it grinds).
 
@@ -897,3 +921,7 @@ Reconstructed from the codebase when the changelog was introduced.
 
 
 
+
+- Recorded relay #8's Sasuke dTilt low-kick retry authorization and dSmash stand-in direction. The capped dTilt v05 round produced only noncompliant painterly outputs; no new candidate was selected.
+
+- Recorded the failed authorized uTilt head-only image edit; the full canvas was repainted, so approved v01 remains held and no v02 candidate was selected.

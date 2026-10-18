@@ -915,3 +915,24 @@ Mangekyō reads on the packed frames (see §5).
 packed the game shows `land` / `airRecover` / `jumpUp` for the techs. Per-frame poses, this fighter's flavor, the
 prompt blocks and the QA: [TECH_POSES_BRIEF.md](../TECH_POSES_BRIEF.md) (ART-TECH-01); the generic rows:
 [_template/ANIMATIONS.md](../_template/ANIMATIONS.md#techground).
+
+## Directional normals (ADR 0042)
+
+Ten optional moves; the engine uses the mapped stand-in until a candidate is packed and integrated.
+Every pose faces screen-right in the approved 3/4 view. The sword remains sheathed horizontally at
+the small of the back in every frame.
+
+| Animation | Sasuke's action |
+|---|---|
+| fTilt | Step in with a lead-hand straight punch to the chest, then return to guard. |
+| uTilt | Crouch and sweep the near forearm upward from in front of the face to above the head. |
+| dTilt | Low crouch into a forward shin-height kick toward the opponent. |
+| dashAttack | Compact running lunge into a lead-hand chest-height punch. |
+| fSmash | Hold a coiled rear-fist charge, then drive a full-body chest-height straight punch. |
+| uSmash | Coil low and rise into a vertical overhead strike. |
+| dSmash | Low spinning leg sweep, first behind then in front of the body. |
+| fair | Forward aerial mid-height lead-leg kick. |
+| bair | Rear-leg aerial kick backward toward screen-left, behind the body. |
+| uair | Straight-up aerial kick above the head. |
+
+ENG-112 candidate versions, per-frame QA and holds: [CLAUDE_ART_HANDOFF.md](CLAUDE_ART_HANDOFF.md).

@@ -1,0 +1,27 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/bair_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/bair_v01.png"
+  ],
+  "sourceHash": "9c23ec313066a0b328a560a79d41e115113257f4",
+  "bodyHeight": 194,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "bair_00.png": "66b8cddbfd87783bbf3c91cb6bd2c9f9d7343547",
+    "bair_01.png": "094889b7f81d67b590a648f7d1f6c76808cbdd14",
+    "bair_02.png": "be39cbfa349be68dc11c10c53567dfefcb0b541a",
+    "bair_03.png": "5f08fb8c771bbba53fc00b6d00cd47929497517d",
+    "bair_04.png": "c0eff4a88def5b4742febbd3260368c1b0e6ed14",
+    "bair_05.png": "e94a4d0188f2c102f768ab1d629be51828ae4646"
+  }
+}
