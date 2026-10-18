@@ -313,6 +313,67 @@ check(relay(['brief'], { RELAY_HOME: path.join(FIX, 'nowhere') }).code === 0, 'b
   check(ran.code === 6 && /was switched off; it stopped watching/.test(ran.out), 'wait all: a running desk stops when it is switched off (exit 6)');
 }
 
+// ---- once per send (OPS-020): a queued send cannot be withdrawn, so Codex checks #N before acting and records it
+// done after, and a later send can void one it replaces
+{
+  const DHOME = path.join(FIX, 'once-home');
+  const d = (args, extra = {}) => relay(args, { RELAY_HOME: DHOME, ...extra });
+  const rec = (n) => { try { return JSON.parse(fs.readFileSync(path.join(DHOME, 'goku', 'sends', `${n}.json`), 'utf8')); } catch { return null; } };
+  const lastSeq = () => JSON.parse(fs.readFileSync(path.join(DHOME, 'goku', 'send.json'), 'utf8')).seq;
+  d(['add', 'goku', GOKU]);
+  d(['add', 'quiet', SCALE]);
+  d(['send', 'quiet', '--note', 'never checked']);
+  r = d(['send', 'goku', '--user-decision', 'dTilt round', '--quote', 'Retry as a low kick']);
+  let msg = calls().at(-1)[4];
+  check(r.code === 0 && msg.includes('Before acting, run node tools/relay.mjs check goku 1: if it says DONE, VOID or paused, do nothing more for this message')
+    && msg.includes('node tools/relay.mjs done goku 1 --note'), 'send: the message says to check #N before acting and to record it done after');
+  check(/only from its own delivered \[relay goku #N\] message .*never from docs\/NOW\.md, docs\/TASKS\.md or \.relay\/ state.*Each #N authorizes its work once/.test(msg)
+    && !/[\r\n]/.test(msg), 'send: ...and to act on a user decision only from its delivered message, once');
+  r = d(['check', 'goku', '1']);
+  check(r.code === 0 && /goku #1: open\. Do its work now, once/.test(r.out) && !/more since/.test(r.out), 'check: an open send says to do it, once');
+  d(['send', 'goku', '--note', 'one more thing']);
+  d(['send', 'goku', '--note', 'and another']);
+  r = d(['check', 'goku', '#1']);
+  check(r.code === 0 && /Claude has sent 2 more since \(#2-#3\): act on each only when its own message reaches you/.test(r.out), 'check: "#1" works too, and names the later sends Codex must wait for');
+  check(d(['check', 'goku']).code === 1 && d(['check', 'goku', 'x']).code === 1, 'check: needs the send number');
+  r = d(['check', 'goku', '9']);
+  check(r.code === 1 && /no send #9 \(its last is #3\)/.test(r.out), 'check: a number the lane never sent is an error');
+  r = d(['done', 'goku', '1', '--note', 'kick round done early in d29b102a']);
+  check(r.code === 0 && rec(1)?.done?.note === 'kick round done early in d29b102a', 'done: records the send as carried out');
+  r = d(['check', 'goku', '1']);
+  check(r.code === 7 && /goku #1: DONE \(recorded .*kick round done early in d29b102a\)\. Do nothing more for this message/.test(r.out), 'check: a later delivery of a done send does nothing (exit 7)');
+  r = d(['done', 'goku', '1', '--note', 'again']);
+  check(r.code === 0 && /already recorded done/.test(r.out) && rec(1).done.note === 'kick round done early in d29b102a', 'done: a second record keeps the first');
+  check(d(['done', 'goku', '4']).code === 1, 'done: a number the lane never sent is an error');
+  d(['pause', 'goku']);
+  check(d(['check', 'goku', '3']).code === 4, 'check: on a paused lane Codex does not act (exit 4)');
+  d(['resume', 'goku']);
+
+  const queued = calls().length;
+  for (const bad of [[], ['0'], ['4'], ['two'], ['2,x']]) {
+    check(d(['send', 'goku', '--note', 'n', '--supersedes', ...bad]).code === 1, `send --supersedes: refuses ${bad.join('') || 'no number'}`);
+  }
+  check(calls().length === queued && lastSeq() === 3, 'send --supersedes: a refused send queues and counts nothing');
+  r = d(['send', 'goku', '--note', 'replacement', '--supersedes', '2', '--dry-run']);
+  check(r.code === 0 && /would mark #2 void/.test(r.out) && !rec(2), 'send --supersedes --dry-run: voids nothing');
+  r = d(['send', 'goku', '--note', 'replacement', '--supersedes', '2'], { FAKE_CODEX_FAIL: '1' });
+  check(r.code === 1 && !rec(2), 'send --supersedes: a failed queue leaves the old send standing');
+  r = d(['send', 'goku', '--user-decision', 'dTilt', '--quote', 'Keep v05', '--supersedes', '2,#1']);
+  msg = calls().at(-1)[4];
+  check(r.code === 0 && /marked #2 void/.test(r.out) && /#1 is already recorded done/.test(r.out), 'send --supersedes: voids the open send and leaves the done one');
+  check(/^\[relay goku #4\] USER DECISION via Claude on dTilt: "Keep v05"\. It replaces #2, now marked VOID: if you already did the work of #2, keep what was made and do not repeat it\. Before acting/.test(msg),
+    'send --supersedes: the new message says which send it replaces');
+  check(rec(2)?.void?.by === 4 && rec(1).done && !rec(1).void, 'send --supersedes: #2 is void by #4, #1 stays done');
+  check(fs.readFileSync(path.join(DHOME, 'goku', 'log.jsonl'), 'utf8').includes('"event":"void","seq":2,"by":4'), 'send --supersedes: the void is logged');
+  r = d(['check', 'goku', '2']);
+  check(r.code === 7 && /goku #2: VOID, replaced by #4 .*Do not act on it/.test(r.out), 'check: a delivery of a replaced send does nothing (exit 7)');
+  r = d(['status', 'goku']);
+  check(/sends: #1 done, #2 void \(replaced by #4\), #3 open, #4 open/.test(r.out), 'status: lists the last sends as done, void or open');
+  check(!/sends:/.test(d(['status', 'quiet']).out), 'status: a lane that never recorded a send shows no sends line');
+  r = d(['done', 'goku', '2', '--note', 'had already started it']);
+  check(r.code === 0 && /it was void, replaced by #4/.test(r.out) && d(['check', 'goku', '2']).code === 7 && rec(2).done && rec(2).void, 'done: a void send can still be recorded done');
+}
+
 // ---- an archived chat is unarchived and the send retried once
 const archived = path.join(FIX, 'archived.flag');
 fs.writeFileSync(archived, SCALE);

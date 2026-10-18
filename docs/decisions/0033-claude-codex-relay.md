@@ -4,6 +4,7 @@
 **Date:** 2026-10-15
 **Task:** TOOL-041
 **Amended by:** [ADR 0037](0037-approvals-in-claude.md) (2026-10-15): approvals happen in Claude and are relayed; Codex rings `--for user`
+**Amended** 2026-10-18 (OPS-020): a queued send cannot be withdrawn and arrives only after Codex's current turn, so each send `#N` authorizes its work once. Codex acts on a user decision only from its delivered message, runs `relay check <lane> <N>` before acting and `relay done <lane> <N>` after; Claude voids a queued send it replaces with `send --supersedes <N>`. See [AI_COLLABORATION.md](../AI_COLLABORATION.md#relay-handoffs-without-paste-in-prompts-adr-0033).
 
 ## Context
 
