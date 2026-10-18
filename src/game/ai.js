@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { ULTIMATE, VANISH, SUPERS, PROJECTILES, CLASH, DEFENSE } from './moves.js';
+import { ULTIMATE, VANISH, SUPERS, PROJECTILES, CLASH, DEFENSE, MOVES } from './moves.js';
 import { specialFor, kitOf, towardSide, clashable, energyMoves, airEnergyMoves, isEnergy, incomingEnergy, canBeamClashNow } from './kit.js';
 import { BeatPlan } from './clash.js';
 import { seekClash } from './aiClash.js';
@@ -13,10 +13,15 @@ function ultimateFits(U, dist, sd) {
   if (U.kind === 'laneStrike') return dist < U.reach - 0.4 && sd < 1; // Gigant Pistol: their lane, within the arm's reach
   return true;
 }
-import { MasterBrain } from './aiMaster.js';
+import { MasterBrain, roomAlong } from './aiMaster.js';
 import { reachT } from './aiDefense.js';
 import { TechTimer } from './aiTech.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
+import { NORMAL_INPUT, AIM_FRAMES, FULL_HOP, SHORT_HOP, aimStick, noFlick, canFastFall } from './aiNormals.js';
+import { aerialFor } from './aiCombo.js';
+
+// states where the stick is the tech's or the roll's, not a normal's (an aim pressed before the hit is dropped)
+const NO_AIM = new Set(['launched', 'airRecover', 'impactTech', 'techRoll', 'down', 'getup', 'held', 'burst']);
 
 export const CPU_LEVELS = ['easy', 'normal', 'hard', 'insane', 'impossible'];
 
@@ -53,10 +58,12 @@ function personaLevel(base, P, spectate) {
 // meleeClash: chance to meet a fresh light / heavy with the same button, a MELEE CLASH (aiClash.js, ADR 0038); x1.5 spectated
 // impactTech: chance per techable impact (floor or wall bounce) that it goes for the timed tech (ADR 0028), pressed
 // `techSd` frames off on average (aiTech.js TechTimer: too early locks it out, too late misses)
+// antiAir: chance per jump of theirs that drops in on it that it meets it (up tilt or launcher); smash: chance per whiffed
+// move of theirs with time to spare that it punishes it with a smash attack (ADR 0042)
 const LEVELS = {
-  easy: { meleeClash: 0.04, beat: { sd: 6.5, miss: 0.16 }, impactTech: 0.05, techSd: 5, react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, techHold: 0.05, burst: 0, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03 },
-  normal: { meleeClash: 0.08, beat: { sd: 4.5, miss: 0.08 }, impactTech: 0.15, techSd: 4, react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, techHold: 0.2, burst: 0.04, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12 },
-  hard: { meleeClash: 0.12, beat: { sd: 3, miss: 0.04 }, impactTech: 0.35, techSd: 3, react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, techHold: 0.45, burst: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25 },
+  easy: { meleeClash: 0.04, beat: { sd: 6.5, miss: 0.16 }, impactTech: 0.05, techSd: 5, react: 24, guard: 0.18, aggro: 0.45, combo: 0.35, special: 0.15, dodge: 0.15, charge: 0.35, tech: 0.02, techHold: 0.05, burst: 0, vanish: 0.05, dash: 0.2, show: 0.3, parry: 0.04, slop: 5, spot: 0.05, airDodge: 0.05, wavedash: 0.03, antiAir: 0.1, smash: 0.1 },
+  normal: { meleeClash: 0.08, beat: { sd: 4.5, miss: 0.08 }, impactTech: 0.15, techSd: 4, react: 14, guard: 0.42, aggro: 0.65, combo: 0.75, special: 0.3, dodge: 0.35, charge: 0.5, tech: 0.06, techHold: 0.2, burst: 0.04, vanish: 0.18, dash: 0.35, show: 0.5, parry: 0.12, slop: 3, spot: 0.15, airDodge: 0.15, wavedash: 0.12, antiAir: 0.3, smash: 0.25 },
+  hard: { meleeClash: 0.12, beat: { sd: 3, miss: 0.04 }, impactTech: 0.35, techSd: 3, react: 7, guard: 0.7, aggro: 0.8, combo: 1.0, special: 0.45, dodge: 0.6, charge: 0.55, tech: 0.12, techHold: 0.45, burst: 0.12, vanish: 0.35, dash: 0.5, show: 0.7, parry: 0.28, slop: 2, spot: 0.3, airDodge: 0.35, wavedash: 0.25, antiAir: 0.55, smash: 0.4 },
 };
 
 // The CPU presses virtual buttons on its own Pad, exactly like a player would.
@@ -78,11 +85,35 @@ export class CpuBrain {
     this.route = 'launch';
     this.show = new Showcase(fighter, this.L.show, spectate ? 1 : 0.4);
     this.techT = new TechTimer(this.L.impactTech, this.L.techSd);
+    this.aimsNormals = true; // its stick picks the directional normals, its jumps are short or full hops (ADR 0042)
+    this.aim = null; // the normal pressed last and its stick, held until the fighter reads it (normal())
   }
 
-  // only from a released state, so every press is a fresh edge
+  // only from a released state, so every press is a fresh edge. Light or Heavy on its own is the neutral normal (the
+  // jab, the launcher, the neutral air): its stick is held neutral until the fighter reads it (normal() aims elsewhere)
   press(name, frames = 2) {
-    if (this.hold[name] === undefined || this.hold[name] === -1) this.hold[name] = frames;
+    if (this.hold[name] !== undefined && this.hold[name] !== -1) return false;
+    this.hold[name] = frames;
+    if (name === 'light' || name === 'heavy') this.aim = { btn: name, dir: 'neutral', air: false, at: this.f.pad.frame, live: false };
+    return true;
+  }
+
+  // The normal `name` (NORMALS in moves.js: 'uTilt', 'dTilt', 'fSmash', 'fair' ...; ADR 0042): its button, with the
+  // stick held on its direction from the press until the fighter has read it (aiNormals.js)
+  normal(name, frames = 2) {
+    const N = NORMAL_INPUT[name];
+    if (!N || !this.press(N.btn, frames)) return false;
+    this.aim = { btn: N.btn, dir: N.dir, air: N.air, at: this.f.pad.frame, live: false };
+    return true;
+  }
+
+  // The stick for the normal pressed last, until the fighter has read it (consumed the press) or its buffer is over;
+  // null when there is none (or we got hit before it came out: the stick is the tech's then)
+  aimNow(f, pad) {
+    const a = this.aim;
+    if (!a) return null;
+    if ((a.live && pad.b[a.btn].lastPress < 0) || pad.frame - a.at > AIM_FRAMES || NO_AIM.has(f.state)) { this.aim = null; return null; }
+    return aimStick(f, a.dir, a.air);
   }
 
   update(game) {
@@ -224,6 +255,33 @@ export class CpuBrain {
         else if (o.state === 'launched' && o.pos.y > 1.2 && dist < 3 && f.state !== 'air' && R() < 0.4 * L.combo) this.setPlan('jumpAttack', 50);
       }
 
+      // anti-air (ADR 0042): their jump drops in on us; seen after its reaction time, once per airtime of theirs at the
+      // level's rate, an up tilt or the launcher timed to where they'll be when it comes out
+      if (o.air && !this.oppAir) { this.oppAirAt = this.clk; this.aaRoll = null; }
+      this.oppAir = o.air;
+      if (o.air && !f.busy && f.state !== 'air' && this.clk - this.oppAirAt >= L.react && (o.state === 'air' || (o.state === 'attack' && o.move?.air))) {
+        if (this.aaRoll == null) {
+          this.aaRoll = R() < L.antiAir * (this.spectate ? 1.3 : 1);
+          this.aaMove = R() < 0.6 * Math.sqrt(this.show.bias('uTilt')) ? 'uTilt' : 'heavy'; // each in its own window
+        }
+        if (this.aaRoll && this.antiAirFits(f, o, game.basis.right, this.aaMove)) {
+          if (this.aaMove === 'heavy') this.press('heavy');
+          else this.normal(this.aaMove);
+          this.aaRoll = false;
+          this.setPlan('idle', 20);
+        }
+      }
+      // their whiff with time to spare (seen after its reaction time): a smash attack into its recovery, charged by the
+      // frames left over (ADR 0042: slow and punishable, so only a punish), once per move of theirs at the level's rate
+      const om = o.state === 'attack' ? o.move : null;
+      if (om && (om !== this.smSeen || o.t < this.smT)) { this.smSeen = om; this.smT = o.t; this.smDone = false; } // a new use of theirs
+      if (om) this.smT = o.t;
+      if (om && !this.smDone && !o.moveHit && !om.projectile && !(om.next && o.t < om.cancel + 2) && o.t >= om.startup + om.active + Math.min(L.react, 8) && !f.busy && f.state !== 'air') {
+        this.smDone = true;
+        const pick = R() < L.smash * (this.spectate ? 1.3 : 1) ? this.smashFor(f, om.startup + om.active + om.recovery - o.t) : null;
+        if (pick) { this.smashMove = pick.move; this.smashHold = pick.hold; this.setPlan('smash', 4); }
+      }
+
       if (this.wait <= 0 && !f.busy && f.state !== 'air') this.choose(dist, f, o);
 
       switch (this.plan) {
@@ -279,16 +337,87 @@ export class CpuBrain {
           this.press('super', 2);
           this.setPlan('idle', 60);
           break;
-        case 'jumpAttack':
-          if (this.planT === 1) { moveWorld(toOpp.x, toOpp.y); this.press('jump', 2); }
+        case 'jumpAttack': {
+          // a full hop at them (Jump held through the squat; now and then a short hop), the stick held through the squat
+          // (its last frame reads the jump's direction); in the air the aerial that fits where they are (ADR 0042)
+          if (this.planT === 1) { moveWorld(toOpp.x, toOpp.y); this.press('jump', R() < 0.25 ? SHORT_HOP : FULL_HOP); }
+          else if (f.state === 'jumpSquat') moveWorld(toOpp.x, toOpp.y);
           else if (f.air) {
             moveWorld(toOpp.x, toOpp.y);
-            if (f.vel.y < 3 && dist < 2.6 && !f.airAttack) this.press(R() < 0.6 ? 'light' : 'heavy');
+            const a = f.state === 'air' && !f.airAttack && (f.vel.y < 3 || o.air) ? (o.state === 'launched' ? (dist < 2.6 ? 'airLight1' : null) : aerialFor(f, game.basis.right)) : null;
+            if (a) this.normal(a);
+          }
+          if (f.state === 'attack' && f.air && f.move?.air && !f.juggleMove && f.t > f.move.startup + f.move.active) {
+            const ff = this.fastFall(); // past its active frames: fast fall, so it lands sooner
+            if (ff) [mx, my] = ff;
           }
           if (this.planT > 50) this.setPlan('idle', 10);
           break;
+        }
+        case 'hop': {
+          // a short-hop aerial in (ADR 0042). Rising: Jump + Light together, the forward air from a step out (the held
+          // stick drifts the jump in), the neutral air close up. Late: the hop first, the aerial that fits on the way
+          // down, so it lands with their hit stun to spare (linkDt). Past its active frames: fast fall
+          if (this.planT > 45 || (this.hopped && !f.air && f.state !== 'jumpSquat' && f.state !== 'attack')) { this.setPlan('idle', 12); break; }
+          if (this.hopped) {
+            if (f.state === 'jumpSquat' && this.hopLate && Math.abs(sx) > 1.4) moveWorld(toOpp.x, toOpp.y); // the squat's end reads it
+            else if (this.hopLate && f.state === 'air' && !f.airAttack && f.vel.y < 0.5) {
+              // from the top, the aerial with a fast fall right after the press: it hits low and lands into the link
+              const a = aerialFor(f, game.basis.right, true);
+              if (a) this.normal(a);
+            } else if (f.state === 'attack' && f.air && f.move?.air && (this.hopLate || f.t > f.move.startup + f.move.active)) {
+              const ff = this.fastFall();
+              if (ff) [mx, my] = ff;
+            }
+            break;
+          }
+          if (Math.abs(sd) > 0.4 || Math.abs(sx) > 2.3) { laneGo(); break; }
+          if (f.busy || f.side !== towardSide(f)) break;
+          this.hopped = true;
+          this.hopLate = R() < 0.5;
+          this.press('jump', SHORT_HOP);
+          if (!this.hopLate) this.normal(Math.abs(sx) < 1.25 ? 'airLight1' : 'fair');
+          break;
+        }
+        case 'bair': {
+          // a back air after running off (ADR 0042): run away a few frames (the facing turns with the run), then Jump +
+          // Light with ← along that facing, toward them: the jump drifts back in and the back air hits behind
+          if (this.planT > 40 || (this.hopped && !f.air && f.state !== 'jumpSquat' && f.state !== 'attack')) { this.setPlan('idle', 12); break; }
+          if (this.hopped || f.busy) break;
+          if (f.side === towardSide(f) || this.planT < 5) { moveWorld(-toOpp.x, -toOpp.y); break; }
+          this.hopped = true;
+          this.press('jump', SHORT_HOP);
+          this.normal('bair');
+          break;
+        }
+        case 'poke':
+          // a tilt at its range (ADR 0042): the down tilt (low, links into a jab) or the forward tilt (the longest normal)
+          if (laneGo() || (Math.abs(sx) < (this.pokeMove === 'fTilt' ? 1.7 : 1.45) && Math.abs(sd) < 0.45)) {
+            if (!f.busy) { this.normal(this.pokeMove); this.setPlan('idle', 24); }
+          }
+          if (this.planT > 40) this.setPlan('strafe', 16);
+          break;
+        case 'smash':
+          // a smash attack into their whiff (ADR 0042), held to charge with the frames it has to spare
+          if (!f.busy) this.normal(this.smashMove, this.smashHold);
+          this.setPlan('idle', 30);
+          break;
+        case 'linkDt':
+          // a short-hop aerial hit them standing: the down tilt once we land, inside their hit stun (ADR 0042)
+          if (o.state !== 'hitstun' || this.planT > 40) { this.setPlan('idle', 6); break; }
+          if (f.air) {
+            const ff = this.fastFall(); // past the aerial's top: fast fall, to land with stun to spare
+            if (ff) [mx, my] = ff;
+          } else if (f.state !== 'jumpSquat' && (f.state !== 'land' || f.t >= f.landLag - 4)) { this.normal('dTilt'); this.setPlan('idle', 30); }
+          break;
+        case 'linkAir':
+          // out of an up tilt: a short hop under them, then the up air once they're above us (ADR 0042)
+          if (this.planT > 45 || o.state !== 'launched') { this.setPlan('idle', 10); break; }
+          if (!this.hopped) { if (!f.busy) { this.hopped = true; this.press('jump', SHORT_HOP); } break; }
+          if (f.air && !f.airAttack && f.state === 'air' && dist < 1.3 && o.pos.y > f.pos.y - 0.2) { this.normal('uair'); this.setPlan('idle', 30); }
+          break;
         case 'projectile':
-          if (this.planT === 1) this.press('jump', 2);
+          if (this.planT === 1) this.press('jump', FULL_HOP);
           if (f.air && f.vel.y < 4 && !f.airAttack) this.press('special', 2);
           if (this.planT > 45) this.setPlan('idle', 20);
           break;
@@ -365,7 +494,15 @@ export class CpuBrain {
       const d = this.stick.slot;
       mx = d === 'forward' ? towardSide(f) : d === 'back' ? -towardSide(f) : 0;
       my = 0;
+    } else if (this.plan !== 'useSpecial') {
+      // a normal's stick from its press until the fighter reads it; steering in the air never flicks into a fast
+      // fall it doesn't mean (an air dodge reads its own stick)
+      const a = this.aimNow(f, pad);
+      if (a) [mx, my] = a;
+      if (a && my < 0 && !f.air) this.hold.guard = 0; // (Guard + ↓ would be a spot dodge, not the down tilt or smash)
+      if (!this.ffWant && !(this.hold.guard > 0)) my = noFlick(f, my);
     }
+    this.ffWant = false;
     if (tt) {
       // the timed tech wins over whatever the plan holds: Guard let go, then a fresh press; the option's stick
       if (tt.guard === 'release') this.hold.guard = 0;
@@ -379,6 +516,14 @@ export class CpuBrain {
       pad.set(name, h > 0);
       this.hold[name] = h > 0 ? h - 1 : -1;
     }
+    if (this.aim && !this.aim.live && pad.b[this.aim.btn].pressed) this.aim.live = true;
+  }
+
+  // A fast fall (Smash air, ADR 0042) this frame: a fresh ↓ (the stick kept off ↓ the frame before) past the top
+  fastFall() {
+    if (!canFastFall(this.f) || this.f.pad.prevDir.d) return null;
+    this.ffWant = true;
+    return [0, -1];
   }
 
   // Watch our own attack and feed the next input at the right moment.
@@ -389,6 +534,25 @@ export class CpuBrain {
     if (!f.moveHit) {
       // whiffed: sometimes keep pressing (string), sometimes stop
       if (m.next && t >= m.cancel && R() < 0.25 * L.combo) this.press('light');
+      return;
+    }
+    // Smash links (ADR 0042): the normal after this one has to land inside the hit stun; decided once per hit. Down
+    // tilt (+11) into the jab string; up tilt into another up tilt or a short hop and the up air; a short-hop aerial on
+    // a standing victim into the down tilt once we land
+    if (this.linkOf !== m || t < this.linkT) { this.linkOf = m; this.linkGo = R() < L.combo; this.linkPick = R() < 0.5 ? 'uTilt' : 'hop'; }
+    this.linkT = t;
+    const C = B + m.recovery;
+    if (n === 'dTilt') { if (this.linkGo && t >= C - 5) this.press('light'); return; }
+    if (n === 'uTilt') {
+      if (this.linkGo && t >= C - 5 && this.plan !== 'linkAir') {
+        const above = o.pos.y - f.pos.y < 2.0 && f.distTo() < 1.3;
+        if (this.linkPick === 'uTilt' && above) this.normal('uTilt');
+        else this.setPlan('linkAir', 45);
+      }
+      return;
+    }
+    if (m.air && f.air && !f.juggleMove && o.state === 'hitstun') {
+      if (this.linkGo && this.plan !== 'linkDt') this.setPlan('linkDt', 40);
       return;
     }
     const skill = R() < L.combo;
@@ -421,6 +585,31 @@ export class CpuBrain {
       if (m.kind === 'rush' || m.kind === 'shot' || (m.kind === 'teleport' && m.follow)) w[slot] = this.show.bias(specialId(m));
     }
     return pickW(w);
+  }
+
+  // Does anti-air `name` ('uTilt': 6 frames, pops them over our head; 'heavy': the launcher, 12) meet them where they'll
+  // be when its first active frame comes (a falling body at their own gravity)? Not yet: keep the spacing.
+  antiAirFits(f, o, R, name) {
+    if (Math.abs(f.laneOffsets().sd) > 1) return false;
+    const T = MOVES[name].startup / 60, g = 42 * (o.gravityScale?.() ?? 1);
+    const x = (o.pos.x + o.vel.x * T - f.pos.x) * R.x + (o.pos.z + o.vel.z * T - f.pos.z) * R.z;
+    const y = o.pos.y + o.vel.y * T - 0.5 * g * T * T - f.pos.y;
+    return name === 'uTilt' ? Math.abs(x) < 1.2 && y > 0.15 && y < 2.0 : Math.abs(x) < 1.5 && y > -0.2 && y < 1.9;
+  }
+
+  // A smash attack that reaches them standing and lands inside `left` frames of their recovery: { move, hold } (Heavy
+  // held past its charge frame by what the opening has to spare), the one the viewer hasn't seen likelier; or null
+  smashFor(f, left) {
+    const { sx, sd } = f.laneOffsets(), ax = Math.abs(sx), w = {};
+    if (Math.abs(sd) > 0.6 || f.opp.pos.y > 0.3) return null;
+    for (const name of ['fSmash', 'dSmash', 'uSmash']) {
+      const m = MOVES[name];
+      if (left >= m.startup + 3 && ax < m.reach + 0.3 + ((m.lunge ?? 0) * m.startup) / 120) w[name] = this.show.bias(name);
+    }
+    const move = pickW(w);
+    if (!move) return null;
+    const G = MOVES[move].charge, spare = Math.min(G.max, left - MOVES[move].startup - 8);
+    return { move, hold: spare >= 6 ? G.at + spare : 2 };
   }
 
   // Pick a special slot that suits the situation (ADR 0009 kinds), weighted at random.
@@ -536,6 +725,7 @@ export class CpuBrain {
     this.planT = 0;
     this.planLen = len;
     this.wait = len;
+    this.hopped = false;
   }
 
   choose(dist, f, o) {
@@ -566,12 +756,20 @@ export class CpuBrain {
     }
     const kitty = 1 + 0.6 * L.show; // levels with more showcase push spend more of their ki on the kit
     if (dist < 1.7) {
+      // Smash neutral (ADR 0042) now and then: a tilt poke, a short-hop aerial, a back air after running off
+      const sm = pickW({
+        poke: 0.18 * Math.sqrt(sh.bias('dTilt')), hop: 0.08 * Math.sqrt(sh.bias('nair')),
+        bair: roomAlong(f.pos, -towardSide(f), f.game.basis.right) > 2 ? 0.05 * Math.sqrt(sh.bias('bair')) : 0, none: 0.69,
+      });
+      if (sm === 'poke') { this.pokeMove = R() < 0.6 ? 'dTilt' : 'fTilt'; return this.setPlan('poke', 30); }
+      if (sm === 'hop' || sm === 'bair') return this.setPlan(sm, 40);
       if (R() < L.aggro) return this.setPlan('combo', 70);
       if (R() < 0.3) return this.setPlan('heavy', 5);
       return this.setPlan(R() < 0.5 ? 'retreat' : 'guard', 20 + R() * 20);
     }
     if (dist < 5) {
       const r = R();
+      if (dist < 3 && R() < 0.2 * Math.sqrt(sh.bias('fair'))) return this.setPlan('hop', 40); // a short-hop forward air in
       if (f.ki >= 100 && !saving && r < L.special * (kitted ? kitty : 0.6)) return this.setPlan('special', 30);
       // a wavedash in or out now and then (the plan after it carries on from wherever the slide ends)
       if (dist > 2.2 && R() < L.wavedash * Math.sqrt(sh.bias('wavedash'))) {
@@ -601,6 +799,7 @@ export class CpuBrain {
 export class DummyBrain {
   constructor(fighter, mode = 'stand', clashLevel = 'normal') {
     this.f = fighter;
+    this.aimsNormals = true; // fighting back it plays the Normal CPU, which aims its normals (ADR 0042)
     this.cpu = new CpuBrain(fighter, 'normal');
     this.clashBrain = clashLevel === 'normal' ? this.cpu : makeBrain(fighter, clashLevel);
     this.timed = new TechTimer(1, 0); // DUMMY TECH 'timed': every techable impact, pressed mid-window (ADR 0028)
@@ -641,6 +840,7 @@ export class DummyBrain {
     pad.set('dash', false);
     // GUARD lets go for the whole launch: a held Guard techs at the first gap and rolls on landing (DUMMY TECH's job)
     pad.set('guard', (this.mode === 'guard' && f.state !== 'launched') || holdTech || burst || tt?.guard === 'press');
-    pad.set('jump', (this.mode === 'jump' && this.t % 70 < 3) || (juggled && this.mode !== 'stand' && this.t % 20 < 2));
+    // (HOP: a full hop, Jump held through the squat; a juggled dummy's taps are air techs)
+    pad.set('jump', (this.mode === 'jump' && this.t % 70 < FULL_HOP) || (juggled && this.mode !== 'stand' && this.t % 20 < 2));
   }
 }

@@ -61,11 +61,18 @@ The user's answers to the design questions (2026-10-17):
    fighter has, and uses that strip's hit boxes. A back air without its own strip shows `airLight3` mirrored, boxes and
    all (`Fighter.mirrorPose`). Up tilt and up smash step forward a little (`lunge`) so the borrowed uppercut reaches a
    standing opponent. The move data never depends on the drawing.
-8. **The CPUs keep their game for now.** A brain that doesn't set `aimsNormals` (every CPU level and the training dummy)
-   has its Light / Heavy read as a neutral stick and its jump taps as full hops, so it plays exactly the moves its combo
-   composer and threat reads were built on. Lab scripts and replays stand in for a player and aim. A CPU slot without its
-   brain (a replayed CPU match) reads the same way, so recordings play back identically. Teaching the CPUs the new moves
-   is ENG-111.
+8. **The CPUs keep their game for now** (phase 1). A brain that doesn't set `aimsNormals` (every CPU level and the
+   training dummy) has its Light / Heavy read as a neutral stick and its jump taps as full hops, so it plays exactly the
+   moves its combo composer and threat reads were built on. Lab scripts and replays stand in for a player and aim. A CPU
+   slot without its brain (a replayed CPU match) reads the same way, so recordings play back identically. Teaching the
+   CPUs the new moves is ENG-111.
+9. **Phase 2 (ENG-111, 2026-10-17): the CPUs aim.** Every brain sets `aimsNormals` and presses a normal through
+   `normal(name)` (`src/game/aiNormals.js`), holding the stick on its direction from the press until the fighter reads
+   it; a plain Light / Heavy holds it neutral, so walking in depth while jabbing never turns into a tilt. A full hop holds
+   Jump through the squat, and in the air the stick is kept off a fresh ↓ unless the brain means a fast fall. A CPU slot
+   without its brain now aims too (no brain left that doesn't), so a replayed CPU match still plays back identically; the
+   determinism fixtures were re-recorded on it. Neutral use, punishes and the composer's link edges are in
+   COMBAT_DESIGN.md (CPU AI).
 
 ## Alternatives considered
 
@@ -89,8 +96,13 @@ The user's answers to the design questions (2026-10-17):
 - **Sheet capacity.** A sheet is 16 × 16 cells (4096 px). A fighter with every alt already packs 255 frames; these ten
   strips add 68. Before Codex draws them the packer needs a second sheet page (or a larger sheet where the GPU allows it):
   TOOL-060.
-- The CPUs don't use the new moves until ENG-111; their jump-ins now fall like Smash aerials, and they can be hit by
-  them. Physics rules are the same for everyone; only the reading of a CPU's stick at the press is held back.
+- The CPUs didn't use the new moves until ENG-111; their jump-ins fell like Smash aerials, and they could be hit by
+  them. Physics rules are the same for everyone; only the reading of a CPU's stick at the press was held back.
+- Since ENG-111 every CPU uses them: up tilt anti-airs, tilt pokes, short-hop and back airs, smash-attack punishes, and
+  the composer's links (down tilt → jab, up tilt → up tilt, up tilt → short hop → up air, short-hop aerial → down tilt).
+  With the current frame data the aerial → down tilt link only works off a fast-fall aerial that hits low (a forward
+  air that hits at the top of a short hop lands into 9 frames of landing lag, too late), so the CPUs play it that way;
+  revisit when the strips land. A spectated match shows them all (the Showcase counts each normal).
 - Players' habits change: Light with the stick held toward the opponent is now a forward tilt, not the jab. The jab string
   and the bread-and-butter route need a neutral stick.
 - Revisit the numbers after the art lands (the hit boxes then come from the real strikes) and after the CPUs use the

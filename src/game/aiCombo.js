@@ -6,11 +6,12 @@
 // super dash. Among the edges that work it draws one, weighted by a per-match persona (a style read from the kit
 // data), a length tier per combo, freshness, and a cooldown on routes either CPU used recently. Every draw comes from
 // the brain's seeded rng, so `?seed=` replays them. It presses buttons only through the brain (tap, special, keep).
-import { MOVES, VANISH, SUPER_DASH, JUGGLE, PROJECTILES, DEFENSE, SUPERS } from './moves.js';
+import { MOVES, VANISH, SUPER_DASH, JUGGLE, PROJECTILES, DEFENSE, SUPERS, AIR } from './moves.js';
 import { specialFor, kitOf } from './kit.js';
 import { ARENA_LIMIT, GRAVITY, DT, ROUND_TIME } from './constants.js';
 import { gauss, pickW } from './rng.js';
 import { specialId } from './aiShow.js';
+import { SHORT_HOP } from './aiNormals.js';
 
 const J = JUGGLE;
 const GROUND_SLOTS = ['neutral', 'forward', 'up', 'down', 'back'];
@@ -119,7 +120,8 @@ export function predictFlight(o, n = PF) {
             gb = false; vy = J.ground.up; vx *= J.ground.keep; vz *= J.ground.keep;
             stun = J.ground.stun[Math.min(gbN, J.ground.stun.length - 1)]; gbN++; hold = 5; PB[k] = 2;
             if (flight.firstBounce < 0) flight.firstBounce = k;
-          } else if (imp > J.floor.impact && !skipped) {
+          } else if (o.feetLand) alive = false; // a light pop lands on the feet: no floor skip, the combo ends (ADR 0042)
+          else if (imp > J.floor.impact && !skipped) {
             skipped = true; vy = imp * J.floor.keep; vx *= J.floor.slide; vz *= J.floor.slide; PB[k] = 3;
           } else alive = false;
         }
@@ -148,7 +150,7 @@ export function predictFlight(o, n = PF) {
 }
 
 // distance a lunging ground move covers from frame t until its first active frame (its lunge fades over startup+active)
-function lungeTo(m, t = 0) {
+export function lungeTo(m, t = 0) {
   if (!m.lunge || m.air) return 0;
   const B = m.startup + m.active;
   let d = 0;
@@ -167,6 +169,14 @@ function readyIn(f) {
       const m = f.move;
       if (!m) return 0;
       const rec = Math.max(0, m.startup + m.active + m.recovery - f.t);
+      if (f.air && m.air && !f.juggleMove) {
+        // a Smash aerial falls with the jump (ADR 0042): it lands when the feet touch, into its own landing lag (a
+        // plain landing from its autoCancel frame on, or once it has ended in the air: actionable from the 3rd frame)
+        const fall = fallFrames(f.pos.y, f.vel.y);
+        if (fall >= rec) return fall + 3;
+        const lag = m.autoCancel != null && f.t + fall >= m.autoCancel ? 5 : m.landLag ?? AIR.landLag;
+        return fall + (lag <= 6 ? 3 : lag);
+      }
       // an air move ends in the air: then the fall and the 8 frames of its landing
       return f.air && !m.hop ? rec + fallFrames(f.pos.y, Math.max(0, f.vel.y)) + 8 : rec;
     }
@@ -276,14 +286,18 @@ export function makePersona(rand, def, force = null) {
 
 // ------------------------------------------------------------------ the graph
 // Nodes (where MasterBrain asks): L1 / L2 / G3 / G4 (that ground light connected), LAUNCH (heavy connected), A1 / A2
-// (that air light connected), FLY (any other move of ours connected: an ender, a kick, a special), AFREE (we're in the
+// (that air light connected), DT / UT (the down / up tilt connected), HOP (a short-hop aerial connected on a standing
+// victim), FLY (any other move of ours connected: an ender, a kick, a smash attack, a special), AFREE (we're in the
 // air, free, beside a juggled victim), AIRLOCK (in the air after an air string: only a super dash or a vanish),
 // WALLBACK / GBUP (the victim just bounced off the barrier / the floor), RESTART (we're on the ground and free while
 // they still reel). An edge: { id, nodes, tags, w (weight, or per node), opt (the optimal persona's priority),
 // cost (ki), tool (Showcase id), act, pre }. pre(x) returns the frames until its first hit lands (checked against
 // the stun left), `true` for edges that don't hit by themselves, or null when it can't work now.
-const NODE_OF_MOVE = { light1: 'L1', light2: 'L2', light3: 'G3', light4: 'G4', heavy: 'LAUNCH', airLight1: 'A1', airLight2: 'A2' };
-const NODES = ['L1', 'L2', 'G3', 'G4', 'LAUNCH', 'A1', 'A2', 'FLY', 'AFREE', 'AIRLOCK', 'WALLBACK', 'GBUP', 'RESTART'];
+const NODE_OF_MOVE = { light1: 'L1', light2: 'L2', light3: 'G3', light4: 'G4', heavy: 'LAUNCH', airLight1: 'A1', airLight2: 'A2', dTilt: 'DT', uTilt: 'UT' };
+const NODES = ['L1', 'L2', 'G3', 'G4', 'LAUNCH', 'A1', 'A2', 'DT', 'UT', 'HOP', 'FLY', 'AFREE', 'AIRLOCK', 'WALLBACK', 'GBUP', 'RESTART'];
+// the Smash link nodes (ADR 0042): a link chosen there is carried on after our move ends (we land, recover) until it
+// is pressed, since the next hit comes after the move instead of cancelling out of it
+const LINK_NODES = new Set(['DT', 'UT', 'HOP']);
 
 const inAttack = (x) => x.f.state === 'attack' && x.f.move && x.f.moveHit;
 const airFree = (x) => x.f.state === 'air' && !x.f.airAttack;
@@ -331,6 +345,43 @@ function bodyTop(o) {
   let top = 0;
   for (const u of o.asset?.boxes?.(o.actor.frame, 'hurt', o.side) ?? []) top = Math.max(top, u.y1);
   return top || 1.45;
+}
+
+// The aerial that meets them from our jump (Smash air, ADR 0042), checked like a link: the art's hit box at its first
+// active frame, with us falling at full gravity (no float outside a juggle) and them carried on their speed. Above us the
+// up air, behind our facing the back air (the facing holds through a jump), in front the neutral or forward air, below
+// us the down air (the spike); beside a reeling opponent the DBFZ juggle's air string. null: nothing reaches them yet.
+// `ff`: pressed now with a fast fall from the next frame (a fast-fall aerial: it hits low and lands right after the hit,
+// so a link follows).
+const AERIALS = ['uair', 'bair', 'airLight1', 'fair', 'airHeavy'];
+export function aerialFor(f, R, ff = false) {
+  const o = f.opp;
+  if (f.juggling()) {
+    const sx = (o.pos.x - f.pos.x) * R.x + (o.pos.z - f.pos.z) * R.z;
+    return Math.abs(sx) < 1.6 && Math.abs(o.pos.y - f.pos.y) < 1.6 ? 'airLight1' : null;
+  }
+  const fits = AERIALS.filter((name) => aerialMeets(f, o, name, R, ff));
+  if (!fits.length) return null;
+  // the neutral and forward air both reach: either, so the jump-ins vary (the brains' Math.random, not the seeded one)
+  if (fits[0] === 'airLight1' && fits[1] === 'fair' && Math.random() < 0.5) return 'fair';
+  return fits[0];
+}
+
+// pressed now, would aerial `name` meet them (fast-falling from the next frame with `ff`)? Both bodies are carried on
+// their speeds meanwhile.
+function aerialMeets(f, o, name, R, ff = false) {
+  const m = MOVES[name], b = artBox(f, name), T = m.startup / 60, t1 = T - 1 / 60;
+  const y = ff ? f.pos.y + f.vel.y / 60 - AIR.fastFall * t1 - 0.5 * GRAVITY * t1 * t1 : f.pos.y + f.vel.y * T - 0.5 * GRAVITY * T * T;
+  if (y <= 0.05) return false; // it would land before it comes out
+  const oy = o.air ? Math.max(0, o.pos.y + o.vel.y * T - 0.5 * GRAVITY * T * T) : o.pos.y;
+  const dy = oy - y, pad = m.boxPad?.[1] ?? 0.45;
+  if (dy >= b.top || dy + bodyTop(o) <= b.y0 - pad + 0.08) return false;
+  // the up air is for someone above us, the spike for someone below (a stand-in strip's box can reach further)
+  if ((name === 'uair' && dy < 0.35) || (name === 'airHeavy' && dy > -0.5)) return false;
+  const sx = (o.pos.x - f.pos.x + (o.vel.x - f.vel.x) * T) * R.x + (o.pos.z - f.pos.z + (o.vel.z - f.vel.z) * T) * R.z;
+  // a back air without its own strip shows a forward one mirrored, boxes and all (Fighter.mirrorPose)
+  const ahead = sx * f.side * (m.back && !f.hasStrip(m.anim) ? -1 : 1);
+  return ahead > b.near + 0.05 && ahead < farFor(b, o) - 0.05;
 }
 
 // Can our move `name`, its first active frame k frames from now, meet the predicted victim? Our lunge during the
@@ -449,6 +500,7 @@ function gapAbove(x, m) {
 function airInReach(c, move) {
   if (Math.abs(c.sd) >= 0.7) return false;
   if (move === 'airHeavy') return Math.abs(c.sx) < 1.2 && c.dy < 0.1 && c.dy > -2.4; // it chops down: they're below us
+  if (move === 'uair') return Math.abs(c.sx) < 1.15 && c.dy > -0.2 && c.dy < 2.0; // it hits above the head (ADR 0042)
   return Math.hypot(c.sx, c.dy) < AIR_REACH;
 }
 
@@ -474,11 +526,35 @@ function gapAirReach(x, move) {
   if (!airFree(x)) return null;
   const c = x.c;
   if (move === 'airHeavy' && c.dy > 0.1) return null;
-  const d = move === 'airHeavy' ? Math.max(Math.abs(c.sx) - 1.15, -c.dy - 2.3, 0) : Math.hypot(c.sx, c.dy) - AIR_REACH + 0.1;
+  if (move === 'uair' && c.dy < -0.2) return null;
+  const d = move === 'airHeavy' ? Math.max(Math.abs(c.sx) - 1.15, -c.dy - 2.3, 0)
+    : move === 'uair' ? Math.max(Math.abs(c.sx) - 1.1, c.dy - 1.9, 0) : Math.hypot(c.sx, c.dy) - AIR_REACH + 0.1;
   const frames = airInReach(c, move) ? 0 : Math.ceil(Math.max(0, d) / 0.2);
   if (frames > 14 || !airborneFor(x.f, frames + 1, MOVES[move].startup)) return null;
   const k = frames + 1 + MOVES[move].startup;
   return meets(x, move, k, selfY) ? k : null; // they'll still be at our height when it comes out
+}
+
+// Out of an up tilt (ADR 0042): a short hop under the victim it popped, then the up air. Frames from now until its hit
+// (our recovery, the 4-frame squat, a few airborne frames, the up air's startup), or null when their predicted flight
+// doesn't pass through its reach in time. Our height is the short hop's without the juggle float (the lower case).
+const SQUAT = 4;
+function gapHop(x, move = 'uair') {
+  const f = x.f, R = x.c.R, m = MOVES[move];
+  if (!groundSide(x) || x.o.state !== 'launched') return null;
+  const ready = readyIn(f);
+  if (ready > 20) return null;
+  const a0 = f.pos.x * R.x + f.pos.z * R.z;
+  for (let j = 1; j <= 12; j++) {
+    const k = ready + SQUAT + j + m.startup;
+    if (k >= flight.n || !PL[k]) return null;
+    if (PS[k] < MARGIN + 1) continue;
+    const a = (j + m.startup) / 60, y = AIR.shortHop * a - 0.5 * GRAVITY * a * a;
+    if (y <= 0.05) return null;
+    if (Math.abs(PX[k] * R.x + PZ[k] * R.z - a0) > 1.2) continue; // (the hop drifts under them a little)
+    if (meets(x, move, k, y)) return k;
+  }
+  return null;
 }
 
 // A bounce the victim's current flight will make (wall or ground) before they can get out, or null; sets x.bounceAt
@@ -572,14 +648,14 @@ function buildEdges(def) {
   });
   // super dash: after a launch or a wall-bouncing hit, in the air, or from the ground
   add({
-    id: 'sd', nodes: ['G4', 'LAUNCH', 'FLY', 'AFREE', 'AIRLOCK', 'WALLBACK', 'GBUP', 'RESTART'], tags: ['dash'], tool: 'superDash',
-    w: { G4: 0.8, LAUNCH: 0.9, FLY: 1.2, AFREE: 0.6, AIRLOCK: 2, WALLBACK: 1, GBUP: 1.6, RESTART: 0.6 },
-    opt: { G4: 1.5, LAUNCH: 2, FLY: 2.5, AFREE: 1, AIRLOCK: 3, WALLBACK: 2.8, GBUP: 3, RESTART: 1.5 }, act: 'sd', pre: gapSuperDash,
+    id: 'sd', nodes: ['G4', 'LAUNCH', 'FLY', 'UT', 'AFREE', 'AIRLOCK', 'WALLBACK', 'GBUP', 'RESTART'], tags: ['dash'], tool: 'superDash',
+    w: { G4: 0.8, LAUNCH: 0.9, FLY: 1.2, UT: 0.5, AFREE: 0.6, AIRLOCK: 2, WALLBACK: 1, GBUP: 1.6, RESTART: 0.6 },
+    opt: { G4: 1.5, LAUNCH: 2, FLY: 2.5, UT: 1.4, AFREE: 1, AIRLOCK: 3, WALLBACK: 2.8, GBUP: 3, RESTART: 1.5 }, act: 'sd', pre: gapSuperDash,
   });
   // vanish: behind them, then the kick (wall bounce); a second and third in one combo are the ping-pong
   add({
-    id: 'vanish', nodes: ['G3', 'G4', 'LAUNCH', 'A1', 'A2', 'FLY', 'AFREE', 'AIRLOCK', 'WALLBACK', 'GBUP', 'RESTART'], tags: ['vanish'], tool: 'vanish', cost: VANISH.cost,
-    w: { G3: 0.4, G4: 0.6, LAUNCH: 0.5, A1: 0.2, A2: 0.6, FLY: 1, AFREE: 0.3, AIRLOCK: 1.2, WALLBACK: 0.8, GBUP: 0.6, RESTART: 0.3 }, opt: 1.6, act: 'vanish',
+    id: 'vanish', nodes: ['G3', 'G4', 'LAUNCH', 'A1', 'A2', 'FLY', 'DT', 'UT', 'HOP', 'AFREE', 'AIRLOCK', 'WALLBACK', 'GBUP', 'RESTART'], tags: ['vanish'], tool: 'vanish', cost: VANISH.cost,
+    w: { G3: 0.4, G4: 0.6, LAUNCH: 0.5, A1: 0.2, A2: 0.6, FLY: 1, DT: 0.3, UT: 0.4, HOP: 0.2, AFREE: 0.3, AIRLOCK: 1.2, WALLBACK: 0.8, GBUP: 0.6, RESTART: 0.3 }, opt: 1.6, act: 'vanish',
     pre: (x) => {
       const g = gapVanish(x);
       if (g != null && x.z.vanishes > 0) x.extra = ['vanishChain'];
@@ -598,14 +674,30 @@ function buildEdges(def) {
   });
   // meet the victim from the ground: a light (the handball, or a jab while they reel), a dash-in light, a heavy relaunch
   add({ id: 'handball', nodes: ['WALLBACK'], tags: ['ground', 'wall', 'handball'], w: 3, opt: 2, act: 'meet', meet: { move: 'light1' }, pre: (x) => gapMeet(x, 'light1') });
-  add({ id: 'jab', nodes: ['GBUP', 'RESTART'], tags: ['ground'], w: { GBUP: 0.5, RESTART: 2 }, opt: 2, act: 'meet', meet: { move: 'light1' }, pre: (x) => gapMeet(x, 'light1') });
+  add({ id: 'jab', nodes: ['GBUP', 'RESTART', 'HOP'], tags: ['ground'], w: { GBUP: 0.5, RESTART: 2, HOP: 1 }, opt: 2, act: 'meet', meet: { move: 'light1' }, pre: (x) => gapMeet(x, 'light1') });
   add({ id: 'dashJab', nodes: ['WALLBACK', 'RESTART'], tags: ['ground', 'dash'], w: { WALLBACK: 0.8, RESTART: 1 }, opt: 1.5, act: 'meet', meet: { move: 'light1', dash: true }, pre: (x) => gapMeet(x, 'light1', true) });
   add({ id: 'relaunchMeet', nodes: ['WALLBACK', 'GBUP', 'RESTART'], tags: ['relaunch'], w: { WALLBACK: 1.2, GBUP: 1.4, RESTART: 1.5 }, opt: 2.6, act: 'meet', meet: { move: 'heavy' }, pre: (x) => gapMeet(x, 'heavy') });
+  // Smash links (ADR 0042): a tilt or a short-hop aerial connected; the next normal has to land inside the hit stun.
+  // Down tilt (+11 on hit) into the jab string; up tilt into another up tilt or a short hop and the up air; a short-hop
+  // neutral or forward air on a standing victim into the down tilt once we land
+  add({ id: 'dtJab', nodes: ['DT'], tags: ['ground', 'link'], w: 4, opt: 2.5, act: 'meet', meet: { move: 'light1' }, pre: (x) => gapMeet(x, 'light1') });
+  add({ id: 'utUt', nodes: ['UT', 'RESTART'], tags: ['ground', 'link', 'juggle'], w: { UT: 2.6, RESTART: 0.5 }, opt: 1.8, act: 'meet', meet: { move: 'uTilt' }, pre: (x) => gapMeet(x, 'uTilt') });
+  add({ id: 'utHop', nodes: ['UT'], tags: ['air', 'link', 'juggle'], w: 2.4, opt: 2.2, act: 'hop', pre: (x) => gapHop(x, 'uair') });
+  add({ id: 'hopDt', nodes: ['HOP', 'RESTART'], tags: ['ground', 'link'], w: { HOP: 4, RESTART: 0.4 }, opt: 2.4, act: 'meet', meet: { move: 'dTilt' }, pre: (x) => gapMeet(x, 'dTilt') });
+  // the up air from the free air, under a victim above us (out of the up tilt's short hop: hopFor leans on it)
+  add({
+    id: 'uair', nodes: ['AFREE'], tags: ['air', 'link'], w: 0.5, opt: 1.2, act: 'airNormal', meet: { move: 'uair' },
+    pre: (x) => {
+      const g = gapAirReach(x, 'uair');
+      if (g != null && x.z.hopFor === 'uair') { x.wk = 6; x.optk = 2.5; }
+      return g;
+    },
+  });
   // stop here: the combo ends (the budget's ender of last resort)
   add({ id: 'end', nodes: NODES, tags: ['ender'], w: 0.15, opt: 0.05, act: 'end', pre: () => true });
   // the three-bar finish that carries the combo on (a highlight's crown): from a hit of ours, or free on the ground
   add({
-    id: 'big', nodes: ['L1', 'L2', 'G3', 'G4', 'LAUNCH', 'FLY', 'RESTART', 'WALLBACK', 'GBUP'], tags: ['big'], w: 0.35, opt: 0, act: 'big',
+    id: 'big', nodes: ['L1', 'L2', 'G3', 'G4', 'LAUNCH', 'FLY', 'DT', 'UT', 'RESTART', 'WALLBACK', 'GBUP'], tags: ['big'], w: 0.35, opt: 0, act: 'big',
     pre: (x) => {
       const ready = x.f.state === 'attack' ? inAttack(x) && !x.m.special : groundSide(x) && readyIn(x.f) === 0;
       return ready && (x.big = bigOption(x)) ? x.bigGap : null;
@@ -631,8 +723,9 @@ function buildEdges(def) {
     const ender = m.kind === 'rush' || m.kind === 'dive' || (m.kind === 'shot' && !bouncesOffWall(m));
     if (ender) tags.push('ender');
     add({
-      id: 'kit:' + slot, nodes: ['L1', 'L2', 'G3', 'G4', 'LAUNCH', 'WALLBACK', 'RESTART'], tags, slot, m, cost: m.cost ?? 0, tool: specialId(m), act: 'special',
-      w: { L1: 0.15, L2: 0.3, G3: 1, G4: 0.8, LAUNCH: m.kind === 'shot' || m.kind === 'teleport' ? 0.5 : 0, WALLBACK: 0.8, RESTART: 0.5 },
+      id: 'kit:' + slot, nodes: ['L1', 'L2', 'G3', 'G4', 'LAUNCH', 'DT', 'UT', 'WALLBACK', 'RESTART'], tags, slot, m, cost: m.cost ?? 0, tool: specialId(m), act: 'special',
+      // (a down tilt cancels into a special on hit like any ground normal; an up tilt's victim is up in the air)
+      w: { L1: 0.15, L2: 0.3, G3: 1, G4: 0.8, LAUNCH: m.kind === 'shot' || m.kind === 'teleport' ? 0.5 : 0, DT: 0.7, UT: m.kind === 'shot' || m.kind === 'teleport' ? 0.4 : 0, WALLBACK: 0.8, RESTART: 0.5 },
       opt: m.kind === 'rush' ? 2.6 : m.kind === 'pull' ? 2.2 : 1.6,
       pre: (x) => gapKit(x, m, false),
     });
@@ -729,7 +822,8 @@ function afterStun(e, x) {
     case 'jump': s = stunAfter('juggle', c); break;
     case 'sd': s = of(SUPER_DASH); break;
     case 'vanish': s = of(MOVES.vanishKick); break;
-    case 'meet': s = of(MOVES[e.meet.move]); break;
+    case 'meet': case 'airNormal': s = of(MOVES[e.meet.move]); break;
+    case 'hop': s = of(MOVES.uair); break;
     case 'wait': return x.bounceAt != null && PB[x.bounceAt] === 1 ? stunAfter('wall', c, 0, o.wbCount) : stunAfter('bounce', c, 0, o.gbCount);
     case 'big': return 40; // a held victim: the super's hits all land
     case 'special': {
@@ -765,7 +859,7 @@ function followable(e, x) {
 const HOLD = { id: 'hold', act: 'hold', tags: [] };
 const SD_LATE = new Set(['WALLBACK', 'GBUP', 'AIRLOCK', 'RESTART']); // where a long combo spends its super dash
 const NOT_OURS = new Set(['hitstun', 'launched', 'burst', 'down', 'held']); // our states when their combo isn't one we run
-const HOLD_NODES = new Set(['FLY', 'AIRLOCK', 'AFREE', 'GBUP', 'WALLBACK', 'RESTART', 'G4', 'LAUNCH', 'A1', 'A2']);
+const HOLD_NODES = new Set(['FLY', 'AIRLOCK', 'AFREE', 'GBUP', 'WALLBACK', 'RESTART', 'G4', 'LAUNCH', 'A1', 'A2', 'DT', 'UT', 'HOP']);
 
 // ------------------------------------------------------------------ the composer
 const ctx = { z: null, b: null, f: null, o: null, c: null, t: 0, m: null, left: 0, combo: 0, node: '', extra: null, wk: 1, optk: 1, handball: false, bounceAt: -1, big: null, bigGap: 0 };
@@ -795,6 +889,7 @@ export class ComboComposer {
     this.bounce = null;
     this.expect = null;
     this.blinked = false;
+    this.hopFor = null; // the aerial a short hop out of an up tilt went up for ('uair'): the free-air node leans on it
     this.vanishes = 0;
     this.moveSerial = 0;
     this.airSerial = 0;
@@ -807,6 +902,13 @@ export class ComboComposer {
   }
 
   get done() { return this.over; }
+
+  // A link out of a tilt or a short-hop aerial is under way (chosen at DT / UT / HOP, not pressed yet, no hit since):
+  // MasterBrain lets the composer finish it from the ground or the air instead of picking a fresh move (ADR 0042)
+  linking() {
+    const cur = this.cur;
+    return !!(this.live && !this.over && cur && !cur.done && LINK_NODES.has(cur.node) && cur.combo === this.f.opp.combo);
+  }
 
   // burst bait odds scale with the persona's appetite for risk (ADR 0022 burst bait; optimal keeps the style's)
   get baitK() { return this.p.optimal ? 1 : 0.5 + this.p.risk; }
@@ -986,7 +1088,11 @@ export class ComboComposer {
     let node, key;
     if (this.bounce) { node = this.bounce.kind === 'wall' ? 'WALLBACK' : 'GBUP'; key = 'b' + this.bounce.serial; }
     else if (f.state === 'throw') { node = 'FLY'; key = 't' + this.throwSerial; } // the toss: super dash, vanish, its wall bounce
-    else if (site === 'move') { node = NODE_OF_MOVE[f.moveName] ?? 'FLY'; key = 'm' + this.moveSerial; }
+    else if (site === 'move') {
+      // a Smash aerial (not the juggle float) on a standing victim: HOP, its links come after we land (ADR 0042)
+      node = f.air && f.move?.air && !f.juggleMove && o.state === 'hitstun' ? 'HOP' : NODE_OF_MOVE[f.moveName] ?? 'FLY';
+      key = 'm' + this.moveSerial;
+    } else if (this.linking()) { node = this.cur.node; key = this.cur.key; } // our tilt or aerial is over: its link goes on
     else if (site === 'air') { node = f.airAttack ? 'AIRLOCK' : 'AFREE'; key = 'a' + this.airSerial + node; }
     else { node = 'RESTART'; key = 'g' + o.combo + ':' + (o.state === 'launched' ? 'L' : 'H'); }
     const x = this.ctx(node, c);
@@ -1163,13 +1269,14 @@ export class ComboComposer {
         return DONE;
       }
       case 'airLight':
-      case 'airHeavy': {
+      case 'airHeavy':
+      case 'airNormal': {
         if (!airFree(x)) return f.state === 'attack' ? DONE : FAIL;
-        const c = x.c, mv = e.act === 'airHeavy' ? 'airHeavy' : 'airLight1';
+        const c = x.c, mv = e.meet?.move ?? (e.act === 'airHeavy' ? 'airHeavy' : 'airLight1');
         if (airInReach(c, mv)) {
-          if (b.hold[mv === 'airHeavy' ? 'heavy' : 'light'] > 0) return RUN;
-          b.tap(mv === 'airHeavy' ? 'heavy' : 'light');
+          if (!b.normal(mv)) return RUN; // (the stick picks it: neutral for the air string, ↑ for the up air)
           this.blinked = false;
+          this.hopFor = null;
           return pressed(MOVES[mv].startup + 1);
         }
         b.mx = Math.abs(c.sx) > 0.5 ? c.toward : 0;
@@ -1183,7 +1290,10 @@ export class ComboComposer {
         if (f.state === 'attack' && f.moveName === M.move && f.t < 3) return DONE; // it came out
         const r = intercept(f, x.o, M.move, ready, x.c.R, M.dash);
         if (!r) return FAIL;
-        if (ready > 0) return RUN;
+        if (ready > 0) {
+          if (f.air && r.walk > 0.05) b.mx = r.dir; // a short-hop aerial's fall drifts in toward its link (HOP)
+          return RUN;
+        }
         const c = x.c;
         b.my = Math.abs(c.sd) > 0.18 ? Math.sign(c.sd) : 0;
         if (M.dash && !st.dashed && f.state !== 'dash') {
@@ -1191,13 +1301,20 @@ export class ComboComposer {
           if (r.press <= 0 || r.walk > 0.4) { st.dashed = true; b.mx = r.dir; b.tap('dash', 2); }
           return RUN;
         }
-        if (r.press <= 0 && b.hold[mv === MOVES.heavy ? 'heavy' : 'light'] <= 0) {
-          b.mx = r.walk > 0.05 ? r.dir : 0;
-          b.tap(mv === MOVES.heavy ? 'heavy' : 'light');
-          return pressed(r.k);
-        }
+        // the stick picks the normal (ADR 0042): held on it from the press until the fighter reads it (MasterBrain.normal)
+        if (r.press <= 0 && b.normal(M.move)) return pressed(r.k);
         b.mx = r.walk > 0.05 ? r.dir : 0;
         return RUN;
+      }
+      case 'hop': {
+        // out of the up tilt: a short hop under them (stick toward them through the squat if they drifted off), then the
+        // up air comes from the free air node (AFREE, which leans on hopFor)
+        if (f.state === 'jumpSquat' || f.air) return DONE;
+        if (readyIn(f) > 0) return RUN;
+        if (b.hold.jump > 0) return RUN;
+        b.jumpTo(Math.abs(x.c.sx) > 0.5 ? x.c.toward : 0, 0, SHORT_HOP);
+        this.hopFor = 'uair';
+        return DONE;
       }
       case 'wait':
         this.waiting = true;

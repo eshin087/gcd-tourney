@@ -533,7 +533,9 @@ Use this for combat, AI, physics and performance changes. It catches stuck state
    so never `await` the whole soak there; in code, `await __soak.promise`). When `__soak.finished`, read
    `__soak.summary`: `pass`, `matches`, `winners`, `rounds`, `frames`, `violationCounts`, `violations` (match, frame in
    that match, round, fighter, side, state/move, position), and `perMatch` (pair, seed, winner, rounds, wins, seconds,
-   `clashes` by tier, `maxOver` = how far past `ARENA_LIMIT` anyone got). `comboStats()` then has the combo numbers.
+   `clashes` by tier, `maxOver` = how far past `ARENA_LIMIT` anyone got, `used` = each CPU's Showcase tool counts, the
+   ADR 0042 normals among them: `fTilt`, `uTilt`, `dTilt`, `dashAttack`, `fSmash`, `uSmash`, `dSmash`, `nair`, `fair`, `bair`,
+   `uair`). `comboStats()` then has the combo numbers.
 
 ```js
 soak(10, { pairs: [['naruto','sasuke'], ['killua','gojo'], ['gojo','naruto'], ['sasuke','killua'], ['naruto','killua'],
