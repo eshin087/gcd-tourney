@@ -1,12 +1,12 @@
 # ENG-112 Killua R2 corrected fitted-atlas recheck — Astra
 
-**Current verdict: uSmash v02 visual scale PASS with measurement caveats; uair v02 anatomy HOLD for visibly compact body after fitting.** This is not image approval, runtime/contact certification or a five-segment numerical ±6% pass.
+**Fit-trial verdict: uSmash v02 visual scale PASS with measurement caveats; uair v02 anatomy HOLD for visibly compact body after fitting.** Following this audit, uair v02 and its sidecar were returned unchanged to `_qa_hold`, and the current atlas uses its stand-in. This is not image approval, runtime/contact certification or a five-segment numerical ±6% pass.
 
 ## Correction and scope
 
 Parent clarified that relay #23 had already authorized uSmash f5 and uair f2; relay #25 added uSmash f4 and uair f3. All four frame-specific exemptions are retained, version 2. The prior audit's inference that f5/f2 lacked authorization is withdrawn. Its no-fit conclusions describe the earlier atlas only. The pack now succeeded with uSmash import ×0.8613 and uair ×0.75 (lower-bound clamp), per parent pack evidence. Current scale-report confirms both named pairs as exempt and reports `ok` for each strip.
 
-I re-opened the changed actual quantized atlas and inspected all 8 uSmash and 6 uair frames beside current idle f0 and the approved title-style neutral/combat cells. All moves are non-looping; static sequence/recovery inspection was performed, not runtime playback. No source or settings changed in this audit.
+I re-opened the quantized fit-trial atlas and inspected all 8 uSmash and 6 uair frames beside current idle f0 and the approved title-style neutral/combat cells. All moves are non-looping; static sequence/recovery inspection was performed, not runtime playback. No source or settings changed in this audit.
 
 ## Current findings
 
@@ -16,7 +16,7 @@ I re-opened the changed actual quantized atlas and inspected all 8 uSmash and 6 
 - **uair f2/f3:** raised shoe is still selected by the head probe; actual head remains visible and near idle size. Vertical kicking leg is connected, but the small trunk/remaining limb build is consistent with the other fitted frames. HOLD is for body proportions, not for those authorized false probes.
 - All 14 frames retain connected major limbs and intact shoes/hands. No boundary clipping or missing foreign/severed limbs observed. There is no numerical whole-body scale clearance.
 
-## Current scale-report proxies
+## Fit-trial scale-report proxies
 
 The scale report uses reference head box 40×31 and reference feetPx 1325. Its own current idle f0 reads H1.032 / F1.307 (idle medians H1.038 / F1.329). Therefore reported H/F below are NOT exact ratios against current idle f0. Feet is a square-root color-area proxy; palette overlap and perspective prevent interpreting it as shoe length.
 
@@ -29,7 +29,7 @@ For context only, dividing by current idle f0 proxies gives uSmash median H≈0.
 
 Exempt readings: uSmash f4 H0.696, f5 H0.557; uair f2 H0.575, f3 H0.551. Their low readings remain limb-contaminated, not measured tiny heads.
 
-## Packed bounds and source provenance
+## Fit-trial packed bounds and source provenance
 
 Bounds are inclusive occupied pixels in 256×256 cells; x margins remain clear and y240 is the intended sole anchor, not clipping. Idle f0 bounds x68–186/y85–240. No frame uses x0, x255 or y0.
 
@@ -56,20 +56,26 @@ Bounds are inclusive occupied pixels in 256×256 cells; x margins remain clear a
 
 uSmash may proceed within the existing user decision after the parent completes required contact/production checks. **Keep uair held and report the visible small-body result to the user through the applicable approvals route. Do not further shrink it or treat the successful head gate as anatomy approval.** Its correction/accepted proportion tradeoff needs the user's decision.
 
-Current evidence images: `ENG112_R2_FITTED_CONTACT.png` (all frames plus approved references at native equal density) and `ENG112_R2_FIT_BODY_SHEET.png` (TOOL-036 advisory body-size comparison). Both are linked from the [user review page](../../../../public/reviews/normals-killua/r2-uTilt/index.html). Earlier `ENG112_R2_FIT_CONTACT/DETAIL/LANDMARKS.png` show the superseded unfitted atlas and remain for provenance. No art was retouched.
+Fit-trial evidence images: `ENG112_R2_FITTED_CONTACT.png` (all frames plus approved references at native equal density) and `ENG112_R2_FIT_BODY_SHEET.png` (TOOL-036 advisory body-size comparison). Both are linked from the [user review page](../../../../public/reviews/normals-killua/r2-uTilt/index.html). Earlier `ENG112_R2_FIT_CONTACT/DETAIL/LANDMARKS.png` show the superseded unfitted atlas and remain for provenance. The committed production atlas after holding uair uses uSmash's fit and the uair stand-in. No art was retouched.
 
-### Current SHA-256
+### Fit-trial SHA-256 (uSmash and fitted uair both active)
 
-- `public/characters/killua/sheet.png`: `c2cf3444ae9b98841321a87c32a022147db403f59d8bfa17cb5ae496b4701ca1`
-- `public/characters/killua/anims.json`: `2678eace05126d9a61b3c8122c5391c9f7b3e744562abad39c51a06af7491a67`
+- Fit-trial `public/characters/killua/sheet.png`: `c2cf3444ae9b98841321a87c32a022147db403f59d8bfa17cb5ae496b4701ca1`
+- Fit-trial `public/characters/killua/anims.json`: `2678eace05126d9a61b3c8122c5391c9f7b3e744562abad39c51a06af7491a67`
 - `art/characters/killua/raw/uSmash_v02.png`: `c3576858c65b7e2ed1141621c4a27ac53af54459dbbccf248f4d8a41a6c43732`
 - `art/characters/killua/raw/uSmash_v02.json`: `8c2879f0f010fd12accbaedcc5d41442d01e3f81d032b991e3595b1d22133f0a`
-- `art/characters/killua/raw/uair_v02.png`: `6cee89c056c9d64053502c275aa25ac7d966cdf24448571b19aa54c3cdfe051c`
-- `art/characters/killua/raw/uair_v02.json`: `8c2879f0f010fd12accbaedcc5d41442d01e3f81d032b991e3595b1d22133f0a`
+- `art/characters/killua/raw/_qa_hold/uair_v02.png`: `6cee89c056c9d64053502c275aa25ac7d966cdf24448571b19aa54c3cdfe051c`
+- `art/characters/killua/raw/_qa_hold/uair_v02.json`: `8c2879f0f010fd12accbaedcc5d41442d01e3f81d032b991e3595b1d22133f0a`
 - `art/manifest.json`: `dc9f606f99f4fcafa8794906a4c45a2c9969e327a0375de1f6bdb832da6ea904`
 - `art/scale/scale-report.json`: `c2eb302a9095adb8a0d3eaf0182cc0e0c692b877e2c1154062be17f4b521ac87`
 - `public/art-review/title-style-pilot/killua-neutral_v01.png`: `86278707ba8f0fcb78942cbcedb3341d8ad8f559e95f8cbf48273d0bbdca1855`
 - `public/art-review/title-style-pilot/killua-combat_v01.png`: `d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6`
+
+### Production atlas after holding uair
+
+- `public/characters/killua/sheet.png`: `9f385fa66646ab68707a2031215554bbe20fd372e754ebE9578df843ed3b45cf`
+- `public/characters/killua/anims.json`: `5207e01777269c7188f39e77e4026dab9370a0478fc2ff828e07bada3f052831`
+- Packed set: 52 animations / 238 frames; uSmash uses its measured fit, uair remains on its stand-in.
 
 ---
 
@@ -147,8 +153,8 @@ Evidence: ENG112_R2_FIT_CONTACT.png (all frames and approved cells), ENG112_R2_F
 - `public/characters/killua/anims.json`: `225976cebf31728cd0284614653888829b03b56bcbf2a6049f220bbe3beaf0f1`
 - `art/characters/killua/raw/uSmash_v02.png`: `c3576858c65b7e2ed1141621c4a27ac53af54459dbbccf248f4d8a41a6c43732`
 - `art/characters/killua/raw/uSmash_v02.json`: `8c2879f0f010fd12accbaedcc5d41442d01e3f81d032b991e3595b1d22133f0a`
-- `art/characters/killua/raw/uair_v02.png`: `6cee89c056c9d64053502c275aa25ac7d966cdf24448571b19aa54c3cdfe051c`
-- `art/characters/killua/raw/uair_v02.json`: `8c2879f0f010fd12accbaedcc5d41442d01e3f81d032b991e3595b1d22133f0a`
+- `art/characters/killua/raw/_qa_hold/uair_v02.png`: `6cee89c056c9d64053502c275aa25ac7d966cdf24448571b19aa54c3cdfe051c`
+- `art/characters/killua/raw/_qa_hold/uair_v02.json`: `8c2879f0f010fd12accbaedcc5d41442d01e3f81d032b991e3595b1d22133f0a`
 - `art/manifest.json`: `7cdfb436e4bcc67cbadcdc3889c30d6233fba042fe5b25a1d71df3e68bdd0298`
 - `public/art-review/title-style-pilot/killua-neutral_v01.png`: `86278707ba8f0fcb78942cbcedb3341d8ad8f559e95f8cbf48273d0bbdca1855`
 - `public/art-review/title-style-pilot/killua-combat_v01.png`: `d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6`
