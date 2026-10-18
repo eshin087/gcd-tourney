@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-SAS): recorded via Claude relay skills #16 that the user approved Amaterasu v01 and AmaterasuIgnite v01 as drawn; restored both from quarantine with no pixel cleanup, added approved HD manifest entries (Amaterasu fill 0.9, Ignite 0.95), and updated the review gallery. Claude's trial pack splits each grid and keys/quantizes near-magenta; Claude owns in-game integration. Codex is proceeding with batch 3.
+
 - Updated (ART-SKL-SAS): recorded relay #15 authorization and prepared special v14 plus chidori v01 for review. Special v14 failed strict packing/body measurement and Astra holds it; chidori v01 used the fresh 3-call budget but fails raw layout/background/palette checks. Both are technical holds pending visual review at the PR #163 batch 1 preview.
 
 - Changed (ART-SKL-SAS): relay #15 authorizes Sasuke `special` attempt 3 as v14 for pack/body/Astra review and grants a new three-call budget for effect-only `chidori`; work is underway.
