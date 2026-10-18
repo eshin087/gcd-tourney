@@ -71,6 +71,31 @@ the root, lab, main JS and Three.js module with HTTP 200. Negative probes still 
 global Codex config, another project, outside writes and `.codex` writes. GitHub returned HTTP 200.
 This is build/HTTP verification, not a visual gameplay test or proof of this chat's active policy.
 
+### Capping a dev server's memory (OPS-019)
+
+A dev server once grew to 131 GB of committed memory (memory Windows has promised to the process; only about
+16 GB of it was in RAM). That took the machine's commit charge to 99.5% of its limit, so Windows would have
+refused memory to every program, and it grew `pagefile.sys` to about 58 GB. `tools/capped.ps1` runs a command
+inside a Windows job object: the command and everything it starts share one memory limit (8 GB; `-LimitGB`
+changes it), and they all end when the launcher ends (Ctrl+C, the shell closing, a kill). A process that tries to
+go past the limit is refused the memory and exits with an out-of-memory error; nothing else is affected. Nothing
+is installed, scheduled or left running, and only a command started through it is capped.
+
+```powershell
+$env:PORT = '5247'
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 node --preserve-symlinks --preserve-symlinks-main .codex/vite.mjs dev
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 -LimitGB 4 node ...   # -LimitGB comes first
+```
+
+Outside the restricted profile `npm run dev:capped` does the same for the normal dev server. `npm run devs`
+(`tools/dev-servers.ps1`) only reads: it lists the dev servers listening now with their age, committed memory,
+browser connections and folder, and warns when the machine's committed memory passes 85%. Windows cannot show a
+process's working folder, so a server started with a relative path is named by its helpers' folder when it has
+one. If a capped server dies with an out-of-memory error, the cap did its job: find what grew (a memory log in
+`.codex/vite.mjs` would show when) before raising the limit. Tested with the real adapter under Windows
+PowerShell 5.1 and PowerShell 7: the cap refuses a 2 GB allocation at 1 GB, Vite serves its pages, and killing
+the launcher ends Vite and frees the port.
+
 ### Remaining integration limitation
 
 Real worktree creation passed under the earlier broader-read profile, not the tightened profile.
