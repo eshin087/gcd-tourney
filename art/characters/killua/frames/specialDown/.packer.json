@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/specialDown_v01.png",
-  "version": 1,
+  "sourceFile": "raw/specialDown_v07.png",
+  "version": 7,
   "source": [
-    "characters/killua/raw/specialDown_v01.png"
+    "characters/killua/raw/specialDown_v07.png"
   ],
-  "sourceHash": "c6ee42c89e3e44ad6ae89f9f3103e073968d9cc3",
-  "bodyHeight": 188,
+  "sourceHash": "0f0e97b88251991a050d10f2d259453ba603e092",
+  "bodyHeight": 180,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,9 +17,9 @@
     ]
   },
   "files": {
-    "specialDown_00.png": "3ef62611dc0428a32500c0bae2ffd18e9dd84afc",
-    "specialDown_01.png": "82324253b79a35cc7e6874895f7f1264cf24762c",
-    "specialDown_02.png": "e29dc64a367b08eca09b5c1468d5065f24c1eb01",
-    "specialDown_03.png": "fb4be001b5bb65ce1c02ebc4643c195a33a43fd2"
+    "specialDown_00.png": "68b4d652def83569e6f7b306fda58b8b57a422cc",
+    "specialDown_01.png": "e1719e28e635c803519f5a56d1c46fdb2271eff7",
+    "specialDown_02.png": "efa1d4c9411bfba1fd393f0402808c85a4b89f46",
+    "specialDown_03.png": "d319bd00e0aa828fc121519a8c5e56641e83a718"
   }
 }

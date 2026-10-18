@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/specialUp_v08.png",
+  "version": 8,
+  "source": [
+    "characters/killua/raw/specialUp_v08.png",
+    "characters/killua/raw/specialUp_v08.json"
+  ],
+  "sourceHash": "89b2bd58b836d7626d5c6a472670da4d97156482",
+  "bodyHeight": 197,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "specialUp_00.png": "4b9243f11299f3b2054a13b26a11b8041d35a9f7",
+    "specialUp_01.png": "96c4239fa1bed4d1262d8cccac004275fcb4e48c",
+    "specialUp_02.png": "304cee4f82d8769387a56ff20ea1064fdd45900a",
+    "specialUp_03.png": "44fc9e558b3b3f6fff0f505d2e18c6b4b83e16b9",
+    "specialUp_04.png": "d310f078c74b508a595f62108c985e5b3e53fc3b",
+    "specialUp_05.png": "7c71ddfaa007f184b84d59cf9d999f75efc01280"
+  }
+}

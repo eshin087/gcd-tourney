@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/beamFire_v04.png",
-  "version": 4,
+  "sourceFile": "raw/beamFire_v09.png",
+  "version": 9,
   "source": [
-    "characters/killua/raw/beamFire_v04.png"
+    "characters/killua/raw/beamFire_v09.png"
   ],
-  "sourceHash": "3e22049a76255f39eeb3f832f25b2a2811dd65d0",
-  "bodyHeight": 180,
+  "sourceHash": "975b4d2887680f80ea0fb5f24e0dfd8fbe006b65",
+  "bodyHeight": 123,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,8 +17,8 @@
     ]
   },
   "files": {
-    "beamFire_00.png": "4292711910bc73f95f45fb93ec7e24c3cf0db697",
-    "beamFire_01.png": "8a67c04fabe5aa6f17957b9cb68637be23f0e842",
-    "beamFire_02.png": "cc21611afe39df80fe3601464fac6537a189191b"
+    "beamFire_00.png": "20d0d38e98f6cd7a3a97fc5acbfb72b90278a5c1",
+    "beamFire_01.png": "4e19e04ea51d6feff7a01ba9b297ffa6099189da",
+    "beamFire_02.png": "7593e160b771631b4fd1d873040a1ed7f6ef8eb8"
   }
 }

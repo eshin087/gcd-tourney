@@ -1,0 +1,29 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/light2_v06.png",
+  "version": 6,
+  "source": [
+    "characters/killua/raw/light2_v06.png",
+    "characters/killua/raw/light2_v06.json"
+  ],
+  "sourceHash": "a3fb2f03dd9e0bedb9dc7bfdc29d05dadf4c37e2",
+  "bodyHeight": 160,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "light2_00.png": "13728074236795e7280021b0c5f094473247cd33",
+    "light2_01.png": "aa4ec94f68339a9e830c3dc91e3046a31cc2e5e6",
+    "light2_02.png": "90ed4595a531778eb42ef64a1ad7d150b4a39cc5",
+    "light2_03.png": "855629bd8ba208df58f53890318ae56c02bd35c2",
+    "light2_04.png": "debcd893878a7f71c98a0766c4e5dfdce06d4720",
+    "light2_05.png": "e224e122a83e749e3cd373c6f2be5aeb87ca734b",
+    "light2_06.png": "dbf223ee5aa8a5e84cfc20bc4f01db45c827ecd2"
+  }
+}

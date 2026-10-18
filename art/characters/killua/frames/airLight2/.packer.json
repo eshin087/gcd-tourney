@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/airLight2_v02.png",
-  "version": 2,
+  "sourceFile": "raw/airLight2_v07.png",
+  "version": 7,
   "source": [
-    "characters/killua/raw/airLight2_v02.png"
+    "characters/killua/raw/airLight2_v07.png"
   ],
-  "sourceHash": "9a70f7a958547eedca7f193111e9877c5b094313",
-  "bodyHeight": 188,
+  "sourceHash": "29cbbd2b8e1a239b5e877a690fb67bec00b9ac0a",
+  "bodyHeight": 174,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,10 +17,10 @@
     ]
   },
   "files": {
-    "airLight2_00.png": "828ad843d8d97b69b10abd2205ab212a2ae8f186",
-    "airLight2_01.png": "4c7c80c35b72894290ab62592436278411ae439a",
-    "airLight2_02.png": "dee7a5cf1163e49187b9d77446d6f6c71c52814e",
-    "airLight2_03.png": "0d744080e11e3cdf5a6afc32b74cf46109e7a5d7",
-    "airLight2_04.png": "3ff0a675aab251abf3e3a802a386c2adf5d825f5"
+    "airLight2_00.png": "7747c052fa9fe06c7d94c65aec62533ef2770488",
+    "airLight2_01.png": "34a812bf225ab83807ffdbc5c9aa1ae110da9c98",
+    "airLight2_02.png": "e2aefd24ae24d652656a771d7c95dd4384a29784",
+    "airLight2_03.png": "5929f7b3840805a101fc0a91a6fc79e9be09557d",
+    "airLight2_04.png": "95b4080c13b829fe6b1cf3fbe719fb7e13bba6c0"
   }
 }

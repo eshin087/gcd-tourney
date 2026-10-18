@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/airRecover_v02.png",
-  "version": 2,
+  "sourceFile": "raw/airRecover_v05.png",
+  "version": 5,
   "source": [
-    "characters/killua/raw/airRecover_v02.png"
+    "characters/killua/raw/airRecover_v05.png"
   ],
-  "sourceHash": "33603176d4c7f96fcef94701272751af5d0ab5e6",
-  "bodyHeight": 164,
+  "sourceHash": "7e182a0e01312639450a87e1f297227def0d8754",
+  "bodyHeight": 139,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,8 +17,8 @@
     ]
   },
   "files": {
-    "airRecover_00.png": "6d363944b7edef4f134ce2c1b811eec73c682cd8",
-    "airRecover_01.png": "b178e26a879efde678fba18ddefc404ccc3f3b5f",
-    "airRecover_02.png": "7350e5e2f977ffbddb32c232594e69286c3fbeb6"
+    "airRecover_00.png": "1d681a687daba849de3e72c4ca778cc7a9d661db",
+    "airRecover_01.png": "f1e6a0a697c289dc71a49f0cdfe7826d1bbdd67a",
+    "airRecover_02.png": "e8c50d77bc118ac971c646376a2acb45733f43b6"
   }
 }

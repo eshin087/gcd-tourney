@@ -1,13 +1,14 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
   "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/idle_v01.png",
-  "version": 1,
+  "sourceFile": "raw/idle_v11.png",
+  "version": 11,
   "source": [
-    "characters/killua/raw/idle_v01.png"
+    "characters/killua/raw/idle_v11.png",
+    "characters/killua/raw/idle_v11.json"
   ],
-  "sourceHash": "5b6befd89f14f14dc89c90368a2895019004a83c",
-  "bodyHeight": 186,
+  "sourceHash": "88d56e7ae2dc72f8b4a5e9e028c58c93027f551a",
+  "bodyHeight": 158,
   "cell": {
     "frameWidth": 256,
     "frameHeight": 256,
@@ -17,13 +18,13 @@
     ]
   },
   "files": {
-    "idle_00.png": "132976ba632669dc3e275d58fce42364560e5a6e",
-    "idle_01.png": "f74eda2907679fbbcce323679107fbba8a9b5448",
-    "idle_02.png": "dbb1b1febd136a4aedc7983e119e307db4e93d6a",
-    "idle_03.png": "0b5686147f0194e838fff56456397c1da3352fe3",
-    "idle_04.png": "eac87fe3c1040e77d41f561c3cb2ef6484e1c6c6",
-    "idle_05.png": "3ea2d883b493a5fb78a53651b5caed5d096d157d",
-    "idle_06.png": "b7a9456c7c45f5c07aff667a5b3d137e606e8f31",
-    "idle_07.png": "b1d59fb3d3b5467c8fd1c876d597a3754a519b22"
+    "idle_00.png": "8b3796d26c036c361fd5dc2c7680cdf860b57229",
+    "idle_01.png": "038537e63bf24291fff0eb86201b3fca9a084429",
+    "idle_02.png": "a278af9389c65337aae42bee708c658866da7f9b",
+    "idle_03.png": "68430f47d068d33925e8ac21b391e05aa306b933",
+    "idle_04.png": "d83ace156b5f36ba3a6d941335776efffd3a98bd",
+    "idle_05.png": "352b8d9626a1699091331d5d574ce8ec07e8da68",
+    "idle_06.png": "f80fa38110eac83849f8b5ad80e1006bf1836086",
+    "idle_07.png": "6b07b2e98dde244903faf54c0cef5ab064bdda2d"
   }
 }

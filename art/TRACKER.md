@@ -138,6 +138,16 @@ Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 | 8 | jumpFall | 2 | - | **yes** | 209 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | land | 2 | - | **yes** | 174 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
 | 8 | win | 4 | - | **yes** | 193 | approved | v09 | v09 | User approved win v09 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
+| 9 | fTilt | 7 | 2/2/3 | no | 160 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (scale/anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#fTilt). |
+| 9 | uTilt | 7 | 2/2/3 | no | 214 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (assembly, scale/anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#uTilt). |
+| 9 | dTilt | 6 | 2/2/2 | no | 171 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (scale/anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#dTilt). |
+| 9 | dashAttack | 7 | 2/2/3 | no | 166 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (timing, scale/anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#dashAttack). |
+| 9 | fSmash | 9 | 4/2/3 | no | 166 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (scale/anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#fSmash). |
+| 9 | uSmash | 8 | 3/2/3 | no | 214 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (timing, anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#uSmash). |
+| 9 | dSmash | 8 | 3/2/3 | no | 171 | approved | v03 | v03 | User approved as drawn via Claude relay #22. Visual approval only. Technical HOLD (source layout/style, x=0 boot cut, weak rear reach and scale/anatomy); see [v03 review](../public/reviews/normals-killua/v03/index.html#dSmash). |
+| 9 | fair | 6 | 2/2/2 | no | 174 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (margin, scale/anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#fair). |
+| 9 | bair | 6 | 2/2/2 | no | 180 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (clipping, aerial read, scale/anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#bair). |
+| 9 | uair | 6 | 2/2/2 | no | 214 | approved | v02 | v02 | User approved as drawn via Claude relay combat #20; visual approval only. Technical HOLD (scale/anatomy, strip dimensions and hard-pixel checks); see [v02 review](../public/reviews/normals-killua/v02/index.html#uair). |
 | 9 | backDash | 3 | - | no | 180 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | superDash | 2 | - | no | 120 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | jumpSquat | 1 | - | no | 128 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -270,6 +280,8 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 User approved v07 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
 
 ## killua
+
+ENG-112 Killua (2026-10-18): user approved fTilt, uTilt, dTilt, dashAttack, fSmash, uSmash, fair, bair and uair v02 as drawn via Claude relay combat #20, and approved dSmash v03 as drawn via relay #22 (v02 not approved). All ten drawings are visually approved; all ten still have technical holds. v03 diagnostic pack: 54 animations / 251 frames; the branch's shipped baseline remains 44 animations / 181 frames. Packer head/feet proxies for dSmash v03 are 1.244/1.402. Raw canvas is 2172x724, not the required 2048x256 strip. Review: [dSmash v03 page](../public/reviews/normals-killua/v03/index.html); [v02 packed page](../public/reviews/normals-killua/v02/index.html); [generation provenance](characters/killua/raw/_qa_hold/ENG112_NORMALS_V02_PROVENANCE.md).
 
 **Title-style approval (2026-10-11):** the user approved the latest candidates shown in the final review preview (all 42 strips and UI portrait v02, cutin v03, select v02, promoted to ui/); `approved` = the exact version that played. The scale gate measures against the approved title-style combat cell (art/scale/builds.json scaleReference). Not shipped yet: see the holds per row and docs/NOW.md.
 
@@ -477,7 +489,7 @@ manifest lists all ten per fighter (status `todo`, bodyHeight copied from that f
 |---|---|---|---|---|---|
 | naruto | todo | todo | todo | todo | ENG-112, branch art/normals-naruto (last, after TOOL-060) |
 | sasuke | fTilt v03 approved, held; uTilt v05 approved; dTilt v05 approved | dashAttack v05 approved | fSmash v02 approved; uSmash v05 approved; dSmash stand-in | fair v03, bair v01, uair v01 approved | ENG-112, branch art/normals-sasuke; strict pack passes with 52 animations / 236 frames; fTilt decision pending; runtime contact check by Claude |
-| killua | todo | todo | todo | todo | ENG-112, branch art/normals-killua |
+| killua | fTilt v02 approved; dTilt v02 approved | dashAttack v02 approved | fSmash v02 approved; uSmash stand-in; dSmash v03 approved | fair/bair v02 approved; uair stand-in | ENG-112: all ten drawings approved via Claude relays #20/#22. Relay #24 first pack d62a961c ships seven; uTilt/uSmash/uair remain in _qa_hold for follow-up; contact crops in public/reviews/normals-killua/ship-seven/. |
 | gojo | todo | todo | todo | todo | ENG-112, branch art/normals-gojo |
 | goku | todo | todo | todo | todo | ENG-112, branch art/normals-goku |
 | luffy | todo | todo | todo | todo | ENG-112, branch art/normals-luffy |

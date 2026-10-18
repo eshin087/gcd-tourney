@@ -16,6 +16,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (ENG-112): Killua directional-normal v02 candidates for all ten moves, exact-call provenance and a packed review page; nine v02 strips were approved via Claude relay combat #20. dSmash v02 was not approved; the one authorized v03 round used three calls, selected attempt01, and produced a packed review page. All ten retain technical holds pending scale/layout/anatomy follow-up.
+- Approved (ENG-112): the user approved Killua dSmash v03 as drawn via Claude relay combat #22. This is visual approval only; its documented technical hold remains.
+- Changed (ENG-112 Killua, relay #24): held approved uTilt/uSmash/uair v02 raws and their sidecars for the follow-up branch, keeping game stand-ins in this pack; corrected fTilt fist, bair rear-foot and both-side dSmash contact boxes; rebuilt seven-move review crops from the packed atlas.
+- Changed (ENG-112 Killua import audit): added version-bound auto-head metadata for seven approved strips; recorded exact scale-probe exemptions on uSmash f5 and uair f2; aligned three active windows; repacked all 54 animations at 48 colors. Astra found unresolved source/import and contact holds on uTilt, uSmash, dSmash, bair and uair; strict shipping gate remains blocked pending a user decision.
 - Completed (ART-SKL-SAS): all user-approved Sasuke skills art shipped in production via PR #165 (`03a5b994`): special v15 with bodyHeight 157 and auto-head, beamFire v08 at bodyHeight 138, and all 13 HD effects. PR #163 is merged; Codex review bookkeeping is closed and the art worktree is removed.
 - Changed: the determinism fixtures are re-recorded again after the sheet pages (TOOL-060), the rollback clash fixes (ENG-114, ENG-115) and Sasuke's skills revamp changed the simulation (fingerprint c60622d60858); both replay frame for frame with every fighter on its packed art.
 
@@ -945,6 +949,7 @@ Reconstructed from the codebase when the changelog was introduced.
 
 
 
+- Changed (ENG-112 Killua import audit): added version-bound auto-head metadata for seven approved strips; recorded exact scale-probe exemptions on uSmash f5 and uair f2; aligned three active windows; repacked all 54 animations at 48 colors. Astra found unresolved source/import and contact holds on uTilt, uSmash, dSmash, bair and uair; strict shipping gate remains blocked pending a user decision.
 
 - Recorded relay #8's Sasuke dTilt low-kick retry authorization and dSmash stand-in direction. The capped dTilt v05 round produced only noncompliant painterly outputs; no new candidate was selected.
 

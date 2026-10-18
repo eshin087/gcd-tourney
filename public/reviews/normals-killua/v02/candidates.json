@@ -1,0 +1,1334 @@
+{
+  "character": "killua",
+  "task": "ENG-112",
+  "version": 2,
+  "technicalHold": true,
+  "atlasSha256": "b66a685b321f548570f4ddbb70392068972dcc20d9c3b08e8bd26e5fde69b41a",
+  "animsSha256": "60b4dddc3d139aeb6cc92089688eecdd42b7f5ba9e5ed28e2d10eaf30d69edbf",
+  "atlasFrames": {
+    "idle": {
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "durations": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true
+    },
+    "run": {
+      "frames": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": true
+    },
+    "dash": {
+      "frames": [
+        16,
+        17
+      ],
+      "durations": [
+        60,
+        60
+      ],
+      "loop": true
+    },
+    "backDash": {
+      "frames": [
+        18,
+        19,
+        20
+      ],
+      "durations": [
+        60,
+        60,
+        80
+      ],
+      "loop": false
+    },
+    "superDash": {
+      "frames": [
+        21,
+        22
+      ],
+      "durations": [
+        50,
+        50
+      ],
+      "loop": true
+    },
+    "jumpSquat": {
+      "frames": [
+        23
+      ],
+      "durations": [
+        70
+      ],
+      "loop": false
+    },
+    "jumpUp": {
+      "frames": [
+        24,
+        25
+      ],
+      "durations": [
+        80,
+        80
+      ],
+      "loop": true
+    },
+    "jumpFall": {
+      "frames": [
+        26,
+        27
+      ],
+      "durations": [
+        80,
+        80
+      ],
+      "loop": true
+    },
+    "land": {
+      "frames": [
+        28,
+        29
+      ],
+      "durations": [
+        50,
+        70
+      ],
+      "loop": false
+    },
+    "light1": {
+      "frames": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "durations": [
+        30,
+        30,
+        40,
+        50,
+        50,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ]
+    },
+    "light2": {
+      "frames": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "durations": [
+        35,
+        30,
+        40,
+        50,
+        60,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ]
+    },
+    "light3": {
+      "frames": [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "durations": [
+        40,
+        35,
+        45,
+        60,
+        60,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ]
+    },
+    "light4": {
+      "frames": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "durations": [
+        50,
+        45,
+        35,
+        40,
+        70,
+        70,
+        70,
+        40
+      ],
+      "loop": false,
+      "phases": [
+        3,
+        2,
+        3
+      ]
+    },
+    "heavy": {
+      "frames": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "durations": [
+        40,
+        35,
+        30,
+        50,
+        70,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        3,
+        2,
+        3
+      ]
+    },
+    "airLight1": {
+      "frames": [
+        67,
+        68,
+        69,
+        70,
+        71
+      ],
+      "durations": [
+        45,
+        35,
+        50,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        1,
+        2,
+        2
+      ]
+    },
+    "airLight2": {
+      "frames": [
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "durations": [
+        45,
+        40,
+        50,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        1,
+        2,
+        2
+      ]
+    },
+    "airLight3": {
+      "frames": [
+        77,
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "durations": [
+        50,
+        40,
+        50,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ]
+    },
+    "airHeavy": {
+      "frames": [
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "durations": [
+        50,
+        45,
+        45,
+        70,
+        70,
+        40
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ]
+    },
+    "guard": {
+      "frames": [
+        89,
+        90
+      ],
+      "durations": [
+        300,
+        300
+      ],
+      "loop": true
+    },
+    "block": {
+      "frames": [
+        91,
+        92
+      ],
+      "durations": [
+        60,
+        80
+      ],
+      "loop": false
+    },
+    "hurtHigh": {
+      "frames": [
+        93,
+        94,
+        95
+      ],
+      "durations": [
+        70,
+        90,
+        100
+      ],
+      "loop": false
+    },
+    "hurtLow": {
+      "frames": [
+        96,
+        97,
+        98
+      ],
+      "durations": [
+        70,
+        90,
+        100
+      ],
+      "loop": false
+    },
+    "launched": {
+      "frames": [
+        99,
+        100
+      ],
+      "durations": [
+        70,
+        70
+      ],
+      "loop": true
+    },
+    "spin": {
+      "frames": [
+        101,
+        102,
+        103,
+        104
+      ],
+      "durations": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": true
+    },
+    "airRecover": {
+      "frames": [
+        105,
+        106,
+        107
+      ],
+      "durations": [
+        50,
+        50,
+        60
+      ],
+      "loop": false
+    },
+    "down": {
+      "frames": [
+        108,
+        109
+      ],
+      "durations": [
+        80,
+        420
+      ],
+      "loop": false
+    },
+    "getup": {
+      "frames": [
+        110,
+        111,
+        112,
+        113,
+        114
+      ],
+      "durations": [
+        70,
+        60,
+        60,
+        80,
+        70
+      ],
+      "loop": false
+    },
+    "charge": {
+      "frames": [
+        115,
+        116,
+        117,
+        118
+      ],
+      "durations": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "loop": true
+    },
+    "throw": {
+      "frames": [
+        119,
+        120,
+        121,
+        122
+      ],
+      "durations": [
+        50,
+        60,
+        70,
+        50
+      ],
+      "loop": false,
+      "phases": [
+        1,
+        1,
+        2
+      ]
+    },
+    "beamCharge": {
+      "frames": [
+        123,
+        124,
+        125
+      ],
+      "durations": [
+        50,
+        50,
+        50
+      ],
+      "loop": true
+    },
+    "beamFire": {
+      "frames": [
+        126,
+        127,
+        128
+      ],
+      "durations": [
+        50,
+        50,
+        50
+      ],
+      "loop": true
+    },
+    "vanish": {
+      "frames": [
+        129,
+        130
+      ],
+      "durations": [
+        50,
+        50
+      ],
+      "loop": false
+    },
+    "stagger": {
+      "frames": [
+        131,
+        132,
+        133,
+        134
+      ],
+      "durations": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "loop": true
+    },
+    "ko": {
+      "frames": [
+        135
+      ],
+      "durations": [
+        500
+      ],
+      "loop": false
+    },
+    "special": {
+      "frames": [
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143
+      ],
+      "durations": [
+        80,
+        80,
+        80,
+        40,
+        40,
+        60,
+        130,
+        90
+      ],
+      "loop": false,
+      "phases": [
+        3,
+        3,
+        2
+      ]
+    },
+    "intro": {
+      "frames": [
+        144,
+        145,
+        146,
+        147
+      ],
+      "durations": [
+        180,
+        180,
+        180,
+        180
+      ],
+      "loop": true
+    },
+    "taunt": {
+      "frames": [
+        148,
+        149
+      ],
+      "durations": [
+        220,
+        220
+      ],
+      "loop": true
+    },
+    "win": {
+      "frames": [
+        150,
+        151,
+        152,
+        153
+      ],
+      "durations": [
+        220,
+        220,
+        220,
+        220
+      ],
+      "loop": true
+    },
+    "specialForward": {
+      "frames": [
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160
+      ],
+      "durations": [
+        40,
+        40,
+        50,
+        60,
+        60,
+        50,
+        40
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ]
+    },
+    "specialUp": {
+      "frames": [
+        161,
+        162,
+        163,
+        164,
+        165,
+        166
+      ],
+      "durations": [
+        50,
+        50,
+        60,
+        60,
+        70,
+        70
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ]
+    },
+    "specialDown": {
+      "frames": [
+        167,
+        168,
+        169,
+        170
+      ],
+      "durations": [
+        90,
+        90,
+        120,
+        100
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        1,
+        1
+      ]
+    },
+    "superPose": {
+      "frames": [
+        171,
+        172,
+        173,
+        174
+      ],
+      "durations": [
+        120,
+        120,
+        120,
+        120
+      ],
+      "loop": true
+    },
+    "beamStruggle": {
+      "frames": [
+        175,
+        176,
+        177
+      ],
+      "durations": [
+        70,
+        70,
+        70
+      ],
+      "loop": true
+    },
+    "beamStruggleAir": {
+      "frames": [
+        178,
+        179,
+        180
+      ],
+      "durations": [
+        70,
+        70,
+        70
+      ],
+      "loop": true
+    },
+    "fTilt": {
+      "frames": [
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187
+      ],
+      "durations": [
+        35,
+        30,
+        40,
+        50,
+        60,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ]
+    },
+    "uTilt": {
+      "frames": [
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194
+      ],
+      "durations": [
+        40,
+        35,
+        40,
+        60,
+        60,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ]
+    },
+    "dTilt": {
+      "frames": [
+        195,
+        196,
+        197,
+        198,
+        199,
+        200
+      ],
+      "durations": [
+        35,
+        30,
+        50,
+        50,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ]
+    },
+    "dashAttack": {
+      "frames": [
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207
+      ],
+      "durations": [
+        40,
+        40,
+        50,
+        60,
+        60,
+        60,
+        40
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        3
+      ]
+    },
+    "fSmash": {
+      "frames": [
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216
+      ],
+      "durations": [
+        50,
+        60,
+        50,
+        40,
+        40,
+        70,
+        70,
+        60,
+        40
+      ],
+      "loop": false,
+      "phases": [
+        4,
+        2,
+        3
+      ]
+    },
+    "uSmash": {
+      "frames": [
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224
+      ],
+      "durations": [
+        50,
+        40,
+        30,
+        50,
+        70,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        3,
+        2,
+        3
+      ]
+    },
+    "dSmash": {
+      "frames": [
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232
+      ],
+      "durations": [
+        50,
+        40,
+        30,
+        50,
+        70,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        3,
+        2,
+        3
+      ]
+    },
+    "fair": {
+      "frames": [
+        233,
+        234,
+        235,
+        236,
+        237,
+        238
+      ],
+      "durations": [
+        45,
+        40,
+        50,
+        60,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ]
+    },
+    "bair": {
+      "frames": [
+        239,
+        240,
+        241,
+        242,
+        243,
+        244
+      ],
+      "durations": [
+        50,
+        40,
+        50,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ]
+    },
+    "uair": {
+      "frames": [
+        245,
+        246,
+        247,
+        248,
+        249,
+        250
+      ],
+      "durations": [
+        45,
+        40,
+        50,
+        60,
+        50,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ]
+    }
+  },
+  "report": [
+    {
+      "name": "fTilt",
+      "version": 2,
+      "standin": "light2",
+      "move": "Forward tilt: chest-height straight punch.",
+      "candidate": [
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187
+      ],
+      "fallback": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "head": 1.012,
+      "feet": 0.948,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 18 specks",
+        "split 1 touching pose group(s)",
+        "split by whole figures: the column split cut a figure between frames 1/2, 2/3, 3/4"
+      ],
+      "finding": "Connected limbs, no clipping, and complete recovery. Punch reads near shoulder/face rather than clearly chest height. Torso/clothing segment parity is unmeasured."
+    },
+    {
+      "name": "uTilt",
+      "version": 2,
+      "standin": "heavy",
+      "move": "Up tilt: rising arm arc from face to above head.",
+      "candidate": [
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194
+      ],
+      "fallback": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "head": 0.916,
+      "feet": 0.93,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 9 specks",
+        "poses touch: split into 7"
+      ],
+      "finding": "Detached extra shoe/leg in f1, rear leg severed in f2, other shoe cuts; overhead extension peaks in recovery f4 instead of active f2/f3. Missing limbs invalidate scale clearance."
+    },
+    {
+      "name": "dTilt",
+      "version": 2,
+      "standin": "light3",
+      "move": "Down tilt: crouched shin-height poke.",
+      "candidate": [
+        195,
+        196,
+        197,
+        198,
+        199,
+        200
+      ],
+      "fallback": [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "head": 1.014,
+      "feet": 1.055,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 11 specks",
+        "split 1 touching pose group(s)",
+        "split by whole figures: the column split cut a figure between frames 1/2, 2/3, 3/4"
+      ],
+      "finding": "Deep crouch and low kick read correctly. Both active shoes fit (f2 x248, f3 x245). Head/body/leg/shoe parity still lacks reliable landmark confirmation."
+    },
+    {
+      "name": "dashAttack",
+      "version": 2,
+      "standin": "light4",
+      "move": "Run carries into a forward lunge strike.",
+      "candidate": [
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207
+      ],
+      "fallback": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "head": 1.049,
+      "feet": 1.013,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 11 specks",
+        "split by whole figures: the column split found 3 pose(s), 7 expected"
+      ],
+      "finding": "Active f2 remains guarded/chambered; punch lands in f3 and continues through recovery f4. No fist clipping; body/clothing segment checks remain."
+    },
+    {
+      "name": "fSmash",
+      "version": 2,
+      "standin": "light4",
+      "move": "Coiled charge, full-body punch, guarded recovery.",
+      "candidate": [
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216
+      ],
+      "fallback": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "head": 0.984,
+      "feet": 0.928,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 28 specks",
+        "split 1 touching pose group(s)",
+        "split by whole figures: the column split cut a figure between frames 2/3, 3/4, 4/5, 5/6, 6/7"
+      ],
+      "finding": "Connected anatomy; charge and active sequence usable; no severed legs or boundary clipping. Shoes trend smaller than idle; full-body parity remains unmeasured."
+    },
+    {
+      "name": "uSmash",
+      "version": 2,
+      "standin": "heavy",
+      "move": "Crouch rising into an overhead strike.",
+      "candidate": [
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224
+      ],
+      "fallback": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "head": 1.069,
+      "feet": 1.023,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 22 specks",
+        "split 1 touching pose group(s)"
+      ],
+      "finding": "First active frame f3 is guarded/rising; overhead extension occurs in f4 and continues into recovery f5. Raised arm obscures head readings in f4/f5; full-body pass unavailable."
+    },
+    {
+      "name": "dSmash",
+      "version": 2,
+      "standin": "light3",
+      "move": "Low sweep to both sides.",
+      "candidate": [
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232
+      ],
+      "fallback": [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "head": 1.144,
+      "feet": 1.019,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 8 specks",
+        "split 1 touching pose group(s)",
+        "split by whole figures: the column split cut a figure between frames 2/3"
+      ],
+      "finding": "Active f3 strikes left only and f4 right only, contrary to the SPEC requirement for both sides in each active frame. Active hair boxes are about 52–53×39 px versus idle about 42×31; feet are near reference."
+    },
+    {
+      "name": "fair",
+      "version": 2,
+      "standin": "airLight2",
+      "move": "Forward aerial kick at body height.",
+      "candidate": [
+        233,
+        234,
+        235,
+        236,
+        237,
+        238
+      ],
+      "fallback": [
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "head": 0.999,
+      "feet": 0.974,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 6 specks"
+      ],
+      "finding": "Forward aerial kick reads correctly, with connected limbs. f2 reaches x253, 2 px beyond the x251 safety margin; f3 ends x246. Full-body and style checks remain."
+    },
+    {
+      "name": "bair",
+      "version": 2,
+      "standin": "airLight3",
+      "move": "Facing right, strike left behind the body.",
+      "candidate": [
+        239,
+        240,
+        241,
+        242,
+        243,
+        244
+      ],
+      "fallback": [
+        77,
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "head": 1.14,
+      "feet": 1.075,
+      "verdict": "technical HOLD",
+      "notes": [
+        "removed 14 specks",
+        "split 1 touching pose group(s)"
+      ],
+      "finding": "Facing right and kicking left, but active f2/f3 hit x0 and clip the rear strike. Planted support foot and grounded guards read as a standing kick rather than an aerial."
+    },
+    {
+      "name": "uair",
+      "version": 2,
+      "standin": "heavy",
+      "move": "Straight upward kick over the head.",
+      "candidate": [
+        245,
+        246,
+        247,
+        248,
+        249,
+        250
+      ],
+      "fallback": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "head": 1.197,
+      "feet": 1.136,
+      "verdict": "technical HOLD",
+      "notes": [],
+      "finding": "Upward strike, connected limbs and margins are acceptable. Actual head remains measurable in all six frames; H is enlarged 1.148–1.229. Head/torso/clothing size and large pose translations remain unresolved."
+    }
+  ]
+}
