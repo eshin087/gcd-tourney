@@ -34,6 +34,8 @@ Three calls were used (budget exhausted); no compliant source was saved at art/v
 
 The call-3 hold remains in _qa_hold so it cannot become a candidate. The effect-only call-2 result was visible but cannot be recovered with the available tool output; no further Chidori calls are allowed under the three-call limit.
 
+The original three-call budget described above was exhausted. A separate fresh three-call budget was later authorized by the user via Claude relay skills #15; its prompts, saved outputs, selected v01, pack result and technical caveats are recorded in [chidori_fresh_budget_provenance.md](chidori_fresh_budget_provenance.md). This did not reopen or overwrite any prior attempt.
+
 ## Held alternatives
 
 | Path | Output identifier | Dimensions | SHA-256 | Reason held |

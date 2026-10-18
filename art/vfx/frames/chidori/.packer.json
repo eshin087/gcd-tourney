@@ -1,0 +1,21 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/chidori_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/chidori_v01.png",
+    "vfx/raw/chidori.json"
+  ],
+  "sourceHash": "536795c2497dcd1ce6016f2e55d6089f5c1821a1",
+  "files": {
+    "chidori_00.png": "70d1c7968ac823219404db2a209336b765d25e04",
+    "chidori_01.png": "d8b069682de331f6b192457cda1e1ee8ce6d8f9c",
+    "chidori_02.png": "a5f4fec82a90eea15461aa4c0f6340b470dd8140",
+    "chidori_03.png": "79bde9b160cff73988d480068f1355cafbfb9568",
+    "chidori_04.png": "7180ec385c0ea5eab1c31a5f364dcc916f34bc04",
+    "chidori_05.png": "4185a75d6afd9d344de05b939b8da6aace7c6516",
+    "chidori_06.png": "2a8e3f7037f412f32f1ba39897a76c67ea54209a",
+    "chidori_07.png": "fef7d46fed7039d9dcf4d8ff6fdad7ae0de24f56"
+  }
+}
