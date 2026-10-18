@@ -935,7 +935,7 @@
         "launched": {
           "frames": 2,
           "loop": true,
-          "bodyHeight": 170,
+          "bodyHeight": 190,
           "ms": [
             70,
             70
@@ -947,13 +947,7 @@
           "technicalHold": true,
           "version": 8,
           "approvedVersion": 8,
-          "scaleManualQA": {
-            "version": 6,
-            "result": "pass",
-            "by": "Claude (QA agent)",
-            "note": "At the inherited bodyHeight 148 the whole figure was ~13% small: hair area 0.84/0.86 of idle and whole-figure area 0.92/0.90, while hurtHigh f0 (same thrown-back head, arms spread) reads head 0.99 / area 1.03 at true scale, and the head is visibly smaller than gojo-neutral_v01 rotated to the same 40-55 deg tilt. At bodyHeight 170 (x1.149) both frames compared at native packed scale with the rotated neutral and hurtHigh f0: hair area 0.97/0.99, figure area 1.05/1.04 (matches hurtHigh), torso, legs and shoes in line with the neutral; hands within the spread of the reference hands. Two-frame loop wrap is a small arm/leg flutter, no pop. frameOffsets [62,0]/[49,0] keep the true-size pose inside x 4..251 and centre the body on the pivot instead of the feet.",
-            "evidence": "art/characters/gojo/production/title-style/claude-qa/launched-v06-bh170.png"
-          },
+          "scaleManualQA": {"version":8,"result":"pass","by":"Claude (3- Gojo, 2026-10-17)","note":"v08 at the inherited bodyHeight 170 was a uniform size error: head probe 0.89/0.92, feet 0.87/0.90, body B 0.87/0.87 of idle f0 (live v06: head 0.99, B 0.96). bodyHeight 190 (x1.118): head 1.006/1.053, feet 0.978/1.011, B 0.963/0.966, matching v06; compared both packed 48-colour cells beside idle f0 and the approved combat cell at one density: head, torso, sleeves, tucked/split leg chains and shoes in line. Inside the cell (x 21..209 / 23..209). Tumbling pose, so not a strict numeric certification.","evidence":"art/characters/gojo/production/posture-d/launched-v08-bh190-claude-qa.png"},
           "approvalSource": "user via Claude relay gojo-run #14: launched: Approve v08 (Recommended)."
         },
         "spin": {
