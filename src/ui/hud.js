@@ -3,6 +3,9 @@ import { DEFENSE } from '../game/moves.js';
 import { InputHistory } from './controls.js';
 
 const JUDGE_WORDS = { perfect: 'PERFECT', great: 'GREAT', good: 'GOOD', miss: 'MISS', stray: 'OFF BEAT' };
+// what tells two clashes' rings apart: a rollback restores a copy of Game.clash (snapshot.js), so the chart object
+// alone can't say whether it is still the clash the rings were built for
+const clashKey = (c) => `${c.tier}|${c.ca.getHex()}|${c.cb.getHex()}|${c.chart.notes.map((n) => `${n.t}${n.kind}${n.double ? 'd' : ''}${n.end ?? ''}`).join(',')}`;
 
 // Technique callouts (ADR 0022): side banners stacked under the combo counter, newest on top, on the side of the
 // fighter who did it. Game.tag(f, id) shows one. color: null = the fighter's own color; big: the large banner
@@ -169,6 +172,8 @@ export class Hud {
     this.beatCall = this.clashEl.querySelector('.beat-call');
     this.beatJudges = [...this.clashEl.querySelectorAll('.beat-judge')];
     this.beatRings = [];
+    this.clashChart = null; // the chart the rings were built for
+    this.clashId = null; // and its clashKey
     this.cards = h('div', 'namecards hidden');
     this.root.parentNode.append(this.cards);
     this.hint = h('div', 'hint');
@@ -439,12 +444,21 @@ export class Hud {
       this.beatRingsEl.append(r);
       return r;
     });
+    this.clashChart = c.chart;
+    this.clashId = clashKey(c);
     this.beatJudges.forEach((e, i) => { e.className = `beat-judge j${i + 1}`; e.textContent = ''; });
     this.clash(true, 0.5, colors, hint);
     this.clashBeat(c);
   }
 
   clashBeat(c) {
+    // A rollback (Game.quiet, ADR 0036) restores a copy of Game.clash, and the frames it re-simulates can start a clash
+    // (or another one) while the HUD is stood in for, so no clashStart was shown for it: another clash gets its rings,
+    // colors and judges anew, the same one only keeps the copy's chart. No frame reads a ring it doesn't have.
+    if (c.chart !== this.clashChart) {
+      if (clashKey(c) !== this.clashId || this.clashEl.classList.contains('hidden')) return this.clashStart(c, ['#' + c.ca.getHexString(), '#' + c.cb.getHexString()]);
+      this.clashChart = c.chart;
+    }
     const now = c.timer, lead = c.chart.lead;
     let hold = null, tick = false;
     c.chart.notes.forEach((n, i) => {

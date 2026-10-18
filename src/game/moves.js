@@ -147,6 +147,8 @@ export const HIT_FLASH = {
   tick: { pop: 0, lift: 0.3, rim: 0.7, rimColor: 0xffffff, fade: 5, shake: 0.03 },
   parry: { pop: 1, lift: 0.3, rim: 1, rimColor: 0x9ff0ff, fade: 8, shake: 0 },
   burn: { pop: 0, lift: 0.25, rim: 0.6, rimColor: null, fade: 6, shake: 0 },
+  // Amaterasu catching (ENG-SKL-SAS): no white at all, a dark crimson rim as the black flames take them
+  ignite: { pop: 0, lift: 0, rim: 1, rimColor: 0x5c1226, fade: 12, shake: 0.09 },
   tech: { pop: 1, lift: 0.4, rim: 1, rimColor: 0xc8f8ff, fade: 10, shake: 0 }, // a timed impact tech (ADR 0028)
 };
 
@@ -246,6 +248,10 @@ export const SPECIALS = {
     anim: 'special', startup: 28, cancelStartup: 16, active: 18, recovery: 20, dmg: 152, reach: 1.3, width: 1.05,
     launch: [14, 11], hitstop: 20, rush: 18, cost: 100, big: true, shake: 0.9, special: true, wallBounce: true,
     fx: 'chidori', sfxLoop: 'chidori', color: '#9ad8ff', name: 'CHIDORI', spark: 'smash', ground: 'lightning', clash: 'rush',
+    // the anime's (ENG-SKL-SAS): the hand dragged along the floor through the run tears a trench (`trench`, a ground
+    // style), contact jumps to the drawn stab (`hitPose`: that frame's place in the active phase) and the lightning
+    // pierces through them (`blastFx`) instead of the generic white-out
+    trench: 'lightningTrench', hitPose: 0.85, blastFx: { fx: 'chidoriBurst', scale: 0.95, smoke: 1 },
   },
 };
 
@@ -256,13 +262,16 @@ export const SPECIALS = {
 //          Rush specials with `clash: 'rush'` (Rasengan, Chidori) are driven into the stream by hand.
 export const PROJECTILES = {
   shuriken: { count: 3, spread: 0.2, speed: 22, radius: 0.35, dmg: 22, hitstun: 16, push: 2, airPop: 4, life: 1.2, sprite: 'shuriken', scale: 0.55, sfx: 'shuriken', spark: 'light' },
-  fireball: { count: 1, spread: 0, speed: 12, radius: 0.85, dmg: 80, launch: [8, 7], life: 1.6, sprite: 'fire', scale: 1.5, sfx: 'fireball', big: true, spark: 'heavy', glowColor: 0xff7a20, trail: 'fire', burst: 'explosion', ground: 'fire',
+  // Sasuke's Great Fireball (ENG-SKL-SAS): the HD rolling sphere turned along its flight (`orient`) and its own fire blast
+  fireball: { count: 1, spread: 0, speed: 12, radius: 0.85, dmg: 80, launch: [8, 7], life: 1.6, sprite: 'greatFireball', scale: 0.95, orient: true, sfx: 'fireball', big: true, spark: 'none', glowColor: 0xff7a20, trail: 'fire', burstFx: { fx: 'greatFireballBurst', scale: 0.95, sfx: 'explosion', shake: 0.5 }, ground: 'fire',
     clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c', style: 'flame' } },
   // Killua's Narukami: a very fast lightning bolt with a long stun
   bolt: { count: 1, spread: 0, speed: 36, radius: 0.45, dmg: 58, hitstun: 38, push: 3, airPop: 7, life: 0.55, sprite: 'lightning', scale: 0.95, color: 0xd8f0ff, glowColor: 0x6ab8ff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true, ground: 'lightning',
     clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff', style: 'bolt' } },
-  // Sasuke's Chidori Sharp Spear: a lightning lance that only reaches ~6 units, but instantly
-  spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true, ground: 'lightning',
+  // Sasuke's Chidori Sharp Spear: a lightning lance that only reaches ~5 units, but instantly. Drawn as the blade
+  // growing out of his hand (`lance`: the HD strip laid along the shot, f3-f5 held while it is out; ENG-SKL-SAS)
+  spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'none', ground: 'lightning',
+    lance: { fx: 'chidoriSpear', len: 4.9, seq: [0, 1, 2, 3, 4, 5, 3, 4, 5, 6, 7], ms: 35 }, burstFx: { fx: 'chidoriBurst', scale: 0.55, smoke: 0 },
     clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc', style: 'lance' } },
   // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall
   red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048, ground: 'repel',
@@ -329,11 +338,19 @@ export const SPECIAL_MOVES = {
 
   // ---- Sasuke (Hebi era)
   chidoriSpear: { kind: 'shot', anim: 'specialForward', startup: 9, active: 3, recovery: 18, projectile: true, proj: 'spear', cost: 50, name: 'CHIDORI SPEAR', color: '#9ad8ff' },
+  // Lion's Barrage: the rising kick, then (`shadow`, ENG-SKL-SAS, kit.js shadowTick) the Shadow of the Dancing Leaf: he
+  // blinks behind them after `blink` frames as they rise `climb` units over `follow` frames (`behind` beyond them,
+  // `below` under them), lands the `hits` (each its strip over `len` frames, the blow on frame `at`), flips `above`
+  // them over `over` frames and drives them into the floor with the heel drop, `under` him
   lionsBarrage: {
     kind: 'dive', anim: 'specialUp', cost: 100, rise: 12, riseV: 14, hang: 4, slamV: -34, area: 1.6, recovery: 16, landFx: 'dust',
     name: "LION'S BARRAGE", color: '#9ad8ff', ground: 'stone',
     riseHit: { dmg: 40, launch: [2, 12], hitstop: 8, spark: 'heavy' },
     hit: { dmg: 98, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
+    shadow: {
+      blink: 3, follow: 10, climb: 1.6, behind: 0.75, below: 0.2, above: 1.15, over: 7, under: 0.95, callout: "LION'S BARRAGE!",
+      hits: [{ anim: 'airLight2', len: 8, at: 3, dmg: 10, spark: 'light' }, { anim: 'airLight1', len: 7, at: 2, dmg: 10, spark: 'light' }, { anim: 'airLight3', len: 9, at: 4, dmg: 12 }],
+    },
   },
   lionsBarrageAir: {
     kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.6, recovery: 16, landFx: 'dust', name: "LION'S BARRAGE", color: '#9ad8ff', ground: 'stone',
@@ -344,6 +361,7 @@ export const SPECIAL_MOVES = {
     kind: 'counter', anim: 'specialDown', cost: 50, len: 20, recovery: 14, stagger: 22, onCounter: 'strike', follow: 'vanishKick',
     name: 'SHARINGAN', callout: 'SHARINGAN!', color: '#ff3040',
     sigil: true, eyeFlash: true, // the fighter's `eyes` pattern behind him and the red eyes in the HUD (ADR 0035)
+    current: { fx: 'chidoriCurrent', scale: 1.35 }, // the read answered with Chidori Current (ENG-SKL-SAS)
   },
 
   // ---- Killua (Godspeed era)
@@ -450,8 +468,22 @@ export const SUPERS = {
     },
   },
   unlimitedVoid: { kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff' },
-  kirin: { kind: 'skyStrike', cost: 300, flash: 40, delay: 40, radius: 2.0, dmg: 280, launch: [6, 16], recovery: 24, pose: 'beamCharge', strikePose: 'beamFire', name: 'KIRIN', color: '#9fd8ff', ground: 'lightningBig' },
-  amaterasu: { kind: 'ignite', cost: 300, flash: 46, delay: 10, recovery: 26, dmg: 80, launch: [4, 9], burn: { len: 200, every: 20, dmg: 14 }, name: 'AMATERASU', callout: 'AMATERASU', color: '#c040ff', ground: 'blackFire', sigil: 'mangekyo' },
+  // Kirin (Sasuke): `storm` plays the anime's sequence inside the sky strike's frames (ENG-SKL-SAS, kit.js stormTick):
+  // the Great Fireball breathed up (it takes `heat` frames to reach the sky), `clouds` thunderclouds `spread` apart
+  // gathering `height` units over the spot from `cloudAt` over `gather` frames while the stage dims to `dim` (and the
+  // camera tips up by `lift`), his arm
+  // swung down `swing` frames before the strike (strikePose) and the dragon diving the last `dive` frames (its head
+  // landing at `headLand`), its body lingering `linger` frames after
+  kirin: {
+    kind: 'skyStrike', cost: 300, flash: 40, delay: 40, radius: 2.0, dmg: 280, launch: [6, 16], recovery: 24, pose: 'beamCharge', strikePose: 'beamFire', name: 'KIRIN', color: '#9fd8ff', ground: 'lightningBig',
+    storm: { heat: 14, cloudAt: 4, gather: 18, height: 3.7, clouds: 5, spread: 1.9, cloudScale: 1.75, dim: 0.6, lift: 1, swing: 9, dive: 6, headLand: 1.25, headScale: 1.15, bodyScale: 1.0, linger: 8, strikeFx: 'kirinStrike', strikeScale: 1.5 },
+  },
+  // Amaterasu (Sasuke): the black flames burst on them (`blastFx`) with no white flash (`hitFlash`), and while they burn
+  // the blaze clings to their body (`burn.fx`, kit.tickBurn) in black and dark crimson (ENG-SKL-SAS)
+  amaterasu: {
+    kind: 'ignite', cost: 300, flash: 46, delay: 10, recovery: 26, dmg: 80, launch: [4, 9], burn: { len: 200, every: 20, dmg: 14, fx: 'amaterasu' }, name: 'AMATERASU', callout: 'AMATERASU', color: '#d01c3a', ground: 'blackFire', sigil: 'mangekyo',
+    blastFx: { fx: 'amaterasuIgnite', scale: 1.1, smoke: 0 }, hitFlash: 'ignite',
+  },
 
   // ---- ultimates with their own shape (ADR 0017): one beam in the cast at most, every other finisher different
   // Hollow Purple (Gojo): Red from the near hand and Blue from the far hand meet in front of him (`merge` frames) and
