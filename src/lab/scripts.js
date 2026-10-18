@@ -136,7 +136,7 @@ export function moveList(def) {
   add('Normals', 'Air light × 3 (air string)', `${fd(m('airLight1'))} …`, [hop(0), tap(12, 'light'), tap(24, 'light'), tap(36, 'light')]);
   add('Normals', 'Short hop neutral air (Jump + Light)', dm('airLight1'), [tap(0, ['jump', 'light'], { len: 2 })], 1.0);
   add('Normals', 'Short hop → air: forward air', dm('fair'), [tap(0, ['jump', 'light'], { len: 2, stick: 'toward' }), { t: 2, stick: 'toward', len: 2 }], 1.1);
-  add('Normals', 'Back air (run off, jump, ← toward them)', dm('bair'), [{ t: 0, stick: 'away', len: 9 }, tap(9, ['jump', 'light'], { len: 2, stick: 'toward' })], 0.8);
+  add('Normals', 'Back air (run off, jump, ← toward them)', dm('bair'), [{ t: 0, stick: 'away', len: 4 }, tap(4, ['jump', 'light'], { len: 2, stick: 'toward' })], 0.9);
   add('Normals', '↑ air: up air', dm('uair'), [hop(0), tap(10, 'light', { stick: 'up' })], 0.9);
   add('Normals', 'Air heavy or ↓ air: down air (spike)', `${fd(m('airHeavy'))} · ${m('airHeavy').dmg} dmg`, [hop(0), tap(14, 'heavy')]);
   add('Normals', 'Throw (Light + Heavy close)', `${THROW.startup}/${THROW.active} f · ${THROW.hit.dmg} dmg · break window ${THROW.techWindow} f`, [tap(0, ['light', 'heavy'])], 0.9);
