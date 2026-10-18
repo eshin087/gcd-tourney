@@ -201,3 +201,14 @@ The user authorized one more capped round of up to three image calls for dTilt, 
 | `25c6ecfc-88a4-47d1-8d85-cc7d3e4ab3e4` | `dTilt_v05_attempt03.png` | `A5C6A920847732F086810B498F8B79C15B9C82BC46F6D44B2554102706932123` |
 
 The relay #8 budget is exhausted; a fresh user decision is required before more dTilt calls. The earlier approved uTilt v01 remains on technical hold; its three-call head-only v02 round repainted the full strip and yielded no candidate. Whether to authorize another uTilt correction or keep its stand-in is also still open.
+
+### Authorized uTilt head-only image edit (recorded in main NOW, 2026-10-18)
+
+The user's instruction was to enlarge only the head of approved uTilt v01 to match the approved idle, preserving the same
+poses and all non-head pixels, as v02 by image edit with no new text-to-image generation. One image-edit call was used:
+`exec-962f5788-1d3f-40ca-9fe0-6ba5b6ddb99c`. It returned 2172x724, 1,714,887 bytes; source SHA-256
+`91c0c2c3a2c29014d851dd2fc2077818c4550b0de920d4210058f2bdfd727c56`; output SHA-256
+`00a0414a47d440122a83106420e3cf78080efea3b2a5d222b43f9d8094a3fbd5`. Pixel comparison found 1,564,454 changed pixels
+and a changed bounding box covering the full canvas (0,0)-(2172,724). It is a full repaint, not a localized edit, so no
+`uTilt_v02.png` was selected. The output is preserved as `raw/_qa_hold/uTilt_v02_edit_attempt.png`; approved v01 remains
+held with its stand-in active. Any further uTilt attempt needs a new user decision.
