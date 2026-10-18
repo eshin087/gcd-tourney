@@ -1,3 +1,4 @@
+- Changed (ART-SKL-SAS): prepared batch 3 review for the six Great Fireball/Kirin HD effects and filed beamFire v08; PR #163 preview is linked in NOW. beamFire remains held at 1.15x head probe after auto-head fit with no accepted atlas/body/Astra audit, and kirinStrike reports clipping.
 # Changelog
 
 All notable changes to GCD Tourney are documented here.
