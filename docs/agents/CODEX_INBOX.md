@@ -129,6 +129,9 @@ Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`
 
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
 
+- [x] **Codex relay #5 correction (2026-10-17):** committed `88981058` on `art/size-r6`; Sasuke `beamStruggle` v04 now uses bodyHeight134 and has a refreshed review page. Gojo heavy's 1.08x test was cell-limited (packer cap 237), so v05 stays unchanged. Preview build passed: https://gcd-tourney-lxcam7v5w-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v04/. Diagnostics preserved outside the branch (88.3 MB). No camera/engine change. User approval is next; broader filtered-candidate follow-up remains open.
+
+
 **Correction to the answer below, after ring #2 (2026-10-17, handoff `18577741`).** Claude measured heads by
 scale-search template matching (idle f0's head crop resampled 0.5-1.4x, mirrored too, best normalized
 cross-correlation). Controls: Sasuke idle f3 0.98, combat cell 0.98, light1 1.02, beamFire 1.02, run 0.98.
