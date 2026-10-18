@@ -1,3 +1,4 @@
+- Changed (ART-SKL-SAS): via user approval relayed by Claude #17, recorded `chidori` v01 and `special` v14 as visually approved. Claude will pack Chidori in HD and correct special v14 frame splitting; the special retains its strict scale/Astra/clipping technical hold, and Chidori raw layout/palette caveats remain.
 - Changed (ART-SKL-SAS): batch 3 candidates filed: beamFire v08 and Great Fireball/Kirin effects v01. Six VFX await user visual review; kirinStrike has a clipping report. beamFire remains technically held because strict scale fails after auto-head fit; no quantized atlas, body sheet or final Astra atlas audit is available.
 # Changelog
 

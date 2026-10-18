@@ -1,3 +1,11 @@
+# ART-SKL-SAS — batch 1 approval recorded (2026-10-18, relay skills #17)
+
+USER APPROVAL via Claude relay skills #17: the user approved `chidori` v01 and `special` v14. Quote: “Chidori ball: Approve v01 (Recommended): I pack it in HD and it replaces my placeholder ball in his hand. Chidori strip: Approve v14: Approve the drawing as it is; I fix the frame split, and the head/clothing fullness stays as drawn.”
+
+Recorded in `art/REVIEW.md`, `art/manifest.json` and `art/TRACKER.md`. `special` v14 is visually approved with `approvedVersion: 14`; technical scale/Astra/clipping holds remain. Claude owns correcting its frame split without changing the user's approved fullness. `chidori` v01 is visually approved with `approvedVersion: 1`; Claude owns the HD pack and game replacement. Raw source-layout/palette caveats remain for integration disposition. No image pixels or dimensions were changed by this bookkeeping.
+
+---
+
 # ART-SKL-SAS — batch 3 candidates (2026-10-18)
 
 Branch `art/sasuke-skills`; worktree `E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-sasuke-skills`. Candidate commit is being prepared. Review gallery: [Sasuke skills batch 3](https://gcd-tourney-huua9kkyv-eshin087s-projects.vercel.app/reviews/sasuke-skills-batch3/); [PR #163](https://github.com/eshin087/gcd-tourney/pull/163), branch commit `20170eb0`. Six effects A8-A13 (`greatFireball` v01, `greatFireballBurst` v01, `stormCloud` v01, `kirinBody` v01, `kirinHead` v01, `kirinStrike` v01) are ready for user visual review; candidate pack detects the brief frame counts, but `kirinStrike` reports clipping and several source geometry/seam issues need Claude's HD in-game review. No visual approval or integration is implied.
