@@ -238,6 +238,16 @@ Sprite Lab; if his hair adds clearly less height and his head comes out bigger, 
 | 9 | specialUp | 6 | 2/2/2 | no | 203 | approved | v09 | v09 | User approved v09 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. Round 2 strict ok candidate; needs user review; approved version retained. [QA](characters/sasuke/production/title-style/round2/QA.md). |
 | 9 | specialDown | 4 | 2/1/1 | no | 204 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | superPose | 4 | - | no | 208 | approved | v01 | v01 | Fallback: original v01 (title v03 passes but was never shown). Approved original v01. |
+| 9 | fTilt | 7 | 2/2/3 | no | 180 | technical hold | v01 | - | 3/3 calls; source figures touch across frame columns. Not packed. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | uTilt | 7 | 2/2/3 | no | 213 | technical hold | v01 | - | Packed at 48 colors; f2 hand hitbox override; body/head scale and lab contact remain unverified. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | dTilt | 6 | 2/2/2 | no | 200 | technical hold | v02 | - | Packed at 48 colors; five isolated specks removed; no idle scale baseline in this branch pack. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | dashAttack | 7 | 2/2/3 | no | 193 | technical hold | v03 | - | 3/3 calls; f2 lacks a clear strike limb and the generated figures still touch. Not packed. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | fSmash | 9 | 4/2/3 | no | 193 | technical hold | v02 | - | v02 packed; v03 held for 2 px margin clipping. f1 is the held charge pose. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | uSmash | 8 | 3/2/3 | no | 213 | technical hold | v03 | - | 3/3 calls; active f3 still lacks a visible overhead strike. Not packed. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | dSmash | 8 | 3/2/3 | no | 200 | technical hold | v03 | - | 3/3 calls; f4 clips 1 px beyond the required cell margin. Not packed. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | fair | 6 | 2/2/2 | no | 203 | technical hold | v03 | - | Packed at 48 colors; no clipping warning. Body scale and in-game contact remain unverified. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | bair | 6 | 2/2/2 | no | 194 | technical hold | v01 | - | Packed at 48 colors; strike goes behind toward screen-left. Body scale and in-game contact remain unverified. [ENG-112 review](../public/reviews/normals-sasuke/). |
+| 9 | uair | 6 | 2/2/2 | no | 213 | technical hold | v01 | - | Packed at 48 colors; upward kick clears head. Body scale and in-game contact remain unverified. [ENG-112 review](../public/reviews/normals-sasuke/). |
 
 User approved v07 as drawn on 2026-10-15. Visual approval only; all Astra anatomy and technical HOLDs remain for Claude. No merge or production authorization.
 

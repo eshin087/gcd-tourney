@@ -1,0 +1,30 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/fSmash_v02.png",
+  "version": 2,
+  "source": [
+    "characters/sasuke/raw/fSmash_v02.png"
+  ],
+  "sourceHash": "187326bb2013c0455e043d7d5547e1e0599b2577",
+  "bodyHeight": 193,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "fSmash_00.png": "1bd6b634d83ad23618ea19f0ef98b71100ee19f0",
+    "fSmash_01.png": "ded0db3f0a42e22a3da94116cc362a67f8f44b0b",
+    "fSmash_02.png": "058620331ef6b157253a8ad0031f7100816f9a92",
+    "fSmash_03.png": "bb62516320bbd37dadf8fd083dc2b4e90d3d58b7",
+    "fSmash_04.png": "f7c4a64f720bd1fcaa7a21ab75eff33c9c247be5",
+    "fSmash_05.png": "574738f0fedcf704195ad7b888c8e4982d95ef6e",
+    "fSmash_06.png": "54c1cf49c569e99bb99633c70cf2ec492f3627b7",
+    "fSmash_07.png": "b4190e31c2b12087382bb9c09001b7fd1f81f3d0",
+    "fSmash_08.png": "b57674deda09b5e247cb5a62a4e2d0e436b3ef4f"
+  }
+}

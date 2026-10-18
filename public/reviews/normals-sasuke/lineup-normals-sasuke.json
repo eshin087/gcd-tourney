@@ -1,0 +1,17 @@
+{
+  "rows": [
+    "idle:0",
+    "uTilt:2",
+    "dTilt:2",
+    "fSmash:4",
+    "fair:3",
+    "bair:3",
+    "uair:3"
+  ],
+  "fighters": [
+    "sasuke"
+  ],
+  "candidate": null,
+  "measured": {},
+  "heads": {}
+}

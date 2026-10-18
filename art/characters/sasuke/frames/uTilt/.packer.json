@@ -1,0 +1,28 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/uTilt_v01.png",
+  "version": 1,
+  "source": [
+    "characters/sasuke/raw/uTilt_v01.png"
+  ],
+  "sourceHash": "dc47c0f7b3c0b87cf65230452e04383e3faa0529",
+  "bodyHeight": 213,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "uTilt_00.png": "ff2922d7bba1bce1e723249ddd392165983bf38f",
+    "uTilt_01.png": "7f962465dca523a89cb5d40097a152139740406b",
+    "uTilt_02.png": "c2a94fdc1ded3338ea89c84a7333dc359d3cc9f6",
+    "uTilt_03.png": "920ca1c1289f2ca45545e823a8d71eb5cae9fbc4",
+    "uTilt_04.png": "99592f42f349045e86cc517a600dfd531d28a546",
+    "uTilt_05.png": "4fe0ac528512f63915d7943b852f921d0710cbbb",
+    "uTilt_06.png": "80932c63b9c17a79138a8135d160e3bcfc81d662"
+  }
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sasuke directional normals — ENG-112</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; background: #101622; color: #e7eef5; font: 15px/1.5 system-ui, sans-serif; }
+    main { max-width: 1500px; margin: 0 auto; padding: 24px; }
+    h1, h2, h3 { line-height: 1.2; }
+    section { margin: 28px 0; padding: 20px; background: #192333; border-radius: 12px; overflow: auto; }
+    .status { padding: 10px 14px; border-left: 4px solid #f0b44c; background: #252b32; }
+    .hold { color: #ffd184; }
+    .candidate { color: #a9e6b2; }
+    .row { display: grid; grid-template-columns: repeat(3, minmax(250px, 1fr)); gap: 16px; align-items: start; }
+    figure { margin: 0; min-width: 0; }
+    figcaption { margin: 0 0 8px; font-weight: 650; }
+    .frames { display: flex; flex-wrap: wrap; align-items: end; gap: 3px; }
+    .frames img, .idle { width: 112px; height: 112px; object-fit: contain; background: #11151b; image-rendering: pixelated; }
+    .frame { text-align: center; color: #b8c3d2; font: 11px ui-monospace, monospace; }
+    .loop { width: 192px; height: 192px; object-fit: contain; background: #11151b; image-rendering: pixelated; }
+    .links a, a { color: #9bd5ff; }
+    .small { color: #b8c3d2; font-size: 13px; }
+    @media (max-width: 900px) { .row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body><main>
+  <h1>Sasuke directional normals — ENG-112</h1>
+  <p>Review-only art candidates. Six strips are packed into this branch's partial atlas; four remain on technical hold, so their existing gameplay stand-ins remain in use. No version is user-approved. Candidate frames are shown beside the stand-in they replace and approved idle f0 at the same 256 px cell size.</p>
+  <p class="status"><strong>Audit result: HOLD on all six packed candidates.</strong> Astra's final anatomy and scale audit found that none can pass without a certified idle baseline; uTilt f3 and bair f2/f3 contact boxes have been corrected against the quantized atlas. dTilt v02 remains held because its active strike reads waist/stomach height, not shins. The packer returned 48 colors, but the scale gate could not measure because this branch pack has no idle animation. Body sheet and lineup tools both report “no idle packed”; the lineup below is diagnostic only. The local Sprite Lab could not be reached from this restricted browser session, so strike-box landing in-game is unverified. Do not treat visual previews or the quantized pack as approval.</p>
+  <p class="links"><a href="../../characters/sasuke/sheet.png">Branch atlas</a> · <a href="../../characters/sasuke/anims.json">anims.json</a> · <a href="lineup-normals-sasuke.png">lineup diagnostic</a> · <a href="body/body-report.json">body report</a> · <a href="https://gcd-tourney.vercel.app/?fight=sasuke,naruto&amp;mode=solo&amp;art=custom">current production site (not this branch preview)</a></p>
+  <p class="small">The loop GIFs for eligible strips use the quantized/cleaned frames in the partial branch atlas. Loop GIFs for held strips use a source-only, cell-sliced preview normalized to each manifest bodyHeight; they are not packed frames and cannot establish anatomy scale. Raw generated strips are linked in each section. Sword sheathing was visually checked in the visible source and packed frames; anatomy remains for Astra.</p>
+  <div id="moves"></div>
+</main>
+<script>
+const moves = [
+  { name: 'fTilt', v: 'v01', fallback: 'light2', count: 7, kind: 'source_frames', prefix: 'fTilt_v01_', gif: 'fTilt_loop_v01.gif', file: 'candidates/fTilt_v01.png', hold: 'Hold after 3 calls: generated figures touch across the column split; candidate not packed.' },
+  { name: 'uTilt', v: 'v01', fallback: 'heavy', count: 7, kind: 'packed', prefix: 'uTilt_', gif: 'uTilt_loop_v01.gif', file: 'candidates/uTilt_v01.png', note: 'Astra HOLD: no certified idle scale baseline. f2/f3 packed-cell contact boxes were updated after Astra findings; lab landing remains unverified.' },
+  { name: 'dTilt', v: 'v02', fallback: 'light3', count: 6, kind: 'packed', prefix: 'dTilt_', gif: 'dTilt_loop_v02.gif', file: 'candidates/dTilt_v02.png', note: 'Astra HOLD: waist/stomach-height strike is below the required shin-height contact. No replacement strip retained.' },
+  { name: 'dashAttack', v: 'v03', fallback: 'light4', count: 7, kind: 'source_frames', prefix: 'dashAttack_v03_', gif: 'dashAttack_loop_v03.gif', file: 'candidates/dashAttack_v03.png', hold: 'Hold after 3 calls: f2 does not show a clear strike limb and the source poses still touch at column boundaries; candidate not packed.' },
+  { name: 'fSmash', v: 'v02', fallback: 'light4', count: 9, kind: 'packed', prefix: 'fSmash_', gif: 'fSmash_loop_v02.gif', file: 'candidates/fSmash_v02.png', note: 'Packed v02 selected; v03 was held after it clipped the 4 px cell margin. Frame 01 is the charge pose. <a href="candidates/fSmash_v03.png">View held v03 source</a>.' },
+  { name: 'uSmash', v: 'v03', fallback: 'heavy', count: 8, kind: 'source_frames', prefix: 'uSmash_v03_', gif: 'uSmash_loop_v03.gif', file: 'candidates/uSmash_v03.png', hold: 'Hold after 3 calls: active f3 still has no visible overhead strike; candidate not packed.' },
+  { name: 'dSmash', v: 'v03', fallback: 'light3', count: 8, kind: 'source_frames', prefix: 'dSmash_v03_', gif: 'dSmash_loop_v03.gif', file: 'candidates/dSmash_v03.png', hold: 'Hold after 3 calls: active f4 remains 1 px outside the required cell margin; all versions excluded from atlas.' },
+  { name: 'fair', v: 'v03', fallback: 'airLight2', count: 6, kind: 'packed', prefix: 'fair_', gif: 'fair_loop_v03.gif', file: 'candidates/fair_v03.png', note: 'Packed; no clipping warning in the final quantized pass.' },
+  { name: 'bair', v: 'v01', fallback: 'airLight3', count: 6, kind: 'packed', prefix: 'bair_', gif: 'bair_loop_v01.gif', file: 'candidates/bair_v01.png', note: 'Astra HOLD: f2/f3 packed-cell boxes now follow the rear kicking foot screen-left; no certified idle scale baseline.' },
+  { name: 'uair', v: 'v01', fallback: 'heavy', count: 6, kind: 'packed', prefix: 'uair_', gif: 'uair_loop_v01.gif', file: 'candidates/uair_v01.png', note: 'Astra HOLD: f1 raised arm confuses the head probe; f2/f3 read 0.947, and no certified scale/body-volume pass is available. Upward kick clears the head; lab contact remains unverified.' },
+];
+const host = document.querySelector('#moves');
+for (const move of moves) {
+  const section = document.createElement('section');
+  const status = move.hold ? `<strong class="hold">TECHNICAL HOLD — fallback remains active.</strong> ${move.hold}` : `<strong class="candidate">Packed candidate — Astra HOLD; not approved.</strong> ${move.note}`;
+  const prefix = move.kind === 'packed' ? `packed/${move.name}/${move.prefix}` : `source_frames/${move.name}/${move.prefix}`;
+  const candidateFrames = Array.from({length: move.count}, (_, i) => `<div class="frame"><img src="${prefix}${String(i).padStart(2, '0')}.png" alt="${move.name} frame ${i}">${i}</div>`).join('');
+  const fallbackFiles = { light2: 7, heavy: 8, light3: 7, light4: 8, airLight2: 5, airLight3: 6 };
+  const standinFrames = Array.from({length: fallbackFiles[move.fallback]}, (_, i) => `<div class="frame"><img src="standins/${move.name}/${move.fallback}_${String(i).padStart(2, '0')}.png" alt="${move.fallback} stand-in frame ${i}">${i}</div>`).join('');
+  section.innerHTML = `<h2>${move.name} ${move.v} — fallback: ${move.fallback}</h2><p>${status}</p><div class="row"><figure><figcaption>Approved idle f0</figcaption><img class="idle" src="standins/idle_00.png" alt="Approved Sasuke idle frame 0"></figure><figure><figcaption>Existing stand-in: ${move.fallback}</figcaption><div class="frames">${standinFrames}</div></figure><figure><figcaption>Candidate frames · ${move.hold ? 'source-only' : 'quantized atlas'}</figcaption><div class="frames">${candidateFrames}</div><img class="loop" src="${move.gif}" alt="${move.name} loop preview"><p><a href="${move.file}">raw ${move.v} strip</a></p></figure></div>`;
+  host.append(section);
+}
+</script></body></html>
