@@ -441,18 +441,18 @@ Ten optional strips per fighter (step 9), the Smash-style moves the stick picks:
 2/2/3), `dTilt`, `fair`, `bair`, `uair` (6, 2/2/2), `fSmash` (9, 4/2/3; frame 2 is the held charge pose), `uSmash`,
 `dSmash` (8, 3/2/3). The engine plays them on stand-in strips until they are packed (art/SPEC.md "Directional normals":
 `light2`, `heavy`, `light3`, `light4`, `airLight2`, `airLight3` mirrored for the back air), so nothing waits on them. The
-manifest lists all ten per fighter (status `todo`, bodyHeight copied from that fighter's stand-in strip). **Not started:**
-they wait for the running art audit (user, 2026-10-17) and for the packer's second sheet page (TOOL-060): a fighter with
-every alt and all ten is past one 4096 sheet. Task ENG-112.
+manifest lists all ten per fighter (status `todo`, bodyHeight copied from that fighter's stand-in strip). **In progress**
+(2026-10-18, ENG-112): Codex chat "4 - Combat Overhaul" (relay lane `combat`) draws them one fighter per branch
+(`art/normals-<id>`): Sasuke, Killua, Gojo, Goku, Luffy, then Naruto after the packer's second sheet page (TOOL-060).
 
 | fighter | tilts (f / u / d) | dashAttack | smash attacks (f / u / d) | aerials (fair / bair / uair) | notes |
 |---|---|---|---|---|---|
-| naruto | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
-| sasuke | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
-| killua | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
-| gojo | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
-| goku | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
-| luffy | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
+| naruto | todo | todo | todo | todo | ENG-112, branch art/normals-naruto (last, after TOOL-060) |
+| sasuke | todo | todo | todo | todo | ENG-112, branch art/normals-sasuke |
+| killua | todo | todo | todo | todo | ENG-112, branch art/normals-killua |
+| gojo | todo | todo | todo | todo | ENG-112, branch art/normals-gojo |
+| goku | todo | todo | todo | todo | ENG-112, branch art/normals-goku |
+| luffy | todo | todo | todo | todo | ENG-112, branch art/normals-luffy |
 
 ## VFX atlas (step 10)
 

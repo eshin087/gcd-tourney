@@ -15,6 +15,81 @@ How it works:
 
 ---
 
+## Smash-style moves: art for the 10 new normals, all six fighters (2026-10-18, Claude) - chat "4 - Combat Overhaul", relay lane `combat`
+
+**The user's request (2026-10-18, in Claude "Smash-style combat system"):** "have codex make art sprites and frame
+animations for all the new moves for every character in the 4-combat overhaul chat". Task **ENG-112**, now unblocked:
+the art audit it waited for is done (size round 7, PR #153). The moves are live in the game since PR #147
+([ADR 0042](../decisions/0042-smash-directional-normals.md)) on **stand-in strips** (an existing strip each, the back air
+shown mirrored); your strips replace them. Gameplay never changes with the art: timing, damage and launch live in
+`src/game/moves.js`; the drawn strike only decides where the hit box is.
+
+**The 10 strips per fighter** (60 in all). Frames, phases and the pose of each are in
+[art/SPEC.md "Directional normals"](../../art/SPEC.md#directional-normals) (read it first; it wins), the per-fighter
+fill-in table is the "Directional normals" section of [art/characters/_template/ANIMATIONS.md](../../art/characters/_template/ANIMATIONS.md)
+(copy it into each fighter's ANIMATIONS.md and fill it in), and the manifest already lists every strip per fighter
+(status `todo`, bodyHeight from the stand-in):
+
+| strip | frames / phases | what | strike must reach |
+|---|---|---|---|
+| `fTilt` | 7, 2/2/3 | forward tilt: a long strike at chest height | MID, in front |
+| `uTilt` | 7, 2/2/3 | up tilt: an arc from in front of the face up over the head (anti-air) | in front of the face, then above the head |
+| `dTilt` | 6, 2/2/2 | down tilt: a quick low poke from a crouch | LOW (shins), in front |
+| `dashAttack` | 7, 2/2/3 | a running lunge strike carrying the run forward | MID, in front |
+| `fSmash` | 9, 4/2/3 | forward smash: big wind-up, full-body blow; **frame 01 is the charge pose the game holds** while Heavy is held | MID, in front |
+| `uSmash` | 8, 3/2/3 | up smash: a powerful strike straight up from a crouch | above the head |
+| `dSmash` | 8, 3/2/3 | down smash: low strikes to **both sides** on its active frames | LOW, in front and behind |
+| `fair` | 6, 2/2/2 | forward air: the main aerial, in front | in front, at the body's height |
+| `bair` | 6, 2/2/2 | back air, the strongest aerial: **drawn facing right, the strike going LEFT (behind)** | behind the body |
+| `uair` | 6, 2/2/2 | up air: straight up over the head | above the head |
+
+**Each fighter keeps their own fighting style** (their CHARACTER.md and the strips already approved): Naruto a scrappy
+brawler (kicks, haymakers, no clones in normals); Sasuke clean taijutsu with the **sword sheathed at the small of his
+back in every frame** (his rules); Killua the assassin with **claws only where his CHARACTER.md allows**; Gojo mostly
+kicks, **hands-in-pockets per his schedule** (a pocketed hand stays pocketed unless the schedule frees it); Goku Cell-saga
+martial arts; Luffy **rubber stretches** (a stretched limb stays inside the 256 cell, like his Pistol). Title-style
+anatomy and the fighter's own body scale in every frame (PRODUCTION_CONTRACT.md, ADR 0029; head probe 0.97-1.03, body
+sheet B 0.93-1.07 against idle f0); crouches and lunges are posed, never resized.
+
+**Order and branches (storage: at most two art worktrees at once).** One fighter per branch, so each can be approved and
+merged alone: **Sasuke, Killua, Gojo, Goku, Luffy, then Naruto last.** Naruto is last because (a) the `skills` lane is
+redrawing his beam strips on `art/naruto-skills` right now (touch only these ten strips of his), and (b) his sheet
+already holds 243 frames, so his ten new strips push it past one 4096 sheet: Claude adds a second sheet page to the
+packer (TOOL-060) before his batch ships. The other five fit (Sasuke / Killua / Gojo 249 of 256 cells).
+
+Do, per fighter (Luna/medium for generation; Astra/medium final audit, per CLAUDE.md "Agent model selection"):
+
+- [ ] 1. `npm run pr -- start art/normals-<id> --art <id>` (dev port 5251 + n). Branch `art/normals-<id>`.
+- [ ] 2. Generate the ten strips as `raw/<strip>_v01.png` (next free version; never overwrite a `_vNN`, `_qa_hold` or
+  `_rejected` included). **Budget: 3 image calls per strip.** A strip that misses after 3 calls goes to `raw/_qa_hold/`
+  with the reason (the game keeps its stand-in) and you continue with the rest.
+- [ ] 3. Manifest `version` with status `needs review` (leave `approvedVersion`), the ANIMATIONS.md "Directional normals"
+  table filled in, `node tools/pack-sprites.mjs <id> --quantize 48`, body sheet (`npm run body <id> fTilt uTilt ...`) and
+  `npm run lineup`. Check each strike's hit box in the lab (ANIMATIONS tab shows the boxes; MOVES tab plays each move on
+  the dummy): the hit has to land where the table above says. A wrong auto box gets a `hitboxes.json` entry on the drawn
+  fist or foot; never move the strike to fit a box.
+- [ ] 4. Astra/medium audits every frame and loop of the ten strips in the packed atlas against idle f0 and the
+  approved neutral / combat cells (head, torso, limbs, build, clothing volume; the fighter's rules above). Luna fixes holds
+  within the budget; record versions, evidence and uncertainty.
+- [ ] 5. Review page `public/reviews/normals-<id>/`: each strip frame by frame and as a loop GIF, beside the stand-in
+  strip it replaces and idle f0 at one density, plus one line per move saying what it is. Review rows in art/REVIEW.md,
+  commit, `npm run pr -- open`, `npm run pr -- preview`, handoff at the top of the branch's CLAUDE_ART_HANDOFF.md, then
+  from main `node tools/relay.mjs ring combat --for user --kind approval --note "<id>: the ten strips and versions;
+  holds; review page URL; lab URL"` and stop for that fighter. The desk is off: Claude "Smash-style combat system" asks
+  the user. Nothing is approved until a relayed `USER APPROVAL`. While one fighter waits, you may start the next (two
+  worktrees at most).
+- [ ] 6. After a relayed approval: `approvedVersion` for the approved strips, `node tools/pr.mjs check art/normals-<id>`
+  passes, commit, ring `combat` for Claude's contact check and merge. No merge or production deploy by Codex.
+
+Progress (tick per fighter): - [ ] sasuke - [ ] killua - [ ] gojo - [ ] goku - [ ] luffy - [ ] naruto (after TOOL-060)
+
+Rules: edit only art/characters/<id>/** (raw/, ANIMATIONS.md, hitboxes.json, CLAUDE_ART_HANDOFF.md),
+public/characters/<id>/** via the packer, public/reviews/normals-<id>/**, the <id> block of art/manifest.json, the
+"Directional normals (ADR 0042)" table and the "## <id>" section of art/TRACKER.md, and art/REVIEW.md rows. Never the
+engine (`src/**`): if a strip needs an engine change, write `BLOCKED: <reason>` here and ring `combat`.
+
+---
+
 ## Naruto skills revamp: Rasengan, Nine-Tails Cloak, Shadow Clones, Four-Tails (2026-10-18, Claude) - chat "5 - Skills Effects", relay lane `skills`
 
 **The user's request (2026-10-18, in Claude "5 - Skills Effects"):** revamp the specials, supers and ultimates so they
