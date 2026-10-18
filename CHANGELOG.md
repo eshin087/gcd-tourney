@@ -16,6 +16,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+### Changed
+- (ENG-112) Recorded user approval via Claude relay combat #35 for Gojo uair v01 as drawn; retained Astra's technical hold and Claude's pending runtime contact check.
+
 - Changed: the determinism fixtures are re-recorded after Killua's last three Smash moves (fingerprint 7b0732ad1069); both replay frame for frame.
 
 - Changed (ENG-112 Killua R2, relay #28): restored the user-approved uTilt v03, uSmash v02 and uair v02 drawings to the whole-character pack with measured, version-bound importer fits; recorded the accepted uair body-volume advisory, Astra's final fitted-atlas inspection and rebuilt packed review crops. Claude contact check remains.
