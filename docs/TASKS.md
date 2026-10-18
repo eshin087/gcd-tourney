@@ -1,5 +1,7 @@
 # Task board
 
+ART-NAR-SKILLS-B1 | Codex | review | Four-Tails batch candidates filed with provenance, a technical review page and Astra audit. HOLD: beamCharge v10 tails vary 3/4/3; beamFire v14 clips f0/f1 claws and f2 lacks a clear slam; ui_ult_fg v04 needs the fitted composite/anatomy check; fourTailsRoar v01 awaits Claude's HD-cell packer. No user approval requested; B1-B3 call budgets exhausted. files: art/characters/naruto/raw/, art/vfx/raw/fourTailsRoar_v01.png, art/characters/naruto/production/skills-revamp-batch1/, art/characters/naruto/production/skills-revamp-batch1-provenance.md, art/manifest.json, art/TRACKER.md, art/REVIEW.md, art/characters/naruto/ANIMATIONS.md, public/reviews/naruto-skills-batch1/, docs/TASKS.md, CHANGELOG.md.
+
 ART-GOKU-REF-DECISION | Codex | done | User approved model_sheet02 and expressions02 on 2026-10-15; fixed references promoted byte-for-byte. Claude handoff pending coordinator record. files: art/characters/goku/reference/model_sheet.png, art/characters/goku/reference/expressions.png, art/characters/goku/REVIEW_ROWS.md, art/manifest.json, art/TRACKER.md, docs/TASKS.md, CHANGELOG.md.
 
 ART-IDLE-DECISION-GOKU | Codex | done | User approved goku idle v02 as drawn on 2026-10-15. Claude calibrated it (idle bodyHeight 233, packs at x1, 40b3eab) and promoted idle_approved.png; merged with PR #94. No new generation, merge or production deployment authorized. files: art/manifest.json, art/TRACKER.md, art/characters/goku/REVIEW_ROWS.md, art/characters/goku/IDLE_APPROVAL_20261015.md, docs/TASKS.md, CHANGELOG.md.

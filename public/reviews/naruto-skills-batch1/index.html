@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naruto Skills Revamp · Batch 1 technical review</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.5 system-ui, sans-serif; background: #11151b; color: #f1f3f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px; }
+    main { max-width: 1000px; margin: auto; }
+    h1, h2 { line-height: 1.15; }
+    h1 { font-size: clamp(1.7rem, 5vw, 2.6rem); }
+    h2 { margin-top: 0; font-size: 1.25rem; }
+    p { color: #c8ced6; }
+    .hold { padding: 16px; border: 1px solid #e0a746; border-left: 5px solid #e0a746; border-radius: 8px; background: #302719; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
+    section { min-width: 0; padding: 18px; border: 1px solid #343c47; border-radius: 10px; background: #1a2028; }
+    figure { margin: 0; }
+    img { display: block; width: 100%; height: auto; image-rendering: pixelated; background: #ff00ff; border-radius: 6px; }
+    figcaption { margin-top: 8px; color: #aeb8c4; font-size: .9rem; }
+    .atlas { width: 100%; aspect-ratio: 3 / 1; overflow: hidden; background-image: url('media/partial-atlas.png'); background-repeat: no-repeat; background-size: 533.333% 100%; image-rendering: pixelated; }
+    .charge { background-position: 0 0; }
+    .fire { background-position: 23.08% 0; }
+    .poster { position: relative; width: 100%; max-width: 768px; aspect-ratio: 16 / 9; overflow: hidden; background: #1c1c22; }
+    .poster img { position: absolute; background: transparent; border-radius: 0; }
+    .poster-bg { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .poster-fg { width: 75%; height: auto; left: 12.5%; bottom: 0; }
+    .status { color: #ffd17e; font-weight: 700; }
+    ul { padding-left: 20px; color: #d7dde5; }
+    a { color: #8dc8ff; }
+    .small { font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Naruto Skills Revamp · Batch 1</h1>
+    <p>Four-Tails ultimate candidates. Generation and versioned filing are complete for this batch; this page records technical review before any user image approval.</p>
+    <div class="hold"><strong>Not ready for user approval.</strong> The final Astra audit holds all three character assets. The Four-Tails roar effect is awaiting the new HD-cell packer support from Claude.</div>
+
+    <div class="grid" style="margin-top:16px">
+      <section>
+        <h2>B1 · beamCharge v10 <span class="status">HOLD</span></h2>
+        <figure><img src="media/beamCharge_v10.png" alt="Three Four-Tails roar poses on a magenta background"><figcaption>Raw source · 2172×724 · 3/3 image calls used</figcaption></figure>
+        <ul><li>All three frames inspected in the 48-color partial atlas.</li><li>Readable tail count is 3 / 4 / 3; the fourth tail must remain distinct in every frame.</li><li>Automatic scale gate cannot identify a human head. Anatomy scale remains uncertain.</li></ul>
+        <div class="atlas charge" aria-label="Three quantized beamCharge cells from the partial atlas"></div>
+      </section>
+
+      <section>
+        <h2>B2 · beamFire v14 <span class="status">HOLD</span></h2>
+        <figure><img src="media/beamFire_v14.png" alt="Three Four-Tails pounce poses on a magenta background"><figcaption>Raw source · 2172×724 · 3/3 image calls used</figcaption></figure>
+        <ul><li>The front claws clip at the right edge in packed f0 and f1.</li><li>f2 reads as a landing, not the required single-claw slam.</li><li>Automatic scale gate cannot identify a human head. No further image calls remain.</li></ul>
+        <div class="atlas fire" aria-label="Three quantized beamFire cells from the partial atlas"></div>
+      </section>
+
+      <section>
+        <h2>B3 · ui_ult_fg v04 <span class="status">HOLD</span></h2>
+        <figure><img src="media/ui_ult_fg_v04.png" alt="Four-Tails fox form roaring in a low crouch"><figcaption>Raw source · 1254×1254 · 3/3 image calls used</figcaption></figure>
+        <ul><li>Astra confirms four distinct tails, two ears, full engulfment and a complete silhouette.</li><li>The existing UI packer fitted this candidate to 576×432; transparency and all four tails survive.</li><li>The silhouette has weak separation from the red backdrop and touches both vertical edges; body-scale comparison remains uncertain.</li></ul>
+        <div class="poster" role="img" aria-label="Candidate Four-Tails foreground fitted over the unchanged ultimate backdrop"><img class="poster-bg" src="media/ui_ult_bg_v01.png" alt=""><img class="poster-fg" src="media/ui_ult_fg_v04_fitted.png" alt=""></div>
+        <p class="small">Current approved fitted image (v01) still shows the human head: <a href="../../characters/naruto/ult_fg.png">view v01</a>.</p>
+      </section>
+
+      <section>
+        <h2>A8 · fourTailsRoar v01 <span class="status">PACK HOLD</span></h2>
+        <figure><img src="media/fourTailsRoar_v01.png" alt="Eight-stage dark crimson chakra shockwave effect"><figcaption>Raw source · 1774×887 · 1 successful image call; a failed reference lookup preceded it</figcaption></figure>
+        <ul><li>The art reads as an expanding, breaking chakra shockwave.</li><li>Claude has not yet landed the 256×256 HD effect-cell packer support.</li><li>Frame slicing, center anchor, 16-color limit and final quantized cells are unverified.</li></ul>
+      </section>
+    </div>
+
+    <section style="margin-top:16px">
+      <h2>Audit and provenance</h2>
+      <p>See the <a href="ASTRA_AUDIT_v01.md">Astra audit</a> and <a href="GENERATION_PROVENANCE.md">generation-call ledger</a>. The 48-color atlas above is partial (only the two Four-Tails strips); the strict full Naruto pack did not write because beamCharge has no detectable head and beamFire fails its framing gate. This page is technical evidence, not an approval request.</p>
+    </section>
+  </main>
+</body>
+</html>
