@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #7 for beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01; superseded beamCharge v12-v16 and fourTailsRoar v01 are preserved under `_rejected/`. Character scale/contact/integration holds remain.
+
 - Changed (ART-SKL-NAR): prepared Four-Tails mouth-beam art candidates for round 2: beamFire v15 plus HD beastBall and beastBeamRing v01; v14 pounce approval is superseded for the ultimate. Claude confirmed local effect packing/placement; beamFire received a +13px final-cell placement sidecar with no rescale. Visual approval and character scale/contact checks remain pending.
 
 - Changed (ART-NAR-SKILLS-B1): recorded the user approval of beamFire v14 + sidecar and ui_ult_fg v04 via Claude relay skills #4; promoted the approved UI source. beamCharge v17 and fourTailsRoar v02 remain unapproved candidates for review.

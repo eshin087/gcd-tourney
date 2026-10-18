@@ -16,12 +16,16 @@ Date: 2026-10-18. User direction relayed as `USER DECISION via Claude`, skills #
 
 - Source output: `E:\Vibe Coding\.codex\generated_images\01a14ca5-f310-7522-9712-e734deaf835c\exec-ef63f53b-ddb1-47ab-bc82-68ef98223c48.png` (1254x1254), one generation call.
 - Filed as one-row 8-frame strip `art/vfx/raw/beastBall_v01.png`, 2048x256; SHA-256 `af59f2e6d0bee8375afc78de761e0c5b41def64528a05de03b05f3c58f6f745c`.
-- Grid was cropped into eight equal source slots, magenta background retained, each square fitted to a centered 256px cell with nearest-neighbor scaling. Claude reports local candidate packing and in-game placement work on feature/naruto-skills-2 / PR #154; visual approval pending.
+- Grid was cropped into eight equal source slots, magenta background retained, each square fitted to a centered 256px cell with nearest-neighbor scaling. Claude reports local candidate packing and in-game placement work on feature/naruto-skills-2 / PR #154; approved by the user via Claude relay skills #7.
 
 ## beastBeamRing v01
 
 - Source output: `E:\Vibe Coding\.codex\generated_images\01a14ca5-f310-7522-9712-e734deaf835c\exec-e287b1a2-6609-4ec7-aa8d-e8a92ff81c33.png` (1254x1254), one generation call.
 - Filed as one-row 6-frame strip `art/vfx/raw/beastBeamRing_v01.png`, 1536x256; SHA-256 `9b1bb31e72bf099d754fd8ec5f70eb313520de554fd47b015547ddb589a2de42`.
-- Grid was split in reading order. Each ring is centered in its 256px cell and sized to 60, 120, 230, 215, 145 and 60 px high using nearest-neighbor scaling; magenta background retained. This enforces the brief's grow-then-thin sequence. Claude reports local candidate packing and in-game placement work on feature/naruto-skills-2 / PR #154; visual approval pending.
+- Grid was split in reading order. Each ring is centered in its 256px cell and sized to 60, 120, 230, 215, 145 and 60 px high using nearest-neighbor scaling; magenta background retained. This enforces the brief's grow-then-thin sequence. Claude reports local candidate packing and in-game placement work on feature/naruto-skills-2 / PR #154; approved by the user via Claude relay skills #7.
 
-The page `public/reviews/naruto-skills-round2/index.html` is a local review package. Claude confirms the effect names are supported by its local candidate pack and their in-game placement works; both are registered in the manifest at the canonical VFX paths. `beamCharge v17` / `fourTailsRoar v02` retain their prior review state; v12 is preserved but v17 is the branch's latest seam-repaired charge.
+The page `public/reviews/naruto-skills-round2/index.html` is a local review package. Claude confirms the effect names are supported by its local candidate pack and their in-game placement works; both are registered in the manifest at the canonical VFX paths. `beamCharge v17` and `fourTailsRoar v02` were approved by the user via Claude relay skills #7; v12 remains preserved as history.
+
+## User approval, Claude relay skills #7
+
+Exact answer: “Approve beamCharge v17, fourTailsRoar v02, beamFire v15 (with its +13px placement sidecar), beastBall v01 and beastBeamRing v01.” Recorded as user approval via Claude in `art/REVIEW.md` and `art/manifest.json`. This approves the drawings only; the headless Naruto scale gate and Claude-owned contacts/integration remain open.
