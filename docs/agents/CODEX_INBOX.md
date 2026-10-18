@@ -236,6 +236,8 @@ Do, in order (Luna/medium for every generation per CLAUDE.md "Agent model select
 
 **Codex partial handoff (2026-10-17):** commit `65c74bb5` on `art/size-r6`; segment review and tier-1 fixes remain incomplete, so steps 1–4 stay unchecked. `art/scale/size-r6/HANDOFF.md` records the reliable observations and Claude's next calibration action. Killua airLight2 v08 is in `raw/_qa_hold/` after strict pack failed; v07 remains approved, and v08 is not submitted for user approval. No camera change, PR preview, Astra audit, merge or production deploy.
 
+**Codex partial handoff (2026-10-18, relay #4):** commit `1e18034a` calibrates Sasuke `beamStruggle` as a no-call v04 re-assembly at bodyHeight152; the two packed landmarks now match idle. The candidate is on PR #142 with a [review page](https://gcd-tourney-3eanes7du-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v04/). User approval is the immediate next action; v01 remains approved. The 113-lead two-landmark screen is still in progress; Gojo heavy/airLight1 unresolved. Killua airLight2, Sasuke airLight3 and Gojo hurtLow B-only picks were withdrawn; no further Killua call. The browser verification permission request from relay #3 remains separate and unresolved. Camera unchanged; no Astra final audit, merge or production deploy.
+
 ---
 
 ## Goku/Luffy: all remaining core drawings approved (2026-10-16, relay #14) - chat "2 - Goku Luffy", relay lane `goku-luffy`
