@@ -1,6 +1,6 @@
 # Naruto skills revamp: batch 2 provenance
 
-Date: 2026-10-18. Source brief: `art/characters/naruto/SKILLS_REVAMP.md`, A1/A2/A3/A6/A7. These are unapproved candidates; one built-in image-generation call per asset (1/3 each). No discarded attempts. No user-owned or copyrighted reference stills were attached.
+Date: 2026-10-18. Source brief: `art/characters/naruto/SKILLS_REVAMP.md`, A1/A2/A3/A6/A7. The user approved all five v01 drawings via Claude relay skills #9; one built-in image-generation call per asset (1/3 each). No discarded attempts. No user-owned or copyrighted reference stills were attached.
 
 | asset | attempts | generated output | source SHA-256 | filed strip | strip SHA-256 |
 |---|---:|---|---|---|---|
@@ -12,4 +12,4 @@ Date: 2026-10-18. Source brief: `art/characters/naruto/SKILLS_REVAMP.md`, A1/A2/
 
 ## Extraction and technical state
 
-Each generated grid was split in reading order, center-cropped to square cells where the renderer returned rectangular slots, then nearest-neighbor scaled to 256 x 256 per HD cell. Cells were assembled into one magenta-background horizontal strip per effect. RasenganForm uses the Rasengan v01 candidate as a visual continuity reference in its single call. No candidate pack, strict atlas, contact or in-game check has been run for this batch. Claude owns integration and support for these new effect names.
+Each generated grid was split in reading order, center-cropped to square cells where the renderer returned rectangular slots, then nearest-neighbor scaled to 256 x 256 per HD cell. Cells were assembled into one magenta-background horizontal strip per effect. RasenganForm uses the Rasengan v01 candidate as a visual continuity reference in its single call. Visual approval is recorded; no candidate pack or in-game check has been run for this batch on this art branch. Claude owns integration and support for these new effect names.

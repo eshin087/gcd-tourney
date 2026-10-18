@@ -11,6 +11,10 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #9 for rasengan, rasenganForm, rasenganBurst, poof and subLog v01; visual approval is separate from Claude-owned packing and gameplay checks.
+
+
+
 - Added (ART-SKL-NAR): prepared Naruto skills batch 3 HD effect candidates rasenshuriken v01 and rasenshurikenDome v01; added generation provenance, manifest/review records and gallery. Awaiting user visual approval and Claude pack/game integration checks.
 
 

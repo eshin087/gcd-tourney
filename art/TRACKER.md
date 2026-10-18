@@ -1,6 +1,6 @@
 Naruto skills revamp batch 3 (2026-10-18): rasenshuriken v01 (3 calls; selected call 3) and rasenshurikenDome v01 (1 call) are filed as HD candidates; both await user visual approval. Neither has candidate pack or runtime QA on this branch. [Gallery](../public/reviews/naruto-skills-batch3/index.html) · [provenance](characters/naruto/production/skills-revamp-batch3-provenance.md).
 
-Naruto skills revamp batch 2 (2026-10-18): rasengan, rasenganForm, rasenganBurst, poof and subLog v01 are filed as HD candidates; one image call each. Awaiting visual approval; no candidate pack or runtime check on this branch. Gallery: [batch 2](../public/reviews/naruto-skills-batch2/index.html).
+Naruto skills revamp batch 2 (2026-10-18): user approved rasengan, rasenganForm, rasenganBurst, poof and subLog v01 via Claude relay skills #9. Visual approval is recorded; no candidate pack or runtime check on this branch. Claude owns integration. Gallery: [batch 2](../public/reviews/naruto-skills-batch2/index.html).
 
 Naruto Four-Tails beam round 2 (2026-10-18): user approved beamCharge v17, fourTailsRoar v02, beamFire v15 (+13px sidecar), beastBall v01 and beastBeamRing v01 via Claude relay skills #7. beamFire placement clears the candidate pack 4px margin; Claude confirmed effect pack/game placement. Visual approvals do not clear the headless character scale gate or contact/integration checks. Gallery: [round 2](../public/reviews/naruto-skills-round2/index.html).
 
