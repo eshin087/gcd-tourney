@@ -1,0 +1,156 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:43.428Z",
+ "fighters": {
+  "goku": {
+   "idleGarmentPx": 6089,
+   "anims": {
+    "light1": {
+     "v": 4,
+     "body": [
+      1.018,
+      1.046,
+      1.036,
+      1.053,
+      1.099,
+      1.094,
+      1.087
+     ],
+     "head": [
+      0.516,
+      0.658,
+      0.667,
+      0.526,
+      0.577,
+      0.606,
+      0.632
+     ],
+     "median": 1.053,
+     "headMedian": 0.606,
+     "flag": null
+    },
+    "light2": {
+     "v": 5,
+     "body": [
+      1.014,
+      1.054,
+      1.066,
+      1.029,
+      1.023,
+      1.011,
+      1.011
+     ],
+     "head": [
+      0.632,
+      0.667,
+      0.516,
+      0.667,
+      0.606,
+      0.5,
+      0.5
+     ],
+     "median": 1.023,
+     "headMedian": 0.606,
+     "flag": null
+    },
+    "light3": {
+     "v": 13,
+     "body": [
+      1.012,
+      0.847,
+      0.943,
+      0.954,
+      0.845,
+      1.022,
+      1.012
+     ],
+     "head": [
+      0.516,
+      1.426,
+      0.5,
+      1,
+      0.775,
+      0.516,
+      0.876
+     ],
+     "median": 0.954,
+     "headMedian": 0.775,
+     "flag": null
+    },
+    "light4": {
+     "v": 9,
+     "body": [
+      1.028,
+      1.024,
+      1.099,
+      1.098,
+      1.134,
+      1.121,
+      1.052,
+      1.029
+     ],
+     "head": [
+      0.577,
+      0.5,
+      0.667,
+      1.155,
+      0.516,
+      0.816,
+      0.816,
+      1.14
+     ],
+     "median": 1.075,
+     "headMedian": 0.742,
+     "flag": null
+    },
+    "heavy": {
+     "v": 14,
+     "body": [
+      1.013,
+      1.063,
+      1.077,
+      1.115,
+      1.112,
+      1.116,
+      1.023,
+      1.01
+     ],
+     "head": [
+      0.5,
+      0.753,
+      0.894,
+      0.707,
+      0.577,
+      0.658,
+      0.913,
+      0.683
+     ],
+     "median": 1.07,
+     "headMedian": 0.695,
+     "flag": null
+    },
+    "airLight1": {
+     "v": 7,
+     "body": [
+      0.99,
+      1.026,
+      1.025,
+      1.071,
+      0.971
+     ],
+     "head": [
+      0.577,
+      0.516,
+      0.632,
+      0.5,
+      0.516
+     ],
+     "median": 1.025,
+     "headMedian": 0.516,
+     "flag": null
+    }
+   }
+  }
+ }
+}

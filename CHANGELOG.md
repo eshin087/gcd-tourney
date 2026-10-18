@@ -11,6 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- ART-SIZE-R6: merged current main into `art/size-r6`; kept approved Sasuke `beamStruggle` v02 (PR #140) in manifest, hitboxes and repacked atlas. Superseded v05 is quarantined in `raw/_qa_hold/`; user-rejected v04 remains in `raw/_rejected/`; Killua `airLight2` v08 remains held and Gojo heavy is unchanged. No camera or engine change.
 - ART-SIZE-R6: superseded the pending Sasuke beamStruggle v05 review after approved v02 shipped; v04/v05 are quarantined in the size-r6 branch, with PR #142 ready for Claude merge. The broad candidate audit remains open; no camera or engine change.
 
 - Art (ART-BEAM-CLASH): User approved Goku ground `beamStruggle_v01` and Sasuke ground `beamStruggle_v02` via Claude relay beam-clash #15: “Goku v01: Approve v01. Sasuke v02: Approve v02.” Both approvals are recorded in REVIEW, manifest and TRACKER, and both sources are in `raw/`. Their technical holds remain: Goku's strict gate has an unmeasured head and 1 px frame-2 clip, plus title-combat/beamFire density disagreement and Astra shoulder/chest HOLD; Sasuke's auto head gate passes but Astra holds torso length and loop stability, with arm uncertainty. No production atlas or contact override was promoted. All three air strips remain unchanged. Evidence: `public/reviews/beam-clash-r3/` and character production ledgers.

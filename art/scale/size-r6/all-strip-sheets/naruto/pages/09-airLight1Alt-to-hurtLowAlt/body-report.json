@@ -1,0 +1,128 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:07.259Z",
+ "fighters": {
+  "naruto": {
+   "idleGarmentPx": 3265,
+   "anims": {
+    "airLight1Alt": {
+     "v": 1,
+     "body": [
+      0.578,
+      0.571,
+      0.567,
+      0.582,
+      0.593
+     ],
+     "head": [
+      1.022,
+      1.035,
+      1.05,
+      1.06,
+      1
+     ],
+     "median": 0.578,
+     "headMedian": 1.035,
+     "flag": "small"
+    },
+    "airLight2Alt": {
+     "v": 1,
+     "body": [
+      0.548,
+      0.696,
+      0.719,
+      0.474,
+      0.524
+     ],
+     "head": [
+      1.053,
+      1.017,
+      1.016,
+      1.041,
+      1.026
+     ],
+     "median": 0.548,
+     "headMedian": 1.026,
+     "flag": "small"
+    },
+    "airLight3Alt": {
+     "v": 1,
+     "body": [
+      0.526,
+      0.567,
+      0.595,
+      0.609,
+      0.533,
+      0.544
+     ],
+     "head": [
+      1.014,
+      1.053,
+      1.014,
+      1.053,
+      1.028,
+      1.034
+     ],
+     "median": 0.556,
+     "headMedian": 1.031,
+     "flag": "small"
+    },
+    "airHeavyAlt": {
+     "v": 4,
+     "body": [
+      0.736,
+      0.76,
+      0.801,
+      0.662,
+      0.856,
+      0.877
+     ],
+     "head": [
+      0.978,
+      0.97,
+      1.074,
+      1.105,
+      1.011,
+      1.002
+     ],
+     "median": 0.781,
+     "headMedian": 1.007,
+     "flag": "small"
+    },
+    "hurtHighAlt": {
+     "v": 1,
+     "body": [
+      0.589,
+      0.581,
+      0.57
+     ],
+     "head": [
+      1.034,
+      1.059,
+      1.103
+     ],
+     "median": 0.581,
+     "headMedian": 1.059,
+     "flag": "small"
+    },
+    "hurtLowAlt": {
+     "v": 1,
+     "body": [
+      0.532,
+      0.523,
+      0.538
+     ],
+     "head": [
+      1.093,
+      1.037,
+      0.995
+     ],
+     "median": 0.532,
+     "headMedian": 1.037,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,112 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:44.423Z",
+ "fighters": {
+  "goku": {
+   "idleGarmentPx": 6089,
+   "anims": {
+    "airHeavy": {
+     "v": 6,
+     "body": [
+      0.937,
+      0.793,
+      0.954,
+      0.813,
+      0.905,
+      0.945
+     ],
+     "head": [
+      0.632,
+      0.516,
+      0.526,
+      0.753,
+      0.577,
+      0.5
+     ],
+     "median": 0.921,
+     "headMedian": 0.552,
+     "flag": null
+    },
+    "guard": {
+     "v": 5,
+     "body": [
+      1.074,
+      1.045
+     ],
+     "head": [
+      0.632,
+      0.842
+     ],
+     "median": 1.06,
+     "headMedian": 0.737,
+     "flag": null
+    },
+    "hurtHigh": {
+     "v": 8,
+     "body": [
+      1.01,
+      1.053,
+      1.002
+     ],
+     "head": [
+      1.017,
+      0.796,
+      1
+     ],
+     "median": 1.01,
+     "headMedian": 1,
+     "flag": null
+    },
+    "launched": {
+     "v": 8,
+     "body": [
+      1.026,
+      0.963
+     ],
+     "head": [
+      0.577,
+      0.516
+     ],
+     "median": 0.994,
+     "headMedian": 0.547,
+     "flag": null
+    },
+    "down": {
+     "v": 5,
+     "body": [
+      0.811,
+      0.851
+     ],
+     "head": [
+      0.658,
+      0.658
+     ],
+     "median": 0.831,
+     "headMedian": 0.658,
+     "flag": "small"
+    },
+    "getup": {
+     "v": 11,
+     "body": [
+      0.967,
+      1.042,
+      0.965,
+      1.034,
+      1.053
+     ],
+     "head": [
+      0.5,
+      0.606,
+      0.606,
+      1.155,
+      0.606
+     ],
+     "median": 1.034,
+     "headMedian": 0.606,
+     "flag": null
+    }
+   }
+  }
+ }
+}

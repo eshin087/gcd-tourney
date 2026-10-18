@@ -1,0 +1,126 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:24:34.575Z",
+ "fighters": {
+  "killua": {
+   "idleGarmentPx": 1467,
+   "anims": {
+    "taunt": {
+     "v": 5,
+     "body": [
+      1.003,
+      1.016
+     ],
+     "head": [
+      0.993,
+      1
+     ],
+     "median": 1.01,
+     "headMedian": 0.996,
+     "flag": null
+    },
+    "win": {
+     "v": 4,
+     "body": [
+      1.181,
+      1.183,
+      1.181,
+      1.19
+     ],
+     "head": [
+      1.086,
+      1.096,
+      1.081,
+      1.099
+     ],
+     "median": 1.182,
+     "headMedian": 1.091,
+     "flag": "big"
+    },
+    "specialForward": {
+     "v": 12,
+     "body": [
+      0.801,
+      0.803,
+      0.844,
+      0.855,
+      0.873,
+      0.687,
+      0.863
+     ],
+     "head": [
+      1,
+      0.975,
+      0.963,
+      0.975,
+      1.025,
+      1.006,
+      1.009
+     ],
+     "median": 0.844,
+     "headMedian": 1,
+     "flag": "small"
+    },
+    "specialUp": {
+     "v": 8,
+     "body": [
+      0.876,
+      0.913,
+      0.97,
+      0.968,
+      0.895,
+      0.922
+     ],
+     "head": [
+      0.986,
+      0.95,
+      1,
+      1.05,
+      1,
+      0.94
+     ],
+     "median": 0.918,
+     "headMedian": 0.993,
+     "flag": null
+    },
+    "specialDown": {
+     "v": 7,
+     "body": [
+      0.727,
+      0.871,
+      1.19,
+      1.012
+     ],
+     "head": [
+      1,
+      1.02,
+      1.05,
+      1
+     ],
+     "median": 0.942,
+     "headMedian": 1.01,
+     "flag": null
+    },
+    "superPose": {
+     "v": 8,
+     "body": [
+      1.016,
+      0.999,
+      1.009,
+      1.008
+     ],
+     "head": [
+      0.993,
+      0.975,
+      1.012,
+      1
+     ],
+     "median": 1.009,
+     "headMedian": 0.996,
+     "flag": null
+    }
+   }
+  }
+ }
+}

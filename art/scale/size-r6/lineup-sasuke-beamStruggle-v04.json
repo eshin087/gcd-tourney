@@ -1,0 +1,207 @@
+{
+  "rows": [
+    "idle:0",
+    "run:3",
+    "heavy:3",
+    "guard:0",
+    "charge:0",
+    "airLight1:2",
+    "hurtHigh:0"
+  ],
+  "fighters": [
+    "sasuke"
+  ],
+  "candidate": null,
+  "measured": {
+    "sasuke": {
+      "standingPx": 200,
+      "idleHeightPx": 177,
+      "bandPx": 119,
+      "maxWidthPx": 163,
+      "sbr": 0.595,
+      "mwr": 0.921,
+      "dr": 0.3,
+      "build": "athletic-teen",
+      "idleHands": "guard",
+      "flags": [
+        "SBR"
+      ]
+    }
+  },
+  "heads": {
+    "sasuke": {
+      "run": {
+        "head": 1.01,
+        "verdict": "ok"
+      },
+      "dash": {
+        "head": 1.013,
+        "verdict": "ok"
+      },
+      "backDash": {
+        "head": 0.998,
+        "verdict": "ok"
+      },
+      "superDash": {
+        "head": 1.008,
+        "verdict": "ok"
+      },
+      "jumpSquat": {
+        "head": 0.985,
+        "verdict": "manual"
+      },
+      "jumpUp": {
+        "head": null,
+        "verdict": "manual"
+      },
+      "jumpFall": {
+        "head": 1.002,
+        "verdict": "ok"
+      },
+      "land": {
+        "head": 1.008,
+        "verdict": "ok"
+      },
+      "light1": {
+        "head": 0.995,
+        "verdict": "ok"
+      },
+      "light2": {
+        "head": 0.974,
+        "verdict": "ok"
+      },
+      "light3": {
+        "head": 1,
+        "verdict": "ok"
+      },
+      "light4": {
+        "head": 0.987,
+        "verdict": "ok"
+      },
+      "heavy": {
+        "head": 1,
+        "verdict": "ok"
+      },
+      "airLight1": {
+        "head": 1.008,
+        "verdict": "ok"
+      },
+      "airLight2": {
+        "head": 1,
+        "verdict": "ok"
+      },
+      "airLight3": {
+        "head": 1.007,
+        "verdict": "ok"
+      },
+      "airHeavy": {
+        "head": 0.996,
+        "verdict": "ok"
+      },
+      "guard": {
+        "head": null,
+        "verdict": "manual"
+      },
+      "block": {
+        "head": 1.031,
+        "verdict": "ok"
+      },
+      "hurtHigh": {
+        "head": 1.002,
+        "verdict": "ok"
+      },
+      "hurtLow": {
+        "head": 0.994,
+        "verdict": "ok"
+      },
+      "launched": {
+        "head": 0.755,
+        "verdict": "manual"
+      },
+      "spin": {
+        "head": 1.542,
+        "verdict": "manual"
+      },
+      "airRecover": {
+        "head": 1.055,
+        "verdict": "manual"
+      },
+      "down": {
+        "head": 1.824,
+        "verdict": "manual"
+      },
+      "getup": {
+        "head": 1.075,
+        "verdict": "manual"
+      },
+      "charge": {
+        "head": 1.047,
+        "verdict": "ok"
+      },
+      "throw": {
+        "head": 0.993,
+        "verdict": "ok"
+      },
+      "beamCharge": {
+        "head": 1,
+        "verdict": "ok"
+      },
+      "beamFire": {
+        "head": 0.995,
+        "verdict": "ok"
+      },
+      "vanish": {
+        "head": 1.039,
+        "verdict": "manual"
+      },
+      "stagger": {
+        "head": 0.979,
+        "verdict": "ok"
+      },
+      "ko": {
+        "head": 0.974,
+        "verdict": "manual"
+      },
+      "special": {
+        "head": 0.986,
+        "verdict": "ok"
+      },
+      "intro": {
+        "head": 1.013,
+        "verdict": "ok"
+      },
+      "taunt": {
+        "head": 0.999,
+        "verdict": "ok"
+      },
+      "win": {
+        "head": 0.997,
+        "verdict": "ok"
+      },
+      "specialForward": {
+        "head": 0.997,
+        "verdict": "ok"
+      },
+      "specialUp": {
+        "head": 1.009,
+        "verdict": "ok"
+      },
+      "specialDown": {
+        "head": 1.006,
+        "verdict": "ok"
+      },
+      "superPose": {
+        "head": 1.013,
+        "verdict": "ok"
+      },
+      "beamStruggle": {
+        "head": null,
+        "verdict": "manual"
+      },
+      "beamStruggleAir": {
+        "head": 1,
+        "verdict": "ok"
+      }
+    }
+  }
+}

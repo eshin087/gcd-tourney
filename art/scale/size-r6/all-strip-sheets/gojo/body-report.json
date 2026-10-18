@@ -1,0 +1,814 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-17T23:21:51.101Z",
+ "fighters": {
+  "gojo": {
+   "idleGarmentPx": 7687,
+   "anims": {
+    "idle": {
+     "v": 8,
+     "body": [
+      1,
+      0.992,
+      0.993,
+      0.998,
+      0.999,
+      1.001,
+      0.996,
+      0.996
+     ],
+     "head": [
+      1,
+      0.971,
+      0.971,
+      1.013,
+      1,
+      1.008,
+      1,
+      1
+     ],
+     "median": 0.997,
+     "headMedian": 1,
+     "flag": null
+    },
+    "run": {
+     "v": 14,
+     "body": [
+      0.912,
+      0.873,
+      0.886,
+      0.883,
+      0.912,
+      0.873,
+      0.886,
+      0.883
+     ],
+     "head": [
+      0.993,
+      0.971,
+      0.971,
+      0.999,
+      0.993,
+      0.971,
+      0.971,
+      0.999
+     ],
+     "median": 0.885,
+     "headMedian": 0.982,
+     "flag": null
+    },
+    "dash": {
+     "v": 10,
+     "body": [
+      1.078,
+      1.069
+     ],
+     "head": [
+      0.996,
+      1.002
+     ],
+     "median": 1.074,
+     "headMedian": 0.999,
+     "flag": null
+    },
+    "backDash": {
+     "v": 7,
+     "body": [
+      0.872,
+      0.795,
+      0.881
+     ],
+     "head": [
+      0.996,
+      0.994,
+      0.995
+     ],
+     "median": 0.872,
+     "headMedian": 0.995,
+     "flag": "small"
+    },
+    "superDash": {
+     "v": 12,
+     "body": [
+      0.844,
+      0.862
+     ],
+     "head": [
+      0.989,
+      1.022
+     ],
+     "median": 0.853,
+     "headMedian": 1.006,
+     "flag": "small"
+    },
+    "jumpSquat": {
+     "v": 4,
+     "body": [
+      0.903
+     ],
+     "head": [
+      1
+     ],
+     "median": 0.903,
+     "headMedian": 1,
+     "flag": null
+    },
+    "jumpUp": {
+     "v": 4,
+     "body": [
+      0.85,
+      0.856
+     ],
+     "head": [
+      0.999,
+      0.989
+     ],
+     "median": 0.853,
+     "headMedian": 0.994,
+     "flag": "small"
+    },
+    "jumpFall": {
+     "v": 6,
+     "body": [
+      0.983,
+      0.988
+     ],
+     "head": [
+      1.052,
+      1.027
+     ],
+     "median": 0.986,
+     "headMedian": 1.039,
+     "flag": null
+    },
+    "land": {
+     "v": 6,
+     "body": [
+      0.779,
+      0.783
+     ],
+     "head": [
+      1.022,
+      0.998
+     ],
+     "median": 0.781,
+     "headMedian": 1.01,
+     "flag": "small"
+    },
+    "light1": {
+     "v": 5,
+     "body": [
+      0.847,
+      0.874,
+      0.908,
+      0.89,
+      0.875,
+      0.864,
+      0.868
+     ],
+     "head": [
+      0.955,
+      0.955,
+      0.971,
+      0.99,
+      0.971,
+      0.971,
+      0.998
+     ],
+     "median": 0.874,
+     "headMedian": 0.971,
+     "flag": "small"
+    },
+    "light2": {
+     "v": 6,
+     "body": [
+      0.948,
+      0.893,
+      0.9,
+      0.898,
+      0.955,
+      0.959,
+      0.962
+     ],
+     "head": [
+      1,
+      1,
+      1.049,
+      1.045,
+      1,
+      1.011,
+      1.012
+     ],
+     "median": 0.948,
+     "headMedian": 1.011,
+     "flag": null
+    },
+    "light3": {
+     "v": 6,
+     "body": [
+      0.855,
+      0.871,
+      0.878,
+      0.867,
+      0.896,
+      0.951,
+      0.958
+     ],
+     "head": [
+      0.985,
+      0.989,
+      0.971,
+      0.972,
+      1,
+      1,
+      1.014
+     ],
+     "median": 0.878,
+     "headMedian": 0.989,
+     "flag": "small"
+    },
+    "light4": {
+     "v": 8,
+     "body": [
+      0.911,
+      0.876,
+      0.862,
+      0.842,
+      0.816,
+      0.912,
+      0.912,
+      0.932
+     ],
+     "head": [
+      1,
+      0.934,
+      0.955,
+      0.98,
+      1.004,
+      0.985,
+      0.998,
+      0.969
+     ],
+     "median": 0.894,
+     "headMedian": 0.982,
+     "flag": null
+    },
+    "heavy": {
+     "v": 5,
+     "body": [
+      0.807,
+      0.769,
+      0.849,
+      0.845,
+      0.82,
+      0.888,
+      0.862,
+      0.95
+     ],
+     "head": [
+      0.943,
+      0.914,
+      0.886,
+      0.967,
+      0.907,
+      0.914,
+      0.943,
+      0.955
+     ],
+     "median": 0.847,
+     "headMedian": 0.929,
+     "flag": "small"
+    },
+    "airLight1": {
+     "v": 7,
+     "body": [
+      0.778,
+      0.828,
+      0.84,
+      0.777,
+      0.779
+     ],
+     "head": [
+      0.956,
+      0.955,
+      0.954,
+      0.955,
+      0.953
+     ],
+     "median": 0.779,
+     "headMedian": 0.955,
+     "flag": "small"
+    },
+    "airLight2": {
+     "v": 5,
+     "body": [
+      0.812,
+      0.796,
+      0.805,
+      0.806,
+      0.813
+     ],
+     "head": [
+      0.971,
+      0.971,
+      0.971,
+      0.971,
+      0.971
+     ],
+     "median": 0.806,
+     "headMedian": 0.971,
+     "flag": "small"
+    },
+    "airLight3": {
+     "v": 12,
+     "body": [
+      0.787,
+      0.755,
+      0.801,
+      0.729,
+      0.843,
+      0.839
+     ],
+     "head": [
+      0.971,
+      1,
+      0.97,
+      0.997,
+      0.987,
+      0.971
+     ],
+     "median": 0.794,
+     "headMedian": 0.979,
+     "flag": "small"
+    },
+    "airHeavy": {
+     "v": 8,
+     "body": [
+      0.881,
+      0.893,
+      0.927,
+      0.831,
+      0.872,
+      0.844
+     ],
+     "head": [
+      1.038,
+      1.024,
+      1.077,
+      1.091,
+      1.057,
+      1.045
+     ],
+     "median": 0.877,
+     "headMedian": 1.051,
+     "flag": "small"
+    },
+    "guard": {
+     "v": 4,
+     "body": [
+      0.942,
+      0.937
+     ],
+     "head": [
+      0.995,
+      0.971
+     ],
+     "median": 0.94,
+     "headMedian": 0.983,
+     "flag": null
+    },
+    "block": {
+     "v": 3,
+     "body": [
+      0.925,
+      0.888
+     ],
+     "head": [
+      1.057,
+      1
+     ],
+     "median": 0.907,
+     "headMedian": 1.029,
+     "flag": null
+    },
+    "hurtHigh": {
+     "v": 3,
+     "body": [
+      0.94,
+      0.917,
+      0.918
+     ],
+     "head": [
+      1.029,
+      1,
+      1.029
+     ],
+     "median": 0.918,
+     "headMedian": 1.029,
+     "flag": null
+    },
+    "hurtLow": {
+     "v": 4,
+     "body": [
+      0.781,
+      0.811,
+      0.851
+     ],
+     "head": [
+      1.035,
+      1.017,
+      0.971
+     ],
+     "median": 0.811,
+     "headMedian": 1.017,
+     "flag": "small"
+    },
+    "launched": {
+     "v": 6,
+     "body": [
+      0.974,
+      0.949
+     ],
+     "head": [
+      0.984,
+      0.993
+     ],
+     "median": 0.962,
+     "headMedian": 0.988,
+     "flag": null
+    },
+    "spin": {
+     "v": 4,
+     "body": [
+      0.788,
+      0.716,
+      0.779,
+      0.788
+     ],
+     "head": [
+      1.143,
+      1.188,
+      1.091,
+      1.114
+     ],
+     "median": 0.784,
+     "headMedian": 1.129,
+     "flag": "small"
+    },
+    "airRecover": {
+     "v": 5,
+     "body": [
+      0.832,
+      0.8,
+      0.937
+     ],
+     "head": [
+      1.233,
+      1.182,
+      1.104
+     ],
+     "median": 0.832,
+     "headMedian": 1.182,
+     "flag": "small"
+    },
+    "down": {
+     "v": 5,
+     "body": [
+      0.906,
+      0.81
+     ],
+     "head": [
+      1.127,
+      1.108
+     ],
+     "median": 0.858,
+     "headMedian": 1.118,
+     "flag": "small"
+    },
+    "getup": {
+     "v": 5,
+     "body": [
+      0.649,
+      0.801,
+      0.82,
+      0.846,
+      0.958
+     ],
+     "head": [
+      1.001,
+      0.994,
+      0.965,
+      1.045,
+      0.971
+     ],
+     "median": 0.82,
+     "headMedian": 0.994,
+     "flag": "small"
+    },
+    "charge": {
+     "v": 7,
+     "body": [
+      0.954,
+      0.936,
+      0.943,
+      0.931
+     ],
+     "head": [
+      1.029,
+      1.016,
+      0.987,
+      0.98
+     ],
+     "median": 0.94,
+     "headMedian": 1.002,
+     "flag": null
+    },
+    "throw": {
+     "v": 5,
+     "body": [
+      0.849,
+      0.881,
+      0.877,
+      0.882
+     ],
+     "head": [
+      1,
+      1.029,
+      0.987,
+      0.992
+     ],
+     "median": 0.879,
+     "headMedian": 0.996,
+     "flag": "small"
+    },
+    "beamCharge": {
+     "v": 3,
+     "body": [
+      1.024,
+      1.005,
+      1.024
+     ],
+     "head": [
+      1.012,
+      1.029,
+      1.022
+     ],
+     "median": 1.024,
+     "headMedian": 1.022,
+     "flag": null
+    },
+    "beamFire": {
+     "v": 4,
+     "body": [
+      0.894,
+      0.883,
+      0.885
+     ],
+     "head": [
+      0.999,
+      1.002,
+      0.987
+     ],
+     "median": 0.885,
+     "headMedian": 0.999,
+     "flag": null
+    },
+    "vanish": {
+     "v": 3,
+     "body": [
+      0.893,
+      0.813
+     ],
+     "head": [
+      1.012,
+      1
+     ],
+     "median": 0.853,
+     "headMedian": 1.006,
+     "flag": "small"
+    },
+    "stagger": {
+     "v": 3,
+     "body": [
+      0.951,
+      0.963,
+      0.955,
+      0.962
+     ],
+     "head": [
+      0.957,
+      1.005,
+      0.971,
+      1.004
+     ],
+     "median": 0.958,
+     "headMedian": 0.988,
+     "flag": null
+    },
+    "ko": {
+     "v": 6,
+     "body": [
+      0.87
+     ],
+     "head": [
+      0.882
+     ],
+     "median": 0.87,
+     "headMedian": 0.882,
+     "flag": "small"
+    },
+    "special": {
+     "v": 7,
+     "body": [
+      0.914,
+      0.895,
+      0.919,
+      0.848,
+      0.847,
+      0.85,
+      0.852,
+      0.86
+     ],
+     "head": [
+      1,
+      1,
+      1,
+      1,
+      0.99,
+      1.004,
+      1.025,
+      1
+     ],
+     "median": 0.856,
+     "headMedian": 1,
+     "flag": "small"
+    },
+    "intro": {
+     "v": 3,
+     "body": [
+      0.966,
+      0.967,
+      0.957,
+      0.962
+     ],
+     "head": [
+      1,
+      0.998,
+      0.971,
+      1.003
+     ],
+     "median": 0.964,
+     "headMedian": 0.999,
+     "flag": null
+    },
+    "taunt": {
+     "v": 4,
+     "body": [
+      0.95,
+      0.95
+     ],
+     "head": [
+      1.008,
+      1.028
+     ],
+     "median": 0.95,
+     "headMedian": 1.018,
+     "flag": null
+    },
+    "win": {
+     "v": 7,
+     "body": [
+      0.921,
+      0.929,
+      0.916,
+      0.918
+     ],
+     "head": [
+      0.976,
+      0.983,
+      0.971,
+      0.98
+     ],
+     "median": 0.92,
+     "headMedian": 0.978,
+     "flag": null
+    },
+    "specialForward": {
+     "v": 6,
+     "body": [
+      0.894,
+      0.861,
+      0.871,
+      0.885,
+      0.949,
+      0.925,
+      0.928
+     ],
+     "head": [
+      1,
+      1.033,
+      1.047,
+      0.998,
+      1.026,
+      1.023,
+      1.029
+     ],
+     "median": 0.894,
+     "headMedian": 1.026,
+     "flag": null
+    },
+    "specialUp": {
+     "v": 3,
+     "body": [
+      0.954,
+      0.922,
+      0.836,
+      0.675,
+      0.909,
+      0.924
+     ],
+     "head": [
+      1.081,
+      1.029,
+      1,
+      1,
+      1.012,
+      1
+     ],
+     "median": 0.916,
+     "headMedian": 1.006,
+     "flag": null
+    },
+    "specialDown": {
+     "v": 5,
+     "body": [
+      0.919,
+      0.875,
+      0.876,
+      0.914
+     ],
+     "head": [
+      1.029,
+      0.999,
+      1.023,
+      0.971
+     ],
+     "median": 0.895,
+     "headMedian": 1.011,
+     "flag": null
+    },
+    "superPose": {
+     "v": 5,
+     "body": [
+      0.928,
+      0.931,
+      0.931,
+      0.935
+     ],
+     "head": [
+      0.971,
+      0.955,
+      0.955,
+      1
+     ],
+     "median": 0.931,
+     "headMedian": 0.963,
+     "flag": null
+    },
+    "beamStruggle": {
+     "v": 1,
+     "body": [
+      0.947,
+      0.943,
+      0.951
+     ],
+     "head": [
+      0.971,
+      1,
+      1.069
+     ],
+     "median": 0.947,
+     "headMedian": 1,
+     "flag": null
+    },
+    "beamStruggleAir": {
+     "v": 1,
+     "body": [
+      0.925,
+      0.903,
+      0.934
+     ],
+     "head": [
+      0.956,
+      0.948,
+      0.971
+     ],
+     "median": 0.925,
+     "headMedian": 0.956,
+     "flag": null
+    }
+   }
+  }
+ }
+}
