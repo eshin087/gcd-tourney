@@ -30,13 +30,13 @@ re-proportioning his strips, so the user decides here on the cheapest good optio
 
 Do, in order (Luna/medium for generation and measuring; Astra/medium checks the finished variants):
 
-- [ ] 1. From the main checkout: `npm run pr -- start art/gojo-proportions --art gojo` (dev port 5247). Work only there.
-- [ ] 2. **Diagnose first (no image calls).** Measure leg length (hip/belt line to sole) and leg share of standing
+- [x] 1. From the main checkout: (2026-10-17, real task worktree and port 5247) `npm run pr -- start art/gojo-proportions --art gojo` (dev port 5247). Work only there.
+- [x] 2. **Diagnose first (no image calls).** (2026-10-17, measured reference and packed slots; no confirmed drift) Measure leg length (hip/belt line to sole) and leg share of standing
   height in the approved neutral and combat cells, idle v08 f0, and every frame of hurtHigh, hurtLow, launched, run v14,
   dash v11, light1 and heavy in the packed atlas, at one density, with uncertainty. Commit
   `art/characters/gojo/production/proportions/DIAGNOSIS.md`: which strips have legs **longer than his own approved
   cells** (drift, fixable per strip) versus strips that are faithful to a model that is itself long-legged.
-- [ ] 3. **Variations of the model, neutral + combat cell each**, drawn from the approved cells as references, same
+- [x] 3. **Variations of the model, neutral + combat cell each** (2026-10-17; C neutral v02 held; call 3 validation error), drawn from the approved cells as references, same
   face, hair, blindfold, outfit and head size, same pixel density (head ~38-40 px):
   - **A. Current** (no call): the approved cells as they are, for comparison.
   - **B. Shorter legs**: legs about 8 % shorter, torso and head unchanged, so he stands about 4 % shorter.
@@ -47,15 +47,15 @@ Do, in order (Luna/medium for generation and measuring; Astra/medium checks the 
     are drawn.
   At most 3 image calls per cell (B, C, D: 2 cells each). Name them `gojo-neutral_study-B_v01.png` and so on under
   `art/characters/gojo/production/proportions/`; never overwrite a `_vNN`.
-- [ ] 4. **Mockup in his worst frame (no image calls):** for each of A-D, a quick hurtHigh f0 and idle f0 mockup (pixel
+- [x] 4. **Mockup in his worst frame (no image calls):** (2026-10-17, A-D idle/hurtHigh mockups) for each of A-D, a quick hurtHigh f0 and idle f0 mockup (pixel
   resample of the leg region for B and C, a pose note for D) so the user sees the change where it hurts most. Label
   mockups as mockups.
-- [ ] 5. One review page `public/reviews/gojo-proportions/`: A-D side by side, each beside the other three fighters'
+- [x] 5. One review page (2026-10-17, public comparison and Astra review complete) `public/reviews/gojo-proportions/`: A-D side by side, each beside the other three fighters'
   approved neutral cells on one floor line at one density, with leg length, leg share of height and standing height
   labelled; then the hurtHigh/idle mockups; then the diagnosis summary and, per variant, what production would cost
   (how many strips need a redraw vs a no-call fix). Astra/medium checks the variants against each other for matching
   head size, face and outfit (not against the old leg length, which is the thing being changed).
-- [ ] 6. Commit, `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the branch's
+- [x] 6. Commit, (2026-10-17; PR #143, preview ready, decision queued relay #13) `npm run pr -- open`, `npm run pr -- preview`, a handoff at the top of the branch's
   docs/agents/CLAUDE_ART_HANDOFF.md, then from main `node tools/relay.mjs ring gojo-run --for user --kind decision
   --note "<variants; numbers; cost per option; preview link>"` and stop. The approvals desk is OFF (ADR 0040), so
   Claude "3- Gojo" asks the user. Nothing is decided until a relayed `USER DECISION`.
@@ -128,6 +128,9 @@ Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`
 ---
 
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
+
+- [x] **Codex relay #5 correction (2026-10-17):** committed `88981058` on `art/size-r6`; Sasuke `beamStruggle` v04 now uses bodyHeight134 and has a refreshed review page. Gojo heavy's 1.08x test was cell-limited (packer cap 237), so v05 stays unchanged. Preview build passed: https://gcd-tourney-lxcam7v5w-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v04/. Diagnostics preserved outside the branch (88.3 MB). No camera/engine change. User approval is next; broader filtered-candidate follow-up remains open.
+
 
 **Correction to the answer below, after ring #2 (2026-10-17, handoff `18577741`).** Claude measured heads by
 scale-search template matching (idle f0's head crop resampled 0.5-1.4x, mirrored too, best normalized
