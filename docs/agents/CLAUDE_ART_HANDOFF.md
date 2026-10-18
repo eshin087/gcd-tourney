@@ -1,3 +1,12 @@
+# ART-SKL-SAS — special v15 candidate / decision needed (2026-10-18, relay skills #18)
+
+User decision via Claude #18 authorized one more generation call (4/4 cumulative) to redraw the same eight special poses at Sasuke's approved idle build, with all poses inside 256px cells. v15 was generated and filed as `art/characters/sasuke/raw/special_v15.png` (2172x724; SHA-256 `754E3CCF20A8071F00CD228C9B6CCED94DF79D67705FD8C02E8D14F512D7E232`). The v14 source was moved into `raw/_qa_hold/`; v13 remains approved and active until v15 approval.
+
+The candidate is not ready for a clean technical pass: strict pack detected 8 frames but failed the scale gate and wrote no atlas. Its splitter cuts five pose boundaries; head ratio f7/f1 is 1.23/1.36 of idle; f3/f5/f6 clip 6/25/3 px. `npm run body -- sasuke special` reports v13 only. No v15 body evidence or final Astra atlas audit exists. Full prompt and provenance: `art/characters/sasuke/production/skills-revamp-batch1/special_v15_provenance.md`; gallery is the batch 1 page.
+
+The review request should ask what to do next: accept the drawing with technical holds, authorize deterministic pixel/placement fixes without new image calls, or authorize a fresh call budget. Do not record approval unless user approves v15.
+
+---
 # ART-SKL-SAS — batch 1 approval recorded (2026-10-18, relay skills #17)
 
 USER APPROVAL via Claude relay skills #17: the user approved `chidori` v01 and `special` v14. Quote: “Chidori ball: Approve v01 (Recommended): I pack it in HD and it replaces my placeholder ball in his hand. Chidori strip: Approve v14: Approve the drawing as it is; I fix the frame split, and the head/clothing fullness stays as drawn.”
@@ -1189,6 +1198,7 @@ Machine manifest versions reflect the latest candidates while preserving approve
 ## Relay #8 correction (2026-10-18)
 
 Claude confirmed the v05 approval ask was superseded by shipped Sasuke v02. Keep v05 under `raw/_qa_hold/`; keep user-rejected v04 under `raw/_rejected/` with its rejection record. Main’s v02 manifest entry, hitboxes and packed sheet remain unchanged. Gojo heavy and Gojo hurtHigh/hurtLow/launched remain untouched by this task.
+
 
 
 

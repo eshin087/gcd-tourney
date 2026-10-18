@@ -1,4 +1,4 @@
-- Changed (ART-SKL-SAS): via user approval relayed by Claude #17, recorded `chidori` v01 and `special` v14 as visually approved. Claude will pack Chidori in HD and correct special v14 frame splitting; the special retains its strict scale/Astra/clipping technical hold, and Chidori raw layout/palette caveats remain.
+- Changed (ART-SKL-SAS): via user approval relayed by Claude #17, recorded `chidori` v01 and `special` v14 as visually approved. Relay #18 later directed v14 into `_qa_hold/` and approved v13 to remain active pending the v15 review; Chidori HD integration and raw layout/palette caveats remain.
 - Changed (ART-SKL-SAS): batch 3 candidates filed: beamFire v08 and Great Fireball/Kirin effects v01. Six VFX await user visual review; kirinStrike has a clipping report. beamFire remains technically held because strict scale fails after auto-head fit; no quantized atlas, body sheet or final Astra atlas audit is available.
 # Changelog
 
@@ -12,6 +12,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+
+- Changed (ART-SKL-SAS): recorded relay #18 and generated Sasuke special v15 using the final authorized call (4/4 cumulative). v14 is quarantined and approved v13 remains active pending v15 approval. v15 remains on technical HOLD after strict pack failure for split boundaries, scale mismatch and clipping; no v15 body measurement or Astra atlas audit is claimed.
 
 - Changed (ART-SKL-SAS): via user approval relayed by Claude #16, restored and recorded Amaterasu v01 and AmaterasuIgnite v01 as approved HD candidates with no pixel cleanup; Claude's trial pack split their grids and keyed/quantized near-magenta. Amaterasu uses fill 0.9 to keep its tallest tips in bounds. Codex is proceeding to batch 3.
 - Changed (ART-SKL-SAS): relay #15 authorized Sasuke `special` attempt 3 as v14 for pack/body/Astra review and a fresh 3-call A1 `chidori` budget. `special` v14 remains on technical HOLD; the fresh `chidori` v01 is queued for user review with source-layout and HD-packing caveats.
@@ -899,6 +901,8 @@ Reconstructed from the codebase when the changelog was introduced.
 - Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
 
 - ART-SCALE-R4-KIL: added hash-verified source-to-fit calibration handoff for Killua idle11, guard09, superDash08, stagger07 and win05; no art, fit data, packer or shipped atlas changed.
+
+
 
 
 
