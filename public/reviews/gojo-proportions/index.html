@@ -21,7 +21,7 @@
     .cells figure { margin:0; text-align:center; color:#c7d0dd; font-size:12px }
     .cells img { display:block; width:100%; max-width:256px; margin:auto; background:#0a0d12; image-rendering:pixelated }
     .concepts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px }
-    .concepts img { width:100%; max-height:420px; object-fit:contain; background:#0a0d12 }
+    .concepts img { display:block; width:100%; aspect-ratio:1/1; height:auto; object-fit:contain; background:#0a0d12 }
     table { border-collapse:collapse; width:100%; margin:12px 0 }
     th,td { border:1px solid #3a4656; padding:8px; text-align:left; vertical-align:top }
     code { color:#cbdaf0 } a { color:#92c5ff }
@@ -62,6 +62,7 @@
   <h2>Generated model directions</h2>
   <p>B and C cells are concept images from independent calls, shown on a 512px transparent canvas. D combat is a lower/wider combat-pose concept; A combat remains the approved cell. Exact attempt paths and hashes are recorded in the branch's <code>art/characters/gojo/production/proportions/GENERATION_LOG.md</code>. These images are not equal-density pixel art and are not approval-ready production art. Astra visual study found C neutral v02's head visibly smaller than A/B relative to its torso and legs; that comparison is unresolved because the final C neutral call was rejected by tool validation before generation. C is held as a concept only.</p>
   <div class="concepts">
+    <section class="card"><h3>A · approved baseline</h3><img src="../../art-review/title-style-pilot/gojo-neutral_v01.png" alt="A approved Gojo neutral"><img src="../../art-review/title-style-pilot/gojo-combat_v01.png" alt="A approved Gojo combat"></section>
     <section class="card"><h3>B · neutral / combat</h3><img src="source-neutral-B.png" alt="B shorter-leg neutral concept"><img src="source-combat-B.png" alt="B combat concept"></section>
     <section class="card"><h3>C · neutral v02 / combat</h3><img src="source-neutral-C.png" alt="C corrected neutral concept"><img src="source-combat-C.png" alt="C combat concept"></section>
     <section class="card"><h3>D · A neutral / combat direction</h3><img src="../../art-review/title-style-pilot/gojo-neutral_v01.png" alt="D reuses approved neutral A"><img src="source-combat-D.png" alt="D lower wider combat concept"></section>
