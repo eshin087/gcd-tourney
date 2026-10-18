@@ -15,6 +15,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ENG-112 Goku, relay combat #39): applied Astra's clarified visual scale bar to the exact 48-color diagnostic atlas; recorded version-bound scaleManualQA passes for fTilt, dTilt, dashAttack, fSmash, fair, bair and uair, with uncertainty. uTilt/uSmash remain undersized holds and dSmash remains an upper-body-volume hold. No drawing approval or strict-gate pass is implied.
+
 
 - Changed (ENG-112 Goku): filed fTilt/fair v01 with attempt provenance and Claude's measured strip fits (1.0/.92); added their 48-color diagnostic atlas and Astra's per-frame audit. Both remain on technical scale hold because occluded landmarks cannot establish ±6%; no redraw or extra fit was recommended.
 - Changed (ENG-112 Goku): recorded all ten candidate versions, the dSmash v02 divider cleanup and packed-atlas import audit; Astra holds all ten pending defensible landmark scale evidence, with uTilt/uSmash undersized and dSmash upper-body volume oversized. No strip is approved or cleared to ship.
