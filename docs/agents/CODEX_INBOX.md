@@ -57,6 +57,10 @@ redrawing his beam strips on `art/naruto-skills` right now (touch only these ten
 already holds 243 frames, so his ten new strips push it past one 4096 sheet: Claude adds a second sheet page to the
 packer (TOOL-060) before his batch ships. The other five fit (Sasuke / Killua / Gojo 249 of 256 cells).
 
+**USER DECISION (2026-10-18, relay combat #2, the user's answer "Authorize helper agents (Recommended)"):** spawn a
+gpt-6-luna/medium helper agent for the generation and a gpt-6-astra/medium helper for each fighter's final audit
+(`collaboration.spawn_agent` with `model`, `reasoning_effort: "medium"`, `fork_turns: "none"`); no new user-visible chats.
+
 Do, per fighter (Luna/medium for generation; Astra/medium final audit, per CLAUDE.md "Agent model selection"):
 
 - [ ] 1. `npm run pr -- start art/normals-<id> --art <id>` (dev port 5251 + n). Branch `art/normals-<id>`.
