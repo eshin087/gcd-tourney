@@ -2,6 +2,8 @@
 
 ## ENG-112 Killua dSmash v03 (2026-10-18): user approved; technical hold
 
+Relay combat #23 import follow-up: seven approved strips were fit by their exact-version `auto-head` sidecars and the full 54-animation atlas was repacked at 48 colors. uSmash/uair remain unfit because the packer detects within-strip `pop`; only the specified frames are exempt. Final Astra audit and current holds: [import audit](characters/killua/production/ENG112_NORMALS_FINAL_IMPORT_AUDIT.md). The guard is not clear; user decision is required before the remaining source/contact holds can be resolved.
+
 Relay combat #21 authorized one fresh round of up to three calls after v02 was not approved. Three calls were used; attempt 01 was selected for its clearer two-sided low sweep and separated figures. The selected file is an exact copy of attempt 01. The packed [v03 review page](../public/reviews/normals-killua/v03/index.html) compares its quantized loop/frames with rejected v02, the current stand-in and approved idle f0. The temporary manifest approved v03 solely to extract diagnostic atlas frames; the branch manifest remains raw/unapproved and no diagnostic output is shipped. The source is 2172x724 instead of 2048x256 and retains a smooth illustrated finish. Packer scale proxies are outside tolerance; see the page and [Astra audit](characters/killua/production/ENG112_NORMALS_V03_DSMASH_AUDIT.md). [Generation provenance and all three attempts](characters/killua/raw/_qa_hold/ENG112_NORMALS_V02_PROVENANCE.md).
 
 | date | character | asset | file | version | status | what changed | QA notes |
