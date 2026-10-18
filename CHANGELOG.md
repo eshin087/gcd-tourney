@@ -11,8 +11,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- ART-SIZE-R6: merged current main into `art/size-r6`; kept approved Sasuke `beamStruggle` v02 (PR #140) in manifest, hitboxes and repacked atlas. Superseded v05 is quarantined in `raw/_qa_hold/`; user-rejected v04 remains in `raw/_rejected/`; Killua `airLight2` v08 remains held and Gojo heavy is unchanged. No camera or engine change.
-- ART-SIZE-R6: PR #142 merged as d5304303; Sasuke v02 remains live, rejected v04 stays in `raw/_rejected/`, and superseded v05 stays in `raw/_qa_hold/`. No new art ships and no camera/engine change.
+- ART-SIZE-R6: PR #142 merged as d5304303; Sasuke v02 (PR #140) remains live and measures the right size, v04 remains user-rejected in `raw/_rejected/`, and v05 was not taken and stays in `raw/_qa_hold/`. The user made no beam-vs-size decision. No new art ships and no camera/engine change.
 
 - Art (ART-BEAM-CLASH): User approved Goku ground `beamStruggle_v01` and Sasuke ground `beamStruggle_v02` via Claude relay beam-clash #15: “Goku v01: Approve v01. Sasuke v02: Approve v02.” Both approvals are recorded in REVIEW, manifest and TRACKER, and both sources are in `raw/`. Their technical holds remain: Goku's strict gate has an unmeasured head and 1 px frame-2 clip, plus title-combat/beamFire density disagreement and Astra shoulder/chest HOLD; Sasuke's auto head gate passes but Astra holds torso length and loop stability, with arm uncertainty. No production atlas or contact override was promoted. All three air strips remain unchanged. Evidence: `public/reviews/beam-clash-r3/` and character production ledgers.
 - Added: Goku's beam clash push (Dragon Fist, `beamStruggle` v01, packed at the head-matched bodyHeight 205 and shifted 6 px left so the fist stays in the cell) and Sasuke's redrawn Chidori Spear push (v02, bodyHeight 153), with hand anchors on the fist and fingertips (ART-BEAM-CLASH). Re-snapping the shared 48-colour palette nudges about 1 % of Goku's and 0.3 % of Sasuke's other pixels (TOOL-PALETTE-LOCK).
@@ -845,6 +844,7 @@ Reconstructed from the codebase when the changelog was introduced.
 - Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
 
 - ART-SCALE-R4-KIL: added hash-verified source-to-fit calibration handoff for Killua idle11, guard09, superDash08, stagger07 and win05; no art, fit data, packer or shipped atlas changed.
+
 
 
 

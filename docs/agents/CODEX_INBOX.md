@@ -170,6 +170,8 @@ Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`
 
 - [x] **Relay #8 correction and merge confirmation (2026-10-18):** v04 remains in `raw/_rejected/`; only v05 is in `raw/_qa_hold/` with the superseded note. Main retains Sasuke v02 and its packed atlas. Claude merged PR #142 as `d5304303`; no user review is needed. Gojo heavy and the Gojo reactions were left to `gojo-run`; camera unchanged.
 
+- [x] **Relay #9 status confirmed (2026-10-18):** v05 is not taken because shipped Sasuke v02 (PR #140) measures the right size; it stays in `raw/_qa_hold/` with that note. The user asked whether this was beam or size work, and made no decision. PR #142 is already merged as `d5304303`; R6 has no user review or camera change.
+
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
 - [x] **Relay #7 superseding plan (2026-10-18):** main was merged into `art/size-r6`; Sasuke beamStruggle v02 from PR #140 was kept in manifest, hitboxes and the repacked atlas. v05 moved to `raw/_qa_hold/` with a superseded note; user-rejected v04 remains in `raw/_rejected/`, and the obsolete v05 approval ask was closed. Art guard and production build pass; PR #142 was merged by Claude as `d5304303`. No user review needed. Killua airLight2 v08 remains held, Gojo heavy and hit reactions unchanged here; camera left alone. The six-fighter R6 screen is complete.
 
@@ -1986,6 +1988,7 @@ Direct user direction supersedes the earlier recommendation for model v02: v02 w
 - [x] **(2026-10-09) ART-CRWD-FIX:** superseded 2026-10-10: the user keeps the Killua and Gojo spectators in the
   crowd (approved with the rest). Do not replace them.
 - Noted by Claude: TOOL-018 (queue named flags lost through `npm run queue --` on PowerShell) is on Claude's list.
+
 
 
 

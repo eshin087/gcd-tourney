@@ -1131,3 +1131,4 @@ Machine manifest versions reflect the latest candidates while preserving approve
 Claude confirmed the v05 approval ask was superseded by shipped Sasuke v02. Keep v05 under `raw/_qa_hold/`; keep user-rejected v04 under `raw/_rejected/` with its rejection record. Main’s v02 manifest entry, hitboxes and packed sheet remain unchanged. Gojo heavy and Gojo hurtHigh/hurtLow/launched remain untouched by this task.
 
 
+
