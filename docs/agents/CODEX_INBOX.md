@@ -170,6 +170,9 @@ Completed 2026-10-17: approved candidate atlas at branch merge commit `dc0d02cb`
 
 ## Size consistency, round 6: strips drawn at the wrong body size (2026-10-17, Claude) - chat "1 - Art and Camera", relay lane `art-camera`
 
+- [x] **Codex relay #6 rejection and v05 response (2026-10-17):** user rejected v04 (bodyHeight152, head match1.11-1.17) and requested a no-call v05 at bodyHeight134 from the same v01 pixels. v04 is preserved under `_rejected`; v05 retains the sleeve exemptions. PR #142 branch commits `a8edd690` and `4baec978`. The refreshed page includes current main-approved v02 (PR #140) beside v01, rejected v04 and v05: https://gcd-tourney-okk81f4to-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v05/. Build and preview build passed. The updated approval request is relay #7; v02 remains live on main until any future integration. Gojo heavy unchanged; diagnostics remain outside branch; no camera/engine change.
+
+
 - [x] **Codex relay #5 correction (2026-10-17):** committed `88981058` on `art/size-r6`; Sasuke `beamStruggle` v04 now uses bodyHeight134 and has a refreshed review page. Gojo heavy's 1.08x test was cell-limited (packer cap 237), so v05 stays unchanged. Preview build passed: https://gcd-tourney-lxcam7v5w-eshin087s-projects.vercel.app/reviews/size-r6/sasuke-beamStruggle-v04/. Diagnostics preserved outside the branch (88.3 MB). No camera/engine change. User approval is next; broader filtered-candidate follow-up remains open.
 
 
