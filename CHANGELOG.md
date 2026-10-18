@@ -1,5 +1,5 @@
 - Changed (ART-SKL-SAS): via user approval relayed by Claude #17, recorded `chidori` v01 and `special` v14 as visually approved. Relay #18 later directed v14 into `_qa_hold/` and approved v13 to remain active pending the v15 review; Chidori HD integration and raw layout/palette caveats remain.
-- Changed (ART-SKL-SAS): batch 3 candidates filed: beamFire v08 and Great Fireball/Kirin effects v01. Six VFX await user visual review; kirinStrike has a clipping report. beamFire remains technically held because strict scale fails after auto-head fit; no quantized atlas, body sheet or final Astra atlas audit is available.
+- Changed (ART-SKL-SAS): user approved beamFire v08 and greatFireball, greatFireballBurst, stormCloud, kirinBody, kirinHead and kirinStrike v01 via Claude relay skills #19. For beamFire, user chose head about 8% over idle and low-lunge body about 7% under; Claude sets bodyHeight and owns HD packing/integration. kirinStrike reaching the cell top is as briefed, per the user. Visual approval does not clear HD/runtime integration checks.
 # Changelog
 
 All notable changes to GCD Tourney are documented here.
@@ -901,6 +901,7 @@ Reconstructed from the codebase when the changelog was introduced.
 - Recorded three additional Killua idle correction attempts; technical hold remains after independent scale review.
 
 - ART-SCALE-R4-KIL: added hash-verified source-to-fit calibration handoff for Killua idle11, guard09, superDash08, stagger07 and win05; no art, fit data, packer or shipped atlas changed.
+
 
 
 
