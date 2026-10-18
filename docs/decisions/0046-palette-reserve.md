@@ -1,6 +1,6 @@
 # 0046: Reserve part of a fighter's 48 colours for strips drawn in other colours (`paletteReserve`)
 
-**Status:** Proposed (Claude, 2026-10-18); accepted when the user approves its PR
+**Status:** Accepted (user approved PR #162, 2026-10-18)
 **Date:** 2026-10-18
 **Task:** TOOL-PALETTE-RESERVE (follow-up of ENG-SKL-NAR-2)
 **Extends:** [ADR 0007](0007-art-spec-v2-shippuden-256.md) (at most 48 colours per character) and
