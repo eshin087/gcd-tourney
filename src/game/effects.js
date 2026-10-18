@@ -88,7 +88,8 @@ export class Effects {
 
   // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`: approved effects only;
   // ?art=custom prefers the unapproved candidates in public/preview/vfx/). Effects missing from the custom atlas
-  // keep their procedural frames (upscaled).
+  // keep their procedural frames (upscaled). The signature effects (ADR 0044) come from a second page, atlas.json's
+  // `hd` block (256 px cells at twice the density, the same world size per cell): `this.hd`, used per effect.
   async loadCustom() {
     try {
       const found = await fetchAtlasJson('/vfx');
@@ -105,7 +106,8 @@ export class Effects {
       }
       const pm = this.meta, proc = this.tex.image;
       const cell = cm.cell || 128;
-      const names = [...new Set([...Object.keys(pm.anims), ...Object.keys(cm.anims)])];
+      const hd = cm.hd?.anims ? await this.loadHd(cm.hd, dir) : null;
+      const names = [...new Set([...Object.keys(pm.anims), ...Object.keys(cm.anims)])].filter((n) => !hd?.anims[n]);
       const cols = Math.max(...names.map((n) => (cm.anims[n] || pm.anims[n]).n));
       const cv = document.createElement('canvas');
       cv.width = cols * cell;
@@ -127,6 +129,11 @@ export class Effects {
       });
       // keep the same world size: custom cells use their own ppu, upscaled procedural ones match it
       this.cellWorld = cell / (cm.ppu || (cell * PPU) / pm.cell);
+      if (hd) {
+        for (const [name, a] of Object.entries(hd.anims)) meta.anims[name] = { row: a.row, n: a.n, ms: a.ms ?? 40, hd: true };
+        this.hd = hd;
+        custom.push(...Object.keys(hd.anims).map((n) => `${n} (HD)`));
+      }
       this.meta = meta;
       this.W = cv.width;
       this.H = cv.height;
@@ -140,19 +147,43 @@ export class Effects {
     }
   }
 
+  // The HD page of atlas.json (ADR 0044). A missing or unreadable image keeps those effects procedural.
+  async loadHd(h, dir) {
+    const img = await loadImage(artUrl(`${dir}/${h.image || 'atlas_hd.png'}`));
+    if (!img) {
+      console.warn('[vfx] atlas.json lists HD effects but their page is missing or unreadable, keeping them procedural');
+      return null;
+    }
+    const tex = new THREE.Texture(img);
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    tex.generateMipmaps = false;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.needsUpdate = true;
+    const cell = h.cell || 256;
+    return { tex, cell, W: img.width, H: img.height, cellWorld: cell / (h.ppu || 112), anims: h.anims };
+  }
+
+  // the page an effect is drawn from: the HD signature page or the shared one
+  sheet(a) {
+    return a?.hd && this.hd ? this.hd : this;
+  }
+
   uv(name, i, out) {
     const a = this.meta.anims[name];
+    const S = this.sheet(a);
     i = Math.max(0, Math.min(i | 0, a.n - 1));
-    const c = this.meta.cell, e = 0.02;
-    out.set((i * c + e) / this.W, 1 - ((a.row + 1) * c - e) / this.H, ((i + 1) * c - e) / this.W, 1 - (a.row * c + e) / this.H);
+    const c = S === this ? this.meta.cell : S.cell, e = 0.02;
+    out.set((i * c + e) / S.W, 1 - ((a.row + 1) * c - e) / S.H, ((i + 1) * c - e) / S.W, 1 - (a.row * c + e) / S.H);
     return out;
   }
 
   spawn(name, x, y, z, o = {}) {
     const a = this.meta.anims[name];
+    const S = this.sheet(a);
     const mat = new THREE.ShaderMaterial({
       uniforms: {
-        map: { value: this.tex },
+        map: { value: S.tex },
         uvRect: { value: new THREE.Vector4() },
         color: { value: new THREE.Color(o.color ?? 0xffffff) },
         opacity: { value: o.opacity ?? 1 },
@@ -168,13 +199,13 @@ export class Effects {
     });
     const mesh = new THREE.Mesh(o.bottom ? this.geoB : this.geoC, mat);
     mesh.renderOrder = o.order ?? 5;
-    const s = this.cellWorld * (o.scale ?? 1);
+    const s = S.cellWorld * (o.scale ?? 1);
     mesh.scale.set(s * (o.flipX ? -1 : 1), s, s);
     mesh.position.set(x, y + RING_TOP, z);
     this.scene.add(mesh);
     const ms = o.ms ?? a.ms;
     const it = {
-      mesh, mat, name, a, t: 0, ms,
+      mesh, mat, name, a, t: 0, ms, cellWorld: S.cellWorld,
       loop: !!o.loop,
       life: o.life ?? (a.n * ms) / 1000,
       vel: o.vel ? new THREE.Vector3(...o.vel) : null,
@@ -210,9 +241,9 @@ export class Effects {
     }
     it.mesh.position.set(x, y + RING_TOP, z);
     if (o.scale != null) {
-      const s = this.cellWorld * o.scale;
+      const s = it.cellWorld * o.scale;
       it.base = s;
-      it.mesh.scale.set(s, s, s);
+      it.mesh.scale.set(o.flipX ? -s : s, s, s);
     }
     if (o.color != null) it.mat.uniforms.color.value.set(o.color);
     if (o.opacity != null) it.mat.uniforms.opacity.value = o.opacity;
@@ -545,21 +576,29 @@ export class Effects {
     const k = f.actor?.depthK ?? 1;
     const at = (fwd, up) => (pos ? pos : H ? { x: P.x + fx * H.x * k, y: P.y + H.y * k, z: P.z + fz * H.x * k } : { x: P.x + fx * fwd * k, y: P.y + up * k, z: P.z + fz * fwd * k });
     if (kind === 'rasengan') {
-      const s = (phase === 0 ? 0.25 + prog * 0.45 : 0.72) * k;
+      // formed in his palm through most of the startup (rasenganForm), then the spinning sphere (ENG-SKL-NAR)
       const p = at(0.6, 0.72);
-      this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.7 });
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.3, color: 0x8ac8ff, opacity: 0.45 * halo, order: 3, glow: 1 });
-      if (Math.random() < 0.5) this.spawn('star', p.x, p.y, p.z, { scale: 0.2, frame: 2, vel: [(Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
+      const forming = phase === 0 && prog < 0.6 && !quiet;
+      if (forming) {
+        this.drop('hand' + f.index);
+        const it = this.keep('handForm' + f.index, 'rasenganForm', p.x, p.y, p.z, { scale: 0.5 * k, order: 9, glow: 0.4 });
+        it.frame = Math.min(it.a.n - 1, Math.floor((prog / 0.6) * it.a.n));
+      } else {
+        this.drop('handForm' + f.index);
+        this.keep('hand' + f.index, 'rasengan', p.x, p.y, p.z, { scale: 0.5 * k, order: 9, glow: 0.45 });
+      }
+      const s = (forming ? 0.25 + prog * 0.6 : 0.7) * k;
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s, color: 0x8ac8ff, opacity: 0.4 * halo, order: 3, glow: 1 });
+      if (Math.random() < 0.3) this.spawn('star', p.x, p.y, p.z, { scale: 0.18, frame: 2, vel: [(Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
     } else if (kind === 'rasenshuriken') {
-      // a big wind orb ringed by spinning blades, held high in startup and thrust forward in active
+      // the wind shuriken: four blades spinning round a Rasengan core, held high in startup and thrust forward in active
       const p = phase === 0 ? at(0.25, 1.55) : at(0.7, 0.8);
-      const s = (phase === 0 ? 0.3 + prog * 0.6 : 0.9) * k;
-      this.keep('hand' + f.index, 'orb', p.x, p.y, p.z, { scale: s, color: 0xe8f6ff, order: 9, glow: 0.8 });
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 2.2, color: 0x8ac8ff, opacity: 0.45 * halo, order: 3, glow: 1 });
-      if (Math.random() < 0.5) this.spawn('ring', p.x, p.y, p.z, { scale: s * 2.1, color: 0xffffff, glow: 0.6, life: 0.12, fade: true, order: 8 });
-      if (Math.random() < 0.6) {
+      const s = (phase === 0 ? 0.25 + prog * 0.4 : 0.65) * k;
+      this.keep('hand' + f.index, 'rasenshuriken', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.5 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.6, color: 0x8ac8ff, opacity: 0.35 * halo, order: 3, glow: 1 });
+      if (Math.random() < 0.35) {
         const a = Math.random() * Math.PI * 2;
-        this.spawn('streak', p.x + Math.cos(a) * s * 0.9, p.y + Math.sin(a) * s * 0.5, p.z, { scale: 0.35, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });
+        this.spawn('streak', p.x + Math.cos(a) * s * 1.2, p.y + Math.sin(a) * s * 0.6, p.z, { scale: 0.3, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });
       }
     } else if (kind === 'kiFist') {
       // Dragon Fist (Goku): golden ki wrapped round the fist, drawn back in startup and driven forward in active
@@ -583,7 +622,76 @@ export class Effects {
 
   dropHand(f) {
     this.drop('hand' + f.index);
+    this.drop('handForm' + f.index);
     this.drop('handGlow' + f.index);
+  }
+
+  // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
+  // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
+  // generic explosion's bloom so its shape reads
+  blast(name, x, y, z, scale, color) {
+    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false });
+    this.spawn('ring', x, y, z, { scale: 2.2 * scale, color, glow: 0.4, order: 7, depthTest: false });
+    for (let k = 0; k < 3; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
+  }
+
+  // A shadow clone appearing or vanishing (the anime's poof)
+  poof(x, y, z, scale = 0.6) {
+    this.spawn('poof', x, y, z, { scale, order: 8 });
+  }
+
+  // Substitution: the log left where he stood, in a puff; it tips over and lies there a moment
+  subLog(x, y, z, faceX = 1) {
+    this.spawn('subLog', x, y, z, { bottom: true, scale: 0.8, life: 1.4, fade: true, order: 6, flipX: faceX < 0 });
+    this.poof(x, y + 0.8, z, 0.75);
+  }
+
+  // The Nine-Tails Cloak wells up over him (the mode starts)
+  cloakBurst(f, C) {
+    const p = f.renderPos || f.pos;
+    this.spawn('ring', p.x, p.y + 0.8, p.z, { scale: 2.2, color: C.rim, glow: 0.8, order: 8, depthTest: false });
+    for (let i = 0; i < 10; i++) {
+      const a = (i / 10) * Math.PI * 2;
+      this.spawn('bubble', p.x + Math.cos(a) * 0.3, p.y + 0.3 + Math.random() * 1.1, p.z, {
+        scale: 0.18 + Math.random() * 0.1, color: C.bubble ?? C.rim, vel: [Math.cos(a) * 2, 1.2 + Math.random(), Math.sin(a) * 1.2], life: 0.4, fade: true, order: 7,
+      });
+    }
+  }
+
+  // Held behind the hips, swaying with its own loop, mirrored with the facing: the cloak's tail, the shroud's four
+  // (`i` of `n`, fanned). The tail art sweeps left from its base, so it is mirrored when he faces screen-left.
+  tail(f, id, camRight, T, color, rot = 0) {
+    const p = f.renderPos || f.pos, flip = f.actor.flip, k = f.actor.depthK ?? 1;
+    const x = p.x - camRight.x * flip * 0.12 * k + this.camFwd.x * 0.25, z = p.z - camRight.z * flip * 0.12 * k + this.camFwd.z * 0.25;
+    const it = this.keep(id, T.fx ?? 'naruto_chakraTail', x, p.y + 0.62 * k, z, { bottom: true, scale: (T.scale ?? 0.75) * k, color, opacity: T.opacity ?? 0.75, glow: 0.15, order: 1, flipX: flip < 0 });
+    it.rot = flip * rot;
+  }
+
+  // Every frame of the Nine-Tails Cloak: its tail, and now and then a bubble of chakra boiling off him
+  cloakTick(f, C, camRight, frozen = false) {
+    if (C.tail) this.tail(f, 'cloakTail' + f.index, camRight, C.tail, C.tail.color ?? C.rim, 0.1);
+    if (frozen || Math.random() > 0.12) return;
+    const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1;
+    this.spawn('bubble', p.x + (Math.random() - 0.5) * 0.5 * k, p.y + (0.3 + Math.random()) * k, p.z, {
+      scale: 0.12 + Math.random() * 0.08, color: C.bubble ?? C.rim, vel: [0, 1.1, 0], life: 0.45, fade: true, order: 6,
+    });
+  }
+
+  // Every frame of the Four-Tails shroud (kit.js startShroud): its tails once the chakra has swallowed him, bubbles
+  shroudTick(f, sh, level, camRight, frozen = false) {
+    if (sh.tails && level > 0.6) {
+      for (let i = 0; i < sh.tails; i++) {
+        const fan = sh.tails > 1 ? -0.4 + (0.8 * i) / (sh.tails - 1) : 0;
+        this.tail(f, 'shroudTail' + f.index + '_' + i, camRight, { scale: 0.8 + (i % 2) * 0.08, opacity: 0.95 }, i % 2 ? sh.rim : sh.chakra, fan);
+      }
+    }
+    if (frozen && level >= 1) return;
+    if (Math.random() > (frozen ? 0.35 : 0.25)) return;
+    // the chakra boiling up the body (during the flash, up to the line it has reached)
+    const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1;
+    this.spawn('bubble', p.x + (Math.random() - 0.5) * 0.6 * k, p.y + (0.1 + Math.random() * 1.3 * Math.max(0.2, level)) * k, p.z, {
+      scale: 0.14 + Math.random() * 0.1, color: Math.random() < 0.5 ? sh.chakra : sh.rim, vel: [0, 1.4, 0], life: 0.4, fade: true, order: 6,
+    });
   }
 }
 

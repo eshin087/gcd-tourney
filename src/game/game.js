@@ -16,7 +16,7 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, clashFx, resumeRampage, isEnergy, ENERGY_LOCK } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -451,7 +451,7 @@ export class Game {
     this.vortices = [];
     this.setStage('arena');
     this.hud.training(false);
-    for (const f of this.fighters) { f.endMoveFx(); f.boxViewer?.dispose(); f.actor.dispose(); }
+    for (const f of this.fighters) { f.endMoveFx(); f.boxViewer?.dispose(); f.crewView?.dispose(); f.actor.dispose(); }
     this.fighters = [];
     for (const p of this.projectiles) p.kill();
     for (const b of this.beams) b.kill();
@@ -893,6 +893,8 @@ export class Game {
     if (this.resim) return; // all effects: a re-simulated frame was already drawn
     let lines = 0;
     for (const f of this.fighters) {
+      if (f.mode?.cloak) this.fx.cloakTick(f, f.mode.cloak, this.cam.right, frozen); // Nine-Tails Cloak (ENG-SKL-NAR)
+      if (f.shroud) this.fx.shroudTick(f, f.shroud, shroudLevel(f), this.cam.right, frozen); // Four-Tails
       if (f.state !== 'charge') chargeEnd(this, f);
       if (f.state === 'charge') {
         lines = Math.max(lines, chargeTick(this, f, f.t, frozen)); // canon power-up per fighter (ENG-069)
@@ -1533,7 +1535,6 @@ export class Game {
         s.origin.set(f.pos.x, f.pos.y + 0.7, f.pos.z);
         if (!s.pose) f.actor.setPhase(s.S.maulPose ?? 'heavy', s.S.maulPhase ?? 1, s.maulAt ?? 0.5); // claws dug into it
         if (c.tier === 'struggle') (s.hold ??= new THREE.Vector3()).set(P.x - dx * c.C.orbReach, P.y - dy * c.C.orbReach, P.z - dz * c.C.orbReach);
-        clashFx(f, s.S, c.timer);
       }
     }
   }
@@ -1581,7 +1582,6 @@ export class Game {
     R.origin.copy(H);
     bm.dir.copy(d).negate();
     bm.len = Math.max(0.4, O.distanceTo(P));
-    clashFx(R.f, R.S, c.timer);
   }
 
   updateClash() {
@@ -1774,7 +1774,9 @@ export class Game {
       // beam ticks draw their own sparks
     } else if (m.special) {
       const col = new THREE.Color(m.color);
-      this.fx.explosion(x, y, z, col);
+      // the technique's own blast (ENG-SKL-NAR) in place of the generic fireball, which would white it out
+      if (m.blastFx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, col);
+      else this.fx.explosion(x, y, z, col);
       audio.play('specialHit');
       this.cam.shake(0.9, dir);
       this.cam.zoomPunch(1);

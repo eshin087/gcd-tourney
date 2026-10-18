@@ -10,6 +10,8 @@ import { resetHitFlash, startHitFlash, flashTier, hitFlashUniforms, hitShake } f
 import { TECH_ART, techPose, rollBackward, wallFacing, wallShift } from './techAnim.js';
 import { pickAnim } from './animAlts.js';
 import * as dmath from './dmath.js';
+import { cloakStyle } from './auraShell.js';
+import { CloneCrew } from './clones.js';
 
 const NEUTRAL_PAD = new Pad();
 // states a held fighter is pulled out of (they can't act until the hold wears off)
@@ -105,7 +107,7 @@ export class Fighter {
     this.kitState = null; // data of the running kit move (state 'kit')
     this.burn = null; // damage over time (Amaterasu), see kit.tickBurn
     this.reflex = null; // Whirlwind: auto-counters left and frames (ADR 0017), see kit.tickReflex
-    kit.endShroud(this); // the Four-Tails tint never outlives a round
+    kit.endShroud(this, true); // the Four-Tails shroud never outlives a round
     this.dashDir = new THREE.Vector2(1, 0);
     // defensive options (ADR 0014)
     this.clock = 0; // frames since the round started (dodge staleness)
@@ -1959,5 +1961,19 @@ export class Fighter {
     }
     if (this.game.superFlash?.who === this) flash = Math.max(flash, this.game.superFlash.t < 6 ? 1 : 0);
     u.flash.value = flash;
+    // signature techniques on the body (ENG-SKL-NAR): the Nine-Tails Cloak over it, the Four-Tails chakra swallowing it
+    const cloak = this.mode?.cloak && !this.hidden ? cloakStyle(this.mode.cloak) : null;
+    if (cloak) this.actor.chakraShroud().show(cloak, time);
+    else this.actor.cloak?.hide();
+    const sh = this.shroud;
+    u.engulf.value = sh ? kit.shroudLevel(this) : 0;
+    if (sh) {
+      u.engulfTime.value = time;
+      u.engulfCore.value.set(sh.core);
+      u.engulfRim.value.set(sh.rim);
+    }
+    // the shadow clones a kit move keeps in its state (kit.js crew, clones.js)
+    const crew = this.state === 'kit' ? this.kitState?.crew : null;
+    if (crew || this.crewView) (this.crewView ??= new CloneCrew(this.asset, this.game.scene)).sync(crew ?? null, camera, camRight, cam?.spriteRefDepth, cam?.time ?? time);
   }
 }

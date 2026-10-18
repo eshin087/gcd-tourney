@@ -2,12 +2,14 @@
 // behaviour of every special kind (shot, teleport, pull, dive, counter, mode), the second supers and
 // non-beam ultimates (flurry, domain, ignite, skyStrike; orb, rampage, reflex: ADR 0017; laneStrike: ADR 0032), status effects
 // (burn, the Whirlwind reflex, the Four-Tails shroud), timed modes and passives. Character files only hold data; a new *kind* is the only thing that
-// needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState.
+// needs code here. Kit moves run in the fighter state 'kit' with their data in fighter.kitState. Shadow clones are
+// plain entries in kitState.crew that Fighter.sync draws (clones.js).
 import * as THREE from 'three';
 import { SPECIAL_MOVES, SUPERS, MOVES, PASSIVES, CLASH, PROJECTILES, ULTIMATE } from './moves.js';
 import { ARENA_LIMIT } from './constants.js';
 import * as dmath from './dmath.js';
 import { audio } from '../core/audio.js';
+import { crewMember } from './clones.js';
 
 const tmp = new THREE.Vector2();
 const FRAME_MS = 1000 / 60;
@@ -21,7 +23,8 @@ function loop(f, anim) {
 // Element-flavoured bursts, so one kind serves every fighter: 'lightning' (Killua), 'chakra' (red
 // flame licks: Nine-Tails), 'smoke' (shadow clones, substitution), 'black' (Amaterasu), 'ring'.
 function burst(g, kind, x, y, z, color, scale = 1) {
-  if (kind === 'lightning') g.fx.spawn('lightning', x, y, z, { scale, random: true, life: 0.1, color: color ?? 0xd8f0ff, order: 9, glow: 2 });
+  if (kind === 'poof') g.fx.poof(x, y, z, 0.6 * scale);
+  else if (kind === 'lightning') g.fx.spawn('lightning', x, y, z, { scale, random: true, life: 0.1, color: color ?? 0xd8f0ff, order: 9, glow: 2 });
   else if (kind === 'chakra') g.fx.spawn('flame', x, y - 0.45, z, { bottom: true, scale: 0.5 * scale, color: color ?? 0xff5a1a, vel: [0, 2.2, 0], opacity: 0.85, order: 8, glow: 0.5 });
   else if (kind === 'smoke') g.fx.smoke(x, y, z, 0.7 * scale);
   else if (kind === 'black') g.fx.spawn('flame', x, y - 0.45, z, { bottom: true, scale: 0.55 * scale, color: 0x140a18, vel: [0, 1.7, 0], opacity: 0.95, order: 8, glow: 0 });
@@ -108,8 +111,9 @@ export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
   f.ki -= S.cost;
   f.spPending = false;
   f.endMoveFx();
-  enter(f, { kind: S.kind, m: S, phase: 'flash', ultimate, answer, at: f.game.frameNo }, S.pose ?? 'superPose');
-  if (S.shroud) shroudFx(f, S, 0); // the shroud is already up during the flash
+  enter(f, { kind: S.kind, m: S, phase: 'flash', ultimate, answer, at: f.game.frameNo }, S.flashPose ?? S.pose ?? 'superPose');
+  if (S.flashPose && S.flashPhase != null) f.actor.setPhase(S.flashPose, S.flashPhase, 0.5);
+  if (S.shroud) startShroud(f, S, answer ? CLASH.answerFlash : S.flash); // the chakra swallows him during the flash
   f.invuln = (answer ? CLASH.answerFlash : S.flash) + 12;
   f.vel.set(0, 0, 0);
   f.faceOpponent();
@@ -176,11 +180,6 @@ function formOrb(f, k, S) {
   k.phase = 'fire';
   k.t0 = 0;
   return ob;
-}
-
-// the shroud keeps boiling while the clash holds him in place
-export function clashFx(f, S, t) {
-  if (S?.shroud) shroudFx(f, S, t);
 }
 
 // a won clash: the pounce went through, so the beast roars it out (the recover phase, still in the shroud)
@@ -297,8 +296,9 @@ export function counterHit(f, att, m) {
   g.freeze = Math.max(g.freeze, 6);
   audio.play('block', 1.2);
   if (C.onCounter === 'behind') {
-    // the log: a puff of smoke where he stood, then the teleport (follow-up strike from behind)
-    burst(g, 'smoke', p.x, p.y + 0.8, p.z, null, 1.3);
+    // the log: a puff where he stood and, with `log`, the log itself left behind; then the teleport (strike from behind)
+    if (C.log) g.fx.subLog(p.x, p.y, p.z, f.face.x, f.face.y);
+    else burst(g, 'smoke', p.x, p.y + 0.8, p.z, null, 1.3);
     g.fx.debris(p.x, p.z, 4, 0.6);
     START.teleport(f, { kind: 'teleport', hide: C.hide ?? 6, to: 'behind', off: 0.85, ghosts: 0, follow: melee ? C.follow : null, color: C.color });
   } else if (C.onCounter === 'strike' && melee && C.follow) {
@@ -330,7 +330,9 @@ export function tickMode(f) {
   // while powering up the charge style shows the mode instead (its `charge.level` boost, chargeFx.js): no stacking
   if (f.state === 'charge') return;
   const g = f.game, p = f.pos;
-  if (M.fx === 'chakra') {
+  if (M.cloak) {
+    // the Nine-Tails Cloak lives on the body (Fighter.sync, Effects.cloakTick): no flame aura around it
+  } else if (M.fx === 'chakra') {
     if (f.t % 2 === 0) g.fx.auraTick(f, 0.45, g.cam.right);
   } else if (f.t % 3 === 0) {
     const a = Math.random() * Math.PI * 2;
@@ -394,32 +396,37 @@ export function reflexCounter(f, att, m) {
   return 'miss';
 }
 
-// The four-tailed shroud (Four-Tails): the body goes blood-red and black, chakra boils off it and four tails
-// lash behind him. The drawn shroud frames come from Codex (KIT.md); the tint carries it until then.
-function shroudFx(f, S, t) {
-  const g = f.game, p = f.pos, C = S.shroud;
-  if (!f.shroud) {
-    f.shroud = f.actor.mat.uniforms.tint.value.clone(); // the tint to go back to (mirror matches tint P2)
-    f.actor.mat.uniforms.tint.value.setRGB(C.tint[0], C.tint[1], C.tint[2]);
-  }
-  if (t % 2 === 0) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 0.7, p.y + 0.35 + Math.random() * 0.8, p.z, C.chakra, 0.65 + Math.random() * 0.4);
-  if (t % 2 === 1) {
-    for (let i = 0; i < 4; i++) {
-      // four tails fanned out behind the hips, swaying
-      const sway = dmath.sin(t * 0.22 + i * 1.7);
-      const back = 0.45 + 0.12 * i;
-      g.fx.spawn('flame', p.x - f.face.x * back, p.y + 0.55 + 0.12 * i, p.z - f.face.y * back + (i - 1.5) * 0.12, {
-        scale: 0.32, color: i % 2 ? C.chakra : C.core, vel: [-f.face.x * 2.6, 1.4 + sway * 0.9, -f.face.y * 2.6 + sway * 0.6],
-        life: 0.22, opacity: 0.9, order: 7, glow: 0.4,
-      });
-    }
-  }
+// The four-tailed shroud (Four-Tails): during the flash the red-black chakra swallows him from the feet up (the body
+// shader's `engulf`, Fighter.sync), then he stays inside it for the whole rampage: `hold` 1 keeps the drawn body a
+// boiling silhouette (until Codex's shroud frames ship), 0 lets the drawn shroud frames show; `tails` chakra tails
+// lash behind him (Effects.shroudTick). Plain numbers only: f.shroud is saved with the fighter (ADR 0036).
+function startShroud(f, S, flash) {
+  const C = S.shroud;
+  f.shroud = { flash, hold: C.hold ?? 1, tails: C.tails ?? 0, core: C.core, rim: C.rim ?? C.chakra, chakra: C.chakra };
 }
 
-export function endShroud(f) {
-  if (!f.shroud) return;
-  f.actor.mat.uniforms.tint.value.copy(f.shroud);
+// How far the chakra has swallowed him, 0..1: climbing through the first 70 % of his flash, then `hold`.
+export function shroudLevel(f) {
+  const s = f.shroud;
+  if (!s) return 0;
+  const F = f.game.superFlash;
+  if (F?.who === f && s.flash) return Math.min(1, F.t / (s.flash * 0.7));
+  return s.hold;
+}
+
+// out of the shroud: the chakra bursts off him and he is himself again (`quiet`: a round reset, no burst)
+export function endShroud(f, quiet = false) {
+  const s = f.shroud;
+  if (!s) return;
   f.shroud = null;
+  if (quiet) return;
+  const g = f.game, p = f.pos;
+  g.fx.poof(p.x, p.y + 0.8, p.z, 1.0);
+  for (let i = 0; i < 6; i++) {
+    const a = (i / 6) * Math.PI * 2;
+    g.fx.spawn('bubble', p.x, p.y + 0.4 + i * 0.15, p.z, { scale: 0.22, color: s.chakra, vel: [dmath.cos(a) * 2.2, 1.6, dmath.sin(a) * 1.2], life: 0.45, fade: true, order: 7 });
+  }
+  audio.play('vanish', 0.7);
 }
 
 // the shroud lasts as long as the rampage (or its clash), whichever way it ends
@@ -474,6 +481,255 @@ function besideOpponent(f, back, off) {
 function inLane(f, o, tol = 1.0) {
   const F = f.game.basis.fwd;
   return Math.abs((o.pos.x - f.pos.x) * F.x + (o.pos.z - f.pos.z) * F.z) < tol;
+}
+
+// The Four-Tails roar pose: the drawn roar loop, or one held frame of a stand-in strip (`poseAt`: [phase, progress])
+function beastPose(f, S) {
+  if (S.poseAt) f.actor.setPhase(S.pose, S.poseAt[0], S.poseAt[1]);
+  else loop(f, S.pose ?? 'beamCharge');
+}
+
+// ------------------------------------------------------------------ shadow clones (ENG-SKL-NAR)
+// A crew is plain data in kitState.crew (crewMember, clones.js); Fighter.sync draws it. Every hit is still the real
+// fighter's: the clones are what the anime shows around it.
+function crewOut(g, crew) {
+  if (!crew) return;
+  for (const c of crew) {
+    if (!c.vis) continue;
+    c.vis = false;
+    g.fx.poof(c.x, c.y + 0.8, c.z, 0.55);
+  }
+}
+
+// a point `r` from the target at angle `a` on the screen plane (depth squashed, so the circle reads on camera)
+function around(f, o, a, r) {
+  const R = f.game.basis.right, F = f.game.basis.fwd;
+  const ox = dmath.cos(a) * r, oz = dmath.sin(a) * r * 0.65;
+  return {
+    x: THREE.MathUtils.clamp(o.pos.x + R.x * ox + F.x * oz, -ARENA_LIMIT, ARENA_LIMIT),
+    z: THREE.MathUtils.clamp(o.pos.z + R.z * ox + F.z * oz, -ARENA_LIMIT, ARENA_LIMIT),
+  };
+}
+
+function faceAt(c, x, z) {
+  const dx = x - c.x, dz = z - c.z, l = dmath.hypot(dx, dz);
+  if (l > 1e-3) { c.fx = dx / l; c.fz = dz / l; }
+}
+
+// Uzumaki Barrage: `clones` clones poof out beside him and rise with him, kicking up one after another
+function riseCrew(f, k, m) {
+  const g = f.game, R = g.basis.right;
+  if (k.t0 === 1) {
+    k.crew = [];
+    for (let i = 0; i < m.clones; i++) {
+      const s = i % 2 ? 1 : -1, j = (i >> 1) + 1;
+      const c = crewMember(f.pos.x + R.x * s * 0.6 * j - f.face.x * 0.35, 0, f.pos.z + R.z * s * 0.6 * j - f.face.y * 0.35, f.face.x, f.face.y, 'specialUp', 0);
+      c.ox = R.x * s * 0.6 * j - f.face.x * 0.35;
+      c.oz = R.z * s * 0.6 * j - f.face.y * 0.35;
+      k.crew.push(c);
+      g.fx.poof(c.x, 0.7, c.z, 0.6);
+    }
+    audio.play('vanish', 0.6);
+  }
+  if (!k.crew) return;
+  k.crew.forEach((c, i) => {
+    if (!c.vis) return;
+    c.x = f.pos.x + c.ox;
+    c.z = f.pos.z + c.oz;
+    c.y = f.pos.y * (0.75 + 0.12 * i);
+    c.fx = f.face.x;
+    c.fz = f.face.y;
+    c.pr = THREE.MathUtils.clamp(k.t0 / m.rise - 0.12 * (i + 1), 0, 0.99);
+  });
+}
+
+// Shadow Clone Barrage (S.crew): the clones poof out in a fan around him as he dashes in and converge on the target
+// from every side; caught, they pummel it in turn (S.hits beats, one striker per beat), kick it skyward one clone
+// at a time (U-ZU-MA-KI: crew.kicks), and Naruto drops on it from above with a big Rasengan. The dash and the catch
+// are the plain flurry's (the CPUs' timing reads them), and a whiff poofs every clone away.
+const STRIKES = ['light1', 'light2', 'light4', 'heavy', 'light3'];
+function crewFlurry(f, k, S) {
+  const g = f.game, o = f.opp, C = S.crew;
+  if (k.phase === 'flash') { k.phase = 'dash'; k.t0 = 0; }
+  k.t0++;
+  if (k.phase === 'dash') {
+    const d = dirTo(f, o), R = g.basis.right;
+    if (k.t0 === 1) {
+      k.crew = [];
+      k.base = towardSide(f) > 0 ? Math.PI : 0; // the side of the ring he comes from
+      for (let i = 0; i < C.count; i++) {
+        const s = i % 2 ? 1 : -1, j = (i >> 1) + 1;
+        const x = f.pos.x + R.x * s * 0.8 * j - d.x * 0.3 * j, z = f.pos.z + R.z * s * 0.8 * j - d.y * 0.3 * j;
+        const c = crewMember(THREE.MathUtils.clamp(x, -ARENA_LIMIT, ARENA_LIMIT), 0, THREE.MathUtils.clamp(z, -ARENA_LIMIT, ARENA_LIMIT), d.x, d.y, 'dash', 0.5);
+        c.a = k.base + s * (0.6 + 0.55 * j); // where on the ring around the target this one ends up
+        k.crew.push(c);
+        g.fx.poof(c.x, 0.8, c.z, 0.6);
+      }
+      audio.play('vanish', 0.9);
+    }
+    f.vel.set(d.x * 24, 0, d.y * 24);
+    f.actor.setPhase('dash', 1, 0.5);
+    if (k.t0 % 3 === 0) f.actor.ghost(S.color, 0.3, 0.5);
+    for (const c of k.crew) {
+      const t = around(f, o, c.a, C.ring);
+      const dx = t.x - c.x, dz = t.z - c.z, l = dmath.hypot(dx, dz), step = Math.min(l, 26 / 60);
+      if (l > 1e-3) { c.x += (dx / l) * step; c.z += (dz / l) * step; }
+      faceAt(c, o.pos.x, o.pos.z);
+      c.anim = 'dash';
+      c.pr = 0.5;
+    }
+    const reach = f.distTo() < 1.4 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o, 1.3);
+    if (reach && o.evading) g.onEvade(o);
+    if (reach && !o.ko && !o.hidden && o.invuln <= 0) {
+      k.phase = 'hits';
+      k.t0 = 0;
+      k.i = 0;
+      o.endMoveFx();
+      o.move = null;
+      o.heldT = S.hits * S.every + C.kicks * C.kickEvery + C.drop + 50;
+      o.vel.set(0, 0, 0);
+      o.setState('held', 'hurtHigh');
+      f.vel.set(0, 0, 0);
+      g.freeze = Math.max(g.freeze, 4);
+      // the ring closes: every clone on its spot around them
+      for (const c of k.crew) { const t = around(f, o, c.a, C.ring); c.x = t.x; c.z = t.z; faceAt(c, o.pos.x, o.pos.z); c.anim = 'idle'; }
+    } else if (k.t0 > S.dash) {
+      crewOut(g, k.crew);
+      k.phase = 'land';
+      k.t0 = 0;
+      f.vel.set(0, 0, 0);
+    }
+    return;
+  }
+  if (k.phase === 'hits' || k.phase === 'kick' || k.phase === 'drop') {
+    f.vel.set(0, 0, 0);
+    if (o.ko) {
+      // KO'd mid-barrage: the body flies off on its KO launch; holding it would re-freeze it in the air every hit
+      o.heldT = 0;
+      crewOut(g, k.crew);
+      k.phase = 'land';
+      k.t0 = 0;
+      f.hidden = false;
+      f.actor.setVisible(true);
+      f.air = f.pos.y > 0.05;
+      return;
+    }
+  }
+  if (k.phase === 'hits') {
+    // everyone keeps a ready stance; on each beat one of them darts in and strikes
+    for (const c of k.crew) {
+      if (!c.vis) continue;
+      if (c.hitT > 0 && --c.hitT === 0) { const t = around(f, o, c.a, C.ring); c.x = t.x; c.z = t.z; c.anim = 'idle'; }
+      if (c.anim === 'idle') c.pr = (k.t0 / 40 + c.a) % 1;
+    }
+    f.faceOpponent();
+    if (k.t0 % S.every !== 1) return;
+    if (k.i < S.hits) {
+      const n = k.crew.length + 1, who = k.i % n, kind = STRIKES[k.i % STRIKES.length];
+      let at;
+      if (who === n - 1) {
+        // Naruto himself takes a turn
+        const t = around(f, o, k.base, 0.85);
+        f.teleport(t.x, o.pos.y, t.z);
+        f.faceOpponent();
+        f.actor.setPhase(kind, 1, 0.5);
+        at = f.pos;
+      } else {
+        const c = k.crew[who], t = around(f, o, c.a, 0.8);
+        c.x = t.x; c.z = t.z; c.y = o.pos.y;
+        faceAt(c, o.pos.x, o.pos.z);
+        c.anim = kind;
+        c.pr = 0.55;
+        c.hitT = S.every - 1;
+        at = c;
+      }
+      o.heldT = Math.max(o.heldT, 40);
+      f.hitPoint = { x: (at.x + o.pos.x) / 2, y: o.pos.y + 0.9, z: (at.z + o.pos.z) / 2 };
+      o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
+      f.hitPoint = null;
+      if (!o.ko) o.vel.set(0, 0, 0);
+      g.cam.shake(0.25);
+      k.i++;
+      return;
+    }
+    k.phase = 'kick';
+    k.t0 = 0;
+    k.i = 0;
+    // the clones not kicking leave; the kickers wait under them
+    k.crew.forEach((c, i) => { if (i >= C.kicks) { c.vis = true; crewOut(g, [c]); } });
+    return;
+  }
+  if (k.phase === 'kick') {
+    // U-ZU-MA-KI: one clone after another kicks them higher, then is gone in a puff
+    o.air = true;
+    if ((k.t0 - 1) % C.kickEvery === 0 && k.i < C.kicks) {
+      const prev = k.crew[k.i - 1];
+      if (prev) crewOut(g, [prev]);
+      const c = k.crew[k.i] ?? (k.crew[k.i] = crewMember(o.pos.x, 0, o.pos.z, f.face.x, f.face.y));
+      const side = k.i % 2 ? 0.35 : -0.35, R = g.basis.right;
+      c.x = o.pos.x + R.x * side;
+      c.z = o.pos.z + R.z * side;
+      c.y = Math.max(0, o.pos.y - 0.9);
+      faceAt(c, o.pos.x - R.x * side * 4, o.pos.z - R.z * side * 4);
+      if (!c.vis) { c.vis = true; g.fx.poof(c.x, c.y + 0.8, c.z, 0.5); }
+      c.anim = 'specialUp';
+      c.pr = 0.4;
+      f.hitPoint = { x: o.pos.x, y: o.pos.y + 0.3, z: o.pos.z };
+      o.takeHit(f, { dmg: C.kickDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 2, unblockable: true, spark: 'heavy' }, dirTo(f, o));
+      f.hitPoint = null;
+      if (C.callout?.[k.i]) g.hud.callout(f.index, C.callout[k.i], S.color);
+      g.cam.shake(0.3);
+      k.i++;
+    }
+    if (!o.ko) o.vel.set(0, C.rise / ((C.kicks * C.kickEvery) / 60), 0);
+    // the real Naruto is out of sight, ready to drop on them
+    if (k.t0 === 1) { f.hidden = true; f.actor.setVisible(false); }
+    if (k.t0 >= C.kicks * C.kickEvery) {
+      crewOut(g, k.crew);
+      k.phase = 'drop';
+      k.t0 = 0;
+      const d = dirTo(f, o);
+      f.teleport(o.pos.x - d.x * 0.6, o.pos.y + 1.7, o.pos.z - d.y * 0.6);
+      f.hidden = false;
+      f.actor.setVisible(true);
+      f.faceOpponent();
+      g.onVanish(f, 'in');
+      audio.play('rasengan', 0.9);
+    }
+    return;
+  }
+  if (k.phase === 'drop') {
+    // falling on them with a big Rasengan in his palm, driven down into them
+    if (!o.ko) o.vel.set(0, 0, 0);
+    const tx = o.pos.x, ty = o.pos.y + 0.55, tz = o.pos.z, left = Math.max(1, C.drop - k.t0 + 1);
+    f.pos.x += (tx - f.pos.x) / left;
+    f.pos.y += (ty - f.pos.y) / left;
+    f.pos.z += (tz - f.pos.z) / left;
+    f.actor.setPhase(C.dropPose ?? 'special', 1, 0.6);
+    const H = f.actor.hand?.();
+    const hx = H ? f.pos.x + f.face.x * H.x : f.pos.x + f.face.x * 0.6, hy = H ? f.pos.y + H.y : f.pos.y + 0.75, hz = H ? f.pos.z + f.face.y * H.x : f.pos.z + f.face.y * 0.6;
+    g.fx.keep('crewOrb' + f.index, C.dropFx ?? 'rasengan', hx, hy, hz, { scale: C.dropScale ?? 0.85, order: 9, glow: 0.5 });
+    if (k.t0 < C.drop) return;
+    g.fx.drop('crewOrb' + f.index);
+    o.heldT = 0;
+    f.hitPoint = { x: o.pos.x, y: o.pos.y + 0.8, z: o.pos.z };
+    o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
+    f.hitPoint = null;
+    g.fx.blast(C.burstFx ?? 'rasenganBurst', o.pos.x, o.pos.y + 0.7, o.pos.z, 1.3, new THREE.Color(0x6ab4ff));
+    g.fx.overlay.impactFrame(3);
+    g.cam.shake(1.1);
+    g.excite = 1;
+    k.phase = 'land';
+    k.t0 = 0;
+    f.air = true;
+    return;
+  }
+  // land / whiff recovery
+  f.vel.x *= 0.7;
+  f.vel.z *= 0.7;
+  if (f.pos.y > 0.05) { f.vel.y = Math.min(f.vel.y, -6); return; }
+  f.actor.setPhase('land', 1, Math.min(0.999, k.t0 / 14));
+  if (k.t0 >= 14) finish(f);
 }
 
 // ------------------------------------------------------------------ kinds: start
@@ -630,19 +886,18 @@ const UPDATE = {
       f.vel.x = d.x * sp;
       f.vel.z = d.y * sp;
       f.vel.y = m.riseV * (1 - k.t0 / m.rise) + 2;
-      if (m.riseFx === 'clones' && k.t0 % 3 === 1) {
-        f.actor.ghost(m.color || f.def.color, 0.5, 0.6);
-        if (k.t0 === 1) burst(f.game, 'smoke', f.pos.x, f.pos.y + 0.5, f.pos.z, null, 1.2);
-      }
+      if (m.clones) riseCrew(f, k, m);
       f.actor.setPhase('specialUp', k.t0 < m.rise * 0.4 ? 0 : 1, Math.min(0.999, k.t0 / m.rise));
       if (m.riseHit && !k.riseHit && o.hittable && f.distTo() < 1.25 && Math.abs(o.pos.y - f.pos.y) < 1.4 && inLane(f, o)) {
         k.riseHit = true;
         o.takeHit(f, m.riseHit, dirTo(f, o));
+        if (m.riseCallout) f.game.hud.callout(f.index, m.riseCallout, m.color);
       }
-      if (k.t0 >= m.rise) { k.phase = 'hang'; k.t0 = 0; }
+      if (k.t0 >= m.rise) { k.phase = 'hang'; k.t0 = 0; crewOut(f.game, k.crew); }
       return;
     }
     if (k.phase === 'hang') {
+      if (k.crew) crewOut(f.game, k.crew); // an air dive skips the rise
       f.vel.set(0, 0.5, 0);
       f.faceOpponent();
       // a ground dive turns over on specialUp's last frames (drawn to flow into airHeavy f0)
@@ -684,11 +939,13 @@ const UPDATE = {
       f.mode = {
         id: m.name, t: m.len, len: m.len, speed: m.speed ?? 1, damage: m.damage ?? 1, defense: m.defense ?? 1,
         blinkDash: !!m.blinkDash, color: m.color, fx: m.fx ?? 'lightning', auraColor: m.auraColor, auraCore: m.auraCore, charge: m.charge,
+        cloak: m.cloak ?? null,
       };
       const g = f.game, p = f.pos;
       g.onKitMove(f, m);
       g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
-      if (f.mode.fx === 'chakra') for (let i = 0; i < 8; i++) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 1.2, p.y + 0.5, p.z, m.auraColor, 1.4);
+      if (m.cloak) g.fx.cloakBurst(f, m.cloak); // the chakra wells up over him all at once
+      else if (f.mode.fx === 'chakra') for (let i = 0; i < 8; i++) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 1.2, p.y + 0.5, p.z, m.auraColor, 1.4);
       else burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.6);
       g.fx.overlay.flash(m.auraColor ?? m.color, 0.35);
       audio.play('kiFull');
@@ -699,6 +956,7 @@ const UPDATE = {
   // ---- Godspeed: Whirlwind (Killua): lightning dash; on contact the opponent is held and
   // struck from every direction, then slammed into the floor
   flurry(f, k, S) {
+    if (S.crew) return crewFlurry(f, k, S);
     const g = f.game, o = f.opp;
     if (k.phase === 'flash') { k.phase = 'dash'; k.t0 = 0; }
     k.t0++;
@@ -762,7 +1020,6 @@ const UPDATE = {
         o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
         if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
         burst(g, S.hitFx ?? 'lightning', o.pos.x, o.pos.y + 0.9, o.pos.z, S.hitColor ?? 0xd8f0ff, 1.1);
-        if (S.hitFx === 'smoke') burst(g, 'smoke', f.pos.x, f.pos.y + 0.7, f.pos.z, null, 0.6); // a clone pops
         g.cam.shake(0.25);
         k.i++;
         return;
@@ -774,14 +1031,13 @@ const UPDATE = {
         f.actor.setPhase('heavy', 1, 0.5);
         o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.finalLaunch ?? [20, 9], wallBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
       } else {
-        // final: from above, slammed into the floor (lightning, or a Giant Rasengan)
+        // final: from above, slammed into the floor
         f.teleport(o.pos.x, o.pos.y + 2.4, o.pos.z);
         f.faceOpponent();
         f.actor.setPhase('airHeavy', 1, 0.5);
         o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
       }
-      if (S.finalFx === 'rasengan') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(0x6ab4ff));
-      else if (S.finalFx === 'impact') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.finalColor ?? 0xffffff));
+      if (S.finalFx === 'impact') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.finalColor ?? 0xffffff));
       else g.fx.thunder(o.pos.x, o.pos.z, 0xd8f0ff);
       g.fx.overlay.impactFrame(3);
       g.cam.shake(1.1);
@@ -911,15 +1167,14 @@ const UPDATE = {
       k.dir = dirTo(f, o);
       const p = f.pos;
       g.fx.spawn('ring', p.x, p.y + 0.8, p.z, { scale: 3.2, color: C.chakra, glow: 1, order: 8, depthTest: false });
-      g.fx.explosion(p.x, p.y + 0.6, p.z, new THREE.Color(C.chakra));
+      g.fx.spawn('fourTailsRoar', p.x, p.y + 0.8, p.z, { scale: 1.5, order: 8, depthTest: false });
       g.fx.debris(p.x, p.z, 10, 1.1);
       g.cam.shake(0.9);
       audio.play('smash', 0.9);
     }
     k.t0++;
-    shroudFx(f, S, k.t0);
     if (k.phase === 'roar') {
-      loop(f, S.pose ?? 'beamCharge');
+      beastPose(f, S);
       if (k.t0 >= roarOf(k)) { k.phase = 'lunge'; k.t0 = 0; k.from = f.pos.clone(); audio.play('superDash'); }
       return;
     }
@@ -987,6 +1242,7 @@ const UPDATE = {
       f.actor.setPhase(S.pose ?? 'beamCharge', 1, 0.5);
       o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, d);
       g.fx.spawn('ring', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 3.6, color: C.chakra, glow: 1.2, order: 8, depthTest: false });
+      g.fx.spawn('fourTailsRoar', f.pos.x + d.x * 0.6, f.pos.y + 0.9, f.pos.z + d.y * 0.6, { scale: 1.8, order: 8, depthTest: false });
       g.fx.explosion(p.x, p.y + 0.9, p.z, new THREE.Color(C.chakra));
       g.fx.ground.impact(f.pos, { kind: 'roar', style: S.roarGround, tint: C.chakra, dir: d, origin: true, noMerge: true });
       g.fx.overlay.impactFrame(4);
@@ -1001,7 +1257,7 @@ const UPDATE = {
     // whiff / recover: still in the shroud, and wide open after a whiff
     f.vel.x *= 0.7;
     f.vel.z *= 0.7;
-    loop(f, S.pose ?? 'beamCharge');
+    beastPose(f, S);
     if (k.t0 >= (k.phase === 'whiff' ? S.whiff : 18)) finish(f);
   },
 

@@ -342,6 +342,13 @@ function makeFixtures() {
       }
       savePng(path.join(V, 'frames', 'orb', `orb_${String(k).padStart(2, '0')}.png`), o);
     }
+    // subLog (an HD effect, ADR 0044): brown bars standing on one floor line, the last one lying down
+    const lg = image(5 * 80 * s4, 90 * s4, [255, 0, 255], rand);
+    [[12, 60], [12, 60], [20, 52], [40, 30], [56, 12]].forEach(([wdt, hgt], k) => {
+      const cx = (40 + k * 80) * s4, floor = 85 * s4;
+      rect(lg, cx - (wdt / 2) * s4, floor - hgt * s4, wdt * s4, hgt * s4, [140, 90, 50], rand);
+    });
+    savePng(path.join(V, 'raw', 'subLog_v01.png'), lg);
   }
 
   // crowd (ADR 0008): one raw per spectator, 3 poses (idle, cheer, shocked) on a 1536 x 1024 magenta canvas
@@ -422,7 +429,7 @@ function makeFixtures() {
     },
     // world art is approval-gated: every fixture effect is approved (spark at v02, its highest version)
     vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: 2 }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo', approvedVersion: 1 },
-      orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 } } },
+      orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 }, subLog: { approvedVersion: 1 } } },
     worldArt: { crowd: { batches: {
       'crowd-testers-01': { status: 'approved', items: { 'c-001': { approvedVersion: 1 }, 'c-002': { approvedVersion: null }, 'c-003': { approvedVersion: 1 }, 'c-004': { approvedVersion: 1 }, 'c-005': { approvedVersion: 1 }, 'c-006': { approvedVersion: 1 } } },
       'crowd-testers-01-r1': { status: 'approved', items: { 'c-003': { approvedVersion: 2 } } },
@@ -620,6 +627,17 @@ function main() {
     const sp = rep.vfx.packed.find((p) => p.effect === 'spark');
     check(sp?.source === 'raw/spark_v02.png' && sp.version === 2 && sp.notes.some((n) => /ignored raw\/spark\.png/.test(n)), `vfx: highest spark_vNN wins over v01, plain spark.png and _rejected/ (${sp?.source}, ${sp?.frames} frames)`);
     check(!anyWarn(rep.vfx.warnings, /spark/), 'vfx: versioned spark files accepted silently');
+    // HD effects (ADR 0044) go to their own 256 px page: the 128 px atlas above keeps its 6 rows
+    const hd = am.hd, hdImg = fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && loadPng(path.join(OUT, 'vfx', 'atlas_hd.png'));
+    check(hd?.image === 'atlas_hd.png' && hd.cell === 256 && hd.ppu === 112 && hd.rows === 1 && hd.anims.subLog?.row === 0 && hd.anims.subLog.n === 5 && hd.anims.subLog.ms === 70 && !am.anims.subLog,
+      `atlas.json hd block (${JSON.stringify(hd && { cell: hd.cell, ppu: hd.ppu, rows: hd.rows, subLog: hd.anims.subLog })})`);
+    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 256, `atlas_hd.png ${hdImg?.w}x${hdImg?.h}`);
+    if (hdImg) {
+      const lb = [0, 1, 2, 3, 4].map((i) => bb(cell(hdImg, i, 256, 5)));
+      const big = Math.max(...lb.map((b) => Math.max(b.w, b.h)));
+      check(lb.every((b) => b.y1 === 240) && Math.abs(big - Math.round(256 * 0.85)) <= 2, `subLog: HD bottom anchor on y=240, largest frame ~85% of 256 (bottoms ${lb.map((b) => b.y1)}, largest ${big})`);
+    }
+    check(rep.vfx.packed.find((p) => p.effect === 'subLog')?.hd === true, 'vfx report marks the HD effect');
   }
 
   // edgy: adversarial raw art
@@ -1184,12 +1202,12 @@ function main() {
   delete man14.sharedUi;
   fs.writeFileSync(m14, JSON.stringify(man14));
   const r14dry = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', '--dry-run', 'vfx', 'crowd']);
-  check(r14dry.json?.vfx.removed.length === 2 && fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')), 'run 14: --dry-run only reports the stale atlas');
+  check(r14dry.json?.vfx.removed.length === 3 && fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')), 'run 14: --dry-run only reports the stale atlases (atlas.png, atlas_hd.png, atlas.json)');
   const shippedBefore = ['stage/grass.png', 'npc/tester/sheet.png', 'ui/logo.png'].every((f) => fs.existsSync(path.join(OUT, f)));
   const r14 = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', 'vfx', 'crowd', 'stage', 'npc', 'ui']);
   const v14 = r14.json?.vfx;
   check(v14 && v14.packed.length === 0 && v14.unapproved.includes('flame') && v14.unapproved.includes('spark'), `run 14: unapproved effects are not packed (${v14?.unapproved})`);
-  check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas.json')) && !fs.existsSync(path.join(OUT, 'crowd', 'atlas.png')),
+  check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas.json')) && !fs.existsSync(path.join(OUT, 'crowd', 'atlas.png')),
     'run 14: stale vfx and crowd atlases removed (the game falls back to procedural art)');
   check(shippedBefore && ['stage/grass.png', 'stage/manifest.json', 'npc/tester/sheet.png', 'npc/tester/anims.json', 'ui/logo.png', 'ui/manifest.json'].every((f) => !fs.existsSync(path.join(OUT, f))),
     'run 14: stage, NPC and UI outputs whose approval is gone are removed');
