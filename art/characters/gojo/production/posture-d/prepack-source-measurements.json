@@ -1,0 +1,58 @@
+[
+  {
+    "version": 7,
+    "frame": 0,
+    "rgbaHash": "30468018d8f9a66e7ddc281d6eb1d9a61406019acd34d737335eb1b0718deb7c",
+    "largestComponent": {
+      "pixels": 145887,
+      "bounds": [
+        27,
+        171,
+        744,
+        892
+      ]
+    }
+  },
+  {
+    "version": 7,
+    "frame": 1,
+    "rgbaHash": "f2eec532687e4dedb1b0491580746fe8d8daebbe78b8eeac8a13199c9273fc50",
+    "largestComponent": {
+      "pixels": 154743,
+      "bounds": [
+        33,
+        171,
+        732,
+        892
+      ]
+    }
+  },
+  {
+    "version": 6,
+    "frame": 0,
+    "rgbaHash": "e41481d8ccd12137d09f3569f362f06f2bc7017ead00990b9c7352d4a9c82fdc",
+    "largestComponent": {
+      "pixels": 115258,
+      "bounds": [
+        19,
+        219,
+        736,
+        769
+      ]
+    }
+  },
+  {
+    "version": 6,
+    "frame": 1,
+    "rgbaHash": "c724d4c868e0d7c347d0a42b9c258ed9a16a01f72ed02706f8fb83a62ef621ee",
+    "largestComponent": {
+      "pixels": 111408,
+      "bounds": [
+        7,
+        273,
+        748,
+        796
+      ]
+    }
+  }
+]

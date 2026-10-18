@@ -344,8 +344,8 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 5 | airLight1 | 5 | 1/2/2 | **yes** | 215 | approved | v07 | v07 | User approved airLight1 v07 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 5 | airHeavy | 6 | 2/2/2 | **yes** | 215 | approved | v08 | v08 | Title-style v08 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 6 | guard | 2 | - | **yes** | 218 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
-| 6 | hurtHigh | 3 | - | **yes** | 212 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
-| 6 | launched | 2 | - | **yes** | 170 | approved | v06 | v06 | Title-style v06 approved by the user 2026-10-11 (shown in the final review preview). |
+| 6 | hurtHigh | 3 | - | **yes** | 212 | raw | v04 | v03 | v04 technical HOLD: strict scale probe head 1.23 / feet 1.35 vs idle. Bent-knee pose direction present, but scale fails; v03 stays live. [Review](../public/reviews/gojo-posture-d/index.html) · [ledger](characters/gojo/production/posture-d/GENERATION_LOG.md). |
+| 6 | launched | 2 | - | **yes** | 170 | raw | v08 | v06 | v07 and v08 technical HOLDs: Astra found collar-to-hem ~59–61px (v07) and ~66±4px (v08) vs neutral ~78±4px; head/limb scale not certifiable. v06 stays live. [Astra](characters/gojo/production/posture-d/ASTRA_PREPACK.md) · [review](../public/reviews/gojo-posture-d/index.html). |
 | 6 | down | 2 | - | **yes** | 104 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | getup | 5 | - | **yes** | 234 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | charge | 4 | - | **yes** | 215 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
@@ -363,7 +363,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 9 | airLight2 | 5 | 1/2/2 | no | 225 | approved | v05 | v05 | User approved airLight2 v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | airLight3 | 6 | 2/2/2 | no | 219 | approved | v12 | v12 | User approved v12 on 2026-10-12. Previous production QA below is retained as evidence; other held assets are not approved by this decision. v12 needs review; full strict ok (0.972), all x59..214, six heel-kick phases. Impact heel reach requires Claude gameplay/contact check. A1/B2 budget exhausted. Approved v10 retained. |
 | 9 | block | 2 | - | no | 222 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
-| 9 | hurtLow | 3 | - | no | 199 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
+| 9 | hurtLow | 3 | - | no | 199 | raw | v07 | v04 | v05/v06/v07 technical HOLDs: head/feet ratios 1.20/1.04, 0.90/1.03, 1.19/0.98; widening/fold pose retained, scale not. v04 stays live. [Review](../public/reviews/gojo-posture-d/index.html) · [ledger](characters/gojo/production/posture-d/GENERATION_LOG.md). |
 | 9 | spin | 4 | - | no | 174 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 9 | airRecover | 3 | - | no | 196 | approved | v05 | v05 | User approved airRecover v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
 | 9 | throw | 4 | 1/1/2 | no | 219 | approved | v05 | v05 | User approved throw v05 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass. |
@@ -753,3 +753,4 @@ Title-style pilot v01: all four sheets and neutral/combat lineups approved by us
 | Sasuke | ult_fg | v03 | approved | v03 | User approved via Claude relay effects #6 despite Astra hold; connected eye motif faint at fit and blood remains below uncovered eye; rope and sword pass. |
 
 User approved super_bg and ult_bg v01 via Claude relay effects #2 and rejected super_fg and ult_fg v01 via Claude relay effects #3 on 2026-10-15. Both v01 backdrops and both v03 foregrounds are approved. Foreground v01s were rejected; v02s were superseded after user-authorized redraws via relay #5. v03s were approved by the user via Claude relay effects #6 despite Astra holds; each used 3 additional calls (cumulative 6/6). See [review gallery](../public/reviews/super-art-sasuke-r1/) and [production log](characters/sasuke/production/super-art-sasuke-r1/GENERATION_LOG.md).
+

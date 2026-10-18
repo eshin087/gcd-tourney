@@ -907,8 +907,10 @@
           ],
           "required": true,
           "step": 6,
-          "status": "approved",
-          "version": 3,
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "technicalHold": true,
+          "version": 4,
           "approvedVersion": 3
         },
         "hurtLow": {
@@ -922,8 +924,10 @@
           ],
           "required": false,
           "step": 9,
-          "status": "approved",
-          "version": 4,
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "technicalHold": true,
+          "version": 7,
           "approvedVersion": 4
         },
         "launched": {
@@ -936,8 +940,10 @@
           ],
           "required": true,
           "step": 6,
-          "status": "approved",
-          "version": 6,
+          "status": "raw",
+          "reviewStatus": "needs review",
+          "technicalHold": true,
+          "version": 8,
           "approvedVersion": 6,
           "scaleManualQA": {
             "version": 6,

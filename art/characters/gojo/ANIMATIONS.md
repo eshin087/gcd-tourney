@@ -485,6 +485,8 @@ slightly, knees bent more than in idle, weight back, L foot forward. Face: focus
 
 ### hurtHigh: hit in the face · 3 frames
 
+> Posture D candidate v04 is retained under `raw/_qa_hold/`: knee bend and separated feet address the approved user direction, but strict scale is head 1.23 / feet 1.35 vs idle. Approved v03 remains live; see `production/posture-d/ASTRA_PREPACK.md` and the [review gallery](../../../public/reviews/gojo-posture-d/index.html).
+
 f0 is the peak of the reaction, and it eases back over f1 and f2. The blindfold stays on.
 
 - **f0**: head snapped back (chin up). Torso arched back about 20°, both arms flung back and out,
@@ -497,6 +499,8 @@ f0 is the peak of the reaction, and it eases back over f1 and f2. The blindfold 
 
 ### hurtLow: hit in the stomach · 3 frames
 
+> Posture D candidates v05-v07 are preserved under `raw/_qa_hold/`: all retain the fold and widen the stance; head/feet ratios are 1.20/1.04, 0.90/1.03, and 1.19/0.98. All three calls are used; approved v04 remains live. See `production/posture-d/GENERATION_LOG.md` and the [review gallery](../../../public/reviews/gojo-posture-d/index.html).
+
 - **f0**: doubled over. Torso bent forward about 40°, head down, both arms clutching the stomach,
   knees bent. Mouth open, teeth gritted. Hair crown swings forward and down.
 - **f1**: about 30 % recovered.
@@ -505,6 +509,8 @@ f0 is the peak of the reaction, and it eases back over f1 and f2. The blindfold 
 <a id="launched"></a>
 
 ### launched: knocked flying backward · 2 frames, loop
+
+> Posture D candidates v07 and v08 are held under `raw/_qa_hold/`; both show one knee up and the opposite leg trailing/split. Astra measured v08 collar-to-hem 66±4px vs neutral 78±4px and could not certify head/limb scale. All three calls are used; approved v06 remains live. See `production/posture-d/ASTRA_PREPACK.md` and the [review gallery](../../../public/reviews/gojo-posture-d/index.html).
 
 Facing right, flying toward screen-left. **Arched diagonally, not fully horizontal.** The body is tilted
 about 60° back from upright and arched like a drawn bow with the belly up: the **hips are the lowest
