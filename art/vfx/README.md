@@ -78,7 +78,9 @@ stand-in until its art is approved.
 | `rasenshurikenDome` | 8 | 50 | full color | center | the sphere of wind blades grinding the victim (f2-f4 loop) |
 | `poof` | 7 | 40 | full color | center | a shadow clone appearing or vanishing; the Substitution puff |
 | `subLog` | 5 | 70 | full color | bottom | the Substitution log left where he stood |
-| `fourTailsRoar` | 8 | 45 | full color | center | the Four-Tails chakra roar |
+| `fourTailsRoar` | 8 | 45 | full color | center | the Four-Tails chakra roar as the transformation completes |
+| `beastBall` | 8 | 45 | full color | center | the Tailed Beast Ball gathering at the fox's mouth during the charge (loop) |
+| `beastBeamRing` | 6 | 40 | full color | center | the shock rings sent down the Tailed Beast Ball beam |
 
 The frame-by-frame brief is [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md).
 

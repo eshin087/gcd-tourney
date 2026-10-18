@@ -309,15 +309,16 @@ export const SPECIAL_MOVES = {
     hit: { dmg: 90, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
   },
   // Nine-Tails Chakra Cloak: tougher and stronger rather than faster (Godspeed is the speed mode). `cloak`: the Part 1
-  // anime look (ENG-SKL-NAR): see-through red-orange chakra over his whole body (`fill`, `edge` near the outline), a
-  // boiling rim with fizzing specks around it (`rim`, `core`, `speck`, `width` in world units) and one chakra tail
+  // anime look (ENG-SKL-NAR): see-through red-orange chakra over his whole body (`fill`, `edge` near the outline) and a
+  // boiling rim with fizzing specks around it (`rim`, `core`, `speck`, `width` in world units); an aura only, no tail
+  // (the user, 2026-10-18)
   nineTails: {
     kind: 'mode', anim: 'specialDown', cost: 100, startup: 20, recovery: 8, len: 480, speed: 1.12, damage: 1.1, defense: 1.12,
     fx: 'chakra', auraColor: '#ff5a1a', auraCore: [1.0, 0.8, 0.5], name: 'NINE-TAILS CLOAK', color: '#ff6a2a',
     charge: { level: 1 }, // powering up in the cloak looks one bar further along (chargeFx.js)
     cloak: {
       fill: '#d8300e', edge: '#ff9a3a', opacity: 0.42, rim: '#ff5a14', core: '#ffb050', speck: '#ff3a10', rimOpacity: 0.75, width: 0.06,
-      bubble: '#ff6a2a', tail: { color: '#ff5a1a', scale: 0.75, opacity: 0.75 },
+      bubble: '#ff6a2a',
     },
   },
   // Substitution Jutsu: a log takes the hit (`log`: left behind in a puff); he reappears behind them with a kick
@@ -434,13 +435,19 @@ export const SPECIAL_MOVES = {
 // it this close. pose = the animation during the super flash (default superPose); strikePose = the release.
 export const SUPERS = {
   speedOfLightning: { kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 8, every: 7, hitDmg: 22, finalDmg: 130, minScale: 0.8, hitFx: 'lightning', finalFx: 'thunder', name: 'GODSPEED: SPEED OF LIGHTNING', color: '#bfe6ff', ground: 'lightning' },
-  // Shadow Clone Barrage (Naruto, ENG-SKL-NAR): `crew` turns the flurry into the anime's: crew.count clones poof out
-  // around him as he dashes and close in on the target from every side (`ring` units round it), then `hits` beats
-  // with one striker each, `kicks` clones kicking it `rise` units up one at a time with the `callout`s, and his drop
-  // from above with a big Rasengan over `drop` frames. The dash and the catch are the plain flurry's.
+  // Shadow Clone Barrage (Naruto, ENG-SKL-NAR): `crew` turns the flurry into the anime's. His dash and first blow (the
+  // plain flurry's catch), then he holds the `seal` while `hits` clones come one at a time, every `every` frames: each
+  // poofs in on its own side `ring` units from the target, plays one of `attacks` through over `life` frames (hit on
+  // frame `hitAt`) and poofs out. Then `kicks` clones kick it `rise` units up one at a time with the `callout`s, and he
+  // drops on it from above with a big Rasengan over `drop` frames (the user, 2026-10-18: "summoned 1 by 1 really
+  // quick with the poof smoke effect and have each clone rapidly attack with different attacks").
   shadowCloneBarrage: {
-    kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 5, every: 7, hitDmg: 18, finalDmg: 130, minScale: 0.8, name: 'SHADOW CLONE BARRAGE', color: '#ffb43a', ground: 'spiralBig',
-    crew: { count: 6, ring: 1.15, kicks: 4, kickEvery: 6, kickDmg: 14, rise: 2.2, drop: 10, callout: ['U', 'ZU', 'MA', 'KI'], dropFx: 'rasengan', dropScale: 0.85, burstFx: 'rasenganBurst' },
+    kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 8, every: 5, hitDmg: 13, finalDmg: 120, minScale: 0.8, name: 'SHADOW CLONE BARRAGE', color: '#ffb43a', ground: 'spiralBig',
+    crew: {
+      ring: 0.85, life: 12, hitAt: 4, seal: 'superPose',
+      attacks: ['light2', 'airLight2', 'heavy', 'light3', 'airHeavy', 'light4', 'heavyAlt', 'light1Alt'],
+      kicks: 4, kickEvery: 6, kickDmg: 12, rise: 2.2, drop: 10, callout: ['U', 'ZU', 'MA', 'KI'], dropFx: 'rasengan', dropScale: 0.85, burstFx: 'rasenganBurst',
+    },
   },
   unlimitedVoid: { kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff' },
   kirin: { kind: 'skyStrike', cost: 300, flash: 40, delay: 40, radius: 2.0, dmg: 280, launch: [6, 16], recovery: 24, pose: 'beamCharge', strikePose: 'beamFire', name: 'KIRIN', color: '#9fd8ff', ground: 'lightningBig' },
@@ -455,22 +462,6 @@ export const SUPERS = {
     kind: 'orb', cost: 300, flash: 46, merge: 26, answerMerge: 8, recovery: 24, speed: 15, radius: 1.45, life: 2.4, dmg: 260, launch: [18, 12],
     pose: 'beamCharge', strikePose: 'beamFire', red: 0xff3048, blue: 0x4aa8ff, orb: 0xa24cff, glow: 0x7a2cff,
     name: 'HOLLOW TECHNIQUE: PURPLE', color: '#b46cff', ground: 'erasure',
-  },
-  // Four-Tails (Naruto, early Shippuden): during the flash the red-black chakra swallows him from the feet up
-  // (`flashPose` frame `flashPhase`, the body shader's engulf), then the four-tailed shroud roars (`roar`), pounces on
-  // all fours (`speed`, up to `range`), and a catch becomes a mauling: `slams` claw slams, then a chakra roar that
-  // blasts them away. A whiff leaves him open for `whiff` frames; when it ends the chakra bursts off him. Answering
-  // the opponent's ultimate, the roar is `answerRoar` frames; in a clash he holds the maul claw frame.
-  // `shroud`: chakra / core / rim colors, `hold` (how swallowed the drawn body stays: 1 = a boiling silhouette) and
-  // `tails` (chakra tails drawn behind him). Until Codex's shroud frames ship (beamCharge v09 / beamFire v13,
-  // art/characters/naruto/SKILLS_REVAMP.md) the beast is his specialDown crouch (`poseAt`: [phase, progress]) and
-  // dash as a silhouette with four tails; then: pose beamCharge (no poseAt), strikePose and maulPose beamFire with
-  // maulPhase 2, hold 0, tails 0.
-  fourTails: {
-    kind: 'rampage', cost: 300, flash: 46, roar: 16, answerRoar: 6, dash: 26, speed: 20, steer: 0.03, range: 8, slams: 3, every: 13, slamDmg: 45, finalDmg: 120,
-    minScale: 0.9, launch: [20, 11], whiff: 34, flashPose: 'specialDown', flashPhase: 1, pose: 'specialDown', poseAt: [0, 0.9], strikePose: 'dash',
-    maulPose: 'specialDown', maulPhase: 0,
-    shroud: { chakra: 0xb0140c, core: 0x1a0204, rim: 0xc8281e, hold: 1, tails: 4 }, name: 'FOUR-TAILS', color: '#d0281c', ground: 'claw', roarGround: 'chakraBlast',
   },
   // Whirlwind (Killua): Godspeed's reflex mode. For `len` frames his body answers every blockable attack on its own:
   // a lightning blink behind the attacker (projectiles too) and the `follow` strike, up to `counters` times. Supers,

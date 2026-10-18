@@ -196,6 +196,8 @@ const VFX_EFFECTS = {
   poof: { frames: 7, ms: 40, tinted: false, fill: 0.75, hd: true },
   subLog: { frames: 5, ms: 70, tinted: false, fill: 0.85, anchor: 'bottom', hd: true },
   fourTailsRoar: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
+  beastBall: { frames: 8, ms: 45, tinted: false, fill: 0.5, hd: true },
+  beastBeamRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 

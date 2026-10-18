@@ -11,6 +11,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ENG-SKL-NAR-2): Naruto round 2, from the user's review of the live build. The Nine-Tails Cloak is the aura only (no tail). The Shadow Clone Barrage summons its clones one at a time, fast, each poofing in on its own side to land its own attack (punch, flying kick, uppercut, roundhouse, heel drop...) while Naruto holds the seal, then the U-ZU-MA-KI kick-up and the Rasengan drop. The ultimate is now **Four-Tails: Tailed Beast Ball**, a beam (ADR 0045): the chakra swallows him into the four-tailed form during the flash, red and blue chakra gather into a ball at the mouth, and a red-white blast with shock rings fires from it (a silhouette of his human beam poses until Codex's four-tails frames are approved). The Four-Tails pounce and mauling are retired.
+
 - Changed (ART-SIZE-R7): archived the Codex audit worktree after PR #153 merged the independent table; no redraws or image calls were needed.
 
 - Changed (ART-SIZE-R7, ADR 0041): Goku and Luffy are 8 % smaller in game (user option A, 2026-10-18), on the cast's 1.17 px per cm of canon height: Goku had shipped at 1.08x his approved reference and stood as tall as Gojo, and Luffy's reference was drawn large. New manifest field `packScale` makes the packer resize a whole fighter (every strip's bodyHeight, frameOffsets and hitboxes.json anchors); no drawing changed. Their hit boxes shrink with the art (Goku heavy reaches 117 px instead of 127). `npm run test:sprites` covers it.

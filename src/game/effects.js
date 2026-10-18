@@ -667,7 +667,7 @@ export class Effects {
     it.rot = flip * rot;
   }
 
-  // Every frame of the Nine-Tails Cloak: its tail, and now and then a bubble of chakra boiling off him
+  // Every frame of the Nine-Tails Cloak: its tail when it has one, and now and then a bubble of chakra boiling off him
   cloakTick(f, C, camRight, frozen = false) {
     if (C.tail) this.tail(f, 'cloakTail' + f.index, camRight, C.tail, C.tail.color ?? C.rim, 0.1);
     if (frozen || Math.random() > 0.12) return;
@@ -675,6 +675,34 @@ export class Effects {
     this.spawn('bubble', p.x + (Math.random() - 0.5) * 0.5 * k, p.y + (0.3 + Math.random()) * k, p.z, {
       scale: 0.12 + Math.random() * 0.08, color: C.bubble ?? C.rim, vel: [0, 1.1, 0], life: 0.45, fade: true, order: 6,
     });
+  }
+
+  // A beam ultimate's `gather` (Naruto's Tailed Beast Ball): the ball grows at the drawn hand anchor (the mouth on the
+  // four-tails frames) through the charge, red and blue chakra converging on it. prog: 0..1 through the windup.
+  gatherTick(f, G, prog, frozen = false) {
+    if (prog <= 0) return; // the flash is the transformation's: the ball starts with the charge
+    const P = f.renderPos || f.pos, k = f.actor?.depthK ?? 1, H = f.actor?.hand?.();
+    const fwd = H ? H.x : 0.6, up = H ? H.y : 0.9;
+    const x = P.x + f.face.x * fwd * k, y = P.y + up * k, z = P.z + f.face.y * fwd * k;
+    this.keep('gather' + f.index, G.fx, x, y, z, { scale: (G.scale ?? 0.6) * (0.2 + 0.8 * prog) * k, order: 9, glow: 0.3 });
+    if (frozen || Math.random() > 0.65) return;
+    const a = Math.random() * Math.PI * 2, b = (Math.random() - 0.5) * 2.2, r = 1.3 + Math.random() * 0.5;
+    const sx = x + Math.cos(a) * r, sy = y + Math.sin(b) * r * 0.6, sz = z + Math.sin(a) * r * 0.5;
+    const cols = G.colors ?? [0xff3a2a];
+    this.spawn('bubble', sx, sy, sz, {
+      scale: 0.14 + Math.random() * 0.1, color: cols[(Math.random() * cols.length) | 0], vel: [(x - sx) * 3, (y - sy) * 3, (z - sz) * 3], life: 0.33, order: 8, glow: 0.2,
+    });
+  }
+
+  dropGather(f) {
+    this.drop('gather' + f.index);
+  }
+
+  // A beam's `muzzle`: every `every` frames a shock ring leaves the root of the beam and runs down it
+  muzzleTick(f, beam, M) {
+    if (beam.t % (M.every ?? 10) !== 1) return;
+    const o = beam.origin, d = beam.dir, v = M.speed ?? 7;
+    this.spawn(M.fx, o.x + d.x * 0.4, o.y + d.y * 0.4, o.z + d.z * 0.4, { scale: M.scale ?? 0.9, vel: [d.x * v, d.y * v, d.z * v], life: 0.45, fade: true, order: 7 });
   }
 
   // Every frame of the Four-Tails shroud (kit.js startShroud): its tails once the chakra has swallowed him, bubbles
