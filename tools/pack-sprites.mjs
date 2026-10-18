@@ -2783,7 +2783,9 @@ function packVfx(env) {
       if (!env.candidates && !e.approvedVersion) { R.unapproved.push(name); continue; }
       // ship the approved version even when a newer candidate is waiting for review
       const raw = env.candidates ? latest : pickRaw(rawIdx.get(name), name, e.approvedVersion);
-      const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: null, artDir: env.artDir }, warn, name);
+      // an HD effect's frames/ carry their 256 px cell: untouched frames cleaned at the 128 px cell (before its manifest
+      // entry said hd) re-import from raw/ instead of being upscaled
+      const src = chooseSource(framesDir, raw, { bodyHeight: null, cell: e.hd ? VFX_HD.cell : null, artDir: env.artDir }, warn, name);
       if (!src) { R.missing.push(name); continue; }
       if (src.kind === 'stale') { warn(staleText(name, name, src)); R.missing.push(name); continue; }
       let items, notes = [], sourceLabel, origin = null, version = null;
@@ -2875,7 +2877,7 @@ function packVfx(env) {
     writeFile(env, path.join(outVfx, 'atlas_hd.png'), encodePng(hd.img), R);
   } else removeOutputs(env, outVfx, ['atlas_hd.png'], R);
   writeFile(env, path.join(outVfx, 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
-  for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, {});
+  for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, p.e.hd ? { cell: VFX_HD.cell } : {});
   return R;
 }
 

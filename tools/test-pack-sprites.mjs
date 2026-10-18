@@ -9,6 +9,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import { decalTests } from './test-pack-decals.mjs';
@@ -738,6 +739,27 @@ function main() {
   check(meta1 === fs.readFileSync(metaPath, 'utf8'), 'run 2: anims.json identical');
   check(Buffer.compare(atlas1, fs.readFileSync(path.join(OUT, 'vfx', 'atlas.png'))) === 0, 'run 2: atlas.png identical');
   check(r2.json.characters.find((c) => c.id === 'testy').packed.find((p) => p.anim === 'idle').source === 'frames/idle/', 'run 2: idle now read from frames/');
+  {
+    // an HD effect's written-back frames carry the 256 px cell; untouched frames cleaned at the 128 px cell (written
+    // before the manifest said hd) re-import from raw/ instead of being upscaled (Sasuke's chidori, 2026-10-18)
+    const hdDir = path.join(ART, 'vfx', 'frames', 'newHd'), mk = path.join(hdDir, '.packer.json');
+    const m = fs.existsSync(mk) && JSON.parse(fs.readFileSync(mk, 'utf8'));
+    check(m && m.cell === 256, `run 2: HD frames/ marker records the 256 px cell (${m && m.cell})`);
+    if (m) {
+      const files = {};
+      for (const f of Object.keys(m.files)) {
+        const r7 = mulberry(7), im = image(128, 128, null, r7);
+        rect(im, 54, 54, 20, 20, [60, 130, 240], r7);
+        savePng(path.join(hdDir, f), im);
+        files[f] = createHash('sha1').update(fs.readFileSync(path.join(hdDir, f))).digest('hex');
+      }
+      delete m.cell;
+      fs.writeFileSync(mk, JSON.stringify({ ...m, files }, null, 2));
+      const rHd = pack(base);
+      const nh = rHd.json?.vfx.packed.find((p) => p.effect === 'newHd');
+      check(rHd.code === 0 && nh?.source === 'raw/newHd_v01.png', `128 px frames/ of an HD effect re-import from raw/ (source ${nh?.source})`);
+    }
+  }
 
   // run 3: a new raw idle replaces untouched written-back frames
   const before = fs.readFileSync(path.join(idleDir, 'idle_00.png'));
