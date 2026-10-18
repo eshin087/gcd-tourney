@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { bakeVfx } from '../art/vfxPainter.js';
 import { loadImage } from './sprites.js';
-import { fetchAtlasJson } from '../core/artIndex.js';
+import { fetchAtlasJson, artUrl } from '../core/artIndex.js';
 import { VFX_PPU as PPU, RING_TOP, ARENA_LIMIT } from './constants.js';
 import { GroundDamage } from './ground.js';
 import { Sigils } from './sigil.js';
@@ -98,7 +98,7 @@ export class Effects {
         console.warn('[vfx] atlas.json has no "anims", keeping procedural effects');
         return false;
       }
-      const img = await loadImage(`${dir}/atlas.png?v=${Date.now()}`);
+      const img = await loadImage(artUrl(`${dir}/atlas.png`));
       if (!img) {
         console.warn('[vfx] atlas.json found but atlas.png is missing or unreadable, keeping procedural effects');
         return false;

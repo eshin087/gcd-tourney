@@ -13,15 +13,34 @@
   <meta name="description" content="HD-2D pixel anime arena fighter demo" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Dela+Gothic+One&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Dela+Gothic+One&family=Press+Start+2P&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
   <div id="app"></div>
   <canvas id="fx-overlay"></canvas>
   <div id="ui"></div>
-  <div id="loading">BAKING FIGHTERS…</div>
-  <div id="rotate"><div class="rot-phone"></div><p>Rotate your phone to landscape</p><small>Tip: Add to Home Screen for fullscreen</small></div>
+  <!-- loading and portrait screens (ENG-102): plain markup so they paint before the scripts arrive; src/ui/loader.js
+       moves the bars. The packed title art (public/ui/, `npm run sprites ui`); a missing image just drops out. -->
+  <div id="loading">
+    <img class="ld-art" src="/ui/title_art.png" alt="" onerror="this.remove()" />
+    <div class="ld-box">
+      <img class="ld-logo" src="/ui/logo.png" alt="GCD Tourney" onerror="this.remove()" />
+      <div class="ld-name">GCD TOURNEY</div>
+      <div class="ld-bar"><i data-load-fill></i></div>
+      <div class="ld-label" data-load-label>LOADING</div>
+    </div>
+  </div>
+  <div id="rotate">
+    <img class="rot-bg" src="/ui/title_art.png" alt="" onerror="this.remove()" />
+    <div class="rot-title">
+      <img class="ld-logo" src="/ui/logo.png" alt="GCD Tourney" onerror="this.remove()" />
+      <div class="ld-name">GCD TOURNEY</div>
+    </div>
+    <img class="rot-art" src="/ui/title_art.png" alt="" onerror="this.remove()" />
+    <div class="rot-load"><div class="ld-bar"><i data-load-fill></i></div><div class="ld-label" data-load-label>LOADING</div></div>
+    <div class="rot-hint"><div class="rot-phone"></div><p>Rotate your phone to landscape</p><small>Tip: Add to Home Screen for fullscreen</small></div>
+  </div>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
