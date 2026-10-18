@@ -1428,7 +1428,9 @@
       "rasenganForm": {"frames":6,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.55},
       "rasenganBurst": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.98},
       "poof": {"frames":7,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.75},
-      "subLog": {"frames":5,"ms":70,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.85}
+      "subLog": {"frames":5,"ms":70,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.85},
+      "rasenshuriken": {"frames":8,"ms":35,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.9},
+      "rasenshurikenDome": {"frames":8,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.98}
     }
   },
   "decals": {

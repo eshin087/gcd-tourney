@@ -11,6 +11,9 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (ART-SKL-NAR): prepared Naruto skills batch 3 HD effect candidates rasenshuriken v01 and rasenshurikenDome v01; added generation provenance, manifest/review records and gallery. Awaiting user visual approval and Claude pack/game integration checks.
+
+
 - Changed (ART-SKL-NAR): prepared Naruto skills batch 2 HD candidates rasengan, rasenganForm, rasenganBurst, poof and subLog v01 (one image call each); added manifest/review/provenance records and gallery. Awaiting user visual approval and Claude pack/game integration checks.
 
 - Changed (ART-SKL-NAR): recorded user approval via Claude relay skills #7 for beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01; superseded beamCharge v12-v16 and fourTailsRoar v01 are preserved under `_rejected/`. Character scale/contact/integration holds remain.

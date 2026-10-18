@@ -1,5 +1,15 @@
 # Art review queue
 
+## Naruto skills batch 3: Rasenshuriken (2026-10-18)
+
+Batch 3 follows `art/characters/naruto/SKILLS_REVAMP.md` A4/A5. Two HD effect strips, both awaiting user visual approval. Gallery: [Batch 3 review](../public/reviews/naruto-skills-batch3/index.html). Neither has been packed or checked in-game on this branch.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | vfx | rasenshuriken | [v01](vfx/raw/rasenshuriken_v01.png) · [contact](../public/reviews/naruto-skills-batch3/media/rasenshuriken_contact.png) · [gallery](../public/reviews/naruto-skills-batch3/index.html) · [provenance](characters/naruto/production/skills-revamp-batch3-provenance.md) | v01 | needs review | Eight-frame loop of four curved pale blue-white wind blades around a white-cyan core and ring. | 3 calls used (selected call 3); palette quantized to hard bands; 2048x256 strip. No HD pack or runtime check. |
+| 2026-10-18 | vfx | rasenshurikenDome | [v01](vfx/raw/rasenshurikenDome_v01.png) · [contact](../public/reviews/naruto-skills-batch3/media/rasenshurikenDome_contact.png) · [gallery](../public/reviews/naruto-skills-batch3/index.html) · [provenance](characters/naruto/production/skills-revamp-batch3-provenance.md) | v01 | needs review | Eight-frame round wind-blade dome, full sphere in f2-f4, then fading shards. | 1 call used; palette quantized to hard bands; 2048x256 strip. No HD pack or runtime check. |
+
+
 ## Naruto skills batch 2: Rasengan and clones (2026-10-18)
 
 Batch 2 follows `art/characters/naruto/SKILLS_REVAMP.md` A1/A2/A3/A6/A7. Five separate HD effect strips, one generation call each. All five await user visual approval. They have not been packed or checked in-game on this art branch. Gallery: [Batch 2 review](../public/reviews/naruto-skills-batch2/index.html).
