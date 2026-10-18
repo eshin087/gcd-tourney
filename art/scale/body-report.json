@@ -1,7 +1,7 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-10-16T04:23:25.236Z",
+ "generated": "2026-10-18T19:38:46.770Z",
  "fighters": {
   "naruto": {
    "idleGarmentPx": 3260,
@@ -1602,7 +1602,7 @@
    }
   },
   "killua": {
-   "idleGarmentPx": 1395,
+   "idleGarmentPx": 1257,
    "anims": {
     "idle": {
      "v": 8,
@@ -2404,6 +2404,78 @@
      ],
      "median": 0.591,
      "headMedian": 0.995,
+     "flag": "small"
+    },
+    "uTilt": {
+     "v": 3,
+     "body": [
+      0.966,
+      0.878,
+      0.999,
+      0.918,
+      0.908,
+      0.872,
+      0.968
+     ],
+     "head": [
+      1.013,
+      1,
+      1.032,
+      1.025,
+      1.032,
+      1.032,
+      1.023
+     ],
+     "median": 0.918,
+     "headMedian": 1.025,
+     "flag": null
+    },
+    "uSmash": {
+     "v": 2,
+     "body": [
+      0.902,
+      0.779,
+      0.75,
+      0.844,
+      0.868,
+      0.862,
+      0.805,
+      0.926
+     ],
+     "head": [
+      1,
+      1.025,
+      0.995,
+      1.032,
+      0.696,
+      0.557,
+      0.992,
+      1.025
+     ],
+     "median": 0.853,
+     "headMedian": 0.998,
+     "flag": "small"
+    },
+    "uair": {
+     "v": 2,
+     "body": [
+      0.871,
+      0.643,
+      0.795,
+      0.77,
+      0.67,
+      0.88
+     ],
+     "head": [
+      0.996,
+      1,
+      0.575,
+      0.551,
+      0.995,
+      1.003
+     ],
+     "median": 0.783,
+     "headMedian": 0.996,
      "flag": "small"
     }
    }

@@ -2,25 +2,33 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Killua uTilt v03 · review candidate</title>
+<title>Killua ENG-112 R2 fitted normals</title>
 <style>
-:root{color-scheme:dark}body{font:15px/1.5 system-ui,sans-serif;background:#14131a;color:#eee;margin:24px}h1,h2{color:#fff}.note{max-width:1000px;color:#ccc}.status{border-left:4px solid #e0ae42;background:#26232b;padding:12px 16px;max-width:1000px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;max-width:1100px}.grid img{width:100%;image-rendering:pixelated;background:#f0f;border:1px solid #555}.source{max-width:min(100%,1400px);image-rendering:pixelated;border:1px solid #555}.meta{color:#aaa;font-size:13px;max-width:1000px}
+:root{color-scheme:dark}body{font:15px/1.5 system-ui,sans-serif;background:#14131a;color:#eee;margin:24px}h1,h2{color:#fff}.note{max-width:1050px;color:#ccc}.status{border-left:4px solid #65bd82;background:#202a24;padding:12px 16px;max-width:1050px}.moves{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;max-width:1200px}.move{background:#201e25;padding:14px;border:1px solid #45414b;border-radius:8px}.move canvas{width:100%;image-rendering:pixelated;background:#24212a}.frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:4px}.frames img{width:100%;image-rendering:pixelated;background:#f0f;border:1px solid #555}.meta{color:#aaa;font-size:13px}.source{max-width:min(100%,1200px);image-rendering:pixelated;border:1px solid #555}table{border-collapse:collapse;margin:12px 0}td,th{padding:6px 10px;border:1px solid #514d56;text-align:left}a{color:#9cd0ff}
 </style>
-<h1>Killua uTilt v03 · user review</h1>
-<p class="note">Selected from the one authorized three-call round: attempt 03. It shows seven connected poses and a continuous upward arm arc, with no figure overlap or severed limb visible in the packed cells. Attempt 01 was not retained by the image tool; attempt 02 remains preserved in the branch source records.</p>
-<div class="status"><b>User approved the drawing as drawn via Claude relay combat #27.</b> Technical hold remains: this is a 48-color diagnostic pack, not the production atlas. The scale probe reads head 1.294× and feet 1.615× idle across the strip; the strict pack refuses it. No size fit is claimed. Visual approval does not clear the scale hold.</div>
-<h2>Quantized packed cells</h2>
-<div class="grid"><img src="packed_frames/uTilt_00.png" alt="uTilt frame 0"><img src="packed_frames/uTilt_01.png" alt="uTilt frame 1"><img src="packed_frames/uTilt_02.png" alt="uTilt frame 2"><img src="packed_frames/uTilt_03.png" alt="uTilt frame 3"><img src="packed_frames/uTilt_04.png" alt="uTilt frame 4"><img src="packed_frames/uTilt_05.png" alt="uTilt frame 5"><img src="packed_frames/uTilt_06.png" alt="uTilt frame 6"></div>
-<h2>Packed loop</h2>
-<canvas id="loop" width="256" height="256" aria-label="Packed uTilt loop"></canvas>
-<h2>Selected source attempt 03</h2>
-<img class="source" src="source_attempt03.png" alt="Selected seven-pose uTilt source strip">
-<p class="meta">Source SHA-256: 6ca733fceee1cbb7a0da0ad33b8aafd64d003ff499329be6a6d7d72b153ba265 · 2172×724. Tool call 03/03. The source render is smooth/illustrated; the cells above show the packer's 48-color quantization.</p>
-<h2>Related fit audit</h2>
-<p class="note">The authorized import-fit trial was audited in a quantized whole-character atlas. uSmash v02 used auto-head scale ×0.8613 and the authorized v02 probe exemptions f4/f5; Astra visually passes its size with no conspicuously small body, while retaining segment-measurement uncertainty. uair v02 used auto-head scale ×0.75 (the packer's lower-bound clamp) and its authorized v02 exemptions f2/f3; Astra holds it because the torso, clothing and limbs look compact after fitting (body-sheet B=.74). The fitted uair trial has been returned to <code>_qa_hold</code>; the current pack keeps its stand-in pending your decision. The fitted contact sheet below is audit evidence from that trial, not the current shipped atlas. The full [Astra audit](fit-audit.md) records bounds, measurements, limits and trial atlas hashes.</p>
-<img class="source" src="fitted-uSmash-uair-contact.png" alt="Astra comparison of fitted uSmash and uair frames against approved references">
-<p class="meta">uSmash/uair review pixels come from the authorized quantized fit-trial atlas; current production output includes fitted uSmash, while uair remains on its stand-in. Fit evidence is advisory for user review; the scale gate and Astra findings do not constitute image approval or runtime/contact certification.</p>
+<h1>Killua ENG-112 R2: fitted uTilt, uSmash and uair</h1>
+<p class="note">Review of the current whole-character 48-color atlas. The source drawings remain unchanged; importer sidecars apply measured auto-head fits. User image approvals are recorded separately in <a href="../../../../art/REVIEW.md">art/REVIEW.md</a>. This page presents the packed result and technical evidence for Claude's integration check.</p>
+<div class="status"><strong>Astra fitted-atlas audit:</strong> uTilt v03 and uSmash v02 pass visual scale inspection with no conspicuously small body. uair v02 retains visibly compact body volume; the user explicitly chose to ship its ×0.75 fitted drawing with this note advisory in relay #28. Astra found all inspected limbs connected and every frame inside the cell. Claude's runtime contact check remains.</div>
+<table><thead><tr><th>Move</th><th>Version / fit</th><th>Head median</th><th>Feet proxy</th><th>Body B</th><th>Disposition</th></tr></thead><tbody>
+<tr><td>uTilt</td><td>v03 ×0.75</td><td>1.025</td><td>1.287</td><td>0.918</td><td>Astra visual pass; B advisory</td></tr>
+<tr><td>uSmash</td><td>v02 ×0.8613</td><td>1.013*</td><td>1.215</td><td>0.853</td><td>Astra visual pass; f4/f5 probe exemptions; B advisory</td></tr>
+<tr><td>uair</td><td>v02 ×0.75</td><td>0.998*</td><td>1.078</td><td>0.783</td><td>Ships per relay #28; compact body-volume advisory; f2/f3 probe exemptions</td></tr>
+</tbody></table><p class="meta">* Raised limbs occlude the probe in the specified exempt frames. Body B is a pose-sensitive garment-area measure, not a five-segment anatomy certification. See <a href="../../../../art/characters/killua/production/ENG112_R2_FINAL_FITTED_ASTRA_AUDIT.md">Astra's full audit</a>.</p>
+<section class="moves" id="moves"></section>
+<h2>Body-volume comparison</h2><img class="source" src="fitted-body-sheet.png" alt="Body sheet comparing idle, uTilt, uSmash, and uair">
+<h2>Source strips</h2><p><a href="../../../../art/characters/killua/raw/uTilt_v03.png">uTilt v03 source</a> · <a href="../../../../art/characters/killua/raw/uSmash_v02.png">uSmash v02 source</a> · <a href="../../../../art/characters/killua/raw/uair_v02.png">uair v02 source</a></p>
 <script>
-const frames=Array.from({length:7},(_,i)=>{const im=new Image();im.src=`packed_frames/uTilt_${String(i).padStart(2,'0')}.png`;return im});const c=document.querySelector('#loop'),x=c.getContext('2d');let n=0;function tick(){if(frames[n]?.complete){x.clearRect(0,0,256,256);x.drawImage(frames[n],0,0)}n=(n+1)%frames.length}tick();setInterval(tick,180);
+fetch('packed-atlas.json').then(r=>r.json()).then(data=>{
+  const root=document.querySelector('#moves');
+  for(const name of ['uTilt','uSmash','uair']){
+    const m=data.animations[name], box=document.createElement('article'); box.className='move';
+    const title=document.createElement('h2'); title.textContent=`${name}: ${m.cells.length} packed frames`; box.append(title);
+    const canvas=document.createElement('canvas'); canvas.width=256; canvas.height=256; box.append(canvas);
+    const ctx=canvas.getContext('2d'); const imgs=m.cells.map((_,i)=>{const im=new Image();im.src=`packed_frames/${name}_${String(i).padStart(2,'0')}.png`;return im;});
+    let i=0; const phase=m.phases||[m.cells.length]; let activeStart=phase[0], activeEnd=phase[0]+phase[1];
+    const loop=()=>{const im=imgs[i];if(im.complete)ctx.drawImage(im,0,0);i=(i+1)%imgs.length;setTimeout(loop,m.durations[i]||60)}; imgs[0].onload=loop;
+    const info=document.createElement('p');info.className='meta';info.textContent=`Atlas cells ${m.cells.join(', ')} · phases ${phase.join('/')} · ${m.loop?'loop':'one-shot'} · active frames ${activeStart}–${activeEnd-1}`;box.append(info);
+    const frames=document.createElement('div');frames.className='frames';imgs.forEach((im,n)=>{const wrap=document.createElement('div');const label=document.createElement('small');label.textContent=`f${n} · cell ${m.cells[n]}`;wrap.append(label,im);frames.append(wrap)});box.append(frames);root.append(box);
+  }
+});
 </script>
-</html>

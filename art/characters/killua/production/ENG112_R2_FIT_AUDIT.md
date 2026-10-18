@@ -2,6 +2,8 @@
 
 **Fit-trial verdict: uSmash v02 visual scale PASS with measurement caveats; uair v02 anatomy HOLD for visibly compact body after fitting.** Following this audit, uair v02 and its sidecar were returned unchanged to `_qa_hold`, and the current atlas uses its stand-in. This is not image approval, runtime/contact certification or a five-segment numerical ±6% pass.
 
+**Disposition superseded by relay combat #28:** the user chose to ship uair v02 with the measured ×0.75 fit and keep the body-volume finding advisory. The later whole-character repack and final Astra audit are recorded in [ENG112_R2_FINAL_FITTED_ASTRA_AUDIT.md](ENG112_R2_FINAL_FITTED_ASTRA_AUDIT.md). The earlier HOLD remains accurate for the fit-trial state documented below; it is not the current shipping disposition.
+
 ## Correction and scope
 
 Parent clarified that relay #23 had already authorized uSmash f5 and uair f2; relay #25 added uSmash f4 and uair f3. All four frame-specific exemptions are retained, version 2. The prior audit's inference that f5/f2 lacked authorization is withdrawn. Its no-fit conclusions describe the earlier atlas only. The pack now succeeded with uSmash import ×0.8613 and uair ×0.75 (lower-bound clamp), per parent pack evidence. Current scale-report confirms both named pairs as exempt and reports `ok` for each strip.
