@@ -881,3 +881,5 @@ Reconstructed from the codebase when the changelog was introduced.
 
 
 
+
+- Recorded relay #8's Sasuke dTilt low-kick retry authorization and dSmash stand-in direction. The capped dTilt v05 round produced only noncompliant painterly outputs; no new candidate was selected.

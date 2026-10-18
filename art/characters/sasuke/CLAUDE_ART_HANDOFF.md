@@ -189,3 +189,15 @@ Process note for Claude: inbox B2 said to use `scaleManualQA` when a raised arm 
 ### fair v03 post-fit recheck (2026-10-18)
 
 After `node tools/pack-sprites.mjs sasuke --quantize 48 --fit-head sasuke:fair`, the actual production atlas is SHA-256 `59BDABFD6E72E7D425E9ACEEBD0DDF1EE1498C44471099307406F93E561E1B23`. Astra rechecked fair cells 190–195 against idle f0 and the approved combat cell. Head ratios: `.974, .974, 1.007, 1.000, 1.000, .984`; median `.992`, range `.033`, verdict `ok`. No head exemption or manual QA is needed. Visual continuity is coherent; the imported ×0.9407 fit did not introduce a visible large head, short torso or limb break. The body sheet still reports B `.73–.81` across fair; folding and overlap explain much of it, but segment lengths were not measured precisely enough to certify full anatomy. Keep only this body-volume advisory open; no redraw is recommended before clearer segment measurement. Source `fair_v03.png` is unchanged. Runtime contact remains Claude's check.
+
+### Final low-kick round (user decision via Claude relay combat #8)
+
+The user authorized one more capped round of up to three image calls for dTilt, specifically a crouching low kick at shin height rather than a fist poke, and directed that dSmash keep its stand-in. All three calls were used for the next safe candidate slot v05. Each output depicts a crouched low forward kick and keeps Sasuke's identity and sheathed sword, but each is 2172x724 and smooth/painterly instead of the required hard-pixel 1536x256 strip. No `dTilt_v05.png` was selected. Attempts are preserved under `raw/_qa_hold/`; dTilt's stand-in remains active and dSmash remains on its stand-in by user direction. No approval is implied.
+
+| Call | File | SHA-256 |
+|---|---|---|
+| `3d94f8f7-9050-4614-863c-4379815f37ff` | `dTilt_v05_attempt01.png` | `64CD2511AE0EFBE3BCF6603F2AAFE79FF7E922DAACE49DCEBE552366FDD7D5E0` |
+| `f5adad08-247c-4fde-ad1b-2bc62db61e16` | `dTilt_v05_attempt02.png` | `4D6D333977BF5CBFB980A9EE95C54BC986561A92F9D870338B03BF67C3EE6BB5` |
+| `25c6ecfc-88a4-47d1-8d85-cc7d3e4ab3e4` | `dTilt_v05_attempt03.png` | `A5C6A920847732F086810B498F8B79C15B9C82BC46F6D44B2554102706932123` |
+
+The relay #8 budget is exhausted; a fresh user decision is required before more dTilt calls. The earlier approved uTilt v01 remains on technical hold; its three-call head-only v02 round repainted the full strip and yielded no candidate. Whether to authorize another uTilt correction or keep its stand-in is also still open.
