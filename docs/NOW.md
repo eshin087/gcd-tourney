@@ -11,7 +11,7 @@ paused._
 
 **CPUs play the Smash moves, live (2026-10-18, PR [#150](https://github.com/eshin087/gcd-tourney/pull/150), `b013d2ef`, ENG-111):** every CPU level uses up tilt anti-airs, tilt pokes, short-hop / fast-fall / back airs, charged smash punishes and dash attacks, with the links down tilt → jab, up tilt → up tilt / short hop → up air, short-hop aerial → down tilt. Try it: https://gcd-tourney.vercel.app/?fight=killua,naruto&mode=cpu. Nothing to do; stand-in strips until ENG-112.
 
-**Naruto skills revamp — review updated; awaiting Claude (2026-10-18, lane `skills`).** Current candidates: beamCharge v11, beamFire v14 + sidecar, ui_ult_fg v04, and fourTailsRoar v02. The v02 roar has a hard circle mask about 236px across; pack QA measured all alpha within radius 117.99px in each 256px cell. Updated [Vercel review page](https://gcd-tourney-dn8ef3o78-eshin087s-projects.vercel.app/reviews/naruto-skills-batch1/) (deployment protection may require sign-in), [PR #152](https://github.com/eshin087/gcd-tourney/pull/152), art commit `75047bb7`. Relay approval request #3 is stale because it names v01; do not answer that version. Claude is asked to refresh the in-game check and issue a current-version approval request. B1 v11 still has Astra's visible f2 join hold; B2 packed/contact proof and f0 slam mapping, plus product splash CSS, remain Claude tasks.
+**Naruto skills revamp (2026-10-18, chat "5 - Skills Effects"): try the engine preview, then say "merge" in that chat.** PR [#151](https://github.com/eshin087/gcd-tourney/pull/151) has every revamped move (cloak shroud, clone barrage, clone Uzumaki Barrage, Substitution log, Rasengan spiral, Rasenshuriken dome, Four-Tails engulf) with placeholder effect art: [game](https://gcd-tourney-1lc22nsoo-eshin087s-projects.vercel.app/?fight=naruto,sasuke&mode=solo) · [lab](https://gcd-tourney-1lc22nsoo-eshin087s-projects.vercel.app/lab.html). Art (Codex, [PR #152](https://github.com/eshin087/gcd-tourney/pull/152)): you approved beamFire v14 + sidecar and the Four-Tails splash ui_ult_fg v04 (relay #4). Coming back to you: beamCharge v12 (v11's tail seams cleaned) and fourTailsRoar v02 (burst kept round), then batches 2-3 (Rasengan, poof, log, Rasenshuriken).
 
 **Smash-style combat live (2026-10-18, PR [#147](https://github.com/eshin087/gcd-tourney/pull/147), `4cfdbfc0`):** tilts (→ / ↑ / ↓ + Light), smash attacks (→ / ↑ / ↓ + Heavy, hold to charge), dash attack, forward / back / up airs, the gamepad C-stick (right stick), short hop, double jump, fast fall, links instead of chains (ADR 0042) on https://gcd-tourney.vercel.app . The lobby server was redeployed first for the new input bits. New moves borrow existing animations until Codex draws them after the art audit (ENG-112); the CPUs learn the moves in [ENG-111](TASKS.md), running in its own Claude chat. Nothing to do now.
 
@@ -117,12 +117,12 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
+- a78f935c 10-17 20:58 docs(now): Naruto skills revamp preview and batch 1 approvals
 - 880cf008 10-17 20:47 docs(now): queue the size audit round 7 review (PR #153)
 - d774d53e 10-17 20:27 docs(naruto): refresh skills batch review handoff
 - 28e51707 10-17 20:19 docs(naruto): queue skills batch 1 approval
 - 337f85fa 10-17 20:17 docs(tasks): ENG-111 CPU Smash moves live (PR #150)
 - b013d2ef 10-17 20:16 Merge branch 'feature/cpu-smash-moves'
-- 85baaeb9 10-17 20:08 docs(now): queue the CPU Smash moves review (PR #150)
 <!-- status:end -->
 
 
