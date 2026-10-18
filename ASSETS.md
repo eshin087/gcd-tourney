@@ -43,6 +43,10 @@ art/SPEC.md "Tech poses"): `techGround` (tech in place), `techRoll` (tech roll) 
 fighter has one, the game keeps showing `land` / `airRecover` / `jumpUp` for that tech. Per-frame brief and prompts:
 `art/characters/TECH_POSES_BRIEF.md`.
 
+The ten directional-normal strips are optional too (ADR 0042, art/SPEC.md "Directional normals"): `fTilt`, `uTilt`,
+`dTilt`, `dashAttack`, `fSmash`, `uSmash`, `dSmash`, `fair`, `bair` and `uair`; until a sheet has one, the move
+plays its fallback strip (the back air: `airLight3` mirrored).
+
 Every fighter with an energy move (all but Luffy) can draw one optional **struggle** strip
 ([ADR 0034](docs/decisions/0034-beam-clash-visuals.md)): `beamStruggle`, braced and pushing that move into the
 other side's in a beam clash, and `beamStruggleAir`, the same from the air for a fighter with an air energy shot. Until

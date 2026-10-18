@@ -435,6 +435,25 @@ move into its own section's table when its alts are generated.
 | killua | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 | gojo | todo | todo | todo | todo | todo | after the Naruto pilot (ART-ALTS) |
 
+## Directional normals (ADR 0042)
+
+Ten optional strips per fighter (step 9), the Smash-style moves the stick picks: `fTilt`, `uTilt`, `dashAttack` (7 frames,
+2/2/3), `dTilt`, `fair`, `bair`, `uair` (6, 2/2/2), `fSmash` (9, 4/2/3; frame 2 is the held charge pose), `uSmash`,
+`dSmash` (8, 3/2/3). The engine plays them on stand-in strips until they are packed (art/SPEC.md "Directional normals":
+`light2`, `heavy`, `light3`, `light4`, `airLight2`, `airLight3` mirrored for the back air), so nothing waits on them. The
+manifest lists all ten per fighter (status `todo`, bodyHeight copied from that fighter's stand-in strip). **Not started:**
+they wait for the running art audit (user, 2026-10-17) and for the packer's second sheet page (TOOL-060): a fighter with
+every alt and all ten is past one 4096 sheet. Task ENG-112.
+
+| fighter | tilts (f / u / d) | dashAttack | smash attacks (f / u / d) | aerials (fair / bair / uair) | notes |
+|---|---|---|---|---|---|
+| naruto | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
+| sasuke | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
+| killua | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
+| gojo | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
+| goku | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
+| luffy | todo | todo | todo | todo | waits for the art audit and TOOL-060 |
+
 ## VFX atlas (step 10)
 
 Brief: [vfx/EFFECTS.md](vfx/EFFECTS.md). Candidates `art/vfx/raw/<effect>_vNN.png` (the packer uses

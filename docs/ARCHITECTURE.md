@@ -44,8 +44,9 @@ src/game/
   fighter.js                Fighter: state machine (idle/run/guard/dash/superDash/vanish/air/attack/hitstun/
                             launched/down/getup/charge/beamCharge/beamFire/clash/techRoll/burst/...), cancels,
                             physics, takeHit; combo escape and true-combo tracking (gapF, comboBlue; ADR 0022)
-  moves.js                  ALL gameplay numbers: MOVES, SUPER_DASH, VANISH, JUGGLE (decay, air stun, the bounce
-                            budget), SPECIALS, PROJECTILES, ULTIMATE, SPECIAL_MOVES (kit specials by id), SUPERS
+  moves.js                  ALL gameplay numbers: MOVES, NORMALS (stick -> normal) and AIR (hops, fast fall; ADR 0042),
+                            SUPER_DASH, VANISH, JUGGLE (decay, air stun, the bounce budget), SPECIALS, PROJECTILES,
+                            ULTIMATE, SPECIAL_MOVES (kit specials by id), SUPERS
   kit.js                    fighter kits (ADR 0009/0011): stick -> special slot, special kinds (rush/shot/teleport/
                             pull/dive/counter/mode), supers and non-beam ultimates (flurry/domain/skyStrike/ignite),
                             passives, modes, burn; state 'kit'

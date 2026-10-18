@@ -46,7 +46,7 @@ const RATE = 150; // messages a second a member may send (a player sends 60), an
 const newToken = () => Array.from(crypto.getRandomValues(new Uint8Array(12)), (b) => b.toString(16).padStart(2, '0')).join('');
 const seedOf = (id) => [...String(id)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7);
 const cleanFighter = (s) => (typeof s === 'string' && /^[a-z0-9_-]{1,24}$/.test(s) ? s : null);
-const isInput = (v) => Number.isInteger(v) && v >= 0 && v < 1 << 23;
+const isInput = (v) => Number.isInteger(v) && v >= 0 && v < 1 << 27; // the stick, 7 buttons and the 4 C-stick ways (rollback.js packInput)
 const isFrame = (f) => Number.isInteger(f) && f >= 0 && f < 1e7;
 const num = (v, max = 1e7) => (Number.isFinite(v) ? Math.max(0, Math.min(max, Math.round(v * 10) / 10)) : null);
 

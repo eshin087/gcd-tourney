@@ -2,7 +2,9 @@
 
 The combat model is DBFZ-inspired (see [ADR 0004](decisions/0004-dbfz-combat-model.md)): easy auto
 combos, launchers and air combos, super dash, vanish, signature specials, a 3-bar ultimate with a beam
-clash, and spectacular KOs. Every gameplay number lives in `src/game/moves.js` and
+clash, and spectacular KOs. On top of it sit Smash-style directional normals and Smash air
+([ADR 0042](decisions/0042-smash-directional-normals.md)): tilts, smash attacks and aerials picked by the stick, linked
+rather than cancelled, with short hops, a double jump and fast falls. Every gameplay number lives in `src/game/moves.js` and
 `src/game/constants.js`. The state logic lives in `src/game/fighter.js` and `src/game/game.js`.
 **If you change a number there, update the tables here.**
 
@@ -42,10 +44,14 @@ Per-character stats (`stats` in `src/characters/<id>.js`): `speed` (run speed in
 | Action | VS CPU keyboard | Gamepad |
 |---|---|---|
 | Move | WASD / Arrows | left stick / D-pad |
-| Light | J | □ / X |
-| Heavy | K | △ / Y |
+| Light (+ direction: tilts; in the air: aerials) | J | □ / X |
+| Heavy (+ direction: smash attacks, hold to charge; in the air: down air) | K | △ / Y |
 | Special (tap, + direction) / charge (hold) | L | ○ / B |
-| Jump | Space | ✕ / A |
+| Jump (tap: short hop, hold: full hop; again in the air: double jump) | Space | ✕ / A |
+| Short hop aerial | Jump + Light / Heavy together | ✕ + □ / △ |
+| Fast fall | ↓ at or past the top of a jump | stick ↓ |
+| Dash attack | Light during a dash, stick still held | □ in a dash |
+| C-stick: smash attack that way (in the air: that aerial) | - | right stick |
 | Guard | Shift (or hold back: blocks on the ground) | L1 / LB (or hold the stick back) |
 | Dash (+direction) / super dash (neutral), or double-tap a direction | O | R1 / RB (also R2 / RT) |
 | Ultimate | Heavy + Special | △ + ○ |
@@ -90,6 +96,16 @@ hit lands, so the hit spark sits on the fist or foot (the packer warns past 24 p
 | airLight2 | Light (chain) | 4 | 4 | 10 | 18 | 26 | 1.45 / 1.0 | 7 | air pop 6.4 | chains to airLight3 from f8 |
 | airLight3 | Light (chain) | 6 | 4 | 14 | 24 | 40 | 1.55 / 1.05 | 11 | launch [12, 4.5] | knock-away, **wall bounce** |
 | airHeavy | Heavy (air) | 9 | 6 | 16 | 31 | 62 | 1.45 / 1.15 | 15 | launch [3, -22] | double-axe **spike**, **ground bounce** (budget: 2 per combo), yTol 2.4, `boxPad` [0.5, 0.45] |
+| fTilt | → + Light | 7 | 3 | 15 | 25 | 46 | 1.6 / 1.0 | 9 | stun 22, push 4 | forward tilt: +4 on hit, -5 on block; lunge 3 |
+| uTilt | ↑ + Light | 6 | 6 | 14 | 26 | 38 | 1.15 / 1.0 | 8 | launch [0.4, 8.5], **feet** | up tilt, anti-air: pops them over the head; juggles into itself or an up air; yTol 2.2, lunge 2.5 |
+| dTilt | ↓ + Light | 5 | 3 | 12 | 20 | 30 | 1.5 / 0.95 | 7 | stun 26, push 1.6 | down tilt, `low`: +11 on hit (links into a jab or a tilt), +1 on block |
+| dashAttack | Light in a dash (stick held) | 8 | 5 | 25 | 38 | 50 | 1.5 / 1.05 | 10 | launch [4, 8.5], **feet** | lunge 10; -6 on block |
+| fSmash | → + Heavy | 15 | 4 | 30 | 49 | 90 | 1.7 / 1.05 | 14 | launch [17, 7] | **charge** at f6 up to 60 f (×1.4 dmg); wall bounce; -10 on block |
+| uSmash | ↑ + Heavy | 11 | 6 | 26 | 43 | 80 | 1.2 / 1.05 | 13 | launch [2, 17] | **charge** at f5; yTol 2.4, lunge 3; -8 on block |
+| dSmash | ↓ + Heavy | 9 | 5 | 28 | 42 | 76 | 1.5 / 1.0 | 13 | launch [12, 4.5] | **charge** at f4; hits in front **and behind** (`both`), `low`; -9 on block |
+| fair | air → + Light | 6 | 4 | 14 | 24 | 42 | 1.5 / 1.0 | 9 | air pop 6.5, stun 22, **feet** | landing lag 9 (5 from f20) |
+| bair | air ← + Light | 7 | 3 | 15 | 25 | 56 | 1.5 / 1.05 | 12 | launch [13, 6] | hits **behind** (`back`), wall bounce; landing lag 11 (5 from f21) |
+| uair | air ↑ + Light | 5 | 5 | 12 | 22 | 34 | 1.1 / 1.0 | 8 | launch [0.4, 9.5], **feet** | juggles upward; yTol 2.4; landing lag 7 (5 from f18) |
 | throw | Special (air) | 8 | 3 | 14 | 25 | (projectile) | | | | costs 50 ki; spawns the projectile at f8 |
 | vanishKick | after Vanish | 2 | 5 | 20 | 27 | 75 | 1.7 / 1.15 | 16 | launch [17, 6.5] | uses the `light4` anim, wall bounce |
 | super dash | Dash (neutral) | | contact | | ≤ 42 | 38 | contact < 1.0 | 9 | stun 26, air pop 7 | homing at 18 u/s, projectile-invulnerable |
@@ -108,18 +124,55 @@ Projectiles (`PROJECTILES`):
 Field glossary for `MOVES`: `reach`/`width` are the fallback hit range when a sheet has no boxes. `yTol` is
 the vertical tolerance for that fallback. `lunge` is the forward step speed during startup and active.
 `hop` gives vertical speed at frame 5. `next`/`cancel` define the chain target and the first frame it's
-allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. `spark` is the impact tier
+allowed. `light`/`low`/`big`/`launcher`/`air` are behavior flags. ADR 0042 adds `btn` (the button: a throw
+still reads from it), `chain` (a jab-string move: the only normals that cancel into another normal), `landLag` /
+`autoCancel` (an aerial's landing lag, and the frame from which it lands like a plain jump), `back` / `both` (hits
+behind / both sides), `feet` (a light pop: they land on their feet) and `charge` (a smash attack's hold). `spark` is the impact tier
 (`light | heavy | smash`), and `shake` is the camera trauma.
 
 ## Systems
 
 ### Auto combo and chains
-- `Light ×4`: light1 → light2 → light3 → light4. Chains happen on **whiff or hit** once the move reaches its
-  `cancel` frame, with a 10-frame input buffer.
+- `Light ×4` (the **jab string**, stick neutral): light1 → light2 → light3 → light4. Chains happen on **whiff or hit**
+  once the move reaches its `cancel` frame, with a 10-frame input buffer. Only the jab strings (`chain`) chain into
+  other normals; the directional normals link (below).
 - On hit, a light can cancel into **heavy** (the launcher), so `Light ×3 → Heavy` is the core route.
 - On hit, a ground normal can cancel into the **signature special** if Special was pressed and there's 1 bar.
   A rush special cancelled this way starts at its `cancelStartup` (Rasengan 14, Chidori 16, Rasenshuriken 18;
   raw 24 / 28 / 30), so light ×3 → special is a true combo while a raw one stays slow (ADR 0015).
+
+### Directional normals and Smash air (ADR 0042)
+- **The stick picks the normal** (`NORMALS`, `Fighter.normalFor`), read as the attack starts (a stick neutral by then
+  falls back to the one held at the press). Ground Light: neutral jab, ←/→ forward tilt, ↑ up tilt, ↓ down tilt. Ground
+  Heavy: neutral launcher, ←/→ forward smash, ↑ up smash, ↓ down smash. Air Light: neutral the air string (neutral air),
+  forward air or back air along the facing, ↑ up air, ↓ the spike (down air); air Heavy is the spike. ↑ / ↓ also walk in
+  depth, so a Light while walking up or down the lane is a tilt (as for specials).
+- **Links.** Tilts, smash attacks, the dash attack and the forward / back / up airs never cancel into another normal:
+  the next move has to land inside the hit stun (down tilt → jab, up tilt → up tilt, up tilt → short-hop up air). On hit
+  they still cancel into a special, vanish, super, ultimate, and a launching hit into the super dash.
+- **Smash attacks** hold on their charge frame while Heavy stays down (up to 60 frames, up to ×1.4 damage, the sprite
+  glows and trembles); the knockback stays the move's. All startup, so it can be hit out of.
+- **Jumps.** Let go of Jump before the 4-frame squat ends: short hop (9.6 u/s, about 1.2 units high); held: full hop
+  (13.6, about 2.3). Jump + Light / Heavy within 2 frames: short hop with that aerial out as it leaves the floor. One
+  double jump (12.6), back on landing or when hit. A fresh ↓ at or past the top fast-falls (15 u/s).
+- **Smash air** (not juggling): the facing holds through the jump (a back air hits behind; jumping over someone is a
+  cross-up), aerials fall with normal gravity and air control, a jump can carry several aerials, each aerial has its own
+  landing lag. **The DBFZ juggle** (an air attack started beside an opponent reeling in the air, within 3.2 units) floats
+  level with them, turns to them, rides the air string along and keeps one air string per jump, as before.
+- **Light pops land on the feet** (`feet`: up tilt, dash attack, forward and up air): a short landing (4 frames), no
+  knockdown, no floor bounce.
+- **Stand-in strips.** Until a fighter's sheet has its own strip, a move shows the strip `FALLBACK` names (forward
+  tilt `light2`, up tilt / up smash / up air `heavy`, down tilt / down smash `light3`, dash attack / forward smash
+  `light4`, forward air `airLight2`) and uses its hit boxes; the back air shows `airLight3` mirrored, boxes too.
+- **C-stick** (gamepad right stick, Smash's default): a flick past half way is an attack that way, read like a buffered
+  button (`cUp` / `cDown` / `cLeft` / `cRight` on the Pad, its dominant axis picks the way). On the ground a smash
+  attack (never charged: Heavy isn't held), during a dash too; in the air the aerial that way (← behind the facing is a
+  back air) while the left stick keeps the drift; flicked during the jump squat it comes out as the jump leaves the
+  floor; out of a super dash it is that attack. Holding it does nothing more; flicking another way is a new press. Not
+  rebindable, no keyboard binding.
+- **CPUs** (ENG-111): every brain aims its stick and plays the short and full hops (CPU AI, "Directional normals"). A
+  brain that doesn't set `aimsNormals` would read as a neutral stick at the press and a held jump; none is left, and a
+  CPU slot without its brain (a replayed CPU match) aims too.
 
 ### Launcher and chase
 - `heavy` hops and launches the victim upward ([2.4, 15.5]).
@@ -602,6 +655,31 @@ than legacy fighters. At 3 bars they split between the second super (if its `ran
 ultimate (a beam wants some distance; a kit ultimate fires from anywhere). A counter may sit on ↓ or ←, and
 the CPU dashes out of a Kirin mark.
 
+**Directional normals** (ADR 0042, ENG-111, `src/game/aiNormals.js`). The stick picks the normal as the attack starts,
+so a brain presses one with `normal(name)` ('uTilt', 'fSmash', 'fair' ...; a plain Light or Heavy is the neutral one)
+and holds the stick on its direction from the press until the fighter has read the button (or the buffer's 12 frames
+are over, or it got hit first: the stick is the tech's then). Jumps: Jump held 8 frames is a full hop (the squat's 4
+plus a buffered start), a 2-frame tap a short hop, Jump + Light a short hop with the aerial out at once. In the air the
+stick is kept off a fresh ↓ (a fast fall) unless the brain means one; an air dodge and an air ↓ special read their own
+stick. The aerial out of a jump is the one whose art hit box meets the opponent at its first active frame
+(`aerialFor` in aiCombo.js: up air above, back air behind the jump's facing, neutral or forward air in front, the spike
+below; the air string in a juggle). Both brains fast-fall a Smash aerial past its active frames. They aim with the
+left stick only (the C-stick gives smash attacks, never the tilts, and would leave the jump's drift to the left stick).
+
+- `CpuBrain` (Easy, Normal, Hard): up tilt or launcher anti-airs (`antiAir` per jump of theirs: 10 / 30 / 55 %, each
+  pressed in its own window), smash attacks into a whiff with time to spare (`smash` per whiffed move: 10 / 25 / 40 %,
+  charged by the frames left over), and in neutral tilt pokes, short-hop aerials (rising, or the late one below) and
+  back airs after running off. Links: down tilt → jab; up tilt → up tilt or short hop → up air; a short-hop aerial on a
+  standing victim → down tilt once it lands (`linkDt`), each decided once per hit at the level's `combo` rate.
+- `MasterBrain`: anti-airs picked once per jump (launcher, up tilt, the showman's up smash, a rising dive special),
+  `smashPunish` (forward / down / up smash or the forward tilt from past the jab's reach, decided once per opening and
+  charged by its spare frames), the dash attack out of a dash-in now and then, and neutral plans `poke` (down or
+  forward tilt at its art's reach), `hop` (rising Jump + Light, or late: the aerial from the hop's top with a fast fall
+  right after the press, so it hits low and lands with their stun to spare) and `bair` (run off four frames, Jump +
+  Light with ← along the turned facing). Jump-ins are full hops now and then short ones, with the stick held through
+  the squat. The Showcase counts every new normal (`fTilt` ... `uair`, `nair` for airLight1 out of a jump), so the
+  showman reaches for the ones the viewer hasn't seen.
+
 Melee clash (ADR 0038, `src/game/aiClash.js`): once per opposing light or heavy that has just started in reach,
 the CPU presses the same button at its level's `meleeClash` rate (Easy 4 %, Normal 8 %, Hard 12 %, ×1.5 when
 spectated; INSANE 8 %, IMPOSSIBLE 10 %, the CPU-vs-CPU showman 18 %), and once per clash slide it goes again at
@@ -700,11 +778,19 @@ out (`done`), parries, evades and rallies.
 ### Combo composer (ADR 0026, `src/game/aiCombo.js`)
 
 MasterBrain's combos come from a `ComboComposer`. At each decision point of a combo it runs (a ground light, the
-launcher or an air light connected; another move connected; free in the air beside the victim; air-locked after an
-air string; the victim bounced off the barrier or the floor; free on the ground while they reel) it picks one
-**edge**: a chain, launch, chase, super dash, vanish (a 2nd and 3rd in one combo are the ping-pong), any kit special
-by its kind, waiting for a bounce that is coming, meeting the victim from the ground (the handball light off the wall,
-a jab, a dash-in light, a heavy relaunch), a three-bar move that carries the combo on, or the end.
+launcher or an air light connected; the down or up tilt connected; a short-hop aerial connected on a standing victim;
+another move connected; free in the air beside the victim; air-locked after an air string; the victim bounced off the
+barrier or the floor; free on the ground while they reel) it picks one **edge**: a chain, launch, chase, super dash,
+vanish (a 2nd and 3rd in one combo are the ping-pong), any kit special by its kind, waiting for a bounce that is
+coming, meeting the victim from the ground (the handball light off the wall, a jab, a dash-in light, a heavy relaunch,
+an up or down tilt), a short hop under them for the up air, a three-bar move that carries the combo on, or the end.
+
+- **Smash links** (ADR 0042, ENG-111): nodes `DT` (down tilt hit: the jab string, a special cancel, a vanish), `UT` (up
+  tilt hit: another up tilt, a short hop whose up air the free-air node then leans on, the super dash) and `HOP` (a
+  short-hop aerial on a standing victim: the down tilt or the jab once it lands). A link chosen there carries on after
+  the move ends, through the landing, until it is pressed (`linking()`). Every link is checked like the rest: the
+  predicted flight (a light pop lands on the feet and ends the combo there), a Smash aerial's own landing lag, the
+  art's boxes.
 
 - **Only true links.** Each edge's link gap is checked against the victim's stun left with **2+ frames of margin**
   (a victim holding Guard techs on the first open frame), using `JUGGLE`, a forecast of the victim's flight (barrier
@@ -730,7 +816,9 @@ AMAZING 15+, LEGENDARY 20+ hits, STYLISH! with 4+ different techniques).
 
 ## Bread-and-butter route (reference)
 
-`Light ×3 → Heavy → Jump (chase) → airLight ×2 → airHeavy (spike) → ground bounce → super dash → ...`.
+`Light ×3 → Heavy → Jump (chase) → airLight ×2 → airHeavy (spike) → ground bounce → super dash → ...` with the
+stick neutral on the Lights (a held direction picks a tilt or an aerial, ADR 0042). Smash-style starters: down tilt →
+jab string; up tilt → up tilt → short-hop up air; short-hop neutral or forward air → down tilt.
 Spend 1 bar on Vanish or Special to extend. End with the Ultimate for 3 bars.
 
 ## Balance process

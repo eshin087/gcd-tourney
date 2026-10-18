@@ -941,21 +941,29 @@ export class Game {
     const sx = rx * R.x + rz * R.z, sd = rx * F.x + rz * F.z, sy = def.pos.y - att.pos.y;
     if (Math.abs(sd) > (m.lane ?? LANE)) return;
     let pt = null;
-    const hits = att.asset.boxes(att.actor.frame, 'hit', att.side);
+    // the strip's boxes as drawn; a back air shown on a forward strip is mirrored (Fighter.mirrorPose), and a down smash
+    // swings to both sides (ADR 0042)
+    const side = att.mirrorPose ? -att.side : att.side;
+    const hits = att.asset.boxes(att.actor.frame, 'hit', side);
     if (hits) {
       const hurts = (def.asset.boxes(def.actor.frame, 'hurt', def.side) || DEFAULT_HURT).map(widen);
       const [px, py] = m.boxPad ?? (m.air || m.hover ? AIR_BOX_PAD : BOX_PAD);
-      for (const h of hits) {
-        for (const u of hurts) {
-          const x0 = Math.max(h.x0 - px, u.x0 + sx), x1 = Math.min(h.x1 + px, u.x1 + sx);
-          const y0 = Math.max(h.y0 - py, u.y0 + sy), y1 = Math.min(h.y1 + py, u.y1 + sy);
-          if (x0 < x1 && y0 < y1) { pt = { x: (x0 + x1) / 2, y: (y0 + y1) / 2 }; break; }
+      const sets = m.both ? [hits, att.asset.boxes(att.actor.frame, 'hit', -side)] : [hits];
+      for (const set of sets) {
+        for (const h of set) {
+          for (const u of hurts) {
+            const x0 = Math.max(h.x0 - px, u.x0 + sx), x1 = Math.min(h.x1 + px, u.x1 + sx);
+            const y0 = Math.max(h.y0 - py, u.y0 + sy), y1 = Math.min(h.y1 + py, u.y1 + sy);
+            if (x0 < x1 && y0 < y1) { pt = { x: (x0 + x1) / 2, y: (y0 + y1) / 2 }; break; }
+          }
+          if (pt) break;
         }
         if (pt) break;
       }
     } else {
-      const along = sx * att.side;
-      if (along > -0.25 && along < m.reach + 0.25 && Math.abs(sy) < (m.yTol ?? 1.25)) pt = { x: sx * 0.75, y: sy + 0.85 };
+      const along = sx * (m.back ? -att.side : att.side);
+      const inReach = (a) => a > -0.25 && a < m.reach + 0.25;
+      if ((inReach(along) || (m.both && inReach(-along))) && Math.abs(sy) < (m.yTol ?? 1.25)) pt = { x: sx * 0.75, y: sy + 0.85 };
     }
     if (!pt) {
       // a back dash carrying them just out of the swing's reach is a dodge too (BACKSTEP, ADR 0025)
@@ -966,8 +974,10 @@ export class Game {
     att.hitDone = true;
     // applied after both fighters moved this frame, so two attacks meeting on the same frame trade
     // (P1 updates first; applying at once made P1 win every exchange)
+    // a hit behind the attacker (a back air, a down smash's back swing) sends them the other way
+    const behind = (m.back || m.both) && pt.x * att.side < 0;
     this.pendingMelee.push({
-      att, def, m, dir: att.face.clone(),
+      att, def, m, dir: behind ? att.face.clone().negate() : att.face.clone(),
       at: { x: att.pos.x + R.x * pt.x + F.x * sd * 0.5, y: att.pos.y + pt.y, z: att.pos.z + R.z * pt.x + F.z * sd * 0.5 },
     });
   }
@@ -1003,8 +1013,8 @@ export class Game {
         att.t = m.startup + m.active;
         if (m.vortex && def.hp > 0) this.spawnVortex(att, m.vortex, def.pos); // Rasenshuriken grind
       }
-      // air juggles: start riding up with the victim (Fighter.updateAttack keeps following)
-      if (m.air || m.hover) att.vel.y = Math.max(att.vel.y, def.state === 'launched' ? def.vel.y : 2.5);
+      // air juggles: start riding up with the victim (Fighter.updateAttack keeps following); a Smash aerial keeps falling
+      if (m.hover || (m.air && att.juggleMove)) att.vel.y = Math.max(att.vel.y, def.state === 'launched' ? def.vel.y : 2.5);
     }
   }
 

@@ -76,19 +76,23 @@ console warnings on purpose; the console without the flag stays clean.
 ## Test lab (`/lab.html`, ADR 0018)
 
 The fastest way to check a change by hand, locally or on a PR's preview link (`npm run pr -- preview`). Open it from
-SELECT MODE → **LAB** (‹ MENU goes back) or at `/lab.html`. MOVES and SCENARIOS are grouped, with a chip bar on top
-that shows one group (ALL by default) and counts what this pairing has; the tab and chips are remembered.
+SELECT MODE → **LAB** (‹ goes back to the menu) or at `/lab.html`. On a screen 900 px or wider the panel docks to the
+right edge and the game, HUD and flash overlay shrink to the space beside it (nothing is covered; LAB or ` hides the
+panel and gives the game the full width). On a phone it is a drawer over the game. The top bar picks YOU and the DUMMY
+from dropdowns (⇄ swaps). Every tab is the same list: group headers with counts that fold on a tap, rows of ▶, a name
+and a short note. The text sizes itself to the screen so a tab fits without scrolling where it can (Moves, Animations
+and Tools at 1366 × 768 and up; Scenarios fits once a group or two is folded). The tab and folds are remembered.
 
 - **MOVES**: every move of YOU in groups (Normals, Movement, Defense, Specials, Supers) with its frame data; ▶ resets
   the distance for that move and plays it against the dummy. Swap fighters with ⇄.
-- **ANIMATIONS**: every animation on one screen, one row per group (Movement, Attacks, Specials, Guard & hit, Tech,
-  Show) with an **alt** chip right after each base that has an alt strip; the counts are strips YOU's sheet has, dim
-  names play a fallback. Tap one to see it frame by frame on the real sheet, with hurt (blue) and hit (red) boxes, the
+- **ANIMATIONS**: every animation in foldable groups (Movement, Attacks, Specials, Guard & hit, Tech, Show), as many
+  columns as fit, with an **alt** button beside each base that has an alt strip; the counts are strips YOU's sheet
+  has, dim names play a fallback. Tap one to see it frame by frame on the real sheet, with hurt (blue) and hit (red) boxes, the
   frame's phase and timing, and a warning when the sheet lacks the animation (its fallback is shown). The scale
   check draws the approved idle's head size (white box) around this frame's measured head (gold, orange when the
   packer flagged the strip) and prints both numbers (TOOL-025).
-- **SCENARIOS**: both fighters scripted, two columns of cards with one short line each (tap a card for the full
-  description, which opens under its row), in six groups:
+- **SCENARIOS**: both fighters scripted, one row each with a short note (tap the name for the full description), in
+  six groups:
   - *Clashes*, smallest to biggest: melee clash chain, heavy beats light, special clash, beam clash, answer an energy
     shot, beam clash from the air, ultimate clash, answer an ultimate (the dummy plays clashes at the TOOLS → CLASH level).
   - *Defense* (the dummy attacks): hold back to block, parry, spot dodge, air dodge, backstep, break a throw.
@@ -101,7 +105,7 @@ that shows one group (ALL by default) and counts what this pairing has; the tab 
   A scenario that the current pair can't show is dimmed and says why (for example "needs two rush specials"); the
   chips count how many of each group play here. Single moves without a dummy reaction (wavedash, vanish, super dash,
   a plain throw) are on MOVES.
-- **TOOLS**, in sections of aligned rows (label, then its options): *Time*: speed (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.); *Dummy*: its behavior, its
+- **TOOLS**, in groups of rows (a name, then its options as one segmented control): *Time*: speed (1×, ½×, ¼×, ⅒×), pause (P) and frame step (.); *Dummy*: its behavior, its
   CLASH level, record YOU and replay it on the dummy; *You*: infinite meter and **CPU YOU** (you play as the showman
   CPU with a combo persona, or AUTO; with DUMMY STAND every route the combo composer plans shows, and the readout
   names the persona and the route); *Display*: boxes, the hit flash style (POP, TINT, RIM, CLASSIC, OFF) and
@@ -146,6 +150,13 @@ that shows one group (ALL by default) and counts what this pairing has; the tab 
 **Offense**
 - [ ] Light ×4 auto combo. light4 wall-bounces at the barrier.
 - [ ] Light ×3 → Heavy launches. Jump chases. Air L L → air Heavy spikes. The victim ground-bounces.
+- [ ] Directional normals (ADR 0042, lab MOVES tab): → / ↑ / ↓ + Light give the forward, up and down tilts, → / ↑ / ↓ +
+      Heavy the smash attacks (holding Heavy glows, trembles and hits harder), Light in a dash with the stick held the dash
+      attack. Links: down tilt → jab, up tilt → up tilt → short-hop up air. A tilt never chains into another normal.
+- [ ] Smash air: a tapped Jump is a short hop (about half the height), Jump + Light a short-hop neutral air, Jump in the
+      air a double jump, ↓ past the top a fast fall. Jump away, press ← toward them: a back air (mirrored airLight3 until
+      its strip exists) sends them away from you. After the launcher's chase the air string still floats and rides along.
+- [ ] A CPU still plays the jab string and the launcher (ENG-111 teaches it the new moves).
 - [ ] Bounce budget (ADR 0026): at most 3 wall bounces (air stun 32 / 28 / 22) and 2 ground bounces (30 / 24) per
       combo; a 4th wall-bounce hit just knocks them down. Lab **Handball (3 wall bounces)**: WALL BOUNCE!, WALL BOUNCE
       ×2!, HANDBALL!, chips WALL ▸ DASH ▸ WALL ▸ VANISH ▸ WALL beside the counter, 9 hits with each of the four fighters.
@@ -526,7 +537,9 @@ Use this for combat, AI, physics and performance changes. It catches stuck state
    so never `await` the whole soak there; in code, `await __soak.promise`). When `__soak.finished`, read
    `__soak.summary`: `pass`, `matches`, `winners`, `rounds`, `frames`, `violationCounts`, `violations` (match, frame in
    that match, round, fighter, side, state/move, position), and `perMatch` (pair, seed, winner, rounds, wins, seconds,
-   `clashes` by tier, `maxOver` = how far past `ARENA_LIMIT` anyone got). `comboStats()` then has the combo numbers.
+   `clashes` by tier, `maxOver` = how far past `ARENA_LIMIT` anyone got, `used` = each CPU's Showcase tool counts, the
+   ADR 0042 normals among them: `fTilt`, `uTilt`, `dTilt`, `dashAttack`, `fSmash`, `uSmash`, `dSmash`, `nair`, `fair`, `bair`,
+   `uair`). `comboStats()` then has the combo numbers.
 
 ```js
 soak(10, { pairs: [['naruto','sasuke'], ['killua','gojo'], ['gojo','naruto'], ['sasuke','killua'], ['naruto','killua'],
