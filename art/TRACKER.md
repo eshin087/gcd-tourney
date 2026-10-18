@@ -101,6 +101,8 @@ Title-style production in progress on `art/naruto-title-production`: the user ap
 
 Brief: [characters/naruto/](characters/naruto/). Shippuden design, ~6.5 heads.
 
+**Palette (2026-10-18, ADR 0046):** the Four-Tails fox (beamCharge, beamFire) packs with 8 of the 48 colours of its own (`paletteReserve.fourTails` in the manifest), so it keeps the approved crimson and white eyes/teeth; a new fox version keeps the reserve (re-check the packed strip against its raw at one scale).
+
 | step | asset | frames | phases | core | body px | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | reference/model_sheet_vNN.png -> model_sheet.png | - | - | yes | - | approved | v03 | v03 | User approved v03 on 2026-10-10 (seven-head proportions); promoted to model_sheet.png. v03 seven-head candidate needs review with lineup; see PROPORTION_REDRAW.md and v03 QA. User approved shorter-hair v02 on 2026-10-09; fixed model_sheet.png saved unchanged. Hair propagation complete: expressions/idle v02 and run v03 approved (ART-NAR-12) |

@@ -276,6 +276,8 @@
       "name": "Naruto Uzumaki",
       "displayName": "NARUTO",
       "brief": "art/characters/naruto/CHARACTER.md",
+      "paletteReserve": { "fourTails": { "colors": 8, "animations": ["beamCharge", "beamFire"] } },
+      "_paletteReserve": "Claude 2026-10-18 (ADR 0046): the approved Four-Tails fox is crimson and near-black red with white eyes and teeth; in one 48-colour median cut his orange jumpsuit took its colours and the fox packed red-brown with a peach mouth. 8 of the 48 are cut from the fox alone; the other strips lose 8 near-duplicate dark greys and navies (2 % of their pixels move, almost all by 2-10 levels)",
       "reference": {
         "proportionSample": { "file": "art/characters/naruto/reference/proportion_sample_v02.png", "candidates": "art/characters/naruto/reference/proportion_sample_vNN.png", "includes": "review-only idle, guard, run and light1 key poses; not animation strips", "step": 1, "status": "raw", "version": 2, "approvedVersion": null },
         "modelSheet": {
