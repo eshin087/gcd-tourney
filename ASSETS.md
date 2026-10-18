@@ -59,7 +59,7 @@ when an alt's frames, phases or strike differ from its base's. Review with `?alt
 
 ## Sprite Lab
 
-Open **http://127.0.0.1:5188/sprites.html** (or *Sprite Lab* in the main menu) while `npm run dev`
+Open **http://127.0.0.1:5188/sprites.html** while `npm run dev`
 is running. It plays every animation of each fighter at game speed, with a flip toggle and 2x-4x
 zoom. By itself it always shows the baked 3D placeholder; it does not load the packed sheet. To
 review packed strips, open `/sprites.html?c=<id>`, click **Load full sheet (.png + .json)…** and
