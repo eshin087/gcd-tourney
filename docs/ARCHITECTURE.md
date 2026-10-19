@@ -142,6 +142,7 @@ src/art/
 src/world/arena.js          tournament grounds: ring, temple, stands + instanced crowd, gate, trees, sky, dimming
 src/world/announcer.js      the live announcer (ADR 0048): walks the ring behind the fight, ring calls, KO count,
                             picks his lines (announcerLines.js) and drives his caption; view only
+src/world/announcerSymbols.js  his manga symbols (sweat, !!, ?, dizzy ...): painted pixel maps on one sprite (ENG-119)
 src/world/voidStage.js      Unlimited Void (Gojo's domain): cosmos sky shader + black mirror floor, swapped in by
                             Game.startDomain via setStage('void'); with the super's `open` the view plays the anime's
                             sequence (ADR 0049): the black sphere swallowing the arena (syncView waits for it), the

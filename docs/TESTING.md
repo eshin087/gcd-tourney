@@ -271,6 +271,11 @@ B: game.fighters[1], M: 'RASENGAN' }, true, true)` shows any line)
       screen; never over the health bars.
 - [ ] KO: "X IS DOWN!!", the count ONE / TWO / THREE, then he runs to the winner for the victory close-up and calls
       the round; the next round's call is not blocked by it. Matchend / results: he is gone from the hero shot.
+- [ ] He talks only at big moments (about 10 lines in a two-minute CPU match besides the round calls and the KO);
+      the rest are poses and symbols over his head (sweat, !!, ?, dizzy, notes, steam), large enough to read.
+- [ ] `caster.knockOver(caster.pos.x + 1, caster.pos.z, true)`: thrown back, flat for a second, up dizzy, then
+      sooty with steam; nothing else interrupts it. Standing still with the CPUs off (`game.brains = [null, null]`)
+      he fidgets, or hums a music note while the fidget strips are missing, every 5-10 s.
 - [ ] Training room, menus and the title: no captions, he waits by the gong. Pausing freezes him and his caption.
 - [ ] `det.replay` of both fixtures still matches (he is view only; a rollback never cues him twice).
 

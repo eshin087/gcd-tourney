@@ -45,12 +45,26 @@
 | [`run`](#run) | panicked scurry, leaning forward | 4 | yes | 90, 90, 90, 90 | 106 | getting out of the fighters' way, long crossings, hopping onto and off the ring | `walk`, then `idle` |
 | [`shocked`](#shocked) | jaw-drop recoil | 2 | yes | 150, 150 | 116 | huge hits, comebacks, a fighter surviving on a sliver of health, surprise KOs | `shout`, then `idle` |
 | [`micThrust`](#micthrust) | leaning in, holding the mic out toward the fight | 2 | yes | 260, 260 | 110 | the KO call over the downed fighter, close calls, asking the winner for a word | `point`, then `idle` |
+| [`blownAway`](#blownaway) | knocked flat on his back by a blast or a flying fighter | 2 | no (f0 flying back, f1 held flat) | 140, 900 | 98 | an ultimate, beam or blast that reaches him; a fighter launched into him (ENG-119) | `cower` |
+| [`popUp`](#popup) | springs back up dazed, straightens his tie | 2 | no (f0 sitting up, f1 held) | 380, 600 | 112 | after `blownAway` | `idle` |
+| [`cheer`](#cheer) | jumping celebration, both arms up | 2 | yes | 160, 160 | 118 | huge combos, comebacks, the match winner | `shout` |
+| [`facepalm`](#facepalm) | slow facepalm, head shaking | 2 | yes | 420, 420 | 110 | a super or ultimate that misses, a draw | `idle` |
+| [`micTap`](#mictap) | taps the mic: is this thing on? | 2 | yes | 260, 260 | 112 | idle fidget in quiet moments | none (skipped) |
+| [`checkWatch`](#checkwatch) | checks his wristwatch | 2 | yes | 420, 420 | 112 | idle fidget; the last 30 seconds of a round | none (skipped) |
+| [`patHair`](#pathair) | pats his curly hair, smug | 2 | yes | 320, 320 | 114 | idle fidget | none (skipped) |
+| [`sooty`](#sooty) | charred black face, frizzed smoking hair, coughing | 2 | yes | 200, 200 | 116 | after a blast caught him | `shocked` |
+| [`wince`](#wince) | peeks through his fingers, cringing | 2 | yes | 180, 180 | 106 | brutal hits, KO crashes | `cower` |
+| [`mopBrow`](#mopbrow) | mops his brow with a handkerchief, tired | 2 | yes | 400, 400 | 108 | a long round tires him | `idle` |
 
 All of them loop: the engine decides how long each plays, then returns to `idle`. `idle` is the only
 required animation (the sheet is `complete` when it exists); a missing one plays its fallback.
 `walk` .. `micThrust` were added on 2026-10-18 for the live announcer (ENG-118, batch `npc-announcer-r1`):
 he walks the ring edge to stay behind the fight, hops onto the ring to call a KO and comments the fight in
 small captions. The engine draws them; never draw text or a speech bubble in a strip.
+`blownAway` .. `mopBrow` (batch `npc-announcer-r2`, 2026-10-18, ENG-119) make him a living character: he gets
+knocked over and pops back up, cheers, facepalms, fidgets in quiet moments, gets sooty, winces and tires. The
+engine adds the manga symbols (sweat drops, !!, ?, anger veins, dizzy stars, music notes) as its own small sprites:
+never draw a symbol in a strip, except the sweat drops and smoke wisps their rows describe.
 
 ---
 
@@ -158,3 +172,105 @@ QA: the eyes are never visible. Raised hand inside x 4..123 and no higher than y
 
 QA: the mic never switches hands (the R arm crosses in front of the torso). Mic head about x 100..118,
 y 40..56. Trimmed height 108-110; feet planted (identical to idle).
+
+---
+
+## blownAway
+
+2 frames, one-shot (f0 140 ms, then f1 held), height 98. Save as `raw/blownAway_vNN.png`. Prompt A9. The engine slides
+him backward (to the left of the image) during f0 and keeps him down on f1 until `popUp`.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Blown backward off his feet toward the LEFT of the image: body tilted back about 45 degrees, both feet kicked up off the ground, arms flailing up, the microphone flung high in his R hand, jacket and tie flapping toward the right, hair blown back. The lowest point is a heel. | yelling in surprise, mouth a wide O |
+| f1 | Flat on his back on the floor, head toward the LEFT of the image, both legs sticking straight up in a V, arms splayed out, microphone still in the R hand on the floor, sunglasses knocked crooked (eyes still hidden). | dazed, tongue out a little |
+
+QA: f1 is a low pose (about 56 px tall with the legs up); f0 is the tallest frame. Head size as idle.
+
+## popUp
+
+2 frames, one-shot (f0 380 ms, then f1 held), height 112. Save as `raw/popUp_vNN.png`. Prompt A10.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Sitting up on the floor, legs out toward the right, one hand rubbing the back of his head, hair messed up, tie flipped over his shoulder, sunglasses crooked. | dazed, wobbly mouth |
+| f1 | Standing again, feet planted as in idle, straightening his tie with the L hand, microphone in the R hand at chest height, hair still a little messy. | sheepish grin |
+
+QA: f1 matches idle's height and feet. f0 is about 70 px tall.
+
+## cheer
+
+2 frames, loop, 160 ms each, height 118. Save as `raw/cheer_vNN.png`. Prompt A11.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Knees bent, crouched for a jump, both fists pumped down to chest height, microphone in the R fist. | huge open-mouth grin |
+| f1 | Jumping: feet together and tucked up a little, both arms thrown up in a wide V (diagonal, NOT straight up), microphone raised in the R hand, jacket flying open. | shouting with joy, sunglasses glinting |
+
+QA: raised hands inside the cell (y >= 6). The engine lifts him a little during f1; draw f1 with his feet at the bottom
+of the pose as usual.
+
+## facepalm
+
+2 frames, loop, 420 ms each, height 110. Save as `raw/facepalm_vNN.png`. Prompt A12.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Slumped shoulders, head bowed, the L hand flat over his sunglasses and forehead, microphone hanging at his R side. Feet planted as in idle. | mouth a flat line under the hand |
+| f1 | Same, the head turned slightly the other way (a slow head shake), the hand sliding down 1-2 px. | small sigh, mouth open a crack |
+
+## micTap
+
+2 frames, loop, 260 ms each, height 112. Save as `raw/micTap_vNN.png`. Prompt A13.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Holding the microphone in front of his chest in the R hand, tapping its mesh head with the L index finger, head tilted toward the mic, listening. | brows raised, mouth pursed |
+| f1 | The finger lifted for the next tap, head tilted a little more. | puzzled half-frown |
+
+## checkWatch
+
+2 frames, loop, 420 ms each, height 112. Save as `raw/checkWatch_vNN.png`. Prompt A14.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | L forearm raised in front of his chest, looking down at a gold wristwatch on the L wrist; microphone in the R hand at his side. | mouth pursed, impatient |
+| f1 | Tapping the watch face with the end of the microphone handle. | brows up, mouth open |
+
+## patHair
+
+2 frames, loop, 320 ms each, height 114. Save as `raw/patHair_vNN.png`. Prompt A15.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | L hand fluffing the top curls of his hair, chin up, microphone at his chest. | proud grin |
+| f1 | L hand patting the side curls, a white glint on the sunglasses. | smug closed-mouth smile |
+
+## sooty
+
+2 frames, loop, 200 ms each, height 116. Save as `raw/sooty_vNN.png`. Prompt A16.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Standing stiff, arms at his sides, face and suit blackened with soot, hair frizzed into a puffed, singed mop with two thin grey smoke wisps rising from it, tie frayed, sunglasses still on (eyes hidden). | coughing a small grey puff |
+| f1 | Same, the smoke wisps shifted, one shoulder dropped, a cough. | mouth open, teeth showing white in the soot |
+
+QA: soot uses the outline and suit darks; smoke wisps only in the two smoke greys; still clearly him (hair shape, glasses).
+
+## wince
+
+2 frames, loop, 180 ms each, height 106. Save as `raw/wince_vNN.png`. Prompt A17.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Hunched, both hands over his sunglasses with the fingers spread, peeking through them toward the right; microphone still in the R hand. | teeth gritted in a cringe |
+| f1 | Recoiled a little further, one knee lifted toward his chest. | same cringe, mouth stretched |
+
+## mopBrow
+
+2 frames, loop, 400 ms each, height 108. Save as `raw/mopBrow_vNN.png`. Prompt A18.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Tired slouch, wiping his forehead with a white handkerchief in the L hand, microphone hanging in the R hand, one small blue sweat drop flying off. | panting, mouth open |
+| f1 | The handkerchief lowered to his cheek, shoulders dropping. | exhausted sigh |
