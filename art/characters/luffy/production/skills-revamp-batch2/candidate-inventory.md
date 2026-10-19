@@ -1,6 +1,6 @@
 # Luffy skills revamp — Batch 2 candidate inventory
 
-Generation authorization: continue Batch 2 after relay `luffy-skills #5`. Generation directed by `gpt-6-luna`, medium, in three Luna work lanes. Prompt sources: [SKILLS_REVAMP.md §3 A10–A14 and §5 B6](../../SKILLS_REVAMP.md). User image approval is pending for every listed version. Max 3 calls per image; all used calls and best-source choices are recorded. Candidates are raw versioned sources; no fixed-name approved assets were overwritten.
+Generation authorization: continue Batch 2 after relay `luffy-skills #5`. Generation directed by `gpt-6-luna`, medium, in three Luna work lanes. Prompt sources: [SKILLS_REVAMP.md §3 A10–A14 and §5 B6](../../SKILLS_REVAMP.md). The user approved all six listed versions as drawn via Claude relay `luffy-skills #6`. Max 3 calls per image; all used calls and best-source choices are recorded. Candidates remain raw versioned sources; no fixed-name approved assets were overwritten.
 
 ## Selected sources and hashes
 

@@ -36,7 +36,7 @@
     "image": "atlas_hd.png",
     "cell": 256,
     "cols": 8,
-    "rows": 26,
+    "rows": 31,
     "ppu": 112,
     "anims": {
       "rasengan": { "row": 0, "n": 8, "ms": 40 },
@@ -62,9 +62,14 @@
       "kirinBody": { "row": 20, "n": 4, "ms": 40 },
       "kirinHead": { "row": 21, "n": 6, "ms": 40 },
       "kirinStrike": { "row": 22, "n": 8, "ms": 45 },
-      "gumArm": { "row": 23, "n": 2, "ms": 60 },
-      "gumFist": { "row": 24, "n": 4, "ms": 40 },
-      "gumImpact": { "row": 25, "n": 7, "ms": 35 }
+      "gear3Puff": { "row": 23, "n": 6, "ms": 45 },
+      "gigantArm": { "row": 24, "n": 2, "ms": 60 },
+      "gigantFist": { "row": 25, "n": 4, "ms": 40 },
+      "gigantImpact": { "row": 26, "n": 8, "ms": 50 },
+      "luffyChibi": { "row": 27, "n": 6, "ms": 80 },
+      "gumArm": { "row": 28, "n": 2, "ms": 60 },
+      "gumFist": { "row": 29, "n": 4, "ms": 40 },
+      "gumImpact": { "row": 30, "n": 7, "ms": 35 }
     }
   }
 }
