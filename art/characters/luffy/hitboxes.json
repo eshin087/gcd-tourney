@@ -1,16 +1,129 @@
 {
   "fTilt": {
+    "2": {
+      "hit": [
+        [
+          158,
+          86,
+          50,
+          26
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          158,
+          91,
+          50,
+          25
+        ]
+      ]
+    },
     "_v": 1,
     "_scale": 0.92,
-    "2": { "hit": [[158, 86, 50, 26]] },
-    "3": { "hit": [[158, 91, 50, 25]] },
     "_note": "ENG-112 fTilt v01: packed-cell contact override (Claude integration 2026-10-18, relay combat #49); the jab's active frames get a box on the forearm and fist (x 158-207, chest height) instead of the default front box, which ran from the fist down to the lead foot and would hit a crouching opponent. Measured on the packed cells at packScale 0.92."
   },
   "bair": {
+    "2": {
+      "hit": [
+        [
+          10,
+          139,
+          54,
+          29
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          38,
+          146,
+          36,
+          26
+        ]
+      ]
+    },
     "_v": 3,
     "_scale": 0.92,
-    "2": { "hit": [[10, 139, 54, 29]] },
-    "3": { "hit": [[38, 146, 36, 26]] },
     "_note": "ENG-112 bair v03: packed-cell contact override (Claude integration 2026-10-18, relay combat #49); f2/f3 kick screen-left behind Luffy, so the boxes follow the extended rear sandal and shin instead of the default front box over his body. Measured on the packed cells at packScale 0.92. Retire it once the packer's rear-box rule (PR #179, TOOL-062) is merged."
+  },
+  "uSmash": {
+    "3": {
+      "hit": [
+        [
+          158,
+          72,
+          30,
+          38
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          160,
+          20,
+          36,
+          55
+        ]
+      ]
+    },
+    "_v": 5,
+    "_scale": 0.92,
+    "_note": "ENG-112 r2 uSmash v05: visual contact boxes follow the rising arm/fist on active frames 3-4; Claude still owns runtime contact review."
+  },
+  "dSmash": {
+    "3": {
+      "hit": [
+        [
+          18,
+          190,
+          42,
+          34
+        ],
+        [
+          198,
+          190,
+          42,
+          34
+        ]
+      ]
+    },
+    "4": {
+      "hit": [
+        [
+          12,
+          190,
+          43,
+          34
+        ],
+        [
+          201,
+          190,
+          42,
+          34
+        ]
+      ]
+    },
+    "_v": 3,
+    "_scale": 0.92,
+    "_note": "ENG-112 r2 dSmash v03: two low contact boxes follow both sandals on active frames 3-4; Claude still owns runtime contact review."
+  },
+  "uair": {
+    "2": {
+      "hit": [
+        [
+          168,
+          18,
+          52,
+          78
+        ]
+      ]
+    },
+    "_v": 2,
+    "_scale": 0.92,
+    "_note": "ENG-112 r2 uair v02: contact box follows the raised kicking shin and sandal on sole active frame 2; frame 3 is recovery. Claude still owns runtime contact review."
   }
 }

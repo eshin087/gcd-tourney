@@ -17,6 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ENG-112 Luffy r2): recorded the one authorized redraw round for dTilt, dashAttack, uSmash, dSmash and uair; packed dTilt v04, uSmash v05, dSmash v03 and uair v02 for review with version-bound Astra FINAL5 holds. dashAttack's three attempts produced no selected candidate. The four drawings await user review; all five moves remain on their stand-ins.
 - Changed: the determinism fixtures are re-recorded after Luffy's five new Smash-style normals (ENG-112, fingerprint 519fb322aa11); both replay frame for frame.
 - Fixed (ENG-119): the announcer's emotes sit naturally on him. Each manga mark is anchored to his actual head in every frame (found from his hair in the sheet), so it follows him through a crouch, a facepalm, lying flat and a cheer, and sits tucked against his head the way manga draws it (sweat at the temple, !! and ? at the upper front, stars on top) instead of floating above and away; they are also a little smaller.
 
