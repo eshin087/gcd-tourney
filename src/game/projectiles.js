@@ -263,7 +263,7 @@ class BeamView {
 export class ShotViews {
   constructor(game) {
     this.game = game;
-    this.shots = new Map(); // projectile id -> { sprite, glow }
+    this.shots = new Map(); // projectile id -> { sprite, glow } or a shot with a `limb` ({ limb, owner, last })
     this.beams = new Map(); // beam id -> BeamView
   }
 
@@ -273,9 +273,12 @@ export class ShotViews {
       if (p.dead) continue;
       seen.add(p.id);
       let v = this.shots.get(p.id);
-      if (!v || (v.sprite && v.sprite.life < 0)) {
+      if (!v || v.gone || (v.sprite && v.sprite.life < 0)) {
         const P = p.P, L = P.lance;
-        if (L) {
+        if (P.limb?.end) {
+          // the limb's end stands for the shot (Luffy's fist, ENG-SKL-LUF): no sprite of its own
+          v = {};
+        } else if (L) {
           // a blade growing out of the hand (the Chidori Spear, ENG-SKL-SAS): drawn once along the shot's line from
           // where it left the hand, and it plays out by itself after the shot is spent
           const d = tmpA.copy(p.vel).normalize();
@@ -284,7 +287,14 @@ export class ShotViews {
           v = { sprite: fx.spawn(P.sprite, p.pos.x, p.pos.y, p.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random }) };
           if (P.glowColor) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
         }
+        if (P.limb) Object.assign(v, { limb: P.limb, owner: p.owner });
         this.shots.set(p.id, v);
+      }
+      if (v.limb) {
+        // the limb from the drawn hand to the shot, every render (a rollback that brings the shot back stops its snap-back)
+        v.t0 = null;
+        (v.last ??= new THREE.Vector3()).copy(p.pos);
+        this.limbDraw(p.id, v, p.pos);
       }
       if (!v.sprite) continue;
       v.sprite.mesh.position.set(p.pos.x, p.pos.y + RING_TOP, p.pos.z);
@@ -295,13 +305,13 @@ export class ShotViews {
         v.sprite.mesh.scale.x = Math.abs(v.sprite.mesh.scale.x) * (flip ? -1 : 1);
       }
       if (v.glow) v.glow.mesh.position.copy(v.sprite.mesh.position);
-      if (p.P.tether) this.tether(v, p);
     }
     for (const [id, v] of this.shots) {
       if (seen.has(id)) continue;
       if (v.sprite) fx.kill(v.sprite);
       if (v.glow) fx.kill(v.glow);
-      this.dropTether(v);
+      v.gone = true;
+      if (v.limb && this.limbBack(id, v)) continue; // its end still snapping back to the hand
       this.shots.delete(id);
     }
     seen.clear();
@@ -319,37 +329,35 @@ export class ShotViews {
     }
   }
 
-  // A shot's `tether` (Killua's yo-yo string, ENG-SKL-KIL): a line from the owner's drawn hand to the shot, moved every
-  // render. View only: the hand comes from the art pack (a fixed offset on the placeholder).
-  tether(v, p) {
-    const f = p.owner, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1, r = f.renderPos || f.pos;
-    if (!v.line) {
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
-      v.line = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: p.P.tether.color ?? 0xffffff }));
-      v.line.frustumCulled = false;
-      v.line.renderOrder = 6;
-      this.game.scene.add(v.line);
-    }
-    const a = v.line.geometry.attributes.position.array, fwd = (H ? H.x : 0.4) * k;
-    a[0] = r.x + f.face.x * fwd; a[1] = r.y + (H ? H.y : 1.0) * k + RING_TOP; a[2] = r.z + f.face.y * fwd;
-    a[3] = p.pos.x; a[4] = p.pos.y + RING_TOP; a[5] = p.pos.z;
-    v.line.geometry.attributes.position.needsUpdate = true;
+  // A shot's `limb` (ENG-SKL-LUF): a stretched limb or a string from the owner's drawn hand to the shot (Effects.limb),
+  // and its `end` on the shot when it has one (Luffy's fist stands for the shot)
+  limbDraw(id, v, at) {
+    const fx = this.game.fx, L = v.limb, cr = this.game.cam.right, h = fx.handAt(v.owner, L.at);
+    fx.limb('limb' + id, L.fx, h, at, L.thick, L.tube, cr, { order: 7, color: L.color });
+    if (L.end) fx.limbEnd('limbEnd' + id, L.end, at, h, L.endScale ?? 1, cr, { order: 8 });
   }
 
-  dropTether(v) {
-    if (!v.line) return;
-    v.line.parent?.remove(v.line);
-    v.line.geometry.dispose();
-    v.line.material.dispose();
-    v.line = null;
+  // the shot is gone (it hit, or ran out): with `back` its end snaps back to the drawn hand over that many seconds of
+  // the render clock, faster as it goes. False once it is home (at once without `back`) and its effects are dropped.
+  limbBack(id, v) {
+    const fx = this.game.fx, L = v.limb, now = performance.now();
+    v.t0 ??= now;
+    const a = L.back ? (now - v.t0) / (L.back * 1000) : 1;
+    if (a >= 1) {
+      fx.drop('limb' + id);
+      fx.drop('limbEnd' + id);
+      return false;
+    }
+    const h = fx.handAt(v.owner, L.at), e = a * a;
+    tmpA.set(v.last.x + (h.x - v.last.x) * e, v.last.y + (h.y - v.last.y) * e, v.last.z + (h.z - v.last.z) * e);
+    this.limbDraw(id, v, tmpA);
+    return true;
   }
 
   // a match ends: every view goes (the effects themselves are cleared with fx.clearAll)
   clear() {
     for (const v of this.beams.values()) v.dispose();
     this.beams.clear();
-    for (const v of this.shots.values()) this.dropTether(v);
     this.shots.clear();
   }
 }

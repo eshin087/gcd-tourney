@@ -28,9 +28,8 @@ const FRAG = /* glsl */ `
   }`;
 
 const qz = new THREE.Quaternion();
+const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with its colors resolved (Effects.modeShell)
 const zAxis = new THREE.Vector3(0, 0, 1);
-const STREAK_DIR = new THREE.Vector3();
-const AURA_SH = {}; // a body aura's outline shell settings, reused every frame (Effects.bodyAura)
 
 function hexTexture() {
   const c = document.createElement('canvas');
@@ -669,22 +668,28 @@ export class Effects {
 
   // A straight effect drawn pointing screen-right (the Chidori Spear's blade, ENG-SKL-SAS), laid from `from` along `dir`
   // for `len` world units: turned to that line's angle on screen and mirrored when it points screen-left. `fill`: the
-  // share of the cell the drawn length spans. `thick`: a fixed scale across the line (Killua's Godspeed streak stays
-  // thin however long his path is, ENG-SKL-KIL); by default it grows with the length.
+  // share of the cell the drawn length spans.
   span(name, from, dir, len, camRight, o = {}) {
     const sx = dir.x * camRight.x + dir.z * camRight.z, flip = sx < 0, phi = Math.atan2(dir.y, sx);
     const it = this.spawn(name, from.x + (dir.x * len) / 2, from.y + (dir.y * len) / 2, from.z + (dir.z * len) / 2, { ...o, flipX: flip, rot: flip ? phi - Math.PI : phi });
     const s = len / (it.cellWorld * (o.fill ?? 0.95));
     it.base = s;
-    it.mesh.scale.set(flip ? -s : s, o.thick != null ? it.cellWorld * o.thick : s, s);
+    it.mesh.scale.set(flip ? -s : s, s, s);
     return it;
   }
 
-  // A streak laid between two points (Killua's Godspeed path, ENG-SKL-KIL): `span` from `a` to `b`, thin
-  streak(name, a, b, camRight, o = {}) {
-    const d = STREAK_DIR.set(b.x - a.x, b.y - a.y, b.z - a.z), len = d.length();
-    if (len < 0.3) return null;
-    return this.span(name, a, d.multiplyScalar(1 / len), len, camRight, { fill: 1, thick: 0.5, order: 8, depthTest: false, glow: 0.4, ...o });
+  // A teleport's own look where it vanishes or reappears (its `vanishFx` / `appearFx`): an effect name, or { fx, scale,
+  // bottom (anchored at the feet), y (up from the feet otherwise, default 0.9), reverse (its frames backward) }. `at`:
+  // the feet (fighter space)
+  teleportFx(spec, at) {
+    const S = typeof spec === 'string' ? { fx: spec } : spec;
+    const a = this.meta.anims[S?.fx];
+    if (!a) {
+      console.warn(`[vfx] no ${S?.fx} effect for a teleport`);
+      return null;
+    }
+    const seq = S.reverse ? Array.from({ length: a.n }, (_, i) => a.n - 1 - i) : null;
+    return this.spawn(S.fx, at.x, at.y + (S.bottom ? 0 : S.y ?? 0.9), at.z, { scale: S.scale ?? 1, bottom: !!S.bottom, seq, depthTest: false, order: 9 });
   }
 
   // A shadow clone appearing or vanishing (the anime's poof)
@@ -750,6 +755,30 @@ export class Effects {
     this.drop('gather' + f.index);
   }
 
+  // A power-up's outline on the body (kit.modeLook `shell`: { kind, width, lift, noise, speed, dash, opacity, color,
+  // core }, a charge style's shell shape; colors as hex or numbers). null hides the one this showed; the charge drives
+  // the same AuraShell while he powers up, so it is left to it then
+  modeShell(f, S, time) {
+    const a = f.actor;
+    if (!S) {
+      if (a.modeShellOn) { a.shell?.hide(); a.modeShellOn = false; }
+      return;
+    }
+    let st = shellLooks.get(S);
+    if (!st) shellLooks.set(S, (st = { ...S, color: new THREE.Color(S.color ?? 0xffffff), core: new THREE.Color(S.core ?? S.color ?? 0xffffff) }));
+    st.time = time;
+    a.auraShell().show(st);
+    a.modeShellOn = true;
+  }
+
+  // A power-up's effect kept at his feet (kit.modeLook `aura`: { fx, scale, opacity, front, glow }): one copy a step
+  // behind the body along the view, and with `front` a see-through copy in front at that opacity
+  modeAura(f, A) {
+    const p = f.renderPos || f.pos, bk = this.camFwd, k = f.actor.depthK ?? 1, s = (A.scale ?? 1) * k;
+    this.keep('modeAura' + f.index, A.fx, p.x + bk.x * 0.3, p.y, p.z + bk.z * 0.3, { bottom: true, scale: s, opacity: A.opacity ?? 1, order: 1, glow: A.glow ?? 0.2 });
+    if (A.front) this.keep('modeAuraF' + f.index, A.fx, p.x - bk.x * 0.3, p.y, p.z - bk.z * 0.3, { bottom: true, scale: s, opacity: A.front, order: 4, glow: A.glow ?? 0.2 });
+  }
+
   // A beam's `muzzle`: every `every` frames a shock ring leaves the root of the beam and runs down it
   muzzleTick(f, beam, M) {
     if (beam.t % (M.every ?? 10) !== 1) return;
@@ -775,36 +804,6 @@ export class Effects {
   }
 
   // ------------------------------------------------------------ Killua's lightning (ENG-SKL-KIL)
-  // An `aura` on the body while a mode, a kit move or a reflex runs (Godspeed): its HD loop over the drawn body (one copy
-  // behind it, a see-through one in front out of step with it) and a `shell` round the drawn pixels (auraShell.js, the
-  // charge style's outline). Refreshed every frame; the copies lapse by themselves when it stops (keep), the shell is
-  // hidden by dropBodyAura.
-  bodyAura(f, A, time) {
-    const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1, back = this.camFwd, s = (A.scale ?? 1) * k;
-    this.keep('bodyAura' + f.index, A.fx, p.x + back.x * 0.2, p.y, p.z + back.z * 0.2, { bottom: true, scale: s, order: 1, glow: A.glow ?? 0.3 });
-    if (A.front) {
-      const it = this.keep('bodyAuraF' + f.index, A.fx, p.x - back.x * 0.2, p.y, p.z - back.z * 0.2, { bottom: true, scale: s, opacity: A.front, order: 6, glow: A.glow ?? 0.3, flipX: true });
-      if (it.t === 0) it.t = 0.11;
-    }
-    const sh = A.shell, shell = sh && f.actor.auraShell?.();
-    if (!shell) return;
-    const cols = (this.auraCols ??= new WeakMap());
-    let c = cols.get(sh);
-    if (!c) cols.set(sh, (c = { color: new THREE.Color(sh.color ?? '#62d8ff'), core: new THREE.Color(sh.core ?? '#eafcff') }));
-    AURA_SH.kind = sh.kind ?? 'electric'; AURA_SH.width = sh.width ?? 0.04; AURA_SH.lift = sh.lift ?? 0; AURA_SH.noise = sh.noise ?? 0;
-    AURA_SH.speed = sh.speed ?? 15; AURA_SH.opacity = sh.opacity ?? 0.6; AURA_SH.color = c.color; AURA_SH.core = c.core;
-    AURA_SH.dash = Math.random() < 0.08 ? 0 : sh.dash ?? 0.4; // now and then the whole outline flashes
-    AURA_SH.time = time;
-    shell.show(AURA_SH);
-    f.actor.auraShellBy = 'aura';
-  }
-
-  dropBodyAura(f) {
-    if (f.actor.auraShellBy !== 'aura') return;
-    f.actor.shell?.hide();
-    f.actor.auraShellBy = null;
-  }
-
   // A column of tiles stacked from yBot up past yTop (Narukami's bolt from the sky): copies of a strip that tiles top to
   // bottom. With an `id` they are held (refreshed every frame by the caller), without one they flash for `life`.
   column(id, name, x, yBot, yTop, z, o = {}) {
@@ -823,6 +822,43 @@ export class Effects {
   clingTick(f, C) {
     const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1;
     this.keep('cling' + f.index, C.fx, p.x, p.y, p.z, { bottom: true, scale: (C.scale ?? 1) * k, order: 7, glow: 0.3 });
+  }
+
+  // ------------------------------------------------------------ limbs (ENG-SKL-LUF)
+  // Where the drawn hand is now: the frame's `hand` anchor (or hit box) in the world, else `def` [forward, up]. A limb
+  // longer than its strip's cell leaves the cell at the edge with the anchor there, and these effects carry it on.
+  handAt(f, def = [0.5, 0.9]) {
+    const P = f.renderPos || f.pos, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1;
+    const fwd = H ? H.x : def[0], up = H ? H.y : def[1];
+    return { x: P.x + f.face.x * fwd * k, y: P.y + up * k, z: P.z + f.face.y * fwd * k };
+  }
+
+  // A stretched limb from `from` to `to` (Luffy's rubber arm, Killua's yo-yo string): a tube effect drawn pointing
+  // screen-right, its tube `tube` of the cell high and every column the same, stretched along the line as seen on screen
+  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. A null `id` lays it
+  // once instead, playing its strip through and gone (Killua's Godspeed streaks). `o.color` tints it.
+  limb(id, name, from, to, thick, tube, camRight, o = {}) {
+    const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2, mz = (from.z + to.z) / 2;
+    const so = { order: o.order ?? 7, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, mx, my, mz, so) : this.keep(id, name, mx, my, mz, so);
+    // the quad is 1 x 1 world units before scaling (spawn folds the cell's world size into the scale)
+    const flip = sx < 0, phi = Math.atan2(dy, sx), sy = thick / tube;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(Math.max(1e-3, Math.hypot(sx, dy)) * (flip ? -1 : 1), sy, sy);
+    return it;
+  }
+
+  // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, `scale` cells, turned along the limb
+  // (kept by `id`, or played once with a null `id`, like limb)
+  limbEnd(id, name, at, from, scale, camRight, o = {}) {
+    const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
+    const so = { order: o.order ?? 8, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, at.x, at.y, at.z, so) : this.keep(id, name, at.x, at.y, at.z, so);
+    const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(flip ? -s : s, s, s);
+    return it;
   }
 }
 

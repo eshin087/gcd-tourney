@@ -28,7 +28,7 @@ export const ANIM_GUIDE = {
   airRecover: { frames: 3, pose: 'backflip recovery in mid-air' },
   down: { frames: 2, pose: 'hitting the ground, then lying flat on the back' },
   getup: { frames: 5, pose: 'kip-up from lying on the back to standing' },
-  charge: { frames: 4, loop: true, pose: 'powering up: wide stance, fists clenched at sides, shouting upward' },
+  charge: { frames: 6, loop: true, loopFrom: 2, pose: 'powering up: 2 frames once (gather: crouch, hands pulled in; release: snap open into the power stance, shouting), then 4 looping frames holding that stance (feet, hips and head still; the breath heaves, hair and loose clothes rise in the updraft)' },
   throw: { frames: 4, phases: [1, 1, 2], pose: 'throwing a projectile in mid-air: arm cocked back, whipped forward, follow-through' },
   beamCharge: { frames: 3, loop: true, pose: 'charging a beam: both hands cupped together at the rear hip, shouting' },
   beamFire: { frames: 3, loop: true, pose: 'firing a beam: both arms thrust straight forward, palms open, shouting' },

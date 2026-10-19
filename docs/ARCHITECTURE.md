@@ -62,7 +62,7 @@ src/game/
                             or wall impact) and TechTimer (per-level timing for CpuBrain, MasterBrain, the dummy)
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
-  projectiles.js            Projectile (shuriken, fireball, bolt, red, yo-yo: `returns` on a `tether`, ADR 0048;
+  projectiles.js            Projectile (shuriken, fireball, bolt, red, yo-yo: `returns`, its string a `limb`, ADR 0048;
                             Infinity stops them), Vortex (Lapse: Blue
                             pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette and shape:
                             the HDR ribbon shader, or a VFX atlas band tiled along it, or Red's orb; STREAM_STYLES).
@@ -71,8 +71,10 @@ src/game/
   snapshot.js               saveState / loadState (ADR 0036): a deep copy of the simulation (GAME_STATE, fighters,
                             pads, shots, clash, basis, sprite playback); static tables, assets and the view shared
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
-                            barrier flashes, a body `aura`, bolt columns and streaks (ADR 0048); Overlay (2D canvas:
-                            speed lines, flashes, impact frames); owns fx.ground
+                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground.
+                            Limbs (ENG-SKL-LUF): `limb` stretches a tube effect between two points (the drawn hand
+                            anchor and a shot), `limbEnd` puts its end (a fist) on it, `handAt` finds the drawn hand
+                            Bolt `column`s and a hit's `cling` (Killua, ADR 0048).
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
   sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique
@@ -306,7 +308,8 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   (e.g. `superDash -> dash -> run -> idle`). `boxes(frame, kind, side)` converts frame-local pixel boxes into
   local world units, mirrored for facing left.
 - **SpriteActor** is a camera-facing plane anchored at the pivot (feet). It mirrors by `side`, plays loops and
-  one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
+  one-shots by `durations` (a loop with an anims.json `loopFrom` plays its first frames once and loops from there:
+  `charge`'s gather and release, ENG-117), and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
   shadow caster, a blob shadow and ghost trails (dash/vanish afterimages). On a lying frame (one with an anims.json
   `footprint`: `ko`, `down`, `getup` f0) resting on the floor, `fitShadow` stretches the blob along the drawn body
