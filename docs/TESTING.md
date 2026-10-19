@@ -273,6 +273,8 @@ B: game.fighters[1], M: 'RASENGAN' }, true, true)` shows any line)
       the round; the next round's call is not blocked by it. Matchend / results: he is gone from the hero shot.
 - [ ] He talks only at big moments (about 10 lines in a two-minute CPU match besides the round calls and the KO);
       the rest are poses and symbols over his head (sweat, !!, ?, dizzy, notes, steam), large enough to read.
+- [ ] Each mark hugs his head in every pose (force one with `caster.react = { anim: 'cower', t: 99 }` and `caster.symbols.show('sweat', 9)`):
+      sweat at the back of the temple, !! and ? at the upper front, stars on top, steam behind; never floating away.
 - [ ] `caster.knockOver(caster.pos.x + 1, caster.pos.z, true)`: thrown back, flat for a second, up dizzy, then
       sooty with steam; nothing else interrupts it. Standing still with the CPUs off (`game.brains = [null, null]`)
       he fidgets, or hums a music note while the fidget strips are missing, every 5-10 s.

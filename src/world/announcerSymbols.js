@@ -4,9 +4,11 @@
 // camera-facing sprite shows one at a time. View only, like the rest of him.
 import * as THREE from 'three';
 
-// half the NPC sheets' 80 pixels per world unit: drawn at his density they were a tenth of his height, unreadable
-// at fight distance; at twice that size they read like manga marks next to his head
-const PPU = 40;
+// one NPC pixel is 1/80 world unit; each symbol pixel is SCALE of them: at his own density the marks were a tenth of
+// his height and unreadable at fight distance, at 1.5x they read like manga marks about half a head tall
+const NPC_PX = 1 / 80;
+const SCALE = 1.5;
+const PPU = 1 / (NPC_PX * SCALE);
 const CELL = 16;
 const COLS = 4;
 const PAL = {
@@ -34,17 +36,20 @@ function stars(at) {
   return rows.map((r) => r.join(''));
 }
 
-// how each symbol behaves: how long it stays, whether it drips (the sweat drop slides down), sways (the note) or
-// alternates frames (the stars), and which side of his head it sits on (sweat and steam behind, the rest in front)
+// How each symbol sits and moves, in his own pixels from his head's outline (see Announcer.headAnchors): `side` +1 in
+// front of his face, -1 behind it, 0 centred on top; `gap` how far past the hair's edge its near edge sits (negative:
+// overlapping the head a little, so it reads as attached, the way manga draws them); `top` where its top edge is
+// relative to the top of his hair (positive: above it). Marks stay beside the head, below his caption, which sits
+// just above it. `drip` slides down, `rise` drifts up, `sway` wobbles side to side, `frames` alternates cells.
 const KINDS = {
-  sweat: { secs: 1.4, drip: true, back: true },
-  bang: { secs: 1.1 },
-  what: { secs: 1.6 },
-  anger: { secs: 1.4 },
-  notes: { secs: 2.2, sway: true },
-  steam: { secs: 2.4, back: true, rise: true },
-  spark: { secs: 0.9 },
-  dizzy: { secs: 1.8, frames: ['dizzy0', 'dizzy1'], over: true },
+  sweat: { secs: 1.4, side: -1, gap: -2, top: -3, drip: 5 },
+  bang: { secs: 1.1, side: 1, gap: 0, top: 3 },
+  what: { secs: 1.6, side: 1, gap: 0, top: 3 },
+  anger: { secs: 1.4, side: 1, gap: -3, top: -1 },
+  notes: { secs: 2.2, side: -1, gap: 1, top: 4, rise: 5, sway: 1.5 },
+  steam: { secs: 2.4, side: -1, gap: -5, top: 1, rise: 6 },
+  spark: { secs: 0.9, side: 1, gap: 0, top: 1 },
+  dizzy: { secs: 1.8, side: 0, gap: 0, top: 7, frames: ['dizzy0', 'dizzy1'] },
 };
 
 function paintAtlas() {
@@ -76,7 +81,7 @@ export class AnnouncerSymbols {
     this.tex = tex;
     this.material = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, alphaTest: 0.05 });
     this.sprite = new THREE.Sprite(this.material);
-    this.sprite.center.set(0.5, 0);
+    this.sprite.center.set(0.5, 0); // its bottom-centre is the mark's bottom-centre (the maps sit bottom-centred)
     this.sprite.scale.set(CELL / PPU, CELL / PPU, 1);
     this.sprite.visible = false;
     this.sprite.renderOrder = 2;
@@ -100,22 +105,27 @@ export class AnnouncerSymbols {
     this.tex.offset.set((n % COLS) / COLS, 1 - (Math.floor(n / COLS) + 1) / this.rows);
   }
 
-  // head: his head's top in world space; right: the camera's right axis; face: +1 when he faces screen-right
-  update(dt, head, right, face, frozen) {
+  // H = where his head is right now: { pos: the middle of the top of his hair in world space, right / up: the
+  // camera's screen axes (his sprite is screen-aligned), hw: half the hair's width in world units, face: +1 when he
+  // faces screen-right, toCam: a unit vector toward the camera (so nothing of his can cover the mark) }
+  update(dt, H, frozen) {
     const c = this.cur;
     if (!c) return;
     if (!frozen) c.t += dt;
     if (c.t >= c.secs) { this.clear(); return; }
     const K = c.K, k = c.t / c.secs;
-    this.cell(K.frames ? K.frames[Math.floor(c.t / 0.22) % K.frames.length] : c.kind);
-    // beside his head (in front of his face, or behind it for sweat and steam), or right on top for the stars
-    const side = K.over ? 0 : (K.back ? -face : face) * 0.3;
-    let up = K.over ? -0.06 : 0.02;
-    if (K.drip) up -= k * 0.12;
-    if (K.rise) up += k * 0.1;
-    const sway = K.sway ? Math.sin(c.t * 5) * 0.03 : 0;
-    this.sprite.position.copy(head).addScaledVector(right, side + sway);
-    this.sprite.position.y += up;
+    const name = K.frames ? K.frames[Math.floor(c.t / 0.22) % K.frames.length] : c.kind;
+    this.cell(name);
+    const h = ICONS[name].length * SCALE * NPC_PX, w = ICONS[name][0].length * SCALE * NPC_PX;
+    // horizontally: its near edge a `gap` past the hair's edge on its side (centred on top for side 0)
+    const dir = K.side * H.face;
+    const x = K.side === 0 ? 0 : dir * (H.hw + K.gap * NPC_PX + w / 2);
+    // vertically: its top edge `top` above the hair top, drifting with its motion
+    let y = K.top * NPC_PX - h;
+    if (K.drip) y -= k * K.drip * NPC_PX;
+    if (K.rise) y += k * K.rise * NPC_PX;
+    const sway = K.sway ? Math.sin(c.t * 4) * K.sway * NPC_PX : 0;
+    this.sprite.position.copy(H.pos).addScaledVector(H.right, x + sway).addScaledVector(H.up, y).addScaledVector(H.toCam, 0.12);
     // in and out with a short fade (no pop, no bounce)
     this.material.opacity = Math.min(1, c.t / 0.12, (c.secs - c.t) / 0.25);
     this.sprite.visible = true;
