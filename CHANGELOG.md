@@ -17,6 +17,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (ENG-SKL-GOK, ADR 0046 amendment): a `paletteReserve` group can take `"cut": "misfits"`, cutting its colours only from the ones the shared palette fits badly (weighted by how far off), so a strip mostly in the fighter's usual colours keeps its one new colour (Goku's black base-form hair in the intro); Goku's Super Saiyan intro now plays as the fly-in settles on the fighters (5.05 s on both sides), under the VS card.
+
 - Fixed (ENG-118): the announcer's captions are steady. Each line sits locked straight above his head, moves with his sprite in the game's own pixel steps (no lag or easing), no longer jumps beside him under the health bars or with a hop's arc or a duck, looks the same for every line (one colour, one line) and stays up at least 1.2 s before the next one replaces it.
 
 - Changed: the determinism fixtures are re-recorded after Goku's up tilt (fingerprint bb49081ebda5); both replay frame for frame.

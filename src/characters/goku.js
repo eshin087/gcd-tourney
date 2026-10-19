@@ -165,9 +165,10 @@ export default {
   },
   stats: { speed: 6.2, power: 1.02, defense: 1.0 }, // stat index 1.02 (ADR 0011)
   // the match intro is the Super Saiyan transformation (ENG-SKL-GOK): his `intro` strip (base form, the flash, Super
-  // Saiyan, settled) held on f0 until the fly-in reaches his side (`at`, seconds, P1 / P2), then played `step` s apart,
-  // the golden burst (`fx`) on f1 and the aura (`aura`) after it
-  intro: { at: [3.3, 4.5], step: 0.22, fx: 'superSaiyanBurst', scale: 1.0, aura: 1.2 },
+  // Saiyan, settled) held on f0 (`at`, seconds into the fly-in, P1 / P2), then played `step` s apart, the golden burst
+  // (`fx`) on f1 and the aura (`aura`) after it. 5.05 on both sides: the fly-in only passes him for a moment, so he
+  // turns as it settles on the two fighters, under the VS card
+  intro: { at: [5.05, 5.05], step: 0.22, fx: 'superSaiyanBurst', scale: 1.0, aura: 1.2 },
   // floor damage (ground.js, ADR 0024): ki scorch under his specials; a full Super Saiyan charge cracks the floor
   ground: { style: 'ki', tint: '#ffd84a' },
   model,
