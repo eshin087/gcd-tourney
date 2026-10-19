@@ -619,7 +619,8 @@ export class Effects {
         const bk = this.camFwd, U = this.camUp, h = 0.8 * k;
         this.keep('hand' + f.index, 'dragonFistAura', P.x + fx * 0.1 * k + U.x * h + bk.x * 0.3, P.y + U.y * h + bk.y * 0.3, P.z + fz * 0.1 * k + U.z * h + bk.z * 0.3, { scale: 0.82 * k, order: 1, glow: 0, flipX: f.side < 0 });
       } else this.drop('hand' + f.index);
-      if (Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
+      // ki licking off the chambered fist in the wind-up only: in the flight they trailed across his body
+      if (phase === 0 && Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
     } else if (kind === 'chidori') {
       // the thousand birds (ENG-SKL-SAS): it crackles to life in his gripped hand through most of the startup
       // (chidoriForm), then the HD knot rides the drawn palm; a small glow only, the art carries the light (the old
