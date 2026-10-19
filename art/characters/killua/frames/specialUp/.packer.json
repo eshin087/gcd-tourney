@@ -1,13 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
-  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/specialUp_v08.png",
-  "version": 8,
+  "note": "Fitted and quantized atlas cells synchronized from the --quantize 48 character atlas on 2026-10-18; edit freely, but preserve source and fit provenance.",
+  "sourceFile": "raw/specialUp_v09.png",
+  "version": 9,
   "source": [
-    "characters/killua/raw/specialUp_v08.png",
-    "characters/killua/raw/specialUp_v08.json"
+    "characters/killua/raw/specialUp_v09.png",
+    "characters/killua/raw/specialUp_v09.json"
   ],
-  "sourceHash": "89b2bd58b836d7626d5c6a472670da4d97156482",
+  "sourceHash": "0ad492aa8352de4964f29aeeaf4e2fb68aa692b2",
   "bodyHeight": 197,
   "cell": {
     "frameWidth": 256,
@@ -17,12 +17,13 @@
       240
     ]
   },
+  "autoHead": 0.9251,
   "files": {
-    "specialUp_00.png": "4b9243f11299f3b2054a13b26a11b8041d35a9f7",
-    "specialUp_01.png": "96c4239fa1bed4d1262d8cccac004275fcb4e48c",
-    "specialUp_02.png": "304cee4f82d8769387a56ff20ea1064fdd45900a",
-    "specialUp_03.png": "44fc9e558b3b3f6fff0f505d2e18c6b4b83e16b9",
-    "specialUp_04.png": "d310f078c74b508a595f62108c985e5b3e53fc3b",
-    "specialUp_05.png": "7c71ddfaa007f184b84d59cf9d999f75efc01280"
+    "specialUp_00.png": "34fabdce24942f059ddb0a4d0ac106a769bbbe9c",
+    "specialUp_01.png": "7c65e7bca5dcaf3958e71db08a8b4ea8b0477264",
+    "specialUp_02.png": "12fb0eff87f26cba7b932798c1d13c01b84197ab",
+    "specialUp_03.png": "c7a8acc3c0b7c9611c5fece9c7dfc25d934e64d9",
+    "specialUp_04.png": "3d4e129ff6d6b60a818da7f3f203747daa7c9be3",
+    "specialUp_05.png": "64c024cb0e65a6749ad0d0f1263b9601f0c36c01"
   }
 }

@@ -16,6 +16,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed (ART-SKL-KIL): packed `specialUp` v09 with x0.9251 auto-head fit and the instructed frame-5 scale exemption, synchronized fitted atlas cells into `frames/`, measured specialUp/throw hand anchors and rising-claw hitboxes, packed `throw` v07 with x0.7831 and no clip, and split Narukami Strike's touching frames to 8. Astra final anatomy/action HOLDs are recorded; Claude owns follow-through.
 - Changed (ART-SKL-KIL): recorded the user approval via Claude relay killua-skills #4 for throw v07 and yoyo v01; technical scale, clipping, target-size and provenance holds remain documented for Claude integration.
 - Changed (ART-SKL-KIL): recorded the user’s approval via Claude relay killua-skills #3 for specialUp v09, narukamiBolt v01 and narukamiStrike v01; technical holds remain documented.
 - Changed: the determinism fixtures are re-recorded after Goku's seven Smash moves (fingerprint 116df829f43b); both replay frame for frame.

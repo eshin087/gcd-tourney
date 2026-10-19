@@ -1,12 +1,13 @@
 {
   "generatedBy": "tools/pack-sprites.mjs",
-  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
-  "sourceFile": "raw/throw_v06.png",
-  "version": 6,
+  "note": "Fitted and quantized atlas cells synchronized from the --quantize 48 character atlas on 2026-10-18; edit freely, but preserve source and fit provenance.",
+  "sourceFile": "raw/throw_v07.png",
+  "version": 7,
   "source": [
-    "characters/killua/raw/throw_v06.png"
+    "characters/killua/raw/throw_v07.png",
+    "characters/killua/raw/throw_v07.json"
   ],
-  "sourceHash": "448d7e1fd0cf0057943a41e456f908ece2c846d1",
+  "sourceHash": "7264a012f7cf692e3d4c2e1890fdfb77055ffe8f",
   "bodyHeight": 173,
   "cell": {
     "frameWidth": 256,
@@ -16,10 +17,11 @@
       240
     ]
   },
+  "autoHead": 0.7831,
   "files": {
-    "throw_00.png": "0cb04a0de59c4601d62e829ccd611951ebfcec31",
-    "throw_01.png": "a49f7f18632a51dbdf988d6d9e0570bbf90ae0f2",
-    "throw_02.png": "75f9590019560caaf0d5a472a2d276969d2c13ad",
-    "throw_03.png": "6ddc8a45253eef159f881747a766999b1c37e0dc"
+    "throw_00.png": "18ace39c78131911d4df6e486c4629c55250df8d",
+    "throw_01.png": "9b5f7d698130bd3ccbb3567c51259998663c64cf",
+    "throw_02.png": "32793835db5d1166d2fc562e0b40b94f012fef08",
+    "throw_03.png": "911ccc71bacc1a396d9a50e4f598e4ee55de9a28"
   }
 }
