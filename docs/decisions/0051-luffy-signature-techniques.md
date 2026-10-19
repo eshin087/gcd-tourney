@@ -36,8 +36,8 @@ Everything is data read by shared code (CLAUDE.md rule 4), view-only where it ca
 3. **Mode look and names**, read through the shared `kit.modeLook` (the Goku session's mode visuals: `shell`, `tint`,
    `aura`, `burstFx`) from the move data, never from `f.mode`: `recolor` (above), `ghost` (an afterimage every that many
    frames while he moves) and `names` (the moves it renames in callouts and combo chips: GUM-GUM JET PISTOL). Gear
-   Second's steam is an `aura`, its burst a `burstFx` with `center`, and `fx: 'none'` drops the element burst and the
-   mode's crackle.
+   Second's steam is an `aura` and its burst a `burstFx` with `center`, which replace the element burst and the mode's
+   crackle.
 4. **Flurry options.** `flashPose` (shared), `fists` (an effect held between him and the target while the blows land),
    `hitFx` naming any effect, `hitScale`, `hitSpark`, `finalPose`, `finalSpark`, `finalCallout` and `finalFx` as a blast
    (`{ fx, scale, smoke }`). A super may carry `recolor` and `aura` while it runs (modeLook reads the running kit move).

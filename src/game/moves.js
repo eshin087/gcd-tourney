@@ -59,8 +59,9 @@ export const MOVES = {
   // up air: hits above the head and pops them higher: the juggle tool
   uair: { anim: 'uair', startup: 5, active: 5, recovery: 12, dmg: 34, reach: 1.1, width: 1.0, launch: [0.4, 9.5], feet: true, hitstop: 8, air: true, yTol: 2.4, boxPad: [0.25, 0.5], landLag: 7, autoCancel: 18, sfx: 'whoosh', spark: 'heavy', meleeClash: 'light' },
   throw: { anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, cost: 50 },
-  // Killua's Rhythm Echo follow-up: the claw strike out of the afterimage teleport
-  echoStrike: { anim: 'specialForward', startup: 3, active: 4, recovery: 18, dmg: 70, reach: 1.6, width: 1.1, launch: [15, 6], hitstop: 12, spark: 'smash', big: true, shake: 0.5, wallBounce: true, boxPad: [0.2, 0.3], sfx: 'whooshHeavy' },
+  // Killua's Rhythm Echo follow-up: the claw strike out of the afterimage teleport (and Whirlwind's counter); his
+  // lightning bursts through them on the hit (`blastFx`) instead of the white smash spark (ENG-SKL-KIL)
+  echoStrike: { anim: 'specialForward', startup: 3, active: 4, recovery: 18, dmg: 70, reach: 1.6, width: 1.1, launch: [15, 6], hitstop: 12, spark: 'smash', big: true, shake: 0.5, wallBounce: true, boxPad: [0.2, 0.3], sfx: 'whooshHeavy', blastFx: { fx: 'palmShock', scale: 0.7, smoke: 0, ring: 1 }, color: '#62d8ff' },
   vanishKick: { anim: 'light4', startup: 2, active: 5, recovery: 20, dmg: 75, reach: 1.7, width: 1.15, launch: [17, 6.5], hitstop: 16, spark: 'smash', big: true, shake: 0.8, wallBounce: true, yTol: 2.4, sfx: 'whooshHeavy' },
 };
 
@@ -265,16 +266,26 @@ export const PROJECTILES = {
   // Sasuke's Great Fireball (ENG-SKL-SAS): the HD rolling sphere turned along its flight (`orient`) and its own fire blast
   fireball: { count: 1, spread: 0, speed: 12, radius: 0.85, dmg: 80, launch: [8, 7], life: 1.6, sprite: 'greatFireball', scale: 0.95, orient: true, sfx: 'fireball', big: true, spark: 'none', glowColor: 0xff7a20, trail: 'fire', burstFx: { fx: 'greatFireballBurst', scale: 0.95, sfx: 'explosion', shake: 0.5 }, ground: 'fire',
     clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c', style: 'flame' } },
-  // Killua's Narukami: a very fast lightning bolt with a long stun
-  bolt: { count: 1, spread: 0, speed: 36, radius: 0.45, dmg: 58, hitstun: 38, push: 3, airPop: 7, life: 0.55, sprite: 'lightning', scale: 0.95, color: 0xd8f0ff, glowColor: 0x6ab8ff, sfx: 'flash', spark: 'heavy', trail: 'bolt', random: true, ground: 'lightning',
+  // Killua's Lightning Palm: a very fast lightning bolt with a long stun. His own forked bolt turned along its flight
+  // (`orient`), the shock bursting through them on a hit (`burstFx`) and the paralysis crawling over their body while
+  // the stun lasts (`cling`); no glow disc and no white spark (ENG-SKL-KIL)
+  bolt: { count: 1, spread: 0, speed: 36, radius: 0.45, dmg: 58, hitstun: 38, push: 3, airPop: 7, life: 0.55, sprite: 'lightningPalm', scale: 0.9, orient: true, sfx: 'flash', spark: 'none', ground: 'lightning',
+    burstFx: { fx: 'palmShock', scale: 0.85, smoke: 0, ring: 0.9, color: 0x62d8ff }, cling: { fx: 'shockCrawl', scale: 0.95 },
     clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff', style: 'bolt' } },
+  // Killua's yo-yo (ENG-SKL-KIL): his steel yo-yo snapped out for `life` seconds, then reeled back to his hand at `reel`
+  // units/s (`returns`; at once on a hit or on the floor), its string a thin `limb` from his drawn hand. Physical
+  yoyo: { count: 1, spread: 0, speed: 24, radius: 0.4, dmg: 54, hitstun: 30, push: 2.5, airPop: 6.5, life: 0.2, sprite: 'yoyo', scale: 0.6, sfx: 'whoosh', spark: 'none',
+    returns: true, reel: 30, limb: { fx: 'strand', tube: 1 / 32, thick: 0.02, color: 0xe8f0ff }, burstFx: { fx: 'palmShock', scale: 0.45, smoke: 0, ring: 0.8, sfx: 'hit', shake: 0.25, color: 0x62d8ff } },
   // Sasuke's Chidori Sharp Spear: a lightning lance that only reaches ~5 units, but instantly. Drawn as the blade
   // growing out of his hand (`lance`: the HD strip laid along the shot, f3-f5 held while it is out; ENG-SKL-SAS)
   spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'none', ground: 'lightning',
     lance: { fx: 'chidoriSpear', len: 4.9, seq: [0, 1, 2, 3, 4, 5, 3, 4, 5, 6, 7], ms: 35 }, burstFx: { fx: 'chidoriBurst', scale: 0.55, smoke: 0 },
     clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc', style: 'lance' } },
-  // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall
-  red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048, ground: 'repel',
+  // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall. The anime's look
+  // (ENG-SKL-GOJ): the HD crimson orb turned along its flight with its shock wake streaming back (`orient`), no glow disc
+  // under it (`halo: false`; glowColor still tints its blast ring and the floor mark), and its own repulsion blast
+  // (`burstFx`) instead of the explosion that whited out the screen; `slowmo` keeps the smash spark's slow-down
+  red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'reversalRed', scale: 1.3, orient: true, halo: false, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'none', slowmo: [0.4, 0.18], burstFx: { fx: 'redBurst', scale: 0.95, sfx: 'explosion', shake: 0.6, smoke: 0 }, ground: 'repel',
     clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22', style: 'orb' } },
   // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
   // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash)
@@ -367,30 +378,57 @@ export const SPECIAL_MOVES = {
     current: { fx: 'chidoriCurrent', scale: 1.35 }, // the read answered with Chidori Current (ENG-SKL-SAS)
   },
 
-  // ---- Killua (Godspeed era)
-  narukami: { kind: 'shot', anim: 'special', startup: 10, active: 3, recovery: 16, projectile: true, proj: 'bolt', cost: 50, name: 'NARUKAMI', color: '#bfe6ff' },
-  narukamiAir: { kind: 'shot', anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, proj: 'bolt', cost: 50, name: 'NARUKAMI', color: '#bfe6ff' },
-  rhythmEcho: { kind: 'teleport', cost: 100, hide: 7, to: 'behind', off: 0.85, ghosts: 3, follow: 'echoStrike', name: 'RHYTHM ECHO', color: '#bfe6ff' },
+  // ---- Killua (Godspeed era; the anime's look: ENG-SKL-KIL, art/characters/killua/SKILLS_REVAMP.md)
+  // Lightning Palm (雷掌, Ikazuchi): his lightning gathers in his open palm (`fx`, held there through the startup)
+  narukami: { kind: 'shot', anim: 'special', startup: 10, active: 3, recovery: 16, projectile: true, proj: 'bolt', cost: 50, name: 'LIGHTNING PALM', color: '#bfe6ff', fx: 'palmCrackle', fxScale: 0.8 },
+  // Yo-yo: in the air he snaps his steel yo-yo down at them and reels it back in
+  yoyo: { kind: 'shot', anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, proj: 'yoyo', cost: 50, name: 'YO-YO', color: '#bfe6ff' },
+  // Rhythm Echo (肢曲): nothing where he leaves (`vanishFx: false`), his crackle where he lands (`appearFx`). While he
+  // is hidden `afterimage.n` afterimages of him close in round the target, one every `every` frames, `ring` units out,
+  // in his loose ready stance, and flicker on `linger` frames after the real one strikes from behind (clones.js)
+  rhythmEcho: {
+    kind: 'teleport', cost: 100, hide: 7, to: 'behind', off: 0.85, ghosts: 0, vanishFx: false, appearFx: 'palmCrackle', follow: 'echoStrike', name: 'RHYTHM ECHO', color: '#bfe6ff',
+    afterimage: { n: 4, every: 2, ring: 1.3, anim: 'beamCharge', linger: 24, flash: 0.15, tint: '#bfe6ff' },
+  },
+  // Narukami (落雷, Thunderbolt): he leaps over them, gathers lightning in his hand at the top (`gather`) and dives inside
+  // a bolt from the sky (`column`, `top` units high), palm first on specialUp v09's dive frame (`diveAnim`); it hits
+  // the floor as his lightning strike (`landFx`)
   thunderbolt: {
-    kind: 'dive', cost: 100, rise: 14, riseV: 15, hang: 5, slamV: -34, area: 1.7, recovery: 16, landFx: 'thunder', name: 'THUNDERBOLT', color: '#bfe6ff', ground: 'lightning',
+    kind: 'dive', cost: 100, rise: 14, riseV: 15, hang: 5, slamV: -34, area: 1.7, recovery: 16, name: 'NARUKAMI', diveAnim: 'specialUp', color: '#bfe6ff', ground: 'lightning',
+    gather: { fx: 'palmCrackle', scale: 0.55 }, column: { fx: 'narukamiBolt', scale: 0.7, top: 9 }, landFx: { fx: 'narukamiStrike', scale: 1.3, column: 0.9 },
     riseHit: { dmg: 34, launch: [3, 11], hitstop: 8, spark: 'heavy' },
-    hit: { dmg: 104, launch: [5, 13], groundBounce: true, hitstop: 14, big: true, shake: 0.8, spark: 'smash' },
+    hit: { dmg: 104, launch: [5, 13], groundBounce: true, hitstop: 14, big: true, shake: 0.8, spark: 'none' },
   },
   thunderboltAir: {
-    kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.7, recovery: 16, landFx: 'thunder', name: 'THUNDERBOLT', color: '#bfe6ff', ground: 'lightning',
-    hit: { dmg: 98, launch: [5, 13], groundBounce: true, hitstop: 14, big: true, shake: 0.8, spark: 'smash' },
+    kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.7, recovery: 16, name: 'NARUKAMI', diveAnim: 'specialUp', color: '#bfe6ff', ground: 'lightning',
+    gather: { fx: 'palmCrackle', scale: 0.55 }, column: { fx: 'narukamiBolt', scale: 0.7, top: 9 }, landFx: { fx: 'narukamiStrike', scale: 1.3, column: 0.9 },
+    hit: { dmg: 98, launch: [5, 13], groundBounce: true, hitstop: 14, big: true, shake: 0.8, spark: 'none' },
   },
-  godspeed: { kind: 'mode', anim: 'specialDown', cost: 100, startup: 18, recovery: 6, len: 480, speed: 1.35, damage: 1.12, blinkDash: true, fx: 'lightning', name: 'GODSPEED', color: '#bfe6ff', charge: { level: 1 } },
+  // Godspeed (神速, Kanmuru): lightning bursts out of his whole body (`burstFx`, on his chest), then lives on it for the
+  // whole mode (`aura`: the HD crackle on the body; `shell`: an electric outline), and every blink dash leaves a streak
+  // (`blink`)
+  godspeed: {
+    kind: 'mode', anim: 'specialDown', cost: 100, startup: 18, recovery: 6, len: 480, speed: 1.35, damage: 1.12, blinkDash: true, fx: 'lightning', name: 'GODSPEED', color: '#bfe6ff', charge: { level: 1 },
+    burstFx: { fx: 'godspeedBurst', scale: 1.2, center: true }, blink: 'godspeedStreak',
+    aura: { fx: 'godspeedAura', scale: 1, front: 0.45, glow: 0.3 }, shell: { kind: 'electric', width: 0.035, dash: 0.4, speed: 15, opacity: 0.55, color: '#62d8ff', core: '#eafcff' },
+  },
 
   // ---- Gojo
+  // Lapse: Blue. The anime's look (ENG-SKL-GOJ, Vortex): `look.core` the HD attraction point (a dense navy-eyed sphere
+  // space falls into, no glow disc), floor rubble torn up and dragged into it (`rubble` chunks every `rubbleEvery`
+  // frames), and the implosion it ends in (`collapse`) instead of the explosion
   blue: {
     kind: 'pull', anim: 'special', cost: 100, startup: 12, recovery: 23, dist: 2.6, radius: 3.5, len: 50, pull: 9, tick: 9, name: 'LAPSE: BLUE', color: '#4aa8ff', ground: 'implode',
     tickHit: { dmg: 8, hitstun: 24, push: 0, airPop: 1.2, hitstop: 2, spark: 'light' },
-    pop: { dmg: 40, launch: [0, 13], hitstop: 10, big: true, spark: 'heavy' },
+    pop: { dmg: 40, launch: [0, 13], hitstop: 10, big: true, spark: 'none' }, // the implosion (look.collapse) is its spark
+    look: { core: 'lapseBlue', coreScale: 0.95, collapse: 'blueCollapse', collapseScale: 1.05, rubble: 2, rubbleEvery: 4 },
   },
-  red: { kind: 'shot', anim: 'specialForward', startup: 14, active: 3, recovery: 22, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a' },
-  redAir: { kind: 'shot', anim: 'throw', startup: 10, active: 3, recovery: 16, air: true, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a' },
-  blink: { kind: 'teleport', anim: 'specialUp', startup: 6, recovery: 6, cost: 50, hide: 6, to: 'above', off: 0.9, height: 2.3, ghosts: 0, follow: null, name: 'BLINK', color: '#9fd8ff' },
+  // ENG-SKL-GOJ: Red gathers on his raised fingertip through the startup (the hand tick's `fx` with `fxForm`: frames by
+  // the startup's progress, on the strip's drawn hand anchors)
+  red: { kind: 'shot', anim: 'specialForward', startup: 14, active: 3, recovery: 22, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a', fx: 'redForm', fxForm: true, fxScale: 0.42 },
+  redAir: { kind: 'shot', anim: 'throw', startup: 10, active: 3, recovery: 16, air: true, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a', fx: 'redForm', fxForm: true, fxScale: 0.42 },
+  // ENG-SKL-GOJ: no smoke; space folds, a tiny Blue implosion where he vanishes and where he reappears (vanishFx / appearFx)
+  blink: { kind: 'teleport', anim: 'specialUp', startup: 6, recovery: 6, cost: 50, hide: 6, to: 'above', off: 0.9, height: 2.3, ghosts: 0, follow: null, name: 'BLINK', color: '#9fd8ff', vanishFx: { fx: 'blueCollapse', scale: 0.4 }, appearFx: { fx: 'blueCollapse', scale: 0.4 } },
   infinity: { kind: 'counter', anim: 'specialDown', cost: 50, len: 24, recovery: 14, stagger: 48, onCounter: 'freeze', name: 'INFINITY', callout: 'INFINITY!', color: '#d8f2ff' },
 
   // ---- Goku (Super Saiyan, Cell saga; ADR 0032)
@@ -455,7 +493,7 @@ export const SPECIAL_MOVES = {
   // the JET names (`names`), all read through kit.modeLook (view only)
   gearSecond: {
     kind: 'mode', anim: 'charge', cost: 100, startup: 20, recovery: 8, len: 420, speed: 1.25, damage: 1.1, defense: 1.0,
-    fx: 'none', auraColor: '#ff9c9c', auraCore: [1.0, 0.86, 0.86], name: 'GEAR SECOND', color: '#ff7a7a', charge: { level: 1 },
+    auraColor: '#ff9c9c', auraCore: [1.0, 0.86, 0.86], name: 'GEAR SECOND', color: '#ff7a7a', charge: { level: 1 },
     recolor: 'gear2', aura: { fx: 'gear2Steam', scale: 0.85, front: 0.3, glow: 0 }, burstFx: { fx: 'gear2Burst', scale: 1.0, center: true }, ghost: 4,
     names: { 'GUM-GUM PISTOL': 'GUM-GUM JET PISTOL', 'GUM-GUM BAZOOKA': 'GUM-GUM JET BAZOOKA', 'GUM-GUM WHIP': 'GUM-GUM JET WHIP', 'GUM-GUM ROCKET': 'GUM-GUM JET ROCKET' },
   },
@@ -465,7 +503,18 @@ export const SPECIAL_MOVES = {
 // kind: flurry | domain | ignite | skyStrike | orb | rampage | reflex | laneStrike (src/game/kit.js). `range` = the CPU only fires
 // it this close. pose = the animation during the super flash (default superPose); strikePose = the release.
 export const SUPERS = {
-  speedOfLightning: { kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 8, every: 7, hitDmg: 22, finalDmg: 130, minScale: 0.8, hitFx: 'lightning', finalFx: 'thunder', name: 'GODSPEED: SPEED OF LIGHTNING', color: '#bfe6ff', ground: 'lightning' },
+  // Speed of Lightning (電光石火, Killua): `zigzag` plays the anime inside the plain flurry's frames (ENG-SKL-KIL). Godspeed
+  // is on him (`aura`, `shell`); the dash and every blink between blows leave a lightning streak (`streak`); each blow is one of
+  // `attacks` (his own normals, `pose` for the last) with the shock bursting through them (`shock`); then he is over
+  // them, the bolt from the sky comes down through him (`column`) and Narukami hits the floor under them (`strike`)
+  speedOfLightning: {
+    kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 8, every: 7, hitDmg: 22, finalDmg: 130, minScale: 0.8, hitFx: 'lightning', finalFx: 'thunder', name: 'GODSPEED: SPEED OF LIGHTNING', color: '#bfe6ff', ground: 'lightning',
+    aura: SPECIAL_MOVES.godspeed.aura, shell: SPECIAL_MOVES.godspeed.shell,
+    zigzag: {
+      attacks: ['light1', 'fair', 'light3', 'bair', 'heavy', 'light2', 'uair', 'light4'], streak: 'godspeedStreak', shock: { fx: 'palmShock', scale: 0.6, smoke: 0, ring: 0.8 },
+      pose: ['specialUp', 2, 0.999], gather: { fx: 'palmCrackle', scale: 0.6 }, column: { fx: 'narukamiBolt', scale: 0.9, top: 9 }, strike: { fx: 'narukamiStrike', scale: 1.5 },
+    },
+  },
   // Shadow Clone Barrage (Naruto, ENG-SKL-NAR): `crew` turns the flurry into the anime's. His dash and first blow (the
   // plain flurry's catch), then he holds the `seal` while `hits` clones come one at a time, every `every` frames: each
   // poofs in on its own side `ring` units from the target, plays one of `attacks` through over `life` frames (hit on
@@ -480,7 +529,14 @@ export const SUPERS = {
       kicks: 4, kickEvery: 6, kickDmg: 12, rise: 2.2, drop: 10, callout: ['U', 'ZU', 'MA', 'KI'], dropFx: 'rasengan', dropScale: 0.85, burstFx: 'rasenganBurst',
     },
   },
-  unlimitedVoid: { kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff' },
+  // Unlimited Void (Gojo). The anime's sequence (ENG-SKL-GOJ, src/world/voidStage.js), view only: the Six Eyes `glint`
+  // as the domain opens (`on: 'cast'`; [forward, up] off his feet on superPose), a black sphere bursting out of him that
+  // swallows the arena over `open` frames (the cosmos inside), light flooding the frozen opponent's head (`flood`) and
+  // the void shattering like glass when it ends (`shatter`). The hold is unchanged: they freeze the frame it opens
+  unlimitedVoid: {
+    kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff',
+    glint: { fx: 'sixEyesGlint', at: [0.06, 1.58], scale: 0.55, on: 'cast' }, open: 18, flood: { fx: 'voidFlood', scale: 0.48, up: 1.5 }, shatter: 'voidShatter',
+  },
   // Kirin (Sasuke): `storm` plays the anime's sequence inside the sky strike's frames (ENG-SKL-SAS, kit.js stormTick):
   // the Great Fireball breathed up (it takes `heat` frames to reach the sky), `clouds` thunderclouds `spread` apart
   // gathering `height` units over the spot from `cloudAt` over `gather` frames while the stage dims to `dim` (and the
@@ -503,10 +559,17 @@ export const SUPERS = {
   // the imaginary mass rolls forward, erasing every projectile in its path. Huge and slow-ish: you leave its lane or
   // vanish, you can't block it. One hit (`dmg`, unscaled), then it keeps going and carves a trench. Fired into the
   // opponent's running ultimate it merges in `answerMerge` frames instead, so the two meet (a rhythm clash).
+  // The anime's look (ENG-SKL-GOJ), view only: Red and Blue held in his drawn palms (def.hands.beamCharge: Red near,
+  // Blue far, `handScale`), a non-looping beamCharge played across the merge by progress (his hands coming together),
+  // the two colliding into Purple (`form`, from `formAt` of the merge), the HD mass (`mass`, its scale `massScale` x the
+  // radius) with no glow disc, the specks it erases drawn into it, and its own hit (`burst`) instead of the explosion.
+  // The Six Eyes `glint` shows as the merge starts (the ultimate splash covers the flash)
   hollowPurple: {
     kind: 'orb', cost: 300, flash: 46, merge: 26, answerMerge: 8, recovery: 24, speed: 15, radius: 1.45, life: 2.4, dmg: 260, launch: [18, 12],
     pose: 'beamCharge', strikePose: 'beamFire', red: 0xff3048, blue: 0x4aa8ff, orb: 0xa24cff, glow: 0x7a2cff,
     name: 'HOLLOW TECHNIQUE: PURPLE', color: '#b46cff', ground: 'erasure',
+    look: { red: 'reversalRed', blue: 'lapseBlue', handScale: 0.3, form: 'purpleForm', formScale: 0.55, formAt: 0.3, mass: 'hollowPurple', massScale: 1.05, burst: 'purpleBurst', burstScale: 1.35 },
+    glint: { fx: 'sixEyesGlint', pose: 'beamCharge', at: [0.05, 1.53], scale: 0.55, on: 'merge' },
   },
   // Whirlwind (Killua): Godspeed's reflex mode. For `len` frames his body answers every blockable attack on its own:
   // a lightning blink behind the attacker (projectiles too) and the `follow` strike, up to `counters` times. Supers,
@@ -514,6 +577,9 @@ export const SUPERS = {
   whirlwind: {
     kind: 'reflex', cost: 300, flash: 40, recovery: 12, len: 300, counters: 4, hide: 4, follow: 'echoStrike',
     pose: 'beamCharge', name: 'GODSPEED: WHIRLWIND', callout: 'WHIRLWIND!', color: '#bfe6ff',
+    // the look (ENG-SKL-KIL): Godspeed bursts on (`burstFx`) and stays on his body (`aura`, `shell`) while it runs; each
+    // counter leaves an electrified afterimage where he stood (`echo`, its color) and a lightning streak to behind them
+    burstFx: { fx: 'godspeedBurst', scale: 1.4 }, aura: { ...SPECIAL_MOVES.godspeed.aura, front: 0.6 }, shell: SPECIAL_MOVES.godspeed.shell, streak: 'godspeedStreak', echo: 0x9fe8ff,
   },
 
   // ---- Goku and Luffy (ADR 0032)
@@ -551,8 +617,10 @@ export const SUPERS = {
 };
 
 // Passive abilities (kit.passive). Infinity stops projectiles but each stop costs Gojo ki.
+// `stopFx` (ENG-SKL-GOJ): the ripple of space where Infinity stops a shot dead; the shot hangs there `hang` seconds,
+// fading (view only)
 export const PASSIVES = {
-  infinity: { kiCost: 15 },
+  infinity: { kiCost: 15, stopFx: 'infinityRipple', stopScale: 0.55, hang: 0.4 },
 };
 
 // Ultimate clashes (ADR 0017): a rhythm duel on one shared note chart (src/game/clash.js). Frames at 60 fps.
