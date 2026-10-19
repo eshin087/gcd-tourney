@@ -1,6 +1,7 @@
 import { ROSTER } from './characters/index.js';
 import { bakeCharacter } from './art/rig/baker.js';
 import { ANIM_GUIDE, chatgptPrompt } from './art/animGuide.js';
+import { loopStart } from './game/animPhase.js';
 
 const $ = (id) => document.getElementById(id);
 const who = $('who'), grid = $('grid'), sheetWrap = $('sheetWrap'), status = $('status');
@@ -69,7 +70,7 @@ function draw(dt) {
     const d = p.a.durations?.[p.i] ?? 100;
     if (p.t > d) {
       p.t = 0;
-      p.i = (p.i + 1) % p.a.frames.length;
+      p.i = p.i + 1 < p.a.frames.length ? p.i + 1 : loopStart(p.a); // a preview repeats; an intro plays once
     }
     const f = p.a.frames[p.i];
     p.ctx.clearRect(0, 0, fw, fh);

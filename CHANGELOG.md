@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ENG-117): holding Special no longer makes the fighter twitch. A strip can now play its first frames once and then loop from a later one (anims.json `loopFrom`; packer, game, menus, Sprite Lab, art review page, lab viewer), and `charge` becomes 6 frames: a gather and a release, then a slow held loop (70/90/110 ms instead of four frames at 50 ms; contract in art/SPEC.md "Charge", brief art/characters/CHARGE_BRIEF.md for the redraw, ART-CHARGE). The game no longer shakes the sprite at 11 Hz during the charge (the Smash attack charge keeps its shake), and the 3D placeholder charges the new way. Today's 4-frame charge art keeps playing as before until each fighter's redraw lands. The determinism fixtures are re-recorded on the new simulation fingerprint (14a183eebf2c); both replay frame for frame.
+
 - Changed: the determinism fixtures are re-recorded after Goku's seven Smash moves (fingerprint 116df829f43b); both replay frame for frame.
 
 - Fixed (ENG-116): Sasuke's Lion's Barrage no longer carries its victim past the ring barrier. The heel drop holds them a step beyond him, and with Sasuke as P2 his move runs after their physics, so a victim kicked up at the barrier hung up to 0.1 outside it for the slam (soak() `ring` violations, about 6 in 1,000 Impossible matches, all `launched` victims at x or z = ±8.63-8.65). A held body is now always placed inside the barrier (`kit.js` holdAt). The determinism fixtures are re-recorded on the new simulation fingerprint (4e0e4469acfe); both replay frame for frame.
