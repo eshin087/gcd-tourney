@@ -1,5 +1,11 @@
 # Proposed shared review rows (Claude to integrate)
 
+## ART-CHARGE: user approval (2026-10-18)
+
+The user approved Luffy charge v02 via Claude relay charge #6, exact quote: “Approve v02 as drawn”. The saved call-2 3x2 grid was promoted byte-identically from `_qa_hold` to `raw/charge_v02.png`; SHA-256 `69e94d35c8e7832f5a08104e93a7fd61d1268ecdb1e491678396403522c2dd5`. The user had seen Claude's animated trial preview. No new generation calls or pixel edits. Three calls total were used: call 1 returned an unrecoverable path; call 2 is the approved drawing; call 3's 3:1 soft-contour strip was not selected. Claude's trial pack reported feet within 1-3 px after fit and 3-4 px hold bob. Final packed-atlas anatomy/loop audit is still required.
+
+| 2026-10-18 | luffy | charge | [v02](characters/luffy/raw/charge_v02.png) | v02 | approved | Six-frame Gear Second charge approved as drawn | User via Claude relay charge #6: “Approve v02 as drawn”. SHA-256 `69e94d35c8e7832f5a08104e93a7fd61d1268ecdb1e491678396403522c2dd5`; no pixel edits. Trial pack feet within 1-3 px; hold bob 3-4 px. Packed-atlas Astra audit pending. |
+
 User approval (2026-10-16, Claude relay #10): the user approved down v03 and getup v03 only, quote: “Approved”. Their status is approved with approvedVersion 3. The final strict r6 candidate preview contains 23 animations / 108 frames, including special v02. User approval via Claude relay #12, exact quote: “Approve Goku light3 v13 and Luffy special v02 as drawn.” Special v01 is rejected as superseded; its candidate bytes are archived in `raw/_rejected/`, with relay #11 source-A dependency evidence preserved. Historical evidence follows.
 
 ## Relay #11 special recovery candidate (2026-10-16)

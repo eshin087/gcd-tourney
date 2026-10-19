@@ -97,8 +97,15 @@ release, and never flickers in the loop).
   pack that drops animations). Other lanes are changing these fighters' packs too (`combat` normals, the skills
   revamps): before you ring for the merge, `git merge main` again and re-pack.
 - **QA before the user sees it:**
+  - **Judge the packed cells, never the raw canvas** (Claude, 2026-10-18, after Goku, Luffy and Naruto were each held
+    over a layout the packer handles): a single 6-pose row, a 3x2 grid, a wide or non-square canvas, figures placed
+    off-centre in their cells and near-magenta backgrounds are all fine when the packer cuts six frames. Before holding
+    a candidate, scratch-pack it (`node tools/pack-sprites.mjs --root <scratch copy> --out <scratch> --quantize 48 <id>`)
+    and measure there; hold only for what the packed frames show. In the hold loop a 2-4 px breath or pump that moves
+    the whole upper body together is the intended motion, not drift.
   - **Registration sheet:** f2-f5 overlaid as an onion skin at 2x, plus each loop frame's difference from f2 with the
-    feet rows (y 220-240) and the head marked. The feet must not move; the head at most 2 px.
+    feet rows (y 220-240) and the head marked. The feet must not move (1-2 px of redrawn outline is fine); the head
+    moves only with the breath (Goku 2 px, Naruto 3 px, Luffy's pump 3-4 px were all approved).
   - Body sheet (`npm run body <id> charge`), `npm run lineup`, the strict pack, and the loop in the lab
     (lab.html ANIMATIONS tab) at the manifest timing.
   - Astra audits every frame and the loop in the packed atlas against idle f0 and the approved neutral/combat cells
