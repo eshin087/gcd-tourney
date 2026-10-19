@@ -1177,8 +1177,10 @@ const UPDATE = {
       };
       const g = f.game, p = f.pos;
       g.onKitMove(f, m);
-      // its own start burst at the feet (`burstFx`) in place of the white one
-      if (m.burstFx) g.fx.spawn(m.burstFx.fx, p.x, p.y, p.z, { bottom: true, scale: m.burstFx.scale ?? 1, order: 8 });
+      // its own start burst (`burstFx`) in place of the white one: at the feet, or with `center` on his chest (an effect
+      // drawn bursting out of the whole body's outline)
+      const BF = m.burstFx;
+      if (BF) g.fx.spawn(BF.fx, p.x, p.y + (BF.center ? 0.9 * (f.actor?.depthK ?? 1) : 0), p.z, { bottom: !BF.center, scale: BF.scale ?? 1, order: 8 });
       else g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
       if (m.cloak) g.fx.cloakBurst(f, m.cloak); // the chakra wells up over him all at once
       else if (f.mode.fx === 'chakra') for (let i = 0; i < 8; i++) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 1.2, p.y + 0.5, p.z, m.auraColor, 1.4);
