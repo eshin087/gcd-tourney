@@ -708,7 +708,9 @@ export class Effects {
   span(name, from, dir, len, camRight, o = {}) {
     const sx = dir.x * camRight.x + dir.z * camRight.z, flip = sx < 0, phi = Math.atan2(dir.y, sx);
     const it = this.spawn(name, from.x + (dir.x * len) / 2, from.y + (dir.y * len) / 2, from.z + (dir.z * len) / 2, { ...o, flipX: flip, rot: flip ? phi - Math.PI : phi });
-    const s = len / (it.cellWorld * (o.fill ?? 0.95));
+    // the quad's world size, so the drawn part (`fill` of the cell) spans `len`. The mesh scale is already in world units
+    // (spawn folds the cell's world size into it): dividing by cellWorld again drew an HD blade at ~44 % of its reach
+    const s = len / (o.fill ?? 0.95);
     it.base = s;
     it.mesh.scale.set(flip ? -s : s, s, s);
     return it;

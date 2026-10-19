@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Regression test for sparse art worktrees (TOOL-048: `pr start --art`, `pr art`, tools/sparse-art.mjs).
+// Regression test for sparse art worktrees (TOOL-048: `pr start --art`, `pr art`, tools/sparse-art.mjs), and for
+// `pr prune` / `pr merge` meeting a registered worktree whose folder is gone (TOOL-063).
 //   node tools/test-sparse-art.mjs   (part of `npm run test:guard`; add --keep to keep tools/.test-fixtures/sparse-art/)
 // Builds a throw-away repository under tools/.test-fixtures/ holding a copy of tools/pr.mjs and its imports, then runs
 // the real `pr start` there and checks what lands on disk: art/vfx/raw/ was empty in a worktree on 2026-10-15 and the
@@ -29,6 +30,7 @@ function buildRepo() {
   git(REPO, 'init', '-q', '-b', 'main');
   git(REPO, 'config', 'user.email', 'sparse@test'); git(REPO, 'config', 'user.name', 'sparse test'); git(REPO, 'config', 'core.autocrlf', 'false');
   for (const f of ['pr.mjs', 'pr-guard.mjs', 'sparse-art.mjs', 'scratch-dir.mjs']) put('tools/' + f, fs.readFileSync(path.join(TOOL_DIR, f)));
+  put('tools/publish.mjs', '// stub: `pr merge` publishes to GitHub; the fixture never does\n');
   put('.gitignore', '.worktrees/\nnode_modules/\n');
   put('package.json', '{ "name": "sparse-fixture", "private": true }\n');
   put('src/game/code.js', 'export const x = 1;\n');
@@ -97,6 +99,43 @@ function main() {
   const r7 = pr(REPO, 'start', 'art/broken', '--art', 'vfx', '--no-install');
   fs.writeFileSync(s, orig);
   check(r7.status !== 0 && /raw art is not checked out: art\/vfx\/raw\/ \(4 of 4/.test(r7.stderr), `start refuses a worktree whose --art raw/ is missing (exit ${r7.status}) ${r7.stderr.trim()}`);
+
+  // 6) a registered worktree whose folder is gone (TOOL-063): on 2026-10-18 git still listed a deleted app worktree, and
+  //    prune died with `spawnSync git ENOENT` running git status there, before reaching the worktrees after it
+  const listed = (dir) => git(REPO, 'worktree', 'list', '--porcelain').toLowerCase().includes(dir.replace(/\\/g, '/').toLowerCase());
+  const branchOf = (b) => git(REPO, 'branch', '--list', b);
+  const [gone, later, open, held] = ['fix/gone', 'fix/later', 'fix/open', 'fix/held'].map((b) => {
+    const d = wt(b), f = `${path.basename(d)}.txt`;
+    const r = pr(REPO, 'start', b, '--no-install');
+    check(r.status === 0, `pr start ${b} (exit ${r.status}) ${r.stderr.trim()}`);
+    fs.writeFileSync(path.join(d, f), b + '\n'); git(d, 'add', '--', f); git(d, 'commit', '-q', '-m', b);
+    return d;
+  });
+  for (const b of ['fix/gone', 'fix/later', 'fix/held']) git(REPO, 'merge', '-q', '--no-ff', '--no-edit', b);
+  git(REPO, 'worktree', 'lock', held);
+  for (const d of [gone, open, held]) fs.rmSync(d, { recursive: true, force: true });
+  const r8 = pr(REPO, 'prune', '--dry-run');
+  check(r8.status === 0, `prune --dry-run survives worktrees whose folder is gone (exit ${r8.status}) ${r8.stderr.trim().split('\n').pop()}`);
+  check(/would clear the registration of .*fix-gone: its folder is missing \(fix\/gone merged\)/.test(r8.stdout) && /would remove .*fix-later \(fix\/later merged\)/.test(r8.stdout),
+    `--dry-run reports the missing worktree in one line and goes on to the rest (${r8.stdout.trim()})`);
+  check(listed(gone) && branchOf('fix/gone') && fs.existsSync(later), '--dry-run changes nothing');
+  const r9 = pr(REPO, 'prune');
+  check(r9.status === 0, `prune survives worktrees whose folder is gone (exit ${r9.status}) ${r9.stderr.trim().split('\n').pop()}`);
+  check(!listed(gone) && !branchOf('fix/gone') && /cleared the registration of .*fix-gone/.test(r9.stdout), `prune clears the missing merged worktree's entry and deletes its branch (${r9.stdout.trim()})`);
+  check(!listed(later) && !fs.existsSync(later) && !branchOf('fix/later'), 'prune still removes the present merged worktree after it');
+  check(listed(open) && branchOf('fix/open') && /kept the registration of .*fix-open: its folder is missing, but fix\/open is not merged/.test(r9.stderr),
+    `an unmerged branch's missing worktree is only reported (${r9.stderr.trim()})`);
+  check(listed(held) && branchOf('fix/held') && /fix-held: its folder is missing, but it is locked/.test(r9.stderr), 'a locked missing worktree is only reported');
+
+  //    `pr merge` of a branch whose worktree folder an app already deleted (outside .worktrees/): no stale entry left,
+  //    so the branch is deleted instead of staying "checked out" in a folder that does not exist
+  const app = path.join(REPO, '.claude', 'worktrees', 'charge');
+  git(REPO, 'worktree', 'add', '-q', '-b', 'fix/charge', app, 'main');
+  fs.writeFileSync(path.join(app, 'charge.txt'), 'c\n'); git(app, 'add', '--', 'charge.txt'); git(app, 'commit', '-q', '-m', 'charge');
+  fs.rmSync(app, { recursive: true, force: true });
+  const r10 = pr(REPO, 'merge', 'fix/charge', '--no-deploy');
+  check(r10.status === 0 && /cleared the registration of .*charge: its folder is gone/.test(r10.stdout), `pr merge clears the entry of the deleted folder (exit ${r10.status}) ${r10.stderr.trim()}`);
+  check(!listed(app) && !branchOf('fix/charge') && git(REPO, 'log', '-1', '--format=%s').includes('fix/charge'), 'pr merge merged fix/charge and deleted the branch');
 
   if (!KEEP) {
     try { git(REPO, 'worktree', 'prune'); } catch { /* removed below anyway */ }
