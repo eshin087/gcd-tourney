@@ -136,6 +136,8 @@ src/art/
                             pose.js (pose model, keyframes), anims.js (shared moveset), face.js (pixel faces),
                             baker.js (bake to sheet + boxes + portrait + cut-in)
 src/world/arena.js          tournament grounds: ring, temple, stands + instanced crowd, gate, trees, sky, dimming
+src/world/announcer.js      the live announcer (ADR 0048): walks the ring behind the fight, ring calls, KO count,
+                            picks his lines (announcerLines.js) and drives his caption; view only
 src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
                             by Game.startDomain via setStage('void')
 src/ui/
@@ -143,6 +145,7 @@ src/ui/
                             chips and rating (ADR 0026), callouts, TAGS technique banners (ADR 0022), announcements,
                             super cut-in, clash bar and rhythm track
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
+  speechBubble.js           the announcer's lines: a small caption above his head (DOM, under the HUD)
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)
 src/style.css               all DOM UI styling
@@ -415,8 +418,13 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   new image, nearest filtering), so geometry and repeat counts, and therefore world coverage, never change.
 - **NPCs:** `loadNpcArt()` reads `public/npc/<id>/anims.json` + `sheet.png` for each entry of `NPCS` (placement,
   mirroring); `arena.setNpcArt()` places one `NpcSprite` billboard per sheet (unlit, dimmed with the crowd; the announcer
-  sheet hides the painted announcer). `Game` calls `arena.npcCue(kind)` on intro, round start, supers, ultimates,
-  clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time.
+  sheet hides the painted announcer). `Game` calls `arena.npcCue(kind, info)` on intro, round start, supers, ultimates,
+  clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time. The announcer is
+  live (ADR 0048): `Game` attaches an `Announcer` (`arena.setCaster`), whose body is the packed sheet or the painted
+  placeholder; he hears every cue (also specials, combos, technique tags, throws, MAX POWER, clash wins, time-up),
+  reads the game each render (`arena.update(time, excite, game, dt)`), moves and animates himself (a missing
+  animation plays its `NPC_FALLBACK`) and speaks through `SpeechBubble`. `Game.quiet` stands the arena in during a
+  rollback, so a re-simulated frame never cues him twice; he never writes to the simulation.
 - **Title art:** `loadUiArt()` reads `public/ui/manifest.json`; `Menus.title()` shows the logo image instead of the CSS
   logo and the key art behind it.
 - **Ground decals (packer side, ADR 0024):** `npm run sprites decals` (`tools/pack-decals.mjs`, called by the sprite

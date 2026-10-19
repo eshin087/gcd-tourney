@@ -3117,6 +3117,17 @@
             "cower": {"status":"approved","version":1,"approvedVersion":1}
           }
         },
+        "npc-announcer-r1": {
+          "status": "todo",
+          "reviewStatus": "todo",
+          "note": "ENG-118 live announcer: walk 4, run 4, shocked 2, micThrust 2 (art/npc/announcer/ANIMATIONS.md)",
+          "items": {
+            "walk": {"status":"todo","version":0,"approvedVersion":null},
+            "run": {"status":"todo","version":0,"approvedVersion":null},
+            "shocked": {"status":"todo","version":0,"approvedVersion":null},
+            "micThrust": {"status":"todo","version":0,"approvedVersion":null}
+          }
+        },
         "npc-monk-a": {
           "status": "approved",
           "reviewStatus": "approved",
