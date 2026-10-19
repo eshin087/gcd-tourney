@@ -339,6 +339,7 @@ export class Effects {
   }
 
   update(dt, camera) {
+    this.camera = camera; // handAt lays the drawn hand along the billboard's axes
     camera.getWorldDirection(this.camFwd);
     this.sigils.update(dt, camera, this.camFwd);
     const now = performance.now();
@@ -943,10 +944,22 @@ export class Effects {
   // ------------------------------------------------------------ limbs (ENG-SKL-LUF)
   // Where the drawn hand is now: the frame's `hand` anchor (or hit box) in the world, else `def` [forward, up]. A limb
   // longer than its strip's cell leaves the cell at the edge with the anchor there, and these effects carry it on.
+  // The body is a billboard facing the camera (SpriteActor.sync), so the point lies along the camera's right and up
+  // axes: one straight above the feet drew low by 1 - cos(tilt) of its height, ~12 px under the Gigant Pistol's ~25
+  // degree super camera, a step where the giant arm met the drawn one. Render only, like depthK.
   handAt(f, def = [0.5, 0.9]) {
     const P = f.renderPos || f.pos, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1;
-    const fwd = H ? H.x : def[0], up = H ? H.y : def[1];
-    return { x: P.x + f.face.x * fwd * k, y: P.y + up * k, z: P.z + f.face.y * fwd * k };
+    const fwd = (H ? H.x : def[0]) * k, up = (H ? H.y : def[1]) * k, e = this.camera?.matrixWorld.elements;
+    if (!e) return { x: P.x + f.face.x * fwd, y: P.y + up, z: P.z + f.face.y * fwd };
+    const s = f.actor?.flip ?? 1; // mirrored when he faces screen-left
+    return { x: P.x + s * fwd * e[0] + up * e[4], y: P.y + s * fwd * e[1] + up * e[5], z: P.z + s * fwd * e[2] + up * e[6] };
+  }
+
+  // how far `to` rises above `from` on screen: along the camera's up axis, which the billboards lie on (handAt), so a
+  // limb from a hand drawn on the body to a point out in the world turns and stretches the way it is seen
+  rise(from, to) {
+    const e = this.camera?.matrixWorld.elements;
+    return e ? (to.x - from.x) * e[4] + (to.y - from.y) * e[5] + (to.z - from.z) * e[6] : to.y - from.y;
   }
 
   // A stretched limb from `from` to `to` (Luffy's rubber arm, Killua's yo-yo string): a tube effect drawn pointing
@@ -954,7 +967,7 @@ export class Effects {
   // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. A null `id` lays it
   // once instead, playing its strip through and gone (Killua's Godspeed streaks). `o.color` tints it.
   limb(id, name, from, to, thick, tube, camRight, o = {}) {
-    const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
+    const dy = this.rise(from, to), sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
     const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2, mz = (from.z + to.z) / 2;
     const so = { order: o.order ?? 7, depthTest: false, color: o.color };
     const it = id == null ? this.spawn(name, mx, my, mz, so) : this.keep(id, name, mx, my, mz, so);
@@ -968,7 +981,7 @@ export class Effects {
   // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, `scale` cells, turned along the limb
   // (kept by `id`, or played once with a null `id`, like limb)
   limbEnd(id, name, at, from, scale, camRight, o = {}) {
-    const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
+    const dy = this.rise(from, at), sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
     const so = { order: o.order ?? 8, depthTest: false, color: o.color };
     const it = id == null ? this.spawn(name, at.x, at.y, at.z, so) : this.keep(id, name, at.x, at.y, at.z, so);
     const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
