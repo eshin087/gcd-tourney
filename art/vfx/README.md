@@ -136,12 +136,27 @@ approved (and while its page loads at the start of a match).
 | `narukamiBolt` | killua | 4 | 40 | full color | center | Narukami's bolt from the sky, stacked down to him and the floor; exact 256 x 256 frames that tile top to bottom |
 | `narukamiStrike` | killua | 8 | 45 | full color | bottom | Narukami hitting the floor |
 | `yoyo` | killua | 8 | 30 | full color | center | Killua's electrified steel yo-yo flying out and back (loop; the engine draws its string) |
+| `gumArm` | luffy | 2 | 60 | full color | center, tile | Luffy's stretched rubber arm, stretched between his drawn hand and the fist; exact 256 x 256 frames, every column the same |
+| `gumFist` | luffy | 4 | 40 | full color | center | the Gum-Gum Pistol's fist at the end of the arm (loop) |
+| `gumImpact` | luffy | 7 | 35 | full color | center | a rubber blow landing: the Pistol, the Whip, the Rocket's slam, each Jet Gatling blow |
+| `bazookaBlast` | luffy | 8 | 45 | full color | center | the Gum-Gum Bazooka's double palm (and the Jet Bazooka) |
+| `rocketSnap` | luffy | 6 | 45 | full color | bottom | the Gum-Gum Rocket's take-off |
+| `whipSweep` | luffy | 6 | 40 | full color | center | the Gum-Gum Whip: his stretched leg lashing along the floor |
+| `gear2Steam` | luffy | 8 | 60 | full color | bottom | Gear Second steam pouring off his body (loop; the body area left clear) |
+| `gear2Burst` | luffy | 7 | 45 | full color | center | Gear Second kicking in: steam bursting from his body |
+| `gatlingFists` | luffy | 6 | 35 | full color | center | Jet Gatling: the storm of pink fists between him and the target (loop) |
+| `gear3Puff` | luffy | 6 | 45 | full color | center | Gear Third's Bone Balloon: air rushing into the thumb and the arm |
+| `gigantArm` | luffy | 2 | 60 | full color | center, tile | the Gigant Pistol's giant arm down the lane; exact 256 x 256 frames, every column the same |
+| `gigantFist` | luffy | 4 | 40 | full color | center | the giant fist at the end of it (loop) |
+| `gigantImpact` | luffy | 8 | 50 | full color | center | the giant fist landing |
+| `luffyChibi` | luffy | 6 | 80 | full color | bottom | chibi Luffy standing in for his body after Gear Third (loop) |
 
 The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md),
 [art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md),
 [art/characters/gojo/SKILLS_REVAMP.md](../characters/gojo/SKILLS_REVAMP.md),
-[art/characters/killua/SKILLS_REVAMP.md](../characters/killua/SKILLS_REVAMP.md) and
-[art/characters/goku/SKILLS_REVAMP.md](../characters/goku/SKILLS_REVAMP.md).
+[art/characters/killua/SKILLS_REVAMP.md](../characters/killua/SKILLS_REVAMP.md),
+[art/characters/goku/SKILLS_REVAMP.md](../characters/goku/SKILLS_REVAMP.md) and
+[art/characters/luffy/SKILLS_REVAMP.md](../characters/luffy/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)
 

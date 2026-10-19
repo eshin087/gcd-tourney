@@ -252,6 +252,17 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 | `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (a puff where he stood, the log left in it with `log`, teleport behind, `follow`); `current`: an effect bursting from his body on the read, with an afterimage (Chidori Current, ADR 0047) | Infinity, Sharingan, Substitution |
 | `mode` | a timed buff on `f.mode`: `speed` ×, `damage` ×, `defense` (divides damage taken), `blinkDash`; look: `fx: 'lightning' \| 'chakra'`, `auraColor`/`auraCore`, or a `cloak` on the body (see-through chakra over it, a boiling rim, one tail; ADR 0044); `burstFx` (its own start burst instead of the white one: at the feet, or on the chest with `center`) and, while it lasts, `shell` (an AuraShell outline on the body, a charge style's shell shape), `tint` (a body tint) and `aura` (an effect kept at the feet: one copy behind, a see-through `front` copy); the same look block is read from a reflex super or a running kit move (`kit.modeLook`); `blink` (a streak laid along each blink dash: Godspeed, ADR 0052); drains a HUD bar | Godspeed, Nine-Tails Cloak, Gear Second, Kaio-ken |
 
+- **Luffy's rubber techniques (ADR 0051), all view or data:** a projectile's shared `limb` with an `end` draws the
+  stretched arm from the drawn hand to the fist, which snaps back when the shot ends (Gum-Gum Pistol, ground and air);
+  a rush's `sweep` lays a stretched limb from the drawn anchor along the floor when its active frames start (Gum-Gum Whip); a
+  dive's `grab` draws his arms from his hands up to what they grabbed `height` units up, shortening as he climbs, and
+  `launchFx` snaps at the take-off (Gum-Gum Rocket); beside the shared mode look (`kit.modeLook`: `shell`, `tint`,
+  `aura`), a power-up's `recolor` swaps colours on the drawn body (the fighter's `recolor` table: Gear Second's pink
+  skin in every animation; its steam is an `aura` and its burst a `burstFx` with `center`, which
+  replace the element burst and crackle), `ghost` leaves an afterimage every that many frames, and `names` renames the moves it calls out (GUM-GUM JET
+  PISTOL, JET BAZOOKA, JET WHIP, JET ROCKET). Their hits are knuckle impacts and double-palm blasts (`blastFx`,
+  `burstFx`), never the white burst; a hit with `blastFx` skips the smash's slow-motion beat.
+
 - Named kit moves get the special callout and an 8-frame flash. A kit move hit out of startup is
   cancelled cleanly (`kitState` cleared, the fighter made visible again).
 - **Tap Special** (press and release within 14 frames) on a `rush` kit move: a 1-bar rush special. Startup forms the technique in the
@@ -280,6 +291,10 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   Four clones then kick it skyward one after another (4 × 12, "U! ZU! MA! KI!"), and Naruto drops on it from above
   with a big Rasengan (120, ground bounce). Same dash, range and catch as the plain flurry. The clones are drawn only:
   every hit is Naruto's.
+- **Gear Second: Jet Gatling** (Luffy, a flurry with `front`, ADR 0032 and 0051): the Gear Second pump in the flash
+  (`flashPose: 'charge'`), his skin pink and steaming through the super, then from in front of them a storm of fists
+  (`fists`, an effect held between him and the target) with a knuckle impact per blow (9 × 20), and a double-palm Jet
+  Bazooka (`finalPose`, `finalFx`, "JET BAZOOKA!") that sends them into the wall (125). Frame data unchanged.
 - **Sky strike** (`kirin`, Sasuke): a 40-frame flash, then the storm **marks the spot** where the opponent
   stands and a lightning dragon hits it 40 frames later (280, unblockable, radius 2). The opponent can dash
   out of the mark ("DODGED!"). Uses Sasuke's `beamCharge` / `beamFire` poses. Its `storm` (ADR 0047) plays the
@@ -327,7 +342,11 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Gear Third: Gigant Pistol** (Luffy, kind `laneStrike`, ADR 0032): a 44-frame flash, a 34-frame windup while the
   arm blows up, then the giant fist shoots down the lane he faces to 7 units in 8 frames and hits once for 270
   (unblockable, wall bounce) anything within 1.1 of the lane and below 2.0 up. It commits to the lane when the punch
-  leaves: leave the lane or jump during the windup. It never clashes. 30 frames of recovery.
+  leaves: leave the lane or jump during the windup. It never clashes. 30 frames of recovery, 54 after a hit. The anime
+  (ADR 0051): the windup plays once through (the thumb bite, the arm swelling with air puffs, the giant fist raised)
+  and ends on the wind-back; the giant arm is drawn from his shoulder to the giant fist down the lane and snaps back;
+  its own impact replaces the white-out; then chibi Luffy stands where he was for the rest of the recovery (the body
+  hidden, visual only).
 - **Kamehameha** (Goku): the shared beam (below), his `beam` palette and look (ADR 0050).
 
 ### Passives

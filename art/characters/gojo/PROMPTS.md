@@ -830,7 +830,7 @@ BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on t
 
 ### A15 · `charge`: calm power-up (loop) (CORE)
 
-4 frames, loops. **Save as: `raw/charge_vNN.png`** (next free version). Attach: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#charge).
+6 frames: gather and release once, then hold loop from f2. **Save as: `raw/charge_vNN.png`** (next free version). Attach only the approved identity references: `reference/model_sheet.png`, `reference/expressions.png`, `reference/idle_approved.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#charge) and [CHARGE_BRIEF.md](../CHARGE_BRIEF.md).
 
 ```text
 Hi-res pixel-art sprite strip for a 2D anime arena fighting game (anime fan-art sprite).
@@ -838,15 +838,17 @@ CHARACTER: Satoru Gojo from Jujutsu Kaisen, about 28 years old, in his dark juju
 PROPORTIONS: about 7 heads tall, serious adult anime proportions (the official modern TV-anime look): very tall and slender with broad shoulders, very long legs (the crotch at about half his height), long arms and large adult hands, a small head; relaxed, confident, cocky tone. He is the tallest fighter in the game, clearly taller than a 6.5-head teenage fighter, with the compact head size of the approved model v03 and idle v02. Not chibi, not super-deformed, no big head, no oversized hands or feet, not bulky, not western-realistic.
 Match the attached model sheet and approved idle strip exactly: same face, hair, blindfold, uniform, colors, proportions and character scale in every pose.
 
-ANIMATION: "charge", calm power-up. 4 frames, left to right. It loops: the last frame must flow smoothly back into the first.
+ANIMATION: "charge", calm power-up. Exactly 6 frames. Frame 0 is GATHER and frame 1 is RELEASE; then HOLD frames 2-5 loop smoothly from frame 5 back to frame 2. The six frames can be one horizontal row or a 3x2 grid; keep one clearly separable figure per pose.
 BLINDFOLD: the black blindfold covers both of his eyes and brows in every pose; never draw his eyes in this strip. His expression shows through the mouth, jaw and head tilt.
-1. Calm power-up: wide stance with the feet well apart and the knees bent, torso upright, arms held slightly out from his sides and down, palms open facing the floor, fingers spread; head tilted slightly back. Face: calm lazy smile (no shouting). Hair tips and the jacket hem blown upward by a rising wind, sleeves fluttering. Whole body shifted slightly left.
-2. Same, shifted slightly right; hair tips in a new flicker shape.
-3. Shifted slightly left; palms slightly higher.
-4. Shifted slightly right; the jacket hem in a new flicker shape.
-MOTION: A tiny tremble of power; the feet stay planted. Draw NO aura, no glow and no energy: the game adds them.
+0. GATHER once: shallow knee and shoulder dip, chin tucks, open hands draw inward; hair and clothes at rest.
+1. RELEASE once: open into the calm power stance: wide grounded stance, torso upright, arms slightly out and down, palms floorward and fingers spread, head lifts; blindfold stays on and the lazy smile remains (no shout). Hair and hem lift in the updraft.
+2. HOLD a: establish the released stance, the anchor for the loop.
+3. HOLD b: same body and feet placement; chest/shoulders rise 1-2 px with the breath; second updraft shape.
+4. HOLD c: same body placement; fingers/forearms quiver at most 1 px; third updraft shape.
+5. HOLD d: shoulders settle 1-2 px toward frame 2; fourth updraft shape, flowing cleanly back to frame 2.
+MOTION: Across frames 2-5 keep feet, knees and hips locked; head centre and fists move at most 2 px. Only the breath, fingers/forearms, hair and cloth move. Draw NO aura, glow or energy: the game adds them.
 
-LAYOUT: one single horizontal row of exactly 4 poses on a 1536x1024 landscape canvas. Split the width into 4 equal slots and center one pose in each slot, in order from left to right. Leave clear magenta gaps between neighbouring poses: no pose overlaps another or crosses into the next slot. Keep the declared source scale identical across all animations and parts; leave unused space instead of enlarging poses to fill slots.
+LAYOUT: six poses in one horizontal row or a 3x2 grid on a landscape canvas. Keep one pose per equal slot with clear magenta gaps; no pose overlaps or crosses slots. The packer must be able to cut six cells. Keep source scale identical across the poses; leave unused space instead of enlarging poses to fill slots.
 SCALE: exactly the same character scale in every pose (same head size). Grounded poses all stand on one shared horizontal baseline.
 SIZE: each pose is cut into a 256x256 game sprite where his standing body is about 215 px tall (soles to the top of the skull; the head matches approved model v03 and idle v02; the white hair adds about 18 px on top): draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite. He is so tall that his hands, elbows and feet must never rise above the top of his hair in any pose.
 VIEW: the character faces RIGHT in every pose. 3/4 view: body turned about 35 degrees toward the viewer, head turned a bit more so the front of the blindfold and both cheeks show, camera slightly above (about 12 degrees). His right arm and right leg are nearest the viewer. Palm strikes, punches and kicks travel horizontally toward the right edge of the image.

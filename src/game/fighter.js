@@ -2222,9 +2222,11 @@ export class Fighter {
       u.flashColor.value.set(0xbfe8ff);
       flash = Math.max(flash, 0.28 + 0.14 * dmath.sin(time * 42));
     }
-    // a power-up's body tint (kit.modeLook `tint`: Kaio-ken's red) under any stronger flash
-    const MT = kit.modeLook(this)?.tint;
+    // a power-up's body tint (kit.modeLook `tint`: Kaio-ken's red) under any stronger flash, and its palette swap
+    // (`recolor`, ENG-SKL-LUF: the fighter's exact sheet colours to new ones, Gear Second's pink skin)
+    const look = kit.modeLook(this), MT = look?.tint;
     if (MT && flash < MT.level) { u.flashColor.value.set(MT.color); flash = MT.level; }
+    this.actor.setRecolor(look?.recolor ? this.def.recolor?.[look.recolor] ?? null : null);
     if (this.game.superFlash?.who === this) flash = Math.max(flash, this.game.superFlash.t < 6 ? 1 : 0);
     u.flash.value = flash;
     // signature techniques on the body (ENG-SKL-NAR): the Nine-Tails Cloak over it, the Four-Tails chakra swallowing it
@@ -2240,6 +2242,10 @@ export class Fighter {
       u.engulfCore.value.set(sh ? sh.core : BURN_ENGULF.core);
       u.engulfRim.value.set(sh ? sh.rim : BURN_ENGULF.rim);
     }
+    // the body hidden while a kit move's `after` effect stands in for it (chibi Luffy through the Gigant Pistol's
+    // recovery, ENG-SKL-LUF)
+    const km = this.state === 'kit' ? this.kitState?.m : null;
+    this.actor.veil(!!(km?.after && this.kitState.phase === 'recover' && this.kitState.t0 >= kit.afterFrom(this.kitState)));
     // the shadow clones a kit move keeps in its state (kit.js crew, clones.js)
     const crew = this.state === 'kit' ? this.kitState?.crew : null;
     if (crew || this.crewView) (this.crewView ??= new CloneCrew(this.asset, this.game.scene)).sync(crew ?? null, camera, camRight, cam?.spriteRefDepth, cam?.time ?? time);

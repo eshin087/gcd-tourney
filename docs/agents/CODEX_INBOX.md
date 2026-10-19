@@ -25,16 +25,11 @@ notes in a fighter's ANIMATIONS.md). In short: `charge` becomes 6 frames, a one-
 slow held loop (f2-f5, `loopFrom: 2`, 110 ms frames) with the feet, hips and head locked, instead of today's 4 drifting
 frames at 50 ms. Claude adds `loopFrom` to the packer and the game (ENG-117) and removes the game's sprite shake.
 
-- [ ] 1. **Goku pilot.** `npm run pr -- start art/charge-goku --art goku`; generate `charge_vNN` per the brief (budget
-  3 calls per image), manifest, pack (after `git merge main` brings ENG-117), registration sheet, body sheet, lab loop,
-  Astra audit, review page `public/reviews/charge-goku/`, `npm run pr -- open` and `npm run pr -- preview`, handoff,
-  then ring `charge --for user --kind approval` and stop.
-- [ ] 2. **After a relayed USER APPROVAL of Goku** (or the user's redirect, which wins): Luffy, Naruto, Sasuke, Killua,
-  Gojo in that order, two worktrees at most, each through its own approval ring.
-- [ ] 3. Per approved fighter: `approvedVersion`, REVIEW/TRACKER rows, `node tools/pr.mjs check art/charge-<id>`
-  passes, commit, ring `charge` for Claude's in-game check and merge. No merge or production deploy by Codex.
+- [x] 1. **Goku pilot** (2026-10-19): v10 was approved and shipped in PR #191.
+- [x] 2. **After Goku approval** (2026-10-19): Luffy, Naruto, Sasuke, Killua and Gojo were each approved in order and merged (PRs #205, #207, #211 and #212; Gojo #215).
+- [x] 3. **Per-fighter records and checks** (2026-10-19): approvals and tracking were recorded; all six charge packs are live. Gojo v09 closed ART-CHARGE (PR #215, merge `fed5eaaf`).
 
-Progress (tick per fighter): - [ ] goku (pilot) - [ ] luffy - [ ] naruto - [ ] sasuke - [ ] killua - [ ] gojo
+Progress (completed 2026-10-19): - [x] goku (pilot) - [x] luffy - [x] naruto - [x] sasuke - [x] killua - [x] gojo (v09; PR #215, merge fed5eaaf)
 
 ---
 
