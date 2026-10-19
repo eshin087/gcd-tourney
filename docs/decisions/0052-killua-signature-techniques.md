@@ -1,4 +1,4 @@
-# 0048: Killua's signature techniques: body auras, clinging shocks, tethered shots, lingering afterimages
+# 0052: Killua's signature techniques: body auras, clinging shocks, tethered shots, lingering afterimages
 
 **Status:** Accepted (user request, 2026-10-18)
 **Date:** 2026-10-18

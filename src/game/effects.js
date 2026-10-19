@@ -30,6 +30,7 @@ const FRAG = /* glsl */ `
 const qz = new THREE.Quaternion();
 const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with its colors resolved (Effects.modeShell)
 const zAxis = new THREE.Vector3(0, 0, 1);
+const tPull = new THREE.Vector3(), tSwirl = new THREE.Vector3(), yAxis = new THREE.Vector3(0, 1, 0);
 
 function hexTexture() {
   const c = document.createElement('canvas');
@@ -306,6 +307,22 @@ export class Effects {
     for (let i = this.rocks.length - 1; i >= 0; i--) {
       const r = this.rocks[i];
       r.life -= dt;
+      if (r.pull) {
+        // dragged into a point (rubbleIn): spiralling in faster as it nears, shrinking to nothing at it
+        const d = tPull.copy(r.pull).sub(r.mesh.position), dist = d.length();
+        if (dist < 0.12 || r.life <= 0) {
+          this.scene.remove(r.mesh);
+          this.rocks.splice(i, 1);
+          continue;
+        }
+        d.divideScalar(dist);
+        tSwirl.crossVectors(d, yAxis).multiplyScalar(r.swirl * Math.min(2.5, dist * 1.5));
+        r.mesh.position.addScaledVector(d, (2.5 + 7 / (0.5 + dist)) * dt).addScaledVector(tSwirl, dt);
+        r.mesh.rotation.x += r.spin.x * dt;
+        r.mesh.rotation.z += r.spin.z * dt;
+        r.mesh.scale.setScalar(r.size * Math.min(1, dist / 0.7));
+        continue;
+      }
       r.vel.y -= 30 * dt;
       r.mesh.position.addScaledVector(r.vel, dt);
       r.mesh.rotation.x += r.spin.x * dt;
@@ -509,6 +526,24 @@ export class Effects {
     while (this.rocks.length > 60) this.scene.remove(this.rocks.shift().mesh);
   }
 
+  // Floor rubble torn up and dragged into a point `at` (fighter space; Lapse: Blue, ENG-SKL-GOJ): `n` chunks lift off the
+  // floor `r` away and spiral in (Effects.update), shrinking to nothing as they reach it
+  rubbleIn(at, n = 2, r = 2) {
+    for (let k = 0; k < n; k++) {
+      const size = 0.04 + Math.random() * 0.07, a = Math.random() * Math.PI * 2;
+      const m = new THREE.Mesh(this.rockGeo, this.rockMats[k % 3]);
+      m.scale.setScalar(size);
+      m.position.set(at.x + Math.cos(a) * r, RING_TOP + 0.06, at.z + Math.sin(a) * r * 0.6);
+      m.castShadow = true;
+      this.scene.add(m);
+      this.rocks.push({
+        mesh: m, size, life: 1.2, pull: new THREE.Vector3(at.x, RING_TOP + at.y, at.z), swirl: Math.random() < 0.5 ? 1 : -1,
+        vel: new THREE.Vector3(), spin: new THREE.Vector3((Math.random() - 0.5) * 20, 0, (Math.random() - 0.5) * 20),
+      });
+    }
+    while (this.rocks.length > 60) this.scene.remove(this.rocks.shift().mesh);
+  }
+
   // Hexagonal ki barrier flash where a fighter slams into the ring boundary.
   barrier(pos, axis, sign, color = '#7ad8ff') {
     const mat = new THREE.MeshBasicMaterial({ map: this.hexTex, color: new THREE.Color(color).multiplyScalar(1.8), transparent: true, opacity: 0.85, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
@@ -656,12 +691,14 @@ export class Effects {
     this.drop('handGlow' + f.index);
   }
 
+
   // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
   // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
-  // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind);
-  // `ring`: the shockwave's size against the blast's (0: none)
-  blast(name, x, y, z, scale, color, smoke = 3, ring = 2.2) {
-    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false });
+  // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind)
+  // `flipX`: a blast drawn pointing screen-right, mirrored for a shot flying screen-left (Reversal: Red's repulsion);
+  // `ring`: the shockwave's size against the blast's (0: none; Killua's shocks keep it small)
+  blast(name, x, y, z, scale, color, smoke = 3, flipX = false, ring = 2.2) {
+    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false, flipX });
     if (ring) this.spawn('ring', x, y, z, { scale: ring * scale, color, glow: 0.4, order: 7, depthTest: false });
     for (let k = 0; k < smoke; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
   }
@@ -672,7 +709,9 @@ export class Effects {
   span(name, from, dir, len, camRight, o = {}) {
     const sx = dir.x * camRight.x + dir.z * camRight.z, flip = sx < 0, phi = Math.atan2(dir.y, sx);
     const it = this.spawn(name, from.x + (dir.x * len) / 2, from.y + (dir.y * len) / 2, from.z + (dir.z * len) / 2, { ...o, flipX: flip, rot: flip ? phi - Math.PI : phi });
-    const s = len / (it.cellWorld * (o.fill ?? 0.95));
+    // the quad's world size, so the drawn part (`fill` of the cell) spans `len`. The mesh scale is already in world units
+    // (spawn folds the cell's world size into it): dividing by cellWorld again drew an HD blade at ~44 % of its reach
+    const s = len / (o.fill ?? 0.95);
     it.base = s;
     it.mesh.scale.set(flip ? -s : s, s, s);
     return it;

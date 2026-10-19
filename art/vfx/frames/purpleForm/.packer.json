@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/purpleForm_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/purpleForm_v01.png",
+    "vfx/raw/purpleForm_v01.json"
+  ],
+  "sourceHash": "63a5514f9ad0f19a942deed5dbea0c0a77557aaf",
+  "cell": 256,
+  "files": {
+    "purpleForm_00.png": "5b9e6b4372bc31eff55e1c457cc9325d463b0dde",
+    "purpleForm_01.png": "b78a191843df73de3bdbbeafe66d092c63c2169f",
+    "purpleForm_02.png": "57311396e73e844de34e32b4f7f69ce2d0cf143c",
+    "purpleForm_03.png": "bac12b8c5c64ee58d2d34fe61531142e4ed447f8",
+    "purpleForm_04.png": "2488ffc8131b5515668bfe22fb1ad207ec2a1839",
+    "purpleForm_05.png": "fd795cf65bf2e5da0dfb941b4a2a2a00c7db0a26",
+    "purpleForm_06.png": "e401bd35ec9d92f4e9e27143a6f4123f3ed03ed3",
+    "purpleForm_07.png": "ad6c88eedd54bd7ab385cd08baf50b5bf2b01e1a"
+  }
+}

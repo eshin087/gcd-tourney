@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/lapseBlue_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/lapseBlue_v01.png",
+    "vfx/raw/lapseBlue_v01.json"
+  ],
+  "sourceHash": "0d4639d7888c90197a32ccc4b37a7f5920ff9827",
+  "cell": 256,
+  "files": {
+    "lapseBlue_00.png": "8ccb7340b6b967312db65086dec239137ff330de",
+    "lapseBlue_01.png": "5367317c5c95833e8daa4bd80e40ba56cb66bb89",
+    "lapseBlue_02.png": "ddb02ef16407c7fea8ff28c19f3dce6c6082ca00",
+    "lapseBlue_03.png": "c2c24c9523600b8124e357fb79e7b527c5f750bf",
+    "lapseBlue_04.png": "627c1a7ba8895bcf87b3377da499021ebce1179e",
+    "lapseBlue_05.png": "3be6eba2056c6d69375782f57df7a7cb1b7949ec",
+    "lapseBlue_06.png": "5a24cbf5f87ffbb7a2ce533cabbcaa3ad7ae9ec1",
+    "lapseBlue_07.png": "3b22189e8abc1cfdc6e5f7bd4675c97d34342def"
+  }
+}

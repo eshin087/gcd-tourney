@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/reversalRed_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/reversalRed_v01.png",
+    "vfx/raw/reversalRed_v01.json"
+  ],
+  "sourceHash": "274889004209cf9149696e35f6b1ac0112bd14d9",
+  "cell": 256,
+  "files": {
+    "reversalRed_00.png": "dac163406620d3419ba1ed99e2d7d82d918a5e2b",
+    "reversalRed_01.png": "4d5a3e4249a750974666a299614f370cf0ec68fd",
+    "reversalRed_02.png": "813a92e83378082f776755c76f6d026315d82bee",
+    "reversalRed_03.png": "680614759aaee25d2bb0c1b4739fcd0385190229",
+    "reversalRed_04.png": "a795dfa977b5a6b2b85277623ff6dfe5fcdf5c44",
+    "reversalRed_05.png": "c6be367a252fdb6f67604f9bd1fc46f5644642d5",
+    "reversalRed_06.png": "97a831fbdcf5730bfa7a29d16d2cf9711563b154",
+    "reversalRed_07.png": "ee2603d7798c344c278ec94c10b3edb0568b0d2e"
+  }
+}

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gojo Skills Revamp · Batch 2 Review</title>
+  <style>
+    :root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#10141c;color:#edf2fa}
+    body{max-width:1160px;margin:0 auto;padding:24px}h1,h2,h3{line-height:1.2}p{color:#c2cad6}
+    .notice{border-left:4px solid #e4a63a;background:#292319;padding:14px 18px;margin:20px 0}
+    .card{background:#1a202b;border:1px solid #354052;border-radius:10px;padding:16px;margin:18px 0}
+    .tag{display:inline-block;padding:2px 9px;border-radius:20px;background:#593b18;color:#ffe1a5;font-size:.86rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+    .stage{height:256px;background:#39434a;border:1px solid #68747c;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+    .raw{width:100%;height:auto;background:#ff00ff;image-rendering:pixelated;border-radius:5px}
+    .meta,.caption{font-size:.92rem;color:#b6c0ce}.caption{margin:8px 0 0}
+    .fx{width:256px;height:256px;flex:0 0 256px;background-image:url('../../preview/vfx/atlas_hd.png');background-size:2048px 8192px;background-repeat:no-repeat;image-rendering:pixelated}
+    .gojo{width:256px;height:256px;background-image:url('../../characters/gojo/sheet.png');background-size:4096px 4096px;background-repeat:no-repeat;image-rendering:pixelated;position:absolute;bottom:0;left:calc(50% - 128px)}
+    .opponent{height:256px;background:#39434a;border:1px solid #68747c;position:relative;overflow:hidden}
+    .dummy{position:absolute;left:calc(50% - 42px);bottom:13px;width:84px;height:194px}
+    .dummy i{position:absolute;display:block;background:#1b2329}.dummy .head{top:0;left:22px;width:40px;height:42px;border-radius:45% 45% 38% 38%}
+    .dummy .torso{top:39px;left:14px;width:56px;height:73px;clip-path:polygon(20% 0,80% 0,100% 100%,0 100%)}
+    .dummy .arm{top:47px;width:18px;height:76px;border-radius:10px}.dummy .arm.left{left:6px;transform:rotate(8deg)}.dummy .arm.right{right:5px;transform:rotate(-8deg)}
+    .dummy .leg{top:106px;width:24px;height:83px;border-radius:10px 10px 5px 5px}.dummy .leg.left{left:18px;transform:rotate(4deg)}.dummy .leg.right{right:17px;transform:rotate(-4deg)}
+    .beside{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.fit{width:100%;height:256px;object-fit:contain;background:#39434a;image-rendering:pixelated}
+    .overlap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .mini{width:128px;height:128px;background-image:url('../../preview/vfx/atlas_hd.png');background-size:1024px 4096px;background-repeat:no-repeat;image-rendering:pixelated}
+    code{color:#cbd8ff}a{color:#a9c9ff}
+    @media(max-width:640px){body{padding:14px}.beside{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <h1>Gojo skills revamp · Batch 2</h1>
+  <p>Hollow Purple candidates · 18 October 2026 · branch <code>art/gojo-skills</code></p>
+  <div class="notice"><b>All five batch 2 drawings were approved as shown via Claude relay gojo-skills #3: “Approve all five”.</b> Batch 1 (lapseBlue, blueCollapse, redForm, reversalRed, redBurst v01) was approved via relay #2. Batch 2 contains beamCharge v04 and four effects. The character strip passes the packer's automatic head gate and has an independent Astra anatomy/scale audit; see its exact findings below. Raw source-format holds remain: purpleForm and sixEyesGlint were normalized by cropping/resizing/recoloring; untouched generator originals are linked. hollowPurple, purpleBurst and beamCharge are unmodified generator outputs with near-magenta backgrounds and oversized source dimensions. The beamCharge extracted frame cache is stale; audit evidence uses quantized atlas cells 123-126.</div>
+
+  <article class="card">
+    <h2>B1 · beamCharge <span class="tag">v04 · 3/3 calls used</span></h2>
+    <p>Red and Blue held apart, then brought together at his chest. The play strip keeps the blindfold on and contains no energy effects. Packed frame sequence is shown at the game cell size, beside the approved Gojo combat reference.</p>
+    <div class="beside">
+      <div><div class="stage" id="chargeStage"><div class="gojo" data-kind="charge"></div></div><p class="caption">Packed atlas frames 123–126, one cell each</p></div>
+      <div><div class="stage"><div class="gojo" data-kind="still" data-frame="0"></div></div><p class="caption">Packed idle f0, same atlas density</p></div>
+      <div><img class="fit" src="../../art-review/title-style-pilot/gojo-combat_v01.png" alt="Approved Gojo combat reference"><p class="caption">Approved Gojo combat reference · title-style pilot cell</p></div>
+    </div>
+    <h3>Raw strip</h3><img class="raw" src="media/beamCharge_v04.png" alt="beamCharge v04 source strip">
+    <p class="meta">2172×724 RGB · 100,930 colors · sampled background RGB(252,2,250) · unchanged source. Packer: 4/4 frames, quantized to 48 colors, auto-head fit x0.8562; head ratios [0.997, 0.997, 1.000, 0.971], feet ratios before fit 1.21. Body report: B [0.951, 0.918, 0.858, 0.874], median 0.896, no advisory flag. <a href="../../art/scale/body-gojo-beamCharge.png">Open body comparison sheet</a>. The lower f2/f3 garment area reflects folded-arm overlap and compressed pose, not a measured scale failure.</p>
+    <p class="meta"><b>Astra audit:</b> Pass with the pose-volume limitation above. Head, torso and build remain consistent with the approved baseline; f3 feet/hips align with beamFire v04 f0. No numeric measurement is claimed for occluded segments. The atlas evidence is current; the extracted frame cache still contains three v01 files and needs Claude's packer/cache follow-up. Exact audit record: <code>art/characters/gojo/production/skills-revamp-batch2/PROVENANCE.md</code>.</p>
+  </article>
+
+  <article class="card">
+    <h2>A8 · purpleForm <span class="tag">v01 · 3/3 calls</span></h2>
+    <p>Red and Blue approach, spiral together, and settle into the violet mass. The overlay is placed over packed beamCharge f2 as a scale/context illustration.</p>
+    <div class="stage" id="formStage"><div class="gojo" data-kind="still" data-frame="125"></div><div class="overlap"><div class="mini" data-effect="purpleForm"></div></div></div>
+    <p class="caption">PurpleForm animation over packed beamCharge f2; illustrative placement</p>
+    <h3>Displayed candidate strip</h3><img class="raw" src="media/purpleForm_v01.png" alt="Normalized purpleForm v01 candidate strip">
+    <p class="meta">Displayed strip: 2048×256, 16 RGBA colors, exact magenta corners. This candidate was mechanically normalized from a 2172×724 RGB original (133,585 RGBA colors): cropped a 327px band starting at y=200, nearest-neighbor resized to 2048×256, mapped to the effect palette and opaque magenta. The untouched original is <a href="media/purpleForm_call02_original.png">purpleForm call 2 original</a>. Call 2 selected; call 3 was worse. Source transformation is a technical hold for your review.</p>
+  </article>
+
+  <article class="card">
+    <h2>A9 · hollowPurple <span class="tag">v01 · 1/3 calls</span></h2>
+    <p>The looping imaginary mass, beside a standing silhouette at the same 256px cell scale.</p>
+    <div class="beside"><div class="stage"><div class="fx" data-effect="hollowPurple"></div></div><div class="opponent"><div class="dummy"><i class="head"></i><i class="torso"></i><i class="arm left"></i><i class="arm right"></i><i class="leg left"></i><i class="leg right"></i></div></div></div>
+    <p class="caption">Packed effect candidate and standing body comparison</p>
+    <h3>Raw strip</h3><img class="raw" src="media/hollowPurple_v01.png" alt="Hollow Purple raw strip">
+    <p class="meta">2172×724 RGB · 175,441 colors · 22 exact magenta pixels · unchanged source. Candidate visually matches the requested looping violet mass; source dimensions, palette and background remain technical holds.</p>
+  </article>
+
+  <article class="card">
+    <h2>A10 · purpleBurst <span class="tag">v01 · 1/3 calls</span></h2>
+    <p>Violet crescent, engulfing dome, expanding rings and a dark erased center, with no broad white-out.</p>
+    <div class="stage"><div class="fx" data-effect="purpleBurst" data-loop="false"></div></div>
+    <p class="caption">Packed effect at 256px cell scale</p>
+    <h3>Raw strip</h3><img class="raw" src="media/purpleBurst_v01.png" alt="Purple Burst raw strip">
+    <p class="meta">2172×724 RGB · 130,259 colors · 17 exact magenta pixels · unchanged source. Source dimensions, palette and background remain technical holds.</p>
+  </article>
+
+  <article class="card">
+    <h2>A7 · sixEyesGlint <span class="tag">v01 · 1/3 calls</span></h2>
+    <p>A brief cyan-white glint and streak for the Six Eyes reveal.</p>
+    <div class="stage"><div class="fx" data-effect="sixEyesGlint" data-loop="false"></div></div>
+    <p class="caption">Packed effect at 256px cell scale</p>
+    <h3>Displayed candidate strip</h3><img class="raw" src="media/sixEyesGlint_v01.png" alt="Normalized Six Eyes Glint v01 candidate strip">
+    <p class="meta">Displayed strip: 1536×256, 8 colors, exact magenta corners. Mechanically processed from a 2172×724 RGB original (15,128 RGBA colors): split into six source cells, centered square crop at y=181, effect scaled to half-size per cell with nearest-neighbor sampling, palette mapped and magenta keyed opaque. Untouched original: <a href="media/sixEyesGlint_call01_original.png">sixEyesGlint call 1 original</a>. Processing is a technical hold for your review.</p>
+  </article>
+
+  <p class="meta">Call inventory, hashes, prompts, transformations and source files are recorded in <code>art/characters/gojo/production/skills-revamp-batch2/PROVENANCE.md</code>. Drawing approval does not clear source-format holds or authorize production integration.</p>
+  <script>
+    const hd={sixEyesGlint:{row:28,n:6,ms:35},purpleForm:{row:29,n:8,ms:40},hollowPurple:{row:30,n:8,ms:45},purpleBurst:{row:31,n:8,ms:45}};
+    for(const el of document.querySelectorAll('[data-effect]')){const x=hd[el.dataset.effect];el.dataset.row=x.row;el.dataset.frames=x.n;el.dataset.ms=x.ms;el.dataset.loop=el.dataset.loop||'true'}
+    const players=[...document.querySelectorAll('.fx[data-frames],.mini[data-frames]')];
+    const observer=new IntersectionObserver(entries=>{for(const e of entries){e.target.visible=e.isIntersecting;if(e.isIntersecting)e.target.startedAt=performance.now()}},{threshold:.1});players.forEach(x=>observer.observe(x));
+    function tick(now){for(const p of players){if(!p.visible)continue;const frames=Number(p.dataset.frames),ms=Number(p.dataset.ms),cell=p.classList.contains('mini')?128:256;p.startedAt??=now;const i=p.dataset.loop==='false'?Math.min(frames-1,Math.floor((now-p.startedAt)/ms)):Math.floor((now-p.startedAt)/ms)%frames;p.style.backgroundPosition=`${-i*cell}px ${-Number(p.dataset.row)*cell}px`}
+      for(const p of document.querySelectorAll('.gojo[data-kind="still"]')){const n=Number(p.dataset.frame);p.style.backgroundPosition=`${-(n%16)*256}px ${-Math.floor(n/16)*256}px`}
+      for(const p of document.querySelectorAll('.gojo[data-kind="charge"]')){p.startedAt??=now;const i=Math.floor((now-p.startedAt)/650)%4;p.style.backgroundPosition=`${-(123+i)*256%4096}px ${-Math.floor((123+i)/16)*256}px`}
+      requestAnimationFrame(tick)}requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

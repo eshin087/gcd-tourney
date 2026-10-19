@@ -214,6 +214,19 @@ const VFX_EFFECTS = {
   kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true },
   kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
   kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
+  // Gojo's signature techniques (ENG-SKL-GOJ): HD cells, art/characters/gojo/SKILLS_REVAMP.md
+  lapseBlue: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true },
+  blueCollapse: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  redForm: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true },
+  reversalRed: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true },
+  redBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  infinityRipple: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true },
+  sixEyesGlint: { frames: 6, ms: 35, tinted: false, fill: 0.4, hd: true },
+  purpleForm: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true },
+  hollowPurple: { frames: 8, ms: 45, tinted: false, fill: 1, hd: true },
+  purpleBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
+  voidFlood: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true },
+  voidShatter: { frames: 8, ms: 50, tinted: false, fill: 1, hd: true },
   // Killua's lightning (ENG-SKL-KIL): HD cells, art/characters/killua/SKILLS_REVAMP.md. narukamiBolt is stacked end to
   // end down the bolt from the sky, so it ships as exact 256 x 256 frames in art/vfx/frames/narukamiBolt/ (never rescaled)
   lightningPalm: { frames: 8, ms: 30, tinted: false, fill: 0.95, hd: true },
@@ -3227,26 +3240,28 @@ function npcSpecs(npcDir, warn, id) {
     if (!name) continue;
     if (c.length < 6) { warn(`npc ${id}: the ANIMATIONS.md row for ${name} has ${c.length} columns (needs anim, what, frames, loop, ms, height) - skipped`); continue; }
     const ms = (c[4].match(/\d+/g) || []).map(Number);
-    specs.push({ name, loop: /^yes/i.test(c[3]), ms: ms.length ? ms : [500, 500], height: Number((c[5].match(/\d+/) || [])[0]) || null });
+    // most NPC strips have 2 frames; a walk cycle has 4 (the announcer, ENG-118)
+    const frames = Number((c[2].match(/\d+/) || [])[0]) || NPC.frames;
+    specs.push({ name, frames, loop: /^yes/i.test(c[3]), ms: ms.length ? ms : [500, 500], height: Number((c[5].match(/\d+/) || [])[0]) || null });
   }
   if (!specs.find((s) => s.name === 'idle')) { warn(`npc ${id}: ANIMATIONS.md has no idle row in its animation table - skipped`); return null; }
   return specs.sort((a, b) => (a.name === 'idle' ? -1 : b.name === 'idle' ? 1 : 0));
 }
 
 // One strip -> its trimmed poses (magenta, specks and stray marks removed).
-function npcPoses(file, env, notes) {
+function npcPoses(file, env, notes, count = NPC.frames) {
   const img = readPng(file);
   const bg = removeBackground(img, { tol: env.tol, mode: 'char' });
   if (!bg.magentaBg && !bg.removed && !hasTransparency(img)) throw new Error('no removable background (flat magenta #FF00FF expected)');
   const sp = removeSpecks(img, { frac: 0.0015, min: 4 });
   if (sp.blobs > 3) notes.push(`removed ${sp.blobs} specks`);
-  let { rects } = splitStrip(img, NPC.frames, { mode: 'char' });
-  if (rects.length !== NPC.frames) {
+  let { rects } = splitStrip(img, count, { mode: 'char' });
+  if (rects.length !== count) {
     const n = rects.length;
-    ({ rects } = splitStrip(img, NPC.frames, { split: 'even', mode: 'char' }));
-    notes.push(`${n} pose(s) found, split into even halves`);
+    ({ rects } = splitStrip(img, count, { split: 'even', mode: 'char' }));
+    notes.push(`${n} pose(s) found, split into ${count} even slots`);
   }
-  if (rects.length !== NPC.frames) throw new Error(`${rects.length} pose(s) found, expected ${NPC.frames}`);
+  if (rects.length !== count) throw new Error(`${rects.length} pose(s) found, expected ${count}`);
   return rects.map((r) => {
     const piece = crop(img, r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
     dropStrays(piece);
@@ -3281,7 +3296,7 @@ function packNpcs(env) {
       const notes = [];
       if (newest > version) notes.push(`newer candidate ${vv(newest)} not shipped (approve it to ship it)`);
       try {
-        anims.push({ ...s, version, poses: npcPoses(file, env, notes), notes });
+        anims.push({ ...s, version, poses: npcPoses(file, env, notes, s.frames), notes });
       } catch (e) {
         warn(`npc ${id}: ${s.name} ${vv(version)}: ${e.message} - skipped`);
       }
