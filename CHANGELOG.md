@@ -15,6 +15,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SKL-GOK): recorded relay #6 Astra recheck of approved `superPose_v01` on exact packed atlas `feature/goku-skills` 3120d514. Result remains technical HOLD: FAIL TO CERTIFY ±6% anatomy evidence due to covered landmarks and non-reproduced quoted footwear bounds; no anatomical defect is proved. The separate motion HOLD remains.
 
 - Changed (ART-SKL-GOK): recorded relay #5 rejection of `specialForward_v01`, preserved it in `_rejected/`, and saved v02 from a two-call budget. Candidate pack still fails segmentation/clipping/head-probe checks; user decision is pending on Claude evaluating bodyHeight/frame offsets or rejecting v02.
 - Changed (ART-SKL-GOK): recorded user approval via Claude relay goku-skills #4 for `dragonFistAura`, `dragonFistDragon` and `dragonFistBurst` v01; all technical holds remain; `specialForward` v01 was later rejected and v02 remains held pending decision.

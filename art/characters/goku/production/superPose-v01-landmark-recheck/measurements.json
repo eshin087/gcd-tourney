@@ -1,0 +1,322 @@
+{
+  "atlasSha256": "8a77c8ebcb6690e5afc8d6a892b5a492f9b9c83017f55c7d45ecf3a62f097876",
+  "sourceCommit": "3120d514",
+  "garmentColors": [
+    "fa840f",
+    "e05f0d",
+    "d2530e",
+    "fa8312",
+    "c84e0e",
+    "d45816",
+    "f8781a",
+    "f98115"
+  ],
+  "garmentRgbTolerance": 8,
+  "cells": [
+    {
+      "cell": 0,
+      "occupiedBBoxExclusive": [
+        55,
+        28,
+        205,
+        241
+      ],
+      "garmentArea": 5105,
+      "blueBootsLeftRight": [
+        {
+          "bboxInclusive": [
+            57,
+            199,
+            84,
+            237
+          ],
+          "width": 28,
+          "height": 39,
+          "area": 427
+        },
+        {
+          "bboxInclusive": [
+            167,
+            201,
+            203,
+            233
+          ],
+          "width": 37,
+          "height": 33,
+          "area": 506
+        }
+      ],
+      "B": 1.0
+    },
+    {
+      "cell": 110,
+      "occupiedBBoxExclusive": [
+        51,
+        33,
+        205,
+        241
+      ],
+      "garmentArea": 5008,
+      "blueBootsLeftRight": [
+        {
+          "bboxInclusive": [
+            56,
+            202,
+            87,
+            237
+          ],
+          "width": 32,
+          "height": 36,
+          "area": 389
+        },
+        {
+          "bboxInclusive": [
+            164,
+            204,
+            200,
+            237
+          ],
+          "width": 37,
+          "height": 34,
+          "area": 404
+        }
+      ],
+      "B": 0.9904539467173982
+    },
+    {
+      "cell": 111,
+      "occupiedBBoxExclusive": [
+        52,
+        33,
+        205,
+        241
+      ],
+      "garmentArea": 4961,
+      "blueBootsLeftRight": [
+        {
+          "bboxInclusive": [
+            56,
+            203,
+            89,
+            237
+          ],
+          "width": 34,
+          "height": 35,
+          "area": 393
+        },
+        {
+          "bboxInclusive": [
+            165,
+            204,
+            201,
+            237
+          ],
+          "width": 37,
+          "height": 34,
+          "area": 377
+        }
+      ],
+      "B": 0.9857952933702565
+    },
+    {
+      "cell": 112,
+      "occupiedBBoxExclusive": [
+        51,
+        33,
+        205,
+        241
+      ],
+      "garmentArea": 4991,
+      "blueBootsLeftRight": [
+        {
+          "bboxInclusive": [
+            56,
+            204,
+            87,
+            238
+          ],
+          "width": 32,
+          "height": 35,
+          "area": 374
+        },
+        {
+          "bboxInclusive": [
+            165,
+            204,
+            201,
+            237
+          ],
+          "width": 37,
+          "height": 34,
+          "area": 382
+        }
+      ],
+      "B": 0.9887714356755233
+    },
+    {
+      "cell": 113,
+      "occupiedBBoxExclusive": [
+        52,
+        33,
+        205,
+        241
+      ],
+      "garmentArea": 5014,
+      "blueBootsLeftRight": [
+        {
+          "bboxInclusive": [
+            57,
+            204,
+            89,
+            237
+          ],
+          "width": 33,
+          "height": 34,
+          "area": 386
+        },
+        {
+          "bboxInclusive": [
+            165,
+            204,
+            202,
+            237
+          ],
+          "width": 38,
+          "height": 34,
+          "area": 372
+        }
+      ],
+      "B": 0.9910470921623491
+    }
+  ],
+  "transitions": [
+    {
+      "from": 0,
+      "to": 1,
+      "rgbaDifferent": 7094,
+      "bestGlobalRegistration_difference_dx_dy": [
+        6829,
+        -1,
+        0
+      ],
+      "regions": {
+        "head": {
+          "rgbaDifferent": 1354,
+          "alphaXor": 67
+        },
+        "torso": {
+          "rgbaDifferent": 1046,
+          "alphaXor": 36
+        },
+        "legs": {
+          "rgbaDifferent": 3566,
+          "alphaXor": 236
+        },
+        "leftHand": {
+          "rgbaDifferent": 275,
+          "alphaXor": 51
+        },
+        "rightHand": {
+          "rgbaDifferent": 218,
+          "alphaXor": 17
+        }
+      }
+    },
+    {
+      "from": 1,
+      "to": 2,
+      "rgbaDifferent": 6726,
+      "bestGlobalRegistration_difference_dx_dy": [
+        6726,
+        0,
+        0
+      ],
+      "regions": {
+        "head": {
+          "rgbaDifferent": 1314,
+          "alphaXor": 69
+        },
+        "torso": {
+          "rgbaDifferent": 1043,
+          "alphaXor": 20
+        },
+        "legs": {
+          "rgbaDifferent": 3367,
+          "alphaXor": 114
+        },
+        "leftHand": {
+          "rgbaDifferent": 231,
+          "alphaXor": 30
+        },
+        "rightHand": {
+          "rgbaDifferent": 213,
+          "alphaXor": 13
+        }
+      }
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "rgbaDifferent": 7352,
+      "bestGlobalRegistration_difference_dx_dy": [
+        6985,
+        -1,
+        0
+      ],
+      "regions": {
+        "head": {
+          "rgbaDifferent": 1506,
+          "alphaXor": 153
+        },
+        "torso": {
+          "rgbaDifferent": 1101,
+          "alphaXor": 47
+        },
+        "legs": {
+          "rgbaDifferent": 3575,
+          "alphaXor": 216
+        },
+        "leftHand": {
+          "rgbaDifferent": 287,
+          "alphaXor": 59
+        },
+        "rightHand": {
+          "rgbaDifferent": 213,
+          "alphaXor": 22
+        }
+      }
+    },
+    {
+      "from": 3,
+      "to": 0,
+      "rgbaDifferent": 7937,
+      "bestGlobalRegistration_difference_dx_dy": [
+        6806,
+        1,
+        0
+      ],
+      "regions": {
+        "head": {
+          "rgbaDifferent": 1548,
+          "alphaXor": 159
+        },
+        "torso": {
+          "rgbaDifferent": 1140,
+          "alphaXor": 71
+        },
+        "legs": {
+          "rgbaDifferent": 3929,
+          "alphaXor": 362
+        },
+        "leftHand": {
+          "rgbaDifferent": 314,
+          "alphaXor": 80
+        },
+        "rightHand": {
+          "rgbaDifferent": 241,
+          "alphaXor": 40
+        }
+      }
+    }
+  ]
+}
