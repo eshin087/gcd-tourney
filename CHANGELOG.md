@@ -16,6 +16,10 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SKL-GOK): recorded user visual approval via Claude relay goku-skills #14 for specialUp, throw, intro, kiBlast, kiMuzzle, kiBlastBurst and superSaiyanBurst v01; all documented technical holds remain.
+- Changed (ART-SKL-GOK): recorded the user's relay #13 decision exempting specialDown v02 from the head scale check; manifest includes the version-bound reason while Astra's scaleManualQA v2 HOLD remains unchanged.
+- Changed (ART-SKL-GOK): prepared batch 4 review candidates `specialUp`, `throw`, `intro`, `kiBlast`, `kiMuzzle`, `kiBlastBurst` and `superSaiyanBurst` v01. All remain unapproved. The known Goku head-probe gate blocked candidate atlas generation, so Astra issued HOLD with no scale certification; candidate VFX packing records layout warnings, including a 9/8 frame split and clipping on `superSaiyanBurst`. [Review page](public/reviews/goku-skills-batch4/index.html).
+- Changed (ART-SKL-GOK): Astra audited specialDown v02 on exact production atlas SHA256 46d7eed6… (cells 117–120 vs idle 0, bodyHeight 236): visible anatomy/continuity and containment pass with no concrete scale defect; numeric head scale remains unresolved due occlusion, so a user head-exemption decision is pending. Earlier bodyHeight-204 audit remains preserved as historical evidence.
 
 - Added (ENG-SKL-GOK, ADR 0046 amendment): a `paletteReserve` group can take `"cut": "misfits"`, cutting its colours only from the ones the shared palette fits badly (weighted by how far off), so a strip mostly in the fighter's usual colours keeps its one new colour (Goku's black base-form hair in the intro); Goku's Super Saiyan intro now plays as the fly-in settles on the fighters (5.05 s on both sides), under the VS card.
 
