@@ -17,8 +17,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Changed (ART-CHARGE): Sasuke charge v15 was packed at 48 colors with `loopFrom: 2` and audited on its exact atlas. It remains on technical hold: f3 H=1.077 with the extra width following hair, the landmark check cannot certify skull scale, and in-game loop playback is pending. Approved v12 remains active; no image approval is implied.
-- Changed (ART-CHARGE): Sasuke charge v13 and v14 are on technical hold after packed-cell Astra audits; v15 is a scripted composite candidate pending packed-cell review. No image approval or scaleManualQA pass is claimed.
+- Changed (ART-CHARGE): the user approved Sasuke charge v15 as drawn via Claude relay #10 (“Approve v15”). Recorded `approvedVersion: 15`; Claude's packed-cell review confirms the hair-driven f3 probe and loop registration, while Astra's original scale QA remains preserved as historical evidence. Claude owns the in-game integration and merge check.
+- Changed (ART-CHARGE): Sasuke charge v13 and v14 remain on technical hold after packed-cell Astra audits; v15 is the approved scripted composite successor.
 
 - Changed: the determinism fixtures are re-recorded after Luffy's five new Smash-style normals (ENG-112, fingerprint 519fb322aa11); both replay frame for frame.
 - Fixed (ENG-119): the announcer's emotes sit naturally on him. Each manga mark is anchored to his actual head in every frame (found from his hair in the sheet), so it follows him through a crouch, a facepalm, lying flat and a cheer, and sits tucked against his head the way manga draws it (sweat at the temple, !! and ? at the upper front, stars on top) instead of floating above and away; they are also a little smaller.

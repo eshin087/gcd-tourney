@@ -575,7 +575,7 @@ slightly open. Bangs messy, hanging over the eyes.
 
 ### `charge`: powering up — sink, one-handed seal and held loop
 
-6 frames · f0-f1 play once, f2-f5 loop from 2 · **CORE** · bodyHeight 180 (starting value; confirm after packed body sheet) · ms 70/90/110/110/110/110 · prompt A15 · 👁 Sharingan · v15 composite candidate; v12 remains the approved version until user review.
+6 frames · f0-f1 play once, f2-f5 loop from 2 · **CORE** · bodyHeight 180 · ms 70/90/110/110/110/110 · prompt A15 · 👁 Sharingan · v15 scripted composite, approved by the user via Claude relay charge #10.
 
 Sasuke sinks into a low stance, brings his right hand to a one-handed seal before his chin, and holds with cold Sharingan intensity. His left arm stays down and back with a clenched fist; the sword remains sheathed at the small of his back. No aura or lightning is drawn in the sprite.
 
