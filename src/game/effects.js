@@ -28,6 +28,7 @@ const FRAG = /* glsl */ `
   }`;
 
 const qz = new THREE.Quaternion();
+const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with its colors resolved (Effects.modeShell)
 const zAxis = new THREE.Vector3(0, 0, 1);
 
 function hexTexture() {
@@ -638,6 +639,14 @@ export class Effects {
         if (Math.random() < 0.5) this.spawn('spark', g.x, 0.08, g.z, { scale: 0.35, rot: Math.random() * 6.28, color: 0xbfe8ff, glow: 0.8, order: 8 });
         if (Math.random() < 0.25) this.spawn('dust', g.x - fx * 0.2, 0, g.z - fz * 0.2, { bottom: true, scale: 0.35, opacity: 0.7, order: 6 });
       }
+    } else if (this.meta.anims[kind]) {
+      // any other effect name: held in the drawn palm through the startup (Lightning Palm's crackle, ENG-SKL-KIL),
+      // looping and growing as it builds; the art carries the light, so no glow disc. `fxForm` on the move: a forming
+      // strip instead, its frames played by the startup's progress and its last frame held after (Reversal: Red's);
+      // `fxScale`: its full size
+      const p = at(0.6, 0.85), M = f.move, form = !!M?.fxForm, base = (M?.fxScale ?? 0.6) * k * (quiet ? 0.7 : 1);
+      const it = this.keep('hand' + f.index, kind, p.x, p.y, p.z, { scale: form || phase ? base : base * (0.5 + prog * 0.5), order: 9, glow: 0.3 });
+      it.frame = !form ? -1 : phase === 0 ? Math.min(it.a.n - 1, Math.floor(prog * it.a.n)) : it.a.n - 1;
     }
   }
 
@@ -666,6 +675,20 @@ export class Effects {
     it.base = s;
     it.mesh.scale.set(flip ? -s : s, s, s);
     return it;
+  }
+
+  // A teleport's own look where it vanishes or reappears (its `vanishFx` / `appearFx`): an effect name, or { fx, scale,
+  // bottom (anchored at the feet), y (up from the feet otherwise, default 0.9), reverse (its frames backward) }. `at`:
+  // the feet (fighter space)
+  teleportFx(spec, at) {
+    const S = typeof spec === 'string' ? { fx: spec } : spec;
+    const a = this.meta.anims[S?.fx];
+    if (!a) {
+      console.warn(`[vfx] no ${S?.fx} effect for a teleport`);
+      return null;
+    }
+    const seq = S.reverse ? Array.from({ length: a.n }, (_, i) => a.n - 1 - i) : null;
+    return this.spawn(S.fx, at.x, at.y + (S.bottom ? 0 : S.y ?? 0.9), at.z, { scale: S.scale ?? 1, bottom: !!S.bottom, seq, depthTest: false, order: 9 });
   }
 
   // A shadow clone appearing or vanishing (the anime's poof)
@@ -731,6 +754,30 @@ export class Effects {
     this.drop('gather' + f.index);
   }
 
+  // A power-up's outline on the body (kit.modeLook `shell`: { kind, width, lift, noise, speed, dash, opacity, color,
+  // core }, a charge style's shell shape; colors as hex or numbers). null hides the one this showed; the charge drives
+  // the same AuraShell while he powers up, so it is left to it then
+  modeShell(f, S, time) {
+    const a = f.actor;
+    if (!S) {
+      if (a.modeShellOn) { a.shell?.hide(); a.modeShellOn = false; }
+      return;
+    }
+    let st = shellLooks.get(S);
+    if (!st) shellLooks.set(S, (st = { ...S, color: new THREE.Color(S.color ?? 0xffffff), core: new THREE.Color(S.core ?? S.color ?? 0xffffff) }));
+    st.time = time;
+    a.auraShell().show(st);
+    a.modeShellOn = true;
+  }
+
+  // A power-up's effect kept at his feet (kit.modeLook `aura`: { fx, scale, opacity, front, glow }): one copy a step
+  // behind the body along the view, and with `front` a see-through copy in front at that opacity
+  modeAura(f, A) {
+    const p = f.renderPos || f.pos, bk = this.camFwd, k = f.actor.depthK ?? 1, s = (A.scale ?? 1) * k;
+    this.keep('modeAura' + f.index, A.fx, p.x + bk.x * 0.3, p.y, p.z + bk.z * 0.3, { bottom: true, scale: s, opacity: A.opacity ?? 1, order: 1, glow: A.glow ?? 0.2 });
+    if (A.front) this.keep('modeAuraF' + f.index, A.fx, p.x - bk.x * 0.3, p.y, p.z - bk.z * 0.3, { bottom: true, scale: s, opacity: A.front, order: 4, glow: A.glow ?? 0.2 });
+  }
+
   // A beam's `muzzle`: every `every` frames a shock ring leaves the root of the beam and runs down it
   muzzleTick(f, beam, M) {
     if (beam.t % (M.every ?? 10) !== 1) return;
@@ -766,10 +813,13 @@ export class Effects {
 
   // A stretched limb from `from` to `to` (Luffy's rubber arm, Killua's yo-yo string): a tube effect drawn pointing
   // screen-right, its tube `tube` of the cell high and every column the same, stretched along the line as seen on screen
-  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. `o.color` tints it.
+  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. A null `id` lays it
+  // once instead, playing its strip through and gone (Killua's Godspeed streaks). `o.color` tints it.
   limb(id, name, from, to, thick, tube, camRight, o = {}) {
     const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
-    const it = this.keep(id, name, (from.x + to.x) / 2, (from.y + to.y) / 2, (from.z + to.z) / 2, { order: o.order ?? 7, depthTest: false, color: o.color });
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2, mz = (from.z + to.z) / 2;
+    const so = { order: o.order ?? 7, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, mx, my, mz, so) : this.keep(id, name, mx, my, mz, so);
     // the quad is 1 x 1 world units before scaling (spawn folds the cell's world size into the scale)
     const flip = sx < 0, phi = Math.atan2(dy, sx), sy = thick / tube;
     it.rot = flip ? phi - Math.PI : phi;
@@ -778,9 +828,11 @@ export class Effects {
   }
 
   // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, `scale` cells, turned along the limb
+  // (kept by `id`, or played once with a null `id`, like limb)
   limbEnd(id, name, at, from, scale, camRight, o = {}) {
     const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
-    const it = this.keep(id, name, at.x, at.y, at.z, { order: o.order ?? 8, depthTest: false, color: o.color });
+    const so = { order: o.order ?? 8, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, at.x, at.y, at.z, so) : this.keep(id, name, at.x, at.y, at.z, so);
     const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
     it.rot = flip ? phi - Math.PI : phi;
     it.mesh.scale.set(flip ? -s : s, s, s);
@@ -811,14 +863,6 @@ export class Effects {
       const to = { x: from.x + camRight.x * s * 0.2, y: Math.max(h.y + 0.25, G.height), z: from.z + camRight.z * s * 0.2 };
       this.limb(id + f.index, G.arm, from, to, G.thick, G.tube, camRight, { order: 6 });
     }
-  }
-
-  // Gear Second's steam pouring off him: one copy behind the body, a thin mirrored one in front
-  steamTick(f, S) {
-    if (f.hidden) return;
-    const p = f.renderPos || f.pos, k = f.actor?.depthK ?? 1, b = this.camFwd;
-    this.keep('steamB' + f.index, S.fx, p.x + b.x * 0.2, p.y, p.z + b.z * 0.2, { bottom: true, scale: S.scale * k, order: 1 });
-    if (S.front) this.keep('steamF' + f.index, S.fx, p.x - b.x * 0.15, p.y, p.z - b.z * 0.15, { bottom: true, scale: S.scale * k * 0.9, opacity: S.front, order: 4, flipX: true });
   }
 
   // The Gigant Pistol's giant arm (kit.js laneStrike `arm`): from the drawn shoulder (where the strip's arm leaves the

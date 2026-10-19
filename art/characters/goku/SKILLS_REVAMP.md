@@ -65,7 +65,7 @@ live; Killua, Gojo, Goku and Luffy run in parallel.
 - **Versions:** never overwrite, reuse or delete a `_vNN` file. Next free versions (checked against disk, `raw/_rejected/`,
   `raw/_parts/`, `raw/_qa_hold/`, REVIEW.md and git history on 2026-10-18; none of these names has ever had a file):
   **`specialForward_v01`**, **`specialDown_v01`**, **`superPose_v01`**, **`specialUp_v01`**, **`throw_v01`**,
-  **`intro_v01`**, and **`ui_super_bg_v02`** (B7, optional); every new effect starts at `_v01` (none of the fifteen
+  **`intro_v01`**, and **`ui_super_bg_v02`** (B7); every new effect starts at `_v01` (none of the fifteen
   names below exists in `art/vfx/` or its history).
 - **Branch:** one worktree, branch `art/goku-skills`, sparse with the raw art you need
   (`npm run pr -- start art/goku-skills --art goku,vfx`, or the host's managed worktree plus `npm run pr -- art goku,vfx`).
@@ -368,7 +368,7 @@ golden burst (A15) on f1.
 The black hair adds dark colors to his 48-color sheet palette; Claude handles the palette reserve when packing
 (ADR 0046). Same body, head and outfit in all four frames; only the hair and eyes change.
 
-### B7 `ui_super_bg` v02: the SUPER banner backdrop, Spirit Bomb (optional: only on the user's yes)
+### B7 `ui_super_bg` v02: the SUPER banner backdrop, Spirit Bomb (authorized: the user's decision, 2026-10-19)
 
 The approved `ui_super_bg` v01 shows red Kaio-ken fists flying across a rocky wasteland: the old Kaio-ken Rush. With
 the Spirit Bomb as the SUPER it no longer matches its move. Same contract as v01 (`art/characters/SUPER_ART_BRIEF.md`:
@@ -377,7 +377,8 @@ hard pixel clusters, at most 48 colors): the same rocky wasteland and broken sto
 sky**, a **huge glowing blue-white Spirit Bomb** high in the band's upper middle (pale white-blue core, banded shell,
 crackling rim), and **thin streams and motes of light rising from the ground, the rocks and the far mountains into
 it** (the energy of everything around). Cool blue and white light on the rock tops; no red. The `ui_super_fg` v01
-cutout stays. Claude asks the user about it with batch 1; draw it only once the user says yes (relayed as usual).
+cutout stays. **Authorized to draw:** asked in the Claude chat "5 - Skills Effects" on 2026-10-19, the user answered
+"Yes, draw v02 (Recommended)". The drawing itself still needs the user's image approval like every other version.
 
 ## 5. Order, review and handback
 
@@ -386,7 +387,7 @@ cutout stays. Claude asks the user about it with batch 1; draw it only once the 
    `npm run body goku superPose` and the Astra audit on B3, then one review page (the raw strips, packed frames beside
    idle f0 and the approved combat cell, the effects at game scale as GIFs over a stage-colored background; show A1 at
    three sizes in his `beamCharge` hands and A2 on the end of a beam band); ring Claude for the user's approval. B7
-   joins this batch if the user has said yes by then (show it in the 4:1 crop with the `super_fg` cutout over it).
+   `ui_super_bg` v02 is part of this batch (show it in the 4:1 crop with the `super_fg` cutout over it).
 2. **Batch 2, Dragon Fist:** B1 `specialForward` v01 (with `npm run body goku specialForward` and the Astra audit),
    A7 `dragonFistAura`, A8 `dragonFistDragon`, A9 `dragonFistBurst`. One review page (A8 over a standing body
    silhouette, A7 behind B1 f3); ring Claude.

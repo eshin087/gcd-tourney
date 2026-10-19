@@ -33,12 +33,14 @@ Everything is data read by shared code (CLAUDE.md rule 4), view-only where it ca
    table names the swaps; a mode or a super picks one by name (`recolor: 'gear2'`). Gear Second turns his packed skin
    colours into the pinks of his approved Gear Second frames in every animation, with no redraw. A placeholder bake has
    none of those colours and stays as it is.
-3. **Mode look and names.** A mode's `steam` (an effect kept behind and in front of the body), `burstFx` (its own burst
-   instead of the aura burst), `ghost` (an afterimage every that many frames while he moves) and `names` (the moves it
-   renames in callouts and combo chips: GUM-GUM JET PISTOL).
+3. **Mode look and names**, read through the shared `kit.modeLook` (the Goku session's mode visuals: `shell`, `tint`,
+   `aura`, `burstFx`) from the move data, never from `f.mode`: `recolor` (above), `ghost` (an afterimage every that many
+   frames while he moves) and `names` (the moves it renames in callouts and combo chips: GUM-GUM JET PISTOL). Gear
+   Second's steam is an `aura`, its burst a `burstFx` with `center`, and `fx: 'none'` drops the element burst and the
+   mode's crackle.
 4. **Flurry options.** `flashPose` (shared), `fists` (an effect held between him and the target while the blows land),
    `hitFx` naming any effect, `hitScale`, `hitSpark`, `finalPose`, `finalSpark`, `finalCallout` and `finalFx` as a blast
-   (`{ fx, scale, smoke }`). A super may carry `recolor` and `steam` while it runs.
+   (`{ fx, scale, smoke }`). A super may carry `recolor` and `aura` while it runs (modeLook reads the running kit move).
 5. **laneStrike options.** `windupOnce` (the windup strip played once through instead of looping), `windBack` (the
    strike strip's f0 for the last windup frames, no timing change), `puff` (effects at `[frame, forward, up]` on the
    windup), `arm`, `blastFx`, `hitRecovery` (a longer recovery after a hit, while the victim is still flying) and `after`

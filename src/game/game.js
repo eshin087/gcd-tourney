@@ -16,7 +16,7 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel, modeLook } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -372,7 +372,7 @@ export class Game {
 
   // a move's name as called out: a mode may rename it (Gear Second's GUM-GUM JET PISTOL, ENG-SKL-LUF)
   techName(f, m) {
-    return f.mode?.names?.[m.name] ?? m.name;
+    return modeLook(f)?.names?.[m.name] ?? m.name;
   }
 
   onKitMove(f, m) {
@@ -915,6 +915,11 @@ export class Game {
       if (f.mode?.cloak) this.fx.cloakTick(f, f.mode.cloak, this.cam.right, frozen); // Nine-Tails Cloak (ENG-SKL-NAR)
       if (f.shroud) this.fx.shroudTick(f, f.shroud, shroudLevel(f), this.cam.right, frozen); // Four-Tails
       if (f.state !== 'charge') chargeEnd(this, f);
+      // a power-up's look while it lasts (kit.modeLook: shell, aura; the tint is Fighter.sync's): the charge's own shell
+      // wins while he powers up
+      const look = f.state === 'charge' ? null : modeLook(f);
+      if (look?.aura) this.fx.modeAura(f, look.aura);
+      this.fx.modeShell(f, look?.shell ?? null, this.time);
       if (f.state === 'charge') {
         lines = Math.max(lines, chargeTick(this, f, f.t, frozen)); // canon power-up per fighter (ENG-069)
         this.linesFocus = f;
@@ -930,12 +935,10 @@ export class Game {
         if (!f.shroud) this.fx.auraTick(f, 0.6, this.cam.right);
       }
       else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0); // a thin aura behind the body: the flames and streaks hid it
-      // Luffy's techniques (ENG-SKL-LUF): Gear Second's steam (the mode's, or the running super's) and the afterimages of
-      // a mode with `ghost`, the Rocket's arms, a rush's stretched limb (the Whip), the Gigant Pistol's giant arm
+      // Luffy's techniques (ENG-SKL-LUF): the afterimages of a power-up with `ghost` (modeLook: Gear Second), the
+      // Rocket's arms, a rush's stretched leg (the Whip's `sweep`), the Gigant Pistol's giant arm
       const km = f.state === 'kit' ? f.kitState : null;
-      const steam = f.mode?.steam ?? km?.m?.steam;
-      if (steam) this.fx.steamTick(f, steam);
-      if (f.mode?.ghost && !frozen && f.t % f.mode.ghost === 0 && GHOSTING.has(f.state)) f.actor.ghost(f.mode.color, 0.25, 0.4);
+      if (look?.ghost && !frozen && f.t % look.ghost === 0 && GHOSTING.has(f.state)) f.actor.ghost(look.color ?? f.def.color, 0.25, 0.4);
       if (km?.m?.grab) this.fx.grabTick(f, km.m.grab, km.kind === 'dive' && km.phase === 'rise' && km.rose, this.cam.right);
       if (km?.kind === 'laneStrike' && km.m.arm) this.fx.laneArm(f, km, km.m, this.cam.right);
       const L = f.state === 'attack' ? f.move?.sweep : null;
@@ -2062,16 +2065,21 @@ export class Game {
     this.excite = Math.min(1, this.excite + 0.4);
   }
 
-  onVanish(f, phase) {
+  // `appear`: a teleport's own `appearFx` (Effects.teleportFx) in place of the star, ring and afterimage; false: nothing
+  onVanish(f, phase, appear) {
     if (phase === 'out') {
       this.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 1.2);
       this.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 0.6, depthTest: false, order: 8 });
       audio.play('vanish');
       this.hud.callout(f.index, 'VANISH!', f.def.color);
     } else {
-      this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
-      this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 1, color: f.def.color, depthTest: false, order: 8 });
-      f.actor.ghost(f.def.color, 0.3, 0.6);
+      if (appear !== undefined) {
+        if (appear) this.fx.teleportFx(appear, f.pos);
+      } else {
+        this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
+        this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 1, color: f.def.color, depthTest: false, order: 8 });
+        f.actor.ghost(f.def.color, 0.3, 0.6);
+      }
       audio.play('vanishIn');
       this.freeze = Math.max(this.freeze, 5);
       // a vanish inside a combo (not a kit teleport): the ticker, and VANISH ×2! / ×3! for the ping-pong (ADR 0026)

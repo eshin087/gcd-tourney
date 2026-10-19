@@ -451,12 +451,12 @@ export const SPECIAL_MOVES = {
   },
   // Gear Second: he pumps his blood and steams; faster and a little stronger (ADR 0011 mode budget: 1.25 × 1.1 × 1.0).
   // The anime look (ENG-SKL-LUF): his skin flushed pink in every animation (`recolor`, the fighter's palette swap), steam
-  // pouring off him (`steam`), a burst of it as it kicks in (`burstFx`), afterimages on his moves (`ghost` frames) and
-  // the JET names (`names`)
+  // pouring off him (`aura`), a burst of it as it kicks in (`burstFx`), afterimages on his moves (`ghost` frames) and
+  // the JET names (`names`), all read through kit.modeLook (view only)
   gearSecond: {
     kind: 'mode', anim: 'charge', cost: 100, startup: 20, recovery: 8, len: 420, speed: 1.25, damage: 1.1, defense: 1.0,
-    fx: 'steam', auraColor: '#ff9c9c', auraCore: [1.0, 0.86, 0.86], name: 'GEAR SECOND', color: '#ff7a7a', charge: { level: 1 },
-    recolor: 'gear2', steam: { fx: 'gear2Steam', scale: 0.85, front: 0.3 }, burstFx: { fx: 'gear2Burst', scale: 1.0 }, ghost: 4,
+    fx: 'none', auraColor: '#ff9c9c', auraCore: [1.0, 0.86, 0.86], name: 'GEAR SECOND', color: '#ff7a7a', charge: { level: 1 },
+    recolor: 'gear2', aura: { fx: 'gear2Steam', scale: 0.85, front: 0.3, glow: 0 }, burstFx: { fx: 'gear2Burst', scale: 1.0, center: true }, ghost: 4,
     names: { 'GUM-GUM PISTOL': 'GUM-GUM JET PISTOL', 'GUM-GUM BAZOOKA': 'GUM-GUM JET BAZOOKA', 'GUM-GUM WHIP': 'GUM-GUM JET WHIP', 'GUM-GUM ROCKET': 'GUM-GUM JET ROCKET' },
   },
 };
@@ -524,12 +524,12 @@ export const SUPERS = {
   },
   // Jet Gatling (Luffy, Gear Second): a blur of fists from in front (`front`), then one last blow that sends them into
   // the wall instead of a slam from above. The anime (ENG-SKL-LUF): the Gear Second pump in the flash (`flashPose`), his
-  // skin pink and steaming through the super (`recolor`, `steam`), a storm of fists between him and them (`fists`),
+  // skin pink and steaming through the super (`recolor`, `aura`), a storm of fists between him and them (`fists`),
   // knuckle impacts on each hit, and the Jet Bazooka double palm to finish (`finalPose`, `finalFx`, `finalCallout`)
   jetGatling: {
     kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 9, every: 6, hitDmg: 20, finalDmg: 125, minScale: 0.8, front: true,
     finalLaunch: [20, 9], hitFx: 'gumImpact', hitColor: 0xffffff, hitScale: 0.4, hitSpark: 'none', finalFx: { fx: 'bazookaBlast', scale: 1.0, smoke: 1 }, finalSpark: 'none',
-    finalPose: 'specialForward', finalCallout: 'JET BAZOOKA!', flashPose: 'charge', recolor: 'gear2', steam: { fx: 'gear2Steam', scale: 0.85, front: 0.3 },
+    finalPose: 'specialForward', finalCallout: 'JET BAZOOKA!', flashPose: 'charge', recolor: 'gear2', aura: { fx: 'gear2Steam', scale: 0.85, front: 0.3, glow: 0 },
     fists: { fx: 'gatlingFists', scale: 0.6, ahead: 0.45, up: 0.95 },
     name: 'GEAR SECOND: JET GATLING', color: '#ff7a7a', ground: 'stone',
   },
