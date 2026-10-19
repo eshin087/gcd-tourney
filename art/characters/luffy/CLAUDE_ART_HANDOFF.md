@@ -2,6 +2,16 @@
 
 Relay lane `luffy-skills`, authorization #1. Branch `art/luffy-skills`. The user approved special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn via Claude relay #2. This is visual approval only; do not treat it as technical or integration clearance.
 
+## Batch 2 Gear Third (relay #5)
+
+Selected candidate versions: `beamFire_v04`, `gear3Puff_v01`, `gigantArm_v01`, `gigantFist_v01`, `gigantImpact_v01` and `luffyChibi_v01`. User visual approval is pending through Claude; no approval-named files exist.
+
+- Gallery: [Batch 2 review](../../../public/reviews/luffy-skills-batch2/); candidate page and media are committed in the review branch. Preview URL: pending `npm run pr -- preview`.
+- Exact source calls, hashes, sidecars and pack evidence: [candidate inventory](production/skills-revamp-batch2/candidate-inventory.md). Astra B6 audit: [FINAL_ASTRA_AUDIT.md](production/skills-revamp-batch2/FINAL_ASTRA_AUDIT.md).
+- `beamFire_v04` is call 3/3. Packer sidecar `raw/beamFire_v04.json` shifts f0 right by 6 px so the fist is fully inside; f1/f2 arm exits are at x254/x253. Hand anchors are f0 `[47,132]`, f1 `[254,125]`, f2 `[253,124]` at `_scale: 0.92`. Astra anatomy/scale PASS is bound to sheet SHA256 `99DCD0B3D8726949DE356B373D12A6832B993ACDB8E670B5F944C07238EF0EF6` and metadata SHA256 `49DC0763101AA6A2B0AD3C05BDEE244D0375DB1C0D94C6BD943D05FE311176E5`. Straw-hat head probe remains exempt; the active exits trigger a small 4px margin warning. Runtime continuation/contact remains Claude's check.
+- VFX candidate pack maps all five new effects to expected frame counts. Technical hold: `gigantArm_v01` does not reach both tile edges and is about 87/96 px thick; `gigantFist_v01` wrist-band continuity is imperfect and raw layout is 3:1. The review page discloses these. Batch 2 effects do not receive Astra anatomy/scale audit under the brief.
+- Relay #3 says leave all untracked `art/vfx/frames/` folders until worktree archive after merge. Preserve them.
+
 ## Batch 1 status
 
 - `special_v04` is visually approved. Relay #4 sidecar erases three measured floor-line slivers; the approved-art pack now maps 8/8 canonical 3/3/2 frames. Astra manually passed all eight actual quantized cells for anatomy/scale; version-bound `scaleManualQA` v04 is recorded. Hand-anchor continuation/contact remains Claude's check.
@@ -25,4 +35,4 @@ Relay lane `luffy-skills`, authorization #1. Branch `art/luffy-skills`. The user
 
 1. Keep the five drawing approvals recorded; do not request them again. Relay #4 authorized these no-new-image-call technical corrections and pack.
 2. Claude owns hand-anchor reach/contact and runtime review before integration; the draw approvals and Astra static audit are not runtime clearance.
-3. Continue with Batch 2 Gear Third: `beamFire` v03, `gear3Puff`, `gigantArm`, `gigantFist`, `gigantImpact`, `luffyChibi`, then prepare its review and request art approval through Claude. Preserve the untracked VFX frame folders until this worktree is archived after merge, per relay #3.
+3. Batch 2 Gear Third candidates are prepared as `beamFire_v04`, `gear3Puff_v01`, `gigantArm_v01`, `gigantFist_v01`, `gigantImpact_v01`, `luffyChibi_v01`; see the new section above. Request visual approval through Claude after the committed preview is ready. Preserve untracked VFX frame folders until this worktree is archived after merge, per relay #3.

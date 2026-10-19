@@ -16,6 +16,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (ART-SKL-LUF, relay luffy-skills #5): filed Batch 2 Gear Third candidates beamFire v04, gear3Puff, gigantArm, gigantFist, gigantImpact and luffyChibi with attempt inventory, candidate gallery and packed review evidence. Astra technical anatomy/scale PASS is recorded for beamFire v04; gigantArm tile/thickness and gigantFist wrist-band continuity remain disclosed holds. Visual approval is pending through Claude; runtime continuation/contact remains Claude's check.
 - Changed (ART-SKL-LUF): prepared Batch 1 candidates and review page on `art/luffy-skills`. The VFX candidate atlas packs gumFist; technical holds remain for special v04 (7/8 frame split/clipping), throw v01 (scale probe and pose), gumImpact v01 (9/7 frames), and gumArm (three blank-f0 attempts). No new art is approved or integrated; see the batch inventory and gallery.
 - Changed (ART-SKL-LUF): recorded the user approval via Claude relay luffy-skills #2 for special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn. Superseded special v03 and gumArm v01-v02 moved to `_rejected/`; technical holds remain and no integration is cleared.
 - Fixed (ART-SKL-LUF, relay luffy-skills #4): added measured frame-split/erase sidecars for approved special v04, gumArm v03 and gumImpact v01, plus packed-cell hand anchors for special v04 and throw v01. Repack and Astra review remain required before technical clearance.
