@@ -2148,9 +2148,10 @@ export class Fighter {
       const s = hitShake(this, time);
       x += camRight.x * s;
       z += camRight.z * s;
-    } else if (this.state === 'charge' || this.smashCharging) {
-      // trembling with the power: a pixel or so, more as it builds
-      const s = dmath.sin(time * 70) * 0.012 * Math.min(1, (this.smashCharging ? this.chargeT : this.t) / 30);
+    } else if (this.smashCharging) {
+      // trembling with the power: a pixel or so, more as it builds. Only the smash attack's held frame: the ki charge's
+      // strip carries its own motion, and this 11 Hz shake on top of it read as a spasm (ENG-117)
+      const s = dmath.sin(time * 70) * 0.012 * Math.min(1, this.chargeT / 30);
       x += camRight.x * s;
       z += camRight.z * s;
     }

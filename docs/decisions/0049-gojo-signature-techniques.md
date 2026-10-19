@@ -27,8 +27,9 @@ none of it feeds the simulation (no new simulation state; the determinism fixtur
 2. **Shots (Reversal: Red):** a move's `form` plays an HD strip at the drawn hand through the startup
    (`Effects.formTick`, on the frame's `hand` anchor: Red gathering on the raised fingertip). A projectile's
    `halo: false` drops the glow disc under full-color art; Red also uses ADR 0047's `orient` and `burstFx`.
-3. **Teleports (Blink):** `fold` replaces the smoke puff, speed lines and afterimage with one effect where he vanishes
-   and where he reappears (`Game.onVanish(f, 'in', fold)`; the arrival freeze is unchanged).
+3. **Teleports (Blink):** the shared `vanishFx` / `appearFx` (ENG-SKL-TPFX, PR #187: an effect name or `{ fx, scale,
+   bottom, y, lead, reverse }`, false for nothing) replace the smoke puff, speed lines and afterimage with Blue's
+   implosion, small, where he vanishes and where he reappears (the arrival freeze is unchanged).
 4. **Passive (Infinity):** `PASSIVES.infinity.stopFx` draws a ripple of space where a shot stops, and the shot's own
    sprite hangs there, stopped, for `hang` seconds while it fades (`ShotViews.hang`).
 5. **Orb (Hollow Purple):** `look` draws Red and Blue in the drawn palms (`def.hands[pose]`: per-frame near and far palm

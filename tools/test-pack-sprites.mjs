@@ -1051,6 +1051,7 @@ function main() {
   packScaleTests(base);
   sheetPageTests(base);
   paletteReserveTests(base);
+  loopFromTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -2235,6 +2236,53 @@ function paletteReserveTests(base) {
   const bad = run(Q);
   check(sameSheet(bad, plain) && (bad.r.json?.warnings || []).some((w) => /paletteReserve\.fourTails must be/.test(w))
     && (bad.C?.warnings || []).some((w) => /nope is not an animation of foxy/.test(w)), 'paletteReserve: a malformed group and an unknown animation are reported and ignored');
+}
+
+// ---------------------------------------------------------------- loopFrom (ENG-117)
+// A loop whose first frames play once: `charge` is 6 frames, gather and release, then the hold loops from frame 2. The
+// packer writes loopFrom only for the frame count it was given for (a fighter's old 4-frame charge keeps looping all four)
+// and SpriteActor wraps to it.
+function loopFromTests(base) {
+  const lraw = (n) => path.join(ART, 'characters', 'loopy', 'raw', n);
+  savePng(lraw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 1401, specks: 0 }));
+  savePng(lraw('charge_v01.png'), strip([{ bob: -2 }, { up: 4 }, {}, { bob: 1 }, { bob: 1 }, {}], { seed: 1402, specks: 0 }));
+  savePng(lraw('guard_v01.png'), strip([{}, { bob: 1 }, {}], { seed: 1403, specks: 0 }));
+  savePng(lraw('taunt_v01.png'), strip([{}, { punch: 4 }], { seed: 1404, specks: 0 }));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  // the defaults: the guide's 6-frame charge (no manifest default needed) and a 2-frame guard that loops from 1
+  man.animationDefaults.guard = { frames: 2, loop: true, loopFrom: 1 };
+  man.characters.loopy = { name: 'Loopy', scaleGate: 'warn', animations: {
+    idle: { frames: 8, loop: true, bodyHeight: 204 },
+    charge: { frames: 6, loop: true, bodyHeight: 198 }, // the contract's count: inherits loopFrom 2
+    guard: { frames: 3, loop: true }, // its own count: never the 2-frame default's loopFrom
+    taunt: { frames: 3, loop: true, loopFrom: 1 }, // drawn with 2 poses: the split is unknown, so the whole strip loops
+  } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const r = pack([...base, 'loopy']);
+  const C = r.json?.characters.find((c) => c.id === 'loopy');
+  const meta = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'loopy', 'anims.json'), 'utf8'));
+  const A = meta.animations;
+  check(A.charge?.frames.length === 6 && A.charge.loopFrom === 2 && JSON.stringify(A.charge.durations) === '[70,90,110,110,110,110]',
+    `loopFrom: the 6-frame charge loops from frame 2 at 70/90/110 ms (${JSON.stringify(A.charge)})`);
+  check(A.guard?.frames.length === 3 && !('loopFrom' in A.guard), `loopFrom: a 3-frame guard does not take the 2-frame default's loopFrom (${JSON.stringify(A.guard)})`);
+  check(A.taunt?.frames.length === 2 && !('loopFrom' in A.taunt) && (C?.warnings || r.json?.warnings || []).some((w) => /taunt: loopFrom 1 is for 3 frames, the strip has 2/.test(w)),
+    `loopFrom: a strip drawn with another frame count loops whole, with a warning (${JSON.stringify(A.taunt)})`);
+  check(!('loopFrom' in A.idle), 'loopFrom: strips without one keep their anims.json entry unchanged');
+  delete man.animationDefaults.guard;
+  delete man.characters.loopy;
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  // the engine: frames 0-1 once, then 2..5 again and again
+  const actor = Object.create(SpriteActor.prototype);
+  Object.assign(actor, { anim: { frames: [10, 11, 12, 13, 14, 15], durations: [70, 90, 110, 110, 110, 110], loop: true, loopFrom: 2 }, fi: 0, ft: 0, done: false });
+  actor.setFrame = function (f) { this.frame = f; };
+  const seen = [];
+  for (let t = 0; t < 1500; t += 10) { actor.update(10); if (seen[seen.length - 1] !== actor.frame) seen.push(actor.frame); }
+  check(seen.slice(0, 11).join(',') === '10,11,12,13,14,15,12,13,14,15,12', `loopFrom: SpriteActor plays 10,11 once, then loops 12-15 (${seen.join(',')})`);
+  actor.anim = { ...actor.anim, loopFrom: 6 };
+  actor.fi = 5; actor.ft = 0; actor.update(110);
+  check(actor.fi === 0, 'loopFrom: an out-of-range loopFrom loops the whole strip');
 }
 
 function finish() {

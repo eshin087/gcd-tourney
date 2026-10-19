@@ -395,8 +395,8 @@ export const SPECIAL_MOVES = {
   // `form` (ENG-SKL-GOJ): Red gathers on his raised fingertip through the startup (the strip's drawn hand anchors)
   red: { kind: 'shot', anim: 'specialForward', startup: 14, active: 3, recovery: 22, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a', form: { fx: 'redForm', scale: 0.42 } },
   redAir: { kind: 'shot', anim: 'throw', startup: 10, active: 3, recovery: 16, air: true, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a', form: { fx: 'redForm', scale: 0.42 } },
-  // `fold` (ENG-SKL-GOJ): no smoke; space folds, a tiny Blue implosion where he vanishes and where he reappears
-  blink: { kind: 'teleport', anim: 'specialUp', startup: 6, recovery: 6, cost: 50, hide: 6, to: 'above', off: 0.9, height: 2.3, ghosts: 0, follow: null, name: 'BLINK', color: '#9fd8ff', fold: { fx: 'blueCollapse', scale: 0.4 } },
+  // ENG-SKL-GOJ: no smoke; space folds, a tiny Blue implosion where he vanishes and where he reappears (vanishFx / appearFx)
+  blink: { kind: 'teleport', anim: 'specialUp', startup: 6, recovery: 6, cost: 50, hide: 6, to: 'above', off: 0.9, height: 2.3, ghosts: 0, follow: null, name: 'BLINK', color: '#9fd8ff', vanishFx: { fx: 'blueCollapse', scale: 0.4 }, appearFx: { fx: 'blueCollapse', scale: 0.4 } },
   infinity: { kind: 'counter', anim: 'specialDown', cost: 50, len: 24, recovery: 14, stagger: 48, onCounter: 'freeze', name: 'INFINITY', callout: 'INFINITY!', color: '#d8f2ff' },
 
   // ---- Goku (Super Saiyan, Cell saga; ADR 0032)
