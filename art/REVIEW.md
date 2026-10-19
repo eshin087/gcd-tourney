@@ -1,5 +1,13 @@
 # Art review queue
 
+## ENG-118 announcer move batch (2026-10-18)
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Announcer | `npc-announcer-r1` | [walk v01](npc/announcer/raw/walk_v01.png) · [run v01](npc/announcer/raw/run_v01.png) · [shocked v01](npc/announcer/raw/shocked_v01.png) · [micThrust v01](npc/announcer/raw/micThrust_v01.png) · [phone review](../public/reviews/announcer-moves/index.html) · [generation provenance](../public/reviews/announcer-moves/generation-provenance.md) | v01 each | needs review | Added the four ENG-118 announcer moves from prompts A5–A8, using the approved model sheet and idle references. | Candidate NPC atlas packs all four, 32 colors, zero warnings. Manual packed-cell review: all frames remain inside the atlas; `shocked` f0/f1 are nearly identical and should be judged for readable tremble. Final Astra anatomy/scale audit and user art approval are pending. |
+
+This batch is not approved and does not ship. The hosted page plays each candidate beside the shipped idle at its configured frame timing.
+
 ## ENG-112 Goku normals (2026-10-18): seven drawings approved; one redraw round authorized for three held moves after merge
 
 Goku's head probe is manually disabled. Astra's relay #39 visual scale review passed fTilt v01, dTilt v01, dashAttack v01, fSmash v01, fair v01, bair v01 and uair v01 within recorded uncertainty; the user approved those seven as drawn via Claude relay #40. uTilt v01 and uSmash v01 remain visibly undersized, and dSmash v02 has visibly oversized upper-body volume. These three remain on technical hold pending the separate user decision; no drawing approval is inferred. Strict shipping gate and runtime contact remain separate. [Current Astra audit](characters/goku/production/ENG112_IMPORT_SCALE_AUDIT.md).

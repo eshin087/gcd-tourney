@@ -3118,14 +3118,14 @@
           }
         },
         "npc-announcer-r1": {
-          "status": "todo",
-          "reviewStatus": "todo",
-          "note": "ENG-118 live announcer: walk 4, run 4, shocked 2, micThrust 2 (art/npc/announcer/ANIMATIONS.md)",
+          "status": "packed",
+          "reviewStatus": "needs review",
+          "note": "ENG-118 live announcer candidates packed; final Astra anatomy/scale audit and user approval pending. shocked v01 frames are nearly identical. Review: public/reviews/announcer-moves/",
           "items": {
-            "walk": {"status":"todo","version":0,"approvedVersion":null},
-            "run": {"status":"todo","version":0,"approvedVersion":null},
-            "shocked": {"status":"todo","version":0,"approvedVersion":null},
-            "micThrust": {"status":"todo","version":0,"approvedVersion":null}
+            "walk": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "run": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "shocked": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "micThrust": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"}
           }
         },
         "npc-monk-a": {
