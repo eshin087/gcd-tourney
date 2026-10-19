@@ -370,7 +370,7 @@ export class Projectile {
     if (this.P.trail === 'red' && Math.random() < 0.6) fx.spawn('glow', back.x, this.pos.y, back.z, { scale: 0.8, life: 0.12, color: 0xff3048, opacity: 0.6, fade: true, order: 6 });
     if (this.pos.y < 0.1 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4 || this.life <= 0) {
       if (this.pos.y < 0.1 && this.P.burstFx) {
-        fx.blast(this.P.burstFx.fx, this.pos.x, 0.4, this.pos.z, this.P.burstFx.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), this.P.burstFx.smoke);
+        fx.blast(this.P.burstFx.fx, this.pos.x, 0.4, this.pos.z, this.P.burstFx.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), this.P.burstFx.smoke, this.flipsLeft());
         audio.play('hitHeavy', 0.7);
       } else if (this.pos.y < 0.1 && this.P.burst === 'explosion') {
         fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
@@ -421,7 +421,7 @@ export class Projectile {
       const B = this.P.burstFx;
       if (B) {
         // the technique's own blast (the Great Fireball, the Chidori Spear piercing): its art, not the white-out
-        fx.blast(B.fx, this.pos.x, this.pos.y, this.pos.z, B.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), B.smoke);
+        fx.blast(B.fx, this.pos.x, this.pos.y, this.pos.z, B.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), B.smoke, this.flipsLeft());
         audio.play(B.sfx ?? (r === 'hit' ? 'hitHeavy' : 'block'), 0.8);
         this.game.cam.shake(B.shake ?? 0.4);
       } else if (this.P.burst === 'explosion') {
@@ -438,6 +438,12 @@ export class Projectile {
       }
       this.kill();
     }
+  }
+
+  // an `orient`-ed shot (drawn flying screen-right) flying screen-left: its blast is mirrored too (view only)
+  flipsLeft() {
+    const R = this.P.orient && !this.game.resim ? this.game.cam.right : null;
+    return !!R && this.vel.x * R.x + this.vel.z * R.z < 0;
   }
 
   kill() {

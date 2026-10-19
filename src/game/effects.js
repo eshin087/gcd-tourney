@@ -695,8 +695,9 @@ export class Effects {
   // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
   // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
   // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind)
-  blast(name, x, y, z, scale, color, smoke = 3) {
-    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false });
+  // `flipX`: a blast drawn pointing screen-right, mirrored for a shot flying screen-left (Reversal: Red's repulsion)
+  blast(name, x, y, z, scale, color, smoke = 3, flipX = false) {
+    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false, flipX });
     this.spawn('ring', x, y, z, { scale: 2.2 * scale, color, glow: 0.4, order: 7, depthTest: false });
     for (let k = 0; k < smoke; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
   }
