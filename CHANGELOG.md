@@ -18,6 +18,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Added ART-NPC-ANN-R2 candidate art: ten announcer expression/fidget strips (blownAway v01-v03, sooty v01-v03, eight v01s), a packed phone review and full provenance. Astra passed eight strips and recorded technical holds on blownAway v03 and sooty; user image approval is pending.
+- Added (ENG-119): the announcer is a living character. He talks only at the big moments (no filler; about a line every 5 s at most) and shows everything else with his poses and manga symbols over his head (sweat drops, !!, ?, anger, dizzy stars, music notes, steam, sparkles). Blasts, beams, shots and fighters flying into him knock him flat; he pops back up dizzy, and sooty after a blast. He facepalms at a super that misses, winces at brutal hits, cheers huge combos and comebacks, hums or fidgets in quiet moments, tires over a long round, and babbles soft voice blips while a line shows. Ten new poses for this are with Codex (ART-NPC-ANN-R2); until they are approved he uses his existing ones.
 
 - Fixed (ENG-118): the announcer's captions are steady. Each line sits locked straight above his head, moves with his sprite in the game's own pixel steps (no lag or easing), no longer jumps beside him under the health bars or with a hop's arc or a duck, looks the same for every line (one colour, one line) and stays up at least 1.2 s before the next one replaces it.
 

@@ -211,7 +211,7 @@ src/art/       animGuide.js (canonical animation list + poses), vfxPainter.js (p
 src/art/rig/   3D chibi rig, toon shader, pose/keyframe system, shared anim library, sprite baker
 src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sky; stage slot registry), worldArt.js (stage/NPC/title art loaders,
                NPC placement + event cues), voidStage.js (domain stage), trainingRoom.js (holographic practice stage),
-               announcer.js + announcerLines.js (the live announcer: moves, KO count, what he says; ADR 0048)
+               announcer.js + announcerLines.js + announcerSymbols.js (the live announcer: moves, reactions, symbols; ADR 0048)
 src/ui/        hud.js (bars, combo, cut-ins, callouts, input history), menus.js (DOM menus, training panel, pause),
                controls.js (PS/Xbox/keyboard layouts, live highlights, rebinding, match/clash hints),
                speechBubble.js (the announcer's small captions)
