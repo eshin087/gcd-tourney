@@ -478,12 +478,12 @@ export const SUPERS = {
     },
   },
   // Unlimited Void (Gojo). The anime's sequence (ENG-SKL-GOJ, src/world/voidStage.js), view only: the Six Eyes `glint`
-  // as the blindfold comes up ([forward, up] off his feet on superPose), a black sphere bursting out of him that
+  // as the domain opens (`on: 'cast'`; [forward, up] off his feet on superPose), a black sphere bursting out of him that
   // swallows the arena over `open` frames (the cosmos inside), light flooding the frozen opponent's head (`flood`) and
   // the void shattering like glass when it ends (`shatter`). The hold is unchanged: they freeze the frame it opens
   unlimitedVoid: {
     kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff',
-    glint: { fx: 'sixEyesGlint', at: [0.06, 1.58], scale: 0.42 }, open: 18, flood: { fx: 'voidFlood', scale: 0.6, up: 1.5 }, shatter: 'voidShatter',
+    glint: { fx: 'sixEyesGlint', at: [0.06, 1.58], scale: 0.55, on: 'cast' }, open: 18, flood: { fx: 'voidFlood', scale: 0.6, up: 1.5 }, shatter: 'voidShatter',
   },
   // Kirin (Sasuke): `storm` plays the anime's sequence inside the sky strike's frames (ENG-SKL-SAS, kit.js stormTick):
   // the Great Fireball breathed up (it takes `heat` frames to reach the sky), `clouds` thunderclouds `spread` apart
@@ -516,8 +516,8 @@ export const SUPERS = {
     kind: 'orb', cost: 300, flash: 46, merge: 26, answerMerge: 8, recovery: 24, speed: 15, radius: 1.45, life: 2.4, dmg: 260, launch: [18, 12],
     pose: 'beamCharge', strikePose: 'beamFire', red: 0xff3048, blue: 0x4aa8ff, orb: 0xa24cff, glow: 0x7a2cff,
     name: 'HOLLOW TECHNIQUE: PURPLE', color: '#b46cff', ground: 'erasure',
-    look: { red: 'reversalRed', blue: 'lapseBlue', handScale: 0.3, form: 'purpleForm', formScale: 0.8, formAt: 0.3, mass: 'hollowPurple', massScale: 1.05, burst: 'purpleBurst', burstScale: 1.35 },
-    glint: { fx: 'sixEyesGlint', at: [-0.02, 1.56], scale: 0.42, on: 'merge' },
+    look: { red: 'reversalRed', blue: 'lapseBlue', handScale: 0.3, form: 'purpleForm', formScale: 0.55, formAt: 0.3, mass: 'hollowPurple', massScale: 1.05, burst: 'purpleBurst', burstScale: 1.35 },
+    glint: { fx: 'sixEyesGlint', pose: 'beamCharge', at: [0.05, 1.53], scale: 0.55, on: 'merge' },
   },
   // Whirlwind (Killua): Godspeed's reflex mode. For `len` frames his body answers every blockable attack on its own:
   // a lightning blink behind the attacker (projectiles too) and the `follow` strike, up to `counters` times. Supers,

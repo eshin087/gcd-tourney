@@ -118,7 +118,7 @@ export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
   f.vel.set(0, 0, 0);
   f.faceOpponent();
   f.game.onSuperStart(f, S, answer, ultimate);
-  if (S.glint && S.glint.on !== 'merge') glint(f, S.glint); // the Six Eyes as the blindfold comes up
+  if (S.glint && !S.glint.on) glint(f, S.glint); // the Six Eyes as the blindfold comes up (`on`: a later phase instead)
   // an eye technique's sigil stays up through the flash (and the splash hold) into the move itself
   if (S.sigil) {
     const flash = answer ? CLASH.answerFlash : S.flash + (ultimate ? ULTIMATE.splashHold : 0);
@@ -185,10 +185,12 @@ function formOrb(f, k, S) {
 }
 
 // ------------------------------------------------------------------ Gojo's look (ENG-SKL-GOJ): effects only
-// The Six Eyes: a glint at the drawn eyes, `at` [forward, up] off the feet
+// The Six Eyes: a glint at the drawn eyes (`pose`: the eyes drawn on that strip, def.hands[pose].eyes), else `at`
+// [forward, up] off the feet
 function glint(f, G) {
   const p = f.pos, k = f.actor?.depthK ?? 1;
-  f.game.fx.spawn(G.fx, p.x + f.face.x * G.at[0] * k, p.y + G.at[1] * k, p.z + f.face.y * G.at[0] * k, { scale: G.scale ?? 0.4, order: 10, depthTest: false });
+  const at = (G.pose && drawnPoint(f, f.def.hands?.[G.pose]?.eyes)) ?? { x: p.x + f.face.x * G.at[0] * k, y: p.y + G.at[1] * k, z: p.z + f.face.y * G.at[0] * k };
+  f.game.fx.spawn(G.fx, at.x, at.y, at.z, { scale: G.scale ?? 0.4, order: 10, depthTest: false });
 }
 
 // show frame i of `anim` (a drawn merge played by progress)
@@ -1459,6 +1461,7 @@ const UPDATE = {
       k.phase = 'cast';
       k.t0 = 0;
       g.startDomain(f, S);
+      if (S.glint?.on === 'cast') glint(f, S.glint); // the Six Eyes as the domain opens (the super banner covers the flash)
     }
     k.t0 = (k.t0 || 0) + 1;
     f.actor.setPhase('superPose', 1, 0.5);
