@@ -6,6 +6,10 @@ Canonical names, counts, phases, timing, and required flags remain those reserve
 
 The corrected title-style reference v02 is user-approved and is shown beside the four approved neutral cells in `reference/title_style_lineup_v02.png`. The user also approved model sheet v02, expressions v02 and idle v02. These approvals do not extend to other animations. Run v04 and light1 v02 remain held and unchanged. Light2, light3, light4, heavy, airLight1 and airHeavy each have a saved v04 candidate after an extra authorized redraw, and v04 is now user-approved as drawn, with strict scale/clipping warnings retained for technical follow-up; light2 required attempt 5 because the attempt-4 output path was lost. See [REVIEW_ROWS.md](REVIEW_ROWS.md); no core atlas is available for final audit yet.
 
+## Charge (ART-CHARGE)
+
+The six-frame v10 candidate follows [CHARGE_BRIEF.md](../CHARGE_BRIEF.md): f0 gathers in a deep crouch with fists at the hips, then f1 releases into Goku's wide Super Saiyan power stance. f2-f5 hold that stance and loop from frame 2; keep feet, knees and hips fixed, head and fists within 2 px, and vary only the breath, shout, forearms and updraft silhouettes. Timing is 70, 90, 110, 110, 110, 110 ms. The engine supplies aura and other effects; the sprite contains none. The user approved v10 as drawn via Claude relay charge #4 (quote: “Approve v10”). Approval is visual only; the packed loop-lock and body-size technical holds remain open for Claude’s integration review.
+
 ## Shared combat language
 
 Goku fights with a grounded martial-arts guard, elbows in, fists near chest and face, and a measured forward lean. His attacks use compact, direct fist and kick paths, with cloth following the torso turn. Keep golden Super Saiyan hair in every pose, including down and KO. Preserve the same head, torso, limb lengths, shoulder width and clothing volume; poses may change their bounding box but never their anatomy.
