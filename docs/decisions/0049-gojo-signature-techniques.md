@@ -58,6 +58,6 @@ none of it feeds the simulation (no new simulation state; the determinism fixtur
   generic sparks; the hit stop and shake are the same.
 - `hitboxes.json` gains hand anchors on `specialForward` f0-f1 and `throw` f0 (the raised fingertip); the repack changes
   only those anchors in `anims.json` (the sheet is byte-identical).
-- When `beamCharge` v04 is approved, its palm points (`hands.beamCharge`, `_v` 4, with `meet`) are measured on the
-  packed strip and the merge plays it by progress; until then the v03 loop and its measured palms are used.
+- `beamCharge` v04 (approved 2026-10-18) plays across the merge by progress; its palms, meeting point and eyes
+  (`hands.beamCharge`, `_v` 4) were measured on the packed strip. A looping strip falls back to the drift-together look.
 - The void's cosmos and sphere are shaders: no art, nothing to approve. A later stage-art pass could replace them.
