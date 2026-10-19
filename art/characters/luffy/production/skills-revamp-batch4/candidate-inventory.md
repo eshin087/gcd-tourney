@@ -1,6 +1,6 @@
 # Luffy skills revamp — Batch 4 candidate inventory
 
-Generation directed by GPT-6 Luna, medium, with the approved references and the prompt in [SKILLS_REVAMP.md](../../SKILLS_REVAMP.md). Each saved image stays a candidate; user approval is pending. No image exceeded three calls.
+Generation directed by GPT-6 Luna, medium, with the approved references and the prompt in [SKILLS_REVAMP.md](../../SKILLS_REVAMP.md). The selected Batch 4 candidates were approved as drawn via Claude relay luffy-skills #9. Relay #11 applies version-bound scale checks to `specialUp` v01 and `specialDown` v03. No image exceeded three calls.
 
 | Candidate | Saved source | SHA-256 | Source px | Selected generation output | Call record and pack verdict |
 |---|---|---|---:|---|---|
@@ -17,7 +17,7 @@ Generation directed by GPT-6 Luna, medium, with the approved references and the 
 - Luffy pack: 27 animations / 129 frames, 4096x2304, 48 colors, complete; both batch review packs are identical. Packer warnings on older shipped strips remain.
 - Body sheet and report: [body sheet](../../../../../public/reviews/luffy-skills-batch4/body/body-luffy-specialForward-specialUp-specialDown.png), [report](../../../../../public/reviews/luffy-skills-batch4/body/body-report.json).
 - VFX candidate pack: 84 effects / 532 frames, Luffy HD page 2048x3584. It includes all current VFX candidates; this batch's selected frames are visible in the gallery source strips.
-- No candidate is approved. Exact packed anatomy holds and uncertainties are in the review queue and gallery.
+- The selected versions are approved as drawn via Claude relay #9. Exact anatomy/scale findings and relay #11 pack corrections are in the review queue, gallery and [recheck](../skills-revamp-batch3-4-RELAY11_RECHECK.md).
 
 
 ## Packed review and audit
