@@ -764,7 +764,15 @@ counter, vanish, super dash through a shot, sidestep, counter-beam, block), weig
 Showcase. `STYLES` hold the fairness knobs: `impossible` (vs a player: sees an attack after 7 f, parries about
 half the time, max-damage routes), `insane` (the INSANE level between HARD and IMPOSSIBLE: sees an attack after
 12 f, parries 28%, dodges and techs less, and drops 15% of its combos after 2-3 hits via `drop`) and `showman`
-(CPU vs CPU, ADR 0016). CPU vs CPU defaults to IMPOSSIBLE.
+(CPU vs CPU, ADR 0016). CPU vs CPU adds `god` (the GOD level, ADR 0054, spectated only) and defaults to it.
+
+The **god** style is the showman at the top of every dial: it sees an attack after 3 f, parries 85% and blocks last;
+in a parry exchange (parried in the last 70 f) its parry weighs x5 (`rallyParry`) and its own rallies fade by x0.85 each
+(`rallyDecay`, up to 10), so parries go back and forth; out of a melee clash it swings again 2.5x as keenly
+(`clashChain`), it meets energy with energy unprompted (`energyAnswer` 1), saves bars for three-bar finishers more often
+(`hoard` 0.6), and its impact tech is a per-launch 15% roll that is its only way to tech an impact (`exactTech`). Its
+combo persona is drawn like the showman's with the odds pushed to highlights (`GOD_PERSONA` in `aiCombo.js`). Every new
+knob defaults to the old value, so the other styles are unchanged.
 
 The **showman** plays for the viewer: long, varied combos from the combo composer (below), mid-range neutral with
 the kit (zoning, kit tools, air specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset
