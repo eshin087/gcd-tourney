@@ -8,7 +8,7 @@ The corrected title-style reference v02 is user-approved and is shown beside the
 
 ## Charge (ART-CHARGE)
 
-The six-frame v10 candidate follows [CHARGE_BRIEF.md](../CHARGE_BRIEF.md): f0 gathers in a deep crouch with fists at the hips, then f1 releases into Goku's wide Super Saiyan power stance. f2-f5 hold that stance and loop from frame 2; keep feet, knees and hips fixed, head and fists within 2 px, and vary only the breath, shout, forearms and updraft silhouettes. Timing is 70, 90, 110, 110, 110, 110 ms. The engine supplies aura and other effects; the sprite contains none. v10 is a raw candidate awaiting technical packed-atlas checks and user review; it is not approved.
+The six-frame v10 candidate follows [CHARGE_BRIEF.md](../CHARGE_BRIEF.md): f0 gathers in a deep crouch with fists at the hips, then f1 releases into Goku's wide Super Saiyan power stance. f2-f5 hold that stance and loop from frame 2; keep feet, knees and hips fixed, head and fists within 2 px, and vary only the breath, shout, forearms and updraft silhouettes. Timing is 70, 90, 110, 110, 110, 110 ms. The engine supplies aura and other effects; the sprite contains none. The user approved v10 as drawn via Claude relay charge #4 (quote: “Approve v10”). Approval is visual only; the packed loop-lock and body-size technical holds remain open for Claude’s integration review.
 
 ## Shared combat language
 

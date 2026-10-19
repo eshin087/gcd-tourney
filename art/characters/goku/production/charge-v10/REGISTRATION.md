@@ -57,4 +57,4 @@ The quantized output has binary alpha, 47-48 occupied colors per frame and no vi
 
 ### Review status
 
-No `scaleManualQA` pass is recorded for v10. Goku’s automatic probe is unreliable, segment measurements remain uncertain, and the B median is above the advisory threshold. The pack metadata reports this candidate as unmeasured. This is not a loop-lock pass, numeric segment pass, runtime approval or user design approval. Candidate v10 remains `needs review`; approvedVersion remains 5.
+The user approved v10 as drawn via Claude relay charge #4 (quote: “Approve v10”). No `scaleManualQA` pass is recorded. Goku’s automatic probe is unreliable, segment measurements remain uncertain, and the B median is above the advisory threshold. The pack metadata reports the candidate as unmeasured. Visual approval does not pass loop lock, numeric segments, runtime contact or integration. Claude review remains pending.
