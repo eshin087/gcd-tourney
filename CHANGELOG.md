@@ -16,7 +16,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Changed (ART-CHARGE): preserved Goku v06–v09 charge generation attempts and technical hold evidence; no candidate passed the locked-loop registration gate, and the pilot awaits user direction.
+- Changed (ART-CHARGE): promoted Goku charge v10 unchanged from v08 attempt03 after Claude reported feet-registered trial-pack loop measurements; recorded raw Astra technical holds and preserved the earlier attempts. Production quantized packing and user review wait for ENG-117 (`loopFrom`) on main.
 
 - Changed: the determinism fixtures are re-recorded after Goku's seven Smash moves (fingerprint 116df829f43b); both replay frame for frame.
 
