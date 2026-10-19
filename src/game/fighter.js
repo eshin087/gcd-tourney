@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
-import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH, NORMALS, AIR, CLASH } from './moves.js';
+import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH, NORMALS, AIR, CLASH, PROJECTILES } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
 import { Pad, CSTICK } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -80,6 +80,7 @@ export class Fighter {
     this.move = null;
     this.moveName = null;
     this.hitstop = 0;
+    this.coilHit = false;
     this.stun = 0;
     this.airStun = 0;
     this.invuln = 0;
@@ -1094,6 +1095,7 @@ export class Fighter {
       if (this.hitstop === 0) {
         this.shaking = false;
         if (this.clashOut) this.leaveClash();
+        if (this.coilHit) this.coilBurst();
       }
       this.pad = real;
       return;
@@ -1475,6 +1477,18 @@ export class Fighter {
         }
         break;
       }
+      case 'intro': {
+        // a transformation in the match intro (`def.intro`, Goku's Super Saiyan, ENG-SKL-GOK): its drawn strip held on
+        // f0 until the camera reaches him (`at`, seconds into the fly-in, per side), then played once a `step` apart and
+        // held on its last frame. A sheet without the strip plays its stand-in as usual
+        const I = this.def.intro;
+        if (!I || !this.actor.asset.has('intro')) { freeAnim(); break; }
+        const s = this.game.stateT - I.at[this.index], fr = this.actor.anim.frames;
+        this.actor.play('intro');
+        this.actor.fi = s < 0 ? 0 : Math.min(fr.length - 1, 1 + Math.floor(s / I.step));
+        this.actor.setFrame(fr[this.actor.fi]);
+        break;
+      }
       default:
         this.vel.x *= 0.8; this.vel.z *= 0.8;
         freeAnim();
@@ -1689,7 +1703,11 @@ export class Fighter {
       this.vel.y = m.hop;
       this.air = true;
     }
-    if (m.projectile && t === A) this.game.spawnProjectile(this);
+    if (m.projectile && t >= A) {
+      // a volley with `every` fires its shots one at a time, one per drawn thrust (Goku's ki blasts); else all at once
+      const P = PROJECTILES[m.proj || this.def.projectile], k = P?.every ? (t - A) / P.every : t - A;
+      if (k === Math.floor(k) && k < (P?.every ? P.count : 1)) this.game.spawnProjectile(this, P?.every ? k : -1);
+    }
 
     if (phase === 1 && !this.hitDone && !m.projectile) this.game.checkMelee(this, m);
     if (phase === 2 && m.special && t === B) this.endMoveFx();
@@ -1991,6 +2009,19 @@ export class Fighter {
   }
 
   // --------------------------------------------------------------- getting hit
+  // A rush's `coil` (Dragon Fist, ENG-SKL-GOK) held its victim through the hit stop while its effect wound round them
+  // (Game.fxTicks); the stop is over: it bursts, and they fly with the launch the hit already gave them
+  coilBurst() {
+    this.coilHit = false;
+    const C = this.move?.coil, o = this.opp, g = this.game;
+    if (!C) return;
+    g.fx.drop('coil' + this.index);
+    g.fx.blast(C.burst, o.pos.x, o.pos.y + 0.9, o.pos.z, C.burstScale ?? 1, new THREE.Color(this.move.color ?? 0xffffff), C.smoke ?? 2);
+    g.fx.overlay.impactFrame(2);
+    g.cam.shake(0.8);
+    audio.play('explosion', 1.1);
+  }
+
   takeHit(att, m, dir) {
     if (this.ko) return 'miss';
     if (this.counterT > 0 && this.state === 'kit' && !m.beam && !m.unblockable) return kit.counterHit(this, att, m);
@@ -2190,6 +2221,9 @@ export class Fighter {
       u.flashColor.value.set(0xbfe8ff);
       flash = Math.max(flash, 0.28 + 0.14 * dmath.sin(time * 42));
     }
+    // a mode's body tint (Kaio-ken's red, ENG-SKL-GOK) under any stronger flash
+    const MT = this.mode?.tint;
+    if (MT && flash < MT.level) { u.flashColor.value.set(MT.color); flash = MT.level; }
     if (this.game.superFlash?.who === this) flash = Math.max(flash, this.game.superFlash.t < 6 ? 1 : 0);
     u.flash.value = flash;
     // signature techniques on the body (ENG-SKL-NAR): the Nine-Tails Cloak over it, the Four-Tails chakra swallowing it

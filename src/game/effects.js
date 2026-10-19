@@ -28,6 +28,7 @@ const FRAG = /* glsl */ `
   }`;
 
 const qz = new THREE.Quaternion();
+const modeShells = new WeakMap(); // a mode's shell data -> its resolved colors (Effects.modeShell)
 const zAxis = new THREE.Vector3(0, 0, 1);
 
 function hexTexture() {
@@ -604,10 +605,15 @@ export class Effects {
         this.spawn('streak', p.x + Math.cos(a) * s * 1.2, p.y + Math.sin(a) * s * 0.6, p.z, { scale: 0.3, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });
       }
     } else if (kind === 'kiFist') {
-      // Dragon Fist (Goku): golden ki wrapped round the fist, drawn back in startup and driven forward in active
+      // Dragon Fist (Goku): golden ki gathering on the chambered fist in startup; in the flight (ENG-SKL-GOK) the HD
+      // envelope of golden ki round his whole body, pointed at the fist, behind the sprite (a small glow only: the old
+      // big glow disc hid him)
       const p = phase === 0 ? at(-0.2, 0.8) : at(0.7, 0.85);
       const s = (phase === 0 ? 0.3 + prog * 0.4 : 0.75) * k;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.5, color: 0xffd84a, opacity: 0.55 * halo, order: 3, glow: 1 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * (phase === 0 ? 1.1 : 0.7), color: 0xffd84a, opacity: 0.4 * halo, order: 3, glow: 0.6 });
+      if (phase === 1 && !quiet) {
+        this.keep('hand' + f.index, 'dragonFistAura', P.x + fx * 0.1 * k, P.y + 0.85 * k, P.z + fz * 0.1 * k, { scale: 1.0 * k, order: 1, glow: 0.3, flipX: f.side < 0 });
+      } else this.drop('hand' + f.index);
       if (Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
     } else if (kind === 'chidori') {
       // the thousand birds (ENG-SKL-SAS): it crackles to life in his gripped hand through most of the startup
@@ -722,13 +728,29 @@ export class Effects {
     const a = Math.random() * Math.PI * 2, b = (Math.random() - 0.5) * 2.2, r = 1.3 + Math.random() * 0.5;
     const sx = x + Math.cos(a) * r, sy = y + Math.sin(b) * r * 0.6, sz = z + Math.sin(a) * r * 0.5;
     const cols = G.colors ?? [0xff3a2a];
-    this.spawn('bubble', sx, sy, sz, {
-      scale: 0.14 + Math.random() * 0.1, color: cols[(Math.random() * cols.length) | 0], vel: [(x - sx) * 3, (y - sy) * 3, (z - sz) * 3], life: 0.33, order: 8, glow: 0.2,
+    const M = G.mote; // what converges on it: chakra bubbles by default, ki sparks for the Kamehameha (ENG-SKL-GOK)
+    this.spawn(M?.fx ?? 'bubble', sx, sy, sz, {
+      scale: (M?.scale ?? 1) * (0.14 + Math.random() * 0.1), frame: M?.frame, color: cols[(Math.random() * cols.length) | 0], vel: [(x - sx) * 3, (y - sy) * 3, (z - sz) * 3], life: 0.33, order: 8, glow: M?.glow ?? 0.2,
     });
   }
 
   dropGather(f) {
     this.drop('gather' + f.index);
+  }
+
+  // A mode's flame outline on the body (`mode.shell`, the AuraShell: Kaio-ken's red, ENG-SKL-GOK); null hides the one
+  // this showed. The charge drives the same shell while he powers up, so it is left to it then.
+  modeShell(f, S, time) {
+    const a = f.actor;
+    if (!S) {
+      if (a.modeShellOn) { a.shell?.hide(); a.modeShellOn = false; }
+      return;
+    }
+    let st = modeShells.get(S);
+    if (!st) modeShells.set(S, (st = { ...S, color: new THREE.Color(S.color), core: new THREE.Color(S.core ?? S.color) }));
+    st.time = time;
+    a.auraShell().show(st);
+    a.modeShellOn = true;
   }
 
   // A beam's `muzzle`: every `every` frames a shock ring leaves the root of the beam and runs down it

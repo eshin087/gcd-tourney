@@ -214,6 +214,22 @@ const VFX_EFFECTS = {
   kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true },
   kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
   kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
+  // Goku's signature techniques (ENG-SKL-GOK): HD cells, art/characters/goku/SKILLS_REVAMP.md
+  kamehameha: { frames: 8, ms: 40, tinted: false, fill: 0.5, hd: true },
+  kamehamehaHead: { frames: 6, ms: 40, tinted: false, fill: 0.9, hd: true },
+  kamehamehaRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
+  kiBlast: { frames: 6, ms: 35, tinted: false, fill: 0.45, hd: true },
+  kiMuzzle: { frames: 5, ms: 35, tinted: false, fill: 0.6, hd: true },
+  kiBlastBurst: { frames: 7, ms: 40, tinted: false, fill: 0.8, hd: true },
+  dragonFistAura: { frames: 6, ms: 40, tinted: false, fill: 0.98, hd: true },
+  dragonFistDragon: { frames: 10, ms: 50, tinted: false, fill: 1, hd: true },
+  dragonFistBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
+  instantTransmission: { frames: 6, ms: 35, tinted: false, fill: 0.9, anchor: 'bottom', hd: true },
+  kaiokenBurst: { frames: 7, ms: 40, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
+  kaiokenAura: { frames: 6, ms: 50, tinted: false, fill: 0.95, anchor: 'bottom', hd: true },
+  spiritBomb: { frames: 8, ms: 60, tinted: false, fill: 1, hd: true },
+  spiritBombBlast: { frames: 8, ms: 60, tinted: false, fill: 1, anchor: 'bottom', hd: true },
+  superSaiyanBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 

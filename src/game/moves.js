@@ -277,8 +277,11 @@ export const PROJECTILES = {
   red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048, ground: 'repel',
     clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22', style: 'orb' } },
   // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
-  // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash)
-  kiBlast: { count: 3, spread: 0.14, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'orb', scale: 0.5, color: 0xd8f2ff, glowColor: 0x5ab0ff, sfx: 'flash', spark: 'light' },
+  // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash). As the anime fires them
+  // (ENG-SKL-GOK): one blast per palm thrust (`every` frames apart), the HD ki sphere turned along its flight with no
+  // bloom disc (`halo`), a flash at the palm (`muzzle`) and its own small burst on hit
+  kiBlast: { count: 3, every: 4, spread: 0.1, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'kiBlast', scale: 0.75, orient: true, glowColor: 0x5ab0ff, halo: 0.2, sfx: 'flash', spark: 'none',
+    muzzle: { fx: 'kiMuzzle', scale: 0.4 }, burstFx: { fx: 'kiBlastBurst', scale: 0.42, smoke: 0, shake: 0.12 } },
   // Luffy's Gum-Gum Pistol: the stretched fist itself, very fast and short-lived (~6 u, like the Chidori Spear).
   // Physical, so it cancels shots but never beam-clashes; the drawn arm comes from the `special` strip
   pistol: { count: 1, spread: 0, speed: 42, radius: 0.5, dmg: 70, hitstun: 30, push: 6, airPop: 6, life: 0.15, sprite: 'orb', scale: 0.6, color: 0xf6c9a0, sfx: 'whooshHeavy', spark: 'heavy' },
@@ -391,18 +394,27 @@ export const SPECIAL_MOVES = {
   infinity: { kind: 'counter', anim: 'specialDown', cost: 50, len: 24, recovery: 14, stagger: 48, onCounter: 'freeze', name: 'INFINITY', callout: 'INFINITY!', color: '#d8f2ff' },
 
   // ---- Goku (Super Saiyan, Cell saga; ADR 0032)
-  kiVolley: { kind: 'shot', anim: 'special', startup: 12, active: 3, recovery: 18, projectile: true, proj: 'kiBlast', cost: 50, name: 'KI BLAST VOLLEY', color: '#9fd8ff' },
-  kiVolleyAir: { kind: 'shot', anim: 'throw', startup: 9, active: 3, recovery: 14, air: true, projectile: true, proj: 'kiBlast', cost: 50, name: 'KI BLAST VOLLEY', color: '#9fd8ff' },
-  // Dragon Fist: a ki-wrapped dash punch (the user's pick, 2026-10-13, though the technique is from GT)
+  // active: the three palm thrusts of `special` f3-f5, one blast each (kiBlast.every)
+  kiVolley: { kind: 'shot', anim: 'special', startup: 10, active: 12, recovery: 12, projectile: true, proj: 'kiBlast', cost: 50, name: 'KI BLAST VOLLEY', color: '#9fd8ff' },
+  kiVolleyAir: { kind: 'shot', anim: 'throw', startup: 8, active: 9, recovery: 10, air: true, projectile: true, proj: 'kiBlast', cost: 50, name: 'KI BLAST VOLLEY', color: '#9fd8ff' },
+  // Dragon Fist: a ki-wrapped dash punch (the user's pick, 2026-10-13, though the technique is from GT). As the anime
+  // does it (ENG-SKL-GOK): he flies in fist-first wrapped in golden ki (the `kiFist` hand effect), contact jumps to the
+  // drawn flight frame (`hitPose`), and the golden dragon erupting from the punch coils round them through a longer hit
+  // stop (`coil`, its frames following the stop), then bursts (`burst`) as they fly: no white-out (`blastFx` none)
   dragonFist: {
     kind: 'rush', anim: 'specialForward', startup: 26, cancelStartup: 16, active: 20, recovery: 22, dmg: 150, reach: 1.35, width: 1.05,
-    launch: [18, 10], hitstop: 20, rush: 16, cost: 100, big: true, shake: 1.0, special: true, wallBounce: true,
+    launch: [18, 10], hitstop: 30, rush: 16, cost: 100, big: true, shake: 1.0, special: true, wallBounce: true,
     fx: 'kiFist', color: '#ffd84a', name: 'DRAGON FIST', spark: 'smash', ground: 'ki', clash: 'rush',
+    hitPose: 0.75, blastFx: { fx: null }, coil: { fx: 'dragonFistDragon', scale: 1.35, burst: 'dragonFistBurst', burstScale: 1.1, smoke: 2 },
   },
-  // rising kick into a flip, then the axe-kick drop (dive)
+  // rising kick into a flip, then the axe-kick drop (dive). When the kick connects, the DBZ afterimage chase
+  // (ENG-SKL-GOK; Lion's Barrage's `shadow` with no blows): he leaves an afterimage, blinks above them as they rise
+  // (`below` < 0: over their head), hangs in the hammer's wind-up (`hangPose`) and drives them into the floor with the
+  // two-fist hammer (airHeavy)
   risingKick: {
     kind: 'dive', anim: 'specialUp', cost: 100, rise: 13, riseV: 15, hang: 4, slamV: -34, area: 1.6, recovery: 16, landFx: 'dust',
     name: 'RISING KICK', color: '#ffd84a', ground: 'stone',
+    shadow: { blink: 4, follow: 11, climb: 1.4, behind: -0.1, below: -1.1, above: 1.15, over: 4, under: 0.95, hits: [], hangPose: 'airHeavy' },
     riseHit: { dmg: 38, launch: [3, 12], hitstop: 8, spark: 'heavy' },
     hit: { dmg: 96, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
   },
@@ -410,10 +422,22 @@ export const SPECIAL_MOVES = {
     kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.6, recovery: 16, landFx: 'dust', name: 'RISING KICK', color: '#ffd84a', ground: 'stone',
     hit: { dmg: 92, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
   },
-  // Instant Transmission: two fingers to the forehead (specialDown), gone, and a kick from behind
+  // Instant Transmission: two fingers to the forehead (specialDown), gone, and a kick from behind. Silent and clean
+  // as in the anime (ENG-SKL-GOK): a ki shimmer closing on him (`shimmer`, played backward where he reappears), no smoke
   instantTransmission: {
     kind: 'teleport', anim: 'specialDown', startup: 8, recovery: 4, cost: 100, hide: 6, to: 'behind', off: 0.85, ghosts: 0, follow: 'vanishKick',
-    name: 'INSTANT TRANSMISSION', color: '#ffd84a',
+    name: 'INSTANT TRANSMISSION', color: '#ffd84a', shimmer: 'instantTransmission', shimmerScale: 0.95,
+  },
+  // Kaio-ken (ENG-SKL-GOK, the user 2026-10-18: moved off the SUPER to Back + Special): the red aura flares and he is
+  // faster and stronger for a while (ADR 0011 mode budget: 1.2 x 1.15 x 1.0, Gear Second's and the Cloak's). In his
+  // power-up stance (`charge`); its own burst (`burstFx`), the red aura held behind him (`aura`), a red flame outline
+  // on the body (`shell`, the AuraShell) and his body tinted red (`tint`) while it lasts
+  kaioken: {
+    kind: 'mode', anim: 'charge', cost: 100, startup: 20, recovery: 8, len: 420, speed: 1.2, damage: 1.15, defense: 1.0,
+    fx: 'chakra', auraColor: '#ff3a2a', auraCore: [1.0, 0.78, 0.72], name: 'KAIO-KEN', color: '#ff3a2a', charge: { level: 1 },
+    burstFx: { fx: 'kaiokenBurst', scale: 1.0 }, aura: { fx: 'kaiokenAura', scale: 0.95, opacity: 0.9 },
+    shell: { kind: 'flame', color: '#ff3a2a', core: '#ffb0a0', width: 0.05, lift: 0.8, noise: 0.7, speed: 2.6, opacity: 0.55 },
+    tint: { color: '#ff2a1a', level: 0.16 },
   },
 
   // ---- Luffy (Enies Lobby arc, Gear Second / Gear Third; ADR 0032)
@@ -504,10 +528,16 @@ export const SUPERS = {
   },
 
   // ---- Goku and Luffy (ADR 0032)
-  // Kaio-ken (Goku): the red aura flares and he rushes them; same budget as the other flurries
-  kaiokenRush: {
-    kind: 'flurry', cost: 300, flash: 34, dash: 14, range: 6.5, hits: 8, every: 7, hitDmg: 22, finalDmg: 130, minScale: 0.8,
-    hitFx: 'chakra', hitColor: 0xff3020, finalFx: 'impact', finalColor: 0xff4030, name: 'KAIO-KEN RUSH', color: '#ff3a2a', ground: 'ki',
+  // Spirit Bomb (Goku, ENG-SKL-GOK; the user 2026-10-18, in place of the Kaio-ken Rush): a sky strike with Kirin's
+  // numbers, so the CPUs read it alike. `bomb` plays the anime inside them: arms raised (`pose`, the super flash
+  // included), the sphere gathering on his raised hands as energy streams in from all around, growing through
+  // `grow` (flash start, flash end, the throw), `gap` above them, the stage dimmed to `dim` and the camera tipped up by
+  // `lift`; `swing` frames before the strike he shoves it (strikePose) and it falls onto the marked spot, where it
+  // lands as a dome (`strikeFx`)
+  spiritBomb: {
+    kind: 'skyStrike', cost: 300, flash: 40, delay: 40, radius: 2.0, dmg: 280, launch: [6, 16], recovery: 24, pose: 'superPose', strikePose: 'beamFire',
+    name: 'SPIRIT BOMB', color: '#9edcff', ground: 'ki',
+    bomb: { fx: 'spiritBomb', gap: 0.1, grow: [0.12, 0.55, 1.35], dim: 0.35, lift: 0.8, swing: 16, motes: [0x9edcff, 0xeefbff, 0xffffff], strikeFx: 'spiritBombBlast', strikeScale: 1.75 },
   },
   // Jet Gatling (Luffy, Gear Second): a blur of fists from in front (`front`), then one last straight punch that sends
   // them into the wall instead of a slam from above

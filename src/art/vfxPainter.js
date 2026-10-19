@@ -756,6 +756,236 @@ const PAINTERS = {
     }
     if (i < 2) { ctx.fillStyle = '#ffffff'; ctx.fillRect(32 - w * 0.7, 58, w * 1.4, 2); }
   },
+  // ---- Goku's signature techniques (ENG-SKL-GOK). Stand-ins until Codex's HD art is approved
+  // (art/characters/goku/SKILLS_REVAMP.md): full color, drawn small, never tinted.
+  // the Kamehameha's ki ball: blue bands round a white core, wisps curling in over the rim, sparks orbiting
+  kamehameha(i, n, ctx) {
+    const ph = (i / n) * Math.PI * 2;
+    ctx.translate(32, 32);
+    for (const [c, r] of [['#123a9e', 15], ['#1a62e0', 13.5], ['#2e9bff', 11.5], ['#6ccbff', 9], ['#aee8ff', 6.5], ['#ffffff', 4 + Math.sin(ph * 2) * 0.6]]) disc(ctx, 0, 0, r, c);
+    ctx.strokeStyle = '#e6faff';
+    ctx.lineWidth = 1.5;
+    for (let k = 0; k < 3; k++) {
+      const a = ph + (k / 3) * Math.PI * 2;
+      ctx.beginPath(); ctx.arc(0, 0, 12, a, a + 0.9); ctx.stroke();
+      disc(ctx, Math.cos(a + 1.6) * 18, Math.sin(a + 1.6) * 18, 1.2, '#aee8ff');
+    }
+  },
+  // the beam's head travelling screen-right: a rounded bulb, the beam joining it at the left edge, a spiral on it
+  kamehamehaHead(i, n, ctx) {
+    const ph = (i / n) * Math.PI * 2;
+    ctx.fillStyle = '#2e9bff'; ctx.fillRect(0, 18, 26, 28);
+    ctx.fillStyle = '#aee8ff'; ctx.fillRect(0, 24, 26, 16);
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 28, 26, 8);
+    ctx.save(); ctx.translate(40, 32); ctx.scale(1.1, 1);
+    for (const [c, r] of [['#123a9e', 22], ['#1a62e0', 20], ['#2e9bff', 17], ['#6ccbff', 13], ['#aee8ff', 9], ['#ffffff', 5]]) disc(ctx, 0, 0, r, c);
+    ctx.strokeStyle = '#e6faff'; ctx.lineWidth = 2;
+    for (let k = 0; k < 3; k++) { const a = ph + k * 2.1; ctx.beginPath(); ctx.arc(0, 0, 15, a, a + 1.4); ctx.stroke(); }
+    ctx.restore();
+  },
+  // the shock ring down the beam, almost edge-on: a tall thin ellipse
+  kamehamehaRing(i, n, ctx) {
+    const t = i / (n - 1);
+    ctx.translate(32, 32);
+    ctx.scale(0.25, 1);
+    const r = 8 + t * 21;
+    ctx.strokeStyle = '#2e9bff';
+    ctx.lineWidth = 8 * (1 - t * 0.6);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = '#e6faff';
+    ctx.lineWidth = 4 * (1 - t * 0.7);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+  },
+  // a ki blast flying screen-right: a banded sphere with a short tapered tail
+  kiBlast(i, n, ctx) {
+    const ph = (i / n) * Math.PI * 2;
+    for (let k = 0; k < 3; k++) {
+      const y = 32 + (k - 1) * 4, l = 14 + 4 * Math.sin(ph + k * 2);
+      ctx.fillStyle = k === 1 ? '#6ccbff' : '#2e9bff';
+      ctx.beginPath(); ctx.moveTo(34, y - 2); ctx.lineTo(34 - l - 8, y); ctx.lineTo(34, y + 2); ctx.fill();
+    }
+    for (const [c, r] of [['#123a9e', 11], ['#2e9bff', 9.5], ['#6ccbff', 7.5], ['#aee8ff', 5.5], ['#ffffff', 3 + (i % 2) * 0.5]]) disc(ctx, 36, 32, r, c);
+  },
+  // the flash at his palm as a blast leaves: a star, rays forward, a broken ring, sparks
+  kiMuzzle(i, n, ctx) {
+    ctx.translate(32, 32);
+    if (i < 2) {
+      const s = i ? 1.7 : 1;
+      ctx.fillStyle = '#6ccbff';
+      for (const [w, h] of [[16 * s, 3], [3, 10 * s], [22 * s, 2]]) ctx.fillRect(w === 22 * s ? 0 : -w / 2, -h / 2, w, h);
+      disc(ctx, 0, 0, 4 * s, '#aee8ff');
+      disc(ctx, 0, 0, 2 * s, '#ffffff');
+      return;
+    }
+    if (i === 2) {
+      ctx.strokeStyle = '#6ccbff'; ctx.lineWidth = 2;
+      for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.arc(0, 0, 13, k * 1.6, k * 1.6 + 0.9); ctx.stroke(); }
+      return;
+    }
+    for (let k = 0; k < 4; k++) disc(ctx, 6 + k * 4 + i * 3, (k - 1.5) * 5, 1.2, '#aee8ff');
+  },
+  // a ki blast hitting: a flash, a spiky burst, a hollow spiky ring, sparks
+  kiBlastBurst(i, n, ctx) {
+    const R = rng(900 + i * 3);
+    ctx.translate(32, 32);
+    if (i === 0) { disc(ctx, 0, 0, 9, '#6ccbff'); disc(ctx, 0, 0, 5, '#ffffff'); return; }
+    const reach = [0, 18, 26, 28, 26, 22, 18][i] ?? 18, r0 = i < 2 ? 0 : reach * 0.6;
+    ctx.strokeStyle = i < 4 ? '#6ccbff' : '#2e9bff';
+    ctx.lineWidth = i < 4 ? 2.5 : 1.5;
+    for (let k = 0; k < 12; k++) {
+      if (i > 4 && R() < 0.5) continue;
+      const a = (k / 12) * Math.PI * 2 + R() * 0.3, l = reach * (0.7 + R() * 0.3);
+      ctx.beginPath(); ctx.moveTo(Math.cos(a) * r0, Math.sin(a) * r0); ctx.lineTo(Math.cos(a) * l, Math.sin(a) * l); ctx.stroke();
+    }
+    if (i === 1) disc(ctx, 0, 0, 5, '#aee8ff');
+  },
+  // the golden ki round the flying punch: pointed at the fist (screen-right), flame tongues streaming back
+  dragonFistAura(i, n, ctx) {
+    const ph = (i / n) * Math.PI * 2;
+    ctx.translate(0, 32);
+    for (const [c, h, tip] of [['#b85a06', 15, 63], ['#f08c0a', 12, 61], ['#ffc21a', 9, 58], ['#ffe066', 5, 54]]) {
+      ctx.fillStyle = c;
+      ctx.beginPath(); ctx.moveTo(tip, -1);
+      for (let x = tip - 6; x >= 2; x -= 6) ctx.lineTo(x, -h - 4 * Math.sin(ph + x * 0.4) * (x < 30 ? 1 : 0.3));
+      for (let x = 2; x <= tip - 6; x += 6) ctx.lineTo(x, h + 3 * Math.sin(ph * 2 + x * 0.3) * (x < 30 ? 1 : 0.3));
+      ctx.lineTo(tip, 1); ctx.fill();
+    }
+  },
+  // the golden dragon: bursts out of the fist (left), shoots across, coils round the target (center), rears up
+  // roaring at the top, flares and shatters
+  dragonFistDragon(i, n, ctx) {
+    const R = rng(920 + i * 7);
+    const body = (pts, w) => {
+      for (const [c, k] of [['#6a3004', 1], ['#f08c0a', 0.75], ['#ffc21a', 0.5], ['#ffe066', 0.25]]) {
+        ctx.strokeStyle = i === 8 ? (k < 0.5 ? '#ffffff' : '#fff6c0') : c; ctx.lineWidth = w * k; ctx.lineCap = 'round';
+        ctx.beginPath(); pts.forEach(([x, y], s) => (s ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke();
+      }
+    };
+    const head = (x, y, dir) => {
+      disc(ctx, x, y, 6, '#f08c0a'); disc(ctx, x, y, 4, '#ffc21a');
+      ctx.fillStyle = '#ffe066'; ctx.beginPath(); ctx.moveTo(x, y - 3); ctx.lineTo(x + dir * 9, y - 1); ctx.lineTo(x + dir * 9, y + 1); ctx.lineTo(x, y + 2); ctx.fill();
+      ctx.strokeStyle = '#b85a06'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(x - dir * 2, y - 4); ctx.lineTo(x - dir * 8, y - 10); ctx.stroke();
+      disc(ctx, x + dir * 2, y - 2, 1, '#ffffff');
+    };
+    if (i === 9) {
+      for (let k = 0; k < 14; k++) disc(ctx, 32 + (R() - 0.5) * 50, 32 + (R() - 0.5) * 54, 1.5, k % 2 ? '#ffe066' : '#ffc21a');
+      return;
+    }
+    if (i === 0) { disc(ctx, 6, 32, 7, '#ffc21a'); disc(ctx, 6, 32, 4, '#ffffff'); head(14, 32, 1); return; }
+    if (i === 1) { body([[0, 32], [20, 34], [40, 30], [52, 32]], 7); head(54, 32, 1); return; }
+    // the coil: a spiral round the center, its turns alternating front and back
+    const turns = Math.min(1.5, 0.5 + (i - 2) * 0.3), pts = [];
+    for (let s = 0; s <= 40; s++) {
+      const u = s / 40, a = -Math.PI / 2 + u * turns * Math.PI * 2;
+      pts.push([32 + Math.cos(a) * 20, 52 - u * 34 + Math.sin(a) * 6]);
+    }
+    body(pts, 7);
+    const [hx, hy] = i >= 6 ? [32, 8] : pts[pts.length - 1];
+    if (i >= 6) body([pts[pts.length - 1], [32, 12]], 6);
+    head(hx, hy, 1);
+  },
+  // the dragon bursting: a golden explosion, lobes, then sparks drifting up
+  dragonFistBurst(i, n, ctx) {
+    const R = rng(940);
+    ctx.translate(32, 32);
+    if (i === 0) { disc(ctx, 0, 0, 10, '#ffc21a'); disc(ctx, 0, 0, 6, '#fff6c0'); disc(ctx, 0, 0, 3, '#ffffff'); return; }
+    const size = [0, 0.75, 1, 1, 0.9, 0.7, 0.5, 0.35][i] ?? 0.35, late = i >= 4;
+    for (let k = 0; k < 9; k++) {
+      const a = R() * Math.PI * 2, d = (4 + R() * 12) * (0.6 + size), r = (6 + R() * 5) * size;
+      disc(ctx, Math.cos(a) * d, Math.sin(a) * d - (late ? i * 1.5 : 0), late ? r * 0.4 : r, k % 3 ? '#f08c0a' : '#b85a06');
+    }
+    if (!late) for (const [c, r] of [['#ffc21a', 12], ['#ffe066', 8], ['#fff6c0', 4]]) disc(ctx, 0, 0, r * size, c);
+  },
+  // Instant Transmission (bottom anchored, the floor is y = 60): two shimmer lines round the body pulling into one,
+  // a point, a sparkle, specks
+  instantTransmission(i, n, ctx) {
+    const gap = [10, 5, 0][i];
+    if (gap != null) {
+      for (const s of gap ? [-1, 1] : [0]) {
+        ctx.fillStyle = '#8cc8ff'; ctx.fillRect(32 + s * gap - 1, 14, 3, 46);
+        ctx.fillStyle = gap ? '#cfe9ff' : '#ffffff'; ctx.fillRect(32 + s * gap, 14, 1, 46);
+      }
+      ctx.fillStyle = '#cfe9ff';
+      for (let k = 0; k < 6; k++) ctx.fillRect(32 - gap + 1, 18 + k * 7 + (i % 2) * 3, Math.max(1, gap * 2 - 2), 1);
+      return;
+    }
+    if (i === 3) { ctx.fillStyle = '#cfe9ff'; ctx.fillRect(18, 25, 28, 1); disc(ctx, 32, 25, 3, '#ffffff'); return; }
+    if (i === 4) { ctx.fillStyle = '#fff8d8'; ctx.fillRect(28, 25, 9, 1); ctx.fillRect(32, 21, 1, 9); return; }
+    for (let k = 0; k < 4; k++) disc(ctx, 26 + k * 4, 22 + (k % 2) * 6, 0.8, '#8cc8ff');
+  },
+  // Kaio-ken! (bottom anchored): crimson tongues bursting up and out round the body, a floor ring, settling
+  kaiokenBurst(i, n, ctx) {
+    const s = [0.55, 0.85, 1, 1, 0.9, 0.8, 0.7][i] ?? 0.7;
+    ctx.translate(32, 60);
+    const T = [[-14, 30, 8], [-9, 44, 9], [-4, 54, 9], [4, 54, 9], [9, 44, 9], [14, 30, 8], [-19, 22, 7], [19, 22, 7]];
+    T.forEach(([x, h, w], k) => {
+      if (i > 4 && Math.abs(x) > 16) return;
+      tongue(ctx, x * s * 1.3, 0, w, h * s, k % 2 ? 2 : -2, '#8e0a08');
+      tongue(ctx, x * s * 1.3, 0, w - 3, h * s * 0.8, k % 2 ? 2 : -2, '#ff3a2a');
+    });
+    if (i < 4) { ctx.fillStyle = '#ff7a6a'; ctx.fillRect(-28 * s, -2, 56 * s, 2); }
+  },
+  // the Kaio-ken aura (bottom anchored): tall red tongues round a standing body, its middle left clear
+  kaiokenAura(i, n, ctx) {
+    const ph = (i / n) * Math.PI * 2;
+    ctx.translate(32, 60);
+    const T = [[-15, 36], [-11, 48], [-6, 56], [6, 56], [11, 48], [15, 36]];
+    T.forEach(([x, h], k) => {
+      const sway = 2 * Math.sin(ph + k * 1.3), hh = h * (0.92 + 0.08 * Math.sin(ph * 2 + k));
+      tongue(ctx, x, 0, 9, hh, sway, '#8e0a08');
+      tongue(ctx, x, 0, 6, hh - 4, sway, '#d8140e');
+      tongue(ctx, x, 0, 3, hh - 10, sway, '#ff7a6a');
+    });
+  },
+  // the Spirit Bomb: a huge pale sphere, banded, slow currents, motes streaming in from outside
+  spiritBomb(i, n, ctx) {
+    const ph = (i / n) * Math.PI * 2;
+    ctx.translate(32, 32);
+    for (const [c, r] of [['#1a4ab0', 30], ['#2e7ce8', 28], ['#62b8ff', 25], ['#9edcff', 21], ['#cdefff', 16], ['#eefbff', 11], ['#ffffff', 7]]) disc(ctx, 0, 0, r, c);
+    ctx.strokeStyle = '#eefbff'; ctx.lineWidth = 1.5;
+    for (let k = 0; k < 3; k++) { const a = ph / 2 + k * 2.1; ctx.beginPath(); ctx.arc(0, 0, 19, a, a + 1.1); ctx.stroke(); }
+    for (let k = 0; k < 6; k++) {
+      const a = (k / 6) * Math.PI * 2 + 0.3, d = 31 - ((i * 2 + k * 3) % 8);
+      disc(ctx, Math.cos(a) * d, Math.sin(a) * d, 1, '#cdefff');
+    }
+  },
+  // the Spirit Bomb landing (bottom anchored): squashed on the floor, a dome rising, rays, a shell breaking into motes
+  spiritBombBlast(i, n, ctx) {
+    const R = rng(960);
+    ctx.translate(32, 60);
+    if (i === 0) {
+      ctx.save(); ctx.scale(1, 0.6);
+      for (const [c, r] of [['#2e7ce8', 30], ['#9edcff', 24], ['#eefbff', 14]]) { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(0, 0, r, Math.PI, 0); ctx.fill(); }
+      ctx.restore();
+      return;
+    }
+    const h = [0, 40, 56, 58, 54, 48, 40, 30][i] ?? 30, w = [0, 30, 31, 31, 30, 28, 26, 22][i] ?? 22;
+    if (i < 5) {
+      for (const [c, k] of [['#2e7ce8', 1], ['#62b8ff', 0.85], ['#9edcff', 0.7], ['#cdefff', 0.5]]) {
+        ctx.fillStyle = c; ctx.beginPath(); ctx.ellipse(0, 0, w * k, h * k, 0, Math.PI, 0); ctx.fill();
+      }
+      if (i >= 2 && i <= 3) { ctx.fillStyle = '#ffffff'; for (let k = 0; k < 3; k++) ctx.fillRect(-8 + k * 8, -h, 2, h - 6); }
+      return;
+    }
+    for (let k = 0; k < 16; k++) {
+      const a = Math.PI + R() * Math.PI, r = 0.7 + R() * 0.3;
+      disc(ctx, Math.cos(a) * w * r, Math.sin(a) * h * r - (i - 5) * 3, 1.3, k % 2 ? '#9edcff' : '#cdefff');
+    }
+  },
+  // Super Saiyan (bottom anchored): a golden spike up from the head, tall tongues bursting out, settling into the aura
+  superSaiyanBurst(i, n, ctx) {
+    const s = [0.6, 0.9, 1, 1, 0.95, 0.9, 0.85, 0.8][i] ?? 0.8;
+    ctx.translate(32, 60);
+    if (i < 2) { ctx.fillStyle = '#fff6c0'; ctx.fillRect(-1, -60, 3, 30); }
+    const T = [[-14, 34], [-9, 48], [-4, 58], [4, 58], [9, 48], [14, 34], [-20, 24], [20, 24]];
+    T.forEach(([x, h], k) => {
+      if (i > 4 && Math.abs(x) > 16) return;
+      tongue(ctx, x * s * 1.2, 0, 9, h * s, k % 2 ? 2 : -2, '#f08c0a');
+      tongue(ctx, x * s * 1.2, 0, 6, h * s * 0.85, k % 2 ? 2 : -2, '#ffc21a');
+      tongue(ctx, x * s * 1.2, 0, 3, h * s * 0.65, k % 2 ? 2 : -2, '#fff6c0');
+    });
+  },
   // ---- ground damage (ADR 0024)
   // side view: a low, wide wall of chunky dust rolling outward and up, then breaking apart (rings of these roll
   // out of big craters, see Effects.dustRing)
@@ -950,6 +1180,22 @@ export const VFX_ANIMS = {
   kirinBody: { n: 4, ms: 40, levels: [0, 255] },
   kirinHead: { n: 6, ms: 40, levels: [0, 255] },
   kirinStrike: { n: 8, ms: 45, levels: [0, 255] },
+  // Goku's signature techniques (ENG-SKL-GOK): HD art cells when packed (ADR 0044), these small stand-ins until then
+  kamehameha: { n: 8, ms: 40, levels: [0, 255] },
+  kamehamehaHead: { n: 6, ms: 40, levels: [0, 255] },
+  kamehamehaRing: { n: 6, ms: 40, levels: [0, 255] },
+  kiBlast: { n: 6, ms: 35, levels: [0, 255] },
+  kiMuzzle: { n: 5, ms: 35, levels: [0, 255] },
+  kiBlastBurst: { n: 7, ms: 40, levels: [0, 255] },
+  dragonFistAura: { n: 6, ms: 40, levels: [0, 255] },
+  dragonFistDragon: { n: 10, ms: 50, levels: [0, 255] },
+  dragonFistBurst: { n: 8, ms: 45, levels: [0, 255] },
+  instantTransmission: { n: 6, ms: 35, levels: [0, 255] },
+  kaiokenBurst: { n: 7, ms: 40, levels: [0, 255] },
+  kaiokenAura: { n: 6, ms: 50, levels: [0, 255] },
+  spiritBomb: { n: 8, ms: 60, levels: [0, 255] },
+  spiritBombBlast: { n: 8, ms: 60, levels: [0, 255] },
+  superSaiyanBurst: { n: 8, ms: 45, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.

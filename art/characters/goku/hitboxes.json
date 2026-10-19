@@ -1,4 +1,6 @@
 {
-  "_comment": "Final 256 px cell coordinates on the packed quantize-48 frames. Only beamStruggle so far; Goku's other beams fall back to the engine's fixed offsets (TASKS follow-up).",
+  "_comment": "Final 256 px cell coordinates on the packed quantize-48 frames.",
+  "beamCharge": {"0": {"hand": [80, 136]}, "1": {"hand": [81, 135]}, "2": {"hand": [80, 136]}, "_scale": 0.8556, "_note": "the Kamehameha ball between the cupped hands at his rear hip (ENG-SKL-GOK); Claude 2026-10-18 on v07 packed (cupped fingers x70-96, y126-146)."},
+  "beamFire": {"0": {"hand": [198, 88]}, "1": {"hand": [196, 88]}, "2": {"hand": [194, 89]}, "_scale": 0.92, "_note": "the open palms' front, where the Kamehameha leaves (ENG-SKL-GOK); Claude 2026-10-18 on v07 packed (palms x182-204, y74-104)."},
   "beamStruggle": {"0": {"hand": [240, 101]}, "1": {"hand": [240, 101]}, "2": {"hand": [246, 101]}, "_note": "the Dragon Fist front knuckles, 4 px inside the fist's front edge (x244/244/250, y93-110); Claude 2026-10-17 on v01 packed at bodyHeight 205 with the -6 px frameOffsets; stream origin for the beam clash (ADR 0034)."}
 }
