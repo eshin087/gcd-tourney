@@ -1,4 +1,11 @@
 # Art review queue
+
+## Charge redraw · Killua
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Killua | charge | [v15](characters/killua/raw/charge_v15.png) · [packed review](../public/reviews/charge-killua/) · [head scale](scale/heads-killua.png) · [registration](characters/killua/production/charge-v15/registration-diff-2x.png) · [body sheet](scale/body-killua-charge.png) · [Astra audit](characters/killua/production/charge-v15/ASTRA_AUDIT.md) · [generation provenance](characters/killua/raw/charge_v15.json) | v15 | needs review | Six-frame gather/release plus four-frame hold, generated in 2 calls; source filed byte-for-byte. | Packed 54 animations/253 frames, 48 colors; charge cells 115–120; `loopFrom: 2`; head H 1.011 median and within loop head-center span 1.5×2 px. Feet-floor occupancy stable, with 1–2 px outline redraw. Body sheet B=.43–.45 is invalidated by its missing dark-purple palette shades; broad-purple diagnostic .931–.953. Astra HOLD is limited to unresolved quantitative torso/limb certification under crouch/occlusion uncertainty; no scaleManualQA or head exemption. User review pending. [Audit](characters/killua/production/charge-v15/ASTRA_AUDIT.md) · [review](../public/reviews/charge-killua/). |
+
 ## ART-SKL-GOK batch 4 (2026-10-18): Ki blasts, Rising Kick and intro
 
 | 2026-10-18 | goku | specialUp | [specialUp_v01.png](characters/goku/raw/specialUp_v01.png) · [review page](../public/reviews/goku-skills-batch4/index.html) · [generation record](characters/goku/production/skills-revamp-batch4/specialUp_v01.md) | v01 | approved | 1 call; Rising Kick crouch, vertical kick, tuck and hammer setup. | Astra final quantized-atlas audit: visible anatomy and containment pass; head scale is unmeasured and scaleManualQA v1 remains HOLD. User exempted v01 from the head check via Claude relay #16; Astra HOLD is preserved. [Astra report](art/characters/goku/production/BATCH4_V01_FINAL_ASTRA_AUDIT.md). |
