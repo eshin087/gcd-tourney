@@ -17,6 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (ENG-112): Luffy's first six Smash-style normals: fTilt, uTilt, dashAttack, fSmash, fair and bair (user-approved drawings; uTilt imported at x1.15 to match his idle, dashAttack shifted inside the cell with a scripted cleanup, fist and rear-heel hit boxes for fTilt and bair). dTilt, uSmash, dSmash and uair keep their stand-ins while a redraw round runs.
 - Changed (ART-CHARGE): the user approved Luffy charge v02 as drawn; packed 6 frames with `loopFrom: 2`, recorded Astra's manual scale pass and loop-contract hold for Claude's integration review.
 - Added (ENG-119): the announcer is a living character. He talks only at the big moments (no filler; about a line every 5 s at most) and shows everything else with his poses and manga symbols over his head (sweat drops, !!, ?, anger, dizzy stars, music notes, steam, sparkles). Blasts, beams, shots and fighters flying into him knock him flat; he pops back up dizzy, and sooty after a blast. He facepalms at a super that misses, winces at brutal hits, cheers huge combos and comebacks, hums or fidgets in quiet moments, tires over a long round, and babbles soft voice blips while a line shows. Ten new poses for this are with Codex (ART-NPC-ANN-R2); until they are approved he uses his existing ones.
 
