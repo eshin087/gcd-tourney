@@ -442,6 +442,14 @@ export function beginShroud(f, C, flash) {
 }
 
 // How far the chakra has swallowed him, 0..1: climbing through the first 70 % of his flash, then `hold`.
+// The look a fighter's running power-up gives the body (`shell`, `tint`, `aura` side by side on its data): a mode
+// (f.mode), a reflex super (Whirlwind) or a kit move running (Speed of Lightning). View only: Game.fxTicks and
+// Fighter.sync read it; none while hidden (the charge style owns the shell while he powers up: Game.fxTicks)
+export function modeLook(f) {
+  if (f.hidden) return null;
+  return f.mode ?? f.reflex?.m ?? (f.state === 'kit' ? f.kitState?.m ?? null : null);
+}
+
 export function shroudLevel(f) {
   const s = f.shroud;
   if (!s) return 0;
@@ -1160,10 +1168,14 @@ const UPDATE = {
         id: m.name, t: m.len, len: m.len, speed: m.speed ?? 1, damage: m.damage ?? 1, defense: m.defense ?? 1,
         blinkDash: !!m.blinkDash, color: m.color, fx: m.fx ?? 'lightning', auraColor: m.auraColor, auraCore: m.auraCore, charge: m.charge,
         cloak: m.cloak ?? null,
+        // its look while it lasts (modeLook): an outline on the body, a body tint, an effect kept at his feet
+        shell: m.shell ?? null, tint: m.tint ?? null, aura: m.aura ?? null,
       };
       const g = f.game, p = f.pos;
       g.onKitMove(f, m);
-      g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
+      // its own start burst at the feet (`burstFx`) in place of the white one
+      if (m.burstFx) g.fx.spawn(m.burstFx.fx, p.x, p.y, p.z, { bottom: true, scale: m.burstFx.scale ?? 1, order: 8 });
+      else g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
       if (m.cloak) g.fx.cloakBurst(f, m.cloak); // the chakra wells up over him all at once
       else if (f.mode.fx === 'chakra') for (let i = 0; i < 8; i++) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 1.2, p.y + 0.5, p.z, m.auraColor, 1.4);
       else burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.6);
