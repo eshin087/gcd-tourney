@@ -942,8 +942,7 @@ export class Game {
         const phase = t < A ? 0 : t < B ? 1 : 2;
         if (phase < 2 || (f.moveHit && t < B + 6)) this.fx.handTick(f, m.fx, phase, t / A);
         else this.fx.dropHand(f);
-      } else if (f.state === 'attack' && f.move?.form && f.t < f.move.startup) this.fx.formTick(f, f.move.form, f.t / f.move.startup); // a shot forming at the hand (Reversal: Red)
-      else if (held) this.fx.handTick(f, held, 2, 1, true, this.clashHold(f)); // a Rasengan / Chidori driven into a beam clash stays lit, held forward
+      } else if (held) this.fx.handTick(f, held, 2, 1, true, this.clashHold(f)); // a Rasengan / Chidori driven into a beam clash stays lit, held forward
       else this.fx.dropHand(f);
     }
     if (this.clash) lines = 0.75;

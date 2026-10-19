@@ -24,8 +24,9 @@ none of it feeds the simulation (no new simulation state; the determinism fixtur
 1. **Pull (Lapse: Blue):** `look` gives the Vortex its HD `core` (no glow disc), floor rubble dragged into it
    (`rubble` chunks every `rubbleEvery` frames: `Effects.rubbleIn`, debris chunks that spiral in and shrink to nothing)
    and the implosion it ends in (`collapse`) instead of the explosion. The pop draws no spark of its own.
-2. **Shots (Reversal: Red):** a move's `form` plays an HD strip at the drawn hand through the startup
-   (`Effects.formTick`, on the frame's `hand` anchor: Red gathering on the raised fingertip). A projectile's
+2. **Shots (Reversal: Red):** the move's `fx: 'redForm'` with `fxForm` (Killua's shared hand-tick path, PR #189)
+   plays the forming strip at the frame's `hand` anchor by the startup's progress: Red gathering on the raised
+   fingertip. A projectile's
    `halo: false` drops the glow disc under full-color art; Red also uses ADR 0047's `orient` and `burstFx`.
 3. **Teleports (Blink):** the shared `vanishFx` / `appearFx` (ENG-SKL-TPFX, PR #187: an effect name or `{ fx, scale,
    bottom, y, lead, reverse }`, false for nothing) replace the smoke puff, speed lines and afterimage with Blue's

@@ -691,14 +691,6 @@ export class Effects {
     this.drop('handGlow' + f.index);
   }
 
-  // A shot's technique forming at the drawn hand through its startup (a move's `form`: Reversal: Red gathering on
-  // Gojo's raised fingertip, ENG-SKL-GOJ): the strip played by `prog` (0..1), on the frame's hand anchor
-  formTick(f, F, prog) {
-    const P = f.renderPos || f.pos, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1;
-    const fwd = H ? H.x : 0.45, up = H ? H.y : 1.3;
-    const it = this.keep('handForm' + f.index, F.fx, P.x + f.face.x * fwd * k, P.y + up * k, P.z + f.face.y * fwd * k, { scale: (F.scale ?? 0.4) * k, order: 9, depthTest: false });
-    it.frame = Math.min(it.a.n - 1, Math.floor(prog * it.a.n));
-  }
 
   // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
   // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
