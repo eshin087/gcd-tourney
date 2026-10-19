@@ -244,13 +244,13 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 
 | kind | does | examples |
 |---|---|---|
-| `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use), `vortex` (a grind `Vortex` spawned where it connects; `dome`: its look as one HD effect), `blastFx` (its own hit blast instead of the generic explosion, ADR 0044), `trench` (a ground style torn along the floor where the drawn hand drags through the run) and `hitPose` (contact jumps to the drawn strike: that frame's place in the active phase; ADR 0047) | Rasengan, Chidori, Rasenshuriken |
-| `shot` | a projectile from a `shot`/`throw` move; feet planted. The projectile may name its look: `lance` (an HD blade laid from the hand along the shot), `orient` (its sprite turned along its flight), `burstFx` (its own hit blast; ADR 0047) | Narukami, Reversal: Red, shuriken, Chidori Spear, Great Fireball |
-| `teleport` | optional `anim` wind-up for `startup` frames, then a puff and hide for `hide` frames, reappear `behind` or `above` (with afterimages), optional `recovery` frames of the same animation and an optional `follow` strike | Rhythm Echo, Blink |
-| `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop` | Lapse: Blue |
-| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `clones` (that many shadow clones poof out and kick up beside him, ADR 0044; `riseCallout` when the rise hits), `shadow` (when the rising kick connects he blinks behind them as they rise, lands `hits` in the air, flips over them and carries them down into the floor with the slam; ADR 0047), `landFx: 'thunder' \| 'dust'` | Thunderbolt, Uzumaki Barrage, Lion's Barrage |
+| `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use), `vortex` (a grind `Vortex` spawned where it connects; `dome`: its look as one HD effect), `blastFx` (its own hit blast instead of the generic explosion, ADR 0044), `trench` (a ground style torn along the floor where the drawn hand drags through the run) and `hitPose` (contact jumps to the drawn strike: that frame's place in the active phase; ADR 0047), `coil` (an HD effect winds round the victim through the hit stop, its frames following the stop, then its `burst`; ADR 0050) | Rasengan, Chidori, Rasenshuriken, Dragon Fist |
+| `shot` | a projectile from a `shot`/`throw` move; feet planted. The projectile may name its look: `lance` (an HD blade laid from the hand along the shot), `orient` (its sprite turned along its flight), `burstFx` (its own hit blast; ADR 0047), `limb` (a stretched limb or a string drawn from the owner's drawn hand to the shot, a tube effect scaled across to `thick`; its `end` effect stands for the shot and snaps back to the hand over `back` s when the shot ends; view only, ENG-SKL-LUF: Killua's yo-yo string), `halo: false` (no glow disc under full-color art); the move's `fx` with `fxForm` plays a forming strip at the drawn hand by the startup's progress (the shared hand tick; Red forming on Gojo's fingertip, ADR 0049); `cling` (an effect kept on the stunned body: Lightning Palm's paralysis), `returns` (a yo-yo: out for `life`, then reeled back to the hand at `reel`, spent on the way back; ADR 0052); `muzzle` (a flash at the hand as it leaves), a number `halo` is the glow disc's opacity, and `every` fires a volley one shot per `every` frames through the active phase instead of all at once (ADR 0050) | Lightning Palm, Yo-yo, Reversal: Red, shuriken, Chidori Spear, Great Fireball, Ki Blast Volley |
+| `teleport` | optional `anim` wind-up for `startup` frames, then a puff and hide for `hide` frames, reappear `behind` or `above` (with afterimages), optional `recovery` frames of the same animation and an optional `follow` strike. Its own look (view only): `vanishFx` / `appearFx` replace the smoke puff, speed lines and afterimage where it leaves / the star, ring and afterimage where it arrives (`false`: nothing; an effect name, or `{ fx, scale, bottom, y, lead, reverse }`: `lead` starts the vanish that many frames before he disappears, `reverse` plays the frames backward). `afterimage` (Killua's Rhythm Echo: afterimages close in round the target one by one while hidden and flicker on after the strike) and `streak` (a lightning streak from where it left to where it lands; ADR 0052); Blink folds space with a tiny Blue implosion (ADR 0049); Instant Transmission's ki shimmer (ADR 0050) | Rhythm Echo, Blink, Instant Transmission |
+| `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop`; `look`: its HD `core`, floor `rubble` dragged into it and the `collapse` it ends in (Lapse: Blue, ADR 0049) | Lapse: Blue |
+| `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `clones` (that many shadow clones poof out and kick up beside him, ADR 0044; `riseCallout` when the rise hits), `shadow` (when the rising kick connects he blinks behind them as they rise, lands `hits` in the air, flips over them and carries them down into the floor with the slam; ADR 0047; with no `hits` and `below` < 0 he blinks above them, holds `hangPose` and drives them down: Goku's afterimage chase, ADR 0050), `landFx: 'thunder' \| 'dust'` or `{ fx }` (its own strike on the floor), `gather` (an effect in the hand at the top), `column` (a bolt from the sky stacked down to him through the dive and the landing), `diveAnim` (a strip whose last phase is the gather, then the dive held for the slam; ADR 0052) | Narukami, Uzumaki Barrage, Lion's Barrage, Rising Kick |
 | `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (a puff where he stood, the log left in it with `log`, teleport behind, `follow`); `current`: an effect bursting from his body on the read, with an afterimage (Chidori Current, ADR 0047) | Infinity, Sharingan, Substitution |
-| `mode` | a timed buff on `f.mode`: `speed` ×, `damage` ×, `defense` (divides damage taken), `blinkDash`; look: `fx: 'lightning' \| 'chakra'`, `auraColor`/`auraCore`, or a `cloak` on the body (see-through chakra over it, a boiling rim, one tail; ADR 0044); drains a HUD bar | Godspeed, Nine-Tails Cloak |
+| `mode` | a timed buff on `f.mode`: `speed` ×, `damage` ×, `defense` (divides damage taken), `blinkDash`; look: `fx: 'lightning' \| 'chakra'`, `auraColor`/`auraCore`, or a `cloak` on the body (see-through chakra over it, a boiling rim, one tail; ADR 0044); `burstFx` (its own start burst instead of the white one: at the feet, or on the chest with `center`) and, while it lasts, `shell` (an AuraShell outline on the body, a charge style's shell shape), `tint` (a body tint) and `aura` (an effect kept at the feet: one copy behind, a see-through `front` copy); the same look block is read from a reflex super or a running kit move (`kit.modeLook`); `blink` (a streak laid along each blink dash: Godspeed, ADR 0052); drains a HUD bar | Godspeed, Nine-Tails Cloak, Gear Second, Kaio-ken |
 
 - Named kit moves get the special callout and an 8-frame flash. A kit move hit out of startup is
   cancelled cleanly (`kitState` cleared, the fighter made visible again).
@@ -270,6 +270,10 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Flurry** (`speedOfLightning`, Killua's Godspeed: Speed of Lightning; `shadowCloneBarrage`, Naruto): a 34-frame flash, then a 14-frame dash
   (range 6.5). On contact the opponent is `held` and the fighter teleports around them (8 × 22 for Killua), then a
   130 slam from above with a ground bounce. It whiffs if the dash misses.
+- **Speed of Lightning** (Killua, a flurry with `zigzag`, ADR 0052): Godspeed is on his body for the whole super; the
+  dash and every blink between blows leave a streak of his lightning; each of the 8 blows is a different normal of his
+  (jab, forward air, launcher, back air, ...) with the shock bursting through them; the finish is Narukami: he is over
+  them, a bolt from the sky comes down through him and hits the floor under them. Same frames and damage as the flurry.
 - **Shadow Clone Barrage** (Naruto, a flurry with `crew`, ADR 0044): he dashes in alone and lands the first blow
   (13), then holds the seal while 8 clones come one at a time, one every 5 frames: each poofs in on its own side of
   the target, plays its own attack (punch, flying kick, uppercut, roundhouse, heel drop...) and poofs out (8 × 13).
@@ -282,9 +286,17 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   anime inside those frames: a Great Fireball breathed into the sky, thunderclouds over the spot (the stage dims and
   the camera tips up), lightning crawling on the spot, his arm swung down 9 frames before the strike and the dragon
   diving out of the clouds for the last 6. Frame data unchanged.
+- **Spirit Bomb** (`spiritBomb`, Goku, ADR 0050): a sky strike with Kirin's numbers (40-frame flash, the mark, 280 on
+  the spot 40 frames later, radius 2, dodge by dashing out). Its `bomb` plays the anime: arms raised (`superPose`,
+  through the flash too), the sphere gathering over his hands as energy streams in from all around the stage (the
+  stage dims and the camera tips up), then 16 frames before the strike he shoves it (`beamFire`) and it falls onto the
+  marked spot, where it lands as a dome. Frame data unchanged.
 - **Domain** (`unlimitedVoid`, Gojo): a 50-frame flash, then the stage becomes the void
   (`src/world/voidStage.js`) and the opponent is `held` for 150 frames (~2.5 s) while Gojo combos freely.
-  The domain ends early on a KO.
+  The domain ends early on a KO. The anime's sequence (ADR 0049, view only): the Six Eyes glint as the blindfold comes
+  up, a black sphere bursting out of him that swallows the arena (18 frames), an endless cosmos inside on a black mirror
+  floor, light flooding the frozen opponent's head, and the void shattering like glass when it ends. The hold starts
+  the frame the domain opens, as before.
 - Super hits carry `minScale` (0.8 for the flurries): combo scaling never takes them below 80 %.
 - A fighter without a second super fires their ultimate from SUPER.
 
@@ -295,13 +307,18 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Hollow Purple** (Gojo, kind `orb`): a 46-frame flash, then Red (near hand) and Blue (far hand) drift together
   for 26 frames and fuse 0.9 ahead of him; the orb (radius 1.45) rolls forward at 15 units/s for up to 2.4 s,
   erases the opponent's projectiles and vortices, carves a trench, and hits once for 260 (unblockable, unscaled,
-  wall bounce). Gojo recovers 24 frames after the release. Avoid it by leaving its lane or vanishing.
+  wall bounce). Gojo recovers 24 frames after the release. Avoid it by leaving its lane or vanishing. The anime's look
+  (ADR 0049): Red in his near palm and Blue in his far one, his hands bringing them together (`beamCharge` played by
+  the merge's progress), the two colliding into Purple, the HD mass erasing a clean trench, and a violet hit that
+  swallows them instead of the white explosion; the Six Eyes glint as the merge starts. Timing unchanged.
 - **Rampage** (kind `rampage`, ADR 0017): a roar, a pounce on all fours committed to its line, a mauling for what it
   catches. Naruto's old Four-Tails; no fighter uses it since ADR 0045, the kind stays for a future one.
 - **Godspeed: Whirlwind** (Killua, kind `reflex`): a 40-frame flash, then for 300 frames his body answers up to 4
   blockable strikes or shots by itself (`Fighter.takeHit` → `kit.reflexCounter`): the hit misses, a melee attacker
   is held for 12 frames, he blinks behind the attacker (the thrower, for a shot) and lands the Rhythm Echo strike
-  (70). Unblockable hits (supers, ultimates), beams and throws go through it; not while he's stunned or held.
+  (70). Unblockable hits (supers, ultimates), beams and throws go through it; not while he's stunned or held. The look
+  (ADR 0052): Godspeed bursts out of his body and stays on it while it runs; a counter leaves an electrified
+  afterimage where he stood, a lightning streak to behind them and the shock through them on the hit.
 - **Amaterasu** (Sasuke, kind `ignite`): a 46-frame flash, then the Mangekyō gaze ignites black flames on
   the opponent wherever they are (no range limit, can't be blocked, misses only if they're invulnerable or
   hidden): 80 on ignition, then a **burn** status, 14 every 20 frames for 200 frames. Burn ticks never stun
@@ -311,13 +328,14 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   arm blows up, then the giant fist shoots down the lane he faces to 7 units in 8 frames and hits once for 270
   (unblockable, wall bounce) anything within 1.1 of the lane and below 2.0 up. It commits to the lane when the punch
   leaves: leave the lane or jump during the windup. It never clashes. 30 frames of recovery.
-- **Kamehameha** (Goku): the shared beam (below), his `beam` palette; the cast's only beam.
+- **Kamehameha** (Goku): the shared beam (below), his `beam` palette and look (ADR 0050).
 
 ### Passives
 - **Infinity** (Gojo): a projectile that comes within its radius + 1.15 units of him is stopped (ring
   effect, "INFINITY" callout at most every 2 s) whenever he isn't in hitstun, launched, down, getting up or
   held **and has at least 15 ki; each stopped volley costs 15 ki** (`PASSIVES.infinity`; a 3-shuriken throw is one charge). Beams, melee and supers still
-  hit. Chip damage doesn't apply to him while he blocks.
+  hit. Chip damage doesn't apply to him while he blocks. The shot stops dead in a ripple of space and hangs there a
+  moment, fading (`stopFx`, `hang`; ADR 0049, view only).
 
 ### Simultaneous hits (trades)
 - Melee hits found during a frame are applied together after both fighters have moved
@@ -388,6 +406,11 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   charge starts, red and blue chakra converge into a dark ball at its mouth (`gather`), and the beam (width 1.7, red
   and white) leaves the mouth with shock rings running down it (`muzzle`). The shroud bursts off him when it ends.
   `beamCharge` v17 is the fox gathering, `beamFire` v15 the fox firing; their `hand` anchors sit on the mouth.
+- **Kamehameha** (Goku, ADR 0050): the ki ball grows between his cupped hands at the hip (`gather` at the drawn hand
+  anchors of `beamCharge` v07, ki sparks converging, a thinner golden aura still on him) while KA, ME, HA, ME are called
+  out a syllable at a time through the windup (`chant`), then HA! as it fires: the ball held bright at his palms
+  (`originFx`), the beam's own rounded head (`headFx`, in place of the two glow bulbs) and shock rings down it
+  (`muzzle`). Frame data unchanged.
 - **Heavy + Special** (5-frame buffer), 3 bars. 46-frame windup (14 when answering, see below), invulnerable
   through the windup. A 42-frame super flash with a cut-in strip (`cutin.png` or the baked eye strip), stage dim
   72%, focus camera.
@@ -414,7 +437,7 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 ### Beam clash (ADR 0027)
 Two **energy attacks** that meet head-on become a **BEAM CLASH**: a shorter rhythm struggle between 1-bar specials,
 with each side's attack drawn as a stream from their hands. Numbers in `CLASH.struggle` (`src/game/moves.js`).
-- **Energy**: a shot whose projectile has `clash: 'beam'` (Killua's Narukami, Gojo's Reversal: Red, Sasuke's Chidori
+- **Energy**: a shot whose projectile has `clash: 'beam'` (Killua's Lightning Palm, Gojo's Reversal: Red, Sasuke's Chidori
   Spear and air Great Fireball; ground or air versions) or a rush special with `clash: 'rush'` (Naruto's Rasengan and
   Rasenshuriken, Sasuke's Chidori), which he drives into the other's stream by hand. Rush against rush stays the
   one-beat special clash; a physical shot (shuriken) still just cancels a shot. So every pairing has one except the
@@ -430,7 +453,7 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
   from its owner's hands, an airborne owner hovers; a Rasengan / Chidori is held on its rush frame with its orb lit.
   Two streams meet halfway between the hands, a stream meets a Rasengan at the held orb's front (the drawn hand +
   `orbReach`; a shot detects it `rushReach` 1.5 ahead of the fist).
-- **How it looks** (ADR 0034): each move keeps its shape (`stream.style`): Narukami a branching lightning zigzag,
+- **How it looks** (ADR 0034): each move keeps its shape (`stream.style`): Lightning Palm a branching lightning zigzag,
   Chidori Spear a straight lightning lance, Great Fireball a fire torrent (atlas bands tiled along the stream), Reversal:
   Red the orb at Gojo's fingertips sending repulsion ripples, a Rasengan / Dragon Fist held at the hand. Two `clashBurst`
   knots (one per side's color) mark the meeting point inside a size budget; the aura thins and the flashes are short and
@@ -741,7 +764,15 @@ counter, vanish, super dash through a shot, sidestep, counter-beam, block), weig
 Showcase. `STYLES` hold the fairness knobs: `impossible` (vs a player: sees an attack after 7 f, parries about
 half the time, max-damage routes), `insane` (the INSANE level between HARD and IMPOSSIBLE: sees an attack after
 12 f, parries 28%, dodges and techs less, and drops 15% of its combos after 2-3 hits via `drop`) and `showman`
-(CPU vs CPU, ADR 0016). CPU vs CPU defaults to IMPOSSIBLE.
+(CPU vs CPU, ADR 0016). CPU vs CPU adds `god` (the GOD level, ADR 0054, spectated only) and defaults to it.
+
+The **god** style is the showman at the top of every dial: it sees an attack after 3 f, parries 85% and blocks last;
+in a parry exchange (parried in the last 70 f) its parry weighs x5 (`rallyParry`) and its own rallies fade by x0.85 each
+(`rallyDecay`, up to 10), so parries go back and forth; out of a melee clash it swings again 2.5x as keenly
+(`clashChain`), it meets energy with energy unprompted (`energyAnswer` 1), saves bars for three-bar finishers more often
+(`hoard` 0.6), and its impact tech is a per-launch 15% roll that is its only way to tech an impact (`exactTech`). Its
+combo persona is drawn like the showman's with the odds pushed to highlights (`GOD_PERSONA` in `aiCombo.js`). Every new
+knob defaults to the old value, so the other styles are unchanged.
 
 The **showman** plays for the viewer: long, varied combos from the combo composer (below), mid-range neutral with
 the kit (zoning, kit tools, air specials, modes, three-bar moves, "power up" charging at a distance, a wake-up reset

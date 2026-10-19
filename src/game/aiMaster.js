@@ -5,7 +5,8 @@
 // It still only presses buttons on its Pad (design pillar 4). Fairness lives in STYLES: it only "sees" an
 // attack after `react` frames (a 5-frame jab is a guess, like for a human), it goes for a parry only part
 // of the time, and it has habits a player can learn. CPU vs CPU runs the louder 'showman' style so a
-// spectated fight keeps moving and the big moves come out.
+// spectated fight keeps moving and the big moves come out, and the GOD level (ADR 0054) runs 'god': the same brain
+// with its reads, answers and combos turned to the top, so two of them trade parries, clashes and long routes.
 import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES, THROW, CLASH } from './moves.js';
 import { specialFor, kitOf, clashable, mergeOf, roarOf, energyMoves, airEnergyMoves, canBeamClashNow } from './kit.js';
 import { BeatPlan } from './clash.js';
@@ -14,7 +15,7 @@ import { Showcase, specialId, pickW } from './aiShow.js';
 import { mixDefense, reachT } from './aiDefense.js';
 import { rng } from './rng.js';
 import { ComboComposer, makePersona, artBox, lungeTo, aerialFor } from './aiCombo.js';
-import { TechTimer } from './aiTech.js';
+import { TechTimer, impactAhead } from './aiTech.js';
 import { seekClash } from './aiClash.js';
 import { NORMAL_INPUT, AIM_FRAMES, FULL_HOP, SHORT_HOP, aimStick, noFlick, canFastFall } from './aiNormals.js';
 
@@ -45,17 +46,28 @@ const NO_AIM = new Set(['launched', 'airRecover', 'impactTech', 'techRoll', 'dow
 //         guards against a victim who could burst (ADR 0022)
 // meleeClash  chance to meet a fresh light / heavy with the same button, a MELEE CLASH (aiClash.js, ADR 0038)
 // impactTech  chance per techable impact (floor or wall bounce) to go for the timed tech (ADR 0028), pressed `techSd`
-//         frames off on average (aiTech.js: too early locks it out, too late misses)
+//         frames off on average (aiTech.js: too early locks it out, too late misses); exactTech: the timed tech is the
+//         only way it techs an impact (its hold-Guard air tech never starts inside an impact's tech window), decided
+//         per launch (recover)
+// clashChain  how keen it is to swing again out of a melee clash's pushback, × its meleeClash (MELEE_CLASH.chainSeek
+//         when unset); energyAnswer: weight of meeting their energy with its own unprompted (a beam clash; 0.15 for
+//         the showman, 0.25 otherwise when unset)
 export const STYLES = {
   // INSANE, between HARD and IMPOSSIBLE: the same reads at a person's reaction time (12 f), fewer parries, dodges,
   // techs and throw breaks, and some dropped combos
   insane: { meleeClash: 0.08, beat: { sd: 2.6, miss: 0.03 }, impactTech: 0.55, techSd: 2.5, react: 12, parry: 0.28, dodge: 0.3, aggro: 0.65, flair: 0.35, tech: 0.5, wavedash: 0.3, antiAir: 0.5, throw: 0.3, throwBreak: 0.3, show: 0.35, hoard: 0.6, block: 1, drop: 0.15, burst: 0.15, bait: 0 },
   impossible: { meleeClash: 0.1, beat: { sd: 1.6, miss: 0.012 }, impactTech: 0.65, techSd: 2, react: 7, parry: 0.5, dodge: 0.4, aggro: 0.7, flair: 0.45, tech: 0.85, wavedash: 0.55, antiAir: 0.75, throw: 0.4, throwBreak: 0.55, show: 0.35, hoard: 1, block: 1, burst: 0.3, bait: 0.25 },
   showman: { meleeClash: 0.18, beat: { sd: 2.2, miss: 0.02 }, impactTech: 0.65, techSd: 2, react: 6, parry: 0.55, dodge: 0.55, aggro: 0.6, flair: 0.9, tech: 0.7, wavedash: 0.35, antiAir: 0.6, throw: 0.45, throwBreak: 0.45, show: 1, hoard: 0.15, block: 0.35, burst: 0.35, bait: 0.3 },
+  // GOD (ADR 0054, spectated only): the showman's whole repertoire at the top of every dial. A 3-frame read, parries
+  // and dodges first and a plain block last, swings met and met again (clash chains), energy answered with energy, the
+  // timed techs and throw breaks nearly always; its combos draw the long routes (aiCombo.js 'god' persona). The
+  // impact tech stays below the showman's so the bounce routes still pay.
+  god: { meleeClash: 0.3, clashChain: 2.5, energyAnswer: 1, beat: { sd: 1.1, miss: 0.006 }, impactTech: 0.15, exactTech: true, techSd: 1.5, react: 3, parry: 0.85, dodge: 0.65, aggro: 0.8, flair: 1, tech: 0.8, wavedash: 0.7, antiAir: 0.9, throw: 0.45, throwBreak: 0.75, show: 1, hoard: 0.6, block: 0.3, burst: 0.25, bait: 0.4 },
 };
 // combo persona per style (aiCombo.js, ADR 0026): IMPOSSIBLE and INSANE run the optimal one (the most damage that
-// links); the showman (CPU vs CPU) draws one per match from its kit, so every spectated fight combos differently
-const COMBO_PERSONA = { impossible: 'optimal', insane: 'optimal', showman: null };
+// links); the showman (CPU vs CPU) draws one per match from its kit, so every spectated fight combos differently, and
+// GOD draws one too with its odds pushed toward the highlight routes
+const COMBO_PERSONA = { impossible: 'optimal', insane: 'optimal', showman: null, god: 'god' };
 // Defense showcase knobs (ADR 0025), merged into STYLES below; a style without one reads it as 0 (off).
 // defPersona  strength of the per-match defense persona (aiShow.js): 1 = as is; below 1 it only changes which
 //             advanced answer comes out, never how often one does (the weights are normalized)
@@ -68,10 +80,14 @@ const COMBO_PERSONA = { impossible: 'optimal', insane: 'optimal', showman: null 
 //             an answer among its last 4 (so a match rotates them)
 // wdDefense / backstep / vanishWar  weights of a defensive wavedash (out of a shot's line), a back dash through a
 //             melee swing (8 invulnerable frames) and a counter-vanish against a vanish
+// rallyDecay  factor on the rally weight per rally already in the exchange (0.5 when unset: the showman's rallies end
+//             fast); rallyParry: factor on the parry's weight while it is in a parry exchange (it was parried a moment
+//             ago, so the next swing at it is the other side's rally: parry it back), 1 when unset
 const DEF_KNOBS = {
   insane: { defPersona: 0.4 },
   impossible: { defPersona: 0.4 },
   showman: { defPersona: 1, read: 0.5, stringRead: 0.5, gapEscape: 0.6, escape: 0.5, rally: 2, rallyMax: 3, rotate: 0.5, wdDefense: 0.8, backstep: 0.8, vanishWar: 2 },
+  god: { defPersona: 1, read: 0.7, stringRead: 0.7, gapEscape: 0.75, escape: 0.7, rally: 10, rallyMax: 10, rallyDecay: 0.85, rallyParry: 5, rotate: 0.6, wdDefense: 1, backstep: 1, vanishWar: 4 },
 };
 for (const k in DEF_KNOBS) Object.assign(STYLES[k], DEF_KNOBS[k]);
 // which persona column scales each answer
@@ -267,7 +283,7 @@ export class MasterBrain {
     if (game.freeze > 0) return this.frozen(game, c);
     this.clock++;
     // melee clash (ADR 0038): Math.random, so the seeded combo routes stay the same
-    const cl = seekClash(f, this.S.meleeClash ?? 0, this, Math.random);
+    const cl = seekClash(f, this.S.meleeClash ?? 0, this, Math.random, this.S.clashChain);
     if (cl) { this.tap(cl, 2); return; }
     if (this.pendingPunish && this.parryPunish(game, c)) return;
     if (this.recover(game, c)) return;
@@ -352,6 +368,12 @@ export class MasterBrain {
     return this.mem.contacts > 2 ? this.mem.parries / this.mem.contacts : 0;
   }
 
+  // In a parry exchange: we were parried a moment ago (the stagger and the rally that follows it), so what comes at us
+  // now is their answer to it (STYLES rallyParry)
+  inExchange() {
+    return this.f.clock - this.f.parriedAt < 70;
+  }
+
   // ------------------------------------------------------------------ frozen world
   // Super flash, vanish freeze, parry freeze: nothing moves but inputs still buffer. Keep guarding,
   // and right before the world restarts, buffer the punish after a parry.
@@ -402,6 +424,9 @@ export class MasterBrain {
     // the stick held through a jump squat (wavedash(), jumpTo()) belongs to that squat: once it is over (a frame of
     // slack for a press that waits on a release), a stale one would steer a later jump
     if (this.wdDir && f.state !== 'jumpSquat' && this.clock - this.wdAt > 1) this.wdDir = null;
+    // (`exactTech`: TechTimer decides per launch only when it also sees the frames between launches; called from the
+    // launched case alone, its first roll would stand for the whole match)
+    if (S.exactTech && f.state !== 'launched' && f.state !== 'impactTech') this.techT.plan(f, c.toward);
     if (this.rev && this.reversal(c)) return true;
     switch (f.state) {
       case 'launched': {
@@ -416,7 +441,10 @@ export class MasterBrain {
         // Armed for the timed impact tech (ADR 0028), an earlier Guard press would lock it out: the gaps get a Jump tap.
         const tt = this.techT.plan(f, c.toward);
         if (this.techRoll) {
-          if (!this.techT.armed) this.keep.add('guard');
+          // (`exactTech`: a fresh Guard press inside the impact tech's window would tech the coming wall or floor impact
+          // the timed tech chose not to: the hold starts once that impact is out of it)
+          const near = S.exactTech && !f.pad.b.guard.down && impactAhead(f, DEFENSE.impactTech.window + 1);
+          if (!this.techT.armed && !near) this.keep.add('guard');
           else if (f.airStun <= 1 && f.pos.y > DEFENSE.tech.minY && !f.heldT) this.tap('jump', 1);
           const d = this.techDir;
           this.mx = d === 'back' ? -c.toward : d === 'toward' ? c.toward : 0;
@@ -1010,7 +1038,7 @@ export class MasterBrain {
     const em = (th.energy || th.p?.P?.clash || vsRush) && (r === 'ground' || r === 'air') && sh.tools.beamClash && canBeamClashNow(f, 3) ? this.energyAnswer(c, vsRush) : null;
     if (em) {
       const cue = this.beamCue(game);
-      const k = cue === 'answer' ? 50 : (S.show >= 0.5 ? 0.15 : 0.25) * S.flair;
+      const k = cue === 'answer' ? 50 : (S.energyAnswer ?? (S.show >= 0.5 ? 0.15 : 0.25)) * S.flair;
       offer('answerEnergy', k, { type: 'answerEnergy', slot: em.slot, lead: em.kind === 'shot' && em.range < c.dist + 2 ? em.m.startup + 10 : 999 });
     }
     if (th.startup) { offer('none', 3, {}); return decide(); } // their shot isn't out yet: its own threat picks the rest
@@ -1058,8 +1086,8 @@ export class MasterBrain {
       const wdAt = big ? 19 : 12;
       if (r === 'ground' && S.wdDefense && th.frames >= wdAt) offer('wavedash', S.wdDefense * Math.sqrt(sh.bias('wavedash')), { type: 'wavedash', at: wdAt, dir: 'depth' });
     }
-    // (not a vortex's grind: its ticks keep coming after the one a press could meet)
-    if (!th.vortex && lockFree(Math.max(0, th.frames - 2))) offer('parry', S.parry * 2 * (big ? 1.2 : 1), { type: 'parry' }, 'parry');
+    // (not a vortex's grind: its ticks keep coming after the one a press could meet; in a parry exchange, `rallyParry`)
+    if (!th.vortex && lockFree(Math.max(0, th.frames - 2))) offer('parry', S.parry * 2 * (big ? 1.2 : 1) * (this.inExchange() ? S.rallyParry ?? 1 : 1), { type: 'parry' }, 'parry');
     // dodge what leaves something to punish: its active + recovery outlasts our dodge (a hop launcher
     // lands and recovers first, so that one gets parried or blocked)
     // (the showman also dodges the rest now and then: even trade, but the viewer sees the dodge)

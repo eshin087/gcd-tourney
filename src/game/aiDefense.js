@@ -59,7 +59,7 @@ class Defense {
     if (f.ki >= VANISH.cost && this.spend(VANISH.cost, 90)) w.vanish = 0.7 * sh.bias('vanish');
     let slot;
     if ((this.rallyN ?? 0) < (S.rallyMax ?? 0) && lane) {
-      const k = S.rally * 0.5 ** (this.rallyN ?? 0);
+      const k = S.rally * (S.rallyDecay ?? 0.5) ** (this.rallyN ?? 0);
       slot = this.rallySlot(c, o.heldT);
       w.rally = k * sh.pm('rally');
       // or vanish behind them as they recover: they can vanish too (the vanish war), parry or dodge the kick

@@ -150,7 +150,7 @@ documentation that stays true.
 | `npm install` | install deps (three, vite, pngjs for the packer) |
 | `npm run dev` | dev server at **http://127.0.0.1:5188** (`strictPort`, fails if the port is busy) |
 | `npm run dev:alt` | same on port **5200** (use it when 5188 is taken, e.g. by the user's own session) |
-| `npm run dev:capped` | the same dev server as `npm run dev`, started through `tools/capped.ps1` (OPS-019): the server and its helpers share an 8 GB memory cap, and closing the shell that started it ends them. A runaway server then crashes by itself instead of filling the machine's memory (one reached 131 GB on 2026-10-17). Flags pass through: `npm run dev:capped -- --port 5200`. Use it, or the restricted-profile form in docs/AI_COLLABORATION.md, for any dev server that will run unattended |
+| `npm run dev:capped` | the same dev server as `npm run dev`, started through `tools/capped.ps1` (OPS-019): the server and its helpers share an 8 GB memory cap, and stopping the shell that started it (TaskStop, Ctrl+C, closing the terminal) ends them within a second (OPS-021: it watches its console and parent processes, because Git Bash hides vite from a tree kill). Don't detach it (`nohup ... &`, `Start-Process`): a detached server can still outlive its shell. A runaway server then crashes by itself instead of filling the machine's memory (one reached 131 GB on 2026-10-17). Flags pass through: `npm run dev:capped -- --port 5200` (from PowerShell quote the separator, `'--'`, or npm eats the flags). Use it, or the restricted-profile form in docs/AI_COLLABORATION.md, for any dev server that will run unattended |
 | `npm run devs` | read-only list of the dev servers running now (`tools/dev-servers.ps1`): ports, age, committed memory, browser connections, folder, and the machine's committed memory against its limit; flags servers with no browser connected for an hour and servers over 2 GB. Check it when a task ends and stop your own idle servers (`Stop-Process -Id <PID>`) |
 | `npm run build` | production build to `dist/` (two entries: `index.html`, `sprites.html`). **Must pass.** |
 | `npm run preview` | serve the built `dist/` |
@@ -210,9 +210,11 @@ src/art/       animGuide.js (canonical animation list + poses), vfxPainter.js (p
                pixel.js, textures.js, crowdPainter.js (procedural pixel art)
 src/art/rig/   3D chibi rig, toon shader, pose/keyframe system, shared anim library, sprite baker
 src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sky; stage slot registry), worldArt.js (stage/NPC/title art loaders,
-               NPC placement + event cues), voidStage.js (domain stage), trainingRoom.js (holographic practice stage)
+               NPC placement + event cues), voidStage.js (domain stage), trainingRoom.js (holographic practice stage),
+               announcer.js + announcerLines.js + announcerSymbols.js (the live announcer: moves, reactions, symbols; ADR 0048)
 src/ui/        hud.js (bars, combo, cut-ins, callouts, input history), menus.js (DOM menus, training panel, pause),
-               controls.js (PS/Xbox/keyboard layouts, live highlights, rebinding, match/clash hints)
+               controls.js (PS/Xbox/keyboard layouts, live highlights, rebinding, match/clash hints),
+               speechBubble.js (the announcer's small captions)
 tools/         pack-sprites.mjs (art/ -> public/ packer, Node + pngjs)
 art/           art source (versioned raws), briefs + image prompts, REVIEW.md queue (see art/README.md). Not shipped.
 public/        shipped static files: characters/<id>/{sheet.png, anims.json, portrait.png, cutin.png, select.png}, vfx/atlas.*

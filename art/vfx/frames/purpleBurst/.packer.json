@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/purpleBurst_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/purpleBurst_v01.png",
+    "vfx/raw/purpleBurst_v01.json"
+  ],
+  "sourceHash": "3808dd68facc0f28225e9f02b1ccab1d45cef4fd",
+  "cell": 256,
+  "files": {
+    "purpleBurst_00.png": "90363ad50e87f2c7b96f9e7c016ee8b426a6a32b",
+    "purpleBurst_01.png": "b11c6f47614164dc42fbfbb0bd7b634404a5db18",
+    "purpleBurst_02.png": "2f2781ff89211670ec930baa2d20442ddea7d3a5",
+    "purpleBurst_03.png": "35f9b8d0965491bbae883cc70eab330c7065e6ff",
+    "purpleBurst_04.png": "86ce5a6ed65e183f752a3e14e0be0fc4dc9c26cc",
+    "purpleBurst_05.png": "3fa179a563efaca99b09e6f8a6e7f3c31e24ab72",
+    "purpleBurst_06.png": "41276c0efabdab631744a2d1f08dab2ea390fd44",
+    "purpleBurst_07.png": "8cd377868df9bf059a4f77fa9eb7c2f644f4d416"
+  }
+}

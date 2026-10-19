@@ -1,0 +1,21 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/lightningPalm_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/lightningPalm_v01.png"
+  ],
+  "sourceHash": "69b45018f28d145d509e3a80137066606bd05a0a",
+  "cell": 256,
+  "files": {
+    "lightningPalm_00.png": "3afb2d387bfdb3448b841f7225095e2cc435cf0b",
+    "lightningPalm_01.png": "7e0a8bb48bac8753e6723c9a943d85767eb13d5e",
+    "lightningPalm_02.png": "bc94e4b64ecc47708d6bbd83cf9b815afa5fcbd9",
+    "lightningPalm_03.png": "c550f5e43a8691154a4207cdbc1578abd09d30ca",
+    "lightningPalm_04.png": "532495436806ea5f98788858488328c95bc6f83d",
+    "lightningPalm_05.png": "5bf2caf45b563171e015ca528cbfcb1e50e02181",
+    "lightningPalm_06.png": "44dbf786f70fd500a6be34940543d79c05fbcfee",
+    "lightningPalm_07.png": "32b14f1bb0b280645edde851b6a682eb785e47c1"
+  }
+}

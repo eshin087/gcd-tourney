@@ -342,6 +342,56 @@
         "art/crowd/raw/org-trvl-011"
       ],
       "note": "Remove duplicated binoculars in idle: only one pair at eyes, no second chest pair; preserve single pair across poses."
+    },
+    {
+      "id": "npc-announcer-r1",
+      "type": "npc",
+      "items": [
+        "walk",
+        "run",
+        "shocked",
+        "micThrust"
+      ],
+      "prompt": "art/npc/announcer/PROMPTS.md",
+      "brief": "art/npc/announcer/CHARACTER.md",
+      "outputs": [
+        "art/npc/announcer/raw/walk",
+        "art/npc/announcer/raw/run",
+        "art/npc/announcer/raw/shocked",
+        "art/npc/announcer/raw/micThrust"
+      ],
+      "note": "New animations for the live announcer (ENG-118), not a redo: prompts A5-A8. Skip S1 and A1-A4; attach the approved reference/model_sheet.png and reference/idle_approved.png. walk and run are 4-frame cycles in place."
+    },
+    {
+      "id": "npc-announcer-r2",
+      "type": "npc",
+      "items": [
+        "blownAway",
+        "popUp",
+        "cheer",
+        "facepalm",
+        "micTap",
+        "checkWatch",
+        "patHair",
+        "sooty",
+        "wince",
+        "mopBrow"
+      ],
+      "prompt": "art/npc/announcer/PROMPTS.md",
+      "brief": "art/npc/announcer/CHARACTER.md",
+      "outputs": [
+        "art/npc/announcer/raw/blownAway",
+        "art/npc/announcer/raw/popUp",
+        "art/npc/announcer/raw/cheer",
+        "art/npc/announcer/raw/facepalm",
+        "art/npc/announcer/raw/micTap",
+        "art/npc/announcer/raw/checkWatch",
+        "art/npc/announcer/raw/patHair",
+        "art/npc/announcer/raw/sooty",
+        "art/npc/announcer/raw/wince",
+        "art/npc/announcer/raw/mopBrow"
+      ],
+      "note": "Ten more announcer animations (ENG-119), not a redo: prompts A9-A18. Skip S1 and A1-A8; attach the approved reference/model_sheet.png and reference/idle_approved.png."
     }
   ]
 }

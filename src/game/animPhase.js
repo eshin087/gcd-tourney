@@ -16,3 +16,10 @@ export function phaseFrame(phases, n, phase, p) {
   }
   return Math.max(0, Math.min(n - 1, idx));
 }
+
+// The frame a looping strip goes back to after its last one (anims.json `loopFrom`, ENG-117): `charge` plays its
+// gather and release once, then loops only the held power stance. 0, the whole strip, when unset or out of range.
+export function loopStart(a) {
+  const k = a?.loopFrom | 0;
+  return k > 0 && k < (a.frames?.length ?? 0) ? k : 0;
+}

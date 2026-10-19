@@ -1,0 +1,22 @@
+{
+  "batch": "npc-announcer-r2",
+  "type": "npc",
+  "agent": "announcer_r2_luna",
+  "status": "done",
+  "claimedAt": "2026-10-19T04:58:22.504Z",
+  "touchedAt": "2026-10-19T05:06:41.892Z",
+  "items": [
+    "blownAway",
+    "popUp",
+    "cheer",
+    "facepalm",
+    "micTap",
+    "checkWatch",
+    "patHair",
+    "sooty",
+    "wince",
+    "mopBrow"
+  ],
+  "doneAt": "2026-10-19T05:06:41.891Z",
+  "note": "Saved all ten requested v01 strips after visual QA; cheer selected attempt 3 after earlier costume/baseline deviations. Candidate pack complete: 32 colors, 0 warnings; packer removed 9 sooty specks. No approval or fixed-name files created. Lead review: inspect scale/baseline on cheer and blownAway; inspect whether 9 removed sooty specks are acceptable; generated source raw palette may need inspection after quantization."
+}

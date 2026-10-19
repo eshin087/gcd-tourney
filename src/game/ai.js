@@ -24,11 +24,15 @@ import { aerialFor } from './aiCombo.js';
 const NO_AIM = new Set(['launched', 'airRecover', 'impactTech', 'techRoll', 'down', 'getup', 'held', 'burst']);
 
 export const CPU_LEVELS = ['easy', 'normal', 'hard', 'insane', 'impossible'];
+// CPU vs CPU adds GOD on top (ADR 0054): a level to watch, never to fight
+export const WATCH_LEVELS = [...CPU_LEVELS, 'god'];
 
 // One brain per CPU side. IMPOSSIBLE is its own frame-data brain (aiMaster.js, ADR 0014); in CPU vs CPU it
-// plays the louder 'showman' style so a spectated fight keeps moving. `seed`: the brain's share of the match seed
-// (Game.brainSeed), which draws its combo persona and routes (aiCombo.js, ADR 0026).
+// plays the louder 'showman' style so a spectated fight keeps moving, and GOD the 'god' style (ADR 0054). `seed`: the
+// brain's share of the match seed (Game.brainSeed), which draws its combo persona and routes (aiCombo.js, ADR 0026).
 export function makeBrain(fighter, level = 'normal', spectate = false, seed = (Math.random() * 4294967296) >>> 0) {
+  // GOD exists only spectated: against a person (a hand-typed ?level=god) it is IMPOSSIBLE
+  if (level === 'god') return new MasterBrain(fighter, spectate ? 'god' : 'impossible', seed);
   // INSANE is the same frame-data brain with human reactions and the odd dropped combo (STYLES.insane)
   if (level === 'impossible' || level === 'insane') return new MasterBrain(fighter, spectate ? 'showman' : level, seed);
   return new CpuBrain(fighter, level, spectate);

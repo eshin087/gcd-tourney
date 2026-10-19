@@ -258,6 +258,7 @@ const ARCHETYPES = ['rushdown', 'juggler', 'vanishArtist', 'wallBouncer', 'kitSh
 // secondary blended in, and every tag jittered ×exp(0.25·gauss). `force`: an archetype by name (the lab).
 export function makePersona(rand, def, force = null) {
   if (force === 'optimal') return { ...PERSONAS.optimal, name: 'optimal' };
+  if (force === 'god') return godPersona(makePersona(rand, def));
   const aff = { rushdown: 1, juggler: 1, vanishArtist: 1, wallBouncer: 1, kitShowman: 1 };
   const why = new Set();
   for (const slot of [...GROUND_SLOTS, ...AIR_SLOTS]) {
@@ -282,6 +283,16 @@ export function makePersona(rand, def, force = null) {
     tiers: P.tiers.map((w, i) => 0.7 * w + 0.3 * S.tiers[i]),
     ki: 0.7 * P.ki + 0.3 * S.ki, risk: 0.7 * P.risk + 0.3 * S.risk,
   };
+}
+
+// GOD (ADR 0054): a drawn persona with its tier odds pushed toward the highlight, the appetite to spend its bars and to
+// take the tight links, and in a highlight: `repeatHi`, the highlight odds after one this round (0.4 when unset), kept
+// high; `reach`, how hard it leans on edges that leave a long stun window after them (1.3); `sdLate`, the super dash's
+// weight before a bounce (0.5), so the airtime's one super dash is kept for the pick-up after the bounce
+export const GOD_PERSONA = { tiers: [0.1, 0.35, 0.55], ki: 0.95, risk: 0.85, repeatHi: 0.85, reach: 2.4, sdLate: 0.2 };
+function godPersona(p) {
+  const { tiers, ki, risk, ...G } = GOD_PERSONA;
+  return { ...p, ...G, name: 'god:' + p.name, tiers, ki: Math.max(p.ki, ki), risk: Math.max(p.risk, risk) };
 }
 
 // ------------------------------------------------------------------ the graph
@@ -1030,7 +1041,7 @@ export class ComboComposer {
     const w = { short: P.tiers[0], medium: P.tiers[1], highlight: P.tiers[2] };
     const elapsed = ROUND_TIME - game.timeLeft;
     if (!this.highlights && elapsed > 20) w.highlight *= 2.5;
-    if (this.highlights) w.highlight *= 0.4;
+    if (this.highlights) w.highlight *= P.repeatHi ?? 0.4;
     const share = game.comboShare?.() ?? 0.4;
     if (share > 0.5) { w.highlight *= 0.3; w.medium *= 0.6; } else if (share < 0.3) w.highlight *= 1.5;
     if (this.burstThreat()) w.highlight *= P.risk >= 0.7 ? 1 : 0.5;
@@ -1171,9 +1182,9 @@ export class ComboComposer {
       if (bounce) k *= Math.max(0.15, 1 - risk * (e.act === 'wait' ? 1.5 : 1.1) * (1.2 - P.risk)); // risk lovers bounce anyway
       // a long combo leans on what leaves a long stun window after it (a launch, a bounce, a grind)
       if (this.tier === 'highlight') {
-        k *= Math.pow(0.5 + after / 20, 1.3) * (e.cost ? 1.5 : 1); // and spends its bars on it
+        k *= Math.pow(0.5 + after / 20, P.reach ?? 1.3) * (e.cost ? 1.5 : 1); // and spends its bars on it
         // the super dash is once per airtime: keep it for after a bounce (chase the launcher, wait for the wall)
-        if (e.id === 'sd' && !SD_LATE.has(node)) k *= 0.5;
+        if (e.id === 'sd' && !SD_LATE.has(node)) k *= P.sdLate ?? 0.5;
       }
       else if (this.tier === 'medium') k *= 0.75 + after / 40;
       if (e.tool) k *= Math.sqrt(sh.bias(e.tool));

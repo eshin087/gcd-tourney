@@ -1,0 +1,128 @@
+{
+  "sha256": {
+    "art/characters/sasuke/raw/charge_v15.png": "d9b4fb88c1b43b4499ba067cbf278e3c3cd76d8473d2cdd916d63c375ce46154",
+    "public/characters/sasuke/sheet.png": "edc26de0ba788f585a23c1b4e7f38db56248498e7d5ab11877984aa985811233",
+    "public/characters/sasuke/anims.json": "fd1afa3f762cae5df70362e7253b5fd4df007bfee00387e08e650a741cb06e24"
+  },
+  "charge": {
+    "frames": [
+      115,
+      116,
+      117,
+      118,
+      119,
+      120
+    ],
+    "durations": [
+      70,
+      90,
+      110,
+      110,
+      110,
+      110
+    ],
+    "loop": true,
+    "loopFrom": 2
+  },
+  "bounds": [
+    [
+      68,
+      71,
+      190,
+      241
+    ],
+    [
+      69,
+      61,
+      190,
+      241
+    ],
+    [
+      69,
+      61,
+      190,
+      241
+    ],
+    [
+      69,
+      61,
+      190,
+      241
+    ],
+    [
+      69,
+      61,
+      190,
+      241
+    ],
+    [
+      69,
+      61,
+      188,
+      241
+    ]
+  ],
+  "body_report": {
+    "v": 15,
+    "body": [
+      0.977,
+      0.987,
+      0.991,
+      0.973,
+      0.989,
+      1.006
+    ],
+    "head": [
+      1.051,
+      1.034,
+      1.048,
+      1.077,
+      1.041,
+      1.043
+    ],
+    "median": 0.988,
+    "headMedian": 1.046,
+    "flag": null
+  },
+  "loop_differences": [
+    {
+      "frame": 2,
+      "foot_rows_220_240_identical": true,
+      "changed_pixels": 0,
+      "diff_bbox": null
+    },
+    {
+      "frame": 3,
+      "foot_rows_220_240_identical": true,
+      "changed_pixels": 4456,
+      "diff_bbox": [
+        70,
+        61,
+        182,
+        197
+      ]
+    },
+    {
+      "frame": 4,
+      "foot_rows_220_240_identical": true,
+      "changed_pixels": 3561,
+      "diff_bbox": [
+        70,
+        61,
+        182,
+        197
+      ]
+    },
+    {
+      "frame": 5,
+      "foot_rows_220_240_identical": false,
+      "changed_pixels": 4082,
+      "diff_bbox": [
+        70,
+        61,
+        190,
+        241
+      ]
+    }
+  ]
+}

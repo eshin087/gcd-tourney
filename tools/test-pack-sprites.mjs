@@ -358,7 +358,7 @@ function makeFixtures() {
       rect(lg, cx - (wdt / 2) * s4, floor - hgt * s4, wdt * s4, hgt * s4, [140, 90, 50], rand);
     });
     savePng(path.join(V, 'raw', 'subLog_v01.png'), lg);
-    // newHd: an HD effect only the manifest names ("hd": true), not the packer's table: two blue squares
+    // newHd: an HD effect only the manifest names ("hd": true, owner testy), not the packer's table: two blue squares
     const nh = image(2 * 80 * s4, 90 * s4, [255, 0, 255], rand);
     [16, 28].forEach((wdt, k) => rect(nh, (40 + k * 80 - wdt / 2) * s4, (45 - wdt / 2) * s4, wdt * s4, wdt * s4, [60, 130, 240], rand));
     savePng(path.join(V, 'raw', 'newHd_v01.png'), nh);
@@ -404,15 +404,16 @@ function makeFixtures() {
     const npcStrip = (poses, seed) => {
       const r = mulberry(seed);
       const img = image(1536, 1024, [252, 3, 252], r);
-      poses.forEach((p, k) => drawFigure(img, 384 + k * 768, 900, p, r));
+      poses.forEach((p, k) => drawFigure(img, Math.round(((k + 0.5) * 1536) / poses.length), 900, p, r)); // one equal slot per pose
       fringe(img, r);
       return img;
     };
     const table = (rows) => `# test NPC\n\n| anim | what | frames | loop | ms per frame | height | engine trigger | fallback |\n|---|---|---|---|---|---|---|---|\n${rows}\n\nprose after the table | not a row |\n`;
     fs.mkdirSync(path.join(NP, 'tester'), { recursive: true });
-    fs.writeFileSync(path.join(NP, 'tester', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 520, 520 | 100 | default | - |\n| [`wave`](#wave) | arm up | 2 | no (f0 wind-up, f1 held) | 180, 900 | 110 | round start | `idle` |\n| [`broken`](#broken) | half-written row | 2 |'));
+    fs.writeFileSync(path.join(NP, 'tester', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 520, 520 | 100 | default | - |\n| [`wave`](#wave) | arm up | 2 | no (f0 wind-up, f1 held) | 180, 900 | 110 | round start | `idle` |\n| [`walk`](#walk) | a 4-frame cycle in place | 4 | yes | 150, 150, 150, 150 | 100 | moving | `idle` |\n| [`broken`](#broken) | half-written row | 2 |'));
     savePng(path.join(NP, 'tester', 'raw', 'idle_v01.png'), npcStrip([{}, { bob: -1 }], 71));
     savePng(path.join(NP, 'tester', 'raw', 'wave_v01.png'), npcStrip([{ up: 8 }, { up: 16 }], 72));
+    savePng(path.join(NP, 'tester', 'raw', 'walk_v01.png'), npcStrip([{}, { bob: -1 }, {}, { bob: -1 }], 76));
     savePng(path.join(NP, 'tester', 'raw', 'idle_v02.png'), npcStrip([{ up: 30 }, { up: 30 }], 75)); // newer, not approved
     fs.mkdirSync(path.join(NP, 'ghost'), { recursive: true });
     fs.writeFileSync(path.join(NP, 'ghost', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 600, 600 | 90 | default | - |'));
@@ -443,13 +444,13 @@ function makeFixtures() {
     // world art is approval-gated: every fixture effect is approved (spark at v02, its highest version)
     vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: 2 }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo', approvedVersion: 1 },
       orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 }, subLog: { approvedVersion: 1 },
-      newHd: { frames: 2, ms: 50, colorRule: 'fullColor', anchor: 'center', fill: 0.5, hd: true, approvedVersion: 1 } } },
+      newHd: { frames: 2, ms: 50, colorRule: 'fullColor', anchor: 'center', fill: 0.5, hd: true, owner: 'testy', approvedVersion: 1 } } },
     worldArt: { crowd: { batches: {
       'crowd-testers-01': { status: 'approved', items: { 'c-001': { approvedVersion: 1 }, 'c-002': { approvedVersion: null }, 'c-003': { approvedVersion: 1 }, 'c-004': { approvedVersion: 1 }, 'c-005': { approvedVersion: 1 }, 'c-006': { approvedVersion: 1 } } },
       'crowd-testers-01-r1': { status: 'approved', items: { 'c-003': { approvedVersion: 2 } } },
     } },
     stage: { batches: { 'stage-grass': { items: { grass: { approvedVersion: 1 } } }, 'stage-treePine': { items: { treePine: { approvedVersion: 1 } } }, 'stage-sky': { items: { sky: { approvedVersion: 1 } } } } },
-    npc: { batches: { 'npc-tester': { items: { model_sheet: { approvedVersion: 1 }, idle: { approvedVersion: 1 }, wave: { approvedVersion: 1 } } }, 'npc-ghost': { items: { idle: { approvedVersion: null } } }, 'npc-redo': { items: { idle: { approvedVersion: null } } }, 'npc-redo-r1': { items: { idle: { approvedVersion: 2 } } } } },
+    npc: { batches: { 'npc-tester': { items: { model_sheet: { approvedVersion: 1 }, idle: { approvedVersion: 1 }, wave: { approvedVersion: 1 } } }, 'npc-tester-r1': { items: { walk: { approvedVersion: 1 } } }, 'npc-ghost': { items: { idle: { approvedVersion: null } } }, 'npc-redo': { items: { idle: { approvedVersion: null } } }, 'npc-redo-r1': { items: { idle: { approvedVersion: 2 } } } } },
     ui: { batches: { 'ui-title_art': { items: { title_art: { approvedVersion: 1 } } } } } },
     sharedUi: { logo: { approvedVersion: 1 }, titleArt: { approvedVersion: null } },
   }, null, 2));
@@ -489,6 +490,8 @@ function main() {
   console.log('pack-sprites regression test');
   makeFixtures();
   const base = ['--root', ART, '--out', OUT, '--json'];
+  // the single HD page of a pack from before ADR 0053, left in the output folder: run 1 replaces it with the owner pages
+  savePng(path.join(OUT, 'vfx', 'atlas_hd.png'), image(256, 256, [255, 0, 255], mulberry(5)));
 
   // run 1 ------------------------------------------------------------
   const r1 = pack([...base, '--update-manifest']);
@@ -641,19 +644,28 @@ function main() {
     const sp = rep.vfx.packed.find((p) => p.effect === 'spark');
     check(sp?.source === 'raw/spark_v02.png' && sp.version === 2 && sp.notes.some((n) => /ignored raw\/spark\.png/.test(n)), `vfx: highest spark_vNN wins over v01, plain spark.png and _rejected/ (${sp?.source}, ${sp?.frames} frames)`);
     check(!anyWarn(rep.vfx.warnings, /spark/), 'vfx: versioned spark files accepted silently');
-    // HD effects (ADR 0044) go to their own 256 px page: the 128 px atlas above keeps its 6 rows
-    const hd = am.hd, hdImg = fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && loadPng(path.join(OUT, 'vfx', 'atlas_hd.png'));
-    check(hd?.image === 'atlas_hd.png' && hd.cell === 256 && hd.ppu === 112 && hd.rows === 2 && hd.anims.subLog?.n === 5 && hd.anims.subLog.ms === 70 && !am.anims.subLog,
-      `atlas.json hd block (${JSON.stringify(hd && { cell: hd.cell, ppu: hd.ppu, rows: hd.rows, subLog: hd.anims.subLog })})`);
-    // a manifest-only "hd": true keeps the effect on the HD page (the manifest normalizer once dropped the flag)
-    check(hd?.anims.newHd?.n === 2 && !am.anims.newHd, `manifest-only HD effect on the HD page (${JSON.stringify(hd?.anims.newHd)}, standard page: ${!!am.anims.newHd})`);
-    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 2 * 256, `atlas_hd.png ${hdImg?.w}x${hdImg?.h}`);
+    // HD effects (ADR 0044) go to 256 px pages, one per owner (ADR 0053): the 128 px atlas above keeps its 6 rows.
+    // subLog is the packer table's owner 'shared', newHd the manifest's owner 'testy'
+    const hd = am.hd, hdPng = (f) => fs.existsSync(path.join(OUT, 'vfx', f)) && loadPng(path.join(OUT, 'vfx', f));
+    const hdImg = hdPng('atlas_hd_shared.png'), hdTesty = hdPng('atlas_hd_testy.png');
+    check(hd?.cell === 256 && hd.ppu === 112 && JSON.stringify(hd.pages) === JSON.stringify([{ image: 'atlas_hd_shared.png', owner: 'shared', cols: 5, rows: 1 }, { image: 'atlas_hd_testy.png', owner: 'testy', cols: 2, rows: 1 }])
+      && JSON.stringify(hd.effects?.subLog) === JSON.stringify({ page: 0, row: 0, n: 5, ms: 70 }) && !am.anims.subLog,
+      `atlas.json hd block: owner pages, shared first (${JSON.stringify(hd && { cell: hd.cell, ppu: hd.ppu, pages: hd.pages, subLog: hd.effects?.subLog })})`);
+    // a build from before ADR 0053 reads hd.image + hd.anims: neither is written, so it keeps the HD effects procedural
+    check(hd && !('image' in hd) && !('anims' in hd), `no single-page hd.image / hd.anims for older builds (keys ${hd && Object.keys(hd)})`);
+    // a manifest-only "hd": true keeps the effect on an HD page (the manifest normalizer once dropped the flag)
+    check(hd?.effects?.newHd?.page === 1 && hd.effects.newHd.n === 2 && !am.anims.newHd, `manifest-only HD effect on its owner's page (${JSON.stringify(hd?.effects?.newHd)}, standard page: ${!!am.anims.newHd})`);
+    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 256 && hdTesty && hdTesty.w === 2 * 256 && hdTesty.h === 256, `HD pages atlas_hd_shared.png ${hdImg?.w}x${hdImg?.h}, atlas_hd_testy.png ${hdTesty?.w}x${hdTesty?.h}`);
+    check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && rep.vfx.removed.some((f) => /atlas_hd\.png$/.test(f)), `the pre-ADR 0053 atlas_hd.png is removed (removed ${rep.vfx.removed})`);
     if (hdImg) {
       const lb = [0, 1, 2, 3, 4].map((i) => bb(cell(hdImg, i, 256, 5)));
       const big = Math.max(...lb.map((b) => Math.max(b.w, b.h)));
       check(lb.every((b) => b.y1 === 240) && Math.abs(big - Math.round(256 * 0.85)) <= 2, `subLog: HD bottom anchor on y=240, largest frame ~85% of 256 (bottoms ${lb.map((b) => b.y1)}, largest ${big})`);
     }
-    check(rep.vfx.packed.find((p) => p.effect === 'subLog')?.hd === true, 'vfx report marks the HD effect');
+    const sl = rep.vfx.packed.find((p) => p.effect === 'subLog');
+    check(sl?.hd === true && sl.page === 'atlas_hd_shared.png', `vfx report marks the HD effect and its page (${JSON.stringify(sl && { hd: sl.hd, page: sl.page })})`);
+    check(rep.vfx.hdPages?.map((g) => `${g.image} ${g.size} ${g.effects}`).join() === 'atlas_hd_shared.png 1280x256 1,atlas_hd_testy.png 512x256 1', `vfx report lists the HD pages (${JSON.stringify(rep.vfx.hdPages)})`);
+    check(!anyWarn(rep.vfx.warnings, /owner/), 'owners shared and testy (a manifest character) pass silently');
   }
 
   // edgy: adversarial raw art
@@ -1053,6 +1065,8 @@ function main() {
   packScaleTests(base);
   sheetPageTests(base);
   paletteReserveTests(base);
+  loopFromTests(base);
+  hdPageTests();
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1176,6 +1190,9 @@ function main() {
     const nb = [0, 1, 2, 3].map((i) => bb(cell(ns, i, 128, 8)));
     check(nb.every((b) => b && b.y1 === 124 && b.x0 >= 4 && b.x1 <= 123 && b.y0 >= 4), `run 15: NPC feet on y 124, inside the 4 px margin (${nb.map((b) => `${b?.x0}-${b?.x1}/${b?.y0}-${b?.y1}`)})`);
     check(Math.max(nb[0].h, nb[1].h) === 100 && Math.max(nb[2].h, nb[3].h) === 110, `run 15: each animation is scaled to its own target height (idle ${Math.max(nb[0].h, nb[1].h)}/100, wave ${Math.max(nb[2].h, nb[3].h)}/110)`);
+    const nw = nm.animations.walk, wb = (nw?.frames || []).map((i) => bb(cell(ns, i, 128, 8)));
+    check(nw?.frames.join() === '4,5,6,7' && nw.durations.join() === '150,150,150,150' && wb.length === 4 && wb.every((b) => b && b.y1 === 124 && b.x0 >= 4 && b.x1 <= 123),
+      `run 15: a 4-frame NPC strip (frames column 4) packs as 4 cells on the floor line (${nw?.frames}; ${wb.map((b) => b && `${b.x0}-${b.x1}/${b.y0}-${b.y1}`)})`);
     check(!fs.existsSync(path.join(out15, 'npc', 'ghost')) && j15.npc.unapproved === 1, 'run 15: an NPC without an approved idle is not packed');
     check(fs.existsSync(path.join(out15, 'npc', 'redo', 'anims.json')), 'run 15: an NPC approved only in its redo batch (npc-<id>-r1) is packed');
     check(anyWarn(j15.npc.warnings, /tester: the ANIMATIONS\.md row for broken has 3 columns/) && !nm.animations.broken, 'run 15: a short ANIMATIONS.md row is warned and skipped, not fatal');
@@ -1243,12 +1260,12 @@ function main() {
   delete man14.sharedUi;
   fs.writeFileSync(m14, JSON.stringify(man14));
   const r14dry = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', '--dry-run', 'vfx', 'crowd']);
-  check(r14dry.json?.vfx.removed.length === 3 && fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')), 'run 14: --dry-run only reports the stale atlases (atlas.png, atlas_hd.png, atlas.json)');
+  check(r14dry.json?.vfx.removed.length === 4 && fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')), `run 14: --dry-run only reports the stale atlases (atlas.png, atlas.json, both HD pages: ${r14dry.json?.vfx.removed})`);
   const shippedBefore = ['stage/grass.png', 'npc/tester/sheet.png', 'ui/logo.png'].every((f) => fs.existsSync(path.join(OUT, f)));
   const r14 = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', 'vfx', 'crowd', 'stage', 'npc', 'ui']);
   const v14 = r14.json?.vfx;
   check(v14 && v14.packed.length === 0 && v14.unapproved.includes('flame') && v14.unapproved.includes('spark'), `run 14: unapproved effects are not packed (${v14?.unapproved})`);
-  check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas.json')) && !fs.existsSync(path.join(OUT, 'crowd', 'atlas.png')),
+  check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')) && !fs.readdirSync(path.join(OUT, 'vfx')).some((f) => /^atlas_hd/.test(f)) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas.json')) && !fs.existsSync(path.join(OUT, 'crowd', 'atlas.png')),
     'run 14: stale vfx and crowd atlases removed (the game falls back to procedural art)');
   check(shippedBefore && ['stage/grass.png', 'stage/manifest.json', 'npc/tester/sheet.png', 'npc/tester/anims.json', 'ui/logo.png', 'ui/manifest.json'].every((f) => !fs.existsSync(path.join(OUT, f))),
     'run 14: stage, NPC and UI outputs whose approval is gone are removed');
@@ -2107,6 +2124,33 @@ function packScaleTests(base) {
     `packScale: an out-of-range value is reported and ignored (idle ${c.box('idle', 0).h} px)`);
 }
 
+// ---------------------------------------------------------------- HD effect pages (ADR 0053)
+// An owner past the page's row limit spills onto atlas_hd_<owner>_2.png; a page a pack no longer writes is removed; an
+// owner that is not a fighter id, or not a manifest character, is warned.
+function hdPageTests() {
+  const out = path.join(FIX, 'out-hd'), vfx = path.join(out, 'vfx');
+  const man = JSON.parse(fs.readFileSync(path.join(ART, 'manifest.json'), 'utf8'));
+  const m = path.join(FIX, 'manifest-hd.json');
+  const run = (owner, extra = []) => {
+    man.vfx.effects.newHd.owner = owner;
+    fs.writeFileSync(m, JSON.stringify(man));
+    const r = pack(['--root', ART, '--out', out, '--manifest', m, '--json', '--no-writeback', ...extra, 'vfx']);
+    return { r, hd: r.json && JSON.parse(fs.readFileSync(path.join(vfx, 'atlas.json'), 'utf8')).hd };
+  };
+  savePng(path.join(vfx, 'atlas_hd_gone.png'), image(256, 256, [255, 0, 255], mulberry(6))); // an owner no effect has any more
+  const a = run('shared', ['--page-rows', '1']);
+  check(a.r.code === 0 && a.hd?.pages.map((p) => `${p.image}:${p.owner}:${p.rows}`).join() === 'atlas_hd_shared.png:shared:1,atlas_hd_shared_2.png:shared:1'
+    && a.hd.effects.subLog.page === 0 && a.hd.effects.newHd.page === 1 && a.hd.effects.newHd.row === 0,
+    `HD pages: an owner past --page-rows spills onto atlas_hd_<owner>_2.png (exit ${a.r.code}, ${JSON.stringify(a.hd?.pages)})`);
+  check(!fs.existsSync(path.join(vfx, 'atlas_hd_gone.png')) && a.r.json?.vfx.removed.some((f) => /atlas_hd_gone\.png$/.test(f)), 'HD pages: a page no effect is on any more is removed');
+  const b = run('Bad Id');
+  check(b.r.code === 0 && anyWarn(b.r.json.vfx.warnings, /newHd: owner "Bad Id" is not a fighter id/) && b.hd?.pages.length === 1 && b.hd.pages[0].rows === 2 && !fs.existsSync(path.join(vfx, 'atlas_hd_shared_2.png')),
+    `HD pages: a bad owner is warned and packed on the shared page, the spilled page goes (${JSON.stringify(b.hd?.pages)})`);
+  const c = run('ghosty');
+  check(c.r.code === 0 && anyWarn(c.r.json.vfx.warnings, /newHd: owner 'ghosty' is not a character in the manifest/) && fs.existsSync(path.join(vfx, 'atlas_hd_ghosty.png')),
+    `HD pages: an owner the manifest does not list is warned and still gets its page (${c.r.json?.vfx.warnings})`);
+}
+
 // ---------------------------------------------------------------- sheet pages (TOOL-060)
 // A fighter past 256 frames ships as sheet.png + sheet2.png (each at most 4096 x 4096 px), its frames numbered straight
 // through (src/art/sheetPages.js). The same art packed onto one tall page (--page-rows 64) is the reference: paging may
@@ -2290,6 +2334,80 @@ function paletteReserveTests(base) {
   const bad = run(Q);
   check(sameSheet(bad, plain) && (bad.r.json?.warnings || []).some((w) => /paletteReserve\.fourTails must be/.test(w))
     && (bad.C?.warnings || []).some((w) => /nope is not an animation of foxy/.test(w)), 'paletteReserve: a malformed group and an unknown animation are reported and ignored');
+  // cut 'misfits' (Goku's black base-form hair; a green here): a strip in the fighter's usual colours but for its hair; two
+  // colours cut from the whole strip land among the usual colours and the hair snaps to the nearest of them, two cut
+  // from the colours the shared palette fits badly give the hair its own
+  const GREEN = [30, 190, 80];
+  savePng(fraw('beamFire_v01.png'), strip([{ punch: 12 }, { punch: 14 }, { punch: 12 }], { seed: 1304, specks: 0, recolor: new Map([[COL.hair, GREEN]]) }));
+  setReserve(null);
+  const hsrc = run();
+  const hairErr = (o) => {
+    let e = 0, n = 0;
+    const q = fox(o), s0 = fox(hsrc);
+    q.forEach((c, k) => { for (let i = 0; i < c.data.length; i += 4) {
+      const d = s0[k].data;
+      if (!d[i + 3] || Math.hypot(d[i] - GREEN[0], d[i + 1] - GREEN[1], d[i + 2] - GREEN[2]) > 12) continue;
+      e += Math.hypot(c.data[i] - d[i], c.data[i + 1] - d[i + 1], c.data[i + 2] - d[i + 2]); n++;
+    } });
+    return n ? e / n : Infinity;
+  };
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'] } });
+  const whole = run(Q);
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'], cut: 'misfits' } });
+  const mis = run(Q);
+  const eW = hairErr(whole), eM = hairErr(mis);
+  check(mis.r.code === 0 && eM < 10 && eM < eW * 0.5, `paletteReserve cut misfits: the strip's one new colour keeps its own entry (hair error ${eW.toFixed(1)} -> ${eM.toFixed(1)})`);
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'], cut: 'nope' } });
+  const badCut = run(Q);
+  check(sameSheet(badCut, whole) && (badCut.r.json?.warnings || []).some((w) => /paletteReserve\.baseForm\.cut must be "misfits"/.test(w)),
+    'paletteReserve: an unknown cut is reported and cuts from the whole strips');
+}
+
+// ---------------------------------------------------------------- loopFrom (ENG-117)
+// A loop whose first frames play once: `charge` is 6 frames, gather and release, then the hold loops from frame 2. The
+// packer writes loopFrom only for the frame count it was given for (a fighter's old 4-frame charge keeps looping all four)
+// and SpriteActor wraps to it.
+function loopFromTests(base) {
+  const lraw = (n) => path.join(ART, 'characters', 'loopy', 'raw', n);
+  savePng(lraw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 1401, specks: 0 }));
+  savePng(lraw('charge_v01.png'), strip([{ bob: -2 }, { up: 4 }, {}, { bob: 1 }, { bob: 1 }, {}], { seed: 1402, specks: 0 }));
+  savePng(lraw('guard_v01.png'), strip([{}, { bob: 1 }, {}], { seed: 1403, specks: 0 }));
+  savePng(lraw('taunt_v01.png'), strip([{}, { punch: 4 }], { seed: 1404, specks: 0 }));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  // the defaults: the guide's 6-frame charge (no manifest default needed) and a 2-frame guard that loops from 1
+  man.animationDefaults.guard = { frames: 2, loop: true, loopFrom: 1 };
+  man.characters.loopy = { name: 'Loopy', scaleGate: 'warn', animations: {
+    idle: { frames: 8, loop: true, bodyHeight: 204 },
+    charge: { frames: 6, loop: true, bodyHeight: 198 }, // the contract's count: inherits loopFrom 2
+    guard: { frames: 3, loop: true }, // its own count: never the 2-frame default's loopFrom
+    taunt: { frames: 3, loop: true, loopFrom: 1 }, // drawn with 2 poses: the split is unknown, so the whole strip loops
+  } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const r = pack([...base, 'loopy']);
+  const C = r.json?.characters.find((c) => c.id === 'loopy');
+  const meta = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'loopy', 'anims.json'), 'utf8'));
+  const A = meta.animations;
+  check(A.charge?.frames.length === 6 && A.charge.loopFrom === 2 && JSON.stringify(A.charge.durations) === '[70,90,110,110,110,110]',
+    `loopFrom: the 6-frame charge loops from frame 2 at 70/90/110 ms (${JSON.stringify(A.charge)})`);
+  check(A.guard?.frames.length === 3 && !('loopFrom' in A.guard), `loopFrom: a 3-frame guard does not take the 2-frame default's loopFrom (${JSON.stringify(A.guard)})`);
+  check(A.taunt?.frames.length === 2 && !('loopFrom' in A.taunt) && (C?.warnings || r.json?.warnings || []).some((w) => /taunt: loopFrom 1 is for 3 frames, the strip has 2/.test(w)),
+    `loopFrom: a strip drawn with another frame count loops whole, with a warning (${JSON.stringify(A.taunt)})`);
+  check(!('loopFrom' in A.idle), 'loopFrom: strips without one keep their anims.json entry unchanged');
+  delete man.animationDefaults.guard;
+  delete man.characters.loopy;
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  // the engine: frames 0-1 once, then 2..5 again and again
+  const actor = Object.create(SpriteActor.prototype);
+  Object.assign(actor, { anim: { frames: [10, 11, 12, 13, 14, 15], durations: [70, 90, 110, 110, 110, 110], loop: true, loopFrom: 2 }, fi: 0, ft: 0, done: false });
+  actor.setFrame = function (f) { this.frame = f; };
+  const seen = [];
+  for (let t = 0; t < 1500; t += 10) { actor.update(10); if (seen[seen.length - 1] !== actor.frame) seen.push(actor.frame); }
+  check(seen.slice(0, 11).join(',') === '10,11,12,13,14,15,12,13,14,15,12', `loopFrom: SpriteActor plays 10,11 once, then loops 12-15 (${seen.join(',')})`);
+  actor.anim = { ...actor.anim, loopFrom: 6 };
+  actor.fi = 5; actor.ft = 0; actor.update(110);
+  check(actor.fi === 0, 'loopFrom: an out-of-range loopFrom loops the whole strip');
 }
 
 function finish() {

@@ -1,10 +1,10 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-10-18T19:38:46.770Z",
+ "generated": "2026-10-19T06:08:29.212Z",
  "fighters": {
   "naruto": {
-   "idleGarmentPx": 3260,
+   "idleGarmentPx": 3325,
    "anims": {
     "idle": {
      "v": 7,
@@ -507,22 +507,26 @@
      "flag": null
     },
     "charge": {
-     "v": 7,
+     "v": 8,
      "body": [
-      0.947,
-      0.928,
-      0.913,
-      0.921
+      0.447,
+      0.542,
+      0.54,
+      0.543,
+      0.532,
+      0.548
      ],
      "head": [
-      0.998,
-      1,
-      1.103,
-      0.996
+      1.203,
+      1.013,
+      0.992,
+      0.992,
+      1.001,
+      0.985
      ],
-     "median": 0.925,
-     "headMedian": 0.999,
-     "flag": null
+     "median": 0.541,
+     "headMedian": 0.996,
+     "flag": "small"
     },
     "throw": {
      "v": 9,
@@ -795,7 +799,7 @@
    }
   },
   "sasuke": {
-   "idleGarmentPx": 2824,
+   "idleGarmentPx": 2899,
    "anims": {
     "idle": {
      "v": 7,
@@ -1298,21 +1302,25 @@
      "flag": "small"
     },
     "charge": {
-     "v": 12,
+     "v": 15,
      "body": [
+      0.977,
+      0.987,
       0.991,
-      0.936,
-      0.945,
-      0.99
+      0.973,
+      0.989,
+      1.006
      ],
      "head": [
       1.051,
-      1.051,
-      1.044,
-      1.035
+      1.034,
+      1.048,
+      1.077,
+      1.041,
+      1.043
      ],
-     "median": 0.968,
-     "headMedian": 1.047,
+     "median": 0.988,
+     "headMedian": 1.046,
      "flag": null
     },
     "throw": {
@@ -1602,7 +1610,7 @@
    }
   },
   "killua": {
-   "idleGarmentPx": 1257,
+   "idleGarmentPx": 1557,
    "anims": {
     "idle": {
      "v": 8,
@@ -2123,22 +2131,22 @@
      "flag": null
     },
     "throw": {
-     "v": 6,
+     "v": 7,
      "body": [
+      0.865,
       0.929,
-      0.958,
-      0.894,
-      0.907
+      0.892,
+      0.806
      ],
      "head": [
-      0.956,
-      0.991,
-      0.975,
-      1.003
+      0.871,
+      0.858,
+      0.871,
+      0.881
      ],
-     "median": 0.918,
-     "headMedian": 0.983,
-     "flag": null
+     "median": 0.879,
+     "headMedian": 0.871,
+     "flag": "small"
     },
     "beamCharge": {
      "v": 8,
@@ -2317,25 +2325,25 @@
      "flag": "small"
     },
     "specialUp": {
-     "v": 8,
+     "v": 9,
      "body": [
-      0.869,
-      0.933,
-      0.986,
-      0.982,
-      0.943,
-      0.967
+      0.846,
+      0.887,
+      0.917,
+      0.907,
+      0.934,
+      0.762
      ],
      "head": [
-      0.986,
+      0.902,
+      0.839,
+      0.925,
+      0.903,
       0.95,
-      1,
-      1.05,
-      1,
-      0.94
+      0.677
      ],
-     "median": 0.955,
-     "headMedian": 0.993,
+     "median": 0.897,
+     "headMedian": 0.903,
      "flag": null
     },
     "specialDown": {
@@ -2481,7 +2489,7 @@
    }
   },
   "gojo": {
-   "idleGarmentPx": 7675,
+   "idleGarmentPx": 7563,
    "anims": {
     "idle": {
      "v": 6,
@@ -3020,19 +3028,21 @@
      "flag": "small"
     },
     "beamCharge": {
-     "v": 3,
+     "v": 4,
      "body": [
-      1.058,
-      1.039,
-      1.059
+      0.951,
+      0.918,
+      0.858,
+      0.874
      ],
      "head": [
+      0.997,
+      0.997,
       1,
-      1,
-      1.029
+      0.971
      ],
-     "median": 1.058,
-     "headMedian": 1,
+     "median": 0.896,
+     "headMedian": 0.997,
      "flag": null
     },
     "beamFire": {
@@ -3283,6 +3293,29 @@
      ],
      "median": 0.925,
      "headMedian": 0.956,
+     "flag": null
+    }
+   }
+  },
+  "goku": {
+   "idleGarmentPx": 5103,
+   "anims": {
+    "superPose": {
+     "v": 1,
+     "body": [
+      0.99,
+      0.985,
+      0.989,
+      0.991
+     ],
+     "head": [
+      0.797,
+      0.642,
+      0.504,
+      0.504
+     ],
+     "median": 0.99,
+     "headMedian": 0.573,
      "flag": null
     }
    }

@@ -1,0 +1,17 @@
+{
+  "result": "hold",
+  "verdict": "FAIL TO CERTIFY",
+  "asset": "superPose",
+  "version": 1,
+  "atlasSha256": "8a77c8ebcb6690e5afc8d6a892b5a492f9b9c83017f55c7d45ecf3a62f097876",
+  "cells": [
+    110,
+    111,
+    112,
+    113
+  ],
+  "referenceCell": 0,
+  "failureCriterion": "Required +/-6% anatomy evidence is not established: crown/joint endpoints are covered and not tightly measurable; quoted absolute footwear bounds are not reproduced in this atlas. No true anatomical defect is proved.",
+  "motionResult": "hold",
+  "motionReason": "Controlled subtle 1-2 px tremble is not objectively cleared; existing motion hold remains."
+}

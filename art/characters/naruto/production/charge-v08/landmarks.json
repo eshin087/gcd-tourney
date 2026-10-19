@@ -1,0 +1,992 @@
+{
+  "atlas_sha256": "4e41aac3983d8e1ce8bf100415e2ab63f0e9f5985293cf9b66c58e4955573878",
+  "anims_sha256": "6d77dabaed171ba27df78924b889fd03e21a5a0156ce90126f7d8c84e3f8d568",
+  "coordinate_system": "native 256x256 packed cell; no rescaling",
+  "regions": {
+    "head": [
+      113,
+      77,
+      155,
+      122
+    ],
+    "face": [
+      119,
+      97,
+      151,
+      119
+    ],
+    "shoulders": [
+      105,
+      119,
+      151,
+      134
+    ],
+    "hip": [
+      102,
+      158,
+      149,
+      175
+    ],
+    "left_knee": [
+      87,
+      184,
+      110,
+      204
+    ],
+    "right_knee": [
+      156,
+      185,
+      179,
+      206
+    ],
+    "feet": [
+      55,
+      220,
+      200,
+      241
+    ]
+  },
+  "registration": [
+    {
+      "frame": 0,
+      "occupied_bbox_exclusive": [
+        58,
+        109,
+        194,
+        241
+      ],
+      "regions_vs_f2": {
+        "head": {
+          "best_shift": [
+            3,
+            5
+          ],
+          "rgba_MAE": 105.014,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "face": {
+          "best_shift": [
+            3,
+            5
+          ],
+          "rgba_MAE": 115.091,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "shoulders": {
+          "best_shift": [
+            -2,
+            5
+          ],
+          "rgba_MAE": 50.413,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "hip": {
+          "best_shift": [
+            2,
+            -4
+          ],
+          "rgba_MAE": 39.266,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "left_knee": {
+          "best_shift": [
+            0,
+            3
+          ],
+          "rgba_MAE": 8.527,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "right_knee": {
+          "best_shift": [
+            -2,
+            2
+          ],
+          "rgba_MAE": 8.7,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "feet": {
+          "best_shift": [
+            -1,
+            0
+          ],
+          "rgba_MAE": 3.733,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        }
+      },
+      "feet_band_RGBA_changed_pixels_vs_f2": 692,
+      "floor_alpha_x": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191
+      ],
+      "shoe_region_bounds": [
+        [
+          18,
+          0,
+          41,
+          23
+        ],
+        [
+          7,
+          0,
+          39,
+          23
+        ]
+      ]
+    },
+    {
+      "frame": 1,
+      "occupied_bbox_exclusive": [
+        59,
+        78,
+        196,
+        241
+      ],
+      "regions_vs_f2": {
+        "head": {
+          "best_shift": [
+            0,
+            1
+          ],
+          "rgba_MAE": 11.292,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "face": {
+          "best_shift": [
+            0,
+            1
+          ],
+          "rgba_MAE": 15.004,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "shoulders": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 9.997,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "hip": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 8.233,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "left_knee": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 5.374,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "right_knee": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 4.191,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "feet": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 2.174,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        }
+      },
+      "feet_band_RGBA_changed_pixels_vs_f2": 471,
+      "floor_alpha_x": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "shoe_region_bounds": [
+        [
+          19,
+          0,
+          42,
+          23
+        ],
+        [
+          9,
+          0,
+          41,
+          23
+        ]
+      ]
+    },
+    {
+      "frame": 2,
+      "occupied_bbox_exclusive": [
+        59,
+        77,
+        196,
+        241
+      ],
+      "regions_vs_f2": {
+        "head": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 0.0,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "face": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 0.0,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "shoulders": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 0.0,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "hip": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 0.0,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "left_knee": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 0.0,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "right_knee": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 0.0,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "feet": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 0.0,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        }
+      },
+      "feet_band_RGBA_changed_pixels_vs_f2": 0,
+      "floor_alpha_x": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "shoe_region_bounds": [
+        [
+          19,
+          0,
+          41,
+          23
+        ],
+        [
+          9,
+          0,
+          41,
+          23
+        ]
+      ]
+    },
+    {
+      "frame": 3,
+      "occupied_bbox_exclusive": [
+        59,
+        74,
+        196,
+        241
+      ],
+      "regions_vs_f2": {
+        "head": {
+          "best_shift": [
+            0,
+            -3
+          ],
+          "rgba_MAE": 20.415,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "face": {
+          "best_shift": [
+            0,
+            -3
+          ],
+          "rgba_MAE": 26.004,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "shoulders": {
+          "best_shift": [
+            0,
+            -1
+          ],
+          "rgba_MAE": 9.82,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "hip": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 8.764,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "left_knee": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 7.22,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "right_knee": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 3.707,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "feet": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 2.436,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        }
+      },
+      "feet_band_RGBA_changed_pixels_vs_f2": 490,
+      "floor_alpha_x": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "shoe_region_bounds": [
+        [
+          19,
+          0,
+          41,
+          23
+        ],
+        [
+          9,
+          0,
+          41,
+          23
+        ]
+      ]
+    },
+    {
+      "frame": 4,
+      "occupied_bbox_exclusive": [
+        59,
+        77,
+        196,
+        241
+      ],
+      "regions_vs_f2": {
+        "head": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 12.445,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "face": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 17.603,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "shoulders": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 11.837,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "hip": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 7.912,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "left_knee": {
+          "best_shift": [
+            1,
+            0
+          ],
+          "rgba_MAE": 4.948,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "right_knee": {
+          "best_shift": [
+            1,
+            0
+          ],
+          "rgba_MAE": 7.166,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "feet": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 3.213,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        }
+      },
+      "feet_band_RGBA_changed_pixels_vs_f2": 514,
+      "floor_alpha_x": [
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "shoe_region_bounds": [
+        [
+          19,
+          0,
+          42,
+          23
+        ],
+        [
+          9,
+          0,
+          41,
+          23
+        ]
+      ]
+    },
+    {
+      "frame": 5,
+      "occupied_bbox_exclusive": [
+        59,
+        77,
+        196,
+        241
+      ],
+      "regions_vs_f2": {
+        "head": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 9.053,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "face": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 11.321,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "shoulders": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 10.15,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "hip": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 6.305,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "left_knee": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 7.136,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "right_knee": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 4.554,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        },
+        "feet": {
+          "best_shift": [
+            0,
+            0
+          ],
+          "rgba_MAE": 2.183,
+          "method": "minimum RGBA absolute difference over fixed ROI, x +/-3 y +/-5; diagnostic registration, not anatomical truth"
+        }
+      },
+      "feet_band_RGBA_changed_pixels_vs_f2": 444,
+      "floor_alpha_x": [
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "shoe_region_bounds": [
+        [
+          19,
+          0,
+          42,
+          23
+        ],
+        [
+          9,
+          0,
+          41,
+          23
+        ]
+      ]
+    }
+  ],
+  "uncertainty": "Pixel masks exact. Registration fits +/-1 px for face, shoulders; knee/hip anatomical centers +/-2-4 px. Foreshortened/occluded limb lengths cannot certify a +/-6% interval.",
+  "manual_landmarks": {
+    "uncertainty_px": 3,
+    "method": "visual estimates of joint centers in actual packed cells; hidden joints and cloth obscure anatomy; not a certified six-percent pass",
+    "idle_f0": {
+      "head_center": [
+        140,
+        100
+      ],
+      "shoulder_mid": [
+        128,
+        124
+      ],
+      "hip_mid": [
+        128,
+        162
+      ],
+      "knees": [
+        [
+          94,
+          192
+        ],
+        [
+          173,
+          191
+        ]
+      ],
+      "ankles": [
+        [
+          73,
+          222
+        ],
+        [
+          177,
+          221
+        ]
+      ]
+    },
+    "charge": [
+      {
+        "frame": 0,
+        "head_center": [
+          142,
+          130
+        ],
+        "shoulder_mid": [
+          123,
+          147
+        ],
+        "hip_mid": [
+          124,
+          180
+        ],
+        "knees": [
+          [
+            94,
+            201
+          ],
+          [
+            175,
+            204
+          ]
+        ],
+        "ankles": [
+          [
+            72,
+            224
+          ],
+          [
+            175,
+            224
+          ]
+        ]
+      },
+      {
+        "frame": 1,
+        "head_center": [
+          135,
+          101
+        ],
+        "shoulder_mid": [
+          125,
+          126
+        ],
+        "hip_mid": [
+          125,
+          169
+        ],
+        "knees": [
+          [
+            96,
+            198
+          ],
+          [
+            173,
+            199
+          ]
+        ],
+        "ankles": [
+          [
+            72,
+            224
+          ],
+          [
+            175,
+            224
+          ]
+        ]
+      },
+      {
+        "frame": 2,
+        "head_center": [
+          135,
+          101
+        ],
+        "shoulder_mid": [
+          125,
+          126
+        ],
+        "hip_mid": [
+          125,
+          169
+        ],
+        "knees": [
+          [
+            96,
+            198
+          ],
+          [
+            173,
+            199
+          ]
+        ],
+        "ankles": [
+          [
+            72,
+            224
+          ],
+          [
+            175,
+            224
+          ]
+        ]
+      },
+      {
+        "frame": 3,
+        "head_center": [
+          135,
+          98
+        ],
+        "shoulder_mid": [
+          125,
+          125
+        ],
+        "hip_mid": [
+          125,
+          169
+        ],
+        "knees": [
+          [
+            96,
+            198
+          ],
+          [
+            173,
+            199
+          ]
+        ],
+        "ankles": [
+          [
+            72,
+            224
+          ],
+          [
+            175,
+            224
+          ]
+        ]
+      },
+      {
+        "frame": 4,
+        "head_center": [
+          135,
+          101
+        ],
+        "shoulder_mid": [
+          125,
+          126
+        ],
+        "hip_mid": [
+          125,
+          169
+        ],
+        "knees": [
+          [
+            96,
+            198
+          ],
+          [
+            173,
+            199
+          ]
+        ],
+        "ankles": [
+          [
+            72,
+            224
+          ],
+          [
+            175,
+            224
+          ]
+        ]
+      },
+      {
+        "frame": 5,
+        "head_center": [
+          135,
+          101
+        ],
+        "shoulder_mid": [
+          125,
+          126
+        ],
+        "hip_mid": [
+          125,
+          169
+        ],
+        "knees": [
+          [
+            96,
+            198
+          ],
+          [
+            173,
+            199
+          ]
+        ],
+        "ankles": [
+          [
+            72,
+            224
+          ],
+          [
+            175,
+            224
+          ]
+        ]
+      }
+    ]
+  }
+}

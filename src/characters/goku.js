@@ -1,7 +1,7 @@
 // Saiyan martial artist archetype (Goku, Dragon Ball Z, Super Saiyan in the Cell saga). The placeholder sprite
 // sheet is baked from this 3D chibi model at startup; the real art comes from art/characters/goku/.
-// Kit (ADR 0032): Ki Blast Volley, Dragon Fist, Rising Kick dive, Instant Transmission, Kaio-ken Rush super,
-// and the Kamehameha: the cast's one beam ultimate (ADR 0017).
+// Kit (ADR 0032, revamped as the anime does it in ADR 0050): Ki Blast Volley, Dragon Fist, Rising Kick dive (the
+// afterimage chase), Instant Transmission, the Kaio-ken mode, the Spirit Bomb super and the Kamehameha (the shared beam).
 
 const model = {
   palette: {
@@ -88,12 +88,12 @@ function extraAnims({ st }) {
         [0.4, st({ spine: { lean: 0, yaw: 14 }, lF: { sw: 10, kn: 8 }, lN: { sw: -10, kn: 6 }, aN: { sw: 132, ab: 10, el: 142, hand: 'open' }, aF: { sw: -6, ab: 14, el: 20 }, head: { nod: 8 } }), 'inout'],
       ],
     },
-    // Kaio-ken: fists clenched at the sides, the red aura bursting out
+    // Spirit Bomb: both arms raised high in a V, palms to the sky, head back (ENG-SKL-GOK; superPose was Kaio-ken's)
     superPose: {
       loop: true, frames: 4, cycle: 0.5,
       keys: [
-        [0, st({ root: { y: -0.04 }, spine: { lean: -4 }, lF: { sw: 30, ab: 16, kn: 34 }, lN: { sw: -30, ab: 16, kn: 28 }, aN: { sw: -10, ab: 30, el: 70 }, aF: { sw: -10, ab: 30, el: 70 }, head: { nod: -14 }, face: 'shout', flutter: 3 })],
-        [0.25, st({ root: { y: -0.05 }, spine: { lean: -5 }, lF: { sw: 30, ab: 16, kn: 36 }, lN: { sw: -30, ab: 16, kn: 30 }, aN: { sw: -10, ab: 32, el: 72 }, aF: { sw: -10, ab: 32, el: 72 }, head: { nod: -16 }, face: 'shout', flutter: 4 })],
+        [0, st({ root: { y: -0.03 }, spine: { lean: -6 }, lF: { sw: 24, ab: 14, kn: 20 }, lN: { sw: -24, ab: 14, kn: 16 }, aN: { sw: 165, ab: 28, el: 8, hand: 'open' }, aF: { sw: 165, ab: 28, el: 8, hand: 'open' }, head: { nod: -22 }, face: 'angry', flutter: 2 })],
+        [0.25, st({ root: { y: -0.035 }, spine: { lean: -7 }, lF: { sw: 24, ab: 14, kn: 21 }, lN: { sw: -24, ab: 14, kn: 17 }, aN: { sw: 166, ab: 29, el: 9, hand: 'open' }, aF: { sw: 166, ab: 29, el: 9, hand: 'open' }, head: { nod: -23 }, face: 'angry', flutter: 3 })],
       ],
     },
     intro: {
@@ -144,16 +144,31 @@ export default {
     max: { ring: { scale: 2.4, color: 'main', opacity: 0.5 }, burst: { scale: 1.1 }, flash: 0.08 },
     sound: 'hum',
   },
-  // the Kamehameha: the shared beam ultimate, the cast's only beam (ADR 0017)
-  beam: { core: '#ffffff', mid: '#8fd8ff', edge: '#2a7cff', name: 'KAMEHAMEHA' },
+  // the Kamehameha: the shared beam ultimate (ADR 0017), as the anime does it (ENG-SKL-GOK, the user 2026-10-18): the
+  // ki ball growing between his cupped hands at the hip (`gather` at the drawn hand anchor, ki sparks converging, a
+  // thinner golden aura still on him) while he calls KA-ME-HA-ME a syllable at a time (`chant`), then HA! as it fires:
+  // the ball held bright at his palms (`originFx`), the beam's drawn head (`headFx`) and shock rings down it (`muzzle`)
+  beam: {
+    core: '#ffffff', mid: '#8fd8ff', edge: '#2a7cff', name: 'KAMEHAMEHA',
+    gather: { fx: 'kamehameha', scale: 0.42, colors: [0x8fd8ff, 0xe6faff], mote: { fx: 'star', frame: 2, scale: 1.1, glow: 0.8 }, aura: 0.45 },
+    chant: ['KA', 'ME', 'HA', 'ME', 'HA!'],
+    originFx: { fx: 'kamehameha', scale: 0.62, glow: 0.35 },
+    headFx: { fx: 'kamehamehaHead', scale: 1.1, front: 0.45, glow: 0.3 },
+    muzzle: { fx: 'kamehamehaRing', every: 12, scale: 0.8, speed: 7 },
+  },
   specialName: 'KI BLAST VOLLEY',
   projectileName: 'KI BLAST',
-  superName: 'KAIO-KEN RUSH',
+  superName: 'SPIRIT BOMB',
   kit: {
-    specials: { neutral: 'kiVolley', forward: 'dragonFist', up: 'risingKick', down: 'instantTransmission', air: 'kiVolleyAir', airDown: 'risingKickAir' },
-    super: 'kaiokenRush',
+    specials: { neutral: 'kiVolley', forward: 'dragonFist', up: 'risingKick', down: 'instantTransmission', back: 'kaioken', air: 'kiVolleyAir', airDown: 'risingKickAir' },
+    super: 'spiritBomb', // the Kaio-ken became a mode on Back + Special (ENG-SKL-GOK)
   },
   stats: { speed: 6.2, power: 1.02, defense: 1.0 }, // stat index 1.02 (ADR 0011)
+  // the match intro is the Super Saiyan transformation (ENG-SKL-GOK): his `intro` strip (base form, the flash, Super
+  // Saiyan, settled) held on f0 (`at`, seconds into the fly-in, P1 / P2), then played `step` s apart, the golden burst
+  // (`fx`) on f1 and the aura (`aura`) after it. 5.05 on both sides: the fly-in only passes him for a moment, so he
+  // turns as it settles on the two fighters, under the VS card
+  intro: { at: [5.05, 5.05], step: 0.22, fx: 'superSaiyanBurst', scale: 1.0, aura: 1.2 },
   // floor damage (ground.js, ADR 0024): ki scorch under his specials; a full Super Saiyan charge cracks the floor
   ground: { style: 'ki', tint: '#ffd84a' },
   model,
