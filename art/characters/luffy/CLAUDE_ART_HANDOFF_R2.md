@@ -4,10 +4,12 @@ Branch: art/normals-luffy-r2
 Worktree: .worktrees/art-normals-luffy-r2
 Base: current main at the Luffy first-batch merge/fixture re-record
 Status: four new candidates are packed for user review; none is cleared for integration. No production pack or live stand-in changed.
+Commits: 3abee4eb (candidate pack, review assets and records), 73d59999 (audit file-path correction)
+PR: #214
 
 ## User review
 
-Review page: public/reviews/normals-luffy-r2/index.html (preview URL to be added after PR preview). It compares dTilt v04, uSmash v05, dSmash v03 and uair v02 from the exact packed cells with the previously user-approved drawings, live stand-ins and approved idle f0. dashAttack v02 has no new candidate after its three authorized calls; attempts 04–06 and the existing approved version are shown. The four new candidates are not yet approved; further dashAttack calls require a new user decision.
+Review page: https://gcd-tourney-9cbl0meo8-eshin087s-projects.vercel.app/reviews/normals-luffy-r2/. It compares dTilt v04, uSmash v05, dSmash v03 and uair v02 from the exact packed cells with the previously user-approved drawings, live stand-ins and approved idle f0. dashAttack v02 has no new candidate after its three authorized calls; attempts 04–06 and the existing approved version are shown. The four new candidates are not yet approved; further dashAttack calls require a new user decision.
 
 ## Technical audit
 
@@ -19,6 +21,8 @@ GPT-6 Astra (medium) inspected all 28 candidate frames in a 4096 x 2816, 48-colo
 - uair v02: HOLD; phases [2,1,3] put only full-kick f2 in active and move retracting f3 to recovery. Anatomy consistency across rotated poses remains uncertain.
 
 Visible endpoint uncertainty is about +/-3 px and segment uncertainty about +/-6 px. Hidden or strongly foreshortened anatomy is not numerically certified. No runtime contact/playback certification was performed. New hitbox overrides are version-bound to uSmash v05, dSmash v03 (both sandals) and uair v02; dTilt's automatically packed contact box follows the low extended shin/sandal. Claude owns contact/hurtbox integration.
+
+The read-only PR guard ran with the documented GCD_SCRATCH_DIR override after the default E:\gcd-scratch was denied in this sandbox. It refused the four new raw versions because they are not user-approved, and refused their manual scale checks because Astra recorded HOLD. This is expected for a candidate review branch; do not merge or pack the new raws into production. The first PR preview is built from committed files only; refresh it after this handoff commit.
 
 ## Source inventory and user decisions
 
