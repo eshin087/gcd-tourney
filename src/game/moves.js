@@ -274,7 +274,7 @@ export const PROJECTILES = {
     clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff', style: 'bolt' } },
   // Killua's yo-yo (ENG-SKL-KIL): his steel yo-yo snapped out for `life` seconds, then reeled back to his hand at `reel`
   // units/s (`returns`; at once on a hit or on the floor), its string a thin `limb` from his drawn hand. Physical
-  yoyo: { count: 1, spread: 0, speed: 24, radius: 0.4, dmg: 54, hitstun: 30, push: 2.5, airPop: 6.5, life: 0.2, sprite: 'yoyo', scale: 0.8, sfx: 'whoosh', spark: 'none',
+  yoyo: { count: 1, spread: 0, speed: 24, radius: 0.4, dmg: 54, hitstun: 30, push: 2.5, airPop: 6.5, life: 0.2, sprite: 'yoyo', scale: 0.6, sfx: 'whoosh', spark: 'none',
     returns: true, reel: 30, limb: { fx: 'strand', tube: 1 / 32, thick: 0.02, color: 0xe8f0ff }, burstFx: { fx: 'palmShock', scale: 0.45, smoke: 0, ring: 0.8, sfx: 'hit', shake: 0.25, color: 0x62d8ff } },
   // Sasuke's Chidori Sharp Spear: a lightning lance that only reaches ~5 units, but instantly. Drawn as the blade
   // growing out of his hand (`lance`: the HD strip laid along the shot, f3-f5 held while it is out; ENG-SKL-SAS)
