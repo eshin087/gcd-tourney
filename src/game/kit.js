@@ -441,6 +441,20 @@ export function beginShroud(f, C, flash) {
   f.shroud = { flash, hold: C.hold ?? 1, tails: C.tails ?? 0, core: C.core, rim: C.rim ?? C.chakra, chakra: C.chakra };
 }
 
+// The look a fighter's running power-up gives the body (`shell`, `tint`, `aura` side by side on its data): a mode's
+// move (found by the name f.mode keeps: the look stays off the simulation state, so the state hashes don't change), a
+// reflex super (Whirlwind) or a kit move running (Speed of Lightning). View only: Game.fxTicks and Fighter.sync read
+// it; none while hidden (the charge style owns the shell while he powers up: Game.fxTicks)
+let modesByName = null;
+export function modeLook(f) {
+  if (f.hidden) return null;
+  if (f.mode) {
+    if (!modesByName) modesByName = new Map(Object.values(SPECIAL_MOVES).filter((m) => m.kind === 'mode').map((m) => [m.name, m]));
+    return modesByName.get(f.mode.id) ?? null;
+  }
+  return f.reflex?.m ?? (f.state === 'kit' ? f.kitState?.m ?? null : null);
+}
+
 // How far the chakra has swallowed him, 0..1: climbing through the first 70 % of his flash, then `hold`.
 export function shroudLevel(f) {
   const s = f.shroud;
@@ -964,6 +978,7 @@ const START = {
     f.actor.setVisible(!f.hidden);
     // with a wind-up pose (Blink) the puff waits for the moment the fighter actually disappears
     if (f.hidden) vanishFx(f, m);
+    else if (vanishLead(m) === 0) f.game.fx.teleportFx(m.vanishFx, f.pos); // a lead as long as the wind-up
     f.game.onKitMove(f, m);
   },
 
@@ -1011,13 +1026,26 @@ function answer(f, m) {
   f.answerMove = f.move;
 }
 
-// afterimage, smoke puff, speed lines and sound where a teleporting fighter disappears
+// afterimage, smoke puff, speed lines and sound where a teleporting fighter disappears. A teleport's own `vanishFx`
+// (Effects.teleportFx) replaces all three, false draws nothing; one with a `lead` already started in the wind-up
 function vanishFx(f, m) {
   const g = f.game;
+  if (m.vanishFx !== undefined) {
+    if (m.vanishFx && vanishLead(m) == null) g.fx.teleportFx(m.vanishFx, f.pos);
+    audio.play('vanish');
+    return;
+  }
   f.actor.ghost(m.color || f.def.color, 0.35, 0.6);
   g.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 0.9);
   g.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.1, glow: 0.6, depthTest: false, order: 8 });
   audio.play('vanish');
+}
+
+// The wind-up frame a teleport's vanishFx starts on (its `lead`: frames before he disappears), or null without one;
+// 0 = as the move starts (START.teleport), since the first update already sees t = 1
+function vanishLead(m) {
+  const L = m.vanishFx?.lead, startup = m.startup ?? 0;
+  return L > 0 && startup > 0 ? Math.max(0, startup - L) : null;
 }
 
 // ------------------------------------------------------------------ kinds: per frame
@@ -1032,6 +1060,7 @@ const UPDATE = {
     const startup = m.startup ?? 0, recovery = m.recovery ?? 0;
     if (t < startup) {
       f.actor.setPhase(m.anim ?? 'vanish', 0, t / startup);
+      if (t === vanishLead(m)) f.game.fx.teleportFx(m.vanishFx, f.pos); // the vanish starts during the wind-up
       return;
     }
     if (t < startup + m.hide) {
@@ -1055,7 +1084,7 @@ const UPDATE = {
       f.hidden = false;
       f.actor.setVisible(true);
       f.faceOpponent();
-      g.onVanish(f, 'in');
+      g.onVanish(f, 'in', m.appearFx);
       k.arrived = true;
     }
     if (t < startup + m.hide + recovery) {
@@ -1163,7 +1192,11 @@ const UPDATE = {
       };
       const g = f.game, p = f.pos;
       g.onKitMove(f, m);
-      g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
+      // its own start burst (`burstFx`) in place of the white one: at the feet, or with `center` on his chest (an effect
+      // drawn bursting out of the whole body's outline)
+      const BF = m.burstFx;
+      if (BF) g.fx.spawn(BF.fx, p.x, p.y + (BF.center ? 0.9 * (f.actor?.depthK ?? 1) : 0), p.z, { bottom: !BF.center, scale: BF.scale ?? 1, order: 8 });
+      else g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
       if (m.cloak) g.fx.cloakBurst(f, m.cloak); // the chakra wells up over him all at once
       else if (f.mode.fx === 'chakra') for (let i = 0; i < 8; i++) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 1.2, p.y + 0.5, p.z, m.auraColor, 1.4);
       else burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.6);
