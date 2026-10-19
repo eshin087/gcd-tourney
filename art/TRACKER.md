@@ -16,7 +16,7 @@ Naruto Four-Tails beam round 2 (2026-10-18): user approved beamCharge v17, fourT
 
 # Art tracker
 
-Goku skills revamp batch 2 (2026-10-18): Dragon Fist `specialForward` v01 and effects `dragonFistAura`, `dragonFistDragon`, `dragonFistBurst` v01 are candidates awaiting user visual decisions. All retain technical HOLDs; see [review page](../public/reviews/goku-skills-batch2/index.html) and [attempt inventory](characters/goku/production/skills-revamp-batch2-candidates.md). A8 duplicate-task collision exceeded the image-call cap and is explicitly disclosed; no additional generation is authorized here.
+Goku skills revamp batch 2 (2026-10-18): Dragon Fist effects `dragonFistAura`, `dragonFistDragon`, and `dragonFistBurst` v01 were visually approved via Claude relay goku-skills #4; `specialForward` v01 still awaits user review. All four retain technical HOLDs; see [review page](../public/reviews/goku-skills-batch2/index.html) and [attempt inventory](characters/goku/production/skills-revamp-batch2-candidates.md). A8 duplicate-task collision exceeded the image-call cap and is explicitly disclosed; no additional generation is authorized here.
 
 Naruto skills revamp batch 1 (2026-10-18): user approved beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01 via Claude relay skills #7. Earlier beamFire v14 pounce approval is superseded for this ultimate; ui_ult_fg v04 remains approved. Technical HOLD remains for the headless character scale gate and Claude-owned contacts/integration; do not claim final pack clearance. No new image calls.
 

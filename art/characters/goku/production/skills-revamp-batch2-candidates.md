@@ -1,6 +1,6 @@
 # Goku skills revamp batch 2 candidate inventory
 
-Branch: `art/goku-skills`. All candidates are unapproved. Exact brief and call prompts are in [SKILLS_REVAMP.md](../SKILLS_REVAMP.md) plus the prompt excerpts below. No files were overwritten intentionally; the A8 duplicate collision is documented explicitly.
+Branch: `art/goku-skills`. The three effects are visually approved via Claude relay goku-skills #4; `specialForward` remains unapproved. Exact brief and call prompts are in [SKILLS_REVAMP.md](../SKILLS_REVAMP.md) plus the prompt excerpts below. No files were overwritten intentionally; the A8 duplicate collision is documented explicitly.
 
 ## B1 `specialForward_v01`
 
@@ -20,7 +20,7 @@ Branch: `art/goku-skills`. All candidates are unapproved. Exact brief and call p
 - Worker `/root/goku_b7_banner` used three calls and wrote this same `_v01` path; its selected call 3 was 2172×724, SHA `5AF6F81F0FB3CB15AAE99B0604CDF3B2E72248EB2AAB959E3990047CEBE289DF`. It had near-magenta background, 199,385 colors, and a clipped left flash. Call 1 was not retained. Its call 2 and 3 sources remain in the Codex visualization scratch folder; this call 3 file was overwritten by the collision.
 - Concurrent worker `/root/goku_skills_effects_3` independently used one call. Source: 1983×793, SHA `1B29A4217F8AC8261C62AFB6858D64A3EA04D55B33A043785C73283477B9D5C8`. Exact prompt: “Create the golden Eastern ki dragon for Goku's Dragon Fist, exactly 10 sequential frames in one horizontal strip, intended as 10 equal 256x256 cells… keep the center region mostly clear during the coil… head bursts from a left flash, coils around center, rears, flares, then breaks into shards. Flat solid #FF00FF background; dragon gold palette; crisp hard-pixel art; no victim or character.”
 - That worker cropped `(0,140)-(1983,620)`, split 10 equal sections, nearest-neighbor resized them to 256×256, normalized near-magenta to exact magenta and quantized remaining pixels to the seven gold colors. Current saved path is the processed 2560×256 output, SHA `491E5D3C83988714E8F9F1320CC3284CC5E10C30AC8B68424C04DAC5FEB74ADD`, with 8 colors including magenta.
-- This is an orchestration failure: four calls were spent across duplicate tasks, exceeding the max-3-per-image policy. Current image reads as head/coil/roar/flare/shards, but crop/resample alters the authored framing and the coil occludes the requested clear center. HOLD; no further A8 calls authorized by this batch.
+- User approved the current v01 drawing via Claude relay goku-skills #4; visual approval does not resolve this provenance hold. This is an orchestration failure: four calls were spent across duplicate tasks, exceeding the max-3-per-image policy. Current image reads as head/coil/roar/flare/shards, but crop/resample alters the authored framing and the coil occludes the requested clear center. HOLD; no further A8 calls authorized by this batch.
 
 ## A9 `dragonFistBurst_v01`
 

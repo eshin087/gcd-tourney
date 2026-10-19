@@ -1684,9 +1684,9 @@
       "kamehamehaRing": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.95,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved kamehamehaRing v01."},
       "spiritBomb": {"frames":8,"ms":60,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved spiritBomb v01.","technicalHold":true},
       "spiritBombBlast": {"frames":8,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved spiritBombBlast v01.","technicalHold":true},
-    "dragonFistAura": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.98,"reviewStatus":"needs review","technicalHold":true},
-    "dragonFistDragon": {"frames":10,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":1,"reviewStatus":"needs review","technicalHold":true},
-    "dragonFistBurst": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"raw","version":1,"approvedVersion":null,"hd":true,"fill":0.98,"reviewStatus":"needs review","technicalHold":true}
+    "dragonFistAura": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistAura v01.","technicalHold":true},
+    "dragonFistDragon": {"frames":10,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistDragon v01.","technicalHold":true},
+    "dragonFistBurst": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistBurst v01.","technicalHold":true}
   }
   },
   "decals": {
