@@ -12,7 +12,7 @@ paused._
 
 **Live tournament announcer (ENG-118, ADR 0048, 2026-10-18; Claude "World Tournament Announcer animation", Codex "2 - World Announcer", lane `announcer`): live** (PR [#196](https://github.com/eshin087/gcd-tourney/pull/196), merge `a5f5e961`, production https://gcd-tourney.vercel.app/?fight=naruto,sasuke&mode=cpu). He calls the intro and rounds from the ring, keeps to the ring's back half behind the fight, counts over a KO and presents the winner; his lines are small captions above his head (you turned down the white balloons). His four new poses are live too: walk v02, run v03, shocked v03 and micThrust v03, approved as drawn with the technical holds accepted (PR [#180](https://github.com/eshin087/gcd-tourney/pull/180), merge `f6ed27f2`). Nothing for you.
 
-**Charge animation redraw (ART-CHARGE, ENG-117, 2026-10-18; Claude "Character charging animation", Codex "1 - Charging Animation", lane `charge`):** the engine part is live (PR [#182](https://github.com/eshin087/gcd-tourney/pull/182)): a gather once, then a slow held loop, and no sprite shake. **Goku's new charge is live** (v10, PR [#191](https://github.com/eshin087/gcd-tourney/pull/191), `1ee82611`): https://gcd-tourney.vercel.app/?fight=goku,naruto&mode=solo (hold Special). **Luffy's is live too** (v02, PR [#205](https://github.com/eshin087/gcd-tourney/pull/205), `adda292c`): https://gcd-tourney.vercel.app/?fight=luffy,naruto&mode=solo . **Naruto's too** (v08, PR [#207](https://github.com/eshin087/gcd-tourney/pull/207), `4d8568d4`): https://gcd-tourney.vercel.app/?fight=naruto,sasuke&mode=solo . **Sasuke's too** (v15, PR [#211](https://github.com/eshin087/gcd-tourney/pull/211), `58d12dec`): https://gcd-tourney.vercel.app/?fight=sasuke,naruto&mode=solo . **Killua's too** (v15, PR [#212](https://github.com/eshin087/gcd-tourney/pull/212), `95c7be6b`): https://gcd-tourney.vercel.app/?fight=killua,naruto&mode=solo . Codex is drawing Gojo, the last one; each comes to you in Claude for approval. The others keep their old charge until then.
+**Charge animation redraw done (ART-CHARGE, ENG-117, 2026-10-19):** all six fighters now power up with a gather, a release and a slow held loop instead of the old twitch, live on https://gcd-tourney.vercel.app (Goku PR #191, Luffy #205, Naruto #207, Sasuke #211, Killua #212, Gojo #215; engine #182). Nothing to do.
 
 **Skills revamp for Killua, Gojo, Goku and Luffy (2026-10-18, running in parallel):** one Claude chat per fighter ("Killua skills revamp (ENG-SKL-KIL)", "Gojo skills revamp (ENG-SKL-GOJ)", "Goku skills revamp (ENG-SKL-GOK)", "Luffy skills revamp (ENG-SKL-LUF)"), each with its own Codex chat ("5 - Killlua", "5 - Gojo", "5 - Goku", "5 - Luffy"; relay lanes `killua-skills`, `gojo-skills`, `goku-skills`, `luffy-skills`). **Your action:** answer each fighter chat's design questions when they come up; later, approve that fighter's art in the same chat. Luffy Batch 1's [updated review preview](https://gcd-tourney-mgfvxez55-eshin087s-projects.vercel.app/reviews/luffy-skills-batch1/) is ready through PR #193. You approved special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn via Claude relay #2. The final Astra atlas audit holds special and throw for frame segmentation, missing poses and arm reach; gumArm v03 has a blank first frame and gumImpact v01 imports 9/7. No asset is cleared for integration. Claude's "5 - Skills Effects" owns repairs and later integration; you approved all seven Goku batch 4 drawings (specialUp, throw, intro, kiBlast, kiMuzzle, kiBlastBurst and superSaiyanBurst v01) via Claude relay goku-skills #14; their documented technical holds remain ([review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/), PR [#199](https://github.com/eshin087/gcd-tourney/pull/199)). The user exempted specialDown v02 from the unmeasurable head scale check via Claude relay goku-skills #13; Astra's `scaleManualQA` v2 HOLD remains recorded, with visible anatomy passing and no concrete failure ([production audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/specialDown-v02-production-audit/REPORT.md)). Astra audited the exact batch 4 production atlas: intro, throw and specialUp v01 pass visible anatomy/containment but retain scaleManualQA HOLD because head scale is unmeasured. You exempted intro v01, throw v01 and specialUp v01 from the head check via Claude relay goku-skills #16 (`scaleExemptVersion: 1`); Astra's HOLD records remain and are not numeric scale passes ([audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/BATCH4_V01_FINAL_ASTRA_AUDIT.md), [review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/)). Claude will ask in the Goku skills chat.
 
@@ -87,14 +87,15 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-19 07:04 UTC._
+_Generated by `npm run status` at 2026-10-19 07:42 UTC._
 
 ### Needs you now (0)
 _Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
 - nothing
 
-### Still marked "needs review" in art/REVIEW.md (43)
+### Still marked "needs review" in art/REVIEW.md (44)
 _Bookkeeping: the newest row of each asset. Anything the user must actually answer is in "Needs you now"._
+- **Gojo** (1): charge v08
 - **Goku** (2): uSmash v05, dSmash v06
 - **killua** (3): airLight2 v08, win round4 v05, proportion_sample v01
 - **naruto** (5): beamStruggle v01, light2Alt v04, airHeavyAlt v03, run v08, …
@@ -139,12 +140,12 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
-- 2af47875 10-19 00:04 Merge branch 'feature/bair-rear-hitbox'
-- 95c7be6b 10-19 00:02 Merge branch 'art/charge-killua'
-- a472ff8b 10-19 00:01 test(det): re-record the determinism fixtures with Killua's charge v15 pack (sim 6c3f6514d649)
-- 0045a625 10-19 00:00 Merge branch 'main' into feature/bair-rear-hitbox
-- eaa613c0 10-18 23:59 docs(tasks): close ENG-121, impact tech fix stays GOD-only (user decision)
-- 1d340dde 10-18 23:59 Merge branch 'main' into art/charge-killua
+- fed5eaaf 10-19 00:41 Merge branch 'art/charge-gojo'
+- bb2eced1 10-19 00:40 test(det): re-record the determinism fixtures with Gojo's charge v09 pack (sim 2fc069901660)
+- ebf7ec3d 10-19 00:37 art(gojo): pack charge v09
+- 7fd46095 10-19 00:37 art(gojo): charge v09 = approved v08 without the frame-divider lines (ART-CHARGE)
+- 5aa03db5 10-19 00:26 docs(gojo): add charge review handoff
+- 7788754e 10-19 00:23 art(gojo): hold charge v08 for review
 <!-- status:end -->
 
 
