@@ -5,6 +5,8 @@ Branch/worktree: `art/charge-gojo` / `.worktrees/art-charge-gojo`
 Review: [public/reviews/charge-gojo/](../../../public/reviews/charge-gojo/)
 Status: **user review pending; technical HOLD**. Candidate v08 is in `raw/_qa_hold/`; approved v07 remains the game asset.
 
+PR #215 is open; preview build succeeded at [the Gojo charge review deployment](https://gcd-tourney-chouk7mg7-eshin087s-projects.vercel.app/reviews/charge-gojo/). This browser session was redirected to Vercel login, so unauthenticated page rendering could not be checked. The preview build completed successfully, and all local page asset links resolve.
+
 The branch was fast-forward merged with main at `7706db2f` before packing. Strict `node tools/pack-sprites.mjs gojo --quantize 48 --keep-palette --no-writeback` exited 1 and did not write the Gojo atlas because charge H=0.89 of idle. A temporary `scaleGate: warn` diagnostic pack was used to inspect actual quantized cells and then removed; the warning-mode atlas and metadata hashes match `production/charge-v08/ASTRA_AUDIT.md`. The public game atlas was restored to the main/approved v07 output before handoff.
 
 **Astra HOLD:** H median 0.886; body garment-area proxy B median 0.817. f2/f4 soles are y240 while f3/f5 are y222 (18 px loop pop); head-mask center drifts 18.5 px vertically and 8 px horizontally. The packer also reported a non-magenta source background, 159 removed specks and one 29 px left clipping warning. No scale exemption or `scaleManualQA` was added. Full results: `production/charge-v08/ASTRA_AUDIT.md`, `PRODUCER_REPACK_CHECK.md`, and the public review page.
