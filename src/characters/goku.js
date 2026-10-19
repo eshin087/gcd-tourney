@@ -169,6 +169,12 @@ export default {
   // (`fx`) on f1 and the aura (`aura`) after it. 5.05 on both sides: the fly-in only passes him for a moment, so he
   // turns as it settles on the two fighters, under the VS card
   intro: { at: [5.05, 5.05], step: 0.22, fx: 'superSaiyanBurst', scale: 1.0, aura: 1.2 },
+  // Palette swaps on the drawn body (the sprite shader's `recolor`, ENG-SKL-LUF): Kaio-ken flushes his skin red as in
+  // the anime. His packed sheet's exact skin colours, light to deep shadow; the lightest is also his hair's highlight,
+  // which warms with it (the red glow over his whole body)
+  recolor: {
+    kaioken: [['#fcd79a', '#ffb4a0'], ['#deae81', '#f08a78'], ['#e49d5a', '#e0644e'], ['#d88258', '#c8503f'], ['#da7d42', '#c84a3a']],
+  },
   // floor damage (ground.js, ADR 0024): ki scorch under his specials; a full Super Saiyan charge cracks the floor
   ground: { style: 'ki', tint: '#ffd84a' },
   model,

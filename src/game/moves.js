@@ -474,13 +474,13 @@ export const SPECIAL_MOVES = {
   // Kaio-ken (ENG-SKL-GOK, the user 2026-10-18: moved off the SUPER to Back + Special): the red aura flares and he is
   // faster and stronger for a while (ADR 0011 mode budget: 1.2 x 1.15 x 1.0, Gear Second's and the Cloak's). In his
   // power-up stance (`charge`); its own burst (`burstFx`), the red aura held behind him (`aura`), a red flame outline
-  // on the body (`shell`, the AuraShell) and his body tinted red (`tint`) while it lasts
+  // on the body (`shell`, the AuraShell), his skin flushed red (`recolor`) and his body tinted red (`tint`) while it lasts
   kaioken: {
     kind: 'mode', anim: 'charge', cost: 100, startup: 20, recovery: 8, len: 420, speed: 1.2, damage: 1.15, defense: 1.0,
     fx: 'chakra', auraColor: '#ff3a2a', auraCore: [1.0, 0.78, 0.72], name: 'KAIO-KEN', color: '#ff3a2a', charge: { level: 1 },
     burstFx: { fx: 'kaiokenBurst', scale: 1.0 }, aura: { fx: 'kaiokenAura', scale: 0.95, opacity: 0.9 },
     shell: { kind: 'flame', color: '#ff3a2a', core: '#ffb0a0', width: 0.05, lift: 0.8, noise: 0.7, speed: 2.6, opacity: 0.55 },
-    tint: { color: '#ff2a1a', level: 0.16 },
+    tint: { color: '#ff2a1a', level: 0.16 }, recolor: 'kaioken',
   },
 
   // ---- Luffy (Enies Lobby arc, Gear Second / Gear Third; ADR 0032)
