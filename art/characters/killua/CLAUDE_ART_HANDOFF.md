@@ -1,3 +1,20 @@
+# Claude art handoff — ART-CHARGE Killua v15
+
+## Status (2026-10-18 Pacific; relay charge #11)
+
+Killua charge v15 is the user's next image review after Sasuke. The candidate is the unchanged 3×2 raw generation art/characters/killua/raw/charge_v15.png (SHA-256 eee81e7655d1d63a3223f45cc1e79c2c335983b05db77d01a71aeef6f018b108), approvedVersion remains 14 until the user responds. The review page is public/reviews/charge-killua/index.html; PR #212 is the review branch.
+
+Merged main at 3b4ae71d, then packed Killua with node tools/pack-sprites.mjs killua --quantize 48 --keep-palette: complete 54-animation/253-frame sheet, 48 colors, charge cells 115–120 with loopFrom 2. Build passed with the local .codex/vite.mjs adapter. Astra post-merge recheck found raw, atlas, metadata, and all six decoded packed charge cells byte/pixel-identical to its prior exact audit, so the prior visual and registration findings remain bound to the current pack.
+
+Astra's head and loop registration findings pass. The quantitative torso/limb segment certification remains a technical HOLD because joints are occluded/foreshortened and the configured garment palette misses the candidate's darker purples (B=.43–.45; alternate broad-purple diagnostic .931–.953). No redraw or rescale is justified by that metric. This technical hold does not decide the user's art approval. Do not alter the preserved version or make more image calls.
+
+## Claude next
+
+Review the user-visible drawing at https://gcd-tourney-5skrchi56-eshin087s-projects.vercel.app/reviews/charge-killua/ and the game preview https://gcd-tourney-5skrchi56-eshin087s-projects.vercel.app/?fight=killua,naruto&mode=solo&art=custom (hold Special for gather/loop). If the user approves, record approvedVersion 15, then check contact/floor behavior in game and merge/integrate. Do not treat Astra's technical HOLD as visual rejection; retain it unless new evidence resolves it.
+
+Evidence: production/charge-v15/ASTRA_AUDIT.md, production/charge-v15/ASTRA_MERGE_RECHECK.md, and the packed review page.
+
+---
 # Claude art handoff — ENG-112 Killua normals
 
 ## Current status (2026-10-18; relay combat #24)
