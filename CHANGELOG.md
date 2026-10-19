@@ -16,6 +16,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed (TOOL-063): `npm run pr -- prune` no longer dies with `spawnSync git ENOENT` when git still lists a worktree whose folder is gone. It reports that worktree in one line, clears its registration and deletes its branch when the branch is merged (`--dry-run` only reports), keeps and reports an unmerged, detached or locked one, and goes on with the rest. `npm run pr -- merge` clears such a registration for the branch it merges (an app that deleted its worktree folder itself), so the branch is deleted instead of staying "checked out" nowhere. `npm run test:guard` covers both.
 - Added (ENG-SKL-TPFX): teleports can name their own look: `vanishFx` / `appearFx` (an effect name or `{ fx, scale, bottom, y, lead, reverse }`; `false` for nothing) replace the smoke puff, speed lines and afterimage where a teleport leaves and the star, ring and afterimage where it arrives (`Effects.teleportFx`). View only; no move uses them yet (Gojo's Blink, Goku's Instant Transmission and Killua's Rhythm Echo move onto them in their skills branches).
 
 - Added (ENG-SKL-KIL): one generic hand effect for any technique. A move's `fx` that names an effect other than the built-in kinds (Rasengan, Chidori...) is held in the drawn palm through the startup, looping and growing as it builds (Killua's Lightning Palm); with `fxForm` its frames play by the startup's progress and the last one is held (Gojo's Reversal: Red); `fxScale` sets its size. View only.
