@@ -15,6 +15,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SKL-GOK): recorded relay #10 user decision exempting specialForward v02 from the head scale check (`scaleExemptVersion: 2` with the specified reason); Astra's scaleManualQA v2 audit record remains unchanged.
 - Changed (ART-SKL-GOK): Astra audited specialForward v02 on exact packed atlas 6159cc2d. Visible anatomy/scale passes with no concrete failure, but the skull crown is hidden in all frames so head scale is unmeasurable; recorded scaleManualQA v2 HOLD pending user decision on a version-specific head-check exemption.
 - Changed (ART-SKL-GOK): via Claude relay #8, recorded the user-directed superPose v01 head-probe exemption and reason in the manifest (`scaleExemptVersion: 1`). Astra's manual anatomy-certification HOLD and audit motion note remain; user accepted the near-still loop when approving.
 - Changed (ART-SKL-GOK): recorded user approval via Claude relay #7 for `specialForward_v02` at bodyHeight 222 with Claude frameOffsets. Manifest version/approvedVersion are 2; visual approval recorded while technical sidecar/atlas QA holds remain.
