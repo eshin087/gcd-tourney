@@ -1,5 +1,11 @@
 # Art review queue
 
+## Charge redraw · Gojo
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-19 | Gojo | charge | [v08 held source](characters/gojo/raw/_qa_hold/charge_v08.png) · [review page](../public/reviews/charge-gojo/) · [generation](characters/gojo/production/charge-v08/GENERATION.md) · [registration](../public/reviews/charge-gojo/registration-v08.png) · [body sheet](characters/gojo/production/charge-v08/body-gojo-charge.png) · [Astra audit](characters/gojo/production/charge-v08/ASTRA_AUDIT.md) | v08 | needs review | Six-frame gather/release/hold candidate; unchanged, held after three calls. | Strict pack fails: H median 0.886, B median 0.817; loop soles alternate y240/y222 (18 px), with head-mask drift 18.5 px vertically / 8 px horizontally. Source background is #17002e, 159 specks removed, one frame flagged 29 px clipped, vertical debris visible. Astra HOLD. Approved v07 remains shipped; no scale exemption or manual QA pass. User decision requested through Claude. |
+
 ## Charge redraw · Killua
 
 | date | character | asset | file | version | status | what changed | QA notes |

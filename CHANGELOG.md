@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-CHARGE): prepared Gojo charge v08 review from three image calls; moved the unchanged candidate to `_qa_hold/` after the strict pack failed, retained approved v07 as the shipped pack, refreshed the post-merge quantized-cell registration/body evidence, and recorded Astra's technical HOLD. User review pending at [the charge review page](public/reviews/charge-gojo/).
 - Changed (ART-CHARGE): prepared Killua charge v15 from two image calls; packed six frames with `loopFrom: 2`, built the packed-cell review page and recorded Astra's loop/head PASS plus unresolved quantitative body-segment HOLD. The user approved v15 as drawn via Claude relay charge #12 (“Approve v15”); approval is recorded. The quantitative body-segment HOLD remains separate from the visual approval, with no rescale or head exemption.
 - Changed (ART-SKL-GOK): recorded the user's relay #16 decision exempting intro, throw and specialUp v01 from the unmeasurable head check (`scaleExemptVersion: 1`); Astra scaleManualQA v1 HOLD records remain unchanged.
 - Changed (ART-SKL-GOK): Astra final-audited intro, throw and specialUp v01 on the exact production atlas; all 14 frames pass visible anatomy and containment, while head scale remains unmeasured and version-bound scaleManualQA v1 holds are recorded.

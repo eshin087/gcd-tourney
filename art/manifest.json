@@ -1299,20 +1299,26 @@
           }
         },
         "charge": {
-          "frames": 4,
+          "frames": 6,
           "loop": true,
+          "loopFrom": 2,
           "bodyHeight": 221,
           "ms": [
-            50,
-            50,
-            50,
-            50
+            70,
+            90,
+            110,
+            110,
+            110,
+            110
           ],
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 7,
-          "approvedVersion": 7
+          "version": 8,
+          "approvedVersion": 7,
+          "reviewStatus": "needs review",
+          "technicalHold": true,
+          "technicalHoldReason": "Strict scale gate and packed-loop audit hold: H median 0.886, body proxy B median 0.817; f2-f5 soles alternate y240/y222 (18 px), head center drifts 18.5 px vertically and 8 px horizontally. Candidate retained for review; approved v07 remains shipped."
         },
         "throw": {
           "frames": 4,
