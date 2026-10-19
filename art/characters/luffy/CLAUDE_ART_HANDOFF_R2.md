@@ -9,7 +9,7 @@ PR: #214
 
 ## User review
 
-Review page: https://gcd-tourney-9cbl0meo8-eshin087s-projects.vercel.app/reviews/normals-luffy-r2/. It compares dTilt v04, uSmash v05, dSmash v03 and uair v02 from the exact packed cells with the previously user-approved drawings, live stand-ins and approved idle f0. dashAttack v02 has no new candidate after its three authorized calls; attempts 04–06 and the existing approved version are shown. The four new candidates are not yet approved; further dashAttack calls require a new user decision.
+Review page: https://gcd-tourney-38jigxvc2-eshin087s-projects.vercel.app/reviews/normals-luffy-r2/. It compares dTilt v04, uSmash v05, dSmash v03 and uair v02 from the exact packed cells with the previously user-approved drawings, live stand-ins and approved idle f0. dashAttack v02 has no new candidate after its three authorized calls; attempts 04–06 and the existing approved version are shown. The four new candidates are not yet approved; further dashAttack calls require a new user decision.
 
 ## Technical audit
 
@@ -22,7 +22,7 @@ GPT-6 Astra (medium) inspected all 28 candidate frames in a 4096 x 2816, 48-colo
 
 Visible endpoint uncertainty is about +/-3 px and segment uncertainty about +/-6 px. Hidden or strongly foreshortened anatomy is not numerically certified. No runtime contact/playback certification was performed. New hitbox overrides are version-bound to uSmash v05, dSmash v03 (both sandals) and uair v02; dTilt's automatically packed contact box follows the low extended shin/sandal. Claude owns contact/hurtbox integration.
 
-The read-only PR guard ran with the documented GCD_SCRATCH_DIR override after the default E:\gcd-scratch was denied in this sandbox. It refused the four new raw versions because they are not user-approved, and refused their manual scale checks because Astra recorded HOLD. This is expected for a candidate review branch; do not merge or pack the new raws into production. The first PR preview is built from committed files only; refresh it after this handoff commit.
+The read-only PR guard ran with the documented GCD_SCRATCH_DIR override after the default E:\gcd-scratch was denied in this sandbox. It refused the four new raw versions because they are not user-approved, and refused their manual scale checks because Astra recorded HOLD. This is expected for a candidate review branch; do not merge or pack the new raws into production. The review preview is built from committed files only.
 
 ## Source inventory and user decisions
 
