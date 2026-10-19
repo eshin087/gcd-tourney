@@ -1,4 +1,12 @@
 # Art review queue
+## Sasuke charge v15 technical hold (2026-10-18)
+
+The v15 scripted composite is packed and measured, but is **not ready for user review**. Astra found the f3 hair-inclusive head probe at 1.077 (brief maximum 1.07); the version-bound landmark check could not certify the hidden skull within uncertainty. The packed f5 right sandal edge is 2 px inward from f2 with the soles still on y240, within the revised outline tolerance. In-game loop playback remains unverified. Keep approved v12 active; do not treat this entry as user approval. See the [technical hold page](../public/reviews/charge-sasuke/), [Astra audit](characters/sasuke/production/charge-v15/AUDIT.md), and [landmark check](characters/sasuke/production/charge-v15/SCALE_MANUAL_QA.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | sasuke | charge | [charge_v15.png](characters/sasuke/raw/charge_v15.png) · [technical page](../public/reviews/charge-sasuke/) | v15 | needs review | Scripted composite from v14: locked f2 lower-body pixels copied into f3-f5; f3 shout mouth copied into f4 | Technical HOLD; not ready for user approval. H f3=1.077 with hair-driven probe width; landmark check uncertain. f5 right sandal narrows by 2 px, soles y240. Lab playback not verified. [Astra audit](characters/sasuke/production/charge-v15/AUDIT.md) · [scale QA](characters/sasuke/production/charge-v15/SCALE_MANUAL_QA.md). |
+
 ## Naruto charge v08 approval (2026-10-18)
 
 The user approved the single horizontal six-pose row as drawn via Claude relay charge #8, exact quote: “Approve v08 as drawn”. The source was promoted unchanged from `_qa_hold`; SHA-256 `a7db8a21ffd4a122111e599c2c804dd1e857f56359be4e66e4ff9687a88f320`. The source row is the packer's standard layout; the prior framing hold is rescinded. No new image calls or pixel edits. Claude's trial pack reports feet within 0-1 px, body 0 px across f2-f5, head and shoulders +3 px on f3, and same height as idle. Astra packed-cell audit finds a technical HOLD: f3 face/head rises 3 px against the 2 px loop limit, floor-contact contours shift 1-2 px, and occlusion prevents a numeric anatomy pass. No scaleManualQA or probe exemption is supported. See [Astra audit](characters/naruto/production/charge-v08/ASTRA_AUDIT.md), [registration evidence](characters/naruto/production/charge-v08/registration-diff-2x.png), [review page](../public/reviews/charge-naruto/), and [generation provenance](characters/naruto/production/charge-v08-generation.md).

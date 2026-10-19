@@ -17,6 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-CHARGE): Sasuke charge v15 was packed at 48 colors with `loopFrom: 2` and audited on its exact atlas. It remains on technical hold: f3 H=1.077 with the extra width following hair, the landmark check cannot certify skull scale, and in-game loop playback is pending. Approved v12 remains active; no image approval is implied.
 - Changed (ART-CHARGE): Sasuke charge v13 and v14 are on technical hold after packed-cell Astra audits; v15 is a scripted composite candidate pending packed-cell review. No image approval or scaleManualQA pass is claimed.
 
 - Added approved ART-NPC-ANN-R2 art: ten announcer expression/fidget strips and a packed phone review. User approved all ten via Claude relay #9 as drawn, accepting Astra's documented blownAway v03 and sooty v03 technical holds. Approved NPC pack rebuilt; PR #206 awaits integration.

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sasuke charge v15 technical hold</title>
+  <style>
+    body{font:16px system-ui,sans-serif;background:#17191f;color:#f1f3f7;max-width:1150px;margin:2rem auto;padding:0 1rem}
+    h1,h2{line-height:1.2}section{margin:2rem 0;padding:1rem;background:#242832;border-radius:10px}
+    .frames{display:flex;flex-wrap:wrap;gap:.5rem}.frames img{width:128px;height:128px;image-rendering:pixelated;background:#444}
+    .large img{width:256px;height:256px}.evidence{max-width:100%;height:auto}.hold{color:#ffd166;font-weight:700}
+    button{padding:.5rem 1rem;font-size:1rem}
+  </style>
+</head>
+<body>
+  <h1>Sasuke charge v15 · technical hold</h1>
+  <p class="hold">Not ready for user image approval. Candidate v15 remains unapproved; approved charge v12 remains the active version.</p>
+  <p>This page shows the exact 48-color packed cells from the branch atlas. The timed preview below is a page-level playback of atlas cells and metadata; it is not in-game lab validation.</p>
+  <section>
+    <h2>Candidate playback · gather, release, then held loop</h2>
+    <img id="preview" class="evidence" src="media/new_f0.png" width="256" height="256" alt="Sasuke charge v15 packed frame playback">
+    <p>Frame durations: 70, 90, then 110 ms. Frames f2–f5 loop from f2.</p>
+    <button id="replay">Replay</button>
+  </section>
+  <section><h2>Packed cells at 1×</h2><div class="frames">
+    <img src="media/new_f0.png" alt="Charge frame 0 gather"><img src="media/new_f1.png" alt="Charge frame 1 release"><img src="media/new_f2.png" alt="Charge frame 2 hold"><img src="media/new_f3.png" alt="Charge frame 3 breath"><img src="media/new_f4.png" alt="Charge frame 4 tremor"><img src="media/new_f5.png" alt="Charge frame 5 settle">
+  </div><h2>At 2×</h2><div class="frames large">
+    <img src="media/new_f0.png" alt="Charge frame 0 gather"><img src="media/new_f1.png" alt="Charge frame 1 release"><img src="media/new_f2.png" alt="Charge frame 2 hold"><img src="media/new_f3.png" alt="Charge frame 3 breath"><img src="media/new_f4.png" alt="Charge frame 4 tremor"><img src="media/new_f5.png" alt="Charge frame 5 settle">
+  </div></section>
+  <section><h2>Approved reference cells</h2><img class="evidence" src="media/idle_f0.png" alt="Approved Sasuke idle frame 0"></section>
+  <section><h2 class="hold">Open technical checks</h2>
+    <ul>
+      <li>Astra found f3 head probe H=1.077 against the brief's 1.07 maximum. The wider bound follows the trailing hair; a version-bound landmark review could not certify the hidden skull within ±7%.</li>
+      <li>f5 right sandal edge is 2 px inward from f2 after packing; the soles stay on y240 and this meets the revised outline tolerance.</li>
+      <li>In-game lab playback and the f5→f2 loop remain unverified. The static pixel differences do not prove visible shimmer.</li>
+    </ul>
+    <img class="evidence" src="media/registration.png" alt="Packed loop frames, floor band and differences from f2">
+    <p><a href="media/ASTRA_AUDIT.md">Astra packed-cell audit</a> · <a href="media/SCALE_MANUAL_QA.md">Version-bound landmark scale QA</a> · <a href="media/measurements.json">Packed measurements</a> · <a href="media/body-sasuke-charge.png">Body sheet</a> · <a href="media/heads-sasuke.png">Head sheet</a></p>
+  </section>
+  <script>
+    const frames=[0,1,2,3,4,5];
+    const durations=[70,90,110,110,110,110];
+    const preview=document.getElementById('preview');
+    let timer;
+    function play(){
+      clearTimeout(timer);
+      let i=0;
+      const tick=()=>{
+        preview.src=`media/new_f${frames[i]}.png`;
+        timer=setTimeout(()=>{i=i<1?i+1:(i<5?i+1:2);tick();},durations[i]);
+      };
+      tick();
+    }
+    document.getElementById('replay').onclick=play;
+    play();
+  </script>
+</body>
+</html>
