@@ -639,6 +639,14 @@ export class Effects {
         if (Math.random() < 0.5) this.spawn('spark', g.x, 0.08, g.z, { scale: 0.35, rot: Math.random() * 6.28, color: 0xbfe8ff, glow: 0.8, order: 8 });
         if (Math.random() < 0.25) this.spawn('dust', g.x - fx * 0.2, 0, g.z - fz * 0.2, { bottom: true, scale: 0.35, opacity: 0.7, order: 6 });
       }
+    } else if (this.meta.anims[kind]) {
+      // any other effect name: held in the drawn palm through the startup (Lightning Palm's crackle, ENG-SKL-KIL),
+      // looping and growing as it builds; the art carries the light, so no glow disc. `fxForm` on the move: a forming
+      // strip instead, its frames played by the startup's progress and its last frame held after (Reversal: Red's);
+      // `fxScale`: its full size
+      const p = at(0.6, 0.85), M = f.move, form = !!M?.fxForm, base = (M?.fxScale ?? 0.6) * k * (quiet ? 0.7 : 1);
+      const it = this.keep('hand' + f.index, kind, p.x, p.y, p.z, { scale: form || phase ? base : base * (0.5 + prog * 0.5), order: 9, glow: 0.3 });
+      it.frame = !form ? -1 : phase === 0 ? Math.min(it.a.n - 1, Math.floor(prog * it.a.n)) : it.a.n - 1;
     }
   }
 
