@@ -68,6 +68,10 @@ export const NPC_CUES = {
   roundEnd: { announcer: ['point', 2, 2.4] },
 };
 
+// An animation an NPC sheet lacks plays the next one down this chain, then idle (the announcer's ENG-118 moves ship
+// after his engine: `walk` stays idle until its art is approved, and the announcer bobs it, src/world/announcer.js).
+export const NPC_FALLBACK = { hop: 'run', run: 'walk', walk: 'idle', shocked: 'shout', shout: 'point', micThrust: 'point', point: 'idle', cower: 'idle', signal: 'idle' };
+
 // public/npc/<id>/{anims.json, sheet.png} for every NPC in the table -> Map(id -> { meta, image }).
 export async function loadNpcArt() {
   const out = new Map();
@@ -106,32 +110,56 @@ export class NpcSprite {
     tex.generateMipmaps = false;
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.needsUpdate = true;
-    tex.repeat.set((def.mirror ? -1 : 1) / this.cols, 1 / this.rows);
     this.tex = tex;
     this.material = new THREE.SpriteMaterial({ map: tex, alphaTest: 0.5, transparent: false });
     const sp = new THREE.Sprite(this.material);
     const ppu = m.pixelsPerUnit || 80;
     // pivot = the feet: the bottom edge of the pivot row sits on the ground
-    sp.center.set(m.pivot[0] / m.frameWidth, (m.frameHeight - 1 - m.pivot[1]) / m.frameHeight);
-    if (def.mirror) sp.center.x = 1 - sp.center.x;
+    this.pivotX = m.pivot[0] / m.frameWidth;
+    sp.center.set(this.pivotX, (m.frameHeight - 1 - m.pivot[1]) / m.frameHeight);
     sp.scale.set(m.frameWidth / ppu, m.frameHeight / ppu, 1);
     sp.position.set(...def.pos);
     this.sprite = sp;
     this.anim = 'idle';
     this.t = 0;
     this.cue = null; // { anim, prio, left }
-    this.setFrame(m.animations.idle.frames[0]);
+    this.cell = m.animations.idle.frames[0];
+    this.mirrored = null;
+    this.setMirror(!!def.mirror);
   }
 
   setFrame(cell) {
+    this.cell = cell;
     const c = cell % this.cols, r = Math.floor(cell / this.cols);
-    this.tex.offset.set((c + (this.def.mirror ? 1 : 0)) / this.cols, 1 - (r + 1) / this.rows);
+    this.tex.offset.set((c + (this.mirrored ? 1 : 0)) / this.cols, 1 - (r + 1) / this.rows);
+  }
+
+  // the sheet faces screen-right; mirrored it faces left (fixed per NPC in NPCS, live for the walking announcer)
+  setMirror(m) {
+    if (m === this.mirrored) return;
+    this.mirrored = m;
+    this.tex.repeat.set((m ? -1 : 1) / this.cols, 1 / this.rows);
+    this.sprite.center.x = m ? 1 - this.pivotX : this.pivotX;
+    this.setFrame(this.cell);
+  }
+
+  // the animation this sheet plays for `anim`: itself, else down NPC_FALLBACK, else idle
+  resolve(anim) {
+    for (let i = 0; i < 6 && anim && !this.meta.animations[anim]; i++) anim = NPC_FALLBACK[anim];
+    return anim && this.meta.animations[anim] ? anim : 'idle';
   }
 
   play(anim, prio, seconds) {
-    if (!this.meta.animations[anim]) anim = 'idle'; // a missing animation falls back to idle
+    anim = this.resolve(anim);
     if (this.cue && this.cue.prio > prio && this.cue.left > 0) return;
     this.cue = { prio, left: seconds };
+    if (anim !== this.anim) { this.anim = anim; this.t = 0; }
+  }
+
+  // the announcer picks his animation every frame himself (ENG-118): no cue, no timer
+  setAnim(anim) {
+    anim = this.resolve(anim);
+    this.cue = null;
     if (anim !== this.anim) { this.anim = anim; this.t = 0; }
   }
 

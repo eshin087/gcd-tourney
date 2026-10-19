@@ -2,6 +2,7 @@
 // Each anim: keys [[time, pose, ease]], then either
 //   loop + frames + cycle  (evenly sampled loop), or
 //   samples [t...] (+ phases [startup, active, recovery] for attacks, + smear {frameIdx: [limbs]}).
+// A looping anim with loopFrom k plays frames 0..k-1 once, then loops from k (charge, ENG-117).
 import { pose } from './pose.js';
 
 const range = (n) => Array.from({ length: n }, (_, i) => i);
@@ -227,11 +228,20 @@ export function buildAnims(C) {
   A.stagger = { loop: true, frames: 4, cycle: 0.6, keys: [[0, stag(1)], [0.15, stag(0)], [0.3, stag(-1)], [0.45, stag(0)]] };
 
   // ---------------------------------------------------------------- ki & beams
-  const chargeP = (k) => st({
-    lF: { sw: 18, ab: 22, kn: 36 }, lN: { sw: -18, ab: 22, kn: 36 }, spine: { lean: -10, roll: k * 1.5, yaw: 4 }, head: { nod: -24 },
-    aN: { sw: -14, ab: 38 + k * 2, el: 30, tw: 0 }, aF: { sw: -10, ab: 36 - k * 2, el: 30 }, root: { x: k * 0.008 }, face: 'shout', flutter: 2.4,
+  // charge (ENG-117): gather and release once, then the held power stance heaves (h 0..1: the breath) from frame 2 on,
+  // instead of flipping between two poses every 50 ms
+  const chargeP = (h) => st({
+    squash: 1 + 0.015 * h, lF: { sw: 18, ab: 22, kn: 36 }, lN: { sw: -18, ab: 22, kn: 36 }, spine: { lean: -10 - 3 * h, yaw: 4 }, head: { nod: -24 - 4 * h },
+    aN: { sw: -14, ab: 38 + 3 * h, el: 30, tw: 0 }, aF: { sw: -10, ab: 36 + 3 * h, el: 30 }, face: 'shout', flutter: 1.8 + 0.8 * h,
   });
-  A.charge = { loop: true, frames: 4, cycle: 0.2, keys: [[0, chargeP(1)], [0.05, chargeP(-1)], [0.1, chargeP(1)], [0.15, chargeP(-1)]] };
+  const gatherP = st({
+    squash: 0.9, spine: { lean: 16, yaw: 4 }, head: { nod: 12 }, lF: { sw: 30, ab: 18, kn: 64 }, lN: { sw: -22, ab: 18, kn: 58 },
+    aN: { sw: 12, ab: 14, el: 100 }, aF: { sw: 16, ab: 10, el: 100 }, face: 'angry', flutter: 0.4,
+  });
+  A.charge = {
+    loop: true, loopFrom: 2, samples: [0, 0.07, 0.16, 0.27, 0.38, 0.49], end: 0.6,
+    keys: [[0, gatherP], [0.07, chargeP(0.5)], [0.16, chargeP(0)], [0.27, chargeP(0.6)], [0.38, chargeP(1)], [0.49, chargeP(0.4)]],
+  };
   const bcP = (k) => st({
     spine: { yaw: -36, lean: 6, roll: k }, root: { yaw: -8, x: k * 0.006 }, head: { yaw: 18, nod: -6 },
     aN: { sw: -48, el: 72, ab: 14, hand: 'open' }, aF: { sw: -36, el: 84, ab: -34, hand: 'open' },

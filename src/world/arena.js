@@ -6,6 +6,7 @@ import { RING_HALF, RING_TOP } from '../game/constants.js';
 import { hasArt, fetchAtlasJson, artUrl } from '../core/artIndex.js';
 import { loadImage } from '../game/sprites.js';
 import { NPCS, NPC_CUES, NpcSprite } from './worldArt.js';
+import { paintedBody } from './announcer.js';
 
 const lambert = (map, extra = {}) => new THREE.MeshLambertMaterial({ map, ...extra });
 
@@ -377,7 +378,8 @@ export function buildArena(scene) {
   };
   parasol(-13.2, -15);
   parasol(13.2, -15);
-  // the painted announcer; a packed announcer sheet (setNpcArt) replaces it
+  // the painted announcer; a packed announcer sheet (setNpcArt) replaces it. Either one is the live announcer's
+  // body once Game attaches him (setCaster, ENG-118)
   const announcer = billboard(bakeAnnouncer(), 0, 0, -11.8, 0, -14.4);
   world.add(announcer);
 
@@ -511,6 +513,7 @@ export function buildArena(scene) {
   const dimSky = new THREE.Color('#3a2a6a');
   let prevExcite = 0, shockT = 0, lastT = null, crowdClock = 0, mood = 0;
   const npcs = [];
+  let caster = null; // the live announcer (src/world/announcer.js), who moves and animates his own body
   return {
     group: world,
     sun,
@@ -520,7 +523,9 @@ export function buildArena(scene) {
     // for ground damage (ground.setSurface): floor slabs use the ring's own materials (stage art swaps their
     // texture in place), KO holes go on the stand walls
     surface: { slabTop: topMat, slabSide: sideMat, walls: standWalls },
-    update(time, excite) {
+    // game: the live Game, read by the announcer (view only); frameDt: the render's own dt, which the debug step()
+    // advances too (the wall clock above barely moves between stepped frames)
+    update(time, excite, game = null, frameDt = null) {
       const u = crowd.mesh.material.uniforms;
       // a sudden jump in excitement (KO, super, clash) makes the stand gasp, then it fades
       if (excite - prevExcite > 0.3) shockT = 1.4;
@@ -535,7 +540,17 @@ export function buildArena(scene) {
       u.uExcite.value = mood;
       shockT = Math.max(0, shockT - dt);
       u.uShock.value = Math.min(1, shockT / 0.6);
-      for (const n of npcs) n.update(dt);
+      for (const n of npcs) if (n !== caster?.body) n.update(dt);
+      if (caster && game) caster.update(frameDt ?? dt, game);
+    },
+    // the live announcer (ENG-118): his body is the painted billboard until a packed sheet arrives (setNpcArt)
+    get caster() {
+      return caster;
+    },
+    setCaster(c) {
+      caster = c;
+      const n = npcs.find((m) => m.def.replaces === 'announcer');
+      c.setBody(n || paintedBody(announcer));
     },
     // packed stage art (worldArt.loadStageArt): Map(slot -> image). Returns the slots that were replaced.
     applyStageArt(art) {
@@ -563,6 +578,7 @@ export function buildArena(scene) {
         n.dispose();
       }
       announcer.visible = true;
+      caster?.setBody(paintedBody(announcer));
       for (const def of NPCS) {
         const a = art.get(def.id);
         if (!a) continue;
@@ -576,15 +592,20 @@ export function buildArena(scene) {
         world.add(n.sprite);
         unlit.add(n.material); // unlit like the crowd: darkens with it during super flashes
         npcs.push(n);
-        if (def.replaces === 'announcer') announcer.visible = false;
+        if (def.replaces === 'announcer') {
+          announcer.visible = false;
+          caster?.setBody(n);
+        }
       }
       return npcs.map((n) => n.def.id);
     },
-    // a game event (NPC_CUES: intro, roundStart, super, ultimate, clash, ko, crash, roundEnd)
-    npcCue(kind) {
+    // a game event (NPC_CUES: intro, roundStart, super, ultimate, clash, ko, crash, roundEnd; the announcer also hears
+    // special, combo, tag, throw, maxPower, clashWin, timeup) with what he needs to comment it (who, the move's name)
+    npcCue(kind, info) {
+      caster?.cue(kind, info);
       const cue = NPC_CUES[kind];
       if (!cue) return;
-      for (const n of npcs) if (cue[n.def.id]) n.play(...cue[n.def.id]);
+      for (const n of npcs) if (n !== caster?.body && cue[n.def.id]) n.play(...cue[n.def.id]);
     },
     setCrowdAtlas(A) {
       crowd.setAtlas(A);

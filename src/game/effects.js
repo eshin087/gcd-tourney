@@ -28,7 +28,9 @@ const FRAG = /* glsl */ `
   }`;
 
 const qz = new THREE.Quaternion();
+const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with its colors resolved (Effects.modeShell)
 const zAxis = new THREE.Vector3(0, 0, 1);
+const tPull = new THREE.Vector3(), tSwirl = new THREE.Vector3(), yAxis = new THREE.Vector3(0, 1, 0);
 
 function hexTexture() {
   const c = document.createElement('canvas');
@@ -305,6 +307,22 @@ export class Effects {
     for (let i = this.rocks.length - 1; i >= 0; i--) {
       const r = this.rocks[i];
       r.life -= dt;
+      if (r.pull) {
+        // dragged into a point (rubbleIn): spiralling in faster as it nears, shrinking to nothing at it
+        const d = tPull.copy(r.pull).sub(r.mesh.position), dist = d.length();
+        if (dist < 0.12 || r.life <= 0) {
+          this.scene.remove(r.mesh);
+          this.rocks.splice(i, 1);
+          continue;
+        }
+        d.divideScalar(dist);
+        tSwirl.crossVectors(d, yAxis).multiplyScalar(r.swirl * Math.min(2.5, dist * 1.5));
+        r.mesh.position.addScaledVector(d, (2.5 + 7 / (0.5 + dist)) * dt).addScaledVector(tSwirl, dt);
+        r.mesh.rotation.x += r.spin.x * dt;
+        r.mesh.rotation.z += r.spin.z * dt;
+        r.mesh.scale.setScalar(r.size * Math.min(1, dist / 0.7));
+        continue;
+      }
       r.vel.y -= 30 * dt;
       r.mesh.position.addScaledVector(r.vel, dt);
       r.mesh.rotation.x += r.spin.x * dt;
@@ -508,6 +526,24 @@ export class Effects {
     while (this.rocks.length > 60) this.scene.remove(this.rocks.shift().mesh);
   }
 
+  // Floor rubble torn up and dragged into a point `at` (fighter space; Lapse: Blue, ENG-SKL-GOJ): `n` chunks lift off the
+  // floor `r` away and spiral in (Effects.update), shrinking to nothing as they reach it
+  rubbleIn(at, n = 2, r = 2) {
+    for (let k = 0; k < n; k++) {
+      const size = 0.04 + Math.random() * 0.07, a = Math.random() * Math.PI * 2;
+      const m = new THREE.Mesh(this.rockGeo, this.rockMats[k % 3]);
+      m.scale.setScalar(size);
+      m.position.set(at.x + Math.cos(a) * r, RING_TOP + 0.06, at.z + Math.sin(a) * r * 0.6);
+      m.castShadow = true;
+      this.scene.add(m);
+      this.rocks.push({
+        mesh: m, size, life: 1.2, pull: new THREE.Vector3(at.x, RING_TOP + at.y, at.z), swirl: Math.random() < 0.5 ? 1 : -1,
+        vel: new THREE.Vector3(), spin: new THREE.Vector3((Math.random() - 0.5) * 20, 0, (Math.random() - 0.5) * 20),
+      });
+    }
+    while (this.rocks.length > 60) this.scene.remove(this.rocks.shift().mesh);
+  }
+
   // Hexagonal ki barrier flash where a fighter slams into the ring boundary.
   barrier(pos, axis, sign, color = '#7ad8ff') {
     const mat = new THREE.MeshBasicMaterial({ map: this.hexTex, color: new THREE.Color(color).multiplyScalar(1.8), transparent: true, opacity: 0.85, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
@@ -638,6 +674,14 @@ export class Effects {
         if (Math.random() < 0.5) this.spawn('spark', g.x, 0.08, g.z, { scale: 0.35, rot: Math.random() * 6.28, color: 0xbfe8ff, glow: 0.8, order: 8 });
         if (Math.random() < 0.25) this.spawn('dust', g.x - fx * 0.2, 0, g.z - fz * 0.2, { bottom: true, scale: 0.35, opacity: 0.7, order: 6 });
       }
+    } else if (this.meta.anims[kind]) {
+      // any other effect name: held in the drawn palm through the startup (Lightning Palm's crackle, ENG-SKL-KIL),
+      // looping and growing as it builds; the art carries the light, so no glow disc. `fxForm` on the move: a forming
+      // strip instead, its frames played by the startup's progress and its last frame held after (Reversal: Red's);
+      // `fxScale`: its full size
+      const p = at(0.6, 0.85), M = f.move, form = !!M?.fxForm, base = (M?.fxScale ?? 0.6) * k * (quiet ? 0.7 : 1);
+      const it = this.keep('hand' + f.index, kind, p.x, p.y, p.z, { scale: form || phase ? base : base * (0.5 + prog * 0.5), order: 9, glow: 0.3 });
+      it.frame = !form ? -1 : phase === 0 ? Math.min(it.a.n - 1, Math.floor(prog * it.a.n)) : it.a.n - 1;
     }
   }
 
@@ -647,12 +691,15 @@ export class Effects {
     this.drop('handGlow' + f.index);
   }
 
+
   // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
   // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
   // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind)
-  blast(name, x, y, z, scale, color, smoke = 3) {
-    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false });
-    this.spawn('ring', x, y, z, { scale: 2.2 * scale, color, glow: 0.4, order: 7, depthTest: false });
+  // `flipX`: a blast drawn pointing screen-right, mirrored for a shot flying screen-left (Reversal: Red's repulsion);
+  // `ring`: the shockwave's size against the blast's (0: none; Killua's shocks keep it small)
+  blast(name, x, y, z, scale, color, smoke = 3, flipX = false, ring = 2.2) {
+    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false, flipX });
+    if (ring) this.spawn('ring', x, y, z, { scale: ring * scale, color, glow: 0.4, order: 7, depthTest: false });
     for (let k = 0; k < smoke; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
   }
 
@@ -662,10 +709,26 @@ export class Effects {
   span(name, from, dir, len, camRight, o = {}) {
     const sx = dir.x * camRight.x + dir.z * camRight.z, flip = sx < 0, phi = Math.atan2(dir.y, sx);
     const it = this.spawn(name, from.x + (dir.x * len) / 2, from.y + (dir.y * len) / 2, from.z + (dir.z * len) / 2, { ...o, flipX: flip, rot: flip ? phi - Math.PI : phi });
-    const s = len / (it.cellWorld * (o.fill ?? 0.95));
+    // the quad's world size, so the drawn part (`fill` of the cell) spans `len`. The mesh scale is already in world units
+    // (spawn folds the cell's world size into it): dividing by cellWorld again drew an HD blade at ~44 % of its reach
+    const s = len / (o.fill ?? 0.95);
     it.base = s;
     it.mesh.scale.set(flip ? -s : s, s, s);
     return it;
+  }
+
+  // A teleport's own look where it vanishes or reappears (its `vanishFx` / `appearFx`): an effect name, or { fx, scale,
+  // bottom (anchored at the feet), y (up from the feet otherwise, default 0.9), reverse (its frames backward) }. `at`:
+  // the feet (fighter space)
+  teleportFx(spec, at) {
+    const S = typeof spec === 'string' ? { fx: spec } : spec;
+    const a = this.meta.anims[S?.fx];
+    if (!a) {
+      console.warn(`[vfx] no ${S?.fx} effect for a teleport`);
+      return null;
+    }
+    const seq = S.reverse ? Array.from({ length: a.n }, (_, i) => a.n - 1 - i) : null;
+    return this.spawn(S.fx, at.x, at.y + (S.bottom ? 0 : S.y ?? 0.9), at.z, { scale: S.scale ?? 1, bottom: !!S.bottom, seq, depthTest: false, order: 9 });
   }
 
   // A shadow clone appearing or vanishing (the anime's poof)
@@ -731,6 +794,30 @@ export class Effects {
     this.drop('gather' + f.index);
   }
 
+  // A power-up's outline on the body (kit.modeLook `shell`: { kind, width, lift, noise, speed, dash, opacity, color,
+  // core }, a charge style's shell shape; colors as hex or numbers). null hides the one this showed; the charge drives
+  // the same AuraShell while he powers up, so it is left to it then
+  modeShell(f, S, time) {
+    const a = f.actor;
+    if (!S) {
+      if (a.modeShellOn) { a.shell?.hide(); a.modeShellOn = false; }
+      return;
+    }
+    let st = shellLooks.get(S);
+    if (!st) shellLooks.set(S, (st = { ...S, color: new THREE.Color(S.color ?? 0xffffff), core: new THREE.Color(S.core ?? S.color ?? 0xffffff) }));
+    st.time = time;
+    a.auraShell().show(st);
+    a.modeShellOn = true;
+  }
+
+  // A power-up's effect kept at his feet (kit.modeLook `aura`: { fx, scale, opacity, front, glow }): one copy a step
+  // behind the body along the view, and with `front` a see-through copy in front at that opacity
+  modeAura(f, A) {
+    const p = f.renderPos || f.pos, bk = this.camFwd, k = f.actor.depthK ?? 1, s = (A.scale ?? 1) * k;
+    this.keep('modeAura' + f.index, A.fx, p.x + bk.x * 0.3, p.y, p.z + bk.z * 0.3, { bottom: true, scale: s, opacity: A.opacity ?? 1, order: 1, glow: A.glow ?? 0.2 });
+    if (A.front) this.keep('modeAuraF' + f.index, A.fx, p.x - bk.x * 0.3, p.y, p.z - bk.z * 0.3, { bottom: true, scale: s, opacity: A.front, order: 4, glow: A.glow ?? 0.2 });
+  }
+
   // A beam's `muzzle`: every `every` frames a shock ring leaves the root of the beam and runs down it
   muzzleTick(f, beam, M) {
     if (beam.t % (M.every ?? 10) !== 1) return;
@@ -753,6 +840,64 @@ export class Effects {
     this.spawn('bubble', p.x + (Math.random() - 0.5) * 0.6 * k, p.y + (0.1 + Math.random() * 1.3 * Math.max(0.2, level)) * k, p.z, {
       scale: 0.14 + Math.random() * 0.1, color: Math.random() < 0.5 ? sh.chakra : sh.rim, vel: [0, 1.4, 0], life: 0.4, fade: true, order: 6,
     });
+  }
+
+  // ------------------------------------------------------------ Killua's lightning (ENG-SKL-KIL)
+  // A column of tiles stacked from yBot up past yTop (Narukami's bolt from the sky): copies of a strip that tiles top to
+  // bottom. With an `id` they are held (refreshed every frame by the caller), without one they flash for `life`.
+  column(id, name, x, yBot, yTop, z, o = {}) {
+    const a = this.meta.anims[name], seg = this.sheet(a).cellWorld * (o.scale ?? 1) * 0.98;
+    const n = Math.min(8, Math.max(1, Math.ceil((yTop - yBot) / seg)));
+    for (let j = 0; j < 8; j++) {
+      if (j >= n) { if (id) this.drop(id + j); continue; }
+      const y = yBot + seg * (j + 0.5);
+      if (!id) { this.spawn(name, x, y, z, { order: 8, depthTest: false, glow: 0.4, ...o, life: o.life ?? 0.15 }); continue; }
+      const it = this.keep(id + j, name, x, y, z, { order: 8, depthTest: false, glow: 0.4, ...o });
+      if (it.t === 0) it.t = j * 0.07; // the tiles crackle out of step
+    }
+  }
+
+  // A hit's `cling` on the stunned body (Lightning Palm's paralysis): its loop over them, refreshed every frame
+  clingTick(f, C) {
+    const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1;
+    this.keep('cling' + f.index, C.fx, p.x, p.y, p.z, { bottom: true, scale: (C.scale ?? 1) * k, order: 7, glow: 0.3 });
+  }
+
+  // ------------------------------------------------------------ limbs (ENG-SKL-LUF)
+  // Where the drawn hand is now: the frame's `hand` anchor (or hit box) in the world, else `def` [forward, up]. A limb
+  // longer than its strip's cell leaves the cell at the edge with the anchor there, and these effects carry it on.
+  handAt(f, def = [0.5, 0.9]) {
+    const P = f.renderPos || f.pos, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1;
+    const fwd = H ? H.x : def[0], up = H ? H.y : def[1];
+    return { x: P.x + f.face.x * fwd * k, y: P.y + up * k, z: P.z + f.face.y * fwd * k };
+  }
+
+  // A stretched limb from `from` to `to` (Luffy's rubber arm, Killua's yo-yo string): a tube effect drawn pointing
+  // screen-right, its tube `tube` of the cell high and every column the same, stretched along the line as seen on screen
+  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. A null `id` lays it
+  // once instead, playing its strip through and gone (Killua's Godspeed streaks). `o.color` tints it.
+  limb(id, name, from, to, thick, tube, camRight, o = {}) {
+    const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2, mz = (from.z + to.z) / 2;
+    const so = { order: o.order ?? 7, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, mx, my, mz, so) : this.keep(id, name, mx, my, mz, so);
+    // the quad is 1 x 1 world units before scaling (spawn folds the cell's world size into the scale)
+    const flip = sx < 0, phi = Math.atan2(dy, sx), sy = thick / tube;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(Math.max(1e-3, Math.hypot(sx, dy)) * (flip ? -1 : 1), sy, sy);
+    return it;
+  }
+
+  // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, `scale` cells, turned along the limb
+  // (kept by `id`, or played once with a null `id`, like limb)
+  limbEnd(id, name, at, from, scale, camRight, o = {}) {
+    const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
+    const so = { order: o.order ?? 8, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, at.x, at.y, at.z, so) : this.keep(id, name, at.x, at.y, at.z, so);
+    const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(flip ? -s : s, s, s);
+    return it;
   }
 }
 

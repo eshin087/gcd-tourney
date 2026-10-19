@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/shockCrawl_v02.png",
+  "version": 2,
+  "source": [
+    "vfx/raw/shockCrawl_v02.png"
+  ],
+  "sourceHash": "7bcd841576da1cd7f1ceb0099261b4ed97457d5c",
+  "cell": 256,
+  "files": {
+    "shockCrawl_00.png": "a2064f82daeb43f3fab331c89952ee9d3e5bd992",
+    "shockCrawl_01.png": "263fa2a9a4c1cabfad5d440f89edecceab690c28",
+    "shockCrawl_02.png": "c183a8983ee9da76088042b6d5af0f1f0936b86a",
+    "shockCrawl_03.png": "d57a6b07666761781c5fc7a84a93be53760d424b",
+    "shockCrawl_04.png": "27f6ebdfed817b365d3bace97faf0757c09dffbb",
+    "shockCrawl_05.png": "6b8d238b6dddcb38459602aa89bd8a080e4b52ae"
+  }
+}

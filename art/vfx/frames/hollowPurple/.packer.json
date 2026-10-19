@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/hollowPurple_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/hollowPurple_v01.png",
+    "vfx/raw/hollowPurple_v01.json"
+  ],
+  "sourceHash": "64e574c41c71f5ea637d5ac43cdabc66f72d3e2d",
+  "cell": 256,
+  "files": {
+    "hollowPurple_00.png": "8d778b46a522dc7e9571149f1d9991ee6b92d7ff",
+    "hollowPurple_01.png": "27b96b00f5320380271f8761f54a8415777089d9",
+    "hollowPurple_02.png": "bd6a8288b31acc256bc0a7f06d79846bec1ec05b",
+    "hollowPurple_03.png": "64fd5e95fb6ccf19eab09626c82a36298dc35bd5",
+    "hollowPurple_04.png": "9825100c993547cce0a555a192f6fcfd8c4c996e",
+    "hollowPurple_05.png": "5d9b376d437cfa45405bd66ced83081dd9cc587f",
+    "hollowPurple_06.png": "73c1f4d6a9d8308b8894d086aca9612ec10eab49",
+    "hollowPurple_07.png": "c02e24dcaa638e9cc7c85e83c12ebafa10eee28e"
+  }
+}

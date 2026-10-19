@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/redBurst_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/redBurst_v01.png",
+    "vfx/raw/redBurst_v01.json"
+  ],
+  "sourceHash": "440b69afa07d35e14bac8adcd6f43de47d628c1e",
+  "cell": 256,
+  "files": {
+    "redBurst_00.png": "b8e2a0b6345116e4111ae0d124d812adb692025f",
+    "redBurst_01.png": "a9398799fc6a9a11faa398fb334cca61f74b7462",
+    "redBurst_02.png": "93b13fc42d4883b292d4b252254e4461376c75d8",
+    "redBurst_03.png": "8fcd725fe175dbcae0f914d58944f4f198a2e8a9",
+    "redBurst_04.png": "d51b062fccb2826fd5faa5527bc69463913c3753",
+    "redBurst_05.png": "1a70cb62676ad605a24530f3f957a3ff5e2366bd",
+    "redBurst_06.png": "bf8cda91c089e5aa8aa138d95278aeef1e5b4d8d",
+    "redBurst_07.png": "deff39f029cb424fd399323f11b83cd5e1beeb78"
+  }
+}

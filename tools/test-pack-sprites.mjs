@@ -403,15 +403,16 @@ function makeFixtures() {
     const npcStrip = (poses, seed) => {
       const r = mulberry(seed);
       const img = image(1536, 1024, [252, 3, 252], r);
-      poses.forEach((p, k) => drawFigure(img, 384 + k * 768, 900, p, r));
+      poses.forEach((p, k) => drawFigure(img, Math.round(((k + 0.5) * 1536) / poses.length), 900, p, r)); // one equal slot per pose
       fringe(img, r);
       return img;
     };
     const table = (rows) => `# test NPC\n\n| anim | what | frames | loop | ms per frame | height | engine trigger | fallback |\n|---|---|---|---|---|---|---|---|\n${rows}\n\nprose after the table | not a row |\n`;
     fs.mkdirSync(path.join(NP, 'tester'), { recursive: true });
-    fs.writeFileSync(path.join(NP, 'tester', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 520, 520 | 100 | default | - |\n| [`wave`](#wave) | arm up | 2 | no (f0 wind-up, f1 held) | 180, 900 | 110 | round start | `idle` |\n| [`broken`](#broken) | half-written row | 2 |'));
+    fs.writeFileSync(path.join(NP, 'tester', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 520, 520 | 100 | default | - |\n| [`wave`](#wave) | arm up | 2 | no (f0 wind-up, f1 held) | 180, 900 | 110 | round start | `idle` |\n| [`walk`](#walk) | a 4-frame cycle in place | 4 | yes | 150, 150, 150, 150 | 100 | moving | `idle` |\n| [`broken`](#broken) | half-written row | 2 |'));
     savePng(path.join(NP, 'tester', 'raw', 'idle_v01.png'), npcStrip([{}, { bob: -1 }], 71));
     savePng(path.join(NP, 'tester', 'raw', 'wave_v01.png'), npcStrip([{ up: 8 }, { up: 16 }], 72));
+    savePng(path.join(NP, 'tester', 'raw', 'walk_v01.png'), npcStrip([{}, { bob: -1 }, {}, { bob: -1 }], 76));
     savePng(path.join(NP, 'tester', 'raw', 'idle_v02.png'), npcStrip([{ up: 30 }, { up: 30 }], 75)); // newer, not approved
     fs.mkdirSync(path.join(NP, 'ghost'), { recursive: true });
     fs.writeFileSync(path.join(NP, 'ghost', 'ANIMATIONS.md'), table('| [`idle`](#idle) | standing | 2 | yes | 600, 600 | 90 | default | - |'));
@@ -448,7 +449,7 @@ function makeFixtures() {
       'crowd-testers-01-r1': { status: 'approved', items: { 'c-003': { approvedVersion: 2 } } },
     } },
     stage: { batches: { 'stage-grass': { items: { grass: { approvedVersion: 1 } } }, 'stage-treePine': { items: { treePine: { approvedVersion: 1 } } }, 'stage-sky': { items: { sky: { approvedVersion: 1 } } } } },
-    npc: { batches: { 'npc-tester': { items: { model_sheet: { approvedVersion: 1 }, idle: { approvedVersion: 1 }, wave: { approvedVersion: 1 } } }, 'npc-ghost': { items: { idle: { approvedVersion: null } } }, 'npc-redo': { items: { idle: { approvedVersion: null } } }, 'npc-redo-r1': { items: { idle: { approvedVersion: 2 } } } } },
+    npc: { batches: { 'npc-tester': { items: { model_sheet: { approvedVersion: 1 }, idle: { approvedVersion: 1 }, wave: { approvedVersion: 1 } } }, 'npc-tester-r1': { items: { walk: { approvedVersion: 1 } } }, 'npc-ghost': { items: { idle: { approvedVersion: null } } }, 'npc-redo': { items: { idle: { approvedVersion: null } } }, 'npc-redo-r1': { items: { idle: { approvedVersion: 2 } } } } },
     ui: { batches: { 'ui-title_art': { items: { title_art: { approvedVersion: 1 } } } } } },
     sharedUi: { logo: { approvedVersion: 1 }, titleArt: { approvedVersion: null } },
   }, null, 2));
@@ -1051,6 +1052,7 @@ function main() {
   packScaleTests(base);
   sheetPageTests(base);
   paletteReserveTests(base);
+  loopFromTests(base);
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1174,6 +1176,9 @@ function main() {
     const nb = [0, 1, 2, 3].map((i) => bb(cell(ns, i, 128, 8)));
     check(nb.every((b) => b && b.y1 === 124 && b.x0 >= 4 && b.x1 <= 123 && b.y0 >= 4), `run 15: NPC feet on y 124, inside the 4 px margin (${nb.map((b) => `${b?.x0}-${b?.x1}/${b?.y0}-${b?.y1}`)})`);
     check(Math.max(nb[0].h, nb[1].h) === 100 && Math.max(nb[2].h, nb[3].h) === 110, `run 15: each animation is scaled to its own target height (idle ${Math.max(nb[0].h, nb[1].h)}/100, wave ${Math.max(nb[2].h, nb[3].h)}/110)`);
+    const nw = nm.animations.walk, wb = (nw?.frames || []).map((i) => bb(cell(ns, i, 128, 8)));
+    check(nw?.frames.join() === '4,5,6,7' && nw.durations.join() === '150,150,150,150' && wb.length === 4 && wb.every((b) => b && b.y1 === 124 && b.x0 >= 4 && b.x1 <= 123),
+      `run 15: a 4-frame NPC strip (frames column 4) packs as 4 cells on the floor line (${nw?.frames}; ${wb.map((b) => b && `${b.x0}-${b.x1}/${b.y0}-${b.y1}`)})`);
     check(!fs.existsSync(path.join(out15, 'npc', 'ghost')) && j15.npc.unapproved === 1, 'run 15: an NPC without an approved idle is not packed');
     check(fs.existsSync(path.join(out15, 'npc', 'redo', 'anims.json')), 'run 15: an NPC approved only in its redo batch (npc-<id>-r1) is packed');
     check(anyWarn(j15.npc.warnings, /tester: the ANIMATIONS\.md row for broken has 3 columns/) && !nm.animations.broken, 'run 15: a short ANIMATIONS.md row is warned and skipped, not fatal');
@@ -2235,6 +2240,53 @@ function paletteReserveTests(base) {
   const bad = run(Q);
   check(sameSheet(bad, plain) && (bad.r.json?.warnings || []).some((w) => /paletteReserve\.fourTails must be/.test(w))
     && (bad.C?.warnings || []).some((w) => /nope is not an animation of foxy/.test(w)), 'paletteReserve: a malformed group and an unknown animation are reported and ignored');
+}
+
+// ---------------------------------------------------------------- loopFrom (ENG-117)
+// A loop whose first frames play once: `charge` is 6 frames, gather and release, then the hold loops from frame 2. The
+// packer writes loopFrom only for the frame count it was given for (a fighter's old 4-frame charge keeps looping all four)
+// and SpriteActor wraps to it.
+function loopFromTests(base) {
+  const lraw = (n) => path.join(ART, 'characters', 'loopy', 'raw', n);
+  savePng(lraw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), { seed: 1401, specks: 0 }));
+  savePng(lraw('charge_v01.png'), strip([{ bob: -2 }, { up: 4 }, {}, { bob: 1 }, { bob: 1 }, {}], { seed: 1402, specks: 0 }));
+  savePng(lraw('guard_v01.png'), strip([{}, { bob: 1 }, {}], { seed: 1403, specks: 0 }));
+  savePng(lraw('taunt_v01.png'), strip([{}, { punch: 4 }], { seed: 1404, specks: 0 }));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  // the defaults: the guide's 6-frame charge (no manifest default needed) and a 2-frame guard that loops from 1
+  man.animationDefaults.guard = { frames: 2, loop: true, loopFrom: 1 };
+  man.characters.loopy = { name: 'Loopy', scaleGate: 'warn', animations: {
+    idle: { frames: 8, loop: true, bodyHeight: 204 },
+    charge: { frames: 6, loop: true, bodyHeight: 198 }, // the contract's count: inherits loopFrom 2
+    guard: { frames: 3, loop: true }, // its own count: never the 2-frame default's loopFrom
+    taunt: { frames: 3, loop: true, loopFrom: 1 }, // drawn with 2 poses: the split is unknown, so the whole strip loops
+  } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const r = pack([...base, 'loopy']);
+  const C = r.json?.characters.find((c) => c.id === 'loopy');
+  const meta = JSON.parse(fs.readFileSync(path.join(OUT, 'characters', 'loopy', 'anims.json'), 'utf8'));
+  const A = meta.animations;
+  check(A.charge?.frames.length === 6 && A.charge.loopFrom === 2 && JSON.stringify(A.charge.durations) === '[70,90,110,110,110,110]',
+    `loopFrom: the 6-frame charge loops from frame 2 at 70/90/110 ms (${JSON.stringify(A.charge)})`);
+  check(A.guard?.frames.length === 3 && !('loopFrom' in A.guard), `loopFrom: a 3-frame guard does not take the 2-frame default's loopFrom (${JSON.stringify(A.guard)})`);
+  check(A.taunt?.frames.length === 2 && !('loopFrom' in A.taunt) && (C?.warnings || r.json?.warnings || []).some((w) => /taunt: loopFrom 1 is for 3 frames, the strip has 2/.test(w)),
+    `loopFrom: a strip drawn with another frame count loops whole, with a warning (${JSON.stringify(A.taunt)})`);
+  check(!('loopFrom' in A.idle), 'loopFrom: strips without one keep their anims.json entry unchanged');
+  delete man.animationDefaults.guard;
+  delete man.characters.loopy;
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+
+  // the engine: frames 0-1 once, then 2..5 again and again
+  const actor = Object.create(SpriteActor.prototype);
+  Object.assign(actor, { anim: { frames: [10, 11, 12, 13, 14, 15], durations: [70, 90, 110, 110, 110, 110], loop: true, loopFrom: 2 }, fi: 0, ft: 0, done: false });
+  actor.setFrame = function (f) { this.frame = f; };
+  const seen = [];
+  for (let t = 0; t < 1500; t += 10) { actor.update(10); if (seen[seen.length - 1] !== actor.frame) seen.push(actor.frame); }
+  check(seen.slice(0, 11).join(',') === '10,11,12,13,14,15,12,13,14,15,12', `loopFrom: SpriteActor plays 10,11 once, then loops 12-15 (${seen.join(',')})`);
+  actor.anim = { ...actor.anim, loopFrom: 6 };
+  actor.fi = 5; actor.ft = 0; actor.update(110);
+  check(actor.fi === 0, 'loopFrom: an out-of-range loopFrom loops the whole strip');
 }
 
 function finish() {

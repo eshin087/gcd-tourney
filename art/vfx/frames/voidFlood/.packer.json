@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/voidFlood_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/voidFlood_v01.png",
+    "vfx/raw/voidFlood_v01.json"
+  ],
+  "sourceHash": "90d8d6d9dc08d76c03bf716f9247035891700885",
+  "cell": 256,
+  "files": {
+    "voidFlood_00.png": "34ff8f1fc45095596a706ab405c585cb7c2ec69e",
+    "voidFlood_01.png": "58f3b04ae53a8084d41905d2ae6d8357a1c3627b",
+    "voidFlood_02.png": "23454e851f585988588430db4cd264446eee71e8",
+    "voidFlood_03.png": "1a2dc509f3c0a583b9e1605f84274e5f3add6c75",
+    "voidFlood_04.png": "9eccd60aebf26050a63ad0bbdb0dcd70bed98269",
+    "voidFlood_05.png": "a866bddd2c24be4fb42cb114eeb842a241502da9",
+    "voidFlood_06.png": "87817c37ff0ffc1e4ca6fe5cfe890289853a202b",
+    "voidFlood_07.png": "586ed11b8b20e1600d9e6e9c4cefa7c9079bd6f7"
+  }
+}
