@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/voidShatter_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/voidShatter_v01.png",
+    "vfx/raw/voidShatter_v01.json"
+  ],
+  "sourceHash": "fcd787102089b32bab6bec71d1b1812fd8e34679",
+  "cell": 256,
+  "files": {
+    "voidShatter_00.png": "846a2c5575b795cc46aff4ddf35426e1ef08ad6e",
+    "voidShatter_01.png": "ceedf161244283384ed901bf42e82f2c1ead63ec",
+    "voidShatter_02.png": "92b18dd4d2702302ca54fcec34177c5ed563e1c7",
+    "voidShatter_03.png": "54385fd351a602397dd45ca1b47d79fc57bbf23a",
+    "voidShatter_04.png": "6285964070105eeeb34199502841f3a14705c6fd",
+    "voidShatter_05.png": "6d7a0a4a329215eb2026bdf01b868ca4dac6e012",
+    "voidShatter_06.png": "08caf778a77eb2121c44a8694220d93a04fc761b",
+    "voidShatter_07.png": "f3f4db9323332b2d49e8f3cfa97a0e42176bb290"
+  }
+}

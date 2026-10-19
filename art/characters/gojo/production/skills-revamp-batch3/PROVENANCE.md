@@ -1,0 +1,15 @@
+# Gojo skills revamp · Batch 3 provenance
+
+Date: 2026-10-18. Branch: `art/gojo-skills`. Image generation was directed by three `gpt-6-luna`, medium subagents. The authoritative prompts are the A6, A11 and A12 blocks in `art/characters/gojo/SKILLS_REVAMP.md`; per-call ledgers preserve the selected generator path. Each image used its cumulative maximum of 3 calls. Selected generator outputs were copied byte-for-byte; no crop, resize, recolor or cleanup was applied. User drawing approval is pending.
+
+## Candidate inventory
+
+| Item | Candidate | Calls / selected | Selected generator path | Source audit | Disposition |
+|---|---|---|---|---|---|
+| A6 `infinityRipple` v01 | `art/vfx/raw/infinityRipple_v01.png` | 3 / call 3 | `E:\Vibe Coding\.codex\generated_images\01a151ed-5d66-7c00-b4a0-3b7995a04a3c\exec-dc7cb6f8-fae4-42a0-99f4-da76f960e5bd.png` | 2172x724 RGB; 47,089 unique colors; 1 exact #FF00FF pixel; SHA-256 `49c438eca74e3d8fd098b2b0f6d7349df18af654cd796a72989704da6f98446e`. | Unchanged source. Six ring states read visually. Packer confirms 6/6 at scale 0.484, removed 7 specks. Source dimensions, exact background, palette and strict pixel grid fail. Individual ledger: `art/vfx/raw/infinityRipple_v01.provenance.json`. |
+| A11 `voidFlood` v01 | `art/vfx/raw/voidFlood_v01.png` | 3 / call 3 | `E:\Vibe Coding\.codex\generated_images\01a151ed-75a0-75e2-be09-65ebe6a38c5f\exec-26257c54-75d8-4aa3-8d73-ed24c67ff425.png` | 2172x724 RGB; 45,583 unique colors; 2 exact #FF00FF pixels; dominant background #FC03FA; SHA-256 `954bc0457eb3f573a33670fd725b98a99e8cda7343d9e1e400e4b55dc27305a1`. | Unchanged source. Packer confirms 8/8 at scale 0.764. Motion is subtle and center ring appears oversized; color/background/layout requirements fail. Individual ledger: `art/vfx/raw/voidFlood_v01.provenance.json`. |
+| A12 `voidShatter` v01 | `art/vfx/raw/voidShatter_v01.png` | 3 / call 1 | `E:\Vibe Coding\.codex\generated_images\01a151ed-899e-7f20-b694-aaacf8e684ce\exec-cd69610d-ef3a-41a4-bad1-8bbaed70f25a.png` | 1774x887 RGB; 69,882 unique colors; 59 exact #FF00FF pixels; 1,572,810 pixels outside requested palette; SHA-256 `9af5cd74cdbe82fbc12ba7e7392ecd51ccb9fe299cb9671b96ce9b1c3e7473d1`. | Unchanged source. Call 2 was a no-op/meta prompt that still generated an image; call 3 was a stricter unselected retry. Packer confirms 8/8 at scale 1.191, removed 44 specks. Source canvas, exact background and palette fail. Individual ledger: `art/vfx/raw/voidShatter_v01.provenance.json`. |
+
+## Packing and review state
+
+The candidate VFX pack includes these rows in `public/preview/vfx/atlas_hd.png`: `infinityRipple` row 32 (6 frames), `voidFlood` row 33 (8 frames), `voidShatter` row 34 (8 frames). Candidate atlas total: 60 effects / 382 frames, HD page 2048x8960. The approved-only production atlas was also rebuilt after batch 2 approval; it contains 57 effects / 360 frames, HD page 2048x8192, and excludes the three unapproved batch 3 rows. The review gallery overlays A11 on a standing head/shoulders silhouette and shows A12 enlarged on black. All three images remain `needs review`; packed preview does not resolve their source-format holds.
