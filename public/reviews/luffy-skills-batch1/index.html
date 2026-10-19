@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luffy skills revamp · Batch 1</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.5 system-ui, sans-serif; background: #111318; color: #f4efe8; }
+    body { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    h1, h2 { line-height: 1.15; } h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+    h2 { margin-top: 3rem; border-bottom: 1px solid #454956; padding-bottom: .5rem; }
+    .notice { background: #332718; border: 1px solid #9d7133; padding: 1rem; border-radius: .75rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    figure { margin: 0; background: #20232b; padding: .75rem; border-radius: .75rem; }
+    img { display: block; max-width: 100%; max-height: 420px; object-fit: contain; margin: auto; background: #ff00ff; image-rendering: pixelated; }
+    figcaption { margin-top: .6rem; color: #d5d4d0; }
+    code { color: #ffcf78; } a { color: #95caff; }
+    .hold { color: #ffbf73; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>Luffy skills revamp</h1>
+  <p>Batch 1 · Gum-Gum Pistol · Relays <code>luffy-skills #1–4</code></p>
+  <div class="notice"><strong>The user approved these drawings as drawn via Claude relay #2.</strong> Relay #4 added pack sidecars and hand anchors without changing any approved PNG. The corrected special maps 8/8 frames; Astra manually passed its and throw's actual packed anatomy/scale. gumImpact maps 7/7; gumArm maps 2/2, with a 1px tile-edge warning that Claude reports is hidden by the stretch in game. Claude still owns runtime hand-reach/contact and integration.</div>
+
+  <h2>Character strips</h2>
+  <div class="grid">
+    <figure><img src="media/special_v04.png" alt="Luffy Pistol, eight panels"><figcaption><b>special v04 · visually approved as drawn.</b> Relay #4 erases three narrow floor-line connectors; the corrected quantized pack has eight frames. Astra manual anatomy/scale PASS; exact audit below.</figcaption></figure>
+    <figure><img src="media/special_v03.png" alt="Luffy Pistol earlier candidate"><figcaption><b>special v03</b> · call 2, superseded and filed under <code>_rejected</code> after v04 approval.</figcaption></figure>
+    <figure><img src="media/throw_v01.png" alt="Luffy air Pistol candidate"><figcaption><b>throw v01 · visually approved as drawn.</b> Astra manual anatomy/scale PASS on all four actual packed frames. The head probe includes vest/torso pixels; f0 has the pulled-back wind-up, and the engine continues the stretched arm from the recorded hand anchors. Two retries were not saved because they missed the brief.</figcaption></figure>
+  </div>
+
+  <h2>Effects</h2>
+  <div class="grid">
+    <figure><img src="media/gumFist_v01.png" alt="Four frames of Luffy's flying fist"><figcaption><b>gumFist v01 · visually approved as drawn.</b> The VFX candidate atlas packed this effect to four HD frames.</figcaption></figure>
+    <figure><img src="media/gumImpact_v01.png" alt="Candidate impact burst"><figcaption><b>gumImpact v01 · visually approved as drawn.</b> Relay #4's border cleanup/drop sidecar now imports 7/7 frames.</figcaption></figure>
+  </div>
+  <h3>Held gumArm attempts</h3>
+  <p>gumArm v03 was approved as drawn. Relay #4's even-split sidecar imports its two intended frames; v01-v02 remain under <code>_rejected</code>. The packer warns f0 ends 1px short of the right tile edge; Claude reports that edge is hidden by the stretched arm in game. Runtime integration remains Claude's check.</p>
+  <div class="grid">
+    <figure><img src="media/gumArm_v01.png" alt="Rejected gumArm attempt one"><figcaption>gumArm v01 · rejected as superseded; blank f0</figcaption></figure>
+    <figure><img src="media/gumArm_v02.png" alt="Rejected gumArm attempt two"><figcaption>gumArm v02 · rejected as superseded; blank f0</figcaption></figure>
+    <figure><img src="media/gumArm_v03.png" alt="Approved gumArm attempt three"><figcaption>gumArm v03 · visually approved; 2/2 frames imported; 1px tile-edge warning remains; three-call budget exhausted</figcaption></figure>
+  </div>
+
+  <h2>Archived pre-relay #4 pack</h2>
+  <p>These earlier diagnostic outputs preserve the pack state before relay #4. Their split findings are superseded by the corrected pack below.</p>
+  <figure><a href="media/quantized-luffy-sheet.png"><img src="media/quantized-luffy-sheet.png" alt="Actual 48-color packed Luffy sheet with Pistol and air Pistol frames"></a><figcaption>48-color packed Luffy atlas. Cells 100–106 contain special v04; cells 90–93 contain throw v01.</figcaption></figure>
+  <figure><a href="media/body-luffy-special-throw.png"><img src="media/body-luffy-special-throw.png" alt="Body comparison sheet showing packed throw and special frames beside idle frame zero"></a><figcaption>Body comparison from the packed frames. Throw head probe reads 1.72, 1.68, 1.68 and 1.01 against idle; special includes a nearly empty frame and enlarged late poses. Body-area measurements alone are advisory.</figcaption></figure>
+  <p>Approved Luffy references: <a href="../../characters/luffy/calibration-r6/sources/approved-neutral.png">neutral</a> · <a href="../../characters/luffy/calibration-r6/sources/approved-combat.png">combat</a>.</p>
+
+  <h2>Initial Astra audit (superseded)</h2>
+  <p>The first audit correctly held the pre-relay #4 atlas; the subsequent sidecars corrected the segmentation and a new audit passed the revised cells. It does not change the user's visual approvals.</p>
+  <ul>
+    <li><code>special</code>, cells 100–106: f2 contains only an arm fragment and lower leg/sandal; f5–f6 contain multiple partial bodies and cross-cell contamination; f3 has a cut rear leg. Detached fists, abruptly ending arms and insufficient active reach also occur. The packer maps 7/8 frames and phases [3,3,1] rather than the required eight and [3,3,2].</li>
+    <li><code>throw</code>, cells 90–93: bodies are mostly coherent and near reference scale, but the forward arm ends at x221/x220 in active cells 91/92, leaving 34/35 transparent columns before x255. Required edge continuation fails. The head-probe values 1.72/1.68/1.68/1.01 are suspect and are not evidence of enlarged anatomy.</li>
+    <li><code>gumImpact</code> retries 2 and 3 were not saved: neither output met the seven equal square cell strip contract. The three-call budget is exhausted. Existing gumImpact v01 still imports 9/7; gumArm v03 still has a blank first frame. gumFist v01 packs to four frames.</li>
+  </ul>
+  <p>These findings describe the superseded atlas only. See the updated technical evidence below.</p>
+
+  <h2>Corrected relay #4 quantized review</h2>
+  <p>The PNG sources are unchanged. The exact 48-color sheet maps special v04 to cells 100–107 and throw v01 to 90–93. Astra manually passed the anatomy/scale of all twelve actual cells against the approved idle and title-style references using the documented ART-SIZE-R7 ×0.92 fit. This does not certify hand reach/contact, timing or runtime integration.</p>
+  <figure><a href="media/quantized-luffy-sheet-relay4.png"><img src="media/quantized-luffy-sheet-relay4.png" alt="Corrected 48-color packed Luffy sheet with eight Pistol and four air Pistol cells"></a><figcaption>Corrected exact packed sheet. special v04 maps 8/8; throw v01 maps 4/4. SHA-256 <code>bf9558cdb575c47e45d74474b749115c7ddd9c7b6993b7d27c75f4e531aa5905</code>.</figcaption></figure>
+  <figure><a href="media/body-luffy-special-throw-relay4.png"><img src="media/body-luffy-special-throw-relay4.png" alt="Corrected packed Pistol frames beside idle for body comparison"></a><figcaption>Body comparison sheet; B values are advisory. Luffy's automatic head probe reads torso pixels for throw; consult the manual Astra audit.</figcaption></figure>
+  <figure><a href="media/vfx-atlas-hd-relay4.png"><img src="media/vfx-atlas-hd-relay4.png" alt="Corrected candidate HD VFX atlas"></a><figcaption>Corrected HD VFX pack: gumArm 2/2, gumFist 4/4 and gumImpact 7/7. gumArm's one-pixel edge warning is documented.</figcaption></figure>
+  <p><a href="../../../art/characters/luffy/production/skills-revamp-batch1/FINAL_RELAY4_ASTRA_AUDIT.md">Final Astra frame-by-frame audit</a>.</p>
+
+  <h2>Technical evidence</h2>
+  <ul>
+    <li>Before relay #4, special mapped 7/8 and both strips lacked final manual scale evidence; see the archived diagnostic sheet above.</li>
+    <li>After relay #4, <code>node tools/pack-sprites.mjs luffy --quantize 48 --keep-palette</code> wrote 24 animations/112 frames, with special v04 8/8 and throw v01 4/4; Astra manual anatomy/scale PASS is bound to this exact sheet.</li>
+    <li><code>npm run body -- luffy special throw</code> and <code>npm run scale -- luffy</code> completed. Head-probe values are advisory where the straw hat shares colors with vest/torso.</li>
+    <li><code>npm run sprites -- vfx</code> writes gumArm 2/2, gumFist 4/4 and gumImpact 7/7. The gumArm one-pixel tile-edge warning remains; Claude reports it is hidden by the arm stretch in game.</li>
+    <li>The Pistol and VFX outputs contain technical failures; no production integration is cleared.</li>
+  </ul>
+  <p>See the <a href="../../../art/characters/luffy/production/skills-revamp-batch1/candidate-inventory.md">candidate inventory and exact generation provenance</a> and <a href="../../../art/REVIEW.md">review queue</a>.</p>
+</body>
+</html>
