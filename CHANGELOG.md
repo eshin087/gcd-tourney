@@ -17,7 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Changed (ART-CHARGE): Sasuke charge v13 is on technical hold after packed-cell Astra audit (lower-body proportions and loop motion); v14 is a separate raw candidate pending packed-cell evaluation. No image approval or scale pass is claimed.
+- Changed (ART-CHARGE): Sasuke charge v13 and v14 are on technical hold after packed-cell Astra audits; v15 is a scripted composite candidate pending packed-cell review. No image approval or scaleManualQA pass is claimed.
 
 - Added approved ART-NPC-ANN-R2 art: ten announcer expression/fidget strips and a packed phone review. User approved all ten via Claude relay #9 as drawn, accepting Astra's documented blownAway v03 and sooty v03 technical holds. Approved NPC pack rebuilt; PR #206 awaits integration.
 - Added (ENG-119): the announcer is a living character. He talks only at the big moments (no filler; about a line every 5 s at most) and shows everything else with his poses and manga symbols over his head (sweat drops, !!, ?, anger, dizzy stars, music notes, steam, sparkles). Blasts, beams, shots and fighters flying into him knock him flat; he pops back up dizzy, and sooty after a blast. He facepalms at a super that misses, winces at brutal hits, cheers huge combos and comebacks, hums or fidgets in quiet moments, tires over a long round, and babbles soft voice blips while a line shows. Ten poses from ART-NPC-ANN-R2 are user-approved via Claude relay #9 and packed on the art branch; the live engine uses its existing fallback until art integration.
