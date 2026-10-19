@@ -3143,14 +3143,14 @@
           }
         },
         "npc-announcer-r1": {
-          "status": "todo",
-          "reviewStatus": "todo",
-          "note": "ENG-118 live announcer: walk 4, run 4, shocked 2, micThrust 2 (art/npc/announcer/ANIMATIONS.md)",
+          "status": "approved",
+          "reviewStatus": "approved",
+          "note": "ENG-118: user approved walk v02, run v03, shocked v03 and micThrust v03 via Claude on 2026-10-18; technical holds accepted, not cleared. Astra holds remain documented per item. Every generation budget is 3/3. Packer reports 32 colors; independent atlas unique opaque RGB count is 31. Historical atlases and all raw versions preserved. Review: public/reviews/announcer-moves/",
           "items": {
-            "walk": {"status":"todo","version":0,"approvedVersion":null},
-            "run": {"status":"todo","version":0,"approvedVersion":null},
-            "shocked": {"status":"todo","version":0,"approvedVersion":null},
-            "micThrust": {"status":"todo","version":0,"approvedVersion":null}
+            "walk": {"status":"approved","version":2,"approvedVersion":2,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra: same-leg phases; foot extent x88-89 exceeds x86. User accepted this technical hold as drawn. Generation budget 3/3."},
+            "run": {"status":"approved","version":3,"approvedVersion":3,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra: same-leg phases; hair shift ~13-16 px; f2 foot extent x31-96 exceeds x34-94. User accepted this technical hold as drawn. Generation budget 3/3."},
+            "shocked": {"status":"approved","version":3,"approvedVersion":3,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra: shoe contours differ by 13 mask pixels (extents x38-90 vs x39-90). User accepted this technical hold as drawn. Generation budget 3/3."},
+            "micThrust": {"status":"approved","version":3,"approvedVersion":3,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra: hands remain reversed and feet differ from approved idle. User accepted this technical hold as drawn. Generation budget 3/3."}
           }
         },
         "npc-monk-a": {
