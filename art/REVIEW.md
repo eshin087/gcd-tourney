@@ -1,4 +1,12 @@
 # Art review queue
+## Luffy charge v02 approval (2026-10-18)
+
+The user approved the 3x2 grid candidate as drawn via Claude relay charge #6, exact quote: “Approve v02 as drawn”. No new image calls and no pixel edits. The approved source was promoted byte-identically from `raw/_qa_hold/charge_v02.png`; SHA-256 `69e94d35c8e7832f5a08104e93a7fd61d1268ecdb1e491678396403522c2dd5`. Packed-atlas Astra audit: manual scale PASS; strict loop contract HOLD (feet differ, face center excursion about 7px, fist about 5px, hip/shoulder about 5-6px). This records image approval; Claude's in-game check and integration decision remain pending. See [Astra audit](characters/luffy/production/charge-v02/ASTRA_AUDIT.md), [registration](characters/luffy/production/charge-v02/registration_v02.png), [body sheet](scale/body-luffy-charge.png), [head scale sheet](scale/heads-luffy.png; the automatic probe is unreliable for Luffy), and [review page](../public/reviews/charge-luffy/).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | luffy | charge | [charge_v02.png](characters/luffy/raw/charge_v02.png) | v02 | approved | Six-frame Gear Second charge, approved as drawn; promoted unchanged from `_qa_hold` | User approval via Claude relay charge #6, exact quote: “Approve v02 as drawn”. No new generation call or pixel edits. Astra manual scale PASS on packed cells with rigid sandals; loop HOLD: feet not identical, face center about 7px excursion, fist about 5px and body about 5-6px. See [audit](characters/luffy/production/charge-v02/ASTRA_AUDIT.md). Claude's in-game check/integration decision pending. |
+
 ## Killua skills revamp batch 3 (2026-10-18): B2 throw and A10 yoyo
 
 The user approved both drawings via Claude relay killua-skills #4: “Approve both”. `throw` v07 now packs via auto-head x0.7831 without clipping; the quantized atlas is reflected in `frames/` and body evidence (B median .879, H median .871). Final Astra audit remains HOLD on arm-role continuity and the f1 middle-finger/string anchor; see [final audit](characters/killua/production/skills-revamp-batch3/ASTRA_THROW.md). `yoyo` v01 remains at about 88 px vs 52 px target, with incomplete first-call provenance. See [gallery](../public/reviews/killua-skills-batch3/index.html), [attempt inventories](characters/killua/production/skills-revamp-batch3/), and [pack evidence](characters/killua/production/skills-revamp-batch3/PACK_REPORT.md).

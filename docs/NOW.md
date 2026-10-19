@@ -8,13 +8,13 @@ paused._
 
 ## Your next actions
 
-**Living announcer (ENG-119, 2026-10-18): live** (PR [#203](https://github.com/eshin087/gcd-tourney/pull/203), merge `c76ed0a7`): he talks only at big moments and shows the rest with manga symbols; ultimates and flying fighters knock him over; he facepalms, winces, cheers, hums, tires and babbles. **Your action:** approve or reject his ten new poses (blownAway, popUp, cheer, facepalm, micTap, checkWatch, patHair, sooty, wince, mopBrow; ART-NPC-ANN-R2) when Codex "2 - World Announcer" sends the review link; until then he uses his existing poses.
+**Living announcer (ENG-119, 2026-10-18): live** (PR [#203](https://github.com/eshin087/gcd-tourney/pull/203), merge `c76ed0a7`): he talks only at big moments and shows the rest with manga symbols; ultimates and flying fighters knock him over; he facepalms, winces, cheers, hums, tires and babbles. **You approved** his ten new poses as drawn (blownAway v03, popUp, cheer, facepalm, micTap, checkWatch, patHair v01, sooty v03, wince, mopBrow v01; holds accepted; relay announcer #9). Codex records and packs them (PR #206), then Claude merges; nothing for you until then.
 
 **Live tournament announcer (ENG-118, ADR 0048, 2026-10-18; Claude "World Tournament Announcer animation", Codex "2 - World Announcer", lane `announcer`): live** (PR [#196](https://github.com/eshin087/gcd-tourney/pull/196), merge `a5f5e961`, production https://gcd-tourney.vercel.app/?fight=naruto,sasuke&mode=cpu). He calls the intro and rounds from the ring, keeps to the ring's back half behind the fight, counts over a KO and presents the winner; his lines are small captions above his head (you turned down the white balloons). His four new poses are live too: walk v02, run v03, shocked v03 and micThrust v03, approved as drawn with the technical holds accepted (PR [#180](https://github.com/eshin087/gcd-tourney/pull/180), merge `f6ed27f2`). Nothing for you.
 
-**Charge animation redraw (ART-CHARGE, ENG-117, 2026-10-18; Claude "Character charging animation", Codex "1 - Charging Animation", lane `charge`):** the engine part is live (PR [#182](https://github.com/eshin087/gcd-tourney/pull/182)): a gather once, then a slow held loop, and no sprite shake. **Goku's new charge is live** (v10, PR [#191](https://github.com/eshin087/gcd-tourney/pull/191), `1ee82611`): https://gcd-tourney.vercel.app/?fight=goku,naruto&mode=solo (hold Special). Codex is drawing Luffy next, then Naruto, Sasuke, Killua and Gojo; each comes to you in Claude for approval. The others keep their old charge until then.
+**Charge animation redraw (ART-CHARGE, ENG-117, 2026-10-18; Claude "Character charging animation", Codex "1 - Charging Animation", lane `charge`):** the engine part is live (PR [#182](https://github.com/eshin087/gcd-tourney/pull/182)): a gather once, then a slow held loop, and no sprite shake. **Goku's new charge is live** (v10, PR [#191](https://github.com/eshin087/gcd-tourney/pull/191), `1ee82611`): https://gcd-tourney.vercel.app/?fight=goku,naruto&mode=solo (hold Special). **Luffy's is live too** (v02, PR [#205](https://github.com/eshin087/gcd-tourney/pull/205), `adda292c`): https://gcd-tourney.vercel.app/?fight=luffy,naruto&mode=solo . Codex is drawing Naruto next, then Sasuke, Killua and Gojo; each comes to you in Claude for approval. The others keep their old charge until then.
 
-**Skills revamp for Killua, Gojo, Goku and Luffy (2026-10-18, running in parallel):** one Claude chat per fighter ("Killua skills revamp (ENG-SKL-KIL)", "Gojo skills revamp (ENG-SKL-GOJ)", "Goku skills revamp (ENG-SKL-GOK)", "Luffy skills revamp (ENG-SKL-LUF)"), each with its own Codex chat ("5 - Killlua", "5 - Gojo", "5 - Goku", "5 - Luffy"; relay lanes `killua-skills`, `gojo-skills`, `goku-skills`, `luffy-skills`). **Your action:** answer each fighter chat's design questions when they come up; later, approve that fighter's art in the same chat. Luffy Batch 1's [updated review preview](https://gcd-tourney-mgfvxez55-eshin087s-projects.vercel.app/reviews/luffy-skills-batch1/) is ready through PR #193. You approved special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn via Claude relay #2. The final Astra atlas audit holds special and throw for frame segmentation, missing poses and arm reach; gumArm v03 has a blank first frame and gumImpact v01 imports 9/7. No asset is cleared for integration. Claude's "5 - Skills Effects" owns repairs and later integration; any new user decision comes through Claude `0 - Approvals`.
+**Skills revamp for Killua, Gojo, Goku and Luffy (2026-10-18, running in parallel):** one Claude chat per fighter ("Killua skills revamp (ENG-SKL-KIL)", "Gojo skills revamp (ENG-SKL-GOJ)", "Goku skills revamp (ENG-SKL-GOK)", "Luffy skills revamp (ENG-SKL-LUF)"), each with its own Codex chat ("5 - Killlua", "5 - Gojo", "5 - Goku", "5 - Luffy"; relay lanes `killua-skills`, `gojo-skills`, `goku-skills`, `luffy-skills`). **Your action:** answer each fighter chat's design questions when they come up; later, approve that fighter's art in the same chat. Luffy Batch 1's [updated review preview](https://gcd-tourney-mgfvxez55-eshin087s-projects.vercel.app/reviews/luffy-skills-batch1/) is ready through PR #193. You approved special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn via Claude relay #2. The final Astra atlas audit holds special and throw for frame segmentation, missing poses and arm reach; gumArm v03 has a blank first frame and gumImpact v01 imports 9/7. No asset is cleared for integration. Claude's "5 - Skills Effects" owns repairs and later integration; the Goku batch 4 image decisions are pending for specialUp v01, throw v01, intro v01, kiBlast v01, kiMuzzle v01, kiBlastBurst v01 and superSaiyanBurst v01 ([review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/), PR [#199](https://github.com/eshin087/gcd-tourney/pull/199)). The user exempted specialDown v02 from the unmeasurable head scale check via Claude relay goku-skills #13; Astra's `scaleManualQA` v2 HOLD remains recorded, with visible anatomy passing and no concrete failure ([production audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/specialDown-v02-production-audit/REPORT.md)). The seven batch 4 image decisions remain pending through Claude `0 - Approvals`.
 
 **Sasuke skills revamp (ART-SKL-SAS, ENG-SKL-SAS): done and live** (PR #165, merge 03a5b994, deployed 2026-10-18): Chidori v15, Kirin strike v08 and the 13 effects you approved are in production at https://gcd-tourney.vercel.app . Nothing left for you here; PR #163 is merged; the Sasuke worktree and local branch are removed.
 
@@ -87,11 +87,12 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-19 05:09 UTC._
+_Generated by `npm run status` at 2026-10-19 05:26 UTC._
 
-### Needs you now (0)
+### Needs you now (2)
 _Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
-- nothing
+- **approval** from Codex lane goku-skills: Goku skills batch 4 candidates for image review: specialUp v01, throw v01, intro v01, kiBlast v01, kiMuzzle v01, kiBlastBurst v01, superSaiyanBurst v01. All seven are unapproved. Technical holds: Astra could not certify…
+- **approval** from Codex lane announcer: Updated ART-NPC-ANN-R2 review link after merging ENG-119 main commit c76ed0a7: https://gcd-tourney-p333ppvog-eshin087s-projects.vercel.app/reviews/announcer-alive/ . Versions: blownAway v01-v03 (current v03; Astra HOLD:…
 
 ### Still marked "needs review" in art/REVIEW.md (43)
 _Bookkeeping: the newest row of each asset. Anything the user must actually answer is in "Needs you now"._
@@ -138,12 +139,12 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
-- d8780104 10-18 22:09 docs(now): living announcer live (ENG-119, PR 203); ten new poses wait on Codex
-- c76ed0a7 10-18 22:08 Merge branch 'feature/announcer-alive'
-- 89152c1e 10-18 22:07 feat(world): a living announcer: fewer lines, manga symbols, knockdowns, fidgets (ENG-119)
-- 2ca1fc7e 10-18 21:56 docs(art): ten more announcer animations for a living MC (ENG-119, batch npc-announcer-r2)
-- a9f2a8ca 10-18 21:40 Merge branch 'fix/announcer-caption-steady'
-- 65f1d4e0 10-18 21:39 fix(world): steady announcer captions, locked above his head (ENG-118)
+- adda292c 10-18 22:24 Merge branch 'art/charge-luffy'
+- e7aee057 10-18 22:24 docs(now): add Goku batch 4 review and scale decision
+- 03221e85 10-18 22:23 test(det): re-record the determinism fixtures with Luffy's charge v02 pack (sim 8f2bc30bc77a)
+- 56a8f03c 10-18 22:17 Merge branch 'main' into art/charge-luffy
+- a08315a6 10-18 22:17 art(luffy): approve charge v02 and record packed audit
+- ba6e1f01 10-18 22:09 docs(now): refresh the generated status block
 <!-- status:end -->
 
 
