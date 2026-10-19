@@ -1652,7 +1652,12 @@
       "stormCloud": {"frames":4,"ms":120,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved stormCloud v01."},
       "kirinBody": {"frames":4,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":1.0,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinBody v01."},
       "kirinHead": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.95,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinHead v01."},
-      "kirinStrike": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinStrike v01."}
+      "kirinStrike": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinStrike v01."},
+      "lapseBlue": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null,"hd":true,"fill":0.9,"reviewStatus":"needs review"},
+      "blueCollapse": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null,"hd":true,"fill":0.98,"reviewStatus":"needs review"},
+      "redForm": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null,"hd":true,"fill":0.6,"reviewStatus":"needs review"},
+      "reversalRed": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null,"hd":true,"fill":0.9,"reviewStatus":"needs review"},
+      "redBurst": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"packed","version":1,"approvedVersion":null,"hd":true,"fill":0.98,"reviewStatus":"needs review"}
     }
   },
   "decals": {

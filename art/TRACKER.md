@@ -531,6 +531,11 @@ ones.
 | streamLance | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Chidori Spear stream band; exact tiles. |
 | streamFlame | 4 | 50 | full color | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Great Fireball stream band; exact tiles. |
 | redOrb | 6 | 40 | full color | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Reversal: Red held in a struggle. |
+| lapseBlue | 8 | 40 | full color | center | packed | v01 | — | Gojo skills batch 1, A1; HD, fill 0.9; 8/8 candidate frames packed; awaiting drawing review. |
+| blueCollapse | 8 | 40 | full color | center | packed | v01 | — | Gojo skills batch 1, A2; HD, fill 0.98; 8/8 candidate frames packed; awaiting drawing review. |
+| redForm | 6 | 40 | full color | center | packed | v01 | — | Gojo skills batch 1, A3; HD, fill 0.6; 6/6 candidate frames packed; awaiting drawing review. |
+| reversalRed | 8 | 40 | full color | center | packed | v01 | — | Gojo skills batch 1, A4; HD, fill 0.9; 8/8 candidate frames packed; awaiting drawing review. |
+| redBurst | 8 | 40 | full color | center | packed | v01 | — | Gojo skills batch 1, A5; HD, fill 0.98; 8/8 candidate frames packed; awaiting drawing review. |
 
 ## Shared UI (step 11)
 
