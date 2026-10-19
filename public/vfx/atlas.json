@@ -67,11 +67,11 @@
       "redForm": { "row": 25, "n": 6, "ms": 40 },
       "reversalRed": { "row": 26, "n": 8, "ms": 40 },
       "redBurst": { "row": 27, "n": 8, "ms": 40 },
-      "sixEyesGlint": { "row": 28, "n": 6, "ms": 35 },
-      "purpleForm": { "row": 29, "n": 8, "ms": 40 },
-      "hollowPurple": { "row": 30, "n": 8, "ms": 45 },
-      "purpleBurst": { "row": 31, "n": 8, "ms": 45 },
-      "infinityRipple": { "row": 32, "n": 6, "ms": 40 },
+      "infinityRipple": { "row": 28, "n": 6, "ms": 40 },
+      "sixEyesGlint": { "row": 29, "n": 6, "ms": 35 },
+      "purpleForm": { "row": 30, "n": 8, "ms": 40 },
+      "hollowPurple": { "row": 31, "n": 8, "ms": 45 },
+      "purpleBurst": { "row": 32, "n": 8, "ms": 45 },
       "voidFlood": { "row": 33, "n": 8, "ms": 40 },
       "voidShatter": { "row": 34, "n": 8, "ms": 50 }
     }
