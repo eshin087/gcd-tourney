@@ -357,7 +357,7 @@ function makeFixtures() {
       rect(lg, cx - (wdt / 2) * s4, floor - hgt * s4, wdt * s4, hgt * s4, [140, 90, 50], rand);
     });
     savePng(path.join(V, 'raw', 'subLog_v01.png'), lg);
-    // newHd: an HD effect only the manifest names ("hd": true), not the packer's table: two blue squares
+    // newHd: an HD effect only the manifest names ("hd": true, owner testy), not the packer's table: two blue squares
     const nh = image(2 * 80 * s4, 90 * s4, [255, 0, 255], rand);
     [16, 28].forEach((wdt, k) => rect(nh, (40 + k * 80 - wdt / 2) * s4, (45 - wdt / 2) * s4, wdt * s4, wdt * s4, [60, 130, 240], rand));
     savePng(path.join(V, 'raw', 'newHd_v01.png'), nh);
@@ -443,7 +443,7 @@ function makeFixtures() {
     // world art is approval-gated: every fixture effect is approved (spark at v02, its highest version)
     vfx: { cell: 128, ppu: 56, baseline: 120, effects: { spark: { frames: 5, ms: 30, colorRule: 'tinted', anchor: 'center', status: 'todo', version: 0, approvedVersion: 2 }, flame: { frames: 7, ms: 55, colorRule: 'tinted', anchor: 'bottom', status: 'todo', approvedVersion: 1 },
       orb: { approvedVersion: 1 }, glow: { approvedVersion: 1 }, streak: { approvedVersion: 1 }, star: { approvedVersion: 1 }, subLog: { approvedVersion: 1 },
-      newHd: { frames: 2, ms: 50, colorRule: 'fullColor', anchor: 'center', fill: 0.5, hd: true, approvedVersion: 1 } } },
+      newHd: { frames: 2, ms: 50, colorRule: 'fullColor', anchor: 'center', fill: 0.5, hd: true, owner: 'testy', approvedVersion: 1 } } },
     worldArt: { crowd: { batches: {
       'crowd-testers-01': { status: 'approved', items: { 'c-001': { approvedVersion: 1 }, 'c-002': { approvedVersion: null }, 'c-003': { approvedVersion: 1 }, 'c-004': { approvedVersion: 1 }, 'c-005': { approvedVersion: 1 }, 'c-006': { approvedVersion: 1 } } },
       'crowd-testers-01-r1': { status: 'approved', items: { 'c-003': { approvedVersion: 2 } } },
@@ -489,6 +489,8 @@ function main() {
   console.log('pack-sprites regression test');
   makeFixtures();
   const base = ['--root', ART, '--out', OUT, '--json'];
+  // the single HD page of a pack from before ADR 0053, left in the output folder: run 1 replaces it with the owner pages
+  savePng(path.join(OUT, 'vfx', 'atlas_hd.png'), image(256, 256, [255, 0, 255], mulberry(5)));
 
   // run 1 ------------------------------------------------------------
   const r1 = pack([...base, '--update-manifest']);
@@ -641,19 +643,28 @@ function main() {
     const sp = rep.vfx.packed.find((p) => p.effect === 'spark');
     check(sp?.source === 'raw/spark_v02.png' && sp.version === 2 && sp.notes.some((n) => /ignored raw\/spark\.png/.test(n)), `vfx: highest spark_vNN wins over v01, plain spark.png and _rejected/ (${sp?.source}, ${sp?.frames} frames)`);
     check(!anyWarn(rep.vfx.warnings, /spark/), 'vfx: versioned spark files accepted silently');
-    // HD effects (ADR 0044) go to their own 256 px page: the 128 px atlas above keeps its 6 rows
-    const hd = am.hd, hdImg = fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && loadPng(path.join(OUT, 'vfx', 'atlas_hd.png'));
-    check(hd?.image === 'atlas_hd.png' && hd.cell === 256 && hd.ppu === 112 && hd.rows === 2 && hd.anims.subLog?.n === 5 && hd.anims.subLog.ms === 70 && !am.anims.subLog,
-      `atlas.json hd block (${JSON.stringify(hd && { cell: hd.cell, ppu: hd.ppu, rows: hd.rows, subLog: hd.anims.subLog })})`);
-    // a manifest-only "hd": true keeps the effect on the HD page (the manifest normalizer once dropped the flag)
-    check(hd?.anims.newHd?.n === 2 && !am.anims.newHd, `manifest-only HD effect on the HD page (${JSON.stringify(hd?.anims.newHd)}, standard page: ${!!am.anims.newHd})`);
-    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 2 * 256, `atlas_hd.png ${hdImg?.w}x${hdImg?.h}`);
+    // HD effects (ADR 0044) go to 256 px pages, one per owner (ADR 0053): the 128 px atlas above keeps its 6 rows.
+    // subLog is the packer table's owner 'shared', newHd the manifest's owner 'testy'
+    const hd = am.hd, hdPng = (f) => fs.existsSync(path.join(OUT, 'vfx', f)) && loadPng(path.join(OUT, 'vfx', f));
+    const hdImg = hdPng('atlas_hd_shared.png'), hdTesty = hdPng('atlas_hd_testy.png');
+    check(hd?.cell === 256 && hd.ppu === 112 && JSON.stringify(hd.pages) === JSON.stringify([{ image: 'atlas_hd_shared.png', owner: 'shared', cols: 5, rows: 1 }, { image: 'atlas_hd_testy.png', owner: 'testy', cols: 2, rows: 1 }])
+      && JSON.stringify(hd.effects?.subLog) === JSON.stringify({ page: 0, row: 0, n: 5, ms: 70 }) && !am.anims.subLog,
+      `atlas.json hd block: owner pages, shared first (${JSON.stringify(hd && { cell: hd.cell, ppu: hd.ppu, pages: hd.pages, subLog: hd.effects?.subLog })})`);
+    // a build from before ADR 0053 reads hd.image + hd.anims: neither is written, so it keeps the HD effects procedural
+    check(hd && !('image' in hd) && !('anims' in hd), `no single-page hd.image / hd.anims for older builds (keys ${hd && Object.keys(hd)})`);
+    // a manifest-only "hd": true keeps the effect on an HD page (the manifest normalizer once dropped the flag)
+    check(hd?.effects?.newHd?.page === 1 && hd.effects.newHd.n === 2 && !am.anims.newHd, `manifest-only HD effect on its owner's page (${JSON.stringify(hd?.effects?.newHd)}, standard page: ${!!am.anims.newHd})`);
+    check(hdImg && hdImg.w === 5 * 256 && hdImg.h === 256 && hdTesty && hdTesty.w === 2 * 256 && hdTesty.h === 256, `HD pages atlas_hd_shared.png ${hdImg?.w}x${hdImg?.h}, atlas_hd_testy.png ${hdTesty?.w}x${hdTesty?.h}`);
+    check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && rep.vfx.removed.some((f) => /atlas_hd\.png$/.test(f)), `the pre-ADR 0053 atlas_hd.png is removed (removed ${rep.vfx.removed})`);
     if (hdImg) {
       const lb = [0, 1, 2, 3, 4].map((i) => bb(cell(hdImg, i, 256, 5)));
       const big = Math.max(...lb.map((b) => Math.max(b.w, b.h)));
       check(lb.every((b) => b.y1 === 240) && Math.abs(big - Math.round(256 * 0.85)) <= 2, `subLog: HD bottom anchor on y=240, largest frame ~85% of 256 (bottoms ${lb.map((b) => b.y1)}, largest ${big})`);
     }
-    check(rep.vfx.packed.find((p) => p.effect === 'subLog')?.hd === true, 'vfx report marks the HD effect');
+    const sl = rep.vfx.packed.find((p) => p.effect === 'subLog');
+    check(sl?.hd === true && sl.page === 'atlas_hd_shared.png', `vfx report marks the HD effect and its page (${JSON.stringify(sl && { hd: sl.hd, page: sl.page })})`);
+    check(rep.vfx.hdPages?.map((g) => `${g.image} ${g.size} ${g.effects}`).join() === 'atlas_hd_shared.png 1280x256 1,atlas_hd_testy.png 512x256 1', `vfx report lists the HD pages (${JSON.stringify(rep.vfx.hdPages)})`);
+    check(!anyWarn(rep.vfx.warnings, /owner/), 'owners shared and testy (a manifest character) pass silently');
   }
 
   // edgy: adversarial raw art
@@ -1053,6 +1064,7 @@ function main() {
   sheetPageTests(base);
   paletteReserveTests(base);
   loopFromTests(base);
+  hdPageTests();
 
   // run 5: missing art root, dry run
   const ghostOut = path.join(FIX, 'ghost-out');
@@ -1246,12 +1258,12 @@ function main() {
   delete man14.sharedUi;
   fs.writeFileSync(m14, JSON.stringify(man14));
   const r14dry = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', '--dry-run', 'vfx', 'crowd']);
-  check(r14dry.json?.vfx.removed.length === 3 && fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')), 'run 14: --dry-run only reports the stale atlases (atlas.png, atlas_hd.png, atlas.json)');
+  check(r14dry.json?.vfx.removed.length === 4 && fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')), `run 14: --dry-run only reports the stale atlases (atlas.png, atlas.json, both HD pages: ${r14dry.json?.vfx.removed})`);
   const shippedBefore = ['stage/grass.png', 'npc/tester/sheet.png', 'ui/logo.png'].every((f) => fs.existsSync(path.join(OUT, f)));
   const r14 = pack(['--root', ART, '--out', OUT, '--manifest', m14, '--json', 'vfx', 'crowd', 'stage', 'npc', 'ui']);
   const v14 = r14.json?.vfx;
   check(v14 && v14.packed.length === 0 && v14.unapproved.includes('flame') && v14.unapproved.includes('spark'), `run 14: unapproved effects are not packed (${v14?.unapproved})`);
-  check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas_hd.png')) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas.json')) && !fs.existsSync(path.join(OUT, 'crowd', 'atlas.png')),
+  check(!fs.existsSync(path.join(OUT, 'vfx', 'atlas.png')) && !fs.readdirSync(path.join(OUT, 'vfx')).some((f) => /^atlas_hd/.test(f)) && !fs.existsSync(path.join(OUT, 'vfx', 'atlas.json')) && !fs.existsSync(path.join(OUT, 'crowd', 'atlas.png')),
     'run 14: stale vfx and crowd atlases removed (the game falls back to procedural art)');
   check(shippedBefore && ['stage/grass.png', 'stage/manifest.json', 'npc/tester/sheet.png', 'npc/tester/anims.json', 'ui/logo.png', 'ui/manifest.json'].every((f) => !fs.existsSync(path.join(OUT, f))),
     'run 14: stage, NPC and UI outputs whose approval is gone are removed');
@@ -2055,6 +2067,33 @@ function packScaleTests(base) {
   const c = run();
   check(c.r.code === 0 && Math.abs(c.box('idle', 0).h - ha) <= 1 && /packScale is 3 - must be a number 0\.5-1\.5/.test(c.r.out + JSON.stringify(c.r.json ?? {})),
     `packScale: an out-of-range value is reported and ignored (idle ${c.box('idle', 0).h} px)`);
+}
+
+// ---------------------------------------------------------------- HD effect pages (ADR 0053)
+// An owner past the page's row limit spills onto atlas_hd_<owner>_2.png; a page a pack no longer writes is removed; an
+// owner that is not a fighter id, or not a manifest character, is warned.
+function hdPageTests() {
+  const out = path.join(FIX, 'out-hd'), vfx = path.join(out, 'vfx');
+  const man = JSON.parse(fs.readFileSync(path.join(ART, 'manifest.json'), 'utf8'));
+  const m = path.join(FIX, 'manifest-hd.json');
+  const run = (owner, extra = []) => {
+    man.vfx.effects.newHd.owner = owner;
+    fs.writeFileSync(m, JSON.stringify(man));
+    const r = pack(['--root', ART, '--out', out, '--manifest', m, '--json', '--no-writeback', ...extra, 'vfx']);
+    return { r, hd: r.json && JSON.parse(fs.readFileSync(path.join(vfx, 'atlas.json'), 'utf8')).hd };
+  };
+  savePng(path.join(vfx, 'atlas_hd_gone.png'), image(256, 256, [255, 0, 255], mulberry(6))); // an owner no effect has any more
+  const a = run('shared', ['--page-rows', '1']);
+  check(a.r.code === 0 && a.hd?.pages.map((p) => `${p.image}:${p.owner}:${p.rows}`).join() === 'atlas_hd_shared.png:shared:1,atlas_hd_shared_2.png:shared:1'
+    && a.hd.effects.subLog.page === 0 && a.hd.effects.newHd.page === 1 && a.hd.effects.newHd.row === 0,
+    `HD pages: an owner past --page-rows spills onto atlas_hd_<owner>_2.png (exit ${a.r.code}, ${JSON.stringify(a.hd?.pages)})`);
+  check(!fs.existsSync(path.join(vfx, 'atlas_hd_gone.png')) && a.r.json?.vfx.removed.some((f) => /atlas_hd_gone\.png$/.test(f)), 'HD pages: a page no effect is on any more is removed');
+  const b = run('Bad Id');
+  check(b.r.code === 0 && anyWarn(b.r.json.vfx.warnings, /newHd: owner "Bad Id" is not a fighter id/) && b.hd?.pages.length === 1 && b.hd.pages[0].rows === 2 && !fs.existsSync(path.join(vfx, 'atlas_hd_shared_2.png')),
+    `HD pages: a bad owner is warned and packed on the shared page, the spilled page goes (${JSON.stringify(b.hd?.pages)})`);
+  const c = run('ghosty');
+  check(c.r.code === 0 && anyWarn(c.r.json.vfx.warnings, /newHd: owner 'ghosty' is not a character in the manifest/) && fs.existsSync(path.join(vfx, 'atlas_hd_ghosty.png')),
+    `HD pages: an owner the manifest does not list is warned and still gets its page (${c.r.json?.vfx.warnings})`);
 }
 
 // ---------------------------------------------------------------- sheet pages (TOOL-060)

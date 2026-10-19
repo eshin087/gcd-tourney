@@ -1429,26 +1429,29 @@ export const VFX_ANIMS = {
   yoyo: { n: 8, ms: 30, levels: [0, 255] },
 };
 
-// Bake atlas: one row per effect, CELL px frames.
+// Bake atlas: CELL px frames, each effect's strip in a block `cols` cells wide starting at cell column `col`, several
+// blocks side by side in a 2048 px wide atlas, so it stays far under a phone's 4096 px texture limit however many
+// stand-ins there are (one strip per row was 4608 px tall at 72 effects; ADR 0053).
 export function bakeVfx() {
   const names = Object.keys(VFX_ANIMS);
   const cols = Math.max(...names.map((k) => VFX_ANIMS[k].n));
+  const across = Math.max(1, Math.floor(2048 / (cols * CELL)));
   const atlas = document.createElement('canvas');
-  atlas.width = cols * CELL;
-  atlas.height = names.length * CELL;
+  atlas.width = across * cols * CELL;
+  atlas.height = Math.ceil(names.length / across) * CELL;
   const actx = atlas.getContext('2d', { willReadFrequently: true });
-  const meta = { cell: CELL, cols, rows: names.length, anims: {} };
-  names.forEach((name, row) => {
-    const a = VFX_ANIMS[name];
+  const meta = { cell: CELL, cols: across * cols, rows: atlas.height / CELL, anims: {} };
+  names.forEach((name, k) => {
+    const a = VFX_ANIMS[name], row = Math.floor(k / across), col = (k % across) * cols;
     for (let i = 0; i < a.n; i++) {
       const [c, ctx] = cell();
       ctx.save();
       PAINTERS[name](i, a.n, ctx);
       ctx.restore();
       threshold(ctx, CELL, CELL, a.levels);
-      actx.drawImage(c, i * CELL, row * CELL);
+      actx.drawImage(c, (col + i) * CELL, row * CELL);
     }
-    meta.anims[name] = { row, n: a.n, ms: a.ms };
+    meta.anims[name] = { row, col, n: a.n, ms: a.ms };
   });
   return { canvas: atlas, meta };
 }

@@ -170,7 +170,8 @@ class BeamView {
     this.mat = St.fx
       ? new THREE.ShaderMaterial({
         uniforms: {
-          map: { value: game.fx.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: St.seg },
+          // the sheet its band is on (atlas.png, or the procedural sheet while the band has no packed art)
+          map: { value: game.fx.source(St.fx).S.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: St.seg },
           uScroll: { value: 0 }, uFade: { value: 1 }, uGlow: { value: St.glow ?? 0.3 },
           color: { value: St.full ? new THREE.Color(0xffffff) : new THREE.Color(b.core).lerp(new THREE.Color(b.mid), St.tint ?? 0.5) },
         },

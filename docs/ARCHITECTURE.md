@@ -383,7 +383,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 - Custom VFX art: `npm run sprites vfx` writes `public/vfx/atlas.png` + `atlas.json` (128 px cells, `ppu` 56,
   the same world size) from the **approved** effects only (`approvedVersion` in `art/manifest.json`), and removes
   a stale atlas when none are approved. The game loads it when present, and missing effects fall back to
-  procedural ones.
+  procedural ones (drawn from the baked procedural sheet, 2048 px wide).
+- HD signature effects (ADR 0044, 0053): 256 px cells on one page per owner, `atlas_hd_shared.png` and
+  `atlas_hd_<fighter id>.png` (at most 2048 x 4096 each), listed in atlas.json's `hd` block (`pages`, `effects`).
+  Boot reads only the JSON; `Effects.prepare(fighters, renderer)` at match start loads the shared pages and the two
+  fighters' pages, uploads them as they arrive and frees the others. `Effects.source(name)` says which sheet an effect is
+  drawn from now; until its page is in, an HD effect draws its procedural stand-in.
 
 ## Ground damage (ADR 0024)
 
