@@ -214,6 +214,22 @@ const VFX_EFFECTS = {
   kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true },
   kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
   kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
+  // Luffy's signature techniques (ENG-SKL-LUF): HD cells, art/characters/luffy/SKILLS_REVAMP.md. The arm tubes are
+  // stretched along a line to any length, so they ship as exact 256 x 256 frames in art/vfx/frames/<name>/ (tile)
+  gumArm: { frames: 2, ms: 60, tinted: false, fill: 1, tile: true, hd: true },
+  gumFist: { frames: 4, ms: 40, tinted: false, fill: 0.55, hd: true },
+  gumImpact: { frames: 7, ms: 35, tinted: false, fill: 0.85, hd: true },
+  bazookaBlast: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
+  rocketSnap: { frames: 6, ms: 45, tinted: false, fill: 0.9, anchor: 'bottom', hd: true },
+  whipSweep: { frames: 6, ms: 40, tinted: false, fill: 1, hd: true },
+  gear2Steam: { frames: 8, ms: 60, tinted: false, fill: 0.95, anchor: 'bottom', hd: true },
+  gear2Burst: { frames: 7, ms: 45, tinted: false, fill: 0.98, hd: true },
+  gatlingFists: { frames: 6, ms: 35, tinted: false, fill: 0.98, hd: true },
+  gear3Puff: { frames: 6, ms: 45, tinted: false, fill: 0.6, hd: true },
+  gigantArm: { frames: 2, ms: 60, tinted: false, fill: 1, tile: true, hd: true },
+  gigantFist: { frames: 4, ms: 40, tinted: false, fill: 0.98, hd: true },
+  gigantImpact: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true },
+  luffyChibi: { frames: 6, ms: 80, tinted: false, fill: 0.45, anchor: 'bottom', hd: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 

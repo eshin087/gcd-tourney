@@ -754,6 +754,92 @@ export class Effects {
       scale: 0.14 + Math.random() * 0.1, color: Math.random() < 0.5 ? sh.chakra : sh.rim, vel: [0, 1.4, 0], life: 0.4, fade: true, order: 6,
     });
   }
+
+  // ------------------------------------------------------------ rubber limbs (ENG-SKL-LUF)
+  // Where the drawn hand is now: the frame's `hand` anchor (or hit box) in the world, else `def` [forward, up]. Where a
+  // stretched limb leaves the sprite's cell, its strip puts the anchor on that edge and these effects carry it on.
+  handAt(f, def = [0.5, 0.9]) {
+    const P = f.renderPos || f.pos, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1;
+    const fwd = H ? H.x : def[0], up = H ? H.y : def[1];
+    return { x: P.x + f.face.x * fwd * k, y: P.y + up * k, z: P.z + f.face.y * fwd * k };
+  }
+
+  // A stretched limb from `from` to `to` (Luffy's rubber arm, the Gigant Pistol's giant arm): a tube effect drawn pointing
+  // screen-right, its tube `tube` of the cell high, stretched along the line as seen on screen and scaled across it to
+  // `thick` world units. Kept by `id`: its owner refreshes it every frame.
+  limb(id, name, from, to, thick, tube, camRight, o = {}) {
+    const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
+    const it = this.keep(id, name, (from.x + to.x) / 2, (from.y + to.y) / 2, (from.z + to.z) / 2, { order: o.order ?? 7, depthTest: false });
+    // the quad is 1 x 1 world units before scaling (spawn folds the cell's world size into the scale)
+    const flip = sx < 0, phi = Math.atan2(dy, sx), sy = thick / tube;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(Math.max(1e-3, Math.hypot(sx, dy)) * (flip ? -1 : 1), sy, sy);
+    return it;
+  }
+
+  // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, turned along the limb from `from`
+  limbEnd(id, name, at, from, scale, camRight, o = {}) {
+    const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
+    const it = this.keep(id, name, at.x, at.y, at.z, { order: o.order ?? 8, depthTest: false });
+    const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(flip ? -s : s, s, s);
+    return it;
+  }
+
+  // A rush's stretched limb (the Gum-Gum Whip's leg), laid once as its active frames start: from the drawn anchor (`at`
+  // [forward, up] without one) along his facing, its drawn length (`fill` of the cell width) `len` units on screen.
+  // `active` false clears it for the next use.
+  limbSweep(f, L, active, camRight) {
+    if (!active) { this.sweeps?.delete(f.index); return; }
+    if ((this.sweeps ??= new Set()).has(f.index)) return;
+    this.sweeps.add(f.index);
+    const from = this.handAt(f, L.at), sx = f.face.x * camRight.x + f.face.y * camRight.z, flip = sx < 0;
+    const s = L.len / (L.fill ?? 1), half = s / 2; // the quad is 1 x 1 before scaling: s world units across
+    const it = this.spawn(L.fx, from.x + f.face.x * half, from.y, from.z + f.face.y * half, { ms: L.ms, order: 8, depthTest: false, flipX: flip });
+    it.base = s;
+    it.mesh.scale.set(flip ? -s : s, s, s);
+  }
+
+  // The Gum-Gum Rocket's arms: from his drawn hands straight up to what they grabbed `height` units up, shortening as he
+  // climbs; gone when he lets go (`rising` false)
+  grabTick(f, G, rising, camRight) {
+    if (!rising) { this.drop('grabA' + f.index); this.drop('grabB' + f.index); return; }
+    const h = this.handAt(f, [0.1, 1.9]);
+    for (const [id, s] of [['grabA', -1], ['grabB', 1]]) {
+      const from = { x: h.x + camRight.x * s * G.spread, y: h.y, z: h.z + camRight.z * s * G.spread };
+      const to = { x: from.x + camRight.x * s * 0.2, y: Math.max(h.y + 0.25, G.height), z: from.z + camRight.z * s * 0.2 };
+      this.limb(id + f.index, G.arm, from, to, G.thick, G.tube, camRight, { order: 6 });
+    }
+  }
+
+  // Gear Second's steam pouring off him: one copy behind the body, a thin mirrored one in front
+  steamTick(f, S) {
+    if (f.hidden) return;
+    const p = f.renderPos || f.pos, k = f.actor?.depthK ?? 1, b = this.camFwd;
+    this.keep('steamB' + f.index, S.fx, p.x + b.x * 0.2, p.y, p.z + b.z * 0.2, { bottom: true, scale: S.scale * k, order: 1 });
+    if (S.front) this.keep('steamF' + f.index, S.fx, p.x - b.x * 0.15, p.y, p.z - b.z * 0.15, { bottom: true, scale: S.scale * k * 0.9, opacity: S.front, order: 4, flipX: true });
+  }
+
+  // The Gigant Pistol's giant arm (kit.js laneStrike `arm`): from the drawn shoulder (where the strip's arm leaves the
+  // cell) down his lane to the giant fist while it shoots out, snapping back over the first `back` recovery frames;
+  // after that the `after` effect stands where his body was (chibi Luffy; Fighter.sync veils the sprite)
+  laneArm(f, k, S, camRight) {
+    const A = S.arm, i = f.index, p = f.renderPos || f.pos;
+    const ext = k.phase === 'punch' ? S.reach * Math.min(1, k.t0 / S.extend)
+      : k.phase === 'recover' && k.t0 <= A.back ? S.reach * (1 - (k.t0 / A.back) ** 2) : null;
+    if (ext != null && k.dir) {
+      const h = this.handAt(f, A.from ?? [0.95, 0.95]);
+      const at = { x: p.x + k.dir.x * (0.6 + ext), y: p.y + (A.up ?? 1.0), z: p.z + k.dir.y * (0.6 + ext) };
+      this.limb('garm' + i, A.fx, h, at, A.thick, A.tube, camRight, { order: 7 });
+      this.limbEnd('gfist' + i, A.fist, at, h, A.fistScale, camRight, { order: 8 });
+    } else {
+      this.drop('garm' + i);
+      this.drop('gfist' + i);
+    }
+    if (S.after && k.phase === 'recover' && k.t0 >= (A.back ?? 0) + 1) this.keep('after' + i, S.after.fx, p.x, p.y, p.z, { bottom: true, scale: S.after.scale, order: 3, flipX: f.side < 0 });
+    else this.drop('after' + i);
+  }
 }
 
 // Fullscreen 2D overlay: anime speed lines, color flashes, impact frames.

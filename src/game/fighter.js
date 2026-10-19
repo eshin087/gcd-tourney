@@ -2205,6 +2205,12 @@ export class Fighter {
       u.engulfCore.value.set(sh ? sh.core : BURN_ENGULF.core);
       u.engulfRim.value.set(sh ? sh.rim : BURN_ENGULF.rim);
     }
+    // a palette swap on the body (ENG-SKL-LUF): a mode's or the running kit move's (Gear Second's pink skin), and the
+    // body hidden while a kit move's `after` effect stands in for it (chibi Luffy through the Gigant Pistol's recovery)
+    const km = this.state === 'kit' ? this.kitState?.m : null;
+    const rc = this.mode?.recolor ?? km?.recolor;
+    this.actor.setRecolor(rc ? this.def.recolor?.[rc] ?? null : null);
+    this.actor.veil(!!(km?.after && this.kitState.phase === 'recover' && this.kitState.t0 >= kit.afterFrom(this.kitState)));
     // the shadow clones a kit move keeps in its state (kit.js crew, clones.js)
     const crew = this.state === 'kit' ? this.kitState?.crew : null;
     if (crew || this.crewView) (this.crewView ??= new CloneCrew(this.asset, this.game.scene)).sync(crew ?? null, camera, camRight, cam?.spriteRefDepth, cam?.time ?? time);

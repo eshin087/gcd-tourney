@@ -273,8 +273,21 @@ export class ShotViews {
       if (p.dead) continue;
       seen.add(p.id);
       let v = this.shots.get(p.id);
+      if (v?.rubber) {
+        // the rubber arm out to the fist, every render (a rollback that brings the shot back cancels its snap-back)
+        v.t0 = null;
+        (v.last ??= new THREE.Vector3()).copy(p.pos);
+        this.rubberDraw(p.id, v, p.pos);
+        continue;
+      }
       if (!v || (v.sprite && v.sprite.life < 0)) {
         const P = p.P, L = P.lance;
+        if (P.rubber) {
+          // Luffy's Gum-Gum Pistol (ENG-SKL-LUF): no sprite of its own, the stretched arm and the fist (rubberDraw)
+          this.shots.set(p.id, { rubber: P.rubber, owner: p.owner, last: p.pos.clone(), t0: null });
+          this.rubberDraw(p.id, this.shots.get(p.id), p.pos);
+          continue;
+        }
         if (L) {
           // a blade growing out of the hand (the Chidori Spear, ENG-SKL-SAS): drawn once along the shot's line from
           // where it left the hand, and it plays out by itself after the shot is spent
@@ -298,6 +311,7 @@ export class ShotViews {
     }
     for (const [id, v] of this.shots) {
       if (seen.has(id)) continue;
+      if (v.rubber && this.rubberBack(id, v)) continue; // the fist still snapping back to his hand
       if (v.sprite) fx.kill(v.sprite);
       if (v.glow) fx.kill(v.glow);
       this.shots.delete(id);
@@ -315,6 +329,30 @@ export class ShotViews {
       v.dispose();
       this.beams.delete(id);
     }
+  }
+
+  // A rubber shot (ENG-SKL-LUF): the stretched arm from the drawn hand (where the strip's arm leaves the cell) to the fist
+  rubberDraw(id, v, at) {
+    const fx = this.game.fx, R = v.rubber, cr = this.game.cam.right, h = fx.handAt(v.owner);
+    fx.limb('rubArm' + id, R.arm, h, at, R.thick, R.tube, cr, { order: 7 });
+    fx.limbEnd('rubFist' + id, R.fist, at, h, R.fistScale, cr, { order: 8 });
+  }
+
+  // the shot ended (it hit, or ran out of stretch): the fist snaps back to his hand over `back` seconds of the render
+  // clock, faster as it goes. False once it is home and its effects are gone.
+  rubberBack(id, v) {
+    const fx = this.game.fx, now = performance.now();
+    v.t0 ??= now;
+    const a = (now - v.t0) / (v.rubber.back * 1000);
+    if (a >= 1) {
+      fx.drop('rubArm' + id);
+      fx.drop('rubFist' + id);
+      return false;
+    }
+    const h = fx.handAt(v.owner), e = a * a;
+    tmpA.set(v.last.x + (h.x - v.last.x) * e, v.last.y + (h.y - v.last.y) * e, v.last.z + (h.z - v.last.z) * e);
+    this.rubberDraw(id, v, tmpA);
+    return true;
   }
 
   // a match ends: every view goes (the effects themselves are cleared with fx.clearAll)

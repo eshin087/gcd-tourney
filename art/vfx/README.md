@@ -94,9 +94,24 @@ stand-in until its art is approved.
 | `kirinBody` | 4 | 40 | full color | center | the Kirin's bolt body, stacked from the clouds to the head; exact 256 x 256 frames that tile top to bottom |
 | `kirinHead` | 6 | 40 | full color | center | the Kirin's head diving straight down (loop) |
 | `kirinStrike` | 8 | 45 | full color | bottom | the Kirin hitting the floor |
+| `gumArm` | 2 | 60 | full color | center, tile | Luffy's stretched rubber arm, stretched between his drawn hand and the fist; exact 256 x 256 frames, every column the same |
+| `gumFist` | 4 | 40 | full color | center | the Gum-Gum Pistol's fist at the end of the arm (loop) |
+| `gumImpact` | 7 | 35 | full color | center | a rubber blow landing: the Pistol, the Whip, the Rocket's slam, each Jet Gatling blow |
+| `bazookaBlast` | 8 | 45 | full color | center | the Gum-Gum Bazooka's double palm (and the Jet Bazooka) |
+| `rocketSnap` | 6 | 45 | full color | bottom | the Gum-Gum Rocket's take-off |
+| `whipSweep` | 6 | 40 | full color | center | the Gum-Gum Whip: his stretched leg lashing along the floor |
+| `gear2Steam` | 8 | 60 | full color | bottom | Gear Second steam pouring off his body (loop; the body area left clear) |
+| `gear2Burst` | 7 | 45 | full color | center | Gear Second kicking in: steam bursting from his body |
+| `gatlingFists` | 6 | 35 | full color | center | Jet Gatling: the storm of pink fists between him and the target (loop) |
+| `gear3Puff` | 6 | 45 | full color | center | Gear Third's Bone Balloon: air rushing into the thumb and the arm |
+| `gigantArm` | 2 | 60 | full color | center, tile | the Gigant Pistol's giant arm down the lane; exact 256 x 256 frames, every column the same |
+| `gigantFist` | 4 | 40 | full color | center | the giant fist at the end of it (loop) |
+| `gigantImpact` | 8 | 50 | full color | center | the giant fist landing |
+| `luffyChibi` | 6 | 80 | full color | bottom | chibi Luffy standing in for his body after Gear Third (loop) |
 
-The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md) and
-[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md).
+The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md),
+[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md) and
+[art/characters/luffy/SKILLS_REVAMP.md](../characters/luffy/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)
 

@@ -300,6 +300,7 @@ const VERT = /* glsl */ `
 // skipped for every other sprite (ghosts, menus) and a frame without a hit costs what it did before.
 // engulf (0..1, ENG-SKL-NAR): a transformation's chakra swallowing the drawn body from the feet up (Naruto's
 // Four-Tails): a near-black core with boiling bands, a red rim on the drawn outline and a bright front line. 0 skips it.
+// swapN (ENG-SKL-LUF): how many palette pairs swapFrom -> swapTo recolor the drawn body (setRecolor); 0 skips it.
 const FRAG = /* glsl */ `
   uniform sampler2D map;
   uniform vec4 uvRect;
@@ -317,6 +318,9 @@ const FRAG = /* glsl */ `
   uniform vec3 engulfRim;
   uniform float engulfTime;
   uniform vec2 texSize;
+  uniform vec3 swapFrom[8];
+  uniform vec3 swapTo[8];
+  uniform int swapN;
   varying vec2 vUv;
   float ehash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
   float enoise(vec2 p) {
@@ -328,7 +332,18 @@ const FRAG = /* glsl */ `
     vec2 px = fwidth(vUv) * rimPx; // rim width in render pixels; derivatives are taken before the discard
     vec4 c = texture2D(map, vUv);
     if (c.a < 0.5) discard;
-    vec3 col = c.rgb * tint;
+    vec3 src = c.rgb;
+    // a palette swap (ENG-SKL-LUF, Luffy's Gear Second skin): the packed sheet's exact colours to new ones, matched in
+    // sRGB bytes (swapFrom holds them raw) within 2 levels: the GPU's sRGB decode is a little off three.js's
+    if (swapN > 0) {
+      vec3 s = mix(c.rgb * 12.92, 1.055 * pow(max(c.rgb, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055, step(0.0031308, c.rgb));
+      for (int i = 0; i < 8; i++) {
+        if (i >= swapN) break;
+        vec3 d = abs(s - swapFrom[i]);
+        if (max(d.r, max(d.g, d.b)) < 0.008) { src = swapTo[i]; break; }
+      }
+    }
+    vec3 col = src * tint;
     if (lift > 0.0) {
       // brighten in ~gamma space weighted by luma: fills go bright while dark line art stays dark
       vec3 g = sqrt(col);
@@ -386,6 +401,9 @@ export function spriteMaterial(texture, transparent = false) {
       engulfRim: { value: new THREE.Color(0xc8281e) },
       engulfTime: { value: 0 },
       texSize: { value: new THREE.Vector2(texture?.image?.width || 1, texture?.image?.height || 1) },
+      swapFrom: { value: Array.from({ length: 8 }, () => new THREE.Color()) },
+      swapTo: { value: Array.from({ length: 8 }, () => new THREE.Color()) },
+      swapN: { value: 0 },
     },
     vertexShader: VERT,
     fragmentShader: FRAG,
@@ -679,6 +697,27 @@ export class SpriteActor {
   setVisible(v) {
     this.root.visible = v;
     this.blob.visible = v;
+  }
+
+  // A palette swap on the drawn body (ENG-SKL-LUF): `pairs` of [sheet colour, new colour] (at most 8), or null. View
+  // only: the uniforms change when the swap does, never per frame.
+  setRecolor(pairs) {
+    if (this._recolor === pairs) return;
+    this._recolor = pairs;
+    const u = this.mat.uniforms, n = Math.min(8, pairs?.length ?? 0);
+    const bytes = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16) / 255);
+    for (let i = 0; i < n; i++) {
+      u.swapFrom.value[i].setRGB(...bytes(pairs[i][0])); // raw sRGB bytes: the shader matches in sRGB
+      u.swapTo.value[i].set(pairs[i][1]); // linear, like the colour it replaces
+    }
+    u.swapN.value = n;
+  }
+
+  // The drawn body hidden while an effect stands in for it (ENG-SKL-LUF, chibi Luffy after Gear Third). View only: the
+  // saved `visible` (saveState) is the root's, which this never touches.
+  veil(on) {
+    this.mesh.visible = !on;
+    this.caster.visible = !on;
   }
 
   // Frees every GPU resource the actor created (the asset's page textures are shared by the roster and stay).

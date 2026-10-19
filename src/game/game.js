@@ -38,6 +38,8 @@ const NOOP = new Proxy(function () {}, {
   construct: () => NOOP,
   set: () => true,
 });
+// the states a mode's afterimages trail (Gear Second's speed, ENG-SKL-LUF)
+const GHOSTING = new Set(['attack', 'dash', 'run', 'superDash', 'wavedash', 'throw']);
 // one victim's running combo, for the HUD's ticker and rating (Game.trackCombos, ADR 0026)
 const newCombo = () => ({ hits: 0, dmg: 0, kinds: new Set(), wall: 0, ground: 0, vanish: 0, start: 0 });
 
@@ -368,10 +370,16 @@ export class Game {
     if (full) this.hud.callout(f.index, 'MAX POWER!', f.def.color);
   }
 
+  // a move's name as called out: a mode may rename it (Gear Second's GUM-GUM JET PISTOL, ENG-SKL-LUF)
+  techName(f, m) {
+    return f.mode?.names?.[m.name] ?? m.name;
+  }
+
   onKitMove(f, m) {
     if (!m.name) return;
-    this.comboChip(f, m.name); // a kit special mid-combo (shot, teleport, pull, dive)
-    this.hud.callout(f.index, m.name, m.color || f.def.color);
+    const name = this.techName(f, m);
+    this.comboChip(f, name); // a kit special mid-combo (shot, teleport, pull, dive)
+    this.hud.callout(f.index, name, m.color || f.def.color);
     this.superFlashFor(f, 8, 0.3);
     this.cam.zoomPunch(0.25);
   }
@@ -922,6 +930,16 @@ export class Game {
         if (!f.shroud) this.fx.auraTick(f, 0.6, this.cam.right);
       }
       else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0); // a thin aura behind the body: the flames and streaks hid it
+      // Luffy's techniques (ENG-SKL-LUF): Gear Second's steam (the mode's, or the running super's) and the afterimages of
+      // a mode with `ghost`, the Rocket's arms, a rush's stretched limb (the Whip), the Gigant Pistol's giant arm
+      const km = f.state === 'kit' ? f.kitState : null;
+      const steam = f.mode?.steam ?? km?.m?.steam;
+      if (steam) this.fx.steamTick(f, steam);
+      if (f.mode?.ghost && !frozen && f.t % f.mode.ghost === 0 && GHOSTING.has(f.state)) f.actor.ghost(f.mode.color, 0.25, 0.4);
+      if (km?.m?.grab) this.fx.grabTick(f, km.m.grab, km.kind === 'dive' && km.phase === 'rise' && km.rose, this.cam.right);
+      if (km?.kind === 'laneStrike' && km.m.arm) this.fx.laneArm(f, km, km.m, this.cam.right);
+      const L = f.state === 'attack' ? f.move?.limb : null;
+      this.fx.limbSweep(f, L, !!L && f.t >= f.move.startup && f.t < f.move.startup + f.move.active, this.cam.right);
       const held = f.state === 'clash' ? this.clashHand(f) : null;
       if (f.state === 'attack' && f.move?.fx) {
         const m = f.move;
@@ -2079,8 +2097,9 @@ export class Game {
   }
 
   onSpecialStart(f, m) {
-    this.comboChip(f, m.name); // a rush special cancelled into mid-combo
-    this.hud.callout(f.index, m.name, m.color);
+    const name = this.techName(f, m);
+    this.comboChip(f, name); // a rush special cancelled into mid-combo
+    this.hud.callout(f.index, name, m.color);
     this.superFlashFor(f, 12, 0.45);
     this.cam.zoomPunch(0.4);
   }

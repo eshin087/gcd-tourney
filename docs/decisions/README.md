@@ -72,6 +72,7 @@ when a decision should be revisited.
 | [0045](0045-naruto-four-tails-beam.md) | Naruto's ultimate is the Four-Tails beam (Tailed Beast Ball): the shared beam with the transformation as `def.beam` data (`flashPose`, `shroud`, `gather`, `muzzle`); amends ADR 0017's one-beam rule (user decision) | Accepted |
 | [0046](0046-palette-reserve.md) | `paletteReserve` in the manifest gives strips drawn in other colours (a transformation) their own share of a fighter's 48 colours, taken from the shared entries the other strips need least; Naruto's Four-Tails fox reserves 8 | Accepted |
 | [0047](0047-sasuke-signature-techniques.md) | Sasuke's signature techniques as data on moves, shots and supers: a rush's `trench` and `hitPose`, a shot's `lance` / `orient` / `burstFx`, a dive's `shadow` (Lion's Barrage), a counter's `current`, a sky strike's `storm` (Kirin: clouds, stage dim, camera lift, the dragon), an ignite's `blastFx` / `hitFlash` / clinging `burn.fx` (Amaterasu) | Accepted |
+| [0051](0051-luffy-signature-techniques.md) | Luffy's signature techniques: rubber limbs carried on from where a strip's limb leaves the cell (a shot's `rubber`, a rush's `limb`, a dive's `grab`, a lane strike's `arm`), a palette swap on the body (`recolor`: Gear Second's pink skin), a mode's `steam` / `ghost` / `names` (JET), flurry and lane-strike options (the fist storm, the Jet Bazooka, the chibi after Gear Third) | Accepted |
 
 ## Template
 
