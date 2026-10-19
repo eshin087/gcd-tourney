@@ -1,0 +1,1446 @@
+{
+  "atlas": {
+    "sheet.png": "69c24a34301990b1e010d21c446ccad36110a928047cb34d3816d9fc7ab17e29",
+    "sheet2.png": "777c730db966cae1d232b169bf431115ae03c951b4908053e60d1da52f259506",
+    "anims.json": "65f1f4c601b4c8660e73cd1ea9c3e721d1963f844f17e6bed5154803571855a2"
+  },
+  "frames": {
+    "fTilt": {
+      "version": 2,
+      "result": "hold",
+      "summary": "HOLD: head-to-body balance and segment calibration unresolved; head probe .905-.931 is below target. This is not evidence that the entire body is uniformly small.",
+      "earlierVersions": "v01 and v02 both show forward punch/retraction. Neither has a final alternative quantized pack here; no earlier winner certified.",
+      "timing": {
+        "frames": [
+          245,
+          246,
+          247,
+          248,
+          249,
+          250,
+          251
+        ],
+        "durations": [
+          35,
+          30,
+          40,
+          50,
+          60,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          3
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 245,
+          "rgbaSHA256": "b0d24a9e53e529234382e412c99ff21708c3199e618a25b5e8d2285b503ac789",
+          "bounds": [
+            60,
+            56,
+            197,
+            241
+          ],
+          "finding": "Guard: head appears small relative to longer torso and leg silhouette; feet fully present.",
+          "result": "hold",
+          "headProbeRatio": 0.913,
+          "shoeColorProxyRatio": 0.973
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 246,
+          "rgbaSHA256": "7f94f4d2c58a4fafacf94a89f782a53199d5ba83b73222a8f52952a8a839dabe",
+          "bounds": [
+            57,
+            57,
+            200,
+            241
+          ],
+          "finding": "Wind-up: both arms readable; torso rotation; long front thigh retained.",
+          "result": "hold",
+          "headProbeRatio": 0.913,
+          "shoeColorProxyRatio": 0.927
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 247,
+          "rgbaSHA256": "4e67a27dc5cc875d34b8c920c4df3e0027aaa33bf8aea17d2247cc3470ce119e",
+          "bounds": [
+            54,
+            57,
+            219,
+            241
+          ],
+          "finding": "Active straight punch reaches front mid height; elbow/wrist chain readable.",
+          "result": "hold",
+          "headProbeRatio": 0.916,
+          "shoeColorProxyRatio": 0.932
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 248,
+          "rgbaSHA256": "6e4570331f5d53f132fedbc4f9bccd3229661090703bc857f14320d990d759a0",
+          "bounds": [
+            50,
+            57,
+            235,
+            241
+          ],
+          "finding": "Active extension retained; complete hand in this packed cell, despite source adjacency warning.",
+          "result": "hold",
+          "headProbeRatio": 0.905,
+          "shoeColorProxyRatio": 0.919
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 249,
+          "rgbaSHA256": "3381762c1ee52bc918ccc4fa603afefc5bc3ca2970f7a2306f8c467808e89470",
+          "bounds": [
+            52,
+            57,
+            205,
+            241
+          ],
+          "finding": "Recovery retracts punch; front knee and hem shift.",
+          "result": "hold",
+          "headProbeRatio": 0.931,
+          "shoeColorProxyRatio": 0.918
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 250,
+          "rgbaSHA256": "19f70acb7ea96bc875851ab8c61ced136155c5bca08acd92533ef551466de1b5",
+          "bounds": [
+            59,
+            57,
+            199,
+            241
+          ],
+          "finding": "Guard recovery, head/torso relationship remains different from idle.",
+          "result": "hold",
+          "headProbeRatio": 0.92,
+          "shoeColorProxyRatio": 0.945
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 251,
+          "rgbaSHA256": "ac09b7625b57c3b845cbc3ccb307f46c914af6c5dccd7fb1ce19e482d158fbf5",
+          "bounds": [
+            59,
+            56,
+            198,
+            241
+          ],
+          "finding": "Near start guard; no missing limb or cell-edge cut visible.",
+          "result": "hold",
+          "headProbeRatio": 0.921,
+          "shoeColorProxyRatio": 0.972
+        }
+      ]
+    },
+    "uTilt": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: head/build mismatch needs landmark calibration; .910 low reading occurs with sleeve overlap and cannot establish actual within-strip shrinkage.",
+      "earlierVersions": "v01 places maximum overhead extension later (f4 recovery), while v02/v03 move it into active f3. v01 is not an obvious phase improvement.",
+      "timing": {
+        "frames": [
+          252,
+          253,
+          254,
+          255,
+          256,
+          257,
+          258
+        ],
+        "durations": [
+          40,
+          35,
+          40,
+          60,
+          60,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          3
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 252,
+          "rgbaSHA256": "e0533abaa44427e9089dce3becf57c70bfd7ed94857395747f5a3f12b3fda5e8",
+          "bounds": [
+            63,
+            61,
+            196,
+            241
+          ],
+          "finding": "Guard: bulky hair/head and broader sleeve than idle.",
+          "result": "hold",
+          "headProbeRatio": 1.069,
+          "shoeColorProxyRatio": 0.866
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 253,
+          "rgbaSHA256": "95368b3e8da84cb42998930045cddd9e59b3d40f4a40f5de847da86f5f4d4da3",
+          "bounds": [
+            64,
+            61,
+            196,
+            241
+          ],
+          "finding": "Forearm raised in front of face; two arms legible.",
+          "result": "hold",
+          "headProbeRatio": 1.138,
+          "shoeColorProxyRatio": 0.843
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 254,
+          "rgbaSHA256": "8a4e049b8be84bdd50c72b3d591331c7853aff6148fa5ea3eaa6916c88f2fa0c",
+          "bounds": [
+            63,
+            61,
+            198,
+            241
+          ],
+          "finding": "Active fist in front of face; not absent, despite limb detector warning; elevation is transitional.",
+          "result": "hold",
+          "headProbeRatio": 1.093,
+          "shoeColorProxyRatio": 0.915
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 255,
+          "rgbaSHA256": "318ea88e89f8e8359c9dccd2b87d6b892f595a84468d69e3769d8db0e4cb0498",
+          "bounds": [
+            63,
+            23,
+            197,
+            241
+          ],
+          "finding": "Active full upward punch; raised sleeve occludes side of head, so low head probe is unreliable.",
+          "result": "hold",
+          "headProbeRatio": 0.91,
+          "shoeColorProxyRatio": 0.857
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 256,
+          "rgbaSHA256": "3737fed430696107edbb2f48b3cc371c0739233648dc0d9316de3bac2bcbed2e",
+          "bounds": [
+            66,
+            61,
+            194,
+            241
+          ],
+          "finding": "Recovery fist still raised; face and jacket visible; page boundary preserved correctly.",
+          "result": "hold",
+          "headProbeRatio": 1.105,
+          "shoeColorProxyRatio": 0.883
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 257,
+          "rgbaSHA256": "ff420c44c81caea7ba451c0d43a1428e5ef976b346079345155c78154201d28d",
+          "bounds": [
+            64,
+            61,
+            196,
+            241
+          ],
+          "finding": "Guard recovery: broad sleeve/head retained.",
+          "result": "hold",
+          "headProbeRatio": 1.103,
+          "shoeColorProxyRatio": 0.883
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 258,
+          "rgbaSHA256": "834dec6dd92fe5f0b3da2cabfcd379bb1e560767a1cbf777a60b81d58a394c87",
+          "bounds": [
+            64,
+            61,
+            195,
+            241
+          ],
+          "finding": "Guard endpoint near start; no gross seam, numeric segment pass unavailable.",
+          "result": "hold",
+          "headProbeRatio": 1.139,
+          "shoeColorProxyRatio": 0.866
+        }
+      ]
+    },
+    "dTilt": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: clipped f2 fist, f3 lacks the required second low active poke, enlarged head/build.",
+      "earlierVersions": "v01 shows extended low-arm poses in BOTH f2/f3 and may improve active coverage over v03. v02/v03 retract at f3. v01 needs separate equal-density packing/scale review; not a pass.",
+      "timing": {
+        "frames": [
+          259,
+          260,
+          261,
+          262,
+          263,
+          264
+        ],
+        "durations": [
+          35,
+          30,
+          50,
+          50,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          2
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 259,
+          "rgbaSHA256": "9342545c6d8afafa385a0d2951c31062bdb24908aee4985d7a6e1e36ef6b8c1e",
+          "bounds": [
+            39,
+            47,
+            215,
+            241
+          ],
+          "finding": "Guard: head and hair clearly larger than approved combat; wide jacket/leg volume.",
+          "result": "hold",
+          "headProbeRatio": 1.304,
+          "shoeColorProxyRatio": 1.041
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 260,
+          "rgbaSHA256": "b03347d3669b56c7ee91871398cb61939b237c9ffd94d012301dc82086df4238",
+          "bounds": [
+            37,
+            70,
+            252,
+            241
+          ],
+          "finding": "Low forward wind-up; arm length readable and fist intact.",
+          "result": "hold",
+          "headProbeRatio": 1.37,
+          "shoeColorProxyRatio": 1.08
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 261,
+          "rgbaSHA256": "ee210f130f33bdc5e11ecf7512e4cc992707684729aca3c0cd9c54f0557e3e01",
+          "bounds": [
+            32,
+            117,
+            256,
+            241
+          ],
+          "finding": "Active low punch: fist cut by right cell edge; not a complete contact drawing.",
+          "result": "hold",
+          "headProbeRatio": 1.419,
+          "shoeColorProxyRatio": 1.012
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 262,
+          "rgbaSHA256": "e4e430dffe9e6637ddbb2e799eea7cecca2d122300182e47fcb541e20c39a8d8",
+          "bounds": [
+            37,
+            80,
+            220,
+            241
+          ],
+          "finding": "Second active frame already retracts to guard; no low projecting strike at intended shin target.",
+          "result": "hold",
+          "headProbeRatio": 1.376,
+          "shoeColorProxyRatio": 1.087
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 263,
+          "rgbaSHA256": "619130d0ef95c0f7cf8e943cda6f76c2eb9286bfd7e60d34f2c700758a3fe110",
+          "bounds": [
+            41,
+            47,
+            215,
+            241
+          ],
+          "finding": "Recovery rises to broad guard; enlarged head retained.",
+          "result": "hold",
+          "headProbeRatio": 1.29,
+          "shoeColorProxyRatio": 1.078
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 264,
+          "rgbaSHA256": "41a2d533da9cbbc9583bc0f0ee4c4c74bd0e95467435e796b32b5610a3ba28ef",
+          "bounds": [
+            41,
+            45,
+            213,
+            241
+          ],
+          "finding": "Guard endpoint near start; enlarged proportions remain.",
+          "result": "hold",
+          "headProbeRatio": 1.31,
+          "shoeColorProxyRatio": 1.054
+        }
+      ]
+    },
+    "dashAttack": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: four cropped frames including both active frames; face/front contact lost; do not diagnose .595 as true size pop.",
+      "earlierVersions": "All three sources show running lean without a clearly extended front blow. v01/v02 are worth checking only for assembly, not accepted as strike fixes.",
+      "timing": {
+        "frames": [
+          265,
+          266,
+          267,
+          268,
+          269,
+          270,
+          271
+        ],
+        "durations": [
+          40,
+          40,
+          50,
+          60,
+          60,
+          60,
+          40
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          3
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 265,
+          "rgbaSHA256": "0393661b6ad1fd893713d64322be43999303244aa57afa5d765b39b0f6041f2a",
+          "bounds": [
+            103,
+            54,
+            251,
+            241
+          ],
+          "finding": "Forward run anticipation; head near right side but intact.",
+          "result": "hold",
+          "headProbeRatio": 1.267,
+          "shoeColorProxyRatio": 1.158
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 266,
+          "rgbaSHA256": "2436abea03c7d6b0e6f8611d11f9c46411f093e6eb7c32559922bc9ad9036d37",
+          "bounds": [
+            105,
+            61,
+            256,
+            241
+          ],
+          "finding": "Run lean clips right head/front silhouette; no reliable head-width comparison.",
+          "result": "hold",
+          "headProbeRatio": 1.211,
+          "shoeColorProxyRatio": 1.131
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 267,
+          "rgbaSHA256": "98dedebe98b2d55b841746a62a4c2aee5e413d9d0b8c92c63dc685a4e552a107",
+          "bounds": [
+            104,
+            71,
+            256,
+            241
+          ],
+          "finding": "Active: right head and front strike cut off; no readable complete striking limb.",
+          "result": "hold",
+          "headProbeRatio": 0.595,
+          "shoeColorProxyRatio": 1.096
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 268,
+          "rgbaSHA256": "135854ccb1d562f9d1e8a4f02179a370a293ff12fdc72548aad47c692555285c",
+          "bounds": [
+            100,
+            74,
+            256,
+            241
+          ],
+          "finding": "Active: severe right crop removes head/front body; head probe null correctly signals no measurement.",
+          "result": "hold",
+          "headProbeRatio": null,
+          "shoeColorProxyRatio": 1.045
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 269,
+          "rgbaSHA256": "a79b828705d36786e42175cbe1ca83836ab7543b7ca9f6daba0ef6c5cf94ddf3",
+          "bounds": [
+            103,
+            60,
+            256,
+            241
+          ],
+          "finding": "Recovery still clips right; front hand/body incomplete.",
+          "result": "hold",
+          "headProbeRatio": 1.155,
+          "shoeColorProxyRatio": 1.077
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 270,
+          "rgbaSHA256": "ba14c98d21e40667567d44bc17bc704ac8d2e064e5f161a134b401de5ab8fb81",
+          "bounds": [
+            55,
+            55,
+            205,
+            241
+          ],
+          "finding": "Recovery returns in bounds; head and broad jacket larger than idle.",
+          "result": "hold",
+          "headProbeRatio": 1.325,
+          "shoeColorProxyRatio": 1.152
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 271,
+          "rgbaSHA256": "808abfde58d9348df9eb7850ef2d394b5316d6304e54a726d91d551c6bea18de",
+          "bounds": [
+            51,
+            49,
+            203,
+            241
+          ],
+          "finding": "Guard endpoint translated far left from start; returning from clipped lunge does not validate motion.",
+          "result": "hold",
+          "headProbeRatio": 1.26,
+          "shoeColorProxyRatio": 1.139
+        }
+      ]
+    },
+    "fSmash": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: enlarged head/build; charge and forward strike readable but no full segment pass.",
+      "earlierVersions": "All three show charge, two forward strikes, recovery. No source-only basis to select an anatomy winner.",
+      "timing": {
+        "frames": [
+          272,
+          273,
+          274,
+          275,
+          276,
+          277,
+          278,
+          279,
+          280
+        ],
+        "durations": [
+          50,
+          60,
+          50,
+          40,
+          40,
+          70,
+          70,
+          60,
+          40
+        ],
+        "loop": false,
+        "phases": [
+          4,
+          2,
+          3
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 272,
+          "rgbaSHA256": "5df3e4ca77787e3b38e59a60b7ffced902539b6f0feab590ebc0c4f25a4849f4",
+          "bounds": [
+            64,
+            49,
+            193,
+            241
+          ],
+          "finding": "Guard: larger head and heavier jacket/arms than idle.",
+          "result": "hold",
+          "headProbeRatio": 1.193,
+          "shoeColorProxyRatio": 1.091
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 273,
+          "rgbaSHA256": "6f2aa5dc989ac0718379c3b35ad88bda9c410e4a235cb4e96cc25437f4c141c2",
+          "bounds": [
+            57,
+            72,
+            201,
+            241
+          ],
+          "finding": "Charge hold pose is a low twisted wind-up with rear fist; readable as a charge pose.",
+          "result": "hold",
+          "headProbeRatio": 1.207,
+          "shoeColorProxyRatio": 1.086
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 274,
+          "rgbaSHA256": "cf998990b52cfe09908da4a92aa2af3e51e60def12cdc408c315cdedb071eb89",
+          "bounds": [
+            59,
+            60,
+            197,
+            241
+          ],
+          "finding": "Torso rotates and near arm crosses face; no isolated elbow loss seen.",
+          "result": "hold",
+          "headProbeRatio": 1.212,
+          "shoeColorProxyRatio": 1.03
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 275,
+          "rgbaSHA256": "45f7c57f71929c918989dca4833e21809cf23fb7041eec08d70760e30d05c381",
+          "bounds": [
+            58,
+            54,
+            201,
+            241
+          ],
+          "finding": "Pre-strike wind-up continues; enlarged head retained.",
+          "result": "hold",
+          "headProbeRatio": 1.208,
+          "shoeColorProxyRatio": 0.963
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 276,
+          "rgbaSHA256": "a8ed8c168506a818c818fa07839da31bb824d4c0ed41283e7142458439be1676",
+          "bounds": [
+            53,
+            56,
+            242,
+            241
+          ],
+          "finding": "Active forward punch reaches mid; complete fist in packed cell.",
+          "result": "hold",
+          "headProbeRatio": 1.18,
+          "shoeColorProxyRatio": 1.107
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 277,
+          "rgbaSHA256": "fe06ec1912f651dfcf886640cbdac98843f681ea4b32882ff74e5b3120283381",
+          "bounds": [
+            53,
+            57,
+            228,
+            241
+          ],
+          "finding": "Active punch with changed forearm angle; intact hand despite source adjacency warning.",
+          "result": "hold",
+          "headProbeRatio": 1.19,
+          "shoeColorProxyRatio": 1.105
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 278,
+          "rgbaSHA256": "5e86ddbd2a9f2372b41bcf812d6d97181c88a9f8651e9c7b3b98f5d6815bdbde",
+          "bounds": [
+            57,
+            52,
+            201,
+            241
+          ],
+          "finding": "Recovery abruptly returns guard; full-body proportions still larger.",
+          "result": "hold",
+          "headProbeRatio": 1.168,
+          "shoeColorProxyRatio": 1.093
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 279,
+          "rgbaSHA256": "aab79c2b2bfa4ed5ced2f1ec64e5f8c29765fc9f9a1ea1b3d7a49fce267ff975",
+          "bounds": [
+            60,
+            50,
+            198,
+            241
+          ],
+          "finding": "Guard recovery near previous pose; legs and shoes intact.",
+          "result": "hold",
+          "headProbeRatio": 1.19,
+          "shoeColorProxyRatio": 1.097
+        },
+        {
+          "frame": 8,
+          "atlasIndex": 280,
+          "rgbaSHA256": "ae90e485fdb9ab60df5e68fb462a3c8b7e2d4cfea6936c74f19221a77652983e",
+          "bounds": [
+            60,
+            49,
+            198,
+            241
+          ],
+          "finding": "Guard endpoint close to start; enlarged head/build remain.",
+          "result": "hold",
+          "headProbeRatio": 1.207,
+          "shoeColorProxyRatio": 1.108
+        }
+      ]
+    },
+    "uSmash": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: reduced build/leg/shoe silhouette; overhead strike exists; .558 head probe is occlusion, not proven half-sized head.",
+      "earlierVersions": "v01/v02 delay full extension until f4/f5; v03 makes f3/f4 overhead. Earlier sources are not clearly better for active timing.",
+      "timing": {
+        "frames": [
+          281,
+          282,
+          283,
+          284,
+          285,
+          286,
+          287,
+          288
+        ],
+        "durations": [
+          50,
+          40,
+          30,
+          50,
+          70,
+          70,
+          60,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          3,
+          2,
+          3
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 281,
+          "rgbaSHA256": "2cf865d038fc4b509b9d6455b8b65f55dbbe3d4ce138b35d0119b00c9ee8f83a",
+          "bounds": [
+            78,
+            88,
+            180,
+            241
+          ],
+          "finding": "Guard is visibly narrower and shorter-limbed than idle at same density.",
+          "result": "hold",
+          "headProbeRatio": 0.918,
+          "shoeColorProxyRatio": 0.708
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 282,
+          "rgbaSHA256": "8bdb000908c27fefe488f074698772fdeb07eba305ef95879f7b6015361515ba",
+          "bounds": [
+            76,
+            107,
+            183,
+            241
+          ],
+          "finding": "Low crouch anticipation; reduced arm/leg volumes remain; do not use crouch height as scale.",
+          "result": "hold",
+          "headProbeRatio": 0.992,
+          "shoeColorProxyRatio": 0.697
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 283,
+          "rgbaSHA256": "c4f74e74eae8f91e64465205b2440f0923c64196c75963f303338c5740d5e4b5",
+          "bounds": [
+            77,
+            86,
+            187,
+            241
+          ],
+          "finding": "Forearm preparation above face; compact torso and thin supporting legs.",
+          "result": "hold",
+          "headProbeRatio": 0.966,
+          "shoeColorProxyRatio": 0.757
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 284,
+          "rgbaSHA256": "f133b3e953c57c7fa039e8eb2556a64419281475574aa3a34f6f6937f4fdcf46",
+          "bounds": [
+            91,
+            32,
+            186,
+            241
+          ],
+          "finding": "Active upward fist is clearly above head; detector warning is not proof of missing strike; airborne narrow leg silhouette.",
+          "result": "hold",
+          "headProbeRatio": 0.897,
+          "shoeColorProxyRatio": 0.724
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 285,
+          "rgbaSHA256": "032c930e55d06068128d43147d0b00887f3faf14fe7de7feffc7415029f099cd",
+          "bounds": [
+            93,
+            26,
+            173,
+            241
+          ],
+          "finding": "Active straight up with face partly occluded by upper arm; low head probe not reliable.",
+          "result": "hold",
+          "headProbeRatio": 0.828,
+          "shoeColorProxyRatio": 0.745
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 286,
+          "rgbaSHA256": "ed290eba23cec65de3121aeea8c601819f030ee61a3b94cb7e467cb9f5765c01",
+          "bounds": [
+            90,
+            23,
+            168,
+            241
+          ],
+          "finding": "Recovery still fully extended overhead; narrow torso and short shoes.",
+          "result": "hold",
+          "headProbeRatio": 0.828,
+          "shoeColorProxyRatio": 0.729
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 287,
+          "rgbaSHA256": "cd3ec60dc0dd15fdf0e571c92f66b73fe45d5c55a9ea048fb6f355c02089d60d",
+          "bounds": [
+            79,
+            63,
+            179,
+            241
+          ],
+          "finding": "Raised arm obscures head; .558 probe is not true half-size head; incomplete landmark visibility.",
+          "result": "hold",
+          "headProbeRatio": 0.558,
+          "shoeColorProxyRatio": 0.734
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 288,
+          "rgbaSHA256": "71af208313630b75617fa08dc4543b6f36195bf4ed1b240990a83579b64f3fbb",
+          "bounds": [
+            77,
+            88,
+            181,
+            241
+          ],
+          "finding": "Guard endpoint returns to reduced build; no crop visible.",
+          "result": "hold",
+          "headProbeRatio": 0.926,
+          "shoeColorProxyRatio": 0.724
+        }
+      ]
+    },
+    "dSmash": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: enlarged head/build and left clipping on active f3/f4; both-sided contact not intact.",
+      "earlierVersions": "All three show hand plant and low sweep/split. No source-only basis to resolve final-cell clipping or anatomy.",
+      "timing": {
+        "frames": [
+          289,
+          290,
+          291,
+          292,
+          293,
+          294,
+          295,
+          296
+        ],
+        "durations": [
+          50,
+          40,
+          30,
+          50,
+          70,
+          70,
+          60,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          3,
+          2,
+          3
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 289,
+          "rgbaSHA256": "0698ea254cbc56deeee5dcae1c68035031291afb89130aba2653c9d25e25af32",
+          "bounds": [
+            55,
+            45,
+            203,
+            241
+          ],
+          "finding": "Guard: enlarged head/face and thigh volume relative to idle.",
+          "result": "hold",
+          "headProbeRatio": 1.352,
+          "shoeColorProxyRatio": 1.211
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 290,
+          "rgbaSHA256": "f45756907425f07eeb093a18cdabaa4c441f63099f06cb55daa16651e072043c",
+          "bounds": [
+            57,
+            73,
+            199,
+            241
+          ],
+          "finding": "Crouched preparation; clothing bulk remains large.",
+          "result": "hold",
+          "headProbeRatio": 1.358,
+          "shoeColorProxyRatio": 1.21
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 291,
+          "rgbaSHA256": "b98f819ebc6bb1b153c52e98fd54f82ffb200e9d6b9113cef2d9b914e8c0b5b5",
+          "bounds": [
+            71,
+            99,
+            185,
+            241
+          ],
+          "finding": "Ground hand plant with compact knees; head large; visible hand coherent.",
+          "result": "hold",
+          "headProbeRatio": 1.429,
+          "shoeColorProxyRatio": 0.992
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 292,
+          "rgbaSHA256": "3667869ad3f0b8c066075ce32d80f2e3a75570e4598593d4ebb904cc69fa8ee8",
+          "bounds": [
+            0,
+            86,
+            212,
+            241
+          ],
+          "finding": "Active right low kick, with rear/left silhouette cut at cell boundary.",
+          "result": "hold",
+          "headProbeRatio": 1.463,
+          "shoeColorProxyRatio": 1.097
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 293,
+          "rgbaSHA256": "b26a823b1b16dcf760458b89f6b7f8763a422a4379f9b2be40ea6028dfa7057d",
+          "bounds": [
+            0,
+            112,
+            224,
+            241
+          ],
+          "finding": "Active split reaches both sides, but left foot clipped; cannot certify both contacts.",
+          "result": "hold",
+          "headProbeRatio": 1.444,
+          "shoeColorProxyRatio": 1.047
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 294,
+          "rgbaSHA256": "00c94e184d306da95b887a0986f885dd286049e57c6c62d36e6f80b41bacedfb",
+          "bounds": [
+            35,
+            88,
+            201,
+            241
+          ],
+          "finding": "Recovery rotates through back view; pouch/spiral retained, limbs strongly foreshortened.",
+          "result": "hold",
+          "headProbeRatio": 1.429,
+          "shoeColorProxyRatio": 1.105
+        },
+        {
+          "frame": 6,
+          "atlasIndex": 295,
+          "rgbaSHA256": "ae83cbed60227304abed7743fca9bf3cfcb886bbd9471746cb44ece8815d4fd4",
+          "bounds": [
+            70,
+            75,
+            198,
+            241
+          ],
+          "finding": "Rising recovery, near thigh large; far limbs partly occluded.",
+          "result": "hold",
+          "headProbeRatio": 1.437,
+          "shoeColorProxyRatio": 1.033
+        },
+        {
+          "frame": 7,
+          "atlasIndex": 296,
+          "rgbaSHA256": "82233d15d39f9ce61ab4622afba427099247f7009e459e91fc7eb907c100cb3d",
+          "bounds": [
+            51,
+            46,
+            204,
+            241
+          ],
+          "finding": "Guard endpoint near start; enlarged head/build retained.",
+          "result": "hold",
+          "headProbeRatio": 1.334,
+          "shoeColorProxyRatio": 1.165
+        }
+      ]
+    },
+    "fair": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: enlarged head relative to feet/body and very tight right margin; kick direction readable.",
+      "earlierVersions": "v02/v03 use visibly more compact front-kick staging than v01 at thumbnail scale. Native final packing is needed to compare reach and proportions.",
+      "timing": {
+        "frames": [
+          297,
+          298,
+          299,
+          300,
+          301,
+          302
+        ],
+        "durations": [
+          45,
+          40,
+          50,
+          60,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          2
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 297,
+          "rgbaSHA256": "5659c0927651bfb911168098c3ee3f419d298a9a148c23d649213725ff5523f5",
+          "bounds": [
+            92,
+            65,
+            210,
+            241
+          ],
+          "finding": "Airborne tuck: oversized head and thick torso; feet present.",
+          "result": "hold",
+          "headProbeRatio": 1.308,
+          "shoeColorProxyRatio": 1.049
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 298,
+          "rgbaSHA256": "8b23448cd50393efb03809b535af614e7d4331af2543a9fd01def629756a3fc1",
+          "bounds": [
+            77,
+            64,
+            193,
+            241
+          ],
+          "finding": "Knee chamber: raised thigh occludes torso; do not infer short thigh from projection.",
+          "result": "hold",
+          "headProbeRatio": 1.311,
+          "shoeColorProxyRatio": 0.923
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 299,
+          "rgbaSHA256": "baf17b11ddd215c6ca45e127e3b15c4cd835ef79a170f5e7ebb84c91cf2a5c9f",
+          "bounds": [
+            71,
+            68,
+            256,
+            241
+          ],
+          "finding": "Active front kick complete but only a few pixels from right edge; head remains large.",
+          "result": "hold",
+          "headProbeRatio": 1.302,
+          "shoeColorProxyRatio": 1.104
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 300,
+          "rgbaSHA256": "e6df93e3e52ec39367170e1a81ace4f4ce77f79711168fcfaad21bbed622a60b",
+          "bounds": [
+            73,
+            66,
+            250,
+            241
+          ],
+          "finding": "Active kick with complete right shoe near edge; limb chain readable; head large.",
+          "result": "hold",
+          "headProbeRatio": 1.318,
+          "shoeColorProxyRatio": 1.116
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 301,
+          "rgbaSHA256": "4b397c3e98c38dea19d20be5bffa9b575b704f6e7e953e3d14800885607ef756",
+          "bounds": [
+            84,
+            62,
+            201,
+            241
+          ],
+          "finding": "Recovery knee tuck; torso and head volume persist.",
+          "result": "hold",
+          "headProbeRatio": 1.322,
+          "shoeColorProxyRatio": 0.985
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 302,
+          "rgbaSHA256": "aebcaec695d7b2bc8c1a2836cfb6e5ec3b2a50184c9cdea89e549064f937dd18",
+          "bounds": [
+            91,
+            65,
+            208,
+            241
+          ],
+          "finding": "Air tuck endpoint near start; no gross sequence seam; final scale unproven.",
+          "result": "hold",
+          "headProbeRatio": 1.33,
+          "shoeColorProxyRatio": 1.095
+        }
+      ]
+    },
+    "bair": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: enlarged head relative to footwear; correct rear strike does not certify anatomy.",
+      "earlierVersions": "All three preserve right-facing head and leftward kick; no final-atlas evidence selects an older anatomy winner.",
+      "timing": {
+        "frames": [
+          303,
+          304,
+          305,
+          306,
+          307,
+          308
+        ],
+        "durations": [
+          50,
+          40,
+          50,
+          70,
+          60,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          2
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 303,
+          "rgbaSHA256": "66f1bdfd2a1d95c11a5affb7133b56172ed0493f88889195c701772cfcfec885",
+          "bounds": [
+            96,
+            49,
+            216,
+            241
+          ],
+          "finding": "Airborne guard: head visibly enlarged; feet much less enlarged.",
+          "result": "hold",
+          "headProbeRatio": 1.338,
+          "shoeColorProxyRatio": 0.99
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 304,
+          "rgbaSHA256": "f452d235ae06eafb165ef71dab0389fe917ddbcd1e042d24971d158b36c1ff68",
+          "bounds": [
+            50,
+            57,
+            180,
+            241
+          ],
+          "finding": "Back-kick chamber: pelvis turns while face remains right; near thigh broad.",
+          "result": "hold",
+          "headProbeRatio": 1.332,
+          "shoeColorProxyRatio": 0.998
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 305,
+          "rgbaSHA256": "82368f158114b767addedfdbd2f9ae2954983c755e9cc46e1288775acc6237a0",
+          "bounds": [
+            4,
+            58,
+            194,
+            241
+          ],
+          "finding": "Active kick left with complete boot; correct behind-body strike while head faces right.",
+          "result": "hold",
+          "headProbeRatio": 1.349,
+          "shoeColorProxyRatio": 0.895
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 306,
+          "rgbaSHA256": "2ce0f2fe99f1c5d43db430abe853a058985889f635163633687a5fbd41ee315d",
+          "bounds": [
+            13,
+            57,
+            189,
+            241
+          ],
+          "finding": "Active left kick maintained; head/boot proportion inconsistent with reference scale.",
+          "result": "hold",
+          "headProbeRatio": 1.356,
+          "shoeColorProxyRatio": 0.901
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 307,
+          "rgbaSHA256": "f6f82bcf7fa50fa528c88ab5ff508adbb556b9866fd99791ea2c0a7c4e0a3226",
+          "bounds": [
+            67,
+            49,
+            192,
+            241
+          ],
+          "finding": "Recovery heel folds behind; near leg partly occluded.",
+          "result": "hold",
+          "headProbeRatio": 1.328,
+          "shoeColorProxyRatio": 0.937
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 308,
+          "rgbaSHA256": "fd2f884771d850c1de5e5b5db7fa52a70ca8578f766bebbe1785a3ddfba5aff7",
+          "bounds": [
+            96,
+            49,
+            215,
+            241
+          ],
+          "finding": "Air guard endpoint near start; head enlargement persists.",
+          "result": "hold",
+          "headProbeRatio": 1.34,
+          "shoeColorProxyRatio": 0.989
+        }
+      ]
+    },
+    "uair": {
+      "version": 3,
+      "result": "hold",
+      "summary": "HOLD: produced an upward fist, which misses relay combat #55's explicit true mid-air up-kick brief. Small footwear/uncertain limb scale and occluded head measurements also remain.",
+      "earlierVersions": "All three sources show above-head punches rather than the relay #55 authorized mid-air up kick. None resolves the move-identity mismatch; no source-only basis for an older scale pass.",
+      "timing": {
+        "frames": [
+          309,
+          310,
+          311,
+          312,
+          313,
+          314
+        ],
+        "durations": [
+          45,
+          40,
+          50,
+          60,
+          50,
+          30
+        ],
+        "loop": false,
+        "phases": [
+          2,
+          2,
+          2
+        ]
+      },
+      "frames": [
+        {
+          "frame": 0,
+          "atlasIndex": 309,
+          "rgbaSHA256": "c0e5b17b0a10a9e7bdfda1eb1e3e6e2a06270547af678295c3ffce67ced5d8fc",
+          "bounds": [
+            95,
+            75,
+            190,
+            241
+          ],
+          "finding": "Air guard: tucked thighs, comparatively small feet; head slightly broad.",
+          "result": "hold",
+          "headProbeRatio": 1.113,
+          "shoeColorProxyRatio": 0.734
+        },
+        {
+          "frame": 1,
+          "atlasIndex": 310,
+          "rgbaSHA256": "737ce9e2d7f86e751b96c69c20d7123eb089471d9792443498191ae5b86e3e01",
+          "bounds": [
+            83,
+            77,
+            187,
+            241
+          ],
+          "finding": "Wind-up rear fist, torso twists; both arms visible.",
+          "result": "hold",
+          "headProbeRatio": 1.105,
+          "shoeColorProxyRatio": 0.882
+        },
+        {
+          "frame": 2,
+          "atlasIndex": 311,
+          "rgbaSHA256": "84d3219a4750c43014f4a081a45f1e7a1f71b02436c59f27930d9f00af392e9d",
+          "bounds": [
+            85,
+            46,
+            187,
+            241
+          ],
+          "finding": "Active fist is above head; this is a punch, not the authorized mid-air up kick. Raised sleeve occludes head causing unreliable probe reduction.",
+          "result": "hold",
+          "headProbeRatio": 0.939,
+          "shoeColorProxyRatio": 0.767
+        },
+        {
+          "frame": 3,
+          "atlasIndex": 312,
+          "rgbaSHA256": "f97b8683bd10276d376aef81ee31d17054035a323746f12e2a0ead2f821cb9f6",
+          "bounds": [
+            83,
+            23,
+            183,
+            241
+          ],
+          "finding": "Active straight-up fist at full extension; intact fist with top margin, head partially occluded. No upward kicking leg: misses authorized up-kick brief.",
+          "result": "hold",
+          "headProbeRatio": 0.955,
+          "shoeColorProxyRatio": 0.811
+        },
+        {
+          "frame": 4,
+          "atlasIndex": 313,
+          "rgbaSHA256": "1ec03603cc709382e86180089260cfac865682160514055b8d2645c7c326e4c2",
+          "bounds": [
+            90,
+            66,
+            187,
+            241
+          ],
+          "finding": "Recovery folds arm over hair; foot/leg anatomy partly occluded.",
+          "result": "hold",
+          "headProbeRatio": 1.107,
+          "shoeColorProxyRatio": 0.82
+        },
+        {
+          "frame": 5,
+          "atlasIndex": 314,
+          "rgbaSHA256": "4f8631201e4d62bb1846ede30d1e7d75e03ed18047d4e3cba283cd8be97cbaaf",
+          "bounds": [
+            95,
+            75,
+            190,
+            241
+          ],
+          "finding": "Air guard endpoint near start; small shoe scale and unmeasured limb chains remain.",
+          "result": "hold",
+          "headProbeRatio": 1.069,
+          "shoeColorProxyRatio": 0.765
+        }
+      ],
+      "authorizedBriefCorrection": "Coordinator supplied relay #55 scope correction: true mid-air up kicks. The working table accidentally rephrased uair as a fist; the authorized kick brief governs."
+    }
+  },
+  "sourceHashes": {
+    "art/characters/naruto/raw/_qa_hold/fTilt_v01.png": "adfd8d1531448c4ef59e957376d96df0e5ef74f3e0e51f86a2ff974b03b735fe",
+    "art/characters/naruto/raw/_qa_hold/fTilt_v02.png": "c1d5193515f7e7af8c03cc5e1e791dde9c05cf89c8db71f2001e518f283a46cc",
+    "art/characters/naruto/raw/_qa_hold/uTilt_v01.png": "5f96753c8d82ebd4c4c43b3e67a7d34ccaf222678b2b6b07d1a9c55a60df73ef",
+    "art/characters/naruto/raw/_qa_hold/uTilt_v02.png": "e61a0f9deb7b084d3f3089b4a0fbc34d6399858a84b7d3727bbeeb00621cbd7e",
+    "art/characters/naruto/raw/_qa_hold/uTilt_v03.png": "f4787c431cf7c009fedd08e34bd6bf667775088c6b34861da9f016f6b0b631ec",
+    "art/characters/naruto/raw/_qa_hold/dTilt_v01.png": "8b7afc51ae0c46b424974fd748df2ceaa5ccb6ddf8be790c1fe3d658ff292fd6",
+    "art/characters/naruto/raw/_qa_hold/dTilt_v02.png": "5cfc937ba75674f97e0fdda253bcd6aba5994f776150a6cbb8beb294ecb2d320",
+    "art/characters/naruto/raw/_qa_hold/dTilt_v03.png": "3c1bfc3c9e805aae56d208ba3eb1642a165c5a8241acd13ec72a3ce7ff144c10",
+    "art/characters/naruto/raw/_qa_hold/dashAttack_v01.png": "2b78bb4a97d1439ad6364e14d377d2c6b113830f5ff2c38ae7ac4533ddc53e0e",
+    "art/characters/naruto/raw/_qa_hold/dashAttack_v02.png": "d86f7a3c9ed043d75b9b639c87e59ac6bc2bd8767312a0e50628fbd22823d319",
+    "art/characters/naruto/raw/_qa_hold/dashAttack_v03.png": "4adeeb269f3449cb763bf97cea233b2d97ef29f959097596eb39f61bd3c54a94",
+    "art/characters/naruto/raw/_qa_hold/fSmash_v01.png": "980a27b85d00f3694d93a555f431b662c766fab34739c232f2939fa586d05b80",
+    "art/characters/naruto/raw/_qa_hold/fSmash_v02.png": "3010fc1e39c06a067fb5b7bedd88633f0268a903145c108dcfa0899ea35ca3e5",
+    "art/characters/naruto/raw/_qa_hold/fSmash_v03.png": "0570ae8f5f0a3b37ffaefd6ea5acf4d971cde5515ff69a94127cf364753fb09e",
+    "art/characters/naruto/raw/_qa_hold/uSmash_v01.png": "9a3c8857d4c15bf00d38dd982bee7bb8ba73cae96fcc9d0d67db038511dcbac4",
+    "art/characters/naruto/raw/_qa_hold/uSmash_v02.png": "32b4458b1c71a9952959bad9953894cee88d7a8e8fb942805a585abff570b418",
+    "art/characters/naruto/raw/_qa_hold/uSmash_v03.png": "50f47e01b13ae9df16887cd66a0ad1d96cba473dde0848c83f42559302dc231e",
+    "art/characters/naruto/raw/_qa_hold/dSmash_v01.png": "e53f32244d699bcb90dfd81f211437db3430e569784931c6096d2cbbba733d94",
+    "art/characters/naruto/raw/_qa_hold/dSmash_v02.png": "bb2ed76b8d48cf5ce60ddbea89ff8b7346d431069adabb38e909718d8e8d993f",
+    "art/characters/naruto/raw/_qa_hold/dSmash_v03.png": "620ebbaf8c919941d497eafba10012f7c6ba39d4261b254f7481591a3daae810",
+    "art/characters/naruto/raw/_qa_hold/fair_v01.png": "da5664f166fa16e9cda930aee53c385f8422b45fc4337faa54845787e4c32f5b",
+    "art/characters/naruto/raw/_qa_hold/fair_v02.png": "3f09086d0bacdcf71efd40079bd1fce2236f1796edf3fc31b0f338d121fe6702",
+    "art/characters/naruto/raw/_qa_hold/fair_v03.png": "d7751bb4f5a72672a0337e9337109478518b9cf5d64fa3dfc4db155f24775cea",
+    "art/characters/naruto/raw/_qa_hold/bair_v01.png": "8810bdb17d2ec56ce82dc7fe2625dc2fdc4ccc2388dcb2ce0a82e703d5425fb5",
+    "art/characters/naruto/raw/_qa_hold/bair_v02.png": "f84f90ff2858d73193946e63e8d5b6cfb5ecdb89904214b89485d025af31e861",
+    "art/characters/naruto/raw/_qa_hold/bair_v03.png": "a1d587feca34a431bcda27aed5ffd7da4104fad97b5a369f94e5fb6c7c149f40",
+    "art/characters/naruto/raw/_qa_hold/uair_v01.png": "695ad2248ac2fbb316ca33fd67c35873d767ea23019623d71f6e18f7ea269eec",
+    "art/characters/naruto/raw/_qa_hold/uair_v02.png": "87ecb0d21f88bc4fddceea445c5c4431b9a9443979bf75d2790877c5d0492351",
+    "art/characters/naruto/raw/_qa_hold/uair_v03.png": "47e191a7eb792c7c1722918d7f00b6ff7b33c29c298408f084a0f1e543b2b342"
+  },
+  "referenceAndWorkingManifestHashes": {
+    "art/manifest.json": "5934caca5a68ffe378ade9b9e30873cebf1ce6da971cb359bdca339b724ae5f6",
+    "art/scale/title-style-pilot/PRODUCTION_CONTRACT.md": "b992a602399151dc01d7cab563d8bbdde62bf8bcb3f04660c9d4928df38d7765",
+    "public/art-review/title-style-pilot/naruto-neutral_v01.png": "acfd7240f9ee7fbe71c1b6c50ea8a269ceedeb05de44b929850ca8de06a0610f",
+    "public/art-review/title-style-pilot/naruto-combat_v01.png": "cdc6ff9838bbae102301b738ef7596be3b2cc8ecb6f24c98d27c02a0bb479751",
+    "art/characters/naruto/production/normals-ENG112/GENERATION_LOG.md": "f47f642728550be2cb6a8974a7855a60efca5683019da6404eb67cc060b47ed9"
+  },
+  "temporaryManifestHash": null,
+  "temporaryManifestLimitation": "Removed before audit; cannot bind or reconstruct diagnostic approval plumbing/configuration exactly. Working manifest hash is NOT diagnostic manifest hash.",
+  "opaqueColorsAcrossPages": 48,
+  "candidateFrameCount": 70,
+  "animationCount": 64,
+  "totalFrameCount": 315,
+  "scaleManualQA": {},
+  "scope": "Static sequence and exact quantized candidate pixel audit; all ten candidates HOLD. Timed playback/runtime contacts pending."
+}

@@ -1,0 +1,799 @@
+{
+  "atlas": {
+    "sheet.png": "69c24a34301990b1e010d21c446ccad36110a928047cb34d3816d9fc7ab17e29",
+    "sheet2.png": "777c730db966cae1d232b169bf431115ae03c951b4908053e60d1da52f259506",
+    "anims.json": "65f1f4c601b4c8660e73cd1ea9c3e721d1963f844f17e6bed5154803571855a2"
+  },
+  "frames": {
+    "fTilt": [
+      {
+        "frame": 0,
+        "atlasIndex": 245,
+        "rgbaSHA256": "b0d24a9e53e529234382e412c99ff21708c3199e618a25b5e8d2285b503ac789",
+        "bounds": [
+          60,
+          56,
+          197,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 246,
+        "rgbaSHA256": "7f94f4d2c58a4fafacf94a89f782a53199d5ba83b73222a8f52952a8a839dabe",
+        "bounds": [
+          57,
+          57,
+          200,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 247,
+        "rgbaSHA256": "4e67a27dc5cc875d34b8c920c4df3e0027aaa33bf8aea17d2247cc3470ce119e",
+        "bounds": [
+          54,
+          57,
+          219,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 248,
+        "rgbaSHA256": "6e4570331f5d53f132fedbc4f9bccd3229661090703bc857f14320d990d759a0",
+        "bounds": [
+          50,
+          57,
+          235,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 249,
+        "rgbaSHA256": "3381762c1ee52bc918ccc4fa603afefc5bc3ca2970f7a2306f8c467808e89470",
+        "bounds": [
+          52,
+          57,
+          205,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 250,
+        "rgbaSHA256": "19f70acb7ea96bc875851ab8c61ced136155c5bca08acd92533ef551466de1b5",
+        "bounds": [
+          59,
+          57,
+          199,
+          241
+        ]
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 251,
+        "rgbaSHA256": "ac09b7625b57c3b845cbc3ccb307f46c914af6c5dccd7fb1ce19e482d158fbf5",
+        "bounds": [
+          59,
+          56,
+          198,
+          241
+        ]
+      }
+    ],
+    "uTilt": [
+      {
+        "frame": 0,
+        "atlasIndex": 252,
+        "rgbaSHA256": "e0533abaa44427e9089dce3becf57c70bfd7ed94857395747f5a3f12b3fda5e8",
+        "bounds": [
+          63,
+          61,
+          196,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 253,
+        "rgbaSHA256": "95368b3e8da84cb42998930045cddd9e59b3d40f4a40f5de847da86f5f4d4da3",
+        "bounds": [
+          64,
+          61,
+          196,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 254,
+        "rgbaSHA256": "8a4e049b8be84bdd50c72b3d591331c7853aff6148fa5ea3eaa6916c88f2fa0c",
+        "bounds": [
+          63,
+          61,
+          198,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 255,
+        "rgbaSHA256": "318ea88e89f8e8359c9dccd2b87d6b892f595a84468d69e3769d8db0e4cb0498",
+        "bounds": [
+          63,
+          23,
+          197,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 256,
+        "rgbaSHA256": "3737fed430696107edbb2f48b3cc371c0739233648dc0d9316de3bac2bcbed2e",
+        "bounds": [
+          66,
+          61,
+          194,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 257,
+        "rgbaSHA256": "ff420c44c81caea7ba451c0d43a1428e5ef976b346079345155c78154201d28d",
+        "bounds": [
+          64,
+          61,
+          196,
+          241
+        ]
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 258,
+        "rgbaSHA256": "834dec6dd92fe5f0b3da2cabfcd379bb1e560767a1cbf777a60b81d58a394c87",
+        "bounds": [
+          64,
+          61,
+          195,
+          241
+        ]
+      }
+    ],
+    "dTilt": [
+      {
+        "frame": 0,
+        "atlasIndex": 259,
+        "rgbaSHA256": "9342545c6d8afafa385a0d2951c31062bdb24908aee4985d7a6e1e36ef6b8c1e",
+        "bounds": [
+          39,
+          47,
+          215,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 260,
+        "rgbaSHA256": "b03347d3669b56c7ee91871398cb61939b237c9ffd94d012301dc82086df4238",
+        "bounds": [
+          37,
+          70,
+          252,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 261,
+        "rgbaSHA256": "ee210f130f33bdc5e11ecf7512e4cc992707684729aca3c0cd9c54f0557e3e01",
+        "bounds": [
+          32,
+          117,
+          256,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 262,
+        "rgbaSHA256": "e4e430dffe9e6637ddbb2e799eea7cecca2d122300182e47fcb541e20c39a8d8",
+        "bounds": [
+          37,
+          80,
+          220,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 263,
+        "rgbaSHA256": "619130d0ef95c0f7cf8e943cda6f76c2eb9286bfd7e60d34f2c700758a3fe110",
+        "bounds": [
+          41,
+          47,
+          215,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 264,
+        "rgbaSHA256": "41a2d533da9cbbc9583bc0f0ee4c4c74bd0e95467435e796b32b5610a3ba28ef",
+        "bounds": [
+          41,
+          45,
+          213,
+          241
+        ]
+      }
+    ],
+    "dashAttack": [
+      {
+        "frame": 0,
+        "atlasIndex": 265,
+        "rgbaSHA256": "0393661b6ad1fd893713d64322be43999303244aa57afa5d765b39b0f6041f2a",
+        "bounds": [
+          103,
+          54,
+          251,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 266,
+        "rgbaSHA256": "2436abea03c7d6b0e6f8611d11f9c46411f093e6eb7c32559922bc9ad9036d37",
+        "bounds": [
+          105,
+          61,
+          256,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 267,
+        "rgbaSHA256": "98dedebe98b2d55b841746a62a4c2aee5e413d9d0b8c92c63dc685a4e552a107",
+        "bounds": [
+          104,
+          71,
+          256,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 268,
+        "rgbaSHA256": "135854ccb1d562f9d1e8a4f02179a370a293ff12fdc72548aad47c692555285c",
+        "bounds": [
+          100,
+          74,
+          256,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 269,
+        "rgbaSHA256": "a79b828705d36786e42175cbe1ca83836ab7543b7ca9f6daba0ef6c5cf94ddf3",
+        "bounds": [
+          103,
+          60,
+          256,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 270,
+        "rgbaSHA256": "ba14c98d21e40667567d44bc17bc704ac8d2e064e5f161a134b401de5ab8fb81",
+        "bounds": [
+          55,
+          55,
+          205,
+          241
+        ]
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 271,
+        "rgbaSHA256": "808abfde58d9348df9eb7850ef2d394b5316d6304e54a726d91d551c6bea18de",
+        "bounds": [
+          51,
+          49,
+          203,
+          241
+        ]
+      }
+    ],
+    "fSmash": [
+      {
+        "frame": 0,
+        "atlasIndex": 272,
+        "rgbaSHA256": "5df3e4ca77787e3b38e59a60b7ffced902539b6f0feab590ebc0c4f25a4849f4",
+        "bounds": [
+          64,
+          49,
+          193,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 273,
+        "rgbaSHA256": "6f2aa5dc989ac0718379c3b35ad88bda9c410e4a235cb4e96cc25437f4c141c2",
+        "bounds": [
+          57,
+          72,
+          201,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 274,
+        "rgbaSHA256": "cf998990b52cfe09908da4a92aa2af3e51e60def12cdc408c315cdedb071eb89",
+        "bounds": [
+          59,
+          60,
+          197,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 275,
+        "rgbaSHA256": "45f7c57f71929c918989dca4833e21809cf23fb7041eec08d70760e30d05c381",
+        "bounds": [
+          58,
+          54,
+          201,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 276,
+        "rgbaSHA256": "a8ed8c168506a818c818fa07839da31bb824d4c0ed41283e7142458439be1676",
+        "bounds": [
+          53,
+          56,
+          242,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 277,
+        "rgbaSHA256": "fe06ec1912f651dfcf886640cbdac98843f681ea4b32882ff74e5b3120283381",
+        "bounds": [
+          53,
+          57,
+          228,
+          241
+        ]
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 278,
+        "rgbaSHA256": "5e86ddbd2a9f2372b41bcf812d6d97181c88a9f8651e9c7b3b98f5d6815bdbde",
+        "bounds": [
+          57,
+          52,
+          201,
+          241
+        ]
+      },
+      {
+        "frame": 7,
+        "atlasIndex": 279,
+        "rgbaSHA256": "aab79c2b2bfa4ed5ced2f1ec64e5f8c29765fc9f9a1ea1b3d7a49fce267ff975",
+        "bounds": [
+          60,
+          50,
+          198,
+          241
+        ]
+      },
+      {
+        "frame": 8,
+        "atlasIndex": 280,
+        "rgbaSHA256": "ae90e485fdb9ab60df5e68fb462a3c8b7e2d4cfea6936c74f19221a77652983e",
+        "bounds": [
+          60,
+          49,
+          198,
+          241
+        ]
+      }
+    ],
+    "uSmash": [
+      {
+        "frame": 0,
+        "atlasIndex": 281,
+        "rgbaSHA256": "2cf865d038fc4b509b9d6455b8b65f55dbbe3d4ce138b35d0119b00c9ee8f83a",
+        "bounds": [
+          78,
+          88,
+          180,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 282,
+        "rgbaSHA256": "8bdb000908c27fefe488f074698772fdeb07eba305ef95879f7b6015361515ba",
+        "bounds": [
+          76,
+          107,
+          183,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 283,
+        "rgbaSHA256": "c4f74e74eae8f91e64465205b2440f0923c64196c75963f303338c5740d5e4b5",
+        "bounds": [
+          77,
+          86,
+          187,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 284,
+        "rgbaSHA256": "f133b3e953c57c7fa039e8eb2556a64419281475574aa3a34f6f6937f4fdcf46",
+        "bounds": [
+          91,
+          32,
+          186,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 285,
+        "rgbaSHA256": "032c930e55d06068128d43147d0b00887f3faf14fe7de7feffc7415029f099cd",
+        "bounds": [
+          93,
+          26,
+          173,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 286,
+        "rgbaSHA256": "ed290eba23cec65de3121aeea8c601819f030ee61a3b94cb7e467cb9f5765c01",
+        "bounds": [
+          90,
+          23,
+          168,
+          241
+        ]
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 287,
+        "rgbaSHA256": "cd3ec60dc0dd15fdf0e571c92f66b73fe45d5c55a9ea048fb6f355c02089d60d",
+        "bounds": [
+          79,
+          63,
+          179,
+          241
+        ]
+      },
+      {
+        "frame": 7,
+        "atlasIndex": 288,
+        "rgbaSHA256": "71af208313630b75617fa08dc4543b6f36195bf4ed1b240990a83579b64f3fbb",
+        "bounds": [
+          77,
+          88,
+          181,
+          241
+        ]
+      }
+    ],
+    "dSmash": [
+      {
+        "frame": 0,
+        "atlasIndex": 289,
+        "rgbaSHA256": "0698ea254cbc56deeee5dcae1c68035031291afb89130aba2653c9d25e25af32",
+        "bounds": [
+          55,
+          45,
+          203,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 290,
+        "rgbaSHA256": "f45756907425f07eeb093a18cdabaa4c441f63099f06cb55daa16651e072043c",
+        "bounds": [
+          57,
+          73,
+          199,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 291,
+        "rgbaSHA256": "b98f819ebc6bb1b153c52e98fd54f82ffb200e9d6b9113cef2d9b914e8c0b5b5",
+        "bounds": [
+          71,
+          99,
+          185,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 292,
+        "rgbaSHA256": "3667869ad3f0b8c066075ce32d80f2e3a75570e4598593d4ebb904cc69fa8ee8",
+        "bounds": [
+          0,
+          86,
+          212,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 293,
+        "rgbaSHA256": "b26a823b1b16dcf760458b89f6b7f8763a422a4379f9b2be40ea6028dfa7057d",
+        "bounds": [
+          0,
+          112,
+          224,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 294,
+        "rgbaSHA256": "00c94e184d306da95b887a0986f885dd286049e57c6c62d36e6f80b41bacedfb",
+        "bounds": [
+          35,
+          88,
+          201,
+          241
+        ]
+      },
+      {
+        "frame": 6,
+        "atlasIndex": 295,
+        "rgbaSHA256": "ae83cbed60227304abed7743fca9bf3cfcb886bbd9471746cb44ece8815d4fd4",
+        "bounds": [
+          70,
+          75,
+          198,
+          241
+        ]
+      },
+      {
+        "frame": 7,
+        "atlasIndex": 296,
+        "rgbaSHA256": "82233d15d39f9ce61ab4622afba427099247f7009e459e91fc7eb907c100cb3d",
+        "bounds": [
+          51,
+          46,
+          204,
+          241
+        ]
+      }
+    ],
+    "fair": [
+      {
+        "frame": 0,
+        "atlasIndex": 297,
+        "rgbaSHA256": "5659c0927651bfb911168098c3ee3f419d298a9a148c23d649213725ff5523f5",
+        "bounds": [
+          92,
+          65,
+          210,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 298,
+        "rgbaSHA256": "8b23448cd50393efb03809b535af614e7d4331af2543a9fd01def629756a3fc1",
+        "bounds": [
+          77,
+          64,
+          193,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 299,
+        "rgbaSHA256": "baf17b11ddd215c6ca45e127e3b15c4cd835ef79a170f5e7ebb84c91cf2a5c9f",
+        "bounds": [
+          71,
+          68,
+          256,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 300,
+        "rgbaSHA256": "e6df93e3e52ec39367170e1a81ace4f4ce77f79711168fcfaad21bbed622a60b",
+        "bounds": [
+          73,
+          66,
+          250,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 301,
+        "rgbaSHA256": "4b397c3e98c38dea19d20be5bffa9b575b704f6e7e953e3d14800885607ef756",
+        "bounds": [
+          84,
+          62,
+          201,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 302,
+        "rgbaSHA256": "aebcaec695d7b2bc8c1a2836cfb6e5ec3b2a50184c9cdea89e549064f937dd18",
+        "bounds": [
+          91,
+          65,
+          208,
+          241
+        ]
+      }
+    ],
+    "bair": [
+      {
+        "frame": 0,
+        "atlasIndex": 303,
+        "rgbaSHA256": "66f1bdfd2a1d95c11a5affb7133b56172ed0493f88889195c701772cfcfec885",
+        "bounds": [
+          96,
+          49,
+          216,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 304,
+        "rgbaSHA256": "f452d235ae06eafb165ef71dab0389fe917ddbcd1e042d24971d158b36c1ff68",
+        "bounds": [
+          50,
+          57,
+          180,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 305,
+        "rgbaSHA256": "82368f158114b767addedfdbd2f9ae2954983c755e9cc46e1288775acc6237a0",
+        "bounds": [
+          4,
+          58,
+          194,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 306,
+        "rgbaSHA256": "2ce0f2fe99f1c5d43db430abe853a058985889f635163633687a5fbd41ee315d",
+        "bounds": [
+          13,
+          57,
+          189,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 307,
+        "rgbaSHA256": "f6f82bcf7fa50fa528c88ab5ff508adbb556b9866fd99791ea2c0a7c4e0a3226",
+        "bounds": [
+          67,
+          49,
+          192,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 308,
+        "rgbaSHA256": "fd2f884771d850c1de5e5b5db7fa52a70ca8578f766bebbe1785a3ddfba5aff7",
+        "bounds": [
+          96,
+          49,
+          215,
+          241
+        ]
+      }
+    ],
+    "uair": [
+      {
+        "frame": 0,
+        "atlasIndex": 309,
+        "rgbaSHA256": "c0e5b17b0a10a9e7bdfda1eb1e3e6e2a06270547af678295c3ffce67ced5d8fc",
+        "bounds": [
+          95,
+          75,
+          190,
+          241
+        ]
+      },
+      {
+        "frame": 1,
+        "atlasIndex": 310,
+        "rgbaSHA256": "737ce9e2d7f86e751b96c69c20d7123eb089471d9792443498191ae5b86e3e01",
+        "bounds": [
+          83,
+          77,
+          187,
+          241
+        ]
+      },
+      {
+        "frame": 2,
+        "atlasIndex": 311,
+        "rgbaSHA256": "84d3219a4750c43014f4a081a45f1e7a1f71b02436c59f27930d9f00af392e9d",
+        "bounds": [
+          85,
+          46,
+          187,
+          241
+        ]
+      },
+      {
+        "frame": 3,
+        "atlasIndex": 312,
+        "rgbaSHA256": "f97b8683bd10276d376aef81ee31d17054035a323746f12e2a0ead2f821cb9f6",
+        "bounds": [
+          83,
+          23,
+          183,
+          241
+        ]
+      },
+      {
+        "frame": 4,
+        "atlasIndex": 313,
+        "rgbaSHA256": "1ec03603cc709382e86180089260cfac865682160514055b8d2645c7c326e4c2",
+        "bounds": [
+          90,
+          66,
+          187,
+          241
+        ]
+      },
+      {
+        "frame": 5,
+        "atlasIndex": 314,
+        "rgbaSHA256": "4f8631201e4d62bb1846ede30d1e7d75e03ed18047d4e3cba283cd8be97cbaaf",
+        "bounds": [
+          95,
+          75,
+          190,
+          241
+        ]
+      }
+    ]
+  }
+}
