@@ -617,21 +617,20 @@ slightly open. Tufts messy, hanging over the eyes.
 
 <a id="charge"></a>
 
-### charge: powering up (hold Special) · 4 frames, loop
+### charge: powering up (hold Special) · 6 frames, gather/release then held loop
 
-4 frames · loops · **CORE** · bodyHeight 180 · ms 50/50/50/50 · prompt A15 · claws on · next version **v04**
+6 frames · f0-f1 play once, f2-f5 loop from frame 2 · **CORE** · bodyHeight 125 (retained; see the version-bound audit) · ms 70/90/110/110/110/110 · prompt A15 · next version **v16**
 
-Charging his body with electricity, read through the body: a low crouch on the balls of his feet, the claws spread
-rigid, and short **asymmetric twitches** (one shoulder, then the other) as if current jolts through him. Loop rules:
-the **feet are identical in all four frames** (soles on y 240); each frame moves a different part by 2 px (f1 the far
-shoulder, f2 the near shoulder, f3 both settle); the hands twitch 1 to 2 px; the **head moves at most 2 px**; the
-tufts bristle 2 to 4 px above idle and change shape every frame; the shirt hem and sleeves flick upward. f3 flows back
-into f0 without a pop. No lightning, sparks or glow in the sprite.
+The charge reads through Killua's body as he compresses, then drives into the low power stance. No lightning, sparks, aura or other effects appear in the sprite. Keep the same body, outfit, color and grounded pose across the held loop. The **feet, knees and hip line stay locked** across f2-f5; head center and fists move at most 2 px. The only loop motion is a small breath and shout change, 1 px finger/forearm tension, and four distinct upward-rising silhouettes in the hair and loose shirt hems/sleeves. f5 settles back into f2 without a pop.
 
-- **f0** (loop): CROUCH: wide low stance on the balls of his feet (heels just off the floor), knees bent about 50°, torso hunched slightly forward; both arms down and away from his sides, hands open with the fingers spread rigid, claws out; shoulders hunched up; head up. Face: fierce grimace, one small fang; blue eyes wide. Tufts bristling 2 px above idle; shirt hem and sleeves lifting
-- **f1** (loop): TWITCH: the L (far) shoulder jerks up about 2 px, the R hand's fingers splay wider. Face: fierce. Tufts bristle 1-2 px higher on one side; the shirt hem flicks up
-- **f2** (loop): TWITCH: the R (near) shoulder jerks up about 2 px while the L drops back, the L hand twitches, the whole body shivers 1 px. Face: fierce, teeth clenched. Tufts at their highest (about 4 px above idle)
-- **f3** (loop): SETTLE: both shoulders drop 1 px, the hands ease 1 px; flows into f0. Face: fierce. A fourth tuft shape; the hem settles 2 px
+- **f0 · GATHER** (one-shot): hunched forward in a deep crouch, arms crossed low in front; chin tucked, eyes narrowed, shoulders rounded. Hair and clothes at rest.
+- **f1 · RELEASE** (one-shot): open into a crouched power pose, chest lifted, head up, arms flung down and outward at the sides, elbows slightly bent, fingers spread and crooked. Fierce open shout with one small canine; hair bristles upward and sleeves/hem lift.
+- **f2 · HOLD a** (loop start): the release stance held; inhale and steady rising updraft.
+- **f3 · HOLD b**: chest/shoulders rise 1-2 px; shout is widest; alternate hair and cloth silhouette.
+- **f4 · HOLD c**: same grounded body; fingers and forearms quiver 1 px; a third updraft silhouette.
+- **f5 · HOLD d**: shoulders settle 1-2 px; fourth updraft silhouette flows back to f2.
+
+The game's engine draws Transmutation electricity around the body. Judge alignment and scale only on the packed cells.
 
 <a id="throw"></a>
 

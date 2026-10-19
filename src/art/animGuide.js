@@ -68,7 +68,9 @@ export const ANIM_GUIDE = {
   hurtHighAlt: { frames: 3, optional: true, altOf: 'hurtHigh', pose: altPose('hurtHigh', 'e.g. head and shoulders snapped sideways, torso twisting away') },
   hurtLowAlt: { frames: 3, optional: true, altOf: 'hurtLow', pose: altPose('hurtLow', 'e.g. struck in the ribs, folding sideways, one arm clutching') },
   // directional normals (ADR 0042): optional for every fighter; until a sheet has one the move shows the strip FALLBACK
-  // names (src/game/sprites.js) and uses its boxes. The move data (src/game/moves.js) never depends on the drawing
+  // names (src/game/sprites.js) and uses its boxes. The move data (src/game/moves.js) never depends on the drawing.
+  // strike: 'back' = drawn facing right with the strike to the LEFT (the move's `back: true`): the packer finds its auto
+  // hit box behind the body, the mirror of the forward rule (TOOL-062; npm run lint:anims ties the two)
   fTilt: { frames: 7, phases: [2, 2, 3], optional: true, pose: 'forward tilt: a long strike at chest height (a stepping straight punch or a side kick): wind-up, fully extended (2 frames), recover' },
   uTilt: { frames: 7, phases: [2, 2, 3], optional: true, pose: 'up tilt: an anti-air strike in an arc over the head (an overhead swing of the arm or a kick swung up and over): wind-up, the strike above the head (2 frames), recover' },
   dTilt: { frames: 6, phases: [2, 2, 2], optional: true, pose: 'down tilt: a quick low poke from a crouch (a shin-height sweep or a low jab): drop into the crouch, extended low (2 frames), back to the crouch' },
@@ -77,7 +79,7 @@ export const ANIM_GUIDE = {
   uSmash: { frames: 8, phases: [3, 2, 3], optional: true, pose: 'up smash: a powerful strike straight up from a crouch (a flipping kick or a rising double fist), hitting above the head: crouch, explode upward (2 frames), land' },
   dSmash: { frames: 8, phases: [3, 2, 3], optional: true, pose: 'down smash: a low strike to both sides at once (a spinning leg sweep, or both fists slammed to the floor on either side): crouch, the sweep in front then behind (2 frames), recover' },
   fair: { frames: 6, phases: [2, 2, 2], optional: true, pose: 'forward air: a mid-air strike in front (a flying kick or an overhead swing), the main aerial: wind-up, extended (2 frames), recover' },
-  bair: { frames: 6, phases: [2, 2, 2], optional: true, pose: 'back air: a mid-air strike BEHIND the body, toward screen-left, while the body still faces right (a back kick or a spinning backfist), the strongest aerial: wind-up, extended behind (2 frames), recover' },
+  bair: { frames: 6, phases: [2, 2, 2], optional: true, strike: 'back', pose: 'back air: a mid-air strike BEHIND the body, toward screen-left, while the body still faces right (a back kick or a spinning backfist), the strongest aerial: wind-up, extended behind (2 frames), recover' },
   uair: { frames: 6, phases: [2, 2, 2], optional: true, pose: 'up air: a mid-air strike straight up over the head (a flip kick or an upward punch): wind-up, the strike above the head (2 frames), recover' },
 };
 

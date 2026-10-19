@@ -1,1405 +1,2996 @@
 {
  "_doc": "npm run scale (tools/scale-audit.mjs): every packed frame against the approved idle. head = head silhouette with hair, feet = shoe area (1.00 = the idle). Verdicts: art/CHARACTER_SCALE.md \"Scale gate (automatic)\".",
  "fighters": {
-  "luffy": {
+  "sasuke": {
    "palette": {
     "head": [
-     "#1d0b0a",
-     "#ac5b2d",
-     "#f9bc2f",
-     "#be7432",
-     "#834d2b",
-     "#612e16",
-     "#dd9331",
-     "#d17c36",
-     "#ba7715",
-     "#9c5e16",
-     "#85110f",
-     "#cf1916"
+     "#15162a",
+     "#2b3764",
+     "#3a426d",
+     "#314377",
+     "#3a4c85",
+     "#435ea3"
     ],
     "feet": [
-     "#d17c36",
-     "#612e16",
-     "#834d2b",
-     "#be7432",
-     "#ac5b2d"
+     "#ecdfdc"
     ],
-    "source": "auto"
+    "source": "declared"
    },
    "ref": {
     "headPx": [
-     54,
+     39,
      38
     ],
     "box": [
-     108,
-     54,
-     160,
-     91
+     97,
+     65,
+     134,
+     102
     ],
-    "feetPx": 947
+    "feetPx": 199.5
    },
    "counts": {
     "ref": 1,
-    "manual": 22,
+    "ok": 41,
+    "manual": 10,
     "exempt": 1
    },
    "anims": {
     "idle": {
-     "v": 1,
-     "head": 0.999,
+     "v": 7,
+     "head": 1,
      "feet": 1,
-     "range": 0.093,
+     "range": 0.025,
      "verdict": "ref",
      "frames": [
       {
-       "head": 0.991,
-       "feet": 1.003,
+       "head": 1,
+       "feet": 0.999,
        "box": [
-        108,
-        54,
-        160,
-        91
-       ]
-      },
-      {
-       "head": 0.972,
-       "feet": 0.982,
-       "box": [
-        107,
-        57,
-        158,
-        90
-       ]
-      },
-      {
-       "head": 1.047,
-       "feet": 1.008,
-       "box": [
-        104,
-        55,
-        159,
-        99
-       ]
-      },
-      {
-       "head": 1.006,
-       "feet": 0.997,
-       "box": [
-        108,
-        56,
-        161,
-        92
-       ]
-      },
-      {
-       "head": 1.065,
-       "feet": 1.018,
-       "box": [
-        105,
-        55,
-        161,
+        97,
+        65,
+        134,
         102
        ]
       },
       {
-       "head": 0.987,
-       "feet": 0.99,
+       "head": 1,
+       "feet": 0.953,
        "box": [
-        109,
-        56,
-        161,
-        92
+        95,
+        65,
+        133,
+        102
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.912,
+       "box": [
+        94,
+        65,
+        132,
+        102
        ]
       },
       {
        "head": 0.991,
-       "feet": 1.027,
+       "feet": 0.999,
        "box": [
-        108,
-        55,
-        160,
-        89
+        93,
+        66,
+        131,
+        102
        ]
       },
       {
-       "head": 1.032,
-       "feet": 0.975,
+       "head": 1.016,
+       "feet": 1.001,
        "box": [
-        109,
-        55,
-        162,
-        93
+        94,
+        63,
+        133,
+        100
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 1.045,
+       "box": [
+        95,
+        62,
+        132,
+        101
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.036,
+       "box": [
+        93,
+        66,
+        131,
+        103
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.038,
+       "box": [
+        92,
+        62,
+        130,
+        98
        ]
       }
      ]
     },
     "run": {
-     "v": 1,
-     "head": 1.147,
-     "feet": 0.789,
-     "range": 0.107,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 40.5–55.8 px visible front shin (upright-support frames 47.8–55.8); torso/arm build remains coherent. Rear-foot clips f3/f4/f7 are user-accepted placement only; runtime contact remains open. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 5,
+     "head": 1.01,
+     "feet": 0.69,
+     "range": 0.028,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 1.147,
-       "feet": 0.785,
+       "head": 1.024,
+       "feet": 0.701,
        "box": [
-        142,
-        56,
-        201,
-        98
+        140,
+        97,
+        181,
+        133
        ]
       },
       {
-       "head": 1.147,
-       "feet": 0.785,
+       "head": 1.003,
+       "feet": 0.645,
        "box": [
-        84,
-        53,
-        144,
-        95
-       ]
-      },
-      {
-       "head": 1.14,
-       "feet": 0.785,
-       "box": [
-        117,
-        56,
-        177,
-        97
-       ]
-      },
-      {
-       "head": 1.14,
-       "feet": 0.705,
-       "box": [
-        77,
-        70,
-        137,
-        111
-       ]
-      },
-      {
-       "head": 1.179,
-       "feet": 0.795,
-       "box": [
-        66,
-        60,
-        124,
-        109
-       ]
-      },
-      {
-       "head": 1.247,
-       "feet": 0.837,
-       "box": [
-        121,
-        63,
+        140,
+        97,
         180,
-        119
+        134
        ]
       },
       {
-       "head": 1.14,
-       "feet": 0.852,
+       "head": 1.024,
+       "feet": 0.66,
        "box": [
-        106,
-        61,
-        166,
-        100
+        139,
+        97,
+        180,
+        133
        ]
       },
       {
-       "head": 1.246,
-       "feet": 0.793,
+       "head": 0.996,
+       "feet": 0.679,
        "box": [
-        77,
-        74,
-        137,
-        135
+        138,
+        101,
+        179,
+        136
+       ]
+      },
+      {
+       "head": 1.021,
+       "feet": 0.769,
+       "box": [
+        141,
+        100,
+        183,
+        134
+       ]
+      },
+      {
+       "head": 1.006,
+       "feet": 0.807,
+       "box": [
+        141,
+        102,
+        181,
+        138
+       ]
+      },
+      {
+       "head": 1.013,
+       "feet": 0.739,
+       "box": [
+        140,
+        97,
+        180,
+        132
+       ]
+      },
+      {
+       "head": 0.997,
+       "feet": 0.664,
+       "box": [
+        140,
+        104,
+        180,
+        140
        ]
       }
      ]
     },
     "dash": {
-     "v": 2,
-     "head": 1.972,
-     "feet": 0.748,
-     "range": 0.13,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 47.0–50.2 px shin; lean shortens torso projection without body-size collapse; complete limbs and coherent loop. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 7,
+     "head": 1.013,
+     "feet": 1.011,
+     "range": 0.034,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 1.907,
-       "feet": 0.743,
+       "head": 1.03,
+       "feet": 1.038,
        "box": [
-        132,
-        94,
-        233,
-        208
+        199,
+        83,
+        239,
+        119
        ]
       },
       {
-       "head": 2.037,
-       "feet": 0.753,
+       "head": 0.996,
+       "feet": 0.984,
        "box": [
-        106,
-        98,
-        214,
-        208
+        201,
+        84,
+        239,
+        117
+       ]
+      }
+     ]
+    },
+    "backDash": {
+     "v": 7,
+     "head": 0.998,
+     "feet": 1.05,
+     "range": 0.069,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.998,
+       "feet": 1.05,
+       "box": [
+        140,
+        75,
+        178,
+        109
+       ]
+      },
+      {
+       "head": 0.932,
+       "feet": 0.991,
+       "box": [
+        116,
+        88,
+        152,
+        119
+       ]
+      },
+      {
+       "head": 1.001,
+       "feet": 1.113,
+       "box": [
+        107,
+        73,
+        146,
+        107
+       ]
+      }
+     ]
+    },
+    "superDash": {
+     "v": 7,
+     "head": 1.008,
+     "feet": 1.092,
+     "range": 0.014,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.001,
+       "feet": 1.128,
+       "box": [
+        153,
+        90,
+        194,
+        121
+       ]
+      },
+      {
+       "head": 1.015,
+       "feet": 1.055,
+       "box": [
+        147,
+        89,
+        188,
+        121
+       ]
+      }
+     ]
+    },
+    "jumpSquat": {
+     "v": 7,
+     "head": 0.985,
+     "feet": 0.829,
+     "range": 0,
+     "verdict": "manual",
+     "reason": "manual QA by Claude (round 6 calibration): Crouch: the head probe reads 0.985 with low confidence. v07 repaints only the reaching arm of v06: at bodyHeight 157 (raw/jumpSquat_v07.json) the crown (y 84) and floor (y 240) match v06, whose fit was head 1.01, garment area 0.92 and sandal 1.06 of idle07. The forearm now reads about 25-28 px against 25 in the neutral and combat cells (v06 about 40). Auto hurt box 86 x 151 at x 91 (idle 101, guard 95, land 98 wide). Not an art approval. (art/characters/sasuke/production/round4/claude-calibration/CALIBRATION.md (round 6))",
+     "frames": [
+      {
+       "head": 0.985,
+       "feet": 0.829,
+       "box": [
+        146,
+        85,
+        189,
+        117
        ]
       }
      ]
     },
     "jumpUp": {
-     "v": 1,
-     "head": 1.801,
-     "feet": 0.737,
-     "range": 0.051,
+     "v": 5,
+     "head": null,
+     "feet": null,
+     "range": 0,
      "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. f0 shin 46.9 px; f1 tuck shin unmeasurable. Torso 38.9/34.0 px vs 41.5 px idle with ±6 px uncertainty; visual head, vest and limb thickness coherent. Timing/contact still open. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "reason": "manual QA by Claude QA subagent 2026-10-11: Both packed frames compared at native scale and 3x with the approved pilot neutral/combat cells and idle v07 f0: hair mass, face and jaw read the idle's size, narrow shirt torso, sleeves, rope and the straight hanging leg match the combat build; the tucked knee hides the second shoe, so limb length is checked on the hanging leg only (art/characters/sasuke/production/title-style/claude-qa/mqa-jumpUp-v05-guard-v04.png)",
      "frames": [
       {
-       "head": 1.776,
-       "feet": 0.704,
+       "head": 0.579,
+       "feet": 0.548,
        "box": [
-        105,
-        91,
-        199,
-        205
-       ]
+        167,
+        56,
+        181,
+        79
+       ],
+       "exempt": true
       },
       {
-       "head": 1.827,
-       "feet": 0.77,
+       "head": 0.573,
+       "feet": null,
        "box": [
-        95,
-        77,
-        180,
-        204
-       ]
+        172,
+        54,
+        186,
+        77
+       ],
+       "exempt": true
       }
      ]
     },
     "jumpFall": {
-     "v": 3,
-     "head": 1.053,
-     "feet": 0.796,
-     "range": 0.087,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 50.2–52.4 px visible shin; whole-body/clothing size coherent. Continuity review remains separate. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 5,
+     "head": 1.002,
+     "feet": 0.597,
+     "range": 0.009,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 1.096,
-       "feet": 0.778,
+       "head": 0.997,
+       "feet": 0.609,
        "box": [
-        111,
-        65,
+        126,
+        34,
         165,
-        123
+        69
        ]
       },
       {
-       "head": 1.009,
-       "feet": 0.813,
+       "head": 1.006,
+       "feet": 0.584,
        "box": [
-        106,
-        49,
-        159,
-        83
+        124,
+        36,
+        163,
+        70
        ]
       }
      ]
     },
     "land": {
-     "v": 1,
-     "head": 0.987,
-     "feet": 0.794,
-     "range": 0.006,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 48.6–55.9 px shin; crouch torso is foreshortened and not compared as upright. Recovery torso 36.8±6 px vs idle 41.5±6 px; complete limbs. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 3,
+     "head": 1.008,
+     "feet": 0.807,
+     "range": 0.016,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 0.99,
-       "feet": 0.799,
+       "head": 1,
+       "feet": 0.782,
        "box": [
-        115,
-        111,
-        171,
-        142
+        144,
+        101,
+        182,
+        138
        ]
       },
       {
-       "head": 0.984,
-       "feet": 0.789,
+       "head": 1.016,
+       "feet": 0.832,
        "box": [
-        124,
-        67,
-        176,
-        100
+        119,
+        77,
+        159,
+        112
        ]
       }
      ]
     },
     "light1": {
-     "v": 2,
-     "head": 1.093,
-     "feet": 0.956,
-     "range": 0.038,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 51.9–55.6 px shin; torso about 42 px, sash 26 px, sandal 11.2 px. Connected jab arm and consistent clothing. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 9,
+     "head": 0.995,
+     "feet": 1.296,
+     "range": 0.074,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 1.084,
-       "feet": 0.966,
+       "head": 1,
+       "feet": 1.284,
        "box": [
-        102,
-        55,
-        159,
-        94
+        109,
+        62,
+        147,
+        99
        ]
       },
       {
-       "head": 1.077,
-       "feet": 0.962,
+       "head": 0.995,
+       "feet": 1.307,
        "box": [
-        100,
-        55,
-        157,
-        93
+        110,
+        63,
+        148,
+        97
        ]
       },
       {
-       "head": 1.093,
-       "feet": 0.944,
+       "head": 1.015,
+       "feet": 1.296,
        "box": [
-        97,
-        55,
-        152,
-        95
+        111,
+        62,
+        149,
+        100
        ]
       },
       {
-       "head": 1.103,
-       "feet": 0.91,
+       "head": 0.995,
+       "feet": 1.378,
        "box": [
-        99,
-        55,
-        157,
-        94
+        113,
+        62,
+        151,
+        98
        ]
       },
       {
-       "head": 1.103,
-       "feet": 0.956,
+       "head": 0.949,
+       "feet": 1.34,
        "box": [
-        107,
-        53,
-        165,
-        90
+        110,
+        70,
+        146,
+        104
        ]
       },
       {
-       "head": 1.103,
-       "feet": 0.962,
+       "head": 0.941,
+       "feet": 1.212,
        "box": [
-        100,
-        53,
-        158,
-        91
+        110,
+        70,
+        145,
+        105
        ]
       },
       {
-       "head": 1.065,
-       "feet": 0.952,
+       "head": 0.985,
+       "feet": 0.971,
        "box": [
-        99,
-        53,
-        155,
-        90
+        96,
+        69,
+        133,
+        106
        ]
       }
      ]
     },
     "light2": {
-     "v": 1,
-     "head": 1.009,
-     "feet": 0.85,
-     "range": 0.707,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 50.1–60.8 px shin; oblique extension explains upper range; torso rotation/arm projection explain variation, no body-scale pop. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 7,
+     "head": 0.974,
+     "feet": 1.249,
+     "range": 0.079,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 0.988,
-       "feet": 0.863,
+       "head": 0.974,
+       "feet": 1.195,
        "box": [
-        106,
-        58,
-        158,
-        92
+        107,
+        62,
+        144,
+        98
        ]
       },
       {
-       "head": 1.04,
-       "feet": 0.811,
+       "head": 0.962,
+       "feet": 1.292,
        "box": [
-        122,
-        59,
-        177,
-        97
+        111,
+        62,
+        147,
+        98
        ]
       },
       {
-       "head": 0.987,
-       "feet": 0.784,
+       "head": 0.974,
+       "feet": 1.191,
        "box": [
         109,
-        61,
-        161,
-        97
+        62,
+        146,
+        98
        ]
       },
       {
-       "head": 1.694,
-       "feet": 0.794,
+       "head": 0.974,
+       "feet": 1.249,
        "box": [
-        94,
-        60,
-        170,
-        192
+        109,
+        62,
+        145,
+        98
        ]
       },
       {
-       "head": 1.121,
-       "feet": 0.863,
+       "head": 0.93,
+       "feet": 1.432,
+       "box": [
+        113,
+        69,
+        147,
+        104
+       ]
+      },
+      {
+       "head": 0.921,
+       "feet": 1.288,
        "box": [
         112,
-        54,
-        171,
-        107
+        69,
+        146,
+        103
        ]
       },
       {
-       "head": 1.009,
-       "feet": 0.85,
+       "head": 1,
+       "feet": 1.016,
        "box": [
-        110,
-        54,
-        163,
-        89
-       ]
-      },
-      {
-       "head": 0.991,
-       "feet": 0.891,
-       "box": [
-        105,
-        53,
-        157,
-        89
+        96,
+        66,
+        134,
+        103
        ]
       }
      ]
     },
     "light3": {
-     "v": 2,
-     "head": 0.958,
-     "feet": 0.953,
-     "range": 0.05,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 51.2–53.2 px planted shin throughout. User accepted toe f3 placement clip only; anatomy/body scale separately passed. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 8,
+     "head": 1,
+     "feet": 0.937,
+     "range": 0.088,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 0.967,
-       "feet": 0.972,
+       "head": 1,
+       "feet": 0.879,
        "box": [
-        100,
+        118,
         44,
-        153,
-        78
-       ]
-      },
-      {
-       "head": 0.953,
-       "feet": 0.965,
-       "box": [
-        104,
-        44,
-        156,
-        77
-       ]
-      },
-      {
-       "head": 0.962,
-       "feet": 0.949,
-       "box": [
-        108,
-        44,
-        160,
-        78
-       ]
-      },
-      {
-       "head": 0.987,
-       "feet": 0.953,
-       "box": [
-        111,
-        44,
-        163,
-        80
-       ]
-      },
-      {
-       "head": 0.958,
-       "feet": 0.945,
-       "box": [
-        109,
-        44,
-        161,
-        77
-       ]
-      },
-      {
-       "head": 0.937,
-       "feet": 0.938,
-       "box": [
-        106,
-        44,
-        157,
-        77
-       ]
-      },
-      {
-       "head": 0.955,
-       "feet": 0.954,
-       "box": [
-        102,
-        44,
-        155,
-        77
-       ]
-      }
-     ]
-    },
-    "light4": {
-     "v": 2,
-     "head": 1.408,
-     "feet": 0.823,
-     "range": 1.054,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 46.0–54.6 px planted shin; part B matches part A density. User accepted foot f4 placement clip only; anatomy/body scale separately passed. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
-     "frames": [
-      {
-       "head": 0.96,
-       "feet": 0.86,
-       "box": [
-        106,
-        46,
         156,
         81
        ]
       },
       {
-       "head": 1.713,
-       "feet": 0.702,
+       "head": 0.991,
+       "feet": 0.918,
        "box": [
-        80,
-        47,
-        137,
-        175
+        124,
+        45,
+        162,
+        79
        ]
       },
       {
-       "head": 1.917,
-       "feet": 0.837,
+       "head": 0.974,
+       "feet": 0.864,
        "box": [
-        83,
-        43,
-        146,
-        169
+        87,
+        46,
+        124,
+        81
        ]
       },
       {
-       "head": 0.96,
-       "feet": 0.906,
+       "head": 0.974,
+       "feet": 0.937,
        "box": [
-        105,
-        48,
-        155,
+        98,
+        45,
+        135,
+        81
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.06,
+       "box": [
+        114,
+        41,
+        152,
+        78
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 1.146,
+       "box": [
+        113,
+        45,
+        151,
         83
        ]
       },
       {
-       "head": 0.991,
-       "feet": 0.762,
+       "head": 1.062,
+       "feet": 1.064,
        "box": [
-        106,
-        48,
-        158,
-        84
+        93,
+        57,
+        134,
+        94
+       ]
+      }
+     ]
+    },
+    "light4": {
+     "v": 8,
+     "head": 0.987,
+     "feet": 0.818,
+     "range": 0.077,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.051,
+       "feet": 0.804,
+       "box": [
+        111,
+        63,
+        151,
+        102
        ]
       },
       {
-       "head": 1.911,
-       "feet": 0.808,
+       "head": 0.975,
+       "feet": 0.617,
+       "box": [
+        113,
+        53,
+        153,
+        81
+       ]
+      },
+      {
+       "head": 0.981,
+       "feet": 0.621,
+       "box": [
+        114,
+        53,
+        153,
+        85
+       ]
+      },
+      {
+       "head": 0.989,
+       "feet": 0.832,
+       "box": [
+        92,
+        57,
+        131,
+        90
+       ]
+      },
+      {
+       "head": 0.985,
+       "feet": 0.769,
+       "box": [
+        107,
+        55,
+        145,
+        87
+       ]
+      },
+      {
+       "head": 0.996,
+       "feet": 1.099,
+       "box": [
+        123,
+        50,
+        162,
+        82
+       ]
+      },
+      {
+       "head": 1.051,
+       "feet": 1.126,
+       "box": [
+        107,
+        54,
+        147,
+        93
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.016,
        "box": [
         97,
-        42,
-        186,
-        160
-       ]
-      },
-      {
-       "head": 2.014,
-       "feet": 0.806,
-       "box": [
-        76,
-        36,
-        167,
-        170
-       ]
-      },
-      {
-       "head": 1.103,
-       "feet": 0.86,
-       "box": [
-        104,
-        46,
-        162,
-        90
+        68,
+        134,
+        103
        ]
       }
      ]
     },
     "heavy": {
-     "v": 1,
-     "head": 0.906,
-     "feet": 0.752,
-     "range": 0.621,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 41.2–49.1 px shin; deep crouch explains lower projection, upright/recovery overlaps idle uncertainty. Torso 38.3±6 and 35.0±7 px vs idle 41.5±6; mild smallness unresolved within combined uncertainty. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 11,
+     "head": 1,
+     "feet": 1.003,
+     "range": 0.045,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 0.897,
-       "feet": 0.751,
+       "head": 1,
+       "feet": 1.161,
        "box": [
-        106,
-        79,
-        153,
-        119
+        138,
+        113,
+        176,
+        150
        ]
       },
       {
-       "head": 0.967,
-       "feet": 0.723,
+       "head": 1.016,
+       "feet": 1.006,
+       "box": [
+        152,
+        112,
+        190,
+        150
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.978,
        "box": [
         119,
-        111,
-        172,
-        141
+        37,
+        157,
+        74
        ]
       },
       {
-       "head": 0.897,
-       "feet": 0.642,
+       "head": 1.019,
+       "feet": 0.999,
+       "box": [
+        106,
+        34,
+        144,
+        72
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.92,
+       "box": [
+        112,
+        34,
+        150,
+        71
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.071,
+       "box": [
+        100,
+        45,
+        137,
+        81
+       ]
+      },
+      {
+       "head": 0.993,
+       "feet": 0.976,
+       "box": [
+        117,
+        74,
+        154,
+        111
+       ]
+      },
+      {
+       "head": 1.004,
+       "feet": 1.05,
        "box": [
         104,
-        99,
-        143,
-        138
-       ]
-      },
-      {
-       "head": 0.899,
-       "feet": 0.731,
-       "box": [
-        101,
-        78,
-        140,
-        113
-       ]
-      },
-      {
-       "head": 0.895,
-       "feet": 0.752,
-       "box": [
-        103,
-        71,
-        143,
-        106
-       ]
-      },
-      {
-       "head": 1.516,
-       "feet": 0.847,
-       "box": [
-        99,
-        75,
-        157,
-        193
-       ]
-      },
-      {
-       "head": 0.912,
-       "feet": 0.805,
-       "box": [
-        95,
-        79,
-        137,
-        113
-       ]
-      },
-      {
-       "head": 0.916,
-       "feet": 0.789,
-       "box": [
-        108,
-        75,
-        156,
-        106
+        73,
+        142,
+        112
        ]
       }
      ]
     },
     "airLight1": {
-     "v": 1,
-     "head": 1.076,
-     "feet": 0.909,
-     "range": 0.03,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 50.8–54.2 px visible bent back-leg chain; vest/shorts/neck coherent. User accepted fist f2/f3 placement clip only; anatomy/body scale separately passed. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 4,
+     "head": 1.008,
+     "feet": 1.078,
+     "range": 0.034,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 1.065,
-       "feet": 0.922,
+       "head": 1.005,
+       "feet": 1.083,
        "box": [
-        125,
-        72,
+        146,
+        44,
+        186,
+        80
+       ]
+      },
+      {
+       "head": 1.027,
+       "feet": 1.078,
+       "box": [
+        139,
+        44,
         181,
-        107
+        82
        ]
       },
       {
-       "head": 1.093,
-       "feet": 0.864,
+       "head": 1.008,
+       "feet": 1.284,
        "box": [
-        137,
-        89,
-        199,
-        124
+        146,
+        44,
+        187,
+        81
        ]
       },
       {
-       "head": 1.092,
-       "feet": 0.902,
+       "head": 1.02,
+       "feet": 1.057,
+       "box": [
+        146,
+        44,
+        187,
+        79
+       ]
+      },
+      {
+       "head": 0.993,
+       "feet": 1.041,
+       "box": [
+        145,
+        44,
+        185,
+        79
+       ]
+      }
+     ]
+    },
+    "airLight2": {
+     "v": 4,
+     "head": 1,
+     "feet": 1.274,
+     "range": 0.017,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.995,
+       "feet": 1.183,
+       "box": [
+        95,
+        42,
+        133,
+        78
+       ]
+      },
+      {
+       "head": 0.997,
+       "feet": 1.376,
+       "box": [
+        87,
+        38,
+        124,
+        77
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.274,
+       "box": [
+        86,
+        39,
+        124,
+        76
+       ]
+      },
+      {
+       "head": 1.002,
+       "feet": 1.185,
+       "box": [
+        95,
+        41,
+        133,
+        79
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 1.294,
+       "box": [
+        126,
+        55,
+        165,
+        92
+       ]
+      }
+     ]
+    },
+    "airLight3": {
+     "v": 7,
+     "head": 1.007,
+     "feet": 0.667,
+     "range": 0.049,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1,
+       "feet": null,
        "box": [
         129,
-        83,
-        189,
-        119
+        49,
+        167,
+        83
        ]
       },
       {
-       "head": 1.063,
-       "feet": 0.909,
+       "head": 0.986,
+       "feet": 0.625,
        "box": [
-        129,
-        83,
-        188,
-        118
+        80,
+        57,
+        120,
+        90
        ]
       },
       {
-       "head": 1.076,
-       "feet": 0.942,
+       "head": 1.019,
+       "feet": 0.736,
        "box": [
-        116,
-        72,
-        173,
-        108
+        40,
+        114,
+        81,
+        148
+       ]
+      },
+      {
+       "head": 1.023,
+       "feet": 0.601,
+       "box": [
+        60,
+        114,
+        103,
+        149
+       ]
+      },
+      {
+       "head": 1.015,
+       "feet": null,
+       "box": [
+        73,
+        59,
+        113,
+        93
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 0.708,
+       "box": [
+        143,
+        78,
+        182,
+        114
        ]
       }
      ]
     },
     "airHeavy": {
-     "v": 1,
-     "head": 0.974,
-     "feet": 0.817,
-     "range": 1.009,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. Recovery shin 54.4 px; torso 38±6 px at f0 and 46±8 px at f5. Tucked/rotated middle shins unmeasurable; visual limb topology, volume and arm chains remain coherent; weakest numerical coverage. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 4,
+     "head": 0.996,
+     "feet": 1.073,
+     "range": 0.05,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 0.916,
-       "feet": 0.873,
+       "head": 0.495,
+       "feet": 1.028,
        "box": [
-        141,
-        59,
-        189,
-        92
-       ]
+        132,
+        39,
+        150,
+        61
+       ],
+       "exempt": true
       },
       {
-       "head": 0.96,
-       "feet": 0.685,
+       "head": 0.939,
+       "feet": 1.05,
        "box": [
-        148,
-        135,
-        195,
-        170
-       ]
+        114,
+        58,
+        160,
+        88
+       ],
+       "exempt": true
       },
       {
-       "head": 0.987,
-       "feet": 0.773,
+       "head": 1.011,
+       "feet": 0.953,
        "box": [
-        94,
-        120,
-        144,
-        156
-       ]
-      },
-      {
-       "head": 1.813,
-       "feet": 0.805,
-       "box": [
-        43,
-        95,
-        139,
-        194
-       ]
-      },
-      {
-       "head": 0.96,
-       "feet": 0.828,
-       "box": [
-        138,
         128,
-        188,
-        163
+        79,
+        171,
+        115
        ]
       },
       {
-       "head": 1.925,
-       "feet": 0.846,
+       "head": 1.024,
+       "feet": 1.041,
        "box": [
-        100,
-        104,
-        202,
-        208
+        133,
+        85,
+        176,
+        122
+       ]
+      },
+      {
+       "head": 0.982,
+       "feet": 1.185,
+       "box": [
+        140,
+        52,
+        181,
+        87
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.104,
+       "box": [
+        145,
+        52,
+        185,
+        88
        ]
       }
      ]
     },
     "guard": {
-     "v": 1,
-     "head": 1.09,
-     "feet": 0.595,
-     "range": 0.012,
+     "v": 4,
+     "head": null,
+     "feet": null,
+     "range": 0,
      "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 47.2–48.5 px shin; sash 26 px, crossed forearm about 29–31 px. Torso obscured by arms; no hidden segment inferred. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "reason": "manual QA by Claude QA subagent 2026-10-11: Both packed frames compared at native scale and 3x with the approved combat cell and idle v07 f0: hair crown y61-62 vs idle y64, the hair above and beside the crossed forearms is the idle's size, torso, wide-knee stance and shoes match the combat cell; f0/f1 differ by about 1 px (breath loop) (art/characters/sasuke/production/title-style/claude-qa/mqa-jumpUp-v05-guard-v04.png)",
      "frames": [
       {
-       "head": 1.084,
-       "feet": 0.576,
+       "head": 1.379,
+       "feet": 0.832,
        "box": [
-        100,
-        59,
-        157,
-        103
-       ]
-      },
-      {
-       "head": 1.096,
-       "feet": 0.615,
-       "box": [
-        100,
-        62,
-        156,
-        105
-       ]
-      }
-     ]
-    },
-    "hurtHigh": {
-     "v": 1,
-     "head": 0.964,
-     "feet": 0.658,
-     "range": 0.036,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 49.9–52.2 px shin; recoil changes pose while torso and limb thickness remain coherent. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
-     "frames": [
-      {
-       "head": 0.946,
-       "feet": 0.711,
-       "box": [
-        109,
-        66,
-        160,
-        99
-       ]
-      },
-      {
-       "head": 0.982,
-       "feet": 0.658,
-       "box": [
-        63,
-        62,
-        99,
-        108
-       ]
-      },
-      {
-       "head": 0.964,
-       "feet": 0.625,
-       "box": [
-        63,
-        70,
-        105,
-        108
-       ]
-      }
-     ]
-    },
-    "launched": {
-     "v": 2,
-     "head": 0.847,
-     "feet": 0.909,
-     "range": 0.021,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (launched v02 diagnostic audit, 2026-10-16): PASS within measurement uncertainty on final exact 48-color strict public atlas 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 (metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a); launched cells match the separately audited diagnostic and both actual quantized frames are complete. Compared head/face/hat-on-back, torso/build, arms, shorts/sash, visible shins and sandals against approved idle and title neutral/combat at one density. f0 vest neckline-to-sash 42.6±6 px vs idle 41.5±6 and combat 40.5; f1 approximate 39.1±6. Visible shin f0 48.8±6 and 51.6±6 vs idle 52.8±6/combat 54.6; f1 56.8±6. No clipped anatomy; static two-frame recoil relation coherent. Landmark endpoints and uncertainty in production/manual-audit-r3/LAUNCHED02_AUDIT.md and LAUNCHED02_PIXELS.json. This is not design approval, timed playback, runtime contact, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/LAUNCHED02_PIXELS.json)",
-     "frames": [
-      {
-       "head": 0.836,
-       "feet": 0.931,
-       "box": [
-        56,
-        71,
-        92,
-        109
-       ]
-      },
-      {
-       "head": 0.857,
-       "feet": 0.886,
-       "box": [
-        38,
-        67,
-        74,
-        108
-       ]
-      }
-     ]
-    },
-    "down": {
-     "v": 3,
-     "head": 1.549,
-     "feet": 0.832,
-     "range": 1.088,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final strict-r5 all-frame recheck, 2026-10-16): Manual anatomy/scale PASS within measurement uncertainty in final actual 48-color atlas SHA 0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122, metadata dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f; all22 animations/100 frames visually inspected. f0 shin 48.2±5px, f1 torso 37.8±5px and shin 51.7±5px; direct f1 source factor .205. Static-only; no runtime contact/grounding or user art approval. Visible segment uncertainties are recorded in the audit; hidden joints are not numeric passes. See art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md; art/characters/luffy/production/manual-audit-r5/FINAL_PIXEL_HASHES.json. (art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md; art/characters/luffy/production/manual-audit-r5/FINAL_PIXEL_HASHES.json)",
-     "frames": [
-      {
-       "head": 1.005,
-       "feet": 0.735,
-       "box": [
-        72,
-        152,
-        117,
-        198
-       ]
-      },
-      {
-       "head": 2.093,
-       "feet": 0.928,
-       "box": [
-        27,
-        143,
-        138,
-        240
-       ]
-      }
-     ]
-    },
-    "getup": {
-     "v": 3,
-     "head": 1.1,
-     "feet": 0.823,
-     "range": 0.878,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final strict-r5 all-frame recheck, 2026-10-16): Manual anatomy/scale PASS within measurement uncertainty in final actual 48-color atlas SHA 0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122, metadata dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f; all22 animations/100 frames visually inspected. f4 torso 42.2±6px, left/right shins 55.5/48.9±6px, forearm 30.5±6px; uniform source factor .477. Static-only; no runtime contact/grounding or user art approval. Visible segment uncertainties are recorded in the audit; hidden joints are not numeric passes. See art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md; art/characters/luffy/production/manual-audit-r5/FINAL_PIXEL_HASHES.json. (art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md; art/characters/luffy/production/manual-audit-r5/FINAL_PIXEL_HASHES.json)",
-     "frames": [
-      {
-       "head": 1.103,
-       "feet": 0.77,
-       "box": [
-        34,
-        169,
-        82,
-        214
-       ]
-      },
-      {
-       "head": 1.1,
-       "feet": 0.807,
-       "box": [
-        62,
-        143,
-        113,
-        185
-       ]
-      },
-      {
-       "head": 1.925,
-       "feet": 0.823,
-       "box": [
-        99,
-        124,
-        201,
-        223
-       ]
-      },
-      {
-       "head": 1.065,
-       "feet": 0.877,
-       "box": [
-        125,
         101,
-        181,
-        142
-       ]
-      },
-      {
-       "head": 1.047,
-       "feet": 0.963,
-       "box": [
-        103,
-        63,
-        158,
-        105
-       ]
-      }
-     ]
-    },
-    "charge": {
-     "v": 1,
-     "head": 0.994,
-     "feet": 0.727,
-     "range": 0.083,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 57.7–58.6 px shin within combined title/idle uncertainty; torso 40.6±6 px and sash stable. Gear Second pink skin is intentional. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
-     "frames": [
-      {
-       "head": 1.065,
-       "feet": 0.726,
-       "box": [
-        119,
-        83,
-        175,
+        62,
+        143,
         123
-       ]
+       ],
+       "exempt": true
       },
       {
-       "head": 0.988,
-       "feet": 0.728,
+       "head": 1.377,
+       "feet": 0.881,
        "box": [
-        119,
-        82,
-        174,
-        115
-       ]
-      },
-      {
-       "head": 1.001,
-       "feet": null,
-       "box": [
-        120,
-        82,
-        173,
-        115
-       ]
-      },
-      {
-       "head": 0.982,
-       "feet": null,
-       "box": [
-        120,
-        82,
-        174,
-        116
-       ]
+        101,
+        62,
+        144,
+        123
+       ],
+       "exempt": true
       }
      ]
     },
-    "throw": {
-     "v": 1,
-     "head": 1.683,
-     "feet": 0.655,
-     "range": 0.706,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (medium), final relay #4 quantized-cell audit, 2026-10-19: Exact relay #4 pack atlas SHA256 BF9558CDB575C47E45D74474B749115C7DDD9C7B6993B7D27C75F4E531AA5905. GPT-6 Astra independently inspected every quantized cell against packed idle and approved title neutral/combat at the documented ART-SIZE-R7 x0.92 fit. Manual anatomy/scale PASS within stated endpoint uncertainty. This is not image approval, hand-anchor reach/contact, timing or runtime integration. Cells 90-93: torso ~40-46px; tucked/overlapping legs are visually coherent but not numerically certified as bone lengths. Head-probe H~1.68-1.72 includes vest/torso pixels and is not a head-size reading. See FINAL_RELAY4_ASTRA_AUDIT.md. (art/characters/luffy/production/skills-revamp-batch1/FINAL_RELAY4_ASTRA_AUDIT.md)",
+    "block": {
+     "v": 7,
+     "head": 1.031,
+     "feet": 1.375,
+     "range": 0.007,
+     "verdict": "ok",
+     "staleExempt": {
+      "v": 1,
+      "version": 7
+     },
      "frames": [
       {
-       "head": 1.72,
-       "feet": 0.71,
+       "head": 1.035,
+       "feet": 1.42,
        "box": [
-        90,
-        93,
-        181,
-        203
+        97,
+        61,
+        137,
+        98
        ]
       },
       {
-       "head": 1.683,
-       "feet": 0.633,
+       "head": 1.028,
+       "feet": 1.33,
        "box": [
-        90,
-        85,
-        179,
-        206
-       ]
-      },
-      {
-       "head": 1.682,
-       "feet": 0.617,
-       "box": [
-        90,
-        85,
-        179,
-        206
-       ]
-      },
-      {
-       "head": 1.014,
-       "feet": 0.676,
-       "box": [
-        152,
-        56,
-        204,
+        98,
+        62,
+        138,
         96
        ]
       }
      ]
     },
-    "beamCharge": {
-     "v": 1,
-     "head": 0.987,
-     "feet": 0.753,
-     "range": 0.055,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 53.5 px shin and torso 40.5±6 px. Enlarged Gear Third hand/forearm is intentional; body remains coherent. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+    "hurtHigh": {
+     "v": 5,
+     "head": 1.002,
+     "feet": 0.641,
+     "range": 0.065,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 0.972,
-       "feet": 0.753,
+       "head": 0.953,
+       "feet": 1.083,
        "box": [
-        112,
-        58,
-        163,
-        92
+        72,
+        70,
+        106,
+        106
        ]
       },
       {
-       "head": 0.987,
-       "feet": 0.752,
+       "head": 1.018,
+       "feet": 0.641,
        "box": [
+        120,
+        69,
+        160,
+        104
+       ]
+      },
+      {
+       "head": 1.002,
+       "feet": 0.548,
+       "box": [
+        108,
+        68,
+        147,
+        102
+       ]
+      }
+     ]
+    },
+    "hurtLow": {
+     "v": 3,
+     "head": 0.994,
+     "feet": 0.608,
+     "range": 0.031,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.969,
+       "feet": 0.562,
+       "box": [
+        142,
+        99,
+        178,
+        138
+       ]
+      },
+      {
+       "head": 0.994,
+       "feet": null,
+       "box": [
+        125,
+        85,
+        162,
+        124
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.653,
+       "box": [
+        108,
+        76,
+        146,
+        113
+       ]
+      }
+     ]
+    },
+    "launched": {
+     "v": 7,
+     "head": 0.755,
+     "feet": 0.784,
+     "range": 0.51,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA agent (round 3): v07 at bodyHeight 144 (was 136: the whole figure measured 0.94 of the idle; head-probe sweep at bodyHeight 140-150 gives a constant 0.941/0.943 per 136 px). Final packed cells against idle v07 and the approved neutral/combat cells at native scale and 3x: the probe's own head measure in a manual head ROI reads f0 1.010, f1 0.988 of the idle head (f1's automatic read 0.50 is the raised R forearm guard, the topmost hair-coloured blob); landmarks (+-3 px): forearm guards 25-28 px (neutral 17 visible, hurtHigh f2 19 foreshortened), fists/hands 15 px (neutral 16), sandals ~20 px seen sole-on (foreshortened), rope band 12-13 px thick (neutral 12); one connected figure per frame, no clip (x 12..165); f0/f1 flail loop with a 10 px head shift. Not a numeric pass: tumbling pose (art/characters/sasuke/production/round3-claude/r3-launched-v07.png)",
+     "frames": [
+      {
+       "head": 1.01,
+       "feet": 0.798,
+       "box": [
+        22,
+        117,
+        67,
+        150
+       ]
+      },
+      {
+       "head": 0.5,
+       "feet": 0.769,
+       "box": [
+        78,
+        118,
+        99,
+        136
+       ]
+      }
+     ]
+    },
+    "spin": {
+     "v": 1,
+     "head": 1.542,
+     "feet": 1.108,
+     "range": 1.275,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA subagent 2026-10-11: Approved original v01 (older art style) against the title-style idle v07 and the pilot cells at native scale and 3x: upright tucks f0/f3 read 0.96/0.98 of the idle head, the inverted f1/f2 heads (probe 2.1-2.2, hair and pants merge upside down) are visibly the neutral's size, tucked thighs, shins and shoes match the combat cell; older bulkier style (art/characters/sasuke/production/title-style/claude-qa/mqa-spin-v01.png)",
+     "frames": [
+      {
+       "head": 0.956,
+       "feet": 1.09,
+       "box": [
+        87,
+        116,
+        129,
+        147
+       ]
+      },
+      {
+       "head": 2.231,
+       "feet": 1.078,
+       "box": [
+        90,
+        92,
+        176,
+        189
+       ]
+      },
+      {
+       "head": 2.099,
+       "feet": 1.126,
+       "box": [
+        88,
+        82,
+        165,
+        184
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 1.142,
+       "box": [
+        136,
         111,
+        173,
+        152
+       ]
+      }
+     ]
+    },
+    "airRecover": {
+     "v": 1,
+     "head": 1.055,
+     "feet": 1.083,
+     "range": 0.969,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA subagent 2026-10-11: Approved original v01 (older art style) against the title-style idle v07 and the pilot cells at native scale and 3x: f0 1.06 and f2 1.00 of the idle head, the inverted f1 head (probe 1.97) is visibly the neutral's size, the unfolded f2 torso, arms, legs and shoes match the combat cell; older bulkier style (art/characters/sasuke/production/title-style/claude-qa/mqa-airRecover-v01.png)",
+     "frames": [
+      {
+       "head": 1.055,
+       "feet": 0.973,
+       "box": [
+        72,
+        125,
+        114,
+        159
+       ]
+      },
+      {
+       "head": 1.969,
+       "feet": 1.083,
+       "box": [
+        105,
+        93,
+        179,
+        168
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.187,
+       "box": [
+        107,
+        63,
+        146,
+        100
+       ]
+      }
+     ]
+    },
+    "down": {
+     "v": 8,
+     "head": 1.824,
+     "feet": 1.18,
+     "range": 1.686,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA agent (round 3): v08 at bodyHeight 108 (was 96: f1's head and lying length both measured 0.87-0.88 of the idle/neutral - a whole-figure error) with frameOffsets -6/-6 px (sidecar) to keep the larger frames inside x 4..251. Final packed cells at native scale and 3x against idle v07 and the neutral cell rotated to lie on y240: probe head in a manual head ROI f0 1.033, f1 0.981 of the idle (sweep-smoothed 1.021/0.988; the 3.4% f0/f1 difference is in the v07 source, far below the 12% pop limit; f0's automatic read 2.67 is the lifted navy legs); f1 crown-to-toe 205 px (neutral stature 209), chin-to-rope ~54 (neutral 55), lower hand 16x12 (neutral 12x16), forearm guard ~16 (neutral 17); legs 0.91 of the neutral's rope-to-sole in the user's oblique view. f1 and ko v07 match (heads 0.981 vs 0.991). Floor band (f1 9% within 6 px, worst fifth 12 px) is the user-preserved oblique pose, left to the in-game grounding check (art/characters/sasuke/production/round3-claude/r3-down-v08-ko-v07.png)",
+     "frames": [
+      {
+       "head": 2.667,
+       "feet": 1.166,
+       "box": [
+        146,
+        133,
+        249,
+        236
+       ]
+      },
+      {
+       "head": 0.981,
+       "feet": 1.195,
+       "box": [
+        43,
+        173,
+        85,
+        209
+       ]
+      }
+     ]
+    },
+    "getup": {
+     "v": 5,
+     "head": 1.075,
+     "feet": 1.135,
+     "range": 1.26,
+     "verdict": "manual",
+     "reason": "manual QA by Codex native atlas inspection: Manual acceptance, not numeric: inverted f1 feet/dark hair confuse head mask (2.28); f0/f2/f3/f4 head ratios 1.02-1.09, same narrow torso, complete long legs through f1 inversion and f2 jump, bent thighs/shins in f0/f3, same planted open-palm f4. Some limb lengths in tuck remain approximate (art/characters/sasuke/production/title-style/packed-getup-v05.png)",
+     "frames": [
+      {
+       "head": 1.075,
+       "feet": 1.081,
+       "box": [
+        77,
+        160,
+        122,
+        194
+       ]
+      },
+      {
+       "head": 2.282,
+       "feet": 1.135,
+       "box": [
+        120,
+        61,
+        208,
+        182
+       ]
+      },
+      {
+       "head": 1.022,
+       "feet": 0.991,
+       "box": [
+        79,
+        93,
+        124,
+        126
+       ]
+      },
+      {
+       "head": 1.087,
+       "feet": 1.268,
+       "box": [
+        104,
+        100,
+        148,
+        140
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 1.278,
+       "box": [
+        97,
+        72,
+        136,
+        110
+       ]
+      }
+     ]
+    },
+    "charge": {
+     "v": 15,
+     "head": 1.046,
+     "feet": 1.402,
+     "range": 0.043,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.051,
+       "feet": 1.427,
+       "box": [
+        118,
+        72,
+        158,
+        113
+       ]
+      },
+      {
+       "head": 1.034,
+       "feet": 1.4,
+       "box": [
+        107,
+        63,
+        147,
+        99
+       ]
+      },
+      {
+       "head": 1.048,
+       "feet": 1.405,
+       "box": [
+        107,
+        62,
+        147,
+        100
+       ]
+      },
+      {
+       "head": 1.077,
+       "feet": 1.38,
+       "box": [
+        103,
+        62,
+        147,
+        99
+       ]
+      },
+      {
+       "head": 1.041,
+       "feet": 1.375,
+       "box": [
+        107,
+        62,
+        147,
+        99
+       ]
+      },
+      {
+       "head": 1.043,
+       "feet": 1.405,
+       "box": [
+        107,
+        62,
+        147,
+        100
+       ]
+      }
+     ]
+    },
+    "throw": {
+     "v": 7,
+     "head": 0.993,
+     "feet": 0.848,
+     "range": 0.046,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.003,
+       "feet": 0.838,
+       "box": [
+        150,
+        34,
+        189,
+        71
+       ]
+      },
+      {
+       "head": 0.983,
+       "feet": 0.858,
+       "box": [
+        195,
         58,
-        163,
+        235,
+        94
+       ]
+      },
+      {
+       "head": 0.98,
+       "feet": 0.813,
+       "box": [
+        190,
+        54,
+        231,
         90
        ]
       },
       {
-       "head": 1.027,
-       "feet": 0.889,
+       "head": 1.026,
+       "feet": 0.87,
        "box": [
-        111,
-        58,
-        163,
-        111
+        156,
+        36,
+        195,
+        74
+       ]
+      }
+     ]
+    },
+    "beamCharge": {
+     "v": 5,
+     "head": 1,
+     "feet": 1.88,
+     "range": 0.026,
+     "verdict": "ok",
+     "staleExempt": {
+      "v": 1,
+      "version": 5
+     },
+     "frames": [
+      {
+       "head": 1,
+       "feet": 1.852,
+       "box": [
+        95,
+        47,
+        133,
+        96
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.88,
+       "box": [
+        97,
+        45,
+        135,
+        96
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.892,
+       "box": [
+        97,
+        45,
+        134,
+        96
        ]
       }
      ]
     },
     "beamFire": {
-     "v": 4,
-     "head": 2.057,
-     "feet": 1.075,
-     "range": 0.317,
+     "v": 8,
+     "head": 1.066,
+     "feet": 0.931,
+     "range": 0.025,
      "verdict": "exempt",
-     "reason": "Known straw-hat silhouette causes an automatic head-probe false positive; use the version-bound manual Astra audit for v04.",
+     "reason": "user sizing decision 2026-10-18 (relay skills #19, meet halfway): at a matched body (feet 1.00) the drawn head is 1.16x the idle; at bodyHeight 138 the probe reads head 1.07-1.09, feet 0.93-0.95",
      "frames": [
       {
-       "head": 2.336,
-       "feet": 1.205,
+       "head": 1.066,
+       "feet": 0.939,
        "box": [
-        63,
-        59,
+        146,
+        107,
+        185,
+        150
+       ]
+      },
+      {
+       "head": 1.07,
+       "feet": 0.931,
+       "box": [
+        147,
+        108,
+        186,
+        150
+       ]
+      },
+      {
+       "head": 1.045,
+       "feet": 0.879,
+       "box": [
+        149,
+        110,
         187,
-        195
+        152
+       ]
+      }
+     ]
+    },
+    "vanish": {
+     "v": 5,
+     "head": 1.039,
+     "feet": 0.601,
+     "range": 0.025,
+     "verdict": "manual",
+     "reason": "manual QA by Codex native atlas inspection: Manual acceptance, not numeric: sliced afterimage invalidates pose probe; face-skin width idle 23 px, v05 f0 25 px, f1 22 px, neck-to-belt torso and long legs retain one scale with pose bends (art/characters/sasuke/production/title-style/packed-vanish-v05.png)",
+     "frames": [
+      {
+       "head": 1.051,
+       "feet": 0.601,
+       "box": [
+        119,
+        49,
+        159,
+        86
        ]
       },
       {
-       "head": 2.019,
-       "feet": 1.022,
+       "head": 1.026,
+       "feet": null,
        "box": [
-        72,
-        59,
-        179,
-        197
+        115,
+        21,
+        154,
+        56
+       ]
+      }
+     ]
+    },
+    "stagger": {
+     "v": 8,
+     "head": 0.979,
+     "feet": 1.325,
+     "range": 0.028,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.974,
+       "feet": 1.389,
+       "box": [
+        117,
+        26,
+        154,
+        62
        ]
       },
       {
-       "head": 2.057,
-       "feet": 1.075,
+       "head": 0.972,
+       "feet": 1.243,
        "box": [
-        71,
-        59,
-        178,
-        197
+        87,
+        25,
+        124,
+        59
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 1.261,
+       "box": [
+        133,
+        37,
+        171,
+        73
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.425,
+       "box": [
+        117,
+        26,
+        155,
+        63
+       ]
+      }
+     ]
+    },
+    "ko": {
+     "v": 7,
+     "head": 0.974,
+     "feet": 0.923,
+     "range": 0,
+     "verdict": "manual",
+     "reason": "manual QA by Claude QA agent (round 3): v07 at bodyHeight 86 (was 64: head 0.711-0.735 of the idle and torso 0.75 of the neutral - a whole-figure error; head-probe sweep 82-92 px gives a constant 0.736 per 64 px). Final packed cell at native scale and 3x against idle v07, the neutral rotated to lie on y240 and down v08 f1: probe head in a manual head ROI 0.991 (sqrt area) / 0.974 (probe median) of the idle, down f1 0.981; crown (x~10), chin (x~50) and rope centre (x~104) land on the rotated neutral's crown/chin/rope lines, chin-to-rope ~55 px (neutral 55); bent knees and sandals one scale with down f1; one connected figure, x 8..204. Floor band (13% within 6 px, worst fifth 33 px) is the user-preserved bent-knee oblique pose, left to the in-game grounding check (art/characters/sasuke/production/round3-claude/r3-down-v08-ko-v07.png)",
+     "frames": [
+      {
+       "head": 0.974,
+       "feet": 0.923,
+       "box": [
+        9,
+        171,
+        45,
+        207
        ]
       }
      ]
     },
     "special": {
-     "v": 4,
-     "head": 0.997,
-     "feet": 0.875,
-     "range": 0.029,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (medium), final relay #4 quantized-cell audit, 2026-10-19: Exact relay #4 pack atlas SHA256 BF9558CDB575C47E45D74474B749115C7DDD9C7B6993B7D27C75F4E531AA5905. GPT-6 Astra independently inspected every quantized cell against packed idle and approved title neutral/combat at the documented ART-SIZE-R7 x0.92 fit. Manual anatomy/scale PASS within stated endpoint uncertainty. This is not image approval, hand-anchor reach/contact, timing or runtime integration. Cells 100-107: head, torso, planted legs and sandals stay coherent; f5 vest-area B~1.30 is cloth flare. Neck-to-sash ~40-45px, comparable shins ~48-55px vs idle ~41px and ~53-55px; endpoint uncertainty +/-5-6px torso/shins, +/-3-4px head/accessory boundaries. See FINAL_RELAY4_ASTRA_AUDIT.md. (art/characters/luffy/production/skills-revamp-batch1/FINAL_RELAY4_ASTRA_AUDIT.md)",
+     "v": 15,
+     "head": 1.013,
+     "feet": 1.236,
+     "range": 0.075,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 1.014,
-       "feet": 0.868,
+       "head": 1.026,
+       "feet": 1.236,
        "box": [
-        117,
-        55,
-        169,
-        99
+        111,
+        109,
+        150,
+        147
        ]
       },
       {
-       "head": 1.001,
-       "feet": 0.905,
+       "head": 1.037,
+       "feet": 1.236,
        "box": [
-        118,
-        55,
-        172,
-        89
+        115,
+        115,
+        156,
+        152
        ]
       },
       {
-       "head": 1.009,
-       "feet": 0.895,
+       "head": 1.045,
+       "feet": 1.307,
        "box": [
-        127,
-        56,
+        139,
+        109,
         180,
-        91
+        145
        ]
       },
       {
-       "head": 0.994,
-       "feet": 0.844,
+       "head": 1.017,
+       "feet": 1.18,
        "box": [
-        122,
-        55,
-        176,
-        88
+        172,
+        107,
+        212,
+        142
        ]
       },
       {
-       "head": 1.001,
-       "feet": 0.848,
+       "head": 0.981,
+       "feet": 1.115,
        "box": [
-        117,
-        55,
-        173,
-        89
+        167,
+        108,
+        206,
+        141
        ]
       },
       {
-       "head": 0.985,
-       "feet": 0.822,
+       "head": 0.983,
+       "feet": 1.236,
        "box": [
-        119,
-        55,
-        170,
-        94
+        139,
+        101,
+        178,
+        133
        ]
       },
       {
-       "head": 0.991,
-       "feet": 0.882,
+       "head": 1.008,
+       "feet": 1.286,
        "box": [
-        112,
-        53,
-        166,
-        88
+        116,
+        100,
+        155,
+        136
        ]
       },
       {
-       "head": 0.991,
-       "feet": 0.882,
+       "head": 0.97,
+       "feet": 1.128,
        "box": [
-        113,
-        55,
-        165,
-        90
+        115,
+        102,
+        153,
+        136
+       ]
+      }
+     ]
+    },
+    "intro": {
+     "v": 3,
+     "head": 1.013,
+     "feet": 0.795,
+     "range": 0.034,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.026,
+       "feet": 0.782,
+       "box": [
+        107,
+        19,
+        146,
+        57
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.807,
+       "box": [
+        106,
+        18,
+        144,
+        55
+       ]
+      },
+      {
+       "head": 1.034,
+       "feet": 0.753,
+       "box": [
+        106,
+        20,
+        145,
+        59
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.867,
+       "box": [
+        106,
+        18,
+        144,
+        55
+       ]
+      }
+     ]
+    },
+    "taunt": {
+     "v": 3,
+     "head": 0.999,
+     "feet": 0.654,
+     "range": 0.003,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1,
+       "feet": 0.629,
+       "box": [
+        105,
+        40,
+        144,
+        77
+       ]
+      },
+      {
+       "head": 0.997,
+       "feet": 0.679,
+       "box": [
+        105,
+        40,
+        144,
+        76
        ]
       }
      ]
     },
     "win": {
-     "v": 3,
-     "head": 1.034,
-     "feet": 0.98,
-     "range": 0.022,
-     "verdict": "manual",
-     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 52.9 px shin; torso 48.3±6 px, sash 31±4 px, forearm 34.9±6 px, sandal 10.2±3 px vs title-neutral comparison. Four frames preserve build and intact hands; coherent loop. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "v": 4,
+     "head": 0.997,
+     "feet": 0.912,
+     "range": 0.006,
+     "verdict": "ok",
      "frames": [
       {
-       "head": 1.028,
-       "feet": 0.993,
+       "head": 1,
+       "feet": 0.978,
        "box": [
-        101,
-        24,
-        152,
-        63
+        112,
+        38,
+        150,
+        75
        ]
       },
       {
-       "head": 1.036,
-       "feet": 0.983,
+       "head": 0.994,
+       "feet": 0.873,
+       "box": [
+        112,
+        39,
+        151,
+        74
+       ]
+      },
+      {
+       "head": 0.994,
+       "feet": 0.923,
+       "box": [
+        111,
+        39,
+        151,
+        74
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 0.901,
+       "box": [
+        111,
+        38,
+        151,
+        75
+       ]
+      }
+     ]
+    },
+    "specialForward": {
+     "v": 10,
+     "head": 0.997,
+     "feet": 1.185,
+     "range": 0.059,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.953,
+       "feet": 1.185,
+       "box": [
+        106,
+        67,
+        143,
+        101
+       ]
+      },
+      {
+       "head": 0.955,
+       "feet": 1.195,
+       "box": [
+        126,
+        78,
+        161,
+        115
+       ]
+      },
+      {
+       "head": 0.997,
+       "feet": 1.366,
+       "box": [
+        107,
+        72,
+        144,
+        109
+       ]
+      },
+      {
+       "head": 0.97,
+       "feet": 1.214,
+       "box": [
+        123,
+        74,
+        161,
+        108
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.024,
+       "box": [
+        112,
+        70,
+        151,
+        107
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 1.06,
        "box": [
         99,
-        25,
-        144,
-        67
+        71,
+        138,
+        107
        ]
       },
       {
-       "head": 1.032,
-       "feet": 0.944,
+       "head": 1,
+       "feet": 1.085,
        "box": [
         100,
-        24,
+        71,
+        138,
+        107
+       ]
+      }
+     ]
+    },
+    "specialUp": {
+     "v": 9,
+     "head": 1.009,
+     "feet": 0.808,
+     "range": 0.063,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.038,
+       "feet": 0.792,
+       "box": [
+        145,
+        113,
+        185,
+        150
+       ]
+      },
+      {
+       "head": 1.013,
+       "feet": 0.867,
+       "box": [
+        139,
+        61,
+        178,
+        98
+       ]
+      },
+      {
+       "head": 1.005,
+       "feet": 0.746,
+       "box": [
+        116,
+        71,
+        155,
+        106
+       ]
+      },
+      {
+       "head": 0.975,
+       "feet": 0.823,
+       "box": [
+        113,
+        59,
         152,
-        63
+        93
+       ]
+      },
+      {
+       "head": 0.564,
+       "feet": 1.159,
+       "box": [
+        131,
+        79,
+        152,
+        104
+       ],
+       "exempt": true
+      },
+      {
+       "head": 1.436,
+       "feet": 1.117,
+       "box": [
+        109,
+        28,
+        164,
+        85
+       ],
+       "exempt": true
+      }
+     ]
+    },
+    "specialDown": {
+     "v": 4,
+     "head": 1.006,
+     "feet": 1.069,
+     "range": 0.026,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1,
+       "feet": 1.041,
+       "box": [
+        104,
+        60,
+        142,
+        97
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.113,
+       "box": [
+        104,
+        59,
+        142,
+        95
+       ]
+      },
+      {
+       "head": 1.012,
+       "feet": 1.097,
+       "box": [
+        104,
+        60,
+        142,
+        99
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 1.028,
+       "box": [
+        104,
+        59,
+        143,
+        97
+       ]
+      }
+     ]
+    },
+    "superPose": {
+     "v": 1,
+     "head": 1.013,
+     "feet": 1.035,
+     "range": 0.026,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.026,
+       "feet": 1.06,
+       "box": [
+        103,
+        34,
+        142,
+        72
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.011,
+       "box": [
+        104,
+        34,
+        144,
+        71
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 1.011,
+       "box": [
+        104,
+        34,
+        144,
+        72
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.104,
+       "box": [
+        104,
+        34,
+        142,
+        71
+       ]
+      }
+     ]
+    },
+    "beamStruggle": {
+     "v": 2,
+     "head": 0.993,
+     "feet": 1.036,
+     "range": 0.013,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.991,
+       "feet": 0.971,
+       "box": [
+        115,
+        90,
+        153,
+        124
+       ]
+      },
+      {
+       "head": 0.993,
+       "feet": 1.036,
+       "box": [
+        99,
+        90,
+        137,
+        126
+       ]
+      },
+      {
+       "head": 1.004,
+       "feet": 1.095,
+       "box": [
+        106,
+        89,
+        146,
+        124
+       ]
+      }
+     ]
+    },
+    "beamStruggleAir": {
+     "v": 1,
+     "head": 1,
+     "feet": 0.984,
+     "range": 0.073,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.943,
+       "feet": 0.984,
+       "box": [
+        129,
+        73,
+        168,
+        107
+       ]
+      },
+      {
+       "head": 1.016,
+       "feet": 0.912,
+       "box": [
+        141,
+        75,
+        181,
+        112
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.024,
+       "box": [
+        160,
+        81,
+        199,
+        118
+       ]
+      }
+     ]
+    },
+    "fTilt": {
+     "v": 3,
+     "head": 1.031,
+     "feet": 0.991,
+     "range": 0.037,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.031,
+       "feet": 0.881,
+       "box": [
+        110,
+        75,
+        148,
+        114
+       ]
+      },
+      {
+       "head": 1.063,
+       "feet": 1.004,
+       "box": [
+        131,
+        78,
+        169,
+        118
        ]
       },
       {
        "head": 1.05,
-       "feet": 0.976,
+       "feet": 1.053,
        "box": [
-        99,
-        24,
+        133,
+        76,
+        170,
+        116
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 0.991,
+       "box": [
+        118,
+        78,
+        156,
+        116
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 1.024,
+       "box": [
+        115,
+        77,
+        153,
+        115
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 0.971,
+       "box": [
+        112,
+        79,
+        149,
+        117
+       ]
+      },
+      {
+       "head": 1.039,
+       "feet": 0.909,
+       "box": [
+        107,
+        75,
+        143,
+        114
+       ]
+      }
+     ]
+    },
+    "uTilt": {
+     "v": 5,
+     "head": 0.996,
+     "feet": 1.27,
+     "range": 0.079,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.971,
+       "feet": 1.27,
+       "box": [
+        107,
+        72,
+        145,
+        105
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.148,
+       "box": [
+        122,
+        108,
+        162,
+        145
+       ]
+      },
+      {
+       "head": 0.54,
+       "feet": 1.085,
+       "box": [
         151,
-        63
+        76,
+        167,
+        98
+       ],
+       "exempt": true
+      },
+      {
+       "head": 0.581,
+       "feet": 1.366,
+       "box": [
+        148,
+        34,
+        169,
+        62
+       ],
+       "exempt": true
+      },
+      {
+       "head": 0.996,
+       "feet": 1.298,
+       "box": [
+        113,
+        68,
+        155,
+        101
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.245,
+       "box": [
+        108,
+        70,
+        145,
+        108
+       ]
+      },
+      {
+       "head": 0.921,
+       "feet": 1.288,
+       "box": [
+        106,
+        73,
+        143,
+        106
+       ]
+      }
+     ]
+    },
+    "dTilt": {
+     "v": 5,
+     "head": 0.987,
+     "feet": 1.258,
+     "range": 0.038,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.97,
+       "feet": 1.33,
+       "box": [
+        107,
+        72,
+        142,
+        108
+       ]
+      },
+      {
+       "head": 1.008,
+       "feet": 1.199,
+       "box": [
+        128,
+        111,
+        165,
+        150
+       ]
+      },
+      {
+       "head": 0.986,
+       "feet": 1.195,
+       "box": [
+        129,
+        118,
+        165,
+        157
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 1.305,
+       "box": [
+        110,
+        119,
+        147,
+        159
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.224,
+       "box": [
+        113,
+        118,
+        149,
+        156
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.292,
+       "box": [
+        114,
+        113,
+        151,
+        149
+       ]
+      }
+     ]
+    },
+    "dashAttack": {
+     "v": 5,
+     "head": 1,
+     "feet": 1.083,
+     "range": 0.077,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.974,
+       "feet": 1.069,
+       "box": [
+        141,
+        97,
+        178,
+        134
+       ]
+      },
+      {
+       "head": 1.026,
+       "feet": 1.083,
+       "box": [
+        162,
+        97,
+        201,
+        135
+       ]
+      },
+      {
+       "head": 1.051,
+       "feet": 0.986,
+       "box": [
+        147,
+        103,
+        187,
+        143
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.168,
+       "box": [
+        137,
+        102,
+        176,
+        139
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.104,
+       "box": [
+        133,
+        100,
+        171,
+        137
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.038,
+       "box": [
+        131,
+        97,
+        169,
+        135
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.088,
+       "box": [
+        143,
+        98,
+        181,
+        134
+       ]
+      }
+     ]
+    },
+    "fSmash": {
+     "v": 2,
+     "head": 1.047,
+     "feet": 1.509,
+     "range": 0.107,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.051,
+       "feet": 1.61,
+       "box": [
+        103,
+        49,
+        143,
+        89
+       ]
+      },
+      {
+       "head": 0.996,
+       "feet": 1.597,
+       "box": [
+        106,
+        56,
+        145,
+        91
+       ]
+      },
+      {
+       "head": 1.103,
+       "feet": 1.532,
+       "box": [
+        157,
+        70,
+        199,
+        111
+       ]
+      },
+      {
+       "head": 1.04,
+       "feet": 1.382,
+       "box": [
+        146,
+        64,
+        186,
+        100
+       ]
+      },
+      {
+       "head": 1.049,
+       "feet": 1.214,
+       "box": [
+        140,
+        58,
+        182,
+        93
+       ]
+      },
+      {
+       "head": 1.039,
+       "feet": 1.34,
+       "box": [
+        135,
+        58,
+        177,
+        93
+       ]
+      },
+      {
+       "head": 1.047,
+       "feet": 1.509,
+       "box": [
+        129,
+        62,
+        170,
+        100
+       ]
+      },
+      {
+       "head": 1.077,
+       "feet": 1.468,
+       "box": [
+        102,
+        52,
+        143,
+        92
+       ]
+      },
+      {
+       "head": 1.025,
+       "feet": 1.596,
+       "box": [
+        100,
+        49,
+        138,
+        89
+       ]
+      }
+     ]
+    },
+    "uSmash": {
+     "v": 5,
+     "head": 0.996,
+     "feet": 1.106,
+     "range": 0.032,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.974,
+       "feet": 1.122,
+       "box": [
+        106,
+        68,
+        143,
+        104
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.055,
+       "box": [
+        134,
+        102,
+        172,
+        139
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.045,
+       "box": [
+        139,
+        122,
+        177,
+        164
+       ]
+      },
+      {
+       "head": 0.5,
+       "feet": 1.189,
+       "box": [
+        153,
+        54,
+        168,
+        76
+       ],
+       "exempt": true
+      },
+      {
+       "head": 0.553,
+       "feet": 1.286,
+       "box": [
+        155,
+        14,
+        171,
+        40
+       ],
+       "exempt": true
+      },
+      {
+       "head": 0.991,
+       "feet": 1.122,
+       "box": [
+        115,
+        76,
+        152,
+        113
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.106,
+       "box": [
+        111,
+        69,
+        149,
+        106
+       ]
+      },
+      {
+       "head": 0.968,
+       "feet": 1.106,
+       "box": [
+        106,
+        69,
+        142,
+        105
+       ]
+      }
+     ]
+    },
+    "fair": {
+     "v": 3,
+     "head": 0.992,
+     "feet": 1.095,
+     "range": 0.033,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 0.974,
+       "feet": 1.104,
+       "box": [
+        103,
+        51,
+        140,
+        87
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.197,
+       "box": [
+        109,
+        82,
+        146,
+        117
+       ]
+      },
+      {
+       "head": 1.007,
+       "feet": 1.055,
+       "box": [
+        96,
+        76,
+        133,
+        115
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.064,
+       "box": [
+        86,
+        78,
+        123,
+        115
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.137,
+       "box": [
+        113,
+        66,
+        151,
+        102
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 1.085,
+       "box": [
+        106,
+        82,
+        143,
+        119
+       ]
+      }
+     ]
+    },
+    "bair": {
+     "v": 1,
+     "head": 1.046,
+     "feet": 1.637,
+     "range": 0.058,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.039,
+       "feet": 1.54,
+       "box": [
+        146,
+        53,
+        186,
+        91
+       ]
+      },
+      {
+       "head": 1.053,
+       "feet": 1.553,
+       "box": [
+        97,
+        49,
+        137,
+        89
+       ]
+      },
+      {
+       "head": 1.077,
+       "feet": 1.699,
+       "box": [
+        114,
+        67,
+        155,
+        108
+       ]
+      },
+      {
+       "head": 1.019,
+       "feet": 1.657,
+       "box": [
+        122,
+        74,
+        163,
+        111
+       ]
+      },
+      {
+       "head": 1.039,
+       "feet": 1.675,
+       "box": [
+        100,
+        47,
+        140,
+        85
+       ]
+      },
+      {
+       "head": 1.053,
+       "feet": 1.616,
+       "box": [
+        143,
+        53,
+        184,
+        92
+       ]
+      }
+     ]
+    },
+    "uair": {
+     "v": 1,
+     "head": 1,
+     "feet": 1.631,
+     "range": 0.056,
+     "verdict": "ok",
+     "frames": [
+      {
+       "head": 1.026,
+       "feet": 1.675,
+       "box": [
+        112,
+        76,
+        151,
+        114
+       ]
+      },
+      {
+       "head": 0.615,
+       "feet": 1.86,
+       "box": [
+        92,
+        82,
+        115,
+        106
+       ],
+       "exempt": true
+      },
+      {
+       "head": 0.97,
+       "feet": 1.442,
+       "box": [
+        100,
+        75,
+        135,
+        111
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.631,
+       "box": [
+        116,
+        60,
+        153,
+        96
+       ]
+      },
+      {
+       "head": 1,
+       "feet": 1.585,
+       "box": [
+        109,
+        69,
+        147,
+        106
+       ]
+      },
+      {
+       "head": 1.015,
+       "feet": 1.699,
+       "box": [
+        113,
+        78,
+        152,
+        115
        ]
       }
      ]

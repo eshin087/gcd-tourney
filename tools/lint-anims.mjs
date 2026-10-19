@@ -14,7 +14,9 @@
 //      for every roster fighter within the engine's 6-hop guard (SheetAsset.anim);
 //   4. every `altOf` (attack alts, ADR 0031) names an existing base and repeats its frames and phases, in the guide,
 //      the manifest defaults and each fighter's entry;
-//   5. art/SPEC.md mentions every animation name (ASSETS.md every optional one) in backticks (warning only: prose can be reworded).
+//   5. art/SPEC.md mentions every animation name (ASSETS.md every optional one) in backticks (warning only: prose can be reworded);
+//   6. a move that strikes behind (`back: true` in src/game/moves.js MOVES) plays a strip the guide marks `strike: 'back'`,
+//      and every such strip is one: the packer looks for that strip's auto hit box behind the body (TOOL-062).
 // sprites.js imports three.js and reads `location`, so FALLBACK is parsed out of the source text, not imported.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,8 +25,8 @@ import { pathToFileURL, fileURLToPath } from 'node:url';
 const HOPS = 6; // SheetAsset.anim() gives up (and shows idle) after this many FALLBACK steps
 
 // Pure check: every input is plain data, so the test can hand it a doctored copy.
-// in: { guide, manifest, fallback, baked: { <fighterId>: [anim names the placeholder bakes] }, spec, assets }
-export function checkAnims({ guide, manifest, fallback, baked, spec, assets }) {
+// in: { guide, manifest, fallback, baked: { <fighterId>: [anim names the placeholder bakes] }, spec, assets, moves }
+export function checkAnims({ guide, manifest, fallback, baked, spec, assets, moves = {} }) {
   const errors = [];
   const warnings = [];
   const notes = [];
@@ -102,6 +104,18 @@ export function checkAnims({ guide, manifest, fallback, baked, spec, assets }) {
     const missing = list.filter((n) => !text.includes('`' + n + '`'));
     if (missing.length) warnings.push(`${label} does not mention in backticks: ${missing.join(', ')}`);
   }
+
+  // 6. the strike side the packer boxes matches the move's: a mismatch puts the auto hit box on the wrong side
+  const backAnims = new Set();
+  for (const [id, m] of Object.entries(moves)) {
+    if (!m?.back || !m.anim || !guide[m.anim]) continue;
+    backAnims.add(m.anim);
+    if (guide[m.anim].strike !== 'back') errors.push(`MOVES.${id} strikes behind (back: true) but ANIM_GUIDE.${m.anim} has no strike: 'back' (the packer would box it in front)`);
+  }
+  for (const n of names) {
+    if (guide[n].strike !== undefined && guide[n].strike !== 'back') errors.push(`ANIM_GUIDE.${n}.strike is ${JSON.stringify(guide[n].strike)} - only 'back' is known`);
+    else if (guide[n].strike === 'back' && !backAnims.has(n)) errors.push(`ANIM_GUIDE.${n} has strike: 'back' but no move with back: true plays it (src/game/moves.js MOVES)`);
+  }
   return { errors, warnings, notes };
 }
 
@@ -118,6 +132,7 @@ export async function loadReal(root) {
   const imp = (rel) => import(pathToFileURL(path.join(root, rel)).href);
   const { ANIM_GUIDE } = await imp('src/art/animGuide.js');
   const { ROSTER } = await imp('src/characters/index.js'); // builds each fighter's placeholder anims (a few ms)
+  const { MOVES } = await imp('src/game/moves.js');
   const read = (rel) => (fs.existsSync(path.join(root, rel)) ? fs.readFileSync(path.join(root, rel), 'utf8') : null);
   return {
     guide: ANIM_GUIDE,
@@ -126,6 +141,7 @@ export async function loadReal(root) {
     baked: Object.fromEntries(ROSTER.map((c) => [c.id, Object.keys(c.anims)])),
     spec: read('art/SPEC.md'),
     assets: read('ASSETS.md'),
+    moves: MOVES,
   };
 }
 

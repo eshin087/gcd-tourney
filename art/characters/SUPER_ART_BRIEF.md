@@ -12,7 +12,7 @@ Until an image is approved and packed, the game shows today's eye strip on speed
 
 | raw (art/characters/<id>/raw/) | approved copy | final size | generate at | what it is |
 |---|---|---|---|---|
-| `ui_super_bg_vNN.png` | `ui/super_bg.png` | 768 x 192, opaque | 1536 x 1024 | the super's backdrop. The packer center-crops to 4:1 (y 320-704 of the raw): **everything that matters sits in that middle band**, above and below only continues the sky/ground |
+| `ui_super_bg_vNN.png` | `ui/super_bg.png` | 768 x 192, opaque | 1536 x 1024 | the super's backdrop. The packer center-crops to 4:1 (y 320-704 of the raw; a drawing whose focus sits higher or lower can have the band moved with `cropY` in the manifest's ui entry, its top row in the source, set by Claude): **everything that matters sits in that middle band**, above and below only continues the sky/ground |
 | `ui_super_fg_vNN.png` | `ui/super_fg.png` | 384 x 240 (contain-fit, bottom-aligned) | 1024 x 1024 on magenta | the fighter **chest-up** in the super's pose. The banner is 192 tall; the head and a raised hand may break 48 px out of its top |
 | `ui_ult_bg_vNN.png` | `ui/ult_bg.png` | 768 x 432, opaque | 1536 x 1024 | the ultimate's full-screen backdrop. Center-cropped to 16:9 (y 80-944); phones crop the sides to 4:3, so **keep the focal symbol inside the middle 1152 px** |
 | `ui_ult_fg_vNN.png` | `ui/ult_fg.png` | 576 x 432 (contain-fit, bottom-aligned) | 1024 x 1536 on magenta | the fighter **three-quarter to full figure** in the ultimate's pose, bottom of the figure at the bottom edge |

@@ -98,6 +98,7 @@ export class Effects {
     this.overlay = new Overlay();
     this.cellWorld = meta.cell / PPU;
     this.camFwd = new THREE.Vector3(0, 0, -1);
+    this.camUp = new THREE.Vector3(0, 1, 0); // the billboards' up: a point raised along it stays at the body's depth
     this.ground = new GroundDamage(scene, this); // craters, cracks, scorches, wall marks (ADR 0024)
     this.sigils = new Sigils(scene); // Sharingan / Mangekyō behind an eye technique (ADR 0035)
   }
@@ -341,6 +342,7 @@ export class Effects {
   update(dt, camera) {
     this.camera = camera; // handAt lays the drawn hand along the billboard's axes
     camera.getWorldDirection(this.camFwd);
+    this.camUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
     this.sigils.update(dt, camera, this.camFwd);
     const now = performance.now();
     for (const [id, it] of this.keepers) {
@@ -718,11 +720,20 @@ export class Effects {
         this.spawn('streak', p.x + Math.cos(a) * s * 1.2, p.y + Math.sin(a) * s * 0.6, p.z, { scale: 0.3, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });
       }
     } else if (kind === 'kiFist') {
-      // Dragon Fist (Goku): golden ki wrapped round the fist, drawn back in startup and driven forward in active
+      // Dragon Fist (Goku): golden ki gathering on the chambered fist in startup; in the flight (ENG-SKL-GOK) the HD
+      // envelope of golden ki round his whole body, pointed at the fist, behind the sprite (a small glow only: the old
+      // big glow disc hid him)
       const p = phase === 0 ? at(-0.2, 0.8) : at(0.7, 0.85);
       const s = (phase === 0 ? 0.3 + prog * 0.4 : 0.75) * k;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.5, color: 0xffd84a, opacity: 0.55 * halo, order: 3, glow: 1 });
-      if (Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * (phase === 0 ? 1.1 : 0.7), color: 0xffd84a, opacity: 0.4 * halo, order: 3, glow: 0.6 });
+      if (phase === 1 && !quiet) {
+        // raised along the billboard's up and a step behind it along the view (a point raised straight up comes nearer
+        // the downward-looking camera and would cover him), so it frames him
+        const bk = this.camFwd, U = this.camUp, h = 0.8 * k;
+        this.keep('hand' + f.index, 'dragonFistAura', P.x + fx * 0.1 * k + U.x * h + bk.x * 0.3, P.y + U.y * h + bk.y * 0.3, P.z + fz * 0.1 * k + U.z * h + bk.z * 0.3, { scale: 0.82 * k, order: 1, glow: 0, flipX: f.side < 0 });
+      } else this.drop('hand' + f.index);
+      // ki licking off the chambered fist in the wind-up only: in the flight they trailed across his body
+      if (phase === 0 && Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
     } else if (kind === 'chidori') {
       // the thousand birds (ENG-SKL-SAS): it crackles to life in his gripped hand through most of the startup
       // (chidoriForm), then the HD knot rides the drawn palm; a small glow only, the art carries the light (the old
@@ -863,8 +874,9 @@ export class Effects {
     const a = Math.random() * Math.PI * 2, b = (Math.random() - 0.5) * 2.2, r = 1.3 + Math.random() * 0.5;
     const sx = x + Math.cos(a) * r, sy = y + Math.sin(b) * r * 0.6, sz = z + Math.sin(a) * r * 0.5;
     const cols = G.colors ?? [0xff3a2a];
-    this.spawn('bubble', sx, sy, sz, {
-      scale: 0.14 + Math.random() * 0.1, color: cols[(Math.random() * cols.length) | 0], vel: [(x - sx) * 3, (y - sy) * 3, (z - sz) * 3], life: 0.33, order: 8, glow: 0.2,
+    const M = G.mote; // what converges on it: chakra bubbles by default, ki sparks for the Kamehameha (ENG-SKL-GOK)
+    this.spawn(M?.fx ?? 'bubble', sx, sy, sz, {
+      scale: (M?.scale ?? 1) * (0.14 + Math.random() * 0.1), frame: M?.frame, color: cols[(Math.random() * cols.length) | 0], vel: [(x - sx) * 3, (y - sy) * 3, (z - sz) * 3], life: 0.33, order: 8, glow: M?.glow ?? 0.2,
     });
   }
 

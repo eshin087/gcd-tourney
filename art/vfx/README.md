@@ -99,6 +99,21 @@ approved (and while its page loads at the start of a match).
 | `kirinBody` | sasuke | 4 | 40 | full color | center | the Kirin's bolt body, stacked from the clouds to the head; exact 256 x 256 frames that tile top to bottom |
 | `kirinHead` | sasuke | 6 | 40 | full color | center | the Kirin's head diving straight down (loop) |
 | `kirinStrike` | sasuke | 8 | 45 | full color | bottom | the Kirin hitting the floor |
+| `kamehameha` | goku | 8 | 40 | full color | center | Goku's ki ball growing in his cupped hands (the beam's `gather`), then held at his palms while it fires (loop) |
+| `kamehamehaHead` | goku | 6 | 40 | full color | center | the Kamehameha's rounded swirling head, its front on the beam's head (loop; turned along the beam) |
+| `kamehamehaRing` | goku | 6 | 40 | full color | center | the shock rings sent down the Kamehameha |
+| `kiBlast` | goku | 6 | 35 | full color | center | a ki blast in flight, turned along it (loop) |
+| `kiMuzzle` | goku | 5 | 35 | full color | center | the flash at his palm as each ki blast leaves |
+| `kiBlastBurst` | goku | 7 | 40 | full color | center | a ki blast hitting |
+| `dragonFistAura` | goku | 6 | 40 | full color | center | the golden ki round him in Dragon Fist's flight, behind the body (loop) |
+| `dragonFistDragon` | goku | 10 | 50 | full color | center | the golden dragon erupting from the punch and coiling round the victim (its frames follow the hit stop) |
+| `dragonFistBurst` | goku | 8 | 45 | full color | center | the dragon bursting as the victim flies |
+| `instantTransmission` | goku | 6 | 35 | full color | bottom | Instant Transmission's shimmer as he goes (played backward where he reappears) |
+| `kaiokenBurst` | goku | 7 | 40 | full color | bottom | the red aura bursting out as Kaio-ken starts |
+| `kaiokenAura` | goku | 6 | 50 | full color | bottom | the Kaio-ken aura held behind him while the mode lasts (loop; the body area left clear) |
+| `spiritBomb` | goku | 8 | 60 | full color | center | the Spirit Bomb over his raised hands, grown from small to giant, then falling onto the mark (loop) |
+| `spiritBombBlast` | goku | 8 | 60 | full color | bottom | the Spirit Bomb landing: the dome |
+| `superSaiyanBurst` | goku | 8 | 45 | full color | bottom | the golden aura exploding as he turns Super Saiyan in the match intro |
 | `lapseBlue` | gojo | 8 | 40 | full color | center | Gojo's Lapse: Blue, the dense navy-eyed point space falls into (loop); Blue in his far hand (Hollow Purple) |
 | `blueCollapse` | gojo | 8 | 40 | full color | center | Blue's end, the implosion; small, Blink's fold where he vanishes and reappears |
 | `redForm` | gojo | 6 | 40 | full color | center | Reversal: Red forming on his raised fingertip during the startup |
@@ -139,7 +154,8 @@ approved (and while its page loads at the start of a match).
 The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md),
 [art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md),
 [art/characters/gojo/SKILLS_REVAMP.md](../characters/gojo/SKILLS_REVAMP.md),
-[art/characters/killua/SKILLS_REVAMP.md](../characters/killua/SKILLS_REVAMP.md) and
+[art/characters/killua/SKILLS_REVAMP.md](../characters/killua/SKILLS_REVAMP.md),
+[art/characters/goku/SKILLS_REVAMP.md](../characters/goku/SKILLS_REVAMP.md) and
 [art/characters/luffy/SKILLS_REVAMP.md](../characters/luffy/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)

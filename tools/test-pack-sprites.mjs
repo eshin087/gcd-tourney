@@ -111,6 +111,7 @@ function figure(p = {}) {
   }
   const R = [[-6, -2, 0, 28, COL.pants], [2, 6, 0, 28, COL.pants]];
   if (p.kick) R.push([6, 6 + p.kick, 18, 23, COL.pants]);
+  if (p.backKick) R.push([-6 - p.backKick, -6, 18, 23, COL.pants]); // a back air's kick: behind the body, to the left
   R.push([-7, 7, 28 + b, 52 + b, COL.orange], [-6, 6, 52 + b, 64 + b, COL.skin], [-7, 7, 62 + b, 70 + b, COL.hair], [-5, -3, 70 + b, 74 + b, COL.hair], [1, 3, 70 + b, 75 + b, COL.hair]);
   R.push([-11, -7, 38 + b, 42 + b, COL.skin]);
   if (p.punch) R.push([7, 7 + p.punch, 42 + b, 46 + b, COL.skin], [7 + p.punch - 3, 7 + p.punch, 41 + b, 47 + b, COL.fist]);
@@ -1057,6 +1058,7 @@ function main() {
   techPoseTests(base);
   attackAltTests(base);
   standingHitBoxTests(base);
+  backStrikeHitBoxTests(base);
   sidecarEraseTests(base);
   approvedIdleRefTests(base);
   sidecarFlipTests(base);
@@ -1911,6 +1913,59 @@ function standingHitBoxTests(base) {
   }
 }
 
+// A strip that strikes behind the body (TOOL-062): `bair` is drawn facing right with the kick to the LEFT (animGuide
+// `strike: 'back'`), so its auto hit box is the mirror of the forward rule, found behind the idle's back edge. The front
+// rule boxed the body or the space in front, and every fighter's bair needed a hitboxes.json override on the rear foot.
+// backy: f2 kicks behind, f3 shows no limb (the rear 28 % fallback); its light3 (a front kick) still boxes in front.
+function backStrikeHitBoxTests(base) {
+  const opt = (seed) => ({ seed, specks: 0 });
+  const raw = (n) => path.join(ART, 'characters', 'backy', 'raw', n);
+  savePng(raw('idle_v01.png'), strip([0, 0, 1, 1, 1, 0, 0, 1].map((bob) => ({ bob })), opt(981)));
+  savePng(raw('bair_v01.png'), strip([{}, { backKick: 4 }, { backKick: 16 }, {}, { backKick: 6 }, {}], opt(982)));
+  savePng(raw('light3_v01.png'), strip([{}, { kick: 4 }, { kick: 16 }, { kick: 16 }, { kick: 8 }, { kick: 3 }, {}], opt(983)));
+  const manPath = path.join(ART, 'manifest.json');
+  const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+  man.characters.backy = { name: 'Backy', scaleGate: 'warn', animations: { idle: { frames: 8, loop: true, bodyHeight: 204 } } };
+  fs.writeFileSync(manPath, JSON.stringify(man, null, 2));
+  const hbPath = path.join(ART, 'characters', 'backy', 'hitboxes.json');
+  const packBoxes = () => {
+    const r = pack([...base, 'backy']);
+    const C = r.json?.characters.find((c) => c.id === 'backy');
+    const metaFile = path.join(OUT, 'characters', 'backy', 'anims.json');
+    if (r.code !== 0 || !C || !fs.existsSync(metaFile)) { check(false, `back strike: backy packed, exit 0 (${r.code}; ${(C?.warnings || []).join(' | ').slice(0, 300)})`); return null; }
+    return { C, meta: JSON.parse(fs.readFileSync(metaFile, 'utf8')), sheet: loadPng(path.join(OUT, 'characters', 'backy', 'sheet.png')) };
+  };
+  const rules = (C, anim) => (C.hitBoxes[anim] || []).map((f) => f.rule).join('/');
+
+  const auto = packBoxes();
+  if (auto) {
+    const { C, meta, sheet } = auto;
+    const frame = (a, k) => bb(cell(sheet, meta.animations[a].frames[k]));
+    const idles = meta.animations.idle.frames.map((i) => bb(cell(sheet, i)));
+    const idleMinX = Math.min(...idles.map((b) => b.x0)), idleMaxX = Math.max(...idles.map((b) => b.x1));
+    const kick = C.hitBoxes.bair?.[0]?.hit?.[0], tip = frame('bair', 2).x0;
+    check(rules(C, 'bair') === 'back/rear' && kick && kick[0] <= tip && kick[0] + kick[2] <= idleMinX + v2px(8) && kick[1] > PY - v2px(60) && kick[3] < v2px(30),
+      `back strike: the bair kick behind the body gets its box on the left, on the foot (${rules(C, 'bair')} ${JSON.stringify(kick)}, tip x ${tip}, idle back ${idleMinX})`);
+    const rear = C.hitBoxes.bair?.[1]?.hit?.[0], body = frame('bair', 3);
+    check(rear && rear[0] <= body.x0 && rear[0] + rear[2] < (body.x0 + body.x1) / 2,
+      `back strike: a bair frame with no limb behind gets the rear 28% of the body, not the front (${JSON.stringify(rear)}, body x ${body.x0}-${body.x1})`);
+    const front = C.hitBoxes.light3?.[0]?.hit?.[0];
+    check(rules(C, 'light3') === 'forward/forward' && front && front[0] >= idleMaxX - v2px(8),
+      `back strike: the same fighter's front kick still boxes in front (${rules(C, 'light3')} ${JSON.stringify(front)}, idle front ${idleMaxX})`);
+    const note = C.notes.find((n) => /no clear strike limb/.test(n)) || '';
+    check(/^1 active frame\(s\) had no clear strike limb - hitbox = front 28% of the body, rear 28% on a back strike \(bair#3;/.test(note),
+      `back strike: the no-strike-limb note names the rear fallback frame (${note})`);
+  }
+
+  // hitboxes.json still wins over the rear rule
+  fs.writeFileSync(hbPath, JSON.stringify({ bair: { 3: { hit: [[20, 150, 30, 20]] } } }));
+  const over = packBoxes();
+  if (over) {
+    check(rules(over.C, 'bair') === 'back/override' && JSON.stringify(over.C.hitBoxes.bair[1].hit) === '[[20,150,30,20]]' && !over.C.notes.some((n) => /no clear strike limb/.test(n)),
+      `back strike: a hitboxes.json entry replaces the rear auto box (${rules(over.C, 'bair')} ${JSON.stringify(over.C.hitBoxes.bair?.[1]?.hit)})`);
+  }
+}
+
 // sidecar "erase": a residue the stray cleanup keeps (close to the body) is cleared from the raw before packing
 function sidecarEraseTests(base) {
   const eraw = (n) => path.join(ART, 'characters', 'erasy', 'raw', n);
@@ -2279,6 +2334,33 @@ function paletteReserveTests(base) {
   const bad = run(Q);
   check(sameSheet(bad, plain) && (bad.r.json?.warnings || []).some((w) => /paletteReserve\.fourTails must be/.test(w))
     && (bad.C?.warnings || []).some((w) => /nope is not an animation of foxy/.test(w)), 'paletteReserve: a malformed group and an unknown animation are reported and ignored');
+  // cut 'misfits' (Goku's black base-form hair; a green here): a strip in the fighter's usual colours but for its hair; two
+  // colours cut from the whole strip land among the usual colours and the hair snaps to the nearest of them, two cut
+  // from the colours the shared palette fits badly give the hair its own
+  const GREEN = [30, 190, 80];
+  savePng(fraw('beamFire_v01.png'), strip([{ punch: 12 }, { punch: 14 }, { punch: 12 }], { seed: 1304, specks: 0, recolor: new Map([[COL.hair, GREEN]]) }));
+  setReserve(null);
+  const hsrc = run();
+  const hairErr = (o) => {
+    let e = 0, n = 0;
+    const q = fox(o), s0 = fox(hsrc);
+    q.forEach((c, k) => { for (let i = 0; i < c.data.length; i += 4) {
+      const d = s0[k].data;
+      if (!d[i + 3] || Math.hypot(d[i] - GREEN[0], d[i + 1] - GREEN[1], d[i + 2] - GREEN[2]) > 12) continue;
+      e += Math.hypot(c.data[i] - d[i], c.data[i + 1] - d[i + 1], c.data[i + 2] - d[i + 2]); n++;
+    } });
+    return n ? e / n : Infinity;
+  };
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'] } });
+  const whole = run(Q);
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'], cut: 'misfits' } });
+  const mis = run(Q);
+  const eW = hairErr(whole), eM = hairErr(mis);
+  check(mis.r.code === 0 && eM < 10 && eM < eW * 0.5, `paletteReserve cut misfits: the strip's one new colour keeps its own entry (hair error ${eW.toFixed(1)} -> ${eM.toFixed(1)})`);
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'], cut: 'nope' } });
+  const badCut = run(Q);
+  check(sameSheet(badCut, whole) && (badCut.r.json?.warnings || []).some((w) => /paletteReserve\.baseForm\.cut must be "misfits"/.test(w)),
+    'paletteReserve: an unknown cut is reported and cuts from the whole strips');
 }
 
 // ---------------------------------------------------------------- loopFrom (ENG-117)

@@ -1,0 +1,20 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/kiBlastBurst_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/kiBlastBurst_v01.png"
+  ],
+  "sourceHash": "b6f212b10a617641dbea5be95da4e1eb7102e757",
+  "cell": 256,
+  "files": {
+    "kiBlastBurst_00.png": "617b4f518b8da77d19938da827e413de9a91b19b",
+    "kiBlastBurst_01.png": "b77278ddcc95fcaad91971b8bd87c619749005fc",
+    "kiBlastBurst_02.png": "aeadebfb59710631f6aecd0f76df05081d1e50ca",
+    "kiBlastBurst_03.png": "9884f60210e06374d247eaa2621f46b9501070aa",
+    "kiBlastBurst_04.png": "8d4e676b0c076423d17af6c46568a445bff57bc1",
+    "kiBlastBurst_05.png": "a88545add528eb3d6e3016e54e06e5579a530081",
+    "kiBlastBurst_06.png": "fadc71766f8972729af66097e5489372fafa7fa8"
+  }
+}

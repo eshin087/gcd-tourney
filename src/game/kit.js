@@ -686,6 +686,49 @@ function stormTick(f, k, S, W) {
   }
 }
 
+// ------------------------------------------------------------------ the Spirit Bomb (ENG-SKL-GOK)
+// Drawn from the kit state each frame (S.bomb), like the Kirin's storm: the sphere gathering on his raised hands from
+// the super flash on (Game.fxTicks calls this with the flash's progress `flashU`, the kit state still in its flash),
+// energy streaming into it from all around while the stage dims and the camera tips up, then shoved onto the marked
+// spot over the last `swing` frames. Effects only: nothing here feeds the fight.
+const bombUp = new THREE.Vector3(), bombRight = new THREE.Vector3();
+export function bombTick(f, k, S, B, flashU = null) {
+  const g = f.game, id = 'bomb' + f.index, t = k.t0 ?? 0, mark = k.phase === 'mark', start = S.delay - B.swing;
+  if (flashU == null && !mark) { g.fx.drop(id); g.fx.drop(id + 'g'); g.fx.drop(id + 's'); return; } // it landed
+  const P = f.renderPos || f.pos, dk = f.actor?.depthK ?? 1, H = flashU != null || t < start ? f.actor?.hand?.() : null;
+  const G = B.grow, scale = flashU != null ? G[0] + (G[1] - G[0]) * flashU : t < start ? G[1] + (G[2] - G[1]) * (t / start) : G[2];
+  const r = scale * 1.145; // the sphere fills its 2.29-unit cell
+  // above his raised palms (the drawn superPose anchor; over his head while the strip is missing), measured along the
+  // billboard's own up and right (the camera's): his sprite faces the camera, so a point straight up in the world
+  // drifts off his hands on screen once it is this high
+  const cam = g.camera, U = bombUp.set(0, 1, 0), RT = bombRight.set(1, 0, 0);
+  if (cam) { U.applyQuaternion(cam.quaternion); RT.applyQuaternion(cam.quaternion); }
+  const side = (f.actor?.flip ?? 1) * (H ? H.x : 0) * dk, up = (H ? H.y : 2.1) * dk + r + B.gap * dk;
+  let x = P.x + RT.x * side + U.x * up, y = P.y + RT.y * side + U.y * up, z = P.z + RT.z * side + U.z * up;
+  if (mark && t >= start) {
+    // shoved onto the spot: it leaves from over his head and falls, slow first, onto the mark
+    const u = Math.min(1, (t - start) / B.swing), e = u * u, a = k.at, h0 = 2.1 * dk + r;
+    const x0 = P.x + U.x * h0, y0 = P.y + U.y * h0, z0 = P.z + U.z * h0;
+    x = x0 + (a.x - x0) * e; y = y0 + (r * 0.6 - y0) * e; z = z0 + (a.z - z0) * e;
+  }
+  g.fx.keep(id, B.fx, x, y, z, { scale, order: 8, glow: 0.35 });
+  g.fx.keep(id + 'g', 'glow', x, y, z, { scale: scale * 1.6, color: 0x9edcff, opacity: 0.3, order: 2, glow: 0.4 });
+  const level = flashU != null ? flashU * 0.6 : Math.min(1, 0.6 + t / 20);
+  g.stormAt = g.frameNo;
+  g.stormDim = level * B.dim;
+  g.stormLift = level * B.lift; // the camera takes in the sphere over his head (camera.js)
+  if (mark) {
+    // the spot it will land on darkens under it (the dodge cue)
+    const a = k.at;
+    g.fx.keep(id + 's', 'glow', a.x, 0.08, a.z, { scale: S.radius * (0.6 + 0.6 * Math.min(1, t / start)), color: 0x2e7ce8, opacity: 0.22, order: 1, glow: 0.2 });
+  }
+  if ((mark && t >= start) || Math.random() > 0.8) return;
+  // the energy of everything around flowing in: motes from all round the stage, from the floor up
+  const q = Math.random() * Math.PI * 2, R = 4 + Math.random() * 3, cols = B.motes;
+  const sx = x + dmath.cos(q) * R, sy = Math.random() * 2.5, sz = z + dmath.sin(q) * R * 0.6, life = 0.45;
+  g.fx.spawn('star', sx, sy, sz, { scale: 0.18 + Math.random() * 0.12, frame: 2, vel: [(x - sx) / life, (y - sy) / life, (z - sz) / life], life, color: cols[(Math.random() * cols.length) | 0], order: 7, glow: 1 });
+}
+
 // ------------------------------------------------------------------ shadow clones (ENG-SKL-NAR)
 // A crew is plain data in kitState.crew (crewMember, clones.js); Fighter.sync draws it. Every hit is still the real
 // fighter's: the clones are what the anime shows around it.
@@ -1002,8 +1045,16 @@ function shadowTick(f, k, m) {
       } else f.pos.set(bx, y - W.below, bz);
       f.faceOpponent();
     }
-    loop(f, 'jumpUp');
-    if (k.t0 >= W.follow) { k.phase = 'combo'; k.t0 = 0; k.i = 0; }
+    // `hangPose`: the strip's startup held while he hangs there (Goku's hammer wind-up above them); else a jump loop
+    if (W.hangPose) f.actor.setPhase(W.hangPose, 0, Math.min(0.999, k.t0 / W.follow));
+    else loop(f, 'jumpUp');
+    if (k.t0 >= W.follow) {
+      k.t0 = 0;
+      k.i = 0;
+      // no blows (Goku's afterimage chase, ENG-SKL-GOK): straight on to the drop from where he hangs
+      if (W.hits.length) k.phase = 'combo';
+      else { k.phase = 'over'; k.ox = f.pos.x; k.oy = f.pos.y; k.oz = f.pos.z; audio.play('whooshHeavy'); }
+    }
     return;
   }
   if (k.phase === 'combo') {
@@ -1496,24 +1547,25 @@ const UPDATE = {
   // the stage darkens, he swings his arm down and the Kirin dives out of the clouds onto it. The timing (the mark, the
   // strike on `delay`, the recovery) is the plain sky strike's, which the CPUs read.
   skyStrike(f, k, S) {
-    const g = f.game, o = f.opp, W = S.storm;
+    const g = f.game, o = f.opp, W = S.storm, Bm = S.bomb, V = W ?? Bm; // V: a look of its own (Kirin's, the Spirit Bomb's)
     if (k.phase === 'flash') { k.phase = 'mark'; k.t0 = 0; k.at = o.pos.clone(); }
     k.t0++;
     if (W) stormTick(f, k, S, W);
+    if (Bm) bombTick(f, k, S, Bm);
     if (k.phase === 'mark') {
-      f.actor.setPhase(W && k.t0 >= S.delay - W.swing ? S.strikePose ?? 'beamFire' : S.pose ?? 'beamCharge', 1, 0.5);
+      f.actor.setPhase(V && k.t0 >= S.delay - V.swing ? S.strikePose ?? 'beamFire' : S.pose ?? 'beamCharge', 1, 0.5);
       const a = k.at;
-      if (!W) {
+      if (!V) {
         g.fx.keep('kirin' + f.index, 'glow', a.x, 0.1, a.z, { scale: S.radius * (1 + 0.15 * dmath.sin(k.t0 * 0.5)), color: S.color, opacity: 0.55, order: 2, glow: 1 });
         if (k.t0 % 5 === 0) g.fx.spawn('lightning', a.x + (Math.random() - 0.5) * 1.4, 3.2 + Math.random(), a.z, { scale: 0.9, random: true, life: 0.1, color: 0xd8f0ff, order: 9, glow: 2 });
       }
       if (k.t0 >= S.delay) {
         g.fx.drop('kirin' + f.index);
-        if (W) {
-          // the dragon lands: its own strike and the floor, a short impact frame, no white-out
-          g.fx.spawn(W.strikeFx, a.x, 0, a.z, { bottom: true, scale: W.strikeScale, order: 8, depthTest: false });
+        if (V) {
+          // the dragon (the Spirit Bomb) lands: its own strike and the floor, a short impact frame, no white-out
+          g.fx.spawn(V.strikeFx, a.x, 0, a.z, { bottom: true, scale: V.strikeScale, order: 8, depthTest: false });
           g.fx.spawn('ring', a.x, 0.1, a.z, { scale: S.radius * 1.4, color: S.color, glow: 0.6, order: 7 });
-          for (let i = 0; i < 6; i++) {
+          for (let i = 0; i < (W ? 6 : 0); i++) {
             const r = Math.random() * S.radius, t = Math.random() * Math.PI * 2;
             g.fx.spawn('arc', a.x + dmath.cos(t) * r, 0.15, a.z + dmath.sin(t) * r * 0.6, { scale: 0.5, life: 0.12, color: 0xe8f7ff, rot: t, order: 8, glow: 1.2 });
           }
@@ -1532,7 +1584,7 @@ const UPDATE = {
         if (o.hittable && dmath.hypot(dx, dz) < S.radius && o.pos.y < 3) {
           const d = tmp.set(dx, dz);
           if (d.lengthSq() < 1e-4) d.set(f.face.x, f.face.y);
-          o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1, spark: W ? 'none' : 'smash', hitFlash: 'special' }, d.clone().normalize());
+          o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1, spark: V ? 'none' : 'smash', hitFlash: 'special' }, d.clone().normalize());
           g.excite = 1;
         } else g.tag(o, 'dodge');
         k.phase = 'recover';

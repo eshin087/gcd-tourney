@@ -1,0 +1,280 @@
+{
+  "cells": [
+    {
+      "name": "idle-f0",
+      "index": 0,
+      "rect": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "bounds": [
+        68,
+        85,
+        187,
+        241
+      ]
+    },
+    {
+      "name": "charge-f0",
+      "index": 115,
+      "rect": [
+        768,
+        1792,
+        256,
+        256
+      ],
+      "bounds": [
+        75,
+        133,
+        178,
+        241
+      ]
+    },
+    {
+      "name": "charge-f1",
+      "index": 116,
+      "rect": [
+        1024,
+        1792,
+        256,
+        256
+      ],
+      "bounds": [
+        71,
+        121,
+        184,
+        241
+      ]
+    },
+    {
+      "name": "charge-f2",
+      "index": 117,
+      "rect": [
+        1280,
+        1792,
+        256,
+        256
+      ],
+      "bounds": [
+        71,
+        123,
+        183,
+        241
+      ]
+    },
+    {
+      "name": "charge-f3",
+      "index": 118,
+      "rect": [
+        1536,
+        1792,
+        256,
+        256
+      ],
+      "bounds": [
+        73,
+        118,
+        185,
+        241
+      ]
+    },
+    {
+      "name": "charge-f4",
+      "index": 119,
+      "rect": [
+        1792,
+        1792,
+        256,
+        256
+      ],
+      "bounds": [
+        71,
+        121,
+        184,
+        241
+      ]
+    },
+    {
+      "name": "charge-f5",
+      "index": 120,
+      "rect": [
+        2048,
+        1792,
+        256,
+        256
+      ],
+      "bounds": [
+        71,
+        124,
+        183,
+        241
+      ]
+    }
+  ],
+  "hashes": {
+    "art/characters/killua/raw/charge_v15.png": "eee81e7655d1d63a3223f45cc1e79c2c335983b05db77d01a71aeef6f018b108",
+    "public/characters/killua/sheet.png": "6408da250f82c522f8175ae16fea09dd44cc754773d251d020e06848f151e106",
+    "public/characters/killua/anims.json": "f384d3e85d1a4fc1e7174b415b333cfa5867ef599f5d07fc326c5ca138e7ca79",
+    "public/art-review/title-style-pilot/killua-neutral_v01.png": "86278707ba8f0fcb78942cbcedb3341d8ad8f559e95f8cbf48273d0bbdca1855",
+    "public/art-review/title-style-pilot/killua-combat_v01.png": "d32d8f9f297efac7bcd8ba7e0dfd34c4d458ada1fc5e45a9c93801340f5a63d6",
+    "art/scale/body-report.json": "09cad8f267b95b5271f82d93396b12fad0d353a5b7eb88d48f36562ec123fc10"
+  },
+  "chargeScaleAudit": {
+    "head": 1.011,
+    "feet": 1.122,
+    "verdict": "ok",
+    "v": 15,
+    "frames": [
+      1.023,
+      0.956,
+      1.005,
+      1.032,
+      1.016,
+      0.99
+    ],
+    "feetFrames": [
+      1.096,
+      1.119,
+      1.121,
+      1.164,
+      1.148,
+      1.123
+    ],
+    "boxes": [
+      [
+        117,
+        135,
+        164,
+        163
+      ],
+      [
+        116,
+        123,
+        156,
+        150
+      ],
+      [
+        117,
+        125,
+        157,
+        152
+      ],
+      [
+        115,
+        122,
+        157,
+        153
+      ],
+      [
+        115,
+        124,
+        156,
+        153
+      ],
+      [
+        116,
+        126,
+        157,
+        153
+      ]
+    ]
+  },
+  "bodyReport": {
+    "v": 15,
+    "body": [
+      0.438,
+      0.447,
+      0.454,
+      0.433,
+      0.439,
+      0.43
+    ],
+    "head": [
+      1.023,
+      0.956,
+      1.005,
+      1.032,
+      1.016,
+      0.99
+    ],
+    "median": 0.439,
+    "headMedian": 1.011,
+    "flag": "small"
+  },
+  "loopRegions": {
+    "f2": {
+      "floorY240OccupiedX": [
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "shoeBandDifferentPixelsFromF2": 0
+    },
+    "f3": {
+      "floorY240OccupiedX": [
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "shoeBandDifferentPixelsFromF2": 445
+    },
+    "f4": {
+      "floorY240OccupiedX": [
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "shoeBandDifferentPixelsFromF2": 350
+    },
+    "f5": {
+      "floorY240OccupiedX": [
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "shoeBandDifferentPixelsFromF2": 261
+    }
+  }
+}

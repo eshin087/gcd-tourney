@@ -20,7 +20,7 @@ Goku fights with a grounded martial-arts guard, elbows in, fists near chest and 
 - `specialForward` (Dragon Fist, 7 frames, phases 2/2/3): deep stance, near fist chambered and far hand forward; active lunge with near arm fully extended at chest height and rear leg straight; step back to guard. Fist is the effect anchor.
 - `specialUp` (Rising Kick, 6 frames, phases 2/2/2): crouch, rise into a high front kick, then flip forward; final pose flows into `airHeavy` frame 00.
 - `specialDown` (Instant Transmission, 4 frames, phases 2/1/1): upright and calm, eyes closed, near index and middle fingers at forehead; other arm relaxed. The engine handles the vanish; `light4` supplies the kick.
-- `superPose` (Kaio-ken Rush, 4-frame loop): wide stance, fists clenched at sides, head back and shouting. Engine supplies red aura.
+- `superPose` (Spirit Bomb since 2026-10-18, 4-frame loop): both arms raised high in a V, palms to the sky, head back; see [SKILLS_REVAMP.md](SKILLS_REVAMP.md) B3, which also briefs `specialForward`, `specialDown`, `specialUp`, `throw` and `intro`. Kaio-ken is a mode now and plays in `charge`.
 - `beamCharge` (3-frame loop): side-on stance, knees bent, both cupped hands at rear hip. `beamFire` (3-frame loop): both arms thrust forward, wrists together and palms open, front knee bent. Hands mark the beam origin.
 - `intro`: arms folded or calm guard, confident smile. `taunt`: beckon with near hand. `win`: relaxed smile, one fist raised.
 

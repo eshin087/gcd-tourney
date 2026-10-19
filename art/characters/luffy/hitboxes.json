@@ -21,5 +21,19 @@
   "specialDown": {
     "_scale": 0.7084,
     "2": { "hand": [252, 208] }
+  },
+  "fTilt": {
+    "_v": 1,
+    "_scale": 0.92,
+    "2": { "hit": [[158, 86, 50, 26]] },
+    "3": { "hit": [[158, 91, 50, 25]] },
+    "_note": "ENG-112 fTilt v01: packed-cell contact override (Claude integration 2026-10-18, relay combat #49); the jab's active frames get a box on the forearm and fist (x 158-207, chest height) instead of the default front box, which ran from the fist down to the lead foot and would hit a crouching opponent. Measured on the packed cells at packScale 0.92."
+  },
+  "bair": {
+    "_v": 3,
+    "_scale": 0.92,
+    "2": { "hit": [[10, 139, 54, 29]] },
+    "3": { "hit": [[38, 146, 36, 26]] },
+    "_note": "ENG-112 bair v03: packed-cell contact override (Claude integration 2026-10-18, relay combat #49); f2/f3 kick screen-left behind Luffy, so the boxes follow the extended rear sandal and shin instead of the default front box over his body. Measured on the packed cells at packScale 0.92. Retire it once the packer's rear-box rule (PR #179, TOOL-062) is merged."
   }
 }

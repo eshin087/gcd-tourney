@@ -17,7 +17,7 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel, modeLook } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel, modeLook, bombTick } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -942,18 +942,36 @@ export class Game {
       const look = f.state === 'charge' ? null : modeLook(f);
       if (look?.aura) this.fx.modeAura(f, look.aura);
       this.fx.modeShell(f, look?.shell ?? null, this.time);
+      // a transformation in the intro (def.intro): the burst when it happens, then the aura it leaves on him
+      const IN = f.state === 'intro' ? f.def.intro : null;
+      if (IN) {
+        const s = this.stateT - IN.at[f.index], p = f.renderPos || f.pos;
+        if (s >= 0 && s < DT) this.fx.spawn(IN.fx, p.x, p.y, p.z, { bottom: true, scale: IN.scale ?? 1, order: 8 });
+        if (s >= 0) this.fx.auraTick(f, IN.aura ?? 1, this.cam.right);
+      }
+      // the Spirit Bomb gathers through the super flash too (the kit state is still in its flash)
+      const KS = f.state === 'kit' ? f.kitState : null;
+      if (KS?.phase === 'flash' && KS.m?.bomb && this.superFlash?.who === f) bombTick(f, KS, KS.m, KS.m.bomb, this.superFlash.t / this.superFlash.len);
       if (f.state === 'charge') {
         lines = Math.max(lines, chargeTick(this, f, f.t, frozen)); // canon power-up per fighter (ENG-069)
         this.linesFocus = f;
       } else if (f.state === 'beamCharge') {
-        // a beam with a `gather` (Naruto's Tailed Beast Ball) draws its chakra converging instead of the ki aura
-        if (f.def.beam?.gather) this.fx.gatherTick(f, f.def.beam.gather, Math.min(1, f.t / (f.windup || 1)), frozen);
-        else this.fx.auraTick(f, 1.8, this.cam.right);
+        // a beam with a `gather` (Naruto's Tailed Beast Ball) draws its chakra converging instead of the ki aura; its
+        // `aura` keeps a thinner one too (Goku's Kamehameha). `chant`: the name called out a syllable at a time through
+        // the windup, the last one when it fires (KA-ME-HA-ME-HA!); stateless, from the charge's own clock
+        const B = f.def.beam, G = B?.gather;
+        if (G) this.fx.gatherTick(f, G, Math.min(1, f.t / (f.windup || 1)), frozen);
+        if (!G || G.aura) this.fx.auraTick(f, G?.aura ?? 1.8, this.cam.right);
+        if (B?.chant && !frozen) {
+          const n = B.chant.length - 1, w = f.windup || 1;
+          for (let k = 0; k < n; k++) if (f.t === Math.round((w * (k + 0.5)) / n)) this.hud.callout(f.index, B.chant[k], B.mid);
+        }
         lines = 1;
         this.linesFocus = f;
       } else if (f.state === 'beamFire') {
         if (f.def.beam?.gather) this.fx.dropGather(f);
         if (f.def.beam?.muzzle && f.beam && !f.beam.dead && !frozen) this.fx.muzzleTick(f, f.beam, f.def.beam.muzzle);
+        if (f.def.beam?.chant && f.beam?.t === 1 && !frozen) this.hud.callout(f.index, f.def.beam.chant.at(-1), f.def.beam.mid, true);
         if (!f.shroud) this.fx.auraTick(f, 0.6, this.cam.right);
       }
       else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0); // a thin aura behind the body: the flames and streaks hid it
@@ -965,6 +983,12 @@ export class Game {
       if (km?.kind === 'laneStrike' && km.m.arm) this.fx.laneArm(f, km, km.m, this.cam.right);
       const L = f.state === 'attack' ? f.move?.sweep : null;
       this.fx.limbSweep(f, L, !!L && f.t >= f.move.startup && f.t < f.move.startup + f.move.active, this.cam.right);
+      // Dragon Fist's dragon coiling round the victim while the hit stop holds them, its frame from the stop's own count
+      if (f.coilHit && f.move?.coil && f.hitstop > 0) {
+        const C = f.move.coil, o = f.opp, n = this.fx.meta.anims[C.fx]?.n ?? 1, u = 1 - f.hitstop / (f.move.hitstop || 1);
+        const it = this.fx.keep('coil' + f.index, C.fx, o.pos.x, o.pos.y + 0.9, o.pos.z, { scale: C.scale ?? 1, order: 8, glow: 0.3, flipX: f.face.x * this.cam.right.x + f.face.y * this.cam.right.z < 0 });
+        it.frame = Math.min(n - 1, Math.floor(u * n));
+      }
       const held = f.state === 'clash' ? this.clashHand(f) : null;
       if (f.state === 'attack' && f.move?.fx) {
         const m = f.move;
@@ -1071,6 +1095,7 @@ export class Game {
       if (m.rush) {
         att.vel.multiplyScalar(0.1);
         att.t = m.startup + m.active;
+        if (m.coil && r === 'hit') att.coilHit = true; // the dragon winds round them through the hit stop (Fighter.coilBurst)
         if (m.vortex && def.hp > 0) this.spawnVortex(att, m.vortex, def.pos); // Rasenshuriken grind
       }
       // air juggles: start riding up with the victim (Fighter.updateAttack keeps following); a Smash aerial keeps falling
@@ -1236,8 +1261,9 @@ export class Game {
     return ob;
   }
 
-  spawnProjectile(f) {
-    this.projectiles.push(...spawnProjectiles(this, f, f.move?.proj || f.def.projectile));
+  // `only`: one shot of a staggered volley (PROJECTILES.every), by its place in the fan; -1 fires them all
+  spawnProjectile(f, only = -1) {
+    this.projectiles.push(...spawnProjectiles(this, f, f.move?.proj || f.def.projectile, only));
   }
 
   fireBeam(f) {
