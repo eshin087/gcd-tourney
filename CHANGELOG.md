@@ -15,6 +15,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+
+- Approved by the user via Claude (2026-10-18): announcer walk v02, run v03, shocked v03 and micThrust v03. The user accepted Astra's documented technical holds as drawn; holds remain visible in the review records. Repacked approved NPC art.
 - Changed (ART-NPC-ANN-R1): preserved every announcer version, packed walk v02 / run v03 / shocked v03 / micThrust v03 for review, and recorded Astra's final technical holds on all four, including measurements and exhausted 3/3 budgets. Packer reports 32 colors; independent latest-atlas scan finds 31 unique opaque RGB values. No art approval or shipped atlas change.
 - Approved (ART-CHARGE): the user approved Goku charge v10 as drawn via Claude relay #4 (“Approve v10”); approvedVersion is 10. Exact loop-lock and body-size holds remain for Claude integration review.
 
