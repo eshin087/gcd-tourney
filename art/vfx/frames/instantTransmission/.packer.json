@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/instantTransmission_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/instantTransmission_v01.png"
+  ],
+  "sourceHash": "c9da1081f7827170f113ffe212194610424f407c",
+  "cell": 256,
+  "files": {
+    "instantTransmission_00.png": "65119681c8c36a588790398c8e0479512296725e",
+    "instantTransmission_01.png": "01e108c9cb577576beb307279184c83152cc63a5",
+    "instantTransmission_02.png": "7b2b9ec83dde3834009cb6d581ea6ba275ed8672",
+    "instantTransmission_03.png": "ac09af93ff1a3efd98c3d5345bdd757eb4b358b8",
+    "instantTransmission_04.png": "0c80ed04e4cacb1f2d2ddf683feb7524e3f34c0a",
+    "instantTransmission_05.png": "1b5f5ae5e0ee01e4367ab929450f00caa39034db"
+  }
+}

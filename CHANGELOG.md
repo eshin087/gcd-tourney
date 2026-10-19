@@ -15,6 +15,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SKL-GOK): prepared batch 3 visual review for specialDown v01/v02 and instantTransmission, kaiokenBurst and kaiokenAura v01. Astra holds specialDown v02 on the diagnostic atlas (torso ~21% under idle; head and boot volume also reduced). The Goku production pack stops at the known head-probe gate; the three VFX sources miss square-cell layouts, with clipping on two. No art is approved or production-packed; see the batch 3 review page and candidate inventory.
 - Changed (ART-SKL-GOK): recorded relay #10 user decision exempting specialForward v02 from the head scale check (`scaleExemptVersion: 2` with the specified reason); Astra's scaleManualQA v2 audit record remains unchanged.
 - Changed (ART-SKL-GOK): Astra audited specialForward v02 on exact packed atlas 6159cc2d. Visible anatomy/scale passes with no concrete failure, but the skull crown is hidden in all frames so head scale is unmeasurable; recorded scaleManualQA v2 HOLD pending user decision on a version-specific head-check exemption.
 - Changed (ART-SKL-GOK): via Claude relay #8, recorded the user-directed superPose v01 head-probe exemption and reason in the manifest (`scaleExemptVersion: 1`). Astra's manual anatomy-certification HOLD and audit motion note remain; user accepted the near-still loop when approving.
