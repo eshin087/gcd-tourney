@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SKL-GOK): Astra audited specialDown v02 on exact production atlas SHA256 46d7eed6… (cells 117–120 vs idle 0, bodyHeight 236): visible anatomy/continuity and containment pass with no concrete scale defect; numeric head scale remains unresolved due occlusion, so a user head-exemption decision is pending. Earlier bodyHeight-204 audit remains preserved as historical evidence.
 
 - Fixed (ENG-118): the announcer's captions are steady. Each line sits locked straight above his head, moves with his sprite in the game's own pixel steps (no lag or easing), no longer jumps beside him under the health bars or with a hop's arc or a duck, looks the same for every line (one colour, one line) and stays up at least 1.2 s before the next one replaces it.
 
