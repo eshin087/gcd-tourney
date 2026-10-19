@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "result": "pass",
+  "by": "GPT-6 Astra (manual packed-atlas scale audit, 2026-10-18)",
+  "note": "Scale only: atlas 557bdb538bbcfd79c5dadcf0761d3da8ae93986fe8ae0a4d110363519fb46a8c, charge cells 86-91. Native sandal widths 27/38-39px vs approved-idle packed f0 26/40px (-5.0% to +3.8%); visible face and neck-to-sash measurements agree within manual landmark uncertainty. All six cells inspected against approved idle and title neutral/combat at equal density; crouch not normalized to standing height. This manual scale acceptance is not a numeric all-segment pass. Loop registration remains HOLD: feet not pixel-locked and head/fist motion exceeds 2px. See ASTRA_AUDIT.md.",
+  "evidence": "art/characters/luffy/production/charge-v02/reference-contact-2x.png"
+}
