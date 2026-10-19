@@ -540,9 +540,9 @@ ones.
 | purpleForm | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 2, A8; HD, fill 0.9; user approved as drawn via Claude relay gojo-skills #3: “Approve all five”. Normalized candidate and original retained; source hold is documented. |
 | hollowPurple | 8 | 45 | full color | center | approved | v01 | v01 | Gojo skills batch 2, A9; HD, fill 1.0; user approved as drawn via Claude relay gojo-skills #3: “Approve all five”. Semantic output swap and source-format holds documented. |
 | purpleBurst | 8 | 45 | full color | center | approved | v01 | v01 | Gojo skills batch 2, A10; HD, fill 0.98; user approved as drawn via Claude relay gojo-skills #3: “Approve all five”. Semantic output swap and source-format holds documented. |
-| infinityRipple | 6 | 40 | full color | center | raw | v01 | — | Gojo skills batch 3, A6; HD, fill 0.6; 3 calls, call 3 selected. 6/6 preview frames; source dimensions, palette and magenta hold documented. |
-| voidFlood | 8 | 40 | full color | center | raw | v01 | — | Gojo skills batch 3, A11; HD, fill 0.9; 3 calls, call 3 selected. Motion is subtle and center ring appears oversized; source holds documented. |
-| voidShatter | 8 | 50 | full color | center | raw | v01 | — | Gojo skills batch 3, A12; HD, fill 1.0; 3 calls, call 1 selected. Source dimensions, palette and magenta hold documented. |
+| infinityRipple | 6 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A6; HD, fill 0.6; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. 6/6 production frames; source dimensions, palette and magenta holds remain documented. |
+| voidFlood | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A11; HD, fill 0.9; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. Motion is subtle and center ring appears oversized; source holds remain documented. |
+| voidShatter | 8 | 50 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A12; HD, fill 1.0; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. Source dimensions, palette and magenta holds remain documented. |
 
 ## Shared UI (step 11)
 
