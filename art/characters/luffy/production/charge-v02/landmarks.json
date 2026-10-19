@@ -1,0 +1,81 @@
+{
+  "coordinates": "native 256px atlas cell; visual landmark estimates, +/-1.5px center, +/-2px shoulder/sash",
+  "frames": [
+    {
+      "frame": 2,
+      "faceCenter": [
+        149,
+        115
+      ],
+      "fistCenter": [
+        157,
+        146
+      ],
+      "sashTop": [
+        124,
+        162
+      ],
+      "shoulder": [
+        109,
+        120
+      ]
+    },
+    {
+      "frame": 3,
+      "faceCenter": [
+        147,
+        111
+      ],
+      "fistCenter": [
+        154,
+        143
+      ],
+      "sashTop": [
+        123,
+        159
+      ],
+      "shoulder": [
+        107,
+        116
+      ]
+    },
+    {
+      "frame": 4,
+      "faceCenter": [
+        149,
+        114
+      ],
+      "fistCenter": [
+        157,
+        145
+      ],
+      "sashTop": [
+        124,
+        161
+      ],
+      "shoulder": [
+        109,
+        119
+      ]
+    },
+    {
+      "frame": 5,
+      "faceCenter": [
+        149,
+        118
+      ],
+      "fistCenter": [
+        157,
+        148
+      ],
+      "sashTop": [
+        124,
+        164
+      ],
+      "shoulder": [
+        109,
+        122
+      ]
+    }
+  ]
+}

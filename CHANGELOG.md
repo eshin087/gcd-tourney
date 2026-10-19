@@ -17,6 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-CHARGE): the user approved Luffy charge v02 as drawn; packed 6 frames with `loopFrom: 2`, recorded Astra's manual scale pass and loop-contract hold for Claude's integration review.
 - Fixed (ENG-118): the announcer's captions are steady. Each line sits locked straight above his head, moves with his sprite in the game's own pixel steps (no lag or easing), no longer jumps beside him under the health bars or with a hop's arc or a duck, looks the same for every line (one colour, one line) and stays up at least 1.2 s before the next one replaces it.
 
 - Changed: the determinism fixtures are re-recorded after Goku's up tilt (fingerprint bb49081ebda5); both replay frame for frame.
