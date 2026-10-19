@@ -611,7 +611,7 @@ export const SUPERS = {
     kind: 'laneStrike', cost: 300, flash: 44, windup: 34, extend: 8, reach: 7, width: 1.1, height: 2.0, dmg: 270, launch: [22, 9], recovery: 30,
     pose: 'beamCharge', strikePose: 'beamFire', fist: { color: 0xf6c9a0, scale: 2.4 }, name: 'GEAR THIRD: GIGANT PISTOL', color: '#e8402a', ground: 'stone',
     windupOnce: true, windBack: 6, puff: { fx: 'gear3Puff', at: [[2, 0.14, 1.42], [12, -0.3, 1.2], [20, -0.45, 1.3]], scale: 0.32 },
-    arm: { fx: 'gigantArm', fist: 'gigantFist', thick: 0.4, tube: 79 / 256, fistScale: 0.567, up: 0.9, back: 10 },
+    arm: { fx: 'gigantArm', fist: 'gigantFist', thick: 0.4, tube: 86 / 256, fistScale: 0.567, up: 0.9, back: 10 },
     blastFx: { fx: 'gigantImpact', scale: 1.35, smoke: 4 }, after: { fx: 'luffyChibi', scale: 0.85 }, hitRecovery: 54,
   },
 };
