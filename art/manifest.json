@@ -3120,12 +3120,12 @@
         "npc-announcer-r1": {
           "status": "packed",
           "reviewStatus": "needs review",
-          "note": "ENG-118 candidates v02/v03 packed for review; no art approved. Walk v02 repeats the specified gait silhouettes and run v03 retains major horizontal/pose movement; both are technical holds with generation budgets exhausted. shocked v02 and micThrust v02 await Astra packed-cell anatomy/landmark audit. Historical v01 atlas and all raw versions are preserved. Review: public/reviews/announcer-moves/",
+          "note": "ENG-118 latest candidates walk v02, run v03, shocked v03 and micThrust v03 packed for review; no art approved. Walk/run remain technical holds with budgets 3/3 exhausted. Shocked v03 targets Astra's 9 px shoe-contour discrepancy in v02; micThrust v03 targets swapped hands in v02. Both need Astra re-audit and have budgets 3/3 exhausted. Historical atlases and all raw versions are preserved. Review: public/reviews/announcer-moves/",
           "items": {
             "walk": {"status":"packed","version":2,"approvedVersion":null,"reviewStatus":"needs review","technicalHold":true,"hold":"Repeating contact and passing silhouettes; generation budget 3/3."},
             "run": {"status":"packed","version":3,"approvedVersion":null,"reviewStatus":"needs review","technicalHold":true,"hold":"Major horizontal/pose movement persists; generation budget 3/3."},
-            "shocked": {"status":"packed","version":2,"approvedVersion":null,"reviewStatus":"needs review","technicalHold":true,"hold":"Astra packed-cell anatomy audit pending."},
-            "micThrust": {"status":"packed","version":2,"approvedVersion":null,"reviewStatus":"needs review","technicalHold":true,"hold":"Astra packed-cell foot and microphone landmark audit pending."}
+            "shocked": {"status":"packed","version":3,"approvedVersion":null,"reviewStatus":"needs review","technicalHold":true,"hold":"Astra re-audit pending for corrected 9 px shoe-contour discrepancy; generation budget 3/3."},
+            "micThrust": {"status":"packed","version":3,"approvedVersion":null,"reviewStatus":"needs review","technicalHold":true,"hold":"Astra re-audit pending for corrected swapped-hands defect, feet and mic landmarks; generation budget 3/3."}
           }
         },
         "npc-monk-a": {

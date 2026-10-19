@@ -11,24 +11,24 @@
 <body><main>
 <h1>Announcer move candidates — ENG-118</h1>
 <p class="status"><strong>All candidates remain unapproved.</strong> The newest packed cells play beside the shipped idle at the ANIMATIONS.md frame timings. The v01 packed atlas remains available as history. No candidate is promoted to the shipped atlas.</p>
-<p>Phone view stacks the shipped idle and both candidate versions. The latest panels use the packed quantized atlas, not the raw generation canvas.</p>
+<p>Phone view stacks the shipped idle and both candidate versions. The latest panels use the packed quantized atlas, not the raw generation canvas. All candidate loops play at their ANIMATIONS.md frame timings.</p>
 <div id="moves"></div>
 <h2>Technical holds and history</h2>
 <ul>
 <li class="hold"><strong>Walk v02 — technical hold:</strong> packed contact frames f0/f2 repeat the same leg silhouette, and passing frames f1/f3 repeat; not the specified alternating gait. No generation calls remain (3/3).</li>
-<li class="hold"><strong>Run v03 — technical hold:</strong> packed loop still shows major horizontal/pose movement; call budget is exhausted (3/3). v02 is retained as history, not selected by the packer.</li>
-<li><strong>Shocked v02:</strong> subtle trembling pose retained with feet locked in the raw source; packed-cell / anatomy audit pending.</li>
-<li><strong>MicThrust v02:</strong> cross-body right-hand microphone and listening hand retained; packed foot placement and microphone landmarks need audit.</li>
+<li class="hold"><strong>Run v03 — technical hold:</strong> packed loop still repeats leg phases and has registration defects; call budget is exhausted (3/3). v02 is retained as history, not selected by the packer.</li>
+<li class="hold"><strong>Shocked v03 — audit hold:</strong> final-budget correction targets Astra's 9 px shoe-contour discrepancy in v02 while preserving the subtle tremble. Repacked-cell shoe contour and anatomy re-audit pending; calls exhausted (3/3).</li>
+<li class="hold"><strong>MicThrust v03 — audit hold:</strong> final-budget correction targets Astra's swapped-hands defect in v02. Right hand should cross from image-left to the mic at screen-right; left hand stays at the ear. Repacked handedness, feet and mic landmarks need re-audit; calls exhausted (3/3).</li>
 </ul>
-<p>Versioned raw sources remain preserved in the repository: <code>walk_v01–v02</code>, <code>run_v01–v03</code>, <code>shocked_v01–v02</code>, and <code>micThrust_v01–v02</code>. The hosted page shows the packed v01 history and the current quantized candidate loops.</p>
-<p class="small">Packed history: <a href="packed-candidate.png">v01 candidate atlas</a> · current <a href="packed-latest-v02-v03.png">v02/v03 candidate atlas</a> · <a href="shipped-atlas.png">shipped atlas</a> · <a href="candidate-anims.json">v01 animation map</a> · <a href="candidate-anims-v02-v03.json">current animation map</a> · <a href="generation-provenance.md">generation provenance, call counts and SHA-256</a>. Astra technical audit is pending; art approval remains with the user.</p>
+<p>Versioned raw sources remain preserved in the repository: <code>walk_v01–v02</code>, <code>run_v01–v03</code>, <code>shocked_v01–v03</code>, and <code>micThrust_v01–v03</code>. The hosted page shows the packed v01 and v02/v03 histories and the current quantized candidate loops.</p>
+<p class="small">Packed history: <a href="packed-candidate.png">v01 candidate atlas</a> · <a href="packed-latest-v02-v03.png">v02/v03 candidate atlas</a> · current <a href="packed-latest-v03.png">walk v02 / run v03 / shocked v03 / micThrust v03 atlas</a> · <a href="shipped-atlas.png">shipped atlas</a> · <a href="candidate-anims.json">v01 animation map</a> · <a href="candidate-anims-v02-v03.json">v02/v03 animation map</a> · <a href="candidate-anims-latest.json">current animation map</a> · <a href="generation-provenance.md">generation provenance, call counts and SHA-256</a>. Astra re-audit of current candidates is pending; art approval remains with the user.</p>
 </main>
 <script>
 const moves=[
   {name:'walk',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:8,count:4},{label:'v02 · current, HOLD',atlas:'packed-latest-v02-v03.png',start:8,count:4}],ms:150,note:'Four-frame in-place gait. Required: alternating contact and passing silhouettes, feet x 42–86, subtle 2 px passing pose, stable mic.'},
   {name:'run',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:12,count:4},{label:'v03 · current, HOLD',atlas:'packed-latest-v02-v03.png',start:12,count:4}],ms:90,note:'Four-frame in-place scurry. Required: 104–106 px height, about 2 px bob, opposite-leg exchange, rear-foot push-off, stable horizontal anchor.'},
-  {name:'shocked',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:16,count:2},{label:'v02 · current',atlas:'packed-latest-v02-v03.png',start:16,count:2}],ms:150,note:'Two-frame subtle trembling recoil. Feet should remain exactly fixed; similar poses are intended.'},
-  {name:'micThrust',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:18,count:2},{label:'v02 · current',atlas:'packed-latest-v02-v03.png',start:18,count:2}],ms:260,note:'Two-frame cross-body right-hand mic offer; left hand at ear. Mic head target x 100–118 with about 3 px motion; feet match idle.'},
+  {name:'shocked',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:16,count:2},{label:'v02 · history',atlas:'packed-latest-v02-v03.png',start:16,count:2},{label:'v03 · current, audit hold',atlas:'packed-latest-v03.png',start:16,count:2}],ms:150,note:'Two-frame subtle trembling recoil. Shoe contours must match between frames; the final candidate awaits Astra re-audit.'},
+  {name:'micThrust',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:18,count:2},{label:'v02 · history',atlas:'packed-latest-v02-v03.png',start:18,count:2},{label:'v03 · current, audit hold',atlas:'packed-latest-v03.png',start:18,count:2}],ms:260,note:'Two-frame cross-body offer. Right hand holds the mic, left hand cups ear; mic head x 100–118 with about 3 px motion; feet match idle.'},
 ];
 const idle=new Image();idle.src='shipped-atlas.png';
 function player(canvas,img,start,count,ms){const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;let frame=0;const draw=()=>{if(!img.complete||!img.naturalWidth)return;ctx.clearRect(0,0,128,128);ctx.drawImage(img,(start+frame)%8*128,Math.floor((start+frame)/8)*128,128,128,0,0,128,128)};draw();setInterval(()=>{frame=(frame+1)%count;draw()},ms)}

@@ -2,7 +2,7 @@
 
 Batch: `npc-announcer-r1` (ENG-118), branch `art/announcer-moves`, base `3edc0d61`.
 
-Each selected strip was generated with the built-in imagegen tool using its matching A5–A8 prompt block from `art/npc/announcer/PROMPTS.md`. Every call attached exactly the approved `reference/model_sheet.png` (SHA-256 `26E2E1BBFFB545AC25013C4E22D0D4AEB2C059DB43DA33943370008DDFDD2098`) and `reference/idle_approved.png` (SHA-256 `275B87EE9568AECF9CFFD335807EEC8CE6761AFFBC1FAF6DEF4FDFE5993C9B98`). No other image inputs were attached. The generated raw canvas is 1536×1024 with flat magenta; the packer extracted the specified frames and quantized them into the 128×128 NPC atlas.
+Initial v01 strips were generated with the built-in imagegen tool using their A5–A8 blocks from `art/npc/announcer/PROMPTS.md`; those calls attached only approved `reference/model_sheet.png` (SHA-256 `26E2E1BBFFB545AC25013C4E22D0D4AEB2C059DB43DA33943370008DDFDD2098`) and `reference/idle_approved.png` (SHA-256 `275B87EE9568AECF9CFFD335807EEC8CE6761AFFBC1FAF6DEF4FDFE5993C9B98`). Correction calls also attached the prior version being corrected as allowed by the retry/fix workflow. The generated raw canvas is 1536×1024 with flat magenta; the packer extracted the specified frames and quantized them into the 128×128 NPC atlas.
 
 | Asset | Selected output | Prompt | Selected call | SHA-256 of saved raw |
 |---|---|---|---|---|
@@ -17,7 +17,9 @@ Prompt-block SHA-256 values (UTF-8): A5 `dae16168ff48413f699be21411ec5f3e16543f4
 
 The four correction strips were generated as separate imagegen calls, each from its matching A5–A8 prompt plus corrective constraints, with only the same two approved references listed above. Cumulative budgets count every imagegen call, including the v01 calls. The original wrapper failure for walk was one of the three calls. The call history is:
 
-| Asset | Saved correction versions | Cumulative imagegen calls | Selected by candidate packer | SHA-256 |
+### Round 1 selection snapshot (historical; superseded below)
+
+| Asset | Saved correction versions | Cumulative imagegen calls at this checkpoint | Selected by candidate packer at this checkpoint | SHA-256 |
 |---|---|---:|---|---|
 | walk | `walk_v02.png` | 3/3 | v02 | `4C7D4714BB139269866ACAED5B9DA459C67339FF33CE5CDE02C898B58FDEB7CF` |
 | run | `run_v02.png`, `run_v03.png` | 3/3 | v03 | v02 `7F7F1F6D3B1F53DF263997850259A3FE846A572EA52A04641D9F1DAE70417FB4`; v03 `A7DEEF5C7C93C182F61BD94E19FBBDF73315168F2B30FFD0E1CA5B880FE1AFD6` |
@@ -26,6 +28,13 @@ The four correction strips were generated as separate imagegen calls, each from 
 
 Run v03 consumed its last remaining A6 call after inspecting v02, which still had repeated leg silhouettes and visible horizontal hair drift. Walk v02 used its final A5 call. No additional calls are authorized or available for either asset. Call totals are the recorded generation ledger; the imagegen interface did not expose provider call IDs. All v01 raw files remain unchanged; their version names are listed in the phone review page, and the v01 packed atlas remains playable there.
 
-Correction-round visual findings from raw/packed review: walk v02 still repeats f0/f2 contact and f1/f3 passing silhouettes (technical hold); run v03 still has major horizontal/pose movement (technical hold); shocked v02 preserves the intended subtle tremble and locked feet, pending Astra's packed-cell audit; micThrust v02 keeps the cross-body mic and listening hand, with packed foot and mic landmark audit pending. No art is approved.
+Correction round 1 findings: walk v02 still repeats f0/f2 contact and f1/f3 passing silhouettes (technical hold); run v03 still has major horizontal/pose movement (technical hold). Astra audit then found a 9 px shoe-contour discrepancy in shocked v02 despite matching extents, and a swapped-hands defect in micThrust v02. Those findings triggered one final allowed correction call for each asset; both cumulative budgets are now exhausted at 3/3.
 
-`node tools/pack-sprites.mjs npc --candidates` exited 0 and selected walk v02, run v03, shocked v02, micThrust v02. Announcer has 32 colors; the full NPC pack reported zero warnings. Current quantized atlas: `packed-latest-v02-v03.png`; historic v01 atlas: `packed-candidate.png`. Final Astra anatomy/scale audit and user art approval remain pending.
+`node tools/pack-sprites.mjs npc --candidates` final pack exited 0 and selected walk v02, run v03, shocked v03, micThrust v03. Announcer has 32 colors; the full NPC pack reported zero warnings. Current quantized atlas: `packed-latest-v03.png`; `packed-latest-v02-v03.png` and `packed-candidate.png` remain historical review atlases. Astra audit of the new v03 candidates and exhausted walk/run holds, plus user art approval, remain pending.
+
+| Asset | Final correction | Cumulative calls | Generator saved output | SHA-256 | Current pack selection |
+|---|---|---:|---|---|---|
+| shocked | `shocked_v03.png`; attached approved model sheet, approved idle, and `shocked_v02.png`; targeted identical shoe contours while preserving the subtle recoil | 3/3 | `exec-f410c70c-4ca2-4949-a1f0-f9f825e9d82d.png` | `70BDA09E6DECBFE062C41D1E466AA296DDC6455452D4F421FB8EE08E487D2E5E` | v03 |
+| micThrust | `micThrust_v03.png`; attached approved model sheet, approved idle, and `micThrust_v02.png`; targeted right-hand mic arm crossing from image-left shoulder and left hand at ear, with fixed idle feet | 3/3 | `exec-a2220916-ea83-4f9b-b68c-cbc3f9fc0367.png` | `3DFA195BA7CC11D510AB7D4AFFCFC7D928CD0E033EECBF39DEA7120DEDA62397` | v03 |
+
+Packed-cell visual inspection shows the correction poses are visible at atlas scale, but does not certify anatomy/landmarks. Keep both v03 candidates on technical hold until Astra re-audits; no art is approved.
