@@ -1,4 +1,12 @@
 # Art review queue
+## Naruto charge v08 approval (2026-10-18)
+
+The user approved the single horizontal six-pose row as drawn via Claude relay charge #8, exact quote: “Approve v08 as drawn”. The source was promoted unchanged from `_qa_hold`; SHA-256 `a7db8a21ffd4a122111e599c2c804dd1e857f56359be4e66e4ff9687a88f320`. The source row is the packer's standard layout; the prior framing hold is rescinded. No new image calls or pixel edits. Claude's trial pack reports feet within 0-1 px, body 0 px across f2-f5, head and shoulders +3 px on f3, and same height as idle. Astra packed-cell audit finds a technical HOLD: f3 face/head rises 3 px against the 2 px loop limit, floor-contact contours shift 1-2 px, and occlusion prevents a numeric anatomy pass. No scaleManualQA or probe exemption is supported. See [Astra audit](characters/naruto/production/charge-v08/ASTRA_AUDIT.md), [registration evidence](characters/naruto/production/charge-v08/registration-diff-2x.png), [review page](../public/reviews/charge-naruto/), and [generation provenance](characters/naruto/production/charge-v08-generation.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | naruto | charge | [charge_v08.png](characters/naruto/raw/charge_v08.png) | v08 | approved | Six-frame Storm-style charge; promoted unchanged from `_qa_hold` | User approval via Claude relay charge #8, exact quote: “Approve v08 as drawn”. Claude trial pack reports feet within 0-1 px, body 0 px across f2-f5, head and shoulders +3 px on f3, same height as idle. Astra packed-cell audit: technical HOLD; f3 face/head +3 px vs 2 px limit, floor contours shift 1-2 px, numeric ±6% anatomy pass inconclusive. No scaleManualQA or exemption supported. Claude trial pack reported feet within 0-1 px and body 0 px across f2-f5. See [Astra audit](characters/naruto/production/charge-v08/ASTRA_AUDIT.md) and [review page](../public/reviews/charge-naruto/). |
+
 
 ## ENG-119 announcer alive batch (2026-10-18)
 

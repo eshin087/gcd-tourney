@@ -114,7 +114,7 @@ are authoritative, and attacks are time-stretched over the move phases anyway.
 | [`ko`](#ko) | knocked out | 1 |  |  |  | 64 | 500 | A36 | 1 |
 | [`getup`](#getup) | kip-up | 5 |  |  | **CORE** | 204 | 70, 60, 60, 80, 70 | A14 | 1 |
 | [`stagger`](#stagger) | dazed stagger (loop) | 4 |  | yes |  | 207 | 150, 150, 150, 150 | A35 | 1 |
-| [`charge`](#charge) | powering up (loop) | 4 |  | yes | **CORE** | 198 | 50, 50, 50, 50 | A15 | 1 |
+| [`charge`](#charge) | Storm-style chakra power-up (gather, then held loop) | 6 |  | yes | **CORE** | 167 | 70, 90, 110, 110, 110, 110 | A15 | 1 |
 | [`beamCharge`](#beamcharge) | Four-Tails roar, low all-fours crouch (loop) | 3 |  | yes | **CORE** | 171 | 50, 50, 50 | A16 | 1 |
 | [`beamFire`](#beamfire) | Four-Tails pounce and claw slams (loop) | 3 |  | yes | **CORE** | 153 | 50, 50, 50 | A17 | 1 |
 | [`vanish`](#vanish) | crouch before teleporting | 2 |  |  |  | 221 | 50, 50 | A34 | 1 |
@@ -877,22 +877,23 @@ Dizzy state. Played straight: dazed and unsteady, no comedic spiral eyes.
 
 <a id="charge"></a>
 
-### `charge`: chakra power-up (loop)
+### `charge`: Storm-style chakra power-up (gather, then held loop)
 
-4 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50/50 · prompt A15 · next version **v02**
+6 frames · f0-f1 play once, f2-f5 loop from 2 · **CORE** · bodyHeight 167 · ms 70/90/110/110/110/110 · prompt A15 · v08 approved
 
-Planted in a wide, low stance he strains to force his chakra out, shouting. Loop rules: the **feet are identical in
-all four frames** (soles on y 240); the shoulders and chest rise 2 to 3 px on f1-f2 and settle on f3; the fists
-tremble at most 1 to 2 px; the **head moves at most 2 px** (at 5 cycles a second a bigger head bob looks silly); the
-hair spikes, temple tufts, headband tails, jacket hem and pant cuffs change shape by 2 to 5 px in every frame, always
-blown upward. f3 must flow back into f0 without a pop. The engine draws the aura: none in the sprite.
+Naruto gathers chakra by bringing his hands together low, then opens into a deep, wide stance with the Ram seal before
+his chest and roars. The held body remains locked while breath, mouth, fingers and upward-flowing hair and cloth move.
+The feet, knees and hip line stay fixed across f2-f5; head centre and fists stay within 2 px. No aura, chakra, sparks,
+steam, lightning or dust in the sprite; the engine draws those effects.
 
 | f | file | phase | pose | face | notes |
 |---|---|---|---|---|---|
-| f0 | `charge_00` | loop | BRACE: feet planted wide (well wider than the shoulders, L foot forward), knees bent about 45°, hips sunk, weight centered; both fists clenched hard and pushed down and slightly out beside the hips, elbows nearly straight, forearms and shoulders tense; chest forward, head up and level. | fierce, teeth gritted | Hair, tufts and tails lifted by the updraft; jacket hem lifted |
-| f1 | `charge_01` | loop | SURGE: chest lifting, shoulders rising about 2 px and pulling back, fists pushed 1 to 2 px further down and out, chin up 1 px. | shout | Hair spikes stretched up 2 px, tails flung higher, jacket hem flared up |
-| f2 | `charge_02` | loop | PEAK: as f1, the whole body trembling 1 px to the right, the fists shaking 1 px, head tilted back about 5°. | shout, eyes intense and narrowed | Hair, tails, hem and pant cuffs at their highest (third shape) |
-| f3 | `charge_03` | loop | SETTLE: shoulders down 1 to 2 px, the shout narrowing; flows into f0. | shout, mouth half open | Tails and hem drop 2 px into a fourth shape |
+| f0 | `charge_00` | GATHER (once) | Deep wide crouch; hands gather low before the abdomen, shoulders hunched and head bowed. | focused | Hair and clothing at rest |
+| f1 | `charge_01` | RELEASE (once) | Opens into a deep wide stance; both hands form the Ram seal before the chest, index and middle fingers raised and remaining fingers interlaced, elbows out. | fierce roar | Hair and headband tails lift |
+| f2 | `charge_02` | HOLD A (loop) | Establishes the power stance and Ram seal. | fierce roar | Loop anchor |
+| f3 | `charge_03` | HOLD B (loop) | Body locked; chest and shoulders lift 1-2 px and the shout opens widest. | widest shout | Updraft silhouette changes |
+| f4 | `charge_04` | HOLD C (loop) | Body locked; fingers and forearms quiver at most 1 px. | fierce roar | Third updraft shape |
+| f5 | `charge_05` | HOLD D (loop) | Shoulders settle 1-2 px; returns seamlessly to f2. | fierce roar | Fourth updraft shape |
 
 <a id="beamcharge"></a>
 
