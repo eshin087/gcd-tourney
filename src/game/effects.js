@@ -668,6 +668,20 @@ export class Effects {
     return it;
   }
 
+  // A teleport's own look where it vanishes or reappears (its `vanishFx` / `appearFx`): an effect name, or { fx, scale,
+  // bottom (anchored at the feet), y (up from the feet otherwise, default 0.9), reverse (its frames backward) }. `at`:
+  // the feet (fighter space)
+  teleportFx(spec, at) {
+    const S = typeof spec === 'string' ? { fx: spec } : spec;
+    const a = this.meta.anims[S?.fx];
+    if (!a) {
+      console.warn(`[vfx] no ${S?.fx} effect for a teleport`);
+      return null;
+    }
+    const seq = S.reverse ? Array.from({ length: a.n }, (_, i) => a.n - 1 - i) : null;
+    return this.spawn(S.fx, at.x, at.y + (S.bottom ? 0 : S.y ?? 0.9), at.z, { scale: S.scale ?? 1, bottom: !!S.bottom, seq, depthTest: false, order: 9 });
+  }
+
   // A shadow clone appearing or vanishing (the anime's poof)
   poof(x, y, z, scale = 0.6) {
     this.spawn('poof', x, y, z, { scale, order: 8 });
