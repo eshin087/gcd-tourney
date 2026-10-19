@@ -4,7 +4,7 @@
 
 ## Exact artifact and method
 
-- Atlas: `../normals-luffy/audit_atlas_final3/characters/luffy/sheet.png`, SHA256 `f61ebe70fe7814f23861e3749f5d204b49fa6d7d7f0057995b88f0451e104c73`.
+- Atlas: `audit_atlas/characters/luffy/sheet.png`, SHA256 `f61ebe70fe7814f23861e3749f5d204b49fa6d7d7f0057995b88f0451e104c73`.
 - Metadata: same directory `anims.json`, SHA256 `da1dd7f86fa1d595d1f91beb7269dbbe3fb997a87520dc9e4c3c4084b25d5e24`.
 - Independently counted 48 opaque RGB colors; atlas 4096 x 2816; 256px cells, 16 columns. All 28 requested cells were extracted directly from this atlas. Per-cell RGBA hashes, exact alpha bounds, metadata, reference hashes and selected raw/sidecar hashes are in `FINAL3_PIXEL_EVIDENCE.json`.
 - Reviewed every frame sequentially at the same native pixel density as atlas idle f0 and `art/characters/luffy/production/native-audit-20261015/{neutral,combat}.png`; nearest-neighbor enlarged evidence adds detail without changing geometry. All four moves are non-looping. Reviewed startup/active/recovery boundaries and terminal-to-idle shape transitions statically. No real-time browser playback or runtime contact certification was performed. This matches the static-sequence scope of FINAL5, not a claim of tested runtime loops.
