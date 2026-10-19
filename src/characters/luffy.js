@@ -1,7 +1,8 @@
 // Rubber brawler archetype (Monkey D. Luffy, One Piece, Enies Lobby arc: Gear Second and Gear Third). The
 // placeholder sprite sheet is baked from this 3D chibi model at startup; the real art comes from art/characters/luffy/.
 // Kit (ADR 0032): Gum-Gum Pistol, Bazooka, Rocket dive, Whip, Gear Second mode, Jet Gatling super and the Gear Third
-// Gigant Pistol ultimate (laneStrike: a giant fist down his lane, not a beam).
+// Gigant Pistol ultimate (laneStrike: a giant fist down his lane, not a beam). Played as in the anime (ADR 0051): the
+// rubber limbs, Gear Second's pink skin (`recolor`), the fist storm and the chibi are data in moves.js.
 
 const model = {
   palette: {
@@ -153,6 +154,16 @@ export default {
     bar: { ring: { scale: 1.6, color: 'main', opacity: 0.4 }, burst: { scale: 0.8 } },
     max: { ring: { scale: 2.2, color: 'edge', opacity: 0.45 }, burst: { scale: 1.0 }, flash: 0.06 },
     sound: 'boil',
+  },
+  // Palette swaps on the drawn body (ENG-SKL-LUF, the sprite shader's `recolor`): a mode or super names one. Gear Second
+  // flushes his skin pink in every animation: his packed sheet's exact skin colours (light to deep shadow, then the
+  // blush) to the pinks of his approved Gear Second `charge` frames. The placeholder bake has none of these colours,
+  // so it stays as it is.
+  recolor: {
+    gear2: [
+      ['#fcc081', '#f99a96'], ['#fbba79', '#f5958d'], ['#fbb675', '#f28981'], ['#f9b171', '#f28981'],
+      ['#f4a57b', '#f07174'], ['#dc8440', '#d8655f'], ['#c97c45', '#b85450'],
+    ],
   },
   // the shared beam's palette, used only by his beam-clash streams; his ultimate is the Gigant Pistol
   beam: { core: '#ffffff', mid: '#ffb0a0', edge: '#e8402a', name: 'GIGANT PISTOL' },

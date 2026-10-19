@@ -21,7 +21,8 @@ function loop(f, anim) {
 }
 
 // Element-flavoured bursts, so one kind serves every fighter: 'lightning' (Killua), 'chakra' (red
-// flame licks: Nine-Tails), 'smoke' (shadow clones, substitution), 'black' (Amaterasu), 'ring'.
+// flame licks: Nine-Tails), 'smoke' (shadow clones, substitution), 'black' (Amaterasu), 'ring'; any other effect name is
+// drawn as it is (Luffy's knuckle impacts).
 function burst(g, kind, x, y, z, color, scale = 1) {
   if (kind === 'poof') g.fx.poof(x, y, z, 0.6 * scale);
   else if (kind === 'lightning') g.fx.spawn('lightning', x, y, z, { scale, random: true, life: 0.1, color: color ?? 0xd8f0ff, order: 9, glow: 2 });
@@ -29,6 +30,7 @@ function burst(g, kind, x, y, z, color, scale = 1) {
   else if (kind === 'smoke') g.fx.smoke(x, y, z, 0.7 * scale);
   else if (kind === 'black') g.fx.spawn('flame', x, y - 0.45, z, { bottom: true, scale: 0.55 * scale, color: 0x140a18, vel: [0, 1.7, 0], opacity: 0.95, order: 8, glow: 0 });
   else if (kind === 'ring') g.fx.spawn('ring', x, y, z, { scale: 1.2 * scale, color: color ?? 0xffffff, glow: 0.8, order: 8 });
+  else if (kind) g.fx.spawn(kind, x, y, z, { scale, order: 9, depthTest: false }); // a technique's own art (Luffy's gumImpact)
 }
 
 // ------------------------------------------------------------------ slots
@@ -1140,6 +1142,8 @@ const START = {
     f.game.onKitMove(f, m);
     audio.play('superJump');
     f.game.fx.dust(f.pos, 1.0);
+    // the take-off's own snap (the Gum-Gum Rocket's rubber slingshot, ENG-SKL-LUF)
+    if (rose && m.launchFx) f.game.fx.spawn(m.launchFx.fx, f.pos.x, 0, f.pos.z, { bottom: true, scale: m.launchFx.scale ?? 1, order: 7 });
   },
 
   counter(f, m) {
@@ -1424,6 +1428,12 @@ const UPDATE = {
         f.air = true;
         return;
       }
+      // a storm of fists between him and them while the blows land (Jet Gatling, ENG-SKL-LUF): drawn facing screen-right
+      const Fs = S.fists;
+      if (Fs && k.i > 0 && k.i < S.hits) {
+        const d = (k.dir ??= dirTo(f, o)), p = f.pos;
+        g.fx.keep('fists' + f.index, Fs.fx, p.x + d.x * Fs.ahead, p.y + Fs.up, p.z + d.y * Fs.ahead, { scale: Fs.scale, order: 9, depthTest: false, flipX: f.side < 0 });
+      } else if (Fs) g.fx.drop('fists' + f.index);
       if (k.t0 % S.every !== 1) return;
       const was = Z && chest(f);
       if (k.i < S.hits) {
@@ -1447,19 +1457,24 @@ const UPDATE = {
           streakFx(g, Z.streak, was, chest(f));
           o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'none', blastFx: Z.shock, shake: 0.25, color: S.color }, dirTo(f, o));
           audio.play('hitHeavy', 0.6);
-        } else o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
+        } else o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: S.hitSpark ?? 'heavy' }, dirTo(f, o));
         if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
-        if (!Z) burst(g, S.hitFx ?? 'lightning', o.pos.x, o.pos.y + 0.9, o.pos.z, S.hitColor ?? 0xd8f0ff, 1.1);
+        if (!Z) {
+          // the blow's own burst, here and there on the body (a knuckle impact per fist for Jet Gatling)
+          const jy = S.hitScale ? 0.5 + ((k.i * 0.37) % 0.8) : 0.9, jx = S.hitScale ? (((k.i * 0.61) % 1) - 0.5) * 0.5 : 0;
+          burst(g, S.hitFx ?? 'lightning', o.pos.x + g.basis.right.x * jx, o.pos.y + jy, o.pos.z + g.basis.right.z * jx, S.hitColor ?? 0xd8f0ff, S.hitScale ?? 1.1);
+        }
         g.cam.shake(0.25);
         k.i++;
         return;
       }
       o.heldT = 0;
       if (S.front) {
-        // final: one last straight punch from in front that sends them flying into the wall
+        // final: one last blow from in front that sends them flying into the wall (`finalPose`: Luffy's Jet Bazooka)
         f.faceOpponent();
-        f.actor.setPhase('heavy', 1, 0.5);
-        o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.finalLaunch ?? [20, 9], wallBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
+        f.actor.setPhase(S.finalPose ?? 'heavy', 1, 0.5);
+        o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: S.finalLaunch ?? [20, 9], wallBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: S.finalSpark ?? 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
+        if (S.finalCallout) g.hud.callout(f.index, S.finalCallout, S.color);
       } else {
         // final: from above, slammed into the floor
         f.teleport(o.pos.x, o.pos.y + 2.4, o.pos.z);
@@ -1477,7 +1492,8 @@ const UPDATE = {
         g.fx.ring(o.pos, 0x9fe8ff, 1.8);
         g.fx.overlay.flash(S.color, 0.2);
         audio.play('explosion', 0.9);
-      } else if (S.finalFx === 'impact') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.finalColor ?? 0xffffff));
+      } else if (S.finalFx?.fx) g.fx.blast(S.finalFx.fx, o.pos.x, o.pos.y + 0.9, o.pos.z, S.finalFx.scale ?? 1, new THREE.Color(S.color), S.finalFx.smoke); // its own blast, no white-out
+      else if (S.finalFx === 'impact') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.finalColor ?? 0xffffff));
       else g.fx.thunder(o.pos.x, o.pos.z, 0xd8f0ff);
       g.fx.overlay.impactFrame(3);
       g.cam.shake(1.1);
@@ -1759,8 +1775,18 @@ const UPDATE = {
     if (k.phase === 'flash') { k.phase = 'windup'; k.t0 = 0; audio.play('beamCharge', 0.8); }
     k.t0++;
     if (k.phase === 'windup') {
-      loop(f, S.pose ?? 'beamCharge');
-      if (k.t0 % 6 === 1) g.fx.smoke(f.pos.x - f.face.x * 0.3, f.pos.y + 1.0, f.pos.z - f.face.y * 0.3, 0.5);
+      const back = S.windBack ?? 0;
+      if (!S.windupOnce) loop(f, S.pose ?? 'beamCharge');
+      else if (k.t0 > S.windup - back) f.actor.setPhase(S.strikePose ?? 'beamFire', 0, 0.5); // the giant arm thrown back
+      else {
+        // played once through (ENG-SKL-LUF): the thumb bite, the arm swelling, the giant fist raised
+        const a = k.t0 / Math.max(1, S.windup - back);
+        f.actor.setPhase(S.pose ?? 'beamCharge', a < 0.34 ? 0 : a < 0.67 ? 1 : 2, 0.5);
+      }
+      // the Bone Balloon's air rushing in at the thumb, then round the arm; plain smoke puffs otherwise
+      const P = S.puff?.at.find((q) => q[0] === k.t0);
+      if (P) g.fx.spawn(S.puff.fx, f.pos.x + f.face.x * P[1], f.pos.y + P[2], f.pos.z + f.face.y * P[1], { scale: S.puff.scale ?? 0.6, order: 9, depthTest: false });
+      else if (!S.puff && k.t0 % 6 === 1) g.fx.smoke(f.pos.x - f.face.x * 0.3, f.pos.y + 1.0, f.pos.z - f.face.y * 0.3, 0.5);
       if (k.t0 >= S.windup) {
         k.phase = 'punch';
         k.t0 = 0;
@@ -1771,18 +1797,22 @@ const UPDATE = {
       return;
     }
     if (k.phase === 'punch') {
-      loop(f, S.strikePose ?? 'beamFire');
       const d = k.dir, ext = S.reach * Math.min(1, k.t0 / S.extend);
       const x = f.pos.x + d.x * (0.6 + ext), z = f.pos.z + d.y * (0.6 + ext);
-      g.fx.keep(id, 'orb', x, f.pos.y + 1.0, z, { scale: S.fist.scale, color: S.fist.color, order: 8, glow: 0 });
-      if (k.t0 % 2 === 0) g.fx.spawn('lines', x, f.pos.y + 1.0, z, { scale: 1.4, glow: 0.4, depthTest: false, order: 8 });
+      if (S.arm) f.actor.setPhase(S.strikePose ?? 'beamFire', (k.t0 >> 2) % 2 ? 2 : 1, 0.5); // the arm out, trembling; Effects.laneArm draws it
+      else {
+        loop(f, S.strikePose ?? 'beamFire');
+        g.fx.keep(id, 'orb', x, f.pos.y + 1.0, z, { scale: S.fist.scale, color: S.fist.color, order: 8, glow: 0 });
+        if (k.t0 % 2 === 0) g.fx.spawn('lines', x, f.pos.y + 1.0, z, { scale: 1.4, glow: 0.4, depthTest: false, order: 8 });
+      }
       // along the lane (0 at his body, out to the fist) and across it
       const rx = o.pos.x - f.pos.x, rz = o.pos.z - f.pos.z;
       const along = rx * d.x + rz * d.y, across = Math.abs(rx * d.y - rz * d.x);
       if (!k.hit && o.hittable && along > 0 && along < 0.6 + ext + S.width * 0.5 && across < S.width && o.pos.y - f.pos.y < S.height) {
         k.hit = true;
-        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, d.clone());
-        g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.color));
+        // the strike's own impact (`blastFx`, the giant fist landing) in place of the white-out explosion
+        o.takeHit(f, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: S.blastFx ? 'none' : 'smash', hitFlash: 'special', blastFx: S.blastFx, color: S.color }, d.clone());
+        if (!S.blastFx) g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.color));
         g.fx.ground.impact(o.pos, { kind: 'slam', style: S.ground, tint: S.color, dir: d });
         g.fx.overlay.impactFrame(4);
         g.cam.shake(1.2);
@@ -1797,10 +1827,18 @@ const UPDATE = {
       }
       return;
     }
-    loop(f, S.strikePose ?? 'beamFire');
-    if (k.t0 >= S.recovery) finish(f);
+    // the arm snaps back (Effects.laneArm), then an `after` effect stands in for the body for the rest of the recovery
+    // (chibi Luffy, Fighter.sync veils the sprite), which runs longer once the punch landed (`hitRecovery`)
+    const back = S.arm?.back ?? 0, len = k.hit ? S.hitRecovery ?? S.recovery : S.recovery;
+    if (S.arm) f.actor.setPhase(S.strikePose ?? 'beamFire', k.t0 <= back ? 1 : 0, 0.5);
+    else loop(f, S.strikePose ?? 'beamFire');
+    if (S.after && (k.t0 === back + 1 || k.t0 === len)) g.fx.poof(f.pos.x, f.pos.y + 0.6, f.pos.z, 0.7);
+    if (k.t0 >= len) finish(f);
   },
 };
+
+// The `after` effect is shown from this recovery frame on (Fighter.sync veils the body from there; Effects.laneArm)
+export const afterFrom = (k) => (k.m.arm?.back ?? 0) + 1;
 
 // ------------------------------------------------------------------ landing / gravity
 export function onLand(f) {
