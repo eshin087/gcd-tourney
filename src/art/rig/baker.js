@@ -327,6 +327,7 @@ export function bakeCharacter(def, opts = {}) {
       idx++;
     });
     const m = { frames, durations, loop: !!a.loop };
+    if (a.loop && a.loopFrom > 0) m.loopFrom = a.loopFrom; // intro frames play once (ENG-117)
     if (a.phases) m.phases = a.phases;
     meta.animations[name] = m;
   }

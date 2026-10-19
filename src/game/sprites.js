@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { bakeCharacter } from '../art/rig/baker.js';
 import { RING_TOP, RING_HALF, SPRITE_DEPTH_COMP, SPRITE_DEPTH_CLAMP } from './constants.js';
 import { AuraShell, ChakraShroud } from './auraShell.js';
-import { phaseFrame } from './animPhase.js';
+import { phaseFrame, loopStart } from './animPhase.js';
 import { sheetFiles, pageFrames, frameCell } from '../art/sheetPages.js';
 
 // Missing animations in a custom sheet fall back to something sensible.
@@ -509,7 +509,7 @@ export class SpriteActor {
       this.ft -= a.durations?.[this.fi] ?? 100;
       this.fi++;
       if (this.fi >= a.frames.length) {
-        if (a.loop) this.fi = 0;
+        if (a.loop) this.fi = loopStart(a); // a strip with an intro loops from its loopFrom (ENG-117)
         else { this.fi = a.frames.length - 1; this.done = true; break; }
       }
     }

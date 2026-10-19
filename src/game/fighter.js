@@ -2179,9 +2179,10 @@ export class Fighter {
       const s = hitShake(this, time);
       x += camRight.x * s;
       z += camRight.z * s;
-    } else if (this.state === 'charge' || this.smashCharging) {
-      // trembling with the power: a pixel or so, more as it builds
-      const s = dmath.sin(time * 70) * 0.012 * Math.min(1, (this.smashCharging ? this.chargeT : this.t) / 30);
+    } else if (this.smashCharging) {
+      // trembling with the power: a pixel or so, more as it builds. Only the smash attack's held frame: the ki charge's
+      // strip carries its own motion, and this 11 Hz shake on top of it read as a spasm (ENG-117)
+      const s = dmath.sin(time * 70) * 0.012 * Math.min(1, this.chargeT / 30);
       x += camRight.x * s;
       z += camRight.z * s;
     }
@@ -2221,8 +2222,8 @@ export class Fighter {
       u.flashColor.value.set(0xbfe8ff);
       flash = Math.max(flash, 0.28 + 0.14 * dmath.sin(time * 42));
     }
-    // a mode's body tint (Kaio-ken's red, ENG-SKL-GOK) under any stronger flash
-    const MT = this.mode?.tint;
+    // a power-up's body tint (kit.modeLook `tint`: Kaio-ken's red) under any stronger flash
+    const MT = kit.modeLook(this)?.tint;
     if (MT && flash < MT.level) { u.flashColor.value.set(MT.color); flash = MT.level; }
     if (this.game.superFlash?.who === this) flash = Math.max(flash, this.game.superFlash.t < 6 ? 1 : 0);
     u.flash.value = flash;

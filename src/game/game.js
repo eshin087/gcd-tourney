@@ -16,7 +16,7 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel, bombTick } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel, modeLook, bombTick } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -907,14 +907,11 @@ export class Game {
       if (f.mode?.cloak) this.fx.cloakTick(f, f.mode.cloak, this.cam.right, frozen); // Nine-Tails Cloak (ENG-SKL-NAR)
       if (f.shroud) this.fx.shroudTick(f, f.shroud, shroudLevel(f), this.cam.right, frozen); // Four-Tails
       if (f.state !== 'charge') chargeEnd(this, f);
-      // a mode's look while it lasts (Kaio-ken, ENG-SKL-GOK): its aura held behind him, a flame outline on the body (the
-      // charge's own shell wins while he powers up)
-      const MD = f.mode && !f.hidden ? f.mode : null;
-      if (MD?.aura) {
-        const p = f.renderPos || f.pos, bk = this.fx.camFwd; // a step behind the body along the view, so it never covers him
-        this.fx.keep('modeAura' + f.index, MD.aura.fx, p.x + bk.x * 0.3, p.y, p.z + bk.z * 0.3, { bottom: true, scale: MD.aura.scale * (f.actor.depthK ?? 1), opacity: MD.aura.opacity ?? 1, order: 1, glow: 0.2 });
-      }
-      this.fx.modeShell(f, MD?.shell && f.state !== 'charge' ? MD.shell : null, this.time);
+      // a power-up's look while it lasts (kit.modeLook: shell, aura; the tint is Fighter.sync's): the charge's own shell
+      // wins while he powers up
+      const look = f.state === 'charge' ? null : modeLook(f);
+      if (look?.aura) this.fx.modeAura(f, look.aura);
+      this.fx.modeShell(f, look?.shell ?? null, this.time);
       // a transformation in the intro (def.intro): the burst when it happens, then the aura it leaves on him
       const IN = f.state === 'intro' ? f.def.intro : null;
       if (IN) {

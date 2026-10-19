@@ -69,7 +69,7 @@ const DEFAULT_MS = {
   light1: [30, 30, 40, 50, 50, 50, 30], light2: [35, 30, 40, 50, 60, 50, 30], light3: [40, 35, 45, 60, 60, 60, 30], light4: [50, 45, 35, 40, 70, 70, 70, 40],
   heavy: [40, 35, 30, 50, 70, 70, 60, 30], airLight1: [45, 35, 50, 50, 30], airLight2: [45, 40, 50, 50, 30], airLight3: [50, 40, 50, 70, 60, 30],
   airHeavy: [50, 45, 45, 70, 70, 40], throw: [50, 60, 70, 50], guard: 300, block: [60, 80], hurtHigh: [70, 90, 100], hurtLow: [70, 90, 100],
-  launched: 70, spin: 60, down: [80, 420], ko: [500], getup: [70, 60, 60, 80, 70], stagger: 150, charge: 50, beamCharge: 50, beamFire: 50,
+  launched: 70, spin: 60, down: [80, 420], ko: [500], getup: [70, 60, 60, 80, 70], stagger: 150, charge: [70, 90, 110, 110, 110, 110], beamCharge: 50, beamFire: 50,
   vanish: [50, 50], special: [120, 120, 120, 120, 120, 160, 110, 70], intro: 150, taunt: 250, win: 200,
   // tech poses: their beats at 60 fps (DEFENSE animPhases); the engine drives them by the tech state's clock anyway
   techGround: [67, 83, 83, 67], techRoll: [50, 63, 62, 63, 62, 67], wallTech: [50, 50, 67, 67, 66],
@@ -137,7 +137,7 @@ const FALLBACK_GUIDE = {
   light4: { frames: 8, phases: [3, 2, 3] }, heavy: { frames: 8, phases: [3, 2, 3] }, airLight1: { frames: 5, phases: [1, 2, 2] },
   airLight2: { frames: 5, phases: [1, 2, 2] }, airLight3: { frames: 6, phases: [2, 2, 2] }, airHeavy: { frames: 6, phases: [2, 2, 2] },
   guard: { frames: 2, loop: true }, block: { frames: 2 }, hurtHigh: { frames: 3 }, hurtLow: { frames: 3 }, launched: { frames: 2, loop: true },
-  spin: { frames: 4, loop: true }, airRecover: { frames: 3 }, down: { frames: 2 }, getup: { frames: 5 }, charge: { frames: 4, loop: true },
+  spin: { frames: 4, loop: true }, airRecover: { frames: 3 }, down: { frames: 2 }, getup: { frames: 5 }, charge: { frames: 6, loop: true, loopFrom: 2 },
   throw: { frames: 4, phases: [1, 1, 2] }, beamCharge: { frames: 3, loop: true }, beamFire: { frames: 3, loop: true }, vanish: { frames: 2 },
   stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
   taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
@@ -1058,6 +1058,8 @@ async function loadGuide(file) {
       if (phases) g[m[1]].phases = [+phases[1], +phases[2], +phases[3]];
       const altOf = /altOf\s*:\s*'(\w+)'/.exec(body);
       if (altOf) g[m[1]].altOf = altOf[1];
+      const loopFrom = /loopFrom\s*:\s*(\d+)/.exec(body);
+      if (loopFrom) g[m[1]].loopFrom = +loopFrom[1];
     }
     if (Object.keys(g).length >= 10) return { guide: g, source: 'animGuide.js (parsed)' };
   } catch { /* fall through */ }
@@ -1073,6 +1075,7 @@ function normalizeGuide(g) {
     if (a.durations) out[name].durations = a.durations;
     if (a.ms) out[name].ms = a.ms;
     if (typeof a.altOf === 'string') out[name].altOf = a.altOf;
+    if (Number.isInteger(a.loopFrom)) out[name].loopFrom = a.loopFrom;
   }
   return out;
 }
@@ -1096,6 +1099,7 @@ function normalizeAnimEntry(v) {
   if (typeof v.required === 'boolean') o.required = v.required;
   if (typeof v.core === 'boolean') o.required = o.required || v.core;
   if (typeof v.loop === 'boolean') o.loop = v.loop;
+  if (Number.isInteger(v.loopFrom) && v.loopFrom >= 0) o.loopFrom = v.loopFrom;
   if (Array.isArray(v.durations)) o.durations = v.durations;
   else if (Array.isArray(v.ms)) o.durations = v.ms;
   else if (typeof v.ms === 'number') o.ms = v.ms;
@@ -1221,12 +1225,17 @@ function animDefsFor(id, env) {
     const b = (altOf && mc[altOf]) || {};
     const pick = (k) => c[k] ?? b[k] ?? d[k] ?? g[k];
     const ms = (e) => e.durations ?? (e.ms != null ? e.ms : undefined);
+    const frames = pick('frames') || 1;
+    // where the loop restarts (ENG-117) belongs to a frame count: a fighter's 4-frame strip drawn under the old contract
+    // doesn't take the loopFrom of a 6-frame default
+    const lf = [c, b, d, g].find((e) => e.loopFrom != null);
     return {
       name,
       altOf,
-      frames: pick('frames') || 1,
+      frames,
       phases: pick('phases') || null,
       loop: !!pick('loop'),
+      loopFrom: lf && (lf.frames ?? frames) === frames ? lf.loopFrom : 0,
       bodyHeight: c.bodyHeight ?? b.bodyHeight ?? d.bodyHeight ?? BODY_HEIGHT[name] ?? BODY_HEIGHT[altOf] ?? DEFAULT_BODY_HEIGHT,
       required: CORE.includes(name) || env.manifest.core.includes(name) || c.required === true || (c.required === undefined && d.required === true),
       durations: ms(c) ?? ms(b) ?? ms(d) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? DEFAULT_MS[altOf] ?? 100,
@@ -2598,6 +2607,12 @@ function packCharacter(id, env) {
   for (const a of anims) {
     const indices = a.cells.map(() => idx++);
     const m = { frames: indices, durations: resolveDurations(a.def.durations, indices.length), loop: a.def.loop };
+    // intro frames that play once before the loop (ENG-117); written only when set, so other strips' anims.json stay
+    // byte for byte
+    if (a.def.loop && a.def.loopFrom > 0) {
+      if (a.def.loopFrom < indices.length && indices.length === a.def.frames) m.loopFrom = a.def.loopFrom;
+      else warn(`${id} ${a.def.name}: loopFrom ${a.def.loopFrom} is for ${a.def.frames} frames, the strip has ${indices.length} - it loops the whole strip`);
+    }
     const ph = rescalePhases(a.def.phases, indices.length);
     if (ph) m.phases = ph;
     meta.animations[a.def.name] = m;

@@ -41,7 +41,9 @@ rule 4):
    before the strike he shoves it and it falls onto the mark as a dome.
 4. **Mode:** `burstFx` (its own burst as it starts), `aura` (an effect held behind him), `shell` (the AuraShell flame
    outline on the body; the charge's own shell wins while he powers up) and `tint` (a body tint under any stronger
-   flash) while it lasts.
+   flash) while it lasts. Built as the shared look path for every power-up (`kit.modeLook`, PR #186: a mode, a reflex
+   super or a running kit move; Killua and Luffy add their fields beside these), read from the move's data so the
+   simulation state and its hashes don't change.
 5. **Rush:** `coil` (Dragon Fist): on a hit the victim is held through the hit stop (30 frames, was 20) while an HD
    effect winds round them, its frame following the stop's own count; when the stop ends it bursts (`burst`) and they
    fly with the launch the hit already gave them. One hit, damage unchanged; `blastFx: { fx: null }` drops the white-out.

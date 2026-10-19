@@ -441,6 +441,20 @@ export function beginShroud(f, C, flash) {
   f.shroud = { flash, hold: C.hold ?? 1, tails: C.tails ?? 0, core: C.core, rim: C.rim ?? C.chakra, chakra: C.chakra };
 }
 
+// The look a fighter's running power-up gives the body (`shell`, `tint`, `aura` side by side on its data): a mode's
+// move (found by the name f.mode keeps: the look stays off the simulation state, so the state hashes don't change), a
+// reflex super (Whirlwind) or a kit move running (Speed of Lightning). View only: Game.fxTicks and Fighter.sync read
+// it; none while hidden (the charge style owns the shell while he powers up: Game.fxTicks)
+let modesByName = null;
+export function modeLook(f) {
+  if (f.hidden) return null;
+  if (f.mode) {
+    if (!modesByName) modesByName = new Map(Object.values(SPECIAL_MOVES).filter((m) => m.kind === 'mode').map((m) => [m.name, m]));
+    return modesByName.get(f.mode.id) ?? null;
+  }
+  return f.reflex?.m ?? (f.state === 'kit' ? f.kitState?.m ?? null : null);
+}
+
 // How far the chakra has swallowed him, 0..1: climbing through the first 70 % of his flash, then `hold`.
 export function shroudLevel(f) {
   const s = f.shroud;
@@ -1211,14 +1225,11 @@ const UPDATE = {
         blinkDash: !!m.blinkDash, color: m.color, fx: m.fx ?? 'lightning', auraColor: m.auraColor, auraCore: m.auraCore, charge: m.charge,
         cloak: m.cloak ?? null,
       };
-      // the look while it lasts (ENG-SKL-GOK): a held aura effect, a flame outline on the body, a body tint
-      f.mode.aura = m.aura ?? null;
-      f.mode.shell = m.shell ?? null;
-      f.mode.tint = m.tint ?? null;
       const g = f.game, p = f.pos;
       g.onKitMove(f, m);
-      if (m.burstFx) g.fx.spawn(m.burstFx.fx, p.x, p.y, p.z, { bottom: true, scale: m.burstFx.scale ?? 1, order: 8 }); // Kaio-ken!
-      g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
+      // its own start burst at the feet (`burstFx`) in place of the white one
+      if (m.burstFx) g.fx.spawn(m.burstFx.fx, p.x, p.y, p.z, { bottom: true, scale: m.burstFx.scale ?? 1, order: 8 });
+      else g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
       if (m.cloak) g.fx.cloakBurst(f, m.cloak); // the chakra wells up over him all at once
       else if (f.mode.fx === 'chakra') for (let i = 0; i < 8; i++) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 1.2, p.y + 0.5, p.z, m.auraColor, 1.4);
       else burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.6);
