@@ -997,11 +997,11 @@ const PAINTERS = {
       disc(ctx, Math.cos(a) * d - 0.5, Math.sin(a) * d - 0.5, 2.5 - (i - 2) * 0.5, '#f8f4ec');
     }
   },
-  // the giant arm: a tube 24 px thick on rows 20-43, the same in every column (stretched down the lane)
+  // the giant arm: a tube 20 px thick on rows 22-41 (tube 79/256 in moves.js), the same in every column (stretched down the lane)
   gigantArm(i, n, ctx) {
     const S = LUFFY_SKIN;
-    rubberTube(ctx, 20, [S.line, S.light, S.light, S.light, S.base, S.base, S.base, S.base, S.base, S.base, S.base, S.base, S.mid, S.mid, S.mid, S.mid, S.shadow, S.shadow, S.shadow, S.shadow, S.deep, S.deep, S.deep, S.line]);
-    if (i % 2) { ctx.fillStyle = '#f8e8d1'; for (const y of [17, 19, 45, 47]) ctx.fillRect(0, y, 64, 1); }
+    rubberTube(ctx, 22, [S.line, S.light, S.light, S.base, S.base, S.base, S.base, S.base, S.base, S.base, S.mid, S.mid, S.mid, S.shadow, S.shadow, S.shadow, S.shadow, S.deep, S.deep, S.line]);
+    if (i % 2) { ctx.fillStyle = '#f8e8d1'; for (const y of [18, 20, 43, 45]) ctx.fillRect(0, y, 64, 1); }
   },
   // the giant fist: the wrist cut flat at x 10 on the arm's rows, knuckles at x 57
   gigantFist(i, n, ctx) {
