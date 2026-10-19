@@ -421,10 +421,10 @@ export function tickMode(f) {
     return;
   }
   // while powering up the charge style shows the mode instead (its `charge.level` boost, chargeFx.js): no stacking
-  if (f.state === 'charge') return;
+  if (f.state === 'charge' || f.hidden) return; // nothing to dress while he is hidden (a teleport)
   const g = f.game, p = f.pos;
-  if (M.cloak) {
-    // the Nine-Tails Cloak lives on the body (Fighter.sync, Effects.cloakTick): no flame aura around it
+  if (M.cloak || modeLook(f)?.aura) {
+    // the Nine-Tails Cloak and Godspeed's lightning live on the body (Game.fxTicks): no aura sprites around it
   } else if (M.fx === 'chakra') {
     if (f.t % 2 === 0) g.fx.auraTick(f, 0.45, g.cam.right);
   } else if (f.t % 3 === 0) {
@@ -439,9 +439,16 @@ export function blinkDash(f, d) {
   f.actor.ghost(f.mode.color || f.def.color, 0.35, 0.6);
   const lim = ARENA_LIMIT;
   const x = THREE.MathUtils.clamp(f.pos.x + d.x * 2.6, -lim, lim), z = THREE.MathUtils.clamp(f.pos.z + d.y * 2.6, -lim, lim);
-  g.fx.spawn('lightning', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 0.9, random: true, life: 0.12, color: 0xd8f0ff, order: 9, glow: 2 });
-  f.teleport(x, f.pos.y, z);
-  g.fx.spawn('lightning', x, f.pos.y + 0.8, z, { scale: 0.9, random: true, life: 0.12, color: 0xd8f0ff, order: 9, glow: 2 });
+  const blink = modeLook(f)?.blink;
+  if (blink) {
+    // Godspeed (ENG-SKL-KIL): the blink is a streak of his lightning along the path, not a flash at each end
+    streakFx(g, blink, { x: f.pos.x, y: f.pos.y + 0.8, z: f.pos.z }, { x, y: f.pos.y + 0.8, z });
+    f.teleport(x, f.pos.y, z);
+  } else {
+    g.fx.spawn('lightning', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 0.9, random: true, life: 0.12, color: 0xd8f0ff, order: 9, glow: 2 });
+    f.teleport(x, f.pos.y, z);
+    g.fx.spawn('lightning', x, f.pos.y + 0.8, z, { scale: 0.9, random: true, life: 0.12, color: 0xd8f0ff, order: 9, glow: 2 });
+  }
   f.invuln = Math.max(f.invuln, 6);
   audio.play('vanishIn', 0.7);
 }
@@ -453,7 +460,7 @@ export function tickReflex(f) {
   if (!R) return;
   if (f.ko || --R.t <= 0 || R.left <= 0) { f.reflex = null; return; }
   const g = f.game, p = f.pos;
-  if (R.t % 2 === 0) {
+  if (R.t % 2 === 0 && !R.m.aura) { // an `aura` lives on the body instead (Game.fxTicks)
     const a = Math.random() * Math.PI * 2;
     g.fx.spawn('lightning', p.x + dmath.cos(a) * 0.4, p.y + 0.2 + Math.random() * 1.3, p.z + dmath.sin(a) * 0.25, { scale: 0.38, random: true, life: 0.08, color: 0xe8f6ff, rot: a, order: 9, glow: 1.8 });
   }
@@ -478,14 +485,18 @@ export function reflexCounter(f, att, m) {
     att.heldT = 12;
     att.setState('held', 'stagger');
   }
-  burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.4);
+  if (S.echo) {
+    // the body moved before the hit arrived: an electrified afterimage stays where he stood (ENG-SKL-KIL)
+    f.actor.ghost(S.echo, 0.5, 0.6);
+    g.fx.spawn('palmCrackle', p.x, p.y + 0.9, p.z, { scale: 1.1, order: 9, glow: 0.4 });
+  } else burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.4);
   g.hud.callout(f.index, S.callout ?? S.name, S.color);
-  g.fx.overlay.flash(S.color, 0.3);
+  g.fx.overlay.flash(S.color, S.echo ? 0.15 : 0.3);
   g.freeze = Math.max(g.freeze, 4);
   audio.play('vanish', 1.1);
   f.endMoveFx();
   f.move = null;
-  START.teleport(f, { kind: 'teleport', hide: S.hide ?? 4, to: 'behind', off: 0.85, ghosts: 2, follow: S.follow, color: S.color });
+  START.teleport(f, { kind: 'teleport', hide: S.hide ?? 4, to: 'behind', off: 0.85, ghosts: S.streak ? 0 : 2, follow: S.follow, color: S.color, vanishFx: S.echo ? false : undefined, appearFx: S.echo ? 'palmCrackle' : undefined, streak: S.streak });
   return 'miss';
 }
 
@@ -573,6 +584,16 @@ function finish(f) {
   } else f.setState('idle');
 }
 
+// the fighter's chest, where a Godspeed streak leaves from and arrives (plain numbers: kitState is saved, ADR 0036)
+const chest = (f) => ({ x: f.pos.x, y: f.pos.y + 0.9, z: f.pos.z });
+
+// A Godspeed streak laid once from a to b (Effects.limb with no id plays its strip through and is gone), kept thin:
+// godspeedStreak's channel is the middle eighth of its cell (`tube`), drawn `thick` world units across. View only.
+function streakFx(g, name, a, b) {
+  if (dmath.hypot(b.x - a.x, b.y - a.y, b.z - a.z) < 0.3) return;
+  g.fx.limb(null, name, a, b, 0.18, 1 / 8, g.cam.right, { order: 8 });
+}
+
 function dirTo(f, o) {
   tmp.set(o.pos.x - f.pos.x, o.pos.z - f.pos.z);
   if (tmp.lengthSq() < 1e-4) tmp.set(f.face.x, f.face.y);
@@ -593,6 +614,14 @@ function besideOpponent(f, back, off) {
 function inLane(f, o, tol = 1.0) {
   const F = f.game.basis.fwd;
   return Math.abs((o.pos.x - f.pos.x) * F.x + (o.pos.z - f.pos.z) * F.z) < tol;
+}
+
+// An effect held in the drawn hand while a kit move runs (Narukami's gather, ENG-SKL-KIL): `G` = { fx, scale }. View
+// only (an fx keep at the art pack's hand anchor); `id` + the fighter index keys it.
+function handFx(f, id, G) {
+  const H = f.actor.hand?.(), k = f.actor.depthK ?? 1, p = f.pos;
+  const fwd = H ? H.x : 0.4, up = H ? H.y : 1.5;
+  f.game.fx.keep(id + f.index, G.fx, p.x + f.face.x * fwd * k, p.y + up * k, p.z + f.face.y * fwd * k, { scale: (G.scale ?? 0.5) * k, order: 9, glow: 0.3 });
 }
 
 // The Four-Tails roar pose: the drawn roar loop, or one held frame of a stand-in strip (`poseAt`: [phase, progress])
@@ -1053,7 +1082,7 @@ const START = {
   dive(f, m) {
     const startAir = f.pos.y > 0.05;
     const rose = m.rise > 0 && !startAir;
-    enter(f, { kind: 'dive', m, phase: rose ? 'rise' : 'hang', t0: 0, rose }, rose ? 'specialUp' : 'airHeavy');
+    enter(f, { kind: 'dive', m, phase: rose ? 'rise' : 'hang', t0: 0, rose }, rose ? 'specialUp' : m.diveAnim ?? 'airHeavy');
     f.air = true;
     f.faceOpponent();
     f.vel.set(0, m.rise > 0 && !startAir ? m.riseV : 0, 0);
@@ -1102,6 +1131,26 @@ function vanishFx(f, m) {
   audio.play('vanish');
 }
 
+// Rhythm Echo (肢曲, ENG-SKL-KIL): while he is hidden, afterimages of him close in round the target one every `every`
+// frames (`i`: frames into the hide), in a ring that leaves the spot behind them free for the real one (a teleport's
+// `afterimage`). Crew entries (clones.js) that flicker on for `linger` frames after the strike starts.
+const ECHO_AT = [0, -1.3, 1.3, -2.3, 2.3, 3.14];
+function echoTick(f, k, E, i) {
+  k.crew ??= [];
+  if (k.crew.length >= Math.min(E.n, 1 + Math.floor(i / E.every))) return;
+  const o = f.opp, R = f.game.basis.right, F = f.game.basis.fwd, dx = k.from.x - o.pos.x, dz = k.from.z - o.pos.z;
+  const base = dmath.atan2(dx * F.x + dz * F.z, dx * R.x + dz * R.z); // toward where he set off from
+  const a = base + ECHO_AT[k.crew.length % ECHO_AT.length];
+  const x = THREE.MathUtils.clamp(o.pos.x + R.x * dmath.cos(a) * E.ring + F.x * dmath.sin(a) * E.ring * 0.7, -ARENA_LIMIT, ARENA_LIMIT);
+  const z = THREE.MathUtils.clamp(o.pos.z + R.z * dmath.cos(a) * E.ring + F.z * dmath.sin(a) * E.ring * 0.7, -ARENA_LIMIT, ARENA_LIMIT);
+  const c = crewMember(x, o.pos.y, z, 1, 0, E.anim, (k.crew.length * 0.3) % 1);
+  faceAt(c, o.pos.x, o.pos.z);
+  c.linger = E.linger;
+  c.flash = E.flash;
+  c.tint = E.tint;
+  k.crew.push(c);
+}
+
 // The wind-up frame a teleport's vanishFx starts on (its `lead`: frames before he disappears), or null without one;
 // 0 = as the move starts (START.teleport), since the first update already sees t = 1
 function vanishLead(m) {
@@ -1128,12 +1177,15 @@ const UPDATE = {
       if (!f.hidden) vanishFx(f, m);
       f.hidden = true;
       f.actor.setVisible(false);
+      if (m.afterimage) echoTick(f, k, m.afterimage, t - startup);
       return;
     }
     if (!k.arrived) {
       const g = f.game, o = f.opp;
       const pos = besideOpponent(f, -o.side, m.off);
       const y = m.to === 'above' ? o.pos.y + m.height : o.pos.y;
+      // at Godspeed he leaves a streak of lightning from where he was to where he lands (Whirlwind's counter)
+      if (m.streak) streakFx(g, m.streak, { x: k.from.x, y: k.from.y + 0.9, z: k.from.z }, { x: pos.x, y: y + 0.9, z: pos.z });
       // afterimages along the path (Rhythm Echo)
       for (let i = 1; i <= (m.ghosts || 0); i++) {
         const a = i / (m.ghosts + 1);
@@ -1201,9 +1253,12 @@ const UPDATE = {
       if (k.crew) crewOut(f.game, k.crew); // an air dive skips the rise
       f.vel.set(0, 0.5, 0);
       f.faceOpponent();
-      // a ground dive turns over on specialUp's last frames (drawn to flow into airHeavy f0)
-      if (k.rose) f.actor.setPhase('specialUp', 2, Math.min(0.999, k.t0 / m.hang));
+      // a ground dive turns over on specialUp's last frames (drawn to flow into airHeavy f0). `diveAnim`: a strip whose
+      // last phase is the gather (first half) and the dive held for the slam (Narukami's specialUp v09, ENG-SKL-KIL)
+      if (m.diveAnim) f.actor.setPhase(m.diveAnim, 2, Math.min(0.49, (k.t0 / m.hang) * 0.49));
+      else if (k.rose) f.actor.setPhase('specialUp', 2, Math.min(0.999, k.t0 / m.hang));
       else f.actor.setPhase('airHeavy', 0, Math.min(0.999, k.t0 / m.hang));
+      if (m.gather) handFx(f, 'diveHand', m.gather); // Narukami: the lightning gathers in his hand over them
       if (k.t0 >= m.hang) {
         k.phase = 'slam';
         k.t0 = 0;
@@ -1226,7 +1281,9 @@ const UPDATE = {
       // home in at up to ~45 degrees: a deeper dive from higher up, like a DBFZ dive kick
       const sp = Math.min(-m.slamV * 0.9, Math.max(0, f.distTo() - 0.5) / (fall / 60));
       f.vel.set(d.x * sp, m.slamV, d.y * sp);
-      f.actor.setPhase('airHeavy', 1, 0.5);
+      f.actor.setPhase(m.diveAnim ?? 'airHeavy', m.diveAnim ? 2 : 1, m.diveAnim ? 0.999 : 0.5);
+      // Narukami: he comes down inside a bolt from the sky (drawn behind him, ENG-SKL-KIL)
+      if (m.column) f.game.fx.column('dive' + f.index + '_', m.column.fx, f.pos.x, f.pos.y + 0.3, m.column.top, f.pos.z, { scale: m.column.scale, order: 1 });
       if (k.t0 > 90) finish(f); // safety: never hang forever
       return;
     }
@@ -1260,8 +1317,8 @@ const UPDATE = {
       else g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
       if (m.cloak) g.fx.cloakBurst(f, m.cloak); // the chakra wells up over him all at once
       else if (f.mode.fx === 'chakra') for (let i = 0; i < 8; i++) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 1.2, p.y + 0.5, p.z, m.auraColor, 1.4);
-      else burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.6);
-      g.fx.overlay.flash(m.auraColor ?? m.color, 0.35);
+      else if (!BF) burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.6); // a burstFx is the whole start burst
+      g.fx.overlay.flash(m.auraColor ?? m.color, BF ? 0.15 : 0.35);
       audio.play('kiFull');
     }
     if (t >= m.startup + m.recovery) finish(f);
@@ -1271,11 +1328,12 @@ const UPDATE = {
   // struck from every direction, then slammed into the floor
   flurry(f, k, S) {
     if (S.crew) return crewFlurry(f, k, S);
-    const g = f.game, o = f.opp;
+    const g = f.game, o = f.opp, Z = S.zigzag;
     if (k.phase === 'flash') { k.phase = 'dash'; k.t0 = 0; }
     k.t0++;
     if (k.phase === 'dash') {
       const d = dirTo(f, o);
+      if (k.t0 === 1) k.from = { x: f.pos.x, y: f.pos.y + 0.9, z: f.pos.z }; // where his Godspeed streak starts
       f.vel.set(d.x * 24, 0, d.y * 24);
       f.actor.setPhase('dash', 1, 0.5);
       if (k.t0 % 2 === 0) f.actor.ghost(S.color, 0.3, 0.6);
@@ -1283,6 +1341,7 @@ const UPDATE = {
       if (reach && o.evading) g.onEvade(o);
       const hit = reach && !o.ko && !o.hidden && o.invuln <= 0;
       if (hit) {
+        if (Z) streakFx(g, Z.streak, k.from, chest(f));
         k.phase = 'hits';
         k.t0 = 0;
         k.i = 0;
@@ -1315,6 +1374,7 @@ const UPDATE = {
         return;
       }
       if (k.t0 % S.every !== 1) return;
+      const was = Z && chest(f);
       if (k.i < S.hits) {
         if (S.front) {
           // a blur of fists from one spot in front of them (Jet Gatling), not strikes from every side
@@ -1328,12 +1388,17 @@ const UPDATE = {
         f.hidden = false;
         f.actor.setVisible(true);
         f.faceOpponent();
-        f.actor.setPhase(k.i % 2 ? 'light2' : 'light4', 1, 0.5);
+        f.actor.setPhase(Z ? Z.attacks[k.i % Z.attacks.length] : k.i % 2 ? 'light2' : 'light4', 1, 0.5);
         f.actor.ghost(S.color, 0.4, 0.55);
         o.heldT = Math.max(o.heldT, 30);
-        o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
+        if (Z) {
+          // Speed of Lightning (ENG-SKL-KIL): a streak from blow to blow, each one of his own attacks, the shock through them
+          streakFx(g, Z.streak, was, chest(f));
+          o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'none', blastFx: Z.shock, shake: 0.25, color: S.color }, dirTo(f, o));
+          audio.play('hitHeavy', 0.6);
+        } else o.takeHit(f, { dmg: S.hitDmg, minScale: S.minScale, hitstun: 40, push: 0, airPop: 0, hitstop: 3, unblockable: true, spark: 'heavy' }, dirTo(f, o));
         if (!o.ko) o.vel.set(0, 0, 0); // a KO keeps its launch
-        burst(g, S.hitFx ?? 'lightning', o.pos.x, o.pos.y + 0.9, o.pos.z, S.hitColor ?? 0xd8f0ff, 1.1);
+        if (!Z) burst(g, S.hitFx ?? 'lightning', o.pos.x, o.pos.y + 0.9, o.pos.z, S.hitColor ?? 0xd8f0ff, 1.1);
         g.cam.shake(0.25);
         k.i++;
         return;
@@ -1348,10 +1413,20 @@ const UPDATE = {
         // final: from above, slammed into the floor
         f.teleport(o.pos.x, o.pos.y + 2.4, o.pos.z);
         f.faceOpponent();
-        f.actor.setPhase('airHeavy', 1, 0.5);
-        o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
+        if (Z) f.actor.setPhase(...Z.pose);
+        else f.actor.setPhase('airHeavy', 1, 0.5);
+        o.takeHit(f, { dmg: S.finalDmg, minScale: S.minScale, launch: [3, -22], groundBounce: true, noTech: true, hitstop: 16, unblockable: true, big: true, shake: 1, spark: Z ? 'none' : 'smash', hitFlash: 'special', ground: S.ground, color: S.color }, dirTo(f, o));
       }
-      if (S.finalFx === 'impact') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.finalColor ?? 0xffffff));
+      if (Z) {
+        // Narukami from above (ENG-SKL-KIL): the bolt from the sky comes down through him onto them and hits the floor
+        streakFx(g, Z.streak, was, chest(f));
+        if (Z.gather) handFx(f, 'flurryHand', Z.gather);
+        g.fx.column(null, Z.column.fx, o.pos.x, 0, Z.column.top, o.pos.z, { scale: Z.column.scale, life: 0.22, order: 1 });
+        g.fx.spawn(Z.strike.fx, o.pos.x, 0, o.pos.z, { bottom: true, scale: Z.strike.scale ?? 1, order: 8, glow: 0.4 });
+        g.fx.ring(o.pos, 0x9fe8ff, 1.8);
+        g.fx.overlay.flash(S.color, 0.2);
+        audio.play('explosion', 0.9);
+      } else if (S.finalFx === 'impact') g.fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.finalColor ?? 0xffffff));
       else g.fx.thunder(o.pos.x, o.pos.z, 0xd8f0ff);
       g.fx.overlay.impactFrame(3);
       g.cam.shake(1.1);
@@ -1613,9 +1688,10 @@ const UPDATE = {
       k.t0 = 0;
       f.reflex = { t: S.len, left: S.counters, m: S };
       const p = f.pos;
-      burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.8);
-      g.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 2.2, color: S.color, glow: 1.2, order: 8, depthTest: false });
-      g.fx.overlay.flash(S.color, 0.35);
+      if (S.burstFx) g.fx.spawn(S.burstFx.fx, p.x, p.y + 0.9, p.z, { scale: S.burstFx.scale ?? 1, order: 8, depthTest: false, glow: 0.4 }); // Godspeed bursts on (ENG-SKL-KIL)
+      else burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.8);
+      g.fx.spawn('ring', p.x, p.y + 0.9, p.z, { scale: 2.2, color: S.color, glow: S.burstFx ? 0.4 : 1.2, order: 8, depthTest: false });
+      g.fx.overlay.flash(S.color, S.burstFx ? 0.15 : 0.35);
       audio.play('kiFull');
     }
     k.t0++;
@@ -1687,7 +1763,13 @@ export function onLand(f) {
       holdAt(o, o.pos.x, 0, o.pos.z);
     }
     const hit = o.hittable && f.distTo() < m.area && Math.abs(o.pos.y - f.pos.y) < 1.3 && inLane(f, o, 1.1) ? o.takeHit(f, m.hit, dirTo(f, o)) : null;
-    if (m.landFx === 'thunder') g.fx.thunder(f.pos.x, f.pos.z, 0xd8f0ff);
+    if (m.landFx?.fx) {
+      // Narukami hitting the floor (ENG-SKL-KIL): his lightning strike and the bolt from the sky down to it, no white-out
+      g.fx.spawn(m.landFx.fx, f.pos.x, 0, f.pos.z, { bottom: true, scale: m.landFx.scale ?? 1, order: 8, glow: 0.4 });
+      if (m.column) g.fx.column(null, m.column.fx, f.pos.x, 0, m.column.top, f.pos.z, { scale: m.landFx.column ?? m.column.scale, life: 0.12 });
+      g.fx.ring(f.pos, 0x9fe8ff, 1.4);
+      g.fx.overlay.flash(m.color ?? '#bfe6ff', 0.2);
+    } else if (m.landFx === 'thunder') g.fx.thunder(f.pos.x, f.pos.z, 0xd8f0ff);
     else g.fx.dust(f.pos, 1.6);
     g.fx.ground.dive(f, m, hit === 'hit');
     g.cam.shake(0.8);

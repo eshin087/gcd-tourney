@@ -40,6 +40,8 @@ const NOOP = new Proxy(function () {}, {
   construct: () => NOOP,
   set: () => true,
 });
+// the stunned states a hit's `cling` effect stays on (Lightning Palm's paralysis, ENG-SKL-KIL)
+const CLING_STATES = new Set(['hitstun', 'launched', 'held']);
 // one victim's running combo, for the HUD's ticker and rating (Game.trackCombos, ADR 0026)
 const newCombo = () => ({ hits: 0, dmg: 0, kinds: new Set(), wall: 0, ground: 0, vanish: 0, start: 0 });
 
@@ -918,6 +920,10 @@ export class Game {
     if (this.resim) return; // all effects: a re-simulated frame was already drawn
     let lines = 0;
     for (const f of this.fighters) {
+      // a hit's `cling` (Lightning Palm's paralysis, ENG-SKL-KIL) stays on the body until the stun ends (render state on hfx)
+      const cl = f.hfx?.cling;
+      if (cl && this.frameNo < cl.until && CLING_STATES.has(f.state)) this.fx.clingTick(f, cl);
+      else if (cl) f.hfx.cling = null;
       if (f.mode?.cloak) this.fx.cloakTick(f, f.mode.cloak, this.cam.right, frozen); // Nine-Tails Cloak (ENG-SKL-NAR)
       if (f.shroud) this.fx.shroudTick(f, f.shroud, shroudLevel(f), this.cam.right, frozen); // Four-Tails
       if (f.state !== 'charge') chargeEnd(this, f);
@@ -1822,7 +1828,7 @@ export class Game {
       // beam ticks draw their own sparks
     } else if (m.blastFx && !m.special) {
       // a kit super's own blast (Amaterasu's black flames bursting on them, ENG-SKL-SAS): its art, no white spark
-      if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, new THREE.Color(m.color ?? 0xffffff), m.blastFx.smoke);
+      if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, new THREE.Color(m.color ?? 0xffffff), m.blastFx.smoke, false, m.blastFx.ring);
       this.cam.shake(m.shake ?? 0.6, dir);
       this.excite = 1;
     } else if (kind === 'none') {

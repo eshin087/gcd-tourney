@@ -227,6 +227,18 @@ const VFX_EFFECTS = {
   purpleBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
   voidFlood: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true },
   voidShatter: { frames: 8, ms: 50, tinted: false, fill: 1, hd: true },
+  // Killua's lightning (ENG-SKL-KIL): HD cells, art/characters/killua/SKILLS_REVAMP.md. narukamiBolt is stacked end to
+  // end down the bolt from the sky, so it ships as exact 256 x 256 frames in art/vfx/frames/narukamiBolt/ (never rescaled)
+  lightningPalm: { frames: 8, ms: 30, tinted: false, fill: 0.95, hd: true },
+  palmCrackle: { frames: 6, ms: 35, tinted: false, fill: 0.5, hd: true },
+  palmShock: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  shockCrawl: { frames: 6, ms: 50, tinted: false, fill: 0.85, anchor: 'bottom', hd: true },
+  godspeedBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
+  godspeedAura: { frames: 8, ms: 40, tinted: false, fill: 0.95, anchor: 'bottom', hd: true },
+  godspeedStreak: { frames: 6, ms: 30, tinted: false, fill: 1, hd: true },
+  narukamiBolt: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true },
+  narukamiStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
+  yoyo: { frames: 8, ms: 30, tinted: false, fill: 0.42, hd: true },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 

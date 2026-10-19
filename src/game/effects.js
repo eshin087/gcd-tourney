@@ -695,10 +695,11 @@ export class Effects {
   // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
   // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
   // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind)
-  // `flipX`: a blast drawn pointing screen-right, mirrored for a shot flying screen-left (Reversal: Red's repulsion)
-  blast(name, x, y, z, scale, color, smoke = 3, flipX = false) {
+  // `flipX`: a blast drawn pointing screen-right, mirrored for a shot flying screen-left (Reversal: Red's repulsion);
+  // `ring`: the shockwave's size against the blast's (0: none; Killua's shocks keep it small)
+  blast(name, x, y, z, scale, color, smoke = 3, flipX = false, ring = 2.2) {
     this.spawn(name, x, y, z, { scale, order: 8, depthTest: false, flipX });
-    this.spawn('ring', x, y, z, { scale: 2.2 * scale, color, glow: 0.4, order: 7, depthTest: false });
+    if (ring) this.spawn('ring', x, y, z, { scale: ring * scale, color, glow: 0.4, order: 7, depthTest: false });
     for (let k = 0; k < smoke; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
   }
 
@@ -839,6 +840,27 @@ export class Effects {
     this.spawn('bubble', p.x + (Math.random() - 0.5) * 0.6 * k, p.y + (0.1 + Math.random() * 1.3 * Math.max(0.2, level)) * k, p.z, {
       scale: 0.14 + Math.random() * 0.1, color: Math.random() < 0.5 ? sh.chakra : sh.rim, vel: [0, 1.4, 0], life: 0.4, fade: true, order: 6,
     });
+  }
+
+  // ------------------------------------------------------------ Killua's lightning (ENG-SKL-KIL)
+  // A column of tiles stacked from yBot up past yTop (Narukami's bolt from the sky): copies of a strip that tiles top to
+  // bottom. With an `id` they are held (refreshed every frame by the caller), without one they flash for `life`.
+  column(id, name, x, yBot, yTop, z, o = {}) {
+    const a = this.meta.anims[name], seg = this.sheet(a).cellWorld * (o.scale ?? 1) * 0.98;
+    const n = Math.min(8, Math.max(1, Math.ceil((yTop - yBot) / seg)));
+    for (let j = 0; j < 8; j++) {
+      if (j >= n) { if (id) this.drop(id + j); continue; }
+      const y = yBot + seg * (j + 0.5);
+      if (!id) { this.spawn(name, x, y, z, { order: 8, depthTest: false, glow: 0.4, ...o, life: o.life ?? 0.15 }); continue; }
+      const it = this.keep(id + j, name, x, y, z, { order: 8, depthTest: false, glow: 0.4, ...o });
+      if (it.t === 0) it.t = j * 0.07; // the tiles crackle out of step
+    }
+  }
+
+  // A hit's `cling` on the stunned body (Lightning Palm's paralysis): its loop over them, refreshed every frame
+  clingTick(f, C) {
+    const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1;
+    this.keep('cling' + f.index, C.fx, p.x, p.y, p.z, { bottom: true, scale: (C.scale ?? 1) * k, order: 7, glow: 0.3 });
   }
 
   // ------------------------------------------------------------ limbs (ENG-SKL-LUF)

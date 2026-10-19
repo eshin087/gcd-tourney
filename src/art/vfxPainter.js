@@ -69,6 +69,10 @@ function bolt(ctx, pts, w = 2, cols = ['#2350d8', '#7cc8ff', '#e8f7ff']) {
   });
 }
 
+// Killua's lightning bands (ENG-SKL-KIL): a violet rim, the cyan body and a near-white core; hot = white-cyan only
+const KIL = ['#5534d0', '#62d8ff', '#eafcff'];
+const KIL_HOT = ['#b4f0ff', '#ffffff'];
+
 function disc(ctx, x, y, r, col) {
   ctx.fillStyle = col;
   ctx.beginPath(); ctx.arc(x, y, Math.max(0.5, r), 0, Math.PI * 2); ctx.fill();
@@ -813,6 +817,142 @@ const PAINTERS = {
     }
     if (i < 2) { ctx.fillStyle = '#ffffff'; ctx.fillRect(32 - w * 0.7, 58, w * 1.4, 2); }
   },
+  // ---- Killua's lightning (ENG-SKL-KIL): thin, sparse, kinked filaments with violet rims, never a knot or a ball (the
+  // Chidori's look); art/characters/killua/SKILLS_REVAMP.md has the full briefs
+  // Lightning Palm: a forked bolt flying screen-right, its head at the right edge, the channel trailing back
+  lightningPalm(i, n, ctx) {
+    const R = rng(900 + i * 7);
+    const main = zigzag(R, 3, 32 + (R() - 0.5) * 8, 58, 32, 9, 5);
+    bolt(ctx, main, 2.5, KIL);
+    for (let k = 0; k < 3; k++) {
+      const [x, y] = main[2 + k * 2], sd = k % 2 ? 1 : -1;
+      bolt(ctx, zigzag(R, x, y, x - 6 - R() * 8, y + sd * (6 + R() * 8), 3, 2), 1, KIL);
+    }
+    for (let k = 0; k < 3; k++) bolt(ctx, [[58, 32], [61, 32 + (k - 1) * 3]], 1, KIL_HOT);
+    disc(ctx, 58, 32, 1.5, '#ffffff');
+  },
+  // lightning gathering in an open palm: a small point and filaments snapping out of it
+  palmCrackle(i, n, ctx) {
+    const R = rng(920 + i * 5);
+    ctx.translate(32, 32);
+    for (let k = 0; k < 6; k++) {
+      const a = (k / 6) * Math.PI * 2 + R() * 0.8, l = 7 + R() * 7;
+      bolt(ctx, zigzag(R, 0, 0, Math.cos(a) * l, Math.sin(a) * l, 3, 2), 1, KIL);
+    }
+    for (let k = 0; k < 4; k++) disc(ctx, (R() - 0.5) * 26, (R() - 0.5) * 26, 0.6, '#b4f0ff');
+    disc(ctx, 0, 0, 1.5, '#ffffff');
+  },
+  // the shock jumping through a body (left clear): the impact on its left edge, filaments bursting off its outline
+  palmShock(i, n, ctx) {
+    const R = rng(940 + i * 3);
+    ctx.translate(32, 32);
+    if (i === 0) {
+      bolt(ctx, zigzag(R, -32, -2, -9, 0, 4, 2), 2, KIL);
+      disc(ctx, -9, 0, 2.5, '#ffffff');
+      return;
+    }
+    const out = [0, 6, 18, 24, 12, 5, 3, 1][i] ?? 1;
+    for (let k = 0; k < 10; k++) {
+      if (i > 4 && k % 2) continue;
+      const a = (k / 10) * Math.PI * 2 + R() * 0.4, ex = Math.cos(a) * 10, ey = Math.sin(a) * 22;
+      const reach = out * (Math.cos(a) > 0.3 ? 1.25 : 1);
+      bolt(ctx, zigzag(R, ex, ey, ex + Math.cos(a) * reach, ey + Math.sin(a) * reach * 0.6, 3, 2), i < 4 ? 1.5 : 1, KIL);
+    }
+    if (i === 1) for (let k = 0; k < 3; k++) bolt(ctx, zigzag(R, -9, 0, -9 + 6 + k * 5, (k - 1) * 14, 3, 2), 1, KIL);
+  },
+  // electrocuted (bottom anchored, the floor is y = 60): a few filaments hopping between points on a standing body
+  shockCrawl(i, n, ctx) {
+    const R = rng(960 + i * 13);
+    const pt = () => { const a = R() * Math.PI * 2; return [32 + Math.cos(a) * 12, 36 + Math.sin(a) * 23]; };
+    for (let k = 0; k < 4; k++) {
+      const [x0, y0] = pt(), x1 = x0 + (R() - 0.5) * 14, y1 = Math.min(59, y0 + (R() - 0.5) * 14);
+      bolt(ctx, zigzag(R, x0, y0, x1, y1, 3, 2), 1, KIL);
+    }
+    for (let k = 0; k < 5; k++) { const [x, y] = pt(); disc(ctx, x, y, 0.6, '#eafcff'); }
+  },
+  // Godspeed switching on: filaments bursting from the outline of his body (left clear), the longest straight up
+  godspeedBurst(i, n, ctx) {
+    const R = rng(980 + i * 3);
+    ctx.translate(32, 32);
+    const out = [5, 16, 24, 28, 13, 5, 3, 2][i] ?? 2;
+    for (let k = 0; k < 12; k++) {
+      if (i > 5 && k % 2) continue;
+      const a = (k / 12) * Math.PI * 2 + R() * 0.3, ex = Math.cos(a) * 9, ey = Math.sin(a) * 22;
+      const up = Math.sin(a) < -0.7 ? 1.4 : 1;
+      bolt(ctx, zigzag(R, ex, ey, ex + Math.cos(a) * out, ey + Math.sin(a) * out * 0.6 * up, 3, 2), i < 4 ? 1.5 : 1, KIL);
+    }
+  },
+  // Godspeed on the body (bottom anchored): filaments crawling up a loose field round a standing body, sparks and
+  // short arcs bristling above the head (his hair standing up)
+  godspeedAura(i, n, ctx) {
+    const R = rng(1000 + i * 17);
+    for (let k = 0; k < 5; k++) {
+      const sd = k % 2 ? 1 : -1, y0 = 58 - R() * 40, x0 = 32 + sd * (10 + R() * 4);
+      bolt(ctx, zigzag(R, x0, y0, x0 + sd * (R() - 0.3) * 6, y0 - 6 - R() * 10, 3, 2), 1, KIL);
+    }
+    bolt(ctx, zigzag(R, 22 + R() * 6, 30 + R() * 20, 38 + R() * 6, 26 + R() * 20, 3, 2), 1, KIL);
+    for (let k = 0; k < 3; k++) {
+      const x = 26 + R() * 12;
+      bolt(ctx, zigzag(R, x, 15, x + (R() - 0.5) * 6, 5 + R() * 4, 2, 2), 1, KIL);
+    }
+    for (let k = 0; k < 6; k++) disc(ctx, 22 + R() * 20, 4 + R() * 54, 0.6, k % 2 ? '#eafcff' : '#62d8ff');
+  },
+  // the Godspeed streak: one thin channel edge to edge (laid along his path), then breaking up from both ends
+  godspeedStreak(i, n, ctx) {
+    const R = rng(1020 + i * 5);
+    const pts = zigzag(R, 0, 32, 64, 32, 12, 3);
+    pts[0][1] = pts[pts.length - 1][1] = 32; // streaks laid end to end join
+    if (i >= 5) { for (let k = 0; k < 6; k++) disc(ctx, R() * 64, 32 + (R() - 0.5) * 6, 0.6, '#b4f0ff'); return; }
+    if (i >= 3) {
+      const keep = i === 3 ? 0.6 : 0.3;
+      for (let s = 0; s + 1 < pts.length; s++) if (Math.abs(s / pts.length - 0.5) < keep / 2 + R() * 0.2) bolt(ctx, [pts[s], pts[s + 1]], 1, KIL);
+      return;
+    }
+    bolt(ctx, pts, i === 2 ? 1.5 : 2, KIL);
+    for (let k = 0; k < 3; k++) {
+      const [x, y] = pts[2 + k * 3], sd = k % 2 ? 1 : -1;
+      bolt(ctx, zigzag(R, x, y, x + 3 + R() * 4, y + sd * (3 + R() * 3), 2, 1), 1, KIL);
+    }
+  },
+  // Narukami's bolt from the sky: a thin kinked column that tiles top to bottom (its core leaves and enters at x 32)
+  narukamiBolt(i, n, ctx) {
+    const R = rng(1040 + i * 19);
+    const core = zigzag(R, 32, 0, 32, 64, 7, 4);
+    bolt(ctx, core, 5, KIL);
+    bolt(ctx, core, 1.5, ['#ffffff']);
+    for (let k = 0; k < 4; k++) {
+      const [x, y] = core[1 + (k % 6)], s = k % 2 ? 1 : -1;
+      bolt(ctx, zigzag(R, x, y, x + s * (6 + R() * 7), y + (R() - 0.5) * 10, 3, 2), 1, KIL);
+    }
+  },
+  // Narukami hitting the floor (bottom anchored, the floor is y = 60): the channel, the splash and a low dome of arcs
+  narukamiStrike(i, n, ctx) {
+    const R = rng(1060 + i * 5);
+    const colW = [5, 4, 3, 2, 0, 0, 0, 0][i] ?? 0;
+    if (colW) bolt(ctx, zigzag(R, 32, 0, 32, 60, 7, 2), colW, KIL);
+    const w = [17, 25, 29, 29, 25, 21, 17, 13][i] ?? 13, h = [3, 13, 18, 18, 13, 7, 4, 2][i] ?? 2;
+    const arcs = i < 4 ? 9 : 6 - (i - 4);
+    for (let k = 0; k < arcs; k++) {
+      const a = Math.PI + (k / Math.max(1, arcs - 1)) * Math.PI, r = 0.6 + R() * 0.4;
+      bolt(ctx, zigzag(R, 32, 60, 32 + Math.cos(a) * w * r, 60 + Math.sin(a) * h * r, 3, 2), 1, KIL);
+    }
+    if (i < 2) { ctx.fillStyle = '#eafcff'; ctx.fillRect(32 - w * 0.6, 58, w * 1.2, 2); }
+  },
+  // his steel yo-yo, almost face-on, spinning, his lightning crackling round it (the string is drawn by the engine)
+  yoyo(i, n, ctx) {
+    const R = rng(1080 + i * 3);
+    ctx.translate(32, 32);
+    for (let k = 0; k < 3; k++) {
+      const a = (k / 3) * Math.PI * 2 + i * 0.9;
+      bolt(ctx, zigzag(R, Math.cos(a) * 6, Math.sin(a) * 6, Math.cos(a) * 13, Math.sin(a) * 13, 3, 2), 1, KIL);
+    }
+    disc(ctx, 0, 0, 7, '#2c3242');
+    disc(ctx, 0, 0, 6, '#8e9bb0');
+    disc(ctx, -1, -1, 4.5, '#c9d3e0');
+    disc(ctx, 0, 0, 2, '#5a6478');
+    const a = (Math.floor(i / 2) / 4) * Math.PI * 2;
+    for (const q of [a, a + Math.PI]) disc(ctx, Math.cos(q) * 5, Math.sin(q) * 5, 1, '#f4f8fc');
+  },
   // ---- ground damage (ADR 0024)
   // side view: a low, wide wall of chunky dust rolling outward and up, then breaking apart (rings of these roll
   // out of big craters, see Effects.dustRing)
@@ -1276,6 +1416,17 @@ export const VFX_ANIMS = {
   purpleBurst: { n: 8, ms: 45, levels: [0, 255] },
   voidFlood: { n: 8, ms: 40, levels: [0, 255] },
   voidShatter: { n: 8, ms: 50, levels: [0, 255] },
+  // Killua's lightning (ENG-SKL-KIL): HD art cells when packed (ADR 0044), these small stand-ins until then
+  lightningPalm: { n: 8, ms: 30, levels: [0, 255] },
+  palmCrackle: { n: 6, ms: 35, levels: [0, 255] },
+  palmShock: { n: 8, ms: 40, levels: [0, 255] },
+  shockCrawl: { n: 6, ms: 50, levels: [0, 255] },
+  godspeedBurst: { n: 8, ms: 40, levels: [0, 255] },
+  godspeedAura: { n: 8, ms: 40, levels: [0, 255] },
+  godspeedStreak: { n: 6, ms: 30, levels: [0, 255] },
+  narukamiBolt: { n: 4, ms: 40, levels: [0, 255] },
+  narukamiStrike: { n: 8, ms: 45, levels: [0, 255] },
+  yoyo: { n: 8, ms: 30, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.

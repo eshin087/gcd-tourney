@@ -106,10 +106,21 @@ stand-in until its art is approved.
 | `purpleBurst` | 8 | 45 | full color | center | Hollow Purple hitting: the mass swallowing them |
 | `voidFlood` | 8 | 40 | full color | center | Unlimited Void: light pouring into the frozen opponent's head (loop) |
 | `voidShatter` | 8 | 50 | full color | center | the void breaking like glass over the whole view when the domain ends |
+| `lightningPalm` | 8 | 30 | full color | center | Killua's Lightning Palm: the forked bolt flying from his palm, turned along its flight (loop) |
+| `palmCrackle` | 6 | 35 | full color | center | Killua's lightning gathering in his open palm (Lightning Palm's startup, Narukami's top, where he lands at Godspeed) |
+| `palmShock` | 8 | 40 | full color | center | Killua's shock jumping through a body on a hit (Lightning Palm, the super's blows, the claw strike, the yo-yo smaller) |
+| `shockCrawl` | 6 | 50 | full color | bottom | electricity crawling over a body paralysed by Lightning Palm while it stays stunned (loop) |
+| `godspeedBurst` | 8 | 40 | full color | center | Godspeed switching on: lightning bursting out of his whole body (the body area left clear) |
+| `godspeedAura` | 8 | 40 | full color | bottom | Godspeed on his body for the whole mode and Whirlwind (loop; one copy behind, a see-through one in front) |
+| `godspeedStreak` | 6 | 30 | full color | center | the streak he leaves moving at Godspeed, laid along his path and kept thin |
+| `narukamiBolt` | 4 | 40 | full color | center | Narukami's bolt from the sky, stacked down to him and the floor; exact 256 x 256 frames that tile top to bottom |
+| `narukamiStrike` | 8 | 45 | full color | bottom | Narukami hitting the floor |
+| `yoyo` | 8 | 30 | full color | center | Killua's electrified steel yo-yo flying out and back (loop; the engine draws its string) |
 
 The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md),
-[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md) and
-[art/characters/gojo/SKILLS_REVAMP.md](../characters/gojo/SKILLS_REVAMP.md).
+[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md),
+[art/characters/gojo/SKILLS_REVAMP.md](../characters/gojo/SKILLS_REVAMP.md) and
+[art/characters/killua/SKILLS_REVAMP.md](../characters/killua/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)
 

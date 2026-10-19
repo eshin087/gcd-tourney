@@ -1,5 +1,43 @@
 # Art review queue
+## Killua skills revamp batch 3 (2026-10-18): B2 throw and A10 yoyo
 
+The user approved both drawings via Claude relay killua-skills #4: “Approve both”. `throw` v07 now packs via auto-head x0.7831 without clipping; the quantized atlas is reflected in `frames/` and body evidence (B median .879, H median .871). Final Astra audit remains HOLD on arm-role continuity and the f1 middle-finger/string anchor; see [final audit](characters/killua/production/skills-revamp-batch3/ASTRA_THROW.md). `yoyo` v01 remains at about 88 px vs 52 px target, with incomplete first-call provenance. See [gallery](../public/reviews/killua-skills-batch3/index.html), [attempt inventories](characters/killua/production/skills-revamp-batch3/), and [pack evidence](characters/killua/production/skills-revamp-batch3/PACK_REPORT.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Killua | throw | `characters/killua/raw/throw_v07.png` | v07 | approved | B2 four-pose Yo-Yo air special | Approved as drawn via Claude relay killua-skills #4 (“Approve both”). Packed at quantize 48 with auto-head x0.7831; no clipping, frames and body report now reflect v07 (B .879, H .871 median). Astra final atlas audit HOLD: arm-role continuity and f1 middle-finger/string anchor remain unresolved; no numeric anatomy pass. |
+| 2026-10-18 | Killua | yoyo | `vfx/raw/yoyo_v01.png` | v01 | approved | A10 electrified steel yo-yo loop | Approved as drawn via Claude relay killua-skills #4 (“Approve both”). Technical hold: 8/8 cells pack, but approximate disc bound 88x88px vs 52px target; source 1774x887; first transient call not preserved/hashable. |
+
+## Killua skills revamp batch 1 (2026-10-18): A1-A7 effect candidates
+
+User approved lightningPalm v01, palmCrackle v01, palmShock v02, shockCrawl v02, godspeedBurst v01, godspeedAura v03 and godspeedStreak v03 as drawn via Claude relay killua-skills #2. Earlier versioned candidates are rejected as superseded and moved to `_rejected/`. See the [gallery](../public/reviews/killua-skills-batch1/index.html) and [attempt inventory](characters/killua/production/skills-revamp-batch1/ATTEMPT_INVENTORY.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Killua | lightningPalm | `vfx/raw/lightningPalm_v01.png` | v01 | approved | A1 flying palm bolt | 8/8 frames |
+| 2026-10-18 | Killua | palmCrackle | `vfx/raw/palmCrackle_v01.png` | v01 | approved | A2 palm charge | 6/6 frames |
+| 2026-10-18 | Killua | palmShock | `vfx/raw/palmShock_v02.png` | v02 | approved | A3 impact shock | 8/8; v01 superseded and rejected |
+| 2026-10-18 | Killua | palmShock | `vfx/raw/_rejected/palmShock_v01.png` | v01 | rejected | A3 earlier candidate | 10 detected vs 8 |
+| 2026-10-18 | Killua | shockCrawl | `vfx/raw/shockCrawl_v02.png` | v02 | approved | A4 stun crawl | 6/6; v01 superseded and rejected |
+| 2026-10-18 | Killua | shockCrawl | `vfx/raw/_rejected/shockCrawl_v01.png` | v01 | rejected | A4 earlier candidate | 14 detected vs 6 |
+| 2026-10-18 | Killua | godspeedBurst | `vfx/raw/godspeedBurst_v01.png` | v01 | approved | A5 activation burst | 8/8 frames |
+| 2026-10-18 | Killua | godspeedAura | `vfx/raw/godspeedAura_v03.png` | v03 | approved | A6 sustained aura | Clipped after 3/3 calls; technical hold |
+| 2026-10-18 | Killua | godspeedAura | `vfx/raw/_rejected/godspeedAura_v02.png` | v02 | rejected | A6 earlier candidate | Clipped |
+| 2026-10-18 | Killua | godspeedAura | `vfx/raw/_rejected/godspeedAura_v01.png` | v01 | rejected | A6 earlier candidate | Clipped |
+| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/godspeedStreak_v03.png` | v03 | approved | A7 movement streak | 6/6 frames |
+| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/_rejected/godspeedStreak_v02.png` | v02 | rejected | A7 earlier candidate | 9 detected vs 6 |
+| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/_rejected/godspeedStreak_v01.png` | v01 | rejected | A7 earlier candidate | 4 detected vs 6 |
+
+
+## Killua skills revamp batch 2 (2026-10-18): Narukami candidates
+
+The user approved all three drawings via Claude relay killua-skills #3: “Approve all three”. `specialUp` v09 now packs at quantize 48 with auto-head x0.9251; frame 5 is exempted from the head probe as instructed, and hand/hitbox anchors are measured on the fitted cells. Refreshed body report reads B median .897 / H median .903; final Astra audit HOLDs full anatomy/scale, especially dive f5 (stored H .677). `narukamiStrike` frames 4 and 5 are manually split into eight ordered frames; source palette/background remain outside the written spec. [Batch 2 review gallery](../public/reviews/killua-skills-batch2/index.html) · [attempt inventory](characters/killua/production/skills-revamp-batch2/ATTEMPT_INVENTORY.md) · [final Astra audit](characters/killua/production/skills-revamp-batch3/ASTRA_SPECIALUP.md) · [pack evidence](characters/killua/production/skills-revamp-batch2/PACK_FINAL_REPORT.txt).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Killua | specialUp | `characters/killua/raw/specialUp_v09.png` | v09 | approved | Narukami leap, rise, apex and palm-first dive | Approved as drawn via Claude relay killua-skills #3 (“Approve all three”). Packed quantize 48 with auto-head x0.9251 and frame-5 scale exemption. Refreshed body report B .897 / H .903 median; final Astra HOLD on f5 scale/foreshortening uncertainty (stored H .677). Hand on all frames; rising-claw hits f2-f3 measured on fitted cells. |
+| 2026-10-18 | Killua | narukamiBolt | `vfx/raw/narukamiBolt_v01.png` | v01 | approved | A8 vertical bolt column | Approved as drawn via Claude relay killua-skills #3 (“Approve all three”). Technical hold: exact tile edge mismatch 53-57 RGBA channels/frame; source palette/background out of brief |
+| 2026-10-18 | Killua | narukamiStrike | `vfx/raw/narukamiStrike_v01.png` | v01 | approved | A9 floor strike and fading arcs | Approved as drawn via Claude relay killua-skills #3 (“Approve all three”). The two touching impact stages were split manually in `frames/` to 8/8, preserving the following two frames. Source palette/background remain outside the written spec. |
 ## Gojo skills revamp batch 3: Infinity and Unlimited Void (2026-10-18)
 
 Batch 3 drawings were approved as shown via Claude relay gojo-skills #4; user quote: “Approve all three”. All three generator outputs remain unchanged after 3 calls each. Technical source holds remain: none has canonical cell-strip dimensions, exact flat `#FF00FF`, or the requested small color palette. The approved-only production VFX atlas was rebuilt; the source files remain untouched. `voidFlood` retains the subtle inward motion and apparently oversized center ring. Review page: [Batch 3 gallery](../public/reviews/gojo-skills-batch3/index.html) · call details and hashes: [batch 3 provenance](characters/gojo/production/skills-revamp-batch3/PROVENANCE.md).
