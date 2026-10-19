@@ -28,6 +28,7 @@ const FRAG = /* glsl */ `
   }`;
 
 const qz = new THREE.Quaternion();
+const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with its colors resolved (Effects.modeShell)
 const zAxis = new THREE.Vector3(0, 0, 1);
 
 function hexTexture() {
@@ -729,6 +730,30 @@ export class Effects {
 
   dropGather(f) {
     this.drop('gather' + f.index);
+  }
+
+  // A power-up's outline on the body (kit.modeLook `shell`: { kind, width, lift, noise, speed, dash, opacity, color,
+  // core }, a charge style's shell shape; colors as hex or numbers). null hides the one this showed; the charge drives
+  // the same AuraShell while he powers up, so it is left to it then
+  modeShell(f, S, time) {
+    const a = f.actor;
+    if (!S) {
+      if (a.modeShellOn) { a.shell?.hide(); a.modeShellOn = false; }
+      return;
+    }
+    let st = shellLooks.get(S);
+    if (!st) shellLooks.set(S, (st = { ...S, color: new THREE.Color(S.color ?? 0xffffff), core: new THREE.Color(S.core ?? S.color ?? 0xffffff) }));
+    st.time = time;
+    a.auraShell().show(st);
+    a.modeShellOn = true;
+  }
+
+  // A power-up's effect kept at his feet (kit.modeLook `aura`: { fx, scale, opacity, front, glow }): one copy a step
+  // behind the body along the view, and with `front` a see-through copy in front at that opacity
+  modeAura(f, A) {
+    const p = f.renderPos || f.pos, bk = this.camFwd, k = f.actor.depthK ?? 1, s = (A.scale ?? 1) * k;
+    this.keep('modeAura' + f.index, A.fx, p.x + bk.x * 0.3, p.y, p.z + bk.z * 0.3, { bottom: true, scale: s, opacity: A.opacity ?? 1, order: 1, glow: A.glow ?? 0.2 });
+    if (A.front) this.keep('modeAuraF' + f.index, A.fx, p.x - bk.x * 0.3, p.y, p.z - bk.z * 0.3, { bottom: true, scale: s, opacity: A.front, order: 4, glow: A.glow ?? 0.2 });
   }
 
   // A beam's `muzzle`: every `every` frames a shock ring leaves the root of the beam and runs down it
