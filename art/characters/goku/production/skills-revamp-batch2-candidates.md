@@ -4,6 +4,14 @@ Branch: `art/goku-skills`. The three effects are visually approved via Claude re
 
 ## B1 `specialForward_v01`
 
+The user rejected v01 via Claude relay goku-skills #5 with: “Redraw a compact flight (Recommended)”. The first six/last return poses remain the direction; redraw the horizontal flight compactly. At bodyHeight 232 the measured f3 flight is ~330 px and clips 49 px left plus 23 px right; f2 clips 23 px right. v01 is preserved under `raw/_rejected/`; v02 has two calls remaining and must fit fist-to-boots within 236 px, with f2's fist inside the cell.
+
+### `specialForward_v02`
+
+- Authorized budget: 2 calls, both used; selected call 1. Full exact prompts, references, source paths, dimensions and hashes: [generation record](specialForward_v02_generation.json).
+- Selected call 1 copied byte-identically to `raw/specialForward_v02.png`, 2172×724; SHA-256 `74733FC7FB3BDFBC70B3BFD302475C14137F9D1E94864116EF3C4DA6D27E131E`. Seven connected poses; folded flight reads compact in the raw preview. Call 2 was rejected for invalid 1659×948 layout; SHA-256 `D1E24A8F0EFE2BBBD7A30F239342F1E09A5CCABF05E0E7FC4D66C1154CC9A9E7`.
+- Technical attempt: `node tools/pack-sprites.mjs goku --quantize 48` exited 1 and wrote no character atlas. It parsed seven frames at scale x0.58; reported the figure segmentation cut between frames 3/4, f2 right clipping by 1 px, f3 reaching within the 4px right cell margin, and the known Goku head probe failure requiring version-bound `scaleManualQA`. This is not a verified fit at the requested bodyHeight 232 or 236px maximum. No body sheet or Astra final-atlas audit is available. Strict pixel dimensions/rendering and exact magenta also remain unverified. Technical HOLD; do not treat the user's earlier rejection instruction as approval of v02.
+
 - One image call, selected call 1/1. Source and saved raw are byte-identical, 2172×724 RGB, SHA-256 `541A850BD3334C891A9C4E7A9CBD2D3AF445A24DFCDA688CA8BA458318DC02E1`.
 - Prompt file: [SKILLS_REVAMP.md](../SKILLS_REVAMP.md), B1 Dragon Fist strip brief; exact generation prompt included approved Goku lineup and idle references, seven 256×256 horizontal cells, startup/coil/launch/flight/landing/turn/return sequence, screen-right 3/4 pose, flat magenta, no effects.
 - Visual read: seven discernible poses and consistent Goku identity; smooth/inked finish and wrong canvas dimensions remain caveats.

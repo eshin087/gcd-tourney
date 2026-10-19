@@ -142,31 +142,31 @@
         "taunt": { "frames": 2, "loop": true, "bodyHeight": 212, "ms": [250, 250], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "win": { "packScale": 1.105, "_packScale": "ART-SIZE-R7 2026-10-18: drawn about 9 % smaller than goku's other strips (median of independent measures vs the fighter's consensus: head template 0.88, body area 0.93; the cell height caps it near x1.09); resized, drawing unchanged","frames":4,"loop":true,"bodyHeight":237,"ms":[200,200,200,200],"required":true,"step":8,"status":"approved","version":5,"approvedVersion":5,"scaleManualQA":{"version":5,"result":"pass","by":"GPT-6 Astra (medium), final5 strict quantized-pixel audit","note":"Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval.","evidence":"art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md"}},
         "specialForward": {
-  "frames": 7,
-  "loop": false,
-  "phases": [
-    2,
-    2,
-    3
-  ],
-  "bodyHeight": 204,
-  "ms": [
-    50,
-    50,
-    60,
-    80,
-    70,
-    60,
-    50
-  ],
-  "required": false,
-  "step": 9,
-  "status": "raw",
-  "version": 1,
-  "approvedVersion": null,
-  "reviewStatus": "needs review",
-  "technicalHold": true
-},
+          "frames": 7,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            3
+          ],
+          "bodyHeight": 204,
+          "ms": [
+            50,
+            50,
+            60,
+            80,
+            70,
+            60,
+            50
+          ],
+          "required": false,
+          "step": 9,
+          "status": "raw",
+          "version": 2,
+          "approvedVersion": null,
+          "reviewStatus": "needs review",
+          "technicalHold": true
+        },
         "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 160, 90], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "superPose": { "frames": 4, "loop": true, "bodyHeight": 226, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "approvalSource": "USER APPROVAL via Claude relay goku-skills #3: user approved superPose v01 packed at bodyHeight 226.", "technicalHold": true, "scaleManualQA": { "version": 1, "result": "hold", "by": "GPT-6 Astra (medium), final quantized atlas audit", "note": "User approved v01 at bodyHeight 226. Exact 48-color atlas cells 108-111; garment B 0.985-0.991 and no clipping, but crown-to-chin estimate 22-27px vs idle 24-29px has ±3-4px uncertainty; head probe is invalid. Palm/torso/head loop movement is mostly 0-1px and the requested 1-2px tremble is not established. HOLD due measurement uncertainty, not confirmed whole-body scale failure.", "atlasSha256": "2ec7045ee0f51d70e29ec6aebdaa4c6812e89e8533884a7fcff7af2a35ce7a72" } },

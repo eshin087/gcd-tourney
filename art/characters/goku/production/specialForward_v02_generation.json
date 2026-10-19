@@ -1,0 +1,48 @@
+{
+  "asset": "goku specialForward_v02",
+  "generationTool": "built-in image_gen",
+  "authorizedCallBudget": 2,
+  "calls": [
+    {
+      "call": 1,
+      "references": [
+        "art/characters/goku/reference/title_style_lineup_v02.png",
+        "art/characters/goku/reference/idle_approved.png",
+        "art/characters/goku/raw/_rejected/specialForward_v01.png"
+      ],
+      "prompt": "Create one complete seven-pose horizontal pixel-art character animation strip for Goku's Dragon Fist, exactly 7 equal 256x256 cells (intended final layout 1792x256). Match the approved adult Goku in the attached title-style cast lineup and approved idle: same Cell-saga Super Saiyan design, tall golden spike fan hair, teal-green eyes, adult athletic anatomy, orange gi over dark blue undershirt, blue sash, wristbands and boots. Keep the same head size, torso and limb lengths, build and clothing volume in every pose. No chibi proportions. Every pose faces screen-right in 3/4 view. Flat exact solid #FF00FF background, hard-edged pixel clusters, no antialiasing, blur, gradients, noise, dithering fills, text, labels, frames, grid or borders. No aura, energy, dragon, glow, impact or other effects.\n\nUse the attached rejected v01 ONLY as the narrative and pose continuity reference: preserve its startup and landing/return poses and the same seven connected story beats, but redraw the flight compactly. Required left-to-right sequence: (1) deep grounded startup, near fist chambered by hip and far hand forward; (2) coil lower and forward, ready to launch; (3) launch punch, near fist fully extended at chest height while rear leg straight; (4) compact horizontal flight, torso and lead arm aligned forward, knees bent and trailing legs folded beneath/behind; (5) descend into a controlled landing with knees bent; (6) pivot/turn after landing; (7) step back into the original guard. Keep poses visually connected and Goku's anatomy consistent.\n\nCritical compactness: At true Goku bodyHeight 232px, the full fist-to-boots silhouette of the flight pose in cell 4 must be no wider than 236px and fully inside that 256px cell with margin. Cell 3's lead fist must remain fully inside its cell. Keep every figure fully visible within its own cell with no clipping. Preserve the rejected v01 pose direction while reducing the too-long stretched flight; fold both knees and trailing lower legs, or use a slight upward diagonal. Do not shrink the figure or change body scale; compact the pose by bending limbs and shortening horizontal extension. Each pose centered within its cell; feet baseline appropriate for the pose, flight may be elevated.",
+      "output": {
+        "sourceOutputPath": "E:\\Vibe Coding\\.codex\\generated_images\\01a151ee-edb8-7110-8694-b44fa0ed8520\\exec-1949cf32-226f-4940-a1f6-5b0a699ad89c.png",
+        "dimensions": "2172x724",
+        "sha256": "74733FC7FB3BDFBC70B3BFD302475C14137F9D1E94864116EF3C4DA6D27E131E"
+      },
+      "selection": "Selected and copied byte-identically to art/characters/goku/raw/specialForward_v02.png",
+      "selectionReason": "A seven-pose horizontal row with connected story beats and a compact folded flight silhouette; after scaling to bodyHeight 232, the flight is within the requested 236px target by visual estimate. Call 2 had an incorrect aspect/layout for seven square cells.",
+      "deviations": [
+        "Source canvas is 2172x724 rather than intended 1792x256.",
+        "Generated rendering is smooth illustrated art rather than strict hard pixel clusters.",
+        "Background is vivid magenta but not verified as exact #FF00FF."
+      ]
+    },
+    {
+      "call": 2,
+      "references": [
+        "art/characters/goku/reference/title_style_lineup_v02.png",
+        "art/characters/goku/reference/idle_approved.png",
+        "art/characters/goku/raw/_rejected/specialForward_v01.png"
+      ],
+      "prompt": "Create one complete seven-pose horizontal pixel-art character animation strip for Goku's Dragon Fist, exactly 7 equal 256x256 cells (intended final layout 1792x256). Match the approved adult Goku in the attached title-style cast lineup and approved idle: same Cell-saga Super Saiyan design, tall golden spike fan hair, teal-green eyes, adult athletic anatomy, orange gi over dark blue undershirt, blue sash, wristbands and boots. Keep the same head size, torso and limb lengths, build and clothing volume in every pose. No chibi proportions. Every pose faces screen-right in 3/4 view. Flat exact solid #FF00FF background, hard-edged pixel clusters, no antialiasing, blur, gradients, noise, dithering fills, text, labels, frames, grid or borders. No aura, energy, dragon, glow, impact or other effects.\n\nUse the attached rejected v01 ONLY as the narrative and pose continuity reference: preserve its startup and landing/return poses and the same seven connected story beats, but redraw the flight compactly. Required left-to-right sequence: (1) deep grounded startup, near fist chambered by hip and far hand forward; (2) coil lower and forward, ready to launch; (3) launch punch, near fist fully extended at chest height while rear leg straight; (4) compact horizontal flight, torso and lead arm aligned forward, knees bent and trailing legs folded beneath/behind; (5) descend into a controlled landing with knees bent; (6) pivot/turn after landing; (7) step back into the original guard. Keep poses visually connected and Goku's anatomy consistent.\n\nCritical compactness: At true Goku bodyHeight 232px, the full fist-to-boots silhouette of the flight pose in cell 4 must be no wider than 236px and fully inside that 256px cell with margin. Cell 3's lead fist must remain fully inside its cell. Keep every figure fully visible within its own cell with no clipping. Preserve the rejected v01 pose direction while reducing the too-long stretched flight; fold both knees and trailing lower legs, or use a slight upward diagonal. Do not shrink the figure or change body scale; compact the pose by bending limbs and shortening horizontal extension. Each pose centered within its cell; feet baseline appropriate for the pose, flight may be elevated.",
+      "output": {
+        "sourceOutputPath": "E:\\Vibe Coding\\.codex\\generated_images\\01a151ee-edb8-7110-8694-b44fa0ed8520\\exec-d7415f05-887e-41b9-856d-3df90b7f2653.png",
+        "dimensions": "1659x948",
+        "sha256": "D1E24A8F0EFE2BBBD7A30F239342F1E09A5CCABF05E0E7FC4D66C1154CC9A9E7"
+      },
+      "selection": "Not selected; no copy made.",
+      "selectionReason": "The output is not a valid horizontal strip of seven equal square cells; unsuitable canvas aspect/layout.",
+      "deviations": [
+        "Source canvas is 1659x948, not 1792x256.",
+        "Generated rendering and vivid magenta background are not verified against the hard-pixel/exact-color requirements."
+      ]
+    }
+  ]
+}
