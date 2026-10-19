@@ -1299,20 +1299,25 @@
           }
         },
         "charge": {
-          "frames": 4,
+          "frames": 6,
           "loop": true,
+          "loopFrom": 2,
           "bodyHeight": 221,
           "ms": [
-            50,
-            50,
-            50,
-            50
+            70,
+            90,
+            110,
+            110,
+            110,
+            110
           ],
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 7,
-          "approvedVersion": 7
+          "version": 9,
+          "approvedVersion": 9,
+          "reviewStatus": "approved",
+          "approvalSource": "User approved via Claude relay charge #15, exact quote: Approve v08 (cleaned). v09 = v08 with the black frame-divider lines removed (production/charge-v09/PROVENANCE.md)"
         },
         "throw": {
           "frames": 4,

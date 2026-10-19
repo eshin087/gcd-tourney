@@ -101,7 +101,7 @@ up).
 | [airRecover](#airrecover) | 3 | | | 180 | **196** | 50 50 60 | | | A32 | f2 (unfolding) |
 | [down](#down) | 2 | | | 96 | **104** | 80 420 | yes | | A13 | f0 (knees up) |
 | [getup](#getup) | 5 | | | 204 | **222** | 70 60 60 80 70 | yes | | A14 | f4 (stance) |
-| [charge](#charge) | 4 | | yes | 198 | **215** | 50 each | yes | | A15 | any |
+| [charge](#charge) | 6 | | yes (from f2) | 198 | **215** | 70 90 110 110 110 110 | yes | | A15 | f1-f5 power stance |
 | [throw](#throw) (air Red) | 4 | 1/1/2 | | 201 | **219** | 50 60 70 50 | | | A33 | f0 (upright wind-up) |
 | [beamCharge](#beamcharge) | 3 | | yes | 198 | **215** | 50 each | yes | | A16 | any |
 | [beamFire](#beamfire) | 3 | | yes | 198 | **215** | 50 each | yes | | A17 | any |
@@ -609,18 +609,28 @@ slack and slightly open, the hair crown tilted.
 
 <a id="charge"></a>
 
-### charge: powering up (hold Special) · 4 frames, loop
+### charge: powering up (hold Special) · 6 frames, gather then hold from f2
 
-A **calm** power-up (no shouting). Wide stance (feet well apart, knees bent), torso upright, arms held
-slightly out from his sides and down, **palms open facing the floor, fingers spread**, head tilted
-slightly back, lazy smile. Hair tips and the jacket hem **blown upward** by the aura wind, sleeves
-fluttering. The engine draws the aura and light streaks. (Also the engine fallback for
-`specialDown`.)
+Gojo's calm power-up follows [CHARGE_BRIEF.md](../CHARGE_BRIEF.md): f0 gathers once, f1 releases into his
+power stance, then f2-f5 hold and loop. He stays upright and loose, with arms slightly out and down,
+**palms open facing the floor, fingers spread**, blindfold on, head lifted and a lazy smile (no shout).
+Hair tips and the jacket hem drift upward in distinct shapes; the engine draws the aura and light streaks.
+The release and every held frame preserve the approved idle's head, torso, limbs and clothing volume. The
+engine may also use this strip as the `specialDown` fallback.
 
-- **f0**: as described, shifted 1 px left.
-- **f1**: shifted 1 px right, hair tips in a new flicker shape.
-- **f2**: 1 px left, palms 1 px higher.
-- **f3**: 1 px right, hem flicker variant. Loops.
+- **f0 · GATHER (once):** knees and shoulders dip slightly, chin tucks, hands draw inward while remaining
+  open; hair and clothing at rest. Keep the grounded pose shorter by bending, never by resizing.
+- **f1 · RELEASE (once):** open into the described calm power stance; chest lifts, arms move slightly out
+  and down, palms press toward the floor, head lifts, hair and hem rise.
+- **f2 · HOLD a:** establish the held power stance and loop anchor.
+- **f3 · HOLD b:** same figure placement; chest/shoulders rise 1-2 px with the breath, hair and hem in a
+  second updraft shape.
+- **f4 · HOLD c:** same body placement; forearms/fingers quiver at most 1 px, with a third updraft shape.
+- **f5 · HOLD d:** shoulders settle 1-2 px toward f2, with a fourth updraft shape; loop cleanly to f2.
+
+Across f2-f5, feet stay on y 240 and hips/knees stay locked; head centre and fists move at most 2 px.
+The breath moves the upper body together, never the whole body. Follow the packed-cell registration and
+body-scale checks in CHARGE_BRIEF.md; judge the quantized atlas, not the raw canvas layout.
 
 <a id="throw"></a>
 

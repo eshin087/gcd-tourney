@@ -1,0 +1,86 @@
+[
+  {
+    "frame": "idle",
+    "mainBoundingBoxInclusive": [
+      80,
+      10,
+      182,
+      240
+    ],
+    "mainPixels": 10569,
+    "otherComponents": 3,
+    "otherPixels": 3
+  },
+  {
+    "frame": "f0",
+    "mainBoundingBoxInclusive": [
+      85,
+      59,
+      180,
+      222
+    ],
+    "mainPixels": 6971,
+    "otherComponents": 5,
+    "otherPixels": 5
+  },
+  {
+    "frame": "f1",
+    "mainBoundingBoxInclusive": [
+      77,
+      37,
+      179,
+      222
+    ],
+    "mainPixels": 7745,
+    "otherComponents": 17,
+    "otherPixels": 427
+  },
+  {
+    "frame": "f2",
+    "mainBoundingBoxInclusive": [
+      77,
+      55,
+      178,
+      240
+    ],
+    "mainPixels": 7562,
+    "otherComponents": 9,
+    "otherPixels": 9
+  },
+  {
+    "frame": "f3",
+    "mainBoundingBoxInclusive": [
+      80,
+      37,
+      181,
+      222
+    ],
+    "mainPixels": 7647,
+    "otherComponents": 9,
+    "otherPixels": 226
+  },
+  {
+    "frame": "f4",
+    "mainBoundingBoxInclusive": [
+      78,
+      55,
+      179,
+      240
+    ],
+    "mainPixels": 7616,
+    "otherComponents": 5,
+    "otherPixels": 6
+  },
+  {
+    "frame": "f5",
+    "mainBoundingBoxInclusive": [
+      85,
+      37,
+      186,
+      222
+    ],
+    "mainPixels": 7925,
+    "otherComponents": 7,
+    "otherPixels": 225
+  }
+]
