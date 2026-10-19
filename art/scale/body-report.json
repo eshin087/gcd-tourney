@@ -3292,6 +3292,29 @@
      "flag": null
     }
    }
+  },
+  "goku": {
+   "idleGarmentPx": 5103,
+   "anims": {
+    "superPose": {
+     "v": 1,
+     "body": [
+      0.99,
+      0.985,
+      0.989,
+      0.991
+     ],
+     "head": [
+      0.797,
+      0.642,
+      0.504,
+      0.504
+     ],
+     "median": 0.99,
+     "headMedian": 0.573,
+     "flag": null
+    }
+   }
   }
  }
 }

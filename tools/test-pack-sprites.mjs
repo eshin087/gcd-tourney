@@ -2279,6 +2279,33 @@ function paletteReserveTests(base) {
   const bad = run(Q);
   check(sameSheet(bad, plain) && (bad.r.json?.warnings || []).some((w) => /paletteReserve\.fourTails must be/.test(w))
     && (bad.C?.warnings || []).some((w) => /nope is not an animation of foxy/.test(w)), 'paletteReserve: a malformed group and an unknown animation are reported and ignored');
+  // cut 'misfits' (Goku's black base-form hair; a green here): a strip in the fighter's usual colours but for its hair; two
+  // colours cut from the whole strip land among the usual colours and the hair snaps to the nearest of them, two cut
+  // from the colours the shared palette fits badly give the hair its own
+  const GREEN = [30, 190, 80];
+  savePng(fraw('beamFire_v01.png'), strip([{ punch: 12 }, { punch: 14 }, { punch: 12 }], { seed: 1304, specks: 0, recolor: new Map([[COL.hair, GREEN]]) }));
+  setReserve(null);
+  const hsrc = run();
+  const hairErr = (o) => {
+    let e = 0, n = 0;
+    const q = fox(o), s0 = fox(hsrc);
+    q.forEach((c, k) => { for (let i = 0; i < c.data.length; i += 4) {
+      const d = s0[k].data;
+      if (!d[i + 3] || Math.hypot(d[i] - GREEN[0], d[i + 1] - GREEN[1], d[i + 2] - GREEN[2]) > 12) continue;
+      e += Math.hypot(c.data[i] - d[i], c.data[i + 1] - d[i + 1], c.data[i + 2] - d[i + 2]); n++;
+    } });
+    return n ? e / n : Infinity;
+  };
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'] } });
+  const whole = run(Q);
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'], cut: 'misfits' } });
+  const mis = run(Q);
+  const eW = hairErr(whole), eM = hairErr(mis);
+  check(mis.r.code === 0 && eM < 10 && eM < eW * 0.5, `paletteReserve cut misfits: the strip's one new colour keeps its own entry (hair error ${eW.toFixed(1)} -> ${eM.toFixed(1)})`);
+  setReserve({ baseForm: { colors: 2, animations: ['beamFire'], cut: 'nope' } });
+  const badCut = run(Q);
+  check(sameSheet(badCut, whole) && (badCut.r.json?.warnings || []).some((w) => /paletteReserve\.baseForm\.cut must be "misfits"/.test(w)),
+    'paletteReserve: an unknown cut is reported and cuts from the whole strips');
 }
 
 // ---------------------------------------------------------------- loopFrom (ENG-117)
