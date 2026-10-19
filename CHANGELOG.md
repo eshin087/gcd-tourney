@@ -16,6 +16,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-KIL): recorded the user’s approval via Claude relay killua-skills #3 for specialUp v09, narukamiBolt v01 and narukamiStrike v01; technical holds remain documented.
 - Changed: the determinism fixtures are re-recorded after Goku's seven Smash moves (fingerprint 116df829f43b); both replay frame for frame.
 
 - Fixed (ENG-116): Sasuke's Lion's Barrage no longer carries its victim past the ring barrier. The heel drop holds them a step beyond him, and with Sasuke as P2 his move runs after their physics, so a victim kicked up at the barrier hung up to 0.1 outside it for the slam (soak() `ring` violations, about 6 in 1,000 Impossible matches, all `launched` victims at x or z = ±8.63-8.65). A held body is now always placed inside the barrier (`kit.js` holdAt). The determinism fixtures are re-recorded on the new simulation fingerprint (4e0e4469acfe); both replay frame for frame.
