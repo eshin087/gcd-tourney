@@ -17,6 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-LUF, relay #11): applied version-bound `packScale` 1.25 to `specialUp` v01 and 0.77 to `specialDown` v03, recorded scale-only manual QA for both, erased the displaced `specialForward` v01 palms/speck by sidecar, and anchored `specialDown` f2 hand at [252,208]. Quantized Luffy pack completes at 48 colours; the extended leg still reaches beyond its cell and needs Claude's runtime continuation check. No new image call or Astra anatomy re-audit.
 - Changed (ART-SKL-LUF, relay #9): recorded the user approval via Claude for the selected Batch 3–4 versions as drawn. Superseded specialDown v01/v02, gear2Steam v01 and gear2Burst v01 are preserved in _rejected/. Astra holds on the three character strips remain; approval does not clear clipping, scale or limb-continuity findings.
 
 - Changed (ART-SKL-LUF, relay #8): filed Batches 3–4 candidate strips/effects, attempt inventories, 48-color pack evidence and review galleries. Astra holds specialForward v01, specialUp v01 and specialDown v03 for limb continuity, scale and clipping; corrections remain pending. Candidate VFX packs are isolated under public/reviews. No new art is approved.
