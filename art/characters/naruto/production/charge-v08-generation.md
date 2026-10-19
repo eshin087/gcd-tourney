@@ -45,3 +45,12 @@ Prompt:
 Provider-reported dimensions: 2172x724. SHA-256: `A7DBA8D21FFD4A122111E599C2C804DD1E857F56359BE4E66E4FF9687A88F320`. Preserved byte-identically as `raw/_qa_hold/charge_v08.png`.
 
 Hold reason: the output is 2172x724 rather than six square cells in a horizontal 6:1 strip. The visible figures are arranged across the canvas, but cell boundaries and intended 256x256 framing are not established; this cannot be packed or treated as a technically valid candidate without an authorized reconstruction/calibration. The visual gather and Ram-seal release read clearly; held poses are broadly consistent. No user approval is claimed. No packing or review queue/manifest edits were made. Budget exhausted at 3/3 calls.
+
+
+## Approval update — relay charge #8
+
+The user approved v08 as drawn via Claude relay charge #8, exact quote: “Approve v08 as drawn”. The original 2172x724 source is the packer's standard single horizontal row of six poses; the prior framing hold is rescinded. Promoted byte-identically to `raw/charge_v08.png` (SHA-256 `A7DBA8D21FFD4A122111E599C2C804DD1E857F56359BE4E66E4FF9687A88F320`). No pixel edits or new image calls. Claude's trial pack reported feet within 0-1 px, body 0 px across f2-f5, head and shoulders +3 px on f3, and same height as idle. Packed-cell QA follows.
+
+## Independent packed-cell Astra audit
+
+Astra audited the actual quantized atlas cells (sheet SHA-256 4e41aac3983d8e1ce8bf100415e2ab63f0e9f5985293cf9b66c58e4955573878; anim metadata SHA-256 6d77dabaed171ba27df78924b889fd03e21a5a0156ce90126f7d8c84e3f8d568). The art remains approved by the user; technical status is HOLD. f3 face/head is +3 px vs f2 (2 px maximum), floor-contact contours shift 1-2 px, and occlusion prevents a numeric anatomy pass. Astra recommends neither scaleManualQA nor a scale-probe exemption: f0 probe misread is not proven and would not resolve the loop movement. Full report and evidence: rt/characters/naruto/production/charge-v08/ASTRA_AUDIT.md; no source-art corrections made.
