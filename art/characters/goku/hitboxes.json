@@ -45,5 +45,12 @@
     "_v": 1,
     "_scale": 0.92,
     "_note": "ENG-112 bair v01: packed-cell contact override (Claude integration check 2026-10-18); f2/f3 kick screen-left behind Goku, so the boxes follow the extended rear foot and shin instead of the default front box over his body. Measured on the packed cells at packScale 0.92."
+  },
+  "uTilt": {
+    "3": { "hit": [[146, 25, 26, 25]] },
+    "4": { "hit": [[157, 2, 29, 33]] },
+    "_v": 4,
+    "_scale": 1.0028,
+    "_note": "ENG-112 Goku uTilt v04, measured on the relay #45 48-color packed atlas at fighter packScale 0.92 × strip packScale 1.09. f3 fist/wrist box and f4 raised fist/wrist box from Astra final5 visual inspection; version-bound so later drawings do not inherit them."
   }
 }
