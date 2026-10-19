@@ -15,6 +15,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SKL-GOK): via Claude relay #8, recorded the user-directed superPose v01 head-probe exemption and reason in the manifest (`scaleExemptVersion: 1`). Astra's manual anatomy-certification HOLD and audit motion note remain; user accepted the near-still loop when approving.
 - Changed (ART-SKL-GOK): recorded user approval via Claude relay #7 for `specialForward_v02` at bodyHeight 222 with Claude frameOffsets. Manifest version/approvedVersion are 2; visual approval recorded while technical sidecar/atlas QA holds remain.
 - Changed (ART-SKL-GOK): recorded relay #6 Astra recheck of approved `superPose_v01` on exact packed atlas `feature/goku-skills` 3120d514. Result remains technical HOLD: FAIL TO CERTIFY ±6% anatomy evidence due to covered landmarks and non-reproduced quoted footwear bounds; no anatomical defect is proved. The separate motion HOLD remains.
 
