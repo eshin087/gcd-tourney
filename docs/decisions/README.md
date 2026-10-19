@@ -72,6 +72,7 @@ when a decision should be revisited.
 | [0045](0045-naruto-four-tails-beam.md) | Naruto's ultimate is the Four-Tails beam (Tailed Beast Ball): the shared beam with the transformation as `def.beam` data (`flashPose`, `shroud`, `gather`, `muzzle`); amends ADR 0017's one-beam rule (user decision) | Accepted |
 | [0046](0046-palette-reserve.md) | `paletteReserve` in the manifest gives strips drawn in other colours (a transformation) their own share of a fighter's 48 colours, taken from the shared entries the other strips need least; Naruto's Four-Tails fox reserves 8 | Accepted |
 | [0047](0047-sasuke-signature-techniques.md) | Sasuke's signature techniques as data on moves, shots and supers: a rush's `trench` and `hitPose`, a shot's `lance` / `orient` / `burstFx`, a dive's `shadow` (Lion's Barrage), a counter's `current`, a sky strike's `storm` (Kirin: clouds, stage dim, camera lift, the dragon), an ignite's `blastFx` / `hitFlash` / clinging `burn.fx` (Amaterasu) | Accepted |
+| [0050](0050-goku-signature-techniques.md) | Goku's signature techniques: the Spirit Bomb SUPER (a sky strike's `bomb`) and a Kaio-ken mode on Back + Special (amends 0032), a beam's `chant` / `originFx` / `headFx`, a mode's `burstFx` / `aura` / `shell` / `tint`, a rush's `coil` (Dragon Fist), a shot's `every` / `muzzle` / `halo`, a teleport's `shimmer`, a hitless `shadow` chase, a one-shot intro transformation | Accepted |
 
 ## Template
 

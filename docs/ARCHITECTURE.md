@@ -218,8 +218,10 @@ pieces a rollback needs (re-simulated frames were already shown once).
                                 touching -> checkEnergyClash, else they cancel), beam eats projectiles
 9. updateClash(), beams + orbs update, checkUltimateClash(), checkEnergyClash()   judge both pads against the chart,
                                 move the bodies
-10. fxTicks(frozen)             charge styles (chargeFx), aura / signature-hand effects, speed-line focus; during a
-                                freeze or a special clash it runs with frozen = true (charges refresh, spawn nothing)
+10. fxTicks(frozen)             charge styles (chargeFx), aura / signature-hand effects, speed-line focus, a mode's
+                                held aura and body outline, a beam's chant, a rush's coil, the Spirit Bomb gathering
+                                through the super flash (ADR 0050); during a freeze or a special clash it runs with
+                                frozen = true (charges refresh, spawn nothing)
 11. round timer                 99 s countdown (not in training)
 12. tickFlow()                  stateT / slowT advance by DT / timeScale (the wall-clock seconds a frame stands for),
                                 then flow(): the match flow state machine

@@ -94,9 +94,25 @@ stand-in until its art is approved.
 | `kirinBody` | 4 | 40 | full color | center | the Kirin's bolt body, stacked from the clouds to the head; exact 256 x 256 frames that tile top to bottom |
 | `kirinHead` | 6 | 40 | full color | center | the Kirin's head diving straight down (loop) |
 | `kirinStrike` | 8 | 45 | full color | bottom | the Kirin hitting the floor |
+| `kamehameha` | 8 | 40 | full color | center | Goku's ki ball growing in his cupped hands (the beam's `gather`), then held at his palms while it fires (loop) |
+| `kamehamehaHead` | 6 | 40 | full color | center | the Kamehameha's rounded swirling head, its front on the beam's head (loop; turned along the beam) |
+| `kamehamehaRing` | 6 | 40 | full color | center | the shock rings sent down the Kamehameha |
+| `kiBlast` | 6 | 35 | full color | center | a ki blast in flight, turned along it (loop) |
+| `kiMuzzle` | 5 | 35 | full color | center | the flash at his palm as each ki blast leaves |
+| `kiBlastBurst` | 7 | 40 | full color | center | a ki blast hitting |
+| `dragonFistAura` | 6 | 40 | full color | center | the golden ki round him in Dragon Fist's flight, behind the body (loop) |
+| `dragonFistDragon` | 10 | 50 | full color | center | the golden dragon erupting from the punch and coiling round the victim (its frames follow the hit stop) |
+| `dragonFistBurst` | 8 | 45 | full color | center | the dragon bursting as the victim flies |
+| `instantTransmission` | 6 | 35 | full color | bottom | Instant Transmission's shimmer as he goes (played backward where he reappears) |
+| `kaiokenBurst` | 7 | 40 | full color | bottom | the red aura bursting out as Kaio-ken starts |
+| `kaiokenAura` | 6 | 50 | full color | bottom | the Kaio-ken aura held behind him while the mode lasts (loop; the body area left clear) |
+| `spiritBomb` | 8 | 60 | full color | center | the Spirit Bomb over his raised hands, grown from small to giant, then falling onto the mark (loop) |
+| `spiritBombBlast` | 8 | 60 | full color | bottom | the Spirit Bomb landing: the dome |
+| `superSaiyanBurst` | 8 | 45 | full color | bottom | the golden aura exploding as he turns Super Saiyan in the match intro |
 
-The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md) and
-[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md).
+The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md),
+[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md) and
+[art/characters/goku/SKILLS_REVAMP.md](../characters/goku/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)
 
