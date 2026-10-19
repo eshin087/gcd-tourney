@@ -813,10 +813,13 @@ export class Effects {
 
   // A stretched limb from `from` to `to` (Luffy's rubber arm, Killua's yo-yo string): a tube effect drawn pointing
   // screen-right, its tube `tube` of the cell high and every column the same, stretched along the line as seen on screen
-  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. `o.color` tints it.
+  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. A null `id` lays it
+  // once instead, playing its strip through and gone (Killua's Godspeed streaks). `o.color` tints it.
   limb(id, name, from, to, thick, tube, camRight, o = {}) {
     const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
-    const it = this.keep(id, name, (from.x + to.x) / 2, (from.y + to.y) / 2, (from.z + to.z) / 2, { order: o.order ?? 7, depthTest: false, color: o.color });
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2, mz = (from.z + to.z) / 2;
+    const so = { order: o.order ?? 7, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, mx, my, mz, so) : this.keep(id, name, mx, my, mz, so);
     // the quad is 1 x 1 world units before scaling (spawn folds the cell's world size into the scale)
     const flip = sx < 0, phi = Math.atan2(dy, sx), sy = thick / tube;
     it.rot = flip ? phi - Math.PI : phi;
@@ -825,9 +828,11 @@ export class Effects {
   }
 
   // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, `scale` cells, turned along the limb
+  // (kept by `id`, or played once with a null `id`, like limb)
   limbEnd(id, name, at, from, scale, camRight, o = {}) {
     const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
-    const it = this.keep(id, name, at.x, at.y, at.z, { order: o.order ?? 8, depthTest: false, color: o.color });
+    const so = { order: o.order ?? 8, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, at.x, at.y, at.z, so) : this.keep(id, name, at.x, at.y, at.z, so);
     const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
     it.rot = flip ? phi - Math.PI : phi;
     it.mesh.scale.set(flip ? -s : s, s, s);
