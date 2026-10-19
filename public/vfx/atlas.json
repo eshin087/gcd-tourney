@@ -35,8 +35,8 @@
   "hd": {
     "image": "atlas_hd.png",
     "cell": 256,
-    "cols": 8,
-    "rows": 28,
+    "cols": 10,
+    "rows": 31,
     "ppu": 112,
     "anims": {
       "rasengan": { "row": 0, "n": 8, "ms": 40 },
@@ -65,8 +65,11 @@
       "kamehameha": { "row": 23, "n": 8, "ms": 40 },
       "kamehamehaHead": { "row": 24, "n": 6, "ms": 40 },
       "kamehamehaRing": { "row": 25, "n": 6, "ms": 40 },
-      "spiritBomb": { "row": 26, "n": 8, "ms": 60 },
-      "spiritBombBlast": { "row": 27, "n": 8, "ms": 60 }
+      "dragonFistAura": { "row": 26, "n": 6, "ms": 40 },
+      "dragonFistDragon": { "row": 27, "n": 10, "ms": 50 },
+      "dragonFistBurst": { "row": 28, "n": 8, "ms": 45 },
+      "spiritBomb": { "row": 29, "n": 8, "ms": 60 },
+      "spiritBombBlast": { "row": 30, "n": 8, "ms": 60 }
     }
   }
 }

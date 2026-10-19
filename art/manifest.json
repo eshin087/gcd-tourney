@@ -141,10 +141,36 @@
         "intro": { "frames": 4, "loop": true, "bodyHeight": 210, "ms": [150, 150, 150, 150], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "taunt": { "frames": 2, "loop": true, "bodyHeight": 212, "ms": [250, 250], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "win": { "packScale": 1.105, "_packScale": "ART-SIZE-R7 2026-10-18: drawn about 9 % smaller than goku's other strips (median of independent measures vs the fighter's consensus: head template 0.88, body area 0.93; the cell height caps it near x1.09); resized, drawing unchanged","frames":4,"loop":true,"bodyHeight":237,"ms":[200,200,200,200],"required":true,"step":8,"status":"approved","version":5,"approvedVersion":5,"scaleManualQA":{"version":5,"result":"pass","by":"GPT-6 Astra (medium), final5 strict quantized-pixel audit","note":"Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval.","evidence":"art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md"}},
-        "specialForward": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 204, "ms": [50, 50, 60, 80, 70, 60, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
+        "specialForward": {
+          "frames": 7,
+          "loop": false,
+          "phases": [
+            2,
+            2,
+            3
+          ],
+          "bodyHeight": 222,
+          "ms": [
+            50,
+            50,
+            60,
+            80,
+            70,
+            60,
+            50
+          ],
+          "required": false,
+          "step": 9,
+          "status": "approved",
+          "version": 2,
+          "approvedVersion": 2,
+          "reviewStatus": "approved",
+          "technicalHold": true,
+          "approvalSource": "USER APPROVAL via Claude relay goku-skills #7: user approved specialForward v02 packed at bodyHeight 222 with Claude frameOffsets. Visual approval only; technical hold remains pending exact atlas/sidecar QA."
+        },
         "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 160, 90], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "superPose": { "frames": 4, "loop": true, "bodyHeight": 226, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "approvalSource": "USER APPROVAL via Claude relay goku-skills #3: user approved superPose v01 packed at bodyHeight 226.", "technicalHold": true, "scaleManualQA": { "version": 1, "result": "hold", "by": "GPT-6 Astra (medium), final quantized atlas audit", "note": "User approved v01 at bodyHeight 226. Exact 48-color atlas cells 108-111; garment B 0.985-0.991 and no clipping, but crown-to-chin estimate 22-27px vs idle 24-29px has ±3-4px uncertainty; head probe is invalid. Palm/torso/head loop movement is mostly 0-1px and the requested 1-2px tremble is not established. HOLD due measurement uncertainty, not confirmed whole-body scale failure.", "atlasSha256": "2ec7045ee0f51d70e29ec6aebdaa4c6812e89e8533884a7fcff7af2a35ce7a72" } },
+        "superPose": { "frames": 4, "loop": true, "bodyHeight": 226, "ms": [140, 140, 140, 140], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "approvalSource": "USER APPROVAL via Claude relay goku-skills #3: user approved superPose v01 packed at bodyHeight 226.", "technicalHold": true, "scaleExemptVersion": 1, "scaleExempt": "Goku's head probe is off (TOOL-GOKU-PROBE) and the head is tipped back under raised arms, so it cannot be certified; garment B 0.985-0.991 per Astra (relay #6) and Claude; no anatomy defect found; user decision 2026-10-19 via Claude relay goku-skills #8 (quote: Exempt v01, reason recorded)", "scaleManualQA": {"version":1,"result":"hold","by":"GPT-6 Astra (medium), version-bound packed-atlas landmark recheck","note":"Relay goku-skills #6: FAIL TO CERTIFY, not a proven anatomy defect. Required +/-6% anatomy evidence is not established: crown/joint endpoints are covered and not tightly measurable; Claude-quoted absolute footwear bounds are not reproduced in the exact atlas. Garment B matches Claude (0.985-0.991); visible build is compatible. Separate 1-2px motion hold remains. No visual approval change.","atlasSha256":"8a77c8ebcb6690e5afc8d6a892b5a492f9b9c83017f55c7d45ecf3a62f097876","evidence":"art/characters/goku/production/superPose-v01-landmark-recheck/AUDIT.md","cells":[110,111,112,113],"referenceCell":0,"failureCriterion":"Required +/-6% anatomy evidence is not established: covered crown/joint endpoints cannot be tightly measured and Claude-quoted absolute footwear bounds are not reproduced. No true anatomical defect is proved.","motionResult":"hold","motionEvidence":"art/characters/goku/production/superPose-v01-landmark-recheck/AUDIT.md"} },
           "beamStruggle": { "frames": 3, "loop": true, "bodyHeight": 205, "ms": [70, 70, 70], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "approvalSource": "user via Claude relay beam-clash #15: Goku v01: Approve v01.", "scaleManualQA": { "version": 1, "result": "pass", "by": "Claude (Opus 5.5), landmark comparison", "note": "Packed at x0.338 (bodyHeight 205): head crown-to-chin about 60 px and boot length match his approved beamFire v07 within about 3 px; the automatic head probe cannot read his hair (TOOL-GOKU-PROBE). Astra r4 noted chest/shoulder variance against the title combat cell but no proven inflation; the user approved the drawing as packed here (relay beam-clash #15).", "evidence": "public/reviews/beam-clash-r3/goku-landmark-comparison-205.png" } },
           "beamStruggleAir": { "frames": 3, "loop": true, "bodyHeight": 190, "ms": [70, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "techGround": { "frames": 4, "loop": false, "phases": [1, 2, 1], "bodyHeight": 204, "ms": [67, 83, 83, 67], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
@@ -1604,6 +1630,7 @@
       }
     },
     "effects": {
+
       "spark": {"frames":5,"ms":30,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
       "burst": {"frames":5,"ms":35,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1},
       "ring": {"frames":6,"ms":35,"colorRule":"tinted","anchor":"center","step":10,"status":"approved","version":2,"approvedVersion":2},
@@ -1657,8 +1684,11 @@
       "kamehamehaHead": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved kamehamehaHead v01."},
       "kamehamehaRing": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.95,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved kamehamehaRing v01."},
       "spiritBomb": {"frames":8,"ms":60,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved spiritBomb v01.","technicalHold":true},
-      "spiritBombBlast": {"frames":8,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved spiritBombBlast v01.","technicalHold":true}
-    }
+      "spiritBombBlast": {"frames":8,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved spiritBombBlast v01.","technicalHold":true},
+    "dragonFistAura": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistAura v01.","technicalHold":true},
+    "dragonFistDragon": {"frames":10,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistDragon v01.","technicalHold":true},
+    "dragonFistBurst": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistBurst v01.","technicalHold":true}
+  }
   },
   "decals": {
     "_readme": "Ground-damage decals (ADR 0024, art/decals/README.md). Names, cells, variants, groups, modes and color rules are the engine contract (DECAL_SPECS in tools/pack-decals.mjs; drift is warned). npm run sprites decals packs approved items (approvedVersion here or on worldArt.decal batches) into public/decals/atlas.json + the PNG pages of each page set (at most 4 per match); --candidates writes public/preview/decals/.",
