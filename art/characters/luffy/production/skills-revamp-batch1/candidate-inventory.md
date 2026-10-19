@@ -46,13 +46,23 @@ Saved-source SHA-256 and dimensions:
 
 The throw retries were inspected by Luna and intentionally not saved because neither met the brief. GumImpact calls 2 and 3 were also inspected and left unsaved: neither raster is a genuine seven-equal-cell strip. All three gumImpact calls are now used; no further calls are available for it, throw or special in this round. `special_v04` was also inspected for an exact crop/re-stitch option; no clean measured method preserves the source while resolving the packer's split and clipping, so it remains a pack/Astra hold.
 
-## Final Astra anatomy and scale audit
+## Initial Astra audit before relay #4 (superseded)
 
-Auditor: GPT-6 Astra, medium. Scope: actual post-approval 48-color quantized Luffy atlas, approved neutral/combat reference cells and production contract. Atlas SHA-256 `f70f27f5e9d9f7e91397a0c0cd778dcbc18488851a3471b362c14c251dfae082`. Result: **HOLD special v04 and throw v01**; the visual approvals remain recorded, but neither strip is cleared for integration.
+Auditor: GPT-6 Astra, medium. Scope: actual pre-relay-#4 post-approval 48-color quantized Luffy atlas, approved neutral/combat reference cells and production contract. Atlas SHA-256 `f70f27f5e9d9f7e91397a0c0cd778dcbc18488851a3471b362c14c251dfae082`. This was a valid HOLD for the pack at that time, before the new split/erase sidecars and packed-cell manual scale review. It is superseded for the revised atlas by [the final relay #4 Astra audit](FINAL_RELAY4_ASTRA_AUDIT.md).
 
 - `special` cells 100–106: f2/cell 102 contains only an arm fragment and lower leg/sandal; f5–f6 contain multiple partial bodies and cross-cell contamination; f3's rear leg is cut off. Other cells also have detached fists, abruptly ended arms, or insufficient active reach. Packer maps 7/8 frames and phases `[3,3,1]` instead of the required eight and `[3,3,2]`. Late body-area values 1.773/1.470 measure duplicated content, not one enlarged body. No valid whole-strip scale certification.
 - `throw` cells 90–93: bodies are mostly coherent and visually near the reference; exact limb lengths in tucked poses are uncertain because of overlap. In active cells 91–92 the forward arm ends at x221/x220, leaving 34/35 transparent columns before x255. Thus the required edge continuation fails. The reported head ratios 1.72/1.68/1.68/1.01 are suspect probes, not evidence of 68–72% head enlargement.
 - Other approved VFX remain separately held where importer defects exist: gumArm v03 has blank f0 and gumImpact v01 imports 9/7. gumFist v01 packed to four frames. None of the drawing approvals substitutes for integration or runtime contact checks.
+
+## Relay #4 corrections and final Astra audit
+
+No image calls were made for these fixes. The approved raw PNGs remain unchanged.
+
+- `raw/special_v04.json` erases the three measured 5×26 px floor-line slivers at `(815,545)`, `(1361,545)` and `(1895,545)`. The pack now maps eight frames, cells 100–107, with the canonical 3/3/2 phases. `art/characters/luffy/hitboxes.json` records `_scale: 0.92` and the supplied `hand` points for f3–f6.
+- `art/characters/luffy/hitboxes.json` also records `_scale: 0.92` and supplied `hand` points for throw v01 f1–f3. The four-frame pack maps cells 90–93. The f0 arm is visibly pulled back; the x220/x219 active exits are accepted because the engine continues the limb from the anchor. Luffy's head probe includes vest/torso pixels and is not used as a head-size measurement.
+- `art/vfx/raw/gumArm_v03.json` uses an even split, yielding 2/2 frames. The tube in f0 ends 1 px short of the right edge; packer warns it is not a seamless full-edge tile. Claude checked the stretch in game and reports the short gap is concealed by the extended arm.
+- `art/vfx/raw/gumImpact_v01.json` erases the drawn box borders, requests eight pre-drop frames and drops the split trailing half. Packer now imports 7/7. `gumFist` stays at 4/4.
+- [Final Astra audit](FINAL_RELAY4_ASTRA_AUDIT.md) independently passes anatomy/scale for every actual quantized special/throw frame, bound to atlas SHA-256 `bf9558cdb575c47e45d74474b749115c7ddd9c7b6993b7d27c75f4e531aa5905`. Version-bound `scaleManualQA` entries now reference that audit. Hand continuation, contact, timing and runtime integration remain separate Claude checks.
 
 ## Worktree cleanup decision
 

@@ -4,13 +4,13 @@ Relay lane `luffy-skills`, authorization #1. Branch `art/luffy-skills`. The user
 
 ## Batch 1 status
 
-- `special_v04` is visually approved but on technical HOLD: the approved-art pack writes a 48-color sheet, yet maps it as 7/8, detects touching poses, reports f5/f6 clipping, and its `scaleManualQA` is still version-bound to approved v02. Luna found no measured crop/re-stitch that preserves the source and fixes this.
-- `throw_v01` is visually approved but on technical HOLD: Astra inspected actual cells 90–93 and found the active forward arm ends at x221/x220, leaving 34/35 transparent columns before x255. Its head-probe values 1.72, 1.68, 1.68, 1.01 are suspect rather than evidence of enlarged anatomy. It misses the required pulled-back air wind-up. Calls 2 and 3 were unsuitable and unsaved. Budget is exhausted.
+- `special_v04` is visually approved. Relay #4 sidecar erases three measured floor-line slivers; the approved-art pack now maps 8/8 canonical 3/3/2 frames. Astra manually passed all eight actual quantized cells for anatomy/scale; version-bound `scaleManualQA` v04 is recorded. Hand-anchor continuation/contact remains Claude's check.
+- `throw_v01` is visually approved. Astra manually passed all four actual quantized cells for anatomy/scale; version-bound `scaleManualQA` v01 is recorded. The 1.68–1.72 head probe includes vest/torso and is not a head-size measure. f0 has the pulled-back arm; x220/x219 active exits are accepted because the engine continues the stretched arm from the hand anchors. Calls 2 and 3 were unsuitable and unsaved; budget is exhausted.
 - `gumFist_v01` packs to four HD frames; visually approved.
-- `gumImpact_v01` imports as 9 frames instead of 7; visually approved, technical HOLD. Calls 2 and 3 were unsaved because neither image met the seven-square-cell strip contract; its three-call budget is exhausted.
-- `gumArm_v03` is visually approved, but has blank f0; `gumArm_v01`–`v02` were superseded and filed under `art/vfx/raw/_rejected/`. Three-call budget is exhausted and the procedural stand-in remains.
+- `gumImpact_v01` imports as 7/7 after relay #4's box-border erase and drop sidecar; visually approved. Calls 2 and 3 were unsaved because neither image met the seven-square-cell strip contract; its three-call budget is exhausted.
+- `gumArm_v03` is visually approved and imports as 2/2 after relay #4's even-split sidecar. The first tube ends 1 px short of the right edge, so the packer reports it cannot tile seamlessly; Claude verified in game that the arm extension hides the gap. `gumArm_v01`–`v02` remain in `_rejected/`; three-call budget is exhausted.
 - `special_v03` was superseded by approved v04 and moved to `art/characters/luffy/raw/_rejected/`.
-- Final Astra audit of the actual quantized atlas holds `special_v04` and `throw_v01`; exact cell findings, measurements, uncertainty and atlas hash are in the candidate inventory. The audit is complete, not pending.
+- Final Astra audit of the corrected actual quantized atlas passes `special_v04` and `throw_v01`; exact findings, measurements, uncertainty and atlas hash are in `FINAL_RELAY4_ASTRA_AUDIT.md` and the candidate inventory.
 - User decision via Claude relay `luffy-skills #3`: leave the untracked `art/vfx/frames/` folders in this worktree; do not delete them. They are to go when the worktree is archived after merge.
 
 ## Evidence and files
@@ -23,6 +23,6 @@ Relay lane `luffy-skills`, authorization #1. Branch `art/luffy-skills`. The user
 
 ## Next actions
 
-1. Keep the five drawing approvals recorded; do not request them again. Visual approval does not clear technical holds.
-2. Before integration, resolve the held strip/effect candidates only under a new authorized call budget; keep existing versions and call history intact.
-3. Resolve the reported frame-count, segmentation, clipping and blank-frame issues only under authorized work. The user approved drawings, but no production integration or merge is authorized by this handoff. Preserve the untracked VFX frame folders until the worktree is archived after merge, per relay #3.
+1. Keep the five drawing approvals recorded; do not request them again. Relay #4 authorized these no-new-image-call technical corrections and pack.
+2. Claude owns hand-anchor reach/contact and runtime review before integration; the draw approvals and Astra static audit are not runtime clearance.
+3. Continue with Batch 2 Gear Third: `beamFire` v03, `gear3Puff`, `gigantArm`, `gigantFist`, `gigantImpact`, `luffyChibi`, then prepare its review and request art approval through Claude. Preserve the untracked VFX frame folders until this worktree is archived after merge, per relay #3.
