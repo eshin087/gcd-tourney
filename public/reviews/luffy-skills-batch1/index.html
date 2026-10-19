@@ -20,34 +20,50 @@
 </head>
 <body>
   <h1>Luffy skills revamp</h1>
-  <p>Batch 1 · Gum-Gum Pistol · Relay <code>luffy-skills #1</code></p>
-  <div class="notice"><strong>Nothing here is approved.</strong> This batch has technical holds. The Pistol strip did not pack cleanly, the air Pistol failed its scale probe, the impact imports as nine frames instead of seven, and no valid gumArm tile was produced. The game's procedural gumArm stand-in remains. Review the drawings as candidates only; visual approval would not clear technical holds.</div>
+  <p>Batch 1 · Gum-Gum Pistol · Relays <code>luffy-skills #1–2</code></p>
+  <div class="notice"><strong>The user approved these drawings as drawn via Claude relay #2:</strong> special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01. This is visual approval only. Technical holds remain: the Pistol strip did not pack cleanly, the air Pistol failed its scale probe, the impact imports as nine frames instead of seven, and gumArm v03 has a blank first frame. The game's procedural gumArm stand-in remains. These drawings are not cleared for integration.</div>
 
   <h2>Character strips</h2>
   <div class="grid">
-    <figure><img src="media/special_v04.png" alt="Luffy Pistol candidate, eight panels"><figcaption><b>special v04</b> · selected from call 3. <span class="hold">Technical HOLD:</span> importer finds 7/8 frames; adjacent poses touch and f5/f6 clip. No packed comparison is available.</figcaption></figure>
-    <figure><img src="media/special_v03.png" alt="Luffy Pistol earlier candidate"><figcaption><b>special v03</b> · call 2, retained in QA hold as a superseded diagnostic.</figcaption></figure>
-    <figure><img src="media/throw_v01.png" alt="Luffy air Pistol candidate"><figcaption><b>throw v01</b> · call 1. <span class="hold">Technical HOLD:</span> scale probe reports 1.07–1.21; drawing also misses the pulled-back airborne wind-up. Two retries were generated but did not meet the brief and were not saved.</figcaption></figure>
+    <figure><img src="media/special_v04.png" alt="Luffy Pistol, eight panels"><figcaption><b>special v04 · visually approved as drawn.</b> <span class="hold">Technical HOLD:</span> importer finds 7/8 frames; adjacent poses touch and f5/f6 clip. No packed comparison is available.</figcaption></figure>
+    <figure><img src="media/special_v03.png" alt="Luffy Pistol earlier candidate"><figcaption><b>special v03</b> · call 2, superseded and filed under <code>_rejected</code> after v04 approval.</figcaption></figure>
+    <figure><img src="media/throw_v01.png" alt="Luffy air Pistol candidate"><figcaption><b>throw v01 · visually approved as drawn.</b> <span class="hold">Technical HOLD:</span> scale probe reports 1.07–1.21; drawing also misses the pulled-back airborne wind-up. Two retries were generated but did not meet the brief and were not saved.</figcaption></figure>
   </div>
 
   <h2>Effects</h2>
   <div class="grid">
-    <figure><img src="media/gumFist_v01.png" alt="Four frames of Luffy's flying fist"><figcaption><b>gumFist v01</b> · four-frame candidate. The VFX candidate atlas packed this effect. Unapproved.</figcaption></figure>
-    <figure><img src="media/gumImpact_v01.png" alt="Candidate impact burst"><figcaption><b>gumImpact v01</b> · candidate impact. <span class="hold">Technical HOLD:</span> candidate atlas imports 9 frames, expected 7.</figcaption></figure>
+    <figure><img src="media/gumFist_v01.png" alt="Four frames of Luffy's flying fist"><figcaption><b>gumFist v01 · visually approved as drawn.</b> The VFX candidate atlas packed this effect to four HD frames.</figcaption></figure>
+    <figure><img src="media/gumImpact_v01.png" alt="Candidate impact burst"><figcaption><b>gumImpact v01 · visually approved as drawn.</b> <span class="hold">Technical HOLD:</span> candidate atlas imports 9 frames, expected 7.</figcaption></figure>
   </div>
   <h3>Held gumArm attempts</h3>
-  <p>All three calls have an empty first frame, so none can serve as the required looping tube tile. Each source is preserved under <code>_qa_hold</code>; the remaining procedural stand-in is used.</p>
+  <p>gumArm v03 was approved as drawn, but all three calls have an empty first frame, so none can serve as the required looping tube tile. v03 stays active as the approved source; v01-v02 are filed under <code>_rejected</code>. The procedural stand-in remains until the technical issue is resolved.</p>
   <div class="grid">
-    <figure><img src="media/gumArm_v01.png" alt="Held gumArm attempt one"><figcaption>gumArm v01 · held, blank f0</figcaption></figure>
-    <figure><img src="media/gumArm_v02.png" alt="Held gumArm attempt two"><figcaption>gumArm v02 · held, blank f0</figcaption></figure>
-    <figure><img src="media/gumArm_v03.png" alt="Held gumArm attempt three"><figcaption>gumArm v03 · held, blank f0; three-call budget exhausted</figcaption></figure>
+    <figure><img src="media/gumArm_v01.png" alt="Rejected gumArm attempt one"><figcaption>gumArm v01 · rejected as superseded; blank f0</figcaption></figure>
+    <figure><img src="media/gumArm_v02.png" alt="Rejected gumArm attempt two"><figcaption>gumArm v02 · rejected as superseded; blank f0</figcaption></figure>
+    <figure><img src="media/gumArm_v03.png" alt="Approved gumArm attempt three"><figcaption>gumArm v03 · visually approved; blank f0 technical hold; three-call budget exhausted</figcaption></figure>
   </div>
+
+  <h2>Quantized review</h2>
+  <p>These are the actual packer outputs after the user approval. The Pistol has only seven mapped frames instead of eight; the atlas is diagnostic and not cleared for integration.</p>
+  <figure><a href="media/quantized-luffy-sheet.png"><img src="media/quantized-luffy-sheet.png" alt="Actual 48-color packed Luffy sheet with Pistol and air Pistol frames"></a><figcaption>48-color packed Luffy atlas. Cells 100–106 contain special v04; cells 90–93 contain throw v01.</figcaption></figure>
+  <figure><a href="media/body-luffy-special-throw.png"><img src="media/body-luffy-special-throw.png" alt="Body comparison sheet showing packed throw and special frames beside idle frame zero"></a><figcaption>Body comparison from the packed frames. Throw head probe reads 1.72, 1.68, 1.68 and 1.01 against idle; special includes a nearly empty frame and enlarged late poses. Body-area measurements alone are advisory.</figcaption></figure>
+  <p>Approved Luffy references: <a href="../../characters/luffy/calibration-r6/sources/approved-neutral.png">neutral</a> · <a href="../../characters/luffy/calibration-r6/sources/approved-combat.png">combat</a>.</p>
+
+  <h2>Final anatomy and scale audit</h2>
+  <p><b>GPT-6 Astra audit: HOLD special v04 and throw v01.</b> This audit inspected the actual 48-color atlas against approved neutral/combat cells and the production contract. It does not change the user's visual approvals.</p>
+  <ul>
+    <li><code>special</code>, cells 100–106: f2 contains only an arm fragment and lower leg/sandal; f5–f6 contain multiple partial bodies and cross-cell contamination; f3 has a cut rear leg. Detached fists, abruptly ending arms and insufficient active reach also occur. The packer maps 7/8 frames and phases [3,3,1] rather than the required eight and [3,3,2].</li>
+    <li><code>throw</code>, cells 90–93: bodies are mostly coherent and near reference scale, but the forward arm ends at x221/x220 in active cells 91/92, leaving 34/35 transparent columns before x255. Required edge continuation fails. The head-probe values 1.72/1.68/1.68/1.01 are suspect and are not evidence of enlarged anatomy.</li>
+    <li><code>gumImpact</code> retries 2 and 3 were not saved: neither output met the seven equal square cell strip contract. The three-call budget is exhausted. Existing gumImpact v01 still imports 9/7; gumArm v03 still has a blank first frame. gumFist v01 packs to four frames.</li>
+  </ul>
+  <p>Exact frame findings, uncertainty and provenance are in the <a href="../../../art/characters/luffy/production/skills-revamp-batch1/candidate-inventory.md#final-astra-anatomy-and-scale-audit">candidate inventory</a>. No Batch 1 asset is cleared for integration by this audit.</p>
 
   <h2>Technical evidence</h2>
   <ul>
-    <li><code>node tools/pack-sprites.mjs luffy --quantize 48 --keep-palette</code> failed; no Luffy sheet or candidate frame output was written.</li>
-    <li><code>node tools/pack-sprites.mjs vfx --candidates</code> completed. The <a href="media/candidate-atlas-hd.png">HD candidate atlas</a> contains gumFist and the malformed 9-frame gumImpact; gumArm is missing.</li>
-    <li><code>npm run scale -- luffy</code> generated the existing scale contact sheet. The body sheet could not be generated because the character pack failed.</li>
+    <li><code>node tools/pack-sprites.mjs luffy --quantize 48 --keep-palette</code> wrote a 48-color sheet with 24 animations and 111 frames, but special v04 maps 7/8 frames with touching/clipped poses; its manual scale record is stale from v02.</li>
+    <li><code>npm run body luffy special throw</code> completed. Probe values are advisory; Astra found special f2 severely segmented and f5/f6 contaminated by multiple figures. The throw probe's first three head values are suspect; its active arm misses the required atlas edge.</li>
+    <li><code>npm run sprites vfx</code> packed approved visual sources but reports gumArm 1/2 and gumImpact 9/7. The <a href="media/candidate-atlas-hd.png">HD VFX atlas</a> is diagnostic and not cleared for integration.</li>
+    <li>The Pistol and VFX outputs contain technical failures; no production integration is cleared.</li>
   </ul>
   <p>See the <a href="../../../art/characters/luffy/production/skills-revamp-batch1/candidate-inventory.md">candidate inventory and exact generation provenance</a> and <a href="../../../art/REVIEW.md">review queue</a>.</p>
 </body>
