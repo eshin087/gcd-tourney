@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ENG-112 Goku, relay combat #44): completed the authorized redraw round (uTilt v04, uSmash v04, dSmash v05), preserved all seven attempts, packed a 48-color diagnostic atlas and recorded Astra HOLDs. The uppercut guard/recovery proportions are small; dSmash active feet are clipped. Candidates remain in _qa_hold; stand-ins remain active. User decision pending; no drawing approval or final contact overrides recorded.
+
 - Fixed (ENG-116): Sasuke's Lion's Barrage no longer carries its victim past the ring barrier. The heel drop holds them a step beyond him, and with Sasuke as P2 his move runs after their physics, so a victim kicked up at the barrier hung up to 0.1 outside it for the slam (soak() `ring` violations, about 6 in 1,000 Impossible matches, all `launched` victims at x or z = ±8.63-8.65). A held body is now always placed inside the barrier (`kit.js` holdAt). The determinism fixtures are re-recorded on the new simulation fingerprint (4e0e4469acfe); both replay frame for frame.
 - Changed: the determinism fixtures are re-recorded after Gojo's up air (fingerprint 030c2b3c3377); both replay frame for frame.
 

@@ -2,10 +2,12 @@
 
 Date: 2026-10-18. Branch: `art/normals-goku-r2`.
 
-## User review needed
+## User decision needed
 
-The one redraw round authorized by relays #41–#42 is complete. The candidates are uTilt v03 (call 3), uSmash v03 (call 3), and dSmash v03 (call 2); all attempts and hashes are retained in `raw/ENG-112_GOKU_R2_PROVENANCE.md`. The user-facing packed review page is `public/reviews/normals-goku-r2/index.html`.
+Relay #44's one authorized generation round is complete. Seven image calls were made: uTilt 2, uSmash 2, dSmash 3. All generated attempts and hashes are preserved under `raw/_qa_hold/`; the selected sources are uTilt v04 (call 2), uSmash v04 (call 2), and dSmash v05 (call 3). dSmash v04 remains preserved as the attempt-2 candidate but is superseded for review.
 
-Astra's exact quantized-atlas audit is `production/ENG112_R2_ASTRA_AUDIT.md`. All three remain technically held: uTilt/uSmash are visibly smaller than idle02, and dSmash is oversized, does not clearly show both low active strikes, and frame 2 cannot retain the four-pixel side margins by offset alone. The selected atlas uses a temporary placeholder scale manifest for diagnostics and must not ship. Working `art/manifest.json` has no scaleManualQA passes for these candidates. No new image calls remain in this authorization.
+Packed review page: `public/reviews/normals-goku-r2/index.html`.
 
-Please ask the user through the combat lane whether to authorize another scoped repair round or keep these moves on their stand-ins. No visual approval is recorded. After the user decision, check the delivered relay and act once. The original seven Goku moves remain as approved and merged on main; this branch contains only the three follow-up candidates plus their review and audit records.
+Astra's exact final5 audit is `production/ENG112_R2_RELAY44_ASTRA_AUDIT.md`; atlas/metadata hashes and measurements are recorded there. HOLDs: uTilt v04 and uSmash v04 fit the cell and their active angled uppercuts are clear, but guard/recovery boots and lower-body proportions are visibly small versus idle02; dSmash v05 correctly has both legs extended in active f2/f3 with phases `[2,2,4]`, but both boots are clipped at the cell edges. Its guard head/upper body also reads larger. No scaleManualQA pass or final hitbox override was recorded. Diagnostic-only placeholder scale manifest and atlas must not ship.
+
+All three selected candidates remain under `raw/_qa_hold/`, so gameplay stand-ins remain active. Please ask the user through the combat lane whether to authorize measured import-only scale correction for uTilt/uSmash and another scoped dSmash repair, or keep the stand-ins. This is a decision request, not image approval. The original seven Goku moves remain approved and merged into main; this branch contains the relay #44 follow-up evidence and candidates only.
