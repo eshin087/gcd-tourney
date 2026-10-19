@@ -32,6 +32,17 @@ const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with 
 const zAxis = new THREE.Vector3(0, 0, 1);
 const tPull = new THREE.Vector3(), tSwirl = new THREE.Vector3(), yAxis = new THREE.Vector3(0, 1, 0);
 
+// an effects page: pixel-exact, sRGB, no mipmaps
+function sheetTexture(image, Tex = THREE.Texture) {
+  const tex = new Tex(image);
+  tex.magFilter = THREE.NearestFilter;
+  tex.minFilter = THREE.NearestFilter;
+  tex.generateMipmaps = false;
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.needsUpdate = true;
+  return tex;
+}
+
 function hexTexture() {
   const c = document.createElement('canvas');
   c.width = 64; c.height = 64;
@@ -63,14 +74,17 @@ export class Effects {
     this.scene = scene;
     const { canvas, meta } = bakeVfx();
     this.meta = meta;
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.magFilter = THREE.NearestFilter;
-    tex.minFilter = THREE.NearestFilter;
-    tex.generateMipmaps = false;
-    tex.colorSpace = THREE.SRGBColorSpace;
-    this.tex = tex;
+    this.tex = sheetTexture(canvas, THREE.CanvasTexture);
     this.W = canvas.width;
     this.H = canvas.height;
+    this.cell = meta.cell;
+    // the procedural frames (vfxPainter.js): every effect until the custom atlas is in, then the effects without packed
+    // art and the stand-ins of HD effects whose page this match has not loaded (ADR 0053)
+    this.proc = { canvas, tex: this.tex, cell: meta.cell, W: canvas.width, H: canvas.height, cellWorld: meta.cell / PPU, anims: meta.anims };
+    this.hd = null; // atlas.json's HD pages (readHd)
+    this.owners = new Set(); // whose HD pages this match draws from (prepare)
+    this.noted = new Set(); // HD effects already reported drawn without their page
+    this.renderer = null;
     this.geoC = new THREE.PlaneGeometry(1, 1);
     this.geoB = new THREE.PlaneGeometry(1, 1).translate(0, 0.5 - 4 / 64, 0);
     this.barrierGeo = new THREE.PlaneGeometry(4.5, 3); // shared by every wall-bounce flash
@@ -89,9 +103,10 @@ export class Effects {
   }
 
   // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`: approved effects only;
-  // ?art=custom prefers the unapproved candidates in public/preview/vfx/). Effects missing from the custom atlas
-  // keep their procedural frames (upscaled). The signature effects (ADR 0044) come from a second page, atlas.json's
-  // `hd` block (256 px cells at twice the density, the same world size per cell): `this.hd`, used per effect.
+  // ?art=custom prefers the unapproved candidates in public/preview/vfx/). atlas.png is the shared page; effects it
+  // lacks keep their procedural frames (this.proc). The signature effects (ADR 0044) sit on the HD pages of atlas.json's
+  // `hd` block (256 px cells at twice the density, the same world size per cell), one page per owner (ADR 0053): only
+  // the JSON is read here, a match loads the pages it draws from (prepare).
   async loadCustom() {
     try {
       const found = await fetchAtlasJson('/vfx');
@@ -106,42 +121,27 @@ export class Effects {
         console.warn('[vfx] atlas.json found but atlas.png is missing or unreadable, keeping procedural effects');
         return false;
       }
-      const pm = this.meta, proc = this.tex.image;
-      const cell = cm.cell || 128;
-      const hd = cm.hd?.anims ? await this.loadHd(cm.hd, dir) : null;
-      const names = [...new Set([...Object.keys(pm.anims), ...Object.keys(cm.anims)])].filter((n) => !hd?.anims[n]);
-      const cols = Math.max(...names.map((n) => (cm.anims[n] || pm.anims[n]).n));
-      const cv = document.createElement('canvas');
-      cv.width = cols * cell;
-      cv.height = names.length * cell;
-      const ctx = cv.getContext('2d');
-      ctx.imageSmoothingEnabled = false;
-      const meta = { cell, cols, rows: names.length, anims: {} };
-      const custom = [];
-      names.forEach((name, row) => {
-        const c = cm.anims[name], p = pm.anims[name];
-        if (c) {
-          ctx.drawImage(img, 0, c.row * cell, c.n * cell, cell, 0, row * cell, c.n * cell, cell);
-          meta.anims[name] = { row, n: c.n, ms: c.ms ?? p?.ms ?? 40 };
-          custom.push(name);
-        } else {
-          ctx.drawImage(proc, 0, p.row * pm.cell, p.n * pm.cell, pm.cell, 0, row * cell, p.n * cell, cell);
-          meta.anims[name] = { row, n: p.n, ms: p.ms };
-        }
-      });
-      // keep the same world size: custom cells use their own ppu, upscaled procedural ones match it
-      this.cellWorld = cell / (cm.ppu || (cell * PPU) / pm.cell);
-      if (hd) {
-        for (const [name, a] of Object.entries(hd.anims)) meta.anims[name] = { row: a.row, n: a.n, ms: a.ms ?? 40, hd: true };
-        this.hd = hd;
-        custom.push(...Object.keys(hd.anims).map((n) => `${n} (HD)`));
-      }
-      this.meta = meta;
-      this.W = cv.width;
-      this.H = cv.height;
-      this.tex.image = cv;
+      const pm = this.proc.anims, cell = cm.cell || 128;
+      const hd = this.readHd(cm.hd, dir);
+      const meta = { cell, anims: {} };
+      for (const [name, c] of Object.entries(cm.anims)) meta.anims[name] = { row: c.row, n: c.n, ms: c.ms ?? pm[name]?.ms ?? 40 };
+      // the rest draw their procedural frames from the baked sheet, at its own density (the same world size per cell)
+      for (const [name, p] of Object.entries(pm)) if (!meta.anims[name] && !hd?.effects[name]) meta.anims[name] = { ...p, proc: true };
+      for (const [name, a] of Object.entries(hd?.effects || {})) meta.anims[name] = { hd: true, page: a.page, row: a.row, n: a.n, ms: a.ms ?? pm[name]?.ms ?? 40 };
+      // the shared page is the custom atlas itself (this.tex keeps its object: views made earlier still hold it); the
+      // procedural canvas gets a texture of its own, uploaded only if something draws from it
+      if (this.proc.tex === this.tex) this.proc.tex = sheetTexture(this.proc.canvas, THREE.CanvasTexture);
+      this.tex.image = img;
       this.tex.needsUpdate = true;
-      console.info(`[vfx] custom effects${dir === '/vfx' ? '' : ' (candidates)'}: ${custom.join(', ') || 'none'}`);
+      this.W = img.width;
+      this.H = img.height;
+      this.cell = cell;
+      this.cellWorld = cell / (cm.ppu || (cell * PPU) / this.proc.cell);
+      this.meta = meta;
+      this.hd = hd;
+      const owners = hd ? [...new Set(hd.pages.map((p) => p.owner))] : [];
+      const pages = owners.map((o) => `${o} (${hd.pages.filter((p) => p.owner === o).flatMap((p) => p.names).join(', ')})`);
+      console.info(`[vfx] custom effects${dir === '/vfx' ? '' : ' (candidates)'}: ${Object.keys(cm.anims).join(', ') || 'none'}${pages.length ? `; HD, loaded per match: ${pages.join('; ')}` : ''}`);
       return true;
     } catch (e) {
       console.warn('[vfx] custom atlas failed, keeping procedural effects', e);
@@ -149,40 +149,115 @@ export class Effects {
     }
   }
 
-  // The HD page of atlas.json (ADR 0044). A missing or unreadable image keeps those effects procedural.
-  async loadHd(h, dir) {
-    const img = await loadImage(artUrl(`${dir}/${h.image || 'atlas_hd.png'}`));
-    if (!img) {
-      console.warn('[vfx] atlas.json lists HD effects but their page is missing or unreadable, keeping them procedural');
-      return null;
+  // atlas.json's `hd` block (ADR 0053): its pages (image, owner) and the page and row of each HD effect. The single
+  // atlas_hd.png of a pack from before ADR 0053 (`image` + `anims`) reads as one shared page.
+  readHd(h, dir) {
+    if (!h) return null;
+    const cell = h.cell || 256, cellWorld = cell / (h.ppu || 112);
+    const old = !h.pages && h.anims;
+    const list = old ? [{ image: h.image || 'atlas_hd.png', owner: 'shared' }] : Array.isArray(h.pages) ? h.pages : [];
+    const pages = list.map((p) => ({ image: p.image, owner: p.owner || 'shared', cols: p.cols ?? 0, rows: p.rows ?? 0, cell, cellWorld, names: [], tex: null, W: 0, H: 0, loading: null, failed: false }));
+    const effects = {};
+    for (const [name, a] of Object.entries((old ? h.anims : h.effects) || {})) {
+      const pg = pages[old ? 0 : a?.page];
+      if (!pg || !(a.n >= 1)) continue; // a broken entry keeps its procedural frames
+      effects[name] = { ...a, page: pages.indexOf(pg) };
+      pg.names.push(name);
     }
-    const tex = new THREE.Texture(img);
-    tex.magFilter = THREE.NearestFilter;
-    tex.minFilter = THREE.NearestFilter;
-    tex.generateMipmaps = false;
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.needsUpdate = true;
-    const cell = h.cell || 256;
-    return { tex, cell, W: img.width, H: img.height, cellWorld: cell / (h.ppu || 112), anims: h.anims };
+    return pages.length ? { dir, pages, effects } : null;
   }
 
-  // the page an effect is drawn from: the HD signature page or the shared one
-  sheet(a) {
-    return a?.hd && this.hd ? this.hd : this;
+  // A new match (ADR 0053): the HD pages it draws from (the shared ones and its fighters' own) load now and go to the
+  // GPU as they arrive; every other fighter's page leaves it. Until a page is in, its effects draw their stand-ins.
+  prepare(fighters = [], renderer = null) {
+    if (renderer) this.renderer = renderer;
+    this.owners = new Set(['shared', ...fighters.map((f) => f.def.id)]);
+    for (const pg of this.hd?.pages || []) {
+      if (this.owners.has(pg.owner)) this.loadPage(pg);
+      else if (pg.tex) {
+        pg.tex.dispose(); // the last match's items are gone (clearAll), so nothing draws from it any more
+        pg.tex = null;
+      }
+    }
   }
 
-  uv(name, i, out) {
+  loadPage(pg) {
+    if (pg.tex || pg.loading || pg.failed) return;
+    pg.loading = loadImage(artUrl(`${this.hd.dir}/${pg.image}`)).then((img) => {
+      pg.loading = null;
+      const short = img && (img.width < pg.cols * pg.cell || img.height < pg.rows * pg.cell);
+      if (!img || short) {
+        pg.failed = true;
+        console.warn(`[vfx] HD page ${pg.image} is ${short ? `${img.width}x${img.height}, smaller than atlas.json says` : 'missing or unreadable'}, its effects stay procedural: ${pg.names.join(', ')}`);
+        return;
+      }
+      if (!this.owners.has(pg.owner)) return; // the next match came first and does not draw from it
+      pg.tex = sheetTexture(img);
+      pg.W = img.width;
+      pg.H = img.height;
+      this.renderer?.initTexture(pg.tex);
+    });
+  }
+
+  // resolves once the pages this match asked for are in (or failed): tests and ?debug
+  pagesReady() {
+    return Promise.all((this.hd?.pages || []).map((p) => p.loading));
+  }
+
+  // ?debug: the HD pages and what they hold on the GPU now (docs/TESTING.md)
+  hdStatus() {
+    const pages = (this.hd?.pages || []).map((p) => ({
+      image: p.image, owner: p.owner, effects: p.names.length,
+      state: p.tex ? 'gpu' : p.loading ? 'loading' : p.failed ? 'failed' : 'off',
+      size: p.tex ? `${p.W}x${p.H}` : null, mb: p.tex ? +((p.W * p.H * 4) / 1048576).toFixed(1) : 0,
+    }));
+    return { owners: [...this.owners], pages, gpuMB: +pages.reduce((s, p) => s + p.mb, 0).toFixed(1) };
+  }
+
+  // Where an effect is drawn from now: { a: its strip there, S: the sheet }. An HD effect whose page this match has
+  // not got draws its stand-in from the procedural sheet (`wait`: that page).
+  source(name) {
     const a = this.meta.anims[name];
-    const S = this.sheet(a);
+    if (a?.proc) return { a, S: this.proc };
+    if (!a?.hd) return { a, S: this };
+    const pg = this.hd.pages[a.page];
+    if (pg.tex) return { a, S: pg };
+    this.noteStandIn(name, pg);
+    return { a: this.proc.anims[name] ?? this.proc.anims.glow, S: this.proc, wait: pg };
+  }
+
+  // One console line per HD effect drawn without its page, unless that page is still loading (a match's first moments)
+  // or failed (it said so itself). A page no fighter of this match owns means its owner is wrong: an effect other
+  // fighters use, or that shared code draws for anyone, is owner 'shared' (VFX_EFFECTS in tools/pack-sprites.mjs).
+  noteStandIn(name, pg) {
+    if (pg.loading || pg.failed || this.noted.has(name)) return;
+    this.noted.add(name);
+    const pair = [...this.owners].filter((o) => o !== 'shared').join(' vs ') || 'no fighters';
+    console.warn(`[vfx] ${name} is on the ${pg.owner} HD page, which this match (${pair}) does not load: drawn procedural (owner 'shared' if other fighters use it)`);
+  }
+
+  // the sheet an effect's strip `a` is drawn from (its world size per cell: `cellWorld`)
+  sheet(a) {
+    if (a?.proc) return this.proc;
+    if (!a?.hd) return this;
+    return this.hd.pages[a.page]?.tex ? this.hd.pages[a.page] : this.proc;
+  }
+
+  // frame i of strip `a` on sheet S, as a uv rect
+  cellUv(S, a, i, out) {
     i = Math.max(0, Math.min(i | 0, a.n - 1));
-    const c = S === this ? this.meta.cell : S.cell, e = 0.02;
-    out.set((i * c + e) / S.W, 1 - ((a.row + 1) * c - e) / S.H, ((i + 1) * c - e) / S.W, 1 - (a.row * c + e) / S.H);
+    const c = S.cell, x = (a.col ?? 0) + i, e = 0.02;
+    out.set((x * c + e) / S.W, 1 - ((a.row + 1) * c - e) / S.H, ((x + 1) * c - e) / S.W, 1 - (a.row * c + e) / S.H);
     return out;
   }
 
+  uv(name, i, out) {
+    const { a, S } = this.source(name);
+    return this.cellUv(S, a, i, out);
+  }
+
   spawn(name, x, y, z, o = {}) {
-    const a = this.meta.anims[name];
-    const S = this.sheet(a);
+    const { a, S, wait } = this.source(name);
     const mat = new THREE.ShaderMaterial({
       uniforms: {
         map: { value: S.tex },
@@ -207,7 +282,7 @@ export class Effects {
     this.scene.add(mesh);
     const ms = o.ms ?? a.ms;
     const it = {
-      mesh, mat, name, a, t: 0, ms, cellWorld: S.cellWorld,
+      mesh, mat, name, a, S, wait, t: 0, ms, cellWorld: S.cellWorld, // wait: the HD page a stand-in stands in for
       loop: !!o.loop,
       life: o.life ?? (a.n * ms) / 1000,
       vel: o.vel ? new THREE.Vector3(...o.vel) : null,
@@ -227,7 +302,7 @@ export class Effects {
     if (it.seq) it.life = (it.seq.length * ms) / 1000;
     it.max = it.life;
     if (it.stretch !== 1) mesh.scale.x *= it.stretch;
-    this.uv(name, 0, mat.uniforms.uvRect.value);
+    this.cellUv(S, a, 0, mat.uniforms.uvRect.value);
     this.items.push(it);
     return it;
   }
@@ -239,6 +314,8 @@ export class Effects {
   // persistent effect keyed by id, refreshed every frame by its owner
   keep(id, name, x, y, z, o = {}) {
     let it = this.keepers.get(id);
+    // a stand-in held while its HD page was loading gives way to the real strip once the page is in
+    if (it?.wait?.tex) it.life = -1;
     if (!it || it.life < 0) {
       it = this.spawn(name, x, y, z, { ...o, loop: true, life: 999 });
       this.keepers.set(id, it);
@@ -294,7 +371,7 @@ export class Effects {
         f = Math.floor((it.t * 1000) / it.ms);
         f = it.loop ? f % it.a.n : Math.min(it.a.n - 1, f);
       }
-      this.uv(it.name, f, it.mat.uniforms.uvRect.value);
+      this.cellUv(it.S, it.a, f, it.mat.uniforms.uvRect.value);
       if (it.fade) it.mat.uniforms.opacity.value = it.opacity * Math.min(1, it.life / (it.max * 0.6));
       if (it.grow) {
         const s = it.base * (1 + it.grow * it.t);

@@ -4,7 +4,11 @@
 // the grass beyond it at the very top of the screen under the health bars: the ring is where he can be seen (user
 // pick 2026-10-18). He scurries away when a fighter comes at him, hops down to the walkway on the grass when he is
 // cornered (and back up once there is room), ducks for ultimates and clashes, and counts over the fallen fighter after
-// a KO. He comments everything in small captions above his head (src/ui/speechBubble.js, lines in announcerLines.js).
+// a KO. He comments the big moments in small captions above his head (src/ui/speechBubble.js, lines in
+// announcerLines.js) and shows the rest with poses and manga symbols (announcerSymbols.js). Since ENG-119 he is a
+// living character: blasts and flying fighters knock him over (he pops back up dizzy, sooty after a blast), he cheers,
+// facepalms at a whiffed super, winces at brutal hits, fidgets or hums in quiet moments, tires over a long round, and
+// babbles quiet voice blips while a line shows.
 //
 // View only: the arena hands him its NPC cues (game.js -> arena.npcCue; Game.quiet stands the arena in during a
 // rollback, so a re-simulated frame never cues him twice) and he reads the game each rendered frame. He never writes
@@ -14,6 +18,8 @@ import * as THREE from 'three';
 import { RING_HALF, RING_TOP, MAX_HP, ROUNDS_TO_WIN } from '../game/constants.js';
 import { LINES, TAG_LINES } from './announcerLines.js';
 import { NPC_CUES } from './worldArt.js';
+import { AnnouncerSymbols } from './announcerSymbols.js';
+import { audio } from '../core/audio.js';
 
 // The walkway: a rounded square between the ring's stone lip (9.35) and the standing-room fans (12.05 at the sides,
 // 12.25 in front), its corners rounded inside the judge monks (10.3, -10.3).
@@ -48,6 +54,15 @@ const OFF_STATES = new Set(['boot', 'menu', 'training', 'matchEnd', 'results']);
 const COUNT = ['ONE', 'TWO', 'THREE'];
 const SMALL_CLASH = ['shocked', 2, 1.0];
 const COUNT_GAP = 0.5; // seconds between the KO count's numbers (all three fit the KO shot)
+const TALK_GAP = 5; // seconds from one line to the next below the round calls and huge moments (user: talk less)
+// knocked over (ENG-119): a fighter flying faster than `speed` within `reach`, or a shot, beam or orb that reaches him
+// an ultimate's impact (`ultHp` health or more) blows him over within `ultReach`
+const KNOCK = { speed: 5.5, reach: 1.2, blast: 1.3, orb: 1.6, ultHp: 100, ultReach: 8, slide: 1.5, flyT: 0.35, lieT: 1.1, upT: 1.0, sootT: 2.6, cool: 6 };
+const FIDGETS = ['micTap', 'patHair', 'checkWatch']; // quiet-moment fidgets, played only once drawn
+// a long round tires him: from `from` s of fighting to fully tired at `full`, walking up to `slow` slower; a round
+// break gives `rest` s back
+const TIRED = { from: 60, full: 120, slow: 0.3, rest: 25 };
+const BRUTAL = 140; // one hit taking this much health makes him wince
 const ONCE_WAIT = 2.5; // seconds a once-a-round moment waits for a busy bubble
 
 const tmpV = new THREE.Vector3();
@@ -108,6 +123,7 @@ export function paintedBody(sprite) {
   return {
     sprite,
     resolve: () => 'idle',
+    has: () => false,
     setAnim() {},
     update() {},
     setMirror(m) {
@@ -138,8 +154,6 @@ export class Announcer {
     this.clock = 0;
     this.lastSaid = {}; // moment -> clock when last said
     this.bags = {}; // moment -> line indices not used yet
-    this.lastLineEnd = 0;
-    this.nextFiller = 8;
     this.lastState = null;
     this.flowDone = {};
     this.round = null; // per-round memory (watchFight)
@@ -151,6 +165,21 @@ export class Announcer {
     this.dt = 0;
     this.pendingWin = null; // { f, match, t }: the winner line waiting for the KO count
     this.bob = 0;
+    this.symbols = new AnnouncerSymbols(); // manga symbols over his head (ENG-119)
+    this.lastTalk = -1e9; // clock of his last spoken line (TALK_GAP)
+    this.knockCool = 0; // seconds before he can be knocked over again
+    this.forceAnim = null; // the knockdown's own poses override everything else
+    this.stillT = 0; // seconds standing still with nothing to do (fidget timer)
+    this.nextFidget = 6;
+    this.fightTime = 0; // seconds of fighting this match (TIRED)
+    this.tired = 0;
+    this.whiffs = []; // supers to check for a miss: { f, hp, at }
+    this.blasts = []; // ultimates whose impact may blow him over: { o, hp, until }
+    this.prevHp = [MAX_HP, MAX_HP];
+    this.blips = 0; // voice blips left for the current line
+    this.blipT = 0;
+    this.hopBaseY = 0; // a hop's height without its arc (his caption's anchor while he hops)
+    this.barsEl = null; // the HUD's health bars, measured to keep the caption under them
   }
 
   // the packed sheet arrived (or went): put the new body where the old one was
@@ -159,6 +188,7 @@ export class Announcer {
     if (!body) return;
     body.sprite.position.copy(this.pos);
     body.setMirror(this.mirror);
+    body.sprite.parent?.add(this.symbols.sprite);
   }
 
   // ------------------------------------------------------------ per rendered frame
@@ -176,12 +206,20 @@ export class Announcer {
       if (this.place !== 'home') this.goHome();
       this.lastState = null;
       this.bubble.hide();
+      this.symbols.clear();
       body.update(dt);
       return;
     }
     this.flow(game);
-    if (game.state === 'fight') this.watchFight(game, step);
+    if (game.state === 'fight') {
+      this.fightTime += step;
+      this.tired = Math.min(1, Math.max(0, (this.fightTime - TIRED.from) / (TIRED.full - TIRED.from)));
+      this.watchFight(game, step);
+    }
+    this.knockCool = Math.max(0, this.knockCool - step);
+    if (game.state === 'fight' || game.state === 'ko' || game.state === 'timeup') this.hazards(game);
     this.move(game, step);
+    if (game.state === 'fight') this.idleLife(game, step);
     this.animate(game, step);
     this.speak(game, dt, frozen);
   }
@@ -215,10 +253,10 @@ export class Announcer {
     }
     if (this.pendingWin && this.clock - this.pendingWin.t > 1.4) this.sayWin();
     if (st === 'intro') {
-      if (t > 0.4 && once('w1')) this.say('welcome');
-      if (t > 1.9 && once('w2')) this.say('welcome2');
-      if (t > 3.9 && once('a')) this.say('introA', { A: a });
-      if (t > 5.1 && once('b')) this.say('introB', { A: b });
+      if (t > 0.4 && once('w1')) this.say('welcome', {}, false, true);
+      if (t > 1.9 && once('w2')) this.say('welcome2', {}, false, true);
+      if (t > 3.9 && once('a')) this.say('introA', { A: a }, false, true);
+      if (t > 5.1 && once('b')) this.say('introB', { A: b }, false, true);
     } else if (st === 'roundIntro') {
       if (t > 0.45 && once('r')) {
         const wins = game.fighters.map((f) => f.wins);
@@ -236,13 +274,19 @@ export class Announcer {
       this.route = [];
       this.toRingSpot(game, true);
       this.round = null;
+      this.fightTime = this.tired = 0;
+      this.whiffs = [];
+      this.blasts = [];
+      this.symbols.clear();
     } else if (st === 'roundIntro') {
-      this.round = { done: {}, seen: {}, firstHit: null, lead: [0, 0] };
+      this.round = { done: {}, seen: {}, lead: [0, 0] };
       this.pendingWin = this.count = this.koWho = null;
       this.bubble.hide(); // a new round: last round's winner line makes way for the round call
+      this.fightTime = Math.max(0, this.fightTime - TIRED.rest); // the break between rounds: a breather
+      this.whiffs = [];
+      this.blasts = [];
+      this.prevHp = game.fighters.map((f) => f.hp);
       this.prevStates = game.fighters.map((f) => f.state);
-      this.lastLineEnd = this.clock;
-      this.nextFiller = 7 + Math.random() * 4;
       // the KO walk is over (a hop in the air lands first); in the ring: back to the middle for the round call
       const hop = this.route[0]?.kind === 'hop' && this.route[0].from ? [this.route[0]] : [];
       this.route = hop;
@@ -363,6 +407,7 @@ export class Announcer {
   move(game, dt) {
     if (!dt) return;
     this.moving = 0;
+    if (this.route[0]?.kind !== 'knock') this.forceAnim = null;
     if (this.holdT > 0) { this.holdT -= dt; this.speed = 0; return; }
     const r = this.route[0];
     if (r) { if (this.runStep(r, game, dt)) this.route.shift(); return; }
@@ -386,6 +431,7 @@ export class Announcer {
       this.route.unshift({ kind: 'hop', ring: true, x: clampRing(this.pos.x), z: clampRing(this.pos.z) });
       return false;
     }
+    if (r.kind === 'knock') return this.knockStep(r, dt);
     if (r.kind === 'ko') {
       // the KO line first, then after the fallen fighter (the count runs on its own, Announcer.flow)
       r.t += dt;
@@ -421,7 +467,8 @@ export class Announcer {
       this.hopT += dt / MOVE.hop;
       const k = Math.min(1, this.hopT);
       this.pos.lerpVectors(r.from, r.to, k);
-      this.pos.y = r.from.y + (r.to.y - r.from.y) * k + Math.sin(k * Math.PI) * MOVE.hopUp;
+      this.hopBaseY = r.from.y + (r.to.y - r.from.y) * k; // his caption follows this, not the arc
+      this.pos.y = this.hopBaseY + Math.sin(k * Math.PI) * MOVE.hopUp;
       this.moving = 1;
       this.dirX = r.to.x - r.from.x;
       this.dirZ = r.to.z - r.from.z;
@@ -443,7 +490,7 @@ export class Announcer {
   ringTo(x, z, dt, hurry, near) {
     const dx = x - this.pos.x, dz = z - this.pos.z, d = Math.hypot(dx, dz);
     if (d <= near) { this.speed = 0; return true; }
-    const want = hurry || d > MOVE.runFrom ? MOVE.run : MOVE.walk;
+    const want = (hurry || d > MOVE.runFrom ? MOVE.run : MOVE.walk) * this.pace();
     this.speed = Math.min(want, this.speed + MOVE.accel * dt);
     const go = Math.min(d, this.speed * dt);
     this.pos.x += (dx / d) * go;
@@ -459,7 +506,7 @@ export class Announcer {
   walkTo(s, dt, hurry, near) {
     const d = wrap(s - this.s);
     if (Math.abs(d) <= near) { this.speed = 0; return true; }
-    const want = hurry || Math.abs(d) > MOVE.runFrom ? MOVE.run : MOVE.walk;
+    const want = (hurry || Math.abs(d) > MOVE.runFrom ? MOVE.run : MOVE.walk) * this.pace();
     this.speed = Math.min(want, this.speed + MOVE.accel * dt);
     const go = Math.min(Math.abs(d), this.speed * dt) * Math.sign(d);
     const before = walkAt(this.s, tmpW);
@@ -527,7 +574,8 @@ export class Announcer {
     const body = this.body, sp = body.sprite;
     if (this.react) { this.react.t -= dt; if (this.react.t <= 0) this.react = null; }
     let anim = 'idle';
-    if (this.place === 'hop') anim = 'hop';
+    if (this.forceAnim) anim = this.forceAnim;
+    else if (this.place === 'hop') anim = 'hop';
     else if (this.moving) anim = this.speed > MOVE.walk + 0.3 ? 'run' : 'walk';
     else if (this.react) anim = this.react.anim;
     body.setAnim(anim);
@@ -554,6 +602,117 @@ export class Announcer {
     }
     sp.position.set(this.pos.x, y, this.pos.z);
     body.update(dt);
+    if (body.anim === 'cheer' && body.k === 1) sp.position.y += 0.08; // the jump frame leaves the floor
+    // his symbols sit at his head: lower while he lies flat or sits up after a knockdown
+    if (cam) {
+      const sit = this.forceAnim === 'blownAway' ? 0.5 : this.forceAnim === 'popUp' && body.k === 0 ? 0.85 : 1;
+      const baseY = this.place === 'hop' ? this.hopBaseY : this.pos.y;
+      tmpV.set(this.pos.x, baseY + HEAD * sit - 0.06, this.pos.z);
+      tmpW.setFromMatrixColumn(cam.matrixWorld, 0).setY(0).normalize();
+      this.symbols.update(dt, tmpV, tmpW, this.mirror ? -1 : 1, !dt);
+    }
+  }
+
+  // how fast he gets about: slower as a long round tires him
+  pace() {
+    return 1 - TIRED.slow * this.tired;
+  }
+
+  // ------------------------------------------------------------ a living character (ENG-119)
+  // something reaching him knocks him over: a fighter flying past, a shot, a beam, an orb (view only: they never
+  // touch him in the simulation, he just reacts)
+  hazards(game) {
+    const px = this.pos.x, pz = this.pos.z;
+    // an ultimate landing: when it takes a real bite of health, its shockwave blows him over if he is within range
+    // (the tournament MC's classic fate); one that never lands just expires
+    for (const B of this.blasts) {
+      if (this.clock > B.until) { B.done = true; continue; }
+      if (B.o.hp > B.hp - KNOCK.ultHp) continue;
+      B.done = true;
+      if (this.place !== 'hop' && this.place !== 'home' && Math.hypot(B.o.pos.x - px, B.o.pos.z - pz) < KNOCK.ultReach) {
+        this.knockCool = 0;
+        this.knockOver(B.o.pos.x, B.o.pos.z, true);
+        return;
+      }
+    }
+    this.blasts = this.blasts.filter((B) => !B.done);
+    if (this.knockCool > 0 || this.place === 'hop' || this.place === 'home' || this.route[0]?.kind === 'knock') return;
+    for (const f of game.fighters) {
+      const sp = Math.hypot(f.vel?.x || 0, f.vel?.z || 0);
+      if (sp > KNOCK.speed && f.pos.y < 1.6 && Math.hypot(f.pos.x - px, f.pos.z - pz) < KNOCK.reach) return this.knockOver(f.pos.x, f.pos.z, false);
+    }
+    for (const q of game.projectiles || []) if (!q.dead && q.pos && Math.hypot(q.pos.x - px, q.pos.z - pz) < KNOCK.reach) return this.knockOver(q.pos.x, q.pos.z, true);
+    for (const o of game.orbs || []) if (!o.dead && o.pos && Math.hypot(o.pos.x - px, o.pos.z - pz) < KNOCK.orb) return this.knockOver(o.pos.x, o.pos.z, true);
+    for (const b of game.beams || []) {
+      if (b.dead || !b.origin || !b.dir) continue;
+      // the nearest point of the beam (origin -> head, on the floor plane) to him
+      const ex = b.dir.x * b.len, ez = b.dir.z * b.len, l2 = ex * ex + ez * ez || 1;
+      const k = Math.max(0, Math.min(1, ((px - b.origin.x) * ex + (pz - b.origin.z) * ez) / l2));
+      const cx = b.origin.x + ex * k, cz = b.origin.z + ez * k;
+      if (Math.hypot(cx - px, cz - pz) < KNOCK.blast) return this.knockOver(cx, cz, true);
+    }
+  }
+
+  // bowled over away from (fx, fz); a blast leaves him sooty afterwards
+  knockOver(fx, fz, blast) {
+    let dx = this.pos.x - fx, dz = this.pos.z - fz;
+    const d = Math.hypot(dx, dz) || 1;
+    dx /= d;
+    dz /= d;
+    this.route = [{ kind: 'knock', dx, dz, blast, t: 0 }];
+    this.knockCool = KNOCK.cool;
+    this.react = null;
+    this.holdT = 0;
+    this.symbols.show('bang', 0.6);
+  }
+
+  // thrown back (blownAway f0), flat on his back (f1), up again dizzy (popUp), then sooty after a blast
+  knockStep(r, dt) {
+    r.t += dt;
+    const T = KNOCK;
+    if (r.t < T.flyT) {
+      this.forceAnim = 'blownAway';
+      const go = (T.slide / T.flyT) * dt;
+      if (this.place === 'ring') {
+        this.pos.x = clampRing(this.pos.x + r.dx * go);
+        this.pos.z = clampRing(this.pos.z + r.dz * go);
+      }
+      return false;
+    }
+    if (r.t < T.flyT + T.lieT) { this.forceAnim = 'blownAway'; return false; }
+    if (!r.up) {
+      r.up = true;
+      this.symbols.show('dizzy', T.upT + 0.8);
+      if (Math.random() < 0.5) this.say('knocked');
+    }
+    if (r.t < T.flyT + T.lieT + T.upT) { this.forceAnim = 'popUp'; return false; }
+    this.forceAnim = null;
+    r.done = true; // up again: reactions may play (reactTo)
+    if (r.blast) {
+      this.reactTo('sooty', T.sootT, T.sootT);
+      this.symbols.show('steam', T.sootT);
+    }
+    return true;
+  }
+
+  // quiet moments: a fidget (tapping the mic, patting his hair, checking his watch), a tired mop of the brow, or
+  // humming to himself while the fidgets aren't drawn yet
+  idleLife(game, dt) {
+    const still = !this.moving && !this.react && !this.route.length && this.place !== 'hop' && !this.bubble.cur && !this.symbols.cur;
+    this.stillT = still ? this.stillT + dt : 0;
+    if (this.stillT < this.nextFidget) return;
+    this.stillT = 0;
+    this.nextFidget = 5 + Math.random() * 5;
+    const body = this.body;
+    if (this.tired > 0.4) {
+      this.reactTo('mopBrow', 2.0);
+      this.symbols.show('sweat');
+      return;
+    }
+    const pool = FIDGETS.filter((a) => body.has(a));
+    if ((game.timeLeft ?? 99) < 30 && body.has('checkWatch') && Math.random() < 0.6) this.reactTo('checkWatch', 1.8);
+    else if (pool.length) this.reactTo(pool[Math.floor(Math.random() * pool.length)], 1.8);
+    else this.symbols.show('notes');
   }
 
   setMirror(m) {
@@ -567,6 +726,7 @@ export class Announcer {
   }
 
   reactTo(anim, secs, hold = 0) {
+    if (this.route[0]?.kind === 'knock' && !this.route[0].done) return; // flat on his back: reactions wait
     if (this.react && this.react.anim === 'cower' && anim !== 'cower' && this.react.t > 0) return; // ducking wins
     this.react = { anim, t: secs };
     if (hold) this.holdT = Math.max(this.holdT, hold);
@@ -583,7 +743,7 @@ export class Announcer {
     const base = small ? SMALL_CLASH : kind === 'super' && info.ultimate && !info.answer ? NPC_CUES.ultimate.announcer : NPC_CUES[kind]?.announcer;
     switch (kind) {
       case 'roundStart':
-        this.say('begin', {}, true);
+        this.say('begin', {}, true, true); // the call itself: never held back by the round line before it
         this.route = [{ kind: 'wait', t: 0.55 }]; // shout it on the spot, then off to his place behind the fight
         break;
       case 'special':
@@ -592,14 +752,24 @@ export class Announcer {
       case 'super':
         if (info.domain) this.say('domain', { A: f, B: o, M: info.name }, true);
         else if (info.answer) this.say('counter', { A: f, B: o, M: info.name }, true);
-        else this.say(info.ultimate ? 'ultimate' : 'super', { A: f, B: o, M: info.name }, true);
+        else {
+          this.say(info.ultimate ? 'ultimate' : 'super', { A: f, B: o, M: info.name }, true);
+          if (o) this.whiffs.push({ f, hp: o.hp, at: this.clock + 5.5 }); // did it land? (watchFight)
+          if (o && info.ultimate) this.blasts.push({ o, hp: o.hp, until: this.clock + 8 });
+        }
         break;
       case 'ultimate':
         this.say(info.counter ? 'counter' : 'ultimate', { A: f, B: o, M: info.name }, true);
+        if (o && !info.counter) {
+          this.whiffs.push({ f, hp: o.hp, at: this.clock + 6 });
+          this.blasts.push({ o, hp: o.hp, until: this.clock + 8 }); // its impact can blow him over (hazards)
+        }
         break;
       case 'clash':
-        // a beam or Hollow Purple going off is a 'clash' cue too (ENG-024): the super already said its line
-        if (info.tier !== 'blast') this.say('clash', {}, !small);
+        // a beam or Hollow Purple going off is a 'clash' cue too (ENG-024): the super already said its line; a beam
+        // struggle is worth a line, a melee or special clash only a jaw drop
+        if (info.tier === 'struggle' || info.tier === 'ultimate') this.say('struggle', {}, true);
+        else if (info.tier !== 'blast') this.say('clash');
         break;
       case 'clashWin':
         this.say('clashWin', { A: f, B: o });
@@ -607,15 +777,12 @@ export class Announcer {
       case 'combo': {
         const n = info.hits || 0;
         if (n >= 20) this.say('comboLegend', { A: f, B: info.victim, N: n });
-        else if (n >= 12) this.say('comboBig', { A: f, B: info.victim, N: n });
+        else if (n >= 10) this.say('comboBig', { A: f, B: info.victim, N: n });
         else if (n >= 6) this.say('combo', { A: f, B: info.victim, N: n });
         break;
       }
       case 'tag':
         if (TAG_LINES[info.id]) this.say(TAG_LINES[info.id], { A: f, B: o });
-        break;
-      case 'throw':
-        this.say('throw', { A: f, B: o });
         break;
       case 'maxPower':
         this.say('maxPower', { A: f, B: o });
@@ -630,6 +797,8 @@ export class Announcer {
         break;
       case 'crash':
         this.say('crash', { A: f }, true);
+        // into the stands right next to him: the wall's blast knocks him over too
+        if (f && Math.hypot(f.pos.x - this.pos.x, f.pos.z - this.pos.z) < 3) this.knockOver(f.pos.x, f.pos.z, true);
         break;
       case 'roundEnd':
         // roundOver cues before it counts the win; after a KO the line waits for his count (Announcer.flow)
@@ -664,13 +833,12 @@ export class Announcer {
       R.seen[id] ??= this.clock;
       if (this.clock - R.seen[id] > ONCE_WAIT || this.say(key, ctx, force)) R.done[id] = true;
     };
-    if (a.hp < MAX_HP || b.hp < MAX_HP) {
-      const hit = R.firstHit ??= a.hp < MAX_HP ? a : b;
-      once('first', 'firstHit', { A: hit.opp, B: hit });
-    }
     F.forEach((f, i) => {
       if (f.state === 'down' && this.prevStates[i] !== 'down' && !f.ko) this.say('knockdown', { A: f.opp, B: f });
       this.prevStates[i] = f.state;
+      // one brutal hit: he winces
+      if (this.prevHp[i] - f.hp >= BRUTAL && f.hp > 0) this.say('brutal', { A: f.opp, B: f });
+      this.prevHp[i] = f.hp;
       if (!f.ko && f.hp > 0) {
         if (f.hp <= MAX_HP * 0.08) { R.done['low' + i] = true; once('thread' + i, 'thread', { A: f.opp, B: f }); }
         else if (f.hp <= MAX_HP * 0.25) once('low' + i, 'lowHp', { A: f.opp, B: f });
@@ -687,28 +855,28 @@ export class Announcer {
       const mine = i === 0 ? lead : -lead;
       if (R.lead[1 - i] >= MAX_HP * 0.3 && mine >= MAX_HP * 0.05) once('back' + i, 'comeback', { A: F[i], B: F[1 - i] });
     }
-    const leader = lead >= 0 ? a : b;
-    if (Math.abs(lead) >= MAX_HP * 0.45 && leader.hp >= MAX_HP * 0.65) this.say('dominating', { A: leader, B: leader.opp });
+    // a super or ultimate that hit nothing: a facepalm
+    for (const W of this.whiffs) {
+      if (this.clock < W.at) continue;
+      W.done = true;
+      if (W.f.opp && !W.f.opp.ko && W.f.opp.hp >= W.hp - 30) this.say('whiff', { A: W.f, B: W.f.opp });
+    }
+    this.whiffs = this.whiffs.filter((W) => !W.done);
     if (a.hp <= MAX_HP * 0.35 && b.hp <= MAX_HP * 0.35 && Math.abs(lead) <= MAX_HP * 0.08 && a.hp > 0 && b.hp > 0) once('close', 'close');
     const tl = game.timeLeft ?? 99;
     if (tl <= 30 && tl > 10) once('t30', 'time30');
     if (tl <= 10) once('t10', 'time10', {}, true);
-    // a lull: something to fill it
-    if (!this.bubble.cur && this.clock - this.lastLineEnd > this.nextFiller) {
-      this.nextFiller = 6 + Math.random() * 4;
-      if (Math.abs(lead) >= MAX_HP * 0.25 && Math.random() < 0.6) this.say('fillerLead', { A: leader, B: leader.opp });
-      else this.say('filler', { A: Math.random() < 0.5 ? a : b, B: null, swap: true });
-    }
   }
 
   // say one of LINES[key] (if no better line is up); `force` skips the moment's cooldown, `interrupt` replaces any line
   say(key, ctx = {}, force = false, interrupt = false) {
     const C = LINES[key];
-    if (!C || !this.body) return false;
+    if (!C || !this.body || !this.showing) return false;
     if (!force && C.cool && this.clock - (this.lastSaid[key] ?? -1e9) < C.cool) return false;
-    if (!interrupt && this.bubble.busy(C.prio)) return false;
-    if (!this.showing) return false;
+    if (!C.lines) return this.gesture(key, C, ctx);
+    if (!interrupt && (this.bubble.busy(C.prio) || (C.prio < 4 && this.clock - this.lastTalk < TALK_GAP))) return false;
     this.lastSaid[key] = this.clock;
+    this.lastTalk = this.clock;
     const line = this.pick(key, C.lines);
     if (ctx.swap && ctx.A) ctx = { ...ctx, B: ctx.A.opp };
     const name = (f) => (f ? `<b style="--nc:${esc(f.def.color)}">${esc(f.def.name)}</b>` : '');
@@ -720,10 +888,24 @@ export class Announcer {
     const chars = line.length + 6;
     const secs = Math.min(3.4, Math.max(key === 'count' ? 0.55 : 1.7, 1.2 + chars * 0.045));
     this.bubble.say(html, C.style, secs, C.prio);
-    this.lastLineEnd = this.clock + secs;
     const who = C.look === 'A' ? ctx.A : C.look === 'B' ? ctx.B : null;
     if (who) this.look = who;
     if (C.anim) this.reactTo(C.anim, C.secs ?? 1.2, this.route.length ? 0 : C.hold ?? 0);
+    if (C.sym) this.symbols.show(C.sym);
+    // a soft babble while it shows: about a syllable per four letters, at most ten
+    this.blips = Math.min(10, Math.ceil(line.length / 4));
+    this.blipT = 0;
+    return true;
+  }
+
+  // a silent reaction: his pose and a symbol, nothing to read (most moments since ENG-119)
+  gesture(key, C, ctx) {
+    if (this.route[0]?.kind === 'knock') return false;
+    this.lastSaid[key] = this.clock;
+    const who = C.look === 'A' ? ctx.A : C.look === 'B' ? ctx.B : null;
+    if (who) this.look = who;
+    if (C.anim) this.reactTo(C.anim, C.secs ?? 1.0, this.route.length ? 0 : C.hold ?? 0);
+    if (C.sym) this.symbols.show(C.sym);
     return true;
   }
 
@@ -739,12 +921,18 @@ export class Announcer {
     return lines[i];
   }
 
-  // place his caption: the top of his head on screen, the free area between the HUD bars and the touch buttons
+  // place his caption: the top of his head on screen, the free area between the HUD bars and the touch buttons. The
+  // anchor is where his head is when he stands: a hop's arc and a duck for cover don't move it (no bouncing text)
   speak(game, dt, frozen) {
     if (!this.bubble.cur) { this.bubble.update(dt, null, null, false, frozen); return; }
+    if (this.blips > 0 && this.bubble.visible && !frozen && (this.blipT -= dt) <= 0) {
+      audio.play('blip', 1);
+      this.blips--;
+      this.blipT = 0.075 + Math.random() * 0.04;
+    }
     const cam = game.camera, cv = game.renderer?.renderer?.domElement;
-    const head = this.place === 'hop' || this.react?.anim !== 'cower' ? HEAD : 1.0;
-    tmpV.set(this.pos.x, this.pos.y + head, this.pos.z);
+    const baseY = this.place === 'hop' ? this.hopBaseY : this.pos.y;
+    tmpV.set(this.pos.x, baseY + HEAD, this.pos.z);
     // behind the camera (the intro flythrough): nowhere to put it
     if (!cam || !cv || !this.showing || tmpW.copy(tmpV).applyMatrix4(cam.matrixWorldInverse).z > -0.1) {
       this.bubble.update(dt, null, null, false, frozen);
@@ -753,10 +941,14 @@ export class Announcer {
     const rect = cv.getBoundingClientRect();
     const L = this.bubble.layer.getBoundingClientRect(); // the caption's own frame (the lab docks a panel beside the game)
     tmpV.project(cam);
-    const x = (tmpV.x + 1) / 2 * rect.width, y = (1 - tmpV.y) / 2 * rect.height;
+    // on the game's own pixel grid, so the caption steps with his sprite instead of sliding past it
+    const g = game.renderer?.scale || 1;
+    const x = Math.round((tmpV.x + 1) / 2 * rect.width / g) * g, y = Math.round((1 - tmpV.y) / 2 * rect.height / g) * g;
     const ox = rect.left - L.left, oy = rect.top - L.top;
-    const top = oy + rect.height * (game.hud?.root?.classList.contains('hidden') ? 0.06 : 0.17); // under the bars
-    const bottom = oy + rect.height * (game.touch?.visible ? 0.62 : 0.8); // the on-screen buttons fill the bottom corners
-    this.bubble.update(dt, { x: x + ox, y: y + oy }, { w: L.width, h: L.height, top, bottom }, true, frozen);
+    // under the health bars (measured: their height changes with the screen), above the touch buttons
+    const bars = game.hud?.root?.classList.contains('hidden') ? null : (this.barsEl ??= game.hud?.root?.querySelector('.hud-top'));
+    const top = bars ? bars.getBoundingClientRect().bottom - L.top + 2 : oy + rect.height * 0.04;
+    const bottom = oy + rect.height * (game.touch?.visible ? 0.62 : 0.8);
+    this.bubble.update(dt, { x: x + ox, y: y + oy }, { w: L.width, h: L.height, top, bottom, grid: g, gx: ox, gy: oy }, true, frozen);
   }
 }

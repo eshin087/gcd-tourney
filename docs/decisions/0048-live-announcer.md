@@ -44,15 +44,44 @@ a cool background thing, not a focal point. The balloons went, the lettering shr
    line shows when nothing that outranks it is up; once-a-round moments (first hit, low health, comeback, the clock)
    wait up to 2.5 s for a busy bubble; filler fills a 6-10 s lull.
 5. **The captions** (`src/ui/speechBubble.js`) are DOM, not pixels, so small lettering stays sharp on a phone where
-   the 360 px pixel buffer could not hold it: the UI's Bangers font at about 1.45 `--u` (9 px minimum), cream with a
-   thin ink outline (gold for shouts, pale blue italic for panic, a fighter's name in their color), floating just above
-   his head, fading in and out, in a layer under the HUD so cut-ins and announcements stay on top. No balloon, no tail,
-   no pop or shake, and nothing while he is off screen: he is a background touch, not a focal point. With no room
-   above him under the HUD bars the caption sits beside his head.
+   the 360 px pixel buffer could not hold it: the UI's Bangers font at about 1.45 `--u` (9 px minimum), one line,
+   cream with a thin ink outline for every line (a fighter's name in their color), fading in and out, in a layer under
+   the HUD so cut-ins and announcements stay on top. No balloon, no tail, no pop or shake, and nothing while he is off
+   screen: he is a background touch, not a focal point. Third round (same day, "all over the place and buggy ... not so
+   bouncy"): it is locked straight above his standing head height, moved in the game's own pixel steps with no easing,
+   never switched to his side, and unmoved by a hop's arc or a duck for cover; under the health bars it is only clamped
+   down; and a line stays up at least 1.2 s before another may replace it (the KO count and the winner call excepted).
 6. **Art.** Four new NPC animations (`walk` 4, `run` 4, `shocked` 2, `micThrust` 2; walk and run are cycles in
    place, the engine moves the billboard). The packer reads an NPC animation's frame count from its ANIMATIONS.md
    row. Until a strip is approved, `NPC_FALLBACK` plays the nearest existing pose and the announcer bobs and waddles
    so a sliding idle still reads as walking.
+
+### A living character (ENG-119, same day)
+
+The user asked for funnier, more varied expressions and animations, for him to talk less ("his text can be
+distracting") and for ideas that make him a character people love; they picked every option offered:
+
+1. **Talk less.** Only the round calls and the huge moments are spoken (supers and ultimates, 10+ hit combos,
+   comebacks, low health, beam struggles, the last ten seconds, the KO); below the round calls a line waits
+   `TALK_GAP` (5 s) after the last one. Everything else in `LINES` is a silent reaction: an entry without `lines`
+   plays its pose and a symbol. No filler; quiet moments are fidgets instead.
+2. **Manga symbols** (`src/world/announcerSymbols.js`): sweat drop, !!, ?, anger vein, dizzy stars, music note,
+   steam, sparkle, painted in code from small pixel maps in the shared ink outline at twice his pixel size (at his
+   own density they were a tenth of his height and unreadable at fight distance), one camera-facing sprite beside
+   his head with a short fade, no bounce.
+3. **Knocked over.** An ultimate landing within 8 tiles of him (its target losing 100+ health), a fighter flying past
+   faster than 5.5 u/s within 1.2, a shot, an orb or a beam reaching him,
+   or a KO crash beside him throws him back (`blownAway`), leaves him flat for a second, pops him up dizzy
+   (`popUp`, stars) and, after a blast, sooty with steam. View only: nothing in the simulation touches him.
+4. **More poses** (batch `npc-announcer-r2`, Codex): `blownAway`, `popUp`, `cheer` (huge combos, comebacks, the
+   match winner), `facepalm` (a super or ultimate that took no health in its window, a draw), `wince` (one hit
+   taking 140+ health, KO crashes), `sooty`, and the fidgets `micTap` / `checkWatch` / `patHair` / `mopBrow`. Until
+   a strip is approved `NPC_FALLBACK` plays an existing pose; a fidget without art is skipped and he hums (a
+   music note) instead.
+5. **Tired by a long round**: from 60 s of fighting in a match to fully tired at 120 s (a round break gives 25 s
+   back) he walks up to 30 % slower and his fidget becomes mopping his brow with a sweat drop.
+6. **Voice blips**: a soft square-and-triangle syllable (`audio` `blip`) about every 4 letters, at most ten, while
+   a line shows on screen; muted with the rest of the audio.
 
 ## Alternatives considered
 

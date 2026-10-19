@@ -265,11 +265,17 @@ B: game.fighters[1], M: 'RASENGAN' }, true, true)` shows any line)
       his spot about five tiles behind the fight, off to one side, and keeps to it as the fight moves.
 - [ ] A fighter rushing at him sends him scurrying (or hopping down to the grass at the ring edge, then back up);
       an ultimate, a beam or a beam struggle makes him duck; a melee clash only drops his jaw.
-- [ ] Captions: one at a time, small (about 10 px at 720p, 9 px on a phone), no balloon, just above his head and
-      following him; cream, gold for shouts, pale blue for panic, the fighter's name in their color; nothing while he
-      is off screen; never over the health bars (beside his head when there is no room above).
+- [ ] Captions: one at a time, one line, small (about 10 px at 720p, 9 px on a phone), no balloon, the same cream for
+      every line (the fighter's name in their color); locked 2 px above his head while he walks, runs, hops or ducks
+      (no lag, no sliding to his side; it steps with his sprite); a line stays at least 1.2 s; nothing while he is off
+      screen; never over the health bars.
 - [ ] KO: "X IS DOWN!!", the count ONE / TWO / THREE, then he runs to the winner for the victory close-up and calls
       the round; the next round's call is not blocked by it. Matchend / results: he is gone from the hero shot.
+- [ ] He talks only at big moments (about 10 lines in a two-minute CPU match besides the round calls and the KO);
+      the rest are poses and symbols over his head (sweat, !!, ?, dizzy, notes, steam), large enough to read.
+- [ ] `caster.knockOver(caster.pos.x + 1, caster.pos.z, true)`: thrown back, flat for a second, up dizzy, then
+      sooty with steam; nothing else interrupts it. Standing still with the CPUs off (`game.brains = [null, null]`)
+      he fidgets, or hums a music note while the fidget strips are missing, every 5-10 s.
 - [ ] Training room, menus and the title: no captions, he waits by the gong. Pausing freezes him and his caption.
 - [ ] `det.replay` of both fixtures still matches (he is view only; a rollback never cues him twice).
 

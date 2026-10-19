@@ -70,7 +70,13 @@ export const NPC_CUES = {
 
 // An animation an NPC sheet lacks plays the next one down this chain, then idle (the announcer's ENG-118 moves ship
 // after his engine: `walk` stays idle until its art is approved, and the announcer bobs it, src/world/announcer.js).
-export const NPC_FALLBACK = { hop: 'run', run: 'walk', walk: 'idle', shocked: 'shout', shout: 'point', micThrust: 'point', point: 'idle', cower: 'idle', signal: 'idle' };
+// ENG-119 adds the announcer's comic poses: a knockdown ducks, a cheer shouts, the rest stand idle until drawn (his
+// idle fidgets are skipped instead, Announcer.fidget).
+export const NPC_FALLBACK = {
+  hop: 'run', run: 'walk', walk: 'idle', shocked: 'shout', shout: 'point', micThrust: 'point', point: 'idle', cower: 'idle', signal: 'idle',
+  blownAway: 'cower', popUp: 'idle', cheer: 'shout', facepalm: 'idle', sooty: 'shocked', wince: 'cower', mopBrow: 'idle',
+  micTap: 'idle', checkWatch: 'idle', patHair: 'idle',
+};
 
 // public/npc/<id>/{anims.json, sheet.png} for every NPC in the table -> Map(id -> { meta, image }).
 export async function loadNpcArt() {
@@ -175,7 +181,13 @@ export class NpcSprite {
     let t = A.loop === false ? Math.min(this.t, total - 1) : this.t % total;
     let k = 0;
     while (k < durs.length - 1 && t >= durs[k]) { t -= durs[k]; k++; }
+    this.k = k; // the frame within the animation (the announcer lifts his cheer's jump frame)
     this.setFrame(A.frames[k]);
+  }
+
+  // whether this sheet draws the animation itself (not a fallback)
+  has(anim) {
+    return !!this.meta.animations[anim];
   }
 
   dispose() {
