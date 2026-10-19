@@ -1,14 +1,14 @@
 # Art review queue
 
-## ART-SKL-GOK batch 1 (2026-10-19): candidate set and technical holds
+## ART-SKL-GOK batch 1 (2026-10-19): user-approved set; technical packing follow-up
 
-| 2026-10-19 | goku | superPose | [superPose_v01.png](characters/goku/raw/superPose_v01.png) | v01 | needs review | 3 calls; intended Spirit Bomb gathering loop. | Preliminary Astra raw audit HOLD: apparent size mismatch and 1–2 px tremble not demonstrated after projected scale; strict quantized pack blocked by head-probe scale gate. [Candidate inventory](characters/goku/production/skills-revamp-batch1-candidates.md). |
-| 2026-10-19 | goku | ui_super_bg | [ui_super_bg_v02.png](characters/goku/raw/ui_super_bg_v02.png) | v02 | needs review | 3 calls; user authorized drawing with batch 1 via Claude relay goku-skills #2. | Technical HOLD: Spirit Bomb crosses y=320 central-crop boundary and is clipped in the 4:1 banner crop; call budget exhausted. Previous approved v01 remains approved. [Candidate inventory](characters/goku/production/skills-revamp-batch1-candidates.md). |
-| 2026-10-19 | goku | kamehameha | [kamehameha_v01.png](../vfx/raw/kamehameha_v01.png) | v01 | needs review | 2 calls; selected first result. | Glossy/soft edges and pink fringe need packed-frame review. Candidate inventory records call hashes. |
-| 2026-10-19 | goku | kamehamehaHead | [kamehamehaHead_v01.png](../vfx/raw/kamehamehaHead_v01.png) | v01 | needs review | 2 calls; selected second result. | Bright, broad white core; inspect at beam endpoint in review. |
-| 2026-10-19 | goku | kamehamehaRing | [kamehamehaRing_v01.png](../vfx/raw/kamehamehaRing_v01.png) | v01 | needs review | 1 call. | Review packed size and hard-pixel edges. |
-| 2026-10-19 | goku | spiritBomb | [spiritBomb_v01.png](../vfx/raw/spiritBomb_v01.png) | v01 | needs review | 2 calls; normalized/cropped and nearest-neighbor resampled to eight 256 px frames. | Candidate packer detects 12 frames, expected 8; raw/import layout needs technical resolution. |
-| 2026-10-19 | goku | spiritBombBlast | [spiritBombBlast_v01.png](../vfx/raw/spiritBombBlast_v01.png) | v01 | needs review | 2 calls; normalized/cropped and nearest-neighbor resampled to eight 256 px frames. | Candidate packer detects 9 frames, expected 8; raw/import layout needs technical resolution. |
+| 2026-10-19 | goku | superPose | [superPose_v01.png](characters/goku/raw/superPose_v01.png) | v01 | approved | 3 calls; packed at bodyHeight 226, scale x0.363; [body sheet](../scale/body-goku-superPose.png) B=0.985-0.991. | User approved as packed via Claude relay goku-skills #3. Final Astra audit HOLD: torso/garment and feet broadly match, but head/crown uncertainty (±3–4px) prevents numerical scale certification; requested 1–2px loop tremble is not established. Exact atlas hash and evidence are in the manifest/inventory. |
+| 2026-10-19 | goku | ui_super_bg | [ui_super_bg_v02.png](characters/goku/raw/ui_super_bg_v02.png) | v02 | approved | 3 calls; user authorized v02 via relay #2 and approved it via relay #3 with cropY 130. | Applied source band y=130..513 to `ui/super_bg.png`, then re-packed Goku banner. Previous v01 approval is superseded for the current banner. |
+| 2026-10-19 | goku | kamehameha | [kamehameha_v01.png](../vfx/raw/kamehameha_v01.png) | v01 | approved | 2 calls; selected first result. | User approved via Claude relay goku-skills #3. |
+| 2026-10-19 | goku | kamehamehaHead | [kamehamehaHead_v01.png](../vfx/raw/kamehamehaHead_v01.png) | v01 | approved | 2 calls; selected second result. | User approved via Claude relay goku-skills #3. |
+| 2026-10-19 | goku | kamehamehaRing | [kamehamehaRing_v01.png](../vfx/raw/kamehamehaRing_v01.png) | v01 | approved | 1 call. | User approved via Claude relay goku-skills #3. |
+| 2026-10-19 | goku | spiritBomb | [spiritBomb_v01.png](../vfx/raw/spiritBomb_v01.png) | v01 | approved | 2 calls; normalized/cropped and nearest-neighbor resampled to eight 256 px frames. | User approved via Claude relay goku-skills #3. Packer detects 12 frames, expected 8; technical source-layout follow-up remains open. |
+| 2026-10-19 | goku | spiritBombBlast | [spiritBombBlast_v01.png](../vfx/raw/spiritBombBlast_v01.png) | v01 | approved | 2 calls; normalized/cropped and nearest-neighbor resampled to eight 256 px frames. | User approved via Claude relay goku-skills #3. Packer detects 9 frames, expected 8; technical source-layout follow-up remains open. |
 
 ## ENG-112 Goku normals (2026-10-18): seven drawings approved; one redraw round authorized for three held moves after merge
 

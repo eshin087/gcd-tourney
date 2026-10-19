@@ -16,7 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
-- Added (ART-SKL-GOK): saved batch 1 effect and `superPose_v01` candidates plus the user-authorized `ui_super_bg_v02`; recorded call provenance and technical holds. Spirit Bomb effect frame-count imports and the superPose scale gate remain unresolved; no image approval is recorded.
+- Added (ART-SKL-GOK): saved batch 1 effect and `superPose_v01` candidates plus the user-authorized `ui_super_bg_v02`; recorded call provenance and initial packer/scale findings. User approval was relayed separately in goku-skills #3.
+- Changed (ART-SKL-GOK): recorded user approval via Claude relay goku-skills #3 for Kamehameha v01 effects, Spirit Bomb v01 effects, `superPose_v01` packed at bodyHeight 226, and `ui_super_bg_v02` with cropY 130. Spirit Bomb frame import counts and crop integration remain technical follow-ups.
 
 - Changed: the determinism fixtures are re-recorded after Goku's seven Smash moves (fingerprint 116df829f43b); both replay frame for frame.
 
