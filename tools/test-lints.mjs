@@ -161,6 +161,9 @@ wantError('an alt with a different frame count (guide)', (d) => { d.guide.light1
 wantError('an alt with different phases (manifest default)', (d) => { d.manifest.animationDefaults.heavyAlt.phases = [1, 1, 1]; }, /animationDefaults: "heavyAlt" phases \[1,1,1\] differ/);
 wantError('an alt whose fighter entry changes the frames', (d) => { d.manifest.characters[firstChar].animations.airLight1Alt.frames = 3; }, new RegExp(`characters\\.${firstChar}: "airLight1Alt" has 3 frames`));
 wantError('an alt whose default names another base', (d) => { d.manifest.animationDefaults.light2Alt.altOf = 'light3'; }, /animationDefaults\.light2Alt\.altOf is "light3", the guide says "light2"|animationDefaults\.light2Alt\.altOf is/);
+wantError('a move that strikes behind whose strip is not marked strike: back', (d) => { delete d.guide.bair.strike; }, /MOVES\.bair strikes behind \(back: true\) but ANIM_GUIDE\.bair has no strike: 'back'/);
+wantError('a strip marked strike: back that no back move plays', (d) => { d.guide.fair = { ...d.guide.fair, strike: 'back' }; }, /ANIM_GUIDE\.fair has strike: 'back' but no move with back: true plays it/);
+wantError('an unknown strike side', (d) => { d.guide.uair = { ...d.guide.uair, strike: 'up' }; }, /ANIM_GUIDE\.uair\.strike is "up" - only 'back' is known/);
 wantWarning('SPEC.md missing an animation name only warns', (d) => { d.spec = d.spec.split('`wallTech`').join('wallTech'); }, /art\/SPEC\.md does not mention in backticks: wallTech/);
 check('parseFallback reads the real FALLBACK', parseFallback(fs.readFileSync(path.join(ROOT, 'src/game/sprites.js'), 'utf8')).light1Alt === 'light1');
 check('parseFallback fails loudly when the literal moves', (() => { try { parseFallback('export const OTHER = {};'); return false; } catch { return true; } })());

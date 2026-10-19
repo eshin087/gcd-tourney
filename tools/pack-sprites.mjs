@@ -1089,6 +1089,7 @@ async function loadGuide(file) {
       if (phases) g[m[1]].phases = [+phases[1], +phases[2], +phases[3]];
       const altOf = /altOf\s*:\s*'(\w+)'/.exec(body);
       if (altOf) g[m[1]].altOf = altOf[1];
+      if (/strike\s*:\s*'back'/.test(body)) g[m[1]].strike = 'back';
       const loopFrom = /loopFrom\s*:\s*(\d+)/.exec(body);
       if (loopFrom) g[m[1]].loopFrom = +loopFrom[1];
     }
@@ -1106,6 +1107,7 @@ function normalizeGuide(g) {
     if (a.durations) out[name].durations = a.durations;
     if (a.ms) out[name].ms = a.ms;
     if (typeof a.altOf === 'string') out[name].altOf = a.altOf;
+    if (a.strike === 'back') out[name].strike = 'back';
     if (Number.isInteger(a.loopFrom)) out[name].loopFrom = a.loopFrom;
   }
   return out;
@@ -1273,6 +1275,8 @@ function animDefsFor(id, env) {
       required: CORE.includes(name) || env.manifest.core.includes(name) || c.required === true || (c.required === undefined && d.required === true),
       durations: ms(c) ?? ms(b) ?? ms(d) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? DEFAULT_MS[altOf] ?? 100,
       hitbox: (c.hitbox ?? b.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
+      // which side its auto hit box is found on: the guide's `strike` (a back air strikes behind), an alt's from its base
+      strike: g.strike ?? (altOf && env.guide[altOf]?.strike) ?? 'front',
       approvedVersion: c.approvedVersion ?? null,
       // the strip's own size correction; an alt is its own drawing, so it never inherits its base's
       packScale: c.packScale ?? 1,
@@ -1959,6 +1963,18 @@ function hitBox(cell, ref, T) {
   const cw = Math.max(1, Math.round(b.w * 0.28));
   const front = bbox(cell, b.x1 - cw + 1, 0, b.x1, cell.h - 1);
   return { box: pad(front), rule: 'front' };
+}
+
+// Hitbox for an active frame of a strip that strikes BEHIND the body (animGuide `strike: 'back'`: a back air, drawn
+// facing right with the kick going left; the move's `back: true`). The same rules on the cell mirrored, measured
+// against the idle's back edge (ref.minX) instead of its front: 1. 'back' (the limb reaching behind the idle's back),
+// 2. 'up', 3. 'rear' (the back-most 28 %). The front rule boxed the body or the space in front, which missed (TOOL-062).
+const REAR_RULE = { forward: 'back', up: 'up', front: 'rear' };
+function rearHitBox(cell, ref, T) {
+  const h = hitBox(flipH(cell), { ...ref, maxX: cell.w - 1 - ref.minX }, T);
+  if (!h) return null;
+  const [x, y, w, hh] = h.box;
+  return { box: [cell.w - x - w, y, w, hh], rule: REAR_RULE[h.rule] };
 }
 
 // the opaque colours of a fighter's packed sheet (every page its anims.json lists), or null when a page is missing or
@@ -2672,7 +2688,8 @@ function packCharacter(id, env) {
   // ref.minY is the top of an UPRIGHT head: the rising-strike rule (hitBox) looks for a fist above it. The title-style
   // idles are crouched combat stances (Killua's is 146 px against a 186 px neutral), so every upright pose's hair would
   // read as "rising above the idle head"; builds.json "standingReference" (the approved neutral cell) is the measure
-  // instead, and a fighter without one keeps the idle (TOOL-037). ref.maxX stays the idle's front (the forward rule).
+  // instead, and a fighter without one keeps the idle (TOOL-037). ref.maxX stays the idle's front (the forward rule),
+  // ref.minX its back (the mirrored rule of a strip that strikes behind, rearHitBox).
   const idle = packed.find((p) => p.name === 'idle');
   const standing = loadStandingReference(env.artDir, env.builds?.[id] || {});
   if (standing?.error) warn(`${standing.error} - the rising-strike hit box rule is measured against the idle`);
@@ -2680,10 +2697,10 @@ function packCharacter(id, env) {
   let ref;
   if (idle) {
     const bs = idle.cells.map((c) => bbox(c)).filter(Boolean);
-    ref = { maxX: Math.max(...bs.map((b) => b.x1)), minY: Math.min(...bs.map((b) => b.y0)) };
+    ref = { maxX: Math.max(...bs.map((b) => b.x1)), minX: Math.min(...bs.map((b) => b.x0)), minY: Math.min(...bs.map((b) => b.y0)) };
   } else {
     const bh = defs.find((d) => d.name === 'idle')?.bodyHeight ?? DEFAULT_BODY_HEIGHT;
-    ref = { maxX: spec.pivot[0] + Math.round(bh * 0.26), minY: spec.pivot[1] - bh };
+    ref = { maxX: spec.pivot[0] + Math.round(bh * 0.26), minX: spec.pivot[0] - Math.round(bh * 0.26), minY: spec.pivot[1] - bh };
     warn('idle is not packed yet - hitboxes estimated from the idle bodyHeight');
   }
   if (Number.isFinite(standingTop)) { ref.idleMinY = ref.minY; ref.minY = standingTop; R.hitRef = { maxX: ref.maxX, minY: ref.minY, idleMinY: ref.idleMinY, source: standing.label }; }
@@ -2697,7 +2714,7 @@ function packCharacter(id, env) {
       meta.boxes[key] = hb ? { hurt: [hb] } : {};
       const active = p.phases && p.def.hitbox && k >= p.phases[0] && k < p.phases[0] + p.phases[1];
       if (active) {
-        const h = hitBox(cell, ref, T);
+        const h = p.def.strike === 'back' ? rearHitBox(cell, ref, T) : hitBox(cell, ref, T);
         if (h?.box) {
           meta.boxes[key].hit = [h.box];
           autoRule.set(key, { rule: h.rule, at: `${p.name}#${k}` });
@@ -2724,8 +2741,8 @@ function packCharacter(id, env) {
   }
   // only the frames still on the auto box: an override replaced the rest, so "check them" would send the artist to
   // frames that are already handled (TOOL-037)
-  const front = [...autoRule].filter(([key, a]) => a.rule === 'front' && !overridden.has(key)).map(([, a]) => a.at);
-  if (front.length) R.notes.push(`${front.length} active frame(s) had no clear strike limb - hitbox = front 28% of the body (${front.join(', ')}; check them in the Sprite Lab or add hitboxes.json overrides)`);
+  const front = [...autoRule].filter(([key, a]) => (a.rule === 'front' || a.rule === 'rear') && !overridden.has(key)).map(([, a]) => a.at);
+  if (front.length) R.notes.push(`${front.length} active frame(s) had no clear strike limb - hitbox = front 28% of the body, rear 28% on a back strike (${front.join(', ')}; check them in the Sprite Lab or add hitboxes.json overrides)`);
   // lying frames (ADR 0020): the ground check (warn only) and the footprint the engine lays the contact shadow along
   const footprint = groundCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(footprint).length) meta.footprint = footprint;
