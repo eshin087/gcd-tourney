@@ -2049,16 +2049,21 @@ export class Game {
     this.excite = Math.min(1, this.excite + 0.4);
   }
 
-  onVanish(f, phase) {
+  // `appear`: a teleport's own `appearFx` (Effects.teleportFx) in place of the star, ring and afterimage; false: nothing
+  onVanish(f, phase, appear) {
     if (phase === 'out') {
       this.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 1.2);
       this.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 0.6, depthTest: false, order: 8 });
       audio.play('vanish');
       this.hud.callout(f.index, 'VANISH!', f.def.color);
     } else {
-      this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
-      this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 1, color: f.def.color, depthTest: false, order: 8 });
-      f.actor.ghost(f.def.color, 0.3, 0.6);
+      if (appear !== undefined) {
+        if (appear) this.fx.teleportFx(appear, f.pos);
+      } else {
+        this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
+        this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 1, color: f.def.color, depthTest: false, order: 8 });
+        f.actor.ghost(f.def.color, 0.3, 0.6);
+      }
       audio.play('vanishIn');
       this.freeze = Math.max(this.freeze, 5);
       // a vanish inside a combo (not a kit teleport): the ticker, and VANISH ×2! / ×3! for the ping-pong (ADR 0026)
