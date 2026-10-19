@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed (TOOL-062): the sprite packer finds a back air's (`bair`) automatic hit box behind the fighter, on the kick drawn to the left, instead of over the body. `strike: 'back'` in src/art/animGuide.js marks such strips and `npm run lint:anims` checks it against the move's `back: true`; `hitboxes.json` still wins, and every other strip keeps its boxes.
+
 - Changed: the determinism fixtures are re-recorded after Goku's seven Smash moves (fingerprint 116df829f43b); both replay frame for frame.
 
 - Fixed (ENG-116): Sasuke's Lion's Barrage no longer carries its victim past the ring barrier. The heel drop holds them a step beyond him, and with Sasuke as P2 his move runs after their physics, so a victim kicked up at the barrier hung up to 0.1 outside it for the slam (soak() `ring` violations, about 6 in 1,000 Impossible matches, all `launched` victims at x or z = ±8.63-8.65). A held body is now always placed inside the barrier (`kit.js` holdAt). The determinism fixtures are re-recorded on the new simulation fingerprint (4e0e4469acfe); both replay frame for frame.

@@ -307,8 +307,9 @@ until a sheet has one, the move shows the strip in the fallback table below and 
   from in front of the face up over the head (an up tilt must still reach a standing opponent in front), `uair` above
   the head, `fair` in front at the body's height, `bair` behind the body ([Strikes and contact
   zones](#strikes-and-contact-zones)).
-- **`bair` is drawn facing right with the strike to the LEFT** (behind): the engine knows it hits behind. `dSmash` draws
-  a strike on both sides on its active frames.
+- **`bair` is drawn facing right with the strike to the LEFT** (behind): the engine knows it hits behind, and the
+  packer finds its auto hit box on the back-most limb ([Hitboxes and hurtboxes](#hitboxes-and-hurtboxes)), so the
+  kick must be the back-most point. `dSmash` draws a strike on both sides on its active frames.
 - **`fSmash` frame 2 is the charge pose**: the engine holds it while Heavy is held (up to a second), so it reads as
   gathering power (weight back, fist or leg cocked).
 - Same title-style body as every other strip ([PRODUCTION_CONTRACT.md](scale/title-style-pilot/PRODUCTION_CONTRACT.md));
@@ -525,8 +526,14 @@ same folder (TOOL-060, [ADR 0007](../docs/decisions/0007-art-spec-v2-shippuden-2
        combat stances (Killua's is 146 px tall against a 186 px neutral), so against the idle every upright pose's
        hair "rose above the head". A fighter without a `standingReference` keeps the idle as the measure (TOOL-037);
     3) otherwise the forward-most **28 %** of the bounding box, full height.
+  - **Back strikes** (`bair`; `strike: 'back'` in `src/art/animGuide.js`, the move's `back: true` in
+    `src/game/moves.js`; `npm run lint:anims` keeps the two in step) use the same rules mirrored (TOOL-062):
+    1) back strike: the limb reaching behind (screen-left) past the idle pose's bounding box `minX + 9 px`;
+    2) rising strike, as above; 3) otherwise the back-most **28 %**. The `--json` report names these rules `back`,
+    `up` and `rear`. Before this, a `bair` got the front rule's box over the body and needed a `hitboxes.json`
+    override on the rear foot.
   - That is why the idle pose must stay compact (lead fist around x 170-185, the v1 position at the v2
-    scale) and the strike must be the forward-most point.
+    scale) and the strike must be the forward-most point (the back-most one on a back strike).
 - **Overrides**: `art/characters/<id>/hitboxes.json` replaces the auto boxes for the frames it
   lists (coordinates in 256-cell px, inside the contact zones above):
 
