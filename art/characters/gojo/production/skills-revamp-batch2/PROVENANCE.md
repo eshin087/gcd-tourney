@@ -1,6 +1,6 @@
 # Gojo skills revamp · Batch 2 provenance
 
-Date: 2026-10-18. Branch: `art/gojo-skills`. All generation was directed under `gpt-6-luna`, medium. This is a review batch only; no v04/v01 candidate below is user-approved. Batch 1's five effects were approved as drawn via Claude relay gojo-skills #2 (“Approve all five v01”).
+Date: 2026-10-18. Branch: `art/gojo-skills`. All generation was directed under `gpt-6-luna`, medium. The user approved all five drawings below as shown via Claude relay gojo-skills #3 (“Approve all five”); source-format and cache holds remain. Batch 1's five effects were approved via Claude relay gojo-skills #2 (“Approve all five v01”).
 
 ## Candidate inventory
 
@@ -14,4 +14,4 @@ Date: 2026-10-18. Branch: `art/gojo-skills`. All generation was directed under `
 
 ## Technical status
 
-A7/A8 candidate files are the normalized review images and their original generator outputs are retained as linked evidence; these transformations are disclosed in the gallery and review rows. A9/A10 and B1 are unchanged generator sources. The latter three have noncanonical dimensions/color counts/backgrounds. Candidate VFX atlas packed 57 effects / 360 frames at 896x3200 plus HD 2048x8192; it includes batch 1 and all four batch 2 effects. Character pack completed 54 animations / 252 frames at 4096x4096, 48 colors. Body report wrote `art/scale/body-gojo-beamCharge.png`; body B median is 0.896, no advisory flag. Astra inspected actual quantized atlas cells 123-126 and passed with stated occlusion uncertainty. `frames/beamCharge/` remains a stale three-file v01 cache; report to Claude for packer/cache follow-up. Batch 2 candidates are still awaiting the user's visual approval; no production integration is authorized by this review.
+A7/A8 candidate files are the normalized review images and their original generator outputs are retained as linked evidence; these transformations are disclosed in the gallery and review rows. A9/A10 and B1 are unchanged generator sources. All five drawings are now approved; source dimensions/palette/background remain documented. Candidate VFX atlas packed 57 effects / 360 frames at 896x3200 plus HD 2048x8192; it includes batch 1 and all four batch 2 effects. Character pack completed 54 animations / 252 frames at 4096x4096, 48 colors. Body report wrote `art/scale/body-gojo-beamCharge.png`; body B median is 0.896, no advisory flag. Astra inspected actual quantized atlas cells 123-126 and passed with stated occlusion uncertainty. `frames/beamCharge/` remains a stale three-file v01 cache; report to Claude for packer/cache follow-up. Drawing approval does not resolve source-format holds or authorize engine integration.

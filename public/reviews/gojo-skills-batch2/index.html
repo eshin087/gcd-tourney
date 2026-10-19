@@ -32,7 +32,7 @@
 <body>
   <h1>Gojo skills revamp · Batch 2</h1>
   <p>Hollow Purple candidates · 18 October 2026 · branch <code>art/gojo-skills</code></p>
-  <div class="notice"><b>Needs your drawing decision; nothing in this batch is approved.</b> Batch 1 (lapseBlue, blueCollapse, redForm, reversalRed, redBurst v01) was approved by you via Claude. Batch 2 contains beamCharge v04 and four effects. The character strip passes the packer's automatic head gate and has an independent Astra anatomy/scale audit; see its exact findings below. Raw source-format holds remain: purpleForm and sixEyesGlint were normalized by cropping/resizing/recoloring; untouched generator originals are linked. hollowPurple, purpleBurst and beamCharge are unmodified generator outputs with near-magenta backgrounds and oversized source dimensions.</div>
+  <div class="notice"><b>All five batch 2 drawings were approved as shown via Claude relay gojo-skills #3: “Approve all five”.</b> Batch 1 (lapseBlue, blueCollapse, redForm, reversalRed, redBurst v01) was approved via relay #2. Batch 2 contains beamCharge v04 and four effects. The character strip passes the packer's automatic head gate and has an independent Astra anatomy/scale audit; see its exact findings below. Raw source-format holds remain: purpleForm and sixEyesGlint were normalized by cropping/resizing/recoloring; untouched generator originals are linked. hollowPurple, purpleBurst and beamCharge are unmodified generator outputs with near-magenta backgrounds and oversized source dimensions. The beamCharge extracted frame cache is stale; audit evidence uses quantized atlas cells 123-126.</div>
 
   <article class="card">
     <h2>B1 · beamCharge <span class="tag">v04 · 3/3 calls used</span></h2>
@@ -83,7 +83,7 @@
     <p class="meta">Displayed strip: 1536×256, 8 colors, exact magenta corners. Mechanically processed from a 2172×724 RGB original (15,128 RGBA colors): split into six source cells, centered square crop at y=181, effect scaled to half-size per cell with nearest-neighbor sampling, palette mapped and magenta keyed opaque. Untouched original: <a href="media/sixEyesGlint_call01_original.png">sixEyesGlint call 1 original</a>. Processing is a technical hold for your review.</p>
   </article>
 
-  <p class="meta">Call inventory, hashes, prompts, transformations and source files are recorded in <code>art/characters/gojo/production/skills-revamp-batch2/PROVENANCE.md</code>. Please decide on each displayed drawing/version; approval does not clear source-format holds or authorize production integration.</p>
+  <p class="meta">Call inventory, hashes, prompts, transformations and source files are recorded in <code>art/characters/gojo/production/skills-revamp-batch2/PROVENANCE.md</code>. Drawing approval does not clear source-format holds or authorize production integration.</p>
   <script>
     const hd={sixEyesGlint:{row:28,n:6,ms:35},purpleForm:{row:29,n:8,ms:40},hollowPurple:{row:30,n:8,ms:45},purpleBurst:{row:31,n:8,ms:45}};
     for(const el of document.querySelectorAll('[data-effect]')){const x=hd[el.dataset.effect];el.dataset.row=x.row;el.dataset.frames=x.n;el.dataset.ms=x.ms;el.dataset.loop=el.dataset.loop||'true'}
