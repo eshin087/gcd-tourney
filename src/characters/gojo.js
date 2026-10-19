@@ -162,9 +162,13 @@ export default {
   ground: { style: 'cursed', tint: '#b46cff', charge: false },
   // Hollow Purple's merge (ENG-SKL-GOJ, kit.js mergeLook): the drawn palms that hold Red (near) and Blue (far) on each
   // beamCharge frame, final-cell pixels measured by Claude on the packed strip (`_v`: re-measure when it changes);
-  // `meet`, where a drawn merge brings them together (v03 holds them apart: Purple forms 0.9 ahead of him); `eyes`: where
-  // the Six Eyes glint as the merge starts
-  hands: { beamCharge: { _v: 3, near: [[68, 96], [78, 95], [68, 96]], far: [[192, 96], [172, 96], [192, 96]], eyes: [134, 44] } },
+  // `meet`, where the drawn merge brings them together (Purple forms there); `eyes`: where the Six Eyes glint as the
+  // merge starts (v04 f1). v04 measured on the packed strip (auto head fit x0.8562), 2026-10-18
+  hands: {
+    beamCharge: {
+      _v: 4, near: [[64, 108], [172, 101], [146, 120], [144, 120]], far: [[206, 111], [193, 113], [159, 120], [158, 119]], meet: [151, 114], eyes: [140, 75],
+    },
+  },
   model,
   stance,
   extraAnims,
