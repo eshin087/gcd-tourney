@@ -234,7 +234,7 @@ function viewerInfo() {
   const own = f.asset.meta?.animations?.[V.name];
   const used = Object.entries(f.asset.meta?.animations || {}).find(([, v]) => v === A)?.[0];
   const ph = A.phases?.length === 3 ? A.phases : null;
-  const phase = ph ? (act.fi < ph[0] ? 'startup' : act.fi < ph[0] + ph[1] ? 'active' : 'recovery') : (A.loop ? 'loop' : '');
+  const phase = ph ? (act.fi < ph[0] ? 'startup' : act.fi < ph[0] + ph[1] ? 'active' : 'recovery') : A.loop ? (act.fi < (A.loopFrom | 0) ? 'intro' : 'loop') : '';
   const boxes = (k) => f.asset.boxes(act.frame, k, 1)?.length ?? 0;
   const sa = f.asset.meta?.scaleAudit?.anims?.[V.name], fh = sa?.frames?.[act.fi];
   const off = sa && ['uniform', 'drift', 'pop'].includes(sa.verdict);

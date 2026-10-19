@@ -43,7 +43,7 @@ Contents: [Glossary](#glossary) · [Character cell](#character-cell) · [Camera 
 | property | value |
 |---|---|
 | cell | **256 x 256 px**, transparent PNG, one pose per cell |
-| sheet columns | **16** (sheet width 4096 px; 154 frames per character = 10 rows = 2560 px tall; with the 4 kit animations 175 frames = 11 rows = 2816 px). At most **16 rows** (4096 px, 256 cells) per sheet page: the frames past them go on `sheet2.png` ([Sheet pages](#sheet-pages)) |
+| sheet columns | **16** (sheet width 4096 px; 156 frames per character = 10 rows = 2560 px tall; with the 4 kit animations 177 frames = 12 rows = 3072 px). At most **16 rows** (4096 px, 256 cells) per sheet page: the frames past them go on `sheet2.png` ([Sheet pages](#sheet-pages)) |
 | facing | **right** (the engine mirrors the sprite when the fighter faces left) |
 | pivot | **[128, 240]**: x 128 = midpoint between the feet / body center line; y 240 = floor line. Soles touch y 240, 16 px empty below |
 | airborne / lying poses | the lowest body pixel also rests on y 240 (the engine moves the sprite in the air). Lying poses are drawn **side-on from the same 12 degree camera**, never from above: head, back, hips and legs rest on y 240 along the body (packer ground check: at least 40 % of the body's width within 6 px of y 240, no fifth of its length more than 12 px above it, at most bodyHeight x 1.15 tall; see [Lying poses](#lying-poses), ADR 0020) |
@@ -180,7 +180,7 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `airRecover` | 3 | - | - | 180 | - | 50 50 60 | backflip recovery in mid-air |
 | `down` | 2 | - | - | 96 | **yes** | 80 420 | hitting the ground, then lying flat on the back, head toward screen-left; side-on, not seen from above ([Lying poses](#lying-poses)) |
 | `getup` | 5 | - | - | 204 | **yes** | 70 60 60 80 70 | kip-up from lying on the back to standing |
-| `charge` | 4 | yes | - | 198 | **yes** | 50 each | powering up: wide stance, fists clenched at the sides, shouting upward (loop) |
+| `charge` | 6 | from f2 | - | 198 | **yes** | 70 90 110 110 110 110 | powering up: gather and release once, then the held power stance loops ([Charge](#charge)) |
 | `throw` | 4 | - | 1/1/2 | 201 | - | 50 60 70 50 | throwing a projectile in mid-air: arm cocked back, whipped forward, follow-through |
 | `beamCharge` | 3 | yes | - | 198 | **yes** | 50 each | charging a beam: both hands cupped together at the rear hip, shouting (loop) |
 | `beamFire` | 3 | yes | - | 198 | **yes** | 50 each | firing a beam: both arms thrust straight forward, palms open, shouting (loop) |
@@ -222,13 +222,13 @@ and free-running animations). Frame-by-frame descriptions: `art/characters/<id>/
 | `bair` | 6 | - | 2/2/2 | 201 | - | 50 40 50 70 60 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): back air: a mid-air strike BEHIND the body (toward screen-left while the body faces right), the strongest aerial. Missing → `airLight3` mirrored |
 | `uair` | 6 | - | 2/2/2 | 218 | - | 45 40 50 60 50 30 | **normal** ([Directional normals](#directional-normals), ADR 0042): up air: a mid-air strike straight up over the head. Missing → `heavy` |
 
-Totals: 38 animations, 154 frames per character; 23 core animations. Every fighter has a kit
+Totals: 38 animations, 156 frames per character; 23 core animations. Every fighter has a kit
 ([ADR 0011](../docs/decisions/0011-kit-baseline-and-balance.md)), so every fighter also draws the 4 **kit**
-animations (optional for the `complete` flag because they fall back): 42 animations, 175 frames, an 11-row
+animations (optional for the `complete` flag because they fall back): 42 animations, 177 frames, a 12-row
 sheet. The three **tech** strips ([Tech poses](#tech-poses)) are optional for every fighter and fall back too: with them,
-45 animations, 190 frames, a 12-row sheet (4096 x 3072). The eleven **alt** strips ([Attack alts](#attack-alts)) are optional
-for every fighter as well: with all of them, 56 animations, 255 frames, a 16-row sheet (4096 x 4096, still inside a
-4096 texture). A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
+45 animations, 192 frames, a 12-row sheet (4096 x 3072). The eleven **alt** strips ([Attack alts](#attack-alts)) are optional
+for every fighter as well: with all of them, 56 animations, 257 frames: one more than the 256 cells of a 4096 x 4096
+sheet, so the last frame goes on a second page ([Sheet pages](#sheet-pages)). A fighter whose ultimate is not a beam redraws `beamCharge` / `beamFire` as the charge and release poses
 of whatever uses them (Sasuke: Kirin); the names stay, the content follows the kit. The optional `beamStruggle` (ADR 0034)
 follows the fighter's 1-bar energy move the same way (Naruto's Rasengan, Sasuke's Chidori Spear, Killua's Narukami, Gojo's
 Reversal: Red, Goku's Dragon Fist): one more 3-frame strip, and `beamStruggleAir` for a fighter with an air energy shot
@@ -247,6 +247,17 @@ long, so:
 - `launched` is **arched diagonally**, not fully horizontal.
 - Wide strikes (`light3`, `light4`, `airLight2`, `airLight3`) must keep the back foot and hair inside
   x 4 and the striking foot inside x 251; the contact zones below already respect that.
+
+<a id="charge"></a>
+
+**Charge** (holding Special; ENG-117, brief [CHARGE_BRIEF.md](characters/CHARGE_BRIEF.md)). Six frames: f0 GATHER and f1
+RELEASE play once when the charge starts, then f2-f5 HOLD loop for as long as it lasts (`loopFrom: 2` in the manifest and
+anims.json). The held loop is one pose breathing, not four drawings: in f2-f5 the feet (identical pixels on y 240),
+knees and hips do not move, the head moves at most 2 px and the fists at most 2 px; the breath (shoulders and chest
+1-2 px), the shout and the updraft (hair and loose cloth in four different rising shapes) carry the motion, and f5 flows
+into f2. The engine draws the fighter's power-up around the body (`charge` in `src/characters/<id>.js`, ADR 0023) and no
+longer shakes the sprite. A fighter whose manifest entry still says `frames: 4` (drawn under the old 50 ms tremble
+contract) keeps looping all four until its redraw lands.
 
 <a id="tech-poses"></a>
 
@@ -456,7 +467,8 @@ Written by the packer next to `sheet.png` in `public/characters/<id>/`; read by 
 
 - `frames`: sheet cell indices, row-major (index = row x 16 + column), numbered straight through the pages of a
   fighter with more than one ([Sheet pages](#sheet-pages)).
-- `durations`: ms per frame. `loop`: whether it cycles.
+- `durations`: ms per frame. `loop`: whether it cycles. `loopFrom` (optional, loops only): the frame a loop goes back
+  to; the frames before it play once when the animation starts (`charge`: the gather and release, [Charge](#charge)).
 - `phases` (attacks only): number of frames in `[startup, active, recovery]`.
 - `boxes`: keyed by **sheet frame index** (string). `[x, y, w, h]` in frame-local px of the 256 cell
   (origin = top-left of the cell, facing right). `hit` only on active frames of attacks. `"hit": []`

@@ -52,7 +52,7 @@ right on #FF00FF; the packer uses the highest version) and queued in `art/REVIEW
 | [airRecover](#airrecover) | 3 | - | - | 180 | - | 9 |
 | [down](#down) | 2 | - | - | 96 | **yes** | 6 |
 | [getup](#getup) | 5 | - | - | 204 | **yes** | 6 |
-| [charge](#charge) | 4 | - | yes | 198 | **yes** | 7 |
+| [charge](#charge) | 6 | - | yes (from 02) | 198 | **yes** | 7 |
 | [throw](#throw) | 4 | 1/1/2 | - | 201 | - | 9 |
 | [beamCharge](#beamcharge) | 3 | - | yes | 198 | **yes** | 7 |
 | [beamFire](#beamfire) | 3 | - | yes | 198 | **yes** | 7 |
@@ -570,19 +570,25 @@ Wake-up.
 
 ## charge
 
-**powering up: wide stance, fists clenched at the sides, shouting upward (loop)**  
-4 frames · loops · body height 198 px · **CORE** · step 7 · default ms 50, 50, 50, 50
+**powering up: gather and release once, then hold the power stance (loop from frame 02)**  
+6 frames · f00-f01 play once, f02-f05 loop (`loopFrom: 2`) · body height 198 px · **CORE** · step 7 · default ms 70, 90, 110, 110, 110, 110
 
-Ki charge. Do NOT draw the aura: the engine adds aura flames and streaks.
+Ki charge ([SPEC "Charge"](../../SPEC.md#charge), ENG-117). Do NOT draw the aura: the engine adds the fighter's power-up
+around the body. **Loop rules:** in f02-f05 the feet (identical pixels on the floor line), knees and hips do not move,
+the head moves at most 2 px and the fists at most 2 px; the breath, the shout and the updraft (hair and loose cloth in
+four different rising shapes) carry the motion; f05 flows into f02. Draw the four loop frames in one image call from
+one pose.
 
-{{NAME}} flavor for the whole animation: _{{fill in: attitude, signature details, what differs from the generic move}}_
+{{NAME}} flavor for the whole animation: _{{fill in: the fighter's canon power-up pose, attitude, what differs from the generic move}}_
 
 | # | phase | generic pose | {{NAME}} specifics |
 |---|---|---|---|
-| 00 | loop | wide stance, fists clenched at the sides, head tilted up shouting, hair/cloth blown upward | _{{fill in}}_ |
-| 01 | loop | 1 px shake left, cloth variation | _{{fill in}}_ |
-| 02 | loop | like 00 with a hair flicker | _{{fill in}}_ |
-| 03 | loop | 1 px shake right | _{{fill in}}_ |
+| 00 | once | GATHER: weight drops, hands pulled in tight, shoulders hunched, chin tucked; hair and cloth at rest | _{{fill in}}_ |
+| 01 | once | RELEASE: snap open into the power stance (wide stance, fists clenched down and out from the hips), head up, shouting; hair and cloth flung upward | _{{fill in}}_ |
+| 02 | loop | HOLD: the power stance of 01, breath in | _{{fill in}}_ |
+| 03 | loop | shoulders and chest up 1-2 px, the shout widest | _{{fill in}}_ |
+| 04 | loop | as 03, fists and forearms quivering 1 px | _{{fill in}}_ |
+| 05 | loop | shoulders settle 1-2 px, flows back into 02 | _{{fill in}}_ |
 
 ## throw
 
