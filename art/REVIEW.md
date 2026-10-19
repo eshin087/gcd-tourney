@@ -1,24 +1,24 @@
 # Art review queue
 ## Killua skills revamp batch 1 (2026-10-18): A1-A7 effect candidates
 
-All candidates are pending user review. Current selections are listed first; prior saved versions remain reviewable and are not rejected. See the [gallery](../public/reviews/killua-skills-batch1/index.html) and [attempt inventory](characters/killua/production/skills-revamp-batch1/ATTEMPT_INVENTORY.md).
+User approved lightningPalm v01, palmCrackle v01, palmShock v02, shockCrawl v02, godspeedBurst v01, godspeedAura v03 and godspeedStreak v03 as drawn via Claude relay killua-skills #2. Earlier versioned candidates are rejected as superseded and moved to `_rejected/`. See the [gallery](../public/reviews/killua-skills-batch1/index.html) and [attempt inventory](characters/killua/production/skills-revamp-batch1/ATTEMPT_INVENTORY.md).
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
-| 2026-10-18 | Killua | lightningPalm | `vfx/raw/lightningPalm_v01.png` | v01 | needs review | A1 flying palm bolt | 8/8 frames |
-| 2026-10-18 | Killua | palmCrackle | `vfx/raw/palmCrackle_v01.png` | v01 | needs review | A2 palm charge | 6/6 frames |
-| 2026-10-18 | Killua | palmShock | `vfx/raw/palmShock_v02.png` | v02 | needs review | A3 impact shock | 8/8; v01 retained |
-| 2026-10-18 | Killua | palmShock | `vfx/raw/palmShock_v01.png` | v01 | needs review | A3 earlier candidate | 10 detected vs 8 |
-| 2026-10-18 | Killua | shockCrawl | `vfx/raw/shockCrawl_v02.png` | v02 | needs review | A4 stun crawl | 6/6; v01 retained |
-| 2026-10-18 | Killua | shockCrawl | `vfx/raw/shockCrawl_v01.png` | v01 | needs review | A4 earlier candidate | 14 detected vs 6 |
+| 2026-10-18 | Killua | lightningPalm | `vfx/raw/lightningPalm_v01.png` | v01 | approved | A1 flying palm bolt | 8/8 frames |
+| 2026-10-18 | Killua | palmCrackle | `vfx/raw/palmCrackle_v01.png` | v01 | approved | A2 palm charge | 6/6 frames |
+| 2026-10-18 | Killua | palmShock | `vfx/raw/palmShock_v02.png` | v02 | approved | A3 impact shock | 8/8; v01 superseded and rejected |
+| 2026-10-18 | Killua | palmShock | `vfx/raw/_rejected/palmShock_v01.png` | v01 | rejected | A3 earlier candidate | 10 detected vs 8 |
+| 2026-10-18 | Killua | shockCrawl | `vfx/raw/shockCrawl_v02.png` | v02 | approved | A4 stun crawl | 6/6; v01 superseded and rejected |
+| 2026-10-18 | Killua | shockCrawl | `vfx/raw/_rejected/shockCrawl_v01.png` | v01 | rejected | A4 earlier candidate | 14 detected vs 6 |
 | 2026-10-18 | Killua | shockCrawl | `vfx/raw/_qa_hold/shockCrawl_attempt01.png` | attempt01 | needs review | Preserved original unsaved attempt | Not selected; see inventory for filing correction |
-| 2026-10-18 | Killua | godspeedBurst | `vfx/raw/godspeedBurst_v01.png` | v01 | needs review | A5 activation burst | 8/8 frames |
-| 2026-10-18 | Killua | godspeedAura | `vfx/raw/godspeedAura_v03.png` | v03 | needs review | A6 sustained aura | Clipped after 3/3 calls; technical hold |
-| 2026-10-18 | Killua | godspeedAura | `vfx/raw/godspeedAura_v02.png` | v02 | needs review | A6 earlier candidate | Clipped |
-| 2026-10-18 | Killua | godspeedAura | `vfx/raw/godspeedAura_v01.png` | v01 | needs review | A6 earlier candidate | Clipped |
-| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/godspeedStreak_v03.png` | v03 | needs review | A7 movement streak | 6/6 frames |
-| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/godspeedStreak_v02.png` | v02 | needs review | A7 earlier candidate | 9 detected vs 6 |
-| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/godspeedStreak_v01.png` | v01 | needs review | A7 earlier candidate | 4 detected vs 6 |
+| 2026-10-18 | Killua | godspeedBurst | `vfx/raw/godspeedBurst_v01.png` | v01 | approved | A5 activation burst | 8/8 frames |
+| 2026-10-18 | Killua | godspeedAura | `vfx/raw/godspeedAura_v03.png` | v03 | approved | A6 sustained aura | Clipped after 3/3 calls; technical hold |
+| 2026-10-18 | Killua | godspeedAura | `vfx/raw/_rejected/godspeedAura_v02.png` | v02 | rejected | A6 earlier candidate | Clipped |
+| 2026-10-18 | Killua | godspeedAura | `vfx/raw/_rejected/godspeedAura_v01.png` | v01 | rejected | A6 earlier candidate | Clipped |
+| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/godspeedStreak_v03.png` | v03 | approved | A7 movement streak | 6/6 frames |
+| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/_rejected/godspeedStreak_v02.png` | v02 | rejected | A7 earlier candidate | 9 detected vs 6 |
+| 2026-10-18 | Killua | godspeedStreak | `vfx/raw/_rejected/godspeedStreak_v01.png` | v01 | rejected | A7 earlier candidate | 4 detected vs 6 |
 
 ## ENG-112 Goku normals (2026-10-18): seven drawings approved; one redraw round authorized for three held moves after merge
 
@@ -1850,4 +1850,7 @@ Status values: `needs review` · `approved` · `rejected`.
 
 | Date | Character | Asset | Candidate | Version | Status | Change | QA |
 |---|---|---|---|---|---|---|---|
+
+
+
 
