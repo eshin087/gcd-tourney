@@ -1,4 +1,49 @@
 {
   "_comment": "Final 256 px cell coordinates on the packed quantize-48 frames. Only beamStruggle so far; Goku's other beams fall back to the engine's fixed offsets (TASKS follow-up).",
-  "beamStruggle": {"0": {"hand": [240, 101]}, "1": {"hand": [240, 101]}, "2": {"hand": [246, 101]}, "_note": "the Dragon Fist front knuckles, 4 px inside the fist's front edge (x244/244/250, y93-110); Claude 2026-10-17 on v01 packed at bodyHeight 205 with the -6 px frameOffsets; stream origin for the beam clash (ADR 0034)."}
+  "beamStruggle": {
+    "0": {
+      "hand": [
+        240,
+        101
+      ]
+    },
+    "1": {
+      "hand": [
+        240,
+        101
+      ]
+    },
+    "2": {
+      "hand": [
+        246,
+        101
+      ]
+    },
+    "_note": "the Dragon Fist front knuckles, 4 px inside the fist's front edge (x244/244/250, y93-110); Claude 2026-10-17 on v01 packed at bodyHeight 205 with the -6 px frameOffsets; stream origin for the beam clash (ADR 0034)."
+  },
+  "bair": {
+    "2": {
+      "hit": [
+        [
+          4,
+          123,
+          52,
+          38
+        ]
+      ]
+    },
+    "3": {
+      "hit": [
+        [
+          4,
+          132,
+          52,
+          40
+        ]
+      ]
+    },
+    "_v": 1,
+    "_scale": 0.92,
+    "_note": "ENG-112 bair v01: packed-cell contact override (Claude integration check 2026-10-18); f2/f3 kick screen-left behind Goku, so the boxes follow the extended rear foot and shin instead of the default front box over his body. Measured on the packed cells at packScale 0.92."
+  }
 }

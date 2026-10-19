@@ -17,9 +17,19 @@ Fixed, Security. Reference task ids and ADRs where useful.
 ## [Unreleased]
 
 - Changed (ENG-SKL-KIL, ADR 0048): Killua's techniques look like the anime (user 2026-10-18), in his own thin, violet-rimmed lightning instead of the generic glow and white-outs. Lightning Palm (renamed from Narukami): lightning gathers in his palm, a forked bolt flies and the shock runs through them, then crawls over their body while they are stunned. Yo-yo replaces the air bolt: his steel yo-yo snapped down at them and reeled back on its string. Rhythm Echo: no smoke; afterimages close in round them one by one, then the real one strikes from behind. Narukami (renamed from Thunderbolt): lightning gathers in his hand over them, he dives inside a bolt from the sky and it hits the floor. Godspeed: lightning bursts out of him and stays on his body; the blink dash is a streak. Speed of Lightning: streaks zigzag between 8 different blows, each with a shock, and Narukami from above finishes it. Whirlwind: Godspeed on his body; a counter leaves an electrified afterimage and a streak. 10 HD effect names; procedural stand-ins until Codex's art is approved.
+- Changed: the determinism fixtures are re-recorded after Goku's seven Smash moves (fingerprint 116df829f43b); both replay frame for frame.
+
 - Fixed (ENG-116): Sasuke's Lion's Barrage no longer carries its victim past the ring barrier. The heel drop holds them a step beyond him, and with Sasuke as P2 his move runs after their physics, so a victim kicked up at the barrier hung up to 0.1 outside it for the slam (soak() `ring` violations, about 6 in 1,000 Impossible matches, all `launched` victims at x or z = ±8.63-8.65). A held body is now always placed inside the barrier (`kit.js` holdAt). The determinism fixtures are re-recorded on the new simulation fingerprint (4e0e4469acfe); both replay frame for frame.
 - Changed: the determinism fixtures are re-recorded after Gojo's up air (fingerprint 030c2b3c3377); both replay frame for frame.
 
+- Changed (ENG-112 Goku, relay combat #41): recorded one deferred redraw round of up to three calls each for uTilt, uSmash and dSmash; it may start only on `art/normals-goku-r2` after the seven-move branch is merged. No calls made.
+
+- Changed (ENG-112 Goku, relay combat #40): recorded the user's approval via Claude of fTilt v01, dTilt v01, dashAttack v01, fSmash v01, fair v01, bair v01 and uair v01. Their scale QA records remain technical findings; the three held moves are not approved.
+- Changed (ENG-112 Goku, relay combat #39): applied Astra's clarified visual scale bar to the exact 48-color diagnostic atlas; recorded version-bound scaleManualQA passes for fTilt, dTilt, dashAttack, fSmash, fair, bair and uair, with uncertainty. uTilt/uSmash remain undersized holds and dSmash remains an upper-body-volume hold. No drawing approval or strict-gate pass is implied.
+
+
+- Changed (ENG-112 Goku): filed fTilt/fair v01 with attempt provenance and Claude's measured strip fits (1.0/.92); added their 48-color diagnostic atlas and Astra's per-frame audit. Both remain on technical scale hold because occluded landmarks cannot establish ±6%; no redraw or extra fit was recommended.
+- Changed (ENG-112 Goku): recorded all ten candidate versions, the dSmash v02 divider cleanup and packed-atlas import audit; Astra holds all ten pending defensible landmark scale evidence, with uTilt/uSmash undersized and dSmash upper-body volume oversized. No strip is approved or cleared to ship.
 - Changed: the determinism fixtures are re-recorded after Gojo's Smash moves (fingerprint 02e3e1d09ed4); both replay frame for frame.
 ### Changed
 - (ENG-112) Set Gojo uair v01 phases to `[2,1,3]` so only the full kick is active.

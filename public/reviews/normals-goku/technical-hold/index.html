@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goku ENG-112 scale review</title>
+<style>
+:root{color-scheme:dark}body{font:15px/1.5 system-ui,sans-serif;background:#14131a;color:#eee;margin:24px}h1,h2{color:#fff}.note{max-width:1000px;color:#ccc}.hold{max-width:1000px;border-left:4px solid #e4a849;background:#30291e;padding:12px 16px;margin:18px 0}.moves{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;max-width:1300px}.move{background:#201e25;padding:14px;border:1px solid #45414b;border-radius:8px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pair canvas{width:100%;image-rendering:pixelated;background:#24212a}.frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(75px,1fr));gap:4px}.frames img{width:100%;image-rendering:pixelated;background:#f0f;border:1px solid #555}.meta{color:#aaa;font-size:13px}a{color:#9cd0ff}table{border-collapse:collapse}td,th{padding:6px 9px;border:1px solid #514d56;text-align:left;vertical-align:top}
+</style>
+<h1>Goku ENG-112: technical scale review</h1>
+<p class="note">This page shows the actual 48-color quantized diagnostic atlas and is a technical scale review, not image approval. The user approved fTilt v01, dTilt v01, dashAttack v01, fSmash v01, fair v01, bair v01 and uair v01 via Claude relay combat #40. uTilt v01, uSmash v01 and dSmash v02 remain unapproved; strict gate and runtime contact checks are separate.</p>
+<div class="hold"><strong>Astra result under relay #39:</strong> seven candidates pass visual scale/anatomy review within stated uncertainty: fTilt, dTilt, dashAttack, fSmash, fair, bair and uair. Three remain held for visible scale/volume defects: uTilt and uSmash are undersized; dSmash has enlarged upper-body volume. This does not grant user approval or strict-gate/runtime clearance. Read the <a href="astra-audit.md">full Astra audit</a> for measurements and uncertainty.</div>
+<p class="note">Each card compares its packed frames with idle f0 and the closest live move-kind reference at the same 256px density. The cyan outline marks the strike phase based on the packed phase metadata.</p>
+<section class="moves" id="moves"></section>
+<h2>Diagnostic atlas</h2><p><a href="diagnostic-sheet.png">Open the full packed sheet</a> · <a href="packed-atlas.json">packed metadata</a> · <a href="astra-audit.md">Astra measurements</a></p>
+<script>
+const names=['fTilt','uTilt','dTilt','dashAttack','fSmash','uSmash','dSmash','fair','bair','uair'];
+const peers={fTilt:'light2',uTilt:'light2',dTilt:'light2',dashAttack:'light2',fSmash:'heavy',uSmash:'heavy',dSmash:'heavy',fair:'airLight1',bair:'airLight1',uair:'airLight1'};
+fetch('packed-atlas.json').then(r=>r.json()).then(data=>{
+  const sheet=new Image();sheet.src='diagnostic-sheet.png';
+  sheet.onload=()=>{
+    const root=document.querySelector('#moves');
+    for(const name of names){
+      const meta=data.animations[name],ref=data.animations[peers[name]],card=document.createElement('article');card.className='move';
+      const title=document.createElement('h2');title.textContent=`${name} v${name==='dSmash'?'02':'01'}`;card.append(title);
+      const pair=document.createElement('div');pair.className='pair';
+      for(const [label,cell] of [['idle f0',data.animations.idle.frames[0]??data.animations.idle.cells?.[0]], [peers[name]+' f0',ref.frames[0]??ref.cells?.[0]]]){
+        const box=document.createElement('div'),cap=document.createElement('small');cap.textContent=label;const canvas=document.createElement('canvas');canvas.width=256;canvas.height=256;box.append(cap,canvas);canvas.getContext('2d').drawImage(sheet,(cell%16)*256,Math.floor(cell/16)*256,256,256,0,0,256,256);pair.append(box);
+      }
+      card.append(pair);
+      const phase=meta.phases||[meta.frames.length,0,0],activeStart=phase[0],activeEnd=phase[0]+phase[1];
+      const frames=document.createElement('div');frames.className='frames';
+      meta.frames.forEach((cell,i)=>{const box=document.createElement('div'),cap=document.createElement('small'),canvas=document.createElement('canvas');canvas.width=256;canvas.height=256;cap.textContent=`f${i} · cell ${cell}`;if(i>=activeStart&&i<activeEnd)canvas.style.outline='2px solid #59e1ef';canvas.getContext('2d').drawImage(sheet,(cell%16)*256,Math.floor(cell/16)*256,256,256,0,0,256,256);box.append(cap,canvas);frames.append(box)});
+      const info=document.createElement('p');info.className='meta';info.textContent=`${meta.frames.length} packed frames · phases ${phase.join('/')} · outlined frames are active`;
+      card.append(frames,info);root.append(card);
+    }
+  };
+});
+</script>
