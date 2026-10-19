@@ -17,6 +17,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added ART-NPC-ANN-R2 candidate art: ten announcer expression/fidget strips (blownAway v01-v03, sooty v01-v03, eight v01s), a packed phone review and full provenance. Astra passed eight strips and recorded technical holds on blownAway v03 and sooty; user image approval is pending.
+
 - Fixed (ENG-118): the announcer's captions are steady. Each line sits locked straight above his head, moves with his sprite in the game's own pixel steps (no lag or easing), no longer jumps beside him under the health bars or with a hop's arc or a duck, looks the same for every line (one colour, one line) and stays up at least 1.2 s before the next one replaces it.
 
 - Changed: the determinism fixtures are re-recorded after Goku's up tilt (fingerprint bb49081ebda5); both replay frame for frame.

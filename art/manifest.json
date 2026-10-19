@@ -3154,20 +3154,20 @@
           }
         },
         "npc-announcer-r2": {
-          "status": "todo",
-          "reviewStatus": "todo",
-          "note": "ENG-119 living announcer: blownAway, popUp, cheer, facepalm, micTap, checkWatch, patHair, sooty, wince, mopBrow (art/npc/announcer/ANIMATIONS.md)",
+          "status": "packed",
+          "reviewStatus": "needs review",
+          "note": "ENG-119: ten strips candidate-packed for review. Latest: blownAway v03, sooty v03, other eight v01. Astra passes eight; blownAway v03 remains on scale/pose hold (f1 61px vs ~56 target; bent knees, enlarged shoes/head); sooty v03 remains on scale hold (~105px hair-to-floor vs idle112). Astra recommends sooty v02 as the more scale-consistent alternative, with pale lower-face/readability hold; both v02/v03 are shown in the phone review. Latest atlas SHA-256 485FB937538609DF16C02996FE89F9EB1255A35E154E85BB19E99E0C18DC71D2; sooty-v02 comparison atlas SHA-256 4294A1CF3231DFE1BDC50704775A579641593EA091BA33276EEA45FCCFE4DC29. Packer 32 colors, zero warnings. User approval pending: public/reviews/announcer-alive/",
           "items": {
-            "blownAway": {"status":"todo","version":0,"approvedVersion":null},
-            "popUp": {"status":"todo","version":0,"approvedVersion":null},
-            "cheer": {"status":"todo","version":0,"approvedVersion":null},
-            "facepalm": {"status":"todo","version":0,"approvedVersion":null},
-            "micTap": {"status":"todo","version":0,"approvedVersion":null},
-            "checkWatch": {"status":"todo","version":0,"approvedVersion":null},
-            "patHair": {"status":"todo","version":0,"approvedVersion":null},
-            "sooty": {"status":"todo","version":0,"approvedVersion":null},
-            "wince": {"status":"todo","version":0,"approvedVersion":null},
-            "mopBrow": {"status":"todo","version":0,"approvedVersion":null}
+            "blownAway": {"status":"packed","version":3,"approvedVersion":null,"reviewStatus":"needs review","technicalHold":true,"hold":"Astra final audit: f1 height 61px vs approximately 56px target; bent knees rather than straight raised V; enlarged shoe/head volume remains visually conspicuous. f0 97px vs 98 target after cell fit. Budget 3/3."},
+            "popUp": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "cheer": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "facepalm": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "micTap": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "checkWatch": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "patHair": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "sooty": {"status":"packed","version":3,"approvedVersion":null,"reviewStatus":"needs review","technicalHold":true,"hold":"Astra final audit: v03 hair-to-floor about 105px vs idle112, smoke adds ~9px above hair. v02 anatomy/scale passed (~110/108px), but lower face remained pale and soot/cough readability held; see review comparison atlas. Budget 3/3."},
+            "wince": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"},
+            "mopBrow": {"status":"packed","version":1,"approvedVersion":null,"reviewStatus":"needs review"}
           }
         },
         "npc-monk-a": {
