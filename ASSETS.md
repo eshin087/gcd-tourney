@@ -36,6 +36,10 @@ a phone with a 4096 px texture limit shows every frame sharp. A fighter with mor
 (`"pages": ["sheet.png", "sheet2.png"], "pageFrames": 256`); a fighter with 256 frames or fewer has one `sheet.png`
 and no page keys. Details: [art/SPEC.md "Sheet pages"](art/SPEC.md#sheet-pages) (TOOL-060).
 
+A loop can start with frames that play once: `"loopFrom": 2` in the manifest entry (copied to `anims.json`) loops back
+to frame 2 instead of 0. `charge` uses it: a gather and a release, then the held power stance
+([art/SPEC.md "Charge"](art/SPEC.md#charge), ENG-117).
+
 Every fighter has a kit ([ADR 0009](docs/decisions/0009-move-system-v2.md), baseline
 [ADR 0011](docs/decisions/0011-kit-baseline-and-balance.md)), so every fighter has four extra optional strips:
 `specialForward`, `specialUp`, `specialDown` and `superPose` (Naruto's and Sasuke's briefs:

@@ -47,7 +47,7 @@
     "airRecover": { "frames": 3, "loop": false, "bodyHeight": 180, "ms": [50, 50, 60], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "down": { "frames": 2, "loop": false, "bodyHeight": 96, "ms": [80, 420], "required": true, "step": 6, "status": "todo", "version": 0, "approvedVersion": null },
     "getup": { "frames": 5, "loop": false, "bodyHeight": 204, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "todo", "version": 0, "approvedVersion": null },
-    "charge": { "frames": 4, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50, 50], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
+    "charge": { "frames": 6, "loop": true, "loopFrom": 2, "bodyHeight": 198, "ms": [70, 90, 110, 110, 110, 110], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
     "throw": { "frames": 4, "loop": false, "phases": [1, 1, 2], "bodyHeight": 201, "ms": [50, 60, 70, 50], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
     "beamCharge": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
     "beamFire": { "frames": 3, "loop": true, "bodyHeight": 198, "ms": [50, 50, 50], "required": true, "step": 7, "status": "todo", "version": 0, "approvedVersion": null },
