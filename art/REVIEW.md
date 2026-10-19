@@ -1,5 +1,20 @@
 # Art review queue
 
+## Luffy skills revamp — Batch 1 (relay luffy-skills #1, 2026-10-18)
+
+Candidates are unapproved. Technical holds are explicit; approval of a drawing would not clear packer, scale, or runtime checks. See [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) and [review page](../public/reviews/luffy-skills-batch1/).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Luffy | special | [v04](characters/luffy/raw/special_v04.png) · [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) | v04 | needs review | Eight-panel Gum-Gum Pistol candidate, selected from call 3. | Technical HOLD: packer split as 7/8 due touching poses, with clipped f5/f6. No frame atlas written; scale probe also requires version-bound manual comparison. No drawing approval inferred. |
+| 2026-10-18 | Luffy | special | [v03](characters/luffy/raw/_qa_hold/special_v03.png) · [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) | v03 | needs review | Call 2 candidate retained as a superseded diagnostic. | Held in `_qa_hold/`; not selected. |
+| 2026-10-18 | Luffy | throw | [v01](characters/luffy/raw/throw_v01.png) · [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) | v01 | needs review | Air Pistol candidate. | Technical HOLD: head scale probe reports 1.07–1.21; requires an exact version comparison. Failed pack gate, no character atlas written. |
+| 2026-10-18 | Luffy | gumImpact | [v01](vfx/raw/gumImpact_v01.png) · [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) | v01 | needs review | Seven-frame rubber impact candidate. | Technical HOLD: candidate importer detects 9/7 frames; not suitable for integration until corrected. |
+| 2026-10-18 | Luffy | gumFist | [v01](vfx/raw/gumFist_v01.png) · [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) | v01 | needs review | Four-frame Pistol fist candidate. | Candidate VFX pack completed; remains unapproved and needs visual review. |
+| 2026-10-18 | Luffy | gumArm | [v03](vfx/raw/_qa_hold/gumArm_v03.png) · [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) | v03 | needs review | Third and final budgeted tile attempt. | Held: frame 0 is blank; no tile candidate. Procedural stand-in remains. |
+| 2026-10-18 | Luffy | gumArm | [v02](vfx/raw/_qa_hold/gumArm_v02.png) · [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) | v02 | needs review | Second tile attempt. | Held: frame 0 is blank; no tile candidate. |
+| 2026-10-18 | Luffy | gumArm | [v01](vfx/raw/_qa_hold/gumArm_v01.png) · [candidate inventory](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) | v01 | needs review | First tile attempt. | Held: frame 0 is blank; no tile candidate. |
+
 ## ENG-112 Goku normals (2026-10-18): seven drawings approved; one redraw round authorized for three held moves after merge
 
 Goku's head probe is manually disabled. Astra's relay #39 visual scale review passed fTilt v01, dTilt v01, dashAttack v01, fSmash v01, fair v01, bair v01 and uair v01 within recorded uncertainty; the user approved those seven as drawn via Claude relay #40. uTilt v01 and uSmash v01 remain visibly undersized, and dSmash v02 has visibly oversized upper-body volume. These three remain on technical hold pending the separate user decision; no drawing approval is inferred. Strict shipping gate and runtime contact remain separate. [Current Astra audit](characters/goku/production/ENG112_IMPORT_SCALE_AUDIT.md).

@@ -504,6 +504,9 @@ ones.
 
 | effect | frames | ms | color rule | anchor | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|
+| gumArm | 2 | 60 | full color | center, tile | raw | v03 | - | HD tile source missing a valid frame 0 in all three budgeted calls; v01-v03 are preserved in `_qa_hold/`. The game keeps its procedural stand-in. |
+| gumFist | 4 | 40 | full color | center | packed | v01 | - | Pistol fist candidate packed to four HD frames; user review pending. |
+| gumImpact | 7 | 35 | full color | center | raw | v01 | - | Pistol impact candidate; user review and candidate pack pending. |
 | reference/vfx_style_sheet_vNN.png -> vfx_style_sheet.png (optional style anchor) | - | - | - | - | todo | - | - | attach the approved copy to every VFX prompt |
 | spark | 5 | 30 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
 | burst | 5 | 35 | white (tinted) | center | approved | v01 | v01 | Canonical palette/76-frame atlas QA passed; see final packet for deviations and integration. User approved all existing world art on 2026-10-10 (chat with Claude); packed and shipped by Claude. |
@@ -776,6 +779,8 @@ The final strict r6 review pack exits 0: 23 animations / 108 frames, 4096×1792,
 
 The earlier down v01 and getup v01 holds are superseded by user-approved v03; manifest approvedVersion is 3 for both. Special v02 was generated under relay #11 (attempt 5/5 cumulative) as a two-pose f6/f7 recovery continuation assembled with the original source-A part. Its manifest status is approved and approvedVersion is 2, following the user's approval via Claude relay #12, exact quote “Approve Goku light3 v13 and Luffy special v02 as drawn.” Astra final r6 review found body-scale and static sequence PASS within measurement uncertainty. The four user-accepted placement exceptions remain run rear foot f3/f4/f7, airLight1 fist f2/f3, light3 toe f3, and light4 foot f4; beamFire arm-only clipping is a separate Claude continuation exception. Ten active frames use the front-28% fallback hitbox and the documented placement clips. See [r6 review gallery](../public/characters/luffy/calibration-r6/index.html), [final Astra audit](characters/luffy/production/manual-audit-r6/FINAL_STRICT_AUDIT.md), and [r5 parent browser check](characters/luffy/production/relay8-generation/PARENT_BROWSER_R5.md). Runtime contacts/grounding remain Claude's responsibility.
 
+
+Skills revamp Batch 1 (ART-SKL-LUF, relay luffy-skills #1): no new art is approved. special v04 is held by the importer (7/8 frames, touching/clipped poses) and scale gate; prior special v03 is preserved as a diagnostic. throw v01 fails the scale probe and misses the pulled-back wind-up; two unsaved retries were unsuitable. gumFist v01 imports as four frames; gumImpact v01 imports as 9/7; all gumArm v01-v03 have blank f0 and remain in _qa_hold/, so the procedural stand-in stays. User review page is ready, but visual approval cannot clear technical holds. The special manifest keeps approvedVersion 2 while tracking v04 as latest. See [batch 1 provenance](characters/luffy/production/skills-revamp-batch1/candidate-inventory.md) and [gallery](../public/reviews/luffy-skills-batch1/).
 
 Round 2b UI (ADR 0035): super_bg, super_fg, ult_bg and ult_fg v01 approved by the user via the approvals desk (relay effects #10, PR #131).
 ## Adding a character

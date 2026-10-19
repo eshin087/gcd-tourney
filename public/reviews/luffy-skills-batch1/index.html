@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luffy skills revamp · Batch 1</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.5 system-ui, sans-serif; background: #111318; color: #f4efe8; }
+    body { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    h1, h2 { line-height: 1.15; } h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+    h2 { margin-top: 3rem; border-bottom: 1px solid #454956; padding-bottom: .5rem; }
+    .notice { background: #332718; border: 1px solid #9d7133; padding: 1rem; border-radius: .75rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    figure { margin: 0; background: #20232b; padding: .75rem; border-radius: .75rem; }
+    img { display: block; max-width: 100%; max-height: 420px; object-fit: contain; margin: auto; background: #ff00ff; image-rendering: pixelated; }
+    figcaption { margin-top: .6rem; color: #d5d4d0; }
+    code { color: #ffcf78; } a { color: #95caff; }
+    .hold { color: #ffbf73; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>Luffy skills revamp</h1>
+  <p>Batch 1 · Gum-Gum Pistol · Relay <code>luffy-skills #1</code></p>
+  <div class="notice"><strong>Nothing here is approved.</strong> This batch has technical holds. The Pistol strip did not pack cleanly, the air Pistol failed its scale probe, the impact imports as nine frames instead of seven, and no valid gumArm tile was produced. The game's procedural gumArm stand-in remains. Review the drawings as candidates only; visual approval would not clear technical holds.</div>
+
+  <h2>Character strips</h2>
+  <div class="grid">
+    <figure><img src="media/special_v04.png" alt="Luffy Pistol candidate, eight panels"><figcaption><b>special v04</b> · selected from call 3. <span class="hold">Technical HOLD:</span> importer finds 7/8 frames; adjacent poses touch and f5/f6 clip. No packed comparison is available.</figcaption></figure>
+    <figure><img src="media/special_v03.png" alt="Luffy Pistol earlier candidate"><figcaption><b>special v03</b> · call 2, retained in QA hold as a superseded diagnostic.</figcaption></figure>
+    <figure><img src="media/throw_v01.png" alt="Luffy air Pistol candidate"><figcaption><b>throw v01</b> · call 1. <span class="hold">Technical HOLD:</span> scale probe reports 1.07–1.21; drawing also misses the pulled-back airborne wind-up. Two retries were generated but did not meet the brief and were not saved.</figcaption></figure>
+  </div>
+
+  <h2>Effects</h2>
+  <div class="grid">
+    <figure><img src="media/gumFist_v01.png" alt="Four frames of Luffy's flying fist"><figcaption><b>gumFist v01</b> · four-frame candidate. The VFX candidate atlas packed this effect. Unapproved.</figcaption></figure>
+    <figure><img src="media/gumImpact_v01.png" alt="Candidate impact burst"><figcaption><b>gumImpact v01</b> · candidate impact. <span class="hold">Technical HOLD:</span> candidate atlas imports 9 frames, expected 7.</figcaption></figure>
+  </div>
+  <h3>Held gumArm attempts</h3>
+  <p>All three calls have an empty first frame, so none can serve as the required looping tube tile. Each source is preserved under <code>_qa_hold</code>; the remaining procedural stand-in is used.</p>
+  <div class="grid">
+    <figure><img src="media/gumArm_v01.png" alt="Held gumArm attempt one"><figcaption>gumArm v01 · held, blank f0</figcaption></figure>
+    <figure><img src="media/gumArm_v02.png" alt="Held gumArm attempt two"><figcaption>gumArm v02 · held, blank f0</figcaption></figure>
+    <figure><img src="media/gumArm_v03.png" alt="Held gumArm attempt three"><figcaption>gumArm v03 · held, blank f0; three-call budget exhausted</figcaption></figure>
+  </div>
+
+  <h2>Technical evidence</h2>
+  <ul>
+    <li><code>node tools/pack-sprites.mjs luffy --quantize 48 --keep-palette</code> failed; no Luffy sheet or candidate frame output was written.</li>
+    <li><code>node tools/pack-sprites.mjs vfx --candidates</code> completed. The <a href="media/candidate-atlas-hd.png">HD candidate atlas</a> contains gumFist and the malformed 9-frame gumImpact; gumArm is missing.</li>
+    <li><code>npm run scale -- luffy</code> generated the existing scale contact sheet. The body sheet could not be generated because the character pack failed.</li>
+  </ul>
+  <p>See the <a href="../../../art/characters/luffy/production/skills-revamp-batch1/candidate-inventory.md">candidate inventory and exact generation provenance</a> and <a href="../../../art/REVIEW.md">review queue</a>.</p>
+</body>
+</html>

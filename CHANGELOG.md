@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-LUF): prepared Batch 1 candidates and review page on `art/luffy-skills`. The VFX candidate atlas packs gumFist; technical holds remain for special v04 (7/8 frame split/clipping), throw v01 (scale probe and pose), gumImpact v01 (9/7 frames), and gumArm (three blank-f0 attempts). No new art is approved or integrated; see the batch inventory and gallery.
+
 - Changed (ENG-117): holding Special no longer makes the fighter twitch. A strip can now play its first frames once and then loop from a later one (anims.json `loopFrom`; packer, game, menus, Sprite Lab, art review page, lab viewer), and `charge` becomes 6 frames: a gather and a release, then a slow held loop (70/90/110 ms instead of four frames at 50 ms; contract in art/SPEC.md "Charge", brief art/characters/CHARGE_BRIEF.md for the redraw, ART-CHARGE). The game no longer shakes the sprite at 11 Hz during the charge (the Smash attack charge keeps its shake), and the 3D placeholder charges the new way. Today's 4-frame charge art keeps playing as before until each fighter's redraw lands. The determinism fixtures are re-recorded on the new simulation fingerprint (14a183eebf2c); both replay frame for frame.
 - Added (ENG-SKL-GOK, shared): one look path for power-ups (`kit.modeLook`: a mode, a reflex super or a running kit move): `shell` (an AuraShell outline on the body), `tint` (a body tint), `aura` (an effect kept at the feet, behind the body, with an optional see-through `front` copy) and a mode's `burstFx` (its own start burst instead of the white one). View only; no fighter uses it yet (Goku's Kaio-ken and Killua's Godspeed will).
 
