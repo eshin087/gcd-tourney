@@ -423,10 +423,12 @@ export const SPECIAL_MOVES = {
     hit: { dmg: 92, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash' },
   },
   // Instant Transmission: two fingers to the forehead (specialDown), gone, and a kick from behind. Silent and clean
-  // as in the anime (ENG-SKL-GOK): a ki shimmer closing on him (`shimmer`, played backward where he reappears), no smoke
+  // as in the anime (ENG-SKL-GOK): a ki shimmer closing on him from 4 frames before he goes (`vanishFx`), played
+  // backward where he reappears (`appearFx`), no smoke or afterimage
   instantTransmission: {
     kind: 'teleport', anim: 'specialDown', startup: 8, recovery: 4, cost: 100, hide: 6, to: 'behind', off: 0.85, ghosts: 0, follow: 'vanishKick',
-    name: 'INSTANT TRANSMISSION', color: '#ffd84a', shimmer: 'instantTransmission', shimmerScale: 0.95,
+    name: 'INSTANT TRANSMISSION', color: '#ffd84a',
+    vanishFx: { fx: 'instantTransmission', scale: 0.95, bottom: true, lead: 4 }, appearFx: { fx: 'instantTransmission', scale: 0.95, bottom: true, reverse: true },
   },
   // Kaio-ken (ENG-SKL-GOK, the user 2026-10-18: moved off the SUPER to Back + Special): the red aura flares and he is
   // faster and stronger for a while (ADR 0011 mode budget: 1.2 x 1.15 x 1.0, Gear Second's and the Cloak's). In his

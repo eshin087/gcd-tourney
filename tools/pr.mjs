@@ -48,6 +48,22 @@ const die = (msg) => { console.error(`[pr] ${msg}`); process.exit(1); };
 // Inside the project so it is one folder; .gitignore and vite.config.js keep git and the dev server out of it.
 const worktreeDir = (branch) => path.join(ROOT, '.worktrees', branch.replace(/\//g, '-'));
 const currentBranch = (cwd = ROOT) => git(['rev-parse', '--abbrev-ref', 'HEAD'], cwd);
+// Only ENOENT is missing: a folder this restricted profile may not read (EPERM) still holds someone's work.
+const missing = (dir) => { try { fs.statSync(dir); return false; } catch (e) { return e.code === 'ENOENT'; } };
+// Every registered worktree except the main checkout. `gone`: git still lists it but its folder no longer exists
+// (an app deleted the folder itself, or a removal stopped half way); git cannot run inside it.
+const worktrees = () => git(['worktree', 'list', '--porcelain']).split(/\n\n+/).filter((b) => /^worktree /m.test(b)).map((block) => {
+  const dir = path.resolve(block.match(/^worktree (.+)$/m)[1]);
+  return { dir, branch: (block.match(/^branch refs\/heads\/(.+)$/m) || [])[1], locked: /^locked/m.test(block), gone: missing(dir) };
+}).filter((t) => t.dir !== path.resolve(ROOT));
+// Drops that one registration (`git worktree remove` accepts a missing folder); `git worktree prune` would drop every
+// stale entry at once, a detached one whose commits nothing else reaches among them.
+function clearGone(dir) {
+  try { git(['worktree', 'remove', dir], ROOT, true); return true; } catch {
+    console.warn(`[pr] could not clear the registration of ${dir}: \`git worktree prune\` drops it`);
+    return false;
+  }
+}
 
 function start() {
   const branch = positional;
@@ -183,7 +199,14 @@ function merge() {
   }
   const dir = worktreeDir(branch);
   if (fs.existsSync(dir)) {
-    try { git(['worktree', 'remove', dir], ROOT, true); } catch { console.warn(`[pr] left ${dir}: git could not remove it (uncommitted files, or a file still open there); \`git worktree remove\` it later`); }
+    try { git(['worktree', 'remove', dir], ROOT, true); } catch {
+      if (!missing(dir)) console.warn(`[pr] left ${dir}: git could not remove it (uncommitted files, or a file still open there); \`git worktree remove\` it later`);
+    }
+  }
+  // A folder deleted without git (an app's own worktree cleanup), or a removal that deleted the folder but not git's
+  // entry, leaves the branch "checked out" where nothing is: it was never deleted, and the next prune crashed there.
+  for (const t of worktrees()) {
+    if (t.branch === branch && t.gone && !t.locked && clearGone(t.dir)) console.log(`[pr] cleared the registration of ${t.dir}: its folder is gone`);
   }
   const holder = worktreeHolding(git(['worktree', 'list', '--porcelain']), branch);
   if (holder) console.log(`[pr] kept branch ${branch}: it is checked out in ${holder} (delete it once that worktree is done)`);
@@ -216,6 +239,7 @@ function check() {
 
 // Worktrees outlive their branch when a merge could not remove them (a session was still inside, or a branch
 // was merged some other way). Remove the clean ones; anything with uncommitted work stays and is listed.
+// A registration whose folder is already gone loses only git's entry (and the merged branch); the rest are reported.
 // Folders in .worktrees/ that are not git worktrees (hand-made copies) are only reported, never deleted.
 function prune() {
   if (currentBranch() !== 'main') die('run this in the main checkout');
@@ -226,13 +250,28 @@ function prune() {
     .flatMap((line) => line.split(' ').slice(2)));
   const merged = new Set(git(['for-each-ref', '--format=%(refname:short) %(objectname)', 'refs/heads/']).split('\n')
     .map((line) => line.split(' ')).filter(([, sha]) => mergedTips.has(sha)).map(([name]) => name));
-  const trees = git(['worktree', 'list', '--porcelain']).split(/\n\n+/).map((block) => ({
-    dir: path.resolve((block.match(/^worktree (.+)$/m) || [])[1] || ''),
-    branch: (block.match(/^branch refs\/heads\/(.+)$/m) || [])[1],
-  })).filter((t) => t.branch && t.dir !== path.resolve(ROOT));
+  const trees = worktrees();
   for (const t of trees) {
-    if (!merged.has(t.branch)) continue;
-    const dirty = git(['status', '--porcelain'], t.dir);
+    // git status cannot run in a folder that is gone (spawnSync ENOENT once aborted the whole prune): clear a merged
+    // branch's entry like a removal would, report any other and go on
+    if (t.gone) {
+      const why = t.locked ? 'it is locked (`git worktree unlock` it if the folder is really gone)'
+        : !t.branch ? 'it has a detached HEAD, whose commits may be reachable only from there'
+          : !merged.has(t.branch) ? `${t.branch} is not merged` : '';
+      if (why) console.warn(`[pr] kept the registration of ${t.dir}: its folder is missing, but ${why}`);
+      else if (dry) console.log(`[pr] would clear the registration of ${t.dir}: its folder is missing (${t.branch} merged)`);
+      else if (clearGone(t.dir)) {
+        try { git(['branch', '-d', t.branch], ROOT, true); } catch { /* checked out elsewhere */ }
+        console.log(`[pr] cleared the registration of ${t.dir}: its folder is missing (${t.branch} merged)`);
+      }
+      continue;
+    }
+    if (!t.branch || !merged.has(t.branch)) continue;
+    let dirty;
+    try { dirty = git(['status', '--porcelain'], t.dir); } catch {
+      console.warn(`[pr] kept ${t.dir}: git status failed there, so its work is unknown; retry later`);
+      continue;
+    }
     if (dirty) { console.warn(`[pr] kept ${t.dir}: ${t.branch} is merged but has uncommitted work`); continue; }
     if (dry) { console.log(`[pr] would remove ${t.dir} (${t.branch} merged)`); continue; }
     try {

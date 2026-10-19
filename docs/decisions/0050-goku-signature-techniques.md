@@ -50,8 +50,9 @@ rule 4):
 6. **Shot:** `every` (a volley fired one shot per `every` frames through the active phase, one per drawn palm thrust),
    `muzzle` (a flash at the hand) and `halo` (the glow's opacity, 0 for none). The Ki Blast Volley's frames move to
    10 / 12 / 12 (was 12 / 3 / 18) so the three thrusts show.
-7. **Teleport:** `shimmer` (Instant Transmission): no puff or afterimage; the effect closes on him as he goes and plays
-   backward where he reappears.
+7. **Teleport:** Instant Transmission uses the shared teleport look (`vanishFx` / `appearFx`, the Gojo session's
+   PR #187): no puff or afterimage; the shimmer closes on him from 4 frames before he goes (`lead`) and plays backward
+   where he reappears (`reverse`).
 8. **Dive:** Lion's Barrage's `shadow` with no `hits` goes straight to the drop, and `hangPose` holds a strip's startup
    while he hangs: Rising Kick's afterimage chase (blink above them, the two-fist hammer of `airHeavy` into the floor).
    Damage unchanged.

@@ -2075,17 +2075,16 @@ export class Game {
     this.excite = Math.min(1, this.excite + 0.4);
   }
 
-  // `shimmer`: a teleport's own arrival effect (Instant Transmission's shimmer played backward) instead of the flash
-  onVanish(f, phase, shimmer = null) {
+  // `appear`: a teleport's own `appearFx` (Effects.teleportFx) in place of the star, ring and afterimage; false: nothing
+  onVanish(f, phase, appear) {
     if (phase === 'out') {
       this.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 1.2);
       this.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 0.6, depthTest: false, order: 8 });
       audio.play('vanish');
       this.hud.callout(f.index, 'VANISH!', f.def.color);
     } else {
-      if (shimmer) {
-        const n = this.fx.meta.anims[shimmer.fx]?.n ?? 1;
-        this.fx.spawn(shimmer.fx, f.pos.x, f.pos.y, f.pos.z, { bottom: true, scale: shimmer.scale ?? 1, order: 8, seq: Array.from({ length: n }, (_, i) => n - 1 - i) });
+      if (appear !== undefined) {
+        if (appear) this.fx.teleportFx(appear, f.pos);
       } else {
         this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
         this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 1, color: f.def.color, depthTest: false, order: 8 });
