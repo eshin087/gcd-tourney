@@ -1,6 +1,6 @@
 # Gojo: skills revamp (Blue, Red, Hollow Purple, Unlimited Void)
 
-> Brief for the Codex chat **"5 - Skills Effects"** (relay lane `skills`), written by the Claude chat "Gojo skills revamp
+> Brief for the Codex chat **"5 - Gojo"** (relay lane `gojo-skills`), written by the Claude chat "Gojo skills revamp
 > (ENG-SKL-GOJ)" on 2026-10-18. Claude does all engine work (`src/game/**`, `src/world/voidStage.js`, effect names and
 > their procedural stand-ins, the domain sphere and the cosmos, the erased trench, the frozen shots) on branch
 > `feature/gojo-skills`. Codex draws the art below. Everything in [art/SPEC.md](../../SPEC.md),
@@ -69,8 +69,9 @@ Naruto and Sasuke are done and live, Gojo runs in parallel with Killua, Goku and
   tables below is all the packer needs, so `node tools/pack-sprites.mjs vfx --candidates` works for the new names right
   away. Claude registers the same names with procedural stand-ins on `feature/gojo-skills`. Do not edit `src/` or
   `tools/`.
-- **Approval:** the user approves every image version. The approvals desk is off: when a batch is ready, ring Claude
-  with `node tools/relay.mjs ring skills --for user --kind approval --note "<items, versions, review link>"` from
+- **Approval:** the user approves every image version. The approvals desk is off: when a batch is ready, ring the Claude chat
+  "Gojo skills revamp (ENG-SKL-GOJ)"
+  with `node tools/relay.mjs ring gojo-skills --for user --kind approval --note "<items, versions, review link>"` from
   main and stop on that batch; Claude asks the user and relays the answer word for word. Never treat anything else as
   approval.
 
