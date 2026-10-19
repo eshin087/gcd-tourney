@@ -374,7 +374,7 @@ export const SPECIAL_MOVES = {
 
   // ---- Killua (Godspeed era; the anime's look: ENG-SKL-KIL, art/characters/killua/SKILLS_REVAMP.md)
   // Lightning Palm (雷掌, Ikazuchi): his lightning gathers in his open palm (`fx`, held there through the startup)
-  narukami: { kind: 'shot', anim: 'special', startup: 10, active: 3, recovery: 16, projectile: true, proj: 'bolt', cost: 50, name: 'LIGHTNING PALM', color: '#bfe6ff', fx: 'palmCrackle' },
+  narukami: { kind: 'shot', anim: 'special', startup: 10, active: 3, recovery: 16, projectile: true, proj: 'bolt', cost: 50, name: 'LIGHTNING PALM', color: '#bfe6ff', fx: 'palmCrackle', fxScale: 0.8 },
   // Yo-yo: in the air he snaps his steel yo-yo down at them and reels it back in
   yoyo: { kind: 'shot', anim: 'throw', startup: 8, active: 3, recovery: 14, air: true, projectile: true, proj: 'yoyo', cost: 50, name: 'YO-YO', color: '#bfe6ff' },
   // Rhythm Echo (肢曲): nothing where he leaves (`vanishFx: false`), his crackle where he lands (`appearFx`). While he

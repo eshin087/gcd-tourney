@@ -1653,13 +1653,13 @@
       "kirinBody": {"frames":4,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":1.0,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinBody v01."},
       "kirinHead": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.95,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinHead v01."},
       "kirinStrike": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinStrike v01."},
-      "lightningPalm": {"frames":8,"ms":30,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":0.95,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
-      "palmCrackle": {"frames":6,"ms":35,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":0.5,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
-      "palmShock": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":0.98,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
-      "shockCrawl": {"frames":6,"ms":50,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":0.85,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
-      "godspeedBurst": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":0.98,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
-      "godspeedAura": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":0.95,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
-      "godspeedStreak": {"frames":6,"ms":30,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":1,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
+      "lightningPalm": {"frames":8,"ms":30,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.95,"reviewStatus":"approved", "approvalSource":"user via Claude relay killua-skills #2: approved lightningPalm v01 as drawn."},
+      "palmCrackle": {"frames":6,"ms":35,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.5,"reviewStatus":"approved", "approvalSource":"user via Claude relay killua-skills #2: approved palmCrackle v01 as drawn."},
+      "palmShock": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":2,"approvedVersion":2,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource":"user via Claude relay killua-skills #2: approved palmShock v02 as drawn."},
+      "shockCrawl": {"frames":6,"ms":50,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":2,"approvedVersion":2,"hd":true,"fill":0.85,"reviewStatus":"approved", "approvalSource":"user via Claude relay killua-skills #2: approved shockCrawl v02 as drawn."},
+      "godspeedBurst": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource":"user via Claude relay killua-skills #2: approved godspeedBurst v01 as drawn."},
+      "godspeedAura": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":3,"approvedVersion":3,"hd":true,"fill":0.95,"reviewStatus":"approved", "approvalSource":"user via Claude relay killua-skills #2: approved godspeedAura v03 as drawn."},
+      "godspeedStreak": {"frames":6,"ms":30,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":3,"approvedVersion":3,"hd":true,"fill":1.0,"reviewStatus":"approved", "approvalSource":"user via Claude relay killua-skills #2: approved godspeedStreak v03 as drawn."},
       "narukamiBolt": {"frames":4,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":1,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
       "narukamiStrike": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":0.98,"brief":"art/characters/killua/SKILLS_REVAMP.md"},
       "yoyo": {"frames":8,"ms":30,"colorRule":"fullColor","anchor":"center","step":10,"status":"todo","version":null,"approvedVersion":null,"hd":true,"fill":0.42,"brief":"art/characters/killua/SKILLS_REVAMP.md"}
@@ -3315,3 +3315,4 @@
     }
   }
 }
+

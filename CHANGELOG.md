@@ -987,3 +987,7 @@ Reconstructed from the codebase when the changelog was introduced.
 - Recorded relay #8's Sasuke dTilt low-kick retry authorization and dSmash stand-in direction. The capped dTilt v05 round produced only noncompliant painterly outputs; no new candidate was selected.
 
 - Recorded the failed authorized uTilt head-only image edit; the full canvas was repainted, so approved v01 remains held and no v02 candidate was selected.
+
+- Changed (ART-SKL-KIL): filed Killua skills revamp batch 1 effect candidates A1-A7 with source provenance, candidate pack frames and review gallery; godspeedAura remains on clipping hold.
+
+- Changed (ART-SKL-KIL): recorded the user's Claude-relayed approval of the seven batch 1 effects; moved superseded saved attempts to the rejected archive.
