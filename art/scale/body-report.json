@@ -1,7 +1,7 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-10-19T01:42:53.655Z",
+ "generated": "2026-10-19T02:56:25.693Z",
  "fighters": {
   "naruto": {
    "idleGarmentPx": 3260,
@@ -1602,7 +1602,7 @@
    }
   },
   "killua": {
-   "idleGarmentPx": 1557,
+   "idleGarmentPx": 1257,
    "anims": {
     "idle": {
      "v": 8,
@@ -2123,22 +2123,22 @@
      "flag": null
     },
     "throw": {
-     "v": 7,
+     "v": 6,
      "body": [
-      0.865,
       0.929,
-      0.892,
-      0.806
+      0.958,
+      0.894,
+      0.907
      ],
      "head": [
-      0.871,
-      0.858,
-      0.871,
-      0.881
+      0.956,
+      0.991,
+      0.975,
+      1.003
      ],
-     "median": 0.879,
-     "headMedian": 0.871,
-     "flag": "small"
+     "median": 0.918,
+     "headMedian": 0.983,
+     "flag": null
     },
     "beamCharge": {
      "v": 8,
@@ -2317,25 +2317,25 @@
      "flag": "small"
     },
     "specialUp": {
-     "v": 9,
+     "v": 8,
      "body": [
-      0.846,
-      0.887,
-      0.917,
-      0.907,
-      0.934,
-      0.762
+      0.869,
+      0.933,
+      0.986,
+      0.982,
+      0.943,
+      0.967
      ],
      "head": [
-      0.902,
-      0.839,
-      0.925,
-      0.903,
+      0.986,
       0.95,
-      0.677
+      1,
+      1.05,
+      1,
+      0.94
      ],
-     "median": 0.897,
-     "headMedian": 0.903,
+     "median": 0.955,
+     "headMedian": 0.993,
      "flag": null
     },
     "specialDown": {
@@ -2481,7 +2481,7 @@
    }
   },
   "gojo": {
-   "idleGarmentPx": 7563,
+   "idleGarmentPx": 7675,
    "anims": {
     "idle": {
      "v": 6,
@@ -3020,21 +3020,19 @@
      "flag": "small"
     },
     "beamCharge": {
-     "v": 4,
+     "v": 3,
      "body": [
-      0.951,
-      0.918,
-      0.858,
-      0.874
+      1.058,
+      1.039,
+      1.059
      ],
      "head": [
-      0.997,
-      0.997,
       1,
-      0.971
+      1,
+      1.029
      ],
-     "median": 0.896,
-     "headMedian": 0.997,
+     "median": 1.058,
+     "headMedian": 1,
      "flag": null
     },
     "beamFire": {
@@ -3286,6 +3284,71 @@
      "median": 0.925,
      "headMedian": 0.956,
      "flag": null
+    }
+   }
+  },
+  "luffy": {
+   "idleGarmentPx": 937,
+   "anims": {
+    "throw": {
+     "v": 1,
+     "body": [
+      1.092,
+      1.079,
+      1.078,
+      0.934
+     ],
+     "head": [
+      1.72,
+      1.683,
+      1.682,
+      1.014
+     ],
+     "median": 1.079,
+     "headMedian": 1.683,
+     "flag": null
+    },
+    "special": {
+     "v": 4,
+     "body": [
+      1.077,
+      1.076,
+      1.076,
+      1.087,
+      1.12,
+      1.383,
+      1.097,
+      0.98
+     ],
+     "head": [
+      1.014,
+      1.001,
+      1.009,
+      0.994,
+      1.001,
+      0.985,
+      0.991,
+      0.991
+     ],
+     "median": 1.082,
+     "headMedian": 0.997,
+     "flag": null
+    },
+    "beamFire": {
+     "v": 4,
+     "body": [
+      1.253,
+      1.245,
+      1.244
+     ],
+     "head": [
+      2.336,
+      2.019,
+      2.057
+     ],
+     "median": 1.245,
+     "headMedian": 2.057,
+     "flag": "big"
     }
    }
   }

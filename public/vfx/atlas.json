@@ -41,7 +41,7 @@
       { "image": "atlas_hd_sasuke.png", "owner": "sasuke", "cols": 8, "rows": 13 },
       { "image": "atlas_hd_gojo.png", "owner": "gojo", "cols": 8, "rows": 12 },
       { "image": "atlas_hd_killua.png", "owner": "killua", "cols": 8, "rows": 10 },
-      { "image": "atlas_hd_luffy.png", "owner": "luffy", "cols": 7, "rows": 3 }
+      { "image": "atlas_hd_luffy.png", "owner": "luffy", "cols": 8, "rows": 8 }
     ],
     "effects": {
       "poof": { "page": 0, "row": 0, "n": 7, "ms": 40 },
@@ -91,7 +91,12 @@
       "yoyo": { "page": 4, "row": 9, "n": 8, "ms": 30 },
       "gumArm": { "page": 5, "row": 0, "n": 2, "ms": 60 },
       "gumFist": { "page": 5, "row": 1, "n": 4, "ms": 40 },
-      "gumImpact": { "page": 5, "row": 2, "n": 7, "ms": 35 }
+      "gumImpact": { "page": 5, "row": 2, "n": 7, "ms": 35 },
+      "gear3Puff": { "page": 5, "row": 3, "n": 6, "ms": 45 },
+      "gigantArm": { "page": 5, "row": 4, "n": 2, "ms": 60 },
+      "gigantFist": { "page": 5, "row": 5, "n": 4, "ms": 40 },
+      "gigantImpact": { "page": 5, "row": 6, "n": 8, "ms": 50 },
+      "luffyChibi": { "page": 5, "row": 7, "n": 6, "ms": 80 }
     }
   }
 }
