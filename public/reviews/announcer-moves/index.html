@@ -15,11 +15,12 @@
 <div id="moves"></div>
 <h2>Technical holds and history</h2>
 <ul>
-<li class="hold"><strong>Walk v02 — technical hold:</strong> packed contact frames f0/f2 repeat the same leg silhouette, and passing frames f1/f3 repeat; not the specified alternating gait. No generation calls remain (3/3).</li>
-<li class="hold"><strong>Run v03 — technical hold:</strong> packed loop still repeats leg phases and has registration defects; call budget is exhausted (3/3). v02 is retained as history, not selected by the packer.</li>
-<li class="hold"><strong>Shocked v03 — audit hold:</strong> final-budget correction targets Astra's 9 px shoe-contour discrepancy in v02 while preserving the subtle tremble. Repacked-cell shoe contour and anatomy re-audit pending; calls exhausted (3/3).</li>
-<li class="hold"><strong>MicThrust v03 — audit hold:</strong> final-budget correction targets Astra's swapped-hands defect in v02. Right hand should cross from image-left to the mic at screen-right; left hand stays at the ear. Repacked handedness, feet and mic landmarks need re-audit; calls exhausted (3/3).</li>
+<li class="hold"><strong>Walk v02 — technical HOLD:</strong> repeated same-leg phases; packed foot extent x88–89 exceeds the x86 limit. Calls exhausted (3/3).</li>
+<li class="hold"><strong>Run v03 — technical HOLD:</strong> repeated same-leg phases; hair shifts about 13–16 px and f2 foot extent x31–96 exceeds x34–94. Calls exhausted (3/3). v02 remains in history.</li>
+<li class="hold"><strong>Shocked v03 — technical HOLD:</strong> shoe contours still differ by 13 mask pixels; extents are x38–90 vs x39–90. Calls exhausted (3/3).</li>
+<li class="hold"><strong>MicThrust v03 — technical HOLD:</strong> hands remain reversed (left holds mic; right cups ear), and feet differ from approved idle. Calls exhausted (3/3).</li>
 </ul>
+<p class="small">Color-count evidence differs by stage: packer report says 32 colors; independent count of unique opaque RGB values in the latest atlas file says 31 (SHA-256 <code>7D0961E3615E7772729F366A7568654E4C22994432E9232744DD3311C1092761</code>). Both values are recorded without changing the art.</p>
 <p>Versioned raw sources remain preserved in the repository: <code>walk_v01–v02</code>, <code>run_v01–v03</code>, <code>shocked_v01–v03</code>, and <code>micThrust_v01–v03</code>. The hosted page shows the packed v01 and v02/v03 histories and the current quantized candidate loops.</p>
 <p class="small">Packed history: <a href="packed-candidate.png">v01 candidate atlas</a> · <a href="packed-latest-v02-v03.png">v02/v03 candidate atlas</a> · current <a href="packed-latest-v03.png">walk v02 / run v03 / shocked v03 / micThrust v03 atlas</a> · <a href="shipped-atlas.png">shipped atlas</a> · <a href="candidate-anims.json">v01 animation map</a> · <a href="candidate-anims-v02-v03.json">v02/v03 animation map</a> · <a href="candidate-anims-latest.json">current animation map</a> · <a href="generation-provenance.md">generation provenance, call counts and SHA-256</a>. Astra re-audit of current candidates is pending; art approval remains with the user.</p>
 </main>
