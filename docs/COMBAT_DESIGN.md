@@ -245,9 +245,9 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 | kind | does | examples |
 |---|---|---|
 | `rush` | the classic 1-bar rush below; optional `selfDmg` (paid on use), `vortex` (a grind `Vortex` spawned where it connects; `dome`: its look as one HD effect), `blastFx` (its own hit blast instead of the generic explosion, ADR 0044), `trench` (a ground style torn along the floor where the drawn hand drags through the run) and `hitPose` (contact jumps to the drawn strike: that frame's place in the active phase; ADR 0047), `coil` (an HD effect winds round the victim through the hit stop, its frames following the stop, then its `burst`; ADR 0050) | Rasengan, Chidori, Rasenshuriken, Dragon Fist |
-| `shot` | a projectile from a `shot`/`throw` move; feet planted. The projectile may name its look: `lance` (an HD blade laid from the hand along the shot), `orient` (its sprite turned along its flight), `burstFx` (its own hit blast; ADR 0047), `limb` (a stretched limb or a string drawn from the owner's drawn hand to the shot, a tube effect scaled across to `thick`; its `end` effect stands for the shot and snaps back to the hand over `back` s when the shot ends; view only, ENG-SKL-LUF), `muzzle` (a flash at the hand as it leaves), `halo` (its glow's opacity, 0 none); `every` fires a volley one shot per `every` frames through the active phase instead of all at once (ADR 0050) | Narukami, Reversal: Red, shuriken, Chidori Spear, Great Fireball, Ki Blast Volley |
-| `teleport` | optional `anim` wind-up for `startup` frames, then a puff and hide for `hide` frames, reappear `behind` or `above` (with afterimages), optional `recovery` frames of the same animation and an optional `follow` strike. Its own look (view only): `vanishFx` / `appearFx` replace the smoke puff, speed lines and afterimage where it leaves / the star, ring and afterimage where it arrives (`false`: nothing; an effect name, or `{ fx, scale, bottom, y, lead, reverse }`: `lead` starts the vanish that many frames before he disappears, `reverse` plays the frames backward). `afterimage` is reserved for Killua's ring of afterimages | Rhythm Echo, Blink, Instant Transmission |
-| `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop` | Lapse: Blue |
+| `shot` | a projectile from a `shot`/`throw` move; feet planted. The projectile may name its look: `lance` (an HD blade laid from the hand along the shot), `orient` (its sprite turned along its flight), `burstFx` (its own hit blast; ADR 0047), `limb` (a stretched limb or a string drawn from the owner's drawn hand to the shot, a tube effect scaled across to `thick`; its `end` effect stands for the shot and snaps back to the hand over `back` s when the shot ends; view only, ENG-SKL-LUF), `halo: false` (no glow disc under full-color art); the move's `fx` with `fxForm` plays a forming strip at the drawn hand by the startup's progress (the shared hand tick; Red forming on Gojo's fingertip, ADR 0049); `muzzle` (a flash at the hand as it leaves), a number `halo` is the glow disc's opacity, and `every` fires a volley one shot per `every` frames through the active phase instead of all at once (ADR 0050) | Narukami, Reversal: Red, shuriken, Chidori Spear, Great Fireball, Ki Blast Volley |
+| `teleport` | optional `anim` wind-up for `startup` frames, then a puff and hide for `hide` frames, reappear `behind` or `above` (with afterimages), optional `recovery` frames of the same animation and an optional `follow` strike. Its own look (view only): `vanishFx` / `appearFx` replace the smoke puff, speed lines and afterimage where it leaves / the star, ring and afterimage where it arrives (`false`: nothing; an effect name, or `{ fx, scale, bottom, y, lead, reverse }`: `lead` starts the vanish that many frames before he disappears, `reverse` plays the frames backward). `afterimage` is reserved for Killua's ring of afterimages; Blink folds space with a tiny Blue implosion (ADR 0049); Instant Transmission's ki shimmer (ADR 0050) | Rhythm Echo, Blink, Instant Transmission |
+| `pull` | spawns a `Vortex` `dist` ahead: drags the opponent in, `tickHit` every `tick` frames, then `pop`; `look`: its HD `core`, floor `rubble` dragged into it and the `collapse` it ends in (Lapse: Blue, ADR 0049) | Lapse: Blue |
 | `dive` | `rise` toward the opponent (anti-air `riseHit`), `hang` (on `specialUp`'s last frames), then slam (homes in at up to ~45°); landing hits an `area`. `clones` (that many shadow clones poof out and kick up beside him, ADR 0044; `riseCallout` when the rise hits), `shadow` (when the rising kick connects he blinks behind them as they rise, lands `hits` in the air, flips over them and carries them down into the floor with the slam; ADR 0047; with no `hits` and `below` < 0 he blinks above them, holds `hangPose` and drives them down: Goku's afterimage chase, ADR 0050), `landFx: 'thunder' \| 'dust'` | Thunderbolt, Uzumaki Barrage, Lion's Barrage, Rising Kick |
 | `counter` | `len` frames where any hit is absorbed (a projectile just stops). `onCounter`: `freeze` (melee attacker `held` for `stagger`), `strike` (answer at once with `follow`), `behind` (a puff where he stood, the log left in it with `log`, teleport behind, `follow`); `current`: an effect bursting from his body on the read, with an afterimage (Chidori Current, ADR 0047) | Infinity, Sharingan, Substitution |
 | `mode` | a timed buff on `f.mode`: `speed` ×, `damage` ×, `defense` (divides damage taken), `blinkDash`; look: `fx: 'lightning' \| 'chakra'`, `auraColor`/`auraCore`, or a `cloak` on the body (see-through chakra over it, a boiling rim, one tail; ADR 0044); `burstFx` (its own start burst instead of the white one: at the feet, or on the chest with `center`) and, while it lasts, `shell` (an AuraShell outline on the body, a charge style's shell shape), `tint` (a body tint) and `aura` (an effect kept at the feet: one copy behind, a see-through `front` copy); the same look block is read from a reflex super or a running kit move (`kit.modeLook`); drains a HUD bar | Godspeed, Nine-Tails Cloak, Gear Second, Kaio-ken |
@@ -289,7 +289,10 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   marked spot, where it lands as a dome. Frame data unchanged.
 - **Domain** (`unlimitedVoid`, Gojo): a 50-frame flash, then the stage becomes the void
   (`src/world/voidStage.js`) and the opponent is `held` for 150 frames (~2.5 s) while Gojo combos freely.
-  The domain ends early on a KO.
+  The domain ends early on a KO. The anime's sequence (ADR 0049, view only): the Six Eyes glint as the blindfold comes
+  up, a black sphere bursting out of him that swallows the arena (18 frames), an endless cosmos inside on a black mirror
+  floor, light flooding the frozen opponent's head, and the void shattering like glass when it ends. The hold starts
+  the frame the domain opens, as before.
 - Super hits carry `minScale` (0.8 for the flurries): combo scaling never takes them below 80 %.
 - A fighter without a second super fires their ultimate from SUPER.
 
@@ -300,7 +303,10 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Hollow Purple** (Gojo, kind `orb`): a 46-frame flash, then Red (near hand) and Blue (far hand) drift together
   for 26 frames and fuse 0.9 ahead of him; the orb (radius 1.45) rolls forward at 15 units/s for up to 2.4 s,
   erases the opponent's projectiles and vortices, carves a trench, and hits once for 260 (unblockable, unscaled,
-  wall bounce). Gojo recovers 24 frames after the release. Avoid it by leaving its lane or vanishing.
+  wall bounce). Gojo recovers 24 frames after the release. Avoid it by leaving its lane or vanishing. The anime's look
+  (ADR 0049): Red in his near palm and Blue in his far one, his hands bringing them together (`beamCharge` played by
+  the merge's progress), the two colliding into Purple, the HD mass erasing a clean trench, and a violet hit that
+  swallows them instead of the white explosion; the Six Eyes glint as the merge starts. Timing unchanged.
 - **Rampage** (kind `rampage`, ADR 0017): a roar, a pounce on all fours committed to its line, a mauling for what it
   catches. Naruto's old Four-Tails; no fighter uses it since ADR 0045, the kind stays for a future one.
 - **Godspeed: Whirlwind** (Killua, kind `reflex`): a 40-frame flash, then for 300 frames his body answers up to 4
@@ -322,7 +328,8 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Infinity** (Gojo): a projectile that comes within its radius + 1.15 units of him is stopped (ring
   effect, "INFINITY" callout at most every 2 s) whenever he isn't in hitstun, launched, down, getting up or
   held **and has at least 15 ki; each stopped volley costs 15 ki** (`PASSIVES.infinity`; a 3-shuriken throw is one charge). Beams, melee and supers still
-  hit. Chip damage doesn't apply to him while he blocks.
+  hit. Chip damage doesn't apply to him while he blocks. The shot stops dead in a ripple of space and hangs there a
+  moment, fading (`stopFx`, `hang`; ADR 0049, view only).
 
 ### Simultaneous hits (trades)
 - Melee hits found during a frame are applied together after both fighters have moved

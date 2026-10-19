@@ -109,9 +109,22 @@ stand-in until its art is approved.
 | `spiritBomb` | 8 | 60 | full color | center | the Spirit Bomb over his raised hands, grown from small to giant, then falling onto the mark (loop) |
 | `spiritBombBlast` | 8 | 60 | full color | bottom | the Spirit Bomb landing: the dome |
 | `superSaiyanBurst` | 8 | 45 | full color | bottom | the golden aura exploding as he turns Super Saiyan in the match intro |
+| `lapseBlue` | 8 | 40 | full color | center | Gojo's Lapse: Blue, the dense navy-eyed point space falls into (loop); Blue in his far hand (Hollow Purple) |
+| `blueCollapse` | 8 | 40 | full color | center | Blue's end, the implosion; small, Blink's fold where he vanishes and reappears |
+| `redForm` | 6 | 40 | full color | center | Reversal: Red forming on his raised fingertip during the startup |
+| `reversalRed` | 8 | 40 | full color | center | Reversal: Red flying screen-right, its shock wake streaming back (loop, turned along its flight); Red in his near hand |
+| `redBurst` | 8 | 40 | full color | center | Red hitting: the repulsion blast |
+| `infinityRipple` | 6 | 40 | full color | center | the ripple of space where Infinity stops a shot dead |
+| `sixEyesGlint` | 6 | 35 | full color | center | the Six Eyes glint (the Domain's flash, Hollow Purple's merge) |
+| `purpleForm` | 8 | 40 | full color | center | Red and Blue colliding into Purple between his hands (played by the merge's progress) |
+| `hollowPurple` | 8 | 45 | full color | center | Hollow Purple, the imaginary mass rolling forward (loop) |
+| `purpleBurst` | 8 | 45 | full color | center | Hollow Purple hitting: the mass swallowing them |
+| `voidFlood` | 8 | 40 | full color | center | Unlimited Void: light pouring into the frozen opponent's head (loop) |
+| `voidShatter` | 8 | 50 | full color | center | the void breaking like glass over the whole view when the domain ends |
 
 The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md),
-[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md) and
+[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md),
+[art/characters/gojo/SKILLS_REVAMP.md](../characters/gojo/SKILLS_REVAMP.md) and
 [art/characters/goku/SKILLS_REVAMP.md](../characters/goku/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)

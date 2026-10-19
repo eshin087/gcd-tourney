@@ -1306,19 +1306,22 @@
           "approvedVersion": 5
         },
         "beamCharge": {
-          "frames": 3,
-          "loop": true,
+          "frames": 4,
+          "loop": false,
           "bodyHeight": 221,
           "ms": [
-            50,
-            50,
-            50
+            60,
+            60,
+            60,
+            60
           ],
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 3,
-          "approvedVersion": 3
+          "version": 4,
+          "approvedVersion": 4,
+          "reviewStatus": "approved",
+          "approvalSource": "user via Claude relay gojo-skills #3: \"Approve all five\"."
         },
         "beamFire": {
           "frames": 3,
@@ -1690,8 +1693,20 @@
       "spiritBombBlast": {"frames":8,"ms":60,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #3: user approved spiritBombBlast v01.","technicalHold":true},
     "dragonFistAura": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistAura v01.","technicalHold":true},
     "dragonFistDragon": {"frames":10,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistDragon v01.","technicalHold":true},
-    "dragonFistBurst": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistBurst v01.","technicalHold":true}
-  }
+    "dragonFistBurst": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"USER APPROVAL via Claude relay goku-skills #4: user approved dragonFistBurst v01.","technicalHold":true},
+      "lapseBlue": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "blueCollapse": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "redForm": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.6,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "reversalRed": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "redBurst": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "sixEyesGlint": {"frames":6,"ms":35,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.4,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #3: \"Approve all five\"."},
+      "purpleForm": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #3: \"Approve all five\"."},
+      "hollowPurple": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #3: \"Approve all five\"."},
+      "purpleBurst": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #3: \"Approve all five\"."},
+      "infinityRipple": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.6,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #4: \"Approve all three\"."},
+      "voidFlood": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #4: \"Approve all three\"."},
+      "voidShatter": {"frames":8,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #4: \"Approve all three\"."}
+    }
   },
   "decals": {
     "_readme": "Ground-damage decals (ADR 0024, art/decals/README.md). Names, cells, variants, groups, modes and color rules are the engine contract (DECAL_SPECS in tools/pack-decals.mjs; drift is warned). npm run sprites decals packs approved items (approvedVersion here or on worldArt.decal batches) into public/decals/atlas.json + the PNG pages of each page set (at most 4 per match); --candidates writes public/preview/decals/.",
@@ -3153,6 +3168,17 @@
             "point": {"status":"approved","version":1,"approvedVersion":1},
             "shout": {"status":"approved","version":1,"approvedVersion":1},
             "cower": {"status":"approved","version":1,"approvedVersion":1}
+          }
+        },
+        "npc-announcer-r1": {
+          "status": "todo",
+          "reviewStatus": "todo",
+          "note": "ENG-118 live announcer: walk 4, run 4, shocked 2, micThrust 2 (art/npc/announcer/ANIMATIONS.md)",
+          "items": {
+            "walk": {"status":"todo","version":0,"approvedVersion":null},
+            "run": {"status":"todo","version":0,"approvedVersion":null},
+            "shocked": {"status":"todo","version":0,"approvedVersion":null},
+            "micThrust": {"status":"todo","version":0,"approvedVersion":null}
           }
         },
         "npc-monk-a": {

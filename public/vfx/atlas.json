@@ -36,7 +36,7 @@
     "image": "atlas_hd.png",
     "cell": 256,
     "cols": 10,
-    "rows": 31,
+    "rows": 43,
     "ppu": 112,
     "anims": {
       "rasengan": { "row": 0, "n": 8, "ms": 40 },
@@ -69,7 +69,19 @@
       "dragonFistDragon": { "row": 27, "n": 10, "ms": 50 },
       "dragonFistBurst": { "row": 28, "n": 8, "ms": 45 },
       "spiritBomb": { "row": 29, "n": 8, "ms": 60 },
-      "spiritBombBlast": { "row": 30, "n": 8, "ms": 60 }
+      "spiritBombBlast": { "row": 30, "n": 8, "ms": 60 },
+      "lapseBlue": { "row": 31, "n": 8, "ms": 40 },
+      "blueCollapse": { "row": 32, "n": 8, "ms": 40 },
+      "redForm": { "row": 33, "n": 6, "ms": 40 },
+      "reversalRed": { "row": 34, "n": 8, "ms": 40 },
+      "redBurst": { "row": 35, "n": 8, "ms": 40 },
+      "infinityRipple": { "row": 36, "n": 6, "ms": 40 },
+      "sixEyesGlint": { "row": 37, "n": 6, "ms": 35 },
+      "purpleForm": { "row": 38, "n": 8, "ms": 40 },
+      "hollowPurple": { "row": 39, "n": 8, "ms": 45 },
+      "purpleBurst": { "row": 40, "n": 8, "ms": 45 },
+      "voidFlood": { "row": 41, "n": 8, "ms": 40 },
+      "voidShatter": { "row": 42, "n": 8, "ms": 50 }
     }
   }
 }

@@ -1,0 +1,20 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/infinityRipple_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/infinityRipple_v01.png",
+    "vfx/raw/infinityRipple_v01.json"
+  ],
+  "sourceHash": "e534642171457d4d20a3ca5b6e592f1801c30a35",
+  "cell": 256,
+  "files": {
+    "infinityRipple_00.png": "4c38efe27b1d5e06d856440f771f7547a7ee0179",
+    "infinityRipple_01.png": "62e5131a982514cb50c91cc71eef26cddcf2f04f",
+    "infinityRipple_02.png": "310f4443f75b0998e42c2142b33d526048e598d1",
+    "infinityRipple_03.png": "49cbfb93cbede30c012a13cb921253e0e8da509b",
+    "infinityRipple_04.png": "a8fd5c435a5a3eb28499a95b75809efc7889d4dc",
+    "infinityRipple_05.png": "6d12992d6967b9cd7b651e3ad6752293ad59e923"
+  }
+}

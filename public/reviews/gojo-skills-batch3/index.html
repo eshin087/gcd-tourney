@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gojo Skills Revamp · Batch 3 Review</title>
+  <style>
+    :root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#10141c;color:#edf2fa}
+    body{max-width:1120px;margin:0 auto;padding:24px}h1,h2,h3{line-height:1.2}p{color:#c2cad6}
+    .notice{border-left:4px solid #e4a63a;background:#292319;padding:14px 18px;margin:20px 0}
+    .card{background:#1a202b;border:1px solid #354052;border-radius:10px;padding:16px;margin:18px 0}
+    .tag{display:inline-block;padding:2px 9px;border-radius:20px;background:#593b18;color:#ffe1a5;font-size:.86rem}
+    .stage{height:256px;background:#39434a;border:1px solid #68747c;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+    .raw{width:100%;height:auto;background:#ff00ff;image-rendering:pixelated;border-radius:5px}
+    .meta,.caption{font-size:.92rem;color:#b6c0ce}.caption{margin:8px 0 0}
+    img.fx{width:256px;height:256px;flex:0 0 256px;object-fit:contain;image-rendering:pixelated}
+    .body{position:absolute;left:calc(50% - 42px);bottom:8px;width:84px;height:194px}
+    .body i{position:absolute;display:block;background:#1b2329}.head{top:0;left:22px;width:40px;height:42px;border-radius:45% 45% 38% 38%}
+    .torso{top:39px;left:14px;width:56px;height:73px;clip-path:polygon(20% 0,80% 0,100% 100%,0 100%)}
+    .arm{top:47px;width:18px;height:76px;border-radius:10px}.arm.left{left:6px;transform:rotate(8deg)}.arm.right{right:5px;transform:rotate(-8deg)}
+    .leg{top:106px;width:24px;height:83px;border-radius:10px 10px 5px 5px}.leg.left{left:18px;transform:rotate(4deg)}.leg.right{right:17px;transform:rotate(-4deg)}
+    .head-effect{position:absolute;left:calc(50% - 128px);top:-78px}
+    .fullscreen{height:360px;background:#05040c;border:1px solid #3c3b51;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .fullscreen .fx{transform:scale(1.4);flex:none}
+    code{color:#cbd8ff}
+    @media(max-width:640px){body{padding:14px}.fullscreen{height:300px}.fullscreen .fx{transform:scale(1.12)}}
+  </style>
+</head>
+<body>
+  <h1>Gojo skills revamp · Batch 3</h1>
+  <p>Infinity and Unlimited Void · 18 October 2026 · branch <code>art/gojo-skills</code></p>
+  <div class="notice"><b>All three drawings were approved as shown via Claude relay gojo-skills #4: “Approve all three”.</b> The approved-only production VFX atlas now includes them. The unchanged generator sources still have technical holds: noncanonical strip dimensions, near-magenta backgrounds instead of exact <code>#FF00FF</code>, and colors beyond the requested palette. Packing does not resolve these source-format deviations. <code>voidFlood</code> retains subtle inward movement and an apparently oversized center ring. See each asset's provenance ledger for exact call outcomes and hashes.</div>
+
+  <article class="card">
+    <h2>A6 · infinityRipple <span class="tag">v01 · 3/3 calls used</span></h2>
+    <p>Space stops the shot: a small point, expanding concentric distortion rings, then broken arcs. The empty center lets the frozen projectile show through.</p>
+    <div class="stage"><img class="fx" data-effect="infinityRipple" alt="Packed Infinity Ripple preview"></div></div>
+    <p class="caption">Packed candidate at 256px HD cell scale</p>
+    <h3>Unchanged generator strip</h3><img class="raw" src="media/infinityRipple_v01.png" alt="Infinity Ripple raw generator strip">
+    <p class="meta">2172×724 RGB; 47,089 unique RGB colors; 1 exact <code>#FF00FF</code> pixel, with near-magenta variations elsewhere. Packer: 6/6 frames, scale x0.484, 7 stray specks removed. Visual read: six slightly hexagonal ring states, thin cyan-white arcs, empty-looking center. Exact frame sizes, pixel crispness and centering are not certified. No source edits. See <code>art/vfx/raw/infinityRipple_v01.provenance.json</code>.</p>
+  </article>
+
+  <article class="card">
+    <h2>A11 · voidFlood <span class="tag">v01 · 3/3 calls used</span></h2>
+    <p>Thin information streaks converge toward a small point over the frozen opponent's head, leaving the face area mostly clear.</p>
+    <div class="stage"><div class="body"><i class="head"></i><i class="torso"></i><i class="arm left"></i><i class="arm right"></i><i class="leg left"></i><i class="leg right"></i></div><img class="fx head-effect" data-effect="voidFlood" alt="Packed Void Flood over opponent head"></div></div>
+    <p class="caption">Packed effect layered over a standing head-and-shoulders silhouette</p>
+    <h3>Unchanged generator strip</h3><img class="raw" src="media/voidFlood_v01.png" alt="Void Flood raw generator strip">
+    <p class="meta">2172×724 RGB; 45,583 unique RGB colors; 2 exact magenta pixels, dominant background <code>#FC03FA</code>. Packer: 8/8 frames, scale x0.764. Visual holds: inward motion is subtle and center ring appears oversized relative to the frame; residual face clearance and loop continuity need your read. No source edits. See <code>art/vfx/raw/voidFlood_v01.provenance.json</code>.</p>
+  </article>
+
+  <article class="card">
+    <h2>A12 · voidShatter <span class="tag">v01 · 3/3 calls used</span></h2>
+    <p>The black pane cracks, separates into angular shards, opens at center, and clears back to the arena.</p>
+    <div class="fullscreen"><img class="fx" data-effect="voidShatter" data-loop="false" alt="Packed Void Shatter full-screen preview"></div></div>
+    <p class="caption">Packed candidate enlarged over a full-screen black stage</p>
+    <h3>Unchanged generator strip</h3><img class="raw" src="media/voidShatter_v01.png" alt="Void Shatter raw generator strip">
+    <p class="meta">1774×887 RGB; 69,882 unique RGB colors; 59 exact magenta pixels, dominant background <code>#FC03FA</code>; 1,572,810 pixels outside the expected palette. Packer: 8/8 frames, scale x1.191, 44 stray specks removed. The visual sequence reads as cracked panes followed by shards and a clearing center. Source canvas is not a strict eight-cell strip; exact cell boundaries and the removed specks are technical holds. No source edits. See <code>art/vfx/raw/voidShatter_v01.provenance.json</code>.</p>
+  </article>
+
+  <p class="meta">Call ledgers and exact original generator paths, prompts, hashes and source audits are recorded in the three adjacent <code>.provenance.json</code> files. Approve/reject each v01 as drawn or give feedback. Drawing approval will not remove the source-format holds or authorize engine integration.</p>
+  <script>
+    function start(){const specs={infinityRipple:{n:6,ms:40},voidFlood:{n:8,ms:40},voidShatter:{n:8,ms:50}};
+      const players=[...document.querySelectorAll('img.fx[data-effect]')];for(const p of players){const s=specs[p.dataset.effect];p.dataset.frames=s.n;p.dataset.ms=s.ms;p.dataset.loop=p.dataset.loop||'true';p.dataset.index='0';p.src=`media/packed/${p.dataset.effect}_00.png`}
+      const observer=new IntersectionObserver(entries=>{for(const e of entries){e.target.visible=e.isIntersecting;if(e.isIntersecting)e.target.startedAt=performance.now()}},{threshold:.1});players.forEach(x=>observer.observe(x));
+      function tick(now){for(const p of players){if(!p.visible)continue;const frames=Number(p.dataset.frames),ms=Number(p.dataset.ms);p.startedAt??=now;const i=p.dataset.loop==='false'?Math.min(frames-1,Math.floor((now-p.startedAt)/ms)):Math.floor((now-p.startedAt)/ms)%frames;if(i!==Number(p.dataset.index)){p.dataset.index=String(i);p.src=`media/packed/${p.dataset.effect}_${String(i).padStart(2,'0')}.png`}}requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+    start();
+  </script>
+</body>
+</html>
