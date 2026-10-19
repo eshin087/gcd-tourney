@@ -17,6 +17,7 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (ENG-120, ADR 0054): a GOD level for CPU vs CPU, above Impossible and the new default there. Both CPUs play at the top of every dial: parry exchanges that go back and forth (up to 15 parries in a row in testing), melee clash chains that reach their finale, more beam and ultimate clashes, sharper reads and dodges, and longer combos that save bars for a super finish. Same rules as any match; fighting Impossible yourself is unchanged.
 - Changed: the determinism fixtures are re-recorded after Luffy's five new Smash-style normals (ENG-112, fingerprint 519fb322aa11); both replay frame for frame.
 - Fixed (ENG-119): the announcer's emotes sit naturally on him. Each manga mark is anchored to his actual head in every frame (found from his hair in the sheet), so it follows him through a crouch, a facepalm, lying flat and a cheer, and sits tucked against his head the way manga draws it (sweat at the temple, !! and ? at the upper front, stars on top) instead of floating above and away; they are also a little smaller.
 

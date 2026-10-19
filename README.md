@@ -54,8 +54,9 @@ Then open http://127.0.0.1:5188
   game corrects for the other player's lag. Esc (or the pause button) opens the room while you watch; a match has no
   pause, and leaving it counts as a loss; a dropped connection (switching apps, Wi-Fi blinking) has 20 seconds to
   come back into the same match while the other player waits
-- **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to Impossible
-  in its showman style: long, varied combos composed fresh every match in each CPU's own style (wall-bounce
+- **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to **God**, a level
+  only for watching: both CPUs at the top of every dial, trading long parry exchanges, melee clash chains, beam and
+  ultimate clashes and long combos crowned with supers. Impossible (one step down) plays its showman style: long, varied combos composed fresh every match in each CPU's own style (wall-bounce
   "handball", vanish ping-pong, relaunches, kit grinds; each combo's techniques tick by beside the counter and big
   ones get a rating), every special and super in the kit, spells dodged and parried, techs, tech rolls and bursts out
   of combos, wavedashes and power-ups, each called out on a banner (PARRY!, DODGE!, TECH!, BURST!, HANDBALL!,

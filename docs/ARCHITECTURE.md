@@ -51,7 +51,7 @@ src/game/
                             pull/dive/counter/mode), supers and non-beam ultimates (flurry/domain/skyStrike/ignite),
                             passives, modes, burn; state 'kit'
   ai.js                     CpuBrain (Easy/Normal/Hard), DummyBrain (training), makeBrain: press buttons on a Pad
-  aiMaster.js               MasterBrain (IMPOSSIBLE; `showman` style for CPU vs CPU), ADR 0014/0016
+  aiMaster.js               MasterBrain (IMPOSSIBLE; `showman` and `god` styles for CPU vs CPU), ADR 0014/0016
   aiCombo.js                ComboComposer (ADR 0026): MasterBrain's combos. Link prediction (JUGGLE, victim flight,
                             art hit boxes), the edge graph, personas, length tiers + governor, seeded choices
   aiShow.js                 Showcase (ADR 0016): which tools a CPU has shown this match -> option weights;
