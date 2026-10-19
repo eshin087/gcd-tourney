@@ -1,0 +1,1928 @@
+{
+  "art": "art",
+  "artExists": true,
+  "out": "art/characters/goku/production/eng112-dsmash-v02-diagnostic",
+  "warnings": [],
+  "characters": [
+    {
+      "id": "goku",
+      "packed": [
+        {
+          "anim": "idle",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/idle_v02.png",
+          "from": "raw/idle_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.918,
+          "frameScales": [
+            0.91845,
+            0.91845,
+            0.91845,
+            0.91845,
+            0.91845,
+            0.91845,
+            0.91845,
+            0.91845
+          ],
+          "notes": []
+        },
+        {
+          "anim": "run",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/run_v09.png",
+          "from": "raw/run_v09.png",
+          "version": 9,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.924,
+          "frameScales": [
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373
+          ],
+          "notes": []
+        },
+        {
+          "anim": "dash",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/dash_v09.png",
+          "from": "raw/dash_v09.png",
+          "version": 9,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.87,
+          "frameScales": [
+            0.86957,
+            0.86957
+          ],
+          "notes": []
+        },
+        {
+          "anim": "jumpUp",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpUp_v04.png",
+          "from": "raw/jumpUp_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.927,
+          "frameScales": [
+            0.92683,
+            0.92683
+          ],
+          "notes": []
+        },
+        {
+          "anim": "jumpFall",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/jumpFall_v04.png",
+          "from": "raw/jumpFall_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.918,
+          "frameScales": [
+            0.9181,
+            0.9181
+          ],
+          "notes": []
+        },
+        {
+          "anim": "land",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/land_v07.png",
+          "from": "raw/land_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.919,
+          "frameScales": [
+            0.91915,
+            0.91915
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light1",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light1_v04.png",
+          "from": "raw/light1_v04.png",
+          "version": 4,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.924,
+          "frameScales": [
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light2",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light2_v05.png",
+          "from": "raw/light2_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.919,
+          "frameScales": [
+            0.91949,
+            0.91949,
+            0.91949,
+            0.91949,
+            0.91949,
+            0.91949,
+            0.91949
+          ],
+          "notes": []
+        },
+        {
+          "anim": "light3",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/light3_v13.png",
+          "from": "raw/light3_v13.png",
+          "version": 13,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.92,
+          "frameScales": [
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983
+          ],
+          "notes": [
+            "removed 4 specks"
+          ]
+        },
+        {
+          "anim": "light4",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/light4_v09.png",
+          "from": "raw/light4_v09.png",
+          "version": 9,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.924,
+          "frameScales": [
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373
+          ],
+          "notes": []
+        },
+        {
+          "anim": "heavy",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/heavy_v14.png",
+          "from": "raw/heavy_v14.png",
+          "version": 14,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.919,
+          "frameScales": [
+            0.91915,
+            0.91915,
+            0.91915,
+            0.91915,
+            0.91915,
+            0.91915,
+            0.91915,
+            0.91915
+          ],
+          "notes": []
+        },
+        {
+          "anim": "airLight1",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/airLight1_v07.png",
+          "from": "raw/airLight1_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.92,
+          "frameScales": [
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983
+          ],
+          "notes": []
+        },
+        {
+          "anim": "airHeavy",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/airHeavy_v06.png",
+          "from": "raw/airHeavy_v06.png",
+          "version": 6,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.92,
+          "frameScales": [
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983,
+            0.91983
+          ],
+          "notes": []
+        },
+        {
+          "anim": "guard",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/guard_v05.png",
+          "from": "raw/guard_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.921,
+          "frameScales": [
+            0.9214,
+            0.9214
+          ],
+          "notes": []
+        },
+        {
+          "anim": "hurtHigh",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/hurtHigh_v08.png",
+          "from": "raw/hurtHigh_v08.png",
+          "version": 8,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.919,
+          "frameScales": [
+            0.91928,
+            0.91928,
+            0.91928
+          ],
+          "notes": []
+        },
+        {
+          "anim": "launched",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/launched_v08.png",
+          "from": "raw/launched_v08.png",
+          "version": 8,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.925,
+          "frameScales": [
+            0.92462,
+            0.92462
+          ],
+          "notes": []
+        },
+        {
+          "anim": "down",
+          "frames": 2,
+          "expected": 2,
+          "source": "raw/down_v05.png",
+          "from": "raw/down_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.922,
+          "frameScales": [
+            0.92174,
+            0.92174
+          ],
+          "notes": []
+        },
+        {
+          "anim": "getup",
+          "frames": 5,
+          "expected": 5,
+          "source": "raw/getup_v11.png",
+          "from": "raw/getup_v11.png",
+          "version": 11,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.924,
+          "frameScales": [
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373
+          ],
+          "notes": []
+        },
+        {
+          "anim": "charge",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/charge_v05.png",
+          "from": "raw/charge_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.924,
+          "frameScales": [
+            0.92373,
+            0.92373,
+            0.92373,
+            0.92373
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamCharge",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamCharge_v07.png",
+          "from": "raw/beamCharge_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.856,
+          "frameScales": [
+            0.85593,
+            0.85593,
+            0.85593
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamFire",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamFire_v07.png",
+          "from": "raw/beamFire_v07.png",
+          "version": 7,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.922,
+          "frameScales": [
+            0.92241,
+            0.92241,
+            0.92241
+          ],
+          "notes": []
+        },
+        {
+          "anim": "special",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/special_v05.png",
+          "from": "raw/special_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.86,
+          "frameScales": [
+            0.86017,
+            0.86017,
+            0.86017,
+            0.86017,
+            0.86017,
+            0.86017,
+            0.86017,
+            0.86017
+          ],
+          "notes": []
+        },
+        {
+          "anim": "win",
+          "frames": 4,
+          "expected": 4,
+          "source": "raw/win_v05.png",
+          "from": "raw/win_v05.png",
+          "version": 5,
+          "edited": false,
+          "handMade": false,
+          "scale": 1,
+          "frameScales": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "notes": []
+        },
+        {
+          "anim": "beamStruggle",
+          "frames": 3,
+          "expected": 3,
+          "source": "raw/beamStruggle_v01.png",
+          "from": "raw/beamStruggle_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.311,
+          "frameScales": [
+            0.31137,
+            0.31137,
+            0.31137
+          ],
+          "notes": []
+        },
+        {
+          "anim": "fTilt",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/fTilt_v01.png",
+          "from": "raw/fTilt_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.648,
+          "frameScales": [
+            0.64776,
+            0.64776,
+            0.64776,
+            0.64776,
+            0.64776,
+            0.64776,
+            0.64776
+          ],
+          "notes": [
+            "split 1 touching pose group(s)",
+            "split by whole figures: the column split cut a figure between frames 2/3, 3/4"
+          ]
+        },
+        {
+          "anim": "uTilt",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/uTilt_v01.png",
+          "from": "raw/uTilt_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.417,
+          "frameScales": [
+            0.41699,
+            0.41699,
+            0.41699,
+            0.41699,
+            0.41699,
+            0.41699,
+            0.41699
+          ],
+          "notes": []
+        },
+        {
+          "anim": "dTilt",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/dTilt_v01.png",
+          "from": "raw/dTilt_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.551,
+          "frameScales": [
+            0.55051,
+            0.55051,
+            0.55051,
+            0.55051,
+            0.55051,
+            0.55051
+          ],
+          "notes": []
+        },
+        {
+          "anim": "dashAttack",
+          "frames": 7,
+          "expected": 7,
+          "source": "raw/dashAttack_v01.png",
+          "from": "raw/dashAttack_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.544,
+          "frameScales": [
+            0.54364,
+            0.54364,
+            0.54364,
+            0.54364,
+            0.54364,
+            0.54364,
+            0.54364
+          ],
+          "notes": [
+            "split by whole figures: the column split found 5 pose(s), 7 expected"
+          ]
+        },
+        {
+          "anim": "fSmash",
+          "frames": 9,
+          "expected": 9,
+          "source": "raw/fSmash_v01.png",
+          "from": "raw/fSmash_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.563,
+          "frameScales": [
+            0.56331,
+            0.56331,
+            0.56331,
+            0.56331,
+            0.56331,
+            0.56331,
+            0.56331,
+            0.56331,
+            0.56331
+          ],
+          "notes": [
+            "erased 8 rect(s) of fSmash_v01.png (sidecar)",
+            "grid of 3 rows detected"
+          ]
+        },
+        {
+          "anim": "uSmash",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/uSmash_v01.png",
+          "from": "raw/uSmash_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.413,
+          "frameScales": [
+            0.413,
+            0.413,
+            0.413,
+            0.413,
+            0.413,
+            0.413,
+            0.413,
+            0.413
+          ],
+          "notes": [
+            "split 2 touching pose group(s)",
+            "split by whole figures: the column split cut a figure between frames 5/6"
+          ]
+        },
+        {
+          "anim": "dSmash",
+          "frames": 8,
+          "expected": 8,
+          "source": "raw/dSmash_v02.png",
+          "from": "raw/dSmash_v02.png",
+          "version": 2,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.858,
+          "frameScales": [
+            0.85827,
+            0.85827,
+            0.85827,
+            0.85827,
+            0.85827,
+            0.85827,
+            0.85827,
+            0.85827
+          ],
+          "notes": [
+            "erased 11 rect(s) of dSmash_v02.png (sidecar)"
+          ]
+        },
+        {
+          "anim": "fair",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/fair_v01.png",
+          "from": "raw/fair_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.407,
+          "frameScales": [
+            0.40698,
+            0.40698,
+            0.40698,
+            0.40698,
+            0.40698,
+            0.40698
+          ],
+          "notes": [
+            "grid of 2 rows detected"
+          ]
+        },
+        {
+          "anim": "bair",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/bair_v01.png",
+          "from": "raw/bair_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.414,
+          "frameScales": [
+            0.41387,
+            0.41387,
+            0.41387,
+            0.41387,
+            0.41387,
+            0.41387
+          ],
+          "notes": []
+        },
+        {
+          "anim": "uair",
+          "frames": 6,
+          "expected": 6,
+          "source": "raw/uair_v01.png",
+          "from": "raw/uair_v01.png",
+          "version": 1,
+          "edited": false,
+          "handMade": false,
+          "scale": 0.361,
+          "frameScales": [
+            0.3612,
+            0.3612,
+            0.3612,
+            0.3612,
+            0.3612,
+            0.3612
+          ],
+          "notes": []
+        }
+      ],
+      "missing": [
+        "backDash",
+        "superDash",
+        "jumpSquat",
+        "airLight2",
+        "airLight3",
+        "block",
+        "hurtLow",
+        "spin",
+        "airRecover",
+        "throw",
+        "vanish",
+        "stagger",
+        "ko",
+        "intro",
+        "taunt",
+        "specialForward",
+        "specialUp",
+        "specialDown",
+        "superPose",
+        "beamStruggleAir",
+        "techGround",
+        "techRoll",
+        "wallTech",
+        "light1Alt",
+        "light2Alt",
+        "light3Alt",
+        "light4Alt",
+        "heavyAlt",
+        "airLight1Alt",
+        "airLight2Alt",
+        "airLight3Alt",
+        "airHeavyAlt",
+        "hurtHighAlt",
+        "hurtLowAlt"
+      ],
+      "missingCore": [],
+      "failed": [],
+      "blocked": [],
+      "versions": {
+        "idle": 2,
+        "run": 9,
+        "dash": 9,
+        "jumpUp": 4,
+        "jumpFall": 4,
+        "land": 7,
+        "light1": 4,
+        "light2": 5,
+        "light3": 13,
+        "light4": 9,
+        "heavy": 14,
+        "airLight1": 7,
+        "airHeavy": 6,
+        "guard": 5,
+        "hurtHigh": 8,
+        "launched": 8,
+        "down": 5,
+        "getup": 11,
+        "charge": 5,
+        "beamCharge": 7,
+        "beamFire": 7,
+        "special": 5,
+        "win": 5,
+        "beamStruggle": 1,
+        "fTilt": 1,
+        "uTilt": 1,
+        "dTilt": 1,
+        "dashAttack": 1,
+        "fSmash": 1,
+        "uSmash": 1,
+        "dSmash": 2,
+        "fair": 1,
+        "bair": 1,
+        "uair": 1
+      },
+      "complete": true,
+      "frames": 181,
+      "sheet": "4096x3072",
+      "colors": 48,
+      "warnings": [
+        "win: bodyHeight 241 does not fit the 256px cell (8-237px: floor line y 240, 4px top margin) - using 237",
+        "getup: 1 lying frame(s) float above the floor line (#0: 39% of the body within 6px of y 240, worst fifth 7px above it) - draw lying poses side-on at the spec camera (about 12 degrees down) with the head, back, hips and legs resting on y 240 (art/SPEC.md \"Lying poses\", ADR 0020); v11 is the approved version: queue a side-on redraw"
+      ],
+      "notes": [
+        "packScale x0.92: every strip, frameOffsets and hitboxes.json point resized about the pivot (ADR 0041)",
+        "dash: packScale x0.945 (this strip, ADR 0041)",
+        "beamCharge: packScale x0.93 (this strip, ADR 0041)",
+        "special: packScale x0.93 (this strip, ADR 0041)",
+        "win: packScale x1.105 (this strip, ADR 0041)",
+        "fair: packScale x0.92 (this strip, ADR 0041)",
+        "palette snapped to 48 colors",
+        "hitboxes.json beamStruggle: boxes and hand anchors scaled x0.920 about the pivot (auto-head fit and packScale x0.92); re-measure them and set \"_scale\": 0.92",
+        "3 hitbox override(s) from hitboxes.json",
+        "14 active frame(s) had no clear strike limb - hitbox = front 28% of the body (light1#2, light4#3, airLight1#1, airHeavy#3, fTilt#2, uTilt#2, uTilt#3, dashAttack#2, uSmash#3, uSmash#4, bair#2, bair#3, uair#2, uair#3; check them in the Sprite Lab or add hitboxes.json overrides)"
+      ],
+      "wrote": [
+        "art/characters/goku/production/eng112-dsmash-v02-diagnostic/characters/goku/super_bg.png",
+        "art/characters/goku/production/eng112-dsmash-v02-diagnostic/characters/goku/super_fg.png",
+        "art/characters/goku/production/eng112-dsmash-v02-diagnostic/characters/goku/ult_bg.png",
+        "art/characters/goku/production/eng112-dsmash-v02-diagnostic/characters/goku/ult_fg.png",
+        "art/characters/goku/production/eng112-dsmash-v02-diagnostic/characters/goku/sheet.png",
+        "art/characters/goku/production/eng112-dsmash-v02-diagnostic/characters/goku/anims.json"
+      ],
+      "writeback": [],
+      "ui": [
+        "super_bg (fitted to 768x192)",
+        "super_fg (fitted to 384x240)",
+        "ult_bg (fitted to 768x432)",
+        "ult_fg (fitted to 576x432)"
+      ],
+      "uiItems": [
+        "super_bg",
+        "super_fg",
+        "ult_bg",
+        "ult_fg"
+      ],
+      "ground": {
+        "down": [
+          {
+            "frame": 1,
+            "contact": 0.64,
+            "gaps": [
+              4,
+              0,
+              4,
+              3,
+              7
+            ],
+            "worst": 7,
+            "h": 67,
+            "ok": true
+          }
+        ],
+        "getup": [
+          {
+            "frame": 0,
+            "contact": 0.39,
+            "gaps": [
+              1,
+              0,
+              7,
+              7,
+              3
+            ],
+            "worst": 7,
+            "h": 151,
+            "ok": false
+          }
+        ]
+      },
+      "tech": {},
+      "alts": {},
+      "hitBoxes": {
+        "light1": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                158,
+                39,
+                48,
+                202
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                85,
+                44,
+                25
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "light2": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                193,
+                79,
+                39,
+                22
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                81,
+                50,
+                26
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "light3": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                193,
+                102,
+                48,
+                42
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                99,
+                50,
+                45
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "light4": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                154,
+                99,
+                54,
+                145
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                193,
+                34,
+                53,
+                54
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "heavy": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                74,
+                51,
+                25
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                193,
+                74,
+                52,
+                25
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "airLight1": [
+          {
+            "frame": 1,
+            "hit": [
+              [
+                200,
+                26,
+                44,
+                154
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 2,
+            "hit": [
+              [
+                193,
+                76,
+                51,
+                26
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "airHeavy": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                193,
+                27,
+                23,
+                51
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                143,
+                51,
+                41,
+                193
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "special": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                76,
+                27,
+                38
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                193,
+                73,
+                39,
+                41
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 5,
+            "hit": [
+              [
+                193,
+                75,
+                24,
+                37
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "fTilt": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                161,
+                24,
+                48,
+                219
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                80,
+                46,
+                28
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "uTilt": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                154,
+                91,
+                39,
+                151
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                152,
+                75,
+                39,
+                168
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "dTilt": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                193,
+                218,
+                26,
+                25
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                193,
+                38,
+                50
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "dashAttack": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                151,
+                37,
+                55,
+                152
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                133,
+                56,
+                39
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "fSmash": [
+          {
+            "frame": 4,
+            "hit": [
+              [
+                194,
+                84,
+                53,
+                29
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 5,
+            "hit": [
+              [
+                193,
+                78,
+                58,
+                29
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "uSmash": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                150,
+                77,
+                34,
+                165
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                148,
+                22,
+                36,
+                222
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "dSmash": [
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                169,
+                58,
+                57
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 4,
+            "hit": [
+              [
+                193,
+                169,
+                61,
+                56
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "fair": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                193,
+                149,
+                55,
+                41
+              ]
+            ],
+            "rule": "forward"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                193,
+                143,
+                55,
+                56
+              ]
+            ],
+            "rule": "forward"
+          }
+        ],
+        "bair": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                124,
+                59,
+                53,
+                185
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                122,
+                58,
+                52,
+                186
+              ]
+            ],
+            "rule": "front"
+          }
+        ],
+        "uair": [
+          {
+            "frame": 2,
+            "hit": [
+              [
+                142,
+                25,
+                37,
+                183
+              ]
+            ],
+            "rule": "front"
+          },
+          {
+            "frame": 3,
+            "hit": [
+              [
+                138,
+                22,
+                34,
+                188
+              ]
+            ],
+            "rule": "front"
+          }
+        ]
+      },
+      "scale": {
+        "gate": "warn",
+        "failed": [],
+        "findings": [],
+        "anims": {
+          "idle": {
+            "head": 0.988,
+            "feet": 1,
+            "range": 2.163,
+            "verdict": "ref",
+            "strict": false,
+            "version": 2,
+            "reason": null,
+            "frames": [
+              2.667,
+              1.333,
+              0.591,
+              0.504,
+              0.952,
+              1.024,
+              1.182,
+              0.797
+            ]
+          },
+          "run": {
+            "head": 0.684,
+            "feet": 0.977,
+            "range": 0.544,
+            "verdict": "manual",
+            "strict": false,
+            "version": 9,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.563,
+              1.048,
+              0.777,
+              0.563,
+              0.591,
+              0.797,
+              0.504,
+              0.873
+            ]
+          },
+          "dash": {
+            "head": 0.823,
+            "feet": 0.932,
+            "range": 0.637,
+            "verdict": "manual",
+            "strict": false,
+            "version": 9,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              1.141,
+              0.504
+            ]
+          },
+          "jumpUp": {
+            "head": 0.69,
+            "feet": 0.831,
+            "range": 0.145,
+            "verdict": "manual",
+            "strict": false,
+            "version": 4,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.617,
+              0.762
+            ]
+          },
+          "jumpFall": {
+            "head": 0.748,
+            "feet": 0.97,
+            "range": 0.488,
+            "verdict": "manual",
+            "strict": false,
+            "version": 4,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.992,
+              0.504
+            ]
+          },
+          "land": {
+            "head": 0.641,
+            "feet": 1.077,
+            "range": 0.099,
+            "verdict": "manual",
+            "strict": false,
+            "version": 7,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.591,
+              0.69
+            ]
+          },
+          "light1": {
+            "head": 0.504,
+            "feet": 0.995,
+            "range": 0.138,
+            "verdict": "manual",
+            "strict": false,
+            "version": 4,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.642,
+              0.504,
+              0.617,
+              0.504,
+              0.504,
+              0.504,
+              0.504
+            ]
+          },
+          "light2": {
+            "head": 0.591,
+            "feet": 1,
+            "range": 0.35,
+            "verdict": "manual",
+            "strict": false,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.617,
+              0.504,
+              0.854,
+              0.591,
+              0.504,
+              0.713,
+              0.504
+            ]
+          },
+          "light3": {
+            "head": 0.756,
+            "feet": 0.935,
+            "range": 0.594,
+            "verdict": "manual",
+            "strict": false,
+            "version": 13,
+            "reason": "manual QA by GPT-6 Astra (medium), final strict quantized-pixel atlas audit: Exact 23-animation/108-frame pass on the 48-color atlas SHA256 ebb27850371179a0fdc9da5d76816ebdb52b747712643b60cd40e14bfe6460ca and metadata SHA256 b43af90a609dc0a36e688bad916c50694962ce2fced6fb02384cd400bcd814ca; uniform source factor .696133442603862 and actual packed x1. This records technical anatomy/fit only; user drawing approval and runtime contact/timing approval remain separate. (art/characters/goku/production/manual-audit-r5/FINAL_ATLAS_AUDIT.md)",
+            "frames": [
+              0.504,
+              1.098,
+              0.504,
+              0.642,
+              0.959,
+              0.926,
+              0.756
+            ]
+          },
+          "light4": {
+            "head": 0.89,
+            "feet": 0.97,
+            "range": 0.639,
+            "verdict": "manual",
+            "strict": false,
+            "version": 9,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.943,
+              1.008,
+              0.667,
+              1.039,
+              1.143,
+              0.836,
+              0.713,
+              0.504
+            ]
+          },
+          "heavy": {
+            "head": 0.604,
+            "feet": 0.974,
+            "range": 0.209,
+            "verdict": "manual",
+            "strict": false,
+            "version": 14,
+            "reason": "manual QA by GPT-6 Astra (medium), final strict quantized-pixel audit: Exact 22-animation/101-frame pass on the 48-color strict atlas; uniform source factor .720, native bodyHeight 235 and packed x1. Technical anatomy/fit only; user drawing approval is separately recorded as v14. Runtime/contact approval remains separate. (art/characters/goku/production/manual-audit-r4/FINAL_STRICT_AUDIT.md)",
+            "frames": [
+              0.504,
+              0.713,
+              0.617,
+              0.642,
+              0.504,
+              0.642,
+              0.591,
+              0.563
+            ]
+          },
+          "airLight1": {
+            "head": 0.504,
+            "feet": 0.93,
+            "range": 0.472,
+            "verdict": "manual",
+            "strict": false,
+            "version": 7,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.504,
+              0.504,
+              0.976,
+              0.504,
+              0.6
+            ]
+          },
+          "airHeavy": {
+            "head": 0.678,
+            "feet": 0.913,
+            "range": 0.448,
+            "verdict": "manual",
+            "strict": false,
+            "version": 6,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.756,
+              0.6,
+              0.756,
+              0.952,
+              0.504,
+              0.504
+            ]
+          },
+          "guard": {
+            "head": 0.581,
+            "feet": 1.007,
+            "range": 0.037,
+            "verdict": "manual",
+            "strict": false,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.6,
+              0.563
+            ]
+          },
+          "hurtHigh": {
+            "head": 0.926,
+            "feet": 0.968,
+            "range": 1.065,
+            "verdict": "manual",
+            "strict": false,
+            "version": 8,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.926,
+              0.735,
+              1.8
+            ]
+          },
+          "launched": {
+            "head": 0.772,
+            "feet": 0.977,
+            "range": 0.535,
+            "verdict": "manual",
+            "strict": false,
+            "version": 8,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              1.039,
+              0.504
+            ]
+          },
+          "down": {
+            "head": 0.619,
+            "feet": 0.752,
+            "range": 0.231,
+            "verdict": "manual",
+            "strict": false,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.735,
+              0.504
+            ]
+          },
+          "getup": {
+            "head": 0.563,
+            "feet": 0.972,
+            "range": 0.535,
+            "verdict": "manual",
+            "strict": false,
+            "version": 11,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.563,
+              0.504,
+              0.873,
+              1.039,
+              0.504
+            ]
+          },
+          "charge": {
+            "head": 0.548,
+            "feet": 0.964,
+            "range": 0.258,
+            "verdict": "manual",
+            "strict": false,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.504,
+              0.591,
+              0.762,
+              0.504
+            ]
+          },
+          "beamCharge": {
+            "head": 0.504,
+            "feet": 0.975,
+            "range": 0,
+            "verdict": "manual",
+            "strict": false,
+            "version": 7,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.504,
+              0.504,
+              0.504
+            ]
+          },
+          "beamFire": {
+            "head": 1.024,
+            "feet": 1.059,
+            "range": 1.009,
+            "verdict": "manual",
+            "strict": false,
+            "version": 7,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.591,
+              1.024,
+              1.6
+            ]
+          },
+          "special": {
+            "head": 0.69,
+            "feet": 0.94,
+            "range": 0.369,
+            "verdict": "manual",
+            "strict": false,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.857,
+              0.713,
+              0.504,
+              0.6,
+              0.591,
+              0.836,
+              0.873,
+              0.667
+            ]
+          },
+          "win": {
+            "head": 0.609,
+            "feet": 0.934,
+            "range": 0.52,
+            "verdict": "manual",
+            "strict": false,
+            "version": 5,
+            "reason": "manual QA by GPT-6 Astra (medium), final5 strict quantized-pixel audit: Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval. (art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md)",
+            "frames": [
+              0.504,
+              0.504,
+              0.713,
+              1.024
+            ]
+          },
+          "beamStruggle": {
+            "head": 0.667,
+            "feet": 1.068,
+            "range": 0.186,
+            "verdict": "manual",
+            "strict": false,
+            "version": 1,
+            "reason": "manual QA by Claude (Opus 5.5), landmark comparison: Packed at x0.338 (bodyHeight 205): head crown-to-chin about 60 px and boot length match his approved beamFire v07 within about 3 px; the automatic head probe cannot read his hair (TOOL-GOKU-PROBE). Astra r4 noted chest/shoulder variance against the title combat cell but no proven inflation; the user approved the drawing as packed here (relay beam-clash #15). (public/reviews/beam-clash-r3/goku-landmark-comparison-205.png)",
+            "frames": [
+              0.69,
+              0.504,
+              0.667
+            ]
+          },
+          "fTilt": {
+            "head": 0.563,
+            "feet": 1.003,
+            "range": 0.353,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.563,
+              0.504,
+              0.571,
+              0.857,
+              0.504,
+              0.667,
+              0.504
+            ]
+          },
+          "uTilt": {
+            "head": 0.617,
+            "feet": 0.792,
+            "range": 0.353,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.762,
+              0.69,
+              0.857,
+              0.504,
+              0.504,
+              0.617,
+              0.504
+            ]
+          },
+          "dTilt": {
+            "head": 0.641,
+            "feet": 0.984,
+            "range": 0.504,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.504,
+              0.952,
+              0.504,
+              0.777,
+              1.008,
+              0.504
+            ]
+          },
+          "dashAttack": {
+            "head": 0.713,
+            "feet": 1.016,
+            "range": 0.544,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              1.048,
+              0.713,
+              0.504,
+              0.591,
+              0.777,
+              0.909,
+              0.642
+            ]
+          },
+          "fSmash": {
+            "head": 0.591,
+            "feet": 1.116,
+            "range": 0.332,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.591,
+              0.756,
+              0.504,
+              0.735,
+              0.8,
+              0.535,
+              0.504,
+              0.591,
+              0.836
+            ]
+          },
+          "uSmash": {
+            "head": 0.581,
+            "feet": 0.784,
+            "range": 0.405,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.6,
+              0.504,
+              0.756,
+              0.667,
+              0.563,
+              0.909,
+              0.504,
+              0.504
+            ]
+          },
+          "dSmash": {
+            "head": 0.712,
+            "feet": 1.162,
+            "range": 0.294,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 2,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.563,
+              0.857,
+              0.777,
+              0.735,
+              0.563,
+              0.8,
+              0.69,
+              0.667
+            ]
+          },
+          "fair": {
+            "head": 0.504,
+            "feet": 0.954,
+            "range": 0.332,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.504,
+              0.504,
+              0.836,
+              0.591,
+              0.504,
+              0.504
+            ]
+          },
+          "bair": {
+            "head": 0.552,
+            "feet": 0.762,
+            "range": 0.273,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.504,
+              0.667,
+              0.504,
+              0.504,
+              0.777,
+              0.6
+            ]
+          },
+          "uair": {
+            "head": 0.865,
+            "feet": 0.811,
+            "range": 0.58,
+            "verdict": "unmeasured",
+            "strict": false,
+            "version": 1,
+            "reason": "head probe off for this fighter: his Super Saiyan hair is split into small blobs by dark inner outlines and shares shades with the gi: the approved idle v02 reads 0.45-2.67 of itself and the idle at x0.8 is not read as 0.80 (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+            "frames": [
+              0.591,
+              1.008,
+              0.952,
+              0.504,
+              1.084,
+              0.777
+            ]
+          }
+        },
+        "ref": {
+          "box": [
+            124,
+            33,
+            138,
+            60
+          ],
+          "headPx": [
+            5,
+            11
+          ],
+          "palette": [
+            "#832833",
+            "#8d280d",
+            "#f9a131",
+            "#fc8b17",
+            "#fcc955"
+          ],
+          "source": "auto"
+        }
+      }
+    }
+  ],
+  "vfx": null,
+  "crowd": null,
+  "stage": null,
+  "npc": null,
+  "ui": null,
+  "decals": null,
+  "guideSource": "animGuide.js",
+  "manifest": " + art/characters/goku/production/eng112-all-diagnostic-manifest.json",
+  "spec": {
+    "name": "hi-res sprite spec v2",
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "columns": 16,
+    "pivot": [
+      128,
+      240
+    ],
+    "pixelsPerUnit": 128,
+    "facing": "right",
+    "maxColors": 48,
+    "warnColors": 64,
+    "cellMargin": 4,
+    "standingBodyPx": 200
+  },
+  "totalWarnings": 2
+}
