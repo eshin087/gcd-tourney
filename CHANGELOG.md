@@ -21,6 +21,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 - Approved (ART-SKL-GOJ): the user approved beamCharge v04 and purpleForm, hollowPurple, purpleBurst and sixEyesGlint v01 as drawn via Claude relay gojo-skills #3. Source-format deviations and the beamCharge cache issue remain documented; prepared batch 3 Infinity and Unlimited Void candidates.
 
+- Approved (ART-SKL-GOJ): the user approved infinityRipple, voidFlood and voidShatter v01 as drawn via Claude relay gojo-skills #4. Rebuilt the approved-only production VFX atlas to include all three; source-format holds remain documented for Claude's integration review.
+
 - Added (ENG-SKL-LIMB): a shared limb for shots, view only. A projectile's `limb` draws a stretched limb or a string from the owner's drawn hand to the shot (`Effects.limb`, a tube effect stretched between two points and scaled across to a fixed thickness), with an optional `end` effect standing for the shot that snaps back to the hand when the shot ends. A procedural tinted `strand` draws a plain string. Used next by Luffy's Gum-Gum Pistol and Killua's yo-yo.
 
 - Added (ENG-SKL-TPFX): teleports can name their own look: `vanishFx` / `appearFx` (an effect name or `{ fx, scale, bottom, y, lead, reverse }`; `false` for nothing) replace the smoke puff, speed lines and afterimage where a teleport leaves and the star, ring and afterimage where it arrives (`Effects.teleportFx`). View only; no move uses them yet (Gojo's Blink, Goku's Instant Transmission and Killua's Rhythm Echo move onto them in their skills branches).
