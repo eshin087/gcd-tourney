@@ -4,7 +4,7 @@ import { ControlsPanel } from './controls.js';
 import { IS_TOUCH_DEVICE } from '../core/touch.js';
 import { kitOf } from '../game/kit.js';
 import { SPECIAL_MOVES, SUPERS } from '../game/moves.js';
-import { CPU_LEVELS } from '../game/ai.js';
+import { CPU_LEVELS, WATCH_LEVELS } from '../game/ai.js';
 import { loopStart } from '../game/animPhase.js';
 import { QUICK } from '../net/quickChat.js';
 
@@ -389,8 +389,8 @@ export class Menus {
     let step = 0; // 0 = P1 picking, 1 = P2/CPU picking, 2 = difficulty
     const picks = [null, null];
     const cpuLevel = mode === 'solo' || mode === 'cpu'; // modes with a difficulty step
-    const levels = CPU_LEVELS.map((l) => l.toUpperCase());
-    let level = mode === 'cpu' ? levels.length - 1 : 1; // spectating defaults to IMPOSSIBLE: the point is to watch the best bots
+    const levels = (mode === 'cpu' ? WATCH_LEVELS : CPU_LEVELS).map((l) => l.toUpperCase());
+    let level = mode === 'cpu' ? levels.length - 1 : 1; // spectating defaults to GOD: the point is to watch the best bots
     const tags = { solo: ['P1', 'CPU'], cpu: ['CPU 1', 'CPU 2'], training: ['P1', 'DUMMY'] }[mode] || ['P1', 'P2'];
     const who = { solo: ['P1', 'Pick the CPU opponent'], cpu: ['Pick CPU 1', 'Pick CPU 2'], training: ['P1', 'Pick the training dummy'] }[mode] || ['P1', 'P2'];
     const go = mode === 'cpu' ? 'WATCH' : 'FIGHT';

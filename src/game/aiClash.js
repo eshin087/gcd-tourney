@@ -6,14 +6,14 @@ import { MELEE_CLASH } from './moves.js';
 const FREE = new Set(['idle', 'run', 'air', 'clashBack']);
 
 // The button ('light' | 'heavy') to press now, or null. `memo` is the brain itself (it keeps the last swing it rolled
-// for), `rand` its random source.
-export function seekClash(f, chance, memo, rand) {
+// for), `rand` its random source, `chain` how keen it is to go again out of a pushback (× chance).
+export function seekClash(f, chance, memo, rand, chain = MELEE_CLASH.chainSeek) {
   if (!chance || f.hitstop > 0 || !FREE.has(f.state)) return null;
   const o = f.opp, C = MELEE_CLASH;
   // out of a pushback: go again (the other side may too)
   if (f.state === 'clashBack' && f.t === 1 && memo.clashBackAt !== f.clock) {
     memo.clashBackAt = f.clock;
-    if (rand() < Math.min(0.85, chance * C.chainSeek)) return f.game.meleeChain.cls ?? 'light';
+    if (rand() < Math.min(0.85, chance * chain)) return f.game.meleeChain.cls ?? 'light';
   }
   // their swing has just started: meet it (pressed now, ours is live within the clash window of theirs)
   if (o.state !== 'attack' || !o.move?.meleeClash || o.t > 2 || o.ko) return null;
