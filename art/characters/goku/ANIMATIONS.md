@@ -31,3 +31,18 @@ Use the corresponding generic action and timing in `art/manifest.json`; Goku's m
 - Throws, specials and presentation: `throw`, `special`, `specialForward`, `specialUp`, `specialDown`, `beamCharge`, `beamFire`, `charge`, `superPose`, `intro`, `taunt`, `win`.
 
 The exact canonical manifest list is authoritative where optional entries differ. Attack alternatives must use a distinct limb or technique while staying in the base move's contact zone and returning to its recovery pose.
+
+## Directional normals (ENG-112)
+
+| Animation | What this fighter does |
+|---|---|
+| fTilt | A compact step-in straight punch at chest height, with the far fist guarding the face. |
+| uTilt | A rising near-arm uppercut arc from in front of the face to above the golden hair. |
+| dTilt | A low crouching shin sweep with the near leg; keep the torso and guard low. |
+| dashAttack | A running lunge that turns into a forward side kick, carrying the body forward. |
+| fSmash | Frame 01 is the deep held charge with the near fist chambered; then a full-body step-in straight punch at chest height and a balanced recovery. |
+| uSmash | From a crouch, drive the near fist upward in a powerful rising uppercut, finishing over the head. |
+| dSmash | A low spinning leg sweep that reaches both sides at shin height on the active frames. |
+| fair | A compact forward mid-air kick at body height, toes aimed toward the opponent. |
+| bair | A sharp mid-air back kick striking toward screen-left behind Goku while his body faces right. |
+| uair | A rising mid-air heel kick straight overhead, with a controlled return to the aerial guard. |
