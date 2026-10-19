@@ -442,12 +442,18 @@ export function beginShroud(f, C, flash) {
 }
 
 // How far the chakra has swallowed him, 0..1: climbing through the first 70 % of his flash, then `hold`.
-// The look a fighter's running power-up gives the body (`shell`, `tint`, `aura` side by side on its data): a mode
-// (f.mode), a reflex super (Whirlwind) or a kit move running (Speed of Lightning). View only: Game.fxTicks and
-// Fighter.sync read it; none while hidden (the charge style owns the shell while he powers up: Game.fxTicks)
+// The look a fighter's running power-up gives the body (`shell`, `tint`, `aura` side by side on its data): a mode's
+// move (found by the name f.mode keeps: the look stays off the simulation state, so the state hashes don't change), a
+// reflex super (Whirlwind) or a kit move running (Speed of Lightning). View only: Game.fxTicks and Fighter.sync read
+// it; none while hidden (the charge style owns the shell while he powers up: Game.fxTicks)
+let modesByName = null;
 export function modeLook(f) {
   if (f.hidden) return null;
-  return f.mode ?? f.reflex?.m ?? (f.state === 'kit' ? f.kitState?.m ?? null : null);
+  if (f.mode) {
+    if (!modesByName) modesByName = new Map(Object.values(SPECIAL_MOVES).filter((m) => m.kind === 'mode').map((m) => [m.name, m]));
+    return modesByName.get(f.mode.id) ?? null;
+  }
+  return f.reflex?.m ?? (f.state === 'kit' ? f.kitState?.m ?? null : null);
 }
 
 export function shroudLevel(f) {
@@ -1168,8 +1174,6 @@ const UPDATE = {
         id: m.name, t: m.len, len: m.len, speed: m.speed ?? 1, damage: m.damage ?? 1, defense: m.defense ?? 1,
         blinkDash: !!m.blinkDash, color: m.color, fx: m.fx ?? 'lightning', auraColor: m.auraColor, auraCore: m.auraCore, charge: m.charge,
         cloak: m.cloak ?? null,
-        // its look while it lasts (modeLook): an outline on the body, a body tint, an effect kept at his feet
-        shell: m.shell ?? null, tint: m.tint ?? null, aura: m.aura ?? null,
       };
       const g = f.game, p = f.pos;
       g.onKitMove(f, m);
