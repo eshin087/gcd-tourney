@@ -823,10 +823,12 @@ const PAINTERS = {
   },
   // ---- Luffy's signature techniques (ENG-SKL-LUF). Stand-ins until Codex's HD art is approved
   // (art/characters/luffy/SKILLS_REVAMP.md): full color in his sheet's skin palette, a quarter of the HD cell's pixels.
-  // the stretched rubber arm: a tube 6 px thick on rows 29-34, the same in every column (the engine stretches it)
+  // the stretched rubber arm: a tube 10.5 px thick on rows 27-37 like the approved gumArm v03 (rows 107-148 of 256),
+  // the same in every column (the engine stretches it)
   gumArm(i, n, ctx) {
-    rubberTube(ctx, 29, [LUFFY_SKIN.line, LUFFY_SKIN.light, LUFFY_SKIN.base, LUFFY_SKIN.base, LUFFY_SKIN.shadow, LUFFY_SKIN.line]);
-    if (i % 2) { ctx.fillStyle = '#f8e8d1'; ctx.fillRect(0, 27, 64, 1); ctx.fillRect(0, 37, 64, 1); }
+    const S = LUFFY_SKIN;
+    rubberTube(ctx, 27, [S.line, S.light, S.light, S.base, S.base, S.base, S.base, S.shadow, S.shadow, S.deep, S.line]);
+    if (i % 2) { ctx.fillStyle = '#f8e8d1'; ctx.fillRect(0, 24, 64, 1); ctx.fillRect(0, 40, 64, 1); }
   },
   // the Pistol's fist flying screen-right: the wrist cut flat at x 24 on the arm's rows, knuckles at x 40
   gumFist(i, n, ctx) {

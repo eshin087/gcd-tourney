@@ -284,7 +284,7 @@ export const PROJECTILES = {
   // stretched from where the strip's arm leaves the cell to the fist, which snaps back to his hand when the shot ends;
   // its hit is a knuckle impact (`burstFx`), not the white burst
   pistol: { count: 1, spread: 0, speed: 42, radius: 0.5, dmg: 70, hitstun: 30, push: 6, airPop: 6, life: 0.15, sprite: 'orb', scale: 0.6, color: 0xf6c9a0, glowColor: 0xffb43a, sfx: 'whooshHeavy', spark: 'none',
-    limb: { fx: 'gumArm', tube: 24 / 256, thick: 0.07, end: 'gumFist', endScale: 0.42, back: 0.11 }, burstFx: { fx: 'gumImpact', scale: 0.5, smoke: 0, shake: 0.35 } },
+    limb: { fx: 'gumArm', tube: 42 / 256, thick: 0.07, end: 'gumFist', endScale: 0.42, back: 0.11 }, burstFx: { fx: 'gumImpact', scale: 0.5, smoke: 0, shake: 0.35 } },
 };
 
 // Special moves by id (ADR 0009). A fighter's kit maps input slots to these ids.
