@@ -3,6 +3,7 @@
 **Status:** Accepted (user request, 2026-10-18)
 **Date:** 2026-10-18
 **Task:** ENG-SKL-NAR (engine), ART-SKL-NAR (art, Codex chat "5 - Skills Effects")
+**Amended by:** [ADR 0053](0053-hd-effect-pages.md): one HD page per owner (`atlas_hd_<owner>.png`), loaded per match
 
 ## Context
 

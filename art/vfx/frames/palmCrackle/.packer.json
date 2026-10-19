@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/palmCrackle_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/palmCrackle_v01.png"
+  ],
+  "sourceHash": "007eb404dcb31419324c6b92ce967ead406df063",
+  "cell": 256,
+  "files": {
+    "palmCrackle_00.png": "019f196d48903b37d63c2429d5f65ba8afe10463",
+    "palmCrackle_01.png": "c99296948bd3d040c49853f7368cc6e433ee1bcb",
+    "palmCrackle_02.png": "6f072ea10dc8584520cc6baad3b56f9a75664608",
+    "palmCrackle_03.png": "2a28ef5f921238b88444dbddd59070153e94ce1b",
+    "palmCrackle_04.png": "aaede3f02657af7d9b44751dd6e6e0f8d0f0c416",
+    "palmCrackle_05.png": "1ae1bf34ccafcc97464e7ba3f32d4d86cafcf5ae"
+  }
+}
