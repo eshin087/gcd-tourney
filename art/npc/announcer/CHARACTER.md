@@ -10,7 +10,7 @@
 | Engine id | `announcer` (folder `art/npc/announcer/`, output `public/npc/announcer/`) |
 | Role | tournament MC: introduces the fighters, calls the start, hypes the big moves, points at the winner, and dives for cover when an ultimate goes off. Since ENG-118 he walks the ring edge to follow the fight, hops onto the ring to call a KO and comments in small captions above his head (drawn by the engine) |
 | Kind | **cameo**: an homage to the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z (allowed by ADR 0008; see [Legal](#legal)) |
-| Animations | `idle` 2, `point` 2, `shout` 2, `cower` 2; batch `npc-announcer-r1` (ENG-118): `walk` 4, `run` 4, `shocked` 2, `micThrust` 2 |
+| Animations | `idle` 2, `point` 2, `shout` 2, `cower` 2; batch `npc-announcer-r1` (ENG-118): `walk` 4, `run` 4, `shocked` 2, `micThrust` 2; batch `npc-announcer-r2` (ENG-119): `blownAway` 2, `popUp` 2, `cheer` 2, `facepalm` 2, `micTap` 2, `checkWatch` 2, `patHair` 2, `sooty` 2, `wince` 2, `mopBrow` 2 |
 | Cell / pivot / ppu | 128 x 128 / [64, 124] / 80 |
 | Idle height | **112 px** incl. hair (1.40 world units, a medium adult) |
 | Placement | starts beside the ring on the grass, back-left, next to the gong; during a match he walks the ring edge to stay behind the fight (ENG-118, `src/world/announcer.js`) |
@@ -103,7 +103,8 @@ Use only these. One shared outline color with the fighters and the other NPCs.
 | 19-21 | red necktie | `#e85454` | `#c0303e` | `#7e1828` | |
 | 22-24 | microphone head (silver) | `#eef1f6` | `#aab2c2` | `#6c7488` | |
 | 25 | mouth interior | | `#5a1a22` | | |
-| 26 | sweat drop (`cower` only) | | `#8fd3ff` | | (+ `#ffffff` highlight) |
+| 26 | sweat drop (`cower`, `mopBrow`) | | `#8fd3ff` | | (+ `#ffffff` highlight) |
+| 27-28 | smoke wisps (`sooty` only) | `#cfccd8` | `#9a97a8` | | |
 
 Material rules: black suit reads by its light planes (`#4c4b60` on lapels, shoulders and sleeve tops
 facing the upper-left light) and a selective outline, so it never melts into the outline. Hair is
