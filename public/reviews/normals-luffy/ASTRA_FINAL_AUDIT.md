@@ -1,6 +1,6 @@
 # Luffy ENG-112 final diagnostic atlas audit
 
-**Result: four technical visual/scale passes, six holds.** This is an unapproved diagnostic atlas (`scaleGate: warn`), not a strict production pass and not a user design approval.
+**Result: four technical visual/scale passes, six holds.** The user approved all ten drawings as drawn via Claude relay combat #49. This remains a diagnostic atlas (`scaleGate: warn`), not a strict production pass; drawing approval does not clear the six technical holds.
 
 - `audit_atlas/sheet.png` SHA-256: `9be5f2e0edb8aaf7214eb6694ede4b1032f5872c3685eff491febfc5c5daee0e`
 - `audit_atlas/anims.json` SHA-256: `311c9a92427b520849e84319052255c1a3f3985a827687dad271ae2c311b280d`

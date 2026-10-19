@@ -29,9 +29,9 @@
 </head>
 <body><main>
   <h1>Luffy directional normals — ENG-112</h1>
-  <p>This page shows each packed candidate beside the live stand-in it would replace and Luffy's approved idle f0, all at 256 px per cell. The four Astra visual/scale passes are unapproved drawings. Six candidates have explicit technical holds and should stay on their stand-ins. Runtime hitbox/contact review and the production strict-scale guard are still pending.</p>
+  <p>This page shows each packed candidate beside the live stand-in it would replace and Luffy's approved idle f0, all at 256 px per cell. The user approved all ten drawings as drawn via Claude relay combat #49. Four have Astra visual/scale passes; six have explicit technical holds and should stay on their stand-ins. Drawing approval does not clear technical holds. Runtime hitbox/contact review and the production strict-scale guard are still pending.</p>
   <p class="summary"><strong>Diagnostic pack only:</strong> the inspected atlas is 4096×3072, 178 frames, 48 colors, with <code>scaleGate: warn</code>. It is not a strict production pass. Candidate order is fTilt v01, uTilt v02, dTilt v02, dashAttack v02, fSmash v02, uSmash v03, dSmash v02, fair v03, bair v03 and uair v01. Astra inspected all 70 candidate cells against idle and live same-kind strips; visible endpoint uncertainty is about ±3 px for brim/sole, ±5–7 px neck-to-sash and ±5–6 px exposed shin. Hidden or strongly foreshortened anatomy is not a numeric pass.</p>
-  <p class="small">Per-move PASS means visible anatomy and scale are coherent in this diagnostic atlas; it does not mean the image is approved or ready to merge. HOLD candidates are shown for context only. Their current stand-ins remain in place. <a href="ASTRA_FINAL_AUDIT.md">Read the frame-by-frame Astra findings</a> · <a href="audit_atlas/sheet.png">open the exact 4096×3072 audited sheet</a> · <a href="audit_atlas/anims.json">open atlas metadata</a>.</p>
+  <p class="small">Per-move PASS means visible anatomy and scale are coherent in this diagnostic atlas; it does not mean the image is ready to merge. All ten drawings are user-approved; HOLD candidates are shown for context only. Their current stand-ins remain in place. <a href="ASTRA_FINAL_AUDIT.md">Read the frame-by-frame Astra findings</a> · <a href="audit_atlas/sheet.png">open the exact 4096×3072 audited sheet</a> · <a href="audit_atlas/anims.json">open atlas metadata</a>.</p>
   <div id="moves"></div>
 </main>
 <script>
@@ -54,8 +54,8 @@ function frames(name, count, base) {
 for (const move of moves) {
   const section = document.createElement('section');
   const status = move.verdict === 'pass'
-    ? `<p class="pass"><strong>Technical visual/scale PASS — awaiting your drawing decision.</strong> ${move.note}</p>`
-    : `<p class="hold"><strong>TECHNICAL HOLD — leave the current stand-in active.</strong> ${move.note}</p>`;
+    ? `<p class="pass"><strong>Drawing approved via Claude relay combat #49 · Technical visual/scale PASS.</strong> ${move.note}</p>`
+    : `<p class="hold"><strong>Drawing approved via Claude relay combat #49 · TECHNICAL HOLD — leave the current stand-in active.</strong> ${move.note}</p>`;
   const fallbackPath = `standins/${move.fallback}`;
   const fallbackName = move.fallback === 'airLight1-mirrored' ? 'airLight1' : move.fallback;
   const fallbackCount = {light2:7,heavy:8,light3:7,light4:8,airLight1:5}[fallbackName];
