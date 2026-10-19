@@ -16,6 +16,8 @@ Naruto Four-Tails beam round 2 (2026-10-18): user approved beamCharge v17, fourT
 
 # Art tracker
 
+Goku skills revamp batch 2 (2026-10-18): Dragon Fist `specialForward` v01 and effects `dragonFistAura`, `dragonFistDragon`, `dragonFistBurst` v01 are candidates awaiting user visual decisions. All retain technical HOLDs; see [review page](../public/reviews/goku-skills-batch2/index.html) and [attempt inventory](characters/goku/production/skills-revamp-batch2-candidates.md). A8 duplicate-task collision exceeded the image-call cap and is explicitly disclosed; no additional generation is authorized here.
+
 Naruto skills revamp batch 1 (2026-10-18): user approved beamCharge v17, fourTailsRoar v02, beamFire v15 with its +13px placement sidecar, beastBall v01 and beastBeamRing v01 via Claude relay skills #7. Earlier beamFire v14 pounce approval is superseded for this ultimate; ui_ult_fg v04 remains approved. Technical HOLD remains for the headless character scale gate and Claude-owned contacts/integration; do not claim final pack clearance. No new image calls.
 
 Gojo dash family v10/v07/v12 (2026-10-15): backDash v07 is packed and remains needs review under Astra HOLD for tucked-frame placement and uncertain occluded torso/limb measurements; dash v10 and superDash v12 are quarantined after clipping/scale failures. Approved versions remain dash v06, backDash v04 and superDash v09. All call budgets are exhausted except one unused backDash call; no further generation authorized. See [Gojo review rows](characters/gojo/REVIEW_ROWS.md), [Astra audit](characters/gojo/production/dashes/ASTRA_DASHES_AUDIT_v01.md), and [preview](../public/reviews/gojo-dashes/index.html). No user approval, merge or production deploy.
