@@ -211,8 +211,8 @@
         "verdict": "manual"
       },
       "charge": {
-        "head": 0.996,
-        "verdict": "pop"
+        "head": 0.992,
+        "verdict": "ok"
       },
       "throw": {
         "head": 1.011,
@@ -425,7 +425,7 @@
         "verdict": "manual"
       },
       "charge": {
-        "head": 1.047,
+        "head": 1.05,
         "verdict": "ok"
       },
       "throw": {

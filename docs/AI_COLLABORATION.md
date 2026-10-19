@@ -81,6 +81,17 @@ changes it), and they all end when the launcher ends (Ctrl+C, the shell closing,
 go past the limit is refused the memory and exits with an out-of-memory error; nothing else is affected. Nothing
 is installed, scheduled or left running, and only a command started through it is capped.
 
+The launcher also ends the job when the shell that started it is stopped (OPS-021). Windows does not end a
+process's children with it, and a tree kill (Claude Code's TaskStop) finds them by parent PID. Git Bash breaks that
+chain: the bash it forks to run `npm` exits once it has exec'd it, so npm, cmd, the launcher and vite were left
+under a dead parent and kept the port until someone killed them by PID. The launcher now watches its console host
+(conhost.exe / OpenConsole.exe, which the tree kill and a closed terminal both end) and its parent processes up to
+Explorer, and ends the job within a second of either going. Its second `[capped]` line names what it watches.
+A deliberately detached start (`nohup ... &`, `Start-Process`) keeps a console of its own and has lost its parents
+before the launcher looks, so it can still outlive its shell (a Git Bash `nohup ... &` did in the test): keep the
+command running in a shell instead (a background Bash task, a terminal tab), and stop a detached one by PID. From PowerShell, quote npm's separator
+(`npm run dev:capped '--' --port 5200`); a bare `--` is eaten by PowerShell and npm then takes the flags as its own.
+
 ```powershell
 $env:PORT = '5247'
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 node --preserve-symlinks --preserve-symlinks-main .codex/vite.mjs dev
@@ -94,7 +105,9 @@ process's working folder, so a server started with a relative path is named by i
 one. If a capped server dies with an out-of-memory error, the cap did its job: find what grew (a memory log in
 `.codex/vite.mjs` would show when) before raising the limit. Tested with the real adapter under Windows
 PowerShell 5.1 and PowerShell 7: the cap refuses a 2 GB allocation at 1 GB, Vite serves its pages, and killing
-the launcher ends Vite and frees the port.
+the launcher ends Vite and frees the port. OPS-021 (2026-10-18): TaskStop on `npm run dev:capped` started from Git
+Bash and from PowerShell, and closing its terminal tab, each freed the port within a second (before the fix the
+Git Bash case left the whole chain running); the 1 GB cap still refused memory past 896 MB.
 
 ### Remaining integration limitation
 
