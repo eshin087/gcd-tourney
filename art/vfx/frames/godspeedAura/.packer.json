@@ -1,0 +1,21 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/godspeedAura_v03.png",
+  "version": 3,
+  "source": [
+    "vfx/raw/godspeedAura_v03.png"
+  ],
+  "sourceHash": "8ab8b793a9dafbcdcea86631d5cc95dea4a6906c",
+  "cell": 256,
+  "files": {
+    "godspeedAura_00.png": "947cbc55e9e360120059742fd73bd715f403c2fa",
+    "godspeedAura_01.png": "b2e1818a05f1b4e9578e07cf13e65345c1ed4df7",
+    "godspeedAura_02.png": "2ac27510d939edcc29d6d2ea73c6f8e62fbcd2ed",
+    "godspeedAura_03.png": "1fafa284cc8aeb0e54be8c8b444453d635bb62bb",
+    "godspeedAura_04.png": "f1d7177ffaf0180a80d1ed33909f52517f9f850d",
+    "godspeedAura_05.png": "dc0cbae64e62d7c8bb3ff6a7e52fb7fd44cb9839",
+    "godspeedAura_06.png": "cc1f56edbebca7506007e7fc59bc7edfad5fdbdc",
+    "godspeedAura_07.png": "008fd0d2e15c68c0ad79c4d8f284bcdb269ca3e5"
+  }
+}

@@ -1,0 +1,84 @@
+GCD Tourney sprite packer v2
+  art:  art
+  out:  public
+  anims: animGuide.js + art/manifest.json
+  spec: hi-res sprite spec v2 (256x256 cells, pivot [128,240], ppu 128, <= 48 colors)
+
+== killua ======================================================
+  packed 54 anims, 251 frames -> sheet 4096x4096, 48 colors, COMPLETE (game will use it)
+    idle         8     <- frames/idle/ (raw/idle_v11.png) x1
+    run          8     <- frames/run/ (raw/run_v09.png) x1  (ignored 1 stray pixel(s) - clean them in frames/run/)
+    dash         2     <- frames/dash/ (raw/dash_v05.png) x1
+    backDash     3     <- frames/backDash/ (raw/backDash_v04.png) x1
+    superDash    2     <- frames/superDash/ (raw/superDash_v08.png) x1
+    jumpSquat    1     <- frames/jumpSquat/ (raw/jumpSquat_v05.png) x1
+    jumpUp       2     <- frames/jumpUp/ (raw/jumpUp_v05.png) x1
+    jumpFall     2     <- frames/jumpFall/ (raw/jumpFall_v05.png) x1
+    land         2     <- frames/land/ (raw/land_v04.png) x1
+    light1       7     <- frames/light1/ (raw/light1_v10.png) x1  (ignored 2 stray pixel(s) - clean them in frames/light1/)
+    light2       7     <- frames/light2/ (raw/light2_v06.png) x1
+    light3       7     <- frames/light3/ (raw/light3_v05.png) x1  (ignored 2 stray pixel(s) - clean them in frames/light3/)
+    light4       8     <- frames/light4/ (raw/light4_v10.png) x1  (ignored 1 stray pixel(s) - clean them in frames/light4/)
+    heavy        8     <- frames/heavy/ (raw/heavy_v11.png) x1  (ignored 2 stray pixel(s) - clean them in frames/heavy/)
+    airLight1    5     <- frames/airLight1/ (raw/airLight1_v06.png) x1  (ignored 1 stray pixel(s) - clean them in frames/airLight1/)
+    airLight2    5     <- frames/airLight2/ (raw/airLight2_v07.png) x1
+    airLight3    6     <- frames/airLight3/ (raw/airLight3_v09.png) x1  (ignored 1 stray pixel(s) - clean them in frames/airLight3/)
+    airHeavy     6     <- frames/airHeavy/ (raw/airHeavy_v08.png) x1
+    guard        2     <- frames/guard/ (raw/guard_v09.png) x1
+    block        2     <- frames/block/ (raw/block_v07.png) x1  (ignored 1 stray pixel(s) - clean them in frames/block/)
+    hurtHigh     3     <- frames/hurtHigh/ (raw/hurtHigh_v06.png) x1
+    hurtLow      3     <- frames/hurtLow/ (raw/hurtLow_v06.png) x1
+    launched     2     <- frames/launched/ (raw/launched_v05.png) x1  (ignored 6 stray pixel(s) - clean them in frames/launched/)
+    spin         4     <- frames/spin/ (raw/spin_v04.png) x1  (ignored 3 stray pixel(s) - clean them in frames/spin/)
+    airRecover   3     <- frames/airRecover/ (raw/airRecover_v05.png) x1  (ignored 1 stray pixel(s) - clean them in frames/airRecover/)
+    down         2     <- frames/down/ (raw/down_v08.png) x1
+    getup        5     <- frames/getup/ (raw/getup_v07.png) x1
+    charge       4     <- frames/charge/ (raw/charge_v14.png) x1  (ignored 1 stray pixel(s) - clean them in frames/charge/)
+    throw        4     <- frames/throw/ (raw/throw_v07.png) x1  (auto-head fit x0.7831 (from the import))
+    beamCharge   3     <- frames/beamCharge/ (raw/beamCharge_v08.png) x1
+    beamFire     3     <- frames/beamFire/ (raw/beamFire_v09.png) x1
+    vanish       2     <- frames/vanish/ (raw/vanish_v04.png) x1
+    stagger      4     <- frames/stagger/ (raw/stagger_v08.png) x1  (ignored 1 stray pixel(s) - clean them in frames/stagger/; auto-head fit x0.9311 (from the import))
+    ko           1     <- frames/ko/ (raw/ko_v09.png)  x1
+    special      8     <- frames/special/ (raw/special_v07.png) x1  (ignored 4 stray pixel(s) - clean them in frames/special/)
+    intro        4     <- frames/intro/ (raw/intro_v04.png) x1
+    taunt        2     <- frames/taunt/ (raw/taunt_v05.png) x1
+    win          4     <- frames/win/ (raw/win_v04.png) x1  (ignored 1 stray pixel(s) - clean them in frames/win/)
+    specialForward  7     <- frames/specialForward/ (raw/specialForward_v12.png) x1  (ignored 2 stray pixel(s) - clean them in frames/specialForward/)
+    specialUp    6     <- frames/specialUp/ (raw/specialUp_v09.png) x1  (auto-head fit x0.9251 (from the import))
+    specialDown  4     <- frames/specialDown/ (raw/specialDown_v07.png) x1
+    superPose    4     <- frames/superPose/ (raw/superPose_v08.png) x1  (ignored 1 stray pixel(s) - clean them in frames/superPose/)
+    beamStruggle  3     <- frames/beamStruggle/ (raw/beamStruggle_v01.png) x1
+    beamStruggleAir  3     <- frames/beamStruggleAir/ (raw/beamStruggleAir_v02.png) x1  (ignored 1 stray pixel(s) - clean them in frames/beamStruggleAir/)
+    fTilt        7     <- raw/fTilt_v02.png            x0.332  (removed 18 specks; split 1 touching pose group(s); split by whole figures: the column split cut a figure between frames 1/2, 2/3, 3/4; auto-head fit x0.939 (head 1.06, feet 1.33 of idle))
+    uTilt        7     <- raw/uTilt_v03.png            x0.339  (auto-head fit x0.75 (head 1.36, feet 1.69 of idle))
+    dTilt        6     <- raw/dTilt_v02.png            x0.41  (removed 11 specks; split 1 touching pose group(s); split by whole figures: the column split cut a figure between frames 1/2, 2/3, 3/4; auto-head fit x0.8576 (head 1.17, feet 1.34 of idle))
+    dashAttack   7     <- raw/dashAttack_v02.png       x0.398  (removed 11 specks; split by whole figures: the column split found 3 pose(s), 7 expected; auto-head fit x0.8734 (head 1.15, feet 1.47 of idle))
+    fSmash       9     <- raw/fSmash_v02.png           x0.474  (removed 28 specks; split 1 touching pose group(s); split by whole figures: the column split cut a figure between frames 2/3, 3/4, 4/5, 5/6, 6/7; auto-head fit x0.9116 (head 1.10, feet 1.36 of idle))
+    uSmash       8     <- raw/uSmash_v02.png           x0.372  (removed 22 specks; split 1 touching pose group(s); auto-head fit x0.8613 (head 1.16, feet 1.39 of idle))
+    dSmash       8     <- raw/dSmash_v03.png           x0.426  (removed 9 specks; auto-head fit x0.8039 (head 1.24, feet 1.40 of idle))
+    fair         6     <- raw/fair_v02.png             x0.348  (removed 6 specks; auto-head fit x0.9208 (head 1.09, feet 1.27 of idle))
+    bair         6     <- raw/bair_v02.png             x0.336  (removed 14 specks; split 1 touching pose group(s); auto-head fit x0.834 (head 1.20, feet 1.41 of idle))
+    uair         6     <- raw/uair_v02.png             x0.296  (auto-head fit x0.75 (head 1.34, feet 1.40 of idle))
+  scale gate (auto; head with hair vs the idle, art/CHARACTER_SCALE.md): 43 ok, 9 manual, 2 drift
+    ~ throw head 0.87 of idle (feet 1.07): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v07]
+    ~ specialUp head 0.90 of idle (feet 1.07): head/hair drift - redraw to the approved idle head (head_scale_guide.png) [approved v09]
+  missing optional (14): techGround, techRoll, wallTech, light1Alt, light2Alt, light3Alt, light4Alt, heavyAlt, airLight1Alt, airLight2Alt, airLight3Alt, airHeavyAlt, hurtHighAlt, hurtLowAlt
+  ui: portrait (fitted to 96x96), cutin (fitted to 480x128), select (fitted to 384x384), super_bg (fitted to 768x192), super_fg (fitted to 384x240), ult_bg (fitted to 768x432), ult_fg (fitted to 576x432)
+  - palette snapped to 48 colors
+  - 40 hitbox override(s) from hitboxes.json
+  - 6 active frame(s) had no clear strike limb - hitbox = front 28% of the body (uTilt#3, uTilt#4, uSmash#4, uSmash#5, uair#2, uair#3; check them in the Sprite Lab or add hitboxes.json overrides)
+  ! uTilt: auto-head fit x0.74 is outside 0.75-1.33 - clamped; redraw the strip at the idle's size
+  ! uair: auto-head fit x0.75 is outside 0.75-1.33 - clamped; redraw the strip at the idle's size
+  ! scale: the idle head is 40x31 px, 51x36 in art/scale/scale-baseline.json - every strip is now measured against this idle (check the lineup; npm run scale -- --baseline accepts it)
+  wrote public/characters/killua/portrait.png
+  wrote public/characters/killua/cutin.png
+  wrote public/characters/killua/select.png
+  wrote public/characters/killua/super_bg.png
+  wrote public/characters/killua/super_fg.png
+  wrote public/characters/killua/ult_bg.png
+  wrote public/characters/killua/ult_fg.png
+  wrote public/characters/killua/sheet.png
+  wrote public/characters/killua/anims.json
+
+done: 1/1 character(s) packed, vfx skipped, crowd skipped, 3 warning(s).

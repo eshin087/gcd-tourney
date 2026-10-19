@@ -1,0 +1,21 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/palmShock_v02.png",
+  "version": 2,
+  "source": [
+    "vfx/raw/palmShock_v02.png"
+  ],
+  "sourceHash": "d7269ad2a95aa4f90535c592a77fe872e096ab92",
+  "cell": 256,
+  "files": {
+    "palmShock_00.png": "42a382662e3b36a99bdc1dd4f0b7ba4294db93ce",
+    "palmShock_01.png": "4ca7cb70cbd5fe78d214b19a0e88b52de992832b",
+    "palmShock_02.png": "fe4a02b64f97e0f1aa495fdce828c3dc7c32ce9c",
+    "palmShock_03.png": "1adb5be8528a29a72c98ebbfb72e0916e13a69f6",
+    "palmShock_04.png": "0936c4e0f288dee7d02c67ff2cd4e578c15202d3",
+    "palmShock_05.png": "70a0691d9889ce95931930f30e29d911597fb907",
+    "palmShock_06.png": "a9b4115cc9558cc3574ecf406dacfb6e8a58b18c",
+    "palmShock_07.png": "20b2ecdec698f9d7ddd8fc2dcfdebec77c67f465"
+  }
+}

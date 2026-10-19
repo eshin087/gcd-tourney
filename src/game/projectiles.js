@@ -170,7 +170,8 @@ class BeamView {
     this.mat = St.fx
       ? new THREE.ShaderMaterial({
         uniforms: {
-          map: { value: game.fx.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: St.seg },
+          // the sheet its band is on (atlas.png, or the procedural sheet while the band has no packed art)
+          map: { value: game.fx.source(St.fx).S.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: St.seg },
           uScroll: { value: 0 }, uFade: { value: 1 }, uGlow: { value: St.glow ?? 0.3 },
           color: { value: St.full ? new THREE.Color(0xffffff) : new THREE.Color(b.core).lerp(new THREE.Color(b.mid), St.tint ?? 0.5) },
         },
@@ -408,19 +409,23 @@ export class Projectile {
     this.life = P.life;
     this.dead = false;
     if (P.lance) this.from = this.pos.clone(); // the blade is drawn from the hand (ShotViews)
+    if (P.returns) { this.reeling = false; this.backT = 0; } // a yo-yo's way back (reel)
   }
 
   update() {
+    if (this.reeling) return this.reel();
     this.pos.addScaledVector(this.vel, DT);
     this.life -= DT;
     const fx = this.game.fx;
+    // a yo-yo (`returns`) at the end of its string, or on the floor, comes back instead of dying (ENG-SKL-KIL)
+    if (this.P.returns && (this.pos.y < 0.1 || this.life <= 0 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4)) return this.reel(true);
     const back = { x: this.pos.x - this.vel.x * 0.03, z: this.pos.z - this.vel.z * 0.03 };
     if (this.P.trail === 'fire' && Math.random() < 0.5) fx.spawn('fire', back.x, this.pos.y, back.z, { scale: 0.7, life: 0.2, fade: true, opacity: 0.8 });
     if (this.P.trail === 'bolt') fx.spawn('lightning', back.x, this.pos.y, back.z, { scale: 0.55, random: true, life: 0.06, color: 0xd8f0ff, rot: Math.random() * 6.28, order: 7, glow: 1.6 });
     if (this.P.trail === 'red' && Math.random() < 0.6) fx.spawn('glow', back.x, this.pos.y, back.z, { scale: 0.8, life: 0.12, color: 0xff3048, opacity: 0.6, fade: true, order: 6 });
     if (this.pos.y < 0.1 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4 || this.life <= 0) {
       if (this.pos.y < 0.1 && this.P.burstFx) {
-        fx.blast(this.P.burstFx.fx, this.pos.x, 0.4, this.pos.z, this.P.burstFx.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), this.P.burstFx.smoke, this.flipsLeft());
+        fx.blast(this.P.burstFx.fx, this.pos.x, 0.4, this.pos.z, this.P.burstFx.scale ?? 1, new THREE.Color(this.P.burstFx.color ?? this.P.glowColor ?? 0xffffff), this.P.burstFx.smoke, this.flipsLeft(), this.P.burstFx.ring);
         audio.play('hitHeavy', 0.7);
       } else if (this.pos.y < 0.1 && this.P.burst === 'explosion') {
         fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
@@ -469,9 +474,12 @@ export class Projectile {
       const dir = new THREE.Vector2(this.vel.x, this.vel.z).normalize();
       const r = o.takeHit(this.owner, { ...this.P, hitstop: this.P.big ? 10 : 4, projectileHit: true, big: this.P.big }, dir);
       const B = this.P.burstFx;
+      // the technique's paralysis on their body while the stun lasts (Lightning Palm): render state on hfx, never read
+      // by the simulation (Game.fxTicks draws it)
+      if (r === 'hit' && this.P.cling && o.hfx) o.hfx.cling = { fx: this.P.cling.fx, scale: this.P.cling.scale, until: this.game.frameNo + (o.stun || o.airStun || 30) };
       if (B) {
         // the technique's own blast (the Great Fireball, the Chidori Spear piercing): its art, not the white-out
-        fx.blast(B.fx, this.pos.x, this.pos.y, this.pos.z, B.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), B.smoke, this.flipsLeft());
+        fx.blast(B.fx, this.pos.x, this.pos.y, this.pos.z, B.scale ?? 1, new THREE.Color(B.color ?? this.P.glowColor ?? 0xffffff), B.smoke, this.flipsLeft(), B.ring);
         audio.play(B.sfx ?? (r === 'hit' ? 'hitHeavy' : 'block'), 0.8);
         this.game.cam.shake(B.shake ?? 0.4);
       } else if (this.P.burst === 'explosion') {
@@ -486,8 +494,21 @@ export class Projectile {
         fx.hitSpark(this.pos.x, this.pos.y, this.pos.z, false);
         audio.play(r === 'hit' ? 'hit' : 'block', 0.8);
       }
-      this.kill();
+      if (this.P.returns) this.reel(true); // a yo-yo bounces off them and comes back on its string
+      else this.kill();
     }
+  }
+
+  // A yo-yo on its way back (`returns`, ENG-SKL-KIL): it flies to the owner's hand at `reel` units/s and is gone there.
+  // Spent: it never hits again. The hand is a fixed point off the owner's body (the simulation never reads the art).
+  reel(start = false) {
+    const f = this.owner;
+    if (start) this.reeling = true;
+    const tx = f.pos.x + f.face.x * 0.4 - this.pos.x, ty = f.pos.y + 1.0 - this.pos.y, tz = f.pos.z + f.face.y * 0.4 - this.pos.z;
+    const d = dmath.hypot(tx, ty, tz), step = (this.P.reel ?? 30) * DT;
+    if (d <= step || ++this.backT > 60) { this.kill(); return; }
+    this.vel.set((tx / d) * (this.P.reel ?? 30), (ty / d) * (this.P.reel ?? 30), (tz / d) * (this.P.reel ?? 30));
+    this.pos.addScaledVector(this.vel, DT);
   }
 
   // an `orient`-ed shot (drawn flying screen-right) flying screen-left: its blast is mirrored too (view only)

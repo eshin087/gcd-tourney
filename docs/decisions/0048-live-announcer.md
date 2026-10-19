@@ -44,11 +44,13 @@ a cool background thing, not a focal point. The balloons went, the lettering shr
    line shows when nothing that outranks it is up; once-a-round moments (first hit, low health, comeback, the clock)
    wait up to 2.5 s for a busy bubble; filler fills a 6-10 s lull.
 5. **The captions** (`src/ui/speechBubble.js`) are DOM, not pixels, so small lettering stays sharp on a phone where
-   the 360 px pixel buffer could not hold it: the UI's Bangers font at about 1.45 `--u` (9 px minimum), cream with a
-   thin ink outline (gold for shouts, pale blue italic for panic, a fighter's name in their color), floating just above
-   his head, fading in and out, in a layer under the HUD so cut-ins and announcements stay on top. No balloon, no tail,
-   no pop or shake, and nothing while he is off screen: he is a background touch, not a focal point. With no room
-   above him under the HUD bars the caption sits beside his head.
+   the 360 px pixel buffer could not hold it: the UI's Bangers font at about 1.45 `--u` (9 px minimum), one line,
+   cream with a thin ink outline for every line (a fighter's name in their color), fading in and out, in a layer under
+   the HUD so cut-ins and announcements stay on top. No balloon, no tail, no pop or shake, and nothing while he is off
+   screen: he is a background touch, not a focal point. Third round (same day, "all over the place and buggy ... not so
+   bouncy"): it is locked straight above his standing head height, moved in the game's own pixel steps with no easing,
+   never switched to his side, and unmoved by a hop's arc or a duck for cover; under the health bars it is only clamped
+   down; and a line stays up at least 1.2 s before another may replace it (the KO count and the winner call excepted).
 6. **Art.** Four new NPC animations (`walk` 4, `run` 4, `shocked` 2, `micThrust` 2; walk and run are cycles in
    place, the engine moves the billboard). The packer reads an NPC animation's frame count from its ANIMATIONS.md
    row. Until a strip is approved, `NPC_FALLBACK` plays the nearest existing pose and the announcer bobs and waddles

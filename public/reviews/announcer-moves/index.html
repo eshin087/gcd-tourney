@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Announcer move candidates — ENG-118</title>
+<style>
+:root{color-scheme:dark}body{margin:0;background:#101622;color:#e7eef5;font:16px/1.5 system-ui,sans-serif}main{max-width:1050px;margin:auto;padding:20px}h1,h2{line-height:1.2}section{margin:20px 0;padding:16px;background:#192333;border-radius:12px}.status{padding:12px 16px;border-left:4px solid #f0b44c;background:#252b32}.candidate{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:center}figure{margin:0;text-align:center;min-width:0}canvas{width:min(100%,260px);aspect-ratio:1;background:#11151b;image-rendering:pixelated;border-radius:8px}figcaption{font-weight:650;margin-bottom:6px}.small{color:#b8c3d2;font-size:13px}.hold{color:#ffd18a}a{color:#9bd5ff}ul{padding-left:22px}@media(max-width:650px){main{padding:12px}.candidate{grid-template-columns:1fr;gap:10px}canvas{width:min(100%,240px)}}
+</style>
+</head>
+<body><main>
+<h1>Announcer move candidates — ENG-118</h1>
+<p class="status"><strong>User approved walk v02, run v03, shocked v03 and micThrust v03 via Claude on 2026-10-18.</strong> The user accepted the technical holds as drawn; Astra's findings below remain unresolved. The approved versions are packed beside the shipped idle at the ANIMATIONS.md frame timings. Historical atlases remain available.</p>
+<p>Phone view stacks the shipped idle and both candidate versions. The latest panels use the packed quantized atlas, not the raw generation canvas. All candidate loops play at their ANIMATIONS.md frame timings.</p>
+<div id="moves"></div>
+<h2>Technical holds and history</h2>
+<ul>
+<li class="hold"><strong>Walk v02 — technical HOLD:</strong> repeated same-leg phases; packed foot extent x88–89 exceeds the x86 limit. Calls exhausted (3/3).</li>
+<li class="hold"><strong>Run v03 — technical HOLD:</strong> repeated same-leg phases; hair shifts about 13–16 px and f2 foot extent x31–96 exceeds x34–94. Calls exhausted (3/3). v02 remains in history.</li>
+<li class="hold"><strong>Shocked v03 — technical HOLD:</strong> shoe contours still differ by 13 mask pixels; extents are x38–90 vs x39–90. Calls exhausted (3/3).</li>
+<li class="hold"><strong>MicThrust v03 — technical HOLD:</strong> hands remain reversed (left holds mic; right cups ear), and feet differ from approved idle. Calls exhausted (3/3).</li>
+</ul>
+<p class="small">Color-count evidence differs by stage: packer report says 32 colors; independent count of unique opaque RGB values in the latest atlas file says 31 (SHA-256 <code>7D0961E3615E7772729F366A7568654E4C22994432E9232744DD3311C1092761</code>). Both values are recorded without changing the art.</p>
+<p>Versioned raw sources remain preserved in the repository: <code>walk_v01–v02</code>, <code>run_v01–v03</code>, <code>shocked_v01–v03</code>, and <code>micThrust_v01–v03</code>. The hosted page shows the packed v01 and v02/v03 histories and the current quantized candidate loops.</p>
+<p class="small">Packed history: <a href="packed-candidate.png">v01 candidate atlas</a> · <a href="packed-latest-v02-v03.png">v02/v03 atlas</a> · approved <a href="packed-latest-v03.png">walk v02 / run v03 / shocked v03 / micThrust v03 atlas</a> · <a href="shipped-atlas.png">previously shipped atlas</a> · <a href="candidate-anims.json">v01 animation map</a> · <a href="candidate-anims-v02-v03.json">v02/v03 animation map</a> · <a href="candidate-anims-latest.json">current animation map</a> · <a href="generation-provenance.md">generation provenance, call counts and SHA-256</a>. Astra's technical holds remain despite user approval.</p>
+</main>
+<script>
+const moves=[
+  {name:'walk',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:8,count:4},{label:'v02 · current, HOLD',atlas:'packed-latest-v02-v03.png',start:8,count:4}],ms:150,note:'Four-frame in-place gait. Required: alternating contact and passing silhouettes, feet x 42–86, subtle 2 px passing pose, stable mic.'},
+  {name:'run',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:12,count:4},{label:'v03 · current, HOLD',atlas:'packed-latest-v02-v03.png',start:12,count:4}],ms:90,note:'Four-frame in-place scurry. Required: 104–106 px height, about 2 px bob, opposite-leg exchange, rear-foot push-off, stable horizontal anchor.'},
+  {name:'shocked',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:16,count:2},{label:'v02 · history',atlas:'packed-latest-v02-v03.png',start:16,count:2},{label:'v03 · current, HOLD',atlas:'packed-latest-v03.png',start:16,count:2}],ms:150,note:'Two-frame subtle trembling recoil. Astra found a 13-pixel shoe-contour mismatch in v03; technical hold.'},
+  {name:'micThrust',versions:[{label:'v01 · history',atlas:'packed-candidate.png',start:18,count:2},{label:'v02 · history',atlas:'packed-latest-v02-v03.png',start:18,count:2},{label:'v03 · current, HOLD',atlas:'packed-latest-v03.png',start:18,count:2}],ms:260,note:'Astra found hands reversed in v03 and feet differing from idle. Required pose: right hand holds mic; left hand cups ear. Technical hold.'},
+];
+const idle=new Image();idle.src='shipped-atlas.png';
+function player(canvas,img,start,count,ms){const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;let frame=0;const draw=()=>{if(!img.complete||!img.naturalWidth)return;ctx.clearRect(0,0,128,128);ctx.drawImage(img,(start+frame)%8*128,Math.floor((start+frame)/8)*128,128,128,0,0,128,128)};draw();setInterval(()=>{frame=(frame+1)%count;draw()},ms)}
+const host=document.querySelector('#moves');for(const m of moves){const s=document.createElement('section');s.innerHTML=`<h2>${m.name}</h2><p>${m.note}</p><div class="candidate"><figure><figcaption>Shipped idle · 520 ms/frame</figcaption><canvas width="128" height="128" aria-label="Shipped announcer idle loop"></canvas></figure>${m.versions.map(v=>`<figure><figcaption>${v.label} · ${m.ms} ms/frame</figcaption><canvas width="128" height="128" aria-label="${m.name} ${v.label} loop"></canvas></figure>`).join('')}</div>`;host.append(s);const canvases=s.querySelectorAll('canvas');player(canvases[0],idle,0,2,520);m.versions.forEach((v,i)=>{const img=new Image();img.src=v.atlas;player(canvases[i+1],img,v.start,v.count,m.ms)})}
+</script>
+</body></html>

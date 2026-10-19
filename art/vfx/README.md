@@ -63,68 +63,84 @@ Full detail per effect is in [`EFFECTS.md`](EFFECTS.md).
 ## Signature effects: the HD cell (ADR 0044)
 
 A fighter's signature techniques are drawn at **twice the detail**: a **256 x 256 cell at 112 px per unit** (the
-same world size per cell as the 128 px effects). The packer puts them on their own page, `public/vfx/atlas_hd.png`,
-described by the `hd` block of `atlas.json`; the game reads each effect from whichever page holds it. Anchors: center
-on (128, 128); bottom centered on x = 128 with the base on y = 240. Cleaned frames in `frames/<effect>/` are exactly
-256 x 256. Everything else in this page applies (versions, approval, fill, color rule). Each has a small procedural
-stand-in until its art is approved.
+same world size per cell as the 128 px effects). The packer puts them on pages by **owner** (ADR 0053):
+`public/vfx/atlas_hd_shared.png` for the effects several fighters use, then `atlas_hd_<fighter id>.png` for each
+fighter's own, at most 16 effects (2048 x 4096 px) a page (`atlas_hd_<id>_2.png` past that), described by the `hd` block
+of `atlas.json`. A match loads only the shared page and its two fighters' pages, so a new effect needs its `owner` on
+its `VFX_EFFECTS` entry in `tools/pack-sprites.mjs` (or in the manifest): the fighter id whose techniques draw it, or
+`shared` (the default) when more than one fighter or shared engine code draws it. A wrong owner shows as one `[vfx]`
+console line and the procedural stand-in in the other fighters' matches. Anchors: center on (128, 128); bottom
+centered on x = 128 with the base on y = 240. Cleaned frames in `frames/<effect>/` are exactly 256 x 256. Everything
+else in this page applies (versions, approval, fill, color rule). Each has a small procedural stand-in until its art is
+approved (and while its page loads at the start of a match).
 
-| Effect | Frames | ms/frame | Color rule | Anchor | Used for |
-|---|---|---|---|---|---|
-| `rasengan` | 8 | 40 | full color | center | Naruto's Rasengan in his palm (loop); the Shadow Clone Barrage's big Rasengan |
-| `rasenganForm` | 6 | 45 | full color | center | the Rasengan forming during the startup |
-| `rasenganBurst` | 8 | 45 | full color | center | the Rasengan's hit: grind, then spiral blast |
-| `rasenshuriken` | 8 | 35 | full color | center | the Rasenshuriken held in his hand (loop) |
-| `rasenshurikenDome` | 8 | 50 | full color | center | the sphere of wind blades grinding the victim (f2-f3 loop while it grinds, f4-f7 break it apart) |
-| `poof` | 7 | 40 | full color | center | a shadow clone appearing or vanishing; the Substitution puff |
-| `subLog` | 5 | 70 | full color | bottom | the Substitution log left where he stood |
-| `fourTailsRoar` | 8 | 45 | full color | center | the Four-Tails chakra roar as the transformation completes |
-| `beastBall` | 8 | 45 | full color | center | the Tailed Beast Ball gathering at the fox's mouth during the charge (loop) |
-| `beastBeamRing` | 6 | 40 | full color | center | the shock rings sent down the Tailed Beast Ball beam |
-| `chidori` | 8 | 35 | full color | center | Sasuke's Chidori in his hand (crackle loop; arcs trail screen-left, mirrored when he faces left) |
-| `chidoriForm` | 6 | 40 | full color | center | the Chidori forming in his gripped hand during the startup |
-| `chidoriBurst` | 8 | 40 | full color | center | the Chidori piercing them (its hit, and the Chidori Spear's) |
-| `chidoriSpear` | 8 | 35 | full color | center | the Chidori Spear's blade grown from his hand, laid along the shot (f3-f5 held while it is out) |
-| `chidoriCurrent` | 8 | 40 | full color | center | Chidori Current bursting from his body on a Sharingan read (the body area left clear) |
-| `amaterasu` | 8 | 60 | full color | bottom | Amaterasu's black flames clinging to a burning body (loop; one copy behind, one in front) |
-| `amaterasuIgnite` | 6 | 45 | full color | center | the black flames bursting on them as the gaze lands |
-| `greatFireball` | 8 | 45 | full color | center | the Great Fireball flying screen-right, turned along its flight (loop); the Kirin's fireball into the sky |
-| `greatFireballBurst` | 8 | 50 | full color | center | the Great Fireball exploding |
-| `stormCloud` | 4 | 120 | full color | center | the Kirin's thunderclouds over the marked spot (copies side by side) |
-| `kirinBody` | 4 | 40 | full color | center | the Kirin's bolt body, stacked from the clouds to the head; exact 256 x 256 frames that tile top to bottom |
-| `kirinHead` | 6 | 40 | full color | center | the Kirin's head diving straight down (loop) |
-| `kirinStrike` | 8 | 45 | full color | bottom | the Kirin hitting the floor |
-| `kamehameha` | 8 | 40 | full color | center | Goku's ki ball growing in his cupped hands (the beam's `gather`), then held at his palms while it fires (loop) |
-| `kamehamehaHead` | 6 | 40 | full color | center | the Kamehameha's rounded swirling head, its front on the beam's head (loop; turned along the beam) |
-| `kamehamehaRing` | 6 | 40 | full color | center | the shock rings sent down the Kamehameha |
-| `kiBlast` | 6 | 35 | full color | center | a ki blast in flight, turned along it (loop) |
-| `kiMuzzle` | 5 | 35 | full color | center | the flash at his palm as each ki blast leaves |
-| `kiBlastBurst` | 7 | 40 | full color | center | a ki blast hitting |
-| `dragonFistAura` | 6 | 40 | full color | center | the golden ki round him in Dragon Fist's flight, behind the body (loop) |
-| `dragonFistDragon` | 10 | 50 | full color | center | the golden dragon erupting from the punch and coiling round the victim (its frames follow the hit stop) |
-| `dragonFistBurst` | 8 | 45 | full color | center | the dragon bursting as the victim flies |
-| `instantTransmission` | 6 | 35 | full color | bottom | Instant Transmission's shimmer as he goes (played backward where he reappears) |
-| `kaiokenBurst` | 7 | 40 | full color | bottom | the red aura bursting out as Kaio-ken starts |
-| `kaiokenAura` | 6 | 50 | full color | bottom | the Kaio-ken aura held behind him while the mode lasts (loop; the body area left clear) |
-| `spiritBomb` | 8 | 60 | full color | center | the Spirit Bomb over his raised hands, grown from small to giant, then falling onto the mark (loop) |
-| `spiritBombBlast` | 8 | 60 | full color | bottom | the Spirit Bomb landing: the dome |
-| `superSaiyanBurst` | 8 | 45 | full color | bottom | the golden aura exploding as he turns Super Saiyan in the match intro |
-| `lapseBlue` | 8 | 40 | full color | center | Gojo's Lapse: Blue, the dense navy-eyed point space falls into (loop); Blue in his far hand (Hollow Purple) |
-| `blueCollapse` | 8 | 40 | full color | center | Blue's end, the implosion; small, Blink's fold where he vanishes and reappears |
-| `redForm` | 6 | 40 | full color | center | Reversal: Red forming on his raised fingertip during the startup |
-| `reversalRed` | 8 | 40 | full color | center | Reversal: Red flying screen-right, its shock wake streaming back (loop, turned along its flight); Red in his near hand |
-| `redBurst` | 8 | 40 | full color | center | Red hitting: the repulsion blast |
-| `infinityRipple` | 6 | 40 | full color | center | the ripple of space where Infinity stops a shot dead |
-| `sixEyesGlint` | 6 | 35 | full color | center | the Six Eyes glint (the Domain's flash, Hollow Purple's merge) |
-| `purpleForm` | 8 | 40 | full color | center | Red and Blue colliding into Purple between his hands (played by the merge's progress) |
-| `hollowPurple` | 8 | 45 | full color | center | Hollow Purple, the imaginary mass rolling forward (loop) |
-| `purpleBurst` | 8 | 45 | full color | center | Hollow Purple hitting: the mass swallowing them |
-| `voidFlood` | 8 | 40 | full color | center | Unlimited Void: light pouring into the frozen opponent's head (loop) |
-| `voidShatter` | 8 | 50 | full color | center | the void breaking like glass over the whole view when the domain ends |
+| Effect | Owner | Frames | ms/frame | Color rule | Anchor | Used for |
+|---|---|---|---|---|---|---|
+| `rasengan` | naruto | 8 | 40 | full color | center | Naruto's Rasengan in his palm (loop); the Shadow Clone Barrage's big Rasengan |
+| `rasenganForm` | naruto | 6 | 45 | full color | center | the Rasengan forming during the startup |
+| `rasenganBurst` | naruto | 8 | 45 | full color | center | the Rasengan's hit: grind, then spiral blast |
+| `rasenshuriken` | naruto | 8 | 35 | full color | center | the Rasenshuriken held in his hand (loop) |
+| `rasenshurikenDome` | naruto | 8 | 50 | full color | center | the sphere of wind blades grinding the victim (f2-f3 loop while it grinds, f4-f7 break it apart) |
+| `poof` | shared | 7 | 40 | full color | center | a shadow clone appearing or vanishing; the Substitution puff |
+| `subLog` | shared | 5 | 70 | full color | bottom | the Substitution log left where he stood |
+| `fourTailsRoar` | naruto | 8 | 45 | full color | center | the Four-Tails chakra roar as the transformation completes |
+| `beastBall` | naruto | 8 | 45 | full color | center | the Tailed Beast Ball gathering at the fox's mouth during the charge (loop) |
+| `beastBeamRing` | naruto | 6 | 40 | full color | center | the shock rings sent down the Tailed Beast Ball beam |
+| `chidori` | sasuke | 8 | 35 | full color | center | Sasuke's Chidori in his hand (crackle loop; arcs trail screen-left, mirrored when he faces left) |
+| `chidoriForm` | sasuke | 6 | 40 | full color | center | the Chidori forming in his gripped hand during the startup |
+| `chidoriBurst` | sasuke | 8 | 40 | full color | center | the Chidori piercing them (its hit, and the Chidori Spear's) |
+| `chidoriSpear` | sasuke | 8 | 35 | full color | center | the Chidori Spear's blade grown from his hand, laid along the shot (f3-f5 held while it is out) |
+| `chidoriCurrent` | sasuke | 8 | 40 | full color | center | Chidori Current bursting from his body on a Sharingan read (the body area left clear) |
+| `amaterasu` | sasuke | 8 | 60 | full color | bottom | Amaterasu's black flames clinging to a burning body (loop; one copy behind, one in front) |
+| `amaterasuIgnite` | sasuke | 6 | 45 | full color | center | the black flames bursting on them as the gaze lands |
+| `greatFireball` | sasuke | 8 | 45 | full color | center | the Great Fireball flying screen-right, turned along its flight (loop); the Kirin's fireball into the sky |
+| `greatFireballBurst` | sasuke | 8 | 50 | full color | center | the Great Fireball exploding |
+| `stormCloud` | sasuke | 4 | 120 | full color | center | the Kirin's thunderclouds over the marked spot (copies side by side) |
+| `kirinBody` | sasuke | 4 | 40 | full color | center | the Kirin's bolt body, stacked from the clouds to the head; exact 256 x 256 frames that tile top to bottom |
+| `kirinHead` | sasuke | 6 | 40 | full color | center | the Kirin's head diving straight down (loop) |
+| `kirinStrike` | sasuke | 8 | 45 | full color | bottom | the Kirin hitting the floor |
+| `kamehameha` | goku | 8 | 40 | full color | center | Goku's ki ball growing in his cupped hands (the beam's `gather`), then held at his palms while it fires (loop) |
+| `kamehamehaHead` | goku | 6 | 40 | full color | center | the Kamehameha's rounded swirling head, its front on the beam's head (loop; turned along the beam) |
+| `kamehamehaRing` | goku | 6 | 40 | full color | center | the shock rings sent down the Kamehameha |
+| `kiBlast` | goku | 6 | 35 | full color | center | a ki blast in flight, turned along it (loop) |
+| `kiMuzzle` | goku | 5 | 35 | full color | center | the flash at his palm as each ki blast leaves |
+| `kiBlastBurst` | goku | 7 | 40 | full color | center | a ki blast hitting |
+| `dragonFistAura` | goku | 6 | 40 | full color | center | the golden ki round him in Dragon Fist's flight, behind the body (loop) |
+| `dragonFistDragon` | goku | 10 | 50 | full color | center | the golden dragon erupting from the punch and coiling round the victim (its frames follow the hit stop) |
+| `dragonFistBurst` | goku | 8 | 45 | full color | center | the dragon bursting as the victim flies |
+| `instantTransmission` | goku | 6 | 35 | full color | bottom | Instant Transmission's shimmer as he goes (played backward where he reappears) |
+| `kaiokenBurst` | goku | 7 | 40 | full color | bottom | the red aura bursting out as Kaio-ken starts |
+| `kaiokenAura` | goku | 6 | 50 | full color | bottom | the Kaio-ken aura held behind him while the mode lasts (loop; the body area left clear) |
+| `spiritBomb` | goku | 8 | 60 | full color | center | the Spirit Bomb over his raised hands, grown from small to giant, then falling onto the mark (loop) |
+| `spiritBombBlast` | goku | 8 | 60 | full color | bottom | the Spirit Bomb landing: the dome |
+| `superSaiyanBurst` | goku | 8 | 45 | full color | bottom | the golden aura exploding as he turns Super Saiyan in the match intro |
+| `lapseBlue` | gojo | 8 | 40 | full color | center | Gojo's Lapse: Blue, the dense navy-eyed point space falls into (loop); Blue in his far hand (Hollow Purple) |
+| `blueCollapse` | gojo | 8 | 40 | full color | center | Blue's end, the implosion; small, Blink's fold where he vanishes and reappears |
+| `redForm` | gojo | 6 | 40 | full color | center | Reversal: Red forming on his raised fingertip during the startup |
+| `reversalRed` | gojo | 8 | 40 | full color | center | Reversal: Red flying screen-right, its shock wake streaming back (loop, turned along its flight); Red in his near hand |
+| `redBurst` | gojo | 8 | 40 | full color | center | Red hitting: the repulsion blast |
+| `infinityRipple` | gojo | 6 | 40 | full color | center | the ripple of space where Infinity stops a shot dead |
+| `sixEyesGlint` | gojo | 6 | 35 | full color | center | the Six Eyes glint (the Domain's flash, Hollow Purple's merge) |
+| `purpleForm` | gojo | 8 | 40 | full color | center | Red and Blue colliding into Purple between his hands (played by the merge's progress) |
+| `hollowPurple` | gojo | 8 | 45 | full color | center | Hollow Purple, the imaginary mass rolling forward (loop) |
+| `purpleBurst` | gojo | 8 | 45 | full color | center | Hollow Purple hitting: the mass swallowing them |
+| `voidFlood` | gojo | 8 | 40 | full color | center | Unlimited Void: light pouring into the frozen opponent's head (loop) |
+| `voidShatter` | gojo | 8 | 50 | full color | center | the void breaking like glass over the whole view when the domain ends |
+| `lightningPalm` | killua | 8 | 30 | full color | center | Killua's Lightning Palm: the forked bolt flying from his palm, turned along its flight (loop) |
+| `palmCrackle` | killua | 6 | 35 | full color | center | Killua's lightning gathering in his open palm (Lightning Palm's startup, Narukami's top, where he lands at Godspeed) |
+| `palmShock` | killua | 8 | 40 | full color | center | Killua's shock jumping through a body on a hit (Lightning Palm, the super's blows, the claw strike, the yo-yo smaller) |
+| `shockCrawl` | killua | 6 | 50 | full color | bottom | electricity crawling over a body paralysed by Lightning Palm while it stays stunned (loop) |
+| `godspeedBurst` | killua | 8 | 40 | full color | center | Godspeed switching on: lightning bursting out of his whole body (the body area left clear) |
+| `godspeedAura` | killua | 8 | 40 | full color | bottom | Godspeed on his body for the whole mode and Whirlwind (loop; one copy behind, a see-through one in front) |
+| `godspeedStreak` | killua | 6 | 30 | full color | center | the streak he leaves moving at Godspeed, laid along his path and kept thin |
+| `narukamiBolt` | killua | 4 | 40 | full color | center | Narukami's bolt from the sky, stacked down to him and the floor; exact 256 x 256 frames that tile top to bottom |
+| `narukamiStrike` | killua | 8 | 45 | full color | bottom | Narukami hitting the floor |
+| `yoyo` | killua | 8 | 30 | full color | center | Killua's electrified steel yo-yo flying out and back (loop; the engine draws its string) |
 
 The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md),
 [art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md),
-[art/characters/gojo/SKILLS_REVAMP.md](../characters/gojo/SKILLS_REVAMP.md) and
+[art/characters/gojo/SKILLS_REVAMP.md](../characters/gojo/SKILLS_REVAMP.md),
+[art/characters/killua/SKILLS_REVAMP.md](../characters/killua/SKILLS_REVAMP.md) and
 [art/characters/goku/SKILLS_REVAMP.md](../characters/goku/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)

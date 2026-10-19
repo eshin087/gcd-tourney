@@ -1,0 +1,15 @@
+{
+  "batch": "npc-announcer-r1",
+  "type": "npc",
+  "agent": "announcer-luna",
+  "status": "done",
+  "claimedAt": "2026-10-19T00:27:26.537Z",
+  "touchedAt": "2026-10-19T00:31:12.506Z",
+  "items": [
+    "walk",
+    "run",
+    "shocked",
+    "micThrust"
+  ],
+  "doneAt": "2026-10-19T00:31:12.505Z"
+}

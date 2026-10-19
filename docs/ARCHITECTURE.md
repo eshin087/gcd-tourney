@@ -62,7 +62,8 @@ src/game/
                             or wall impact) and TechTimer (per-level timing for CpuBrain, MasterBrain, the dummy)
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
-  projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
+  projectiles.js            Projectile (shuriken, fireball, bolt, red, yo-yo: `returns`, its string a `limb`, ADR 0052;
+                            Infinity stops them), Vortex (Lapse: Blue
                             pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette and shape:
                             the HDR ribbon shader, or a VFX atlas band tiled along it, or Red's orb; STREAM_STYLES).
                             Simulation state only, keyed by a per-match `id`: ShotViews draws their sprites, glows
@@ -73,6 +74,7 @@ src/game/
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground.
                             Limbs (ENG-SKL-LUF): `limb` stretches a tube effect between two points (the drawn hand
                             anchor and a shot), `limbEnd` puts its end (a fist) on it, `handAt` finds the drawn hand
+                            Bolt `column`s and a hit's `cling` (Killua, ADR 0052).
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
   sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique
@@ -80,7 +82,8 @@ src/game/
                             (shell, emitters, eye glint, bar / MAX beats) and the restraint rules R1-R9
   auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha);
                             ChakraShroud: a mode's see-through `cloak` over the body plus its rim (ADR 0044)
-  clones.js                 CloneCrew: shadow clones drawn from a kit move's `kitState.crew` entries (ADR 0044)
+  clones.js                 CloneCrew: shadow clones drawn from a kit move's `kitState.crew` entries (ADR 0044);
+                            entries with `linger` stay drawn after the move, flickering out (afterimages, ADR 0052)
   camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory, results; shake,
                             zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
@@ -382,7 +385,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 - Custom VFX art: `npm run sprites vfx` writes `public/vfx/atlas.png` + `atlas.json` (128 px cells, `ppu` 56,
   the same world size) from the **approved** effects only (`approvedVersion` in `art/manifest.json`), and removes
   a stale atlas when none are approved. The game loads it when present, and missing effects fall back to
-  procedural ones.
+  procedural ones (drawn from the baked procedural sheet, 2048 px wide).
+- HD signature effects (ADR 0044, 0053): 256 px cells on one page per owner, `atlas_hd_shared.png` and
+  `atlas_hd_<fighter id>.png` (at most 2048 x 4096 each), listed in atlas.json's `hd` block (`pages`, `effects`).
+  Boot reads only the JSON; `Effects.prepare(fighters, renderer)` at match start loads the shared pages and the two
+  fighters' pages, uploads them as they arrive and frees the others. `Effects.source(name)` says which sheet an effect is
+  drawn from now; until its page is in, an HD effect draws its procedural stand-in.
 
 ## Ground damage (ADR 0024)
 
