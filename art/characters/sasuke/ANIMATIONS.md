@@ -90,7 +90,7 @@ the custom sheet. **👁** = Sharingan on.
 | [airRecover](#airrecover) | 3 | | | 180 | 50 50 60 | | | A32 | f2 (unfolding) |
 | [down](#down) | 2 | | | 96 | 80 420 | ✓ | | A13 | f0 (knees up) |
 | [getup](#getup) | 5 | | | 204 | 70 60 60 80 70 | ✓ | | A14 | f4 (stance) |
-| [charge](#charge) | 4 | | ✓ | 198 | 50 each | ✓ | 👁 | A15 | any |
+| [charge](#charge) | 6 | | ✓ from f2 | 180* | 70/90/110/110/110/110 | ✓ | 👁 | A15 | f0 gather |
 | [throw](#throw) (Fireball) | 4 | 1/1/2 | | 201 | 50 60 70 50 | | 👁 | A33 | f0 (upright inhale) |
 | [beamCharge](#beamcharge) | 3 | | ✓ | 230 | 50 each | ✓ | 👁 | A16 | any |
 | [beamFire](#beamfire) | 3 | | ✓ | 198 | 50 each | ✓ | 👁 | A17 | any |
@@ -573,22 +573,20 @@ slightly open. Bangs messy, hanging over the eyes.
 
 <a id="charge"></a>
 
-### `charge`: powering up (loop) · Sharingan
+### `charge`: powering up — sink, one-handed seal and held loop
 
-4 frames · loops · **CORE** · bodyHeight 198 · ms 50/50/50/50 · prompt A15 · 👁 Sharingan · active approved **v02**; redraw v03/v04 rejected by user
+6 frames · f0-f1 play once, f2-f5 loop from 2 · **CORE** · bodyHeight 180 · ms 70/90/110/110/110/110 · prompt A15 · 👁 Sharingan · v15 scripted composite, approved by the user via Claude relay charge #10.
 
-Cold intensity, not Naruto's open roar: a low, braced stance, the fists clenched hard and drawn down, the head level
-and the Sharingan locked on the opponent while the power tears at his clothes. Loop rules: the **feet are identical
-in all four frames** (soles on y 240); the shoulders rise 2 to 3 px on f1-f2 and settle on f3; the fists tremble at
-most 1 to 2 px; the **head moves at most 2 px and stays level** (eyes on the opponent); the bangs, back spikes, rope
-ends and bow loops, waist cloth, open lapels and sleeves change shape by 2 to 5 px in every frame, always blown
-upward. f3 flows back into f0 without a pop. No aura or lightning in the sprite.
+Sasuke sinks into a low stance, brings his right hand to a one-handed seal before his chin, and holds with cold Sharingan intensity. His left arm stays down and back with a clenched fist; the sword remains sheathed at the small of his back. No aura or lightning is drawn in the sprite.
 
-- **f0 (loop):** BRACE: feet planted wide (well wider than the shoulders, L foot forward), knees bent about 40°, torso leaning slightly forward; both arms drawn down and slightly back beside the hips, fists clenched hard, elbows bent and flared a little; shoulders squared; head level, eyes on the opponent. Face: angry, teeth bared · Sharingan. Hair / cloth and QA: Bangs, back spikes, rope ends and bow loops lifted; waist-cloth hem lifting
-- **f1 (loop):** SURGE: shoulders rise about 2 px and square back, chest lifts, fists push down 1 px, elbows flare out 1 to 2 px. Face: shout (short, controlled) · Sharingan. Hair / cloth and QA: Rope ends flung up, waist-cloth panels billowing up, lapels and sleeves flaring
-- **f2 (loop):** PEAK: as f1, the whole body trembling 1 px to the right, the fists shaking. Face: shout · Sharingan. Hair / cloth and QA: Everything at its highest (third shape)
-- **f3 (loop):** SETTLE: shoulders down 1 to 2 px, the mouth closing to bared teeth; flows into f0. Face: angry, teeth bared · Sharingan. Hair / cloth and QA: Rope ends and cloth drop 2 px into a fourth shape
+- **f0 · gather:** weight sinks; right hand rises toward the chest; chin lowers; hair and clothing are at rest.
+- **f1 · release:** opens into a low, wide stance; right hand forms the two-finger seal before the chin; left arm drops down/back, fist clenched; head lifts and mouth opens in a controlled shout; hair and loose cloth lift.
+- **f2 · hold baseline:** establishes the final seal pose and body placement.
+- **f3 · hold breath:** same stance; chest and shoulders rise 1–2 px; shout widest.
+- **f4 · hold tremor:** same stance; forearm and fingers quiver by about 1 px.
+- **f5 · settle:** shoulders settle 1–2 px and flow back into f2 without a pop.
 
+For f2-f5 keep feet, knees and hips fixed; head and fists move at most 2 px. Only subtle breath, mouth, finger motion and four distinct rising hair/headband-tail/hem silhouettes vary. Character colors and clothing stay consistent. No energy, lightning, sparks, steam, dust or shadow effects in the sprite.
 <a id="throw"></a>
 
 ### throw: FIREBALL (Great Fireball Technique, air) · 4 frames · phases 1/1/2 · 👁 Sharingan

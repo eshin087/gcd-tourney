@@ -1,4 +1,12 @@
 # Art review queue
+## Sasuke charge v15 approval (2026-10-18)
+
+The user approved the v15 scripted composite as drawn via Claude relay charge #10, exact quote: “Approve v15”. Claude's packed-cell review found body and head placement 0 px across f2-f5, feet identical with the f5 sandal edge variation within 2 px, and the f3 1.077 head-probe reading attributable to lifted/trailing hair (jaw about 17 px, matching idle). The user saw the loop at game timing before approval. Astra's earlier version-bound `SCALE_MANUAL_QA.md` remains unchanged as historical evidence and uncertainty; Claude's follow-up is recorded separately in `CLAUDE_SCALE_CHECK.md`. Approval does not replace Claude's pending integration/merge check. See the [packed review page](../public/reviews/charge-sasuke/), [Astra audit](characters/sasuke/production/charge-v15/AUDIT.md), and [scale QA record](characters/sasuke/production/charge-v15/CLAUDE_SCALE_CHECK.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | sasuke | charge | [charge_v15.png](characters/sasuke/raw/charge_v15.png) · [packed review](../public/reviews/charge-sasuke/) | v15 | approved | Scripted composite from v14: locked f2 lower-body pixels copied into f3-f5; f3 shout mouth copied into f4 | Approved as drawn via Claude relay charge #10, exact quote: “Approve v15”. Claude confirms packed f2-f5 body/head placement 0 px, feet stable within the 2 px sandal-edge tolerance; f3 H=1.077 is lifted/trailing hair, jaw 17 px as idle. User saw game-timed playback. Astra's prior manual QA is retained unchanged. [Astra audit](characters/sasuke/production/charge-v15/AUDIT.md) · [Claude scale check](characters/sasuke/production/charge-v15/CLAUDE_SCALE_CHECK.md). |
+
 ## ART-SKL-GOK batch 4 (2026-10-18): Ki blasts, Rising Kick and intro
 
 | 2026-10-18 | goku | specialUp | [specialUp_v01.png](characters/goku/raw/specialUp_v01.png) · [review page](../public/reviews/goku-skills-batch4/index.html) · [generation record](characters/goku/production/skills-revamp-batch4/specialUp_v01.md) | v01 | approved | 1 call; Rising Kick crouch, vertical kick, tuck and hammer setup. | Astra final quantized-atlas audit: visible anatomy and containment pass; head scale is unmeasured and scaleManualQA v1 remains HOLD. User exempted v01 from the head check via Claude relay #16; Astra HOLD is preserved. [Astra report](art/characters/goku/production/BATCH4_V01_FINAL_ASTRA_AUDIT.md). |
