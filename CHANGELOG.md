@@ -16,6 +16,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+
+- Changed: the determinism fixtures are re-recorded after Goku's up tilt (fingerprint bb49081ebda5); both replay frame for frame.
 - Changed (TOOL-064, ADR 0053): the HD effects pack onto one page per owner, `atlas_hd_shared.png` and `atlas_hd_<fighter>.png` (at most 2048 x 4096, so a phone with a 4096 limit draws them at full size; one 2048 x 11520 page before), and a match loads only the shared page and its two fighters' pages: 19.5-53.5 MiB of HD effects on the GPU instead of 90, and nothing extra to download at boot (7.4 MB before). Effects without packed art draw from the procedural sheet, now 2048 x 1152 instead of 512 x 4608; an HD effect draws its stand-in until its page is in. New HD effects set `owner` on their `VFX_EFFECTS` entry
 
 - Changed (ENG-112 Goku, relay combat #45): recorded the user's approval via Claude of uTilt v04 as drawn at strip packScale 1.09; restored its unchanged source from `_qa_hold`, added version-bound f3/f4 fist contact boxes, and packed the whole character at 48 colors. Astra's exact-atlas final5 scale/anatomy and box-location check passed; runtime combat contact remains with Claude.
