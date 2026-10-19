@@ -70,7 +70,9 @@ src/game/
   snapshot.js               saveState / loadState (ADR 0036): a deep copy of the simulation (GAME_STATE, fighters,
                             pads, shots, clash, basis, sprite playback); static tables, assets and the view shared
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
-                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
+                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground.
+                            Limbs (ENG-SKL-LUF): `limb` stretches a tube effect between two points (the drawn hand
+                            anchor and a shot), `limbEnd` puts its end (a fist) on it, `handAt` finds the drawn hand
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
   sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique
@@ -134,6 +136,8 @@ src/art/
                             pose.js (pose model, keyframes), anims.js (shared moveset), face.js (pixel faces),
                             baker.js (bake to sheet + boxes + portrait + cut-in)
 src/world/arena.js          tournament grounds: ring, temple, stands + instanced crowd, gate, trees, sky, dimming
+src/world/announcer.js      the live announcer (ADR 0048): walks the ring behind the fight, ring calls, KO count,
+                            picks his lines (announcerLines.js) and drives his caption; view only
 src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
                             by Game.startDomain via setStage('void')
 src/ui/
@@ -141,6 +145,7 @@ src/ui/
                             chips and rating (ADR 0026), callouts, TAGS technique banners (ADR 0022), announcements,
                             super cut-in, clash bar and rhythm track
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
+  speechBubble.js           the announcer's lines: a small caption above his head (DOM, under the HUD)
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)
 src/style.css               all DOM UI styling
@@ -303,7 +308,8 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   (e.g. `superDash -> dash -> run -> idle`). `boxes(frame, kind, side)` converts frame-local pixel boxes into
   local world units, mirrored for facing left.
 - **SpriteActor** is a camera-facing plane anchored at the pivot (feet). It mirrors by `side`, plays loops and
-  one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
+  one-shots by `durations` (a loop with an anims.json `loopFrom` plays its first frames once and loops from there:
+  `charge`'s gather and release, ENG-117), and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
   shadow caster, a blob shadow and ghost trails (dash/vanish afterimages). On a lying frame (one with an anims.json
   `footprint`: `ko`, `down`, `getup` f0) resting on the floor, `fitShadow` stretches the blob along the drawn body
@@ -412,8 +418,13 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   new image, nearest filtering), so geometry and repeat counts, and therefore world coverage, never change.
 - **NPCs:** `loadNpcArt()` reads `public/npc/<id>/anims.json` + `sheet.png` for each entry of `NPCS` (placement,
   mirroring); `arena.setNpcArt()` places one `NpcSprite` billboard per sheet (unlit, dimmed with the crowd; the announcer
-  sheet hides the painted announcer). `Game` calls `arena.npcCue(kind)` on intro, round start, supers, ultimates,
-  clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time.
+  sheet hides the painted announcer). `Game` calls `arena.npcCue(kind, info)` on intro, round start, supers, ultimates,
+  clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time. The announcer is
+  live (ADR 0048): `Game` attaches an `Announcer` (`arena.setCaster`), whose body is the packed sheet or the painted
+  placeholder; he hears every cue (also specials, combos, technique tags, throws, MAX POWER, clash wins, time-up),
+  reads the game each render (`arena.update(time, excite, game, dt)`), moves and animates himself (a missing
+  animation plays its `NPC_FALLBACK`) and speaks through `SpeechBubble`. `Game.quiet` stands the arena in during a
+  rollback, so a re-simulated frame never cues him twice; he never writes to the simulation.
 - **Title art:** `loadUiArt()` reads `public/ui/manifest.json`; `Menus.title()` shows the logo image instead of the CSS
   logo and the key art behind it.
 - **Ground decals (packer side, ADR 0024):** `npm run sprites decals` (`tools/pack-decals.mjs`, called by the sprite

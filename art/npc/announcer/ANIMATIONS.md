@@ -50,7 +50,7 @@ All of them loop: the engine decides how long each plays, then returns to `idle`
 required animation (the sheet is `complete` when it exists); a missing one plays its fallback.
 `walk` .. `micThrust` were added on 2026-10-18 for the live announcer (ENG-118, batch `npc-announcer-r1`):
 he walks the ring edge to stay behind the fight, hops onto the ring to call a KO and comments the fight in
-manga speech bubbles. The bubbles are drawn by the engine; never draw one in a strip.
+small captions. The engine draws them; never draw text or a speech bubble in a strip.
 
 ---
 

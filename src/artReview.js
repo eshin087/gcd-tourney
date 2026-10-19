@@ -2,6 +2,7 @@
 // Timings come from each animation; this page never changes approval records.
 import './artReview.css';
 import { frameCell } from './art/sheetPages.js';
+import { loopStart } from './game/animPhase.js';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, text) => {
@@ -123,8 +124,11 @@ function tick(now) {
   lastTime = now;
   if (playing && animation && !document.hidden) {
     playhead += elapsed * speed;
-    if (animation.loop) playhead %= cycleDuration;
-    else if (playhead >= cycleDuration) {
+    if (animation.loop && playhead >= cycleDuration) {
+      // a strip with an intro (anims.json loopFrom, ENG-117) wraps into its loop, not back to frame 0
+      const from = frameStarts[loopStart(animation)];
+      playhead = from + ((playhead - from) % (cycleDuration - from));
+    } else if (playhead >= cycleDuration) {
       playhead = cycleDuration - .001;
       setPlaying(false);
     }

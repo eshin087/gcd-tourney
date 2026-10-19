@@ -526,21 +526,25 @@ Pose 5: fighting stance{{; NAME specifics}}.
 
 #### charge
 
-Save as: `raw/charge_vNN.png` · 4 poses · loop · core
+Save as: `raw/charge_vNN.png` · 6 poses · poses 1-2 once, 3-6 loop · core. If one call can't keep the four hold poses
+on one body, draw them in two parts: `raw/_parts/charge_vNN_A.png` (poses 1-2) and `_B.png` (poses 3-6, one call, attached
+as the reference for part A).
 
 ```text
-Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 4 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.
+Hi-res pixel art sprite strip, anime fan-art 2D fighting game sprite. 6 poses of the SAME character in ONE horizontal row, left to right, evenly spaced, poses not touching. Wide landscape image.
 SIZE: each pose is cut into a 256x256 game sprite where the neutral skull-to-sole height is {{STANDING_BODY_PX}} px and anatomical skull-to-chin length is {{HEAD_PX}} px at the common cast scale: draw hi-res pixel art with roughly three times the detail of a classic 16-bit fighting-game sprite.
 Body facing RIGHT in 3/4 view (body turned about 35 degrees toward the viewer, head turned a bit more so both eyes show), camera slightly above. Every pose at the same scale; feet on one shared baseline (airborne poses just float). SCALE LOCK: {{SCALE_LOCK}}. Preserve the approved neutral head, torso, limb lengths and build in every pose; serious tone. Not chibi, not super-deformed, no big head, no oversized hands or feet. "Near" arm/leg = the one closer to the viewer, drawn in front of the body; "far" = the one partly behind the body; in the fighting stance the lead (far) side is forward.
 Crisp hard pixel art: 1-pixel dark outline, 3-5 tone cel shading per color, light from the upper front right, no anti-aliasing, no blur, no gradients, no dithering, no motion blur (fast motion drawn as solid smear shapes). Use only these colors: {{PALETTE}}.
 Background: flat solid magenta #FF00FF everywhere. No ground shadow, no floor, no text, no labels, no numbers, no borders, no effects (no aura, no energy, no speed lines).
 {{NAME LINE}}
 The character: {{TRAITS}}. Match the attached reference images exactly.
-Animation "charge": powering up: wide stance, fists clenched at the sides, shouting upward (loop). The last pose must flow back into the first (looping animation).
-Pose 1: wide stance, fists clenched at the sides, head tilted up shouting, hair/cloth blown upward{{; NAME specifics}}.
-Pose 2: tiny shake to the left, cloth variation{{; NAME specifics}}.
-Pose 3: like pose 1 with a hair flicker{{; NAME specifics}}.
-Pose 4: tiny shake to the right{{; NAME specifics}}.
+Animation "charge": powering up. Poses 1-2 play once (gathering the power, then releasing it into the power stance); poses 3-6 loop while the power builds. Poses 3-6 are ONE held pose: the feet, knees, hips and head stay in exactly the same place in all four (the head moves at most 2 pixels); only the breath, the shout and the hair and loose clothing lifted by a rising wind change, each pose a different rising shape. Pose 6 must flow back into pose 3.
+Pose 1: GATHER: weight drops, knees bend deeper, both hands pulled in tight, shoulders hunched, chin tucked, eyes narrowed; hair and clothing at rest{{; NAME specifics}}.
+Pose 2: RELEASE: the body snaps open into the power stance: wide stance, both fists clenched hard, pushed down and slightly out from the hips, chest up, head up, shouting; hair and clothing flung upward{{; NAME specifics}}.
+Pose 3: HOLD: the power stance of pose 2, drawing breath{{; NAME specifics}}.
+Pose 4: the same stance, chest and shoulders 1-2 pixels higher, the shout at its widest{{; NAME specifics}}.
+Pose 5: as pose 4, fists and forearms quivering by a pixel{{; NAME specifics}}.
+Pose 6: shoulders settling 1-2 pixels, flowing back into pose 3{{; NAME specifics}}.
 ```
 
 #### beamCharge

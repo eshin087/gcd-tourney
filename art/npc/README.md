@@ -157,6 +157,13 @@ Wired on 2026-10-10 (ADR 0012): `src/world/worldArt.js` (`NPCS` placement table,
 one), monk-a at the back-left ring corner, monk-b mirrored at the back-right corner, the vendor in the left
 stand's standing-room gap. The notes below were the brief.
 
+Since 2026-10-18 the announcer is live (ENG-118, ADR 0048, `src/world/announcer.js`): during a match he moves
+(in the ring for the calls, on the ring's back half behind the fight, down on the grass when cornered), mirrors to
+face where he walks or who he talks about, and comments in small captions the engine draws above his head. His animations: `walk` /
+`run` while moving (a hop in or out of the ring plays `run`), `point` / `shout` / `shocked` / `micThrust` / `cower`
+as reactions to what he says. A strip he lacks plays its `NPC_FALLBACK` (worldArt.js: run -> walk -> idle,
+shocked -> shout, micThrust -> point). Outside a match, and in the match's hero shot, he waits at the gong.
+
 - **Loading.** An NPC loader reads `public/npc/<id>/anims.json` + `sheet.png` (cell, pivot, ppu and
   per-animation `frames` / `durations` / `loop`, like a fighter's anims.json) and draws each NPC as a
   camera-facing billboard at ppu 80, feet on the grass. Proposed anims.json shape (the packer is the

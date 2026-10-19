@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { buildArena, loadCrowdAtlas } from '../world/arena.js';
+import { Announcer } from '../world/announcer.js';
 import { loadStageArt, loadNpcArt, loadUiArt } from '../world/worldArt.js';
 import { loadArtIndex } from '../core/artIndex.js';
 import { loadProgress } from '../core/loadProgress.js';
@@ -16,12 +17,13 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel, modeLook } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
 import { Hud, TAGS } from '../ui/hud.js';
 import { Menus } from '../ui/menus.js';
+import { SpeechBubble } from '../ui/speechBubble.js';
 import { deviceLayout, matchHint, clashHint } from '../ui/controls.js';
 import { ROSTER, getChar } from '../characters/index.js';
 import { loadFighterAsset, fighterMeta, actorView } from './sprites.js';
@@ -112,6 +114,7 @@ export class Game {
     this.resim = false; // true while Game.quiet re-simulates frames that were already shown
     const ui = document.getElementById('ui');
     this.hud = new Hud(ui);
+    this.arena.setCaster(new Announcer(new SpeechBubble(ui))); // the live announcer and his speech bubbles (ENG-118)
     this.menus = new Menus(ui, this);
     this.loader = new Loader(document.getElementById('loading'));
     this.loaded = false; // every fighter, effect and stage pack is in (loadWorld)
@@ -366,12 +369,14 @@ export class Game {
     chargeBar(this, f, full);
     audio.play(full ? 'kiMax' : 'kiFull');
     if (full) this.hud.callout(f.index, 'MAX POWER!', f.def.color);
+    if (full) this.arena.npcCue('maxPower', { f });
   }
 
   onKitMove(f, m) {
     if (!m.name) return;
     this.comboChip(f, m.name); // a kit special mid-combo (shot, teleport, pull, dive)
     this.hud.callout(f.index, m.name, m.color || f.def.color);
+    this.arena.npcCue('special', { f, name: m.name });
     this.superFlashFor(f, 8, 0.3);
     this.cam.zoomPunch(0.25);
   }
@@ -379,7 +384,7 @@ export class Game {
   // `answer`: fired into the opponent's running ultimate, so a short flash (they can meet, ADR 0017)
   onSuperStart(f, S, answer = false, ultimate = false) {
     this.comboChip(f, 'SUPER', 'super'); // a three-bar finisher on the end of a combo
-    this.arena.npcCue('super');
+    this.arena.npcCue('super', { f, name: S.name, answer, ultimate });
     // an ultimate gets the full-screen splash (ADR 0035); an answer's short flash keeps the banner
     this.superFlashFor(f, answer ? CLASH.answerFlash : S.flash, 0.78, true, S.name, ultimate && !answer ? 'ult' : 'super');
     if (answer) this.hud.announce('COUNTER!', 'clash-call', 700);
@@ -394,7 +399,7 @@ export class Game {
 
   // Domain Expansion: Unlimited Void: the void replaces the stage and the opponent is frozen.
   startDomain(f, S) {
-    this.arena.npcCue('super');
+    this.arena.npcCue('super', { f, name: S.name, domain: true });
     const o = f.opp;
     this.domain = { owner: f, t: S.len };
     this.setStage('void');
@@ -889,6 +894,7 @@ export class Game {
   // and a cheer that grows with it.
   onComboEnd(att, def, C) {
     const rated = this.hud.comboEnd(att.index, C.hits, C.kinds.size);
+    this.arena.npcCue('combo', { f: att, victim: def, hits: C.hits });
     if (C.hits >= 8) audio.play('cheer', Math.min(1.4, 0.3 + C.hits * 0.05));
     if (rated) this.excite = 1;
     if (this.debugCombos && window.comboRecs) {
@@ -907,6 +913,11 @@ export class Game {
       if (f.mode?.cloak) this.fx.cloakTick(f, f.mode.cloak, this.cam.right, frozen); // Nine-Tails Cloak (ENG-SKL-NAR)
       if (f.shroud) this.fx.shroudTick(f, f.shroud, shroudLevel(f), this.cam.right, frozen); // Four-Tails
       if (f.state !== 'charge') chargeEnd(this, f);
+      // a power-up's look while it lasts (kit.modeLook: shell, aura; the tint is Fighter.sync's): the charge's own shell
+      // wins while he powers up
+      const look = f.state === 'charge' ? null : modeLook(f);
+      if (look?.aura) this.fx.modeAura(f, look.aura);
+      this.fx.modeShell(f, look?.shell ?? null, this.time);
       if (f.state === 'charge') {
         lines = Math.max(lines, chargeTick(this, f, f.t, frozen)); // canon power-up per fighter (ENG-069)
         this.linesFocus = f;
@@ -1055,7 +1066,7 @@ export class Game {
     const n = ch.n, mid = meleeAt.set((a.pos.x + b.pos.x) / 2, at.y, (a.pos.z + b.pos.z) / 2);
     const ki = C.ki[cls] * (1 + C.kiPer * (n - 1));
     for (const f of [a, b]) f.ki = Math.min(MAX_KI, f.ki + ki);
-    this.arena.npcCue('clash');
+    this.arena.npcCue('clash', { tier: 'melee' });
     this.excite = Math.min(1, this.excite + 0.25 + 0.1 * n);
     this.clashMoment(mid, C.stop[cls] + 4, Math.min(C.camMax, C.cam + C.camPer * (n - 1)));
     if (n >= C.finale) {
@@ -1121,7 +1132,7 @@ export class Game {
   // both specials go off at once: each fighter takes the other's blast
   specialTrade() {
     const [a, b] = this.fighters;
-    this.arena.npcCue('clash');
+    this.arena.npcCue('clash', { tier: 'special' });
     const mid = v3.set((a.pos.x + b.pos.x) / 2, Math.max(a.pos.y, b.pos.y) + 0.9, (a.pos.z + b.pos.z) / 2);
     this.fx.explosion(mid.x, mid.y, mid.z, new THREE.Color(0xbfe0ff));
     if (Math.min(a.pos.y, b.pos.y) < 1.5) this.fx.ground.impact(mid, { kind: 'trade' });
@@ -1182,7 +1193,7 @@ export class Game {
 
   // Hollow Purple: leaves the meeting point of Red and Blue (kit.js 'orb'); one per fighter
   spawnOrb(f, S, at, ultimate = true) {
-    this.arena.npcCue('clash');
+    this.arena.npcCue('clash', { tier: 'blast', f });
     for (const ob of this.orbs) if (ob.owner === f) ob.kill();
     const ob = new Orb(this, f, S, at, ultimate);
     this.orbs.push(ob);
@@ -1198,7 +1209,7 @@ export class Game {
   }
 
   fireBeam(f) {
-    this.arena.npcCue('clash');
+    this.arena.npcCue('clash', { tier: 'blast', f });
     const b = new Beam(this, f);
     this.beams.push(b);
     if (this.cam.mode === 'focus') this.cam.set('fight');
@@ -1404,7 +1415,7 @@ export class Game {
   startClash(A, B, tier = 'ultimate') {
     const lite = tier === 'beat', struggle = tier === 'struggle';
     const C = struggle ? { ...CLASH, ...CLASH.struggle } : CLASH;
-    this.arena.npcCue('clash');
+    this.arena.npcCue('clash', { tier });
     const chart = lite ? beatChart() : makeChart(struggle ? seedOf(A.id, B.id, this.frameNo) : seedOf(A.id, B.id), C);
     const c = { a: A, b: B, chart, judges: [new Judge(chart, C), new Judge(chart, C)], lite, tier, C, timer: 0, t: 0.5, kick: 0, point: new THREE.Vector3() };
     c.ca = new THREE.Color(A.color);
@@ -1730,6 +1741,7 @@ export class Game {
     audio.play('explosion', 1.4);
     audio.play('cheer');
     this.hud.callout(W.index, 'OVERWHELMED!', W.def.color, true);
+    this.arena.npcCue('clashWin', { f: W });
   }
 
   // the winning ultimate goes on through: the beam runs its last stretch, the orb rolls over them, the beast roars on
@@ -1785,6 +1797,7 @@ export class Game {
     audio.play('explosion', 1.1);
     audio.play('cheer');
     this.hud.callout(W.index, 'OVERPOWERED!', W.def.color, true);
+    this.arena.npcCue('clashWin', { f: W });
   }
 
   // ------------------------------------------------------------ event hooks
@@ -1925,6 +1938,7 @@ export class Game {
     def.heldT = 0;
     def.setState('idle', null); // a fresh hit, not part of a combo
     this.hud.callout(att.index, 'THROW!', att.def.color);
+    this.arena.npcCue('throw', { f: att });
     def.takeHit(att, THROW.hit, att.face.clone());
   }
 
@@ -1966,6 +1980,7 @@ export class Game {
     if (T.cool && this.frameNo - (f.tagAt[id] ?? -1e9) < T.cool) return;
     f.tagAt[id] = this.frameNo;
     this.hud.tag(f.index, id, T.color ?? f.def.color);
+    this.arena.npcCue('tag', { f, id });
     this.excite = Math.min(1, this.excite + (T.excite ?? 0.2));
   }
 
@@ -2044,16 +2059,21 @@ export class Game {
     this.excite = Math.min(1, this.excite + 0.4);
   }
 
-  onVanish(f, phase) {
+  // `appear`: a teleport's own `appearFx` (Effects.teleportFx) in place of the star, ring and afterimage; false: nothing
+  onVanish(f, phase, appear) {
     if (phase === 'out') {
       this.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 1.2);
       this.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 0.6, depthTest: false, order: 8 });
       audio.play('vanish');
       this.hud.callout(f.index, 'VANISH!', f.def.color);
     } else {
-      this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
-      this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 1, color: f.def.color, depthTest: false, order: 8 });
-      f.actor.ghost(f.def.color, 0.3, 0.6);
+      if (appear !== undefined) {
+        if (appear) this.fx.teleportFx(appear, f.pos);
+      } else {
+        this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
+        this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 1, color: f.def.color, depthTest: false, order: 8 });
+        f.actor.ghost(f.def.color, 0.3, 0.6);
+      }
       audio.play('vanishIn');
       this.freeze = Math.max(this.freeze, 5);
       // a vanish inside a combo (not a kit teleport): the ticker, and VANISH ×2! / ×3! for the ping-pong (ADR 0026)
@@ -2081,12 +2101,13 @@ export class Game {
   onSpecialStart(f, m) {
     this.comboChip(f, m.name); // a rush special cancelled into mid-combo
     this.hud.callout(f.index, m.name, m.color);
+    this.arena.npcCue('special', { f, name: m.name });
     this.superFlashFor(f, 12, 0.45);
     this.cam.zoomPunch(0.4);
   }
 
   onUltimateStart(f, counter) {
-    this.arena.npcCue('ultimate');
+    this.arena.npcCue('ultimate', { f, name: f.def.beam?.name, counter });
     this.cam.set('focus', f);
     this.superFlashFor(f, counter ? CLASH.answerFlash : ULTIMATE.flash, 0.72, true, f.def.beam.name, counter ? 'super' : 'ult');
     this.fx.overlay.flash(f.def.color, 0.4);
@@ -2095,7 +2116,7 @@ export class Game {
   }
 
   triggerKO(loser, winner) {
-    this.arena.npcCue('ko');
+    this.arena.npcCue('ko', { f: winner, loser });
     this.koTriggered = true;
     this.inputLive = false;
     this.roundWinner = winner;
@@ -2116,7 +2137,7 @@ export class Game {
   }
 
   onKOCrash(f, speed) {
-    this.arena.npcCue('crash');
+    this.arena.npcCue('crash', { f });
     const y = f.pos.y + 0.8;
     this.fx.explosion(f.pos.x, y, f.pos.z, new THREE.Color(0xfff0d0));
     this.fx.debris(f.pos.x, f.pos.z, 16, 1.4);
@@ -2140,6 +2161,7 @@ export class Game {
     this.inputLive = false;
     const [a, b] = this.fighters;
     this.setState('timeup');
+    this.arena.npcCue('timeup');
     this.hud.announce('TIME!', 'time', 1500);
     audio.play('gong');
     this.roundWinner = a.hp === b.hp ? null : a.hp > b.hp ? a : b;
@@ -2233,7 +2255,7 @@ export class Game {
   }
 
   roundOver(w) {
-    this.arena.npcCue('roundEnd');
+    this.arena.npcCue('roundEnd', { f: w });
     w.wins++;
     this.setState('roundEnd');
     this.timeScale = 1;
@@ -2296,7 +2318,7 @@ export class Game {
     this.voidStage.setDim(this.dim);
     this.excite = Math.max(0.12, this.excite - dt * 0.22);
     audio.setMusicIntensity(this.state === 'fight' || this.training ? this.excite : 0.2);
-    this.arena.update(performance.now() / 1000, this.excite);
+    this.arena.update(performance.now() / 1000, this.excite, this, dt);
     this.room.update(performance.now() / 1000);
     if (this.domain) this.voidStage.update(performance.now() / 1000);
     if (this.fighters.length === 2) this.hud.update(this.fighters, this.timeLeft, dt);
