@@ -4,19 +4,19 @@
   "sourceFile": "raw/superSaiyanBurst_v01.png",
   "version": 1,
   "source": [
-    "vfx/raw/superSaiyanBurst_v01.png"
+    "vfx/raw/superSaiyanBurst_v01.png",
+    "vfx/raw/superSaiyanBurst_v01.json"
   ],
-  "sourceHash": "26b7406d1bb9a7e1d095787ff7ef09d3876559e7",
+  "sourceHash": "c8cd785c0236a512be954f78e2c51937f41ee93b",
   "cell": 256,
   "files": {
-    "superSaiyanBurst_00.png": "2586f095587be2d11e19208281f511f5ac3a7a03",
-    "superSaiyanBurst_01.png": "3bbcd2cd5390d5b5b0cfbe591a640e057e3aea5e",
-    "superSaiyanBurst_02.png": "959b7fdbc5393504a761d7ef8ac618d6b002f530",
-    "superSaiyanBurst_03.png": "90b153f1ef158d7dfc0573eef38549587018af3d",
-    "superSaiyanBurst_04.png": "c7986dd47f9e8aeea0095c48688eba03387d14b0",
-    "superSaiyanBurst_05.png": "116b2d6d8b2ba3183237748d6bf1be6a30b736f8",
-    "superSaiyanBurst_06.png": "1642da0ea347cc10ab4671c68c8bb20eaa12da76",
-    "superSaiyanBurst_07.png": "7b602268b5bba3056388c7fef2bfbf8a0fc5edd9",
-    "superSaiyanBurst_08.png": "014db9e6b39ead25e2294fc21b4a170fe57fd239"
+    "superSaiyanBurst_00.png": "0eacb342ba7446c904053d250db24026082fffa8",
+    "superSaiyanBurst_01.png": "3055f2ed5298d656e9d0bbf7ae5a9f2bc18e5076",
+    "superSaiyanBurst_02.png": "4773fdabc6ab8f9737c6be580c8384610f2570f3",
+    "superSaiyanBurst_03.png": "c669c42baf4ea2f1239fee754adbaaa8e999e2dc",
+    "superSaiyanBurst_04.png": "e5683551b8a5d56187a7b0fc64dd9b18602ef175",
+    "superSaiyanBurst_05.png": "457a801af29382571c5775e66e8ea187b45a3109",
+    "superSaiyanBurst_06.png": "df1beb7613c68cd09a060aa531a570e04d5b5c47",
+    "superSaiyanBurst_07.png": "b1873bf9e80cc0c39cc1f1b69d64f972219006c1"
   }
 }
