@@ -14,7 +14,7 @@ paused._
 
 **Charge animation redraw (ART-CHARGE, ENG-117, 2026-10-18; Claude "Character charging animation", Codex "1 - Charging Animation", lane `charge`):** the engine part is live (PR [#182](https://github.com/eshin087/gcd-tourney/pull/182)): a gather once, then a slow held loop, and no sprite shake. **Goku's new charge is live** (v10, PR [#191](https://github.com/eshin087/gcd-tourney/pull/191), `1ee82611`): https://gcd-tourney.vercel.app/?fight=goku,naruto&mode=solo (hold Special). **Luffy's is live too** (v02, PR [#205](https://github.com/eshin087/gcd-tourney/pull/205), `adda292c`): https://gcd-tourney.vercel.app/?fight=luffy,naruto&mode=solo . **Naruto's too** (v08, PR [#207](https://github.com/eshin087/gcd-tourney/pull/207), `4d8568d4`): https://gcd-tourney.vercel.app/?fight=naruto,sasuke&mode=solo . Codex is drawing Sasuke next, then Killua and Gojo; each comes to you in Claude for approval. The others keep their old charge until then.
 
-**Skills revamp for Killua, Gojo, Goku and Luffy (2026-10-18, running in parallel):** one Claude chat per fighter ("Killua skills revamp (ENG-SKL-KIL)", "Gojo skills revamp (ENG-SKL-GOJ)", "Goku skills revamp (ENG-SKL-GOK)", "Luffy skills revamp (ENG-SKL-LUF)"), each with its own Codex chat ("5 - Killlua", "5 - Gojo", "5 - Goku", "5 - Luffy"; relay lanes `killua-skills`, `gojo-skills`, `goku-skills`, `luffy-skills`). **Your action:** answer each fighter chat's design questions when they come up; later, approve that fighter's art in the same chat. Luffy Batch 1's [updated review preview](https://gcd-tourney-mgfvxez55-eshin087s-projects.vercel.app/reviews/luffy-skills-batch1/) is ready through PR #193. You approved special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn via Claude relay #2. The final Astra atlas audit holds special and throw for frame segmentation, missing poses and arm reach; gumArm v03 has a blank first frame and gumImpact v01 imports 9/7. No asset is cleared for integration. Claude's "5 - Skills Effects" owns repairs and later integration; you approved all seven Goku batch 4 drawings (specialUp, throw, intro, kiBlast, kiMuzzle, kiBlastBurst and superSaiyanBurst v01) via Claude relay goku-skills #14; their documented technical holds remain ([review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/), PR [#199](https://github.com/eshin087/gcd-tourney/pull/199)). The user exempted specialDown v02 from the unmeasurable head scale check via Claude relay goku-skills #13; Astra's `scaleManualQA` v2 HOLD remains recorded, with visible anatomy passing and no concrete failure ([production audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/specialDown-v02-production-audit/REPORT.md)). Astra audited the exact batch 4 production atlas: intro, throw and specialUp v01 pass visible anatomy/containment but retain scaleManualQA HOLD because head scale is unmeasured. You need to decide whether to exempt each of these versions from the head check; exemption would not turn Astra's HOLD into a numeric scale pass ([audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/BATCH4_V01_FINAL_ASTRA_AUDIT.md), [review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/)). Claude will ask in the Goku skills chat.
+**Skills revamp for Killua, Gojo, Goku and Luffy (2026-10-18, running in parallel):** one Claude chat per fighter ("Killua skills revamp (ENG-SKL-KIL)", "Gojo skills revamp (ENG-SKL-GOJ)", "Goku skills revamp (ENG-SKL-GOK)", "Luffy skills revamp (ENG-SKL-LUF)"), each with its own Codex chat ("5 - Killlua", "5 - Gojo", "5 - Goku", "5 - Luffy"; relay lanes `killua-skills`, `gojo-skills`, `goku-skills`, `luffy-skills`). **Your action:** answer each fighter chat's design questions when they come up; later, approve that fighter's art in the same chat. Luffy Batch 1's [updated review preview](https://gcd-tourney-mgfvxez55-eshin087s-projects.vercel.app/reviews/luffy-skills-batch1/) is ready through PR #193. You approved special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn via Claude relay #2. The final Astra atlas audit holds special and throw for frame segmentation, missing poses and arm reach; gumArm v03 has a blank first frame and gumImpact v01 imports 9/7. No asset is cleared for integration. Claude's "5 - Skills Effects" owns repairs and later integration; you approved all seven Goku batch 4 drawings (specialUp, throw, intro, kiBlast, kiMuzzle, kiBlastBurst and superSaiyanBurst v01) via Claude relay goku-skills #14; their documented technical holds remain ([review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/), PR [#199](https://github.com/eshin087/gcd-tourney/pull/199)). The user exempted specialDown v02 from the unmeasurable head scale check via Claude relay goku-skills #13; Astra's `scaleManualQA` v2 HOLD remains recorded, with visible anatomy passing and no concrete failure ([production audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/specialDown-v02-production-audit/REPORT.md)). Astra audited the exact batch 4 production atlas: intro, throw and specialUp v01 pass visible anatomy/containment but retain scaleManualQA HOLD because head scale is unmeasured. You exempted intro v01, throw v01 and specialUp v01 from the head check via Claude relay goku-skills #16 (`scaleExemptVersion: 1`); Astra's HOLD records remain and are not numeric scale passes ([audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/BATCH4_V01_FINAL_ASTRA_AUDIT.md), [review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/)). Claude will ask in the Goku skills chat.
 
 **Sasuke skills revamp (ART-SKL-SAS, ENG-SKL-SAS): done and live** (PR #165, merge 03a5b994, deployed 2026-10-18): Chidori v15, Kirin strike v08 and the 13 effects you approved are in production at https://gcd-tourney.vercel.app . Nothing left for you here; PR #163 is merged; the Sasuke worktree and local branch are removed.
 
@@ -22,7 +22,7 @@ paused._
 
 **Merged and live (2026-10-18, production `3bd2283b`):** sheet pages for fighters past 256 frames ([#157](https://github.com/eshin087/gcd-tourney/pull/157), TOOL-060), the clash rings and the clash camera and hint after an online rollback ([#159](https://github.com/eshin087/gcd-tourney/pull/159), [#160](https://github.com/eshin087/gcd-tourney/pull/160)), the art guard for packs that drop animations ([#161](https://github.com/eshin087/gcd-tourney/pull/161)), each relay message acting once ([#164](https://github.com/eshin087/gcd-tourney/pull/164)) and re-recorded replay fixtures ([#168](https://github.com/eshin087/gcd-tourney/pull/168)). Nothing to do.
 
-**Smash-style move art (ENG-112): Sasuke, Killua, Gojo and Goku are live (production `8ce419df`).** Sasuke: nine new moves; down smash keeps its stand-in. Killua and Gojo: all ten each. Goku: eight (PRs [#177](https://github.com/eshin087/gcd-tourney/pull/177), [#197](https://github.com/eshin087/gcd-tourney/pull/197)); his up smash and down smash keep their stand-ins after four rounds each (the 256 px cell has no room for his straight-up strike or a full split; you chose to stop). Try Goku: https://gcd-tourney.vercel.app/lab.html?p1=goku&p2=naruto . Luffy is in progress in Codex's "4 - Combat Overhaul" chat (art/normals-luffy), then Naruto last; each comes to you for review.
+**Smash-style move art (ENG-112): Sasuke, Killua, Gojo, Goku and five of Luffy's are live (production `fded0631`).** Sasuke: nine new moves; down smash keeps its stand-in. Killua and Gojo: all ten each. Goku: eight (PRs [#177](https://github.com/eshin087/gcd-tourney/pull/177), [#197](https://github.com/eshin087/gcd-tourney/pull/197)); his up smash and down smash keep their stand-ins after four rounds each (the 256 px cell has no room for his straight-up strike or a full split; you chose to stop). Luffy: forward tilt, up tilt, forward smash, forward air and back air (PR [#204](https://github.com/eshin087/gcd-tourney/pull/204)); try him: https://gcd-tourney.vercel.app/lab.html?p1=luffy&p2=naruto . His down tilt, dash attack, up smash, down smash and up air keep their stand-ins while Codex runs the redraw round you chose ("4 - Combat Overhaul", art/normals-luffy-r2); they come back to you. Naruto last.
 
 **DBFZ air combos back, live (2026-10-18, PR [#155](https://github.com/eshin087/gcd-tourney/pull/155), `49840bf2`):** in a launcher / spike / bounce juggle Light is the air string again whatever direction you hold (↓ + Light the spike), and the CPUs reach 13+ hit combos again, on https://gcd-tourney.vercel.app . Nothing to do.
 
@@ -87,11 +87,11 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-19 05:48 UTC._
+_Generated by `npm run status` at 2026-10-19 06:19 UTC._
 
-### Needs you now (1)
+### Needs you now (0)
 _Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
-- **approval** from Codex lane goku-skills: Goku skills batch 4 candidates for image review: specialUp v01, throw v01, intro v01, kiBlast v01, kiMuzzle v01, kiBlastBurst v01, superSaiyanBurst v01. All seven are unapproved. Technical holds: Astra could not certify…
+- nothing
 
 ### Still marked "needs review" in art/REVIEW.md (43)
 _Bookkeeping: the newest row of each asset. Anything the user must actually answer is in "Needs you now"._
@@ -110,7 +110,7 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 | fighter | references | core anims | all anims | next asset |
 |---|---|---|---|---|
 | goku | 3/3 | 23/23 | 32/68 | backDash (step 9, todo) |
-| luffy | 3/3 | 23/23 | 23/66 | backDash (step 9, todo) |
+| luffy | 3/3 | 23/23 | 33/66 | backDash (step 9, todo) |
 | naruto | 2/3 | 23/23 | 54/64 | proportionSample (step 1, raw v02) |
 | sasuke | 2/3 | 23/23 | 53/65 | proportionSample (step 1, raw v01) |
 | killua | 2/3 | 23/23 | 54/65 | proportionSample (step 1, raw v01) |
@@ -138,12 +138,12 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
-- 4d8568d4 10-18 22:46 Merge branch 'art/charge-naruto'
-- 5a1b7fb2 10-18 22:45 test(det): re-record the determinism fixtures with Naruto's charge v08 pack (sim a46112bade6f)
-- 944f3dbc 10-18 22:42 art(naruto): exempt the bowed-head gather frame of charge v08 from the head probe
-- 2a2e1bd5 10-18 22:41 Merge branch 'main' into art/charge-naruto
-- 2ca73f34 10-18 22:41 art(naruto): landmark scale check for charge v08 (scaleManualQA)
-- 9100ad94 10-18 22:38 art(naruto): approve charge v08 and record packed audit
+- 02040d06 10-18 23:19 docs(now): Luffy's five new Smash moves live (ENG-112, PR 204); redraw round for the other five
+- fded0631 10-18 23:17 Merge branch 'fix/det-fixtures-r10'
+- 0afb6a10 10-18 23:17 test(det): re-record the determinism fixtures with Luffy's ENG-112 normals pack (sim 519fb322aa11)
+- 70d75ea6 10-18 23:12 docs(now): record Goku scale exemptions
+- 0a080449 10-18 23:12 Merge branch 'art/normals-luffy'
+- a4c4120f 10-18 23:06 docs(now): request Goku pose scale decisions
 <!-- status:end -->
 
 

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luffy directional normals — ENG-112</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; background: #101622; color: #e7eef5; font: 15px/1.5 system-ui, sans-serif; }
+    main { max-width: 1500px; margin: 0 auto; padding: 24px; }
+    h1, h2 { line-height: 1.2; }
+    section { margin: 24px 0; padding: 20px; background: #192333; border-radius: 12px; overflow: auto; }
+    .summary, .hold, .pass { padding: 12px 16px; border-left: 4px solid; background: #252b32; }
+    .summary, .hold { border-color: #f0b44c; }
+    .pass { border-color: #74ce8a; }
+    .hold strong { color: #ffd184; }
+    .pass strong { color: #a9e6b2; }
+    .row { display: grid; grid-template-columns: repeat(3, minmax(240px, 1fr)); gap: 16px; align-items: start; }
+    figure { margin: 0; min-width: 0; }
+    figcaption { margin: 0 0 8px; font-weight: 650; }
+    .frames { display: flex; flex-wrap: wrap; align-items: end; gap: 4px; }
+    .frames img, .idle { width: 112px; height: 112px; object-fit: contain; background: #11151b; image-rendering: pixelated; }
+    .frame { text-align: center; color: #b8c3d2; font: 11px ui-monospace, monospace; }
+    .loop { width: 192px; height: 192px; object-fit: contain; background: #11151b; image-rendering: pixelated; }
+    .small { color: #b8c3d2; font-size: 13px; }
+    a { color: #9bd5ff; }
+    @media (max-width: 900px) { .row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body><main>
+  <h1>Luffy directional normals — ENG-112</h1>
+  <p>This page shows each packed candidate beside the live stand-in it would replace and Luffy's approved idle f0, all at 256 px per cell. The user approved all ten drawings as drawn via Claude relay combat #49. Four have Astra visual/scale passes; six have explicit technical holds and should stay on their stand-ins. Drawing approval does not clear technical holds. Runtime hitbox/contact review and the production strict-scale guard are still pending.</p>
+  <p class="summary"><strong>Diagnostic pack only:</strong> the inspected atlas is 4096×3072, 178 frames, 48 colors, with <code>scaleGate: warn</code>. It is not a strict production pass. Candidate order is fTilt v01, uTilt v02, dTilt v02, dashAttack v02, fSmash v02, uSmash v03, dSmash v02, fair v03, bair v03 and uair v01. Astra inspected all 70 candidate cells against idle and live same-kind strips; visible endpoint uncertainty is about ±3 px for brim/sole, ±5–7 px neck-to-sash and ±5–6 px exposed shin. Hidden or strongly foreshortened anatomy is not a numeric pass.</p>
+  <p class="small">Per-move PASS means visible anatomy and scale are coherent in this diagnostic atlas; it does not mean the image is ready to merge. All ten drawings are user-approved; HOLD candidates are shown for context only. Their current stand-ins remain in place. <a href="ASTRA_FINAL_AUDIT.md">Read the frame-by-frame Astra findings</a> · <a href="audit_atlas/sheet.png">open the exact 4096×3072 audited sheet</a> · <a href="audit_atlas/anims.json">open atlas metadata</a>.</p>
+  <div id="moves"></div>
+</main>
+<script>
+const moves = [
+  { name:'fTilt', version:'v01', fallback:'light2', frames:7, verdict:'pass', description:'Chest-height near-arm punch; active frames 2–3.', note:'Astra PASS and version-bound scaleManualQA PASS. Hat, torso, shins, sandals and clothing volume match idle; bounds x65–203 and y53–241. Source receipt gap for the first two calls remains documented; no source pixels were changed.' },
+  { name:'uTilt', version:'v02', fallback:'heavy', frames:7, verdict:'hold', description:'Crouched elastic uppercut from the face and up.', note:'TECHNICAL HOLD — hat/head, trunk and sandals read smaller than idle through startup and upright extension. Adequate margins and a connected strike do not establish idle-sized anatomy.' },
+  { name:'dTilt', version:'v02', fallback:'light3', frames:6, verdict:'hold', description:'Crouched shin-height near-foot poke.', note:'TECHNICAL HOLD — enlarged hat and upper body; the first active kick clips the forward sandal, and the next active pose has already retracted to a knee lift.' },
+  { name:'dashAttack', version:'v02', fallback:'light4', frames:7, verdict:'hold', description:'Run carries into a shoulder-first body check.', note:'TECHNICAL HOLD — two frames clip the head/knee or reach the cell edge; pink contamination remains around the rear knee.' },
+  { name:'fSmash', version:'v02', fallback:'light4', frames:9, verdict:'pass', description:'Full-body chest-height punch; frame 1 is the held charge pose.', note:'Astra PASS and version-bound scaleManualQA PASS. Measured uniform frame offset [-7,0] keeps all frames moving together; both active fists are complete with 5 px and 4 px right margins. No body rescale.' },
+  { name:'uSmash', version:'v03', fallback:'heavy', frames:8, verdict:'hold', description:'Diagonal up-forward rubber uppercut, with its peak within the cell.', note:'TECHNICAL HOLD — the whole figure is substantially smaller than idle in both upright and peak poses; the arm fits because the body was reduced.' },
+  { name:'dSmash', version:'v02', fallback:'light3', frames:8, verdict:'hold', description:'Two-sided low split sweep with both legs extended together.', note:'TECHNICAL HOLD — the active sweep loses both end contacts at the cell edges, and the second active frame reads as crouched recovery rather than a second sweep.' },
+  { name:'fair', version:'v03', fallback:'airLight1', frames:6, verdict:'pass', description:'Compact forward aerial kick at body height.', note:'Astra PASS and version-bound scaleManualQA PASS. Measured uniform frame offset [-18,0] clears the previous edge spill without changing body size; active sandal margins are 5 px and 26 px. No pink streaks remain.' },
+  { name:'bair', version:'v03', fallback:'airLight1-mirrored', frames:6, verdict:'pass', description:'Far heel strikes behind the right-facing body toward screen-left.', note:'Astra PASS and version-bound scaleManualQA PASS. The active rearward heel stays connected with at least 12 px left and 15 px right margins. Runtime hitbox direction still needs Claude’s contact check.' },
+  { name:'uair', version:'v01', fallback:'heavy', frames:6, verdict:'hold', description:'Compact upward aerial kick over the hat.', note:'TECHNICAL HOLD — f2 is still a knee chamber; only f3 makes overhead contact. The straight supporting leg and grounded sandal read as a standing high kick.' },
+];
+const root = 'packed/';
+function frames(name, count, base) {
+  return `<div class="frames">${Array.from({length:count},(_,i)=>`<div class="frame"><img src="${base}/${name}_${String(i).padStart(2,'0')}.png" alt="${name} frame ${i}">${i}</div>`).join('')}</div>`;
+}
+for (const move of moves) {
+  const section = document.createElement('section');
+  const status = move.verdict === 'pass'
+    ? `<p class="pass"><strong>Drawing approved via Claude relay combat #49 · Technical visual/scale PASS.</strong> ${move.note}</p>`
+    : `<p class="hold"><strong>Drawing approved via Claude relay combat #49 · TECHNICAL HOLD — leave the current stand-in active.</strong> ${move.note}</p>`;
+  const fallbackPath = `standins/${move.fallback}`;
+  const fallbackName = move.fallback === 'airLight1-mirrored' ? 'airLight1' : move.fallback;
+  const fallbackCount = {light2:7,heavy:8,light3:7,light4:8,airLight1:5}[fallbackName];
+  section.id = move.name;
+  section.innerHTML = `<h2>${move.name} ${move.version} · live stand-in: ${move.fallback}</h2><p>${move.description}</p>${status}<div class="row"><figure><figcaption>Approved idle f0</figcaption><img class="idle" src="standins/idle/idle_00.png" alt="Approved Luffy idle frame 0"></figure><figure><figcaption>Current live stand-in frames</figcaption>${frames(fallbackName,fallbackCount,fallbackPath)}</figure><figure><figcaption>Packed candidate frames from audited sheet</figcaption>${frames(move.name,move.frames,`${root}${move.name}`)}<p><img class="loop" src="${move.name}_loop.gif" alt="${move.name} ${move.version} loop preview"></p><p class="small">Raw version remains in the branch for provenance; the loop and frames above are crops from the audited packed cells.</p></figure></div>`;
+  document.querySelector('#moves').append(section);
+}
+</script></body></html>

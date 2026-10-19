@@ -69,6 +69,14 @@ distracting") and for ideas that make him a character people love; they picked e
    steam, sparkle, painted in code from small pixel maps in the shared ink outline at twice his pixel size (at his
    own density they were a tenth of his height and unreadable at fight distance), one camera-facing sprite beside
    his head with a short fade, no bounce.
+   Placement (same day, "the emote placements look out of place"): a mark is anchored to his real head in every
+   frame, not to a fixed height. `headAnchors` scans the packed sheet for his hair (its gold pixels) and stores the
+   middle, top and half-width of the hair in every cell; `Announcer.headAt` turns that into a world position on the
+   camera's screen axes, so the marks follow him through a crouch, a facepalm, lying flat and a cheer's jump. Each
+   kind has a side (sweat and music behind the head, the !! and ? in front, the stars on top), a gap that tucks it
+   against the hair a little (it reads as attached, the way manga draws them) and a height below the caption, which
+   sits just above the head. Marks are 1.5x his pixels (about half a head tall) and nudged toward the camera so his
+   own sprite can never cover them.
 3. **Knocked over.** An ultimate landing within 8 tiles of him (its target losing 100+ health), a fighter flying past
    faster than 5.5 u/s within 1.2, a shot, an orb or a beam reaching him,
    or a KO crash beside him throws him back (`blownAway`), leaves him flat for a second, pops him up dizzy
