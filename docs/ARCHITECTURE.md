@@ -134,8 +134,10 @@ src/art/
                             pose.js (pose model, keyframes), anims.js (shared moveset), face.js (pixel faces),
                             baker.js (bake to sheet + boxes + portrait + cut-in)
 src/world/arena.js          tournament grounds: ring, temple, stands + instanced crowd, gate, trees, sky, dimming
-src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
-                            by Game.startDomain via setStage('void')
+src/world/voidStage.js      Unlimited Void (Gojo's domain): cosmos sky shader + black mirror floor, swapped in by
+                            Game.startDomain via setStage('void'); with the super's `open` the view plays the anime's
+                            sequence (ADR 0049): the black sphere swallowing the arena (syncView waits for it), the
+                            flooded head, the glass shatter at the end
 src/ui/
   hud.js                    health/ki bars + burst gems, timer, combo counter (blue when escapable) with its ticker
                             chips and rating (ADR 0026), callouts, TAGS technique banners (ADR 0022), announcements,

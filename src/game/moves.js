@@ -273,8 +273,11 @@ export const PROJECTILES = {
   spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'none', ground: 'lightning',
     lance: { fx: 'chidoriSpear', len: 4.9, seq: [0, 1, 2, 3, 4, 5, 3, 4, 5, 6, 7], ms: 35 }, burstFx: { fx: 'chidoriBurst', scale: 0.55, smoke: 0 },
     clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc', style: 'lance' } },
-  // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall
-  red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'orb', scale: 1.25, color: 0xff4050, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'smash', trail: 'red', burst: 'explosion', burstColor: 0xff3048, ground: 'repel',
+  // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall. The anime's look
+  // (ENG-SKL-GOJ): the HD crimson orb turned along its flight with its shock wake streaming back (`orient`), no glow disc
+  // under it (`halo: false`; glowColor still tints its blast ring and the floor mark), and its own repulsion blast
+  // (`burstFx`) instead of the explosion that whited out the screen
+  red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'reversalRed', scale: 1.3, orient: true, halo: false, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'none', burstFx: { fx: 'redBurst', scale: 0.95, sfx: 'explosion', shake: 0.6, smoke: 0 }, ground: 'repel',
     clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22', style: 'orb' } },
   // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
   // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash)
@@ -380,14 +383,20 @@ export const SPECIAL_MOVES = {
   godspeed: { kind: 'mode', anim: 'specialDown', cost: 100, startup: 18, recovery: 6, len: 480, speed: 1.35, damage: 1.12, blinkDash: true, fx: 'lightning', name: 'GODSPEED', color: '#bfe6ff', charge: { level: 1 } },
 
   // ---- Gojo
+  // Lapse: Blue. The anime's look (ENG-SKL-GOJ, Vortex): `look.core` the HD attraction point (a dense navy-eyed sphere
+  // space falls into, no glow disc), floor rubble torn up and dragged into it (`rubble` chunks every `rubbleEvery`
+  // frames), and the implosion it ends in (`collapse`) instead of the explosion
   blue: {
     kind: 'pull', anim: 'special', cost: 100, startup: 12, recovery: 23, dist: 2.6, radius: 3.5, len: 50, pull: 9, tick: 9, name: 'LAPSE: BLUE', color: '#4aa8ff', ground: 'implode',
     tickHit: { dmg: 8, hitstun: 24, push: 0, airPop: 1.2, hitstop: 2, spark: 'light' },
-    pop: { dmg: 40, launch: [0, 13], hitstop: 10, big: true, spark: 'heavy' },
+    pop: { dmg: 40, launch: [0, 13], hitstop: 10, big: true, spark: 'none' }, // the implosion (look.collapse) is its spark
+    look: { core: 'lapseBlue', coreScale: 0.95, collapse: 'blueCollapse', collapseScale: 1.05, rubble: 2, rubbleEvery: 4 },
   },
-  red: { kind: 'shot', anim: 'specialForward', startup: 14, active: 3, recovery: 22, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a' },
-  redAir: { kind: 'shot', anim: 'throw', startup: 10, active: 3, recovery: 16, air: true, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a' },
-  blink: { kind: 'teleport', anim: 'specialUp', startup: 6, recovery: 6, cost: 50, hide: 6, to: 'above', off: 0.9, height: 2.3, ghosts: 0, follow: null, name: 'BLINK', color: '#9fd8ff' },
+  // `form` (ENG-SKL-GOJ): Red gathers on his raised fingertip through the startup (the strip's drawn hand anchors)
+  red: { kind: 'shot', anim: 'specialForward', startup: 14, active: 3, recovery: 22, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a', form: { fx: 'redForm', scale: 0.42 } },
+  redAir: { kind: 'shot', anim: 'throw', startup: 10, active: 3, recovery: 16, air: true, projectile: true, proj: 'red', cost: 100, name: 'REVERSAL: RED', color: '#ff3a4a', form: { fx: 'redForm', scale: 0.42 } },
+  // `fold` (ENG-SKL-GOJ): no smoke; space folds, a tiny Blue implosion where he vanishes and where he reappears
+  blink: { kind: 'teleport', anim: 'specialUp', startup: 6, recovery: 6, cost: 50, hide: 6, to: 'above', off: 0.9, height: 2.3, ghosts: 0, follow: null, name: 'BLINK', color: '#9fd8ff', fold: { fx: 'blueCollapse', scale: 0.4 } },
   infinity: { kind: 'counter', anim: 'specialDown', cost: 50, len: 24, recovery: 14, stagger: 48, onCounter: 'freeze', name: 'INFINITY', callout: 'INFINITY!', color: '#d8f2ff' },
 
   // ---- Goku (Super Saiyan, Cell saga; ADR 0032)
@@ -467,7 +476,14 @@ export const SUPERS = {
       kicks: 4, kickEvery: 6, kickDmg: 12, rise: 2.2, drop: 10, callout: ['U', 'ZU', 'MA', 'KI'], dropFx: 'rasengan', dropScale: 0.85, burstFx: 'rasenganBurst',
     },
   },
-  unlimitedVoid: { kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff' },
+  // Unlimited Void (Gojo). The anime's sequence (ENG-SKL-GOJ, src/world/voidStage.js), view only: the Six Eyes `glint`
+  // as the blindfold comes up ([forward, up] off his feet on superPose), a black sphere bursting out of him that
+  // swallows the arena over `open` frames (the cosmos inside), light flooding the frozen opponent's head (`flood`) and
+  // the void shattering like glass when it ends (`shatter`). The hold is unchanged: they freeze the frame it opens
+  unlimitedVoid: {
+    kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff',
+    glint: { fx: 'sixEyesGlint', at: [0.06, 1.58], scale: 0.42 }, open: 18, flood: { fx: 'voidFlood', scale: 0.6, up: 1.5 }, shatter: 'voidShatter',
+  },
   // Kirin (Sasuke): `storm` plays the anime's sequence inside the sky strike's frames (ENG-SKL-SAS, kit.js stormTick):
   // the Great Fireball breathed up (it takes `heat` frames to reach the sky), `clouds` thunderclouds `spread` apart
   // gathering `height` units over the spot from `cloudAt` over `gather` frames while the stage dims to `dim` (and the
@@ -490,10 +506,17 @@ export const SUPERS = {
   // the imaginary mass rolls forward, erasing every projectile in its path. Huge and slow-ish: you leave its lane or
   // vanish, you can't block it. One hit (`dmg`, unscaled), then it keeps going and carves a trench. Fired into the
   // opponent's running ultimate it merges in `answerMerge` frames instead, so the two meet (a rhythm clash).
+  // The anime's look (ENG-SKL-GOJ), view only: Red and Blue held in his drawn palms (def.hands.beamCharge: Red near,
+  // Blue far, `handScale`), a non-looping beamCharge played across the merge by progress (his hands coming together),
+  // the two colliding into Purple (`form`, from `formAt` of the merge), the HD mass (`mass`, its scale `massScale` x the
+  // radius) with no glow disc, the specks it erases drawn into it, and its own hit (`burst`) instead of the explosion.
+  // The Six Eyes `glint` shows as the merge starts (the ultimate splash covers the flash)
   hollowPurple: {
     kind: 'orb', cost: 300, flash: 46, merge: 26, answerMerge: 8, recovery: 24, speed: 15, radius: 1.45, life: 2.4, dmg: 260, launch: [18, 12],
     pose: 'beamCharge', strikePose: 'beamFire', red: 0xff3048, blue: 0x4aa8ff, orb: 0xa24cff, glow: 0x7a2cff,
     name: 'HOLLOW TECHNIQUE: PURPLE', color: '#b46cff', ground: 'erasure',
+    look: { red: 'reversalRed', blue: 'lapseBlue', handScale: 0.3, form: 'purpleForm', formScale: 0.8, formAt: 0.3, mass: 'hollowPurple', massScale: 1.05, burst: 'purpleBurst', burstScale: 1.35 },
+    glint: { fx: 'sixEyesGlint', at: [-0.02, 1.56], scale: 0.42, on: 'merge' },
   },
   // Whirlwind (Killua): Godspeed's reflex mode. For `len` frames his body answers every blockable attack on its own:
   // a lightning blink behind the attacker (projectiles too) and the `follow` strike, up to `counters` times. Supers,
@@ -525,8 +548,10 @@ export const SUPERS = {
 };
 
 // Passive abilities (kit.passive). Infinity stops projectiles but each stop costs Gojo ki.
+// `stopFx` (ENG-SKL-GOJ): the ripple of space where Infinity stops a shot dead; the shot hangs there `hang` seconds,
+// fading (view only)
 export const PASSIVES = {
-  infinity: { kiCost: 15 },
+  infinity: { kiCost: 15, stopFx: 'infinityRipple', stopScale: 0.55, hang: 0.4 },
 };
 
 // Ultimate clashes (ADR 0017): a rhythm duel on one shared note chart (src/game/clash.js). Frames at 60 fps.

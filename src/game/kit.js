@@ -118,6 +118,7 @@ export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
   f.vel.set(0, 0, 0);
   f.faceOpponent();
   f.game.onSuperStart(f, S, answer, ultimate);
+  if (S.glint && S.glint.on !== 'merge') glint(f, S.glint); // the Six Eyes as the blindfold comes up
   // an eye technique's sigil stays up through the flash (and the splash hold) into the move itself
   if (S.sigil) {
     const flash = answer ? CLASH.answerFlash : S.flash + (ultimate ? ULTIMATE.splashHold : 0);
@@ -176,10 +177,68 @@ function formOrb(f, k, S) {
   g.fx.drop(id + 'r');
   g.fx.drop(id + 'b');
   g.fx.drop(id + 'g');
+  g.fx.drop(id + 'f');
   const ob = g.spawnOrb(f, S, new THREE.Vector3(f.pos.x + f.face.x * 0.9, f.pos.y + 0.98, f.pos.z + f.face.y * 0.9), k.ultimate);
   k.phase = 'fire';
   k.t0 = 0;
   return ob;
+}
+
+// ------------------------------------------------------------------ Gojo's look (ENG-SKL-GOJ): effects only
+// The Six Eyes: a glint at the drawn eyes, `at` [forward, up] off the feet
+function glint(f, G) {
+  const p = f.pos, k = f.actor?.depthK ?? 1;
+  f.game.fx.spawn(G.fx, p.x + f.face.x * G.at[0] * k, p.y + G.at[1] * k, p.z + f.face.y * G.at[0] * k, { scale: G.scale ?? 0.4, order: 10, depthTest: false });
+}
+
+// show frame i of `anim` (a drawn merge played by progress)
+function showFrame(f, anim, i) {
+  f.actor.play(anim);
+  const a = f.actor.anim;
+  f.actor.fi = Math.max(0, Math.min(i, a.frames.length - 1));
+  f.actor.setFrame(a.frames[f.actor.fi]);
+}
+
+// a point drawn on the fighter's frame (final-cell pixels, facing right) in the world; null without an art pack
+function drawnPoint(f, px) {
+  const m = f.actor?.asset?.meta;
+  if (!px || m?.source !== 'art-pack') return null;
+  const P = f.renderPos || f.pos, k = f.actor.depthK ?? 1;
+  const fwd = ((px[0] - m.pivot[0]) / m.pixelsPerUnit) * k, up = ((m.pivot[1] - px[1]) / m.pixelsPerUnit) * k;
+  return new THREE.Vector3(P.x + f.face.x * fwd, P.y + up, P.z + f.face.y * fwd);
+}
+
+// Hollow Purple's merge, the anime's look (S.look): Red in the near palm and Blue in the far one (def.hands[pose], per
+// frame), a drawn merge (a beamCharge that doesn't loop) played across it by progress so his hands carry them together
+// (f0 is the flash's held frame), and the two colliding into Purple (`form`) at the meeting point from `formAt` of the
+// merge on. The old looping pose holds the hands apart: the two then drift together and collide late. Effects only
+// (Game.quiet stands in for fx); the spawn point and the clash body stay formingOrb's.
+function mergeLook(f, k, S, a) {
+  const g = f.game, L = S.look, id = 'purple' + f.index, pose = S.pose ?? 'beamCharge';
+  const A = f.actor.asset?.anim?.(pose), drawn = !!A && !A.loop && A.frames.length > 1;
+  if (drawn) showFrame(f, pose, 1 + Math.min(A.frames.length - 2, Math.floor(a * (A.frames.length - 1))));
+  else loop(f, pose);
+  if (k.t0 === 1 && S.glint?.on === 'merge') glint(f, S.glint);
+  const H = f.def.hands?.[pose], i = f.actor.fi;
+  const pick = (list) => list?.[Math.min(i, list.length - 1)];
+  const P = f.renderPos || f.pos;
+  const fixed = (fwd, up) => new THREE.Vector3(P.x + f.face.x * fwd, P.y + up, P.z + f.face.y * fwd);
+  const meet = drawnPoint(f, H?.meet) ?? fixed(0.9, 0.98);
+  // the collision plays by progress from formF to the release (formOrb drops it), so it never outlasts the merge
+  const formAt = drawn ? L.formAt ?? 0.3 : 0.55, formF = Math.max(1, Math.round(formAt * mergeOf(k)));
+  if (k.t0 >= formF) {
+    g.fx.drop(id + 'r');
+    g.fx.drop(id + 'b');
+    const it = g.fx.keep(id + 'f', L.form, meet.x, meet.y, meet.z, { scale: L.formScale ?? 0.8, order: 9, depthTest: false });
+    if (it?.a) it.frame = Math.min(it.a.n - 1, Math.floor(((k.t0 - formF) / Math.max(1, mergeOf(k) - formF)) * it.a.n));
+    return;
+  }
+  const e = a * a * (3 - 2 * a), pull = drawn ? a * a * a : e;
+  const r = (drawnPoint(f, pick(H?.near)) ?? fixed(-0.58, 1.06)).lerp(meet, pull);
+  const b = (drawnPoint(f, pick(H?.far)) ?? fixed(0.59, 1.06)).lerp(meet, pull);
+  const s = (L.handScale ?? 0.3) * (1 + 0.06 * dmath.sin(k.t0 * 0.9));
+  g.fx.keep(id + 'r', L.red, r.x, r.y, r.z, { scale: s, order: 9, flipX: f.actor.flip < 0 });
+  g.fx.keep(id + 'b', L.blue, b.x, b.y, b.z, { scale: s, order: 9 });
 }
 
 // a won clash: the pounce went through, so the beast roars it out (the recover phase, still in the shroud)
@@ -1011,9 +1070,15 @@ function answer(f, m) {
   f.answerMove = f.move;
 }
 
-// afterimage, smoke puff, speed lines and sound where a teleporting fighter disappears
+// afterimage, smoke puff, speed lines and sound where a teleporting fighter disappears. `fold` (Blink, ENG-SKL-GOJ):
+// space folds instead, a tiny implosion where he was, no smoke or afterimage
 function vanishFx(f, m) {
   const g = f.game;
+  if (m.fold) {
+    g.fx.spawn(m.fold.fx, f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: m.fold.scale ?? 0.4, depthTest: false, order: 9 });
+    audio.play('vanish');
+    return;
+  }
   f.actor.ghost(m.color || f.def.color, 0.35, 0.6);
   g.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 0.9);
   g.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.1, glow: 0.6, depthTest: false, order: 8 });
@@ -1055,7 +1120,7 @@ const UPDATE = {
       f.hidden = false;
       f.actor.setVisible(true);
       f.faceOpponent();
-      g.onVanish(f, 'in');
+      g.onVanish(f, 'in', m.fold);
       k.arrived = true;
     }
     if (t < startup + m.hide + recovery) {
@@ -1380,10 +1445,16 @@ const UPDATE = {
     if (k.phase === 'flash') { k.phase = 'merge'; k.t0 = 0; }
     k.t0++;
     if (k.phase === 'merge') {
+      const a = Math.min(1, k.t0 / mergeOf(k)), e = a * a * (3 - 2 * a);
+      if (S.look) {
+        mergeLook(f, k, S, a); // the anime's look (ENG-SKL-GOJ)
+        if (k.t0 === 1) audio.play('beamCharge', 0.8);
+        if (a >= 1) formOrb(f, k, S);
+        return;
+      }
       loop(f, S.pose ?? 'beamCharge');
       // the drawn hands hold the two orbs (Gojo's beamCharge: near hand 0.58 behind, far hand 0.59 ahead,
       // 1.06 up); they meet 0.9 ahead of him
-      const a = Math.min(1, k.t0 / mergeOf(k)), e = a * a * (3 - 2 * a);
       const at = (fwd) => ({ x: f.pos.x + f.face.x * fwd, y: f.pos.y + 1.06 - 0.08 * e, z: f.pos.z + f.face.y * fwd });
       const r = at(-0.58 + 1.48 * e), b = at(0.59 + 0.31 * e);
       const s = 0.42 + 0.25 * e + 0.04 * dmath.sin(k.t0 * 0.9);

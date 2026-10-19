@@ -397,7 +397,7 @@ export class Game {
     this.arena.npcCue('super');
     const o = f.opp;
     this.domain = { owner: f, t: S.len };
-    this.setStage('void');
+    if (!S.open) this.setStage('void'); // with the sphere (S.open), syncView switches once it has swallowed the view
     if (!o.ko) {
       o.endMoveFx();
       o.move = null;
@@ -412,8 +412,13 @@ export class Game {
     for (const b of this.beams) if (b.owner === o) b.kill();
     for (const ob of this.orbs) if (ob.owner === o) ob.kill();
     this.hud.announce('UNLIMITED VOID', 'clash-call', 1500);
-    this.fx.overlay.flash('#ffffff', 0.9);
-    this.fx.overlay.impactFrame(4);
+    // the anime's sequence (S.open, ENG-SKL-GOJ): a black sphere bursts out of him and swallows the arena (voidStage.js),
+    // no white flash
+    if (S.open) this.voidStage.open(f, S);
+    else {
+      this.fx.overlay.flash('#ffffff', 0.9);
+      this.fx.overlay.impactFrame(4);
+    }
     this.cam.shake(0.6);
     audio.play('gong');
     audio.duckMusic('domain', true);
@@ -422,10 +427,12 @@ export class Game {
 
   endDomain() {
     if (!this.domain) return;
+    const owner = this.domain.owner;
     this.domain = null;
     audio.duckMusic('domain', false);
     this.setStage(this.training ? 'training' : 'arena');
-    this.fx.overlay.flash('#ffffff', 0.5);
+    // the void shatters like glass (the super's `shatter`, ENG-SKL-GOJ) instead of a white flash
+    if (!this.voidStage.close(owner)) this.fx.overlay.flash('#ffffff', 0.5);
   }
 
   setDummy(mode) {
@@ -717,7 +724,8 @@ export class Game {
   // The view follows the simulation where events alone can't keep it right after a rollback: the stage every frame,
   // and once after a restore the clash camera, bar and hint and the looping hums.
   syncView() {
-    const stage = this.domain ? 'void' : this.training ? 'training' : 'arena';
+    // the arena stays while the domain's black sphere is still swallowing it (voidStage.opening, ENG-SKL-GOJ)
+    const stage = this.domain && !this.voidStage.opening ? 'void' : this.training ? 'training' : 'arena';
     if (this.fighters.length === 2 && stage !== this.stageKind) this.setStage(stage);
     if (!this.viewDirty) return;
     this.viewDirty = false;
@@ -929,7 +937,8 @@ export class Game {
         const phase = t < A ? 0 : t < B ? 1 : 2;
         if (phase < 2 || (f.moveHit && t < B + 6)) this.fx.handTick(f, m.fx, phase, t / A);
         else this.fx.dropHand(f);
-      } else if (held) this.fx.handTick(f, held, 2, 1, true, this.clashHold(f)); // a Rasengan / Chidori driven into a beam clash stays lit, held forward
+      } else if (f.state === 'attack' && f.move?.form && f.t < f.move.startup) this.fx.formTick(f, f.move.form, f.t / f.move.startup); // a shot forming at the hand (Reversal: Red)
+      else if (held) this.fx.handTick(f, held, 2, 1, true, this.clashHold(f)); // a Rasengan / Chidori driven into a beam clash stays lit, held forward
       else this.fx.dropHand(f);
     }
     if (this.clash) lines = 0.75;
@@ -2044,7 +2053,14 @@ export class Game {
     this.excite = Math.min(1, this.excite + 0.4);
   }
 
-  onVanish(f, phase) {
+  // `fold`: a teleport's own arrival look (Blink's space fold, ENG-SKL-GOJ) instead of the star, ring and afterimage
+  onVanish(f, phase, fold = null) {
+    if (phase === 'in' && fold) {
+      this.fx.spawn(fold.fx, f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: fold.scale ?? 0.4, depthTest: false, order: 9 });
+      audio.play('vanishIn');
+      this.freeze = Math.max(this.freeze, 5);
+      return;
+    }
     if (phase === 'out') {
       this.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 1.2);
       this.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 0.6, depthTest: false, order: 8 });
@@ -2298,7 +2314,7 @@ export class Game {
     audio.setMusicIntensity(this.state === 'fight' || this.training ? this.excite : 0.2);
     this.arena.update(performance.now() / 1000, this.excite);
     this.room.update(performance.now() / 1000);
-    if (this.domain) this.voidStage.update(performance.now() / 1000);
+    if (this.domain || this.voidStage.busy) this.voidStage.update(performance.now() / 1000, this, this.paused ? 0 : dt);
     if (this.fighters.length === 2) this.hud.update(this.fighters, this.timeLeft, dt);
     this.menus.tick?.(dt);
     if (this.touch) {

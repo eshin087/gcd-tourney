@@ -2,7 +2,8 @@
 // from this 3D chibi model at startup; the real art comes from art/characters/gojo/.
 // Blindfold in every sprite; the Six Eyes show only on the super pose and the cut-in.
 // Kit (ADR 0009): Lapse: Blue pull, Reversal: Red blast, Blink teleport, Infinity counter,
-// Infinity passive, Hollow Purple beam, Domain Expansion: Unlimited Void super.
+// Infinity passive, Hollow Purple orb, Domain Expansion: Unlimited Void super. Their anime look (ENG-SKL-GOJ) is data on
+// the moves (moves.js) and art/characters/gojo/SKILLS_REVAMP.md.
 
 const model = {
   // the tallest fighter: longer legs and torso, smaller head
@@ -159,6 +160,10 @@ export default {
   // floor damage (ground.js, ADR 0024): glass-like cursed fractures; charge false: Infinity keeps the floor still
   // while he powers up (no cracks)
   ground: { style: 'cursed', tint: '#b46cff', charge: false },
+  // Hollow Purple's merge (ENG-SKL-GOJ, kit.js mergeLook): the drawn palms that hold Red (near) and Blue (far) on each
+  // beamCharge frame, final-cell pixels measured by Claude on the packed strip (`_v`: re-measure when it changes);
+  // `meet`, where a drawn merge brings them together (v03 holds them apart: Purple forms 0.9 ahead of him)
+  hands: { beamCharge: { _v: 3, near: [[68, 96], [78, 95], [68, 96]], far: [[192, 96], [172, 96], [192, 96]] } },
   model,
   stance,
   extraAnims,

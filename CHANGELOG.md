@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ENG-SKL-GOJ, ADR 0049): Gojo's techniques look like the anime. Lapse: Blue is a dense navy-eyed point that drags floor rubble in and implodes (no glow disc, no explosion); Reversal: Red forms on his raised fingertip, flies as a crimson orb with its shock wake and hits with a repulsion blast instead of the white-out; Infinity stops shots dead in a ripple of space; Blink folds space instead of a smoke puff; the Six Eyes glint as the blindfold comes up. Unlimited Void: a black sphere bursts out of him and swallows the arena, an endless cosmos on a black mirror floor, light floods the frozen opponent's head, and the void shatters like glass at the end (no white flashes). Hollow Purple: Red in his near palm and Blue in his far one, the two colliding into Purple, the HD mass erasing its trench and a violet hit. Procedural stand-ins until Codex's art (art/characters/gojo/SKILLS_REVAMP.md) is approved; frame data unchanged.
+
 - Fixed (ENG-116): Sasuke's Lion's Barrage no longer carries its victim past the ring barrier. The heel drop holds them a step beyond him, and with Sasuke as P2 his move runs after their physics, so a victim kicked up at the barrier hung up to 0.1 outside it for the slam (soak() `ring` violations, about 6 in 1,000 Impossible matches, all `launched` victims at x or z = ±8.63-8.65). A held body is now always placed inside the barrier (`kit.js` holdAt). The determinism fixtures are re-recorded on the new simulation fingerprint (4e0e4469acfe); both replay frame for frame.
 - Changed: the determinism fixtures are re-recorded after Gojo's up air (fingerprint 030c2b3c3377); both replay frame for frame.
 
