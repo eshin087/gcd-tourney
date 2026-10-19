@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/blueCollapse_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/blueCollapse_v01.png",
+    "vfx/raw/blueCollapse_v01.json"
+  ],
+  "sourceHash": "49280549f661ba573dfda8b6be7856c896bad709",
+  "cell": 256,
+  "files": {
+    "blueCollapse_00.png": "fd3a95d47f204fb1e9ca8181a51786820dc090cb",
+    "blueCollapse_01.png": "b49ec62f509312b53a2300aba06131be7650c3b8",
+    "blueCollapse_02.png": "577f4e38dab75f4954af14032d35167a87ebdb20",
+    "blueCollapse_03.png": "2a695dee05229f9146f6feb8a66404a6e0937a44",
+    "blueCollapse_04.png": "3d156fa7ba36d302d13417a9e00920d669f29307",
+    "blueCollapse_05.png": "ae15699b13cf6806b12b64942dfdb8a1f750c196",
+    "blueCollapse_06.png": "de66c408c8937d98822ac75f25a1d335804ca4b9",
+    "blueCollapse_07.png": "8a0c585fbd4df13498177c5b959d0244e6e3d6de"
+  }
+}

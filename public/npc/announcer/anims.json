@@ -13,6 +13,10 @@
     "idle": { "frames": [0, 1], "durations": [520, 520], "loop": true, "version": 1 },
     "point": { "frames": [2, 3], "durations": [240, 240], "loop": true, "version": 1 },
     "shout": { "frames": [4, 5], "durations": [140, 140], "loop": true, "version": 1 },
-    "cower": { "frames": [6, 7], "durations": [90, 90], "loop": true, "version": 1 }
+    "cower": { "frames": [6, 7], "durations": [90, 90], "loop": true, "version": 1 },
+    "walk": { "frames": [8, 9, 10, 11], "durations": [150, 150, 150, 150], "loop": true, "version": 2 },
+    "run": { "frames": [12, 13, 14, 15], "durations": [90, 90, 90, 90], "loop": true, "version": 3 },
+    "shocked": { "frames": [16, 17], "durations": [150, 150], "loop": true, "version": 3 },
+    "micThrust": { "frames": [18, 19], "durations": [260, 260], "loop": true, "version": 3 }
   }
 }

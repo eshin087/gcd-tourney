@@ -4,16 +4,17 @@
   "sourceFile": "raw/instantTransmission_v01.png",
   "version": 1,
   "source": [
-    "vfx/raw/instantTransmission_v01.png"
+    "vfx/raw/instantTransmission_v01.png",
+    "vfx/raw/instantTransmission_v01.json"
   ],
-  "sourceHash": "c9da1081f7827170f113ffe212194610424f407c",
+  "sourceHash": "440bc48c2b54f7c20194f837dad1a3df16b9b2c8",
   "cell": 256,
   "files": {
-    "instantTransmission_00.png": "65119681c8c36a588790398c8e0479512296725e",
-    "instantTransmission_01.png": "01e108c9cb577576beb307279184c83152cc63a5",
-    "instantTransmission_02.png": "7b2b9ec83dde3834009cb6d581ea6ba275ed8672",
-    "instantTransmission_03.png": "ac09af93ff1a3efd98c3d5345bdd757eb4b358b8",
-    "instantTransmission_04.png": "0c80ed04e4cacb1f2d2ddf683feb7524e3f34c0a",
-    "instantTransmission_05.png": "1b5f5ae5e0ee01e4367ab929450f00caa39034db"
+    "instantTransmission_00.png": "53d16c7cdc5efb7461c2aacd4df2bf4551270a3a",
+    "instantTransmission_01.png": "f5281cef26f287460affb9bcca7aeb7fe84e76b8",
+    "instantTransmission_02.png": "ee4219ca964dc10ed2fedbc69cefd135e9ea51e0",
+    "instantTransmission_03.png": "bc5d1dbed4c44d8c4ce3ca9e9ac3a66a7c8f786d",
+    "instantTransmission_04.png": "4c907bbc3ba4c6a23a54ffed35114e557c823bde",
+    "instantTransmission_05.png": "04deccbfbbbcdcbf1e0a9e5d95e84a26b66f2dfd"
   }
 }

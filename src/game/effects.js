@@ -28,7 +28,20 @@ const FRAG = /* glsl */ `
   }`;
 
 const qz = new THREE.Quaternion();
+const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with its colors resolved (Effects.modeShell)
 const zAxis = new THREE.Vector3(0, 0, 1);
+const tPull = new THREE.Vector3(), tSwirl = new THREE.Vector3(), yAxis = new THREE.Vector3(0, 1, 0);
+
+// an effects page: pixel-exact, sRGB, no mipmaps
+function sheetTexture(image, Tex = THREE.Texture) {
+  const tex = new Tex(image);
+  tex.magFilter = THREE.NearestFilter;
+  tex.minFilter = THREE.NearestFilter;
+  tex.generateMipmaps = false;
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.needsUpdate = true;
+  return tex;
+}
 
 function hexTexture() {
   const c = document.createElement('canvas');
@@ -61,14 +74,17 @@ export class Effects {
     this.scene = scene;
     const { canvas, meta } = bakeVfx();
     this.meta = meta;
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.magFilter = THREE.NearestFilter;
-    tex.minFilter = THREE.NearestFilter;
-    tex.generateMipmaps = false;
-    tex.colorSpace = THREE.SRGBColorSpace;
-    this.tex = tex;
+    this.tex = sheetTexture(canvas, THREE.CanvasTexture);
     this.W = canvas.width;
     this.H = canvas.height;
+    this.cell = meta.cell;
+    // the procedural frames (vfxPainter.js): every effect until the custom atlas is in, then the effects without packed
+    // art and the stand-ins of HD effects whose page this match has not loaded (ADR 0053)
+    this.proc = { canvas, tex: this.tex, cell: meta.cell, W: canvas.width, H: canvas.height, cellWorld: meta.cell / PPU, anims: meta.anims };
+    this.hd = null; // atlas.json's HD pages (readHd)
+    this.owners = new Set(); // whose HD pages this match draws from (prepare)
+    this.noted = new Set(); // HD effects already reported drawn without their page
+    this.renderer = null;
     this.geoC = new THREE.PlaneGeometry(1, 1);
     this.geoB = new THREE.PlaneGeometry(1, 1).translate(0, 0.5 - 4 / 64, 0);
     this.barrierGeo = new THREE.PlaneGeometry(4.5, 3); // shared by every wall-bounce flash
@@ -82,14 +98,16 @@ export class Effects {
     this.overlay = new Overlay();
     this.cellWorld = meta.cell / PPU;
     this.camFwd = new THREE.Vector3(0, 0, -1);
+    this.camUp = new THREE.Vector3(0, 1, 0); // the billboards' up: a point raised along it stays at the body's depth
     this.ground = new GroundDamage(scene, this); // craters, cracks, scorches, wall marks (ADR 0024)
     this.sigils = new Sigils(scene); // Sharingan / Mangekyō behind an eye technique (ADR 0035)
   }
 
   // Swap in hand-made effects from public/vfx/atlas.{png,json} (`npm run sprites vfx`: approved effects only;
-  // ?art=custom prefers the unapproved candidates in public/preview/vfx/). Effects missing from the custom atlas
-  // keep their procedural frames (upscaled). The signature effects (ADR 0044) come from a second page, atlas.json's
-  // `hd` block (256 px cells at twice the density, the same world size per cell): `this.hd`, used per effect.
+  // ?art=custom prefers the unapproved candidates in public/preview/vfx/). atlas.png is the shared page; effects it
+  // lacks keep their procedural frames (this.proc). The signature effects (ADR 0044) sit on the HD pages of atlas.json's
+  // `hd` block (256 px cells at twice the density, the same world size per cell), one page per owner (ADR 0053): only
+  // the JSON is read here, a match loads the pages it draws from (prepare).
   async loadCustom() {
     try {
       const found = await fetchAtlasJson('/vfx');
@@ -104,42 +122,27 @@ export class Effects {
         console.warn('[vfx] atlas.json found but atlas.png is missing or unreadable, keeping procedural effects');
         return false;
       }
-      const pm = this.meta, proc = this.tex.image;
-      const cell = cm.cell || 128;
-      const hd = cm.hd?.anims ? await this.loadHd(cm.hd, dir) : null;
-      const names = [...new Set([...Object.keys(pm.anims), ...Object.keys(cm.anims)])].filter((n) => !hd?.anims[n]);
-      const cols = Math.max(...names.map((n) => (cm.anims[n] || pm.anims[n]).n));
-      const cv = document.createElement('canvas');
-      cv.width = cols * cell;
-      cv.height = names.length * cell;
-      const ctx = cv.getContext('2d');
-      ctx.imageSmoothingEnabled = false;
-      const meta = { cell, cols, rows: names.length, anims: {} };
-      const custom = [];
-      names.forEach((name, row) => {
-        const c = cm.anims[name], p = pm.anims[name];
-        if (c) {
-          ctx.drawImage(img, 0, c.row * cell, c.n * cell, cell, 0, row * cell, c.n * cell, cell);
-          meta.anims[name] = { row, n: c.n, ms: c.ms ?? p?.ms ?? 40 };
-          custom.push(name);
-        } else {
-          ctx.drawImage(proc, 0, p.row * pm.cell, p.n * pm.cell, pm.cell, 0, row * cell, p.n * cell, cell);
-          meta.anims[name] = { row, n: p.n, ms: p.ms };
-        }
-      });
-      // keep the same world size: custom cells use their own ppu, upscaled procedural ones match it
-      this.cellWorld = cell / (cm.ppu || (cell * PPU) / pm.cell);
-      if (hd) {
-        for (const [name, a] of Object.entries(hd.anims)) meta.anims[name] = { row: a.row, n: a.n, ms: a.ms ?? 40, hd: true };
-        this.hd = hd;
-        custom.push(...Object.keys(hd.anims).map((n) => `${n} (HD)`));
-      }
-      this.meta = meta;
-      this.W = cv.width;
-      this.H = cv.height;
-      this.tex.image = cv;
+      const pm = this.proc.anims, cell = cm.cell || 128;
+      const hd = this.readHd(cm.hd, dir);
+      const meta = { cell, anims: {} };
+      for (const [name, c] of Object.entries(cm.anims)) meta.anims[name] = { row: c.row, n: c.n, ms: c.ms ?? pm[name]?.ms ?? 40 };
+      // the rest draw their procedural frames from the baked sheet, at its own density (the same world size per cell)
+      for (const [name, p] of Object.entries(pm)) if (!meta.anims[name] && !hd?.effects[name]) meta.anims[name] = { ...p, proc: true };
+      for (const [name, a] of Object.entries(hd?.effects || {})) meta.anims[name] = { hd: true, page: a.page, row: a.row, n: a.n, ms: a.ms ?? pm[name]?.ms ?? 40 };
+      // the shared page is the custom atlas itself (this.tex keeps its object: views made earlier still hold it); the
+      // procedural canvas gets a texture of its own, uploaded only if something draws from it
+      if (this.proc.tex === this.tex) this.proc.tex = sheetTexture(this.proc.canvas, THREE.CanvasTexture);
+      this.tex.image = img;
       this.tex.needsUpdate = true;
-      console.info(`[vfx] custom effects${dir === '/vfx' ? '' : ' (candidates)'}: ${custom.join(', ') || 'none'}`);
+      this.W = img.width;
+      this.H = img.height;
+      this.cell = cell;
+      this.cellWorld = cell / (cm.ppu || (cell * PPU) / this.proc.cell);
+      this.meta = meta;
+      this.hd = hd;
+      const owners = hd ? [...new Set(hd.pages.map((p) => p.owner))] : [];
+      const pages = owners.map((o) => `${o} (${hd.pages.filter((p) => p.owner === o).flatMap((p) => p.names).join(', ')})`);
+      console.info(`[vfx] custom effects${dir === '/vfx' ? '' : ' (candidates)'}: ${Object.keys(cm.anims).join(', ') || 'none'}${pages.length ? `; HD, loaded per match: ${pages.join('; ')}` : ''}`);
       return true;
     } catch (e) {
       console.warn('[vfx] custom atlas failed, keeping procedural effects', e);
@@ -147,40 +150,115 @@ export class Effects {
     }
   }
 
-  // The HD page of atlas.json (ADR 0044). A missing or unreadable image keeps those effects procedural.
-  async loadHd(h, dir) {
-    const img = await loadImage(artUrl(`${dir}/${h.image || 'atlas_hd.png'}`));
-    if (!img) {
-      console.warn('[vfx] atlas.json lists HD effects but their page is missing or unreadable, keeping them procedural');
-      return null;
+  // atlas.json's `hd` block (ADR 0053): its pages (image, owner) and the page and row of each HD effect. The single
+  // atlas_hd.png of a pack from before ADR 0053 (`image` + `anims`) reads as one shared page.
+  readHd(h, dir) {
+    if (!h) return null;
+    const cell = h.cell || 256, cellWorld = cell / (h.ppu || 112);
+    const old = !h.pages && h.anims;
+    const list = old ? [{ image: h.image || 'atlas_hd.png', owner: 'shared' }] : Array.isArray(h.pages) ? h.pages : [];
+    const pages = list.map((p) => ({ image: p.image, owner: p.owner || 'shared', cols: p.cols ?? 0, rows: p.rows ?? 0, cell, cellWorld, names: [], tex: null, W: 0, H: 0, loading: null, failed: false }));
+    const effects = {};
+    for (const [name, a] of Object.entries((old ? h.anims : h.effects) || {})) {
+      const pg = pages[old ? 0 : a?.page];
+      if (!pg || !(a.n >= 1)) continue; // a broken entry keeps its procedural frames
+      effects[name] = { ...a, page: pages.indexOf(pg) };
+      pg.names.push(name);
     }
-    const tex = new THREE.Texture(img);
-    tex.magFilter = THREE.NearestFilter;
-    tex.minFilter = THREE.NearestFilter;
-    tex.generateMipmaps = false;
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.needsUpdate = true;
-    const cell = h.cell || 256;
-    return { tex, cell, W: img.width, H: img.height, cellWorld: cell / (h.ppu || 112), anims: h.anims };
+    return pages.length ? { dir, pages, effects } : null;
   }
 
-  // the page an effect is drawn from: the HD signature page or the shared one
-  sheet(a) {
-    return a?.hd && this.hd ? this.hd : this;
+  // A new match (ADR 0053): the HD pages it draws from (the shared ones and its fighters' own) load now and go to the
+  // GPU as they arrive; every other fighter's page leaves it. Until a page is in, its effects draw their stand-ins.
+  prepare(fighters = [], renderer = null) {
+    if (renderer) this.renderer = renderer;
+    this.owners = new Set(['shared', ...fighters.map((f) => f.def.id)]);
+    for (const pg of this.hd?.pages || []) {
+      if (this.owners.has(pg.owner)) this.loadPage(pg);
+      else if (pg.tex) {
+        pg.tex.dispose(); // the last match's items are gone (clearAll), so nothing draws from it any more
+        pg.tex = null;
+      }
+    }
   }
 
-  uv(name, i, out) {
+  loadPage(pg) {
+    if (pg.tex || pg.loading || pg.failed) return;
+    pg.loading = loadImage(artUrl(`${this.hd.dir}/${pg.image}`)).then((img) => {
+      pg.loading = null;
+      const short = img && (img.width < pg.cols * pg.cell || img.height < pg.rows * pg.cell);
+      if (!img || short) {
+        pg.failed = true;
+        console.warn(`[vfx] HD page ${pg.image} is ${short ? `${img.width}x${img.height}, smaller than atlas.json says` : 'missing or unreadable'}, its effects stay procedural: ${pg.names.join(', ')}`);
+        return;
+      }
+      if (!this.owners.has(pg.owner)) return; // the next match came first and does not draw from it
+      pg.tex = sheetTexture(img);
+      pg.W = img.width;
+      pg.H = img.height;
+      this.renderer?.initTexture(pg.tex);
+    });
+  }
+
+  // resolves once the pages this match asked for are in (or failed): tests and ?debug
+  pagesReady() {
+    return Promise.all((this.hd?.pages || []).map((p) => p.loading));
+  }
+
+  // ?debug: the HD pages and what they hold on the GPU now (docs/TESTING.md)
+  hdStatus() {
+    const pages = (this.hd?.pages || []).map((p) => ({
+      image: p.image, owner: p.owner, effects: p.names.length,
+      state: p.tex ? 'gpu' : p.loading ? 'loading' : p.failed ? 'failed' : 'off',
+      size: p.tex ? `${p.W}x${p.H}` : null, mb: p.tex ? +((p.W * p.H * 4) / 1048576).toFixed(1) : 0,
+    }));
+    return { owners: [...this.owners], pages, gpuMB: +pages.reduce((s, p) => s + p.mb, 0).toFixed(1) };
+  }
+
+  // Where an effect is drawn from now: { a: its strip there, S: the sheet }. An HD effect whose page this match has
+  // not got draws its stand-in from the procedural sheet (`wait`: that page).
+  source(name) {
     const a = this.meta.anims[name];
-    const S = this.sheet(a);
+    if (a?.proc) return { a, S: this.proc };
+    if (!a?.hd) return { a, S: this };
+    const pg = this.hd.pages[a.page];
+    if (pg.tex) return { a, S: pg };
+    this.noteStandIn(name, pg);
+    return { a: this.proc.anims[name] ?? this.proc.anims.glow, S: this.proc, wait: pg };
+  }
+
+  // One console line per HD effect drawn without its page, unless that page is still loading (a match's first moments)
+  // or failed (it said so itself). A page no fighter of this match owns means its owner is wrong: an effect other
+  // fighters use, or that shared code draws for anyone, is owner 'shared' (VFX_EFFECTS in tools/pack-sprites.mjs).
+  noteStandIn(name, pg) {
+    if (pg.loading || pg.failed || this.noted.has(name)) return;
+    this.noted.add(name);
+    const pair = [...this.owners].filter((o) => o !== 'shared').join(' vs ') || 'no fighters';
+    console.warn(`[vfx] ${name} is on the ${pg.owner} HD page, which this match (${pair}) does not load: drawn procedural (owner 'shared' if other fighters use it)`);
+  }
+
+  // the sheet an effect's strip `a` is drawn from (its world size per cell: `cellWorld`)
+  sheet(a) {
+    if (a?.proc) return this.proc;
+    if (!a?.hd) return this;
+    return this.hd.pages[a.page]?.tex ? this.hd.pages[a.page] : this.proc;
+  }
+
+  // frame i of strip `a` on sheet S, as a uv rect
+  cellUv(S, a, i, out) {
     i = Math.max(0, Math.min(i | 0, a.n - 1));
-    const c = S === this ? this.meta.cell : S.cell, e = 0.02;
-    out.set((i * c + e) / S.W, 1 - ((a.row + 1) * c - e) / S.H, ((i + 1) * c - e) / S.W, 1 - (a.row * c + e) / S.H);
+    const c = S.cell, x = (a.col ?? 0) + i, e = 0.02;
+    out.set((x * c + e) / S.W, 1 - ((a.row + 1) * c - e) / S.H, ((x + 1) * c - e) / S.W, 1 - (a.row * c + e) / S.H);
     return out;
   }
 
+  uv(name, i, out) {
+    const { a, S } = this.source(name);
+    return this.cellUv(S, a, i, out);
+  }
+
   spawn(name, x, y, z, o = {}) {
-    const a = this.meta.anims[name];
-    const S = this.sheet(a);
+    const { a, S, wait } = this.source(name);
     const mat = new THREE.ShaderMaterial({
       uniforms: {
         map: { value: S.tex },
@@ -205,7 +283,7 @@ export class Effects {
     this.scene.add(mesh);
     const ms = o.ms ?? a.ms;
     const it = {
-      mesh, mat, name, a, t: 0, ms, cellWorld: S.cellWorld,
+      mesh, mat, name, a, S, wait, t: 0, ms, cellWorld: S.cellWorld, // wait: the HD page a stand-in stands in for
       loop: !!o.loop,
       life: o.life ?? (a.n * ms) / 1000,
       vel: o.vel ? new THREE.Vector3(...o.vel) : null,
@@ -225,7 +303,7 @@ export class Effects {
     if (it.seq) it.life = (it.seq.length * ms) / 1000;
     it.max = it.life;
     if (it.stretch !== 1) mesh.scale.x *= it.stretch;
-    this.uv(name, 0, mat.uniforms.uvRect.value);
+    this.cellUv(S, a, 0, mat.uniforms.uvRect.value);
     this.items.push(it);
     return it;
   }
@@ -237,6 +315,8 @@ export class Effects {
   // persistent effect keyed by id, refreshed every frame by its owner
   keep(id, name, x, y, z, o = {}) {
     let it = this.keepers.get(id);
+    // a stand-in held while its HD page was loading gives way to the real strip once the page is in
+    if (it?.wait?.tex) it.life = -1;
     if (!it || it.life < 0) {
       it = this.spawn(name, x, y, z, { ...o, loop: true, life: 999 });
       this.keepers.set(id, it);
@@ -261,6 +341,7 @@ export class Effects {
 
   update(dt, camera) {
     camera.getWorldDirection(this.camFwd);
+    this.camUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
     this.sigils.update(dt, camera, this.camFwd);
     const now = performance.now();
     for (const [id, it] of this.keepers) {
@@ -292,7 +373,7 @@ export class Effects {
         f = Math.floor((it.t * 1000) / it.ms);
         f = it.loop ? f % it.a.n : Math.min(it.a.n - 1, f);
       }
-      this.uv(it.name, f, it.mat.uniforms.uvRect.value);
+      this.cellUv(it.S, it.a, f, it.mat.uniforms.uvRect.value);
       if (it.fade) it.mat.uniforms.opacity.value = it.opacity * Math.min(1, it.life / (it.max * 0.6));
       if (it.grow) {
         const s = it.base * (1 + it.grow * it.t);
@@ -305,6 +386,22 @@ export class Effects {
     for (let i = this.rocks.length - 1; i >= 0; i--) {
       const r = this.rocks[i];
       r.life -= dt;
+      if (r.pull) {
+        // dragged into a point (rubbleIn): spiralling in faster as it nears, shrinking to nothing at it
+        const d = tPull.copy(r.pull).sub(r.mesh.position), dist = d.length();
+        if (dist < 0.12 || r.life <= 0) {
+          this.scene.remove(r.mesh);
+          this.rocks.splice(i, 1);
+          continue;
+        }
+        d.divideScalar(dist);
+        tSwirl.crossVectors(d, yAxis).multiplyScalar(r.swirl * Math.min(2.5, dist * 1.5));
+        r.mesh.position.addScaledVector(d, (2.5 + 7 / (0.5 + dist)) * dt).addScaledVector(tSwirl, dt);
+        r.mesh.rotation.x += r.spin.x * dt;
+        r.mesh.rotation.z += r.spin.z * dt;
+        r.mesh.scale.setScalar(r.size * Math.min(1, dist / 0.7));
+        continue;
+      }
       r.vel.y -= 30 * dt;
       r.mesh.position.addScaledVector(r.vel, dt);
       r.mesh.rotation.x += r.spin.x * dt;
@@ -508,6 +605,24 @@ export class Effects {
     while (this.rocks.length > 60) this.scene.remove(this.rocks.shift().mesh);
   }
 
+  // Floor rubble torn up and dragged into a point `at` (fighter space; Lapse: Blue, ENG-SKL-GOJ): `n` chunks lift off the
+  // floor `r` away and spiral in (Effects.update), shrinking to nothing as they reach it
+  rubbleIn(at, n = 2, r = 2) {
+    for (let k = 0; k < n; k++) {
+      const size = 0.04 + Math.random() * 0.07, a = Math.random() * Math.PI * 2;
+      const m = new THREE.Mesh(this.rockGeo, this.rockMats[k % 3]);
+      m.scale.setScalar(size);
+      m.position.set(at.x + Math.cos(a) * r, RING_TOP + 0.06, at.z + Math.sin(a) * r * 0.6);
+      m.castShadow = true;
+      this.scene.add(m);
+      this.rocks.push({
+        mesh: m, size, life: 1.2, pull: new THREE.Vector3(at.x, RING_TOP + at.y, at.z), swirl: Math.random() < 0.5 ? 1 : -1,
+        vel: new THREE.Vector3(), spin: new THREE.Vector3((Math.random() - 0.5) * 20, 0, (Math.random() - 0.5) * 20),
+      });
+    }
+    while (this.rocks.length > 60) this.scene.remove(this.rocks.shift().mesh);
+  }
+
   // Hexagonal ki barrier flash where a fighter slams into the ring boundary.
   barrier(pos, axis, sign, color = '#7ad8ff') {
     const mat = new THREE.MeshBasicMaterial({ map: this.hexTex, color: new THREE.Color(color).multiplyScalar(1.8), transparent: true, opacity: 0.85, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
@@ -604,11 +719,20 @@ export class Effects {
         this.spawn('streak', p.x + Math.cos(a) * s * 1.2, p.y + Math.sin(a) * s * 0.6, p.z, { scale: 0.3, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });
       }
     } else if (kind === 'kiFist') {
-      // Dragon Fist (Goku): golden ki wrapped round the fist, drawn back in startup and driven forward in active
+      // Dragon Fist (Goku): golden ki gathering on the chambered fist in startup; in the flight (ENG-SKL-GOK) the HD
+      // envelope of golden ki round his whole body, pointed at the fist, behind the sprite (a small glow only: the old
+      // big glow disc hid him)
       const p = phase === 0 ? at(-0.2, 0.8) : at(0.7, 0.85);
       const s = (phase === 0 ? 0.3 + prog * 0.4 : 0.75) * k;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 1.5, color: 0xffd84a, opacity: 0.55 * halo, order: 3, glow: 1 });
-      if (Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
+      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * (phase === 0 ? 1.1 : 0.7), color: 0xffd84a, opacity: 0.4 * halo, order: 3, glow: 0.6 });
+      if (phase === 1 && !quiet) {
+        // raised along the billboard's up and a step behind it along the view (a point raised straight up comes nearer
+        // the downward-looking camera and would cover him), so it frames him
+        const bk = this.camFwd, U = this.camUp, h = 0.8 * k;
+        this.keep('hand' + f.index, 'dragonFistAura', P.x + fx * 0.1 * k + U.x * h + bk.x * 0.3, P.y + U.y * h + bk.y * 0.3, P.z + fz * 0.1 * k + U.z * h + bk.z * 0.3, { scale: 0.82 * k, order: 1, glow: 0, flipX: f.side < 0 });
+      } else this.drop('hand' + f.index);
+      // ki licking off the chambered fist in the wind-up only: in the flight they trailed across his body
+      if (phase === 0 && Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
     } else if (kind === 'chidori') {
       // the thousand birds (ENG-SKL-SAS): it crackles to life in his gripped hand through most of the startup
       // (chidoriForm), then the HD knot rides the drawn palm; a small glow only, the art carries the light (the old
@@ -638,6 +762,14 @@ export class Effects {
         if (Math.random() < 0.5) this.spawn('spark', g.x, 0.08, g.z, { scale: 0.35, rot: Math.random() * 6.28, color: 0xbfe8ff, glow: 0.8, order: 8 });
         if (Math.random() < 0.25) this.spawn('dust', g.x - fx * 0.2, 0, g.z - fz * 0.2, { bottom: true, scale: 0.35, opacity: 0.7, order: 6 });
       }
+    } else if (this.meta.anims[kind]) {
+      // any other effect name: held in the drawn palm through the startup (Lightning Palm's crackle, ENG-SKL-KIL),
+      // looping and growing as it builds; the art carries the light, so no glow disc. `fxForm` on the move: a forming
+      // strip instead, its frames played by the startup's progress and its last frame held after (Reversal: Red's);
+      // `fxScale`: its full size
+      const p = at(0.6, 0.85), M = f.move, form = !!M?.fxForm, base = (M?.fxScale ?? 0.6) * k * (quiet ? 0.7 : 1);
+      const it = this.keep('hand' + f.index, kind, p.x, p.y, p.z, { scale: form || phase ? base : base * (0.5 + prog * 0.5), order: 9, glow: 0.3 });
+      it.frame = !form ? -1 : phase === 0 ? Math.min(it.a.n - 1, Math.floor(prog * it.a.n)) : it.a.n - 1;
     }
   }
 
@@ -647,12 +779,15 @@ export class Effects {
     this.drop('handGlow' + f.index);
   }
 
+
   // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
   // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
   // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind)
-  blast(name, x, y, z, scale, color, smoke = 3) {
-    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false });
-    this.spawn('ring', x, y, z, { scale: 2.2 * scale, color, glow: 0.4, order: 7, depthTest: false });
+  // `flipX`: a blast drawn pointing screen-right, mirrored for a shot flying screen-left (Reversal: Red's repulsion);
+  // `ring`: the shockwave's size against the blast's (0: none; Killua's shocks keep it small)
+  blast(name, x, y, z, scale, color, smoke = 3, flipX = false, ring = 2.2) {
+    this.spawn(name, x, y, z, { scale, order: 8, depthTest: false, flipX });
+    if (ring) this.spawn('ring', x, y, z, { scale: ring * scale, color, glow: 0.4, order: 7, depthTest: false });
     for (let k = 0; k < smoke; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
   }
 
@@ -662,10 +797,26 @@ export class Effects {
   span(name, from, dir, len, camRight, o = {}) {
     const sx = dir.x * camRight.x + dir.z * camRight.z, flip = sx < 0, phi = Math.atan2(dir.y, sx);
     const it = this.spawn(name, from.x + (dir.x * len) / 2, from.y + (dir.y * len) / 2, from.z + (dir.z * len) / 2, { ...o, flipX: flip, rot: flip ? phi - Math.PI : phi });
-    const s = len / (it.cellWorld * (o.fill ?? 0.95));
+    // the quad's world size, so the drawn part (`fill` of the cell) spans `len`. The mesh scale is already in world units
+    // (spawn folds the cell's world size into it): dividing by cellWorld again drew an HD blade at ~44 % of its reach
+    const s = len / (o.fill ?? 0.95);
     it.base = s;
     it.mesh.scale.set(flip ? -s : s, s, s);
     return it;
+  }
+
+  // A teleport's own look where it vanishes or reappears (its `vanishFx` / `appearFx`): an effect name, or { fx, scale,
+  // bottom (anchored at the feet), y (up from the feet otherwise, default 0.9), reverse (its frames backward) }. `at`:
+  // the feet (fighter space)
+  teleportFx(spec, at) {
+    const S = typeof spec === 'string' ? { fx: spec } : spec;
+    const a = this.meta.anims[S?.fx];
+    if (!a) {
+      console.warn(`[vfx] no ${S?.fx} effect for a teleport`);
+      return null;
+    }
+    const seq = S.reverse ? Array.from({ length: a.n }, (_, i) => a.n - 1 - i) : null;
+    return this.spawn(S.fx, at.x, at.y + (S.bottom ? 0 : S.y ?? 0.9), at.z, { scale: S.scale ?? 1, bottom: !!S.bottom, seq, depthTest: false, order: 9 });
   }
 
   // A shadow clone appearing or vanishing (the anime's poof)
@@ -722,13 +873,38 @@ export class Effects {
     const a = Math.random() * Math.PI * 2, b = (Math.random() - 0.5) * 2.2, r = 1.3 + Math.random() * 0.5;
     const sx = x + Math.cos(a) * r, sy = y + Math.sin(b) * r * 0.6, sz = z + Math.sin(a) * r * 0.5;
     const cols = G.colors ?? [0xff3a2a];
-    this.spawn('bubble', sx, sy, sz, {
-      scale: 0.14 + Math.random() * 0.1, color: cols[(Math.random() * cols.length) | 0], vel: [(x - sx) * 3, (y - sy) * 3, (z - sz) * 3], life: 0.33, order: 8, glow: 0.2,
+    const M = G.mote; // what converges on it: chakra bubbles by default, ki sparks for the Kamehameha (ENG-SKL-GOK)
+    this.spawn(M?.fx ?? 'bubble', sx, sy, sz, {
+      scale: (M?.scale ?? 1) * (0.14 + Math.random() * 0.1), frame: M?.frame, color: cols[(Math.random() * cols.length) | 0], vel: [(x - sx) * 3, (y - sy) * 3, (z - sz) * 3], life: 0.33, order: 8, glow: M?.glow ?? 0.2,
     });
   }
 
   dropGather(f) {
     this.drop('gather' + f.index);
+  }
+
+  // A power-up's outline on the body (kit.modeLook `shell`: { kind, width, lift, noise, speed, dash, opacity, color,
+  // core }, a charge style's shell shape; colors as hex or numbers). null hides the one this showed; the charge drives
+  // the same AuraShell while he powers up, so it is left to it then
+  modeShell(f, S, time) {
+    const a = f.actor;
+    if (!S) {
+      if (a.modeShellOn) { a.shell?.hide(); a.modeShellOn = false; }
+      return;
+    }
+    let st = shellLooks.get(S);
+    if (!st) shellLooks.set(S, (st = { ...S, color: new THREE.Color(S.color ?? 0xffffff), core: new THREE.Color(S.core ?? S.color ?? 0xffffff) }));
+    st.time = time;
+    a.auraShell().show(st);
+    a.modeShellOn = true;
+  }
+
+  // A power-up's effect kept at his feet (kit.modeLook `aura`: { fx, scale, opacity, front, glow }): one copy a step
+  // behind the body along the view, and with `front` a see-through copy in front at that opacity
+  modeAura(f, A) {
+    const p = f.renderPos || f.pos, bk = this.camFwd, k = f.actor.depthK ?? 1, s = (A.scale ?? 1) * k;
+    this.keep('modeAura' + f.index, A.fx, p.x + bk.x * 0.3, p.y, p.z + bk.z * 0.3, { bottom: true, scale: s, opacity: A.opacity ?? 1, order: 1, glow: A.glow ?? 0.2 });
+    if (A.front) this.keep('modeAuraF' + f.index, A.fx, p.x - bk.x * 0.3, p.y, p.z - bk.z * 0.3, { bottom: true, scale: s, opacity: A.front, order: 4, glow: A.glow ?? 0.2 });
   }
 
   // A beam's `muzzle`: every `every` frames a shock ring leaves the root of the beam and runs down it
@@ -753,6 +929,64 @@ export class Effects {
     this.spawn('bubble', p.x + (Math.random() - 0.5) * 0.6 * k, p.y + (0.1 + Math.random() * 1.3 * Math.max(0.2, level)) * k, p.z, {
       scale: 0.14 + Math.random() * 0.1, color: Math.random() < 0.5 ? sh.chakra : sh.rim, vel: [0, 1.4, 0], life: 0.4, fade: true, order: 6,
     });
+  }
+
+  // ------------------------------------------------------------ Killua's lightning (ENG-SKL-KIL)
+  // A column of tiles stacked from yBot up past yTop (Narukami's bolt from the sky): copies of a strip that tiles top to
+  // bottom. With an `id` they are held (refreshed every frame by the caller), without one they flash for `life`.
+  column(id, name, x, yBot, yTop, z, o = {}) {
+    const a = this.meta.anims[name], seg = this.sheet(a).cellWorld * (o.scale ?? 1) * 0.98;
+    const n = Math.min(8, Math.max(1, Math.ceil((yTop - yBot) / seg)));
+    for (let j = 0; j < 8; j++) {
+      if (j >= n) { if (id) this.drop(id + j); continue; }
+      const y = yBot + seg * (j + 0.5);
+      if (!id) { this.spawn(name, x, y, z, { order: 8, depthTest: false, glow: 0.4, ...o, life: o.life ?? 0.15 }); continue; }
+      const it = this.keep(id + j, name, x, y, z, { order: 8, depthTest: false, glow: 0.4, ...o });
+      if (it.t === 0) it.t = j * 0.07; // the tiles crackle out of step
+    }
+  }
+
+  // A hit's `cling` on the stunned body (Lightning Palm's paralysis): its loop over them, refreshed every frame
+  clingTick(f, C) {
+    const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1;
+    this.keep('cling' + f.index, C.fx, p.x, p.y, p.z, { bottom: true, scale: (C.scale ?? 1) * k, order: 7, glow: 0.3 });
+  }
+
+  // ------------------------------------------------------------ limbs (ENG-SKL-LUF)
+  // Where the drawn hand is now: the frame's `hand` anchor (or hit box) in the world, else `def` [forward, up]. A limb
+  // longer than its strip's cell leaves the cell at the edge with the anchor there, and these effects carry it on.
+  handAt(f, def = [0.5, 0.9]) {
+    const P = f.renderPos || f.pos, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1;
+    const fwd = H ? H.x : def[0], up = H ? H.y : def[1];
+    return { x: P.x + f.face.x * fwd * k, y: P.y + up * k, z: P.z + f.face.y * fwd * k };
+  }
+
+  // A stretched limb from `from` to `to` (Luffy's rubber arm, Killua's yo-yo string): a tube effect drawn pointing
+  // screen-right, its tube `tube` of the cell high and every column the same, stretched along the line as seen on screen
+  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. A null `id` lays it
+  // once instead, playing its strip through and gone (Killua's Godspeed streaks). `o.color` tints it.
+  limb(id, name, from, to, thick, tube, camRight, o = {}) {
+    const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2, mz = (from.z + to.z) / 2;
+    const so = { order: o.order ?? 7, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, mx, my, mz, so) : this.keep(id, name, mx, my, mz, so);
+    // the quad is 1 x 1 world units before scaling (spawn folds the cell's world size into the scale)
+    const flip = sx < 0, phi = Math.atan2(dy, sx), sy = thick / tube;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(Math.max(1e-3, Math.hypot(sx, dy)) * (flip ? -1 : 1), sy, sy);
+    return it;
+  }
+
+  // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, `scale` cells, turned along the limb
+  // (kept by `id`, or played once with a null `id`, like limb)
+  limbEnd(id, name, at, from, scale, camRight, o = {}) {
+    const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
+    const so = { order: o.order ?? 8, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, at.x, at.y, at.z, so) : this.keep(id, name, at.x, at.y, at.z, so);
+    const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(flip ? -s : s, s, s);
+    return it;
   }
 }
 

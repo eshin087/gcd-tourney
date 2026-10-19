@@ -69,7 +69,7 @@ const DEFAULT_MS = {
   light1: [30, 30, 40, 50, 50, 50, 30], light2: [35, 30, 40, 50, 60, 50, 30], light3: [40, 35, 45, 60, 60, 60, 30], light4: [50, 45, 35, 40, 70, 70, 70, 40],
   heavy: [40, 35, 30, 50, 70, 70, 60, 30], airLight1: [45, 35, 50, 50, 30], airLight2: [45, 40, 50, 50, 30], airLight3: [50, 40, 50, 70, 60, 30],
   airHeavy: [50, 45, 45, 70, 70, 40], throw: [50, 60, 70, 50], guard: 300, block: [60, 80], hurtHigh: [70, 90, 100], hurtLow: [70, 90, 100],
-  launched: 70, spin: 60, down: [80, 420], ko: [500], getup: [70, 60, 60, 80, 70], stagger: 150, charge: 50, beamCharge: 50, beamFire: 50,
+  launched: 70, spin: 60, down: [80, 420], ko: [500], getup: [70, 60, 60, 80, 70], stagger: 150, charge: [70, 90, 110, 110, 110, 110], beamCharge: 50, beamFire: 50,
   vanish: [50, 50], special: [120, 120, 120, 120, 120, 160, 110, 70], intro: 150, taunt: 250, win: 200,
   // tech poses: their beats at 60 fps (DEFENSE animPhases); the engine drives them by the tech state's clock anyway
   techGround: [67, 83, 83, 67], techRoll: [50, 63, 62, 63, 62, 67], wallTech: [50, 50, 67, 67, 66],
@@ -137,7 +137,7 @@ const FALLBACK_GUIDE = {
   light4: { frames: 8, phases: [3, 2, 3] }, heavy: { frames: 8, phases: [3, 2, 3] }, airLight1: { frames: 5, phases: [1, 2, 2] },
   airLight2: { frames: 5, phases: [1, 2, 2] }, airLight3: { frames: 6, phases: [2, 2, 2] }, airHeavy: { frames: 6, phases: [2, 2, 2] },
   guard: { frames: 2, loop: true }, block: { frames: 2 }, hurtHigh: { frames: 3 }, hurtLow: { frames: 3 }, launched: { frames: 2, loop: true },
-  spin: { frames: 4, loop: true }, airRecover: { frames: 3 }, down: { frames: 2 }, getup: { frames: 5 }, charge: { frames: 4, loop: true },
+  spin: { frames: 4, loop: true }, airRecover: { frames: 3 }, down: { frames: 2 }, getup: { frames: 5 }, charge: { frames: 6, loop: true, loopFrom: 2 },
   throw: { frames: 4, phases: [1, 1, 2] }, beamCharge: { frames: 3, loop: true }, beamFire: { frames: 3, loop: true }, vanish: { frames: 2 },
   stagger: { frames: 4, loop: true }, ko: { frames: 1 }, special: { frames: 8, phases: [3, 3, 2] }, intro: { frames: 4, loop: true },
   taunt: { frames: 2, loop: true }, win: { frames: 4, loop: true },
@@ -156,8 +156,12 @@ const FALLBACK_GUIDE = {
 // lumaAlpha: drawn as opaque grey rings on magenta; packed as white with alpha = grey value.
 const VFX = Object.freeze({ cell: 128, ppu: 56, baseline: 120 });
 // Signature effects (ADR 0044): twice the cell and the density, the same world size per cell (256 / 112 = 128 / 56).
-// They pack into their own page, atlas_hd.png, described by atlas.json's `hd` block.
-const VFX_HD = Object.freeze({ cell: 256, ppu: 112, baseline: 240 });
+// They pack onto pages by `owner` (ADR 0053): atlas_hd_shared.png, then atlas_hd_<fighter id>.png, described by
+// atlas.json's `hd` block. A page holds at most 16 rows (8 cells across: 2048 x 4096, full size on a phone with a 4096
+// texture limit); a match loads the shared page and its two fighters' pages only. An effect more than one fighter uses
+// (or that shared engine code draws for anyone) is owner 'shared'.
+const VFX_HD = Object.freeze({ cell: 256, ppu: 112, baseline: 240, pageRows: 16, pagePx: 4096 });
+const HD_PAGE_RE = /^atlas_hd(?:_[a-z0-9]+(?:_\d+)?)?\.png$/; // every HD page name, atlas_hd.png (before ADR 0053) too
 const VFX_EFFECTS = {
   spark: { frames: 5, ms: 30, tinted: true, fill: 0.85 },
   burst: { frames: 5, ms: 35, tinted: true, fill: 0.9 },
@@ -189,31 +193,72 @@ const VFX_EFFECTS = {
   streamFlame: { frames: 4, ms: 50, tinted: false, fill: 1, tile: true },
   redOrb: { frames: 6, ms: 40, tinted: false, fill: 0.5 },
   // Naruto's signature techniques (ENG-SKL-NAR, ADR 0044): HD cells, art/characters/naruto/SKILLS_REVAMP.md
-  rasengan: { frames: 8, ms: 40, tinted: false, fill: 0.55, hd: true },
-  rasenganForm: { frames: 6, ms: 45, tinted: false, fill: 0.55, hd: true },
-  rasenganBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
-  rasenshuriken: { frames: 8, ms: 35, tinted: false, fill: 0.9, hd: true },
-  rasenshurikenDome: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true },
-  poof: { frames: 7, ms: 40, tinted: false, fill: 0.75, hd: true },
-  subLog: { frames: 5, ms: 70, tinted: false, fill: 0.85, anchor: 'bottom', hd: true },
-  fourTailsRoar: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true },
-  beastBall: { frames: 8, ms: 45, tinted: false, fill: 0.5, hd: true },
-  beastBeamRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
+  rasengan: { frames: 8, ms: 40, tinted: false, fill: 0.55, hd: true, owner: 'naruto' },
+  rasenganForm: { frames: 6, ms: 45, tinted: false, fill: 0.55, hd: true, owner: 'naruto' },
+  rasenganBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true, owner: 'naruto' },
+  rasenshuriken: { frames: 8, ms: 35, tinted: false, fill: 0.9, hd: true, owner: 'naruto' },
+  rasenshurikenDome: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true, owner: 'naruto' },
+  poof: { frames: 7, ms: 40, tinted: false, fill: 0.75, hd: true, owner: 'shared' },
+  subLog: { frames: 5, ms: 70, tinted: false, fill: 0.85, anchor: 'bottom', hd: true, owner: 'shared' },
+  fourTailsRoar: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true, owner: 'naruto' },
+  beastBall: { frames: 8, ms: 45, tinted: false, fill: 0.5, hd: true, owner: 'naruto' },
+  beastBeamRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true, owner: 'naruto' },
   // Sasuke's signature techniques (ENG-SKL-SAS): HD cells, art/characters/sasuke/SKILLS_REVAMP.md. kirinBody is stacked
   // end to end down the dragon, so it ships as exact 256 x 256 frames in art/vfx/frames/kirinBody/ (never rescaled)
-  chidori: { frames: 8, ms: 35, tinted: false, fill: 0.6, hd: true },
-  chidoriForm: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true },
-  chidoriBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
-  chidoriSpear: { frames: 8, ms: 35, tinted: false, fill: 0.98, hd: true },
-  chidoriCurrent: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true },
-  amaterasu: { frames: 8, ms: 60, tinted: false, fill: 0.9, anchor: 'bottom', hd: true },
-  amaterasuIgnite: { frames: 6, ms: 45, tinted: false, fill: 0.95, hd: true },
-  greatFireball: { frames: 8, ms: 45, tinted: false, fill: 0.9, hd: true },
-  greatFireballBurst: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true },
-  stormCloud: { frames: 4, ms: 120, tinted: false, fill: 0.98, hd: true },
-  kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true },
-  kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true },
-  kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true },
+  chidori: { frames: 8, ms: 35, tinted: false, fill: 0.6, hd: true, owner: 'sasuke' },
+  chidoriForm: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true, owner: 'sasuke' },
+  chidoriBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'sasuke' },
+  chidoriSpear: { frames: 8, ms: 35, tinted: false, fill: 0.98, hd: true, owner: 'sasuke' },
+  chidoriCurrent: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'sasuke' },
+  amaterasu: { frames: 8, ms: 60, tinted: false, fill: 0.9, anchor: 'bottom', hd: true, owner: 'sasuke' },
+  amaterasuIgnite: { frames: 6, ms: 45, tinted: false, fill: 0.95, hd: true, owner: 'sasuke' },
+  greatFireball: { frames: 8, ms: 45, tinted: false, fill: 0.9, hd: true, owner: 'sasuke' },
+  greatFireballBurst: { frames: 8, ms: 50, tinted: false, fill: 0.98, hd: true, owner: 'sasuke' },
+  stormCloud: { frames: 4, ms: 120, tinted: false, fill: 0.98, hd: true, owner: 'sasuke' },
+  kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true, owner: 'sasuke' },
+  kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true, owner: 'sasuke' },
+  kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'sasuke' },
+  // Goku's signature techniques (ENG-SKL-GOK): HD cells, art/characters/goku/SKILLS_REVAMP.md
+  kamehameha: { frames: 8, ms: 40, tinted: false, fill: 0.5, hd: true, owner: 'goku' },
+  kamehamehaHead: { frames: 6, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'goku' },
+  kamehamehaRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true, owner: 'goku' },
+  kiBlast: { frames: 6, ms: 35, tinted: false, fill: 0.45, hd: true, owner: 'goku' },
+  kiMuzzle: { frames: 5, ms: 35, tinted: false, fill: 0.6, hd: true, owner: 'goku' },
+  kiBlastBurst: { frames: 7, ms: 40, tinted: false, fill: 0.8, hd: true, owner: 'goku' },
+  dragonFistAura: { frames: 6, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'goku' },
+  dragonFistDragon: { frames: 10, ms: 50, tinted: false, fill: 1, hd: true, owner: 'goku' },
+  dragonFistBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true, owner: 'goku' },
+  instantTransmission: { frames: 6, ms: 35, tinted: false, fill: 0.9, anchor: 'bottom', hd: true, owner: 'goku' },
+  kaiokenBurst: { frames: 7, ms: 40, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'goku' },
+  kaiokenAura: { frames: 6, ms: 50, tinted: false, fill: 0.95, anchor: 'bottom', hd: true, owner: 'goku' },
+  spiritBomb: { frames: 8, ms: 60, tinted: false, fill: 1, hd: true, owner: 'goku' },
+  spiritBombBlast: { frames: 8, ms: 60, tinted: false, fill: 1, anchor: 'bottom', hd: true, owner: 'goku' },
+  superSaiyanBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'goku' },
+  // Gojo's signature techniques (ENG-SKL-GOJ): HD cells, art/characters/gojo/SKILLS_REVAMP.md
+  lapseBlue: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'gojo' },
+  blueCollapse: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'gojo' },
+  redForm: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true, owner: 'gojo' },
+  reversalRed: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'gojo' },
+  redBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'gojo' },
+  infinityRipple: { frames: 6, ms: 40, tinted: false, fill: 0.6, hd: true, owner: 'gojo' },
+  sixEyesGlint: { frames: 6, ms: 35, tinted: false, fill: 0.4, hd: true, owner: 'gojo' },
+  purpleForm: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'gojo' },
+  hollowPurple: { frames: 8, ms: 45, tinted: false, fill: 1, hd: true, owner: 'gojo' },
+  purpleBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true, owner: 'gojo' },
+  voidFlood: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'gojo' },
+  voidShatter: { frames: 8, ms: 50, tinted: false, fill: 1, hd: true, owner: 'gojo' },
+  // Killua's lightning (ENG-SKL-KIL): HD cells, art/characters/killua/SKILLS_REVAMP.md. narukamiBolt is stacked end to
+  // end down the bolt from the sky, so it ships as exact 256 x 256 frames in art/vfx/frames/narukamiBolt/ (never rescaled)
+  lightningPalm: { frames: 8, ms: 30, tinted: false, fill: 0.95, hd: true, owner: 'killua' },
+  palmCrackle: { frames: 6, ms: 35, tinted: false, fill: 0.5, hd: true, owner: 'killua' },
+  palmShock: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'killua' },
+  shockCrawl: { frames: 6, ms: 50, tinted: false, fill: 0.85, anchor: 'bottom', hd: true, owner: 'killua' },
+  godspeedBurst: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'killua' },
+  godspeedAura: { frames: 8, ms: 40, tinted: false, fill: 0.95, anchor: 'bottom', hd: true, owner: 'killua' },
+  godspeedStreak: { frames: 6, ms: 30, tinted: false, fill: 1, hd: true, owner: 'killua' },
+  narukamiBolt: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true, owner: 'killua' },
+  narukamiStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'killua' },
+  yoyo: { frames: 8, ms: 30, tinted: false, fill: 0.42, hd: true, owner: 'killua' },
 };
 const VFX_ALPHA_LEVELS = [0, 110, 200, 255];
 
@@ -275,7 +320,8 @@ options
                     anatomy { "measurement": "auto-head" }): a raw strip drawn at the wrong size is rescaled so
                     its head matches the idle's. Only a 'uniform' verdict is fitted
   --page-rows <n>   test aid: at most n cell rows per sheet page instead of the 4096 px limit (16 rows of 256 px),
-                    to see a fighter on two pages (sheet.png + sheet2.png, TOOL-060) before it has 256 frames
+                    to see a fighter on two pages (sheet.png + sheet2.png, TOOL-060) before it has 256 frames;
+                    also the HD effects per page (atlas_hd_<owner>_2.png, ADR 0053)
   -h, --help        this help
 `;
 
@@ -1042,6 +1088,8 @@ async function loadGuide(file) {
       if (phases) g[m[1]].phases = [+phases[1], +phases[2], +phases[3]];
       const altOf = /altOf\s*:\s*'(\w+)'/.exec(body);
       if (altOf) g[m[1]].altOf = altOf[1];
+      const loopFrom = /loopFrom\s*:\s*(\d+)/.exec(body);
+      if (loopFrom) g[m[1]].loopFrom = +loopFrom[1];
     }
     if (Object.keys(g).length >= 10) return { guide: g, source: 'animGuide.js (parsed)' };
   } catch { /* fall through */ }
@@ -1057,6 +1105,7 @@ function normalizeGuide(g) {
     if (a.durations) out[name].durations = a.durations;
     if (a.ms) out[name].ms = a.ms;
     if (typeof a.altOf === 'string') out[name].altOf = a.altOf;
+    if (Number.isInteger(a.loopFrom)) out[name].loopFrom = a.loopFrom;
   }
   return out;
 }
@@ -1080,6 +1129,7 @@ function normalizeAnimEntry(v) {
   if (typeof v.required === 'boolean') o.required = v.required;
   if (typeof v.core === 'boolean') o.required = o.required || v.core;
   if (typeof v.loop === 'boolean') o.loop = v.loop;
+  if (Number.isInteger(v.loopFrom) && v.loopFrom >= 0) o.loopFrom = v.loopFrom;
   if (Array.isArray(v.durations)) o.durations = v.durations;
   else if (Array.isArray(v.ms)) o.durations = v.ms;
   else if (typeof v.ms === 'number') o.ms = v.ms;
@@ -1177,6 +1227,7 @@ function normalizeManifest(raw) {
     if (typeof v.fill === 'number') e.fill = v.fill;
     // hd / tile: an effect the packer's table does not know yet (a new signature effect) still gets its page and tiling
     for (const k of ['lumaAlpha', 'baseX', 'hd', 'tile']) if (typeof v[k] === 'boolean') e[k] = v[k];
+    if (v.owner !== undefined) e.owner = v.owner; // its HD page (ADR 0053); hdGroups warns on one that is not a fighter id
     if (v.anchor === 'bottom' || v.bottomAnchored === true) e.anchor = 'bottom';
     else if (v.anchor === 'center') e.anchor = 'center';
     if (Number.isInteger(v.approvedVersion) && v.approvedVersion > 0) e.approvedVersion = v.approvedVersion;
@@ -1205,12 +1256,17 @@ function animDefsFor(id, env) {
     const b = (altOf && mc[altOf]) || {};
     const pick = (k) => c[k] ?? b[k] ?? d[k] ?? g[k];
     const ms = (e) => e.durations ?? (e.ms != null ? e.ms : undefined);
+    const frames = pick('frames') || 1;
+    // where the loop restarts (ENG-117) belongs to a frame count: a fighter's 4-frame strip drawn under the old contract
+    // doesn't take the loopFrom of a 6-frame default
+    const lf = [c, b, d, g].find((e) => e.loopFrom != null);
     return {
       name,
       altOf,
-      frames: pick('frames') || 1,
+      frames,
       phases: pick('phases') || null,
       loop: !!pick('loop'),
+      loopFrom: lf && (lf.frames ?? frames) === frames ? lf.loopFrom : 0,
       bodyHeight: c.bodyHeight ?? b.bodyHeight ?? d.bodyHeight ?? BODY_HEIGHT[name] ?? BODY_HEIGHT[altOf] ?? DEFAULT_BODY_HEIGHT,
       required: CORE.includes(name) || env.manifest.core.includes(name) || c.required === true || (c.required === undefined && d.required === true),
       durations: ms(c) ?? ms(b) ?? ms(d) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? DEFAULT_MS[altOf] ?? 100,
@@ -2582,6 +2638,12 @@ function packCharacter(id, env) {
   for (const a of anims) {
     const indices = a.cells.map(() => idx++);
     const m = { frames: indices, durations: resolveDurations(a.def.durations, indices.length), loop: a.def.loop };
+    // intro frames that play once before the loop (ENG-117); written only when set, so other strips' anims.json stay
+    // byte for byte
+    if (a.def.loop && a.def.loopFrom > 0) {
+      if (a.def.loopFrom < indices.length && indices.length === a.def.frames) m.loopFrom = a.def.loopFrom;
+      else warn(`${id} ${a.def.name}: loopFrom ${a.def.loopFrom} is for ${a.def.frames} frames, the strip has ${indices.length} - it loops the whole strip`);
+    }
     const ph = rescalePhases(a.def.phases, indices.length);
     if (ph) m.phases = ph;
     meta.animations[a.def.name] = m;
@@ -2722,14 +2784,18 @@ function packUi(id, charDir, env, R) {
           blit(out, small, dx, dy);
           img = out;
         } else {
-          // opaque art: center-crop to the aspect ratio, then downscale
+          // opaque art: center-crop to the aspect ratio, then downscale. The manifest's ui entry may move the band
+          // (`cropY`: its top row in the source image), for a drawing whose focus sits off the middle band (ENG-SKL-GOK)
           const ar = spec.w / spec.h;
           let cw = img.w, ch = Math.round(img.w / ar);
           if (ch > img.h) { ch = img.h; cw = Math.round(img.h * ar); }
-          const c = crop(img, Math.floor((img.w - cw) / 2), Math.floor((img.h - ch) / 2), cw, ch);
+          const cropY = env.manifestRaw?.characters?.[id]?.ui?.[name]?.cropY;
+          const y0 = Number.isInteger(cropY) ? Math.max(0, Math.min(img.h - ch, cropY)) : Math.floor((img.h - ch) / 2);
+          if (Number.isInteger(cropY)) note = `band y ${y0}-${y0 + ch} (cropY)`;
+          const c = crop(img, Math.floor((img.w - cw) / 2), y0, cw, ch);
           img = cw > spec.w ? downscaleMode(c, spec.w, spec.h, { coverage: 0.5 }) : upscaleNearest(c, spec.w, spec.h);
         }
-        note = `fitted to ${spec.w}x${spec.h}`;
+        note = note === 'copied' ? `fitted to ${spec.w}x${spec.h}` : `fitted to ${spec.w}x${spec.h}, ${note}`;
       }
       writeFile(env, path.join(env.outDir, 'characters', id, `${name}.png`), encodePng(img), R);
       R.ui.push(`${name} (${note})`);
@@ -2772,7 +2838,7 @@ function reachesSides(img) {
 function lostVfx(env, outVfx, R) {
   if (env.candidates || env.allowDrop) return [];
   const data = readJson(path.join(outVfx, 'atlas.json')).data;
-  const shipped = data?.anims && { ...data.anims, ...data.hd?.anims };
+  const shipped = data?.anims && { ...data.anims, ...data.hd?.anims, ...data.hd?.effects }; // hd.anims: before ADR 0053
   const lost = shipped ? Object.keys(shipped).filter((n) => R.missing.includes(n) && !R.unapproved.includes(n)) : [];
   if (!lost.length) return lost;
   const skipped = isDir(env.artDir) ? skippedFiles(env.artDir, 'vfx/raw').filter((p) => !/\/(_rejected|_old)\//.test(p)) : [];
@@ -2781,6 +2847,30 @@ function lostVfx(env, outVfx, R) {
     : 'restore their raw/ or frames/, or pass --allow-drop if removing them from the atlas is intended';
   R.warnings.push(`VFX ATLAS NOT WRITTEN: ${rel(env.cwd, path.join(outVfx, 'atlas.json'))} ships ${lost.join(', ')}, but their source is missing here - ${fix}`);
   return lost;
+}
+
+// the HD effect pages in a VFX output folder (any version of the layout), to replace or remove
+const hdPagesIn = (dir) => (isDir(dir) ? fs.readdirSync(dir).filter((f) => HD_PAGE_RE.test(f)) : []);
+
+// HD effects onto pages by owner (ADR 0053): the shared page first, then each owner in table order, at most `rows`
+// effects a page (an owner with more gets atlas_hd_<owner>_2.png ...). An owner that is not a fighter id in the
+// manifest still gets its page, which no match may load, so it is warned.
+function hdGroups(list, env, warn, rows) {
+  const by = new Map([['shared', []]]);
+  const fighters = env.manifestRaw?.characters || {};
+  for (const p of list) {
+    let o = p.e.owner ?? 'shared';
+    if (typeof o !== 'string' || !/^[a-z][a-z0-9]*$/.test(o)) {
+      warn(`${p.name}: owner ${JSON.stringify(o)} is not a fighter id (lowercase letters and digits) - packed on the shared HD page`);
+      o = 'shared';
+    } else if (o !== 'shared' && !fighters[o] && !by.has(o)) warn(`${p.name}: owner '${o}' is not a character in the manifest - its HD page loads only in a match with a fighter of that id`);
+    if (!by.has(o)) by.set(o, []);
+    by.get(o).push(p);
+    if (p.cells.length * VFX_HD.cell > VFX_HD.pagePx) warn(`${p.name}: ${p.cells.length} frames make its page wider than ${VFX_HD.pagePx} px (phones downscale it)`);
+  }
+  const out = [];
+  for (const [owner, ps] of by) for (let i = 0, k = 1; i < ps.length; i += rows, k++) out.push({ owner, file: `atlas_hd_${owner}${k > 1 ? `_${k}` : ''}.png`, list: ps.slice(i, i + rows) });
+  return out;
 }
 
 function packVfx(env) {
@@ -2795,7 +2885,7 @@ function packVfx(env) {
   if (!isDir(vfxDir)) {
     R.missing = Object.keys(effects);
     if ((R.refused = lostVfx(env, outVfx, R)).length) return R;
-    removeOutputs(env, outVfx, ['atlas.png', 'atlas_hd.png', 'atlas.json'], R);
+    removeOutputs(env, outVfx, ['atlas.png', 'atlas.json', ...hdPagesIn(outVfx)], R);
     return R;
   }
   const names = Object.keys(effects);
@@ -2880,17 +2970,17 @@ function packVfx(env) {
     }
   }
   if ((R.refused = lostVfx(env, outVfx, R)).length) return R;
-  if (!packed.length) { removeOutputs(env, outVfx, ['atlas.png', 'atlas_hd.png', 'atlas.json'], R); return R; }
+  if (!packed.length) { removeOutputs(env, outVfx, ['atlas.png', 'atlas.json', ...hdPagesIn(outVfx)], R); return R; }
 
-  // one page per cell size: the shared 128 px effects in atlas.png, the HD signature effects in atlas_hd.png
-  const page = (list, C) => {
+  // the shared 128 px effects in atlas.png; the HD signature effects on their owners' pages (ADR 0053)
+  const page = (list, C, file = null) => {
     const cols = Math.max(1, ...list.map((p) => p.cells.length));
     const img = newImage(cols * C.cell, Math.max(1, list.length) * C.cell);
     const anims = {};
     list.forEach((p, row) => {
       p.cells.forEach((c, i) => blit(img, c, i * C.cell, row * C.cell));
       anims[p.name] = { row, n: p.cells.length, ms: p.e.ms ?? 50 };
-      R.packed.push({ effect: p.name, frames: p.cells.length, expected: p.e.frames, source: p.sourceLabel, from: p.origin, version: p.version, edited: p.edited, handMade: p.handMade, scale: +p.scale.toFixed(3), notes: [...new Set(p.notes)], ...(p.e.hd ? { hd: true } : {}) });
+      R.packed.push({ effect: p.name, frames: p.cells.length, expected: p.e.frames, source: p.sourceLabel, from: p.origin, version: p.version, edited: p.edited, handMade: p.handMade, scale: +p.scale.toFixed(3), notes: [...new Set(p.notes)], ...(p.e.hd ? { hd: true, page: file } : {}) });
       R.frames += p.cells.length;
     });
     return { img, cols, rows: list.length, anims };
@@ -2900,12 +2990,23 @@ function packVfx(env) {
   const meta = { cell: VFX.cell, cols: std.cols, rows: std.rows, ppu: VFX.ppu, source: 'art-pack', packer: PACKER_VERSION, anims: std.anims };
   R.atlas = `${std.img.w}x${std.img.h}`;
   writeFile(env, path.join(outVfx, 'atlas.png'), encodePng(std.img), R);
+  // `pages` + `effects`, not the single page's `image` + `anims`: a build from before ADR 0053 finds no HD block it can
+  // read and keeps the HD effects procedural, instead of requesting an atlas_hd.png that is gone
+  const hdFiles = [];
   if (hdList.length) {
-    const hd = page(hdList, VFX_HD);
-    meta.hd = { image: 'atlas_hd.png', cell: VFX_HD.cell, cols: hd.cols, rows: hd.rows, ppu: VFX_HD.ppu, anims: hd.anims };
-    R.atlasHd = `${hd.img.w}x${hd.img.h}`;
-    writeFile(env, path.join(outVfx, 'atlas_hd.png'), encodePng(hd.img), R);
-  } else removeOutputs(env, outVfx, ['atlas_hd.png'], R);
+    meta.hd = { cell: VFX_HD.cell, ppu: VFX_HD.ppu, pages: [], effects: {} };
+    R.hdPages = [];
+    for (const g of hdGroups(hdList, env, warn, env.pageRows || VFX_HD.pageRows)) {
+      const pg = page(g.list, VFX_HD, g.file);
+      const k = meta.hd.pages.length;
+      meta.hd.pages.push({ image: g.file, owner: g.owner, cols: pg.cols, rows: pg.rows });
+      for (const [name, a] of Object.entries(pg.anims)) meta.hd.effects[name] = { page: k, ...a };
+      R.hdPages.push({ image: g.file, owner: g.owner, size: `${pg.img.w}x${pg.img.h}`, effects: pg.rows });
+      writeFile(env, path.join(outVfx, g.file), encodePng(pg.img), R);
+      hdFiles.push(g.file);
+    }
+  }
+  removeOutputs(env, outVfx, hdPagesIn(outVfx).filter((f) => !hdFiles.includes(f)), R);
   writeFile(env, path.join(outVfx, 'atlas.json'), Buffer.from(stringifyCompact(meta) + '\n'), R);
   for (const p of packed) if (p.src.kind === 'raw') writeBack(env, path.join(framesRoot, p.name), p.name, p.cells, p.src, R, p.e.hd ? { cell: VFX_HD.cell } : {});
   return R;
@@ -3200,26 +3301,28 @@ function npcSpecs(npcDir, warn, id) {
     if (!name) continue;
     if (c.length < 6) { warn(`npc ${id}: the ANIMATIONS.md row for ${name} has ${c.length} columns (needs anim, what, frames, loop, ms, height) - skipped`); continue; }
     const ms = (c[4].match(/\d+/g) || []).map(Number);
-    specs.push({ name, loop: /^yes/i.test(c[3]), ms: ms.length ? ms : [500, 500], height: Number((c[5].match(/\d+/) || [])[0]) || null });
+    // most NPC strips have 2 frames; a walk cycle has 4 (the announcer, ENG-118)
+    const frames = Number((c[2].match(/\d+/) || [])[0]) || NPC.frames;
+    specs.push({ name, frames, loop: /^yes/i.test(c[3]), ms: ms.length ? ms : [500, 500], height: Number((c[5].match(/\d+/) || [])[0]) || null });
   }
   if (!specs.find((s) => s.name === 'idle')) { warn(`npc ${id}: ANIMATIONS.md has no idle row in its animation table - skipped`); return null; }
   return specs.sort((a, b) => (a.name === 'idle' ? -1 : b.name === 'idle' ? 1 : 0));
 }
 
 // One strip -> its trimmed poses (magenta, specks and stray marks removed).
-function npcPoses(file, env, notes) {
+function npcPoses(file, env, notes, count = NPC.frames) {
   const img = readPng(file);
   const bg = removeBackground(img, { tol: env.tol, mode: 'char' });
   if (!bg.magentaBg && !bg.removed && !hasTransparency(img)) throw new Error('no removable background (flat magenta #FF00FF expected)');
   const sp = removeSpecks(img, { frac: 0.0015, min: 4 });
   if (sp.blobs > 3) notes.push(`removed ${sp.blobs} specks`);
-  let { rects } = splitStrip(img, NPC.frames, { mode: 'char' });
-  if (rects.length !== NPC.frames) {
+  let { rects } = splitStrip(img, count, { mode: 'char' });
+  if (rects.length !== count) {
     const n = rects.length;
-    ({ rects } = splitStrip(img, NPC.frames, { split: 'even', mode: 'char' }));
-    notes.push(`${n} pose(s) found, split into even halves`);
+    ({ rects } = splitStrip(img, count, { split: 'even', mode: 'char' }));
+    notes.push(`${n} pose(s) found, split into ${count} even slots`);
   }
-  if (rects.length !== NPC.frames) throw new Error(`${rects.length} pose(s) found, expected ${NPC.frames}`);
+  if (rects.length !== count) throw new Error(`${rects.length} pose(s) found, expected ${count}`);
   return rects.map((r) => {
     const piece = crop(img, r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
     dropStrays(piece);
@@ -3254,7 +3357,7 @@ function packNpcs(env) {
       const notes = [];
       if (newest > version) notes.push(`newer candidate ${vv(newest)} not shipped (approve it to ship it)`);
       try {
-        anims.push({ ...s, version, poses: npcPoses(file, env, notes), notes });
+        anims.push({ ...s, version, poses: npcPoses(file, env, notes, s.frames), notes });
       } catch (e) {
         warn(`npc ${id}: ${s.name} ${vv(version)}: ${e.message} - skipped`);
       }
@@ -3468,13 +3571,14 @@ function printReport(rep, env) {
     if (v.refused?.length) L(`  NOT WRITTEN: the atlas would lose ${v.refused.join(', ')} (source missing on disk; see the ! line below)`);
     else if (!v.packed.length) L(`  nothing packed${v.unapproved.length && !v.preview ? ' (no approved effects)' : ' (no PNGs in art/vfx/raw/ or art/vfx/frames/<effect>/)'} - the game keeps its procedural effects`);
     else {
-      L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas}${v.atlasHd ? ` + HD ${v.atlasHd}` : ''} (missing ones stay procedural)`);
+      L(`  packed ${v.packed.length} effects, ${v.frames} frames -> atlas ${v.atlas}${v.hdPages ? ` + ${v.hdPages.length} HD page(s)` : ''} (missing ones stay procedural)`);
+      for (const g of v.hdPages || []) L(`    HD page ${g.image} ${g.size}: ${g.effects} effect(s) of ${g.owner === 'shared' ? 'every match' : g.owner}`);
       for (const p of v.packed) L(`    ${p.effect.padEnd(11)} ${(String(p.frames).padStart(2) + (p.frames !== p.expected ? '/' + p.expected : '')).padEnd(6)} <- ${originText(p).padEnd(28)} x${p.scale}${p.notes.length ? '  (' + p.notes.join('; ') + ')' : ''}`);
     }
     if (v.missing.length && v.packed.length) L(`  missing (procedural fallback): ${v.missing.join(', ')}`);
     for (const w of v.warnings) L(`  ! ${w}`);
     for (const f of v.wrote) L(`  wrote ${f}`);
-    for (const f of v.removed) L(`  ${env.dryRun ? 'would remove' : 'removed'} ${f} (no approved effects left to ship)`);
+    for (const f of v.removed) L(`  ${env.dryRun ? 'would remove' : 'removed'} ${f} (${v.packed.length ? 'no HD effects on that page any more' : 'no approved effects left to ship'})`);
   }
   if (rep.crowd) {
     const c = rep.crowd;

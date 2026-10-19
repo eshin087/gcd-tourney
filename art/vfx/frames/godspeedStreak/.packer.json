@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/godspeedStreak_v03.png",
+  "version": 3,
+  "source": [
+    "vfx/raw/godspeedStreak_v03.png"
+  ],
+  "sourceHash": "06bb8bcd50c61c6a89e5c1b5d7a949e19094ab55",
+  "cell": 256,
+  "files": {
+    "godspeedStreak_00.png": "00a8675d6d20251b5708e41624a1b484fd7c1a46",
+    "godspeedStreak_01.png": "71f0bd1d75f30f5babc3b007a4a00b41efbd6951",
+    "godspeedStreak_02.png": "ffe46d5a0745e4ab5394497cfc68c161afc022d0",
+    "godspeedStreak_03.png": "ddf72dbef5cecf6025c7e52fc1b65d7f66a52ffd",
+    "godspeedStreak_04.png": "1fb546b46ee8f3389ae5148bbda45e5ecc5820f1",
+    "godspeedStreak_05.png": "59d444c0461f9021dd7db5f72f770bc487d555f1"
+  }
+}

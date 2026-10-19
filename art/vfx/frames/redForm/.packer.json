@@ -1,0 +1,20 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/redForm_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/redForm_v01.png",
+    "vfx/raw/redForm_v01.json"
+  ],
+  "sourceHash": "378a67942fd7e7db671ca87059a3bd6f4abd9c18",
+  "cell": 256,
+  "files": {
+    "redForm_00.png": "75380718fffe0e7161a2e8245532767ab8da7c80",
+    "redForm_01.png": "b8ad9bddc0e0d38a587e5dd1810524b324964212",
+    "redForm_02.png": "8098617b235825078536b1c9badb63b91b68f212",
+    "redForm_03.png": "7a4d764bbcaaad4ce10b97308656b26739dd2a3c",
+    "redForm_04.png": "fa10ba01b4015dce140aa1df0f777a1be8c6bdf4",
+    "redForm_05.png": "9a82bd931d436a0d4348d4b35f1e916120f330c5"
+  }
+}
