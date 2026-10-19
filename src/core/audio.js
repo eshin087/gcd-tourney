@@ -143,6 +143,13 @@ export class AudioEngine {
       case 'whoosh':
         this.noise({ dur: 0.13, gain: 0.22 * v, f0: 900, f1: 2800, Q: 1.4 });
         break;
+      case 'blip': {
+        // the announcer's babble while his line shows (ENG-119): one soft syllable, its pitch wandering a little
+        const f = 330 + Math.random() * 140;
+        this.tone({ type: 'square', f0: f, f1: f * 0.9, dur: 0.05, gain: 0.03 * v });
+        this.tone({ type: 'triangle', f0: f * 2, f1: f * 1.8, dur: 0.04, gain: 0.02 * v });
+        break;
+      }
       case 'whooshHeavy':
         this.noise({ dur: 0.24, gain: 0.3 * v, f0: 500, f1: 1800, Q: 1.2 });
         break;

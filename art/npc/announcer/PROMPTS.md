@@ -9,7 +9,8 @@
 1. **Claim the batch** `npc-announcer` (`npm run queue -- claim --type npc --agent <name>`). Work only
    on this NPC's files. The second batch `npc-announcer-r1` (2026-10-18, ENG-118) adds `walk`, `run`,
    `shocked` and `micThrust` (A5-A8) to the approved sheet: skip S1 and A1-A4 and attach the approved
-   `reference/model_sheet.png` and `reference/idle_approved.png`.
+   `reference/model_sheet.png` and `reference/idle_approved.png`. The third batch `npc-announcer-r2` (ENG-119)
+   adds A9-A18 the same way.
 2. **One image thread for the whole batch**, so the generator keeps the design in context.
 3. **S1 first** (model sheet), unless an approved `reference/model_sheet.png` already exists: then skip
    S1 and attach that file instead.
@@ -48,6 +49,16 @@ CHARACTER: an original anime tournament announcer, fan-art sprite for a personal
 | A6 | `run`: panicked scurry (loop, in place) | 4 | model sheet + idle | `raw/run_vNN.png` |
 | A7 | `shocked`: jaw-drop recoil (loop) | 2 | model sheet + idle | `raw/shocked_vNN.png` |
 | A8 | `micThrust`: holding the mic out toward the fight (loop) | 2 | model sheet + idle | `raw/micThrust_vNN.png` |
+| A9 | `blownAway`: knocked flat on his back (one-shot) | 2 | model sheet + idle | `raw/blownAway_vNN.png` |
+| A10 | `popUp`: springs back up dazed (one-shot) | 2 | model sheet + idle | `raw/popUp_vNN.png` |
+| A11 | `cheer`: jumping celebration (loop) | 2 | model sheet + idle | `raw/cheer_vNN.png` |
+| A12 | `facepalm`: slow facepalm (loop) | 2 | model sheet + idle | `raw/facepalm_vNN.png` |
+| A13 | `micTap`: taps the mic (loop) | 2 | model sheet + idle | `raw/micTap_vNN.png` |
+| A14 | `checkWatch`: checks his watch (loop) | 2 | model sheet + idle | `raw/checkWatch_vNN.png` |
+| A15 | `patHair`: pats his hair (loop) | 2 | model sheet + idle | `raw/patHair_vNN.png` |
+| A16 | `sooty`: charred by a blast (loop) | 2 | model sheet + idle | `raw/sooty_vNN.png` |
+| A17 | `wince`: peeks through his fingers (loop) | 2 | model sheet + idle | `raw/wince_vNN.png` |
+| A18 | `mopBrow`: mops his brow, tired (loop) | 2 | model sheet + idle | `raw/mopBrow_vNN.png` |
 
 All paths are relative to `art/npc/announcer/`.
 
@@ -267,4 +278,227 @@ VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the
 STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
 PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22.
 BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+---
+
+## A9 · `blownAway`: knocked flat on his back (one-shot)
+
+Attach: model sheet + idle strip. Save as: `raw/blownAway_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#blownaway).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "blownAway", a comic knockdown: a blast or a flying fighter bowls him over. 2 frames, left to right; frame 1 plays once, frame 2 is held.
+1. Blown backward off his feet toward the LEFT edge of the image: his body tilted back about 45 degrees, both feet kicked up off the ground, arms flailing upward, the microphone flung high in his right hand, jacket and tie flapping toward the right, hair blown back. Face: yelling in surprise, mouth a wide O.
+2. Flat on his back on the floor, head toward the LEFT of the image, both legs sticking straight up in a V, arms splayed out, the microphone still in his right hand on the floor, sunglasses knocked crooked but still covering his eyes. Face: dazed, tongue out a little.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas); frame 1 (in the air) is about 98 art pixels tall and frame 2 (lying down, legs up) about 56.
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+## A10 · `popUp`: springs back up dazed (one-shot)
+
+Attach: model sheet + idle strip. Save as: `raw/popUp_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#popup).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "popUp", getting back up after being knocked flat. 2 frames, left to right; frame 1 plays once, frame 2 is held.
+1. Sitting up on the floor, legs stretched out toward the right, his left hand rubbing the back of his head, hair messed up, necktie flipped over his shoulder, sunglasses crooked but covering his eyes, microphone in his right hand on his lap. Face: dazed, wobbly mouth.
+2. Standing again, feet planted as in the idle strip, straightening his necktie with his left hand, microphone in his right hand at chest height, hair still a little messy. Face: sheepish grin.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas); sitting in frame 1 he is about 70 art pixels tall.
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+## A11 · `cheer`: jumping celebration (loop)
+
+Attach: model sheet + idle strip. Save as: `raw/cheer_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#cheer).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "cheer", a jumping celebration after an amazing play. 2 frames, left to right, looping fast.
+1. Knees bent, crouched for a jump, both fists pumped down to chest height, the microphone in his right fist. Face: huge open-mouth grin.
+2. Jumping: feet together and tucked up a little, both arms thrown up and out in a wide V (diagonal, NOT straight up), the microphone raised in his right hand, jacket flying open. Face: shouting with joy, a white glint on the sunglasses.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas); with his arms up he is about 118 art pixels tall.
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+## A12 · `facepalm`: slow facepalm (loop)
+
+Attach: model sheet + idle strip. Save as: `raw/facepalm_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#facepalm).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "facepalm", disappointed by a wasted move. 2 frames, left to right, looping slowly.
+1. Shoulders slumped, head bowed, his left hand flat over his sunglasses and forehead, the microphone hanging in his right hand at his side, feet planted as in the idle strip. Face: mouth a flat line under the hand.
+2. The same pose with the head turned slightly the other way (a slow head shake) and the hand slid down a little. Face: a small sigh, mouth open a crack.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas).
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+## A13 · `micTap`: taps the mic (loop)
+
+Attach: model sheet + idle strip. Save as: `raw/micTap_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#mictap).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "micTap", checking whether the microphone still works. 2 frames, left to right, looping.
+1. Holding the microphone in front of his chest in his right hand, tapping its round mesh head with his left index finger, head tilted toward the microphone, listening. Face: brows raised, mouth pursed.
+2. The finger lifted for the next tap, head tilted a little more. Face: puzzled half-frown.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas).
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+## A14 · `checkWatch`: checks his watch (loop)
+
+Attach: model sheet + idle strip. Save as: `raw/checkWatch_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#checkwatch).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "checkWatch", checking the time. 2 frames, left to right, looping slowly.
+1. His left forearm raised in front of his chest, looking down at a gold wristwatch on his left wrist; the microphone in his right hand at his side. Face: mouth pursed, impatient.
+2. Tapping the watch face with the end of the microphone's handle. Face: brows up, mouth open.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas).
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22; wristwatch gold uses the hair golds.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+## A15 · `patHair`: pats his hair (loop)
+
+Attach: model sheet + idle strip. Save as: `raw/patHair_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#pathair).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "patHair", a vain little hair check. 2 frames, left to right, looping.
+1. His left hand fluffing the top curls of his hair, chin up, the microphone at his chest in his right hand. Face: proud grin.
+2. His left hand patting the side curls, a white glint on the sunglasses. Face: smug closed-mouth smile.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas); with his hand on his hair he is about 114 art pixels tall.
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+## A16 · `sooty`: charred by a blast (loop)
+
+Attach: model sheet + idle strip. Save as: `raw/sooty_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#sooty).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "sooty", the comic aftermath of a blast that went off right next to him. 2 frames, left to right, looping.
+1. Standing stiff with his arms at his sides, his face and suit blackened with soot, his curly hair frizzed into a puffed, singed mop with two thin grey smoke wisps rising from it, necktie frayed at the end, sunglasses still on and covering his eyes. Face: coughing out a small grey puff.
+2. The same with the smoke wisps shifted, one shoulder dropped, coughing again. Face: mouth open, teeth showing white in the soot.
+He must still read as himself: the same hair silhouette (just frizzier), the same sunglasses and suit.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas); the frizzed hair makes him about 116 art pixels tall.
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22; smoke wisps #cfccd8 #9a97a8.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters (the two thin smoke wisps and the small cough puff are the only extras).
+```
+
+## A17 · `wince`: peeks through his fingers (loop)
+
+Attach: model sheet + idle strip. Save as: `raw/wince_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#wince).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "wince", cringing at a brutal hit he can't look away from. 2 frames, left to right, looping.
+1. Hunched, both hands over his sunglasses with the fingers spread, peeking through them toward the right; the microphone still in his right hand. Face: teeth gritted in a cringe.
+2. Recoiled a little further, one knee lifted toward his chest. Face: the same cringe, mouth stretched wider.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas); hunched like this he is about 106 art pixels tall.
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters.
+```
+
+## A18 · `mopBrow`: mops his brow, tired (loop)
+
+Attach: model sheet + idle strip. Save as: `raw/mopBrow_vNN.png`. Details and QA: [ANIMATIONS.md](ANIMATIONS.md#mopbrow).
+
+```text
+Hi-res pixel-art sprite strip for a side character in a 2D anime arena fighting game (anime fan-art sprite, comic relief).
+CHARACTER: the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z, drawn as an anime fan-art sprite (an homage): an adult male tournament announcer with a voluminous mop of curly golden-blond hair, black sunglasses, a clean-shaven friendly face with a wide expressive mouth, a black two-button suit with matching trousers, a crisp white shirt, a deep-red necktie and black dress shoes, holding a classic handheld microphone with a round silver mesh head and a black handle in his right hand.
+Match the attached model sheet and idle strip exactly: same face, hair curls, sunglasses, suit, colors, proportions and character scale in both poses.
+
+ANIMATION: "mopBrow", worn out by a long, fast match. 2 frames, left to right, looping slowly.
+1. A tired slouch, wiping his forehead with a white handkerchief in his left hand, the microphone hanging in his right hand, one small light-blue sweat drop flying off his head. Face: panting, mouth open.
+2. The handkerchief lowered to his cheek, shoulders dropping. Face: an exhausted sigh.
+
+PROPORTIONS: slim adult man of average height, about 6.5 heads tall, natural anime proportions; not chibi, not super-deformed, no big head, no oversized hands or feet. His eyes are always hidden behind the dark sunglasses.
+LAYOUT: one single horizontal row of exactly 2 poses on a 1536x1024 landscape canvas. Split the width into 2 equal halves and center one pose in each half, frame 1 on the left, frame 2 on the right. Exactly the same character scale in both poses (same head size), the lowest point of each pose on one shared horizontal baseline, a wide magenta gap between them.
+SIZE: pixel art drawn at 4x: every art pixel is a crisp 4x4 block of identical screen pixels. Standing upright he is about 112 art pixels tall including the hair (about 450 px on the canvas); slouching he is about 108 art pixels tall.
+VIEW: he faces the viewer in a 3/4 view, body turned about 30 degrees toward the RIGHT edge of the image, head turned a little more toward the right, camera slightly above (about 10 degrees). Both lenses of his sunglasses are visible. Because he faces the viewer, his right hand (the microphone hand) is on the LEFT side of the image and his left hand is on the RIGHT side, in every frame.
+STYLE: crisp hard-edged hi-res pixel art with an anime/manga look: bold clean shapes, expressive comic face, flat cel shading. No anti-aliasing, no blur, no gradients, no dithering, no noise, no glow. A dark outline (#1d1420) one art pixel thick (about 4 canvas px), closed around the whole figure. 3 to 4 tone flat cel shading, key light from the upper front, a little from the LEFT of the image (the arena sun, the same light as the crowd).
+PALETTE (use only these colors): outline #1d1420; skin #ffe2c6 #f6c69e #d9946e #a8644a; golden-blond hair #fff3b0 #ffdd5c #f2b630 #c47f1a #8a5212; sunglasses #15131d #3b3a52; black suit, trousers and shoes #4c4b60 #2f2e3e #23222f; white shirt #ffffff #e9e7f1 #b6b2c6; red necktie #e85454 #c0303e #7e1828; microphone head #eef1f6 #aab2c2 #6c7488; mouth #5a1a22; sweat drop #8fd3ff with a white highlight.
+BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no scenery, no text, no letters, no numbers, no labels, no speech bubbles, no sound-effect lettering, no manga symbols (no stars, exclamation marks, question marks or anger veins: the game adds those), no motion lines, no speed lines, no dust clouds, no frame borders or grid lines, no energy effects, no extra characters (the single sweat drop is the only extra).
 ```

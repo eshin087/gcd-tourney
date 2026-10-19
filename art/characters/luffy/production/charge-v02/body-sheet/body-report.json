@@ -1,0 +1,25 @@
+{
+  "tool": "tools/body-sheet.mjs",
+  "fighter": "luffy",
+  "animation": "charge",
+  "v": 2,
+  "body": [
+    1.035,
+    1.1,
+    1.1,
+    1.107,
+    1.104,
+    1.079
+  ],
+  "head": [
+    1.756,
+    1.725,
+    1.709,
+    1.703,
+    1.69,
+    1.666
+  ],
+  "median": 1.1,
+  "headMedian": 1.706,
+  "flag": null
+}

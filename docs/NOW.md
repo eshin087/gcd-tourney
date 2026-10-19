@@ -8,11 +8,13 @@ paused._
 
 ## Your next actions
 
+**Living announcer (ENG-119, 2026-10-18): live** (PR [#203](https://github.com/eshin087/gcd-tourney/pull/203), merge `c76ed0a7`): he talks only at big moments and shows the rest with manga symbols; ultimates and flying fighters knock him over; he facepalms, winces, cheers, hums, tires and babbles. His ten new poses are live too (blownAway v03, popUp, cheer, facepalm, micTap, checkWatch, patHair v01, sooty v03, wince, mopBrow v01; PR [#206](https://github.com/eshin087/gcd-tourney/pull/206), merge `4aec2408`). Nothing for you.
+
 **Live tournament announcer (ENG-118, ADR 0048, 2026-10-18; Claude "World Tournament Announcer animation", Codex "2 - World Announcer", lane `announcer`): live** (PR [#196](https://github.com/eshin087/gcd-tourney/pull/196), merge `a5f5e961`, production https://gcd-tourney.vercel.app/?fight=naruto,sasuke&mode=cpu). He calls the intro and rounds from the ring, keeps to the ring's back half behind the fight, counts over a KO and presents the winner; his lines are small captions above his head (you turned down the white balloons). His four new poses are live too: walk v02, run v03, shocked v03 and micThrust v03, approved as drawn with the technical holds accepted (PR [#180](https://github.com/eshin087/gcd-tourney/pull/180), merge `f6ed27f2`). Nothing for you.
 
-**Charge animation redraw (ART-CHARGE, ENG-117, 2026-10-18; Claude "Character charging animation", Codex "1 - Charging Animation", lane `charge`):** the engine part is live (PR [#182](https://github.com/eshin087/gcd-tourney/pull/182)): a gather once, then a slow held loop, and no sprite shake. **Goku's new charge is live** (v10, PR [#191](https://github.com/eshin087/gcd-tourney/pull/191), `1ee82611`): https://gcd-tourney.vercel.app/?fight=goku,naruto&mode=solo (hold Special). Codex is drawing Luffy next, then Naruto, Sasuke, Killua and Gojo; each comes to you in Claude for approval. The others keep their old charge until then.
+**Charge animation redraw (ART-CHARGE, ENG-117, 2026-10-18; Claude "Character charging animation", Codex "1 - Charging Animation", lane `charge`):** the engine part is live (PR [#182](https://github.com/eshin087/gcd-tourney/pull/182)): a gather once, then a slow held loop, and no sprite shake. **Goku's new charge is live** (v10, PR [#191](https://github.com/eshin087/gcd-tourney/pull/191), `1ee82611`): https://gcd-tourney.vercel.app/?fight=goku,naruto&mode=solo (hold Special). **Luffy's is live too** (v02, PR [#205](https://github.com/eshin087/gcd-tourney/pull/205), `adda292c`): https://gcd-tourney.vercel.app/?fight=luffy,naruto&mode=solo . **Naruto's too** (v08, PR [#207](https://github.com/eshin087/gcd-tourney/pull/207), `4d8568d4`): https://gcd-tourney.vercel.app/?fight=naruto,sasuke&mode=solo . Codex is drawing Sasuke next, then Killua and Gojo; each comes to you in Claude for approval. The others keep their old charge until then.
 
-**Skills revamp for Killua, Gojo, Goku and Luffy (2026-10-18, running in parallel):** one Claude chat per fighter ("Killua skills revamp (ENG-SKL-KIL)", "Gojo skills revamp (ENG-SKL-GOJ)", "Goku skills revamp (ENG-SKL-GOK)", "Luffy skills revamp (ENG-SKL-LUF)"), each with its own Codex chat ("5 - Killlua", "5 - Gojo", "5 - Goku", "5 - Luffy"; relay lanes `killua-skills`, `gojo-skills`, `goku-skills`, `luffy-skills`). **Your action:** answer each fighter chat's design questions when they come up; later, approve that fighter's art in the same chat. Luffy Batch 1's [updated review preview](https://gcd-tourney-mgfvxez55-eshin087s-projects.vercel.app/reviews/luffy-skills-batch1/) is ready through PR #193. You approved special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn via Claude relay #2. The final Astra atlas audit holds special and throw for frame segmentation, missing poses and arm reach; gumArm v03 has a blank first frame and gumImpact v01 imports 9/7. No asset is cleared for integration. Claude's "5 - Skills Effects" owns repairs and later integration; any new user decision comes through Claude `0 - Approvals`.
+**Skills revamp for Killua, Gojo, Goku and Luffy (2026-10-18, running in parallel):** one Claude chat per fighter ("Killua skills revamp (ENG-SKL-KIL)", "Gojo skills revamp (ENG-SKL-GOJ)", "Goku skills revamp (ENG-SKL-GOK)", "Luffy skills revamp (ENG-SKL-LUF)"), each with its own Codex chat ("5 - Killlua", "5 - Gojo", "5 - Goku", "5 - Luffy"; relay lanes `killua-skills`, `gojo-skills`, `goku-skills`, `luffy-skills`). **Your action:** answer each fighter chat's design questions when they come up; later, approve that fighter's art in the same chat. Luffy Batch 1's [updated review preview](https://gcd-tourney-mgfvxez55-eshin087s-projects.vercel.app/reviews/luffy-skills-batch1/) is ready through PR #193. You approved special v04, throw v01, gumArm v03, gumFist v01 and gumImpact v01 as drawn via Claude relay #2. The final Astra atlas audit holds special and throw for frame segmentation, missing poses and arm reach; gumArm v03 has a blank first frame and gumImpact v01 imports 9/7. No asset is cleared for integration. Claude's "5 - Skills Effects" owns repairs and later integration; you approved all seven Goku batch 4 drawings (specialUp, throw, intro, kiBlast, kiMuzzle, kiBlastBurst and superSaiyanBurst v01) via Claude relay goku-skills #14; their documented technical holds remain ([review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/), PR [#199](https://github.com/eshin087/gcd-tourney/pull/199)). The user exempted specialDown v02 from the unmeasurable head scale check via Claude relay goku-skills #13; Astra's `scaleManualQA` v2 HOLD remains recorded, with visible anatomy passing and no concrete failure ([production audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/specialDown-v02-production-audit/REPORT.md)). Astra audited the exact batch 4 production atlas: intro, throw and specialUp v01 pass visible anatomy/containment but retain scaleManualQA HOLD because head scale is unmeasured. You exempted intro v01, throw v01 and specialUp v01 from the head check via Claude relay goku-skills #16 (`scaleExemptVersion: 1`); Astra's HOLD records remain and are not numeric scale passes ([audit](https://github.com/eshin087/gcd-tourney/blob/art/goku-skills/art/characters/goku/production/BATCH4_V01_FINAL_ASTRA_AUDIT.md), [review preview](https://gcd-tourney-qguzeor8j-eshin087s-projects.vercel.app/reviews/goku-skills-batch4/)). Claude will ask in the Goku skills chat.
 
 **Sasuke skills revamp (ART-SKL-SAS, ENG-SKL-SAS): done and live** (PR #165, merge 03a5b994, deployed 2026-10-18): Chidori v15, Kirin strike v08 and the 13 effects you approved are in production at https://gcd-tourney.vercel.app . Nothing left for you here; PR #163 is merged; the Sasuke worktree and local branch are removed.
 
@@ -85,16 +87,15 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-10-19 03:33 UTC._
+_Generated by `npm run status` at 2026-10-19 05:48 UTC._
 
-### Needs you now (2)
+### Needs you now (1)
 _Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
-- **approval** from Codex lane luffy-skills: Batch 2 Gear Third visual approval requested: beamFire v04, gear3Puff v01, gigantArm v01, gigantFist v01, gigantImpact v01, luffyChibi v01. Review: https://gcd-tourney-pm6aw6u8v-eshin087s-projects.vercel.app/reviews/luf…
-- **approval** from Codex lane goku-skills: Goku skills batch 3 visual review: specialDown v01 and v02; instantTransmission v01; kaiokenBurst v01; kaiokenAura v01. Review page: https://gcd-tourney-2oqfvkwzk-eshin087s-projects.vercel.app/reviews/goku-skills-batch3…
+- **approval** from Codex lane goku-skills: Goku skills batch 4 candidates for image review: specialUp v01, throw v01, intro v01, kiBlast v01, kiMuzzle v01, kiBlastBurst v01, superSaiyanBurst v01. All seven are unapproved. Technical holds: Astra could not certify…
 
-### Still marked "needs review" in art/REVIEW.md (44)
+### Still marked "needs review" in art/REVIEW.md (43)
 _Bookkeeping: the newest row of each asset. Anything the user must actually answer is in "Needs you now"._
-- **Goku** (3): uTilt v01, uSmash v01, dSmash v02
+- **Goku** (2): uSmash v05, dSmash v06
 - **killua** (3): airLight2 v08, win round4 v05, proportion_sample v01
 - **naruto** (5): beamStruggle v01, light2Alt v04, airHeavyAlt v03, run v08, …
 - **gojo** (25): D run/glide study study v01, E run/glide study study v01, F run/glide study study v01, idle source part v04, …
@@ -108,7 +109,7 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 
 | fighter | references | core anims | all anims | next asset |
 |---|---|---|---|---|
-| goku | 3/3 | 23/23 | 31/68 | backDash (step 9, todo) |
+| goku | 3/3 | 23/23 | 32/68 | backDash (step 9, todo) |
 | luffy | 3/3 | 23/23 | 23/66 | backDash (step 9, todo) |
 | naruto | 2/3 | 23/23 | 54/64 | proportionSample (step 1, raw v02) |
 | sasuke | 2/3 | 23/23 | 53/65 | proportionSample (step 1, raw v01) |
@@ -130,19 +131,19 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - ART-TITLE-R3: Title-style round-3 redraws and movement scale reports [blocked]
 - ART-SKL-KIL: Killua skills revamp art: seven lightning effects, Narukami art and yo-yo art in three ap… [in-progress]
 
-### Finished, waiting for a check (77)
-- ART-KIL-TITLE-R2 (Codex), ART-SCALE-R4-NAR (Codex Naruto worker), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), OPS-013 (Claude), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), QA-R4-ASTRA (Codex), ART-SCALE-R4-KIL (Codex), ART-SCALE-R4-SAS (Codex Sasuke sub-agent), TOOL-045 (Claude), TOOL-048 (Claude), TOOL-053 (Claude), ENG-114 (Claude), TOOL-060 (Claude), TOOL-061 (Claude), ENG-115 (Claude), ENG-116 (Claude), OPS-019 (Claude), OPS-020 (Claude), TOOL-063 (Claude), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex), ART-R5-APPROVE-NARUTO (Codex), ART-R5-APPROVE-GOJO (Codex), ART-DECISION-SASUKE-20261015 (Codex), ART-R5-APPROVE-SASUKE (Codex), ART-DECISION-KILLUA-20261015 (Codex), ART-R5-APPROVE-KILLUA (Codex), ART-DECISION-NARUTO-20261015 (Codex), ART-R5-APPROVE-NARUTO-ALTS (Codex), ART-GOJO-RUN-JKL (Codex + Claude), ART-SCALE-LOOSE-20261015 (Codex), ART-LOOSE-NARUTO-20261015 (Codex), ART-LOOSE-KILLUA-20261015 (Codex), ENG-SKL-GOJ (Claude), ENG-SKL-LIMB (Claude), ENG-SKL-TPFX (Claude), ENG-SKL-SPAN (Claude), ART-SKL-GOJ (Codex)
+### Finished, waiting for a check (78)
+- ART-KIL-TITLE-R2 (Codex), ART-SCALE-R4-NAR (Codex Naruto worker), ART-NAR-KO-KICK-V09 (Codex), ART-NAR-TITLE-R2 (Codex), OPS-013 (Claude), DOC-001 (Claude), ENG-056 (Claude), ART-NAR-4T (Claude), ENG-042 (Claude), ENG-043 (Claude), ENG-044 (Claude), ENG-045 (Claude), ENG-049 (Claude), TOOL-005 (Claude), DOC-004 (Claude), TOOL-013 (Codex), TOOL-014 (Codex), TOOL-017 (Codex), ART-SAS-04 (Codex), ART-SAS-05 (Codex), ART-SAS-06 (Codex), ART-SAS-07 (Codex), ART-SAS-08 (Codex), ART-SAS-09 (Codex), ART-SAS-10 (Codex), ENG-062 (Claude), ENG-063 (Claude), ENG-064 (Claude), ENG-065 (Claude), ENG-066 (Claude), TOOL-024 (Claude), TOOL-025 (Claude), ENG-067 (Claude), ENG-068 (Claude), ENG-069 (Claude), ART-VFX-PWR (Codex), TOOL-026 (Claude), ENG-070 (Claude), ENG-071 (Claude), ENG-072 (Claude), ENG-073 (Claude), TOOL-029 (Claude), TOOL-030 (Claude), ENG-078 (Claude), QA-R4-ASTRA (Codex), ART-SCALE-R4-KIL (Codex), ART-SCALE-R4-SAS (Codex Sasuke sub-agent), TOOL-045 (Claude), TOOL-048 (Claude), TOOL-053 (Claude), ENG-114 (Claude), TOOL-060 (Claude), TOOL-061 (Claude), ENG-115 (Claude), ENG-116 (Claude), OPS-019 (Claude), OPS-020 (Claude), TOOL-063 (Claude), TOOL-064 (Claude), ART-TITLE-PRODUCTION-QA (Codex), OPS-PERM-20261012 (Codex), ART-R5-APPROVE-NARUTO (Codex), ART-R5-APPROVE-GOJO (Codex), ART-DECISION-SASUKE-20261015 (Codex), ART-R5-APPROVE-SASUKE (Codex), ART-DECISION-KILLUA-20261015 (Codex), ART-R5-APPROVE-KILLUA (Codex), ART-DECISION-NARUTO-20261015 (Codex), ART-R5-APPROVE-NARUTO-ALTS (Codex), ART-GOJO-RUN-JKL (Codex + Claude), ART-SCALE-LOOSE-20261015 (Codex), ART-LOOSE-NARUTO-20261015 (Codex), ART-LOOSE-KILLUA-20261015 (Codex), ENG-SKL-GOJ (Claude), ENG-SKL-LIMB (Claude), ENG-SKL-TPFX (Claude), ENG-SKL-SPAN (Claude), ART-SKL-GOJ (Codex)
 
 ### Open user decisions
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
-- 45c763cb 10-18 20:33 docs(now): announcer's walk, run, shocked and micThrust live (ART-NPC-ANN-R1, PR 180)
-- f6ed27f2 10-18 20:32 Merge branch 'art/announcer-moves'
-- 78cbf030 10-18 20:29 Merge branch 'main' into art/announcer-moves
-- 283fc76e 10-18 20:28 art(announcer): record approved move candidates
-- fc2f5983 10-18 20:26 docs(now): announcer strips approved, waiting on Codex's pack (ART-NPC-ANN-R1)
-- f6685a96 10-18 20:11 Merge branch 'feature/killua-skills'
+- 4d8568d4 10-18 22:46 Merge branch 'art/charge-naruto'
+- 5a1b7fb2 10-18 22:45 test(det): re-record the determinism fixtures with Naruto's charge v08 pack (sim a46112bade6f)
+- 944f3dbc 10-18 22:42 art(naruto): exempt the bowed-head gather frame of charge v08 from the head probe
+- 2a2e1bd5 10-18 22:41 Merge branch 'main' into art/charge-naruto
+- 2ca73f34 10-18 22:41 art(naruto): landmark scale check for charge v08 (scaleManualQA)
+- 9100ad94 10-18 22:38 art(naruto): approve charge v08 and record packed audit
 <!-- status:end -->
 
 
