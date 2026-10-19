@@ -1,6 +1,6 @@
 # 0032. Goku and Luffy join: their kits, and the laneStrike ultimate kind
 
-- Status: Accepted
+- Status: Accepted (amended by [0050](0050-goku-signature-techniques.md): Goku's SUPER and Back + Special)
 - Date: 2026-10-13
 - Deciders: User, Claude
 - Builds on: [0009](0009-move-system-v2.md) (kits and kinds), [0011](0011-kit-baseline-and-balance.md) (slots and

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Goku skills revamp · batch 3</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.55 system-ui, sans-serif; background: #11151d; color: #e9edf5; }
+    body { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    h1, h2 { line-height: 1.2; }
+    h1 { margin-bottom: 4px; }
+    .lede, .meta { color: #bac4d4; }
+    .hold { border-left: 4px solid #e2aa40; padding: 12px 16px; background: #282318; }
+    article { margin: 28px 0; padding: 18px; background: #1a202a; border: 1px solid #303a49; border-radius: 8px; }
+    figure { margin: 16px 0; overflow-x: auto; background: #252b35; }
+    img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+    .raw { max-height: 620px; object-fit: contain; }
+    a { color: #9ecaff; }
+    code { overflow-wrap: anywhere; }
+    @media (max-width: 600px) { body { padding: 14px; } article { padding: 12px; } }
+  </style>
+</head>
+<body>
+  <h1>Goku skills revamp · batch 3</h1>
+  <p class="lede">Five saved candidates for visual review: specialDown v01 and v02, instantTransmission v01, kaiokenBurst v01, and kaiokenAura v01.</p>
+  <p class="hold"><strong>Technical holds:</strong> the character packer stopped before writing a production Goku atlas because Goku's known head probe cannot read this strip. The latest raw source (2172×724) also does not match four 256×256 cells; diagnostic packing shrank it to x0.29. Astra's v01 diagnostic-atlas audit found clear underscaling (torso ~28px vs idle ~38px, head ~41–43px vs ~56px, boots ~27–29px vs ~35–37px); the v02 audit is pending. The three VFX raws also miss their required horizontal square-cell layouts: the candidate packer imports them only after shrinking (x0.408, x0.451, x0.405), with clipped VFX noted on kaiokenBurst and kaiokenAura. Those packed outputs are diagnostic previews, not production art. No image is approved by this review page.</p>
+
+  <article>
+    <h2>specialDown v02 · Instant Transmission pose strip</h2>
+    <p>Third and final call in the cumulative budget. Four pose sequence reads, but the 2172×724 canvas still is not four 256px cells and the rendering remains softly shaded rather than hard-pixel. Diagnostic pack output scales the figure x0.29; Astra's version-bound diagnostic atlas audit is pending. This is not a production pack.</p>
+    <figure><img class="raw" src="specialDown_v02.png" alt="Raw v02 four-pose Goku Instant Transmission strip on magenta"></figure>
+    <p class="meta"><a href="../../../art/characters/goku/production/specialDown_v02_generation.json">Generation receipt</a> · <a href="../../../art/characters/goku/production/specialDown-v02-audit/diagnostic-sheet.png">Diagnostic packed atlas</a></p>
+    <details><summary>Earlier specialDown v01 candidate and audit</summary>
+      <p>Four poses read clearly, but f0 begins with the hand already raised. Its diagnostic packed torso is ~28px vs idle ~38px; head ~41–43px vs ~56px; boots ~27–29px vs ~35–37px. The version-bound Astra audit is a technical HOLD.</p>
+      <figure><img class="raw" src="specialDown_v01.png" alt="Raw v01 four-pose Goku Instant Transmission strip on magenta"></figure>
+      <p class="meta"><a href="../../../art/characters/goku/production/specialDown_v01_generation.json">Generation receipt</a> · <a href="../../../art/characters/goku/production/specialDown-v01-audit/REPORT.md">Astra report</a></p>
+    </details>
+  </article>
+
+  <article>
+    <h2>instantTransmission v01 · six-frame shimmer</h2>
+    <p>Three calls total, one candidate selected. The line-to-spark sequence reads at a glance, but the 2172×724 canvas is not six 256×256 cells; edges show softened/aliased fringes. Candidate packing drops two small detached blobs and scales the effect to x0.408. The exact five-color palette and hard-pixel requirement are unconfirmed.</p>
+    <figure><img class="raw" src="instantTransmission_v01.png" alt="Raw six-stage Instant Transmission shimmer strip on magenta"></figure>
+    <p class="meta"><a href="../../../art/vfx/production/instantTransmission_v01_generation.json">Generation receipt</a></p>
+  </article>
+
+  <article>
+    <h2>kaiokenBurst v01 · seven-frame burst</h2>
+    <p>Three calls used (budget exhausted). The red burst around the open body oval is readable; the peak and neighboring frames are similar, with floor rings appearing across several middle frames. The 1659×948 canvas is not seven square cells. Candidate packing splits the touching poses into seven and reports clipping; scale is x0.451.</p>
+    <figure><img class="raw" src="kaiokenBurst_v01.png" alt="Raw seven-stage red Kaio-ken burst strip on magenta"></figure>
+    <p class="meta"><a href="../../../art/vfx/production/kaiokenBurst_v01_generation.json">Generation receipt</a></p>
+  </article>
+
+  <article>
+    <h2>kaiokenAura v01 · six-frame loop</h2>
+    <p>One call used. Six red aura frames with clear empty body openings and a stable baseline. The 2172×724 canvas is not six square cells, loop motion is subtle, and the candidate packer reports clipped output at scale x0.405. Exact palette and hard-pixel compliance are unconfirmed.</p>
+    <figure><img class="raw" src="kaiokenAura_v01.png" alt="Raw six-frame steady red Kaio-ken aura strip on magenta"></figure>
+    <p class="meta"><a href="../../../art/vfx/production/kaiokenAura_v01_generation.json">Generation receipt</a></p>
+  </article>
+
+  <p class="meta">Source candidates and checksums are in the linked generation receipts and production inventory. Review the drawings separately from the stated technical holds.</p>
+</body>
+</html>

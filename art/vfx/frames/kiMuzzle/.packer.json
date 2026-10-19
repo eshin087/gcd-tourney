@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/kiMuzzle_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/kiMuzzle_v01.png"
+  ],
+  "sourceHash": "b75f57fbc1ab9d016124f43c8b896519b7a30614",
+  "cell": 256,
+  "files": {
+    "kiMuzzle_00.png": "5bc9c0834377db08adc041993799d6568bd44a23",
+    "kiMuzzle_01.png": "1c526e93296aeed18ce360a52bf15d47d55d6bc8",
+    "kiMuzzle_02.png": "67b20da47ed643a4a31339113edba7f3f60a5f26",
+    "kiMuzzle_03.png": "36050be23d2e87dd526099db2ca4710e68561c11",
+    "kiMuzzle_04.png": "fa34e5812d836fb33334cd2f280c69ae38a4234b"
+  }
+}

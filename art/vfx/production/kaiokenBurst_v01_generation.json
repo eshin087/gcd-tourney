@@ -1,0 +1,37 @@
+{
+  "asset": "kaiokenBurst_v01",
+  "brief": "A11 Kaioken burst, seven frames once, bottom anchored, empty standing-body oval, exact red palette; candidate only.",
+  "generationTool": "built-in image_gen",
+  "callBudget": { "maximum": 3, "used": 3 },
+  "calls": [
+    {
+      "call": 1,
+      "prompt": "Use case: stylized-concept\nAsset type: HD pixel-art fighting-game visual effect sprite strip, A11 Kaioken burst\nPrimary request: Create exactly one horizontal strip of seven sequential 256×256 frames on a perfectly flat pure #FF00FF magenta background. Bottom anchor and baseline consistent in all frames. No character is drawn; this is a red power-up aura surrounding a clear empty standing-body oval centered approximately x=128, spanning x=88–168 and y=50–238. Frame 0: tight crimson flame outline hugging the oval with a bright pink-white inner edge. Frames 1–2: huge flame tongues burst upward and outward to the top and sides, with a flat shock ring approximately 240 pixels wide at floor level. Frame 3: full-size burst. Frames 4–6: outer tongues break off and rise away, leaving the steady compact red aura silhouette. Maintain the same centered oval, scale and floor anchor in every cell; clear even cell divisions are not drawn.\nScene/backdrop: isolated sprite effect on pure magenta only.\nSubject: seven stages of an expanding then settling crimson energy burst surrounding an empty body-shaped oval.\nStyle/medium: crisp high-resolution hard-pixel anime game VFX, clean stepped pixel contours, sharply separated flat color bands.\nComposition/framing: one row, seven equal square cells, 256×256 each; centered oval and floor baseline identical across cells; fully contained within each cell.\nColor palette: use only these seven colors: #FFFFFF, #FFD2C8, #FF7A6A, #FF3A2A, #D8140E, #8E0A08, #4A0404; plus the exact pure magenta background #FF00FF. White only in small core highlights, a thin inner edge, and a few sparks; preserve strong crimson/red dominance.\nConstraints: exactly seven frames once, read left to right; distinct progression f0 tight, f1-f2 explosive, f3 peak, f4-f6 settling into compact steady aura. Keep the central standing-body oval empty and clearly readable. Hard flat pixel bands, bottom anchor, consistent scale. No anti-aliasing, no blur, no soft glow, no gradients, no noise or dithering, no text, no logos, no borders, no cell guides.\nAvoid: white-out, pink-purple hues, extra colors beyond palette, solid-filled oval, character silhouette, repeated identical frames, inconsistent body oval or floor baseline, cropped effect tongues.",
+      "outcome": "A generated image was produced, but the wrapper returned an empty object and no output path; unable to bind that output to this exact call with confidence. Not selected."
+    },
+    {
+      "call": 2,
+      "prompt": "Technical diagnostic: generate a tiny simple blue square on white background.",
+      "outcome": "Diagnostic image generation; not a candidate. Saved output metadata was available, but the output was not used."
+    },
+    {
+      "call": 3,
+      "prompt": "Use case: stylized-concept. Asset type: HD pixel-art fighting-game VFX sprite strip, A11 Kaioken burst. Generate exactly one horizontal row of seven equal square 256x256 frames on perfectly flat pure #FF00FF magenta. Each frame shows only a red energy aura around an empty, clearly readable standing-body oval centered x=128, body opening x=88–168, y=50–238, same size and bottom anchor in every cell; no character. Left-to-right sequence: f0 tight crimson flame outline hugging oval with bright pale pink-white inner edge; f1-f2 explosive large red flame tongues burst up and outward to top and sides, plus a flat shock ring about 240px wide at the floor; f3 full-size burst; f4-f6 outer tongues break off and rise, settling into compact steady red aura shape. Hard crisp stepped pixel contours and flat color bands. Exact aura palette: #FFFFFF, #FFD2C8, #FF7A6A, #FF3A2A, #D8140E, #8E0A08, #4A0404, plus pure magenta background. White only in tiny core/thin edge/sparks, strongly red dominant. Uniform scale and floor baseline. No extra colors, no pink-purple aura, no filled oval, no character, no cell dividers, no borders, no text, no anti-aliasing, blur, soft glow, gradients, noise, or dithering.",
+      "outcome": "Generated candidate saved from the tool-returned path below and copied without modification. Selected as the best available of the three calls."
+    }
+  ],
+  "selectedOutput": {
+    "sourcePath": "E:\\Vibe Coding\\.codex\\generated_images\\01a15212-b630-7932-bf4f-a801d865258c\\exec-36e5c239-534d-4193-ae5c-b0553ba0d134.png",
+    "savedPath": "art/vfx/raw/kaiokenBurst_v01.png",
+    "dimensionsPx": { "width": 1659, "height": 948 },
+    "colorMode": "RGB",
+    "sha256": "f687d566692de9982e085a39f10d8e6e229a5eca497c76425e9537db1317f9d9",
+    "observedDeviations": [
+      "Output is 1659x948, not seven square 256x256 cells; it is a single wide composition and requires later slicing/reformatting before it can satisfy the atlas cell contract.",
+      "Visual appears to contain seven sequential red aura shapes, but f1-f2/f3 progression is imperfect: the largest burst is centered around the fourth shape and neighboring peaks remain similar.",
+      "Visible stepped pixel edges, clear empty oval openings, and flat magenta backdrop; some anti-aliasing/extra pale edge shades may be present, so exact palette compliance is unverified.",
+      "The floor shock rings appear in multiple middle frames rather than solely during the f1-f2 burst."
+    ],
+    "status": "candidate only; not packed, not reviewed, not approved"
+  }
+}

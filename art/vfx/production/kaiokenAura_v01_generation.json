@@ -1,0 +1,27 @@
+{
+  "asset": "kaiokenAura_v01",
+  "brief": "A12 steady red aura, six-frame seamless loop, bottom anchored around a clear standing-body oval; candidate only.",
+  "generationTool": "built-in image_gen",
+  "callBudget": { "maximum": 3, "used": 1 },
+  "calls": [
+    {
+      "call": 1,
+      "prompt": "Use case: stylized-concept. Asset type: HD pixel-art fighting-game VFX sprite strip, A12 Kaioken steady aura. Generate exactly one horizontal row of six equal sequential frames for a seamless loop, on perfectly flat pure #FF00FF magenta. Each frame contains only a steady red aura around a clearly empty standing-body oval centered x=128, opening about x=88–168 and y=45–238, with a consistent floor baseline and bottom anchor. Tall flame tongues about 150px wide and 245px tall rise above the head area and curl inward to a pointed crown; a few thin red licks cross the empty body opening and a few sparks rise. Animate gentle rising and changing of tongues and sparks across frames so frame 5 flows naturally back into frame 0. Hard crisp stepped pixel contours and distinct flat bands, pink-red inner edge to deep crimson rim. Use only aura colors #FFFFFF, #FFD2C8, #FF7A6A, #FF3A2A, #D8140E, #8E0A08, #4A0404, plus exact magenta background #FF00FF. White only as tiny core highlights, thin inner edge and a few sparks; red must dominate. Keep the same empty oval scale, centered placement and bottom baseline in every frame. No character, no cell dividers, no borders, no text. No extra colors, white-out, soft glow, blur, gradients, anti-aliasing, dithering, or noise.",
+      "outcome": "Generated one image; saved from the exact tool-returned path below and copied without modification. Selected as the sole attempt."
+    }
+  ],
+  "selectedOutput": {
+    "sourcePath": "E:\\Vibe Coding\\.codex\\generated_images\\01a15212-b630-7932-bf4f-a801d865258c\\exec-d393c7f8-f5ad-497f-8c17-8522818271d4.png",
+    "savedPath": "art/vfx/raw/kaiokenAura_v01.png",
+    "dimensionsPx": { "width": 2172, "height": 724 },
+    "colorMode": "RGB",
+    "sha256": "36bb99ab3e5dc5855c28365c950544e0e55e569759298306628d0f3ab9b2da80",
+    "observedDeviations": [
+      "Canvas dimensions are 2172x724, not six 256x256 atlas cells; the six poses are arranged in one horizontal strip but require later slicing/reformatting.",
+      "Six steady, similarly sized red flame auras and empty oval openings are clearly visible; frame-to-frame variation is present but subtle, so loop motion may read gently rather than strongly.",
+      "The aura is red dominant with pale inner accents and pure magenta backdrop; exact palette membership and absence of anti-aliasing require pixel-level verification.",
+      "The pointed flame crown and consistent bottom baseline are present; several thin licks cross the opening as requested."
+    ],
+    "status": "candidate only; not packed, not reviewed, not approved"
+  }
+}

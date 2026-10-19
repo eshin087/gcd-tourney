@@ -1,0 +1,19 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/kaiokenAura_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/kaiokenAura_v01.png"
+  ],
+  "sourceHash": "2f12321b1659e55e14ec9d8aedeb3d17dc7818dc",
+  "cell": 256,
+  "files": {
+    "kaiokenAura_00.png": "374f7b151e289c65925e5447c69e68b710f74c72",
+    "kaiokenAura_01.png": "7988dd904a180802ecf8ad58008329c38294154a",
+    "kaiokenAura_02.png": "1bf7cc096ad569977a8a1008e71b5457f65a3821",
+    "kaiokenAura_03.png": "71f6cfe7b63b314778dfc9da6c89f0fca4636b07",
+    "kaiokenAura_04.png": "32226fed354f928199c3daf74fdb05fedce529d8",
+    "kaiokenAura_05.png": "458fa21f7c129f72b8613d3910de84a61e90decc"
+  }
+}

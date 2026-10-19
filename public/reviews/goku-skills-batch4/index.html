@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Goku skills revamp · batch 4</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.55 system-ui, sans-serif; background: #11151d; color: #e9edf5; }
+    body { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    h1, h2 { line-height: 1.2; }
+    h1 { margin-bottom: 4px; }
+    .lede, .meta { color: #bac4d4; }
+    .hold { border-left: 4px solid #e2aa40; padding: 12px 16px; background: #282318; }
+    article { margin: 28px 0; padding: 18px; background: #1a202a; border: 1px solid #303a49; border-radius: 8px; }
+    figure { margin: 16px 0; overflow-x: auto; background: #252b35; }
+    img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+    .raw { max-height: 620px; object-fit: contain; }
+    a { color: #9ecaff; }
+    code { overflow-wrap: anywhere; }
+    @media (max-width: 600px) { body { padding: 14px; } article { padding: 12px; } }
+  </style>
+</head>
+<body>
+  <h1>Goku skills revamp · batch 4</h1>
+  <p class="lede">Seven v01 candidates for review: specialUp, throw, intro, kiBlast, kiMuzzle, kiBlastBurst and superSaiyanBurst. All remain unapproved.</p>
+  <p class="hold"><strong>Technical holds:</strong> the strict Goku candidate pack exits 1 because the known head probe cannot read his head and the three new strips have no version-bound manual scale record. It wrote no candidate Goku atlas, so anatomy and scale certification are pending Astra's version-bound report. All three raw character strips are 2172×724 despite needing six or four cells. The VFX candidate pack detects all requested effects, but source strips are much larger than their square-cell layouts; superSaiyanBurst is detected as 9 frames instead of 8, has a touching pose group and clips. Soft or speckled edges remain visible. These findings are technical review only; no image is approved by this page.</p>
+
+  <article>
+    <h2>specialUp v01 · Rising Kick</h2>
+    <p>Six poses read as crouch, rising vertical kick, tuck and overhead hammer setup. One generation call used. The raw strip measures 2172×724; candidate slicing scales it to x0.366. Strict pack is held by the known Goku head probe, so the candidate atlas and body sheet are not available. Hard-pixel style and landmark scale need review.</p>
+    <figure><img class="raw" src="specialUp_v01.png" alt="Raw six-pose Goku Rising Kick strip on magenta"></figure>
+    <p class="meta"><a href="specialUp_v01.md">Generation record and exact prompt</a> · <a href="ASTRA_AUDIT.md">Astra audit</a></p>
+  </article>
+
+  <article>
+    <h2>throw v01 · Air Ki Blast pose</h2>
+    <p>Four airborne poses read as recoil, palm thrust, follow-through and recovery. One generation call used. The raw strip measures 2172×724; candidate slicing scales it to x0.316. Strict pack is held by the known Goku head probe. No candidate atlas or body sheet is available; hard-pixel style and landmark scale need review.</p>
+    <figure><img class="raw" src="throw_v01.png" alt="Raw four-pose Goku airborne palm blast strip on magenta"></figure>
+    <p class="meta"><a href="throw_v01.md">Generation record and exact prompt</a> · <a href="ASTRA_AUDIT.md">Astra audit</a></p>
+  </article>
+
+  <article>
+    <h2>intro v01 · Super Saiyan transformation</h2>
+    <p>Four frames show base black hair, the gold flash, screaming Super Saiyan and settled guard. One generation call used. The raw strip measures 2172×724; candidate slicing scales it to x0.305. Strict pack is held by the known Goku head probe. No candidate atlas or body sheet is available; base-to-gold transition and hard-pixel style need review.</p>
+    <figure><img class="raw" src="intro_v01.png" alt="Raw four-frame Goku Super Saiyan transformation on magenta"></figure>
+    <p class="meta"><a href="intro_v01.md">Generation record and exact prompt</a> · <a href="ASTRA_AUDIT.md">Astra audit</a></p>
+  </article>
+
+  <article>
+    <h2>kiBlast v01 · six-frame traveling sphere</h2>
+    <p>Six bright blue spheres repeat with small tail and spark changes. One call used. The candidate pack detects six frames at x0.363 from a 2172×724 source. Exact 64px sphere size, centered anchor and loop continuity remain unmeasured.</p>
+    <figure><img class="raw" src="kiBlast_v01.png" alt="Raw six-frame ki blast strip on magenta"></figure>
+    <p class="meta"><a href="kiBlast_v01.md">Generation record and exact prompt</a> · <a href="vfx-atlas-goku.png">Packed candidate Goku HD effects page</a></p>
+  </article>
+
+  <article>
+    <h2>kiMuzzle v01 · palm flash</h2>
+    <p>The sequence reads as a small flash, expanding rays, broken ring and drifting sparks. One call used. The candidate pack detects five frames, scales x0.354 and removes five specks from a 2048×683 source. Exact cell alignment, center anchor and individual size measurements remain pending.</p>
+    <figure><img class="raw" src="kiMuzzle_v01.png" alt="Raw five-frame ki muzzle flash strip on magenta"></figure>
+    <p class="meta"><a href="kiMuzzle_v01.md">Generation record and exact prompt</a> · <a href="vfx-atlas-goku.png">Packed candidate Goku HD effects page</a></p>
+  </article>
+
+  <article>
+    <h2>kiBlastBurst v01 · hit burst</h2>
+    <p>The seven-frame sequence reads as a flash, expanding burst, hollow rings and fading fragments. Two calls used; call 2 selected. Candidate pack scales x0.653 and removes 17 specks. The selected rendering has softened/speckled edges; exact cell layout and center anchor remain unmeasured.</p>
+    <figure><img class="raw" src="kiBlastBurst_v01.png" alt="Raw seven-frame ki blast impact sequence on magenta"></figure>
+    <p class="meta"><a href="kiBlastBurst_v01.md">Generation record and exact prompt</a> · <a href="vfx-atlas-goku.png">Packed candidate Goku HD effects page</a></p>
+  </article>
+
+  <article>
+    <h2>superSaiyanBurst v01 · transformation aura</h2>
+    <p>The golden flame and clear body opening read, but the candidate pack finds 9 poses for 8 expected, splits one touching group, scales x0.328 and reports clipping. This is a technical HOLD. Two calls used; call 2 selected.</p>
+    <figure><img class="raw" src="superSaiyanBurst_v01.png" alt="Raw golden Super Saiyan burst strip on magenta"></figure>
+    <p class="meta"><a href="superSaiyanBurst_v01.md">Generation record and exact prompt</a> · <a href="vfx-atlas-goku.png">Packed candidate Goku HD effects page</a></p>
+  </article>
+
+  <p class="meta">All sources remain versioned and unchanged. Full candidate inventory, hashes and packer evidence: <a href="INVENTORY.md">batch 4 inventory</a>. User visual approval remains separate from these technical checks.</p>
+</body>
+</html>
