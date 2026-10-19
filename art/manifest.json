@@ -149,7 +149,7 @@
             2,
             3
           ],
-          "bodyHeight": 204,
+          "bodyHeight": 222,
           "ms": [
             50,
             50,
@@ -161,11 +161,12 @@
           ],
           "required": false,
           "step": 9,
-          "status": "raw",
+          "status": "approved",
           "version": 2,
-          "approvedVersion": null,
-          "reviewStatus": "needs review",
-          "technicalHold": true
+          "approvedVersion": 2,
+          "reviewStatus": "approved",
+          "technicalHold": true,
+          "approvalSource": "USER APPROVAL via Claude relay goku-skills #7: user approved specialForward v02 packed at bodyHeight 222 with Claude frameOffsets. Visual approval only; technical hold remains pending exact atlas/sidecar QA."
         },
         "specialUp": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 214, "ms": [50, 50, 60, 60, 70, 70], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "specialDown": { "frames": 4, "loop": false, "phases": [2, 1, 1], "bodyHeight": 204, "ms": [80, 80, 160, 90], "required": false, "hitbox": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },

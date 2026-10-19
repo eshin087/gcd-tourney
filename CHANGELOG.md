@@ -15,10 +15,11 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SKL-GOK): recorded user approval via Claude relay #7 for `specialForward_v02` at bodyHeight 222 with Claude frameOffsets. Manifest version/approvedVersion are 2; visual approval recorded while technical sidecar/atlas QA holds remain.
 - Changed (ART-SKL-GOK): recorded relay #6 Astra recheck of approved `superPose_v01` on exact packed atlas `feature/goku-skills` 3120d514. Result remains technical HOLD: FAIL TO CERTIFY ±6% anatomy evidence due to covered landmarks and non-reproduced quoted footwear bounds; no anatomical defect is proved. The separate motion HOLD remains.
 
-- Changed (ART-SKL-GOK): recorded relay #5 rejection of `specialForward_v01`, preserved it in `_rejected/`, and saved v02 from a two-call budget. Candidate pack still fails segmentation/clipping/head-probe checks; user decision is pending on Claude evaluating bodyHeight/frame offsets or rejecting v02.
-- Changed (ART-SKL-GOK): recorded user approval via Claude relay goku-skills #4 for `dragonFistAura`, `dragonFistDragon` and `dragonFistBurst` v01; all technical holds remain; `specialForward` v01 was later rejected and v02 remains held pending decision.
+- Changed (ART-SKL-GOK): recorded relay #5 rejection of `specialForward_v01`, preserved it in `_rejected/`, and saved v02 from a two-call budget. User later approved v02 via Claude relay #7 at bodyHeight 222 with Claude frameOffsets; exact sidecar/atlas technical QA remains pending.
+- Changed (ART-SKL-GOK): recorded user approval via Claude relay goku-skills #4 for `dragonFistAura`, `dragonFistDragon` and `dragonFistBurst` v01; all technical holds remain; `specialForward` v01 was later rejected; v02 was approved via relay #7 at bodyHeight 222 with Claude frameOffsets, with exact sidecar/atlas technical QA still pending.
 - Added (ART-SKL-GOK): filed Dragon Fist batch 2 candidates and attempt ledger with a review gallery; recorded clipping, palette, and duplicate-call technical holds.
 - Added (ART-SKL-GOK): saved batch 1 effect and `superPose_v01` candidates plus the user-authorized `ui_super_bg_v02`; recorded call provenance and initial packer/scale findings. User approval was relayed separately in goku-skills #3.
 - Changed (ART-SKL-GOK): recorded user approval via Claude relay goku-skills #3 for Kamehameha v01 effects, Spirit Bomb v01 effects, `superPose_v01` packed at bodyHeight 226, and `ui_super_bg_v02` with cropY 130. Spirit Bomb frame import counts and crop integration remain technical follow-ups.
