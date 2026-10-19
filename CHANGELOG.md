@@ -16,6 +16,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Added (ENG-SKL-LIMB): a shared limb for shots, view only. A projectile's `limb` draws a stretched limb or a string from the owner's drawn hand to the shot (`Effects.limb`, a tube effect stretched between two points and scaled across to a fixed thickness), with an optional `end` effect standing for the shot that snaps back to the hand when the shot ends. A procedural tinted `strand` draws a plain string. Used next by Luffy's Gum-Gum Pistol and Killua's yo-yo.
+
 - Added (ENG-SKL-TPFX): teleports can name their own look: `vanishFx` / `appearFx` (an effect name or `{ fx, scale, bottom, y, lead, reverse }`; `false` for nothing) replace the smoke puff, speed lines and afterimage where a teleport leaves and the star, ring and afterimage where it arrives (`Effects.teleportFx`). View only; no move uses them yet (Gojo's Blink, Goku's Instant Transmission and Killua's Rhythm Echo move onto them in their skills branches).
 
 - Added (ENG-SKL-KIL): one generic hand effect for any technique. A move's `fx` that names an effect other than the built-in kinds (Rasengan, Chidori...) is held in the drawn palm through the startup, looping and growing as it builds (Killua's Lightning Palm); with `fxForm` its frames play by the startup's progress and the last one is held (Gojo's Reversal: Red); `fxScale` sets its size. View only.
