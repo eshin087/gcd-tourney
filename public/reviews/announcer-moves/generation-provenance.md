@@ -24,7 +24,7 @@ The four correction strips were generated as separate imagegen calls, each from 
 | shocked | `shocked_v02.png` | 2/3 | v02 | `D6C16146D85095FBF2EBE3D7AB3AE3C7577BAD121C9EAC4ABF35AA3970998AC8` |
 | micThrust | `micThrust_v02.png` | 2/3 | v02 | `820E25F5F67E63F48BAA3CA37FCCFD6843BC6D42B68179E70100D69AEC81471B` |
 
-Run v03 consumed its last remaining A6 call after inspecting v02, which still had repeated leg silhouettes and visible horizontal hair drift. Walk v02 used its final A5 call. No additional calls are authorized or available for either asset. Call totals are the recorded generation ledger; the imagegen interface did not expose provider call IDs. All v01 raw files remain unchanged and are linked in the phone review page.
+Run v03 consumed its last remaining A6 call after inspecting v02, which still had repeated leg silhouettes and visible horizontal hair drift. Walk v02 used its final A5 call. No additional calls are authorized or available for either asset. Call totals are the recorded generation ledger; the imagegen interface did not expose provider call IDs. All v01 raw files remain unchanged; their version names are listed in the phone review page, and the v01 packed atlas remains playable there.
 
 Correction-round visual findings from raw/packed review: walk v02 still repeats f0/f2 contact and f1/f3 passing silhouettes (technical hold); run v03 still has major horizontal/pose movement (technical hold); shocked v02 preserves the intended subtle tremble and locked feet, pending Astra's packed-cell audit; micThrust v02 keeps the cross-body mic and listening hand, with packed foot and mic landmark audit pending. No art is approved.
 
