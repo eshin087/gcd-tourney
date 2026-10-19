@@ -2753,14 +2753,18 @@ function packUi(id, charDir, env, R) {
           blit(out, small, dx, dy);
           img = out;
         } else {
-          // opaque art: center-crop to the aspect ratio, then downscale
+          // opaque art: center-crop to the aspect ratio, then downscale. The manifest's ui entry may move the band
+          // (`cropY`: its top row in the source image), for a drawing whose focus sits off the middle band (ENG-SKL-GOK)
           const ar = spec.w / spec.h;
           let cw = img.w, ch = Math.round(img.w / ar);
           if (ch > img.h) { ch = img.h; cw = Math.round(img.h * ar); }
-          const c = crop(img, Math.floor((img.w - cw) / 2), Math.floor((img.h - ch) / 2), cw, ch);
+          const cropY = env.manifestRaw?.characters?.[id]?.ui?.[name]?.cropY;
+          const y0 = Number.isInteger(cropY) ? Math.max(0, Math.min(img.h - ch, cropY)) : Math.floor((img.h - ch) / 2);
+          if (Number.isInteger(cropY)) note = `band y ${y0}-${y0 + ch} (cropY)`;
+          const c = crop(img, Math.floor((img.w - cw) / 2), y0, cw, ch);
           img = cw > spec.w ? downscaleMode(c, spec.w, spec.h, { coverage: 0.5 }) : upscaleNearest(c, spec.w, spec.h);
         }
-        note = `fitted to ${spec.w}x${spec.h}`;
+        note = note === 'copied' ? `fitted to ${spec.w}x${spec.h}` : `fitted to ${spec.w}x${spec.h}, ${note}`;
       }
       writeFile(env, path.join(env.outDir, 'characters', id, `${name}.png`), encodePng(img), R);
       R.ui.push(`${name} (${note})`);

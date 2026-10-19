@@ -599,19 +599,25 @@ function stormTick(f, k, S, W) {
 // the super flash on (Game.fxTicks calls this with the flash's progress `flashU`, the kit state still in its flash),
 // energy streaming into it from all around while the stage dims and the camera tips up, then shoved onto the marked
 // spot over the last `swing` frames. Effects only: nothing here feeds the fight.
+const bombUp = new THREE.Vector3(), bombRight = new THREE.Vector3();
 export function bombTick(f, k, S, B, flashU = null) {
   const g = f.game, id = 'bomb' + f.index, t = k.t0 ?? 0, mark = k.phase === 'mark', start = S.delay - B.swing;
   if (flashU == null && !mark) { g.fx.drop(id); g.fx.drop(id + 'g'); g.fx.drop(id + 's'); return; } // it landed
   const P = f.renderPos || f.pos, dk = f.actor?.depthK ?? 1, H = flashU != null || t < start ? f.actor?.hand?.() : null;
-  // above his raised palms (the drawn superPose anchor; over his head while the strip is missing)
-  const hx = P.x + f.face.x * (H ? H.x : 0) * dk, hy = P.y + (H ? H.y : 2.1) * dk, hz = P.z + f.face.y * (H ? H.x : 0) * dk;
   const G = B.grow, scale = flashU != null ? G[0] + (G[1] - G[0]) * flashU : t < start ? G[1] + (G[2] - G[1]) * (t / start) : G[2];
   const r = scale * 1.145; // the sphere fills its 2.29-unit cell
-  let x = hx, y = hy + r + B.gap * dk, z = hz;
+  // above his raised palms (the drawn superPose anchor; over his head while the strip is missing), measured along the
+  // billboard's own up and right (the camera's): his sprite faces the camera, so a point straight up in the world
+  // drifts off his hands on screen once it is this high
+  const cam = g.camera, U = bombUp.set(0, 1, 0), RT = bombRight.set(1, 0, 0);
+  if (cam) { U.applyQuaternion(cam.quaternion); RT.applyQuaternion(cam.quaternion); }
+  const side = (f.actor?.flip ?? 1) * (H ? H.x : 0) * dk, up = (H ? H.y : 2.1) * dk + r + B.gap * dk;
+  let x = P.x + RT.x * side + U.x * up, y = P.y + RT.y * side + U.y * up, z = P.z + RT.z * side + U.z * up;
   if (mark && t >= start) {
     // shoved onto the spot: it leaves from over his head and falls, slow first, onto the mark
-    const u = Math.min(1, (t - start) / B.swing), e = u * u, a = k.at, y0 = P.y + 2.1 * dk + r;
-    x = P.x + (a.x - P.x) * e; y = y0 + (r * 0.6 - y0) * e; z = P.z + (a.z - P.z) * e;
+    const u = Math.min(1, (t - start) / B.swing), e = u * u, a = k.at, h0 = 2.1 * dk + r;
+    const x0 = P.x + U.x * h0, y0 = P.y + U.y * h0, z0 = P.z + U.z * h0;
+    x = x0 + (a.x - x0) * e; y = y0 + (r * 0.6 - y0) * e; z = z0 + (a.z - z0) * e;
   }
   g.fx.keep(id, B.fx, x, y, z, { scale, order: 8, glow: 0.35 });
   g.fx.keep(id + 'g', 'glow', x, y, z, { scale: scale * 1.6, color: 0x9edcff, opacity: 0.3, order: 2, glow: 0.4 });
@@ -622,7 +628,7 @@ export function bombTick(f, k, S, B, flashU = null) {
   if (mark) {
     // the spot it will land on darkens under it (the dodge cue)
     const a = k.at;
-    g.fx.keep(id + 's', 'glow', a.x, 0.08, a.z, { scale: S.radius * (0.6 + 0.6 * Math.min(1, t / start)), color: 0x2e7ce8, opacity: 0.35, order: 1, glow: 0.2 });
+    g.fx.keep(id + 's', 'glow', a.x, 0.08, a.z, { scale: S.radius * (0.6 + 0.6 * Math.min(1, t / start)), color: 0x2e7ce8, opacity: 0.22, order: 1, glow: 0.2 });
   }
   if ((mark && t >= start) || Math.random() > 0.8) return;
   // the energy of everything around flowing in: motes from all round the stage, from the floor up
