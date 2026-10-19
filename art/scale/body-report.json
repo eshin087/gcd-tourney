@@ -1,7 +1,7 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-10-18T19:38:46.770Z",
+ "generated": "2026-10-19T01:33:37.192Z",
  "fighters": {
   "naruto": {
    "idleGarmentPx": 3260,
@@ -3283,6 +3283,29 @@
      ],
      "median": 0.925,
      "headMedian": 0.956,
+     "flag": null
+    }
+   }
+  },
+  "goku": {
+   "idleGarmentPx": 5103,
+   "anims": {
+    "superPose": {
+     "v": 1,
+     "body": [
+      0.99,
+      0.985,
+      0.989,
+      0.991
+     ],
+     "head": [
+      0.797,
+      0.642,
+      0.504,
+      0.504
+     ],
+     "median": 0.99,
+     "headMedian": 0.573,
      "flag": null
     }
    }

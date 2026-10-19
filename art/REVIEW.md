@@ -1,5 +1,15 @@
 # Art review queue
 
+## ART-SKL-GOK batch 1 (2026-10-19): user-approved set; technical packing follow-up
+
+| 2026-10-19 | goku | superPose | [superPose_v01.png](characters/goku/raw/superPose_v01.png) | v01 | approved | 3 calls; packed at bodyHeight 226, scale x0.363; [body sheet](../scale/body-goku-superPose.png) B=0.985-0.991. | User approved as packed via Claude relay goku-skills #3. Final Astra audit HOLD: torso/garment and feet broadly match, but head/crown uncertainty (±3–4px) prevents numerical scale certification; requested 1–2px loop tremble is not established. Exact atlas hash and evidence are in the manifest/inventory. |
+| 2026-10-19 | goku | ui_super_bg | [ui_super_bg_v02.png](characters/goku/raw/ui_super_bg_v02.png) | v02 | approved | 3 calls; user authorized v02 via relay #2 and approved it via relay #3 with cropY 130. | Applied source band y=130..513 to `ui/super_bg.png`, then re-packed Goku banner. Previous v01 approval is superseded for the current banner. |
+| 2026-10-19 | goku | kamehameha | [kamehameha_v01.png](../vfx/raw/kamehameha_v01.png) | v01 | approved | 2 calls; selected first result. | User approved via Claude relay goku-skills #3. |
+| 2026-10-19 | goku | kamehamehaHead | [kamehamehaHead_v01.png](../vfx/raw/kamehamehaHead_v01.png) | v01 | approved | 2 calls; selected second result. | User approved via Claude relay goku-skills #3. |
+| 2026-10-19 | goku | kamehamehaRing | [kamehamehaRing_v01.png](../vfx/raw/kamehamehaRing_v01.png) | v01 | approved | 1 call. | User approved via Claude relay goku-skills #3. |
+| 2026-10-19 | goku | spiritBomb | [spiritBomb_v01.png](../vfx/raw/spiritBomb_v01.png) | v01 | approved | 2 calls; normalized/cropped and nearest-neighbor resampled to eight 256 px frames. | User approved via Claude relay goku-skills #3. Packer detects 12 frames, expected 8; technical source-layout follow-up remains open. |
+| 2026-10-19 | goku | spiritBombBlast | [spiritBombBlast_v01.png](../vfx/raw/spiritBombBlast_v01.png) | v01 | approved | 2 calls; normalized/cropped and nearest-neighbor resampled to eight 256 px frames. | User approved via Claude relay goku-skills #3. Packer detects 9 frames, expected 8; technical source-layout follow-up remains open. |
+
 ## ENG-112 Goku normals (2026-10-18): seven drawings approved; one redraw round authorized for three held moves after merge
 
 Goku's head probe is manually disabled. Astra's relay #39 visual scale review passed fTilt v01, dTilt v01, dashAttack v01, fSmash v01, fair v01, bair v01 and uair v01 within recorded uncertainty; the user approved those seven as drawn via Claude relay #40. uTilt v01 and uSmash v01 remain visibly undersized, and dSmash v02 has visibly oversized upper-body volume. These three remain on technical hold pending the separate user decision; no drawing approval is inferred. Strict shipping gate and runtime contact remain separate. [Current Astra audit](characters/goku/production/ENG112_IMPORT_SCALE_AUDIT.md).
