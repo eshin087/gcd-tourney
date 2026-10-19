@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Goku charge v10 review</title>
+<style>
+:root{color-scheme:dark;--bg:#10141c;--panel:#1a2230;--line:#354153;--text:#f2f5f9;--muted:#b8c2d0;--amber:#f6c85f;--red:#ff927e;--green:#9ee6b0}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}main{max-width:1200px;margin:auto;padding:28px 20px 64px}h1,h2{line-height:1.2}h1{font-size:clamp(2rem,5vw,3rem);margin:.2em 0}h2{font-size:1.45rem;margin:0 0 12px}.eyebrow{color:#9db4d1;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem}.status{border:1px solid #866c32;background:#332b19;color:#ffe7a2;padding:14px 18px;border-radius:10px;margin:22px 0}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px}.media{width:100%;height:auto;display:block;background:#1d2027;border-radius:8px;border:1px solid var(--line)}.scroll{overflow:auto}.wide{min-width:900px}.buttons{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.button{display:inline-block;background:#273954;border:1px solid #506789;border-radius:8px;padding:9px 14px;color:#fff;text-decoration:none}.button:hover{background:#334b70}.muted{color:var(--muted)}.hold{color:var(--amber)}.pass{color:var(--green)}ul{padding-left:1.2rem}code{color:#cfe1ff}footer{color:var(--muted);font-size:.9rem;margin-top:28px}
+</style>
+</head>
+<body><main>
+<p class="eyebrow">ART-CHARGE · Goku pilot · packed candidate v10</p>
+<h1>Goku charge redraw</h1>
+<p>Review the current approved charge (v05) beside the six-frame candidate (v10). The new timing plays gather and release once, then loops f2–f5 at 110 ms. The GIF runs the held loop four times and pauses.</p>
+<div class="status"><strong>Awaiting your drawing decision.</strong> v10 is not approved. The 48-color atlas and gameplay preview are for review only; the technical holds below remain open.</div>
+<div class="buttons"><a class="button" href="../../lab.html?p1=goku&amp;p2=naruto">Open Test Lab</a><a class="button" href="../../?fight=goku,naruto&amp;mode=solo&amp;debug">Open Goku match preview</a><a class="button" href="candidate-raw-v10.png">View raw candidate</a></div>
+<section class="grid">
+<article class="card"><h2>Current approved v05 · 50 ms per frame</h2><img class="media" src="current-v05-50ms.gif" alt="Current approved Goku charge v05 looping at 50 milliseconds per frame"><p class="muted">Extracted from the 5156b17d main atlas, the version this candidate replaces.</p></article>
+<article class="card"><h2>Candidate v10 · gather, release, then held loop</h2><img class="media" src="candidate-v10-plays-loop-four-times.gif" alt="Goku charge v10: gather, release, then four held loops before pausing"><p class="muted">Packed cells from the 48-color candidate atlas. This GIF plays f0, f1, f2–f5 four times, then pauses.</p></article>
+</section>
+<section class="card"><h2>All frames beside approved idle</h2><p class="muted">The idle f0 reference is first, followed by charge f0–f5. Both rows use the same packed cells and pixel density.</p><div class="scroll"><img class="media wide" src="new-packed-contact-1x.png" alt="Idle f0 and all six charge v10 frames side by side at one times scale"></div><p><a href="new-packed-contact-2x.png">Open the same lineup at 2× scale</a></p></section>
+<section class="card"><h2>Held-loop registration</h2><p class="muted">Packed f2–f5 at 2×, a tinted onion overlay, and pixel differences against f2. Yellow marks y220–240; cyan marks an approximate head region.</p><img class="media" src="registration-v10.png" alt="Packed charge v10 loop registration and pixel difference sheet"></section>
+<section class="card"><h2>Body sheet</h2><p class="muted">B compares garment area against idle f0. The tool labels B as advisory (about ±10% pose noise); a high value needs segment confirmation.</p><img class="media" src="body-goku-charge.png" alt="Goku charge v10 body sheet compared with approved idle and title combat reference"><p><a href="body-report.json">Machine-readable body report</a> · <a href="technical-notes.md">Full provenance and Astra evidence</a></p></section>
+<section class="card"><h2>Technical findings</h2><ul>
+<li><span class="pass">Astra qualitative anatomy and approximate placement: pass.</span> Identity, pose beats, body construction and silhouette are coherent against the approved idle and title-style references. No obvious clipping or quantization halo.</li>
+<li><span class="hold">Exact loop lock: hold.</span> At y240 the f2 floor pixels differ from f3/f4/f5 by 2/1/2 pixels; approximate foot placement is within 1 px. Knee and hip regions match about 1 px higher in f3–f5. The strict “identical pixels” rule is not met.</li>
+<li><span class="hold">Body size: advisory hold.</span> Body sheet B median is 1.175; f1–f5 range 1.164–1.199. The open-arm pose may raise garment area, but exact segment lengths remain uncertain. Goku’s automatic head probe is not reliable.</li>
+<li>Raw source contains soft/near-magenta pixels, but the 48-color packed cells show binary alpha, 47–48 colors per frame, and no obvious magenta fringe.</li>
+</ul><p class="muted">Interactive lab playback was not independently checked because Windows browser automation could not confirm the browser URL; the linked lab route uses the packed candidate and configured loop timing. A drawing approval covers v10 as drawn only. It does not clear the loop/body technical holds or approve gameplay integration.</p></section>
+<footer>Candidate v10 SHA256 <code>6317af1187a981d7fd44db59a9e5c0f5ed69356fe8d4f5571a9d3e7a8f6b6be5</code>. Packed sheet SHA256 <code>9a1417af010ead2f9ce0027c3835b2aee61964e2ffb08b1014eed4ecaa2ae0b4</code>. ENG-117 loopFrom support is on main. Review page and preview are not evidence of approval.</footer>
+</main></body></html>
