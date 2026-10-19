@@ -53,77 +53,25 @@
     "3": {
       "hit": [
         [
-          158,
-          72,
-          30,
-          38
+          163,
+          47,
+          35,
+          44
         ]
       ]
     },
     "4": {
       "hit": [
         [
-          160,
-          20,
-          36,
-          55
+          165,
+          0,
+          41,
+          50
         ]
       ]
     },
     "_v": 5,
-    "_scale": 0.92,
-    "_note": "ENG-112 r2 uSmash v05: visual contact boxes follow the rising arm/fist on active frames 3-4; Claude still owns runtime contact review."
-  },
-  "dSmash": {
-    "3": {
-      "hit": [
-        [
-          18,
-          190,
-          42,
-          34
-        ],
-        [
-          198,
-          190,
-          42,
-          34
-        ]
-      ]
-    },
-    "4": {
-      "hit": [
-        [
-          12,
-          190,
-          43,
-          34
-        ],
-        [
-          201,
-          190,
-          42,
-          34
-        ]
-      ]
-    },
-    "_v": 3,
-    "_scale": 0.92,
-    "_note": "ENG-112 r2 dSmash v03: two low contact boxes follow both sandals on active frames 3-4; Claude still owns runtime contact review."
-  },
-  "uair": {
-    "2": {
-      "hit": [
-        [
-          168,
-          18,
-          52,
-          78
-        ]
-      ]
-    },
-    "_v": 2,
-    "_scale": 0.92,
-    "_note": "ENG-112 r2 uair v02: contact box follows the raised kicking shin and sandal on sole active frame 2; frame 3 is recovery. Claude still owns runtime contact review."
+    "_scale": 1.058,
+    "_note": "ENG-112 r2 uSmash v05: visual contact boxes follow the rising arm/fist on active frames 3-4; Claude still owns runtime contact review. Claude 2026-10-19: rescaled x1.15 about the pivot with the strip packScale 1.15 (fit 0.92 x 1.15 = 1.058)."
   }
 }
