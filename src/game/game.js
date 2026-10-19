@@ -16,7 +16,7 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel, modeLook } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -915,6 +915,11 @@ export class Game {
       if (f.mode?.cloak) this.fx.cloakTick(f, f.mode.cloak, this.cam.right, frozen); // Nine-Tails Cloak (ENG-SKL-NAR)
       if (f.shroud) this.fx.shroudTick(f, f.shroud, shroudLevel(f), this.cam.right, frozen); // Four-Tails
       if (f.state !== 'charge') chargeEnd(this, f);
+      // a power-up's look while it lasts (kit.modeLook: shell, aura; the tint is Fighter.sync's): the charge's own shell
+      // wins while he powers up
+      const look = f.state === 'charge' ? null : modeLook(f);
+      if (look?.aura) this.fx.modeAura(f, look.aura);
+      this.fx.modeShell(f, look?.shell ?? null, this.time);
       if (f.state === 'charge') {
         lines = Math.max(lines, chargeTick(this, f, f.t, frozen)); // canon power-up per fighter (ENG-069)
         this.linesFocus = f;
