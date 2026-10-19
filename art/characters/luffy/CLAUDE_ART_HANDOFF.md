@@ -2,11 +2,11 @@
 
 Branch: `art/normals-luffy`  
 Worktree: `.worktrees/art-normals-luffy`  
-Checkpoint: `4095b72c` (generation, versioned raw candidates, receipts and packed review-frame extraction)
+Commits: `4095b72c` (generation, versioned raw candidates, receipts and packed review-frame extraction); `0573ffd6` (review page and audit records)
 
 ## User review
 
-Review page: `public/reviews/normals-luffy/index.html` (hosted preview link to be added after `npm run pr -- preview`). It shows all ten latest packed candidates beside the current live stand-ins and approved idle f0. Four candidates are technically ready for the user's drawing decision: fTilt v01, fSmash v02, fair v03, bair v03. Six remain technical holds and should stay on their current stand-ins: uTilt v02, dTilt v02, dashAttack v02, uSmash v03, dSmash v02 and uair v01. No drawings are user-approved yet.
+Review page: `https://gcd-tourney-2s44u8pip-eshin087s-projects.vercel.app/reviews/normals-luffy/` (`public/reviews/normals-luffy/index.html`). It shows all ten latest packed candidates beside the current live stand-ins and approved idle f0. Four candidates are technically ready for the user's drawing decision: fTilt v01, fSmash v02, fair v03, bair v03. Six remain technical holds and should stay on their current stand-ins: uTilt v02, dTilt v02, dashAttack v02, uSmash v03, dSmash v02 and uair v01. No drawings are user-approved yet.
 
 The attached review atlas is diagnostic only: 4096×3072, 178 frames, 48 colors, `scaleGate: warn`. Its exact hashes and frame-by-frame findings are in `public/reviews/normals-luffy/ASTRA_FINAL_AUDIT.md`. Astra rechecked every one of the 70 selected frames against idle and live same-kind strips. Four version-bound `scaleManualQA` PASS records exist in the Luffy manifest for fTilt v01, fSmash v02, fair v03 and bair v03. Visible endpoint uncertainty is recorded there; hidden/foreshortened anatomy is not numerically certified. This is not a strict production gate pass or runtime contact check.
 
