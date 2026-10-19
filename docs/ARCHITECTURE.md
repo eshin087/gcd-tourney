@@ -137,7 +137,7 @@ src/art/
                             baker.js (bake to sheet + boxes + portrait + cut-in)
 src/world/arena.js          tournament grounds: ring, temple, stands + instanced crowd, gate, trees, sky, dimming
 src/world/announcer.js      the live announcer (ADR 0048): walks the ring behind the fight, ring calls, KO count,
-                            picks his lines (announcerLines.js) and drives his speech bubble; view only
+                            picks his lines (announcerLines.js) and drives his caption; view only
 src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
                             by Game.startDomain via setStage('void')
 src/ui/
@@ -145,7 +145,7 @@ src/ui/
                             chips and rating (ADR 0026), callouts, TAGS technique banners (ADR 0022), announcements,
                             super cut-in, clash bar and rhythm track
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
-  speechBubble.js           the announcer's manga speech bubbles (talk / shout / panic SVG balloons under the HUD)
+  speechBubble.js           the announcer's lines: a small caption above his head (DOM, under the HUD)
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)
 src/style.css               all DOM UI styling

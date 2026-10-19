@@ -4,7 +4,7 @@
 // the grass beyond it at the very top of the screen under the health bars: the ring is where he can be seen (user
 // pick 2026-10-18). He scurries away when a fighter comes at him, hops down to the walkway on the grass when he is
 // cornered (and back up once there is room), ducks for ultimates and clashes, and counts over the fallen fighter after
-// a KO. He comments everything in manga speech bubbles (src/ui/speechBubble.js, lines in announcerLines.js).
+// a KO. He comments everything in small captions above his head (src/ui/speechBubble.js, lines in announcerLines.js).
 //
 // View only: the arena hands him its NPC cues (game.js -> arena.npcCue; Game.quiet stands the arena in during a
 // rollback, so a re-simulated frame never cues him twice) and he reads the game each rendered frame. He never writes
@@ -39,10 +39,9 @@ const MOVE = {
   fleeBy: 3.6, // ... this far away (on the walkway: along it)
   hop: 0.46, // seconds in the air climbing into or out of the ring
   hopUp: 0.55, // the hop's arc above its higher end
-  bob: 0.045, // the bob and waddle while `walk` art is missing (the idle frames slide otherwise)
-  waddle: 0.05,
+  bob: 0.03, // the bob while `walk` art is missing (the idle frames slide otherwise)
 };
-const HEAD = 1.5; // the bubble's anchor above his feet (the sprite is 1.4 tall)
+const HEAD = 1.45; // his caption's anchor above his feet (the sprite is 1.4 tall)
 const SHOW_STATES = new Set(['intro', 'roundIntro', 'fight', 'ko', 'timeup', 'draw', 'roundEnd']);
 // outside a match he waits by the gong; the match's hero shot (matchEnd, results) is the winner's alone
 const OFF_STATES = new Set(['boot', 'menu', 'training', 'matchEnd', 'results']);
@@ -282,7 +281,6 @@ export class Announcer {
     this.setMirror(false);
     this.body.setAnim('idle');
     this.body.sprite.position.copy(this.pos);
-    this.body.sprite.material.rotation = 0;
   }
 
   // his fight spot: beyond the fighters' middle (away from the camera) and to one side, kept inside the ring. `ok`
@@ -547,15 +545,14 @@ export class Announcer {
       }
       if (Math.abs(dx) > 0.015) this.setMirror(dx < 0);
     }
-    // without walk art the idle frames would slide along: a bob and a waddle sell the steps
-    let y = this.pos.y, roll = 0;
+    // without walk art the idle frames would slide along: a small bob sells the steps (no tilt: a rotated pixel
+    // sprite shimmers)
+    let y = this.pos.y;
     if (this.moving && this.place !== 'hop' && body.resolve('walk') === 'idle') {
       this.bob += dt * (this.speed > MOVE.walk + 0.3 ? 15 : 9);
-      y += Math.abs(Math.sin(this.bob)) * MOVE.bob * (this.speed > MOVE.walk + 0.3 ? 1.6 : 1);
-      roll = Math.sin(this.bob) * MOVE.waddle;
+      y += Math.abs(Math.sin(this.bob)) * MOVE.bob;
     }
     sp.position.set(this.pos.x, y, this.pos.z);
-    sp.material.rotation = roll;
     body.update(dt);
   }
 
@@ -742,26 +739,21 @@ export class Announcer {
     return lines[i];
   }
 
-  // place the bubble: his head on screen, the free area between the HUD bars and the touch buttons
+  // place his caption: the top of his head on screen, the free area between the HUD bars and the touch buttons
   speak(game, dt, frozen) {
     if (!this.bubble.cur) { this.bubble.update(dt, null, null, false, frozen); return; }
     const cam = game.camera, cv = game.renderer?.renderer?.domElement;
-    if (!cam || !cv || !this.showing) { this.bubble.update(dt, null, null, false, frozen); return; }
-    const rect = cv.getBoundingClientRect();
-    const L = this.bubble.layer.getBoundingClientRect(); // the bubble's own frame (the lab docks a panel beside the game)
     const head = this.place === 'hop' || this.react?.anim !== 'cower' ? HEAD : 1.0;
     tmpV.set(this.pos.x, this.pos.y + head, this.pos.z);
-    // behind the camera: dock at the bottom edge on his side
-    const vp = tmpW.copy(tmpV).applyMatrix4(cam.matrixWorldInverse);
-    let x, y;
-    if (vp.z > -0.1) {
-      x = vp.x < 0 ? -50 : rect.width + 50;
-      y = rect.height * 0.7;
-    } else {
-      tmpV.project(cam);
-      x = (tmpV.x + 1) / 2 * rect.width;
-      y = (1 - tmpV.y) / 2 * rect.height;
+    // behind the camera (the intro flythrough): nowhere to put it
+    if (!cam || !cv || !this.showing || tmpW.copy(tmpV).applyMatrix4(cam.matrixWorldInverse).z > -0.1) {
+      this.bubble.update(dt, null, null, false, frozen);
+      return;
     }
+    const rect = cv.getBoundingClientRect();
+    const L = this.bubble.layer.getBoundingClientRect(); // the caption's own frame (the lab docks a panel beside the game)
+    tmpV.project(cam);
+    const x = (tmpV.x + 1) / 2 * rect.width, y = (1 - tmpV.y) / 2 * rect.height;
     const ox = rect.left - L.left, oy = rect.top - L.top;
     const top = oy + rect.height * (game.hud?.root?.classList.contains('hidden') ? 0.06 : 0.17); // under the bars
     const bottom = oy + rect.height * (game.touch?.visible ? 0.62 : 0.8); // the on-screen buttons fill the bottom corners

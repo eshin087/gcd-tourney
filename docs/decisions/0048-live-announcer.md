@@ -1,4 +1,4 @@
-# 0048: The live announcer: a view-only MC who follows the fight and talks in speech bubbles
+# 0048: The live announcer: a view-only MC who follows the fight and comments it in small captions
 
 **Status:** Accepted (user request, 2026-10-18)
 **Date:** 2026-10-18
@@ -18,6 +18,9 @@ notable moment plus filler in the lulls); new art for walk, run, shocked and a m
 The first build kept him on a walkway on the grass around the ring. The fight camera looks down at the ring, so the
 grass beyond it sits at the very top of the screen under the health bars: in a normal close fight he was a small
 figure half hidden by the HUD. Shown screenshots of both, the user picked the ring's back half.
+
+The second round (same day): the white manga balloons were "very distracting and annoying"; the user wants him to be
+a cool background thing, not a focal point. The balloons went, the lettering shrank to a small caption above his head.
 
 ## Decision
 
@@ -40,10 +43,12 @@ figure half hidden by the HUD. Shown screenshots of both, the user picked the ri
    cooldown, a reaction animation and original lines with `{A}` / `{B}` / `{M}` / `{N}` slots. One bubble at a time: a
    line shows when nothing that outranks it is up; once-a-round moments (first hit, low health, comeback, the clock)
    wait up to 2.5 s for a busy bubble; filler fills a 6-10 s lull.
-5. **The bubbles** (`src/ui/speechBubble.js`) are DOM, not pixels: an SVG balloon (round talk, spiky shout, wobbly
-   panic) with an inked tail that follows him, in a layer under the HUD so cut-ins and announcements stay on top. The
-   lettering is the UI's Bangers font, so it reads on a phone where the 360 px pixel buffer could not. Off screen the
-   bubble docks at the edge with its tail his way; with no room above him it sits beside him.
+5. **The captions** (`src/ui/speechBubble.js`) are DOM, not pixels, so small lettering stays sharp on a phone where
+   the 360 px pixel buffer could not hold it: the UI's Bangers font at about 1.45 `--u` (9 px minimum), cream with a
+   thin ink outline (gold for shouts, pale blue italic for panic, a fighter's name in their color), floating just above
+   his head, fading in and out, in a layer under the HUD so cut-ins and announcements stay on top. No balloon, no tail,
+   no pop or shake, and nothing while he is off screen: he is a background touch, not a focal point. With no room
+   above him under the HUD bars the caption sits beside his head.
 6. **Art.** Four new NPC animations (`walk` 4, `run` 4, `shocked` 2, `micThrust` 2; walk and run are cycles in
    place, the engine moves the billboard). The packer reads an NPC animation's frame count from its ANIMATIONS.md
    row. Until a strip is approved, `NPC_FALLBACK` plays the nearest existing pose and the announcer bobs and waddles
@@ -51,8 +56,10 @@ figure half hidden by the HUD. Shown screenshots of both, the user picked the ri
 
 ## Alternatives considered
 
-- **Bubbles in the 3D world** (a canvas texture on a billboard): pixel-consistent, but the text is unreadable at the
-  360 px buffer on a phone; the user picked the crisp overlay.
+- **Manga balloons** (the first build: white SVG starbursts and round balloons with inked tails, docking at the
+  screen edge when he was off screen): fun, but they pulled the eye off the fight; the user turned them down.
+- **Text in the 3D world** (a canvas texture on a billboard): pixel-consistent, but unreadable at the 360 px buffer on
+  a phone.
 - **Ringside only** (the first build): faithful to the arena layout, but the camera hides him under the HUD.
 - **A generated line per event** (an LLM or text templates assembled word by word): no network or dependency is worth
   it; a curated table reads better and stays reviewable.

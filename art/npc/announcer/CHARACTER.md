@@ -8,7 +8,7 @@
 | | |
 |---|---|
 | Engine id | `announcer` (folder `art/npc/announcer/`, output `public/npc/announcer/`) |
-| Role | tournament MC: introduces the fighters, calls the start, hypes the big moves, points at the winner, and dives for cover when an ultimate goes off. Since ENG-118 he walks the ring edge to follow the fight, hops onto the ring to call a KO and comments in manga speech bubbles (drawn by the engine) |
+| Role | tournament MC: introduces the fighters, calls the start, hypes the big moves, points at the winner, and dives for cover when an ultimate goes off. Since ENG-118 he walks the ring edge to follow the fight, hops onto the ring to call a KO and comments in small captions above his head (drawn by the engine) |
 | Kind | **cameo**: an homage to the World Martial Arts Tournament announcer from Dragon Ball / Dragon Ball Z (allowed by ADR 0008; see [Legal](#legal)) |
 | Animations | `idle` 2, `point` 2, `shout` 2, `cower` 2; batch `npc-announcer-r1` (ENG-118): `walk` 4, `run` 4, `shocked` 2, `micThrust` 2 |
 | Cell / pivot / ppu | 128 x 128 / [64, 124] / 80 |

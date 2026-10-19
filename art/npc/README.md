@@ -159,7 +159,7 @@ stand's standing-room gap. The notes below were the brief.
 
 Since 2026-10-18 the announcer is live (ENG-118, ADR 0048, `src/world/announcer.js`): during a match he moves
 (in the ring for the calls, on the ring's back half behind the fight, down on the grass when cornered), mirrors to
-face where he walks or who he talks about, and comments in speech bubbles the engine draws. His animations: `walk` /
+face where he walks or who he talks about, and comments in small captions the engine draws above his head. His animations: `walk` /
 `run` while moving (a hop in or out of the ring plays `run`), `point` / `shout` / `shocked` / `micThrust` / `cower`
 as reactions to what he says. A strip he lacks plays its `NPC_FALLBACK` (worldArt.js: run -> walk -> idle,
 shocked -> shout, micThrust -> point). Outside a match, and in the match's hero shot, he waits at the gong.

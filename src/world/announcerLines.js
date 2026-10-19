@@ -1,5 +1,5 @@
 // What the live announcer says (ENG-118, ADR 0048): one entry per moment he can comment, read by src/world/announcer.js.
-//   style  bubble shape (src/ui/speechBubble.js): 'talk' round, 'shout' spiky starburst, 'panic' wobbly
+//   style  how the caption reads (src/ui/speechBubble.js): 'talk' cream, 'shout' gold, 'panic' pale blue italic
 //   prio   0 filler .. 5 KO: a line shows when no bubble with a higher priority is still up
 //   cool   seconds before the same moment can be commented again
 //   anim   his reaction while he says it (a missing animation plays its fallback, worldArt.js NPC_FALLBACK), for

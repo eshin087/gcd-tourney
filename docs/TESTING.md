@@ -265,12 +265,12 @@ B: game.fighters[1], M: 'RASENGAN' }, true, true)` shows any line)
       his spot about five tiles behind the fight, off to one side, and keeps to it as the fight moves.
 - [ ] A fighter rushing at him sends him scurrying (or hopping down to the grass at the ring edge, then back up);
       an ultimate, a beam or a beam struggle makes him duck; a melee clash only drops his jaw.
-- [ ] Bubbles: one at a time, round for talk, spiky for shouts, wobbly for panic; the fighter's name in their color;
-      the tail points at him and follows him; off screen the bubble docks at the edge with the tail his way; it never
-      covers the health bars, and on a phone (740 x 360, touch) it sits beside him when there is no room above.
+- [ ] Captions: one at a time, small (about 10 px at 720p, 9 px on a phone), no balloon, just above his head and
+      following him; cream, gold for shouts, pale blue for panic, the fighter's name in their color; nothing while he
+      is off screen; never over the health bars (beside his head when there is no room above).
 - [ ] KO: "X IS DOWN!!", the count ONE / TWO / THREE, then he runs to the winner for the victory close-up and calls
       the round; the next round's call is not blocked by it. Matchend / results: he is gone from the hero shot.
-- [ ] Training room, menus and the title: no bubbles, he waits by the gong. Pausing freezes him and his bubble.
+- [ ] Training room, menus and the title: no captions, he waits by the gong. Pausing freezes him and his caption.
 - [ ] `det.replay` of both fixtures still matches (he is view only; a rollback never cues him twice).
 
 **Audio and music (ADR 0019)**

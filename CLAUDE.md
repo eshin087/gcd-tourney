@@ -214,7 +214,7 @@ src/world/     arena.js (ring, temple, stands + instanced crowd, gate, trees, sk
                announcer.js + announcerLines.js (the live announcer: moves, KO count, what he says; ADR 0048)
 src/ui/        hud.js (bars, combo, cut-ins, callouts, input history), menus.js (DOM menus, training panel, pause),
                controls.js (PS/Xbox/keyboard layouts, live highlights, rebinding, match/clash hints),
-               speechBubble.js (the announcer's manga speech bubbles)
+               speechBubble.js (the announcer's small captions)
 tools/         pack-sprites.mjs (art/ -> public/ packer, Node + pngjs)
 art/           art source (versioned raws), briefs + image prompts, REVIEW.md queue (see art/README.md). Not shipped.
 public/        shipped static files: characters/<id>/{sheet.png, anims.json, portrait.png, cutin.png, select.png}, vfx/atlas.*
