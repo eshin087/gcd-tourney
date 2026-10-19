@@ -40,6 +40,8 @@ const NOOP = new Proxy(function () {}, {
   construct: () => NOOP,
   set: () => true,
 });
+// the stunned states a hit's `cling` effect stays on (Lightning Palm's paralysis, ENG-SKL-KIL)
+const CLING_STATES = new Set(['hitstun', 'launched', 'held']);
 // one victim's running combo, for the HUD's ticker and rating (Game.trackCombos, ADR 0026)
 const newCombo = () => ({ hits: 0, dmg: 0, kinds: new Set(), wall: 0, ground: 0, vanish: 0, start: 0 });
 
@@ -402,7 +404,7 @@ export class Game {
     this.arena.npcCue('super', { f, name: S.name, domain: true });
     const o = f.opp;
     this.domain = { owner: f, t: S.len };
-    this.setStage('void');
+    if (!S.open) this.setStage('void'); // with the sphere (S.open), syncView switches once it has swallowed the view
     if (!o.ko) {
       o.endMoveFx();
       o.move = null;
@@ -417,8 +419,13 @@ export class Game {
     for (const b of this.beams) if (b.owner === o) b.kill();
     for (const ob of this.orbs) if (ob.owner === o) ob.kill();
     this.hud.announce('UNLIMITED VOID', 'clash-call', 1500);
-    this.fx.overlay.flash('#ffffff', 0.9);
-    this.fx.overlay.impactFrame(4);
+    // the anime's sequence (S.open, ENG-SKL-GOJ): a black sphere bursts out of him and swallows the arena (voidStage.js),
+    // no white flash
+    if (S.open) this.voidStage.open(f, S);
+    else {
+      this.fx.overlay.flash('#ffffff', 0.9);
+      this.fx.overlay.impactFrame(4);
+    }
     this.cam.shake(0.6);
     audio.play('gong');
     audio.duckMusic('domain', true);
@@ -427,10 +434,12 @@ export class Game {
 
   endDomain() {
     if (!this.domain) return;
+    const owner = this.domain.owner;
     this.domain = null;
     audio.duckMusic('domain', false);
     this.setStage(this.training ? 'training' : 'arena');
-    this.fx.overlay.flash('#ffffff', 0.5);
+    // the void shatters like glass (the super's `shatter`, ENG-SKL-GOJ) instead of a white flash
+    if (!this.voidStage.close(owner)) this.fx.overlay.flash('#ffffff', 0.5);
   }
 
   setDummy(mode) {
@@ -722,7 +731,8 @@ export class Game {
   // The view follows the simulation where events alone can't keep it right after a rollback: the stage every frame,
   // and once after a restore the clash camera, bar and hint and the looping hums.
   syncView() {
-    const stage = this.domain ? 'void' : this.training ? 'training' : 'arena';
+    // the arena stays while the domain's black sphere is still swallowing it (voidStage.opening, ENG-SKL-GOJ)
+    const stage = this.domain && !this.voidStage.opening ? 'void' : this.training ? 'training' : 'arena';
     if (this.fighters.length === 2 && stage !== this.stageKind) this.setStage(stage);
     if (!this.viewDirty) return;
     this.viewDirty = false;
@@ -910,6 +920,10 @@ export class Game {
     if (this.resim) return; // all effects: a re-simulated frame was already drawn
     let lines = 0;
     for (const f of this.fighters) {
+      // a hit's `cling` (Lightning Palm's paralysis, ENG-SKL-KIL) stays on the body until the stun ends (render state on hfx)
+      const cl = f.hfx?.cling;
+      if (cl && this.frameNo < cl.until && CLING_STATES.has(f.state)) this.fx.clingTick(f, cl);
+      else if (cl) f.hfx.cling = null;
       if (f.mode?.cloak) this.fx.cloakTick(f, f.mode.cloak, this.cam.right, frozen); // Nine-Tails Cloak (ENG-SKL-NAR)
       if (f.shroud) this.fx.shroudTick(f, f.shroud, shroudLevel(f), this.cam.right, frozen); // Four-Tails
       if (f.state !== 'charge') chargeEnd(this, f);
@@ -1814,11 +1828,12 @@ export class Game {
       // beam ticks draw their own sparks
     } else if (m.blastFx && !m.special) {
       // a kit super's own blast (Amaterasu's black flames bursting on them, ENG-SKL-SAS): its art, no white spark
-      if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, new THREE.Color(m.color ?? 0xffffff), m.blastFx.smoke);
+      if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, new THREE.Color(m.color ?? 0xffffff), m.blastFx.smoke, false, m.blastFx.ring);
       this.cam.shake(m.shake ?? 0.6, dir);
       this.excite = 1;
     } else if (kind === 'none') {
       this.cam.shake(m.shake ?? 0.6, dir); // its effect is drawn by the move itself (the Kirin's strike)
+      if (m.slowmo) this.slowmo(m.slowmo[0], m.slowmo[1]); // a smash's slow-down without its white flash (Reversal: Red, ENG-SKL-GOJ)
     } else if (m.special) {
       const col = new THREE.Color(m.color);
       // the technique's own blast (ENG-SKL-NAR) in place of the generic fireball, which would white it out; a
@@ -2320,7 +2335,7 @@ export class Game {
     audio.setMusicIntensity(this.state === 'fight' || this.training ? this.excite : 0.2);
     this.arena.update(performance.now() / 1000, this.excite, this, dt);
     this.room.update(performance.now() / 1000);
-    if (this.domain) this.voidStage.update(performance.now() / 1000);
+    if (this.domain || this.voidStage.busy) this.voidStage.update(performance.now() / 1000, this, this.paused ? 0 : dt);
     if (this.fighters.length === 2) this.hud.update(this.fighters, this.timeLeft, dt);
     this.menus.tick?.(dt);
     if (this.touch) {

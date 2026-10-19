@@ -1,0 +1,20 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/sixEyesGlint_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/sixEyesGlint_v01.png",
+    "vfx/raw/sixEyesGlint_v01.json"
+  ],
+  "sourceHash": "f5481b1fce51fe0d5a2e40098fb032613f009690",
+  "cell": 256,
+  "files": {
+    "sixEyesGlint_00.png": "aab97747efcd4f0327f08263320dfb180a3de5bb",
+    "sixEyesGlint_01.png": "0e27a0742f16b38d6c905e96e6d54c02d2fc3712",
+    "sixEyesGlint_02.png": "979eb310f0065c11fc75aca084ba1242675ac624",
+    "sixEyesGlint_03.png": "e9a37a8e222bfea0d09bbe38ca82b137834a4b97",
+    "sixEyesGlint_04.png": "d5270086b76846fec401975aa301f6f87174b499",
+    "sixEyesGlint_05.png": "5da356156131e50fa44f9ec0615be00f09200eef"
+  }
+}

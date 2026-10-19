@@ -94,9 +94,33 @@ stand-in until its art is approved.
 | `kirinBody` | 4 | 40 | full color | center | the Kirin's bolt body, stacked from the clouds to the head; exact 256 x 256 frames that tile top to bottom |
 | `kirinHead` | 6 | 40 | full color | center | the Kirin's head diving straight down (loop) |
 | `kirinStrike` | 8 | 45 | full color | bottom | the Kirin hitting the floor |
+| `lapseBlue` | 8 | 40 | full color | center | Gojo's Lapse: Blue, the dense navy-eyed point space falls into (loop); Blue in his far hand (Hollow Purple) |
+| `blueCollapse` | 8 | 40 | full color | center | Blue's end, the implosion; small, Blink's fold where he vanishes and reappears |
+| `redForm` | 6 | 40 | full color | center | Reversal: Red forming on his raised fingertip during the startup |
+| `reversalRed` | 8 | 40 | full color | center | Reversal: Red flying screen-right, its shock wake streaming back (loop, turned along its flight); Red in his near hand |
+| `redBurst` | 8 | 40 | full color | center | Red hitting: the repulsion blast |
+| `infinityRipple` | 6 | 40 | full color | center | the ripple of space where Infinity stops a shot dead |
+| `sixEyesGlint` | 6 | 35 | full color | center | the Six Eyes glint (the Domain's flash, Hollow Purple's merge) |
+| `purpleForm` | 8 | 40 | full color | center | Red and Blue colliding into Purple between his hands (played by the merge's progress) |
+| `hollowPurple` | 8 | 45 | full color | center | Hollow Purple, the imaginary mass rolling forward (loop) |
+| `purpleBurst` | 8 | 45 | full color | center | Hollow Purple hitting: the mass swallowing them |
+| `voidFlood` | 8 | 40 | full color | center | Unlimited Void: light pouring into the frozen opponent's head (loop) |
+| `voidShatter` | 8 | 50 | full color | center | the void breaking like glass over the whole view when the domain ends |
+| `lightningPalm` | 8 | 30 | full color | center | Killua's Lightning Palm: the forked bolt flying from his palm, turned along its flight (loop) |
+| `palmCrackle` | 6 | 35 | full color | center | Killua's lightning gathering in his open palm (Lightning Palm's startup, Narukami's top, where he lands at Godspeed) |
+| `palmShock` | 8 | 40 | full color | center | Killua's shock jumping through a body on a hit (Lightning Palm, the super's blows, the claw strike, the yo-yo smaller) |
+| `shockCrawl` | 6 | 50 | full color | bottom | electricity crawling over a body paralysed by Lightning Palm while it stays stunned (loop) |
+| `godspeedBurst` | 8 | 40 | full color | center | Godspeed switching on: lightning bursting out of his whole body (the body area left clear) |
+| `godspeedAura` | 8 | 40 | full color | bottom | Godspeed on his body for the whole mode and Whirlwind (loop; one copy behind, a see-through one in front) |
+| `godspeedStreak` | 6 | 30 | full color | center | the streak he leaves moving at Godspeed, laid along his path and kept thin |
+| `narukamiBolt` | 4 | 40 | full color | center | Narukami's bolt from the sky, stacked down to him and the floor; exact 256 x 256 frames that tile top to bottom |
+| `narukamiStrike` | 8 | 45 | full color | bottom | Narukami hitting the floor |
+| `yoyo` | 8 | 30 | full color | center | Killua's electrified steel yo-yo flying out and back (loop; the engine draws its string) |
 
-The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md) and
-[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md).
+The frame-by-frame briefs are [art/characters/naruto/SKILLS_REVAMP.md](../characters/naruto/SKILLS_REVAMP.md),
+[art/characters/sasuke/SKILLS_REVAMP.md](../characters/sasuke/SKILLS_REVAMP.md),
+[art/characters/gojo/SKILLS_REVAMP.md](../characters/gojo/SKILLS_REVAMP.md) and
+[art/characters/killua/SKILLS_REVAMP.md](../characters/killua/SKILLS_REVAMP.md).
 
 ## Hard rules (every effect)
 

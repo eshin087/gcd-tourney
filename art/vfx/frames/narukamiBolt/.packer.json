@@ -1,0 +1,17 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/narukamiBolt_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/narukamiBolt_v01.png"
+  ],
+  "sourceHash": "62ac05e1ade62c0c74c22f457fce9007f43af943",
+  "cell": 256,
+  "files": {
+    "narukamiBolt_00.png": "b23d271b828eeb799dec4d36b9b5ba2429daf814",
+    "narukamiBolt_01.png": "1855089bca77e7941dc92fedc5de5daece7718aa",
+    "narukamiBolt_02.png": "49bfc0685811a71ef20701a62e9540b9470287a3",
+    "narukamiBolt_03.png": "a470a51b5d4270fc6c519ad59f917cfafb02334e"
+  }
+}
