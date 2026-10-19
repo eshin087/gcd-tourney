@@ -489,7 +489,7 @@ export class Orb {
         else if (touching && o.invuln <= 0) {
           this.hit = true;
           const L = S.look;
-          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: L ? 'none' : 'smash', hitFlash: 'special' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
+          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: L ? 'none' : 'smash', slowmo: L ? [0.4, 0.18] : null, hitFlash: 'special' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
           // the anime's look (ENG-SKL-GOJ): the mass swallows them in violet (its own blast), not the white explosion
           if (L) fx.blast(L.burst, o.pos.x, o.pos.y + 0.9, o.pos.z, L.burstScale ?? 1.3, new THREE.Color(S.orb), 0);
           else fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.orb));

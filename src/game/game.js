@@ -1815,6 +1815,7 @@ export class Game {
       this.excite = 1;
     } else if (kind === 'none') {
       this.cam.shake(m.shake ?? 0.6, dir); // its effect is drawn by the move itself (the Kirin's strike)
+      if (m.slowmo) this.slowmo(m.slowmo[0], m.slowmo[1]); // a smash's slow-down without its white flash (Reversal: Red, ENG-SKL-GOJ)
     } else if (m.special) {
       const col = new THREE.Color(m.color);
       // the technique's own blast (ENG-SKL-NAR) in place of the generic fireball, which would white it out; a

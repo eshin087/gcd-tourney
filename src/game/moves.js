@@ -276,8 +276,8 @@ export const PROJECTILES = {
   // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall. The anime's look
   // (ENG-SKL-GOJ): the HD crimson orb turned along its flight with its shock wake streaming back (`orient`), no glow disc
   // under it (`halo: false`; glowColor still tints its blast ring and the floor mark), and its own repulsion blast
-  // (`burstFx`) instead of the explosion that whited out the screen
-  red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'reversalRed', scale: 1.3, orient: true, halo: false, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'none', burstFx: { fx: 'redBurst', scale: 0.95, sfx: 'explosion', shake: 0.6, smoke: 0 }, ground: 'repel',
+  // (`burstFx`) instead of the explosion that whited out the screen; `slowmo` keeps the smash spark's slow-down
+  red: { count: 1, spread: 0, speed: 21, radius: 0.95, dmg: 88, launch: [20, 7], wallBounce: true, life: 0.42, sprite: 'reversalRed', scale: 1.3, orient: true, halo: false, glowColor: 0xff2038, sfx: 'explosion', big: true, spark: 'none', slowmo: [0.4, 0.18], burstFx: { fx: 'redBurst', scale: 0.95, sfx: 'explosion', shake: 0.6, smoke: 0 }, ground: 'repel',
     clash: 'beam', stream: { core: '#ffd8dc', mid: '#ff3048', edge: '#a00c22', style: 'orb' } },
   // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
   // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash)
