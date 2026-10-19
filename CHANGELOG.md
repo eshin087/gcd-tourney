@@ -17,6 +17,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-LUF, relay #9): recorded the user approval via Claude for the selected Batch 3–4 versions as drawn. Superseded specialDown v01/v02, gear2Steam v01 and gear2Burst v01 are preserved in _rejected/. Astra holds on the three character strips remain; approval does not clear clipping, scale or limb-continuity findings.
+
 - Changed (ART-SKL-LUF, relay #8): filed Batches 3–4 candidate strips/effects, attempt inventories, 48-color pack evidence and review galleries. Astra holds specialForward v01, specialUp v01 and specialDown v03 for limb continuity, scale and clipping; corrections remain pending. Candidate VFX packs are isolated under public/reviews. No new art is approved.
 
 - Added (ART-SKL-LUF, relay luffy-skills #5): filed Batch 2 Gear Third candidates beamFire v04, gear3Puff, gigantArm, gigantFist, gigantImpact and luffyChibi with attempt inventory, candidate gallery and packed review evidence. Astra technical anatomy/scale PASS is recorded for beamFire v04; gigantArm tile/thickness and gigantFist wrist-band continuity remain disclosed holds. Visual approval is pending through Claude; runtime continuation/contact remains Claude's check.
