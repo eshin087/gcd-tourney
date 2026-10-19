@@ -151,6 +151,8 @@ export class Announcer {
     this.dt = 0;
     this.pendingWin = null; // { f, match, t }: the winner line waiting for the KO count
     this.bob = 0;
+    this.hopBaseY = 0; // a hop's height without its arc (his caption's anchor while he hops)
+    this.barsEl = null; // the HUD's health bars, measured to keep the caption under them
   }
 
   // the packed sheet arrived (or went): put the new body where the old one was
@@ -421,7 +423,8 @@ export class Announcer {
       this.hopT += dt / MOVE.hop;
       const k = Math.min(1, this.hopT);
       this.pos.lerpVectors(r.from, r.to, k);
-      this.pos.y = r.from.y + (r.to.y - r.from.y) * k + Math.sin(k * Math.PI) * MOVE.hopUp;
+      this.hopBaseY = r.from.y + (r.to.y - r.from.y) * k; // his caption follows this, not the arc
+      this.pos.y = this.hopBaseY + Math.sin(k * Math.PI) * MOVE.hopUp;
       this.moving = 1;
       this.dirX = r.to.x - r.from.x;
       this.dirZ = r.to.z - r.from.z;
@@ -739,12 +742,13 @@ export class Announcer {
     return lines[i];
   }
 
-  // place his caption: the top of his head on screen, the free area between the HUD bars and the touch buttons
+  // place his caption: the top of his head on screen, the free area between the HUD bars and the touch buttons. The
+  // anchor is where his head is when he stands: a hop's arc and a duck for cover don't move it (no bouncing text)
   speak(game, dt, frozen) {
     if (!this.bubble.cur) { this.bubble.update(dt, null, null, false, frozen); return; }
     const cam = game.camera, cv = game.renderer?.renderer?.domElement;
-    const head = this.place === 'hop' || this.react?.anim !== 'cower' ? HEAD : 1.0;
-    tmpV.set(this.pos.x, this.pos.y + head, this.pos.z);
+    const baseY = this.place === 'hop' ? this.hopBaseY : this.pos.y;
+    tmpV.set(this.pos.x, baseY + HEAD, this.pos.z);
     // behind the camera (the intro flythrough): nowhere to put it
     if (!cam || !cv || !this.showing || tmpW.copy(tmpV).applyMatrix4(cam.matrixWorldInverse).z > -0.1) {
       this.bubble.update(dt, null, null, false, frozen);
@@ -753,10 +757,14 @@ export class Announcer {
     const rect = cv.getBoundingClientRect();
     const L = this.bubble.layer.getBoundingClientRect(); // the caption's own frame (the lab docks a panel beside the game)
     tmpV.project(cam);
-    const x = (tmpV.x + 1) / 2 * rect.width, y = (1 - tmpV.y) / 2 * rect.height;
+    // on the game's own pixel grid, so the caption steps with his sprite instead of sliding past it
+    const g = game.renderer?.scale || 1;
+    const x = Math.round((tmpV.x + 1) / 2 * rect.width / g) * g, y = Math.round((1 - tmpV.y) / 2 * rect.height / g) * g;
     const ox = rect.left - L.left, oy = rect.top - L.top;
-    const top = oy + rect.height * (game.hud?.root?.classList.contains('hidden') ? 0.06 : 0.17); // under the bars
-    const bottom = oy + rect.height * (game.touch?.visible ? 0.62 : 0.8); // the on-screen buttons fill the bottom corners
-    this.bubble.update(dt, { x: x + ox, y: y + oy }, { w: L.width, h: L.height, top, bottom }, true, frozen);
+    // under the health bars (measured: their height changes with the screen), above the touch buttons
+    const bars = game.hud?.root?.classList.contains('hidden') ? null : (this.barsEl ??= game.hud?.root?.querySelector('.hud-top'));
+    const top = bars ? bars.getBoundingClientRect().bottom - L.top + 2 : oy + rect.height * 0.04;
+    const bottom = oy + rect.height * (game.touch?.visible ? 0.62 : 0.8);
+    this.bubble.update(dt, { x: x + ox, y: y + oy }, { w: L.width, h: L.height, top, bottom, grid: g, gx: ox, gy: oy }, true, frozen);
   }
 }

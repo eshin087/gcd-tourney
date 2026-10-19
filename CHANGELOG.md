@@ -17,6 +17,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Fixed (ENG-118): the announcer's captions are steady. Each line sits locked straight above his head, moves with his sprite in the game's own pixel steps (no lag or easing), no longer jumps beside him under the health bars or with a hop's arc or a duck, looks the same for every line (one colour, one line) and stays up at least 1.2 s before the next one replaces it.
+
 - Changed: the determinism fixtures are re-recorded after Goku's up tilt (fingerprint bb49081ebda5); both replay frame for frame.
 - Changed (TOOL-064, ADR 0053): the HD effects pack onto one page per owner, `atlas_hd_shared.png` and `atlas_hd_<fighter>.png` (at most 2048 x 4096, so a phone with a 4096 limit draws them at full size; one 2048 x 11520 page before), and a match loads only the shared page and its two fighters' pages: 19.5-53.5 MiB of HD effects on the GPU instead of 90, and nothing extra to download at boot (7.4 MB before). Effects without packed art draw from the procedural sheet, now 2048 x 1152 instead of 512 x 4608; an HD effect draws its stand-in until its page is in. New HD effects set `owner` on their `VFX_EFFECTS` entry
 
