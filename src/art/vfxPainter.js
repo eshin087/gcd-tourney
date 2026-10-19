@@ -74,6 +74,55 @@ function disc(ctx, x, y, r, col) {
   ctx.beginPath(); ctx.arc(x, y, Math.max(0.5, r), 0, Math.PI * 2); ctx.fill();
 }
 
+// a thin four-point star: arms `r` long, a `core` center, turned by `rot` (Blue's collapse, the Six Eyes)
+function star4(ctx, r, col, core, rot = 0) {
+  ctx.save();
+  ctx.rotate(rot);
+  ctx.fillStyle = col;
+  for (let k = 0; k < 4; k++) {
+    ctx.rotate(Math.PI / 2);
+    ctx.beginPath(); ctx.moveTo(0, -1.2); ctx.lineTo(r, 0); ctx.lineTo(0, 1.2); ctx.fill();
+  }
+  ctx.restore();
+  disc(ctx, 0, 0, Math.max(1, r * 0.18), core);
+}
+
+// `n` short spikes around a sphere, from radius r0 out to r1 (Reversal: Red's repulsion shell); `seed` varies them
+function spikes(ctx, r0, r1, n, col, seed = 0) {
+  const R = rng(930 + seed);
+  ctx.fillStyle = col;
+  for (let k = 0; k < n; k++) {
+    const a = (k / n) * Math.PI * 2 + R() * 0.3, l = r1 + R() * 2;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(a - 0.18) * r0, Math.sin(a - 0.18) * r0);
+    ctx.lineTo(Math.cos(a) * l, Math.sin(a) * l);
+    ctx.lineTo(Math.cos(a + 0.18) * r0, Math.sin(a + 0.18) * r0);
+    ctx.fill();
+  }
+}
+
+// a thin, slightly hexagonal ring (Infinity's ripple of space); `gap` breaks it into arcs
+function hexRing(ctx, r, col, gap = 0) {
+  ctx.strokeStyle = col;
+  ctx.lineWidth = 1;
+  for (let k = 0; k < 6; k++) {
+    if (gap && k % 2) continue;
+    const a0 = (k / 6) * Math.PI * 2, a1 = ((k + 1) / 6) * Math.PI * 2;
+    ctx.beginPath(); ctx.moveTo(Math.cos(a0) * r, Math.sin(a0) * r); ctx.lineTo(Math.cos(a1) * r, Math.sin(a1) * r); ctx.stroke();
+  }
+}
+
+// the Hollow Purple sphere: hard bands from the indigo rim to a white-pink core, swirling bands turned by `spin`
+function purpleSphere(ctx, r, spin) {
+  for (const [c, k] of [['#2a0a6a', 1], ['#6a1cc8', 0.92], ['#8a2ce8', 0.8], ['#b44cff', 0.64], ['#d070ff', 0.48], ['#ffe8ff', 0.3]]) disc(ctx, 0, 0, r * k, c);
+  ctx.lineWidth = Math.max(1, r / 12);
+  for (let k = 0; k < 3; k++) {
+    ctx.strokeStyle = k === 0 ? '#ff8a8a' : k === 1 ? '#7fe0ff' : '#f0a8ff';
+    ctx.beginPath(); ctx.arc(0, 0, r * (0.72 - k * 0.1), spin * Math.PI * 2 + k * 2.1, spin * Math.PI * 2 + k * 2.1 + 1.3); ctx.stroke();
+  }
+  disc(ctx, 0, 0, Math.max(1, r * 0.14), '#ffffff');
+}
+
 // a flame tongue standing on (x, y): `h` tall, `w` wide at its base, its tip swaying by `sway` px
 function tongue(ctx, x, y, w, h, sway, col) {
   ctx.fillStyle = col;
@@ -882,6 +931,261 @@ const PAINTERS = {
     ctx.fillStyle = '#ffffff';
     ctx.beginPath(); ctx.arc(-1, -1, 3, 0, Math.PI * 2); ctx.fill();
   },
+  // ---- Gojo's signature techniques (ENG-SKL-GOJ): stand-ins until the art in art/characters/gojo/SKILLS_REVAMP.md is
+  // approved. Lapse: Blue: a small dense sphere, a navy-black eye, cyan bands spiralling in, broken rings of space
+  // shrinking onto it
+  lapseBlue(i, n, ctx) {
+    const t = i / n, R = rng(900 + i);
+    ctx.translate(32, 32);
+    ctx.lineWidth = 1;
+    for (let k = 0; k < 3; k++) {
+      const r = 13 + ((k + 1 - t) / 3) * 16;
+      ctx.strokeStyle = k % 2 ? '#3aa8ff' : '#7fe0ff';
+      for (let s = 0; s < 4; s++) {
+        const a0 = (s * Math.PI) / 2 + k * 0.7 + t * 1.6;
+        ctx.beginPath(); ctx.arc(0, 0, r, a0, a0 + 0.9); ctx.stroke();
+      }
+    }
+    disc(ctx, 0, 0, 11.5, '#12309a');
+    disc(ctx, 0, 0, 10.5, '#1e64e6');
+    ctx.strokeStyle = '#7fe0ff';
+    ctx.lineWidth = 2;
+    for (let k = 0; k < 3; k++) {
+      ctx.beginPath();
+      for (let s = 0; s <= 8; s++) {
+        const u = s / 8, a = k * 2.094 - t * Math.PI * 0.67 + u * 2.4, r = 10 - u * 6;
+        if (s) ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+        else ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+      }
+      ctx.stroke();
+    }
+    disc(ctx, 0, 0, 4.5, '#0a1650');
+    disc(ctx, 0, 0, 3, '#050a24');
+    ctx.strokeStyle = '#cff4ff';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(0, 0, 11, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = '#cff4ff';
+    for (let k = 0; k < 7; k++) {
+      const a = R() * Math.PI * 2, r = 16 + R() * 13;
+      ctx.fillRect(Math.round(Math.cos(a) * r), Math.round(Math.sin(a) * r), 2, 1);
+    }
+  },
+  // Blue's end: everything crushed into the point, a sharp star, then one thin shock ring (no white disc)
+  blueCollapse(i, n, ctx) {
+    ctx.translate(32, 32);
+    if (i < 3) {
+      const r = [11, 7, 3][i];
+      ctx.strokeStyle = '#7fe0ff';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(0, 0, r + [5, 2, 6][i], 0, Math.PI * 2); ctx.stroke();
+      disc(ctx, 0, 0, r, i === 2 ? '#7fe0ff' : '#1e64e6');
+      disc(ctx, 0, 0, r * 0.45, i === 2 ? '#ffffff' : '#050a24');
+      return;
+    }
+    if (i < 5) star4(ctx, i === 3 ? 13 : 5, '#7fe0ff', '#ffffff');
+    if (i === 3) return;
+    const r = [0, 0, 0, 0, 20, 27, 29, 30][i];
+    ctx.strokeStyle = i < 6 ? '#7fe0ff' : '#3aa8ff';
+    ctx.lineWidth = i < 6 ? 2 : 1;
+    const arcs = i < 5 ? 1 : 6, gap = i < 5 ? 0 : 0.3 + (i - 5) * 0.25;
+    for (let s = 0; s < arcs; s++) {
+      const a0 = (s / arcs) * Math.PI * 2;
+      ctx.beginPath(); ctx.arc(0, 0, r, a0, a0 + (Math.PI * 2) / arcs - gap); ctx.stroke();
+    }
+  },
+  // Red forming on the raised fingertip: sparks jumping together into a small crimson orb that pushes out a ring
+  redForm(i, n, ctx) {
+    const R = rng(920);
+    ctx.translate(32, 32);
+    if (i === 0) {
+      ctx.fillStyle = '#ff3a4a';
+      for (let k = 0; k < 6; k++) { const a = R() * Math.PI * 2, r = 6 + R() * 10; ctx.fillRect(Math.round(Math.cos(a) * r), Math.round(Math.sin(a) * r), 1, 1); }
+      return;
+    }
+    const r = [0, 2, 3, 4.5, 5, 5.5][i];
+    if (i >= 2 && i <= 4) {
+      ctx.strokeStyle = i === 2 ? '#a00c22' : '#ff3a4a';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(0, 0, [0, 0, 6, 10, 14][i], 0, Math.PI * 2); ctx.stroke();
+    }
+    if (i >= 4) spikes(ctx, r, r + 3, 8, '#ff8a8a', i);
+    disc(ctx, 0, 0, r + 1, '#5a0614');
+    disc(ctx, 0, 0, r, '#e0122e');
+    disc(ctx, 0, 0, r * 0.55, '#ffe0dc');
+  },
+  // Reversal: Red flying screen-right: a compact crimson orb with a white-hot core, a shell of spikes pulsing out, its
+  // repulsion wake of half-rings streaming back
+  reversalRed(i, n, ctx) {
+    const t = i / n;
+    ctx.translate(37, 32);
+    ctx.lineWidth = 1;
+    for (let k = 0; k < 3; k++) {
+      const u = (k + t) / 3, x = -8 - u * 20;
+      ctx.strokeStyle = u < 0.5 ? '#ff3a4a' : '#a00c22';
+      ctx.beginPath(); ctx.arc(x + 12, 0, 6 + u * 9, Math.PI * 0.62, Math.PI * 1.38); ctx.stroke();
+    }
+    spikes(ctx, 9, 12 + (i % 2) * 2, 10, '#ff8a8a', i);
+    disc(ctx, 0, 0, 9.5, '#5a0614');
+    disc(ctx, 0, 0, 8.5, '#e0122e');
+    disc(ctx, 0, 0, 6.5, '#ff3a4a');
+    disc(ctx, 0, 0, 3.5, '#ffe0dc');
+    disc(ctx, -0.5, -0.5, 2, '#ffffff');
+  },
+  // Red hitting: a crimson shock dome and straight spikes blasting out to screen-right, no white-out
+  redBurst(i, n, ctx) {
+    ctx.translate(30, 32);
+    if (i === 0) {
+      spikes(ctx, 6, 13, 8, '#ff3a4a', 0);
+      disc(ctx, 0, 0, 7, '#e0122e');
+      disc(ctx, 0, 0, 4, '#ffe0dc');
+      return;
+    }
+    const r = [0, 16, 26, 31, 31, 31, 31, 31][i];
+    if (i < 5) {
+      ctx.lineWidth = i < 3 ? 3 : 2;
+      ctx.strokeStyle = '#a00c22';
+      ctx.beginPath(); ctx.arc(0, 0, r - 2, -1.2, 1.2); ctx.stroke();
+      ctx.strokeStyle = '#ff3a4a';
+      ctx.lineWidth = i < 3 ? 2 : 1;
+      ctx.beginPath(); ctx.arc(0, 0, r, -1.25, 1.25); ctx.stroke();
+      if (i > 1) { ctx.strokeStyle = '#ff8a8a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(0, 0, r * 0.62, -1.1, 1.1); ctx.stroke(); }
+    }
+    const R = rng(940 + i);
+    ctx.fillStyle = i < 4 ? '#ff3a4a' : '#a00c22';
+    for (let k = 0; k < 12; k++) {
+      const a = (R() - 0.5) * (k % 3 ? 1.8 : 5.6), l = (k % 3 ? 1 : 0.45) * (8 + R() * 24) * Math.min(1, i / 2);
+      const d0 = i > 3 ? l * 0.6 : 2;
+      if (i > 4) { ctx.fillRect(Math.round(Math.cos(a) * (l + i * 2)), Math.round(Math.sin(a) * (l + i * 2)), 1, 1); continue; }
+      ctx.save(); ctx.rotate(a); ctx.fillRect(d0, 0, Math.max(1, l - d0), 1); ctx.restore();
+    }
+    if (i < 3) disc(ctx, 0, 0, 4 - i, '#ffe0dc');
+  },
+  // Infinity: hard thin rings of distorted space (slightly hexagonal) where a shot stops, the middle left clear
+  infinityRipple(i, n, ctx) {
+    ctx.translate(32, 32);
+    if (i === 0) { disc(ctx, 0, 0, 2, '#e8f8ff'); hexRing(ctx, 5, '#bff6ff'); return; }
+    const base = [0, 8, 12, 17, 19, 20][i], cols = ['#bff6ff', '#8fd0ff', '#4a90d8'];
+    for (let k = 0; k < 3; k++) {
+      if (i >= 3 && k === 0) continue;
+      if (i >= 4 && (k + i) % 2) continue;
+      hexRing(ctx, base * (0.5 + k * 0.25) * 1.6, cols[k], i >= 4 ? 0.5 : 0);
+    }
+  },
+  // the Six Eyes: a sharp horizontal gleam with a small four-point star
+  sixEyesGlint(i, n, ctx) {
+    ctx.translate(32, 32);
+    const L = [2, 8, 14, 15, 0, 0][i], S = [2, 4, 9, 7, 5, 1][i];
+    if (L) {
+      ctx.fillStyle = '#5fe2ff'; ctx.fillRect(-L, 0, L * 2, 1);
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(-L * 0.5, 0, L, 1);
+      if (i === 2) { ctx.fillStyle = '#bff6ff'; ctx.fillRect(-L * 0.6, -1, L * 1.2, 1); }
+    }
+    star4(ctx, S, '#5fe2ff', '#ffffff', i === 3 ? 0.26 : 0);
+  },
+  // Red and Blue colliding between his hands: two orbs closing, a two-tone spiral, the violet sphere it becomes
+  purpleForm(i, n, ctx) {
+    ctx.translate(32, 32);
+    if (i < 2) {
+      const d = i ? 12 : 22, a = i * 0.6;
+      const rx = -Math.cos(a) * d, ry = -Math.sin(a) * d * 0.5;
+      disc(ctx, rx, ry, 5, '#e0122e'); disc(ctx, rx, ry, 2.5, '#ffe0dc');
+      disc(ctx, -rx, -ry, 5, '#1e64e6'); disc(ctx, -rx, -ry, 2.5, '#050a24');
+      return;
+    }
+    if (i === 2) {
+      for (let k = 0; k < 2; k++) {
+        ctx.strokeStyle = k ? '#3aa8ff' : '#ff3a4a';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let s = 0; s <= 12; s++) { const u = s / 12, a = k * Math.PI + u * 4, r = 9 * (1 - u * 0.7); if (s) ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r); else ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r); }
+        ctx.stroke();
+      }
+      disc(ctx, 0, 0, 3, '#d070ff');
+      return;
+    }
+    const r = [0, 0, 0, 9, 12, 16, 18, 19][i];
+    if (i === 4 || i === 5) { ctx.strokeStyle = '#b44cff'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(0, 0, i === 4 ? 20 : 27, 0, Math.PI * 2); ctx.stroke(); }
+    purpleSphere(ctx, r, i / n);
+  },
+  // Hollow Purple: the huge imaginary mass, a white-pink core, violet bands, a dark indigo rim, crackling magenta arcs
+  hollowPurple(i, n, ctx) {
+    const R = rng(960 + i);
+    ctx.translate(32, 32);
+    purpleSphere(ctx, 26, i / n);
+    for (let k = 0; k < 2; k++) {
+      const a = R() * Math.PI * 2;
+      bolt(ctx, zigzag(R, Math.cos(a) * 24, Math.sin(a) * 24, Math.cos(a) * 31, Math.sin(a) * 31, 3, 2), 1, ['#6a1cc8', '#f0a8ff']);
+    }
+    ctx.fillStyle = '#2a0a6a';
+    for (let k = 0; k < 6; k++) { const a = R() * Math.PI * 2, r = 28 + R() * 3; ctx.fillRect(Math.round(Math.cos(a) * r), Math.round(Math.sin(a) * r), 2, 2); }
+  },
+  // Hollow Purple hitting: the target erased: a violet dome, shock rings, then a dark hole closing to nothing
+  purpleBurst(i, n, ctx) {
+    ctx.translate(32, 32);
+    if (i === 0) {
+      ctx.strokeStyle = '#d070ff'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(-10, 0, 24, -1.1, 1.1); ctx.stroke();
+      ctx.strokeStyle = '#6a1cc8'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(-13, 0, 24, -1.1, 1.1); ctx.stroke();
+      return;
+    }
+    if (i === 1) { purpleSphere(ctx, 16, 0.3); return; }
+    const rings = [0, 0, [20, 27], [28, 31], [30], [], [], []][i];
+    rings.forEach((r, k) => { ctx.strokeStyle = k ? '#b44cff' : '#d070ff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke(); });
+    const hole = [0, 0, 8, 12, 9, 6, 3, 0][i];
+    if (hole) { disc(ctx, 0, 0, hole + 1.5, '#8a2ce8'); disc(ctx, 0, 0, hole, i === 2 ? '#d070ff' : '#2a0a6a'); }
+    const R = rng(980 + i);
+    ctx.fillStyle = '#b44cff';
+    if (i >= 4) for (let k = 0; k < 10 - i; k++) { const a = R() * Math.PI * 2, r = 14 + i * 2 + R() * 6; ctx.fillRect(Math.round(Math.cos(a) * r), Math.round(Math.sin(a) * r), 2, 2); }
+  },
+  // Unlimited Void: streaks of light racing in from every side onto a bright point (the victim's head)
+  voidFlood(i, n, ctx) {
+    const R = rng(990), t = i / n;
+    ctx.translate(32, 32);
+    for (let k = 0; k < 24; k++) {
+      const a = R() * Math.PI * 2, ph = (R() + t) % 1, r = 30 - ph * 20, l = 3 + R() * 5;
+      if (r - l < 9) continue;
+      ctx.strokeStyle = k % 4 ? '#8fc8ff' : '#5a6ce0';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r); ctx.lineTo(Math.cos(a) * (r - l), Math.sin(a) * (r - l)); ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(Math.round(Math.cos(a) * (r - l)), Math.round(Math.sin(a) * (r - l)), 1, 1);
+    }
+    ctx.strokeStyle = '#bfe6ff';
+    ctx.beginPath(); ctx.arc(0, 0, 6, 0, Math.PI * 2); ctx.stroke();
+    disc(ctx, 0, 0, i % 2 ? 2.5 : 2, '#ffffff');
+  },
+  // the void breaking like glass: a black pane cracking from the middle, shards flying out, the middle opening
+  voidShatter(i, n, ctx) {
+    const R = rng(1000);
+    const shards = [];
+    for (let k = 0; k < 18; k++) {
+      const a0 = (k / 18) * Math.PI * 2, a1 = ((k + 1) / 18) * Math.PI * 2, r0 = 6 + R() * 6, r1 = 34 + R() * 12;
+      shards.push({ a0, a1, r0, r1, spin: (R() - 0.5) * 0.6 });
+    }
+    ctx.translate(32, 32);
+    const open = [0, 0, 0, 10, 20, 30, 40, 46][i];
+    shards.forEach((s, k) => {
+      if (i >= 5 && k % (i - 3)) return;
+      const mid = (s.a0 + s.a1) / 2, push = open * (0.8 + (k % 3) * 0.15);
+      const ox = Math.cos(mid) * push, oy = Math.sin(mid) * push, r0 = Math.max(s.r0, open), sc = i >= 4 ? 1 - (i - 3) * 0.12 : 1;
+      ctx.save();
+      ctx.translate(ox, oy);
+      ctx.rotate(i >= 3 ? s.spin * (i - 2) : 0);
+      ctx.scale(sc, sc);
+      ctx.fillStyle = k % 2 ? '#05040c' : '#120c30';
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(s.a0) * r0 - ox, Math.sin(s.a0) * r0 - oy); ctx.lineTo(Math.cos(s.a0) * s.r1 - ox, Math.sin(s.a0) * s.r1 - oy);
+      ctx.lineTo(Math.cos(s.a1) * s.r1 - ox, Math.sin(s.a1) * s.r1 - oy); ctx.lineTo(Math.cos(s.a1) * r0 - ox, Math.sin(s.a1) * r0 - oy);
+      ctx.closePath();
+      ctx.fill();
+      if (i >= 1) { ctx.strokeStyle = i >= 2 ? '#e8f8ff' : '#8fc8ff'; ctx.lineWidth = 1; ctx.stroke(); }
+      ctx.restore();
+    });
+    if (i === 0) {
+      ctx.strokeStyle = '#8fc8ff';
+      ctx.lineWidth = 1;
+      for (let k = 0; k < 4; k++) { const a = k * 1.7; bolt(ctx, zigzag(R, 0, 0, Math.cos(a) * 20, Math.sin(a) * 20, 4, 2), 1, ['#8fc8ff', '#e8f8ff']); }
+    }
+  },
   crater(i, n, ctx) {
     const R = rng(5 + i);
     ctx.translate(32, 32);
@@ -959,6 +1263,19 @@ export const VFX_ANIMS = {
   kirinBody: { n: 4, ms: 40, levels: [0, 255] },
   kirinHead: { n: 6, ms: 40, levels: [0, 255] },
   kirinStrike: { n: 8, ms: 45, levels: [0, 255] },
+  // Gojo's signature techniques (ENG-SKL-GOJ): HD art cells when packed (ADR 0044), these small stand-ins until then
+  lapseBlue: { n: 8, ms: 40, levels: [0, 255] },
+  blueCollapse: { n: 8, ms: 40, levels: [0, 255] },
+  redForm: { n: 6, ms: 40, levels: [0, 255] },
+  reversalRed: { n: 8, ms: 40, levels: [0, 255] },
+  redBurst: { n: 8, ms: 40, levels: [0, 255] },
+  infinityRipple: { n: 6, ms: 40, levels: [0, 255] },
+  sixEyesGlint: { n: 6, ms: 35, levels: [0, 255] },
+  purpleForm: { n: 8, ms: 40, levels: [0, 255] },
+  hollowPurple: { n: 8, ms: 45, levels: [0, 255] },
+  purpleBurst: { n: 8, ms: 45, levels: [0, 255] },
+  voidFlood: { n: 8, ms: 40, levels: [0, 255] },
+  voidShatter: { n: 8, ms: 50, levels: [0, 255] },
 };
 
 // Bake atlas: one row per effect, CELL px frames.

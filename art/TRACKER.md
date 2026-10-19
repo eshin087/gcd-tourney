@@ -393,7 +393,7 @@ Blue, `specialForward` = Reversal: Red, `specialUp` = Blink (not shown by the en
 | 6 | down | 2 | - | **yes** | 104 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 6 | getup | 5 | - | **yes** | 234 | approved | v05 | v05 | Title-style v05 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | charge | 4 | - | **yes** | 215 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-11 (shown in the final review preview). |
-| 7 | beamCharge | 3 | - | **yes** | 215 | approved | v03 | v03 | Title-style v03 approved by the user 2026-10-11 (shown in the final review preview). |
+| 7 | beamCharge | 4 | - | **yes** | 221 | approved | v04 | v04 | User approved v04 as drawn via Claude relay gojo-skills #3: “Approve all five”. Packer head gate/body sheet and Astra visual audit passed with occlusion uncertainty; source format still noncanonical and extracted frames cache is stale v01. |
 | 7 | beamFire | 3 | - | **yes** | 215 | approved | v04 | v04 | Title-style v04 approved by the user 2026-10-11 (shown in the final review preview). |
 | 7 | special | 8 | 3/3/2 | **yes** | 232 | approved | v07 | v07 | Title-style v07 approved by the user 2026-10-12 as a stand-in until the round-3 redraw. |
 | 8 | dash | 2 | - | **yes** | 174 | approved | v11 | v11 | User approved v11 via Claude relay gojo-run #11 despite Astra size holds; values and uncertainty remain in the audit. Packed v11 is in this branch; Claude owns contact check before merge. [Review](../public/reviews/gojo-dash-size/) |
@@ -531,6 +531,18 @@ ones.
 | streamLance | 4 | 40 | white (tinted) | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Chidori Spear stream band; exact tiles. |
 | streamFlame | 4 | 50 | full color | center, tiles | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Great Fireball stream band; exact tiles. |
 | redOrb | 6 | 40 | full color | center | approved | v01 | v01 | User approved v01 2026-10-15 (Codex chat); shipped by Claude. Beam clash: Reversal: Red held in a struggle. |
+| lapseBlue | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 1, A1; HD, fill 0.9; user approved as drawn via Claude relay gojo-skills #2. Source-format deviations documented in REVIEW.md. |
+| blueCollapse | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 1, A2; HD, fill 0.98; user approved as drawn via Claude relay gojo-skills #2. Source-format deviations documented in REVIEW.md. |
+| redForm | 6 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 1, A3; HD, fill 0.6; user approved as drawn via Claude relay gojo-skills #2. Source-format deviations documented in REVIEW.md. |
+| reversalRed | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 1, A4; HD, fill 0.9; user approved as drawn via Claude relay gojo-skills #2. Source-format deviations documented in REVIEW.md. |
+| redBurst | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 1, A5; HD, fill 0.98; user approved as drawn via Claude relay gojo-skills #2. Source-format deviations documented in REVIEW.md. |
+| sixEyesGlint | 6 | 35 | full color | center | approved | v01 | v01 | Gojo skills batch 2, A7; HD, fill 0.4; user approved as drawn via Claude relay gojo-skills #3: “Approve all five”. Normalized candidate and original retained; source hold is documented. |
+| purpleForm | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 2, A8; HD, fill 0.9; user approved as drawn via Claude relay gojo-skills #3: “Approve all five”. Normalized candidate and original retained; source hold is documented. |
+| hollowPurple | 8 | 45 | full color | center | approved | v01 | v01 | Gojo skills batch 2, A9; HD, fill 1.0; user approved as drawn via Claude relay gojo-skills #3: “Approve all five”. Semantic output swap and source-format holds documented. |
+| purpleBurst | 8 | 45 | full color | center | approved | v01 | v01 | Gojo skills batch 2, A10; HD, fill 0.98; user approved as drawn via Claude relay gojo-skills #3: “Approve all five”. Semantic output swap and source-format holds documented. |
+| infinityRipple | 6 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A6; HD, fill 0.6; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. 6/6 production frames; source dimensions, palette and magenta holds remain documented. |
+| voidFlood | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A11; HD, fill 0.9; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. Motion is subtle and center ring appears oversized; source holds remain documented. |
+| voidShatter | 8 | 50 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A12; HD, fill 1.0; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. Source dimensions, palette and magenta holds remain documented. |
 
 ## Shared UI (step 11)
 

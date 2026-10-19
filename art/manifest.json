@@ -1277,19 +1277,22 @@
           "approvedVersion": 5
         },
         "beamCharge": {
-          "frames": 3,
-          "loop": true,
+          "frames": 4,
+          "loop": false,
           "bodyHeight": 221,
           "ms": [
-            50,
-            50,
-            50
+            60,
+            60,
+            60,
+            60
           ],
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 3,
-          "approvedVersion": 3
+          "version": 4,
+          "approvedVersion": 4,
+          "reviewStatus": "approved",
+          "approvalSource": "user via Claude relay gojo-skills #3: \"Approve all five\"."
         },
         "beamFire": {
           "frames": 3,
@@ -1652,7 +1655,19 @@
       "stormCloud": {"frames":4,"ms":120,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved stormCloud v01."},
       "kirinBody": {"frames":4,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":1.0,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinBody v01."},
       "kirinHead": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.95,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinHead v01."},
-      "kirinStrike": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinStrike v01."}
+      "kirinStrike": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"bottom","step":10,"status":"approved","version":1,"approvedVersion": 1,"hd":true,"fill":0.98,"reviewStatus":"approved", "approvalSource": "user via Claude relay skills #19: approved kirinStrike v01."},
+      "lapseBlue": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "blueCollapse": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "redForm": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.6,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "reversalRed": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "redBurst": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #2: \"Approve all five v01\"."},
+      "sixEyesGlint": {"frames":6,"ms":35,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.4,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #3: \"Approve all five\"."},
+      "purpleForm": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #3: \"Approve all five\"."},
+      "hollowPurple": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #3: \"Approve all five\"."},
+      "purpleBurst": {"frames":8,"ms":45,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.98,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #3: \"Approve all five\"."},
+      "infinityRipple": {"frames":6,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.6,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #4: \"Approve all three\"."},
+      "voidFlood": {"frames":8,"ms":40,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":0.9,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #4: \"Approve all three\"."},
+      "voidShatter": {"frames":8,"ms":50,"colorRule":"fullColor","anchor":"center","step":10,"status":"approved","version":1,"approvedVersion":1,"hd":true,"fill":1.0,"reviewStatus":"approved","approvalSource":"user via Claude relay gojo-skills #4: \"Approve all three\"."}
     }
   },
   "decals": {
