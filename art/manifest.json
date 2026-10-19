@@ -4836,7 +4836,14 @@
           "status": "raw",
           "approvedVersion": null,
           "reviewStatus": "needs review",
-          "version": 1
+          "version": 1,
+          "scaleManualQA": {
+            "version": 1,
+            "result": "pass",
+            "by": "GPT-6 Astra (medium), final diagnostic quantized-pixel audit",
+            "note": "Exact candidate v01 rechecked in diagnostic 48-color atlas (sheet SHA256 9be5f2e0edb8aaf7214eb6694ede4b1032f5872c3685eff491febfc5c5daee0e; metadata SHA256 311c9a92427b520849e84319052255c1a3f3985a827687dad271ae2c311b280d) under character packScale 0.92. Connected chest-height punch through active frames 2–3; visible hat, neck-to-sash, shin, sandal and clothing volume remain consistent with idle. No strip-specific rescale. Visible-endpoint uncertainty: brim/sole about ±3 px, neck-to-sash ±5–7 px, exposed shin ±5–6 px. Hidden or strongly foreshortened anatomy is not numerically certified. Diagnostic uses scaleGate warn; this is technical visual/scale evidence only, not user approval, strict-gate pass, or runtime contact approval.",
+            "evidence": "public/reviews/normals-luffy/ASTRA_FINAL_AUDIT.md"
+          }
         },
         "uTilt": {
           "frames": 7,
@@ -4937,7 +4944,14 @@
           "status": "raw",
           "approvedVersion": null,
           "reviewStatus": "needs review",
-          "version": 2
+          "version": 2,
+          "scaleManualQA": {
+            "version": 2,
+            "result": "pass",
+            "by": "GPT-6 Astra (medium), final diagnostic quantized-pixel audit",
+            "note": "Exact candidate v02 rechecked in diagnostic 48-color atlas (sheet SHA256 9be5f2e0edb8aaf7214eb6694ede4b1032f5872c3685eff491febfc5c5daee0e; metadata SHA256 311c9a92427b520849e84319052255c1a3f3985a827687dad271ae2c311b280d) under character packScale 0.92. Both active fists are complete with 5 px and 4 px right margins. Version-bound uniform frameOffsets [-7,0] across all nine frames; no strip-specific rescale. Visible-endpoint uncertainty: brim/sole about ±3 px, neck-to-sash ±5–7 px, exposed shin ±5–6 px. Hidden or strongly foreshortened anatomy is not numerically certified. Diagnostic uses scaleGate warn; this is technical visual/scale evidence only, not user approval, strict-gate pass, or runtime contact approval.",
+            "evidence": "public/reviews/normals-luffy/ASTRA_FINAL_AUDIT.md"
+          }
         },
         "uSmash": {
           "frames": 8,
@@ -5013,7 +5027,14 @@
           "status": "raw",
           "approvedVersion": null,
           "reviewStatus": "needs review",
-          "version": 3
+          "version": 3,
+          "scaleManualQA": {
+            "version": 3,
+            "result": "pass",
+            "by": "GPT-6 Astra (medium), final diagnostic quantized-pixel audit",
+            "note": "Exact candidate v03 rechecked in diagnostic 48-color atlas (sheet SHA256 9be5f2e0edb8aaf7214eb6694ede4b1032f5872c3685eff491febfc5c5daee0e; metadata SHA256 311c9a92427b520849e84319052255c1a3f3985a827687dad271ae2c311b280d) under character packScale 0.92. Hat, hands and forward sandal are complete; active margins include 5 px. Version-bound uniform frameOffsets [-18,0] across all six frames; no strip-specific rescale. Visible-endpoint uncertainty: brim/sole about ±3 px, neck-to-sash ±5–7 px, exposed shin ±5–6 px. Hidden or strongly foreshortened anatomy is not numerically certified. Diagnostic uses scaleGate warn; this is technical visual/scale evidence only, not user approval, strict-gate pass, or runtime contact approval.",
+            "evidence": "public/reviews/normals-luffy/ASTRA_FINAL_AUDIT.md"
+          }
         },
         "bair": {
           "frames": 6,
@@ -5037,7 +5058,14 @@
           "status": "raw",
           "approvedVersion": null,
           "reviewStatus": "needs review",
-          "version": 3
+          "version": 3,
+          "scaleManualQA": {
+            "version": 3,
+            "result": "pass",
+            "by": "GPT-6 Astra (medium), final diagnostic quantized-pixel audit",
+            "note": "Exact candidate v03 rechecked in diagnostic 48-color atlas (sheet SHA256 9be5f2e0edb8aaf7214eb6694ede4b1032f5872c3685eff491febfc5c5daee0e; metadata SHA256 311c9a92427b520849e84319052255c1a3f3985a827687dad271ae2c311b280d) under character packScale 0.92. Connected rearward heel on active frames 2–3 and at least 12 px left / 15 px right margin. No strip-specific rescale; runtime hitbox direction remains Claude-owned. Visible-endpoint uncertainty: brim/sole about ±3 px, neck-to-sash ±5–7 px, exposed shin ±5–6 px. Hidden or strongly foreshortened anatomy is not numerically certified. Diagnostic uses scaleGate warn; this is technical visual/scale evidence only, not user approval, strict-gate pass, or runtime contact approval.",
+            "evidence": "public/reviews/normals-luffy/ASTRA_FINAL_AUDIT.md"
+          }
         },
         "uair": {
           "frames": 6,

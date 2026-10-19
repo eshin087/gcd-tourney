@@ -1,4 +1,34 @@
 # Art review queue
+## Luffy directional normals (ENG-112; 2026-10-18)
+
+The ten current candidates are shown as packed cells and loops beside the live stand-ins and approved idle f0 in the [Luffy review page](../public/reviews/normals-luffy/index.html). The page links the exact diagnostic atlas and final Astra findings. Four candidates have a version-bound visual/scale PASS (fTilt v01, fSmash v02, fair v03, bair v03); six remain technical HOLDs and should stay on their stand-ins (uTilt v02, dTilt v02, dashAttack v02, uSmash v03, dSmash v02, uair v01). All ten drawings remain unapproved. The atlas is diagnostic (`scaleGate: warn`), so no candidate is cleared for merge. Older numbered versions below remain in raw history and are not the versions offered on the current page.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Luffy | fTilt | `characters/luffy/raw/fTilt_v01.png` | v01 | needs review | Chest-height near-arm punch | Current review candidate. Astra PASS; bounds x65–203/y53–241, coherent active f2–f3. First two generation output receipts are missing; the selected call is recorded in `raw/_qa_hold/ENG-112_RECEIPTS.md`. |
+| 2026-10-18 | Luffy | uTilt | `characters/luffy/raw/uTilt_v01.png` | v01 | needs review | Initial elastic uppercut | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | uTilt | `characters/luffy/raw/uTilt_v02.png` | v02 | needs review | Crouched uppercut arc | Current review candidate, technical HOLD for undersized head/trunk/sandals. |
+| 2026-10-18 | Luffy | dTilt | `characters/luffy/raw/dTilt_v01.png` | v01 | needs review | Low shin-height poke | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | dTilt | `characters/luffy/raw/dTilt_v02.png` | v02 | needs review | Refined low poke | Current review candidate, technical HOLD for upper-body inflation, clipped sandal and early retract. |
+| 2026-10-18 | Luffy | dashAttack | `characters/luffy/raw/dashAttack_v01.png` | v01 | needs review | Running shoulder-first check | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | dashAttack | `characters/luffy/raw/dashAttack_v02.png` | v02 | needs review | Forward body-check sequence | Current review candidate, technical HOLD for edge clipping and pink knee contamination. |
+| 2026-10-18 | Luffy | fSmash | `characters/luffy/raw/fSmash_v01.png` | v01 | needs review | Windup, held charge and punch | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | fSmash | `characters/luffy/raw/fSmash_v02.png` | v02 | needs review | Nine-pose charge and full punch | Current review candidate. Astra PASS with uniform version-bound frameOffsets `[-7,0]`; active right margins 5 px and 4 px. |
+| 2026-10-18 | Luffy | uSmash | `characters/luffy/raw/uSmash_v01.png` | v01 | needs review | Diagonal uppercut | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | uSmash | `characters/luffy/raw/uSmash_v02.png` | v02 | needs review | Refined diagonal uppercut | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | uSmash | `characters/luffy/raw/uSmash_v03.png` | v03 | needs review | Up-forward rubber uppercut | Current review candidate, technical HOLD because the full figure is reduced to fit the raised arm. |
+| 2026-10-18 | Luffy | dSmash | `characters/luffy/raw/dSmash_v01.png` | v01 | needs review | Bilateral low split sweep | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | dSmash | `characters/luffy/raw/dSmash_v02.png` | v02 | needs review | Low sweep with both legs extended | Current review candidate, technical HOLD for clipped contacts and second active pose already retracting. |
+| 2026-10-18 | Luffy | fair | `characters/luffy/raw/fair_v01.png` | v01 | needs review | Forward aerial kick | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | fair | `characters/luffy/raw/fair_v02.png` | v02 | needs review | Compact forward aerial kick | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | fair | `characters/luffy/raw/fair_v03.png` | v03 | needs review | Clean forward aerial kick | Current review candidate. Astra PASS with uniform version-bound frameOffsets `[-18,0]`; the sidecar clears edge spill without rescaling the body or altering internal motion. |
+| 2026-10-18 | Luffy | bair | `characters/luffy/raw/bair_v01.png` | v01 | needs review | Rearward heel strike | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | bair | `characters/luffy/raw/bair_v02.png` | v02 | needs review | Rearward heel strike | Historical candidate; not selected for current packed review. |
+| 2026-10-18 | Luffy | bair | `characters/luffy/raw/bair_v03.png` | v03 | needs review | Right-facing rear heel strike | Current review candidate. Astra PASS for visible anatomy and cell fit; runtime hitbox direction remains unverified. |
+| 2026-10-18 | Luffy | uair | `characters/luffy/raw/uair_v01.png` | v01 | needs review | Upward aerial kick | Current review candidate, technical HOLD because the active section reads as a grounded high kick rather than an aerial. |
+
+Every selected candidate is from the exact 48-color diagnostic atlas: sheet SHA-256 `9be5f2e0edb8aaf7214eb6694ede4b1032f5872c3685eff491febfc5c5daee0e`, metadata SHA-256 `311c9a92427b520849e84319052255c1a3f3985a827687dad271ae2c311b280d`. Astra inspected all 70 selected frames. Visible endpoint uncertainty is about ±3 px for brim/sole, ±5–7 px for neck-to-sash and ±5–6 px for exposed shin; hidden or strongly foreshortened anatomy is not numerically certified. The review page shows holds for context only. The four pass records are technical evidence, not user approval, gameplay or runtime contact clearance.
+
 ## Killua skills revamp batch 3 (2026-10-18): B2 throw and A10 yoyo
 
 The user approved both drawings via Claude relay killua-skills #4: “Approve both”. `throw` v07 now packs via auto-head x0.7831 without clipping; the quantized atlas is reflected in `frames/` and body evidence (B median .879, H median .871). Final Astra audit remains HOLD on arm-role continuity and the f1 middle-finger/string anchor; see [final audit](characters/killua/production/skills-revamp-batch3/ASTRA_THROW.md). `yoyo` v01 remains at about 88 px vs 52 px target, with incomplete first-call provenance. See [gallery](../public/reviews/killua-skills-batch3/index.html), [attempt inventories](characters/killua/production/skills-revamp-batch3/), and [pack evidence](characters/killua/production/skills-revamp-batch3/PACK_REPORT.md).
