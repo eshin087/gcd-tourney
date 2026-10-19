@@ -17,6 +17,8 @@ Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
 
+- Changed (ART-SKL-LUF, relay #8): filed Batches 3–4 candidate strips/effects, attempt inventories, 48-color pack evidence and review galleries. Astra holds specialForward v01, specialUp v01 and specialDown v03 for limb continuity, scale and clipping; corrections remain pending. Candidate VFX packs are isolated under public/reviews. No new art is approved.
+
 - Added (ART-SKL-LUF, relay luffy-skills #5): filed Batch 2 Gear Third candidates beamFire v04, gear3Puff, gigantArm, gigantFist, gigantImpact and luffyChibi with attempt inventory, candidate gallery and packed review evidence. Astra technical anatomy/scale PASS is recorded for beamFire v04; gigantArm tile/thickness and gigantFist wrist-band continuity remain disclosed holds. Visual approval is pending through Claude; runtime continuation/contact remains Claude's check.
 - Changed (ART-SKL-LUF, relay luffy-skills #6): recorded the user's approval via Claude for beamFire v04, gear3Puff v01, gigantArm v01, gigantFist v01, gigantImpact v01 and luffyChibi v01 as drawn in the review queue and manifest. The gigantArm tile/thickness and gigantFist wrist-band technical holds remain documented; runtime continuation/contact and integration remain Claude's checks.
 - Fixed (ART-SKL-LUF, relay luffy-skills #7): merged main's owner-paged HD atlas support, supplied gigantArm's two transparent 256px edge-to-edge tile frames from raw v01 halves, and rebuilt HD effects with `owner: luffy` on all eight approved Luffy effects. The tile-edge gap is cleared; the tube remains about 87px thick vs 96px specified. Claude cleared gigantFist wrist continuity in-game; runtime continuation/contact remain with Claude.
