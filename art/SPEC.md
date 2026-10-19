@@ -631,7 +631,10 @@ Engine names are fixed. Brief: `art/vfx/EFFECTS.md`. VFX cells did not change in
   alpha.
 - Packer output: `public/vfx/atlas.png` + `public/vfx/atlas.json`:
   `{ "cell": 128, "cols": <max frames>, "rows": <n effects>, "ppu": 56, "anims": { "<name>": { "row": r, "n": frames, "ms": ms } } }`.
-  Missing effects fall back to the procedural ones.
+  Missing effects fall back to the procedural ones. HD effects (256 px cells, ADR 0044) go on one page per `owner`
+  (ADR 0053), `atlas_hd_shared.png` then `atlas_hd_<fighter id>.png` (16 rows, 2048 x 4096 px at most; more spill onto
+  `_2`), in the `hd` block: `{ "cell": 256, "ppu": 112, "pages": [{ "image", "owner", "cols", "rows" }], "effects":
+  { "<name>": { "page": p, "row": r, "n": frames, "ms": ms } } }`. A match loads the shared page and its two fighters' pages.
 
 | effect | frames | ms | color rule | anchor | what |
 |---|---|---|---|---|---|
@@ -844,7 +847,7 @@ Implemented by the lead engineer (Claude) in `src/`; documented here so art and 
   (`src/game/animAlts.js`; `?alts=0` never, `?alts=1` always), on the base move's timing ([Attack alts](#attack-alts)).
 - It loads `portrait.png` / `cutin.png` when present.
 - It loads `public/vfx/atlas.png` + `atlas.json` when present (approved effects only; missing effects stay
-  procedural). `?art=custom` prefers the unapproved candidates in `public/preview/` (local only).
+  procedural), and per match the HD pages of the shared effects and its two fighters (ADR 0053). `?art=custom` prefers the unapproved candidates in `public/preview/` (local only).
 - It loads `public/decals/atlas.json` and the pages it needs when present and merges them per name over the
   procedural decals (one `[decals]` console line; any error falls back to procedural).
 - Combat uses 2.5D lanes: attacks fire along the screen horizontal and auto-step to line up

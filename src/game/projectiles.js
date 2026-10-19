@@ -170,7 +170,8 @@ class BeamView {
     this.mat = St.fx
       ? new THREE.ShaderMaterial({
         uniforms: {
-          map: { value: game.fx.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: St.seg },
+          // the sheet its band is on (atlas.png, or the procedural sheet while the band has no packed art)
+          map: { value: game.fx.source(St.fx).S.tex }, uvRect: { value: new THREE.Vector4() }, uLen: { value: 1 }, uSeg: { value: St.seg },
           uScroll: { value: 0 }, uFade: { value: 1 }, uGlow: { value: St.glow ?? 0.3 },
           color: { value: St.full ? new THREE.Color(0xffffff) : new THREE.Color(b.core).lerp(new THREE.Color(b.mid), St.tint ?? 0.5) },
         },
@@ -263,7 +264,7 @@ class BeamView {
 export class ShotViews {
   constructor(game) {
     this.game = game;
-    this.shots = new Map(); // projectile id -> { sprite, glow }
+    this.shots = new Map(); // projectile id -> { sprite, glow } or a shot with a `limb` ({ limb, owner, last })
     this.beams = new Map(); // beam id -> BeamView
   }
 
@@ -273,18 +274,29 @@ export class ShotViews {
       if (p.dead) continue;
       seen.add(p.id);
       let v = this.shots.get(p.id);
-      if (!v || (v.sprite && v.sprite.life < 0)) {
+      if (!v || v.gone || (v.sprite && v.sprite.life < 0)) {
         const P = p.P, L = P.lance;
-        if (L) {
+        if (P.limb?.end) {
+          // the limb's end stands for the shot (Luffy's fist, ENG-SKL-LUF): no sprite of its own
+          v = {};
+        } else if (L) {
           // a blade growing out of the hand (the Chidori Spear, ENG-SKL-SAS): drawn once along the shot's line from
           // where it left the hand, and it plays out by itself after the shot is spent
           const d = tmpA.copy(p.vel).normalize();
           v = { lance: fx.span(L.fx, p.from ?? p.pos, d, L.len, g.cam.right, { seq: L.seq, ms: L.ms, order: 8, glow: L.glow ?? 0.3, depthTest: false }) };
         } else {
           v = { sprite: fx.spawn(P.sprite, p.pos.x, p.pos.y, p.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random }) };
-          if (P.glowColor) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
+          // `halo: false`: full-color art that carries its own light (Reversal: Red) gets no glow disc under it
+          if (P.glowColor && P.halo !== false) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
         }
+        if (P.limb) Object.assign(v, { limb: P.limb, owner: p.owner });
         this.shots.set(p.id, v);
+      }
+      if (v.limb) {
+        // the limb from the drawn hand to the shot, every render (a rollback that brings the shot back stops its snap-back)
+        v.t0 = null;
+        (v.last ??= new THREE.Vector3()).copy(p.pos);
+        this.limbDraw(p.id, v, p.pos);
       }
       if (!v.sprite) continue;
       v.sprite.mesh.position.set(p.pos.x, p.pos.y + RING_TOP, p.pos.z);
@@ -300,6 +312,8 @@ export class ShotViews {
       if (seen.has(id)) continue;
       if (v.sprite) fx.kill(v.sprite);
       if (v.glow) fx.kill(v.glow);
+      v.gone = true;
+      if (v.limb && this.limbBack(id, v)) continue; // its end still snapping back to the hand
       this.shots.delete(id);
     }
     seen.clear();
@@ -315,6 +329,45 @@ export class ShotViews {
       v.dispose();
       this.beams.delete(id);
     }
+  }
+
+  // Infinity stopped this shot (ENG-SKL-GOJ): its sprite stays where it stopped and fades over `life` seconds instead
+  // of vanishing with it (the next sync would kill it). View only.
+  hang(p, life) {
+    const v = this.shots.get(p.id);
+    if (!v?.sprite || v.limb) return; // a limb snaps back instead (limbBack)
+    this.shots.delete(p.id);
+    const s = v.sprite;
+    s.life = s.max = life;
+    s.fade = true;
+    s.vel = null;
+    if (!s.random) s.frame = Math.floor((s.t * 1000) / s.ms) % s.a.n; // stopped dead: it stops spinning too
+    if (v.glow) this.game.fx.kill(v.glow);
+  }
+
+  // A shot's `limb` (ENG-SKL-LUF): a stretched limb or a string from the owner's drawn hand to the shot (Effects.limb),
+  // and its `end` on the shot when it has one (Luffy's fist stands for the shot)
+  limbDraw(id, v, at) {
+    const fx = this.game.fx, L = v.limb, cr = this.game.cam.right, h = fx.handAt(v.owner, L.at);
+    fx.limb('limb' + id, L.fx, h, at, L.thick, L.tube, cr, { order: 7, color: L.color });
+    if (L.end) fx.limbEnd('limbEnd' + id, L.end, at, h, L.endScale ?? 1, cr, { order: 8 });
+  }
+
+  // the shot is gone (it hit, or ran out): with `back` its end snaps back to the drawn hand over that many seconds of
+  // the render clock, faster as it goes. False once it is home (at once without `back`) and its effects are dropped.
+  limbBack(id, v) {
+    const fx = this.game.fx, L = v.limb, now = performance.now();
+    v.t0 ??= now;
+    const a = L.back ? (now - v.t0) / (L.back * 1000) : 1;
+    if (a >= 1) {
+      fx.drop('limb' + id);
+      fx.drop('limbEnd' + id);
+      return false;
+    }
+    const h = fx.handAt(v.owner, L.at), e = a * a;
+    tmpA.set(v.last.x + (h.x - v.last.x) * e, v.last.y + (h.y - v.last.y) * e, v.last.z + (h.z - v.last.z) * e);
+    this.limbDraw(id, v, tmpA);
+    return true;
   }
 
   // a match ends: every view goes (the effects themselves are cleared with fx.clearAll)
@@ -343,19 +396,23 @@ export class Projectile {
     this.life = P.life;
     this.dead = false;
     if (P.lance) this.from = this.pos.clone(); // the blade is drawn from the hand (ShotViews)
+    if (P.returns) { this.reeling = false; this.backT = 0; } // a yo-yo's way back (reel)
   }
 
   update() {
+    if (this.reeling) return this.reel();
     this.pos.addScaledVector(this.vel, DT);
     this.life -= DT;
     const fx = this.game.fx;
+    // a yo-yo (`returns`) at the end of its string, or on the floor, comes back instead of dying (ENG-SKL-KIL)
+    if (this.P.returns && (this.pos.y < 0.1 || this.life <= 0 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4)) return this.reel(true);
     const back = { x: this.pos.x - this.vel.x * 0.03, z: this.pos.z - this.vel.z * 0.03 };
     if (this.P.trail === 'fire' && Math.random() < 0.5) fx.spawn('fire', back.x, this.pos.y, back.z, { scale: 0.7, life: 0.2, fade: true, opacity: 0.8 });
     if (this.P.trail === 'bolt') fx.spawn('lightning', back.x, this.pos.y, back.z, { scale: 0.55, random: true, life: 0.06, color: 0xd8f0ff, rot: Math.random() * 6.28, order: 7, glow: 1.6 });
     if (this.P.trail === 'red' && Math.random() < 0.6) fx.spawn('glow', back.x, this.pos.y, back.z, { scale: 0.8, life: 0.12, color: 0xff3048, opacity: 0.6, fade: true, order: 6 });
     if (this.pos.y < 0.1 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4 || this.life <= 0) {
       if (this.pos.y < 0.1 && this.P.burstFx) {
-        fx.blast(this.P.burstFx.fx, this.pos.x, 0.4, this.pos.z, this.P.burstFx.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), this.P.burstFx.smoke);
+        fx.blast(this.P.burstFx.fx, this.pos.x, 0.4, this.pos.z, this.P.burstFx.scale ?? 1, new THREE.Color(this.P.burstFx.color ?? this.P.glowColor ?? 0xffffff), this.P.burstFx.smoke, this.flipsLeft(), this.P.burstFx.ring);
         audio.play('hitHeavy', 0.7);
       } else if (this.pos.y < 0.1 && this.P.burst === 'explosion') {
         fx.explosion(this.pos.x, 0.3, this.pos.z, new THREE.Color(this.P.burstColor ?? 0xff8a30));
@@ -376,8 +433,16 @@ export class Projectile {
     const d = dmath.hypot(this.pos.x - o.pos.x, this.pos.y - by, this.pos.z - o.pos.z);
     // Infinity (Gojo's passive): the projectile slows to nothing before it can touch him
     if (d < this.P.radius + 1.15 && infinityStops(o)) {
-      fx.spawn('ring', this.pos.x, this.pos.y, this.pos.z, { scale: 0.9, color: 0xd8f2ff, glow: 1, order: 8 });
-      fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: 1, color: 0x9fd8ff, opacity: 0.5, life: 0.25, fade: true });
+      const I = PASSIVES.infinity;
+      if (I.stopFx) {
+        // the anime's Infinity (ENG-SKL-GOJ): the shot stops dead short of him and hangs there, fading, in a ripple of
+        // space (no ring or glow flash)
+        fx.spawn(I.stopFx, this.pos.x, this.pos.y, this.pos.z, { scale: I.stopScale ?? 0.5, order: 8 });
+        if (!this.game.resim) this.game.shotViews?.hang(this, I.hang ?? 0.4);
+      } else {
+        fx.spawn('ring', this.pos.x, this.pos.y, this.pos.z, { scale: 0.9, color: 0xd8f2ff, glow: 1, order: 8 });
+        fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: 1, color: 0x9fd8ff, opacity: 0.5, life: 0.25, fade: true });
+      }
       // frames, not the render clock: the ki charge below decides a fight (ADR 0036)
       if (!o.infinityCallT || this.game.frameNo - o.infinityCallT > 120) {
         o.infinityCallT = this.game.frameNo;
@@ -396,9 +461,12 @@ export class Projectile {
       const dir = new THREE.Vector2(this.vel.x, this.vel.z).normalize();
       const r = o.takeHit(this.owner, { ...this.P, hitstop: this.P.big ? 10 : 4, projectileHit: true, big: this.P.big }, dir);
       const B = this.P.burstFx;
+      // the technique's paralysis on their body while the stun lasts (Lightning Palm): render state on hfx, never read
+      // by the simulation (Game.fxTicks draws it)
+      if (r === 'hit' && this.P.cling && o.hfx) o.hfx.cling = { fx: this.P.cling.fx, scale: this.P.cling.scale, until: this.game.frameNo + (o.stun || o.airStun || 30) };
       if (B) {
         // the technique's own blast (the Great Fireball, the Chidori Spear piercing): its art, not the white-out
-        fx.blast(B.fx, this.pos.x, this.pos.y, this.pos.z, B.scale ?? 1, new THREE.Color(this.P.glowColor ?? 0xffffff), B.smoke);
+        fx.blast(B.fx, this.pos.x, this.pos.y, this.pos.z, B.scale ?? 1, new THREE.Color(B.color ?? this.P.glowColor ?? 0xffffff), B.smoke, this.flipsLeft(), B.ring);
         audio.play(B.sfx ?? (r === 'hit' ? 'hitHeavy' : 'block'), 0.8);
         this.game.cam.shake(B.shake ?? 0.4);
       } else if (this.P.burst === 'explosion') {
@@ -413,8 +481,27 @@ export class Projectile {
         fx.hitSpark(this.pos.x, this.pos.y, this.pos.z, false);
         audio.play(r === 'hit' ? 'hit' : 'block', 0.8);
       }
-      this.kill();
+      if (this.P.returns) this.reel(true); // a yo-yo bounces off them and comes back on its string
+      else this.kill();
     }
+  }
+
+  // A yo-yo on its way back (`returns`, ENG-SKL-KIL): it flies to the owner's hand at `reel` units/s and is gone there.
+  // Spent: it never hits again. The hand is a fixed point off the owner's body (the simulation never reads the art).
+  reel(start = false) {
+    const f = this.owner;
+    if (start) this.reeling = true;
+    const tx = f.pos.x + f.face.x * 0.4 - this.pos.x, ty = f.pos.y + 1.0 - this.pos.y, tz = f.pos.z + f.face.y * 0.4 - this.pos.z;
+    const d = dmath.hypot(tx, ty, tz), step = (this.P.reel ?? 30) * DT;
+    if (d <= step || ++this.backT > 60) { this.kill(); return; }
+    this.vel.set((tx / d) * (this.P.reel ?? 30), (ty / d) * (this.P.reel ?? 30), (tz / d) * (this.P.reel ?? 30));
+    this.pos.addScaledVector(this.vel, DT);
+  }
+
+  // an `orient`-ed shot (drawn flying screen-right) flying screen-left: its blast is mirrored too (view only)
+  flipsLeft() {
+    const R = this.P.orient && !this.game.resim ? this.game.cam.right : null;
+    return !!R && this.vel.x * R.x + this.vel.z * R.z < 0;
   }
 
   kill() {
@@ -454,7 +541,7 @@ export class Orb {
     if (!this.clash) {
       p.addScaledVector(this.dir, S.speed * DT);
       fx.ground.trail(this.id, p, this.dir, S.radius * 2, S.ground, S.orb); // the trench it carves
-      if (this.t % 5 === 0) fx.debris(p.x, p.z, 3, 0.7);
+      if (!S.look && this.t % 5 === 0) fx.debris(p.x, p.z, 3, 0.7); // the erasing mass (look) throws nothing up
       const o = this.owner.opp;
       if (!this.hit && !o.ko && !o.hidden && o.state !== 'down' && o.state !== 'getup') {
         const by = THREE.MathUtils.clamp(p.y, o.pos.y + 0.25, o.pos.y + 1.4);
@@ -465,15 +552,31 @@ export class Orb {
         else if (!touching && this.slip) { this.slip = false; g.onEvade(o); }
         else if (touching && o.invuln <= 0) {
           this.hit = true;
-          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: 'smash', hitFlash: 'special' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
-          fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.orb));
-          fx.overlay.impactFrame(4);
+          const L = S.look;
+          o.takeHit(this.owner, { dmg: S.dmg, minScale: 1, launch: S.launch, wallBounce: true, noTech: true, hitstop: 18, unblockable: true, big: true, shake: 1.2, spark: L ? 'none' : 'smash', slowmo: L ? [0.4, 0.18] : null, hitFlash: 'special' }, new THREE.Vector2(this.dir.x, this.dir.z).normalize());
+          // the anime's look (ENG-SKL-GOJ): the mass swallows them in violet (its own blast), not the white explosion
+          if (L) fx.blast(L.burst, o.pos.x, o.pos.y + 0.9, o.pos.z, L.burstScale ?? 1.3, new THREE.Color(S.orb), 0);
+          else fx.explosion(o.pos.x, o.pos.y + 0.9, o.pos.z, new THREE.Color(S.orb));
+          fx.overlay.impactFrame(L ? 3 : 4);
           g.cam.shake(1.1);
           audio.play('explosion', 1.3);
           g.excite = 1;
         }
       }
       if (this.t > S.life * 60 || Math.abs(p.x) > ARENA_LIMIT + 3 || Math.abs(p.z) > ARENA_LIMIT + 3) { this.kill(); return; }
+    }
+    const L = S.look;
+    if (L) {
+      // Hollow Purple, the anime's look (ENG-SKL-GOJ): the HD imaginary mass with no glow disc, magenta arcs leaping off
+      // it and what it erases (violet specks) drawn into it
+      const s = this.r * (L.massScale ?? 1) * this.grow * (1 + 0.03 * dmath.sin(this.t * 0.7));
+      fx.keep(this.id, L.mass, p.x, p.y, p.z, { scale: s, order: 8, glow: 0.15 });
+      if (this.t % 4 === 0) fx.spawn('arc', p.x + (Math.random() - 0.5) * this.r * 1.6, p.y + (Math.random() - 0.5) * this.r * 1.4, p.z, { scale: 0.55, life: 0.1, color: 0xf0a8ff, rot: Math.random() * 6.28, order: 9, glow: 0.8 });
+      if (this.t % 2 === 0) {
+        const a = Math.random() * Math.PI * 2, r = this.r * 1.5, sx = p.x + dmath.cos(a) * r, sy = Math.max(0.1, p.y + dmath.sin(a) * r * 0.7);
+        fx.spawn('star', sx, sy, p.z, { scale: 0.2, frame: 2, vel: [(p.x - sx) * 5, (p.y - sy) * 5, 0], life: 0.18, color: 0xb44cff, order: 9, glow: 0.6 });
+      }
+      return;
     }
     const s = this.r * 1.35 * this.grow * (1 + 0.05 * dmath.sin(this.t * 0.7));
     fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: s, color: S.orb, order: 8, glow: 1.1 });
@@ -546,6 +649,12 @@ export class Vortex {
       const left = m.len - this.t;
       it.frame = this.t < 4 ? (this.t < 2 ? 0 : 1) : left < 10 ? 4 + Math.min(3, Math.floor((10 - left) / 2.5)) : 2 + (Math.floor(this.t / 3) % 2);
       fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 1.6 * grow, color: C.glow, opacity: 0.2, order: 3, glow: 0.3 });
+    } else if (m.look) {
+      // Lapse: Blue, the anime's look (ENG-SKL-GOJ): the HD attraction point with no glow disc over the victim, and floor
+      // rubble torn up and dragged into it
+      const L = m.look;
+      fx.keep(this.id, L.core, p.x, p.y, p.z, { scale: (L.coreScale ?? 1) * (0.3 + 0.7 * grow), order: 8, glow: 0.1 });
+      if (L.rubble && this.t % (L.rubbleEvery ?? 4) === 0 && this.t < m.len - 8) fx.rubbleIn(p, L.rubble, m.radius * 0.6);
     } else {
       fx.keep(this.id, 'orb', p.x, p.y, p.z, { scale: 0.25 + 1.0 * grow, color: C.orb, order: 8, glow: 0.9 });
       fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 2.2 * grow, color: C.glow, opacity: 0.5, order: 3, glow: 1 });
@@ -575,7 +684,8 @@ export class Vortex {
     }
     if (this.t >= m.len) {
       if (canPull && d < 1.8 && o.hittable) o.takeHit(this.owner, { ...m.pop, projectileHit: true }, dir);
-      fx.explosion(p.x, p.y, p.z, new THREE.Color(0x6ab4ff));
+      if (m.look?.collapse) fx.spawn(m.look.collapse, p.x, p.y, p.z, { scale: m.look.collapseScale ?? 1, order: 8, depthTest: false }); // the implosion
+      else fx.explosion(p.x, p.y, p.z, new THREE.Color(0x6ab4ff));
       if (p.y < 2.5) fx.ground.impact(p, { kind: 'vortex', style: m.ground, tint: this.colors.glow });
       g.cam.shake(0.4);
       audio.play('explosion', 0.6);

@@ -1,0 +1,21 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/godspeedBurst_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/godspeedBurst_v01.png"
+  ],
+  "sourceHash": "aad3187cdd5d7a7ac7f915de895f5662180a052b",
+  "cell": 256,
+  "files": {
+    "godspeedBurst_00.png": "5f14cc71aa699a51dec0f83bf30a5182c9a1f68c",
+    "godspeedBurst_01.png": "c6dfbda25109e1868478d3f618b8280d3949e118",
+    "godspeedBurst_02.png": "e5f3cfe2b02e62c41f927dfe048e9fcf86fd73ba",
+    "godspeedBurst_03.png": "69131634c04cbab64e0b3cc8617c9aec04d01f4d",
+    "godspeedBurst_04.png": "d645093c934ca908c466abd45a01bbbb0ae65c3a",
+    "godspeedBurst_05.png": "0b479a4ad496255a0dc82aef6e2bb58e3e9aeae6",
+    "godspeedBurst_06.png": "f6f32692c731f966e38f81ce6ac78e5a54b3f295",
+    "godspeedBurst_07.png": "b85d2df11b6dc840e80675effcd99ca8bb8fad92"
+  }
+}

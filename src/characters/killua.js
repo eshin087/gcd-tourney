@@ -1,7 +1,7 @@
 // Lightning-assassin archetype (Killua, Hunter x Hunter, Godspeed era). The placeholder sprite
 // sheet is baked from this 3D chibi model at startup; the real art comes from art/characters/killua/.
-// Kit (ADR 0009): Narukami bolt, Rhythm Echo teleport, Thunderbolt dive, Godspeed mode,
-// Lightning Palm beam, Godspeed: Whirlwind super.
+// Kit (ADR 0009; the anime's looks, ENG-SKL-KIL): Lightning Palm bolt, Yo-yo (air), Rhythm Echo afterimages, Narukami
+// dive, Godspeed mode; Speed of Lightning super, Godspeed: Whirlwind ultimate.
 
 const model = {
   // slimmer and a little shorter than the older fighters
@@ -154,11 +154,11 @@ export default {
     sound: 'crackle',
   },
   beam: { core: '#ffffff', mid: '#9fdcff', edge: '#4a8cff', name: 'LIGHTNING PALM' },
-  specialName: 'NARUKAMI',
-  projectileName: 'NARUKAMI',
+  specialName: 'LIGHTNING PALM',
+  projectileName: 'LIGHTNING PALM',
   superName: 'GODSPEED: WHIRLWIND',
   kit: {
-    specials: { neutral: 'narukami', forward: 'rhythmEcho', up: 'thunderbolt', down: 'godspeed', air: 'narukamiAir', airDown: 'thunderboltAir' },
+    specials: { neutral: 'narukami', forward: 'rhythmEcho', up: 'thunderbolt', down: 'godspeed', air: 'yoyo', airDown: 'thunderboltAir' },
     super: 'speedOfLightning',
     ultimate: 'whirlwind', // Godspeed's reflex mode (ADR 0017)
   },

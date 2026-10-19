@@ -566,3 +566,11 @@ body:has(#touch.show:not(.spectate)) .tags.k2 { top: calc(var(--u) * 13); right:
 @keyframes onToast { 0% { opacity: 0; transform: translateY(-4px); } 8%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 /* rejoining (ENG-097): the line while we reconnect, or wait for a player who is, stands out */
 .on-strip.alert { padding: 6px 14px; background: rgba(10, 6, 24, 0.85); color: var(--gold); font-size: max(10px, calc(var(--u) * 1.9)); }
+/* the live announcer's lines (ENG-118, src/ui/speechBubble.js): first child of #ui, so under the HUD, its cut-ins and
+   the big announcements. A background touch (user 2026-10-18): small outlined text locked above his head, one line, one look, no balloon, a fade */
+.caster-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.caster-line { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 0.35s; will-change: transform; }
+.caster-line.on { opacity: 0.88; }
+.caster-line .cl-text { width: max-content; white-space: nowrap; text-align: center; color: #fff4dc; font-size: max(9px, calc(var(--u) * 1.45)); line-height: 1.05; letter-spacing: 0.04em; text-transform: uppercase; text-shadow: 1px 0 0 var(--ink), -1px 0 0 var(--ink), 0 1px 0 var(--ink), 0 -1px 0 var(--ink), 0 1px 3px rgba(0, 0, 0, 0.6); }
+.caster-line .cl-text b { font-weight: normal; color: var(--nc, #ffb070); }
+.caster-line .cl-text b.mv { color: #ffb070; }

@@ -62,7 +62,8 @@ src/game/
                             or wall impact) and TechTimer (per-level timing for CpuBrain, MasterBrain, the dummy)
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
-  projectiles.js            Projectile (shuriken, fireball, bolt, red; Infinity stops them), Vortex (Lapse: Blue
+  projectiles.js            Projectile (shuriken, fireball, bolt, red, yo-yo: `returns`, its string a `limb`, ADR 0052;
+                            Infinity stops them), Vortex (Lapse: Blue
                             pull) and Beam (the ultimate, or a beam clash's stream in a shot's palette and shape:
                             the HDR ribbon shader, or a VFX atlas band tiled along it, or Red's orb; STREAM_STYLES).
                             Simulation state only, keyed by a per-match `id`: ShotViews draws their sprites, glows
@@ -70,7 +71,10 @@ src/game/
   snapshot.js               saveState / loadState (ADR 0036): a deep copy of the simulation (GAME_STATE, fighters,
                             pads, shots, clash, basis, sprite playback); static tables, assets and the view shared
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
-                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
+                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground.
+                            Limbs (ENG-SKL-LUF): `limb` stretches a tube effect between two points (the drawn hand
+                            anchor and a shot), `limbEnd` puts its end (a fist) on it, `handAt` finds the drawn hand
+                            Bolt `column`s and a hit's `cling` (Killua, ADR 0052).
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
   sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique
@@ -78,7 +82,8 @@ src/game/
                             (shell, emitters, eye glint, bar / MAX beats) and the restraint rules R1-R9
   auraShell.js              AuraShell: the body-hugging power-up outline (a shader dilates the frame's alpha);
                             ChakraShroud: a mode's see-through `cloak` over the body plus its rim (ADR 0044)
-  clones.js                 CloneCrew: shadow clones drawn from a kit move's `kitState.crew` entries (ADR 0044)
+  clones.js                 CloneCrew: shadow clones drawn from a kit move's `kitState.crew` entries (ADR 0044);
+                            entries with `linger` stay drawn after the move, flickering out (afterimages, ADR 0052)
   camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory, results; shake,
                             zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
@@ -134,13 +139,19 @@ src/art/
                             pose.js (pose model, keyframes), anims.js (shared moveset), face.js (pixel faces),
                             baker.js (bake to sheet + boxes + portrait + cut-in)
 src/world/arena.js          tournament grounds: ring, temple, stands + instanced crowd, gate, trees, sky, dimming
-src/world/voidStage.js      Unlimited Void (Gojo's domain): starfield/streak sky shader + rippling floor, swapped in
-                            by Game.startDomain via setStage('void')
+src/world/announcer.js      the live announcer (ADR 0048): walks the ring behind the fight, ring calls, KO count,
+                            picks his lines (announcerLines.js) and drives his caption; view only
+src/world/announcerSymbols.js  his manga symbols (sweat, !!, ?, dizzy ...): painted pixel maps on one sprite (ENG-119)
+src/world/voidStage.js      Unlimited Void (Gojo's domain): cosmos sky shader + black mirror floor, swapped in by
+                            Game.startDomain via setStage('void'); with the super's `open` the view plays the anime's
+                            sequence (ADR 0049): the black sphere swallowing the arena (syncView waits for it), the
+                            flooded head, the glass shatter at the end
 src/ui/
   hud.js                    health/ki bars + burst gems, timer, combo counter (blue when escapable) with its ticker
                             chips and rating (ADR 0026), callouts, TAGS technique banners (ADR 0022), announcements,
                             super cut-in, clash bar and rhythm track
   menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
+  speechBubble.js           the announcer's lines: a small caption above his head (DOM, under the HUD)
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)
 src/style.css               all DOM UI styling
@@ -373,7 +384,12 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
 - Custom VFX art: `npm run sprites vfx` writes `public/vfx/atlas.png` + `atlas.json` (128 px cells, `ppu` 56,
   the same world size) from the **approved** effects only (`approvedVersion` in `art/manifest.json`), and removes
   a stale atlas when none are approved. The game loads it when present, and missing effects fall back to
-  procedural ones.
+  procedural ones (drawn from the baked procedural sheet, 2048 px wide).
+- HD signature effects (ADR 0044, 0053): 256 px cells on one page per owner, `atlas_hd_shared.png` and
+  `atlas_hd_<fighter id>.png` (at most 2048 x 4096 each), listed in atlas.json's `hd` block (`pages`, `effects`).
+  Boot reads only the JSON; `Effects.prepare(fighters, renderer)` at match start loads the shared pages and the two
+  fighters' pages, uploads them as they arrive and frees the others. `Effects.source(name)` says which sheet an effect is
+  drawn from now; until its page is in, an HD effect draws its procedural stand-in.
 
 ## Ground damage (ADR 0024)
 
@@ -413,8 +429,13 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   new image, nearest filtering), so geometry and repeat counts, and therefore world coverage, never change.
 - **NPCs:** `loadNpcArt()` reads `public/npc/<id>/anims.json` + `sheet.png` for each entry of `NPCS` (placement,
   mirroring); `arena.setNpcArt()` places one `NpcSprite` billboard per sheet (unlit, dimmed with the crowd; the announcer
-  sheet hides the painted announcer). `Game` calls `arena.npcCue(kind)` on intro, round start, supers, ultimates,
-  clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time.
+  sheet hides the painted announcer). `Game` calls `arena.npcCue(kind, info)` on intro, round start, supers, ultimates,
+  clashes, KOs and round end; `NPC_CUES` maps each event to an animation, priority and hold time. The announcer is
+  live (ADR 0048): `Game` attaches an `Announcer` (`arena.setCaster`), whose body is the packed sheet or the painted
+  placeholder; he hears every cue (also specials, combos, technique tags, throws, MAX POWER, clash wins, time-up),
+  reads the game each render (`arena.update(time, excite, game, dt)`), moves and animates himself (a missing
+  animation plays its `NPC_FALLBACK`) and speaks through `SpeechBubble`. `Game.quiet` stands the arena in during a
+  rollback, so a re-simulated frame never cues him twice; he never writes to the simulation.
 - **Title art:** `loadUiArt()` reads `public/ui/manifest.json`; `Menus.title()` shows the logo image instead of the CSS
   logo and the key art behind it.
 - **Ground decals (packer side, ADR 0024):** `npm run sprites decals` (`tools/pack-decals.mjs`, called by the sprite
