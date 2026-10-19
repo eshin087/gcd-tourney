@@ -3153,6 +3153,23 @@
             "micThrust": {"status":"approved","version":3,"approvedVersion":3,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra: hands remain reversed and feet differ from approved idle. User accepted this technical hold as drawn. Generation budget 3/3."}
           }
         },
+        "npc-announcer-r2": {
+          "status": "todo",
+          "reviewStatus": "todo",
+          "note": "ENG-119 living announcer: blownAway, popUp, cheer, facepalm, micTap, checkWatch, patHair, sooty, wince, mopBrow (art/npc/announcer/ANIMATIONS.md)",
+          "items": {
+            "blownAway": {"status":"todo","version":0,"approvedVersion":null},
+            "popUp": {"status":"todo","version":0,"approvedVersion":null},
+            "cheer": {"status":"todo","version":0,"approvedVersion":null},
+            "facepalm": {"status":"todo","version":0,"approvedVersion":null},
+            "micTap": {"status":"todo","version":0,"approvedVersion":null},
+            "checkWatch": {"status":"todo","version":0,"approvedVersion":null},
+            "patHair": {"status":"todo","version":0,"approvedVersion":null},
+            "sooty": {"status":"todo","version":0,"approvedVersion":null},
+            "wince": {"status":"todo","version":0,"approvedVersion":null},
+            "mopBrow": {"status":"todo","version":0,"approvedVersion":null}
+          }
+        },
         "npc-monk-a": {
           "status": "approved",
           "reviewStatus": "approved",
