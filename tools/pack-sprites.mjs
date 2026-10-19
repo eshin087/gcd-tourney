@@ -218,6 +218,22 @@ const VFX_EFFECTS = {
   kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true, owner: 'sasuke' },
   kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true, owner: 'sasuke' },
   kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'sasuke' },
+  // Goku's signature techniques (ENG-SKL-GOK): HD cells, art/characters/goku/SKILLS_REVAMP.md
+  kamehameha: { frames: 8, ms: 40, tinted: false, fill: 0.5, hd: true, owner: 'goku' },
+  kamehamehaHead: { frames: 6, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'goku' },
+  kamehamehaRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true, owner: 'goku' },
+  kiBlast: { frames: 6, ms: 35, tinted: false, fill: 0.45, hd: true, owner: 'goku' },
+  kiMuzzle: { frames: 5, ms: 35, tinted: false, fill: 0.6, hd: true, owner: 'goku' },
+  kiBlastBurst: { frames: 7, ms: 40, tinted: false, fill: 0.8, hd: true, owner: 'goku' },
+  dragonFistAura: { frames: 6, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'goku' },
+  dragonFistDragon: { frames: 10, ms: 50, tinted: false, fill: 1, hd: true, owner: 'goku' },
+  dragonFistBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true, owner: 'goku' },
+  instantTransmission: { frames: 6, ms: 35, tinted: false, fill: 0.9, anchor: 'bottom', hd: true, owner: 'goku' },
+  kaiokenBurst: { frames: 7, ms: 40, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'goku' },
+  kaiokenAura: { frames: 6, ms: 50, tinted: false, fill: 0.95, anchor: 'bottom', hd: true, owner: 'goku' },
+  spiritBomb: { frames: 8, ms: 60, tinted: false, fill: 1, hd: true, owner: 'goku' },
+  spiritBombBlast: { frames: 8, ms: 60, tinted: false, fill: 1, anchor: 'bottom', hd: true, owner: 'goku' },
+  superSaiyanBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'goku' },
   // Gojo's signature techniques (ENG-SKL-GOJ): HD cells, art/characters/gojo/SKILLS_REVAMP.md
   lapseBlue: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'gojo' },
   blueCollapse: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'gojo' },
@@ -281,7 +297,8 @@ options
   --dry-run         analyse and report, write nothing
   --no-writeback    do not write cleaned frames back to art/.../frames/<anim>/
   --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 48; a fighter's
-                    "paletteReserve" in the manifest gives the strips it lists their own share of the n (ADR 0046)
+                    "paletteReserve" in the manifest gives the strips it lists their own share of the n (ADR 0046;
+                    "cut": "misfits" cuts that share only from the colours the shared palette fits badly)
   --keep-palette    with --quantize: snap to the colours of the character's current sheet.png instead of a new median
                     cut, so a pack that resizes one strip leaves every other strip byte for byte (ADR 0041)
   --tolerance <n>   background color tolerance (RGB distance, default 72)
@@ -1190,11 +1207,12 @@ function normalizeManifest(raw) {
         m.specIssues.push(`characters.${id}.paletteReserve.${name} must be { "colors": 1-32, "animations": ["<anim>", ...] } - ignored`);
         continue;
       }
+      if (g.cut !== undefined && g.cut !== 'misfits') m.specIssues.push(`characters.${id}.paletteReserve.${name}.cut must be "misfits" - cutting from the whole strips`);
       const twice = list.filter((a) => reserved.has(a));
       if (twice.length) m.specIssues.push(`characters.${id}.paletteReserve.${name}: ${twice.join(', ')} already in another group - kept there`);
       const own = [...new Set(list.filter((a) => !reserved.has(a)))];
       own.forEach((a) => reserved.add(a));
-      if (own.length) paletteReserve.push({ name, colors, animations: own });
+      if (own.length) paletteReserve.push({ name, colors, animations: own, ...(g.cut === 'misfits' ? { cut: 'misfits' } : {}) });
     }
     m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? Math.round(sb * packScale) : null, packScale, paletteReserve };
   }
@@ -2096,11 +2114,27 @@ function quantizeReserved(anims, n, groups, kept = null, learn = () => null) {
   mapToPalette(sharedCells, sharedPal, onlyTo(learnedShared, sharedPal));
   const sharedKeys = new Set(sharedPal.map(ck));
   for (const g of groups) {
-    const cells = g.anims.flatMap((a) => a.cells);
-    const pal = [...sharedPal, ...medianCut(colourCounts(cells), g.colors).filter((p) => !sharedKeys.has(ck(p)))];
+    const cells = g.anims.flatMap((a) => a.cells), counts = colourCounts(cells);
+    const pal = [...sharedPal, ...medianCut(g.cut === 'misfits' ? misfits(counts, sharedPal) : counts, g.colors).filter((p) => !sharedKeys.has(ck(p)))];
     mapToPalette(cells, pal, onlyTo(learn(g.anims), pal));
   }
   return { colors: countColors(anims.flatMap((a) => a.cells)), shared: sharedPal.length, merged: base.length - sharedPal.length };
+}
+
+// `cut: 'misfits'` (a paletteReserve group): only the group's colours the shared palette fits badly, more than MISFIT
+// levels from every entry, each weighted by its pixels times how far off it is. A strip drawn mostly in the fighter's
+// usual colours with a little of a new one (Goku's black base-form hair in the frame before he turns Super Saiyan)
+// keeps that colour: cut from the whole strip, the gi and the blond hair outvote it and it snaps to the nearest dark
+// shade (a maroon outline); counted by pixels alone, skin drawn a few levels off his palette still outvotes it
+const MISFIT = 20;
+function misfits(colors, palette) {
+  const out = new Map();
+  for (const [k, cnt] of colors) {
+    let d = Infinity;
+    for (const p of palette) d = Math.min(d, ((k >> 16) - p[0]) ** 2 + (((k >> 8) & 255) - p[1]) ** 2 + ((k & 255) - p[2]) ** 2);
+    if (d > MISFIT * MISFIT) out.set(k, cnt * d);
+  }
+  return out;
 }
 
 // Drops palette entries until `target` are left, each time the one whose pixels lose least by moving to their nearest
@@ -2167,7 +2201,7 @@ function reserveGroups(id, anims, names, env, warn) {
     const unknown = g.animations.filter((a) => !names.has(a));
     if (unknown.length) warn(`paletteReserve.${g.name}: ${unknown.join(', ')} is not an animation of ${id} - ignored`);
     const strips = anims.filter((a) => g.animations.includes(a.def.name));
-    if (strips.length) groups.push({ name: g.name, colors: g.colors, anims: strips });
+    if (strips.length) groups.push({ name: g.name, colors: g.colors, anims: strips, cut: g.cut });
   }
   const reserve = groups.reduce((s, g) => s + g.colors, 0);
   if (reserve > env.quantize / 2) {
@@ -2768,14 +2802,18 @@ function packUi(id, charDir, env, R) {
           blit(out, small, dx, dy);
           img = out;
         } else {
-          // opaque art: center-crop to the aspect ratio, then downscale
+          // opaque art: center-crop to the aspect ratio, then downscale. The manifest's ui entry may move the band
+          // (`cropY`: its top row in the source image), for a drawing whose focus sits off the middle band (ENG-SKL-GOK)
           const ar = spec.w / spec.h;
           let cw = img.w, ch = Math.round(img.w / ar);
           if (ch > img.h) { ch = img.h; cw = Math.round(img.h * ar); }
-          const c = crop(img, Math.floor((img.w - cw) / 2), Math.floor((img.h - ch) / 2), cw, ch);
+          const cropY = env.manifestRaw?.characters?.[id]?.ui?.[name]?.cropY;
+          const y0 = Number.isInteger(cropY) ? Math.max(0, Math.min(img.h - ch, cropY)) : Math.floor((img.h - ch) / 2);
+          if (Number.isInteger(cropY)) note = `band y ${y0}-${y0 + ch} (cropY)`;
+          const c = crop(img, Math.floor((img.w - cw) / 2), y0, cw, ch);
           img = cw > spec.w ? downscaleMode(c, spec.w, spec.h, { coverage: 0.5 }) : upscaleNearest(c, spec.w, spec.h);
         }
-        note = `fitted to ${spec.w}x${spec.h}`;
+        note = note === 'copied' ? `fitted to ${spec.w}x${spec.h}` : `fitted to ${spec.w}x${spec.h}, ${note}`;
       }
       writeFile(env, path.join(env.outDir, 'characters', id, `${name}.png`), encodePng(img), R);
       R.ui.push(`${name} (${note})`);

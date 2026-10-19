@@ -103,8 +103,10 @@ separate documented limitation; do not mistake a Git file-write probe for a pass
 
 Start any dev server that will run unattended through the memory cap (OPS-019): set `PORT`, then run
 `powershell -NoProfile -ExecutionPolicy Bypass -File tools/capped.ps1 node --preserve-symlinks --preserve-symlinks-main <main checkout>/.codex/vite.mjs dev`
-(a worktree that predates `tools/capped.ps1` uses the main checkout's copy). `npm run devs` lists the dev servers
-running; stop your own when the task ends. Details: docs/AI_COLLABORATION.md.
+(a worktree that predates `tools/capped.ps1` uses the main checkout's copy). Keep that command running in its shell:
+the server ends when that shell, its console or a parent process ends (OPS-021), but a detached start
+(`Start-Process`) can outlive the shell that launched it. `npm run devs` lists the dev servers running; stop your own when the task
+ends. Details: docs/AI_COLLABORATION.md.
 
 ## The project in one paragraph
 

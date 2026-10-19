@@ -14,6 +14,18 @@
     - KILL_ON_JOB_CLOSE: when this script ends for any reason (Ctrl+C, the shell closing, a kill), everything in
       the job is ended with it, so no dev server is left behind with nobody watching it.
 
+  That alone did not cover a stopped shell, because nothing ended this script. Windows does not end a process's
+  children when it ends, and a tree kill (Claude Code's TaskStop) finds children by parent PID. Git Bash breaks
+  that chain: the bash it forks to run `npm` exits once it has exec'd it, so npm > cmd > this script > vite hang
+  under a dead parent, out of the tree kill's reach. So the script also watches, and ends the job as soon as one
+  of them exits:
+    - its console host (conhost.exe / OpenConsole.exe): the tree kill ends it with the shell that made it, and
+      closing a terminal window or tab ends it too;
+    - the processes that started it, from its parent up to (not including) Explorer or a system process, as far
+      as the parent chain is unbroken.
+  A deliberately detached start (`nohup ... &`, `Start-Process`) keeps its console and loses its parents before
+  this runs, so it can still outlive its shell: keep the command running in a shell instead.
+
   Nothing is installed or scheduled, nothing outside the job changes, and the cap exists only while the command
   runs. A healthy dev server here uses 0.2 to 0.7 GB, so 8 GB is generous.
 
@@ -47,7 +59,9 @@ if ($LimitGB -lt 0.25) {
 
 Add-Type -TypeDefinition @'
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 public static class GcdJob {
   [StructLayout(LayoutKind.Sequential)]
@@ -72,9 +86,95 @@ public static class GcdJob {
   [DllImport("kernel32.dll", SetLastError = true)] static extern bool SetInformationJobObject(IntPtr job, int infoClass, IntPtr info, uint len);
   [DllImport("kernel32.dll", SetLastError = true)] static extern bool AssignProcessToJobObject(IntPtr job, IntPtr process);
   [DllImport("kernel32.dll")] static extern IntPtr GetCurrentProcess();
+  [DllImport("kernel32.dll")] static extern uint GetCurrentProcessId();
+  [DllImport("kernel32.dll", SetLastError = true)] static extern bool TerminateJobObject(IntPtr job, uint exitCode);
+
+  [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+  struct PE32 {
+    public uint dwSize, cntUsage, th32ProcessID;
+    public IntPtr th32DefaultHeapID;
+    public uint th32ModuleID, cntThreads, th32ParentProcessID;
+    public int pcPriClassBase;
+    public uint dwFlags;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)] public string szExeFile;
+  }
+  [DllImport("kernel32.dll", SetLastError = true)] static extern IntPtr CreateToolhelp32Snapshot(uint flags, uint pid);
+  [DllImport("kernel32.dll", CharSet = CharSet.Unicode, EntryPoint = "Process32FirstW")] static extern bool Process32First(IntPtr snap, ref PE32 e);
+  [DllImport("kernel32.dll", CharSet = CharSet.Unicode, EntryPoint = "Process32NextW")] static extern bool Process32Next(IntPtr snap, ref PE32 e);
+  [DllImport("kernel32.dll", SetLastError = true)] static extern IntPtr OpenProcess(uint access, bool inherit, uint pid);
+  [DllImport("kernel32.dll")] static extern bool GetProcessTimes(IntPtr p, out long created, out long exited, out long kernel, out long user);
+  [DllImport("kernel32.dll")] static extern uint WaitForMultipleObjects(uint count, IntPtr[] handles, bool all, uint ms);
+  [DllImport("kernel32.dll")] static extern bool CloseHandle(IntPtr h);
+  [DllImport("ntdll.dll")] static extern int NtQueryInformationProcess(IntPtr p, int infoClass, out IntPtr info, int len, out int retLen);
 
   // Kept open for the life of this process: closing it (at exit) is what ends the job's processes.
   static IntPtr job;
+
+  // The walk up the parents stops below these, so an Explorer restart does not end a server started from a terminal.
+  static readonly string[] Roots = { "explorer.exe", "sihost.exe", "svchost.exe", "services.exe", "wininit.exe",
+    "winlogon.exe", "csrss.exe", "smss.exe", "System", "[System Process]" };
+
+  // Watches this process's console host and its parent, their parent and so on, and ends the job (this script, the
+  // command and all it started) as soon as one of them exits. Returns what it watches; "" when it could watch nothing.
+  public static string WatchShell() {
+    var parentOf = new Dictionary<uint, uint>();
+    var nameOf = new Dictionary<uint, string>();
+    IntPtr snap = CreateToolhelp32Snapshot(0x2, 0); // TH32CS_SNAPPROCESS
+    if (snap == new IntPtr(-1)) return "";
+    try {
+      PE32 e = new PE32();
+      e.dwSize = (uint)Marshal.SizeOf(typeof(PE32));
+      for (bool ok = Process32First(snap, ref e); ok; ok = Process32Next(snap, ref e)) {
+        parentOf[e.th32ProcessID] = e.th32ParentProcessID;
+        nameOf[e.th32ProcessID] = e.szExeFile;
+      }
+    } finally { CloseHandle(snap); }
+
+    var handles = new List<IntPtr>();
+    var names = new List<string>();
+    uint cur = GetCurrentProcessId();
+    long curCreated, x, k, u;
+    if (!GetProcessTimes(GetCurrentProcess(), out curCreated, out x, out k, out u)) return "";
+    while (handles.Count < 64) { // WaitForMultipleObjects takes at most 64
+      uint pid;
+      if (!parentOf.TryGetValue(cur, out pid) || pid == 0 || !nameOf.ContainsKey(pid)) break; // already gone
+      string name = nameOf[pid];
+      if (Array.Exists(Roots, r => string.Equals(r, name, StringComparison.OrdinalIgnoreCase))) break;
+      IntPtr h = OpenProcess(0x00100000 | 0x1000, false, pid); // SYNCHRONIZE | PROCESS_QUERY_LIMITED_INFORMATION
+      if (h == IntPtr.Zero) break; // another user's or a protected process
+      long created;
+      // A "parent" younger than its child is a stranger that took a dead parent's PID: the real chain ends here.
+      if (!GetProcessTimes(h, out created, out x, out k, out u) || created > curCreated) { CloseHandle(h); break; }
+      handles.Add(h);
+      names.Add(name + " " + pid);
+      cur = pid;
+      curCreated = created;
+    }
+
+    IntPtr host;
+    int retLen;
+    // 49 = ProcessConsoleHostProcess; the low two bits are flags. 0 when this process has no console.
+    if (handles.Count < 64 && NtQueryInformationProcess(GetCurrentProcess(), 49, out host, IntPtr.Size, out retLen) == 0) {
+      uint hostPid = (uint)((long)host & ~3L);
+      if (hostPid != 0 && nameOf.ContainsKey(hostPid)) {
+        IntPtr h = OpenProcess(0x00100000, false, hostPid); // SYNCHRONIZE
+        if (h != IntPtr.Zero) { handles.Add(h); names.Add("console " + nameOf[hostPid] + " " + hostPid); }
+      }
+    }
+    if (handles.Count == 0) return "";
+
+    IntPtr[] hs = handles.ToArray();
+    string[] ns = names.ToArray();
+    Thread t = new Thread(delegate () {
+      uint r = WaitForMultipleObjects((uint)hs.Length, hs, false, 0xFFFFFFFF);
+      if (r >= (uint)hs.Length) return; // the wait failed: KILL_ON_JOB_CLOSE still covers this script ending
+      try { Console.Error.WriteLine("[capped] " + ns[r] + " has ended, so its shell is gone; stopping the command."); } catch { }
+      TerminateJobObject(job, 1);
+    });
+    t.IsBackground = true;
+    t.Start();
+    return string.Join(", ", ns);
+  }
 
   // Returns null when the cap is on, else what failed.
   public static string Cap(ulong bytes) {
@@ -102,6 +202,9 @@ if ($err) {
   exit 3
 }
 [Console]::Error.WriteLine(('[capped] memory cap {0:N1} GB for this command and everything it starts' -f $LimitGB))
+$watched = [GcdJob]::WatchShell()
+if ($watched) { [Console]::Error.WriteLine("[capped] ends when any of these ends: $watched") }
+else { [Console]::Error.WriteLine('[capped] no parent process to watch: it ends with its window, Ctrl+C or a kill') }
 
 $exe = [string]$Command[0]
 $rest = @($Command | Select-Object -Skip 1 | ForEach-Object { [string]$_ })

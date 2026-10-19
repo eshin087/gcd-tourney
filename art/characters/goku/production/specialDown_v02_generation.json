@@ -1,0 +1,82 @@
+{
+  "asset": "specialDown_v02",
+  "character": "goku",
+  "cumulative_call_limit": 3,
+  "worktree": "E:\\Vibe Coding\\Claude Code\\gcdTourney\\.worktrees\\art-goku-skills",
+  "branch": "art/goku-skills",
+  "calls": [
+    {
+      "call": 1,
+      "prompt": "Use case: game-sprite-strip. Asset type: raw character animation candidate for Goku's specialDown move. Input images: Image 1 is the approved title-style visual and anatomy baseline; Image 2 is the approved Goku model sheet for identity and outfit; Image 3 is the approved expressions reference for face; Image 4 is the approved idle animation for body scale and pixel language. Generate exactly four connected sequential full-body frames arranged left to right in one horizontal strip, each occupying one conceptual 256x256 cell with consistent scale and clear spacing only as needed to distinguish cells. Subject: same adult Goku as references, serious anime proportions, right-facing 3/4 view; orange gi, blue undershirt, blue sash, blue wristbands and boots. Pixel-art style matching refs, crisp hard pixels, limited clean colors. Frame sequence: f0 upright in relaxed shoulder-width stance; near hand rises with index and middle fingers extended together, all remaining fingers curled; far arm loose; eyes closing. f1 those two fingers touch the center of forehead; eyes shut, focused brow, mouth closed, calm. f2 same pose, hair and gi lift subtly by only 1-2 pixels as he vanishes. f3 still fingers-to-forehead, eyes open glancing toward opponent, torso just beginning to turn toward them before the kick. Scene/backdrop: completely flat pure #FF00FF magenta background. Constraints: exact four readable sequential frames, full body including boots in every cell, consistent adult body scale and anatomy with approved references, right-facing 3/4 view, pure flat #FF00FF only, hard pixels with no antialiasing, blur, gradients, or dithering fills. No text, labels, grid, panel borders, shadows, extra characters, effects, or additional poses.",
+      "references": [
+        "art/characters/goku/reference/title_style_draft.png",
+        "art/characters/goku/reference/model_sheet.png",
+        "art/characters/goku/reference/expressions.png",
+        "art/characters/goku/reference/idle_approved.png"
+      ],
+      "outcome": "Generated candidate; discarded in favor of call 2.",
+      "source_path": "E:\\Vibe Coding\\.codex\\generated_images\\01a15212-900d-7592-a00a-40109f8a7a1a\\exec-a03e1063-b4e1-4d95-9489-6c7faaecff47.png",
+      "output_path": "E:\\Vibe Coding\\.codex\\generated_images\\01a15212-900d-7592-a00a-40109f8a7a1a\\exec-a03e1063-b4e1-4d95-9489-6c7faaecff47.png",
+      "sha256": "752C0BAEE69F342BC3B7C98024D1241C68412D2C77AE6B6723101564934E5032",
+      "dimensions_px": [
+        1983,
+        793
+      ],
+      "deviations": [
+        "Raster dimensions do not map to a clean four-cell 256x256 strip without cropping/resizing.",
+        "Visual inspection showed soft/anti-aliased painted edges and shading rather than strictly hard-pixel rendering."
+      ]
+    },
+    {
+      "call": 2,
+      "prompt": "Use case: game-sprite-strip. Asset type: raw character animation candidate for Goku's specialDown move. Input images: Image 1 is approved title-style baseline; Image 2 approved Goku model sheet for identity and outfit; Image 3 approved expressions for face; Image 4 approved idle for body scale and pixel language. Create exactly four sequential full-body frames left to right in one horizontal strip, consistent scale, conceptual 256x256 cells. Same adult Goku as refs, serious proportions, right-facing 3/4 view; orange gi, blue undershirt, sash, wristbands and boots. Crisp hard pixel-art. Frame 0: upright shoulder-width stance, near hand rising, index and middle fingers extended together, all other fingers curled, far arm loose, eyes closing. Frame 1: those two fingers at forehead center, eyes shut, focused brow, closed mouth, calm. Frame 2: same pose, hair and gi lift subtly only 1-2 pixels as he vanishes. Frame 3: fingers remain at forehead, eyes open glancing toward opponent, body just beginning to turn toward them before kick. Flat pure #FF00FF background. Full body and boots in every cell. No antialiasing, blur, gradients, dithering fills, text, labels, grid, panel borders, shadows, extra characters, effects, or extra poses.",
+      "references": [
+        "art/characters/goku/reference/title_style_draft.png",
+        "art/characters/goku/reference/model_sheet.png",
+        "art/characters/goku/reference/expressions.png",
+        "art/characters/goku/reference/idle_approved.png"
+      ],
+      "outcome": "Selected and copied to requested raw candidate path; four sequential full-body poses are visible. Frame 0 has the two fingers already raised near the face instead of clearly mid-rise; f1-f3 gesture and gaze largely follow the brief.",
+      "source_path": "E:\\Vibe Coding\\.codex\\generated_images\\01a15212-900d-7592-a00a-40109f8a7a1a\\exec-b016ec4e-81e0-4ec4-ad04-fe32996f851f.png",
+      "output_path": "art/characters/goku/raw/specialDown_v01.png",
+      "sha256": "59E8EDAFE8C4FCA2515F0E3F6EF84689935D3EC0553059FBFC08B553EC9BF02A",
+      "dimensions_px": [
+        1983,
+        793
+      ],
+      "deviations": [
+        "Output is 1983x793 and does not use four exact conceptual 256x256 cells; raw candidate is unmodified.",
+        "Visual inspection shows anti-aliased, softly shaded painted rendering rather than crisp hard pixels; limited palette is not achieved.",
+        "Frame 0 gesture is already raised close to the face rather than at the beginning of a rise.",
+        "Frame 2 does not clearly communicate vanishing beyond the subtle pose shift."
+      ]
+    },
+    {
+      "call": 3,
+      "prompt": "Use case: game-sprite-strip. Asset type: raw Goku specialDown animation candidate. Input images: Image 1 approved title-style baseline; Image 2 approved Goku model sheet identity/outfit; Image 3 approved expression reference; Image 4 approved idle for exact adult body scale and pixel style. Create a true horizontal strip exactly 1024x256 pixels, containing exactly four equal 256x256 cells in a single row, each containing a full-body Goku with boots visible. Same adult Goku as references, consistent adult anatomy/body size in every cell, orange gi, blue undershirt, blue sash, wristbands, boots; right-facing 3/4 view. Strict crisp hard-pixel sprite art with a small coherent palette and square pixel clusters, no painterly rendering. Precisely these four sequential poses, all same character scale and body anatomy: cell 0 upright shoulder-width stance, near hand beginning to rise, index and middle fingers extended together, all other fingers curled, far arm loose, eyes closing. cell 1 same stance, those two fingers touching center of forehead, eyes shut, focused brow, mouth closed, calm. cell 2 same gesture and stance, hair and gi lifted only 1-2 pixels to imply vanishing. cell 3 fingers still touching forehead, eyes open glancing toward opponent, torso just beginning to turn toward opponent before the kick. Preserve gesture continuity and make each pose clearly readable. No extra poses, characters, effects, aura, text, labels, borders, dividers, shadows, gradients, dithering fills, antialiasing, blur, or photographic/painterly detail. Exact output canvas 1024x256, four conceptual 256x256 cells.",
+      "references": [
+        "art/characters/goku/reference/title_style_draft.png",
+        "art/characters/goku/reference/model_sheet.png",
+        "art/characters/goku/reference/expressions.png",
+        "art/characters/goku/reference/idle_approved.png"
+      ],
+      "outcome": "Selected and copied to raw/specialDown_v02.png. Four connected full-body poses are visible, but the image tool returned 2172x724 instead of requested 1024x256. Rendering remains smoothly shaded/anti-aliased rather than strict hard-pixel art; pure magenta background and four poses are present.",
+      "source_path": "E:\\Vibe Coding\\.codex\\generated_images\\01a15212-900d-7592-a00a-40109f8a7a1a\\exec-55829a08-a59f-4390-9e9f-85cd98963c2f.png",
+      "output_path": "art/characters/goku/raw/specialDown_v02.png",
+      "sha256": "25543EDDEFD72A295F0F98A55FAB0B557ACDA3CD4043F6EABCC9BE02DC5B7B9A",
+      "dimensions_px": [
+        2172,
+        724
+      ],
+      "deviations": [
+        "Requested exact 1024x256 but generated result is 2172x724 RGB; saved unmodified as instructed.",
+        "Visual output retains soft/anti-aliased painted shading, not strict hard-pixel style.",
+        "Requested 256x256 cell boundaries are not explicit; four poses are arranged horizontally.",
+        "Frame 0 hand is already raised near the forehead rather than distinctly beginning the rise.",
+        "Frame 2 has only a faint shift and does not strongly communicate vanishing."
+      ]
+    }
+  ],
+  "selected_output": "art/characters/goku/raw/specialDown_v02.png",
+  "approval_state": "raw candidate only; user review required"
+}

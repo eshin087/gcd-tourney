@@ -1,0 +1,25 @@
+{
+  "asset": "instantTransmission_v01",
+  "callsUsed": 3,
+  "selectedCall": 3,
+  "selectedOutput": "E:\\Vibe Coding\\.codex\\generated_images\\01a15212-a466-7610-8f9a-1541fd3828d7\\exec-142e05c3-3e33-4262-8812-64f18ebca3d9.png",
+  "savedOutput": "art/vfx/raw/instantTransmission_v01.png",
+  "dimensions": "2172x724",
+  "sha256": "a8e2d35337789bd8ee736ed0f815d48504ea27c3eaeee2fcc4967e3cb30bfbd5",
+  "prompts": [
+    "Create a precise 6-frame horizontal VFX sprite strip for a 2D fighting game. Canvas: six equal adjacent 256x256 cells, total 1536x256. Pure flat #FF00FF background everywhere outside the effect, with crisp cell divisions implied only by placement (no borders/grid). HD hard-pixel full-color pixel art, sharp square pixels, no anti-aliasing, blur, noise, dithering, gradients, or soft glow. No character, smoke, text, symbols, or extra objects. Effect is instantaneous teleport shimmer at the place of a standing 186px-tall body, consistently bottom anchored with feet baseline y=240 in every cell. Palette for effect only: #FFFFFF, #FFF8D8, #CFE9FF, #8CC8FF, #5A8CE0; no pink or purple inside effect. Frames left to right, each exactly 256x256: f0 two thin wavering vertical light lines 80px apart, 180px tall, from y=60 to y=240, with a few short horizontal ripple dashes between; f1 same lines 40px apart and brighter, denser ripples; f2 one vertical white-core/pale-blue-edge line, 200px tall and 6px wide, centered x=128, from y=40 to y=240; f3 bright point at (128,140) and a thin 120px horizontal glint; f4 small four-point sparkle centered around (128,140); f5 only 3-4 tiny fading pale-blue/white specks around that point. Align all effects to cell centers and keep the exterior background exactly #FF00FF. Do not add any effect beyond the specified frames.",
+    "Create a 6-frame horizontal VFX sprite strip for a fighting game: six equal 256x256 cells, total 1536x256. Pure flat #FF00FF background outside effects, no grid/borders. Crisp hard-pixel art, no anti-aliasing, blur, noise, dithering, gradients, or soft glow. No character, smoke, text, or extra objects. Instant teleport shimmer at a standing body's place, consistently bottom anchored, soles y=240 in every cell. Use only #FFFFFF, #FFF8D8, #CFE9FF, #8CC8FF, #5A8CE0 for effects; no pink/purple within effect. Left to right: f0 two thin wavering vertical light lines 80px apart, 180px tall from y60 to y240, few short horizontal ripple dashes between; f1 lines 40px apart and brighter, denser ripples; f2 one vertical white-core pale-blue-edge line 200px tall and 6px wide at x128, y40 to y240; f3 bright point at (128,140) with thin 120px horizontal glint; f4 small four-point sparkle at (128,140); f5 only 3-4 tiny fading pale-blue/white specks near that point. Each cell exactly 256x256, center each effect, consistent scale/anchor.",
+    "Create a 6-frame horizontal VFX sprite strip for a fighting game: six equal 256x256 cells, total 1536x256. Pure flat #FF00FF background outside effects, no grid/borders. Crisp hard-pixel art only, no anti-aliasing, blur, noise, dithering, gradients, soft glow. No character, smoke, text, or extra objects. Instant teleport shimmer at a standing body's place, consistently bottom anchored, soles y=240 in every cell. Effect palette only #FFFFFF, #FFF8D8, #CFE9FF, #8CC8FF, #5A8CE0; absolutely no pink or purple within effect. Left to right: f0 two thin wavering vertical light lines 80px apart, 180px tall from y60 to y240, few short horizontal ripple dashes between; f1 lines 40px apart and brighter, denser ripples; f2 one vertical white-core pale-blue-edge line, 200px tall and 6px wide at x128, y40 to y240; f3 bright point at (128,140) plus thin 120px horizontal glint; f4 small four-point sparkle at (128,140); f5 only 3-4 tiny fading pale-blue/white specks near point. Center effect per cell, consistent scale/anchor."
+  ],
+  "callOutcomes": [
+    "Tool call returned no exposed output metadata through wrapper; treated as generated, no saved candidate used.",
+    "Tool returned raster payload but wrapper output was truncated; not selected.",
+    "Visible output saved by imagegen at selectedOutput and copied to candidate."
+  ],
+  "deviations": [
+    "Output dimensions do not match required 1536x256 six-cell strip; generation appears to be 2172x724 aspect ratio 3:1.",
+    "Image contains the specified visual sequence but frame cells are not discernibly equal six-cell widths; sequences appear compressed into a wide canvas.",
+    "Rendered pixels show softened/aliased edges and thin blue/pink fringe around bright lines; technical palette/edge compliance is not confirmed.",
+    "Candidate is retained for review only; not packed."
+  ]
+}

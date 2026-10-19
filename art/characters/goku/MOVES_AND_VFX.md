@@ -14,7 +14,8 @@ This art brief follows [KIT.md](KIT.md) and ADR 0032. The current work is limite
 | Rising Kick | `specialUp` → `airHeavy` → `land` | rising front kick into forward flip and dive | lead foot |
 | Instant Transmission | `specialDown` → `light4` | two fingers at forehead, vanish handled by engine, kick from behind | forehead gesture; then kicking foot |
 | Ki Blast Volley (air) | `throw` | palm release of the three-shot volley | open palm |
-| Kaio-ken Rush | `superPose`, `dash`, `light2`/`light4`, `airHeavy` | red-aura flurry resolved by the engine | contact punches and final spike |
+| Spirit Bomb (SUPER since 2026-10-18) | `superPose`, then `beamFire` | arms raised, the sphere gathers over him, shoved onto the mark | raised palms |
+| Kaio-ken (Back + Special mode) | `charge` | the red aura flares; engine aura, outline and tint | engine-managed |
 | Kamehameha | `beamCharge` → `beamFire` | side-on cupped hands at hip, then arms thrust forward | cupped hands / palms |
 | Charge | `charge` | Super Saiyan power-up look; engine renders golden aura and ground cues | none |
 

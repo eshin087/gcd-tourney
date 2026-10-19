@@ -239,7 +239,19 @@ class BeamView {
     const id = beam.owner.index;
     const pulse = 1 + dmath.sin(time * 30) * 0.08;
     fx.keep('beamO' + id, 'glow', beam.origin.x, beam.origin.y, beam.origin.z, { scale: (beam.clash ? 0.34 : 0.5) * pulse * beam.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
-    const h = beam.head;
+    const h = beam.head, P = beam.pal;
+    // the technique itself held at the palms while it fires (`originFx`: the Kamehameha's ball, ENG-SKL-GOK), in front
+    // of the hands, and the beam's own drawn head (`headFx`) instead of the two glow bulbs: its front on the head,
+    // turned along the beam on screen (the art points screen-right)
+    if (P.originFx) fx.keep('beamOx' + id, P.originFx.fx, beam.origin.x, beam.origin.y, beam.origin.z, { scale: P.originFx.scale * (beam.clash ? 0.7 : pulse) * beam.fade, order: 7, glow: P.originFx.glow ?? 0.3 });
+    if (P.headFx && !beam.clash && !St.fx && !St.orb) {
+      const R = this.game.cam.right, sx = beam.dir.x * R.x + beam.dir.z * R.z, flip = sx < 0, s = P.headFx.scale * beam.fade;
+      const back = (P.headFx.front ?? 0.45) * fx.cellWorld * s; // its front sits on the head: centre it that far back
+      const it = fx.keep('beamHx' + id, P.headFx.fx, h.x - beam.dir.x * back, h.y - beam.dir.y * back, h.z - beam.dir.z * back, { scale: s * (beam.hitting ? 1.1 : 1), order: 7, glow: P.headFx.glow ?? 0.3, flipX: flip });
+      const phi = dmath.atan2(beam.dir.y, Math.abs(sx));
+      it.rot = flip ? -phi : phi;
+      return;
+    }
     if (St.orb) {
       // the orb is the technique (Reversal: Red), held just ahead of the fingertips; it pulses on a good beat and
       // sends repulsion ripples down the channel to the struggle point
@@ -286,8 +298,9 @@ export class ShotViews {
           v = { lance: fx.span(L.fx, p.from ?? p.pos, d, L.len, g.cam.right, { seq: L.seq, ms: L.ms, order: 8, glow: L.glow ?? 0.3, depthTest: false }) };
         } else {
           v = { sprite: fx.spawn(P.sprite, p.pos.x, p.pos.y, p.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random }) };
-          // `halo: false`: full-color art that carries its own light (Reversal: Red) gets no glow disc under it
-          if (P.glowColor && P.halo !== false) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: 0.5, order: 6 });
+          // `halo`: the glow disc under the sprite: false or 0 for none (full-color art that carries its own light:
+          // Reversal: Red, Goku's ki blasts get a faint one), a number for its opacity
+          if (P.glowColor && P.halo !== false && P.halo !== 0) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: typeof P.halo === 'number' ? P.halo : 0.5, order: 6 });
         }
         if (P.limb) Object.assign(v, { limb: P.limb, owner: p.owner });
         this.shots.set(p.id, v);
@@ -598,7 +611,7 @@ export class Orb {
 }
 
 // Aim from the thrower's hand toward the opponent's chest, fanned out for volleys.
-export function spawnProjectiles(game, owner, type = owner.def.projectile) {
+export function spawnProjectiles(game, owner, type = owner.def.projectile, only = -1) {
   const P = PROJECTILES[type];
   const o = owner.opp;
   const from = new THREE.Vector3(owner.pos.x, owner.pos.y + 0.9, owner.pos.z);
@@ -606,11 +619,18 @@ export function spawnProjectiles(game, owner, type = owner.def.projectile) {
   const base = to.sub(from).normalize();
   const list = [];
   for (let i = 0; i < P.count; i++) {
+    if (only >= 0 && i !== only) continue;
     const off = (i - (P.count - 1) / 2) * P.spread;
     // turned about the vertical by hand: three.js would turn it with the engine's Math.sin / cos (ADR 0036)
     const c = dmath.cos(off), sn = dmath.sin(off);
     const d = new THREE.Vector3(base.x * c + base.z * sn, base.y, base.z * c - base.x * sn);
-    list.push(new Projectile(game, owner, type, d));
+    const p = new Projectile(game, owner, type, d);
+    list.push(p);
+    // the flash at the palm it leaves (`muzzle`, drawn pointing screen-right: mirrored for a shot to the left)
+    if (P.muzzle) {
+      const R = game.cam.right;
+      game.fx.spawn(P.muzzle.fx, p.pos.x, p.pos.y, p.pos.z, { scale: P.muzzle.scale ?? 0.4, order: 8, depthTest: false, flipX: d.x * R.x + d.z * R.z < 0 });
+    }
   }
   audio.play(P.sfx);
   return list;

@@ -64,3 +64,13 @@ Three ways to fix it were measured on Naruto's real cells:
   strip does (TOOL-PALETTE-LOCK; `--keep-palette` avoids it).
 - `npm run test:sprites` covers it: the reserved strip keeps its colours, every other pixel whose colour is still
   shared is unchanged, `--keep-palette` repacks byte for byte, too large or malformed reserves are refused.
+
+## Amendment (2026-10-19, ENG-SKL-GOK): `"cut": "misfits"`
+
+Goku's `intro` strip shows his black base-form hair in one frame of four; the rest is his usual gi and blond hair. A
+group cut from its whole strip spends its colours on those (8 colours still gave the hair his maroon outline shade).
+With `"cut": "misfits"` a group's colours are cut only from its colours more than 20 levels from every shared entry,
+each weighted by its pixels times its squared distance (by pixels alone, skin drawn a few levels off his palette
+outvoted the hair). Goku reserves 2 (`baseForm`, `intro`): the hair packs near-black, and his other strips move 0.41 %
+of their pixels (22 by more than 30 levels). Without `cut` a group is cut from its whole strips as before, so Naruto's
+fox is unchanged; an unknown `cut` is reported and ignored. `npm run test:sprites` covers both.

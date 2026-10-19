@@ -61,9 +61,9 @@ Added by [ADR 0032](0032-goku-and-luffy-kits.md) (2026-10-13):
 | forward | Dragon Fist (rush, 150) | Gum-Gum Bazooka (rush, 145) |
 | up | Rising Kick (dive 38 + 96) | Gum-Gum Rocket (dive 36 + 100) |
 | down | Instant Transmission (teleport behind + kick 75) | Gear Second (mode: ×1.25 speed, ×1.1 dmg) |
-| back | = down | Gum-Gum Whip (rush ½, 90, low) |
+| back | Kaio-ken (mode: ×1.2 speed, ×1.15 dmg; ADR 0050, was = down) | Gum-Gum Whip (rush ½, 90, low) |
 | air / air↓ | Ki Blast Volley / Rising Kick dive | Pistol / Rocket dive |
-| SUPER | Kaio-ken Rush (flurry, 8×22 + 130) | Gear Second: Jet Gatling (flurry from the front, 9×20 + 125) |
+| SUPER | Spirit Bomb (skyStrike: 280, dodgeable; ADR 0050, was the Kaio-ken Rush flurry) | Gear Second: Jet Gatling (flurry from the front, 9×20 + 125) |
 | ultimate | **Kamehameha** (the shared beam: the cast's one beam) | **Gear Third: Gigant Pistol** (laneStrike: 270, dodgeable) |
 | passive | - | - |
 | stats (index) | 6.2 / 1.02 / 1.0 (1.02) | 6.1 / 1.0 / 1.0 (0.98) |

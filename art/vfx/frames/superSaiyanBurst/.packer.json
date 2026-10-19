@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/superSaiyanBurst_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/superSaiyanBurst_v01.png",
+    "vfx/raw/superSaiyanBurst_v01.json"
+  ],
+  "sourceHash": "c8cd785c0236a512be954f78e2c51937f41ee93b",
+  "cell": 256,
+  "files": {
+    "superSaiyanBurst_00.png": "0eacb342ba7446c904053d250db24026082fffa8",
+    "superSaiyanBurst_01.png": "3055f2ed5298d656e9d0bbf7ae5a9f2bc18e5076",
+    "superSaiyanBurst_02.png": "4773fdabc6ab8f9737c6be580c8384610f2570f3",
+    "superSaiyanBurst_03.png": "c669c42baf4ea2f1239fee754adbaaa8e999e2dc",
+    "superSaiyanBurst_04.png": "e5683551b8a5d56187a7b0fc64dd9b18602ef175",
+    "superSaiyanBurst_05.png": "457a801af29382571c5775e66e8ea187b45a3109",
+    "superSaiyanBurst_06.png": "df1beb7613c68cd09a060aa531a570e04d5b5c47",
+    "superSaiyanBurst_07.png": "b1873bf9e80cc0c39cc1f1b69d64f972219006c1"
+  }
+}

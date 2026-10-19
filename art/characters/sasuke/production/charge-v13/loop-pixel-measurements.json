@@ -1,0 +1,65 @@
+{
+  "f2": {
+    "changed_pixels_vs_f2": 0,
+    "difference_bounds": null,
+    "regions": {
+      "feet": 0,
+      "hips_knees": 0,
+      "head": 0,
+      "chest_shoulders": 0,
+      "seal": 0,
+      "fist": 0
+    }
+  },
+  "f3": {
+    "changed_pixels_vs_f2": 2768,
+    "difference_bounds": [
+      79,
+      92,
+      180,
+      240
+    ],
+    "regions": {
+      "feet": 265,
+      "hips_knees": 1261,
+      "head": 555,
+      "chest_shoulders": 811,
+      "seal": 332,
+      "fist": 101
+    }
+  },
+  "f4": {
+    "changed_pixels_vs_f2": 2826,
+    "difference_bounds": [
+      80,
+      92,
+      180,
+      240
+    ],
+    "regions": {
+      "feet": 246,
+      "hips_knees": 1291,
+      "head": 571,
+      "chest_shoulders": 852,
+      "seal": 340,
+      "fist": 108
+    }
+  },
+  "f5": {
+    "changed_pixels_vs_f2": 2541,
+    "difference_bounds": [
+      78,
+      89,
+      180,
+      240
+    ],
+    "regions": {
+      "feet": 252,
+      "hips_knees": 1128,
+      "head": 503,
+      "chest_shoulders": 787,
+      "seal": 306,
+      "fist": 101
+    }
+  }
+}
