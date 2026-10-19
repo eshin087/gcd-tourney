@@ -11,7 +11,6 @@ User approved lightningPalm v01, palmCrackle v01, palmShock v02, shockCrawl v02,
 | 2026-10-18 | Killua | palmShock | `vfx/raw/_rejected/palmShock_v01.png` | v01 | rejected | A3 earlier candidate | 10 detected vs 8 |
 | 2026-10-18 | Killua | shockCrawl | `vfx/raw/shockCrawl_v02.png` | v02 | approved | A4 stun crawl | 6/6; v01 superseded and rejected |
 | 2026-10-18 | Killua | shockCrawl | `vfx/raw/_rejected/shockCrawl_v01.png` | v01 | rejected | A4 earlier candidate | 14 detected vs 6 |
-| 2026-10-18 | Killua | shockCrawl | `vfx/raw/_qa_hold/shockCrawl_attempt01.png` | attempt01 | needs review | Preserved original unsaved attempt | Not selected; see inventory for filing correction |
 | 2026-10-18 | Killua | godspeedBurst | `vfx/raw/godspeedBurst_v01.png` | v01 | approved | A5 activation burst | 8/8 frames |
 | 2026-10-18 | Killua | godspeedAura | `vfx/raw/godspeedAura_v03.png` | v03 | approved | A6 sustained aura | Clipped after 3/3 calls; technical hold |
 | 2026-10-18 | Killua | godspeedAura | `vfx/raw/_rejected/godspeedAura_v02.png` | v02 | rejected | A6 earlier candidate | Clipped |
@@ -20,6 +19,16 @@ User approved lightningPalm v01, palmCrackle v01, palmShock v02, shockCrawl v02,
 | 2026-10-18 | Killua | godspeedStreak | `vfx/raw/_rejected/godspeedStreak_v02.png` | v02 | rejected | A7 earlier candidate | 9 detected vs 6 |
 | 2026-10-18 | Killua | godspeedStreak | `vfx/raw/_rejected/godspeedStreak_v01.png` | v01 | rejected | A7 earlier candidate | 4 detected vs 6 |
 
+
+## Killua skills revamp batch 2 (2026-10-18): Narukami candidates
+
+Candidates are pending user review. All three carry technical holds; the gallery clearly separates raw-source evidence from packed frames. [Batch 2 review gallery](../public/reviews/killua-skills-batch2/index.html) · [attempt inventory](characters/killua/production/skills-revamp-batch2/ATTEMPT_INVENTORY.md) · [Astra review](characters/killua/production/skills-revamp-batch2/ASTRA_SPECIALUP_V09_AUDIT.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-10-18 | Killua | specialUp | `characters/killua/raw/specialUp_v09.png` | v09 | needs review | Narukami leap, rise, apex and palm-first dive | Scale gate fails f0 1.12x vs f5 0.78x idle; no v09 quantized atlas; Astra HOLD |
+| 2026-10-18 | Killua | narukamiBolt | `vfx/raw/narukamiBolt_v01.png` | v01 | needs review | A8 vertical bolt column | 4/4 frames; exact tile edge mismatch 53-57 RGBA channels/frame; source palette/background out of brief |
+| 2026-10-18 | Killua | narukamiStrike | `vfx/raw/narukamiStrike_v01.png` | v01 | needs review | A9 floor strike and fading arcs | 7/8 packed; all 3 calls used, floor baseline too high |
 ## ENG-112 Goku normals (2026-10-18): seven drawings approved; one redraw round authorized for three held moves after merge
 
 Goku's head probe is manually disabled. Astra's relay #39 visual scale review passed fTilt v01, dTilt v01, dashAttack v01, fSmash v01, fair v01, bair v01 and uair v01 within recorded uncertainty; the user approved those seven as drawn via Claude relay #40. uTilt v01 and uSmash v01 remain visibly undersized, and dSmash v02 has visibly oversized upper-body volume. These three remain on technical hold pending the separate user decision; no drawing approval is inferred. Strict shipping gate and runtime contact remain separate. [Current Astra audit](characters/goku/production/ENG112_IMPORT_SCALE_AUDIT.md).
@@ -1850,7 +1859,3 @@ Status values: `needs review` · `approved` · `rejected`.
 
 | Date | Character | Asset | Candidate | Version | Status | Change | QA |
 |---|---|---|---|---|---|---|---|
-
-
-
-

@@ -1,0 +1,20 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/narukamiStrike_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/narukamiStrike_v01.png"
+  ],
+  "sourceHash": "534b18a3b6a49fc9d0cdaffb605c09bc750eb322",
+  "cell": 256,
+  "files": {
+    "narukamiStrike_00.png": "def97363f46daeb6d64937655d834066b042f4b9",
+    "narukamiStrike_01.png": "88a99559c0937f7987043c49d1f8386bc4af5842",
+    "narukamiStrike_02.png": "d2cf5059c1184cce017f73dbaa5daa2b30844035",
+    "narukamiStrike_03.png": "2d2ab589eb848bc2ec5f46723bcb3f3427d82d9d",
+    "narukamiStrike_04.png": "03b0534379559b13af3331d323103ef54af77f38",
+    "narukamiStrike_05.png": "fb693d8769c63c9785a1630323d851418e921ade",
+    "narukamiStrike_06.png": "0e84567b43fecd716d2a5993a60647106c3f2ec5"
+  }
+}

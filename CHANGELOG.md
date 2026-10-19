@@ -982,3 +982,5 @@ Reconstructed from the codebase when the changelog was introduced.
 - Changed (ART-SKL-KIL): filed Killua skills revamp batch 1 effect candidates A1-A7 with source provenance, candidate pack frames and review gallery; godspeedAura remains on clipping hold.
 
 - Changed (ART-SKL-KIL): recorded the user's Claude-relayed approval of the seven batch 1 effects; moved superseded saved attempts to the rejected archive.
+
+- Changed (ART-SKL-KIL): added batch 2 Narukami art candidates, game-scale VFX previews, attempt provenance and the B1 Astra hold report.
