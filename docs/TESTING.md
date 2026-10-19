@@ -259,6 +259,20 @@ and Tools at 1366 × 768 and up; Scenarios fits once a group or two is folded). 
 - [ ] HUD: health trail, ki bars, burst gems, combo counter (gold, blue after a gap), technique banners, callouts,
       timer.
 
+**Live announcer (ENG-118, ADR 0048)** (`game.arena.caster` with `?debug`; `caster.say('special', { A: game.fighters[0],
+B: game.fighters[1], M: 'RASENGAN' }, true, true)` shows any line)
+- [ ] Intro: he stands in the ring between the fighters and calls both names; "ROUND n" / "BEGIN!!", then he walks to
+      his spot about five tiles behind the fight, off to one side, and keeps to it as the fight moves.
+- [ ] A fighter rushing at him sends him scurrying (or hopping down to the grass at the ring edge, then back up);
+      an ultimate, a beam or a beam struggle makes him duck; a melee clash only drops his jaw.
+- [ ] Bubbles: one at a time, round for talk, spiky for shouts, wobbly for panic; the fighter's name in their color;
+      the tail points at him and follows him; off screen the bubble docks at the edge with the tail his way; it never
+      covers the health bars, and on a phone (740 x 360, touch) it sits beside him when there is no room above.
+- [ ] KO: "X IS DOWN!!", the count ONE / TWO / THREE, then he runs to the winner for the victory close-up and calls
+      the round; the next round's call is not blocked by it. Matchend / results: he is gone from the hero shot.
+- [ ] Training room, menus and the title: no bubbles, he waits by the gong. Pausing freezes him and his bubble.
+- [ ] `det.replay` of both fixtures still matches (he is view only; a rollback never cues him twice).
+
 **Audio and music (ADR 0019)**
 - [ ] `npm run test:music` passes (composer: determinism, variety, ranges, voice leading, heat gates).
 - [ ] Flow: title → mode (menu mood; repeated confirms don't restart it) → match (crossfade to battle, no click) →

@@ -72,6 +72,7 @@ when a decision should be revisited.
 | [0045](0045-naruto-four-tails-beam.md) | Naruto's ultimate is the Four-Tails beam (Tailed Beast Ball): the shared beam with the transformation as `def.beam` data (`flashPose`, `shroud`, `gather`, `muzzle`); amends ADR 0017's one-beam rule (user decision) | Accepted |
 | [0046](0046-palette-reserve.md) | `paletteReserve` in the manifest gives strips drawn in other colours (a transformation) their own share of a fighter's 48 colours, taken from the shared entries the other strips need least; Naruto's Four-Tails fox reserves 8 | Accepted |
 | [0047](0047-sasuke-signature-techniques.md) | Sasuke's signature techniques as data on moves, shots and supers: a rush's `trench` and `hitPose`, a shot's `lance` / `orient` / `burstFx`, a dive's `shadow` (Lion's Barrage), a counter's `current`, a sky strike's `storm` (Kirin: clouds, stage dim, camera lift, the dragon), an ignite's `blastFx` / `hitFlash` / clinging `burn.fx` (Amaterasu) | Accepted |
+| [0048](0048-live-announcer.md) | The live announcer: a view-only director (`src/world/announcer.js`) walks the MC around the ring behind the fight, calls the rounds, counts over the fallen fighter and presents the winner; lines are data (`announcerLines.js`), bubbles are DOM SVG manga balloons under the HUD; `npcCue(kind, info)` carries who and what | Accepted |
 
 ## Template
 

@@ -566,3 +566,21 @@ body:has(#touch.show:not(.spectate)) .tags.k2 { top: calc(var(--u) * 13); right:
 @keyframes onToast { 0% { opacity: 0; transform: translateY(-4px); } 8%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 /* rejoining (ENG-097): the line while we reconnect, or wait for a player who is, stands out */
 .on-strip.alert { padding: 6px 14px; background: rgba(10, 6, 24, 0.85); color: var(--gold); font-size: max(10px, calc(var(--u) * 1.9)); }
+/* the live announcer's manga speech bubbles (ENG-118, src/ui/speechBubble.js): first child of #ui, so under the HUD,
+   its cut-ins and the big announcements, above the game. Ink lettering on white paper; a fighter's name in their color */
+.caster-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.caster-bubble { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 0.16s; will-change: transform; }
+.caster-bubble.on { opacity: 1; }
+.caster-bubble .cb-in { position: relative; }
+.caster-bubble .cb-svg { position: absolute; left: 0; top: 0; overflow: visible; filter: drop-shadow(0 calc(var(--u) * 0.5) 0 rgba(22, 15, 34, 0.35)); }
+.caster-bubble .cb-text { position: absolute; left: 50%; top: 50%; width: max-content; max-width: calc(var(--u) * 30); transform: translate(-50%, -50%); text-align: center; color: var(--ink); font-size: max(12px, calc(var(--u) * 2.6)); line-height: 1.04; letter-spacing: 0.03em; text-transform: uppercase; }
+.caster-bubble.shout .cb-text { font-size: max(14px, calc(var(--u) * 3.2)); max-width: calc(var(--u) * 28); }
+.caster-bubble.panic .cb-text { font-size: max(12px, calc(var(--u) * 2.5)); transform: translate(-50%, -50%) skewX(-8deg); }
+.caster-bubble .cb-text b { font-weight: normal; color: var(--nc, #c0303e); -webkit-text-stroke: 0.06em var(--ink); paint-order: stroke fill; }
+.caster-bubble .cb-text b.mv { color: #c0303e; -webkit-text-stroke: 0; }
+.caster-bubble.pop .cb-in { animation: cbPop 0.3s cubic-bezier(0.2, 1.7, 0.45, 1) both; }
+.caster-bubble.shout.pop .cb-in { animation: cbPop 0.26s cubic-bezier(0.2, 1.7, 0.45, 1) both, cbShake 0.36s 0.26s linear; }
+.caster-bubble.panic.pop .cb-in { animation: cbPop 0.26s cubic-bezier(0.2, 1.7, 0.45, 1) both, cbTremble 0.12s 0.26s linear infinite; }
+@keyframes cbPop { from { transform: scale(0.25) rotate(-8deg); opacity: 0; } 40% { opacity: 1; } to { transform: none; } }
+@keyframes cbShake { 0%, 100% { transform: none; } 20% { transform: translate(-2px, 1px) rotate(-1.5deg); } 40% { transform: translate(2px, -1px) rotate(1.2deg); } 60% { transform: translate(-1px, -1px); } 80% { transform: translate(1px, 1px) rotate(-0.6deg); } }
+@keyframes cbTremble { 0%, 100% { transform: none; } 50% { transform: translate(1px, -1px) rotate(0.6deg); } }
