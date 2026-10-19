@@ -1,0 +1,20 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/kaiokenBurst_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/kaiokenBurst_v01.png"
+  ],
+  "sourceHash": "98768c6d159a878009403df026476a119ba3372b",
+  "cell": 256,
+  "files": {
+    "kaiokenBurst_00.png": "ec5ad6c2bcad50b7e04f0d2d1897cda95217d03a",
+    "kaiokenBurst_01.png": "b8097446a8d800307de907f798752a8a484487a6",
+    "kaiokenBurst_02.png": "43d7d53f9d2b1d64be267d9874020c7df0572449",
+    "kaiokenBurst_03.png": "d9b05a8481ac5284684c70c73f5e0a5b20f9919d",
+    "kaiokenBurst_04.png": "4196f367efc316803c2d402c19fbc2966d88865f",
+    "kaiokenBurst_05.png": "d943a3b79a14b02028dfd1c206f4e702e7dec9a5",
+    "kaiokenBurst_06.png": "abe12d3a57107983ff4976a4da2665ed2d6f556e"
+  }
+}
