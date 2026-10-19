@@ -15,7 +15,7 @@ the NPC numbers are below.
 
 | id | who | where in the scene | animations (frames) | idle height | world height (ppu 80) | brief |
 |---|---|---|---|---|---|---|
-| `announcer` | tournament MC with a microphone: blond curly hair, sunglasses, black suit (homage to the Dragon Ball tournament announcer, a cameo allowed by ADR 0008) | beside the ring, on the grass at the back-left (where the procedural placeholder stands today, next to the gong) | `idle` 2, `point` 2, `shout` 2, `cower` 2 | 112 px | 1.40 units | [announcer/](announcer/CHARACTER.md) |
+| `announcer` | tournament MC with a microphone: blond curly hair, sunglasses, black suit (homage to the Dragon Ball tournament announcer, a cameo allowed by ADR 0008) | beside the ring, on the grass at the back-left next to the gong; walks the ring edge during a match (ENG-118) | `idle` 2, `point` 2, `shout` 2, `cower` 2, `walk` 4, `run` 4, `shocked` 2, `micThrust` 2 | 112 px | 1.40 units | [announcer/](announcer/CHARACTER.md) |
 | `monk-a` | **elder judge**: short, round, stooped, bald, long white brows and beard, saffron robe + crimson mantle, holds a referee paddle-fan | at a ring corner (proposed: back-left) | `idle` 2, `signal` 2 | 92 px | 1.15 units | [monk-a/](monk-a/CHARACTER.md) |
 | `monk-b` | **young judge**: tall, lean, upright, shaved head, slate-grey robe + crimson sash, long wooden staff with a red ribbon | at the opposite ring corner (proposed: back-right, mirrored) | `idle` 2, `signal` 2 | 108 px | 1.35 units | [monk-b/](monk-b/CHARACTER.md) |
 | `vendor` | **snack vendor**: stocky, cheerful, towel headband, indigo festival coat, a wooden tray of noodles, dumpling skewers and buns hung from his neck (no cart) | in an aisle of the stands (the stair gaps of the side stands or the entrance path) | `idle` 2 | 104 px | 1.30 units | [vendor/](vendor/CHARACTER.md) |
@@ -44,8 +44,8 @@ banners) so they read as a team; the announcer wears a deep-red tie for the same
 | palette | the exact hexes in each CHARACTER.md, **<= 32 colors per NPC** |
 | raw background | flat magenta `#FF00FF` |
 | never in the sprite | text, letters, numbers, logos with letters, speech bubbles, sound-effect lettering, ground shadow, floor, scenery, energy effects, steam (the engine may add steam and dust) |
-| frames | every NPC animation has **2 frames**. Loops cycle f0 -> f1 -> f0; one-shot animations play f0 (wind-up) then hold f1 |
-| raw generation | **one animation per image**: both frames in one row on a 1536 x 1024 magenta canvas, same scale, feet on one baseline. Pixel art drawn at 4x (every art pixel a 4 x 4 block), so a 112 px NPC is about 450 px tall on the canvas |
+| frames | every NPC animation has **2 frames** unless its ANIMATIONS.md row says otherwise (the announcer's `walk` and `run` cycles have 4; the packer reads the `frames` column). Loops cycle f0 -> f1 -> f0; one-shot animations play f0 (wind-up) then hold f1 |
+| raw generation | **one animation per image**: all of its frames in one row on a 1536 x 1024 magenta canvas, same scale, feet on one baseline. Pixel art drawn at 4x (every art pixel a 4 x 4 block), so a 112 px NPC is about 450 px tall on the canvas |
 
 **Mirroring.** The engine flips an NPC horizontally when it stands on the right of the ring so it faces
 the fight. Asymmetric details (which hand holds the microphone, which shoulder the mantle covers) swap

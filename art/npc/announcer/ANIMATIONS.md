@@ -18,16 +18,20 @@
 
 ## Rules for every strip
 
-1. Same head size (about 16 px), proportions and palette in both frames; 3/4 view toward the right.
-2. Feet stay planted on the baseline in both frames (the engine never moves him during an animation).
-   Only `cower` changes the stance, and it keeps the feet in place.
+1. Same head size (about 16 px), proportions and palette in every frame; 3/4 view toward the right.
+2. Feet stay on the baseline in every frame. The standing animations keep them planted in one place;
+   `walk` and `run` are cycles **in place** (like a treadmill): the engine slides the whole sprite along the
+   ring side while they play (ENG-118) and mirrors it when he walks toward screen-left, so the strips always
+   walk toward the right of the image.
 3. The microphone stays in the R hand in every frame, near the mouth (except `cower`, where it is
-   clutched beside the head).
+   clutched beside the head, `run`, where it is clutched to the chest, and `micThrust`, where it is held out
+   toward the fight).
 4. Everything fits x 4..123, y 4..124 after packing. Raised arms go diagonally, never straight up.
 5. No text, speech bubbles, sound-effect lettering, motion lines, ground shadow or effects. The one
    allowed extra is the small blue sweat drop in `cower`.
 6. The two frames of a loop differ by a clear but small change (gesture, lean, mouth). Everything not
-   described as changing stays identical, so the 2-frame loop does not pop.
+   described as changing stays identical, so the 2-frame loop does not pop. The 4-frame cycles (`walk`,
+   `run`) change only the legs, the free arm, the bob and the mouth; head, hair, suit and mic stay the same.
 
 ## All animations
 
@@ -37,9 +41,16 @@
 | [`point`](#point) | pointing at the ring while announcing | 2 | yes | 240, 240 | 112 | intro (calling each fighter), the winner at KO / round end, ring-out | `idle` |
 | [`shout`](#shout) | fist-pumping hype shout into the mic | 2 | yes | 140, 140 | 116 | round start ("Begin!"), super / ultimate activation, long combos | `point`, then `idle` |
 | [`cower`](#cower) | ducking for cover, trembling | 2 | yes | 90, 90 | 74 | ultimate beams, beam clashes, explosion-size KOs, hard camera shakes (priority over `shout` / `point`) | `idle` |
+| [`walk`](#walk) | strolling along the ring side, still talking into the mic | 4 | yes | 150, 150, 150, 150 | 112 | moving along the ring edge to keep the fight in view (ENG-118) | `idle` (the engine bobs him) |
+| [`run`](#run) | panicked scurry, leaning forward | 4 | yes | 90, 90, 90, 90 | 106 | getting out of the fighters' way, long crossings, hopping onto and off the ring | `walk`, then `idle` |
+| [`shocked`](#shocked) | jaw-drop recoil | 2 | yes | 150, 150 | 116 | huge hits, comebacks, a fighter surviving on a sliver of health, surprise KOs | `shout`, then `idle` |
+| [`micThrust`](#micthrust) | leaning in, holding the mic out toward the fight | 2 | yes | 260, 260 | 110 | the KO call over the downed fighter, close calls, asking the winner for a word | `point`, then `idle` |
 
-All four loop: the engine decides how long each plays, then returns to `idle`. `idle` is the only
-required animation (the sheet is `complete` when all four exist).
+All of them loop: the engine decides how long each plays, then returns to `idle`. `idle` is the only
+required animation (the sheet is `complete` when it exists); a missing one plays its fallback.
+`walk` .. `micThrust` were added on 2026-10-18 for the live announcer (ENG-118, batch `npc-announcer-r1`):
+he walks the ring edge to stay behind the fight, hops onto the ring to call a KO and comments the fight in
+manga speech bubbles. The bubbles are drawn by the engine; never draw one in a strip.
 
 ---
 
@@ -90,3 +101,60 @@ QA: f0 fist about x 104..114, top of fist at y 8 or lower in the cell (y >= 8); 
 
 QA: trimmed height 72-76 (top at about y 50); feet stay within x 50..78; the sweat drop is the only
 non-body element and stays inside the cell.
+
+---
+
+## walk
+
+4 frames, loop, 150 ms each. Save as `raw/walk_vNN.png`. Prompt A5. A walk **in place**, stepping toward
+the right of the image (the engine slides the sprite and mirrors it for leftward walks). He keeps talking.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Contact: the image-right leg (his L) reaches forward to the right, heel down; the image-left leg (R) trails behind on the toes; heels about 22 px apart. Torso upright, leaning about 3 degrees toward the right. Mic at the mouth (R hand). The free L arm swings back behind the hip. | talking, mouth open |
+| f1 | Passing: the trailing R leg swings through beside the planted L leg, knee a little raised; body 2 px higher. L arm hangs at the side. Mic unchanged. | closed-mouth grin |
+| f2 | Contact, the other leg: the R leg forward to the right, heel down; the L leg behind on the toes. The free L hand swings forward to waist height, palm open, gesturing toward the right. | talking, mouth wide |
+| f3 | Passing: the L leg swings through beside the planted R leg; body 2 px higher. L arm returning to the side. | closed-mouth grin |
+
+QA: head size, hair and mic identical in all four frames (mic head within 3 px of its idle place
+relative to the face). Contact frames 1 px lower than passing frames by design (the bob), never more than
+2 px. Feet within x 42..86. Trimmed height 110-112.
+
+## run
+
+4 frames, loop, 90 ms each. Save as `raw/run_vNN.png`. Prompt A6. A comic, panicked scurry **in place**
+toward the right of the image (the engine slides him), the way an MC runs out of the line of fire.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Contact: torso leaning about 20 degrees forward toward the right, head pushed forward. The image-right leg (L) lands forward on the heel, knee bent; the R leg pushes off behind. The R hand clutches the microphone against his chest. The free L arm pumps back, elbow bent. Jacket tails flare back. | panicked yell: mouth wide, brows pinched up |
+| f1 | Passing: the R leg drives forward with the knee raised high; the L foot on its toes under the body; body 2 px higher. L arm swinging forward. | same yell |
+| f2 | Contact, the other leg: the R leg lands forward, the L leg pushes off behind. The L arm pumps forward, fist at chin height. | teeth gritted |
+| f3 | Passing: the L knee drives forward high; body 2 px higher. L arm swinging back. | same yell |
+
+QA: the lean and head size stay the same in all four frames; the mic stays at the chest in the R hand.
+Trimmed height 104-106; feet within x 34..94.
+
+## shocked
+
+2 frames, loop, 150 ms each. Save as `raw/shocked_vNN.png`. Prompt A7.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Recoiling: leaning back about 12 degrees, weight on the image-left (R) foot, the other foot lifted a little off the ground at the toe. The free L hand is flung up beside his head, palm out, fingers spread, diagonally up and to the right. The mic is jerked away from the mouth to chest height. Hair curls puffed out about 2 px all round (startle). | jaw drop: mouth a tall open oval, brows shot up above the glasses (glasses jolted 1 px up, the eyes stay hidden) |
+| f1 | Same, trembling: body 1 px further back, hair puffed 1 px more, jaw 1 px wider. Feet unchanged. | same |
+
+QA: the eyes are never visible. Raised hand inside x 4..123 and no higher than y 8; trimmed height
+114-116.
+
+## micThrust
+
+2 frames, loop, 260 ms each. Save as `raw/micThrust_vNN.png`. Prompt A8.
+
+| frame | pose | face |
+|---|---|---|
+| f0 | Leaning in about 15 degrees toward the right, knees slightly bent. His R arm reaches **across his body** toward the right at chest height, holding the microphone out with the mesh head pointing right (offering it to a fighter off to the right). The free L hand is cupped behind his L ear, listening. Feet planted as in idle. | eager grin, mouth open |
+| f1 | Same, with the mic pushed about 3 px further right and the lean 1 px stronger. | eager closed-mouth grin, listening |
+
+QA: the mic never switches hands (the R arm crosses in front of the torso). Mic head about x 100..118,
+y 40..56. Trimmed height 108-110; feet planted (identical to idle).
