@@ -1,5 +1,15 @@
 # Art review queue
 
+## ART-SKL-GOK batch 1 (2026-10-19): candidate set and technical holds
+
+| 2026-10-19 | goku | superPose | [superPose_v01.png](characters/goku/raw/superPose_v01.png) | v01 | needs review | 3 calls; intended Spirit Bomb gathering loop. | Preliminary Astra raw audit HOLD: apparent size mismatch and 1–2 px tremble not demonstrated after projected scale; strict quantized pack blocked by head-probe scale gate. [Candidate inventory](characters/goku/production/skills-revamp-batch1-candidates.md). |
+| 2026-10-19 | goku | ui_super_bg | [ui_super_bg_v02.png](characters/goku/raw/ui_super_bg_v02.png) | v02 | needs review | 3 calls; user authorized drawing with batch 1 via Claude relay goku-skills #2. | Technical HOLD: Spirit Bomb crosses y=320 central-crop boundary and is clipped in the 4:1 banner crop; call budget exhausted. Previous approved v01 remains approved. [Candidate inventory](characters/goku/production/skills-revamp-batch1-candidates.md). |
+| 2026-10-19 | goku | kamehameha | [kamehameha_v01.png](../vfx/raw/kamehameha_v01.png) | v01 | needs review | 2 calls; selected first result. | Glossy/soft edges and pink fringe need packed-frame review. Candidate inventory records call hashes. |
+| 2026-10-19 | goku | kamehamehaHead | [kamehamehaHead_v01.png](../vfx/raw/kamehamehaHead_v01.png) | v01 | needs review | 2 calls; selected second result. | Bright, broad white core; inspect at beam endpoint in review. |
+| 2026-10-19 | goku | kamehamehaRing | [kamehamehaRing_v01.png](../vfx/raw/kamehamehaRing_v01.png) | v01 | needs review | 1 call. | Review packed size and hard-pixel edges. |
+| 2026-10-19 | goku | spiritBomb | [spiritBomb_v01.png](../vfx/raw/spiritBomb_v01.png) | v01 | needs review | 2 calls; normalized/cropped and nearest-neighbor resampled to eight 256 px frames. | Candidate packer detects 12 frames, expected 8; raw/import layout needs technical resolution. |
+| 2026-10-19 | goku | spiritBombBlast | [spiritBombBlast_v01.png](../vfx/raw/spiritBombBlast_v01.png) | v01 | needs review | 2 calls; normalized/cropped and nearest-neighbor resampled to eight 256 px frames. | Candidate packer detects 9 frames, expected 8; raw/import layout needs technical resolution. |
+
 ## ENG-112 Goku normals (2026-10-18): seven drawings approved; one redraw round authorized for three held moves after merge
 
 Goku's head probe is manually disabled. Astra's relay #39 visual scale review passed fTilt v01, dTilt v01, dashAttack v01, fSmash v01, fair v01, bair v01 and uair v01 within recorded uncertainty; the user approved those seven as drawn via Claude relay #40. uTilt v01 and uSmash v01 remain visibly undersized, and dSmash v02 has visibly oversized upper-body volume. These three remain on technical hold pending the separate user decision; no drawing approval is inferred. Strict shipping gate and runtime contact remain separate. [Current Astra audit](characters/goku/production/ENG112_IMPORT_SCALE_AUDIT.md).
