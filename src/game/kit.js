@@ -441,7 +441,6 @@ export function beginShroud(f, C, flash) {
   f.shroud = { flash, hold: C.hold ?? 1, tails: C.tails ?? 0, core: C.core, rim: C.rim ?? C.chakra, chakra: C.chakra };
 }
 
-// How far the chakra has swallowed him, 0..1: climbing through the first 70 % of his flash, then `hold`.
 // The look a fighter's running power-up gives the body (`shell`, `tint`, `aura` side by side on its data): a mode's
 // move (found by the name f.mode keeps: the look stays off the simulation state, so the state hashes don't change), a
 // reflex super (Whirlwind) or a kit move running (Speed of Lightning). View only: Game.fxTicks and Fighter.sync read
@@ -456,6 +455,7 @@ export function modeLook(f) {
   return f.reflex?.m ?? (f.state === 'kit' ? f.kitState?.m ?? null : null);
 }
 
+// How far the chakra has swallowed him, 0..1: climbing through the first 70 % of his flash, then `hold`.
 export function shroudLevel(f) {
   const s = f.shroud;
   if (!s) return 0;
