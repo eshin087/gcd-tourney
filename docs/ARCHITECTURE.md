@@ -70,7 +70,9 @@ src/game/
   snapshot.js               saveState / loadState (ADR 0036): a deep copy of the simulation (GAME_STATE, fighters,
                             pads, shots, clash, basis, sprite playback); static tables, assets and the view shared
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
-                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground
+                            barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground.
+                            Limbs (ENG-SKL-LUF): `limb` stretches a tube effect between two points (the drawn hand
+                            anchor and a shot), `limbEnd` puts its end (a fist) on it, `handAt` finds the drawn hand
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
   sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique

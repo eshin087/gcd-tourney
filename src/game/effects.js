@@ -838,6 +838,43 @@ export class Effects {
       scale: 0.14 + Math.random() * 0.1, color: Math.random() < 0.5 ? sh.chakra : sh.rim, vel: [0, 1.4, 0], life: 0.4, fade: true, order: 6,
     });
   }
+
+  // ------------------------------------------------------------ limbs (ENG-SKL-LUF)
+  // Where the drawn hand is now: the frame's `hand` anchor (or hit box) in the world, else `def` [forward, up]. A limb
+  // longer than its strip's cell leaves the cell at the edge with the anchor there, and these effects carry it on.
+  handAt(f, def = [0.5, 0.9]) {
+    const P = f.renderPos || f.pos, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1;
+    const fwd = H ? H.x : def[0], up = H ? H.y : def[1];
+    return { x: P.x + f.face.x * fwd * k, y: P.y + up * k, z: P.z + f.face.y * fwd * k };
+  }
+
+  // A stretched limb from `from` to `to` (Luffy's rubber arm, Killua's yo-yo string): a tube effect drawn pointing
+  // screen-right, its tube `tube` of the cell high and every column the same, stretched along the line as seen on screen
+  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. A null `id` lays it
+  // once instead, playing its strip through and gone (Killua's Godspeed streaks). `o.color` tints it.
+  limb(id, name, from, to, thick, tube, camRight, o = {}) {
+    const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
+    const mx = (from.x + to.x) / 2, my = (from.y + to.y) / 2, mz = (from.z + to.z) / 2;
+    const so = { order: o.order ?? 7, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, mx, my, mz, so) : this.keep(id, name, mx, my, mz, so);
+    // the quad is 1 x 1 world units before scaling (spawn folds the cell's world size into the scale)
+    const flip = sx < 0, phi = Math.atan2(dy, sx), sy = thick / tube;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(Math.max(1e-3, Math.hypot(sx, dy)) * (flip ? -1 : 1), sy, sy);
+    return it;
+  }
+
+  // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, `scale` cells, turned along the limb
+  // (kept by `id`, or played once with a null `id`, like limb)
+  limbEnd(id, name, at, from, scale, camRight, o = {}) {
+    const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
+    const so = { order: o.order ?? 8, depthTest: false, color: o.color };
+    const it = id == null ? this.spawn(name, at.x, at.y, at.z, so) : this.keep(id, name, at.x, at.y, at.z, so);
+    const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
+    it.rot = flip ? phi - Math.PI : phi;
+    it.mesh.scale.set(flip ? -s : s, s, s);
+    return it;
+  }
 }
 
 // Fullscreen 2D overlay: anime speed lines, color flashes, impact frames.
