@@ -1,7 +1,8 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-10-19T05:31:59.953Z",
+"generated": "2026-10-19T06:31:08.565Z",
+
  "fighters": {
   "naruto": {
    "idleGarmentPx": 3325,
@@ -799,7 +800,7 @@
    }
   },
   "sasuke": {
-   "idleGarmentPx": 2824,
+   "idleGarmentPx": 2899,
    "anims": {
     "idle": {
      "v": 7,
@@ -1302,21 +1303,25 @@
      "flag": "small"
     },
     "charge": {
-     "v": 12,
+     "v": 15,
      "body": [
+      0.977,
+      0.987,
       0.991,
-      0.936,
-      0.945,
-      0.99
+      0.973,
+      0.989,
+      1.006
      ],
      "head": [
       1.051,
-      1.051,
-      1.044,
-      1.035
+      1.034,
+      1.048,
+      1.077,
+      1.041,
+      1.043
      ],
-     "median": 0.968,
-     "headMedian": 1.047,
+     "median": 0.988,
+     "headMedian": 1.046,
      "flag": null
     },
     "throw": {
@@ -1606,7 +1611,7 @@
    }
   },
   "killua": {
-   "idleGarmentPx": 1557,
+   "idleGarmentPx": 1366,
    "anims": {
     "idle": {
      "v": 8,
@@ -2109,22 +2114,26 @@
      "flag": null
     },
     "charge": {
-     "v": 13,
+     "v": 15,
      "body": [
-      0.934,
-      0.948,
-      0.938,
-      0.929
+      0.438,
+      0.447,
+      0.454,
+      0.433,
+      0.439,
+      0.43
      ],
      "head": [
-      0.917,
-      0.922,
-      0.943,
-      0.9
+      1.023,
+      0.956,
+      1.005,
+      1.032,
+      1.016,
+      0.99
      ],
-     "median": 0.936,
-     "headMedian": 0.92,
-     "flag": null
+     "median": 0.439,
+     "headMedian": 1.011,
+     "flag": "small"
     },
     "throw": {
      "v": 7,
@@ -3289,6 +3298,29 @@
      ],
      "median": 0.925,
      "headMedian": 0.956,
+     "flag": null
+    }
+   }
+  },
+  "goku": {
+   "idleGarmentPx": 5103,
+   "anims": {
+    "superPose": {
+     "v": 1,
+     "body": [
+      0.99,
+      0.985,
+      0.989,
+      0.991
+     ],
+     "head": [
+      0.797,
+      0.642,
+      0.504,
+      0.504
+     ],
+     "median": 0.99,
+     "headMedian": 0.573,
      "flag": null
     }
    }

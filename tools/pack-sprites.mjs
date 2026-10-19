@@ -218,6 +218,22 @@ const VFX_EFFECTS = {
   kirinBody: { frames: 4, ms: 40, tinted: false, fill: 1, hd: true, owner: 'sasuke' },
   kirinHead: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true, owner: 'sasuke' },
   kirinStrike: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'sasuke' },
+  // Goku's signature techniques (ENG-SKL-GOK): HD cells, art/characters/goku/SKILLS_REVAMP.md
+  kamehameha: { frames: 8, ms: 40, tinted: false, fill: 0.5, hd: true, owner: 'goku' },
+  kamehamehaHead: { frames: 6, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'goku' },
+  kamehamehaRing: { frames: 6, ms: 40, tinted: false, fill: 0.95, hd: true, owner: 'goku' },
+  kiBlast: { frames: 6, ms: 35, tinted: false, fill: 0.45, hd: true, owner: 'goku' },
+  kiMuzzle: { frames: 5, ms: 35, tinted: false, fill: 0.6, hd: true, owner: 'goku' },
+  kiBlastBurst: { frames: 7, ms: 40, tinted: false, fill: 0.8, hd: true, owner: 'goku' },
+  dragonFistAura: { frames: 6, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'goku' },
+  dragonFistDragon: { frames: 10, ms: 50, tinted: false, fill: 1, hd: true, owner: 'goku' },
+  dragonFistBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true, owner: 'goku' },
+  instantTransmission: { frames: 6, ms: 35, tinted: false, fill: 0.9, anchor: 'bottom', hd: true, owner: 'goku' },
+  kaiokenBurst: { frames: 7, ms: 40, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'goku' },
+  kaiokenAura: { frames: 6, ms: 50, tinted: false, fill: 0.95, anchor: 'bottom', hd: true, owner: 'goku' },
+  spiritBomb: { frames: 8, ms: 60, tinted: false, fill: 1, hd: true, owner: 'goku' },
+  spiritBombBlast: { frames: 8, ms: 60, tinted: false, fill: 1, anchor: 'bottom', hd: true, owner: 'goku' },
+  superSaiyanBurst: { frames: 8, ms: 45, tinted: false, fill: 0.98, anchor: 'bottom', hd: true, owner: 'goku' },
   // Gojo's signature techniques (ENG-SKL-GOJ): HD cells, art/characters/gojo/SKILLS_REVAMP.md
   lapseBlue: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'gojo' },
   blueCollapse: { frames: 8, ms: 40, tinted: false, fill: 0.98, hd: true, owner: 'gojo' },
@@ -281,7 +297,8 @@ options
   --dry-run         analyse and report, write nothing
   --no-writeback    do not write cleaned frames back to art/.../frames/<anim>/
   --quantize <n>    snap each character to an n-color palette (median cut over all its frames), e.g. 48; a fighter's
-                    "paletteReserve" in the manifest gives the strips it lists their own share of the n (ADR 0046)
+                    "paletteReserve" in the manifest gives the strips it lists their own share of the n (ADR 0046;
+                    "cut": "misfits" cuts that share only from the colours the shared palette fits badly)
   --keep-palette    with --quantize: snap to the colours of the character's current sheet.png instead of a new median
                     cut, so a pack that resizes one strip leaves every other strip byte for byte (ADR 0041)
   --tolerance <n>   background color tolerance (RGB distance, default 72)
@@ -1072,6 +1089,7 @@ async function loadGuide(file) {
       if (phases) g[m[1]].phases = [+phases[1], +phases[2], +phases[3]];
       const altOf = /altOf\s*:\s*'(\w+)'/.exec(body);
       if (altOf) g[m[1]].altOf = altOf[1];
+      if (/strike\s*:\s*'back'/.test(body)) g[m[1]].strike = 'back';
       const loopFrom = /loopFrom\s*:\s*(\d+)/.exec(body);
       if (loopFrom) g[m[1]].loopFrom = +loopFrom[1];
     }
@@ -1089,6 +1107,7 @@ function normalizeGuide(g) {
     if (a.durations) out[name].durations = a.durations;
     if (a.ms) out[name].ms = a.ms;
     if (typeof a.altOf === 'string') out[name].altOf = a.altOf;
+    if (a.strike === 'back') out[name].strike = 'back';
     if (Number.isInteger(a.loopFrom)) out[name].loopFrom = a.loopFrom;
   }
   return out;
@@ -1190,11 +1209,12 @@ function normalizeManifest(raw) {
         m.specIssues.push(`characters.${id}.paletteReserve.${name} must be { "colors": 1-32, "animations": ["<anim>", ...] } - ignored`);
         continue;
       }
+      if (g.cut !== undefined && g.cut !== 'misfits') m.specIssues.push(`characters.${id}.paletteReserve.${name}.cut must be "misfits" - cutting from the whole strips`);
       const twice = list.filter((a) => reserved.has(a));
       if (twice.length) m.specIssues.push(`characters.${id}.paletteReserve.${name}: ${twice.join(', ')} already in another group - kept there`);
       const own = [...new Set(list.filter((a) => !reserved.has(a)))];
       own.forEach((a) => reserved.add(a));
-      if (own.length) paletteReserve.push({ name, colors, animations: own });
+      if (own.length) paletteReserve.push({ name, colors, animations: own, ...(g.cut === 'misfits' ? { cut: 'misfits' } : {}) });
     }
     m.characters[id] = { name: c.name, animations: anims, standingBodyPx: sb >= 8 && sb <= m.spec.frameHeight ? Math.round(sb * packScale) : null, packScale, paletteReserve };
   }
@@ -1255,6 +1275,8 @@ function animDefsFor(id, env) {
       required: CORE.includes(name) || env.manifest.core.includes(name) || c.required === true || (c.required === undefined && d.required === true),
       durations: ms(c) ?? ms(b) ?? ms(d) ?? g.durations ?? g.ms ?? DEFAULT_MS[name] ?? DEFAULT_MS[altOf] ?? 100,
       hitbox: (c.hitbox ?? b.hitbox ?? d.hitbox ?? !NO_HITBOX.has(name)) !== false,
+      // which side its auto hit box is found on: the guide's `strike` (a back air strikes behind), an alt's from its base
+      strike: g.strike ?? (altOf && env.guide[altOf]?.strike) ?? 'front',
       approvedVersion: c.approvedVersion ?? null,
       // the strip's own size correction; an alt is its own drawing, so it never inherits its base's
       packScale: c.packScale ?? 1,
@@ -1943,6 +1965,18 @@ function hitBox(cell, ref, T) {
   return { box: pad(front), rule: 'front' };
 }
 
+// Hitbox for an active frame of a strip that strikes BEHIND the body (animGuide `strike: 'back'`: a back air, drawn
+// facing right with the kick going left; the move's `back: true`). The same rules on the cell mirrored, measured
+// against the idle's back edge (ref.minX) instead of its front: 1. 'back' (the limb reaching behind the idle's back),
+// 2. 'up', 3. 'rear' (the back-most 28 %). The front rule boxed the body or the space in front, which missed (TOOL-062).
+const REAR_RULE = { forward: 'back', up: 'up', front: 'rear' };
+function rearHitBox(cell, ref, T) {
+  const h = hitBox(flipH(cell), { ...ref, maxX: cell.w - 1 - ref.minX }, T);
+  if (!h) return null;
+  const [x, y, w, hh] = h.box;
+  return { box: [cell.w - x - w, y, w, hh], rule: REAR_RULE[h.rule] };
+}
+
 // the opaque colours of a fighter's packed sheet (every page its anims.json lists), or null when a page is missing or
 // they are more than n (not a quantized pack); pages: the page images, for learnPalette
 function sheetPalette(dir, n) {
@@ -2096,11 +2130,27 @@ function quantizeReserved(anims, n, groups, kept = null, learn = () => null) {
   mapToPalette(sharedCells, sharedPal, onlyTo(learnedShared, sharedPal));
   const sharedKeys = new Set(sharedPal.map(ck));
   for (const g of groups) {
-    const cells = g.anims.flatMap((a) => a.cells);
-    const pal = [...sharedPal, ...medianCut(colourCounts(cells), g.colors).filter((p) => !sharedKeys.has(ck(p)))];
+    const cells = g.anims.flatMap((a) => a.cells), counts = colourCounts(cells);
+    const pal = [...sharedPal, ...medianCut(g.cut === 'misfits' ? misfits(counts, sharedPal) : counts, g.colors).filter((p) => !sharedKeys.has(ck(p)))];
     mapToPalette(cells, pal, onlyTo(learn(g.anims), pal));
   }
   return { colors: countColors(anims.flatMap((a) => a.cells)), shared: sharedPal.length, merged: base.length - sharedPal.length };
+}
+
+// `cut: 'misfits'` (a paletteReserve group): only the group's colours the shared palette fits badly, more than MISFIT
+// levels from every entry, each weighted by its pixels times how far off it is. A strip drawn mostly in the fighter's
+// usual colours with a little of a new one (Goku's black base-form hair in the frame before he turns Super Saiyan)
+// keeps that colour: cut from the whole strip, the gi and the blond hair outvote it and it snaps to the nearest dark
+// shade (a maroon outline); counted by pixels alone, skin drawn a few levels off his palette still outvotes it
+const MISFIT = 20;
+function misfits(colors, palette) {
+  const out = new Map();
+  for (const [k, cnt] of colors) {
+    let d = Infinity;
+    for (const p of palette) d = Math.min(d, ((k >> 16) - p[0]) ** 2 + (((k >> 8) & 255) - p[1]) ** 2 + ((k & 255) - p[2]) ** 2);
+    if (d > MISFIT * MISFIT) out.set(k, cnt * d);
+  }
+  return out;
 }
 
 // Drops palette entries until `target` are left, each time the one whose pixels lose least by moving to their nearest
@@ -2167,7 +2217,7 @@ function reserveGroups(id, anims, names, env, warn) {
     const unknown = g.animations.filter((a) => !names.has(a));
     if (unknown.length) warn(`paletteReserve.${g.name}: ${unknown.join(', ')} is not an animation of ${id} - ignored`);
     const strips = anims.filter((a) => g.animations.includes(a.def.name));
-    if (strips.length) groups.push({ name: g.name, colors: g.colors, anims: strips });
+    if (strips.length) groups.push({ name: g.name, colors: g.colors, anims: strips, cut: g.cut });
   }
   const reserve = groups.reduce((s, g) => s + g.colors, 0);
   if (reserve > env.quantize / 2) {
@@ -2638,7 +2688,8 @@ function packCharacter(id, env) {
   // ref.minY is the top of an UPRIGHT head: the rising-strike rule (hitBox) looks for a fist above it. The title-style
   // idles are crouched combat stances (Killua's is 146 px against a 186 px neutral), so every upright pose's hair would
   // read as "rising above the idle head"; builds.json "standingReference" (the approved neutral cell) is the measure
-  // instead, and a fighter without one keeps the idle (TOOL-037). ref.maxX stays the idle's front (the forward rule).
+  // instead, and a fighter without one keeps the idle (TOOL-037). ref.maxX stays the idle's front (the forward rule),
+  // ref.minX its back (the mirrored rule of a strip that strikes behind, rearHitBox).
   const idle = packed.find((p) => p.name === 'idle');
   const standing = loadStandingReference(env.artDir, env.builds?.[id] || {});
   if (standing?.error) warn(`${standing.error} - the rising-strike hit box rule is measured against the idle`);
@@ -2646,10 +2697,10 @@ function packCharacter(id, env) {
   let ref;
   if (idle) {
     const bs = idle.cells.map((c) => bbox(c)).filter(Boolean);
-    ref = { maxX: Math.max(...bs.map((b) => b.x1)), minY: Math.min(...bs.map((b) => b.y0)) };
+    ref = { maxX: Math.max(...bs.map((b) => b.x1)), minX: Math.min(...bs.map((b) => b.x0)), minY: Math.min(...bs.map((b) => b.y0)) };
   } else {
     const bh = defs.find((d) => d.name === 'idle')?.bodyHeight ?? DEFAULT_BODY_HEIGHT;
-    ref = { maxX: spec.pivot[0] + Math.round(bh * 0.26), minY: spec.pivot[1] - bh };
+    ref = { maxX: spec.pivot[0] + Math.round(bh * 0.26), minX: spec.pivot[0] - Math.round(bh * 0.26), minY: spec.pivot[1] - bh };
     warn('idle is not packed yet - hitboxes estimated from the idle bodyHeight');
   }
   if (Number.isFinite(standingTop)) { ref.idleMinY = ref.minY; ref.minY = standingTop; R.hitRef = { maxX: ref.maxX, minY: ref.minY, idleMinY: ref.idleMinY, source: standing.label }; }
@@ -2663,7 +2714,7 @@ function packCharacter(id, env) {
       meta.boxes[key] = hb ? { hurt: [hb] } : {};
       const active = p.phases && p.def.hitbox && k >= p.phases[0] && k < p.phases[0] + p.phases[1];
       if (active) {
-        const h = hitBox(cell, ref, T);
+        const h = p.def.strike === 'back' ? rearHitBox(cell, ref, T) : hitBox(cell, ref, T);
         if (h?.box) {
           meta.boxes[key].hit = [h.box];
           autoRule.set(key, { rule: h.rule, at: `${p.name}#${k}` });
@@ -2690,8 +2741,8 @@ function packCharacter(id, env) {
   }
   // only the frames still on the auto box: an override replaced the rest, so "check them" would send the artist to
   // frames that are already handled (TOOL-037)
-  const front = [...autoRule].filter(([key, a]) => a.rule === 'front' && !overridden.has(key)).map(([, a]) => a.at);
-  if (front.length) R.notes.push(`${front.length} active frame(s) had no clear strike limb - hitbox = front 28% of the body (${front.join(', ')}; check them in the Sprite Lab or add hitboxes.json overrides)`);
+  const front = [...autoRule].filter(([key, a]) => (a.rule === 'front' || a.rule === 'rear') && !overridden.has(key)).map(([, a]) => a.at);
+  if (front.length) R.notes.push(`${front.length} active frame(s) had no clear strike limb - hitbox = front 28% of the body, rear 28% on a back strike (${front.join(', ')}; check them in the Sprite Lab or add hitboxes.json overrides)`);
   // lying frames (ADR 0020): the ground check (warn only) and the footprint the engine lays the contact shadow along
   const footprint = groundCheck(anims, meta, spec, env.manifest.characters[id]?.standingBodyPx ?? spec.standingBodyPx, warn, R);
   if (Object.keys(footprint).length) meta.footprint = footprint;
@@ -2768,14 +2819,18 @@ function packUi(id, charDir, env, R) {
           blit(out, small, dx, dy);
           img = out;
         } else {
-          // opaque art: center-crop to the aspect ratio, then downscale
+          // opaque art: center-crop to the aspect ratio, then downscale. The manifest's ui entry may move the band
+          // (`cropY`: its top row in the source image), for a drawing whose focus sits off the middle band (ENG-SKL-GOK)
           const ar = spec.w / spec.h;
           let cw = img.w, ch = Math.round(img.w / ar);
           if (ch > img.h) { ch = img.h; cw = Math.round(img.h * ar); }
-          const c = crop(img, Math.floor((img.w - cw) / 2), Math.floor((img.h - ch) / 2), cw, ch);
+          const cropY = env.manifestRaw?.characters?.[id]?.ui?.[name]?.cropY;
+          const y0 = Number.isInteger(cropY) ? Math.max(0, Math.min(img.h - ch, cropY)) : Math.floor((img.h - ch) / 2);
+          if (Number.isInteger(cropY)) note = `band y ${y0}-${y0 + ch} (cropY)`;
+          const c = crop(img, Math.floor((img.w - cw) / 2), y0, cw, ch);
           img = cw > spec.w ? downscaleMode(c, spec.w, spec.h, { coverage: 0.5 }) : upscaleNearest(c, spec.w, spec.h);
         }
-        note = `fitted to ${spec.w}x${spec.h}`;
+        note = note === 'copied' ? `fitted to ${spec.w}x${spec.h}` : `fitted to ${spec.w}x${spec.h}, ${note}`;
       }
       writeFile(env, path.join(env.outDir, 'characters', id, `${name}.png`), encodePng(img), R);
       R.ui.push(`${name} (${note})`);

@@ -11,19 +11,21 @@
 
 Era / version: **Dragon Ball Z, Cell saga, Super Saiyan** (golden hair, teal-green eyes, the orange gi over the dark
 blue undershirt he wears against Cell). Every move is one he uses in the anime, except the Dragon Fist (a GT
-technique the user picked on 2026-10-13).
+technique the user picked on 2026-10-13). **Revamped as the anime does them on 2026-10-18** (the user's answers,
+[ADR 0050](../../../docs/decisions/0050-goku-signature-techniques.md), art in [SKILLS_REVAMP.md](SKILLS_REVAMP.md)): the
+Spirit Bomb is the SUPER and the Kaio-ken a mode on Back + Special.
 Archetype and feel: all-rounder with a zoning tool, a big punch and a teleport; the cast's one beam.
 
 | slot | input | move | kind | cost | numbers (raw, clean hit) | animation(s) |
 |---|---|---|---|---|---|---|
-| neutral | Special | KI BLAST VOLLEY | shot (3 blasts, narrow fan) | 50 | 3 × 24, ~11 u range | `special` |
+| neutral | Special | KI BLAST VOLLEY | shot (3 blasts, one per palm thrust, `every` 4) | 50 | 3 × 24, ~11 u range | `special` |
 | forward | → + Special | DRAGON FIST | rush (energy: can beam-clash) | 100 | 150, wall bounce | `specialForward` |
-| up | ↑ + Special | RISING KICK | dive | 100 | rise 38 + slam 96 (ground bounce) | `specialUp` → `airHeavy` → `land` |
-| down | ↓ + Special | INSTANT TRANSMISSION | teleport behind + vanish kick | 100 | kick 75 | `specialDown` (two fingers to the forehead), then `light4` |
-| back | ← + Special | = down | | | | |
+| up | ↑ + Special | RISING KICK | dive; on a hit the afterimage chase (blink above them, two-fist hammer) | 100 | rise 38 + slam 96 (ground bounce) | `specialUp` → `airHeavy` → `land` |
+| down | ↓ + Special | INSTANT TRANSMISSION | teleport behind + vanish kick (a clean shimmer, no smoke) | 100 | kick 75 | `specialDown` (two fingers to the forehead), then `light4` |
+| back | ← + Special | KAIO-KEN | mode (speed ×1.2, damage ×1.15, 420 f) | 100 | - | `charge` (power-up stance) |
 | air | Special in the air | KI BLAST VOLLEY | shot | 50 | 3 × 24 | `throw` |
 | air↓ | ↓ + Special in the air | RISING KICK (drop only) | dive | 100 | slam 92 | `airHeavy` → `land` |
-| SUPER | SUPER (3 bars) | KAIO-KEN RUSH | flurry | 300 | 8 × 22 + 130 | `superPose`, then `dash`, `light2` / `light4`, `airHeavy` |
+| SUPER | SUPER (3 bars) | SPIRIT BOMB | sky strike (Kirin's numbers) | 300 | 280, radius 2, 40 f after the mark | `superPose` (arms raised), then `beamFire` (the shove) |
 | ultimate | Heavy + Special (3 bars) | KAMEHAMEHA | the shared beam (the cast's only beam, ADR 0017) | 300 | 12 / 5 f ticks + 130 | `beamCharge` → `beamFire` |
 | passive | - | none (the Super Saiyan aura is his power-up look, `charge`) | | | | |
 
@@ -33,6 +35,9 @@ adult; taller than Naruto and Sasuke, a little shorter than Gojo. Runtime `stand
 until Claude's contact/hurtbox migration.
 
 ## 2. Poses each move needs (for Codex)
+
+> Since 2026-10-18, [SKILLS_REVAMP.md](SKILLS_REVAMP.md) part B is the brief for `specialForward`, `specialDown`,
+> `superPose`, `specialUp`, `throw` and `intro` (the Super Saiyan transformation); it wins over the lines below.
 
 Frame counts and phases are the template's (art/manifest.json); timing lives in `src/game/moves.js`. The engine
 draws every energy effect: no glow, ki, aura, beam or blast in a sprite.
@@ -48,8 +53,8 @@ draws every energy effect: no glow, ki, aura, beam or blast in a sprite.
 - **`specialDown` (Instant Transmission), 4 frames, phases 2/1/1.** Standing upright and calm, eyes closed, index and
   middle finger of the near hand raised to the forehead; the other arm relaxed. He vanishes after it (engine), and the
   kick from behind is `light4`.
-- **`superPose` (Kaio-ken), 4-frame loop.** Wide stance, fists clenched at the sides, head back shouting (the engine
-  draws the red Kaio-ken aura).
+- **`superPose` (Spirit Bomb), 4-frame loop.** Both arms raised high in a V, palms to the sky, head back (SKILLS_REVAMP
+  B3; the old Kaio-ken pose is superseded: Kaio-ken plays in `charge`).
 - **`beamCharge` (Kamehameha), 3-frame loop.** The classic pose: body turned side-on, both hands cupped together at the
   rear hip, knees bent. **`beamFire`, 3-frame loop:** both arms thrust straight forward, wrists together, palms open
   toward the opponent, front knee bent. The cupped hands / palms are the beam origin.
@@ -62,12 +67,14 @@ draws every energy effect: no glow, ki, aura, beam or blast in a sprite.
   `beamCharge`, then a straight stream down his lane; dodge it by leaving the lane, block it, or answer it with your own
   ultimate (an ultimate clash). It also beam-clashes the other energy specials (Rasengan, Chidori, Narukami, Red, Dragon
   Fist).
-- **Kaio-ken Rush** (SUPER): he flares red and dashes in; on contact the victim is held and struck from all sides
-  (8 hits), then slammed down. Dodged by not being there when the dash arrives.
+- **Spirit Bomb** (SUPER): arms raised, the sphere gathers over him as energy streams in, he shoves it onto the spot
+  the opponent stood on; 280 if they are still there. Dash out of the mark to dodge it.
+- **Kaio-ken** (Back + Special): the red aura flares; faster and stronger for 7 s.
 
 ## 4. Effects and sound
 
-Ki blasts use the `orb` effect tinted white-blue; Dragon Fist the hand fx `kiFist` (golden `glow` + `flame`); Kaio-ken
-the `chakra` flame bursts tinted red; the beam is the shared beam in his `beam` palette (white / light blue / blue).
-Power-up: golden `flame` shell, `wisp` and floating pebbles (`star`), floor cracks at bar 2 (`charge` in goku.js).
-No new VFX atlas effects are needed.
+Fifteen HD signature effects since 2026-10-18 (SKILLS_REVAMP.md part A): `kamehameha`, `kamehamehaHead`,
+`kamehamehaRing`, `kiBlast`, `kiMuzzle`, `kiBlastBurst`, `dragonFistAura`, `dragonFistDragon`, `dragonFistBurst`,
+`instantTransmission`, `kaiokenBurst`, `kaiokenAura`, `spiritBomb`, `spiritBombBlast`, `superSaiyanBurst`
+(procedural stand-ins until approved). Power-up: golden `flame` shell, `wisp` and floating pebbles (`star`), floor
+cracks at bar 2 (`charge` in goku.js).

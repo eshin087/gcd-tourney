@@ -968,7 +968,9 @@ a strip, the move plays its fallback (`fTilt` → `light2`; `uTilt`, `uSmash`, `
 `light3`; `dashAttack`, `fSmash` → `light4`; `fair` → `airLight2`; `bair` → `airLight3` mirrored). Draw each strike
 where the move hits: forward tilt and forward smash at the chest, down tilt and down smash at the shins (down smash on
 both sides), up tilt and up smash in an arc from in front of the face to over the head, up air over the head, forward
-air in front, back air BEHIND the body (toward screen-left while facing right). `fSmash` frame 01 is the charge pose
+air in front, back air BEHIND the body (toward screen-left while facing right). The packer finds the back air's hit box
+on the back-most limb (the mirror of the front rule, art/SPEC.md "Hitboxes and hurtboxes"), so its kick or fist must be
+the back-most point on frames 02-03; no `hitboxes.json` entry is needed when it is. `fSmash` frame 01 is the charge pose
 the game holds while Heavy is held.
 
 | Animation | What this fighter does |
