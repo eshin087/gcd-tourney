@@ -72,6 +72,7 @@ when a decision should be revisited.
 | [0045](0045-naruto-four-tails-beam.md) | Naruto's ultimate is the Four-Tails beam (Tailed Beast Ball): the shared beam with the transformation as `def.beam` data (`flashPose`, `shroud`, `gather`, `muzzle`); amends ADR 0017's one-beam rule (user decision) | Accepted |
 | [0046](0046-palette-reserve.md) | `paletteReserve` in the manifest gives strips drawn in other colours (a transformation) their own share of a fighter's 48 colours, taken from the shared entries the other strips need least; Naruto's Four-Tails fox reserves 8 | Accepted |
 | [0047](0047-sasuke-signature-techniques.md) | Sasuke's signature techniques as data on moves, shots and supers: a rush's `trench` and `hitPose`, a shot's `lance` / `orient` / `burstFx`, a dive's `shadow` (Lion's Barrage), a counter's `current`, a sky strike's `storm` (Kirin: clouds, stage dim, camera lift, the dragon), an ignite's `blastFx` / `hitFlash` / clinging `burn.fx` (Amaterasu) | Accepted |
+| [0048](0048-killua-signature-techniques.md) | Killua's signature techniques as data: a body `aura` (a mode's, a reflex's or a kit move's HD crackle plus an outline shell), a shot's `cling` (an effect kept on the stunned body) and `returns` / `tether` (the yo-yo), a teleport's `puff` / `arrive` / `streak` / `echoes` (Rhythm Echo), lingering crew afterimages, a dive's `gather` / `column` / `landFx` / `diveAnim` (Narukami), a flurry's `zigzag` (Speed of Lightning) | Accepted |
 
 ## Template
 

@@ -38,6 +38,8 @@ const NOOP = new Proxy(function () {}, {
   construct: () => NOOP,
   set: () => true,
 });
+// the stunned states a hit's `cling` effect stays on (Lightning Palm's paralysis, ENG-SKL-KIL)
+const CLING_STATES = new Set(['hitstun', 'launched', 'held']);
 // one victim's running combo, for the HUD's ticker and rating (Game.trackCombos, ADR 0026)
 const newCombo = () => ({ hits: 0, dmg: 0, kinds: new Set(), wall: 0, ground: 0, vanish: 0, start: 0 });
 
@@ -904,6 +906,14 @@ export class Game {
     if (this.resim) return; // all effects: a re-simulated frame was already drawn
     let lines = 0;
     for (const f of this.fighters) {
+      // Godspeed's lightning on the body (ENG-SKL-KIL): a mode's, a reflex's or a running kit move's `aura`
+      const aura = f.state === 'charge' || f.hidden ? null : f.mode?.aura ?? f.reflex?.m.aura ?? (f.state === 'kit' ? f.kitState?.m?.aura : null);
+      if (aura) this.fx.bodyAura(f, aura, this.time);
+      else this.fx.dropBodyAura(f);
+      // a hit's `cling` (Lightning Palm's paralysis) stays on the body until the stun ends (render state on hfx)
+      const cl = f.hfx?.cling;
+      if (cl && this.frameNo < cl.until && CLING_STATES.has(f.state)) this.fx.clingTick(f, cl);
+      else if (cl) f.hfx.cling = null;
       if (f.mode?.cloak) this.fx.cloakTick(f, f.mode.cloak, this.cam.right, frozen); // Nine-Tails Cloak (ENG-SKL-NAR)
       if (f.shroud) this.fx.shroudTick(f, f.shroud, shroudLevel(f), this.cam.right, frozen); // Four-Tails
       if (f.state !== 'charge') chargeEnd(this, f);
@@ -1801,7 +1811,7 @@ export class Game {
       // beam ticks draw their own sparks
     } else if (m.blastFx && !m.special) {
       // a kit super's own blast (Amaterasu's black flames bursting on them, ENG-SKL-SAS): its art, no white spark
-      if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, new THREE.Color(m.color ?? 0xffffff), m.blastFx.smoke);
+      if (m.blastFx.fx) this.fx.blast(m.blastFx.fx, x, y, z, m.blastFx.scale ?? 1, new THREE.Color(m.color ?? 0xffffff), m.blastFx.smoke, m.blastFx.ring);
       this.cam.shake(m.shake ?? 0.6, dir);
       this.excite = 1;
     } else if (kind === 'none') {
@@ -2044,15 +2054,17 @@ export class Game {
     this.excite = Math.min(1, this.excite + 0.4);
   }
 
-  onVanish(f, phase) {
+  // `arrive`: a teleport's own effect where it lands instead of the white star (Killua's crackle, ENG-SKL-KIL)
+  onVanish(f, phase, arrive = null) {
     if (phase === 'out') {
       this.fx.smoke(f.pos.x, f.pos.y + 0.6, f.pos.z, 1.2);
       this.fx.spawn('lines', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 0.6, depthTest: false, order: 8 });
       audio.play('vanish');
       this.hud.callout(f.index, 'VANISH!', f.def.color);
     } else {
-      this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
-      this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: 1, color: f.def.color, depthTest: false, order: 8 });
+      if (arrive) this.fx.spawn(arrive, f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1, glow: 0.4, depthTest: false, order: 9 });
+      else this.fx.spawn('star', f.pos.x, f.pos.y + 0.9, f.pos.z, { scale: 1.2, glow: 2, depthTest: false, order: 9 });
+      this.fx.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.2, glow: arrive ? 0.4 : 1, color: f.def.color, depthTest: false, order: 8 });
       f.actor.ghost(f.def.color, 0.3, 0.6);
       audio.play('vanishIn');
       this.freeze = Math.max(this.freeze, 5);

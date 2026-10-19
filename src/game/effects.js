@@ -29,6 +29,8 @@ const FRAG = /* glsl */ `
 
 const qz = new THREE.Quaternion();
 const zAxis = new THREE.Vector3(0, 0, 1);
+const STREAK_DIR = new THREE.Vector3();
+const AURA_SH = {}; // a body aura's outline shell settings, reused every frame (Effects.bodyAura)
 
 function hexTexture() {
   const c = document.createElement('canvas');
@@ -638,6 +640,11 @@ export class Effects {
         if (Math.random() < 0.5) this.spawn('spark', g.x, 0.08, g.z, { scale: 0.35, rot: Math.random() * 6.28, color: 0xbfe8ff, glow: 0.8, order: 8 });
         if (Math.random() < 0.25) this.spawn('dust', g.x - fx * 0.2, 0, g.z - fz * 0.2, { bottom: true, scale: 0.35, opacity: 0.7, order: 6 });
       }
+    } else if (this.meta.anims[kind]) {
+      // any other effect name: held in the drawn palm, building through the startup (Lightning Palm's crackle,
+      // ENG-SKL-KIL); the art carries the light, so no glow disc
+      const p = at(0.6, 0.85), s = (phase === 0 ? 0.3 + prog * 0.3 : 0.6) * k * (quiet ? 0.7 : 1);
+      this.keep('hand' + f.index, kind, p.x, p.y, p.z, { scale: s, order: 9, glow: 0.3 });
     }
   }
 
@@ -649,23 +656,32 @@ export class Effects {
 
   // ------------------------------------------------------------ signature techniques (ENG-SKL-NAR)
   // A technique's own hit blast (the Rasengan's spiral): the effect, a shockwave ring and a little smoke, without the
-  // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind)
-  blast(name, x, y, z, scale, color, smoke = 3) {
+  // generic explosion's bloom so its shape reads. `smoke`: how many puffs (lightning leaves less smoke than wind);
+  // `ring`: the shockwave's size against the blast's (0: none)
+  blast(name, x, y, z, scale, color, smoke = 3, ring = 2.2) {
     this.spawn(name, x, y, z, { scale, order: 8, depthTest: false });
-    this.spawn('ring', x, y, z, { scale: 2.2 * scale, color, glow: 0.4, order: 7, depthTest: false });
+    if (ring) this.spawn('ring', x, y, z, { scale: ring * scale, color, glow: 0.4, order: 7, depthTest: false });
     for (let k = 0; k < smoke; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.5 + Math.random() * 0.5, z + (Math.random() - 0.5) * 1.2, 0.9);
   }
 
   // A straight effect drawn pointing screen-right (the Chidori Spear's blade, ENG-SKL-SAS), laid from `from` along `dir`
   // for `len` world units: turned to that line's angle on screen and mirrored when it points screen-left. `fill`: the
-  // share of the cell the drawn length spans.
+  // share of the cell the drawn length spans. `thick`: a fixed scale across the line (Killua's Godspeed streak stays
+  // thin however long his path is, ENG-SKL-KIL); by default it grows with the length.
   span(name, from, dir, len, camRight, o = {}) {
     const sx = dir.x * camRight.x + dir.z * camRight.z, flip = sx < 0, phi = Math.atan2(dir.y, sx);
     const it = this.spawn(name, from.x + (dir.x * len) / 2, from.y + (dir.y * len) / 2, from.z + (dir.z * len) / 2, { ...o, flipX: flip, rot: flip ? phi - Math.PI : phi });
     const s = len / (it.cellWorld * (o.fill ?? 0.95));
     it.base = s;
-    it.mesh.scale.set(flip ? -s : s, s, s);
+    it.mesh.scale.set(flip ? -s : s, o.thick != null ? it.cellWorld * o.thick : s, s);
     return it;
+  }
+
+  // A streak laid between two points (Killua's Godspeed path, ENG-SKL-KIL): `span` from `a` to `b`, thin
+  streak(name, a, b, camRight, o = {}) {
+    const d = STREAK_DIR.set(b.x - a.x, b.y - a.y, b.z - a.z), len = d.length();
+    if (len < 0.3) return null;
+    return this.span(name, a, d.multiplyScalar(1 / len), len, camRight, { fill: 1, thick: 0.5, order: 8, depthTest: false, glow: 0.4, ...o });
   }
 
   // A shadow clone appearing or vanishing (the anime's poof)
@@ -753,6 +769,57 @@ export class Effects {
     this.spawn('bubble', p.x + (Math.random() - 0.5) * 0.6 * k, p.y + (0.1 + Math.random() * 1.3 * Math.max(0.2, level)) * k, p.z, {
       scale: 0.14 + Math.random() * 0.1, color: Math.random() < 0.5 ? sh.chakra : sh.rim, vel: [0, 1.4, 0], life: 0.4, fade: true, order: 6,
     });
+  }
+
+  // ------------------------------------------------------------ Killua's lightning (ENG-SKL-KIL)
+  // An `aura` on the body while a mode, a kit move or a reflex runs (Godspeed): its HD loop over the drawn body (one copy
+  // behind it, a see-through one in front out of step with it) and a `shell` round the drawn pixels (auraShell.js, the
+  // charge style's outline). Refreshed every frame; the copies lapse by themselves when it stops (keep), the shell is
+  // hidden by dropBodyAura.
+  bodyAura(f, A, time) {
+    const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1, back = this.camFwd, s = (A.scale ?? 1) * k;
+    this.keep('bodyAura' + f.index, A.fx, p.x + back.x * 0.2, p.y, p.z + back.z * 0.2, { bottom: true, scale: s, order: 1, glow: A.glow ?? 0.3 });
+    if (A.front) {
+      const it = this.keep('bodyAuraF' + f.index, A.fx, p.x - back.x * 0.2, p.y, p.z - back.z * 0.2, { bottom: true, scale: s, opacity: A.front, order: 6, glow: A.glow ?? 0.3, flipX: true });
+      if (it.t === 0) it.t = 0.11;
+    }
+    const sh = A.shell, shell = sh && f.actor.auraShell?.();
+    if (!shell) return;
+    const cols = (this.auraCols ??= new WeakMap());
+    let c = cols.get(sh);
+    if (!c) cols.set(sh, (c = { color: new THREE.Color(sh.color ?? '#62d8ff'), core: new THREE.Color(sh.core ?? '#eafcff') }));
+    AURA_SH.kind = sh.kind ?? 'electric'; AURA_SH.width = sh.width ?? 0.04; AURA_SH.lift = sh.lift ?? 0; AURA_SH.noise = sh.noise ?? 0;
+    AURA_SH.speed = sh.speed ?? 15; AURA_SH.opacity = sh.opacity ?? 0.6; AURA_SH.color = c.color; AURA_SH.core = c.core;
+    AURA_SH.dash = Math.random() < 0.08 ? 0 : sh.dash ?? 0.4; // now and then the whole outline flashes
+    AURA_SH.time = time;
+    shell.show(AURA_SH);
+    f.actor.auraShellBy = 'aura';
+  }
+
+  dropBodyAura(f) {
+    if (f.actor.auraShellBy !== 'aura') return;
+    f.actor.shell?.hide();
+    f.actor.auraShellBy = null;
+  }
+
+  // A column of tiles stacked from yBot up past yTop (Narukami's bolt from the sky): copies of a strip that tiles top to
+  // bottom. With an `id` they are held (refreshed every frame by the caller), without one they flash for `life`.
+  column(id, name, x, yBot, yTop, z, o = {}) {
+    const a = this.meta.anims[name], seg = this.sheet(a).cellWorld * (o.scale ?? 1) * 0.98;
+    const n = Math.min(8, Math.max(1, Math.ceil((yTop - yBot) / seg)));
+    for (let j = 0; j < 8; j++) {
+      if (j >= n) { if (id) this.drop(id + j); continue; }
+      const y = yBot + seg * (j + 0.5);
+      if (!id) { this.spawn(name, x, y, z, { order: 8, depthTest: false, glow: 0.4, ...o, life: o.life ?? 0.15 }); continue; }
+      const it = this.keep(id + j, name, x, y, z, { order: 8, depthTest: false, glow: 0.4, ...o });
+      if (it.t === 0) it.t = j * 0.07; // the tiles crackle out of step
+    }
+  }
+
+  // A hit's `cling` on the stunned body (Lightning Palm's paralysis): its loop over them, refreshed every frame
+  clingTick(f, C) {
+    const p = f.renderPos || f.pos, k = f.actor.depthK ?? 1;
+    this.keep('cling' + f.index, C.fx, p.x, p.y, p.z, { bottom: true, scale: (C.scale ?? 1) * k, order: 7, glow: 0.3 });
   }
 }
 
