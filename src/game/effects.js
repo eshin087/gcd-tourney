@@ -755,21 +755,21 @@ export class Effects {
     });
   }
 
-  // ------------------------------------------------------------ rubber limbs (ENG-SKL-LUF)
-  // Where the drawn hand is now: the frame's `hand` anchor (or hit box) in the world, else `def` [forward, up]. Where a
-  // stretched limb leaves the sprite's cell, its strip puts the anchor on that edge and these effects carry it on.
+  // ------------------------------------------------------------ limbs (ENG-SKL-LUF)
+  // Where the drawn hand is now: the frame's `hand` anchor (or hit box) in the world, else `def` [forward, up]. A limb
+  // longer than its strip's cell leaves the cell at the edge with the anchor there, and these effects carry it on.
   handAt(f, def = [0.5, 0.9]) {
     const P = f.renderPos || f.pos, H = f.actor?.hand?.(), k = f.actor?.depthK ?? 1;
     const fwd = H ? H.x : def[0], up = H ? H.y : def[1];
     return { x: P.x + f.face.x * fwd * k, y: P.y + up * k, z: P.z + f.face.y * fwd * k };
   }
 
-  // A stretched limb from `from` to `to` (Luffy's rubber arm, the Gigant Pistol's giant arm): a tube effect drawn pointing
-  // screen-right, its tube `tube` of the cell high, stretched along the line as seen on screen and scaled across it to
-  // `thick` world units. Kept by `id`: its owner refreshes it every frame.
+  // A stretched limb from `from` to `to` (Luffy's rubber arm, Killua's yo-yo string): a tube effect drawn pointing
+  // screen-right, its tube `tube` of the cell high and every column the same, stretched along the line as seen on screen
+  // and scaled across it to `thick` world units. Kept by `id`: its owner refreshes it every frame. `o.color` tints it.
   limb(id, name, from, to, thick, tube, camRight, o = {}) {
     const dy = to.y - from.y, sx = (to.x - from.x) * camRight.x + (to.z - from.z) * camRight.z;
-    const it = this.keep(id, name, (from.x + to.x) / 2, (from.y + to.y) / 2, (from.z + to.z) / 2, { order: o.order ?? 7, depthTest: false });
+    const it = this.keep(id, name, (from.x + to.x) / 2, (from.y + to.y) / 2, (from.z + to.z) / 2, { order: o.order ?? 7, depthTest: false, color: o.color });
     // the quad is 1 x 1 world units before scaling (spawn folds the cell's world size into the scale)
     const flip = sx < 0, phi = Math.atan2(dy, sx), sy = thick / tube;
     it.rot = flip ? phi - Math.PI : phi;
@@ -777,19 +777,19 @@ export class Effects {
     return it;
   }
 
-  // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, turned along the limb from `from`
+  // the end of a limb (its fist), drawn pointing screen-right: centred on `at`, `scale` cells, turned along the limb
   limbEnd(id, name, at, from, scale, camRight, o = {}) {
     const dy = at.y - from.y, sx = (at.x - from.x) * camRight.x + (at.z - from.z) * camRight.z;
-    const it = this.keep(id, name, at.x, at.y, at.z, { order: o.order ?? 8, depthTest: false });
+    const it = this.keep(id, name, at.x, at.y, at.z, { order: o.order ?? 8, depthTest: false, color: o.color });
     const flip = sx < 0, phi = Math.atan2(dy, sx), s = it.cellWorld * scale;
     it.rot = flip ? phi - Math.PI : phi;
     it.mesh.scale.set(flip ? -s : s, s, s);
     return it;
   }
 
-  // A rush's stretched limb (the Gum-Gum Whip's leg), laid once as its active frames start: from the drawn anchor (`at`
-  // [forward, up] without one) along his facing, its drawn length (`fill` of the cell width) `len` units on screen.
-  // `active` false clears it for the next use.
+  // A rush's `sweep` (the Gum-Gum Whip's stretched leg), laid once as its active frames start: from the drawn anchor
+  // (`at` [forward, up] without one) along his facing, its drawn length (`fill` of the cell width) `len` units on
+  // screen. `active` false clears it for the next use.
   limbSweep(f, L, active, camRight) {
     if (!active) { this.sweeps?.delete(f.index); return; }
     if ((this.sweeps ??= new Set()).has(f.index)) return;

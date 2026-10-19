@@ -71,8 +71,8 @@ src/game/
                             pads, shots, clash, basis, sprite playback); static tables, assets and the view shared
   effects.js                Effects: VFX sprite pool from the VFX atlas, aura/hand effects, debris, dust rings,
                             barrier flashes; Overlay (2D canvas: speed lines, flashes, impact frames); owns fx.ground.
-                            Rubber limbs (ADR 0051): `limb` stretches a tube effect between two points (the drawn
-                            hand anchor and a fist), `limbEnd` puts the fist on it, `handAt` finds the drawn hand
+                            Limbs (ENG-SKL-LUF): `limb` stretches a tube effect between two points (the drawn hand
+                            anchor and a shot), `limbEnd` puts its end (a fist) on it, `handAt` finds the drawn hand
   ground.js                 GroundDamage (ADR 0024): force -> tier -> size, element styles, merges, impact debt,
                             lit clipped decals, rim chunks, slabs, wall/barrier marks, charge cracks, decal pages
   sigil.js                  Sigils (ADR 0035): Sharingan / Mangekyō drawn in code, turning behind a fighter for an eye technique
@@ -306,7 +306,8 @@ generated strips ─> art/characters/<id>/raw/<anim>_vNN.png ─> npm run sprite
   (e.g. `superDash -> dash -> run -> idle`). `boxes(frame, kind, side)` converts frame-local pixel boxes into
   local world units, mirrored for facing left.
 - **SpriteActor** is a camera-facing plane anchored at the pivot (feet). It mirrors by `side`, plays loops and
-  one-shots by `durations`, and for attacks `setPhase(anim, phase, progress)` maps the move's
+  one-shots by `durations` (a loop with an anims.json `loopFrom` plays its first frames once and loops from there:
+  `charge`'s gather and release, ENG-117), and for attacks `setPhase(anim, phase, progress)` maps the move's
   startup/active/recovery onto the animation's `phases` frame counts. It also has a hidden sun-facing
   shadow caster, a blob shadow and ghost trails (dash/vanish afterimages). On a lying frame (one with an anims.json
   `footprint`: `ko`, `down`, `getup` f0) resting on the floor, `fitShadow` stretches the blob along the drawn body

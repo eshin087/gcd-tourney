@@ -280,11 +280,11 @@ export const PROJECTILES = {
   // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash)
   kiBlast: { count: 3, spread: 0.14, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'orb', scale: 0.5, color: 0xd8f2ff, glowColor: 0x5ab0ff, sfx: 'flash', spark: 'light' },
   // Luffy's Gum-Gum Pistol: the stretched fist itself, very fast and short-lived (~6 u, like the Chidori Spear).
-  // Physical, so it cancels shots but never beam-clashes. Drawn as the rubber arm (`rubber`, ENG-SKL-LUF): the arm
+  // Physical, so it cancels shots but never beam-clashes. Drawn as the rubber arm (the shared `limb`, ENG-SKL-LUF): the arm
   // stretched from where the strip's arm leaves the cell to the fist, which snaps back to his hand when the shot ends;
   // its hit is a knuckle impact (`burstFx`), not the white burst
   pistol: { count: 1, spread: 0, speed: 42, radius: 0.5, dmg: 70, hitstun: 30, push: 6, airPop: 6, life: 0.15, sprite: 'orb', scale: 0.6, color: 0xf6c9a0, glowColor: 0xffb43a, sfx: 'whooshHeavy', spark: 'none',
-    rubber: { arm: 'gumArm', fist: 'gumFist', thick: 0.07, tube: 24 / 256, fistScale: 0.42, back: 0.11 }, burstFx: { fx: 'gumImpact', scale: 0.5, smoke: 0, shake: 0.35 } },
+    limb: { fx: 'gumArm', tube: 24 / 256, thick: 0.07, end: 'gumFist', endScale: 0.42, back: 0.11 }, burstFx: { fx: 'gumImpact', scale: 0.5, smoke: 0, shake: 0.35 } },
 };
 
 // Special moves by id (ADR 0009). A fighter's kit maps input slots to these ids.
@@ -443,11 +443,11 @@ export const SPECIAL_MOVES = {
     hit: { dmg: 94, launch: [5, 12], groundBounce: true, hitstop: 14, big: true, shake: 0.7, spark: 'smash', blastFx: { fx: 'gumImpact', scale: 1.0, smoke: 2 } },
   },
   // a long low sweeping kick that trips them: barely moves him, but the leg stretches far. The strip's leg leaves the
-  // cell; `limb` lays the stretched leg and its sweep from there along the floor when the active frames start
+  // cell; `sweep` lays the stretched leg and its sweep from there along the floor when the active frames start
   gumWhip: {
     kind: 'rush', anim: 'specialDown', startup: 14, cancelStartup: 10, active: 8, recovery: 20, dmg: 90, reach: 2.3, width: 1.0,
     launch: [10, 5], hitstop: 12, rush: 3, cost: 50, special: true, color: '#e8402a', name: 'GUM-GUM WHIP', spark: 'heavy', ground: 'stone',
-    limb: { fx: 'whipSweep', len: 1.5, fill: 0.96, at: [1.0, 0.16], ms: 40 }, blastFx: { fx: 'gumImpact', scale: 0.65, smoke: 1 },
+    sweep: { fx: 'whipSweep', len: 1.5, fill: 0.96, at: [1.0, 0.16], ms: 40 }, blastFx: { fx: 'gumImpact', scale: 0.65, smoke: 1 },
   },
   // Gear Second: he pumps his blood and steams; faster and a little stronger (ADR 0011 mode budget: 1.25 × 1.1 × 1.0).
   // The anime look (ENG-SKL-LUF): his skin flushed pink in every animation (`recolor`, the fighter's palette swap), steam

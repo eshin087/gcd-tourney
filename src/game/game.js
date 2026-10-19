@@ -938,7 +938,7 @@ export class Game {
       if (f.mode?.ghost && !frozen && f.t % f.mode.ghost === 0 && GHOSTING.has(f.state)) f.actor.ghost(f.mode.color, 0.25, 0.4);
       if (km?.m?.grab) this.fx.grabTick(f, km.m.grab, km.kind === 'dive' && km.phase === 'rise' && km.rose, this.cam.right);
       if (km?.kind === 'laneStrike' && km.m.arm) this.fx.laneArm(f, km, km.m, this.cam.right);
-      const L = f.state === 'attack' ? f.move?.limb : null;
+      const L = f.state === 'attack' ? f.move?.sweep : null;
       this.fx.limbSweep(f, L, !!L && f.t >= f.move.startup && f.t < f.move.startup + f.move.active, this.cam.right);
       const held = f.state === 'clash' ? this.clashHand(f) : null;
       if (f.state === 'attack' && f.move?.fx) {

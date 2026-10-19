@@ -15,6 +15,29 @@ How it works:
 
 ---
 
+## Charge redraw: gather, then hold, all six fighters (2026-10-18, Claude) - chat "1 - Charging Animation", relay lane `charge`
+
+**The user's request (2026-10-18, in Claude "Character charging animation"):** "charging up animation for all characters
+need to be improved and look like they're charging up. right now looks like they're spazzing out. use codex '1 - Charging
+Animation' to make the new art sprites and animations." Task **ART-CHARGE**. The brief is the contract:
+[art/characters/CHARGE_BRIEF.md](../../art/characters/CHARGE_BRIEF.md) (read it first; it wins over older `charge`
+notes in a fighter's ANIMATIONS.md). In short: `charge` becomes 6 frames, a one-time gather and release (f0-f1) and a
+slow held loop (f2-f5, `loopFrom: 2`, 110 ms frames) with the feet, hips and head locked, instead of today's 4 drifting
+frames at 50 ms. Claude adds `loopFrom` to the packer and the game (ENG-117) and removes the game's sprite shake.
+
+- [ ] 1. **Goku pilot.** `npm run pr -- start art/charge-goku --art goku`; generate `charge_vNN` per the brief (budget
+  3 calls per image), manifest, pack (after `git merge main` brings ENG-117), registration sheet, body sheet, lab loop,
+  Astra audit, review page `public/reviews/charge-goku/`, `npm run pr -- open` and `npm run pr -- preview`, handoff,
+  then ring `charge --for user --kind approval` and stop.
+- [ ] 2. **After a relayed USER APPROVAL of Goku** (or the user's redirect, which wins): Luffy, Naruto, Sasuke, Killua,
+  Gojo in that order, two worktrees at most, each through its own approval ring.
+- [ ] 3. Per approved fighter: `approvedVersion`, REVIEW/TRACKER rows, `node tools/pr.mjs check art/charge-<id>`
+  passes, commit, ring `charge` for Claude's in-game check and merge. No merge or production deploy by Codex.
+
+Progress (tick per fighter): - [ ] goku (pilot) - [ ] luffy - [ ] naruto - [ ] sasuke - [ ] killua - [ ] gojo
+
+---
+
 ## Sasuke skills revamp: Chidori, Chidori Spear, Chidori Current, Great Fireball, Kirin, Amaterasu (2026-10-18, Claude) - chat "5 - Skills Effects", relay lane `skills`
 
 **The user's request (2026-10-18):** revamp the specials, supers and ultimates so they look like the anime; Naruto is

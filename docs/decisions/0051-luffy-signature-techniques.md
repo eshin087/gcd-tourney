@@ -24,9 +24,9 @@ Everything is data read by shared code (CLAUDE.md rule 4), view-only where it ca
 1. **Rubber limbs.** A limb longer than the 256 px cell leaves the cell in its strip, and the strip's `hand` anchor sits
    where it leaves. The engine carries it on from there with a tube effect drawn pointing screen-right and stretched
    between two points (`Effects.limb`; its tube's share of the cell height says how to scale it to the limb's
-   thickness) and its end (`Effects.limbEnd`: the fist). A projectile's `rubber` draws the arm from the drawn hand to
-   the shot and snaps the fist back to the hand when the shot ends (`ShotViews`, render clock); a rush's `limb` lays a
-   limb once its active frames start (the Whip); a dive's `grab` draws the arms up to what they grabbed (the Rocket)
+   thickness) and its end (`Effects.limbEnd`: the fist). A projectile's `limb` (the shared piece, ENG-SKL-LIMB) draws the arm
+   from the drawn hand to the shot and snaps its `end` (the fist) back to the hand when the shot ends (`ShotViews`,
+   render clock; Killua's yo-yo string is a thin `limb` too); a rush's `sweep` lays a limb once its active frames start (the Whip); a dive's `grab` draws the arms up to what they grabbed (the Rocket)
    and `launchFx` snaps at the take-off; a `laneStrike`'s `arm` draws the giant arm and fist down the lane.
 2. **Palette swap on the body.** The sprite shader swaps up to 8 exact sheet colours (`SpriteActor.setRecolor`),
    matched in sRGB bytes within 2 levels (the GPU's sRGB decode is a little off three.js's). A fighter's `recolor`

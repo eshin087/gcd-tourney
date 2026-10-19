@@ -5,6 +5,7 @@ import { IS_TOUCH_DEVICE } from '../core/touch.js';
 import { kitOf } from '../game/kit.js';
 import { SPECIAL_MOVES, SUPERS } from '../game/moves.js';
 import { CPU_LEVELS } from '../game/ai.js';
+import { loopStart } from '../game/animPhase.js';
 import { QUICK } from '../net/quickChat.js';
 
 const el = (tag, cls, html = '') => {
@@ -805,7 +806,7 @@ class SpritePreview {
     const d = this.a.durations?.[this.i] ?? 100;
     if (this.t >= d) {
       this.t = 0;
-      this.i = (this.i + 1) % this.a.frames.length;
+      this.i = this.i + 1 < this.a.frames.length ? this.i + 1 : loopStart(this.a); // a preview repeats; an intro plays once
       this.draw();
     }
   }

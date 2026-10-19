@@ -410,6 +410,14 @@ const PAINTERS = {
     ctx.setLineDash([2, 3]);
     ctx.beginPath(); ctx.arc(0, 0, r - 4, 0, Math.PI * 2); ctx.stroke();
   },
+  // a string for a limb (Effects.limb, ENG-SKL-LUF): a white line on rows 31-32 across the whole cell, the same in every
+  // column (it is stretched to any length; tube 1 / 32), tinted at runtime
+  strand(i, n, ctx) {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 31, 64, 1);
+    ctx.fillStyle = '#c8c8c8';
+    ctx.fillRect(0, 32, 64, 1);
+  },
   // Naruto's one-tail chakra: a thick boiling tail out of the base, sweeping back (to the left) and up, swaying
   naruto_chakraTail(i, n, ctx) {
     const sw = Math.sin((i / n) * Math.PI * 2) * 3;
@@ -1137,6 +1145,7 @@ export const VFX_ANIMS = {
   wisp: { n: 7, ms: 55, levels: [0, 255] },
   arc: { n: 6, ms: 40, levels: [0, 255] },
   ripple: { n: 5, ms: 50, levels: [0, 255] },
+  strand: { n: 1, ms: 100, levels: [0, 255] }, // a limb's string (ENG-SKL-LUF), procedural only
   naruto_chakraTail: { n: 6, ms: 60, levels: [0, 255] },
   // ground damage (ADR 0024)
   dustWave: { n: 6, ms: 60, levels: [0, 255] },
