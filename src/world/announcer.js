@@ -117,6 +117,40 @@ function walkHit(x, z, dx, dz) {
   return walkNear(x + dx * lo, z + dz * lo);
 }
 
+// Where his head is in every cell of the packed sheet, found from his hair: the sheet's gold pixels are his hair (the
+// tie is red, the skin pale, the suit black), and the top rows of the gold give the middle and width of the hair's top.
+// Marks and effects over his head follow it from pose to pose (a crouch, a facepalm, lying flat, a jump). Null for a
+// body without a sheet; a cell with no hair falls back to his standing head (Announcer.headAt).
+export function headAnchors(body) {
+  const img = body.tex?.image, m = body.meta;
+  if (!img || !m || typeof document === 'undefined') return null;
+  try {
+    const cv = document.createElement('canvas');
+    cv.width = img.width;
+    cv.height = img.height;
+    const g = cv.getContext('2d', { willReadFrequently: true });
+    g.drawImage(img, 0, 0);
+    const d = g.getImageData(0, 0, cv.width, cv.height).data;
+    const W = m.frameWidth, H = m.frameHeight, cols = m.columns || 8, rows = Math.ceil(img.height / H);
+    const gold = (i) => d[i + 3] > 128 && d[i] >= 150 && d[i] > d[i + 1] * 1.08 && d[i + 1] >= 90 && d[i + 1] > d[i + 2] * 1.6;
+    const out = [];
+    for (let n = 0; n < cols * rows; n++) {
+      const x0 = (n % cols) * W, y0 = Math.floor(n / cols) * H;
+      let top = Infinity;
+      for (let y = 0; y < H && top === Infinity; y++) for (let x = 0; x < W; x++) if (gold(((y0 + y) * cv.width + x0 + x) * 4)) { top = y; break; }
+      if (top === Infinity) { out.push(null); continue; }
+      // the hair's top 22 rows only (a gold wristwatch lower down must not drag the middle)
+      let lo = W, hi = 0;
+      for (let y = top; y < Math.min(H, top + 22); y++) for (let x = 0; x < W; x++) if (gold(((y0 + y) * cv.width + x0 + x) * 4)) { if (x < lo) lo = x; if (x > hi) hi = x; }
+      out.push({ cx: (lo + hi + 1) / 2, top, hw: (hi - lo + 1) / 2 });
+    }
+    return out;
+  } catch (e) {
+    console.warn('[npc] announcer: could not find his head in the sheet, using a standing head', e);
+    return null;
+  }
+}
+
 // The painted placeholder (crowdPainter.bakeAnnouncer) as a body: it mirrors, it has no animations.
 export function paintedBody(sprite) {
   const tex = sprite.material.map;
@@ -178,6 +212,8 @@ export class Announcer {
     this.prevHp = [MAX_HP, MAX_HP];
     this.blips = 0; // voice blips left for the current line
     this.blipT = 0;
+    this.heads = null; // his head in every cell of the sheet (headAnchors)
+    this.head = null; // headAt's reusable result
     this.hopBaseY = 0; // a hop's height without its arc (his caption's anchor while he hops)
     this.barsEl = null; // the HUD's health bars, measured to keep the caption under them
   }
@@ -189,6 +225,25 @@ export class Announcer {
     body.sprite.position.copy(this.pos);
     body.setMirror(this.mirror);
     body.sprite.parent?.add(this.symbols.sprite);
+    this.heads = headAnchors(body);
+  }
+
+  // where his head is in the frame on screen now, for his symbols: the middle of the top of his hair in world space and
+  // half the hair's width. His sprite is screen-aligned, so pixel offsets follow the camera's right and up axes.
+  headAt(cam) {
+    const body = this.body, m = body.meta, sp = body.sprite;
+    const A = this.heads?.[body.cell] ?? null;
+    const cx = A ? A.cx : 64, top = A ? A.top : 12, hw = A ? A.hw : 12; // a standing head when the sheet has none
+    const sx = this.mirror ? -1 : 1, U = 1 / 80;
+    const px = m?.pivot?.[0] ?? 64, py = (m?.pivot?.[1] ?? 124) + 1; // the feet: the bottom edge of the pivot row
+    const H = this.head || (this.head = { pos: new THREE.Vector3(), right: new THREE.Vector3(), up: new THREE.Vector3(), toCam: new THREE.Vector3(), hw: 0, face: 1 });
+    H.right.setFromMatrixColumn(cam.matrixWorld, 0);
+    H.up.setFromMatrixColumn(cam.matrixWorld, 1);
+    H.toCam.copy(cam.position).sub(sp.position).normalize();
+    H.pos.copy(sp.position).addScaledVector(H.right, (cx - px) * sx * U).addScaledVector(H.up, (py - top) * U);
+    H.hw = hw * U;
+    H.face = sx;
+    return H;
   }
 
   // ------------------------------------------------------------ per rendered frame
@@ -603,14 +658,8 @@ export class Announcer {
     sp.position.set(this.pos.x, y, this.pos.z);
     body.update(dt);
     if (body.anim === 'cheer' && body.k === 1) sp.position.y += 0.08; // the jump frame leaves the floor
-    // his symbols sit at his head: lower while he lies flat or sits up after a knockdown
-    if (cam) {
-      const sit = this.forceAnim === 'blownAway' ? 0.5 : this.forceAnim === 'popUp' && body.k === 0 ? 0.85 : 1;
-      const baseY = this.place === 'hop' ? this.hopBaseY : this.pos.y;
-      tmpV.set(this.pos.x, baseY + HEAD * sit - 0.06, this.pos.z);
-      tmpW.setFromMatrixColumn(cam.matrixWorld, 0).setY(0).normalize();
-      this.symbols.update(dt, tmpV, tmpW, this.mirror ? -1 : 1, !dt);
-    }
+    // his symbols hug his head as it is in this frame (headAt)
+    if (cam) this.symbols.update(dt, this.headAt(cam), !dt);
   }
 
   // how fast he gets about: slower as a long round tires him
