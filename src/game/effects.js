@@ -83,6 +83,7 @@ export class Effects {
     this.overlay = new Overlay();
     this.cellWorld = meta.cell / PPU;
     this.camFwd = new THREE.Vector3(0, 0, -1);
+    this.camUp = new THREE.Vector3(0, 1, 0); // the billboards' up: a point raised along it stays at the body's depth
     this.ground = new GroundDamage(scene, this); // craters, cracks, scorches, wall marks (ADR 0024)
     this.sigils = new Sigils(scene); // Sharingan / Mangekyō behind an eye technique (ADR 0035)
   }
@@ -262,6 +263,7 @@ export class Effects {
 
   update(dt, camera) {
     camera.getWorldDirection(this.camFwd);
+    this.camUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
     this.sigils.update(dt, camera, this.camFwd);
     const now = performance.now();
     for (const [id, it] of this.keepers) {
@@ -612,7 +614,10 @@ export class Effects {
       const s = (phase === 0 ? 0.3 + prog * 0.4 : 0.75) * k;
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * (phase === 0 ? 1.1 : 0.7), color: 0xffd84a, opacity: 0.4 * halo, order: 3, glow: 0.6 });
       if (phase === 1 && !quiet) {
-        this.keep('hand' + f.index, 'dragonFistAura', P.x + fx * 0.1 * k, P.y + 0.85 * k, P.z + fz * 0.1 * k, { scale: 1.0 * k, order: 1, glow: 0.3, flipX: f.side < 0 });
+        // raised along the billboard's up and a step behind it along the view (a point raised straight up comes nearer
+        // the downward-looking camera and would cover him), so it frames him
+        const bk = this.camFwd, U = this.camUp, h = 0.8 * k;
+        this.keep('hand' + f.index, 'dragonFistAura', P.x + fx * 0.1 * k + U.x * h + bk.x * 0.3, P.y + U.y * h + bk.y * 0.3, P.z + fz * 0.1 * k + U.z * h + bk.z * 0.3, { scale: 0.82 * k, order: 1, glow: 0, flipX: f.side < 0 });
       } else this.drop('hand' + f.index);
       if (Math.random() < 0.5) this.spawn('flame', p.x, p.y - 0.2, p.z, { bottom: true, scale: 0.3 * s, color: 0xffd84a, vel: [0, 1.6, 0], opacity: 0.8, order: 8, glow: 0.6 });
     } else if (kind === 'chidori') {
