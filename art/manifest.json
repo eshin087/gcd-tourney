@@ -347,7 +347,7 @@
         "airRecover": { "frames": 3, "loop": false, "bodyHeight": 168, "ms": [50, 50, 60], "required": false, "step": 9, "status": "approved", "version": 7, "approvedVersion": 7, "scaleManualQA": { "version": 7, "result": "pass", "by": "Claude QA (naruto)", "note": "Low-confidence rotating probe (heads 1.07/1.07/1.11). Compared all three native 48-colour cells with approved title combat at one scale: tuck, inverted tuck and landing-ready poses keep combat's head, face, torso and limb chains; sandals 0.95-1.13 of combat per frame (one sole-on f0 sandal 1.28). All poses inside the cell.", "evidence": "art/characters/naruto/production/title-style-qa/airRecover_v07_claude_manualqa.png" } },
         "down": { "frames": 2, "loop": false, "bodyHeight": 96, "ms": [80, 420], "required": true, "step": 6, "status": "approved", "version": 5, "approvedVersion": 5, "scaleManualQA": { "version": 5, "result": "pass", "by": "Claude QA (naruto)", "note": "Low-confidence lying probe (heads 1.00/0.92). User-preserved original down poses restyled. Compared both native 48-colour cells with approved title combat/neutral at one scale: head, torso and leg chains match; supine length 224 px vs 205 px standing neutral (extended leg, pointed foot); sandals 1.13-1.25 of combat (linear). Floor contact (f1 28% within 6px, worst fifth 7px above y240) is left to the coordinator's in-game grounding check.", "evidence": "art/characters/naruto/production/title-style-qa/down_v05_claude_manualqa.png" } },
         "getup": { "frames": 5, "loop": false, "bodyHeight": 195, "ms": [70, 60, 60, 80, 70], "required": true, "step": 6, "status": "approved", "version": 7, "approvedVersion": 7, "scaleManualQA": { "version": 7, "result": "pass", "by": "Codex", "note": "Low-confidence kip-up probe. Compared all five native 48-color scratch atlas frames against approved title combat at one 256px cell scale: heads, neck-to-belt volume, long limbs and sandal size stay consistent through the lying, inverted, airborne and crouched phases. Measured source pose height 195 makes final stance 165px, equal to approved combat. Head estimates range 1.020-1.103 of provisional idle and feet 0.927-1.027; rotated/occluded poses have about 2px landmark uncertainty. This is anatomy scale only; down-to-getup motion continuity remains unapproved.", "evidence": "art/characters/naruto/production/title-style-qa/getup_v07_scratch_comparison.png" } },
-        "charge": { "frames": 4, "loop": true, "bodyHeight": 167, "ms": [50, 50, 50, 50], "required": true, "step": 7, "status": "approved", "version": 7, "approvedVersion": 7 },
+        "charge": { "frames": 6, "loop": true, "loopFrom": 2, "bodyHeight": 167, "ms": [70, 90, 110, 110, 110, 110], "required": true, "step": 7, "status": "approved", "version": 8, "approvedVersion": 8, "reviewStatus": "approved", "approvalSource": "User approved via Claude relay charge #8, exact quote: Approve v08 as drawn", "scaleExemptFrames": { "0": "v08 gather: the head bows forward, the crown faces the camera and the hair area reads 1.20; sandals, leg holster and headband plate match the idle (Claude landmark check, art/characters/naruto/production/charge-v08/CLAUDE_SCALE_CHECK.md)" }, "scaleExemptVersion": 8 },
         "throw": { "frames": 4, "loop": false, "phases": [1, 1, 2], "bodyHeight": 168, "ms": [50, 60, 70, 50], "required": false, "step": 9, "status": "approved", "version": 9, "approvedVersion": 9 },
         "beamCharge": {"frames":3,"loop":true,"bodyHeight":171,"ms":[50,50,50],"required":true,"step":7,"status":"approved","version":17,"approvedVersion":17,"reviewStatus":"approved","approvalSource":"user via Claude relay skills #7: Approve beamCharge v17, fourTailsRoar v02, beamFire v15 (with its +13px placement sidecar), beastBall v01 and beastBeamRing v01.","scaleManualQA":{"version":17,"result":"pass","by":"Claude (integration, 2026-10-18)","note":"Fully engulfed four-tailed fox (ADR 0045): no human head for the probe. Compared all three packed cells with idle f0 and the approved combat cell at one scale (body sheet): the skull without the ears is about his head size, the crouched body is about as long as his standing height and no bulkier than the combat stance, and the four tails rise above his crown by design. Same fox body as beamFire v15.","evidence":"art/characters/naruto/production/skills-revamp-round2/four-tails-body-sheet_v17_v15.png"}},
         "beamFire": {"frames":3,"loop":true,"bodyHeight":153,"ms":[50,50,50],"required":true,"step":7,"status":"approved","version":15,"approvedVersion":15,"approvalSource":"user via Claude relay skills #7: Approve beamCharge v17, fourTailsRoar v02, beamFire v15 (with its +13px placement sidecar), beastBall v01 and beastBeamRing v01.","reviewStatus":"approved","scaleManualQA":{"version":15,"result":"pass","by":"Claude (integration, 2026-10-18)","note":"Fully engulfed four-tailed fox (ADR 0045): no human head for the probe. Compared all three packed cells with idle f0 and the approved combat cell at one scale (body sheet): the skull without the ears is about his head size, the crouched body is about as long as his standing height and no bulkier than the combat stance, and the four tails rise above his crown by design. Same fox body as beamCharge v17.","evidence":"art/characters/naruto/production/skills-revamp-round2/four-tails-body-sheet_v17_v15.png"}},
@@ -3182,20 +3182,21 @@
           }
         },
         "npc-announcer-r2": {
-          "status": "todo",
-          "reviewStatus": "todo",
-          "note": "ENG-119 living announcer: blownAway, popUp, cheer, facepalm, micTap, checkWatch, patHair, sooty, wince, mopBrow (art/npc/announcer/ANIMATIONS.md)",
+          "status": "approved",
+          "reviewStatus": "approved",
+          "approvedBy": "user via Claude 2026-10-18",
+          "note": "ENG-119: user approved blownAway v03, popUp v01, cheer v01, facepalm v01, micTap v01, checkWatch v01, patHair v01, sooty v03, wince v01 and mopBrow v01 as drawn via Claude on 2026-10-18; Astra technical holds on blownAway pose/scale and sooty scale/readability are accepted, not cleared. Earlier versions remain preserved. Rebuilt approved NPC pack after approval. See public/reviews/announcer-alive/.",
           "items": {
-            "blownAway": {"status":"todo","version":0,"approvedVersion":null},
-            "popUp": {"status":"todo","version":0,"approvedVersion":null},
-            "cheer": {"status":"todo","version":0,"approvedVersion":null},
-            "facepalm": {"status":"todo","version":0,"approvedVersion":null},
-            "micTap": {"status":"todo","version":0,"approvedVersion":null},
-            "checkWatch": {"status":"todo","version":0,"approvedVersion":null},
-            "patHair": {"status":"todo","version":0,"approvedVersion":null},
-            "sooty": {"status":"todo","version":0,"approvedVersion":null},
-            "wince": {"status":"todo","version":0,"approvedVersion":null},
-            "mopBrow": {"status":"todo","version":0,"approvedVersion":null}
+            "blownAway": {"status":"approved","version":3,"approvedVersion":3,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra final audit: f1 height 61px vs approximately 56px target; bent knees rather than straight raised V; enlarged shoe/head volume remains visually conspicuous. f0 97px vs 98 target after cell fit. User approved as drawn via Claude 2026-10-18 and accepted this technical hold. Budget 3/3."},
+            "popUp": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "cheer": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "facepalm": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "micTap": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "checkWatch": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "patHair": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "sooty": {"status":"approved","version":3,"approvedVersion":3,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra final audit: v03 hair-to-floor about 105px vs idle112, smoke adds ~9px above hair. v02 anatomy/scale passed (~110/108px), but lower face remained pale and soot/cough readability held; see review comparison atlas. User approved v03 as drawn via Claude 2026-10-18 and accepted this technical hold. Budget 3/3."},
+            "wince": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "mopBrow": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"}
           }
         },
         "npc-monk-a": {
@@ -3386,4 +3387,5 @@
     }
   }
 }
+
 

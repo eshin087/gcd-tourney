@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Naruto charge v08 review</title>
+  <style>
+    body{font:16px system-ui,sans-serif;background:#17191f;color:#f1f3f7;max-width:1150px;margin:2rem auto;padding:0 1rem}
+    h1,h2{line-height:1.2} section{margin:2rem 0;padding:1rem;background:#242832;border-radius:10px}
+    .pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
+    .frames{display:flex;flex-wrap:wrap;gap:.5rem}.frames img{width:128px;height:128px;image-rendering:pixelated;background:#444}
+    .large img{width:256px;height:256px}.stage{display:flex;align-items:center;gap:1rem}
+    .stage img{width:256px;height:256px;image-rendering:pixelated;background:#444}
+    .evidence{max-width:100%;height:auto}.muted{color:#bdc3ce}.hold{color:#ffd166;font-weight:700}
+    button{padding:.5rem 1rem;font-size:1rem}#status{font-weight:600}
+  </style>
+</head>
+<body>
+  <h1>Naruto charge v08</h1>
+  <p>Approved by the user via Claude relay charge #8 (“Approve v08 as drawn”). The six-pose source was promoted unchanged and packed as six 256×256 cells with a 48-color palette. This page shows packed output. Image approval is recorded; the independent technical audit found a loop-contract hold for Claude to review.</p>
+  <section class="pair">
+    <div><h2>Packed loop playback</h2><p>f0 gather → f1 release → f2–f5 held loop. Timings: 70, 90, then 110 ms per held frame.</p>
+      <div class="stage"><img id="sprite" src="media/new_f0.png" alt="Naruto charge packed frame"><span id="status">Ready</span></div>
+      <button id="play">Play preview</button>
+    </div>
+    <div><h2 class="hold">Astra audit: technical HOLD</h2>
+      <p>f3 face/head rises 3 px versus f2 (2 px contract maximum); floor-contact contours shift 1–2 px. Overall anatomy appears consistent, but occlusion prevents a numeric ±6% segment pass. No scale exemption or scaleManualQA pass is supported.</p>
+      <p><a href="ASTRA_AUDIT.md">Full packed-cell audit and measurements</a></p>
+    </div>
+  </section>
+  <section><h2>Packed frames at 1×</h2><div class="frames">
+    <img src="media/new_f0.png" alt="Charge frame 0"><img src="media/new_f1.png" alt="Charge frame 1"><img src="media/new_f2.png" alt="Charge frame 2"><img src="media/new_f3.png" alt="Charge frame 3"><img src="media/new_f4.png" alt="Charge frame 4"><img src="media/new_f5.png" alt="Charge frame 5">
+  </div><h2>Packed frames at 2×</h2><div class="frames large">
+    <img src="media/new_f0.png" alt="Charge frame 0"><img src="media/new_f1.png" alt="Charge frame 1"><img src="media/new_f2.png" alt="Charge frame 2"><img src="media/new_f3.png" alt="Charge frame 3"><img src="media/new_f4.png" alt="Charge frame 4"><img src="media/new_f5.png" alt="Charge frame 5">
+  </div></section>
+  <section><h2>Approved idle f0</h2><img class="evidence" src="media/idle_f0.png" alt="Approved idle frame 0"></section>
+  <section><h2>Registration difference sheet</h2><p class="muted">Packed cells, aligned on their atlas coordinates. Cyan marks the floor-contact band; the full report explains masks and uncertainty.</p><img class="evidence" src="media/registration_v08.png" alt="Packed-cell registration differences"></section>
+  <section><h2>Body comparison</h2><img class="evidence" src="media/body-sheet.png" alt="Packed Naruto body sheet"></section>
+  <script>
+    const seq=[0,1,2,3,4,5,2,3,4,5,2,3,4,5,2,3,4,5];
+    const ms=[70,90,110,110,110,110];let timer;
+    const sprite=document.getElementById('sprite'),status=document.getElementById('status');
+    document.getElementById('play').onclick=()=>{clearTimeout(timer);let i=0;status.textContent='Playing';
+      const tick=()=>{if(i>=seq.length){status.textContent='Paused after four holds';return}
+        const f=seq[i++];sprite.src='media/new_f'+f+'.png';timer=setTimeout(tick,ms[f]);};tick();};
+  </script>
+</body>
+</html>
