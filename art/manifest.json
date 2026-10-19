@@ -3182,20 +3182,21 @@
           }
         },
         "npc-announcer-r2": {
-          "status": "todo",
-          "reviewStatus": "todo",
-          "note": "ENG-119 living announcer: blownAway, popUp, cheer, facepalm, micTap, checkWatch, patHair, sooty, wince, mopBrow (art/npc/announcer/ANIMATIONS.md)",
+          "status": "approved",
+          "reviewStatus": "approved",
+          "approvedBy": "user via Claude 2026-10-18",
+          "note": "ENG-119: user approved blownAway v03, popUp v01, cheer v01, facepalm v01, micTap v01, checkWatch v01, patHair v01, sooty v03, wince v01 and mopBrow v01 as drawn via Claude on 2026-10-18; Astra technical holds on blownAway pose/scale and sooty scale/readability are accepted, not cleared. Earlier versions remain preserved. Rebuilt approved NPC pack after approval. See public/reviews/announcer-alive/.",
           "items": {
-            "blownAway": {"status":"todo","version":0,"approvedVersion":null},
-            "popUp": {"status":"todo","version":0,"approvedVersion":null},
-            "cheer": {"status":"todo","version":0,"approvedVersion":null},
-            "facepalm": {"status":"todo","version":0,"approvedVersion":null},
-            "micTap": {"status":"todo","version":0,"approvedVersion":null},
-            "checkWatch": {"status":"todo","version":0,"approvedVersion":null},
-            "patHair": {"status":"todo","version":0,"approvedVersion":null},
-            "sooty": {"status":"todo","version":0,"approvedVersion":null},
-            "wince": {"status":"todo","version":0,"approvedVersion":null},
-            "mopBrow": {"status":"todo","version":0,"approvedVersion":null}
+            "blownAway": {"status":"approved","version":3,"approvedVersion":3,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra final audit: f1 height 61px vs approximately 56px target; bent knees rather than straight raised V; enlarged shoe/head volume remains visually conspicuous. f0 97px vs 98 target after cell fit. User approved as drawn via Claude 2026-10-18 and accepted this technical hold. Budget 3/3."},
+            "popUp": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "cheer": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "facepalm": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "micTap": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "checkWatch": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "patHair": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "sooty": {"status":"approved","version":3,"approvedVersion":3,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18","technicalHold":true,"hold":"Astra final audit: v03 hair-to-floor about 105px vs idle112, smoke adds ~9px above hair. v02 anatomy/scale passed (~110/108px), but lower face remained pale and soot/cough readability held; see review comparison atlas. User approved v03 as drawn via Claude 2026-10-18 and accepted this technical hold. Budget 3/3."},
+            "wince": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"},
+            "mopBrow": {"status":"approved","version":1,"approvedVersion":1,"reviewStatus":"approved","approvedBy":"user via Claude 2026-10-18"}
           }
         },
         "npc-monk-a": {
@@ -3386,4 +3387,5 @@
     }
   }
 }
+
 
