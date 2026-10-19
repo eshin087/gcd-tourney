@@ -1021,7 +1021,7 @@ const START = {
   dive(f, m) {
     const startAir = f.pos.y > 0.05;
     const rose = m.rise > 0 && !startAir;
-    enter(f, { kind: 'dive', m, phase: rose ? 'rise' : 'hang', t0: 0, rose }, rose ? 'specialUp' : 'airHeavy');
+    enter(f, { kind: 'dive', m, phase: rose ? 'rise' : 'hang', t0: 0, rose }, rose ? 'specialUp' : m.diveAnim ?? 'airHeavy');
     f.air = true;
     f.faceOpponent();
     f.vel.set(0, m.rise > 0 && !startAir ? m.riseV : 0, 0);

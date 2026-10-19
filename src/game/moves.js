@@ -385,15 +385,16 @@ export const SPECIAL_MOVES = {
     afterimage: { n: 4, every: 2, ring: 1.3, anim: 'beamCharge', linger: 24, flash: 0.15, tint: '#bfe6ff' },
   },
   // Narukami (落雷, Thunderbolt): he leaps over them, gathers lightning in his hand at the top (`gather`) and dives inside
-  // a bolt from the sky (`column`, `top` units high); it hits the floor as his lightning strike (`landFx`)
+  // a bolt from the sky (`column`, `top` units high), palm first on specialUp v09's dive frame (`diveAnim`); it hits
+  // the floor as his lightning strike (`landFx`)
   thunderbolt: {
-    kind: 'dive', cost: 100, rise: 14, riseV: 15, hang: 5, slamV: -34, area: 1.7, recovery: 16, name: 'NARUKAMI', color: '#bfe6ff', ground: 'lightning',
+    kind: 'dive', cost: 100, rise: 14, riseV: 15, hang: 5, slamV: -34, area: 1.7, recovery: 16, name: 'NARUKAMI', diveAnim: 'specialUp', color: '#bfe6ff', ground: 'lightning',
     gather: { fx: 'palmCrackle', scale: 0.55 }, column: { fx: 'narukamiBolt', scale: 0.7, top: 9 }, landFx: { fx: 'narukamiStrike', scale: 1.3, column: 0.9 },
     riseHit: { dmg: 34, launch: [3, 11], hitstop: 8, spark: 'heavy' },
     hit: { dmg: 104, launch: [5, 13], groundBounce: true, hitstop: 14, big: true, shake: 0.8, spark: 'none' },
   },
   thunderboltAir: {
-    kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.7, recovery: 16, name: 'NARUKAMI', color: '#bfe6ff', ground: 'lightning',
+    kind: 'dive', cost: 100, rise: 0, hang: 3, slamV: -36, area: 1.7, recovery: 16, name: 'NARUKAMI', diveAnim: 'specialUp', color: '#bfe6ff', ground: 'lightning',
     gather: { fx: 'palmCrackle', scale: 0.55 }, column: { fx: 'narukamiBolt', scale: 0.7, top: 9 }, landFx: { fx: 'narukamiStrike', scale: 1.3, column: 0.9 },
     hit: { dmg: 98, launch: [5, 13], groundBounce: true, hitstop: 14, big: true, shake: 0.8, spark: 'none' },
   },
@@ -488,7 +489,7 @@ export const SUPERS = {
     aura: SPECIAL_MOVES.godspeed.aura, shell: SPECIAL_MOVES.godspeed.shell,
     zigzag: {
       attacks: ['light1', 'fair', 'light3', 'bair', 'heavy', 'light2', 'uair', 'light4'], streak: 'godspeedStreak', shock: { fx: 'palmShock', scale: 0.6, smoke: 0, ring: 0.8 },
-      pose: ['airHeavy', 1, 0.5], gather: { fx: 'palmCrackle', scale: 0.6 }, column: { fx: 'narukamiBolt', scale: 0.9, top: 9 }, strike: { fx: 'narukamiStrike', scale: 1.5 },
+      pose: ['specialUp', 2, 0.999], gather: { fx: 'palmCrackle', scale: 0.6 }, column: { fx: 'narukamiBolt', scale: 0.9, top: 9 }, strike: { fx: 'narukamiStrike', scale: 1.5 },
     },
   },
   // Shadow Clone Barrage (Naruto, ENG-SKL-NAR): `crew` turns the flurry into the anime's. His dash and first blow (the

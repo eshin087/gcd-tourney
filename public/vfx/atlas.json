@@ -36,7 +36,7 @@
     "image": "atlas_hd.png",
     "cell": 256,
     "cols": 8,
-    "rows": 30,
+    "rows": 33,
     "ppu": 112,
     "anims": {
       "rasengan": { "row": 0, "n": 8, "ms": 40 },
@@ -68,7 +68,10 @@
       "shockCrawl": { "row": 26, "n": 6, "ms": 50 },
       "godspeedBurst": { "row": 27, "n": 8, "ms": 40 },
       "godspeedAura": { "row": 28, "n": 8, "ms": 40 },
-      "godspeedStreak": { "row": 29, "n": 6, "ms": 30 }
+      "godspeedStreak": { "row": 29, "n": 6, "ms": 30 },
+      "narukamiBolt": { "row": 30, "n": 4, "ms": 40 },
+      "narukamiStrike": { "row": 31, "n": 8, "ms": 45 },
+      "yoyo": { "row": 32, "n": 8, "ms": 30 }
     }
   }
 }

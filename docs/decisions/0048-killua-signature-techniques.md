@@ -44,8 +44,8 @@ fields beside them:
    (CloneCrew keeps a copy, view only); `flash` / `tint` put a sheen on a copy.
 7. **Dives:** `gather` (an effect held in the drawn hand at the top), `column` (a bolt from the sky stacked down to him
    through the slam: `Effects.column`), `landFx: { fx }` (its own strike on the floor instead of the white-out) and
-   `diveAnim` (a strip whose last phase is the gather, then the dive frame held for the slam; switched on when
-   `specialUp` v09 is approved).
+   `diveAnim` (a strip whose last phase is the gather, then the dive frame held for the slam: `specialUp` v09, which
+   also opens an air dive and finishes Speed of Lightning).
 8. **Flurries:** `zigzag` plays Speed of Lightning inside the plain flurry's frames: streaks between blows, `attacks`
    (one of his normals per blow), `shock` (the hit blast instead of the white burst) and the Narukami finish (`pose`,
    `gather`, `column`, `strike`). `Effects.blast` takes a `ring` size (0: none); `burstFx` / `blastFx` pass it.

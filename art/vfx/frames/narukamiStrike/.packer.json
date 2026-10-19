@@ -1,0 +1,21 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames 04 and 05 manually separated from the touching v01 ground-impact stages using equal source slots; original following stages retained as 06 and 07.",
+  "sourceFile": "raw/narukamiStrike_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/narukamiStrike_v01.png"
+  ],
+  "sourceHash": "534b18a3b6a49fc9d0cdaffb605c09bc750eb322",
+  "cell": 256,
+  "files": {
+    "narukamiStrike_00.png": "def97363f46daeb6d64937655d834066b042f4b9",
+    "narukamiStrike_01.png": "88a99559c0937f7987043c49d1f8386bc4af5842",
+    "narukamiStrike_02.png": "d2cf5059c1184cce017f73dbaa5daa2b30844035",
+    "narukamiStrike_03.png": "2d2ab589eb848bc2ec5f46723bcb3f3427d82d9d",
+    "narukamiStrike_04.png": "07ee2311da26509f85e0e7e075999414236f3b4f",
+    "narukamiStrike_05.png": "4ac7396d9f698bbe56e01e62d185ccb304b51c0a",
+    "narukamiStrike_06.png": "fb693d8769c63c9785a1630323d851418e921ade",
+    "narukamiStrike_07.png": "0e84567b43fecd716d2a5993a60647106c3f2ec5"
+  }
+}

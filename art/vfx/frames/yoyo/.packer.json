@@ -1,0 +1,21 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/yoyo_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/yoyo_v01.png"
+  ],
+  "sourceHash": "c7419aec32ef0aea0637e4bfbda972e8c9396296",
+  "cell": 256,
+  "files": {
+    "yoyo_00.png": "790a487fe61be860ef6259e3bcb997b5090aaa96",
+    "yoyo_01.png": "c4b0c9e7d69ebcee570db2da82ca5c3d140a30c8",
+    "yoyo_02.png": "c569a988043da5db00bf2d2b33a62b43b3cb23ec",
+    "yoyo_03.png": "c72e4942a17ba7b9984d1ef898ac720c223dc6da",
+    "yoyo_04.png": "ea23bd74268d92b03a596502569cc4b0ba95ba09",
+    "yoyo_05.png": "575c8d985510f6a8431c177973c3f2f26d906bc3",
+    "yoyo_06.png": "4baae4664f0858cab36efd8db7f7933957cff675",
+    "yoyo_07.png": "07713ef9cc84fa6f7843d1fd7293dc71796d7c96"
+  }
+}

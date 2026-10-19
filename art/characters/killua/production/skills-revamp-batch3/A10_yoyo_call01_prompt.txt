@@ -1,0 +1,1 @@
+Call 1 prompt: 8-frame 2048x512 landscape strip; one row of 256x256 cells; steel face-on 52 px yo-yo, centered (128,128), notches and hub highlight rotate quarter-turn every 2 frames; 3-4 thin angular Killua lightning filaments and sparks to 105 px, no string; magenta background; crisp pixel art; strict steel/electric palettes.
