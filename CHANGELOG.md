@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SKL-GOK): recorded the user's relay #16 decision exempting intro, throw and specialUp v01 from the unmeasurable head check (`scaleExemptVersion: 1`); Astra scaleManualQA v1 HOLD records remain unchanged.
 - Changed (ART-SKL-GOK): Astra final-audited intro, throw and specialUp v01 on the exact production atlas; all 14 frames pass visible anatomy and containment, while head scale remains unmeasured and version-bound scaleManualQA v1 holds are recorded.
 - Changed (ART-SKL-GOK): recorded user visual approval via Claude relay goku-skills #14 for specialUp, throw, intro, kiBlast, kiMuzzle, kiBlastBurst and superSaiyanBurst v01; all documented technical holds remain.
 - Changed (ART-SKL-GOK): recorded the user's relay #13 decision exempting specialDown v02 from the head scale check; manifest includes the version-bound reason while Astra's scaleManualQA v2 HOLD remains unchanged.
