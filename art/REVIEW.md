@@ -1,12 +1,12 @@
 # Art review queue
 ## Killua skills revamp batch 3 (2026-10-18): B2 throw and A10 yoyo
 
-Both drawings await user review. `throw` v07 fails the character scale gate and clips at the right edge; Astra's provisional raw review is HOLD. `yoyo` v01 packs 8/8 cells, but its steel disc measures about 88 px at 256 px cell scale against a 52 px brief target. The image generator ignored the requested canvas size, and call 1 was transient with no preserved source/hash. See [gallery](../public/reviews/killua-skills-batch3/index.html), [attempt inventories](characters/killua/production/skills-revamp-batch3/), [pack evidence](characters/killua/production/skills-revamp-batch3/PACK_REPORT.md), and [Astra audit](characters/killua/production/skills-revamp-batch3/ASTRA_THROW_V07_AUDIT.md).
+The user approved both drawings via Claude relay killua-skills #4: “Approve both”. Approval records the drawings only; technical holds remain for Claude's integration follow-through. `throw` v07 fails the character scale gate and clips at the right edge; Astra's provisional raw review is HOLD. `yoyo` v01 packs 8/8 cells, but its steel disc measures about 88 px at 256 px cell scale against a 52 px brief target. The image generator ignored the requested canvas size, and call 1 was transient with no preserved source/hash. See [gallery](../public/reviews/killua-skills-batch3/index.html), [attempt inventories](characters/killua/production/skills-revamp-batch3/), [pack evidence](characters/killua/production/skills-revamp-batch3/PACK_REPORT.md), and [Astra audit](characters/killua/production/skills-revamp-batch3/ASTRA_THROW_V07_AUDIT.md).
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
-| 2026-10-18 | Killua | throw | `characters/killua/raw/throw_v07.png` | v07 | needs review | B2 four-pose Yo-Yo air special | Packer detects 4/4 but gate fails: head 1.28x, feet proxy 1.49x idle; f1 clips 17px right. Astra provisional raw HOLD: arm-role continuity and middle-finger anchor unclear. No v07 atlas; body command read v06. |
-| 2026-10-18 | Killua | yoyo | `vfx/raw/yoyo_v01.png` | v01 | needs review | A10 electrified steel yo-yo loop | Packer splits 8/8; approximate disc bound 88x88px in 256px cell vs 52px target. Source 1774x887; first transient call not preserved/hashable. |
+| 2026-10-18 | Killua | throw | `characters/killua/raw/throw_v07.png` | v07 | approved | B2 four-pose Yo-Yo air special | Approved as drawn via Claude relay killua-skills #4 (“Approve both”). Technical HOLD: gate fails (head 1.28x, feet proxy 1.49x idle), f1 clips 17px right, Astra provisional raw review flags arm-role continuity and middle-finger anchor. No v07 atlas; body command read v06. |
+| 2026-10-18 | Killua | yoyo | `vfx/raw/yoyo_v01.png` | v01 | approved | A10 electrified steel yo-yo loop | Approved as drawn via Claude relay killua-skills #4 (“Approve both”). Technical hold: 8/8 cells pack, but approximate disc bound 88x88px vs 52px target; source 1774x887; first transient call not preserved/hashable. |
 
 ## Killua skills revamp batch 1 (2026-10-18): A1-A7 effect candidates
 
