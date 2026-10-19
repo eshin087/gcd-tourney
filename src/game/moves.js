@@ -483,7 +483,7 @@ export const SUPERS = {
   // the void shattering like glass when it ends (`shatter`). The hold is unchanged: they freeze the frame it opens
   unlimitedVoid: {
     kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff',
-    glint: { fx: 'sixEyesGlint', at: [0.06, 1.58], scale: 0.55, on: 'cast' }, open: 18, flood: { fx: 'voidFlood', scale: 0.6, up: 1.5 }, shatter: 'voidShatter',
+    glint: { fx: 'sixEyesGlint', at: [0.06, 1.58], scale: 0.55, on: 'cast' }, open: 18, flood: { fx: 'voidFlood', scale: 0.48, up: 1.5 }, shatter: 'voidShatter',
   },
   // Kirin (Sasuke): `storm` plays the anime's sequence inside the sky strike's frames (ENG-SKL-SAS, kit.js stormTick):
   // the Great Fireball breathed up (it takes `heat` frames to reach the sky), `clouds` thunderclouds `spread` apart
