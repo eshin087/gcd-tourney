@@ -12010,14 +12010,15 @@
         "colorRule": "tinted",
         "anchor": "center",
         "step": 10,
-        "status": "packed",
+        "status": "approved",
         "version": 2,
-        "approvedVersion": null,
+        "approvedVersion": 2,
         "hd": true,
         "fill": 0.95,
         "tile": false,
-        "reviewStatus": "needs review",
-        "owner": "shared"
+        "reviewStatus": "approved",
+        "owner": "shared",
+        "approvalSource": "user via Claude relay beam-clash-6 #3 (Approve all 8 Recommended)"
       },
       "spearStream": {
         "frames": 4,
@@ -12025,14 +12026,15 @@
         "colorRule": "fullColor",
         "anchor": "center",
         "step": 10,
-        "status": "packed",
+        "status": "approved",
         "version": 1,
-        "approvedVersion": null,
+        "approvedVersion": 1,
         "hd": true,
         "fill": 1,
         "tile": true,
-        "reviewStatus": "needs review",
-        "owner": "sasuke"
+        "reviewStatus": "approved",
+        "owner": "sasuke",
+        "approvalSource": "user via Claude relay beam-clash-6 #3 (Approve all 8 Recommended)"
       },
       "palmStream": {
         "frames": 4,
@@ -12040,14 +12042,15 @@
         "colorRule": "fullColor",
         "anchor": "center",
         "step": 10,
-        "status": "packed",
+        "status": "approved",
         "version": 1,
-        "approvedVersion": null,
+        "approvedVersion": 1,
         "hd": true,
         "fill": 1,
         "tile": true,
-        "reviewStatus": "needs review",
-        "owner": "killua"
+        "reviewStatus": "approved",
+        "owner": "killua",
+        "approvalSource": "user via Claude relay beam-clash-6 #3 (Approve all 8 Recommended)"
       },
       "fireballStream": {
         "frames": 4,
@@ -12055,14 +12058,15 @@
         "colorRule": "fullColor",
         "anchor": "center",
         "step": 10,
-        "status": "packed",
+        "status": "approved",
         "version": 1,
-        "approvedVersion": null,
+        "approvedVersion": 1,
         "hd": true,
         "fill": 1,
         "tile": true,
-        "reviewStatus": "needs review",
-        "owner": "sasuke"
+        "reviewStatus": "approved",
+        "owner": "sasuke",
+        "approvalSource": "user via Claude relay beam-clash-6 #3 (Approve all 8 Recommended)"
       },
       "kamehamehaStream": {
         "frames": 4,
@@ -12070,14 +12074,15 @@
         "colorRule": "fullColor",
         "anchor": "center",
         "step": 10,
-        "status": "packed",
+        "status": "approved",
         "version": 1,
-        "approvedVersion": null,
+        "approvedVersion": 1,
         "hd": true,
         "fill": 1,
         "tile": true,
-        "reviewStatus": "needs review",
-        "owner": "goku"
+        "reviewStatus": "approved",
+        "owner": "goku",
+        "approvalSource": "user via Claude relay beam-clash-6 #3 (Approve all 8 Recommended)"
       },
       "beastBeamStream": {
         "frames": 4,
@@ -12085,14 +12090,15 @@
         "colorRule": "fullColor",
         "anchor": "center",
         "step": 10,
-        "status": "packed",
+        "status": "approved",
         "version": 2,
-        "approvedVersion": null,
+        "approvedVersion": 2,
         "hd": true,
         "fill": 1,
         "tile": true,
-        "reviewStatus": "needs review",
-        "owner": "naruto"
+        "reviewStatus": "approved",
+        "owner": "naruto",
+        "approvalSource": "user via Claude relay beam-clash-6 #3 (Approve all 8 Recommended)"
       },
       "redPush": {
         "frames": 8,
@@ -12100,14 +12106,15 @@
         "colorRule": "fullColor",
         "anchor": "center",
         "step": 10,
-        "status": "packed",
+        "status": "approved",
         "version": 1,
-        "approvedVersion": null,
+        "approvedVersion": 1,
         "hd": true,
         "fill": 0.9,
         "tile": false,
-        "reviewStatus": "needs review",
-        "owner": "gojo"
+        "reviewStatus": "approved",
+        "owner": "gojo",
+        "approvalSource": "user via Claude relay beam-clash-6 #3 (Approve all 8 Recommended)"
       },
       "dragonFistPush": {
         "frames": 8,
@@ -12115,14 +12122,15 @@
         "colorRule": "fullColor",
         "anchor": "center",
         "step": 10,
-        "status": "packed",
+        "status": "approved",
         "version": 1,
-        "approvedVersion": null,
+        "approvedVersion": 1,
         "hd": true,
         "fill": 0.98,
         "tile": false,
-        "reviewStatus": "needs review",
-        "owner": "goku"
+        "reviewStatus": "approved",
+        "owner": "goku",
+        "approvalSource": "user via Claude relay beam-clash-6 #3 (Approve all 8 Recommended)"
       },
       "streamBolt": {
         "frames": 4,

@@ -16,7 +16,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
-- Added (ART-CLASH-HD): prepared eight packed clash-effect candidates and a phone review page. C1 `clashKnot` v02 and C6 `beastBeamStream` v02 use corrective generation calls; all remain needs review. Candidate pack detected the expected frame counts with no new tile/fill warnings. PR #219 preview: https://gcd-tourney-arvuipv2f-eshin087s-projects.vercel.app/reviews/clash-hd/.
+- Changed (ART-CLASH-HD, relay beam-clash-6 #3): recorded user approval for all eight clash effects as drawn and packed the approved versions into the production VFX atlas. Claude owns runtime integration; art approval does not mean shipped gameplay.
+- Added (ART-CLASH-HD): prepared eight packed clash effects and a phone review page. C1 `clashKnot` v02 and C6 `beastBeamStream` v02 use corrective generation calls; all eight were later approved by the user via Claude relay beam-clash-6 #3. PR #219 preview: https://gcd-tourney-enm1o0khw-eshin087s-projects.vercel.app/reviews/clash-hd/.
 - Changed (ART-CLASH-HD, relay beam-clash-6 #2): routed effect image generation to a gpt-6-luna medium subagent as directed; this is a model-routing decision, not image approval.
 - Changed (ENG-112 Naruto, relay #59): closed the one authorized directional-normal round on the user's decision to keep live stand-ins. All 29 saved versioned candidate strips remain unchanged in `raw/_qa_hold/`; manifest and review rows record the disposition, no more calls are authorized in this round, and the production atlas was left untouched.
 - Changed: the determinism fixtures are re-recorded after Luffy's up smash (ENG-112, fingerprint a8947661744b); both replay frame for frame.
