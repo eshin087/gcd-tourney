@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ENG-112 Naruto, relay #59): closed the one authorized directional-normal round on the user's decision to keep live stand-ins. All 29 saved versioned candidate strips remain unchanged in `raw/_qa_hold/`; manifest and review rows record the disposition, no more calls are authorized in this round, and the production atlas was left untouched.
 - Changed (ART-CHARGE): prepared Killua charge v15 from two image calls; packed six frames with `loopFrom: 2`, built the packed-cell review page and recorded Astra's loop/head PASS plus unresolved quantitative body-segment HOLD. The user approved v15 as drawn via Claude relay charge #12 (“Approve v15”); approval is recorded. The quantitative body-segment HOLD remains separate from the visual approval, with no rescale or head exemption.
 - Changed (ART-SKL-GOK): recorded the user's relay #16 decision exempting intro, throw and specialUp v01 from the unmeasurable head check (`scaleExemptVersion: 1`); Astra scaleManualQA v1 HOLD records remain unchanged.
 - Changed (ART-SKL-GOK): Astra final-audited intro, throw and specialUp v01 on the exact production atlas; all 14 frames pass visible anatomy and containment, while head scale remains unmeasured and version-bound scaleManualQA v1 holds are recorded.

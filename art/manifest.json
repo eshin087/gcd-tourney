@@ -350,6 +350,7 @@
         },
         "expressions": { "file": "art/characters/naruto/reference/expressions.png", "candidates": "art/characters/naruto/reference/expressions_vNN.png", "step": 2, "status": "approved", "version": 2, "approvedVersion": 2 }
       },
+      "eng112NormalsDisposition": {"decision":"close-on-live-stand-ins","source":"USER DECISION via Claude relay combat #59","exactQuote":"Close on stand-ins (Recommended)","currentRoundClosed":true,"furtherCallsAuthorized":false,"candidateVersions":{"fTilt":["v01","v02"],"uTilt":["v01","v02","v03"],"dTilt":["v01","v02","v03"],"dashAttack":["v01","v02","v03"],"fSmash":["v01","v02","v03"],"uSmash":["v01","v02","v03"],"dSmash":["v01","v02","v03"],"fair":["v01","v02","v03"],"bair":["v01","v02","v03"],"uair":["v01","v02","v03"]},"preservedDirectory":"art/characters/naruto/raw/_qa_hold/","productionAtlasUnchanged":true},
       "animations": {
         "idle": { "frames": 8, "loop": true, "bodyHeight": 165, "ms": [150, 150, 150, 150, 150, 150, 150, 150], "required": true, "step": 3, "status": "approved", "version": 7, "approvedVersion": 7 },
         "run": { "frames": 8, "loop": true, "bodyHeight": 167, "ms": [60, 60, 60, 60, 60, 60, 60, 60], "required": true, "step": 4, "status": "approved", "version": 8, "approvedVersion": 7 },
