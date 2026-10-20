@@ -17,7 +17,7 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, isEnergy, ENERGY_LOCK, shroudLevel, modeLook, bombTick } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, laneBody, releaseFist, resumeLaneStrike, isEnergy, ENERGY_LOCK, shroudLevel, modeLook, bombTick } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -56,6 +56,7 @@ const burstCol = new THREE.Color();
 const TECH_SPARK = 0xc8f8ff; // the timed impact tech's white-cyan (ADR 0028)
 const ORB_HANDS = 0.9; // Hollow Purple forms this far ahead of Gojo (kit.js formOrb)
 const BEAM_STUB = 0.7; // a beam pushed all the way back still leaves the hands
+const FIST_ARM = 1.3; // the Gigant Pistol's arm pressed back to this long still reaches out (then he gives ground)
 // BEAM CLASH (ADR 0027): the reused body lists (checkEnergyClash runs a few times a frame); the states a fighter can be
 // locked into one from are kit.js ENERGY_LOCK, shared with the CPUs' canBeamClashNow
 const bodiesA = [], bodiesB = [];
@@ -974,13 +975,15 @@ export class Game {
         if (f.def.beam?.chant && f.beam?.t === 1 && !frozen) this.hud.callout(f.index, f.def.beam.chant.at(-1), f.def.beam.mid, true);
         if (!f.shroud) this.fx.auraTick(f, 0.6, this.cam.right);
       }
-      else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0); // a thin aura behind the body: the flames and streaks hid it
+      else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0, false); // a thin aura behind the body: the flames and streaks hid it, the disc read as a bubble (ADR 0055)
       // Luffy's techniques (ENG-SKL-LUF): the afterimages of a power-up with `ghost` (modeLook: Gear Second), the
       // Rocket's arms, a rush's stretched leg (the Whip's `sweep`), the Gigant Pistol's giant arm
       const km = f.state === 'kit' ? f.kitState : null;
       if (look?.ghost && !frozen && f.t % look.ghost === 0 && GHOSTING.has(f.state)) f.actor.ghost(look.color ?? f.def.color, 0.25, 0.4);
       if (km?.m?.grab) this.fx.grabTick(f, km.m.grab, km.kind === 'dive' && km.phase === 'rise' && km.rose, this.cam.right);
       if (km?.kind === 'laneStrike' && km.m.arm) this.fx.laneArm(f, km, km.m, this.cam.right);
+      const lane = f.state === 'clash' ? this.clashSide(f) : null;
+      if (lane?.kind === 'fist' && lane.S.arm && lane.fist) this.fx.laneArm(f, lane.k, lane.S, this.cam.right, lane.fist); // pressed into a clash (ADR 0055)
       const L = f.state === 'attack' ? f.move?.sweep : null;
       this.fx.limbSweep(f, L, !!L && f.t >= f.move.startup && f.t < f.move.startup + f.move.active, this.cam.right);
       // Dragon Fist's dragon coiling round the victim while the hit stop holds them, its frame from the stop's own count
@@ -998,6 +1001,10 @@ export class Game {
         else this.fx.dropHand(f);
       } else if (held) this.fx.handTick(f, held, 2, 1, true, this.clashHold(f)); // a Rasengan / Chidori driven into a beam clash stays lit, held forward
       else this.fx.dropHand(f);
+      // a rush's drawn shove from the held fist to the struggle point (Dragon Fist's dragon, ADR 0055)
+      const cs = f.state === 'clash' ? this.clashSide(f) : null;
+      if (cs?.push && cs.hold) this.fx.keepSpan('push' + f.index, cs.push.fx, cs.hold, this.clash.point, this.cam.right, { fill: cs.push.fill ?? 0.9, order: 8, glow: 0.3 });
+      else this.fx.drop('push' + f.index);
     }
     if (this.clash) lines = 0.75;
     if (this.meleeFxF > 0) {
@@ -1300,6 +1307,14 @@ export class Game {
       const dir = toward(fo.at), r = fo.S.radius * 0.7;
       return { kind: 'orb', id, f, charging: true, S: fo.S, dir, back: fo.at, front: fo.at.clone(), tip: fo.at.clone().addScaledVector(dir, r), r, color: fo.S.orb };
     }
+    // the Gigant Pistol (ADR 0055): from his shoulder down his lane to the giant fist; winding up it is one at the shoulder
+    const lb = laneBody(f);
+    if (lb) {
+      const dir = new THREE.Vector3(lb.dir.x, 0, lb.dir.y).normalize();
+      const back = new THREE.Vector3(f.pos.x, f.pos.y + (lb.S.arm?.up ?? 0.9), f.pos.z);
+      const front = back.clone().addScaledVector(dir, lb.ext);
+      return { kind: 'fist', id, f, S: lb.S, k: lb.k, dir, back, front, tip: front.clone(), r: lb.S.width * 0.5, charging: lb.charging, color: lb.S.color };
+    }
     const rb = rushBody(f);
     if (rb) {
       const dir = new THREE.Vector3(rb.dir.x, 0, rb.dir.y).normalize();
@@ -1412,7 +1427,7 @@ export class Game {
     f.move = null;
     f.faceOpponent(); // the stream leaves the hands toward them, whichever way the owner was turned
     const air = f.pos.y > CLASH.struggle.airMin, pose = air ? this.airStrugglePose(f) : this.strugglePose(f);
-    const bm = new Beam(this, f, { palette: s.palette ?? f.def.beam, width: CLASH.struggle.width, pose: pose ?? (air ? 'throw' : 'beamFire'), poseFrame: !pose && air ? 1 : 0 });
+    const bm = new Beam(this, f, { palette: s.palette ?? f.def.beam, width: CLASH.struggle.width, pose: pose ?? (air ? 'throw' : 'beamFire'), poseFrame: !pose && air ? 1 : 0, clash: true });
     this.beams.push(bm);
     f.beam = s.obj = bm;
     s.kind = 'beam';
@@ -1421,6 +1436,12 @@ export class Game {
     s.back = bm.origin.clone();
     s.front = bm.head.clone();
     s.tip = s.front.clone();
+  }
+
+  // a fighter's side of the running (non-lite) clash, or null
+  clashSide(f) {
+    const c = this.clash;
+    return c && !c.lite ? (c.a.f === f ? c.a : c.b.f === f ? c.b : null) : null;
   }
 
   // the hand effect a fighter locked in a beam clash holds (a rush special's Rasengan / Chidori), or null
@@ -1460,7 +1481,11 @@ export class Game {
   rushStruggleReach(s) {
     const SC = CLASH.struggle, pose = this.strugglePose(s.f);
     const H = pose ? s.f.actor.hand(pose) : null;
-    s.reach = (H ? H.x : s.fx === 'chidori' ? SC.handReach[1] : SC.handReach[0]) + SC.orbReach;
+    // a rush whose drawn shove reaches out ahead of the fist (`clashPush`: Dragon Fist's golden dragon, ADR 0055) meets
+    // the stream that much further out, once its art is in the atlas the game loaded (never the effects object)
+    const Pu = s.move?.clashPush;
+    s.push = Pu && this.fxMeta?.anims?.[Pu.fx] ? Pu : null;
+    s.reach = (H ? H.x : s.fx === 'chidori' ? SC.handReach[1] : SC.handReach[0]) + SC.orbReach + (s.push?.reach ?? 0);
     s.front.copy(s.back).addScaledVector(s.dir, s.reach);
     s.tip.copy(s.front);
   }
@@ -1494,6 +1519,7 @@ export class Game {
       for (const s of [A, B]) {
         const f = s.f;
         if (s.obj) s.obj.clash = c;
+        if (s.kind === 'beam') s.obj.restyle(true); // an ultimate beam caught in a clash takes its drawn band (ADR 0055)
         // a beam clash plays the fighter's struggle push when its sheet has one (placeClash then leaves the pose alone);
         // a held rush shows its thrust frame
         s.pose = struggle ? (s.hover ? this.airStrugglePose(f) : this.strugglePose(f)) : null;
@@ -1524,6 +1550,7 @@ export class Game {
   // a clash caught this one still charging: the beam goes off / the Purple forms right now
   materialize(s) {
     const f = s.f;
+    if (s.kind === 'fist') { releaseFist(f, s.k); s.charging = false; return; }
     if (s.kind === 'beam') {
       f.setState('beamFire');
       f.beam = s.obj = this.fireBeam(f);
@@ -1550,6 +1577,7 @@ export class Game {
       s.base = f.pos.clone();
       if (s.kind === 'beam') { s.anchor = s.obj.origin.clone(); mins.push(BEAM_STUB - R.shove); }
       else if (s.kind === 'orb') { s.anchor = new THREE.Vector3(f.pos.x, f.pos.y + 0.98, f.pos.z); mins.push(ORB_HANDS + s.obj.r * 0.6 - R.shove); }
+      else if (s.kind === 'fist') { s.anchor = s.back.clone(); mins.push(FIST_ARM + s.r - R.shove); }
       else { s.anchor = s.back.clone(); mins.push((s.reach ?? R.reach) - R.shove); }
       s.origin = s.kind === 'beam' ? s.obj.origin : s.anchor.clone(); // the clash camera frames origin to origin
     }
@@ -1583,7 +1611,7 @@ export class Game {
     const sg = s === c.a ? 1 : -1, ax = c.line.axis, fl = dmath.hypot(ax.x, ax.z) || 1;
     const dx = (ax.x / fl) * sg, dz = (ax.z / fl) * sg, out = clashTmp.copy(s.base);
     if (s.kind === 'rush') { const r = s.reach ?? CLASH.rush.reach; out.x = P.x - dx * r; out.z = P.z - dz * r; return out; }
-    const hold = s.kind === 'beam' ? BEAM_STUB : ORB_HANDS + 0.6 * s.obj.r, from = s.kind === 'beam' ? s.anchor : s.base;
+    const hold = s.kind === 'beam' ? BEAM_STUB : s.kind === 'fist' ? FIST_ARM + s.r : ORB_HANDS + 0.6 * s.obj.r, from = s.kind === 'beam' || s.kind === 'fist' ? s.anchor : s.base;
     if (s.hover) {
       // an air owner gives ground along the slanted line itself, back and up, so the point never climbs past its hands
       const ux = ax.x * sg, uy = ax.y * sg, uz = ax.z * sg;
@@ -1627,10 +1655,16 @@ export class Game {
         bm.dir.set(dx, dy, dz);
         bm.len = Math.max(0.4, (P.x - bm.origin.x) * dx + (P.y - bm.origin.y) * dy + (P.z - bm.origin.z) * dz);
       } else if (s.kind === 'orb') s.obj.pos.set(P.x - dx * s.obj.r, P.y - dy * s.obj.r, P.z - dz * s.obj.r);
-      else {
+      else if (s.kind === 'fist') {
+        // the giant fist pressed against theirs, the arm out from his shoulder (the camera frames shoulder to shoulder)
+        (s.fist ??= new THREE.Vector3()).set(P.x - dx * s.r, P.y - dy * s.r, P.z - dz * s.r);
+        s.origin.set(f.pos.x, s.anchor.y, f.pos.z);
+        f.actor.setPhase(s.S.strikePose ?? 'beamFire', 1, 0.5);
+      } else {
         s.origin.set(f.pos.x, f.pos.y + 0.7, f.pos.z);
         if (!s.pose) f.actor.setPhase(s.S.maulPose ?? 'heavy', s.S.maulPhase ?? 1, s.maulAt ?? 0.5); // claws dug into it
-        if (c.tier === 'struggle') (s.hold ??= new THREE.Vector3()).set(P.x - dx * c.C.orbReach, P.y - dy * c.C.orbReach, P.z - dz * c.C.orbReach);
+        const back = c.C.orbReach + (s.push?.reach ?? 0); // the held technique (or the fist its shove leaves) behind the point
+        if (c.tier === 'struggle') (s.hold ??= new THREE.Vector3()).set(P.x - dx * back, P.y - dy * back, P.z - dz * back);
       }
     }
   }
@@ -1674,7 +1708,7 @@ export class Game {
     const H = this.handAt(R.f, R.fx === 'chidori' ? SC.handReach[1] : SC.handReach[0], 0.8, clashTmp);
     const d = v3.subVectors(O, H).normalize();
     (R.hold ??= new THREE.Vector3()).copy(H).addScaledVector(d, SC.airTech[0]);
-    const P = c.point.copy(H).addScaledVector(d, SC.airTech[1]);
+    const P = c.point.copy(H).addScaledVector(d, SC.airTech[1] + (R.push?.reach ?? 0));
     R.origin.copy(H);
     bm.dir.copy(d).negate();
     bm.len = Math.max(0.4, O.distanceTo(P));
@@ -1740,12 +1774,15 @@ export class Game {
     const p = c.point, now = c.timer, k = c.lite ? 0.55 : c.C.sparks ?? 1; // the special clash sits between two lit specials, a beam clash between two short streams
     const pulse = 1 + dmath.sin(now * 0.6) * 0.08 + c.kick * 0.18;
     const size = (c.lite ? 0.5 : c.tier === 'struggle' ? 0.52 : 0.85) * pulse;
-    const top = { order: 7, depthTest: false, glow: 0.25, opacity: 0.95 };
-    this.fx.keep('clashA', 'clashBurst', p.x, p.y, p.z, { ...top, scale: size, color: c.ca });
-    const b = this.fx.keep('clashB', 'clashBurst', p.x, p.y, p.z, { ...top, scale: size * 0.86, color: c.cb });
+    // the drawn collision (`clashKnot`, ADR 0055) once approved, else round 1's clashBurst; above a beam's head and
+    // Hollow Purple (order 8), so the collision always reads in front
+    const knot = this.fx.meta.anims.clashKnot ? 'clashKnot' : 'clashBurst';
+    const top = { order: 9, depthTest: false, glow: 0.25, opacity: 0.95 };
+    this.fx.keep('clashA', knot, p.x, p.y, p.z, { ...top, scale: size, color: c.ca });
+    const b = this.fx.keep('clashB', knot, p.x, p.y, p.z, { ...top, scale: size * 0.86, color: c.cb });
     b.mesh.scale.x = -Math.abs(b.mesh.scale.x);
     if (b.t === 0) b.t = 0.09; // out of step with the first knot
-    this.fx.keep('clashCore', 'glow', p.x, p.y, p.z, { scale: 0.3 * pulse, color: 0xffffff, opacity: 1, order: 8, depthTest: false, glow: 0.8 });
+    this.fx.keep('clashCore', 'glow', p.x, p.y, p.z, { scale: (knot === 'clashKnot' ? 0.18 : 0.3) * pulse, color: 0xffffff, opacity: 1, order: 10, depthTest: false, glow: 0.8 });
     if (now % 18 === 0) this.fx.spawn('ring', p.x, p.y, p.z, { scale: 1.2 * k, color: c.mix, order: 6, depthTest: false, glow: 0.6 });
     if (now % 3 === 0) {
       const a = Math.random() * Math.PI * 2;
@@ -1793,13 +1830,29 @@ export class Game {
     LS.obj?.kill();
     this.overwhelm(WS, L, c);
     L.takeHit(W, { dmg: C.winDmg, minScale: 1, launch: C.launch, hitstop: 18, unblockable: true, big: true, beam: true, wallBounce: true, spark: 'smash', noTech: c.tier !== 'struggle' }, new THREE.Vector2(ax.x * sg, ax.z * sg).normalize());
-    if (c.tier === 'struggle') this.fx.clashBlast(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
-    else this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, winner === 0 ? c.ca : c.cb);
+    // the winning attack's own burst on them (ADR 0055: Red's, the Spear's, the dragon's ...), else the generic blast
+    const BF = this.clashBurstOf(WS), wc = winner === 0 ? c.ca : c.cb, R = this.cam.right;
+    const left = (L.pos.x - W.pos.x) * R.x + (L.pos.z - W.pos.z) * R.z < 0; // the art bursts screen-right: mirrored when it flies left
+    if (BF) this.fx.blast(BF.fx, L.pos.x, L.pos.y + 0.9, L.pos.z, (BF.scale ?? 1) * 1.25, wc, BF.smoke ?? 1, left, BF.ring ?? 1.2);
+    else if (c.tier === 'struggle') this.fx.clashBlast(L.pos.x, L.pos.y + 0.9, L.pos.z, wc);
+    else this.fx.explosion(L.pos.x, L.pos.y + 0.9, L.pos.z, wc);
     this.fx.ground.impact(L.pos, { kind: 'clashWin', force: C.craters?.[0], style: WS.S?.ground ?? W.def.ground?.style, tint: W.def.ground?.tint ?? W.def.color, dir: { x: ax.x * sg, z: ax.z * sg } });
     audio.play('explosion', 1.4);
     audio.play('cheer');
     this.hud.callout(W.index, 'OVERWHELMED!', W.def.color, true);
     this.arena.npcCue('clashWin', { f: W });
+  }
+
+  // the winning attack's own burst for the loser (ADR 0055): a stream's shot `burstFx`, a rush's `blastFx` or its dragon's
+  // `coil.burst`, an orb's look; null when it has none (the generic clash blast)
+  clashBurstOf(s) {
+    const B = PROJECTILES[s.id]?.burstFx, m = s.move;
+    if (B?.fx) return B;
+    if (m?.blastFx?.fx) return m.blastFx;
+    if (m?.coil?.burst) return { fx: m.coil.burst, scale: m.coil.burstScale };
+    if (s.kind === 'fist' && s.S?.blastFx?.fx) return { ...s.S.blastFx, scale: (s.S.blastFx.scale ?? 1) * 0.8 };
+    if (s.kind === 'orb' && s.S?.look?.burst) return { fx: s.S.look.burst, scale: (s.S.look.burstScale ?? 1.3) * 0.8, smoke: 0 };
+    return null;
   }
 
   // the winning ultimate goes on through: the beam runs its last stretch, the orb rolls over them, the beast roars on
@@ -1809,14 +1862,19 @@ export class Game {
       const bm = WS.obj;
       bm.clash = null;
       bm.spent = true; // the clash dealt the damage; the rest of the beam is the show
-      // on through the loser's chest: from the air (or past a planted rusher's raised technique) that is off the line
+      // on through the loser's chest: from the air (or past a planted rusher's raised technique) that is off the line.
+      // It surges there from the struggle point and stops (`cap`, ADR 0055): it used to run on the length of the screen
       v3.set(L.pos.x, L.pos.y + 0.85, L.pos.z);
       bm.dir.subVectors(v3, bm.origin).normalize();
-      bm.len = bm.origin.distanceTo(v3) + 0.5;
-      bm.t = ULTIMATE.duration - 30;
+      bm.cap = bm.origin.distanceTo(v3) + 0.35;
+      bm.len = Math.min(bm.len, bm.cap);
+      bm.t = ULTIMATE.duration - (c?.tier === 'struggle' ? 20 : 30); // a struggle's stream lets go sooner
       bm.finished = true;
-      // from the air it stays in its air pose (a ground beamFire would stand on nothing) until it falls
-      W.setState('beamFire', WS.hover ? this.airStrugglePose(W) ?? 'throw' : undefined);
+      // the winner holds the pose it pushed with: a struggle's own push pose, never `beamFire` (the ultimate's, which is
+      // Kirin's swing or the Hollow Purple stance for some); from the air its air pose (a ground beamFire would stand on
+      // nothing) until it falls
+      const pose = c?.tier === 'struggle' ? WS.pose : null;
+      W.setState('beamFire', pose ?? (WS.hover ? this.airStrugglePose(W) ?? 'throw' : undefined));
     } else if (WS.kind === 'orb') {
       const ob = WS.obj;
       ob.clash = null;
@@ -1827,6 +1885,9 @@ export class Game {
       ob.t = Math.min(ob.t, ob.S.life * 60 - 45);
       if (W.pos.y > 0.05) { W.air = true; W.setState('air', 'jumpFall'); }
       else { W.landLag = 18; W.setState('land'); }
+    } else if (WS.kind === 'fist') {
+      // the giant fist drives on through them, then the arm snaps back (its hit was the clash's)
+      resumeLaneStrike(W, WS.S, WS.k, Math.min(WS.S.reach, dmath.hypot(L.pos.x - W.pos.x, L.pos.z - W.pos.z)));
     } else if (WS.move) {
       // a Rasengan / Chidori driven through a beam clash: on into its follow-through, its hit already dealt; against a
       // stream from the air the technique blasts up the line into them (the rusher stays on the floor)

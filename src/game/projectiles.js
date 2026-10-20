@@ -56,15 +56,33 @@ const STREAM_FRAG = /* glsl */ `
 // How each stream style is drawn (PROJECTILES[id].stream.style, def.beam.style; ADR 0034). fx: the atlas band, seg:
 // world length of one cell (also the ribbon's width, the cell being square), scroll: units/s toward the head, tint:
 // how far the white art is tinted from the core toward the mid color (full-color art stays as drawn), glow: bloom.
-// 'orb' (Reversal: Red) holds the orb effect at the hand and sends repulsion ripples down a faint channel in the mid
-// color (no white core) to the struggle point; 'ribbon' is the shader beam (the ultimate beams).
+// 'orb' (Reversal: Red) is no stream at all (ADR 0055): the orb itself shoved forward, its front on the struggle point
+// (`push`, the drawn shove, else the HD `hd` orb turned along the line, else the 128 px `orb`), with repulsion
+// ripples running from the fingertips into it; 'ribbon' is the shader beam (the ultimate beams).
 export const STREAM_STYLES = {
   ribbon: {},
   bolt: { fx: 'streamBolt', seg: 1.5, scroll: 9, tint: 0.55, glow: 0.45 },
   lance: { fx: 'streamLance', seg: 1.4, scroll: 14, tint: 0.4, glow: 0.4 },
   flame: { fx: 'streamFlame', seg: 1.6, scroll: 6, full: true, glow: 0.2 },
-  orb: { orb: 'redOrb', orbScale: 0.5, width: 0.42, wave: 'ripple', waveEvery: 0.11, waveLife: 0.3 },
+  orb: { orb: 'redOrb', hd: 'reversalRed', push: 'redPush', orbScale: 0.5, hdScale: 0.95, pushScale: 0.9, front: { redOrb: 0.2, reversalRed: 0.15, redPush: 0.09 }, width: 0.42, wave: 'ripple', waveEvery: 0.14, waveLife: 0.22 },
 };
+
+// A palette's drawn band (`band`: an HD tile strip that continues the move's own art, ADR 0055) as a stream style, once
+// the atlas has it; in a clash only (`inClash`): the ultimate beams keep their shader ribbon while they simply fire.
+// One frozen style per band, so a saved state's style is the same object (snapshot.js keeps STREAM_STYLES static).
+const BAND_STYLES = new Map();
+const HD_CELL_WORLD = 256 / 112; // an HD cell's world size (art/SPEC.md "VFX atlas"), the band's length at scale 1
+export function streamStyle(game, pal, inClash) {
+  const B = pal.band;
+  if (B && inClash && game.fxMeta?.anims?.[B.fx]) {
+    let St = BAND_STYLES.get(B);
+    if (!St) BAND_STYLES.set(B, (St = Object.freeze({ fx: B.fx, band: true, seg: HD_CELL_WORLD * (B.scale ?? 1), scroll: B.scroll ?? 8, full: true, glow: B.glow ?? 0.25 })));
+    return St;
+  }
+  const St = STREAM_STYLES[pal.style] ?? STREAM_STYLES.ribbon;
+  return St.fx && !game.fxMeta?.anims?.[St.fx] ? STREAM_STYLES.ribbon : St;
+}
+const styleKey = (St) => St.fx ?? St.orb ?? 'ribbon';
 
 const up = new THREE.Vector3(0, 1, 0);
 const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpC = new THREE.Vector3();
@@ -99,13 +117,22 @@ export class Beam {
     this.hasHit = false;
     const b = (this.pal = opts.palette ?? owner.def.beam);
     this.width = opts.width ?? b.width ?? ULTIMATE.width; // Hollow Purple is wider
-    // an atlas style needs its band in the atlas; without it (an old pack) the stream falls back to the ribbon. The
-    // atlas the game loaded at startup decides (game.fxMeta), never the effects object, which a rollback swaps out.
-    const St = STREAM_STYLES[b.style] ?? STREAM_STYLES.ribbon;
-    this.St = St.fx && !game.fxMeta?.anims?.[St.fx] ? STREAM_STYLES.ribbon : St;
-    if (St !== this.St && !game.resim) console.warn(`[vfx] no ${St.fx} in the atlas: the ${b.style} stream draws as a ribbon`);
-    if (this.St.width) this.width = this.St.width;
+    this.cap = null; // a beam that won a clash stops at the loser (Game.overwhelm), not at maxLen
+    this.stream = !!opts.clash; // a beam clash's stream (from a shot), never the ultimate beam
+    this.restyle(this.stream);
     audio.loop('beam' + owner.index, 'beam');
+  }
+
+  // How it is drawn (streamStyle): a clash stream from the start; an ultimate beam switches to its drawn band when a
+  // clash catches it. An atlas style needs its band in the atlas; without it (an old pack) the stream falls back to the
+  // ribbon. The atlas the game loaded at startup decides (game.fxMeta), never the effects object, which a rollback
+  // swaps out.
+  restyle(inClash) {
+    const b = this.pal;
+    this.St = streamStyle(this.game, b, inClash);
+    const want = STREAM_STYLES[b.style];
+    if (want?.fx && this.St === STREAM_STYLES.ribbon && !this.game.resim) console.warn(`[vfx] no ${want.fx} in the atlas: the ${b.style} stream draws as a ribbon`);
+    if (this.St.width) this.width = this.St.width;
   }
 
   get head() {
@@ -118,7 +145,7 @@ export class Beam {
     const U = ULTIMATE;
     const o = this.owner.opp;
     if (this.t < U.duration) {
-      this.len = Math.min(U.maxLen, this.len + U.speed * DT);
+      this.len = Math.min(this.cap ?? U.maxLen, this.len + U.speed * DT);
       // hit test against the opponent's chest
       tmpA.set(o.pos.x, o.pos.y + 0.8, o.pos.z).sub(this.origin);
       const along = tmpA.dot(this.dir);
@@ -167,6 +194,7 @@ class BeamView {
   constructor(game, beam) {
     this.game = game;
     const b = beam.pal, St = beam.St;
+    this.key = styleKey(St);
     this.mat = St.fx
       ? new THREE.ShaderMaterial({
         uniforms: {
@@ -227,41 +255,49 @@ class BeamView {
     u.uFade.value = Math.max(0, beam.fade);
     if (St.fx) {
       const a = fx.meta.anims[St.fx];
+      u.map.value = fx.source(St.fx).S.tex; // an HD band's page may come in after the stream started
       fx.uv(St.fx, Math.floor((time * 1000) / a.ms) % a.n, u.uvRect.value);
       u.uScroll.value = (time * St.scroll) % St.seg;
     } else {
       u.uTime.value = time;
       u.uHot.value = beam.clash ? 1.1 : 1.4; // in a clash the two streams sit beside the fighters
     }
-    // bulbs at the hands and the head. The hand bulb is small and drawn behind the sprite (fighters are order 2), so
-    // it lights the palm without covering the body
+    this.mesh.visible = !St.orb; // Red shoves its orb, it pours no stream (ADR 0055)
     const color = new THREE.Color(beam.pal.mid);
     const id = beam.owner.index;
     const pulse = 1 + dmath.sin(time * 30) * 0.08;
-    fx.keep('beamO' + id, 'glow', beam.origin.x, beam.origin.y, beam.origin.z, { scale: (beam.clash ? 0.34 : 0.5) * pulse * beam.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
+    // the bulb at the hands, small and drawn behind the sprite (fighters are order 2) so it lights the palm without
+    // covering the body. Not in a clash or for a drawn band: there the soft disc read as a stand-in glow (ADR 0055)
+    if (!beam.clash && !beam.stream && !St.band) fx.keep('beamO' + id, 'glow', beam.origin.x, beam.origin.y, beam.origin.z, { scale: 0.5 * pulse * beam.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
     const h = beam.head, P = beam.pal;
+    const R = this.game.cam.right, sx = beam.dir.x * R.x + beam.dir.z * R.z, flip = sx < 0, phi = dmath.atan2(beam.dir.y, Math.abs(sx));
     // the technique itself held at the palms while it fires (`originFx`: the Kamehameha's ball, ENG-SKL-GOK), in front
     // of the hands, and the beam's own drawn head (`headFx`) instead of the two glow bulbs: its front on the head,
-    // turned along the beam on screen (the art points screen-right)
+    // turned along the beam on screen (the art points screen-right). In a clash the head is pressed into the collision
+    // (ADR 0055): smaller, its front on the struggle point, so two Kamehamehas read as two beams pushing
     if (P.originFx) fx.keep('beamOx' + id, P.originFx.fx, beam.origin.x, beam.origin.y, beam.origin.z, { scale: P.originFx.scale * (beam.clash ? 0.7 : pulse) * beam.fade, order: 7, glow: P.originFx.glow ?? 0.3 });
-    if (P.headFx && !beam.clash && !St.fx && !St.orb) {
-      const R = this.game.cam.right, sx = beam.dir.x * R.x + beam.dir.z * R.z, flip = sx < 0, s = P.headFx.scale * beam.fade;
+    if (P.headFx && (!St.fx || St.band) && !St.orb) {
+      const s = P.headFx.scale * beam.fade * (beam.clash ? 0.72 + beam.clash.kick * 0.08 : 1);
       const back = (P.headFx.front ?? 0.45) * fx.cellWorld * s; // its front sits on the head: centre it that far back
       const it = fx.keep('beamHx' + id, P.headFx.fx, h.x - beam.dir.x * back, h.y - beam.dir.y * back, h.z - beam.dir.z * back, { scale: s * (beam.hitting ? 1.1 : 1), order: 7, glow: P.headFx.glow ?? 0.3, flipX: flip });
-      const phi = dmath.atan2(beam.dir.y, Math.abs(sx));
       it.rot = flip ? -phi : phi;
       return;
     }
     if (St.orb) {
-      // the orb is the technique (Reversal: Red), held just ahead of the fingertips; it pulses on a good beat and
-      // sends repulsion ripples down the channel to the struggle point
-      const s = St.orbScale * (beam.clash ? 1 + beam.clash.kick * 0.2 : 1) * beam.fade;
-      const at = 0.3 + 0.2 * s, ox = beam.origin.x + beam.dir.x * at, oy = beam.origin.y + beam.dir.y * at, oz = beam.origin.z + beam.dir.z * at;
-      fx.keep('beamOrb' + id, St.orb, ox, oy, oz, { scale: s, order: 7, glow: 0.3 });
-      if (time - this.waveT >= St.waveEvery && beam.fade > 0.5) {
+      // Reversal: Red shoved into the other attack (ADR 0055): the orb's front on the struggle point (the beam's head,
+      // which runs on through the loser when Red wins), swelling on a good beat; repulsion ripples run from the
+      // fingertips into it. The drawn shove (`push`) once approved, else the HD orb turned along the line, else the old one
+      const art = fx.meta.anims[St.push] ? St.push : fx.meta.anims[St.hd] ? St.hd : St.orb;
+      const sc = art === St.push ? St.pushScale : art === St.hd ? St.hdScale : St.orbScale;
+      const s = sc * (beam.clash ? 1 + beam.clash.kick * 0.15 : 1) * beam.fade;
+      const at = Math.max(0.2, beam.len - (St.front[art] ?? 0.15) * fx.cellWorld * s); // the orb's front (a share of its cell) on the head
+      const ox = beam.origin.x + beam.dir.x * at, oy = beam.origin.y + beam.dir.y * at, oz = beam.origin.z + beam.dir.z * at;
+      const it = fx.keep('beamOrb' + id, art, ox, oy, oz, { scale: s, order: 7, glow: 0.3, flipX: art !== St.orb && flip });
+      it.rot = art !== St.orb ? (flip ? -phi : phi) : 0;
+      if (time - this.waveT >= St.waveEvery && beam.fade > 0.5 && at > 0.6) {
         this.waveT = time;
-        const v = Math.max(0.5, beam.len - at) / St.waveLife;
-        fx.spawn(St.wave, ox, oy, oz, { scale: 0.32, grow: 2.2, life: St.waveLife, fade: true, vel: [beam.dir.x * v, beam.dir.y * v, beam.dir.z * v], color, opacity: 0.7, order: 6, glow: 0.3 });
+        const v = (at - 0.15) / St.waveLife, o = beam.origin;
+        fx.spawn(St.wave, o.x + beam.dir.x * 0.15, o.y + beam.dir.y * 0.15, o.z + beam.dir.z * 0.15, { scale: 0.2, grow: 1.6, life: St.waveLife, fade: true, vel: [beam.dir.x * v, beam.dir.y * v, beam.dir.z * v], color, opacity: 0.45, order: 6, glow: 0.3 });
       }
     } else if (!beam.clash && !St.fx) {
       fx.keep('beamH' + id, 'glow', h.x, h.y, h.z, { scale: (beam.hitting ? 1.25 : 0.95) * pulse * beam.fade, color, opacity: 1, order: 7, glow: 0.4 });
@@ -334,6 +370,8 @@ export class ShotViews {
       if (b.dead) continue;
       seen.add(b.id);
       let v = this.beams.get(b.id);
+      // a beam that changed how it is drawn (an ultimate beam caught in a clash takes its band) gets a new view
+      if (v && v.key !== styleKey(b.St)) { v.dispose(); v = null; }
       if (!v) this.beams.set(b.id, (v = new BeamView(g, b)));
       v.sync(b, camera, time);
     }
@@ -581,13 +619,20 @@ export class Orb {
     const L = S.look;
     if (L) {
       // Hollow Purple, the anime's look (ENG-SKL-GOJ): the HD imaginary mass with no glow disc, magenta arcs leaping off
-      // it and what it erases (violet specks) drawn into it
-      const s = this.r * (L.massScale ?? 1) * this.grow * (1 + 0.03 * dmath.sin(this.t * 0.7));
-      fx.keep(this.id, L.mass, p.x, p.y, p.z, { scale: s, order: 8, glow: 0.15 });
-      if (this.t % 4 === 0) fx.spawn('arc', p.x + (Math.random() - 0.5) * this.r * 1.6, p.y + (Math.random() - 0.5) * this.r * 1.4, p.z, { scale: 0.55, life: 0.1, color: 0xf0a8ff, rot: Math.random() * 6.28, order: 9, glow: 0.8 });
+      // it and what it erases (violet specks) drawn into it. In a clash (ADR 0055) it is drawn smaller and clear of the
+      // floor, its front on the struggle point: at full size its lower half sank into the floor as a dome and it hid the
+      // other side's beam and the collision. View only: the clash still places the orb itself (Game.placeClash)
+      const s = this.r * (L.massScale ?? 1) * this.grow * (1 + 0.03 * dmath.sin(this.t * 0.7)) * (this.clash ? L.clashScale ?? 0.7 : 1);
+      let q = p;
+      if (this.clash) {
+        const P = this.clash.point, vr = s * fx.cellWorld * (L.radius ?? 0.45);
+        q = tmpA.set(P.x - this.dir.x * vr, Math.max(P.y, vr * 0.95), P.z - this.dir.z * vr);
+      }
+      fx.keep(this.id, L.mass, q.x, q.y, q.z, { scale: s, order: 8, glow: 0.15 });
+      if (this.t % 4 === 0) fx.spawn('arc', q.x + (Math.random() - 0.5) * this.r * 1.6, q.y + (Math.random() - 0.5) * this.r * 1.4, q.z, { scale: 0.55, life: 0.1, color: 0xf0a8ff, rot: Math.random() * 6.28, order: 9, glow: 0.8 });
       if (this.t % 2 === 0) {
-        const a = Math.random() * Math.PI * 2, r = this.r * 1.5, sx = p.x + dmath.cos(a) * r, sy = Math.max(0.1, p.y + dmath.sin(a) * r * 0.7);
-        fx.spawn('star', sx, sy, p.z, { scale: 0.2, frame: 2, vel: [(p.x - sx) * 5, (p.y - sy) * 5, 0], life: 0.18, color: 0xb44cff, order: 9, glow: 0.6 });
+        const a = Math.random() * Math.PI * 2, r = this.r * 1.5, sx = q.x + dmath.cos(a) * r, sy = Math.max(0.1, q.y + dmath.sin(a) * r * 0.7);
+        fx.spawn('star', sx, sy, q.z, { scale: 0.2, frame: 2, vel: [(q.x - sx) * 5, (q.y - sy) * 5, 0], life: 0.18, color: 0xb44cff, order: 9, glow: 0.6 });
       }
       return;
     }

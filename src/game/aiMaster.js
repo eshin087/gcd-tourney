@@ -8,7 +8,7 @@
 // spectated fight keeps moving and the big moves come out, and the GOD level (ADR 0054) runs 'god': the same brain
 // with its reads, answers and combos turned to the top, so two of them trade parries, clashes and long routes.
 import { MOVES, ULTIMATE, VANISH, SUPERS, DEFENSE, SUPER_DASH, PROJECTILES, THROW, CLASH } from './moves.js';
-import { specialFor, kitOf, clashable, mergeOf, roarOf, energyMoves, airEnergyMoves, canBeamClashNow } from './kit.js';
+import { specialFor, kitOf, clashable, mergeOf, roarOf, windupOf, energyMoves, airEnergyMoves, canBeamClashNow } from './kit.js';
 import { BeatPlan } from './clash.js';
 import { ARENA_LIMIT } from './constants.js';
 import { Showcase, specialId, pickW } from './aiShow.js';
@@ -937,6 +937,13 @@ export class MasterBrain {
         if (k.phase === 'flash' || k.phase === 'roar' || k.phase === 'lunge') {
           // noDodge: the bodies still collide during a spot dodge, so he waits it out in front of you and grabs you
           return { key: 'rp' + this.oppSerial, kind: 'grab', frames: (k.phase === 'lunge' ? 0 : Math.max(0, roarOf(k) - (k.t0 || 0))) + Math.max(0, c.dist - 1.35) / m.speed * 60, len: 4, unblockable: true, big: true, noDodge: true, clash: !!k.ultimate && k.phase !== 'lunge' };
+        }
+        return null;
+      case 'laneStrike':
+        // the Gigant Pistol winding up (ADR 0055): seen only by a brain whose ultimate can meet it, so it can answer with
+        // a rhythm clash (counterBeam); its other reactions to the punch are unchanged
+        if ((k.phase === 'flash' || k.phase === 'windup') && k.ultimate && clashable(f.def) && f.ki >= ULTIMATE.cost) {
+          return { key: 'gp' + this.oppSerial, kind: 'beam', frames: Math.max(0, windupOf(k) - (k.phase === 'windup' ? k.t0 || 0 : 0)) + m.extend * Math.min(1, c.dist / (m.reach + 0.6)), len: m.extend + 6, unblockable: true, big: true, charging: true, clash: true };
         }
         return null;
       case 'ignite':

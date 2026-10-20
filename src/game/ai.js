@@ -224,7 +224,9 @@ export class CpuBrain {
       if (ks && ks.kind === 'skyStrike' && ks.phase === 'mark' && ks.t0 === L.react && Math.hypot(f.pos.x - ks.at.x, f.pos.z - ks.at.z) < ks.m.radius + 0.5
         && R() < 0.35 + L.dodge * 0.6) this.dodge();
       const ou = o.state === 'kit' && o.kitState?.ultimate ? o.kitState : null;
-      if (ou && ou.t0 === L.react && ((ou.kind === 'orb' && ou.phase === 'merge') || (ou.kind === 'rampage' && ou.phase === 'roar'))) {
+      // (the Gigant Pistol winding up only when ours can meet it, ADR 0055: its other reactions to it are unchanged)
+      const lane = ou?.kind === 'laneStrike' && ou.phase === 'windup' && f.ki >= ULTIMATE.cost && clashable(f.def);
+      if (ou && ou.t0 === L.react && ((ou.kind === 'orb' && ou.phase === 'merge') || (ou.kind === 'rampage' && ou.phase === 'roar') || lane)) {
         // answer it with an ultimate that can meet it (a rhythm clash), or get out of its way
         if (f.ki >= ULTIMATE.cost && clashable(f.def) && R() < 0.35 + L.combo * 0.3) this.setPlan('ultimate', 5);
         else if (R() < L.dodge + 0.25) this.setPlan('dodgeBeam', 24);

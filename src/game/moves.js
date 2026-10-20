@@ -259,19 +259,21 @@ export const SPECIALS = {
 // Air projectiles (half a ki bar)
 //  clash   'beam': an energy shot. Meeting the opponent's energy head-on it becomes a stream in a BEAM CLASH
 //          (CLASH.struggle, ADR 0027), drawn in its `stream` palette and shape (`style`: bolt, lance, flame, orb or the
-//          ribbon; STREAM_STYLES in projectiles.js, ADR 0034); a physical shot (shuriken) just cancels.
+//          ribbon; STREAM_STYLES in projectiles.js, ADR 0034), or its own drawn HD band once approved (`band`: the tile
+//          strip that continues the move's art, its `scroll` toward the head in units/s; ADR 0055); a physical shot
+//          (shuriken) just cancels.
 //          Rush specials with `clash: 'rush'` (Rasengan, Chidori) are driven into the stream by hand.
 export const PROJECTILES = {
   shuriken: { count: 3, spread: 0.2, speed: 22, radius: 0.35, dmg: 22, hitstun: 16, push: 2, airPop: 4, life: 1.2, sprite: 'shuriken', scale: 0.55, sfx: 'shuriken', spark: 'light' },
   // Sasuke's Great Fireball (ENG-SKL-SAS): the HD rolling sphere turned along its flight (`orient`) and its own fire blast
   fireball: { count: 1, spread: 0, speed: 12, radius: 0.85, dmg: 80, launch: [8, 7], life: 1.6, sprite: 'greatFireball', scale: 0.95, orient: true, sfx: 'fireball', big: true, spark: 'none', glowColor: 0xff7a20, trail: 'fire', burstFx: { fx: 'greatFireballBurst', scale: 0.95, sfx: 'explosion', shake: 0.5 }, ground: 'fire',
-    clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c', style: 'flame' } },
+    clash: 'beam', stream: { core: '#ffe8b0', mid: '#ff7a20', edge: '#c8300c', style: 'flame', band: { fx: 'fireballStream', scroll: 7 } } },
   // Killua's Lightning Palm: a very fast lightning bolt with a long stun. His own forked bolt turned along its flight
   // (`orient`), the shock bursting through them on a hit (`burstFx`) and the paralysis crawling over their body while
   // the stun lasts (`cling`); no glow disc and no white spark (ENG-SKL-KIL)
   bolt: { count: 1, spread: 0, speed: 36, radius: 0.45, dmg: 58, hitstun: 38, push: 3, airPop: 7, life: 0.55, sprite: 'lightningPalm', scale: 0.9, orient: true, sfx: 'flash', spark: 'none', ground: 'lightning',
     burstFx: { fx: 'palmShock', scale: 0.85, smoke: 0, ring: 0.9, color: 0x62d8ff }, cling: { fx: 'shockCrawl', scale: 0.95 },
-    clash: 'beam', stream: { core: '#e8f6ff', mid: '#6ab8ff', edge: '#2a5cff', style: 'bolt' } },
+    clash: 'beam', stream: { core: '#eafcff', mid: '#8c6bff', edge: '#5534d0', style: 'bolt', band: { fx: 'palmStream', scroll: 10 } } },
   // Killua's yo-yo (ENG-SKL-KIL): his steel yo-yo snapped out for `life` seconds, then reeled back to his hand at `reel`
   // units/s (`returns`; at once on a hit or on the floor), its string a thin `limb` from his drawn hand. Physical
   yoyo: { count: 1, spread: 0, speed: 24, radius: 0.4, dmg: 54, hitstun: 30, push: 2.5, airPop: 6.5, life: 0.2, sprite: 'yoyo', scale: 0.6, sfx: 'whoosh', spark: 'none',
@@ -280,7 +282,7 @@ export const PROJECTILES = {
   // growing out of his hand (`lance`: the HD strip laid along the shot, f3-f5 held while it is out; ENG-SKL-SAS)
   spear: { count: 1, spread: 0, speed: 44, radius: 0.55, dmg: 72, hitstun: 34, push: 4, airPop: 8, life: 0.11, sprite: 'lightning', scale: 1.25, color: 0xe8f6ff, glowColor: 0x5a8cff, sfx: 'flash', spark: 'none', ground: 'lightning',
     lance: { fx: 'chidoriSpear', len: 4.9, seq: [0, 1, 2, 3, 4, 5, 3, 4, 5, 6, 7], ms: 35 }, burstFx: { fx: 'chidoriBurst', scale: 0.55, smoke: 0 },
-    clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc', style: 'lance' } },
+    clash: 'beam', stream: { core: '#e4f2ff', mid: '#5a9cff', edge: '#3a2cdc', style: 'lance', band: { fx: 'spearStream', scroll: 14 } } },
   // Gojo's Reversal: Red: a short-range repulsion blast that sends the victim into the wall. The anime's look
   // (ENG-SKL-GOJ): the HD crimson orb turned along its flight with its shock wake streaming back (`orient`), no glow disc
   // under it (`halo: false`; glowColor still tints its blast ring and the floor mark), and its own repulsion blast
@@ -447,6 +449,9 @@ export const SPECIAL_MOVES = {
     launch: [18, 10], hitstop: 30, rush: 16, cost: 100, big: true, shake: 1.0, special: true, wallBounce: true,
     fx: 'kiFist', color: '#ffd84a', name: 'DRAGON FIST', spark: 'smash', ground: 'ki', clash: 'rush',
     hitPose: 0.75, blastFx: { fx: null }, coil: { fx: 'dragonFistDragon', scale: 1.35, burst: 'dragonFistBurst', burstScale: 1.1, smoke: 2 },
+    // driven into a beam clash (ADR 0055): the golden dragon bursts from his fist into the other attack (`clashPush`, its
+    // art drawn from the fist on the left to the jaws on the right), meeting it `reach` further out than the bare fist
+    clashPush: { fx: 'dragonFistPush', reach: 1.1, fill: 0.9 },
   },
   // rising kick into a flip, then the axe-kick drop (dive). When the kick connects, the DBZ afterimage chase
   // (ENG-SKL-GOK; Lion's Barrage's `shadow` with no blows): he leaves an afterimage, blinks above them as they rise
@@ -633,14 +638,15 @@ export const SUPERS = {
   },
   // Gigant Pistol (Luffy, Gear Third): he blows his arm up to giant size (`windup`, on beamCharge), then the giant fist
   // shoots down his lane to `reach` in `extend` frames (beamFire). One unblockable hit; you dodge it by leaving the
-  // lane or jumping over it during the long windup. No clash: a fist has nothing to push against (ADR 0032).
+  // lane or jumping over it during the long windup. It clashes with a beam or an orb ultimate (ADR 0055, the user
+  // 2026-10-19; ADR 0032 had none): the giant fist pushing against it, winding up in `answerWindup` when it answers one.
   // The anime (ENG-SKL-LUF): the windup plays once through (`windupOnce`: the thumb bite, the arm swelling, the giant
   // fist raised) with air rushing in (`puff`: [frame, forward, up] on the windup) and ends on the wind-back (`windBack`
   // frames of the strike's f0); the giant arm is drawn from the strip's shoulder to the giant fist (`arm`) and snaps
   // back after; its impact (`blastFx`) replaces the white-out; then he is chibi Luffy through the recovery (`after`,
   // longer on a hit: `hitRecovery`, while they fly into the wall)
   gigantPistol: {
-    kind: 'laneStrike', cost: 300, flash: 44, windup: 34, extend: 8, reach: 7, width: 1.1, height: 2.0, dmg: 270, launch: [22, 9], recovery: 30,
+    kind: 'laneStrike', cost: 300, flash: 44, windup: 34, answerWindup: 12, extend: 8, reach: 7, width: 1.1, height: 2.0, dmg: 270, launch: [22, 9], recovery: 30,
     pose: 'beamCharge', strikePose: 'beamFire', fist: { color: 0xf6c9a0, scale: 2.4 }, name: 'GEAR THIRD: GIGANT PISTOL', color: '#e8402a', ground: 'stone',
     windupOnce: true, windBack: 6, puff: { fx: 'gear3Puff', at: [[2, 0.14, 1.42], [12, -0.3, 1.2], [20, -0.45, 1.3]], scale: 0.32 },
     arm: { fx: 'gigantArm', fist: 'gigantFist', thick: 0.4, tube: 86 / 256, fistScale: 0.567, up: 0.9, back: 10 },

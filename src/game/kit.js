@@ -130,8 +130,8 @@ export function startSuper(f, id = kitOf(f.def).super, ultimate = false) {
 
 // ------------------------------------------------------------------ clashes (ADR 0017)
 // Kit ultimates with a body the other side can meet; the shared beam always clashes. Ignite and reflex ultimates
-// have nothing to push against.
-const CLASH_KINDS = new Set(['orb', 'rampage']);
+// have nothing to push against. The Gigant Pistol's giant fist pushes against a beam or an orb (ADR 0055).
+const CLASH_KINDS = new Set(['orb', 'rampage', 'laneStrike']);
 
 export function clashable(def) {
   const id = kitOf(def).ultimate;
@@ -149,9 +149,34 @@ export function ultimateLive(f) {
   return f.game.orbs.some((ob) => ob.owner === f && ob.ultimate && !ob.dead && !ob.hit);
 }
 
-// windup frames before the body is out: Hollow Purple's merge, the Four-Tails roar (shorter when answering)
+// windup frames before the body is out: Hollow Purple's merge, the Four-Tails roar, the Gigant Pistol's arm (shorter
+// when answering)
 export const mergeOf = (k) => (k.answer ? k.m.answerMerge ?? k.m.merge : k.m.merge);
 export const roarOf = (k) => (k.answer ? k.m.answerRoar ?? k.m.roar : k.m.roar);
+export const windupOf = (k) => (k.answer ? k.m.answerWindup ?? k.m.windup : k.m.windup);
+
+// The Gigant Pistol as a clash body (Game.ultimateBody, ADR 0055): winding up it already is one (the fist shoots out
+// the moment they meet, as a beam still charging fires), then the giant fist out along his lane. { S, k, dir, ext,
+// charging }: dir a 2D heading, ext how far the fist is out from his body
+export function laneBody(f) {
+  const k = f.kitState;
+  if (f.state !== 'kit' || !k?.ultimate || k.kind !== 'laneStrike' || (k.phase !== 'windup' && k.phase !== 'punch')) return null;
+  const S = k.m;
+  return { S, k, dir: k.dir ?? new THREE.Vector2(f.face.x, f.face.y), ext: 0.6 + (k.phase === 'punch' ? S.reach * Math.min(1, k.t0 / S.extend) : 0), charging: k.phase === 'windup' };
+}
+
+// a clash caught the arm still winding up: the punch goes out now (the clash holds the fist where they meet)
+export function releaseFist(f, k) {
+  k.phase = 'punch';
+  k.t0 = k.m.extend;
+  k.dir = new THREE.Vector2(f.face.x, f.face.y);
+}
+
+// the Gigant Pistol won its clash: the fist drives through them (`reach`, from his body; the hit was the clash's) and
+// the arm snaps back into the chibi recovery
+export function resumeLaneStrike(f, S, k, reach) {
+  enter(f, { ...k, phase: 'recover', t0: 0, hit: true, reachNow: reach }, S.strikePose ?? 'beamFire');
+}
 
 // The Four-Tails pounce as a clash body (Game.ultimateBody), from the roar on: { S, k, dir } (dir: a 2D heading).
 export function rushBody(f) {
@@ -1775,19 +1800,19 @@ const UPDATE = {
     if (k.phase === 'flash') { k.phase = 'windup'; k.t0 = 0; audio.play('beamCharge', 0.8); }
     k.t0++;
     if (k.phase === 'windup') {
-      const back = S.windBack ?? 0;
+      const back = S.windBack ?? 0, W = windupOf(k); // an answer to their ultimate winds up faster (ADR 0055)
       if (!S.windupOnce) loop(f, S.pose ?? 'beamCharge');
-      else if (k.t0 > S.windup - back) f.actor.setPhase(S.strikePose ?? 'beamFire', 0, 0.5); // the giant arm thrown back
+      else if (k.t0 > W - back) f.actor.setPhase(S.strikePose ?? 'beamFire', 0, 0.5); // the giant arm thrown back
       else {
         // played once through (ENG-SKL-LUF): the thumb bite, the arm swelling, the giant fist raised
-        const a = k.t0 / Math.max(1, S.windup - back);
+        const a = k.t0 / Math.max(1, W - back);
         f.actor.setPhase(S.pose ?? 'beamCharge', a < 0.34 ? 0 : a < 0.67 ? 1 : 2, 0.5);
       }
       // the Bone Balloon's air rushing in at the thumb, then round the arm; plain smoke puffs otherwise
       const P = S.puff?.at.find((q) => q[0] === k.t0);
       if (P) g.fx.spawn(S.puff.fx, f.pos.x + f.face.x * P[1], f.pos.y + P[2], f.pos.z + f.face.y * P[1], { scale: S.puff.scale ?? 0.6, order: 9, depthTest: false });
       else if (!S.puff && k.t0 % 6 === 1) g.fx.smoke(f.pos.x - f.face.x * 0.3, f.pos.y + 1.0, f.pos.z - f.face.y * 0.3, 0.5);
-      if (k.t0 >= S.windup) {
+      if (k.t0 >= W) {
         k.phase = 'punch';
         k.t0 = 0;
         k.dir = new THREE.Vector2(f.face.x, f.face.y);

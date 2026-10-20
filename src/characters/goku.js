@@ -155,6 +155,7 @@ export default {
     originFx: { fx: 'kamehameha', scale: 0.62, glow: 0.35 },
     headFx: { fx: 'kamehamehaHead', scale: 1.1, front: 0.45, glow: 0.3 },
     muzzle: { fx: 'kamehamehaRing', every: 12, scale: 0.8, speed: 7 },
+    band: { fx: 'kamehamehaStream', scroll: 10 }, // its drawn body in a clash, the head pressed into the collision (ADR 0055)
   },
   specialName: 'KI BLAST VOLLEY',
   projectileName: 'KI BLAST',
