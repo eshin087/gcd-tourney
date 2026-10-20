@@ -1,0 +1,22 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/dragonFistPush_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/dragonFistPush_v01.png",
+    "vfx/raw/dragonFistPush_v01.json"
+  ],
+  "sourceHash": "0752de740f1b08b6028cc18a240765e33dba0ba9",
+  "cell": 256,
+  "files": {
+    "dragonFistPush_00.png": "f4f12c7b6af370f9c03e8b00b5a8c53d00b70228",
+    "dragonFistPush_01.png": "aa6e83025238ff7467d1659748fa8d4c625d542c",
+    "dragonFistPush_02.png": "455b274e1e3af652c7c7cc5f7de75a9ce6ab6a03",
+    "dragonFistPush_03.png": "a98c46ae8d7a5cc92bb927563dcf72b06a55ac49",
+    "dragonFistPush_04.png": "5c2a8962812a11565c266369c706998ca987fe63",
+    "dragonFistPush_05.png": "6dc3536d6ee7a87d1e14ff90df93f66caa1bb79e",
+    "dragonFistPush_06.png": "4411e97c686748049f5040d9f169558511abb36c",
+    "dragonFistPush_07.png": "2317975227523608a26cf65ab5148bfd935a6430"
+  }
+}

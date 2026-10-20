@@ -1,0 +1,80 @@
+[
+  {
+    "name": "clashKnot",
+    "sourceVersion": 2,
+    "source": "2172x724",
+    "frameSource": "271.5x724",
+    "cropTop": 0,
+    "cropOffsetX": 0,
+    "frames": 8,
+    "output": "256x256",
+    "paletteLimit": 4,
+    "removedMagentaPixels": 1430327,
+    "removedWhiteBarPixels": 0
+  },
+  {
+    "name": "spearStream",
+    "sourceVersion": 1,
+    "source": "2172x724",
+    "frameSource": "543x543",
+    "cropTop": 90,
+    "cropOffsetX": 271,
+    "frames": 4,
+    "output": "256x256",
+    "paletteLimit": 7,
+    "removedMagentaPixels": 228908,
+    "removedWhiteBarPixels": 0
+  },
+  {
+    "name": "palmStream",
+    "sourceVersion": 1,
+    "source": "2172x724",
+    "frameSource": "543x543",
+    "cropTop": 90,
+    "cropOffsetX": 271,
+    "frames": 4,
+    "output": "256x256",
+    "paletteLimit": 8,
+    "removedMagentaPixels": 230244,
+    "removedWhiteBarPixels": 0
+  },
+  {
+    "name": "fireballStream",
+    "sourceVersion": 1,
+    "source": "2172x724",
+    "frameSource": "543x543",
+    "cropTop": 90,
+    "cropOffsetX": 271,
+    "frames": 4,
+    "output": "256x256",
+    "paletteLimit": 10,
+    "removedMagentaPixels": 148181,
+    "removedWhiteBarPixels": 0
+  },
+  {
+    "name": "kamehamehaStream",
+    "sourceVersion": 1,
+    "source": "2172x724",
+    "frameSource": "543x543",
+    "cropTop": 90,
+    "cropOffsetX": 271,
+    "frames": 4,
+    "output": "256x256",
+    "paletteLimit": 7,
+    "removedMagentaPixels": 144041,
+    "removedWhiteBarPixels": 0
+  },
+  {
+    "name": "beastBeamStream",
+    "sourceVersion": 2,
+    "source": "2172x724",
+    "frameSource": "543x543",
+    "cropTop": 90,
+    "cropOffsetX": 271,
+    "frames": 4,
+    "output": "256x256",
+    "paletteLimit": 9,
+    "removedMagentaPixels": 109742,
+    "removedWhiteBarPixels": 242
+  }
+]

@@ -16,6 +16,8 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Added (ART-CLASH-HD): prepared eight packed clash-effect candidates and a phone review page. C1 `clashKnot` v02 and C6 `beastBeamStream` v02 use corrective generation calls; all remain needs review. Candidate pack detected the expected frame counts with no new tile/fill warnings.
+- Changed (ART-CLASH-HD, relay beam-clash-6 #2): routed effect image generation to a gpt-6-luna medium subagent as directed; this is a model-routing decision, not image approval.
 - Changed (ENG-112 Naruto, relay #59): closed the one authorized directional-normal round on the user's decision to keep live stand-ins. All 29 saved versioned candidate strips remain unchanged in `raw/_qa_hold/`; manifest and review rows record the disposition, no more calls are authorized in this round, and the production atlas was left untouched.
 - Changed: the determinism fixtures are re-recorded after Luffy's up smash (ENG-112, fingerprint a8947661744b); both replay frame for frame.
 - Changed (ENG-SKL-GOK follow-up): Kaio-ken flushes Goku's skin red as in the anime (`recolor: 'kaioken'`, the palette swap from ENG-SKL-LUF: five of his skin shades to reds, the lightest also warming his hair's highlights), on top of the red tint, flame shell and aura; determinism fixtures re-recorded (sim 297143fb8fdf).

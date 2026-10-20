@@ -1207,3 +1207,13 @@ Machine manifest versions reflect the latest candidates while preserving approve
 ## Relay #8 correction (2026-10-18)
 
 Claude confirmed the v05 approval ask was superseded by shipped Sasuke v02. Keep v05 under `raw/_qa_hold/`; keep user-rejected v04 under `raw/_rejected/` with its rejection record. Main’s v02 manifest entry, hitboxes and packed sheet remain unchanged. Gojo heavy and Gojo hurtHigh/hurtLow/launched remain untouched by this task.
+# ART-CLASH-HD — eight clash-effect candidates (2026-10-19)
+
+Branch `art/clash-hd`; worktree `.worktrees/art-clash-hd`. Generated eight effects under the user-directed gpt-6-luna medium route. Call counts: clashKnot 2/3 (v02 selected), spearStream 1/3, palmStream 1/3, fireballStream 1/3, kamehamehaStream 1/3, beastBeamStream 2/3 (v02 selected), redPush 1/3, dragonFistPush 1/3. Full prompts and hashes: [CALLS.md](../../art/vfx/production/clash-hd/CALLS.md).
+
+Review page: [candidate gallery](../../public/reviews/clash-hd/index.html). All eight are packed and marked needs review. Candidate pack detected the expected frame counts and no new tile/fill warnings; three unrelated existing warnings remain for streamBolt, streamFlame and gumArm. The five streams were derived to exact 256px cells; no runtime integration or image approval is claimed. Claude owns code registration/integration. No Astra audit was required or run for VFX.
+
+Preview URL and commit: pending.
+
+---
+
