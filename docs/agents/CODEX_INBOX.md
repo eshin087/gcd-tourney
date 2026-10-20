@@ -15,6 +15,28 @@ How it works:
 
 ---
 
+## Clash HD art: each move's own look in a beam clash (2026-10-19, Claude) - chat "6 - beam clash", relay lane `beam-clash-6`
+
+**The user's request (2026-10-19):** "the beam clashes between all the characters are really buggy janky and not looking
+good. some seem to have placeholder beams instead of the iconic ability they use." Claude reviewed every pairing in the
+lab and asked the user; the user chose **new clash art** matching each move's approved HD effect, Red as **the orb
+shoving forward**, the Gigant Pistol clashing (engine only) and a winner that **blasts through and stops** (engine only).
+The full brief: **[art/vfx/CLASH_HD_BRIEF.md](../../art/vfx/CLASH_HD_BRIEF.md)** (read it first).
+
+**Who does what:** the Claude chat "Beam clash visual bugs" fixes the engine and registers the eight names with
+stand-ins on `feature/beam-clash-r3` (ENG-122, ADR 0055). You draw the art on `art/clash-hd`. Generation on
+`gpt-6-luna` medium, at most 3 calls per image, no Astra audit (effects only). Do not edit `src/` or `tools/`.
+
+- [ ] 1. Worktree `art/clash-hd` (`npm run pr -- start art/clash-hd --art vfx`), dev port 5247.
+- [ ] 2. The eight effects of brief section 3 as `art/vfx/raw/<name>_v01.png` (C1 `clashKnot`, C2 `spearStream`,
+  C3 `palmStream`, C4 `fireballStream`, C5 `kamehamehaStream`, C6 `beastBeamStream`, C7 `redPush`, C8
+  `dragonFistPush`); the five bands also as exact 256 x 256 tiles in `art/vfx/frames/<name>/`; manifest rows with
+  `"hd": true` and the owner from the table; `node tools/pack-sprites.mjs vfx --candidates` clean.
+- [ ] 3. Review page `public/reviews/clash-hd/` (brief section 4), REVIEW/manifest/TRACKER rows (`needs review`),
+  `npm run pr -- open`, `npm run pr -- preview`, handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md.
+- [ ] 4. `node tools/relay.mjs ring beam-clash-6 --for user --kind approval --note "<items, versions, review link>"`
+  from main, then **stop**: Claude asks the user and relays the answer word for word.
+
 ## Charge redraw: gather, then hold, all six fighters (2026-10-18, Claude) - chat "1 - Charging Animation", relay lane `charge`
 
 **The user's request (2026-10-18, in Claude "Character charging animation"):** "charging up animation for all characters

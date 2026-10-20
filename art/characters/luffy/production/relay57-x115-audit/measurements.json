@@ -1,0 +1,131 @@
+{
+  "method": "Manual approximate visible knee/ankle endpoints in native atlas pixels. Length uncertainty +/-8px includes indistinct cuff/knee boundary. Screen-left leg, not reconstructed bone length. No silhouette-height normalization or hidden-limb numeric pass.",
+  "rows": [
+    {
+      "animation": "idle",
+      "frame": 0,
+      "knee": [
+        78,
+        179
+      ],
+      "ankle": [
+        53,
+        225
+      ],
+      "projectedShinPx": 52.4,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "uSmash",
+      "frame": 0,
+      "knee": [
+        100,
+        181
+      ],
+      "ankle": [
+        82,
+        225
+      ],
+      "projectedShinPx": 47.5,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "uSmash",
+      "frame": 1,
+      "knee": [
+        101,
+        180
+      ],
+      "ankle": [
+        81,
+        225
+      ],
+      "projectedShinPx": 49.2,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "uSmash",
+      "frame": 2,
+      "knee": [
+        106,
+        182
+      ],
+      "ankle": [
+        83,
+        225
+      ],
+      "projectedShinPx": 48.8,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "uSmash",
+      "frame": 3,
+      "knee": [
+        103,
+        184
+      ],
+      "ankle": [
+        79,
+        225
+      ],
+      "projectedShinPx": 47.5,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "uSmash",
+      "frame": 4,
+      "knee": [
+        100,
+        181
+      ],
+      "ankle": [
+        78,
+        225
+      ],
+      "projectedShinPx": 49.2,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "uSmash",
+      "frame": 5,
+      "knee": [
+        104,
+        184
+      ],
+      "ankle": [
+        81,
+        225
+      ],
+      "projectedShinPx": 47,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "uSmash",
+      "frame": 6,
+      "knee": [
+        104,
+        185
+      ],
+      "ankle": [
+        82,
+        225
+      ],
+      "projectedShinPx": 45.7,
+      "lengthUncertaintyPx": 8
+    },
+    {
+      "animation": "uSmash",
+      "frame": 7,
+      "knee": [
+        95,
+        182
+      ],
+      "ankle": [
+        76,
+        225
+      ],
+      "projectedShinPx": 47,
+      "lengthUncertaintyPx": 8
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "file": "art/characters/luffy/production/native-audit-20261015/neutral.png",
+    "hash": "8e9da76421c52e5fa449ce55b2dba1933b52e74d15ccd4a69090b9f97eb082b1",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "file": "art/characters/luffy/production/native-audit-20261015/combat.png",
+    "hash": "439678e0a9689edc3cc9686d51a65f9d546e2e68aae20760de8e7f4391a306e0",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "name": "idle",
+    "index": 0,
+    "pngHash": "088596f24d5071d772d7645ce2c2e7058adf507ca2705d1bb47b2118071fc434",
+    "rgbaHash": "47876eac32afccd800cac6bd92ecbdfdca447dd2e72d45806e558be6d55928da",
+    "bounds": [
+      41,
+      54,
+      209,
+      240
+    ]
+  },
+  {
+    "name": "idle",
+    "index": 7,
+    "pngHash": "b450040b9bba081072871d4fd152071efd58d61b860c6ff51d0bed696f5ea44b",
+    "rgbaHash": "fa6519053c84c0f2b4d8bbe6d1f97dd8de64b72b2f4d2f034924a4000b34164b",
+    "bounds": [
+      42,
+      54,
+      211,
+      240
+    ]
+  },
+  {
+    "name": "uSmash",
+    "index": 154,
+    "pngHash": "2c51166d9d265893221db0525b715a232a5ceb3318ccdd00b8b630a19845b198",
+    "rgbaHash": "b61e2ab1834fc5119f156948a6418ef989ac1f47b7e02d1478eb55d8903805cc",
+    "bounds": [
+      67,
+      80,
+      188,
+      240
+    ]
+  },
+  {
+    "name": "uSmash",
+    "index": 155,
+    "pngHash": "c421557ebf7467c25be8c62d0f50e16b682a5943337e8062f42124a97028ba4f",
+    "rgbaHash": "24d3cccdb95e9a741ecda1e4b17bce2d6a1dd4d43597e91870f14f75e59f3a0c",
+    "bounds": [
+      65,
+      62,
+      191,
+      240
+    ]
+  },
+  {
+    "name": "uSmash",
+    "index": 156,
+    "pngHash": "45e9afeab9645456f3365162fa76d0826c531aea95924d3f81912b725d079633",
+    "rgbaHash": "c4e724eb908460757592c7a6673511ca72ae1c8256ed5e31b8a838b60e670c84",
+    "bounds": [
+      63,
+      54,
+      190,
+      240
+    ]
+  },
+  {
+    "name": "uSmash",
+    "index": 157,
+    "pngHash": "6e6385f0e88dbbec8dadcd7c61ed4083fd1d6c60766fcc8f280c4b5be4d5656e",
+    "rgbaHash": "84487d74556da5290bc4c395897b0d95351b00ee1d1c47b1c3e945683af708dd",
+    "bounds": [
+      61,
+      42,
+      193,
+      240
+    ]
+  },
+  {
+    "name": "uSmash",
+    "index": 158,
+    "pngHash": "bf7d89aa262db1e42308a76c0f0a739b8a61057081c6506c76d28532158af607",
+    "rgbaHash": "c0baa74058060715c0bdb1031a81a92f61852b3cc807e0249659dbf71226aa90",
+    "bounds": [
+      61,
+      10,
+      198,
+      240
+    ]
+  },
+  {
+    "name": "uSmash",
+    "index": 159,
+    "pngHash": "44674f4365f0e546ccc7757ecdbe17d99b808d6f2c94d818f6a71a060caef0e7",
+    "rgbaHash": "70845ce60baf6b3b7aa3d4a073bd39e8bcedb41203ea104a72811b15de29dda9",
+    "bounds": [
+      61,
+      42,
+      193,
+      240
+    ]
+  },
+  {
+    "name": "uSmash",
+    "index": 160,
+    "pngHash": "1042593ef161ea8581dd617e8b948ee2da8b04bb0d6d516f603bf3151cf3ebe1",
+    "rgbaHash": "3222da2ef31b279f4b148b0c222000b8c44c49256cf4d703ef4a5a1051788ee6",
+    "bounds": [
+      60,
+      55,
+      193,
+      240
+    ]
+  },
+  {
+    "name": "uSmash",
+    "index": 161,
+    "pngHash": "cac8dec25c8efa90036a412bbcedf6a8d116f2d7ff5127de68427c0d9ce4a2b9",
+    "rgbaHash": "d784d89808e64e1701bc4510d40387d037f43f644720ef03540da5ce7e72c91e",
+    "bounds": [
+      62,
+      55,
+      192,
+      240
+    ]
+  }
+]
