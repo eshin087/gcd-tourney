@@ -519,14 +519,14 @@ ones.
 
 | effect | frames | ms | color rule | anchor | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|
-| clashKnot | 8 | 40 | white (tinted) | center | packed | v02 | - | ART-CLASH-HD collision knot; 2 Luna-medium calls, v02 selected. Candidate only; not approved. See [call inventory](vfx/production/clash-hd/CALLS.md) and [review page](../public/reviews/clash-hd/index.html). |
-| spearStream | 4 | 35 | full color | center, tile | packed | v01 | - | ART-CLASH-HD Chidori Spear stream; one generation call, exact 256px tiles derived from source. Candidate only; not approved. |
-| palmStream | 4 | 30 | full color | center, tile | packed | v01 | - | ART-CLASH-HD Lightning Palm stream; one generation call, exact 256px tiles derived from source. Candidate only; not approved. |
-| fireballStream | 4 | 50 | full color | center, tile | packed | v01 | - | ART-CLASH-HD Great Fireball stream; one generation call, exact 256px tiles derived from source. Candidate only; not approved. |
-| kamehamehaStream | 4 | 40 | full color | center, tile | packed | v01 | - | ART-CLASH-HD Kamehameha stream; one generation call, exact 256px tiles derived from source. Candidate only; not approved. |
-| beastBeamStream | 4 | 40 | full color | center, tile | packed | v02 | - | ART-CLASH-HD Four-Tails stream; 2 Luna-medium calls, v02 selected; white bars removed from derived tiles. Candidate only, not approved. |
-| redPush | 8 | 40 | full color | center | packed | v01 | - | ART-CLASH-HD Reversal: Red orb push; one Luna-medium generation call. Candidate only; not approved. |
-| dragonFistPush | 8 | 45 | full color | center | packed | v01 | - | ART-CLASH-HD golden dragon push; one Luna-medium generation call. Candidate only; not approved. |
+| clashKnot | 8 | 40 | white (tinted) | center | approved | v02 | v02 | ART-CLASH-HD collision knot; approved as drawn via Claude relay beam-clash-6 #3 (“Approve all 8 (Recommended)”). See [call inventory](vfx/production/clash-hd/CALLS.md) and [review page](../public/reviews/clash-hd/index.html). |
+| spearStream | 4 | 35 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Chidori Spear stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
+| palmStream | 4 | 30 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Lightning Palm stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
+| fireballStream | 4 | 50 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Great Fireball stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
+| kamehamehaStream | 4 | 40 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Kamehameha stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
+| beastBeamStream | 4 | 40 | full color | center, tile | approved | v02 | v02 | ART-CLASH-HD Four-Tails stream; approved as drawn via Claude relay beam-clash-6 #3; white bars removed from derived tiles. |
+| redPush | 8 | 40 | full color | center | approved | v01 | v01 | ART-CLASH-HD Reversal: Red orb push; approved as drawn via Claude relay beam-clash-6 #3. |
+| dragonFistPush | 8 | 45 | full color | center | approved | v01 | v01 | ART-CLASH-HD golden dragon push; approved as drawn via Claude relay beam-clash-6 #3. |
 | gumArm | 2 | 60 | full color | center, tile | approved | v03 | v03 | User approved as drawn via Claude relay luffy-skills #2. Relay #4 sidecar `split: even` imports both frames; tube f0 ends 1px short of the right edge and packer warns it cannot tile perfectly. Claude checked the stretch in game and reports the gap is hidden. v01-v02 preserved in `_rejected/`. |
 | gumFist | 4 | 40 | full color | center | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #2; packed to four HD frames. Integration pending. |
 | gumImpact | 7 | 35 | full color | center | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #2. Relay #4 sidecar erases box borders and drops the split last half; packer now imports 7/7. |
