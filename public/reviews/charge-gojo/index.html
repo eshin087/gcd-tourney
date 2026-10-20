@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gojo charge v08 review</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.55 system-ui, sans-serif; background:#17151d; color:#f1edf6; }
+    body { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+    h1,h2 { line-height:1.2; } h1 { margin-bottom: .2em; } h2 { margin-top:2.4em; }
+    .hold { border:1px solid #f0a25f; background:#30241d; padding:16px 20px; border-radius:8px; }
+    figure { margin:18px 0 28px; } img { max-width:100%; height:auto; background:#211d2b; border-radius:4px; }
+    figcaption, small { color:#c6bfd0; } .row { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+    a { color:#9edcff; } code { color:#ffe3ae; }
+  </style>
+</head>
+<body>
+  <h1>Gojo charge v08</h1>
+  <p>Candidate review · generated 2026-10-19 · three image calls used</p>
+  <section class="hold"><strong>Technical hold.</strong> The strict pack refused v08. The current game atlas remains approved v07. The preview GIF below shows diagnostic quantized cells; it does not mean v08 is packed into the game.</section>
+
+  <h2>Animation at brief timing</h2>
+  <div class="row">
+    <figure><img src="candidate-v08-loop-four-times.gif" alt="Gojo charge v08: gather, release, four held-loop cycles, then pause"><figcaption>v08 diagnostic cells at 70/90/110/110/110/110 ms; the held loop plays four times, then pauses.</figcaption></figure>
+    <figure><img src="current-v07-50ms.gif" alt="Current approved Gojo charge v07 at 50 milliseconds per frame"><figcaption>Current approved v07 at its existing 50 ms timing.</figcaption></figure>
+  </div>
+
+  <h2>Quantized cells and registration</h2>
+  <figure><img src="packed-contact-v08-1x.png" alt="Packed idle f0 and Gojo charge v08 frames f0 through f5 at native scale"><figcaption>Idle f0, then charge f0-f5 from the actual 48-color diagnostic atlas.</figcaption></figure>
+  <figure><img src="packed-contact-v08-2x.png" alt="Packed idle f0 and Gojo charge v08 frames enlarged 2x with nearest-neighbor pixels"><figcaption>Same cells enlarged 2x with nearest-neighbor scaling.</figcaption></figure>
+  <figure><img src="registration-v08.png" alt="Packed loop frames f3 to f5 overlaid against f2 with feet band highlighted"><figcaption>Loop registration: cyan marks changed occupancy, red marks changed colors, yellow boxes mark the audit's head probe. The shaded lower band covers y220-240.</figcaption></figure>
+  <figure><img src="body-sheet-v08.png" alt="Gojo charge v08 body sheet beside idle"><figcaption>Body sheet; B is an advisory garment-area proxy, not direct limb measurement.</figcaption></figure>
+
+  <h2>Candidate source</h2>
+  <figure><img src="candidate-raw-v08.png" alt="Unchanged Gojo charge v08 source candidate"><figcaption>Unchanged source image. Packed cells above are the basis for the review.</figcaption></figure>
+  <p><a href="technical-notes.md">Technical notes and decision requested</a> · <a href="ASTRA_AUDIT.md">Astra packed-cell audit</a> · <a href="PACK_CHECK.md">Strict and diagnostic pack report</a> · <a href="GENERATION.md">Generation provenance</a> · <a href="body-report-v08.json">Body report</a></p>
+  <p><a href="/?fight=gojo,naruto&amp;mode=solo&amp;art=custom">Game preview (still uses approved v07)</a></p>
+  <p><small>Strict command: <code>node tools/pack-sprites.mjs gojo --quantize 48 --keep-palette --no-writeback</code> · exit 1. The warning-mode diagnostic pack is not a passing or shipping pack.</small></p>
+</body>
+</html>

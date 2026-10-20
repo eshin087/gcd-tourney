@@ -87,7 +87,8 @@ src/game/
   camera.js                 CameraDirector modes: orbit, intro, fight, focus, clash, ko, victory, results; shake,
                             zoom punch
   sprites.js                SheetAsset (sheet + anims.json + boxes), SpriteActor (billboard, flip, phases,
-                            ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK
+                            ghosts, shadow caster), loadFighterAsset (custom sheet or 3D bake), anim FALLBACK;
+                            the body shader's palette swap (`setRecolor`, ADR 0051) and `veil` (render-only hide)
   techAnim.js               tech poses (ADR 0030): which strip a tech state shows (dedicated or legacy), its beats,
                             back rolls and the wall facing per barrier wall; pure, tested by npm run test:anims
   animPhase.js              the phase -> frame mapping shared by SpriteActor.setPhase and the tech poses

@@ -1,0 +1,75 @@
+{
+  "version": 8,
+  "currentApprovedVersion": 7,
+  "sourceAtlasFrames": [
+    115,
+    116,
+    117,
+    118,
+    119,
+    120
+  ],
+  "oldApprovedAtlasFrames": [
+    115,
+    116,
+    117,
+    118
+  ],
+  "idleReferenceFrame": 0,
+  "headBoxes": [
+    [
+      124,
+      61,
+      154,
+      78
+    ],
+    [
+      112,
+      39,
+      143,
+      58
+    ],
+    [
+      111,
+      58,
+      142,
+      76
+    ],
+    [
+      115,
+      39,
+      145,
+      58
+    ],
+    [
+      112,
+      58,
+      143,
+      76
+    ],
+    [
+      119,
+      39,
+      150,
+      58
+    ]
+  ],
+  "diffCounts": [
+    {
+      "frame": 3,
+      "pixelsDifferentFromF2": 9801,
+      "feetRows220to240Different": 743
+    },
+    {
+      "frame": 4,
+      "pixelsDifferentFromF2": 5075,
+      "feetRows220to240Different": 473
+    },
+    {
+      "frame": 5,
+      "pixelsDifferentFromF2": 10102,
+      "feetRows220to240Different": 758
+    }
+  ],
+  "note": "Candidate v08 diagnostic pack used --quantize 48 --keep-palette under temporary scaleGate=warn to inspect quantized cells after the strict pack failed. Diagnostic only; no shipping atlas or gate pass implied."
+}

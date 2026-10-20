@@ -1,0 +1,1410 @@
+{
+ "_doc": "npm run scale (tools/scale-audit.mjs): every packed frame against the approved idle. head = head silhouette with hair, feet = shoe area (1.00 = the idle). Verdicts: art/CHARACTER_SCALE.md \"Scale gate (automatic)\".",
+ "fighters": {
+  "luffy": {
+   "palette": {
+    "head": [
+     "#1d0b0a",
+     "#ac5b2d",
+     "#f9bc2f",
+     "#be7432",
+     "#834d2b",
+     "#612e16",
+     "#dd9331",
+     "#d17c36",
+     "#ba7715",
+     "#9c5e16",
+     "#85110f",
+     "#cf1916"
+    ],
+    "feet": [
+     "#d17c36",
+     "#612e16",
+     "#834d2b",
+     "#be7432",
+     "#ac5b2d"
+    ],
+    "source": "auto"
+   },
+   "ref": {
+    "headPx": [
+     54,
+     38
+    ],
+    "box": [
+     108,
+     54,
+     160,
+     91
+    ],
+    "feetPx": 947
+   },
+   "counts": {
+    "ref": 1,
+    "manual": 21,
+    "unmeasured": 2
+   },
+   "anims": {
+    "idle": {
+     "v": 1,
+     "head": 0.999,
+     "feet": 1,
+     "range": 0.093,
+     "verdict": "ref",
+     "frames": [
+      {
+       "head": 0.991,
+       "feet": 1.003,
+       "box": [
+        108,
+        54,
+        160,
+        91
+       ]
+      },
+      {
+       "head": 0.972,
+       "feet": 0.982,
+       "box": [
+        107,
+        57,
+        158,
+        90
+       ]
+      },
+      {
+       "head": 1.047,
+       "feet": 1.008,
+       "box": [
+        104,
+        55,
+        159,
+        99
+       ]
+      },
+      {
+       "head": 1.006,
+       "feet": 0.997,
+       "box": [
+        108,
+        56,
+        161,
+        92
+       ]
+      },
+      {
+       "head": 1.065,
+       "feet": 1.018,
+       "box": [
+        105,
+        55,
+        161,
+        102
+       ]
+      },
+      {
+       "head": 0.987,
+       "feet": 0.99,
+       "box": [
+        109,
+        56,
+        161,
+        92
+       ]
+      },
+      {
+       "head": 0.991,
+       "feet": 1.027,
+       "box": [
+        108,
+        55,
+        160,
+        89
+       ]
+      },
+      {
+       "head": 1.032,
+       "feet": 0.975,
+       "box": [
+        109,
+        55,
+        162,
+        93
+       ]
+      }
+     ]
+    },
+    "run": {
+     "v": 1,
+     "head": 1.147,
+     "feet": 0.789,
+     "range": 0.107,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 40.5–55.8 px visible front shin (upright-support frames 47.8–55.8); torso/arm build remains coherent. Rear-foot clips f3/f4/f7 are user-accepted placement only; runtime contact remains open. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.147,
+       "feet": 0.785,
+       "box": [
+        142,
+        56,
+        201,
+        98
+       ]
+      },
+      {
+       "head": 1.147,
+       "feet": 0.785,
+       "box": [
+        84,
+        53,
+        144,
+        95
+       ]
+      },
+      {
+       "head": 1.14,
+       "feet": 0.785,
+       "box": [
+        117,
+        56,
+        177,
+        97
+       ]
+      },
+      {
+       "head": 1.14,
+       "feet": 0.705,
+       "box": [
+        77,
+        70,
+        137,
+        111
+       ]
+      },
+      {
+       "head": 1.179,
+       "feet": 0.795,
+       "box": [
+        66,
+        60,
+        124,
+        109
+       ]
+      },
+      {
+       "head": 1.247,
+       "feet": 0.837,
+       "box": [
+        121,
+        63,
+        180,
+        119
+       ]
+      },
+      {
+       "head": 1.14,
+       "feet": 0.852,
+       "box": [
+        106,
+        61,
+        166,
+        100
+       ]
+      },
+      {
+       "head": 1.246,
+       "feet": 0.793,
+       "box": [
+        77,
+        74,
+        137,
+        135
+       ]
+      }
+     ]
+    },
+    "dash": {
+     "v": 2,
+     "head": 1.972,
+     "feet": 0.748,
+     "range": 0.13,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 47.0–50.2 px shin; lean shortens torso projection without body-size collapse; complete limbs and coherent loop. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.907,
+       "feet": 0.743,
+       "box": [
+        132,
+        94,
+        233,
+        208
+       ]
+      },
+      {
+       "head": 2.037,
+       "feet": 0.753,
+       "box": [
+        106,
+        98,
+        214,
+        208
+       ]
+      }
+     ]
+    },
+    "jumpUp": {
+     "v": 1,
+     "head": 1.801,
+     "feet": 0.737,
+     "range": 0.051,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. f0 shin 46.9 px; f1 tuck shin unmeasurable. Torso 38.9/34.0 px vs 41.5 px idle with ±6 px uncertainty; visual head, vest and limb thickness coherent. Timing/contact still open. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.776,
+       "feet": 0.704,
+       "box": [
+        105,
+        91,
+        199,
+        205
+       ]
+      },
+      {
+       "head": 1.827,
+       "feet": 0.77,
+       "box": [
+        95,
+        77,
+        180,
+        204
+       ]
+      }
+     ]
+    },
+    "jumpFall": {
+     "v": 3,
+     "head": 1.053,
+     "feet": 0.796,
+     "range": 0.087,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 50.2–52.4 px visible shin; whole-body/clothing size coherent. Continuity review remains separate. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.096,
+       "feet": 0.778,
+       "box": [
+        111,
+        65,
+        165,
+        123
+       ]
+      },
+      {
+       "head": 1.009,
+       "feet": 0.813,
+       "box": [
+        106,
+        49,
+        159,
+        83
+       ]
+      }
+     ]
+    },
+    "land": {
+     "v": 1,
+     "head": 0.987,
+     "feet": 0.794,
+     "range": 0.006,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 48.6–55.9 px shin; crouch torso is foreshortened and not compared as upright. Recovery torso 36.8±6 px vs idle 41.5±6 px; complete limbs. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 0.99,
+       "feet": 0.799,
+       "box": [
+        115,
+        111,
+        171,
+        142
+       ]
+      },
+      {
+       "head": 0.984,
+       "feet": 0.789,
+       "box": [
+        124,
+        67,
+        176,
+        100
+       ]
+      }
+     ]
+    },
+    "light1": {
+     "v": 2,
+     "head": 1.093,
+     "feet": 0.956,
+     "range": 0.038,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 51.9–55.6 px shin; torso about 42 px, sash 26 px, sandal 11.2 px. Connected jab arm and consistent clothing. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.084,
+       "feet": 0.966,
+       "box": [
+        102,
+        55,
+        159,
+        94
+       ]
+      },
+      {
+       "head": 1.077,
+       "feet": 0.962,
+       "box": [
+        100,
+        55,
+        157,
+        93
+       ]
+      },
+      {
+       "head": 1.093,
+       "feet": 0.944,
+       "box": [
+        97,
+        55,
+        152,
+        95
+       ]
+      },
+      {
+       "head": 1.103,
+       "feet": 0.91,
+       "box": [
+        99,
+        55,
+        157,
+        94
+       ]
+      },
+      {
+       "head": 1.103,
+       "feet": 0.956,
+       "box": [
+        107,
+        53,
+        165,
+        90
+       ]
+      },
+      {
+       "head": 1.103,
+       "feet": 0.962,
+       "box": [
+        100,
+        53,
+        158,
+        91
+       ]
+      },
+      {
+       "head": 1.065,
+       "feet": 0.952,
+       "box": [
+        99,
+        53,
+        155,
+        90
+       ]
+      }
+     ]
+    },
+    "light2": {
+     "v": 1,
+     "head": 1.009,
+     "feet": 0.85,
+     "range": 0.707,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 50.1–60.8 px shin; oblique extension explains upper range; torso rotation/arm projection explain variation, no body-scale pop. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 0.988,
+       "feet": 0.863,
+       "box": [
+        106,
+        58,
+        158,
+        92
+       ]
+      },
+      {
+       "head": 1.04,
+       "feet": 0.811,
+       "box": [
+        122,
+        59,
+        177,
+        97
+       ]
+      },
+      {
+       "head": 0.987,
+       "feet": 0.784,
+       "box": [
+        109,
+        61,
+        161,
+        97
+       ]
+      },
+      {
+       "head": 1.694,
+       "feet": 0.794,
+       "box": [
+        94,
+        60,
+        170,
+        192
+       ]
+      },
+      {
+       "head": 1.121,
+       "feet": 0.863,
+       "box": [
+        112,
+        54,
+        171,
+        107
+       ]
+      },
+      {
+       "head": 1.009,
+       "feet": 0.85,
+       "box": [
+        110,
+        54,
+        163,
+        89
+       ]
+      },
+      {
+       "head": 0.991,
+       "feet": 0.891,
+       "box": [
+        105,
+        53,
+        157,
+        89
+       ]
+      }
+     ]
+    },
+    "light3": {
+     "v": 2,
+     "head": 0.958,
+     "feet": 0.953,
+     "range": 0.05,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 51.2–53.2 px planted shin throughout. User accepted toe f3 placement clip only; anatomy/body scale separately passed. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 0.967,
+       "feet": 0.972,
+       "box": [
+        100,
+        44,
+        153,
+        78
+       ]
+      },
+      {
+       "head": 0.953,
+       "feet": 0.965,
+       "box": [
+        104,
+        44,
+        156,
+        77
+       ]
+      },
+      {
+       "head": 0.962,
+       "feet": 0.949,
+       "box": [
+        108,
+        44,
+        160,
+        78
+       ]
+      },
+      {
+       "head": 0.987,
+       "feet": 0.953,
+       "box": [
+        111,
+        44,
+        163,
+        80
+       ]
+      },
+      {
+       "head": 0.958,
+       "feet": 0.945,
+       "box": [
+        109,
+        44,
+        161,
+        77
+       ]
+      },
+      {
+       "head": 0.937,
+       "feet": 0.938,
+       "box": [
+        106,
+        44,
+        157,
+        77
+       ]
+      },
+      {
+       "head": 0.955,
+       "feet": 0.954,
+       "box": [
+        102,
+        44,
+        155,
+        77
+       ]
+      }
+     ]
+    },
+    "light4": {
+     "v": 2,
+     "head": 1.408,
+     "feet": 0.823,
+     "range": 1.054,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 46.0–54.6 px planted shin; part B matches part A density. User accepted foot f4 placement clip only; anatomy/body scale separately passed. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 0.96,
+       "feet": 0.86,
+       "box": [
+        106,
+        46,
+        156,
+        81
+       ]
+      },
+      {
+       "head": 1.713,
+       "feet": 0.702,
+       "box": [
+        80,
+        47,
+        137,
+        175
+       ]
+      },
+      {
+       "head": 1.917,
+       "feet": 0.837,
+       "box": [
+        83,
+        43,
+        146,
+        169
+       ]
+      },
+      {
+       "head": 0.96,
+       "feet": 0.906,
+       "box": [
+        105,
+        48,
+        155,
+        83
+       ]
+      },
+      {
+       "head": 0.991,
+       "feet": 0.762,
+       "box": [
+        106,
+        48,
+        158,
+        84
+       ]
+      },
+      {
+       "head": 1.911,
+       "feet": 0.808,
+       "box": [
+        97,
+        42,
+        186,
+        160
+       ]
+      },
+      {
+       "head": 2.014,
+       "feet": 0.806,
+       "box": [
+        76,
+        36,
+        167,
+        170
+       ]
+      },
+      {
+       "head": 1.103,
+       "feet": 0.86,
+       "box": [
+        104,
+        46,
+        162,
+        90
+       ]
+      }
+     ]
+    },
+    "heavy": {
+     "v": 1,
+     "head": 0.906,
+     "feet": 0.752,
+     "range": 0.621,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 41.2–49.1 px shin; deep crouch explains lower projection, upright/recovery overlaps idle uncertainty. Torso 38.3±6 and 35.0±7 px vs idle 41.5±6; mild smallness unresolved within combined uncertainty. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 0.897,
+       "feet": 0.751,
+       "box": [
+        106,
+        79,
+        153,
+        119
+       ]
+      },
+      {
+       "head": 0.967,
+       "feet": 0.723,
+       "box": [
+        119,
+        111,
+        172,
+        141
+       ]
+      },
+      {
+       "head": 0.897,
+       "feet": 0.642,
+       "box": [
+        104,
+        99,
+        143,
+        138
+       ]
+      },
+      {
+       "head": 0.899,
+       "feet": 0.731,
+       "box": [
+        101,
+        78,
+        140,
+        113
+       ]
+      },
+      {
+       "head": 0.895,
+       "feet": 0.752,
+       "box": [
+        103,
+        71,
+        143,
+        106
+       ]
+      },
+      {
+       "head": 1.516,
+       "feet": 0.847,
+       "box": [
+        99,
+        75,
+        157,
+        193
+       ]
+      },
+      {
+       "head": 0.912,
+       "feet": 0.805,
+       "box": [
+        95,
+        79,
+        137,
+        113
+       ]
+      },
+      {
+       "head": 0.916,
+       "feet": 0.789,
+       "box": [
+        108,
+        75,
+        156,
+        106
+       ]
+      }
+     ]
+    },
+    "airLight1": {
+     "v": 1,
+     "head": 1.076,
+     "feet": 0.909,
+     "range": 0.03,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 50.8–54.2 px visible bent back-leg chain; vest/shorts/neck coherent. User accepted fist f2/f3 placement clip only; anatomy/body scale separately passed. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.065,
+       "feet": 0.922,
+       "box": [
+        125,
+        72,
+        181,
+        107
+       ]
+      },
+      {
+       "head": 1.093,
+       "feet": 0.864,
+       "box": [
+        137,
+        89,
+        199,
+        124
+       ]
+      },
+      {
+       "head": 1.092,
+       "feet": 0.902,
+       "box": [
+        129,
+        83,
+        189,
+        119
+       ]
+      },
+      {
+       "head": 1.063,
+       "feet": 0.909,
+       "box": [
+        129,
+        83,
+        188,
+        118
+       ]
+      },
+      {
+       "head": 1.076,
+       "feet": 0.942,
+       "box": [
+        116,
+        72,
+        173,
+        108
+       ]
+      }
+     ]
+    },
+    "airHeavy": {
+     "v": 1,
+     "head": 0.974,
+     "feet": 0.817,
+     "range": 1.009,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. Recovery shin 54.4 px; torso 38±6 px at f0 and 46±8 px at f5. Tucked/rotated middle shins unmeasurable; visual limb topology, volume and arm chains remain coherent; weakest numerical coverage. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 0.916,
+       "feet": 0.873,
+       "box": [
+        141,
+        59,
+        189,
+        92
+       ]
+      },
+      {
+       "head": 0.96,
+       "feet": 0.685,
+       "box": [
+        148,
+        135,
+        195,
+        170
+       ]
+      },
+      {
+       "head": 0.987,
+       "feet": 0.773,
+       "box": [
+        94,
+        120,
+        144,
+        156
+       ]
+      },
+      {
+       "head": 1.813,
+       "feet": 0.805,
+       "box": [
+        43,
+        95,
+        139,
+        194
+       ]
+      },
+      {
+       "head": 0.96,
+       "feet": 0.828,
+       "box": [
+        138,
+        128,
+        188,
+        163
+       ]
+      },
+      {
+       "head": 1.925,
+       "feet": 0.846,
+       "box": [
+        100,
+        104,
+        202,
+        208
+       ]
+      }
+     ]
+    },
+    "guard": {
+     "v": 1,
+     "head": 1.09,
+     "feet": 0.595,
+     "range": 0.012,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 47.2–48.5 px shin; sash 26 px, crossed forearm about 29–31 px. Torso obscured by arms; no hidden segment inferred. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.084,
+       "feet": 0.576,
+       "box": [
+        100,
+        59,
+        157,
+        103
+       ]
+      },
+      {
+       "head": 1.096,
+       "feet": 0.615,
+       "box": [
+        100,
+        62,
+        156,
+        105
+       ]
+      }
+     ]
+    },
+    "hurtHigh": {
+     "v": 1,
+     "head": 0.964,
+     "feet": 0.658,
+     "range": 0.036,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 49.9–52.2 px shin; recoil changes pose while torso and limb thickness remain coherent. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 0.946,
+       "feet": 0.711,
+       "box": [
+        109,
+        66,
+        160,
+        99
+       ]
+      },
+      {
+       "head": 0.982,
+       "feet": 0.658,
+       "box": [
+        63,
+        62,
+        99,
+        108
+       ]
+      },
+      {
+       "head": 0.964,
+       "feet": 0.625,
+       "box": [
+        63,
+        70,
+        105,
+        108
+       ]
+      }
+     ]
+    },
+    "launched": {
+     "v": 2,
+     "head": 0.847,
+     "feet": 0.909,
+     "range": 0.021,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (launched v02 diagnostic audit, 2026-10-16): PASS within measurement uncertainty on final exact 48-color strict public atlas 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 (metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a); launched cells match the separately audited diagnostic and both actual quantized frames are complete. Compared head/face/hat-on-back, torso/build, arms, shorts/sash, visible shins and sandals against approved idle and title neutral/combat at one density. f0 vest neckline-to-sash 42.6±6 px vs idle 41.5±6 and combat 40.5; f1 approximate 39.1±6. Visible shin f0 48.8±6 and 51.6±6 vs idle 52.8±6/combat 54.6; f1 56.8±6. No clipped anatomy; static two-frame recoil relation coherent. Landmark endpoints and uncertainty in production/manual-audit-r3/LAUNCHED02_AUDIT.md and LAUNCHED02_PIXELS.json. This is not design approval, timed playback, runtime contact, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/LAUNCHED02_PIXELS.json)",
+     "frames": [
+      {
+       "head": 0.836,
+       "feet": 0.931,
+       "box": [
+        56,
+        71,
+        92,
+        109
+       ]
+      },
+      {
+       "head": 0.857,
+       "feet": 0.886,
+       "box": [
+        38,
+        67,
+        74,
+        108
+       ]
+      }
+     ]
+    },
+    "down": {
+     "v": 3,
+     "head": 1.549,
+     "feet": 0.832,
+     "range": 1.088,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final strict-r5 all-frame recheck, 2026-10-16): Manual anatomy/scale PASS within measurement uncertainty in final actual 48-color atlas SHA 0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122, metadata dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f; all22 animations/100 frames visually inspected. f0 shin 48.2±5px, f1 torso 37.8±5px and shin 51.7±5px; direct f1 source factor .205. Static-only; no runtime contact/grounding or user art approval. Visible segment uncertainties are recorded in the audit; hidden joints are not numeric passes. See art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md; art/characters/luffy/production/manual-audit-r5/FINAL_PIXEL_HASHES.json. (art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md; art/characters/luffy/production/manual-audit-r5/FINAL_PIXEL_HASHES.json)",
+     "frames": [
+      {
+       "head": 1.005,
+       "feet": 0.735,
+       "box": [
+        72,
+        152,
+        117,
+        198
+       ]
+      },
+      {
+       "head": 2.093,
+       "feet": 0.928,
+       "box": [
+        27,
+        143,
+        138,
+        240
+       ]
+      }
+     ]
+    },
+    "getup": {
+     "v": 3,
+     "head": 1.1,
+     "feet": 0.823,
+     "range": 0.878,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final strict-r5 all-frame recheck, 2026-10-16): Manual anatomy/scale PASS within measurement uncertainty in final actual 48-color atlas SHA 0fc2f4a87b9c01991271209c04df2ee3913799ad626a9cd2a68d0f91fb54d122, metadata dc679a50fe5a7536c76be12272da040a36495a105dda6e3028d7abf96777598f; all22 animations/100 frames visually inspected. f4 torso 42.2±6px, left/right shins 55.5/48.9±6px, forearm 30.5±6px; uniform source factor .477. Static-only; no runtime contact/grounding or user art approval. Visible segment uncertainties are recorded in the audit; hidden joints are not numeric passes. See art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md; art/characters/luffy/production/manual-audit-r5/FINAL_PIXEL_HASHES.json. (art/characters/luffy/production/manual-audit-r5/FINAL_STRICT_AUDIT.md; art/characters/luffy/production/manual-audit-r5/FINAL_PIXEL_HASHES.json)",
+     "frames": [
+      {
+       "head": 1.103,
+       "feet": 0.77,
+       "box": [
+        34,
+        169,
+        82,
+        214
+       ]
+      },
+      {
+       "head": 1.1,
+       "feet": 0.807,
+       "box": [
+        62,
+        143,
+        113,
+        185
+       ]
+      },
+      {
+       "head": 1.925,
+       "feet": 0.823,
+       "box": [
+        99,
+        124,
+        201,
+        223
+       ]
+      },
+      {
+       "head": 1.065,
+       "feet": 0.877,
+       "box": [
+        125,
+        101,
+        181,
+        142
+       ]
+      },
+      {
+       "head": 1.047,
+       "feet": 0.963,
+       "box": [
+        103,
+        63,
+        158,
+        105
+       ]
+      }
+     ]
+    },
+    "charge": {
+     "v": 1,
+     "head": 0.994,
+     "feet": 0.727,
+     "range": 0.083,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 57.7–58.6 px shin within combined title/idle uncertainty; torso 40.6±6 px and sash stable. Gear Second pink skin is intentional. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.065,
+       "feet": 0.726,
+       "box": [
+        119,
+        83,
+        175,
+        123
+       ]
+      },
+      {
+       "head": 0.988,
+       "feet": 0.728,
+       "box": [
+        119,
+        82,
+        174,
+        115
+       ]
+      },
+      {
+       "head": 1.001,
+       "feet": null,
+       "box": [
+        120,
+        82,
+        173,
+        115
+       ]
+      },
+      {
+       "head": 0.982,
+       "feet": null,
+       "box": [
+        120,
+        82,
+        174,
+        116
+       ]
+      }
+     ]
+    },
+    "throw": {
+     "v": 1,
+     "head": 1.683,
+     "feet": 0.655,
+     "range": 0.706,
+     "verdict": "unmeasured",
+     "reason": "head probe off for this fighter: the straw hat shares its colours with the sash, vest and skin, and its silhouette changes with tilt: heads read 1.07-1.21 and feet 0.58-0.86 in strips that match the idle at one scale (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+     "frames": [
+      {
+       "head": 1.72,
+       "feet": 0.71,
+       "box": [
+        90,
+        93,
+        181,
+        203
+       ]
+      },
+      {
+       "head": 1.683,
+       "feet": 0.633,
+       "box": [
+        90,
+        85,
+        179,
+        206
+       ]
+      },
+      {
+       "head": 1.682,
+       "feet": 0.617,
+       "box": [
+        90,
+        85,
+        179,
+        206
+       ]
+      },
+      {
+       "head": 1.014,
+       "feet": 0.676,
+       "box": [
+        152,
+        56,
+        204,
+        96
+       ]
+      }
+     ]
+    },
+    "beamCharge": {
+     "v": 1,
+     "head": 0.987,
+     "feet": 0.753,
+     "range": 0.055,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 53.5 px shin and torso 40.5±6 px. Enlarged Gear Third hand/forearm is intentional; body remains coherent. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 0.972,
+       "feet": 0.753,
+       "box": [
+        112,
+        58,
+        163,
+        92
+       ]
+      },
+      {
+       "head": 0.987,
+       "feet": 0.752,
+       "box": [
+        111,
+        58,
+        163,
+        90
+       ]
+      },
+      {
+       "head": 1.027,
+       "feet": 0.889,
+       "box": [
+        111,
+        58,
+        163,
+        111
+       ]
+      }
+     ]
+    },
+    "beamFire": {
+     "v": 2,
+     "head": 1.14,
+     "feet": 1.151,
+     "range": 0.602,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 55.5–55.9 px shin, torso 39.6±6 px; head/torso/shorts/legs remain in cell. Claude accepted giant-arm-only clip f1/f2 for engine continuation; runtime fist/contact remains open. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.073,
+       "feet": 1.151,
+       "box": [
+        109,
+        60,
+        164,
+        106
+       ]
+      },
+      {
+       "head": 1.675,
+       "feet": 1.159,
+       "box": [
+        74,
+        59,
+        152,
+        185
+       ]
+      },
+      {
+       "head": 1.14,
+       "feet": 1.05,
+       "box": [
+        90,
+        59,
+        150,
+        107
+       ]
+      }
+     ]
+    },
+    "special": {
+     "v": 4,
+     "head": 0.997,
+     "feet": 0.875,
+     "range": 0.029,
+     "verdict": "unmeasured",
+     "reason": "head probe off for this fighter: the straw hat shares its colours with the sash, vest and skin, and its silhouette changes with tilt: heads read 1.07-1.21 and feet 0.58-0.86 in strips that match the idle at one scale (TOOL-GOKU-PROBE); every strip needs a landmark scaleManualQA",
+     "frames": [
+      {
+       "head": 1.014,
+       "feet": 0.868,
+       "box": [
+        117,
+        55,
+        169,
+        99
+       ]
+      },
+      {
+       "head": 1.001,
+       "feet": 0.905,
+       "box": [
+        118,
+        55,
+        172,
+        89
+       ]
+      },
+      {
+       "head": 1.009,
+       "feet": 0.895,
+       "box": [
+        127,
+        56,
+        180,
+        91
+       ]
+      },
+      {
+       "head": 0.994,
+       "feet": 0.844,
+       "box": [
+        122,
+        55,
+        176,
+        88
+       ]
+      },
+      {
+       "head": 1.001,
+       "feet": 0.848,
+       "box": [
+        117,
+        55,
+        173,
+        89
+       ]
+      },
+      {
+       "head": 0.985,
+       "feet": 0.822,
+       "box": [
+        119,
+        55,
+        170,
+        94
+       ]
+      },
+      {
+       "head": 0.991,
+       "feet": 0.882,
+       "box": [
+        112,
+        53,
+        166,
+        88
+       ]
+      },
+      {
+       "head": 0.991,
+       "feet": 0.882,
+       "box": [
+        113,
+        55,
+        165,
+        90
+       ]
+      }
+     ]
+    },
+    "win": {
+     "v": 3,
+     "head": 1.034,
+     "feet": 0.98,
+     "range": 0.022,
+     "verdict": "manual",
+     "reason": "manual QA by GPT-6 Astra (final actual-pixel recheck, 2026-10-16): Manual body-scale pass rechecked in the final 93-frame actual public pack on exact 48-color sheet 563832d5fc499f860a5a35e21f8e576c3885b4e1a9c76bd7173807187707a996 and metadata 7c4cee7a4817fc31f2546c0eb358ed4f9533dcf9fb75c5c4c977d84bac144c6a; every frame inspected. 52.9 px shin; torso 48.3±6 px, sash 31±4 px, forearm 34.9±6 px, sandal 10.2±3 px vs title-neutral comparison. Four frames preserve build and intact hands; coherent loop. Visible endpoint uncertainties: shin ±6 px, torso ±6–8 px, sash ±4 px, sandal ±3 px; occluded segments are not numeric passes. See art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json. This is not image approval, runtime contact validation, or release certification. (art/characters/luffy/production/manual-audit-r3/LAUNCHED02_AUDIT.md; art/characters/luffy/production/manual-audit-r3/AUDIT.md; art/characters/luffy/production/manual-audit-r2/measurements.json)",
+     "frames": [
+      {
+       "head": 1.028,
+       "feet": 0.993,
+       "box": [
+        101,
+        24,
+        152,
+        63
+       ]
+      },
+      {
+       "head": 1.036,
+       "feet": 0.983,
+       "box": [
+        99,
+        25,
+        144,
+        67
+       ]
+      },
+      {
+       "head": 1.032,
+       "feet": 0.944,
+       "box": [
+        100,
+        24,
+        152,
+        63
+       ]
+      },
+      {
+       "head": 1.05,
+       "feet": 0.976,
+       "box": [
+        99,
+        24,
+        151,
+        63
+       ]
+      }
+     ]
+    }
+   }
+  }
+ }
+}

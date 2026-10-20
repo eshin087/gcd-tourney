@@ -137,6 +137,63 @@ function tongue(ctx, x, y, w, h, sway, col) {
   ctx.fill();
 }
 
+// Luffy's skin as packed in his sheet (the stretched limbs join his drawn arm), and Gear Second's pink flush
+const LUFFY_SKIN = { light: '#fcc081', base: '#fbba79', mid: '#f9b171', shadow: '#dc8440', deep: '#c97c45', line: '#492610' };
+const GEAR2_SKIN = { light: '#f99a96', base: '#f28981', mid: '#f07174', shadow: '#d8655f', deep: '#984e47', line: '#723834' };
+// a rubber blow's starburst bands, core to rim
+const IMPACT = ['#fff6c8', '#ffe07a', '#ffb43a', '#ff7a1a', '#e8420e', '#a81e0a', '#5a0e06'];
+
+// a horizontal tube from x 0 to `to`: one flat color per row from `y0` down (a stretched limb); `wave` bends it
+function rubberTube(ctx, y0, rows, to = 64, wave = 0) {
+  for (let x = 0; x < to; x++) {
+    const dy = wave ? Math.round(Math.sin(x * 0.5) * wave) : 0;
+    rows.forEach((c, k) => { ctx.fillStyle = c; ctx.fillRect(x, y0 + k + dy, 1, 1); });
+  }
+}
+
+// a clenched fist seen from the side, knuckles to screen-right: the wrist cut flat at x `wx` (`h` px tall, centered on
+// `cy`), the fist `k` x 2.3 wrist heights tall
+function fist(ctx, wx, cy, h, k, S) {
+  const fh = h * 2.3 * k, fw = fh * 1.05, x0 = wx + 1, y0 = cy - fh / 2;
+  const round = (x, y, w, hh, r) => { ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, w, hh, r); else ctx.rect(x, y, w, hh); ctx.fill(); };
+  const kr = fh / 8; // the knuckles: four bumps down the front, one per finger
+  ctx.fillStyle = S.line;
+  ctx.fillRect(wx, cy - h / 2 - 1, 2, h + 2);
+  round(x0, y0 - 1, fw - kr + 1, fh + 2, fh * 0.38);
+  for (let f = 0; f < 4; f++) disc(ctx, x0 + fw - kr * 1.2, y0 + kr + f * kr * 2, kr + 1, S.line);
+  ctx.fillStyle = S.base;
+  round(x0 + 1, y0, fw - kr - 1, fh, fh * 0.36);
+  for (let f = 0; f < 4; f++) disc(ctx, x0 + fw - kr * 1.2, y0 + kr + f * kr * 2, kr, f ? S.base : S.light);
+  ctx.fillStyle = S.light; ctx.fillRect(x0 + fh * 0.2, y0 + 1, fw * 0.5, Math.max(1, fh * 0.12));
+  ctx.fillStyle = S.shadow; ctx.fillRect(x0 + fh * 0.2, y0 + fh * 0.8, fw * 0.6, Math.max(1, fh * 0.14));
+  ctx.fillStyle = S.line; // the creases between the fingers, toward the knuckles
+  for (let f = 1; f < 4; f++) ctx.fillRect(x0 + fw * 0.5, y0 + f * kr * 2, fw * 0.5 - kr, Math.max(1, fh / 40));
+  ctx.fillStyle = S.line; // the thumb wrapped over the fingers
+  round(x0 + fw * 0.12, y0 + fh * 0.18, fw * 0.5, fh * 0.22, fh * 0.1);
+  ctx.fillStyle = S.deep;
+  round(x0 + fw * 0.12 + 1, y0 + fh * 0.18 + 1, fw * 0.5 - 2, fh * 0.22 - 2, fh * 0.1);
+}
+
+// `spikes` thick spikes round (0, 0), out to `r`, each drawn in the color bands of `cols` (rim first, core last)
+function starburst(ctx, R, r, spikes, width, cols) {
+  if (r <= 0) return;
+  const bands = [[cols[6], 1], [cols[4], 0.82], [cols[3], 0.66], [cols[2], 0.5], [cols[1], 0.32]];
+  const ang = Array.from({ length: spikes }, (_, k) => (k / spikes) * Math.PI * 2 + R() * 0.3);
+  const len = ang.map(() => 0.7 + R() * 0.3);
+  for (const [c, f] of bands) {
+    ctx.fillStyle = c;
+    ctx.beginPath();
+    ang.forEach((a, k) => {
+      const w = (Math.PI / spikes) * width;
+      ctx.lineTo(Math.cos(a - w) * r * f * 0.35, Math.sin(a - w) * r * f * 0.35);
+      ctx.lineTo(Math.cos(a) * r * f * len[k], Math.sin(a) * r * f * len[k]);
+      ctx.lineTo(Math.cos(a + w) * r * f * 0.35, Math.sin(a + w) * r * f * 0.35);
+    });
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
 const PAINTERS = {
   // white crescent slash + small star (video-style hit spark)
   spark(i, n, ctx) {
@@ -816,6 +873,172 @@ const PAINTERS = {
       bolt(ctx, zigzag(R, 32, 60, 32 + Math.cos(a) * w * r, 60 + Math.sin(a) * h * r, 3, 2), i < 4 ? 2 : 1);
     }
     if (i < 2) { ctx.fillStyle = '#ffffff'; ctx.fillRect(32 - w * 0.7, 58, w * 1.4, 2); }
+  },
+  // ---- Luffy's signature techniques (ENG-SKL-LUF). Stand-ins until Codex's HD art is approved
+  // (art/characters/luffy/SKILLS_REVAMP.md): full color in his sheet's skin palette, a quarter of the HD cell's pixels.
+  // the stretched rubber arm: a tube 10.5 px thick on rows 27-37 like the approved gumArm v03 (rows 107-148 of 256),
+  // the same in every column (the engine stretches it)
+  gumArm(i, n, ctx) {
+    const S = LUFFY_SKIN;
+    rubberTube(ctx, 27, [S.line, S.light, S.light, S.base, S.base, S.base, S.base, S.shadow, S.shadow, S.deep, S.line]);
+    if (i % 2) { ctx.fillStyle = '#f8e8d1'; ctx.fillRect(0, 24, 64, 1); ctx.fillRect(0, 40, 64, 1); }
+  },
+  // the Pistol's fist flying screen-right: the wrist cut flat at x 24 on the arm's rows, knuckles at x 40
+  gumFist(i, n, ctx) {
+    fist(ctx, 24, 32, 6, 1, LUFFY_SKIN);
+    ctx.fillStyle = '#f8e8d1';
+    for (let k = 0; k < 4; k++) ctx.fillRect(4 + ((i * 5 + k * 7) % 9), k < 2 ? 25 + k * 2 : 36 + (k - 2) * 2, 12 + ((i + k) % 3) * 3, 1);
+  },
+  // a rubber blow landing: a starburst of thick spikes in hard warm bands, then fragments flying out
+  gumImpact(i, n, ctx) {
+    ctx.translate(32, 32);
+    starburst(ctx, rng(900), [6, 17, 26, 27, 24, 0, 0][i] ?? 0, 9, i < 2 ? 0.55 : 0.45, IMPACT);
+    if (i < 3) disc(ctx, 0, 0, [3, 3, 2][i], IMPACT[0]);
+    if (i >= 3) {
+      const R = rng(910), reach = 18 + (i - 3) * 5;
+      for (let k = 0; k < 9 - (i - 3) * 2; k++) {
+        const a = R() * Math.PI * 2;
+        ctx.fillStyle = k % 2 ? IMPACT[3] : IMPACT[2];
+        ctx.fillRect(Math.round(Math.cos(a) * reach), Math.round(Math.sin(a) * reach), 2, 2);
+      }
+    }
+  },
+  // the double palm: two palm prints pressing the air, shock fronts curving out to screen-right
+  bazookaBlast(i, n, ctx) {
+    const t = i / (n - 1);
+    if (i < 3) {
+      disc(ctx, 30, 26, 4, '#e6dccb'); disc(ctx, 30, 38, 4, '#e6dccb');
+      disc(ctx, 30, 26, 2.5, '#f8f4ec'); disc(ctx, 30, 38, 2.5, '#f8f4ec');
+    }
+    for (let k = 0; k < 4; k++) {
+      const r = 6 + k * 7 + t * 16;
+      if (r > 34 || (i > 5 && k < 2)) continue;
+      ctx.strokeStyle = '#5e4e40'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(30, 32, r, -0.9, 0.9); ctx.stroke();
+      ctx.strokeStyle = k % 2 ? '#e6dccb' : '#f8f4ec'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(30, 32, r, -0.9, 0.9); ctx.stroke();
+    }
+    if (i > 0 && i < 4) for (let k = 0; k < 5; k++) { ctx.fillStyle = k % 2 ? IMPACT[1] : IMPACT[2]; ctx.fillRect(32 + k * 2, 30 + ((k * 7) % 9) - 4, 3, 1); }
+  },
+  // the Rocket's take-off (bottom anchored, floor y 60): a dust ring, then speed lines shooting up out of a dust plume
+  rocketSnap(i, n, ctx) {
+    const w = [22, 26, 30, 31, 30, 28][i] ?? 28, h = [4, 7, 9, 8, 6, 4][i] ?? 4;
+    for (let k = 0; k < 7; k++) {
+      const u = (k / 6 - 0.5) * 2, x = 32 + u * w;
+      disc(ctx, x, 60 - h * (1 - Math.abs(u) * 0.6), h * 0.7, i > 3 ? '#cdb9a2' : '#b9a28a');
+      disc(ctx, x - 1, 59 - h * (1 - Math.abs(u) * 0.6), h * 0.45, '#e0d0bb');
+    }
+    if (i >= 1 && i <= 3) {
+      ctx.fillStyle = '#f8f4ec';
+      for (let k = 0; k < 5; k++) ctx.fillRect(24 + k * 4, 6 + ((k * 13 + i * 5) % 18), 1, 30 - i * 4);
+      ctx.fillStyle = '#8a7560';
+      for (const x of [21, 43]) for (let y = 20; y < 56; y += 4) ctx.fillRect(x + ((y / 4) % 2), y, 1, 3);
+    }
+  },
+  // the Whip: his stretched shin lashing along y 32 to the sandal at the right, motion arcs sweeping behind it
+  whipSweep(i, n, ctx) {
+    const tip = [32, 60, 62, 61, 38, 15][i] ?? 15;
+    if (i < 4) {
+      ctx.strokeStyle = i === 2 ? '#e6dccb' : '#cdb9a2';
+      ctx.lineWidth = 1;
+      for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.arc(tip * 0.55, 32, tip * 0.5 - k * 3, -Math.PI * 0.95, -Math.PI * 0.05); ctx.stroke(); }
+    }
+    rubberTube(ctx, 30, [LUFFY_SKIN.line, LUFFY_SKIN.light, LUFFY_SKIN.base, LUFFY_SKIN.line], tip - 8, i >= 4 ? 1 : 0);
+    ctx.fillStyle = '#5a3820'; ctx.fillRect(tip - 9, 28, 3, 8);
+    ctx.fillStyle = LUFFY_SKIN.base; ctx.fillRect(tip - 7, 29, 6, 6);
+    ctx.fillStyle = '#8a5a34'; ctx.fillRect(tip - 6, 30, 2, 4);
+    if (i === 2) { ctx.fillStyle = IMPACT[1]; ctx.fillRect(tip - 1, 26, 1, 3); ctx.fillRect(tip, 31, 3, 1); ctx.fillRect(tip - 1, 35, 1, 3); }
+  },
+  // Gear Second steam rising off a body (bottom anchored): wisps along both sides and over the head, the body left clear
+  gear2Steam(i, n, ctx) {
+    const ph = i / n;
+    for (let k = 0; k < 9; k++) {
+      const side = k % 3, x = side === 0 ? 18 : side === 1 ? 46 : 32, s = side === 2 ? 0 : 1;
+      const y = 60 - ((k * 7 + ph * 56) % 56) - (side === 2 ? 4 : 0);
+      if (side === 2 && y > 18) continue; // over the head only
+      const r = 3 + ((k * 5) % 3) + (60 - y) * 0.04;
+      disc(ctx, x + (s ? (side ? 2 : -2) * Math.sin(ph * 6.28 + k) : 0), y, r + 1, '#b87a7a');
+      disc(ctx, x + (s ? (side ? 2 : -2) * Math.sin(ph * 6.28 + k) : 0), y - 0.5, r, k % 2 ? '#ffd8d8' : '#fff0f0');
+    }
+  },
+  // Gear Second kicking in: steam bursting out of a body-shaped oval in every direction
+  gear2Burst(i, n, ctx) {
+    ctx.translate(32, 32);
+    const out = [12, 20, 26, 28, 29, 30, 30][i] ?? 30, r = [2, 5, 7, 7, 6, 4, 2][i] ?? 2;
+    for (let k = 0; k < 12; k++) {
+      const a = (k / 12) * Math.PI * 2, x = Math.cos(a) * out * 0.8, y = Math.sin(a) * out - (i > 2 ? i * 1.5 : 0);
+      disc(ctx, x, y, r + 1, '#b87a7a');
+      disc(ctx, x, y - 0.5, r, k % 2 ? '#ffd8d8' : '#fff0f0');
+    }
+  },
+  // Jet Gatling: a fan of pink rubber arms from his shoulders (the left edge), fists at different reaches
+  gatlingFists(i, n, ctx) {
+    const R = rng(940 + i * 31);
+    for (let k = 0; k < 10; k++) {
+      const y0 = 26 + R() * 12, a = (R() - 0.5) * 0.9, len = 24 + R() * 32, x1 = len, y1 = y0 + Math.sin(a) * len * 0.5;
+      ctx.strokeStyle = k % 2 ? GEAR2_SKIN.base : GEAR2_SKIN.light; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+      fist(ctx, x1 - 2, y1, 2, 1.4, GEAR2_SKIN);
+    }
+    ctx.fillStyle = IMPACT[1];
+    for (let k = 0; k < 3; k++) { const x = 52 + R() * 8, y = 22 + R() * 20; ctx.fillRect(x - 2, y, 5, 1); ctx.fillRect(x, y - 2, 1, 5); }
+  },
+  // Gear Third's Bone Balloon: rings of air rushing in, then cartoon puffs drifting away (never a solid cloud)
+  gear3Puff(i, n, ctx) {
+    ctx.translate(32, 32);
+    if (i === 0) { disc(ctx, 0, 0, 3, '#c8b89a'); disc(ctx, 0, 0, 2, '#f8f4ec'); return; }
+    if (i < 3) for (const r of [5, 9, 13].map((x) => x * (0.6 + i * 0.25))) {
+      ctx.strokeStyle = '#8a7560'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = '#f8f4ec'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+    }
+    if (i >= 2) for (let k = 0; k < 8; k++) {
+      const a = (k / 8) * Math.PI * 2, d = 12 + (i - 2) * 4;
+      disc(ctx, Math.cos(a) * d, Math.sin(a) * d, 3.5 - (i - 2) * 0.6, '#c8b89a');
+      disc(ctx, Math.cos(a) * d - 0.5, Math.sin(a) * d - 0.5, 2.5 - (i - 2) * 0.5, '#f8f4ec');
+    }
+  },
+  // the giant arm: a tube 22 px thick on rows 21-42 (tube 86/256 in moves.js, as on the drawn tiles), the same in every column (stretched down the lane)
+  gigantArm(i, n, ctx) {
+    const S = LUFFY_SKIN;
+    rubberTube(ctx, 21, [S.line, S.light, S.light, S.base, S.base, S.base, S.base, S.base, S.base, S.base, S.base, S.mid, S.mid, S.mid, S.mid, S.shadow, S.shadow, S.shadow, S.shadow, S.deep, S.deep, S.line]);
+    if (i % 2) { ctx.fillStyle = '#f8e8d1'; for (const y of [17, 19, 44, 46]) ctx.fillRect(0, y, 64, 1); }
+  },
+  // the giant fist: the wrist cut flat at x 10 on the arm's rows, knuckles at x 57
+  gigantFist(i, n, ctx) {
+    fist(ctx, 10, 32 + (i % 2), 24, 0.88, LUFFY_SKIN);
+    ctx.fillStyle = '#f8e8d1';
+    for (let k = 0; k < 4; k++) ctx.fillRect(0, k < 2 ? 12 + k * 3 + (i % 2) : 49 + (k - 2) * 3 - (i % 2), 6 + ((i + k) % 3) * 2, 1);
+  },
+  // the giant fist landing: a starburst most of the cell wide, stone chips and dust after
+  gigantImpact(i, n, ctx) {
+    ctx.translate(32, 32);
+    starburst(ctx, rng(960), [10, 26, 30, 31, 26, 0, 0, 0][i] ?? 0, 12, 0.5, IMPACT);
+    if (i < 2) disc(ctx, 0, 0, 3, IMPACT[0]);
+    if (i >= 2) {
+      const R = rng(970);
+      for (let k = 0; k < 12; k++) {
+        const a = R() * Math.PI * 2, d = 10 + (i - 2) * 4 + R() * 6, x = Math.cos(a) * d, y = Math.sin(a) * d + (i - 2) * 1.5;
+        if (i >= 5) { disc(ctx, x, y, 3 - (i - 5) * 0.7, k % 2 ? '#cdb9a2' : '#b9a28a'); continue; }
+        ctx.fillStyle = k % 3 ? '#8a7560' : '#cdb9a2';
+        ctx.fillRect(Math.round(x), Math.round(y), 2, 2);
+      }
+    }
+  },
+  // chibi Luffy after Gear Third (bottom anchored, floor y 60): the straw hat, a big head, vest and shorts, flailing
+  luffyChibi(i, n, ctx) {
+    const hop = i === 2 || i === 3 ? (i === 2 ? 2 : 1) : 0, y = 60 - hop, arm = i % 2 ? -1 : 1;
+    ctx.fillStyle = '#100706';
+    ctx.fillRect(28, y - 4, 3, 4); ctx.fillRect(33, y - (i >= 4 && i % 2 ? 6 : 4), 3, 4);
+    ctx.fillStyle = '#3a64b8'; ctx.fillRect(27, y - 8, 10, 4);
+    ctx.fillStyle = '#d8302a'; ctx.fillRect(27, y - 13, 10, 5);
+    ctx.fillStyle = LUFFY_SKIN.base;
+    ctx.fillRect(24, y - 13 - (arm > 0 ? 3 : 0), 3, 3); ctx.fillRect(37, y - 13 - (arm < 0 ? 3 : 0), 3, 3);
+    disc(ctx, 32, y - 18, 6, LUFFY_SKIN.base);
+    ctx.fillStyle = '#100706'; ctx.fillRect(34, y - 19, 1, 2); ctx.fillRect(37, y - 19, 1, 2);
+    ctx.fillStyle = '#5a1a22'; ctx.fillRect(34, y - 16, 3, i < 2 ? 2 : 1);
+    ctx.fillStyle = '#2a2630'; ctx.fillRect(26, y - 23, 12, 3);
+    ctx.fillStyle = '#efa638'; ctx.fillRect(22, y - 23, 20, 2); ctx.fillRect(27, y - 27, 10, 4);
+    ctx.fillStyle = '#ca2114'; ctx.fillRect(27, y - 24, 10, 1);
   },
   // ---- Goku's signature techniques (ENG-SKL-GOK). Stand-ins until Codex's HD art is approved
   // (art/characters/goku/SKILLS_REVAMP.md): full color, drawn small, never tinted.
@@ -1633,6 +1856,21 @@ export const VFX_ANIMS = {
   kirinBody: { n: 4, ms: 40, levels: [0, 255] },
   kirinHead: { n: 6, ms: 40, levels: [0, 255] },
   kirinStrike: { n: 8, ms: 45, levels: [0, 255] },
+  // Luffy's signature techniques (ENG-SKL-LUF): HD art cells when packed (ADR 0044), these small stand-ins until then
+  gumArm: { n: 2, ms: 60, levels: [0, 255] },
+  gumFist: { n: 4, ms: 40, levels: [0, 255] },
+  gumImpact: { n: 7, ms: 35, levels: [0, 255] },
+  bazookaBlast: { n: 8, ms: 45, levels: [0, 255] },
+  rocketSnap: { n: 6, ms: 45, levels: [0, 255] },
+  whipSweep: { n: 6, ms: 40, levels: [0, 255] },
+  gear2Steam: { n: 8, ms: 60, levels: [0, 255] },
+  gear2Burst: { n: 7, ms: 45, levels: [0, 255] },
+  gatlingFists: { n: 6, ms: 35, levels: [0, 255] },
+  gear3Puff: { n: 6, ms: 45, levels: [0, 255] },
+  gigantArm: { n: 2, ms: 60, levels: [0, 255] },
+  gigantFist: { n: 4, ms: 40, levels: [0, 255] },
+  gigantImpact: { n: 8, ms: 50, levels: [0, 255] },
+  luffyChibi: { n: 6, ms: 80, levels: [0, 255] },
   // Goku's signature techniques (ENG-SKL-GOK): HD art cells when packed (ADR 0044), these small stand-ins until then
   kamehameha: { n: 8, ms: 40, levels: [0, 255] },
   kamehamehaHead: { n: 6, ms: 40, levels: [0, 255] },

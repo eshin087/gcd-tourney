@@ -1,0 +1,34 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-19T07:17:24.115Z",
+ "fighters": {
+  "gojo": {
+   "idleGarmentPx": 7563,
+   "anims": {
+    "charge": {
+     "v": 8,
+     "body": [
+      0.76,
+      0.819,
+      0.816,
+      0.816,
+      0.82,
+      0.818
+     ],
+     "head": [
+      0.886,
+      0.909,
+      0.871,
+      0.886,
+      0.864,
+      0.909
+     ],
+     "median": 0.817,
+     "headMedian": 0.886,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

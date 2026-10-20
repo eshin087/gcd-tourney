@@ -34,6 +34,12 @@ Standing height: measured on his approved title-style reference beside the cast 
 17; lean and wiry, a little shorter than Goku. Runtime `standingBodyPx` stays the spec default until Claude's
 contact/hurtbox migration.
 
+> **Skills revamp (ENG-SKL-LUF, ADR 0051, 2026-10-18):** the specials, Jet Gatling and Gigant Pistol now play as in
+> the anime. The frame-by-frame art for `special` v03, `throw` v01, `specialForward` v01, `specialUp` v01,
+> `specialDown` v01, `beamFire` v03 and the 14 HD effects is in [SKILLS_REVAMP.md](SKILLS_REVAMP.md), which wins over
+> §2 and §4 below where they differ: a limb longer than the cell leaves it at the edge (the `hand` anchor sits there)
+> and the engine draws the rest; Gear Second's pink skin is a palette swap in the engine, not a redraw.
+
 ## 2. Poses each move needs (for Codex)
 
 Frame counts and phases are the template's (art/manifest.json); timing lives in `src/game/moves.js`. The engine draws
@@ -73,7 +79,10 @@ leg is part of the body.
 
 ## 4. Effects and sound
 
-The Pistol projectile is the `orb` effect tinted skin colour (the stretched arm comes from the strip); the giant fist
-of Gigant Pistol is the `orb` tinted skin colour with `lines`, smoke puffs while the arm inflates; Gear Second is the
-`chakra` flame burst tinted pink with `wisp` steam. A dedicated giant-fist VFX can come later; the engine falls back to
-the tinted orb. Sounds: `whooshHeavy` for the stretches, `explosion` on the Gigant Pistol hit.
+Since the skills revamp (ADR 0051): the Pistol is the stretched arm (`gumArm`) from his hand to the fist (`gumFist`),
+which snaps back, with a knuckle impact (`gumImpact`); the Bazooka's hit is `bazookaBlast`, the Rocket's take-off
+`rocketSnap` (his arms drawn up to what they grabbed), the Whip's leg `whipSweep`; Gear Second is his skin flushed
+pink (the shader's palette swap), `gear2Burst` and `gear2Steam`, afterimages and the JET names; Jet Gatling is
+`gatlingFists` and a `bazookaBlast` Jet Bazooka; Gigant Pistol is `gear3Puff` on the windup, `gigantArm` and
+`gigantFist` down the lane, `gigantImpact`, then `luffyChibi` for the recovery. Until the art is approved each is a
+procedural stand-in. Sounds: `whooshHeavy` for the stretches, `explosion` on the Gigant Pistol hit.

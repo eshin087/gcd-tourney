@@ -40,6 +40,8 @@ const NOOP = new Proxy(function () {}, {
   construct: () => NOOP,
   set: () => true,
 });
+// the states a mode's afterimages trail (Gear Second's speed, ENG-SKL-LUF)
+const GHOSTING = new Set(['attack', 'dash', 'run', 'superDash', 'wavedash', 'throw']);
 // the stunned states a hit's `cling` effect stays on (Lightning Palm's paralysis, ENG-SKL-KIL)
 const CLING_STATES = new Set(['hitstun', 'launched', 'held']);
 // one victim's running combo, for the HUD's ticker and rating (Game.trackCombos, ADR 0026)
@@ -376,11 +378,17 @@ export class Game {
     if (full) this.arena.npcCue('maxPower', { f });
   }
 
+  // a move's name as called out: a mode may rename it (Gear Second's GUM-GUM JET PISTOL, ENG-SKL-LUF)
+  techName(f, m) {
+    return modeLook(f)?.names?.[m.name] ?? m.name;
+  }
+
   onKitMove(f, m) {
     if (!m.name) return;
-    this.comboChip(f, m.name); // a kit special mid-combo (shot, teleport, pull, dive)
-    this.hud.callout(f.index, m.name, m.color || f.def.color);
-    this.arena.npcCue('special', { f, name: m.name });
+    const name = this.techName(f, m);
+    this.comboChip(f, name); // a kit special mid-combo (shot, teleport, pull, dive)
+    this.hud.callout(f.index, name, m.color || f.def.color);
+    this.arena.npcCue('special', { f, name });
     this.superFlashFor(f, 8, 0.3);
     this.cam.zoomPunch(0.25);
   }
@@ -967,6 +975,14 @@ export class Game {
         if (!f.shroud) this.fx.auraTick(f, 0.6, this.cam.right);
       }
       else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0); // a thin aura behind the body: the flames and streaks hid it
+      // Luffy's techniques (ENG-SKL-LUF): the afterimages of a power-up with `ghost` (modeLook: Gear Second), the
+      // Rocket's arms, a rush's stretched leg (the Whip's `sweep`), the Gigant Pistol's giant arm
+      const km = f.state === 'kit' ? f.kitState : null;
+      if (look?.ghost && !frozen && f.t % look.ghost === 0 && GHOSTING.has(f.state)) f.actor.ghost(look.color ?? f.def.color, 0.25, 0.4);
+      if (km?.m?.grab) this.fx.grabTick(f, km.m.grab, km.kind === 'dive' && km.phase === 'rise' && km.rose, this.cam.right);
+      if (km?.kind === 'laneStrike' && km.m.arm) this.fx.laneArm(f, km, km.m, this.cam.right);
+      const L = f.state === 'attack' ? f.move?.sweep : null;
+      this.fx.limbSweep(f, L, !!L && f.t >= f.move.startup && f.t < f.move.startup + f.move.active, this.cam.right);
       // Dragon Fist's dragon coiling round the victim while the hit stop holds them, its frame from the stop's own count
       if (f.coilHit && f.move?.coil && f.hitstop > 0) {
         const C = f.move.coil, o = f.opp, n = this.fx.meta.anims[C.fx]?.n ?? 1, u = 1 - f.hitstop / (f.move.hitstop || 1);
@@ -2142,9 +2158,10 @@ export class Game {
   }
 
   onSpecialStart(f, m) {
-    this.comboChip(f, m.name); // a rush special cancelled into mid-combo
-    this.hud.callout(f.index, m.name, m.color);
-    this.arena.npcCue('special', { f, name: m.name });
+    const name = this.techName(f, m);
+    this.comboChip(f, name); // a rush special cancelled into mid-combo
+    this.hud.callout(f.index, name, m.color);
+    this.arena.npcCue('special', { f, name });
     this.superFlashFor(f, 12, 0.45);
     this.cam.zoomPunch(0.4);
   }
