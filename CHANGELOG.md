@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ENG-112 Naruto, relay #59): closed the one authorized directional-normal round on the user's decision to keep live stand-ins. All 29 saved versioned candidate strips remain unchanged in `raw/_qa_hold/`; manifest and review rows record the disposition, no more calls are authorized in this round, and the production atlas was left untouched.
 - Changed (ENG-SKL-GOK follow-up): Kaio-ken flushes Goku's skin red as in the anime (`recolor: 'kaioken'`, the palette swap from ENG-SKL-LUF: five of his skin shades to reds, the lightest also warming his hair's highlights), on top of the red tint, flame shell and aura; determinism fixtures re-recorded (sim 297143fb8fdf).
 - Changed (ART-CHARGE): completed all six gather-then-hold charge redraws. Gojo v08 was approved with scripted frame-divider cleanup saved as v09; PR #215 merged at `fed5eaaf`, and all six fighters now ship the new charge animation.
 - Changed (ART-CHARGE): prepared Gojo charge v08 review from three image calls; moved the unchanged candidate to `_qa_hold/` after the strict pack failed, retained approved v07 as the shipped pack, refreshed the post-merge quantized-cell registration/body evidence, and recorded Astra's technical HOLD. User review pending at [the charge review page](public/reviews/charge-gojo/).
