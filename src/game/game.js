@@ -1003,7 +1003,7 @@ export class Game {
       else this.fx.dropHand(f);
       // a rush's drawn shove from the held fist to the struggle point (Dragon Fist's dragon, ADR 0055)
       const cs = f.state === 'clash' ? this.clashSide(f) : null;
-      if (cs?.push && cs.hold) this.fx.keepSpan('push' + f.index, cs.push.fx, cs.hold, this.clash.point, this.cam.right, { fill: cs.push.fill ?? 0.9, order: 8, glow: 0.3 });
+      if (cs?.push && cs.hold && this.fx.drawn(cs.push.fx)) this.fx.keepSpan('push' + f.index, cs.push.fx, cs.hold, this.clash.point, this.cam.right, { fill: cs.push.fill ?? 0.9, order: 8, glow: 0.3 });
       else this.fx.drop('push' + f.index);
     }
     if (this.clash) lines = 0.75;
@@ -1776,7 +1776,7 @@ export class Game {
     const size = (c.lite ? 0.5 : c.tier === 'struggle' ? 0.52 : 0.85) * pulse;
     // the drawn collision (`clashKnot`, ADR 0055) once approved, else round 1's clashBurst; above a beam's head and
     // Hollow Purple (order 8), so the collision always reads in front
-    const knot = this.fx.meta.anims.clashKnot ? 'clashKnot' : 'clashBurst';
+    const knot = this.fx.drawn('clashKnot') ? 'clashKnot' : 'clashBurst';
     const top = { order: 9, depthTest: false, glow: 0.25, opacity: 0.95 };
     this.fx.keep('clashA', knot, p.x, p.y, p.z, { ...top, scale: size, color: c.ca });
     const b = this.fx.keep('clashB', knot, p.x, p.y, p.z, { ...top, scale: size * 0.86, color: c.cb });

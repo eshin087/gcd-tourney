@@ -215,6 +215,13 @@ export class Effects {
     return { owners: [...this.owners], pages, gpuMB: +pages.reduce((s, p) => s + p.mb, 0).toFixed(1) };
   }
 
+  // An effect drawn from its own art right now: in the atlas, and an HD one's page in (a page still loading, or one this
+  // match does not load, draws a glow stand-in). The clash art (ADR 0055) keeps the older piece until then.
+  drawn(name) {
+    const a = name && this.meta.anims[name];
+    return !!a && (!a.hd || !!this.hd?.pages[a.page]?.tex);
+  }
+
   // Where an effect is drawn from now: { a: its strip there, S: the sheet }. An HD effect whose page this match has
   // not got draws its stand-in from the procedural sheet (`wait`: that page).
   source(name) {

@@ -242,27 +242,36 @@ class BeamView {
     const view = tmpB.copy(camera.position).sub(o).normalize();
     const side = new THREE.Vector3().crossVectors(beam.dir, view).normalize();
     const normal = new THREE.Vector3().crossVectors(beam.dir, side).normalize();
-    const St = beam.St;
+    const St = beam.St, fx = this.game.fx;
+    // a drawn band whose page is not in yet (it loads with the match) draws the style's older band meanwhile, or nothing:
+    // never the glow stand-in tiled along the stream (ADR 0055)
+    let D = St;
+    if (St.band && !fx.drawn(St.fx)) {
+      const old = STREAM_STYLES[beam.pal.style];
+      D = old?.fx && fx.drawn(old.fx) ? old : null;
+    }
     // an atlas band is as wide as one cell is long (square cells); the ribbon flickers
-    const w = St.fx ? St.seg : beam.width * (0.92 + dmath.sin(time * 40) * 0.08);
+    const w = St.fx ? (D ?? St).seg : beam.width * (0.92 + dmath.sin(time * 40) * 0.08);
     const m = this.mesh.matrix;
     m.makeBasis(beam.dir.clone().multiplyScalar(beam.len), side.multiplyScalar(w), normal);
     m.setPosition(o);
     this.mesh.matrixWorldNeedsUpdate = true;
     const u = this.mat.uniforms;
-    const fx = this.game.fx;
     u.uLen.value = beam.len;
     u.uFade.value = Math.max(0, beam.fade);
-    if (St.fx) {
-      const a = fx.meta.anims[St.fx];
-      u.map.value = fx.source(St.fx).S.tex; // an HD band's page may come in after the stream started
-      fx.uv(St.fx, Math.floor((time * 1000) / a.ms) % a.n, u.uvRect.value);
-      u.uScroll.value = (time * St.scroll) % St.seg;
-    } else {
+    if (St.fx && D) {
+      const a = fx.meta.anims[D.fx];
+      u.map.value = fx.source(D.fx).S.tex;
+      fx.uv(D.fx, Math.floor((time * 1000) / a.ms) % a.n, u.uvRect.value);
+      u.uSeg.value = D.seg;
+      u.uScroll.value = (time * D.scroll) % D.seg;
+      u.uGlow.value = D.glow ?? 0.3;
+      u.color.value.set(D.full ? 0xffffff : new THREE.Color(beam.pal.core).lerp(new THREE.Color(beam.pal.mid), D.tint ?? 0.5));
+    } else if (!St.fx) {
       u.uTime.value = time;
       u.uHot.value = beam.clash ? 1.1 : 1.4; // in a clash the two streams sit beside the fighters
     }
-    this.mesh.visible = !St.orb; // Red shoves its orb, it pours no stream (ADR 0055)
+    this.mesh.visible = !St.orb && !!D; // Red shoves its orb, it pours no stream (ADR 0055)
     const color = new THREE.Color(beam.pal.mid);
     const id = beam.owner.index;
     const pulse = 1 + dmath.sin(time * 30) * 0.08;
@@ -287,7 +296,7 @@ class BeamView {
       // Reversal: Red shoved into the other attack (ADR 0055): the orb's front on the struggle point (the beam's head,
       // which runs on through the loser when Red wins), swelling on a good beat; repulsion ripples run from the
       // fingertips into it. The drawn shove (`push`) once approved, else the HD orb turned along the line, else the old one
-      const art = fx.meta.anims[St.push] ? St.push : fx.meta.anims[St.hd] ? St.hd : St.orb;
+      const art = fx.drawn(St.push) ? St.push : fx.drawn(St.hd) ? St.hd : St.orb;
       const sc = art === St.push ? St.pushScale : art === St.hd ? St.hdScale : St.orbScale;
       const s = sc * (beam.clash ? 1 + beam.clash.kick * 0.15 : 1) * beam.fade;
       const at = Math.max(0.2, beam.len - (St.front[art] ?? 0.15) * fx.cellWorld * s); // the orb's front (a share of its cell) on the head
