@@ -1,0 +1,252 @@
+{
+ "tool": "tools/body-sheet.mjs",
+ "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
+ "generated": "2026-10-19T07:37:35.034Z",
+ "fighters": {
+  "naruto": {
+   "idleGarmentPx": 3126,
+   "anims": {
+    "fTilt": {
+     "v": 2,
+     "body": [
+      0.555,
+      0.525,
+      0.557,
+      0.522,
+      0.516,
+      0.539,
+      0.533
+     ],
+     "head": [
+      0.913,
+      0.913,
+      0.916,
+      0.905,
+      0.931,
+      0.92,
+      0.921
+     ],
+     "median": 0.533,
+     "headMedian": 0.916,
+     "flag": "small"
+    },
+    "uTilt": {
+     "v": 3,
+     "body": [
+      0.413,
+      0.378,
+      0.377,
+      0.405,
+      0.421,
+      0.379,
+      0.386
+     ],
+     "head": [
+      1.069,
+      1.138,
+      1.093,
+      0.91,
+      1.105,
+      1.103,
+      1.139
+     ],
+     "median": 0.386,
+     "headMedian": 1.103,
+     "flag": "small"
+    },
+    "dTilt": {
+     "v": 3,
+     "body": [
+      0.616,
+      0.544,
+      0.479,
+      0.496,
+      0.649,
+      0.623
+     ],
+     "head": [
+      1.304,
+      1.37,
+      1.419,
+      1.376,
+      1.29,
+      1.31
+     ],
+     "median": 0.58,
+     "headMedian": 1.34,
+     "flag": "small"
+    },
+    "dashAttack": {
+     "v": 3,
+     "body": [
+      0.558,
+      0.489,
+      0.489,
+      0.477,
+      0.502,
+      0.547,
+      0.471
+     ],
+     "head": [
+      1.267,
+      1.211,
+      0.595,
+      null,
+      1.155,
+      1.325,
+      1.26
+     ],
+     "median": 0.489,
+     "headMedian": 1.236,
+     "flag": "small"
+    },
+    "fSmash": {
+     "v": 3,
+     "body": [
+      0.475,
+      0.475,
+      0.454,
+      0.467,
+      0.489,
+      0.473,
+      0.479,
+      0.473,
+      0.469
+     ],
+     "head": [
+      1.193,
+      1.207,
+      1.212,
+      1.208,
+      1.18,
+      1.19,
+      1.168,
+      1.19,
+      1.207
+     ],
+     "median": 0.473,
+     "headMedian": 1.193,
+     "flag": "small"
+    },
+    "uSmash": {
+     "v": 3,
+     "body": [
+      0.353,
+      0.33,
+      0.337,
+      0.347,
+      0.342,
+      0.358,
+      0.331,
+      0.351
+     ],
+     "head": [
+      0.918,
+      0.992,
+      0.966,
+      0.897,
+      0.828,
+      0.828,
+      0.558,
+      0.926
+     ],
+     "median": 0.345,
+     "headMedian": 0.908,
+     "flag": "small"
+    },
+    "dSmash": {
+     "v": 3,
+     "body": [
+      0.619,
+      0.59,
+      0.528,
+      0.507,
+      0.603,
+      0.596,
+      0.575,
+      0.625
+     ],
+     "head": [
+      1.352,
+      1.358,
+      1.429,
+      1.463,
+      1.444,
+      1.429,
+      1.437,
+      1.334
+     ],
+     "median": 0.593,
+     "headMedian": 1.429,
+     "flag": "small"
+    },
+    "fair": {
+     "v": 3,
+     "body": [
+      0.419,
+      0.387,
+      0.412,
+      0.425,
+      0.382,
+      0.39
+     ],
+     "head": [
+      1.308,
+      1.311,
+      1.302,
+      1.318,
+      1.322,
+      1.33
+     ],
+     "median": 0.401,
+     "headMedian": 1.315,
+     "flag": "small"
+    },
+    "bair": {
+     "v": 3,
+     "body": [
+      0.519,
+      0.509,
+      0.528,
+      0.507,
+      0.467,
+      0.526
+     ],
+     "head": [
+      1.338,
+      1.332,
+      1.349,
+      1.356,
+      1.328,
+      1.34
+     ],
+     "median": 0.514,
+     "headMedian": 1.339,
+     "flag": "small"
+    },
+    "uair": {
+     "v": 3,
+     "body": [
+      0.423,
+      0.41,
+      0.464,
+      0.466,
+      0.438,
+      0.442
+     ],
+     "head": [
+      1.113,
+      1.105,
+      0.939,
+      0.955,
+      1.107,
+      1.069
+     ],
+     "median": 0.44,
+     "headMedian": 1.087,
+     "flag": "small"
+    }
+   }
+  }
+ }
+}

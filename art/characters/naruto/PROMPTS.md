@@ -1612,6 +1612,9 @@ PALETTE (use only these 34 colors): outline #1d1420; skin #ffe2c6 #f8c69b #eaa77
 BACKGROUND: flat solid magenta #FF00FF behind everything (never use magenta on the character). No ground shadow, no floor, no text, no numbers, no labels, no frame borders or grid lines, no energy effects, no aura, no extra characters.
 ```
 
+## ENG-112 directional normal correction: `uair`
+
+For `uair`, draw a **true airborne straight-up kick**, not a fist strike. In the 6-frame `[2,2,2]` strip, f2-f3 are the active frames: Naruto is visibly airborne, his right leg extends up and slightly forward with the instep/toes leading above his head, his left leg trails below the hips, and both arms counterbalance down/back. The foot is the highest and striking point. Keep him facing right in the approved 3/4 view, with his head turned toward the overhead target. No floor-planted uppercut pose, clones, effects, smear, or detached speed lines. Match the approved idle anatomy and body scale. Preserve this action in every retry; do not replace the kick with a punch.
 ## UI art
 
 UI images are not packed into the sheet. Save each candidate as `raw/ui_<name>_vNN.png` (the sheet

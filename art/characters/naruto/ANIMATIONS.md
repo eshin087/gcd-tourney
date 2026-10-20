@@ -1106,6 +1106,24 @@ Shown during the super flash of his second super, SHADOW CLONE BARRAGE: he forms
 | f2 | `superPose_02` | loop | Same as f0, hair spikes 1 px up, tails in a third shape. | shout | |
 | f3 | `superPose_03` | loop | Same as f1 with the pant legs fluttering. Flows into f0. | shout | |
 
+## Directional normals (ADR 0042)
+
+Ten optional Smash-style moves. Naruto uses the mapped stand-in until a candidate passes technical review and the user reviews the image. All poses face screen-right in the approved 3/4 view and preserve the approved idle anatomy, Shippuden outfit, and palette. Naruto is a direct brawler here; do not draw clones or effects.
+
+| Animation | Naruto's action |
+|---|---|
+| fTilt | Step in with a lead-hand straight punch to the chest, then recover. |
+| uTilt | Rising uppercut arc, fist moving from face height to above the head. |
+| dTilt | Deep crouch and low forward punch aimed at shin height. |
+| dashAttack | Ninja-run shoulder-first lunge and body check. |
+| fSmash | Coil into a weight-back near-fist charge (frame 1 is held while Heavy is held), then drive a full-body chest-height haymaker. |
+| uSmash | Rise into a clear vertical overhead fist strike. |
+| dSmash | Low spin and sweeping leg strike that splits behind and in front of the body. |
+| fair | Airborne forward kick at mid-body height. |
+| bair | Airborne rear-leg kick backward toward screen-left, behind the body. |
+| uair | True airborne straight-up kick, with the foot clearly leading above the head. |
+
+**ENG-112 candidates:** fTilt v01/v02 and v01-v03 for the other nine moves are retained in `raw/_qa_hold/`; each move used three image calls. Astra's final diagnostic atlas audit holds all ten, with zero manual scale passes. Findings include visible head/build differences, clipping or incomplete contacts, and unresolved segment calibration; packer color-region proxies are not anatomy measurements, and the body proxy is invalid. The `uair` candidates are above-head punches and miss this table's true airborne up-kick brief. Details and source versions are on the [review page](../../../public/reviews/normals-naruto/) and in [generation QA](production/normals-ENG112/GENERATION_LOG.md). They remain technical holds, not user rejections or approvals. The current packed game continues to use its mapped stand-ins. Do not change bodyHeight to compensate for the candidate proportions.
 ## Changing an animation
 
 - Frame counts and phases come from `src/art/animGuide.js` and `art/manifest.json`. If a strip comes

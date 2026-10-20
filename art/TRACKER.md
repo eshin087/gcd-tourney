@@ -199,6 +199,17 @@ User explicitly kept v04 held on 2026-10-15. Not approved; contact and technical
 
 - User approved light4Alt v01 as drawn on 2026-10-15 (all 24 remaining round5 strips). Historical Astra evidence and uncertainty remain; visual approval does not establish a new numeric anatomy pass.
 
+| 9 | fTilt | 7 | 2/2/3 | no | 185 | raw | v02 | - | Three calls; Astra holds all. Head-to-body balance and segment calibration unresolved; .905–.931 head-region proxy does not show a uniformly small figure. Both versions punch/retract. Stand-in active. |
+| 9 | uTilt | 7 | 2/2/3 | no | 218 | raw | v03 | - | Three calls; Astra holds all. Sleeve overlap makes .910 proxy unreliable; f2/f3 upward punches visible, landmark calibration unresolved. Stand-in active. |
+| 9 | dTilt | 6 | 2/2/2 | no | 196 | raw | v03 | - | Three calls; Astra holds all. f2 fist clipped; f3 retracts before second low poke. v01 merits controlled packed comparison. Stand-in active. |
+| 9 | dashAttack | 7 | 2/2/3 | no | 192 | raw | v03 | - | Three calls; Astra holds all. Both active frames are cropped and face/front contact is lost; probe is unreliable; no version shows a clear extended blow. Stand-in active. |
+| 9 | fSmash | 9 | 4/2/3 | no | 192 | raw | v03 | - | Three calls; Astra holds all. Head/build visibly enlarged; charge/strikes readable, segment certification incomplete. Stand-in active. |
+| 9 | uSmash | 8 | 3/2/3 | no | 218 | raw | v03 | - | Three calls; Astra holds all. Reduced build/leg/shoe silhouette; overhead strike present; occluded head proxy is invalid. Stand-in active. |
+| 9 | dSmash | 8 | 3/2/3 | no | 196 | raw | v03 | - | Three calls; Astra holds all. Enlarged head/build; active f3/f4 clip left and bilateral contact is incomplete. Stand-in active. |
+| 9 | fair | 6 | 2/2/2 | no | 179 | raw | v03 | - | Three calls; Astra holds all. Head appears enlarged relative to feet/body and right margin is tight; packed reach comparison needed. Stand-in active. |
+| 9 | bair | 6 | 2/2/2 | no | 192 | raw | v03 | - | Three calls; Astra holds all. Head appears enlarged relative to footwear; leftward rear kick reads, anatomy pass unresolved. Stand-in active. |
+| 9 | uair | 6 | 2/2/2 | no | 218 | raw | v03 | - | Three calls; Astra holds all. Above-head fist misses the requested true airborne up kick; small footwear/occluded landmarks leave limb scale uncertain. Stand-in active. |
+
 ## sasuke
 
 Beam clash round 4: ground `beamStruggle_v02` selected from attempt03 after relay #14 authorized 3 additional calls (cumulative 6/6). Quantized candidate auto head gate passes against idle; Astra holds torso (32–35 px vs39–44) and hand stability (fingertips x214/199/208 ±2 move 15/9 px); legs improve to 81–86 vs83–90 px. v02 remains in `raw/_qa_hold/`, v01 stays approved/live (`approvedVersion` 1), no production atlas or user approval. See [generation ledger](characters/sasuke/production/beam-clash-r4/GENERATION_LOG.md), [measurements](characters/sasuke/production/beam-clash-r4/MEASUREMENTS.md), and [round-4 review assets](../public/reviews/beam-clash-r3/). All three air strips unchanged.
@@ -493,7 +504,7 @@ manifest lists all ten per fighter (status `todo`, bodyHeight copied from that f
 
 | fighter | tilts (f / u / d) | dashAttack | smash attacks (f / u / d) | aerials (fair / bair / uair) | notes |
 |---|---|---|---|---|---|
-| naruto | todo | todo | todo | todo | ENG-112, branch art/normals-naruto (last, after TOOL-060) |
+| naruto | fTilt v02 held; uTilt v03 held; dTilt v03 held | dashAttack v03 held | fSmash v03 held; uSmash v03 held; dSmash v03 held | fair v03 held; bair v03 held; uair v03 held | ENG-112 closed on live stand-ins via Claude relay combat #59; 30 calls / 29 saved candidates remain preserved in `raw/_qa_hold/`, with all ten Astra FINAL5 technical holds recorded. No further calls authorized in this round; production atlas unchanged. [review page](../public/reviews/normals-naruto/); source receipts in `characters/naruto/production/normals-ENG112/GENERATION_LOG.md`. |
 | sasuke | fTilt v03 approved, held; uTilt v05 approved; dTilt v05 approved | dashAttack v05 approved | fSmash v02 approved; uSmash v05 approved; dSmash stand-in | fair v03, bair v01, uair v01 approved | ENG-112, branch art/normals-sasuke; strict pack passes with 52 animations / 236 frames; fTilt decision pending; runtime contact check by Claude |
 | killua | fTilt v02 approved; dTilt v02 approved | dashAttack v02 approved | fSmash v02 approved; uSmash stand-in; dSmash v03 approved | fair/bair v02 approved; uair stand-in | ENG-112: all ten drawings approved via Claude relays #20/#22. Relay #24 first pack d62a961c ships seven; uTilt/uSmash/uair remain in _qa_hold for follow-up; contact crops in public/reviews/normals-killua/ship-seven/. |
 | gojo | fTilt v01, uTilt v01, dTilt v02 approved | dashAttack v01 approved | fSmash/uSmash/dSmash v01 approved | fair v01, bair v02, uair v01 approved | ENG-112: all ten drawings approved via Claude relays #30/#35. Nine-move branch merged; uair v01 reviewed at retry-34. Astra technical holds and Claude runtime contact check remain. |
