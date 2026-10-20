@@ -27,15 +27,12 @@ The full brief: **[art/vfx/CLASH_HD_BRIEF.md](../../art/vfx/CLASH_HD_BRIEF.md)**
 stand-ins on `feature/beam-clash-r3` (ENG-122, ADR 0055). You draw the art on `art/clash-hd`. Generation on
 `gpt-6-luna` medium, at most 3 calls per image, no Astra audit (effects only). Do not edit `src/` or `tools/`.
 
-- [ ] 1. Worktree `art/clash-hd` (`npm run pr -- start art/clash-hd --art vfx`), dev port 5247.
-- [ ] 2. The eight effects of brief section 3 as `art/vfx/raw/<name>_v01.png` (C1 `clashKnot`, C2 `spearStream`,
-  C3 `palmStream`, C4 `fireballStream`, C5 `kamehamehaStream`, C6 `beastBeamStream`, C7 `redPush`, C8
-  `dragonFistPush`); the five bands also as exact 256 x 256 tiles in `art/vfx/frames/<name>/`; manifest rows with
-  `"hd": true` and the owner from the table; `node tools/pack-sprites.mjs vfx --candidates` clean.
-- [ ] 3. Review page `public/reviews/clash-hd/` (brief section 4), REVIEW/manifest/TRACKER rows (`needs review`),
-  `npm run pr -- open`, `npm run pr -- preview`, handoff at the top of docs/agents/CLAUDE_ART_HANDOFF.md.
-- [ ] 4. `node tools/relay.mjs ring beam-clash-6 --for user --kind approval --note "<items, versions, review link>"`
-  from main, then **stop**: Claude asks the user and relays the answer word for word.
+- [x] 1 (2026-10-19): used worktree `art/clash-hd`; the standalone review gallery did not need a dev server.
+- [x] 2 (2026-10-19): filed C1 `clashKnot_v02`, C2-C5 v01, C6 `beastBeamStream_v02`, C7-C8 v01; all packed at the brief frame counts. No new tile/fill warnings; three unrelated preexisting warnings remain.
+- [x] 3 (2026-10-19): review page, tracking, PR #219 and preview published; handoff records commit `b532c4f1`.
+- [x] 4 (2026-10-19): approval ring is the final action in this turn; Claude asks the user and relays the answer.
+
+
 
 ## Charge redraw: gather, then hold, all six fighters (2026-10-18, Claude) - chat "1 - Charging Animation", relay lane `charge`
 
