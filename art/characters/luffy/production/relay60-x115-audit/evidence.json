@@ -1,0 +1,176 @@
+{
+  "head": "dbf3e0e59ff84489d821f69d805e8d9d4f7a0b49",
+  "files": {
+    "public/characters/luffy/sheet.png": "4c776508cd6c9ca5a6a84cfc4ed22ccc8837e9eb53984e4622c8773a30a85640",
+    "public/characters/luffy/anims.json": "722a153352e4458481abd4ebab4c39def034658cafa31d969cbfcbb963324666"
+  },
+  "metadata": {
+    "frames": [
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161
+    ],
+    "durations": [
+      50,
+      40,
+      30,
+      50,
+      70,
+      70,
+      60,
+      30
+    ],
+    "loop": false,
+    "phases": [
+      3,
+      2,
+      3
+    ]
+  },
+  "opaqueColors": 48,
+  "items": [
+    {
+      "name": "neutral",
+      "sha256": "8e9da76421c52e5fa449ce55b2dba1933b52e74d15ccd4a69090b9f97eb082b1"
+    },
+    {
+      "name": "combat",
+      "sha256": "439678e0a9689edc3cc9686d51a65f9d546e2e68aae20760de8e7f4391a306e0"
+    },
+    {
+      "name": "idle f0",
+      "cell": 0,
+      "rgbaSha256": "47876eac32afccd800cac6bd92ecbdfdca447dd2e72d45806e558be6d55928da",
+      "boundsExclusive": [
+        41,
+        54,
+        210,
+        241
+      ],
+      "occupiedHeight": 187,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "idle f7",
+      "cell": 7,
+      "rgbaSha256": "fa6519053c84c0f2b4d8bbe6d1f97dd8de64b72b2f4d2f034924a4000b34164b",
+      "boundsExclusive": [
+        42,
+        54,
+        212,
+        241
+      ],
+      "occupiedHeight": 187,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "uSmash f0",
+      "cell": 154,
+      "rgbaSha256": "b61e2ab1834fc5119f156948a6418ef989ac1f47b7e02d1478eb55d8903805cc",
+      "boundsExclusive": [
+        67,
+        80,
+        189,
+        241
+      ],
+      "occupiedHeight": 161,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "uSmash f1",
+      "cell": 155,
+      "rgbaSha256": "24d3cccdb95e9a741ecda1e4b17bce2d6a1dd4d43597e91870f14f75e59f3a0c",
+      "boundsExclusive": [
+        65,
+        62,
+        192,
+        241
+      ],
+      "occupiedHeight": 179,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "uSmash f2",
+      "cell": 156,
+      "rgbaSha256": "c4e724eb908460757592c7a6673511ca72ae1c8256ed5e31b8a838b60e670c84",
+      "boundsExclusive": [
+        63,
+        54,
+        191,
+        241
+      ],
+      "occupiedHeight": 187,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "uSmash f3",
+      "cell": 157,
+      "rgbaSha256": "84487d74556da5290bc4c395897b0d95351b00ee1d1c47b1c3e945683af708dd",
+      "boundsExclusive": [
+        61,
+        42,
+        194,
+        241
+      ],
+      "occupiedHeight": 199,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "uSmash f4",
+      "cell": 158,
+      "rgbaSha256": "c0baa74058060715c0bdb1031a81a92f61852b3cc807e0249659dbf71226aa90",
+      "boundsExclusive": [
+        61,
+        10,
+        199,
+        241
+      ],
+      "occupiedHeight": 231,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "uSmash f5",
+      "cell": 159,
+      "rgbaSha256": "70845ce60baf6b3b7aa3d4a073bd39e8bcedb41203ea104a72811b15de29dda9",
+      "boundsExclusive": [
+        61,
+        42,
+        194,
+        241
+      ],
+      "occupiedHeight": 199,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "uSmash f6",
+      "cell": 160,
+      "rgbaSha256": "3222da2ef31b279f4b148b0c222000b8c44c49256cf4d703ef4a5a1051788ee6",
+      "boundsExclusive": [
+        60,
+        55,
+        194,
+        241
+      ],
+      "occupiedHeight": 186,
+      "rgbaIdenticalToRelay57": true
+    },
+    {
+      "name": "uSmash f7",
+      "cell": 161,
+      "rgbaSha256": "d784d89808e64e1701bc4510d40387d037f43f644720ef03540da5ce7e72c91e",
+      "boundsExclusive": [
+        62,
+        55,
+        193,
+        241
+      ],
+      "occupiedHeight": 186,
+      "rgbaIdenticalToRelay57": true
+    }
+  ]
+}
