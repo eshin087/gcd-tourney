@@ -192,6 +192,17 @@ const VFX_EFFECTS = {
   streamLance: { frames: 4, ms: 40, tinted: true, fill: 1, tile: true },
   streamFlame: { frames: 4, ms: 50, tinted: false, fill: 1, tile: true },
   redOrb: { frames: 6, ms: 40, tinted: false, fill: 0.5 },
+  // clash HD art (ADR 0055, art/vfx/CLASH_HD_BRIEF.md): each move's own look in a clash, continuing its approved effect.
+  // The *Stream bands tile like gumArm (exact 256 x 256 frames in art/vfx/frames/<name>/); clashKnot is drawn white and
+  // tinted per side
+  clashKnot: { frames: 8, ms: 40, tinted: true, fill: 0.95, hd: true, owner: 'shared' },
+  spearStream: { frames: 4, ms: 35, tinted: false, fill: 1, tile: true, hd: true, owner: 'sasuke' },
+  palmStream: { frames: 4, ms: 30, tinted: false, fill: 1, tile: true, hd: true, owner: 'killua' },
+  fireballStream: { frames: 4, ms: 50, tinted: false, fill: 1, tile: true, hd: true, owner: 'sasuke' },
+  kamehamehaStream: { frames: 4, ms: 40, tinted: false, fill: 1, tile: true, hd: true, owner: 'goku' },
+  beastBeamStream: { frames: 4, ms: 40, tinted: false, fill: 1, tile: true, hd: true, owner: 'naruto' },
+  redPush: { frames: 8, ms: 40, tinted: false, fill: 0.9, hd: true, owner: 'gojo' },
+  dragonFistPush: { frames: 8, ms: 45, tinted: false, fill: 0.98, hd: true, owner: 'goku' },
   // Naruto's signature techniques (ENG-SKL-NAR, ADR 0044): HD cells, art/characters/naruto/SKILLS_REVAMP.md
   rasengan: { frames: 8, ms: 40, tinted: false, fill: 0.55, hd: true, owner: 'naruto' },
   rasenganForm: { frames: 6, ms: 45, tinted: false, fill: 0.55, hd: true, owner: 'naruto' },

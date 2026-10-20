@@ -184,7 +184,7 @@ export function moveList(def) {
 }
 
 const kindOf = (def) => SUPERS[kitOf(def).ultimate]?.kind ?? 'beam';
-const CLASH_NOTE = 'needs two ultimates that clash (beam, orb or pounce), e.g. Gojo vs Naruto';
+const CLASH_NOTE = 'needs two ultimates that clash (beam, orb, pounce or the Gigant Pistol), e.g. Gojo vs Naruto';
 
 // BEAM CLASH (ADR 0027): the energy move a side fires. A shot when it has one (`rush` prefers the Rasengan / Chidori),
 // never a rush against a side that has no shot to meet it (two rushes are the one-beat special clash).
