@@ -1,0 +1,21 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/redPush_v01.png",
+  "version": 1,
+  "source": [
+    "vfx/raw/redPush_v01.png"
+  ],
+  "sourceHash": "be39a6f98dea75ce62ffc3e2b766f6db1b229232",
+  "cell": 256,
+  "files": {
+    "redPush_00.png": "de9ed975f1e8423273ce67c0a199bfc14a4305ce",
+    "redPush_01.png": "4d2efb3cbf6abd160bfe647c15f6a4f3c5e5dfb4",
+    "redPush_02.png": "bafcc6347ce7feb51fc17b753d697ca2027ce798",
+    "redPush_03.png": "b58370c69cf9bc1bd6980d3144b10175f68cba84",
+    "redPush_04.png": "5f1547ad693d1bdd8aadc8afc1b9b9be5d8f7683",
+    "redPush_05.png": "bd33d216b1fcc1e03522b4ec6c3632f8ccb69507",
+    "redPush_06.png": "664f104c5b3519ddac1fc9fd1a483b78dc352ff2",
+    "redPush_07.png": "b9290e3ca09c1323345b9225a83aaddea75299fe"
+  }
+}
