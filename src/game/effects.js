@@ -215,6 +215,13 @@ export class Effects {
     return { owners: [...this.owners], pages, gpuMB: +pages.reduce((s, p) => s + p.mb, 0).toFixed(1) };
   }
 
+  // An effect drawn from its own art right now: in the atlas, and an HD one's page in (a page still loading, or one this
+  // match does not load, draws a glow stand-in). The clash art (ADR 0055) keeps the older piece until then.
+  drawn(name) {
+    const a = name && this.meta.anims[name];
+    return !!a && (!a.hd || !!this.hd?.pages[a.page]?.tex);
+  }
+
   // Where an effect is drawn from now: { a: its strip there, S: the sheet }. An HD effect whose page this match has
   // not got draws its stand-in from the procedural sheet (`wait`: that page).
   source(name) {
@@ -655,8 +662,9 @@ export class Effects {
 
   // Charging aura: flame tongues + light streaks + glow, tinted per character.
   // `front`: the share of flames drawn in front of the body (a power-up keeps them behind, so the fighter reads).
-  // Under half power (a beam clash's thin aura) a frame may spawn no flame and never a light streak.
-  auraTick(f, power = 1, camRight, front = 0.2) {
+  // Under half power (a beam clash's thin aura) a frame may spawn no flame and never a light streak. `disc`: the soft
+  // glow behind the body (off in a clash, where it read as a bubble round each fighter).
+  auraTick(f, power = 1, camRight, front = 0.2, disc = true) {
     // a mode can recolor the aura (Nine-Tails Cloak burns red-orange)
     const c = new THREE.Color(f.mode?.auraColor ?? f.def.color);
     const core = new THREE.Color().setRGB(...(f.mode?.auraCore ?? f.def.auraCore));
@@ -679,7 +687,8 @@ export class Effects {
       const a = Math.random() * Math.PI * 2;
       this.spawn('star', p.x + Math.cos(a) * 0.9, 0.05, p.z + Math.sin(a) * 0.6, { scale: 0.18, frame: 2, vel: [0, 3 + Math.random() * 2, 0], color: 0xb8a48c, life: 0.6 });
     }
-    this.keep('aura' + f.index, 'glow', p.x + back.x * 0.4, p.y + 0.8, p.z + back.z * 0.4, { scale: 1.1 + Math.sin(performance.now() * 0.02) * 0.06, color: c, opacity: 0.28 * Math.min(1, power), order: 1, glow: 0.25 });
+    if (disc) this.keep('aura' + f.index, 'glow', p.x + back.x * 0.4, p.y + 0.8, p.z + back.z * 0.4, { scale: 1.1 + Math.sin(performance.now() * 0.02) * 0.06, color: c, opacity: 0.28 * Math.min(1, power), order: 1, glow: 0.25 });
+    else this.drop('aura' + f.index);
   }
 
   // Signature move hand effects. `quiet`: held into a beam clash, where its halo would cover the holder; `pos`: where
@@ -726,9 +735,10 @@ export class Effects {
       const p = phase === 0 ? at(-0.2, 0.8) : at(0.7, 0.85);
       const s = (phase === 0 ? 0.3 + prog * 0.4 : 0.75) * k;
       this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * (phase === 0 ? 1.1 : 0.7), color: 0xffd84a, opacity: 0.4 * halo, order: 3, glow: 0.6 });
-      if (phase === 1 && !quiet) {
+      if ((phase === 1 && !quiet) || (quiet && pos)) {
         // raised along the billboard's up and a step behind it along the view (a point raised straight up comes nearer
-        // the downward-looking camera and would cover him), so it frames him
+        // the downward-looking camera and would cover him), so it frames him; held into a beam clash too (ADR 0055),
+        // where a lone glow at the fist read as a stand-in
         const bk = this.camFwd, U = this.camUp, h = 0.8 * k;
         this.keep('hand' + f.index, 'dragonFistAura', P.x + fx * 0.1 * k + U.x * h + bk.x * 0.3, P.y + U.y * h + bk.y * 0.3, P.z + fz * 0.1 * k + U.z * h + bk.z * 0.3, { scale: 0.82 * k, order: 1, glow: 0, flipX: f.side < 0 });
       } else this.drop('hand' + f.index);
@@ -803,6 +813,16 @@ export class Effects {
     const s = len / (o.fill ?? 0.95);
     it.base = s;
     it.mesh.scale.set(flip ? -s : s, s, s);
+    return it;
+  }
+
+  // A held effect laid from `from` to `to` (span's look, kept by `id`): a rush's drawn shove from the fist to the struggle
+  // point in a beam clash (Dragon Fist's dragon, ADR 0055), drawn pointing screen-right and turned to the line on screen
+  keepSpan(id, name, from, to, camRight, o = {}) {
+    const dx = to.x - from.x, dy = to.y - from.y, dz = to.z - from.z, len = Math.hypot(dx, dy, dz) || 1e-3;
+    const sx = (dx * camRight.x + dz * camRight.z) / len, flip = sx < 0, phi = Math.atan2(dy / len, Math.abs(sx));
+    const it = this.keep(id, name, (from.x + to.x) / 2, (from.y + to.y) / 2, (from.z + to.z) / 2, { ...o, scale: len / ((o.fill ?? 0.95) * this.cellWorld), flipX: flip });
+    it.rot = flip ? -phi : phi;
     return it;
   }
 
@@ -1031,20 +1051,22 @@ export class Effects {
   // The Gigant Pistol's giant arm (kit.js laneStrike `arm`): from the drawn shoulder (where the strip's arm leaves the
   // cell) down his lane to the giant fist while it shoots out, snapping back over the first `back` recovery frames;
   // after that the `after` effect stands where his body was (chibi Luffy; Fighter.sync veils the sprite)
-  laneArm(f, k, S, camRight) {
-    const A = S.arm, i = f.index, p = f.renderPos || f.pos;
-    const ext = k.phase === 'punch' ? S.reach * Math.min(1, k.t0 / S.extend)
-      : k.phase === 'recover' && k.t0 <= A.back ? S.reach * (1 - (k.t0 / A.back) ** 2) : null;
-    if (ext != null && k.dir) {
+  // `hold`: pressed into a clash, the fist where the clash holds it (ADR 0055); after a won clash the arm snaps back
+  // from where it drove through (`k.reachNow`)
+  laneArm(f, k, S, camRight, hold = null) {
+    const A = S.arm, i = f.index, p = f.renderPos || f.pos, reach = k.reachNow ?? S.reach;
+    const ext = hold ? 0 : k.phase === 'punch' ? S.reach * Math.min(1, k.t0 / S.extend)
+      : k.phase === 'recover' && k.t0 <= A.back ? reach * (1 - (k.t0 / A.back) ** 2) : null;
+    if (ext != null && (k.dir || hold)) {
       const h = this.handAt(f, A.from ?? [0.95, 0.95]);
-      const at = { x: p.x + k.dir.x * (0.6 + ext), y: p.y + (A.up ?? 1.0), z: p.z + k.dir.y * (0.6 + ext) };
+      const at = hold ?? { x: p.x + k.dir.x * (0.6 + ext), y: p.y + (A.up ?? 1.0), z: p.z + k.dir.y * (0.6 + ext) };
       this.limb('garm' + i, A.fx, h, at, A.thick, A.tube, camRight, { order: 7 });
       this.limbEnd('gfist' + i, A.fist, at, h, A.fistScale, camRight, { order: 8 });
     } else {
       this.drop('garm' + i);
       this.drop('gfist' + i);
     }
-    if (S.after && k.phase === 'recover' && k.t0 >= (A.back ?? 0) + 1) this.keep('after' + i, S.after.fx, p.x, p.y, p.z, { bottom: true, scale: S.after.scale, order: 3, flipX: f.side < 0 });
+    if (S.after && !hold && k.phase === 'recover' && k.t0 >= (A.back ?? 0) + 1) this.keep('after' + i, S.after.fx, p.x, p.y, p.z, { bottom: true, scale: S.after.scale, order: 3, flipX: f.side < 0 });
     else this.drop('after' + i);
   }
 }

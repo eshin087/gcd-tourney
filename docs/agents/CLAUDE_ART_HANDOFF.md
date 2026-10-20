@@ -1,3 +1,10 @@
+# ART-CLASH-HD — user approval recorded (2026-10-19, relay beam-clash-6 #3)
+
+USER APPROVAL via Claude: the user approved all eight drawings as drawn: “Approve all 8 (Recommended)”. Recorded on branch `art/clash-hd` in `art/REVIEW.md`, `art/manifest.json` and `art/TRACKER.md`: `clashKnot` v02, `spearStream` v01, `palmStream` v01, `fireballStream` v01, `kamehamehaStream` v01, `beastBeamStream` v02, `redPush` v01 and `dragonFistPush` v01. Exact prompts and hashes: [CALLS.md](../../art/vfx/production/clash-hd/CALLS.md).
+
+The approved-only packer writes all eight effects to `public/vfx/` and reports only the three unrelated existing warnings (streamBolt, streamFlame, gumArm). The review page now displays approval status: https://gcd-tourney-5ot32fi1e-eshin087s-projects.vercel.app/reviews/clash-hd/ (PR #219, preview built from commit `3b5f686c`). Art is in commit `e3242146`; approval records and atlas outputs are in `3b5f686c`. Claude owns engine registration/runtime integration and the eventual merge. Art approval does not claim runtime validation or production shipment.
+
+---
 # ART-SKL-SAS — batch 3 and special v15 approvals recorded (2026-10-18, relay skills #19 and send #20)
 
 USER APPROVAL via Claude relay skills #19: the user approved `greatFireball` v01, `greatFireballBurst` v01, `stormCloud` v01, `kirinBody` v01, `kirinHead` v01 and `kirinStrike` v01 for Claude's HD packing/integration. The user also approved `beamFire` v08 and chose the halfway size: Claude sets its bodyHeight so the head is about 8% over idle and the low-lunge body about 7% under (low-lunge pose reads smaller). The prior auto-fit floor produced head 1.15x; at matched body the drawn head read 1.16. This sizing is recorded as the user's decision, not a Codex numeric measurement. The cell-top reach on kirinStrike is as briefed, not an accidental clipping defect.
@@ -1207,3 +1214,4 @@ Machine manifest versions reflect the latest candidates while preserving approve
 ## Relay #8 correction (2026-10-18)
 
 Claude confirmed the v05 approval ask was superseded by shipped Sasuke v02. Keep v05 under `raw/_qa_hold/`; keep user-rejected v04 under `raw/_rejected/` with its rejection record. Main’s v02 manifest entry, hitboxes and packed sheet remain unchanged. Gojo heavy and Gojo hurtHigh/hurtLow/launched remain untouched by this task.
+

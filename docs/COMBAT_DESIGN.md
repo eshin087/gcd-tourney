@@ -342,7 +342,8 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Gear Third: Gigant Pistol** (Luffy, kind `laneStrike`, ADR 0032): a 44-frame flash, a 34-frame windup while the
   arm blows up, then the giant fist shoots down the lane he faces to 7 units in 8 frames and hits once for 270
   (unblockable, wall bounce) anything within 1.1 of the lane and below 2.0 up. It commits to the lane when the punch
-  leaves: leave the lane or jump during the windup. It never clashes. 30 frames of recovery, 54 after a hit. The anime
+  leaves: leave the lane or jump during the windup. It clashes with a beam or orb ultimate (ADR 0055): the giant fist
+  pushed against it, a 12-frame windup when it answers one. 30 frames of recovery, 54 after a hit. The anime
   (ADR 0051): the windup plays once through (the thumb bite, the arm swelling with air puffs, the giant fist raised)
   and ends on the wind-back; the giant arm is drawn from his shoulder to the giant fist down the lane and snaps back;
   its own impact replaces the white-out; then chibi Luffy stands where he was for the rest of the recovery (the body
@@ -437,9 +438,12 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Answering an ultimate:** firing yours into the opponent's running beam or Hollow Purple (started on an earlier
   frame) gives a 20-frame flash ("COUNTER!") and a short windup: the beam's 14 frames, Purple merges in 8
   (`answerMerge`), a rampage's roar is `answerRoar`. Then the two can meet.
-- **Ultimate clash** (a rhythm duel, ADR 0017, `src/game/clash.js`): two clashable ultimates (beam, orb, rampage)
-  that meet head-on lock where they met. A beam still charging or a Purple still merging can be met too; it goes
-  off on the spot. Both fighters are invulnerable; the round timer stops.
+- **Ultimate clash** (a rhythm duel, ADR 0017, `src/game/clash.js`): two clashable ultimates (beam, orb, rampage, the
+  Gigant Pistol's fist since ADR 0055) that meet head-on lock where they met. A beam still charging, a Purple still
+  merging or a Gigant Pistol still winding up can be met too; it goes off on the spot. Both fighters are invulnerable;
+  the round timer stops. The Kamehameha's head presses into the collision; Hollow Purple is drawn smaller, clear of the
+  floor; the giant fist is held against the other attack, its arm from Luffy's shoulder (pressed back to 1.3 units
+  before he gives ground).
   - Both players play the same chart (seeded by the two ultimates): approach rings close on a target; press
     Light, Heavy or Special as each ring closes. 20 notes in three faster phases (doubles: two quick taps), then
     the **FINAL PUSH**: press and hold until the target fills. 7.7 s.
@@ -472,11 +476,15 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
   from its owner's hands, an airborne owner hovers; a Rasengan / Chidori is held on its rush frame with its orb lit.
   Two streams meet halfway between the hands, a stream meets a Rasengan at the held orb's front (the drawn hand +
   `orbReach`; a shot detects it `rushReach` 1.5 ahead of the fist).
-- **How it looks** (ADR 0034): each move keeps its shape (`stream.style`): Lightning Palm a branching lightning zigzag,
-  Chidori Spear a straight lightning lance, Great Fireball a fire torrent (atlas bands tiled along the stream), Reversal:
-  Red the orb at Gojo's fingertips sending repulsion ripples, a Rasengan / Dragon Fist held at the hand. Two `clashBurst`
-  knots (one per side's color) mark the meeting point inside a size budget; the aura thins and the flashes are short and
-  colored, so both fighters stay readable. A fighter whose sheet has `beamStruggle` plays it for the whole struggle.
+- **How it looks** (ADR 0034, 0055): each move keeps its shape (`stream.style`), drawn in its own HD band once
+  approved (`stream.band`: spearStream, palmStream, fireballStream): Lightning Palm a branching white-violet zigzag,
+  Chidori Spear a straight lightning lance, Great Fireball a fire torrent (bands tiled along the stream). Reversal: Red
+  is its orb shoved forward, its front on the meeting point, repulsion ripples running into it from Gojo's fingertips
+  (no stream). A Rasengan / Chidori is held at the hand; the Dragon Fist keeps its golden envelope (and, once drawn,
+  its dragon bursts from the fist to the meeting point). Two knots (one per side's color, `clashKnot` once approved,
+  else `clashBurst`) mark the meeting point in front of everything inside a size budget; the aura thins to its flames
+  (no glow disc), no glow discs at the hands, the flashes are short and colored, so both fighters stay readable. A
+  fighter whose sheet has `beamStruggle` plays it for the whole struggle.
 - **From the air** (ADR 0034 section 5): the airborne owner eases down to a low hover (`airHover`) in its air pose
   (`beamStruggleAir`, else the `throw` release frame). A grounded rush answering it stays planted and holds the technique
   up the stream line; losing ground shoves the rusher back along the floor or the air owner back and up. A winning rush
@@ -484,8 +492,9 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
 - **The chart**: a fresh chart every time (the same for both players): count-in 30 f, 4 notes every 24 f, 5 every
   18 f with a double, then the FINAL PUSH (30 f); about 4.5 s, 12 graded presses. Same grades as the ultimate clash;
   the point moves 0.045 per point of lead.
-- **The end**: a lead of 1+ (`drawMargin`) wins: the winner's stream runs through (a Rasengan goes on into its
-  follow-through) and the loser takes **120** (unscaled, unblockable, launch [16, 9], **wall bounce**, a hard
+- **The end**: a lead of 1+ (`drawMargin`) wins: the winner holds its push pose while its stream surges to the loser
+  and stops there (Red's orb flies into them; a Rasengan goes on into its follow-through), the move's own burst
+  (its `burstFx` / `blastFx`) on them, and the loser takes **120** (unscaled, unblockable, launch [16, 9], **wall bounce**, a hard
   knockdown; "OVERWHELMED!"). A dead heat is a **DRAW**: both blown back for 45. A locked owner knocked out of the
   lock (a burn tick's KO) loses it.
 

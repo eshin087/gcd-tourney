@@ -493,6 +493,12 @@ a version, the procedural stand-ins in `src/art/vfxPainter.js` ship.
 | 04 | ~90 px wide (the widest frame), 5-6 smaller puffs drifting up and out. |
 | 05 | 2-4 small puffs left at the ends, almost gone. |
 
+## Clash HD art (ADR 0055)
+
+Eight HD effects that continue each move's approved art in a clash (`clashKnot`, `spearStream`, `palmStream`,
+`fireballStream`, `kamehamehaStream`, `beastBeamStream`, `redPush`, `dragonFistPush`): the brief, frame by frame, is
+[CLASH_HD_BRIEF.md](CLASH_HD_BRIEF.md). Once approved they replace round 1's pieces below in the game.
+
 ## Beam clash (ADR 0034)
 
 Five effects for the beam clash ([ADR 0034](../../docs/decisions/0034-beam-clash-visuals.md)): the knot where two

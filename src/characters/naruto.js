@@ -171,6 +171,7 @@ export default {
     shroud: { chakra: 0xb0140c, core: 0x1a0204, rim: 0xc8281e, hold: 0, tails: 0 },
     gather: { fx: 'beastBall', scale: 0.6, colors: [0xff3a2a, 0x3a8aff] },
     muzzle: { fx: 'beastBeamRing', every: 10, scale: 0.9, speed: 7 },
+    band: { fx: 'beastBeamStream', scroll: 9 }, // its drawn body in a clash (ADR 0055)
   },
   specialName: 'RASENGAN',
   projectileName: 'SHURIKEN',
