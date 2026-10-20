@@ -1213,7 +1213,7 @@ Branch `art/clash-hd`; worktree `.worktrees/art-clash-hd`. Generated eight effec
 
 Review page: [candidate gallery](../../public/reviews/clash-hd/index.html). All eight are packed and marked needs review. Candidate pack detected the expected frame counts and no new tile/fill warnings; three unrelated existing warnings remain for streamBolt, streamFlame and gumArm. The five streams were derived to exact 256px cells; no runtime integration or image approval is claimed. Claude owns code registration/integration. No Astra audit was required or run for VFX.
 
-Preview URL and commit: pending.
+PR #219: https://github.com/eshin087/gcd-tourney/pull/219. Review page: https://gcd-tourney-arvuipv2f-eshin087s-projects.vercel.app/reviews/clash-hd/. Preview built from committed art at `e3242146`; the gallery assets are included. No merge/deploy to production has occurred.
 
 ---
 
