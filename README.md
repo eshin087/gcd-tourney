@@ -33,6 +33,15 @@ Goku and Luffy are also playable. Every fighter shares one baseline kit (directi
 - **Runs anywhere.** Keyboard, PlayStation or Xbox pads with rebinding, and an on-screen touch layout for phones.
 - **No asset files for sound.** All music and sound effects are synthesized live with WebAudio.
 
+<table>
+<tr>
+<td width="33%" valign="top"><img src="docs/media/beam-clash.webp" alt="Naruto and Sasuke fire beams at each other that meet in the middle of the ring while a rhythm meter at the bottom rates each press Perfect or Good, ending with an Overwhelmed banner" width="100%"><br><sub><b>Beam clash.</b> Two ultimates meet and a short rhythm chart decides who wins.</sub></td>
+<td width="33%" valign="top"><img src="docs/media/super.webp" alt="Sasuke vanishes behind Naruto, lands a lightning strike that flashes white across the arena, and sends him into a wall bounce and a ground bounce" width="100%"><br><sub><b>Supers and specials.</b> Vanishes, super flashes, wall and ground bounces, each called out on a banner.</sub></td>
+<td width="33%" valign="top"><img src="docs/media/combo.webp" alt="Naruto juggles Sasuke through a combo as the hit counter climbs from 3 to 11 hits, with a Great rating and a Tech banner at the end" width="100%"><br><sub><b>Combos.</b> The CPU composes a fresh route every match; the counter and rating tick up beside it.</sub></td>
+</tr>
+</table>
+<sub>Clips are from a CPU vs CPU match on the live site.</sub>
+
 ## Security and abuse prevention
 
 The online lobby is designed so a public game can't easily be abused:
