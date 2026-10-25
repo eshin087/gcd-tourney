@@ -1,4 +1,4 @@
-const { chromium } = require('C:/Users/eshin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const { chromium } = require('playwright');
 const fs = require('node:fs');
 const base='art/characters/naruto/production/';
 (async()=>{

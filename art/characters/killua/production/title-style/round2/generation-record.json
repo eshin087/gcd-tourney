@@ -6,7 +6,7 @@
       "asset": "charge",
       "roundCall": 1,
       "prompt": "Edit this anime fan-art sprite strip. Image 1 is the approved anatomy/scale/style combat cell, image 2 is the strip to correct. Preserve exactly the four charge poses, their bodies, outfit, limbs, shoes, fixed planted stance, palette and all framing. Only correct the oversized head and white hair: shrink the head/hair together by about 17 percent relative to the current strip, reaching the same head-to-body anatomy as image 1. Keep upward static-bristling spiky tufts, but never a balloon of hair. Face remains the same blue-eyed youthful face. Four whole figures in one horizontal row facing screen-right 3/4, flat pure #FF00FF background, generous clear magenta gap between poses. Minimal charge twitch, crown/feet constant, no effects, no text, crisp hard pixel-art edges. Do not enlarge the shoes, shorten legs or resize bodies.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-45f441cc-bcf8-441b-9369-73bbf84fb4d2.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-45f441cc-bcf8-441b-9369-73bbf84fb4d2.png",
       "file": "raw/_rejected/charge_v12.png",
       "result": "strict head 0.84, technical rejection"
     },
@@ -14,7 +14,7 @@
       "asset": "charge",
       "roundCall": 2,
       "prompt": "Precise corrective edit image2 four-frame charge strip. Prior edit over-shrank the head/skull. INCREASE the complete skull/face/head AND compact white spiky hair together by about18percent relative to image2, to match the same anatomical head-to-torso ratio as approved combat cell image1. Keep image2 torso, clothes, legs, shoes, feet placement and all4poses EXACTLY unchanged. Hair must remain sharply separated spikes with compact bristling shape, not the original enormous fluffy halo. Keep same blue-eyed face identity. Only head/hair correction no body resize, no shoe growth. Four complete figures onehorizontalrow facingright3/4 flat #FF00FF generous clear gaps. Crisp hard pixels, no glow/effects/text.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-cc2554d0-bf71-4537-a594-25bcbb6b42dd.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-cc2554d0-bf71-4537-a594-25bcbb6b42dd.png",
       "file": "raw/charge_v13.png",
       "result": "strict head 0.92 HOLD"
     },
@@ -22,7 +22,7 @@
       "asset": "stagger",
       "roundCall": 1,
       "prompt": "Precise hair-only edit of image 2, a four-frame anime fan-art stagger sprite strip. Image 1 is approved title-style anatomy and spiky white hair volume. Preserve image 2's exact four full-body poses, faces, head skull sizes, torso, outfit, bare legs, shoes, positions and colors. Reduce ONLY the hair envelope about 8 to 10 percent, trimming the outer tips into angular separated spikes matching image 1; eliminate round fluffy halo, do not shrink faces or bodies. Keep silhouette recoil poses and different expressions. Four complete figures single horizontal row with clear gaps, screen-right 3/4 view, pure flat #FF00FF background. Hard pixels no blur, text or effects.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-097900df-e752-4ea0-ac7e-883e56964e51.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-097900df-e752-4ea0-ac7e-883e56964e51.png",
       "file": "raw/stagger_v05.png",
       "result": "selected"
     },
@@ -30,7 +30,7 @@
       "asset": "taunt",
       "roundCall": 1,
       "prompt": "Precise hair-only edit of image 2, a two-frame anime fan-art teasing taunt sprite strip. Image 1 is approved anatomy and white spiky hair reference. Preserve image 2's exact two full-body poses, tongue/face/eye gestures, skull size, raised finger, torso, outfit, stance, shoes, positions and colors. Reduce ONLY the white hair's round outer envelope by 8 to 10 percent relative to image 2, form angular separated tips with same spiky volume as image 1. Do not shrink face, head skull or body. Two complete figures single horizontal row with generous magenta gap, right-facing 3/4, pure flat #FF00FF background. Hard pixel edges, no blur, text or effects.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-65a5113e-93cf-4ad4-92c4-cc23bd4b3485.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-65a5113e-93cf-4ad4-92c4-cc23bd4b3485.png",
       "file": "raw/taunt_v05.png",
       "result": "selected"
     },
@@ -38,7 +38,7 @@
       "asset": "beamFire",
       "roundCall": 1,
       "prompt": "Precisely correct image 2's three-frame beamFire anime fan-art sprite loop. Image 1 fixes approved title-style anatomy. Three complete full-body figures side by side in one row, identical planted wide lunge with both arms extended to screen-right and both palms open at the beam origin. Use image 2's FIRST pose as all three poses' structural template: exact same feet, leg lengths, shorts width, torso width, hair size and face. Middle frame must NOT be narrower or stand straighter. Instead make a tiny 1-2 final-pixel backward shoulder/elbow recoil in frame1, frame2 half-return with slightly altered sleeve creases, then loop to frame0; do not duplicate frame0 exactly for frame2. Palms same location +/-1 pixel and shoulders same height. Same face/palette/clothes as reference. Three whole figures separated by large pure magenta gaps on flat #FF00FF. Hard pixels, right-facing 3/4, no drawn beam/glow/text/shadows.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-da1e7d40-2ed7-450f-8e4f-7b7fc599f1d9.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-da1e7d40-2ed7-450f-8e4f-7b7fc599f1d9.png",
       "file": "raw/beamFire_v09.png",
       "result": "head ok; footprint/palms shifts HOLD"
     },
@@ -46,7 +46,7 @@
       "asset": "idle A",
       "roundCall": 1,
       "prompt": "Edit image 2 into PART A frames0-3 of an 8-frame anime fan-art fighting idle loop. Image 1 is the exact approved title-style combat anatomy: use its head/body and white spiky hair mass. Preserve image 2's four full-body fighting poses, wide stance, toe coordinates, leg lengths, torso width, purple clothes and youthful face, except shrink every head AND hair by about6 percent relative to image2, matching image1. Fix frame0: its crown and collar were 4-6 final pixels lower; raise crown/collar to the other three frames' common height, no wider stance or sliding foot. All four crowns and collars should be level +/-1 final pixel. Tiny chest breath and fingertips only; shoulders/hips/knees/feet identical. Give four COMPLETE whole figures with visible broad magenta gaps not touching. One horizontal row, soles aligned. Right facing3/4, hard pixel edges, no effects/text/ground shadow, flat pure #FF00FF background. Same clothing volume, face and colors. Small conservative variations only. Do not change the anatomy to chibi or make a taller body.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-07ccf1c0-67c7-4369-9de1-a8b3e815f4a9.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-07ccf1c0-67c7-4369-9de1-a8b3e815f4a9.png",
       "file": "raw/_parts/idle_v07_A.png",
       "result": "v07 rejected technical head 0.86"
     },
@@ -54,7 +54,7 @@
       "asset": "idle B",
       "roundCall": 1,
       "prompt": "Generate PART B frames4-7 of the eight-frame anime fan-art idle loop continuing image2 Part A. Image1 is authoritative approved combat cell. COPY the EXACT same youthful fighter, face/skull/hair size, clothing volume and colors, stance footprint, leg lengths and torso as Part A; DO NOT restore old larger hair. Four complete figures in one horizontal row with clear generous pure magenta gaps. These are only four conservative breathing continuation frames. Tiny shirt folds/fingertip variations then return to Part A first pose by frame7, crown/collar/hips steady within one final pixel. White spiky hair stays compact and identical mass. Every foot planted at SAME x/y in each pose, do not narrow/widen stance. Same right-facing 3/4 fighting crouch. Flat pure #FF00FF background; hard pixel art not blurry, no text/effects/ground shadows. Minimize any movement of silhouette so B-to-A seam is smooth.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-9641e4e8-2972-4b3e-a6f3-0c4712c0bd17.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-9641e4e8-2972-4b3e-a6f3-0c4712c0bd17.png",
       "file": "raw/_parts/idle_v07_B.png",
       "result": "v07 rejected technical head 0.86"
     },
@@ -62,7 +62,7 @@
       "asset": "idle A",
       "roundCall": 2,
       "prompt": "Precise head-size corrective edit image2 PART A frames0-3 idle. Earlier edit over-shrank skull and hair. Increase entire skull/face/head/hair by16percent relative to image2 while keeping every body's current proportions unchanged, to match image1 approved combat head-to-body scale. Preserve tiny consistent white spiky hair silhouette not balloon. Keep image2's steady crown/collar heights across4frames (no f0dip), stance width, toe locations, leg lengths, hips, outfit colors and torso. Crown must remain at same height allfourframes withinonefinalpixel; collars steady. Head/neck correction only, feet never move. Fourcompletefigures in onerow, separatedbygenerouspuremagenta gaps, flat#FF00FF background, right3/4, hardpixelart, no text/effects. Do not redraw bodies or alter frame spacing.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-ceaf50e9-ab8e-45d9-b455-b54170392806.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-ceaf50e9-ab8e-45d9-b455-b54170392806.png",
       "file": "raw/_parts/idle_v08_A.png",
       "result": "selected"
     },
@@ -70,7 +70,7 @@
       "asset": "idle B",
       "roundCall": 2,
       "prompt": "Create PART B frames4-7 of a subtle anime fan-art idle loop by matching image2 Part A exactly. Image1 approved combat cell is anatomical ground truth. Use EXACT head/skull/hair dimensions from image2 Part A (do not shrink to old B), same shoulders, torso, shorts, limbs, shoes, fixed footprint and clothing palette. Four complete figures in one horizontal row separated by wide pure magenta gaps, matching Part A scale and positions within each figure. Four minimal continuation beats: soft shirt fold change, fingertips relax then return to Part A first pose. Crown, collar, hips and feet on same lines withinone finalpixel through ALLframes, no f0dip no wider/narrower stance. Preserve compact spiky white hair, youthful blue eyes and purple layered shirt/navy shorts/purple boots. Crisp hardpixel art on flat#FF00FF background, facingright3/4. No effects/labels/shadows. This is breathing loop continuation, not a new pose.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-d6c4afad-9512-4844-ab3f-354ead47e0be.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-d6c4afad-9512-4844-ab3f-354ead47e0be.png",
       "file": "raw/_parts/idle_v08_B.png",
       "result": "selected"
     },
@@ -78,7 +78,7 @@
       "asset": "run B",
       "roundCall": 1,
       "prompt": "Anime fan-art run animation PART B frames4-7, reverse-leg half-cycle continuation of image2 Part A. Image1 approved combat cell determines head/body/anatomy/style. Keep exact head, torso, limb lengths, purple outfit/colors/shoes of Part A. CRITICAL change: opposite anatomical leg leads. Part A near camera RIGHT leg is ahead; in these four poses FAR LEFT leg must be ahead while NEAR RIGHT leg trails, seen crossing OVER the far leg on the rear side. Do not merely copy the Part A poses. Four distinct beats: f4 far left foot lands forward while near right stretched back; f5 weight on far left foot while near right heel folds back; f6 near right knee begins swinging forward while far left pushes off; f7 brief flight with near right knee approaching its Part A initial lead, far left trailing. Arms trailing relaxed as in A, avoid huge arm gestures. Torso pitch/height steady, not deeper crouch. All4figures complete separated by generous magenta gaps, singlehorizontalrow, facing RIGHT3/4. Exact same visual density/headsize as A; flat #FF00FF background, hardpixel edges, no effect lines/text. Make shorts overlap reveal which leg is near, preserve sleeve width.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-931e3bc5-30bd-412e-999d-dbc470c230d3.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-931e3bc5-30bd-412e-999d-dbc470c230d3.png",
       "file": null,
       "result": "unsaved: leg identity repeated"
     },
@@ -86,7 +86,7 @@
       "asset": "run B",
       "roundCall": 2,
       "prompt": "Precise corrective edit image2: keep every head, torso, arms, scale, clothes, color and four poses unchanged EXCEPT swap which anatomical leg is in front in ALL four frames. This is the opposite half stride of image3 reference Part A, not a repetition. The NEAR camera thigh must originate at the LEFT/back side of the shorts and move to the BACK/LEFT of the image; far thigh originates at RIGHT/front of shorts and extends FORWARD/RIGHT, with its upper section BEHIND the near thigh at the shorts crossing. Reverse the layering at shorts crotch and skin legs: in f0/f1 the extended rear leg is the foreground near leg, the planted forward leg is the behind far leg; f2/f3 raised forward knee is FAR leg behind the near trailing leg. Do not keep the same visible near forward thigh of image3. Keep full leg lengths, no bent rubber ankles. Same4figures spaced horizontally with clear gap, faceRIGHT3/4 on pure #FF00FF background, crisp pixel-art. Image1 approved identity/anatomy. THIS IS LEG IDENTITY/OCCLUSION CHANGE ONLY not flip image or change facing.",
-      "source": "C:/Users/eshin/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-cfe09f60-fce3-49ec-b420-3c9216abf137.png",
+      "source": "<home>/.codex/generated_images/01a12ecf-5964-79f0-8406-948e168e5f7d/exec-cfe09f60-fce3-49ec-b420-3c9216abf137.png",
       "file": "raw/_parts/run_v09_B.png",
       "result": "best saved; leg identity still ambiguous HOLD"
     }

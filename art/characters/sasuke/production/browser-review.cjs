@@ -1,8 +1,8 @@
 const fs=require('node:fs');
-const {chromium}=require('C:/Users/eshin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('playwright');
 (async()=>{
  const base=process.argv[2]||'http://127.0.0.1:5223',batch=process.argv[3]||'heavy-charge';
- const browser=await chromium.launch({headless:true,timeout:30000,executablePath:'C:/Users/eshin/AppData/Local/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-win64/chrome-headless-shell.exe'});
+ const browser=await chromium.launch({headless:true,timeout:30000});
  const page=await browser.newPage({viewport:{width:390,height:844}});const errors=[],logs=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{logs.push(m.text());if(m.type()==='error')errors.push(m.text())});
  try{
