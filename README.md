@@ -1,280 +1,98 @@
 # GCD Tourney
 
-A browser demo of an **HD-2D pixel anime arena fighter** with a Dragon Ball FighterZ-style
-feel, modeled on Studio Genki's MythicTale tournament clip. It's a real 3D tournament
-ground (tiled ring, mowed grass, temple, cheering crowd, gate) with pixel-art fighters
-standing inside it, a cinematic camera, auras, super flashes and rhythm-duel ultimate clashes.
+**A browser-based HD-2D anime arena fighter with online play, built on Three.js.**
 
-Four fighters are playable: Naruto (early Shippuden), Sasuke (Hebi era), Killua (Godspeed era) and Gojo.
-Every fighter has the same baseline kit: directional specials, a second super and an ultimate (see
-[Fighters](#fighters) and [ADR 0011](docs/decisions/0011-kit-baseline-and-balance.md)).
-Their sprites are **3D-baked placeholders**: chibi models built in code,
-animated with smooth keyframes and rendered into pixel-art sprite sheets at startup.
-Hi-res pixel art replaces them one character at a time. It follows art spec v2
-([ADR 0007](docs/decisions/0007-art-spec-v2-shippuden-256.md)): Shippuden-era designs with
-serious anime proportions in the approved title style (not chibi) in 256 px cells. Codex generates the images,
-and every version is queued in [art/REVIEW.md](art/REVIEW.md) for the user's approval (the packer packs
-the newest candidate for preview; rejected ones move to `_rejected/`). See
-[art/README.md](art/README.md) for the full pipeline, or [ASSETS.md](ASSETS.md) for the quick Sprite Lab import.
+**[Play it in your browser](https://gcd-tourney.vercel.app)** on a computer, a gamepad or a phone (landscape). No install or sign-up.
 
-## Run it
+<a href="https://gcd-tourney.vercel.app"><img src="public/ui/title_art.png" alt="Title screen: two pixel-art fighters squared off in a sunset tournament arena with a temple and a cheering crowd" width="100%"></a>
 
-```bash
-npm install
-```
+Pixel-art fighters battle inside a real 3D tournament arena with a cinematic camera, auras, super flashes and rhythm-based ultimate clashes. It plays like a modern anime fighter: combos, parries, dodges, throws, beam clashes and a CPU you can set anywhere from Easy to Impossible. You can also open an online room and send friends the link.
 
-```bash
-npm run dev
-```
-
-Then open http://127.0.0.1:5188
-
-| Command | What it does |
-|---|---|
-| `npm run dev` | dev server on port 5188 |
-| `npm run dev:alt` | the same on port 5200 (when 5188 is busy) |
-| `npm run build` / `npm run preview` | production build into `dist/` / serve it |
-| `npm run sprites [id\|vfx]` | pack generated art from `art/` into `public/` (see [art/README.md](art/README.md)) |
-| `npm run test:sprites` | self-test for the sprite packer |
-| `npm run test:music` | self-test for the music composer (ADR 0019) |
-
-## Modes
-
-- **VS CPU**: pick your fighter and the CPU's (Easy / Normal / Hard / **Insane** / **Impossible**). Impossible reads frame
-  data: it parries and dodges what it sees coming, punishes whiffs, runs max-damage routes and wavedashes around
-  you. It only reacts to what's on screen, so fast jabs and mix-ups are guesses for it too. Insane is the same
-  brain at a person's reaction speed: it sees your attacks later, parries and dodges less, and sometimes drops a
-  combo, so it sits between Hard and Impossible. Every level uses its
-  whole kit over a match (specials, modes, supers, ultimates) and, from Normal up, parries, spot dodges, air
-  dodges and wavedashes now and then.
-- **2 Players**: shared keyboard, or two gamepads
-- **Online**: browse the public rooms and join one, open your own public room or a private one, and send the invite link (or the five-letter room code) to friends, on a computer or a
-  phone. Rooms talk in quick-chat lines and emotes (no free text); the host can remove someone and anyone can vote to. The first two in line fight, the winner stays on (up to five wins in a row) and the loser goes to the back;
-  everyone else watches the match live. Matches run on rollback netcode: your own inputs are two frames late and the
-  game corrects for the other player's lag. Esc (or the pause button) opens the room while you watch; a match has no
-  pause, and leaving it counts as a loss; a dropped connection (switching apps, Wi-Fi blinking) has 20 seconds to
-  come back into the same match while the other player waits
-- **CPU vs CPU**: pick two fighters and watch the computer play both sides. The level defaults to **God**, a level
-  only for watching: both CPUs at the top of every dial, trading long parry exchanges, melee clash chains, beam and
-  ultimate clashes and long combos crowned with supers. Impossible (one step down) plays its showman style: long, varied combos composed fresh every match in each CPU's own style (wall-bounce
-  "handball", vanish ping-pong, relaunches, kit grinds; each combo's techniques tick by beside the counter and big
-  ones get a rating), every special and super in the kit, spells dodged and parried, techs, tech rolls and bursts out
-  of combos, wavedashes and power-ups, each called out on a banner (PARRY!, DODGE!, TECH!, BURST!, HANDBALL!,
-  PUNISH!...), and a BEAM CLASH every match (not Naruto vs Naruto: two Rasengans make a special clash), so you see
-  what the engine can do; Esc / Start pauses and the results screen offers a rematch
-- **Controls / training room** (new in the upcoming 0.3.0): keyboard, PlayStation and Xbox layouts (toggle
-  between them), key and button rebinding saved in your browser, and a live training room where your fighter
-  copies your inputs so you can try the controls in real time
-- **Sprite Lab** (`/sprites.html`, not in the menu): preview every animation, import art strips, export sheets
-- **Test lab** (SELECT MODE → LAB, or `/lab.html?p1=naruto&p2=sasuke`): play any move of either fighter in one tap, step through every animation
-  with its hit and hurt boxes, replay shared mechanics (ultimate, special and beam clashes, throws, parries, dodges, wavedash,
-  air combos, bounces, vanish, super dash), slow motion, frame step, record and replay on the dummy
-
-Best of 3 rounds, 99 seconds each. The intro flythrough can be skipped with Enter / Start (not online: it runs on
-both machines).
-
-## Controls
-
-These are the default bindings. You can rebind them in the controls menu.
-
-| | VS CPU | P1 (2P) | P2 (2P) | Gamepad |
-|---|---|---|---|---|
-| Move | WASD / Arrows | WASD | Arrows | Left stick / D-pad |
-| Light (auto combo; + direction: tilts and aerials) | J | F | , | □ / X |
-| Heavy (launcher; + direction: smash attacks, hold to charge) | K | G | . | △ / Y |
-| Special (tap, + direction) / charge ki (hold) | L | H | / | ○ / B |
-| Jump (tap: short hop, hold: full hop, again in the air: double jump) | Space | Space | L | ✕ / A |
-| Guard | Shift | L-Shift | ; | L1 / LB |
-| Dash (with direction) / **super dash** (neutral) | O · double-tap | R · double-tap | K · double-tap | R1 / RB |
-| **Ultimate beam** | **K + L** | **G + H** | **. + /** | **△ + ○** |
-| **Vanish** | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
-| **Super** (2nd super, 3 bars) | **H** or **B** | **T** | **'** | **L2 / LT** |
-| **Throw** (close) / break a throw | **J + K** | **F + G** | **, + .** | **□ + △** |
-| **Tech** / **tech roll**: hold Guard while hit | hold **Shift** | hold **L-Shift** | hold **;** | hold **L1 / LB** |
-| **Timed tech**: tap Guard just before you hit the floor or the barrier (+ ← / → roll, ↑ wall jump) | tap **Shift** | tap **L-Shift** | tap **;** | tap **L1 / LB** |
-| **Burst**: Guard + Special while hit (2 bars, once per round) | **Shift + L** | **L-Shift + H** | **; + /** | **L1 + ○** |
-| **Beam clash**: your energy Special (→ toward them for some fighters) into theirs, or while theirs flies at you | **L** / **→ + L** | **H** / **→ + H** | **/** / **→ + /** | **○** / **→ + ○** |
-
-Adding the SUPER button reset saved key bindings once (new storage key). Rebind again if you had
-custom keys.
-
-### The DBFZ-style toolkit
-
-- **Auto combo**: Light ×4 with the stick neutral. The last hit is a smash that can **wall-bounce** off the ring's ki barrier.
-- **Smash-style moves** ([ADR 0042](docs/decisions/0042-smash-directional-normals.md)): → / ↑ / ↓ + Light are the
-  forward, up and down **tilts**; → / ↑ / ↓ + Heavy the **smash attacks** (hold Heavy to charge); in the air Light gives
-  the **neutral air**, → / ← / ↑ + Light the **forward, back and up airs** and ↓ + Light the spike. Light in a dash with
-  the stick held is the **dash attack**. They **link** instead of chaining: land the next move inside the hit stun
-  (down tilt → jab, up tilt → up tilt → up air). Tap Jump for a **short hop** (Jump + Light: a short-hop aerial), jump
-  again for a **double jump**, ↓ past the top of a jump to **fast fall**. Your facing holds through a jump, so jump away
-  and press ← toward them for a back air. On a gamepad the **right stick is the C-stick**, as in Smash: flick it for a
-  smash attack that way, or in the air for that aerial (your drift stays with the left stick).
-- **Launcher**: Heavy (or Light ×3 → Heavy). Press **Jump** on hit to super-jump after them.
-- **Air combo**: Light ×3 in the air, or end with **Heavy** (double-axe spike) for a **ground bounce**.
-- **Super dash**: Dash with no direction. Homing flight that hits on contact, once per trip through the air.
-- **Vanish** (1 bar): teleport behind the opponent and smash them. Also works while blocking.
-- **Specials** (½-1 bar): tap Special for the neutral special. Hold a direction while you press it
-  (→ toward the opponent, ↑, ↓) for the fighter's other specials. In the air: Special (+↓ for some
-  fighters). The direction you hold when you *press* Special counts, so a quick tap works.
-- **Ultimate** (3 bars, Heavy + Special): super flash with a cut-in, then the fighter's finisher (see Fighters).
-  Fire yours into theirs (a beam, Hollow Purple or the Four-Tails pounce) and they **clash**: press Light, Heavy
-  or Special as each ring closes on the target, then hold the last one (FINAL PUSH). Better timing pushes harder,
-  presses off the beat push you back, and the winner's ultimate lands.
-- **Melee clash**: throw a Light into their Light (or a Heavy into their Heavy) as theirs comes out and the strikes
-  meet: CLASH!, no damage, the strikes held together with sparks in both fighters' colors as the camera pushes in on
-  the fists, then you are both pushed back a step. Press again while they're held and the next swings meet too:
-  CLASH ×2, ×3... with a bigger spray and ki for both each time, until the 5th skids you both far back (CLASH BREAK!).
-  A Light that meets a Heavy loses (CRUSH!).
-- **Special clash**: two rush specials meeting head-on (Rasengan into Chidori) get one ring; the closer press wins.
-- **Beam clash**: fire an energy special (Killua's Narukami, Gojo's → Red, Sasuke's → Chidori Spear or air Fireball)
-  into the opponent's, or drive Naruto's Rasengan into it, or fire yours while theirs flies at you: BEAM CLASH! Both
-  attacks become streams that meet in the middle, and you play a short rhythm chart (about 4.5 s). The winner's
-  stream runs through for 120 and a wall bounce; a dead heat blows both back. CPU vs CPU shows one every match.
-- **Super** (3 bars, SUPER button): the fighter's second super. A fighter without one fires their beam.
-- **Tech** (combo escape): **hold Guard while you're being hit**. The moment the attacker leaves a gap you
-  flip out in the air (TECH!), or, if you hit the floor, roll back to your feet (TECH ROLL!) instead of lying
-  down. Hold a direction to pick where: away (default), toward them, ↑ rise in place, ↓ drop to the floor.
-  Pressing any button while launched still techs too. Spikes, throws and super finishes are hard knockdowns:
-  no roll.
-- **Timed tech** (Smash style): **tap Guard just before you hit the floor or the ring barrier** (up to about 11
-  frames early) while you're being comboed. On the floor you get up on the spot (TECH!), or roll with ← / →; on the
-  barrier you cling for a moment and kick off it (WALL TECH!), or hold ↑ for a wall jump you can act out of. It beats
-  ground bounces, wall bounces (the "handball"), spikes, throws and plain landings, and ends the combo. Only a fresh
-  press counts (holding Guard doesn't), and a press that's too early locks the timed tech out for about 40 frames,
-  so mashing fails. Super finishes can't be teched.
-- **Burst** (2 bars, once per round): **Guard + Special while you're being hit**. A shockwave blows the attacker
-  away and ends the combo (BURST!). It can be blocked: an attacker who stops and guards gets to punish you. The
-  gem next to your ki gauge shows whether you still have it this round.
-- **Blue combo counter**: when the counter turns blue, the victim could have teched out somewhere in that combo.
-- **Hold back to block**: hold the stick away from the opponent and you block their attacks on the ground, no
-  button needed (it's always on). With nothing coming you still run away; when they attack nearby or a shot or
-  beam of theirs is out, you turn and raise your guard. Throws still beat it, like a held Guard.
-- **Parry**: tap Guard just before a hit lands (6-frame window). No damage, and a melee attacker staggers, so
-  punish. Mashing Guard doesn't work: each press locks parries out for 24 frames, but a parry re-arms at once.
-- **Spot dodge**: hold Guard and push ↓. Briefly intangible, then a short recovery (gets slower if you spam it).
-- **Air dodge**: Guard in the air, once per jump, with a direction to dodge that way.
-- **Wavedash**: Jump, then right away Guard + a direction: you air dodge into the floor and slide. Attack out of
-  the slide and the momentum carries into it.
-- **Throw**: Light + Heavy up close grabs someone who's blocking (or parrying, or in a counter stance) and
-  tosses them into the wall. Whiff it and you're wide open. If you get grabbed, press Light + Heavy quickly to
-  **break** it. Jabs, jumps and spot dodges beat throws.
-- KO with a big hit sends the loser flying out of the ring into the stands.
-- Esc / P / Start: pause. M (or the small speaker toggle in the top corner): mute. The pause menu's **MUSIC** row
-  sets the music volume (◀ ▶, remembered); the music itself is chill generated lo-fi, a new song every time.
-- A gamepad only takes control after you press one of its buttons, so an idle controller with a
-  drifting stick can't move your fighter.
-
-### Phone / tablet (landscape)
-
-Open https://gcd-tourney.vercel.app on your phone and turn it sideways (portrait shows a "rotate" screen).
-Android goes fullscreen on the first tap; on iPhone use Share > Add to Home Screen for a fullscreen app.
-
-- **Left half of the screen:** a joystick appears under your thumb. Flick twice in a direction to dash.
-- **Right side:** LIGHT, HEAVY, SPECIAL, JUMP, GUARD, DASH, plus **ULT** (Heavy + Special), **VANISH**
-  (Guard + Special; it's the **Burst** while you're being hit) and **SUPER**, so you never need a two-finger chord.
-  They dim until you have the ki. Hold GUARD while you're being hit to tech.
-  Hold the joystick in a direction while you tap SPECIAL for the directional specials.
-- **Top-left:** pause. In menus, tap items; the **BACK** button bottom-left replaces Esc. Tap the screen to
-  skip the pre-fight intro.
-- Button size: Pause > Controls > TOUCH tab (small / medium / large).
+> A personal, non-commercial fan project. The fighters are characters from existing anime series and belong to their rights holders (see [the note at the end](#a-note-on-the-characters)).
 
 ## Fighters
 
-| | Special (tap) | → Special | ↑ Special | ↓ Special | air Special | Super (SUPER) | Ultimate |
-|---|---|---|---|---|---|---|---|
-| **Naruto** | Rasengan (rush) | Rasenshuriken, handheld (slower, grinds them in a wind vortex, costs him some HP) | Uzumaki Barrage (clones kick them up, heel drop; anti-air) | **Nine-Tails Cloak** (8 s: tougher, stronger, a bit faster) · **← Special:** Substitution (counter: a log takes the hit, he kicks them from behind, ½ bar) | shuriken; +↓ Barrage dive | **Shadow Clone Barrage** (clone combo, Giant Rasengan finish) | **Four-Tails** (the shroud boils up and he pounces on all fours; a catch is a mauling and a chakra roar; side-step during the roar to dodge it) |
-| **Sasuke** | Chidori (rush) | Chidori Sharp Spear (short, instant lightning lance, ½ bar) | Lion's Barrage (rising kick; on a hit he follows them up from behind, strikes in the air and heel-drops them into the floor; anti-air) | Sharingan (counter: reads the attack, Chidori Current, kicks back, ½ bar) | Great Fireball; +↓ Lion's dive | **Kirin** (a fireball into the sky, storm clouds over where they stand, then the lightning dragon dives on the spot; they can dash out) | **Amaterasu** (black flames burn them for a few seconds; can't be blocked) |
-| **Killua** | Narukami (lightning bolt, ½ bar) | Rhythm Echo (afterimage teleport behind, then a wall-bounce strike) | Thunderbolt (lightning leap and slam, anti-air) | **Godspeed** (8 s: faster, +12 % damage, dashes become lightning blinks) | Narukami; +↓ Thunderbolt dive | **Godspeed: Speed of Lightning** (dash, 8-hit afterimage flurry, slam) | **Godspeed: Whirlwind** (for 5 s his body counters up to 4 strikes or shots by itself; throw him or wait it out) |
-| **Gojo** | Lapse: Blue (gravity vortex: pulls in, ticks, pops up) | Reversal: Red (repulsion blast, wall bounce) | Blink (teleport above them, ½ bar) | Infinity (counter: a melee hit freezes the attacker, ½ bar) | Reversal: Red | **Domain Expansion: Unlimited Void** (the void swallows the stage, opponent frozen ~2.5 s) | **Hollow Purple** (Red and Blue fuse into a huge orb that rolls across the stage and erases projectiles; leave its lane) |
+<table>
+<tr>
+<td width="25%" align="center"><img src="public/characters/naruto/select.png" alt="Naruto in a fighting stance" width="100%"><br><b>Naruto</b><br><sub>Rasengan, Shadow Clones, Nine-Tails Cloak</sub></td>
+<td width="25%" align="center"><img src="public/characters/sasuke/select.png" alt="Sasuke charging a Chidori" width="100%"><br><b>Sasuke</b><br><sub>Chidori, Kirin, Amaterasu</sub></td>
+<td width="25%" align="center"><img src="public/characters/killua/select.png" alt="Killua crackling with lightning" width="100%"><br><b>Killua</b><br><sub>Godspeed, Narukami, Whirlwind</sub></td>
+<td width="25%" align="center"><img src="public/characters/gojo/select.png" alt="Gojo holding a blue gravity orb" width="100%"><br><b>Gojo</b><br><sub>Infinity, Blue, Red, Hollow Purple</sub></td>
+</tr>
+</table>
 
-**Gojo's Infinity passive:** projectiles stop before they touch him whenever he can act and has ki (each
-volley of projectiles he stops costs him 15 ki; not while he's in hitstun or knocked down). Beams still connect, and so does everyone up close.
-Design notes: [ADR 0009](docs/decisions/0009-move-system-v2.md) and [docs/COMBAT_DESIGN.md](docs/COMBAT_DESIGN.md).
+Goku and Luffy are also playable. Every fighter shares one baseline kit (directional specials, a second super and an ultimate), and each has its own signature mechanics.
+
+## Highlights
+
+- **Online play with rollback netcode.** Players create public or private rooms and share an invite link or a five-letter code. Winner stays on, everyone else spectates live, and a dropped connection gets 20 seconds to rejoin.
+- **A deterministic simulation.** The game runs on a fixed 60 Hz step, so both players' machines compute the same match. A build-time lint blocks floating-point math calls that differ between browser engines, and recorded matches replay frame for frame as regression tests.
+- **Per-frame hitboxes.** A hit lands only where the fist or foot on the current sprite frame overlaps the opponent's body.
+- **CPU opponents with real tiers.** The top level reads frame data, parries, punishes and composes new combos every match. A spectator-only "God" level shows off the whole engine.
+- **Beam and melee clashes.** When two ultimates collide, both players play a short rhythm chart and the better timing wins.
+- **Runs anywhere.** Keyboard, PlayStation or Xbox pads with rebinding, and an on-screen touch layout for phones.
+- **No asset files for sound.** All music and sound effects are synthesized live with WebAudio.
+
+## Security and abuse prevention
+
+The online lobby is designed so a public game can't easily be abused:
+
+- **Bot protection:** rooms are gated by Cloudflare Turnstile.
+- **Origin allowlist:** WebSocket upgrades are accepted only from the game's own origins.
+- **No free-text chat:** players communicate with fixed quick-chat lines and emotes only, which removes the main harassment vector.
+- **Moderation:** nicknames pass a word filter. A room host can remove someone, and players can vote to remove someone.
+- **Isolation:** each room is its own Cloudflare Durable Object, and the room rules live in plain JavaScript with a fake-clock test suite.
+- **No secrets in the repo:** server secrets live in Cloudflare's secret store.
 
 ## How it's built
 
-- **Three.js + Vite**, no other runtime dependencies. Audio is synthesized with WebAudio, so there
-  are no sound files.
-- The scene renders at about 360p and is upscaled with nearest-neighbor sampling
-  (`src/core/renderer.js`), so geometry, textures and sprites share one pixel grid. HDR effects
-  bloom, and a light grade and vignette sit on top.
-- **3D-baked sprites** (`src/art/rig/`): chibi characters built from smooth primitives, posed with
-  keyframed joint angles, rendered with a toon shader into 112×112 cells. Contour lines, outlines,
-  anime eyes and motion smears are added in a pixel post-pass. The output is a normal sprite sheet
-  plus `anims.json`.
-- Sprites are camera-facing planes anchored at the feet, with a hidden sun-facing copy that casts a
-  silhouette shadow.
-- A 60 Hz fixed-step simulation with render interpolation, hitstop and victim shake, slow-mo,
-  directional camera kicks, and super-flash time freezes.
-- **2.5D lanes + per-frame hitboxes**: fighters face screen-left or screen-right, attacks step into the
-  opponent's depth lane, and a hit only lands where the fist or foot on the current sprite frame overlaps the
-  body ([ADR 0005](docs/decisions/0005-25d-lanes-frame-hitboxes.md)).
-- **Custom art**: `public/characters/<id>/sheet.png` + `anims.json` (spec v2: 256 px hi-res cells, pivot
-  `[128,240]`, 128 px per world unit, a 4096 × 2816 sheet; written by `npm run sprites`) replace the baked
-  placeholder when present. Missing animations fall back per animation, and missing files fall back to the
-  bake. Hi-res sheets switch the renderer to a sharper `hd` detail mode automatically.
+| Layer | Technology |
+|---|---|
+| Rendering | Three.js, rendered at about 360p and upscaled nearest-neighbor so geometry and sprites share one pixel grid, with bloom and a color grade on top |
+| Build | Vite, plain JavaScript ES modules, no other runtime dependencies |
+| Online | Cloudflare Workers and Durable Objects (one per room), WebSockets, rollback netcode |
+| Audio | WebAudio synthesis (music, sound effects, crowd) |
+| Hosting | Vercel (game) and Cloudflare (lobby) |
 
 ```
 src/
-  core/        renderer (pixel upscale + bloom), input (keyboard + gamepad pads), audio (synth)
-  art/rig/     3D chibi rig, toon shader, pose/keyframe system, animation library, sprite baker
-  art/         pixel helpers, environment textures, crowd painter, VFX painter, ChatGPT prompt guide
-  characters/  roster: one file per fighter (model, stance, signature anims, stats, colors)
-  world/       arena builder (ring, temple, stands + instanced crowd, gate, trees, sky)
-  game/        game loop & match flow, fighter state machine, moves, CPU AI,
-               projectiles & beams, effects, camera director
-  ui/          HUD (bars, combo counter, cut-ins) + menus + controls panel (DOM overlay)
-tools/         pack-sprites.mjs: packs art/ into public/ (npm run sprites)
-art/           art briefs, image prompts, versioned raws, cleaned frames, review queue, tracker + manifest (not shipped)
-public/characters/<id>/   sheet.png + anims.json (+ portrait/cutin/select.png) that replace the placeholder art
-public/vfx/               optional custom VFX atlas
-docs/          architecture, combat design, workflows, ADRs, task board
+  core/        renderer, input (keyboard, gamepad, touch), synthesized audio
+  game/        match loop, fighter state machine, move and frame data, CPU AI, projectiles, clashes, camera
+  characters/  one data file per fighter
+  art/rig/     3D rig that bakes placeholder sprites for any fighter without finished art
+  world/       arena, crowd, stages, announcer
+  ui/          HUD, menus, controls and rebinding
+server/        online lobby (Cloudflare Worker + Durable Objects)
+tools/         sprite packer, lints and merge guards
+docs/          architecture, combat design and 55 architecture decision records
 ```
 
-## Dev shortcuts
+More detail is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/COMBAT_DESIGN.md](docs/COMBAT_DESIGN.md) and [docs/decisions/](docs/decisions/README.md).
 
-- `/?fight=naruto,sasuke&mode=solo&level=hard` skips the menus and starts a match (`level` = easy, normal, hard
-  insane or impossible; `mode=versus` for 2P, `mode=cpu` to spectate two CPUs; that one defaults to `level=impossible`).
-  `&seed=N` fixes the match seed (the CPUs' combo styles and choices).
-- `&art=custom` uses custom sheets even when they're incomplete (useful while art is in production).
-- `/?room=ABCDE` opens the online screen for that room (the invite link); `&lobby=ws://...` picks another lobby server
-  (`npm run lobby` runs one locally, which a page on localhost uses by itself; see [server/README.md](server/README.md)).
-- `/?fight=naruto,sasuke&mode=solo&net=sim&lag=6&loss=5` plays a match through rollback over a simulated network.
-- `/?debug` adds console helpers: `step(n)` (frame-step, pauses the live loop), `resumeLoop()`,
-  `press('KeyJ')`, `hold('KeyD')` / `release('KeyD')`, `tap(['KeyK','KeyL'])`, `freezeCpu()`,
-  `snap()` / `unsnap()`, `music.state()` / `music.next()` (`&musicSeed=N` replays a song), `soak(n, pairs)` and
-  `comboStats()` (CPU vs CPU matches back to back and what the CPUs' combos did). See
-  [docs/TESTING.md](docs/TESTING.md) for the test checklists and the CPU-vs-CPU soak.
+## Built with AI agents, with a human approval gate
 
-## Docs
+I built this project with AI coding agents as a deliberate experiment in running them safely on a long-lived codebase:
 
-The project is set up for long-term work by a human plus AI tools: Claude Code for engine work, Codex for
-art generation and production (the user reviews and approves every image), and optionally ChatGPT when the
-user wants to generate an image by hand.
+- **Separate roles.** Claude Code owns engine and gameplay code. Codex produces the sprite art. I own design and every approval.
+- **Human review of every AI-generated image.** Each generated asset is versioned and never overwritten, then logged in a review queue. It ships only after I approve it.
+- **Enforced in tooling, not just in policy.** A merge guard refuses any branch whose packed art isn't the approved version, and every feature lands through a pull request.
+- **Recorded decisions.** Architecture choices are written up as ADRs, so the agents and I don't relitigate them.
 
-| Doc | What's in it |
+## Run it locally
+
+```bash
+npm install
+npm run dev        # http://127.0.0.1:5188
+npm run build      # production build into dist/
+```
+
+| Guide | What's in it |
 |---|---|
-| [CLAUDE.md](CLAUDE.md) | instructions for Claude Code: commands, architecture map, rules, testing, definition of done |
-| [AGENTS.md](AGENTS.md) | instructions for Codex and other agents, focused on the art workflow |
+| [docs/PLAYING.md](docs/PLAYING.md) | every mode, full controls, the combat toolkit and each fighter's moves |
+| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | commands, debug URLs and tests |
+| [docs/TESTING.md](docs/TESTING.md) | test checklists and the CPU-vs-CPU soak test |
 | [CHANGELOG.md](CHANGELOG.md) | what changed in each version |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | modules, per-frame data flow, sprite and VFX pipelines, UI, audio |
-| [docs/COMBAT_DESIGN.md](docs/COMBAT_DESIGN.md) | moveset, frame data, combo systems, ki, hit detection rules |
-| [docs/ADDING_A_CHARACTER.md](docs/ADDING_A_CHARACTER.md) | end-to-end recipe for a new fighter |
-| [docs/AI_COLLABORATION.md](docs/AI_COLLABORATION.md) | Claude / Codex / user roles, handoffs, the art review loop, review gates |
-| [docs/TESTING.md](docs/TESTING.md) | manual checklists, debug helpers, soak test, performance budget |
-| [docs/ROADMAP.md](docs/ROADMAP.md) | milestones from training mode to more characters, stages and online |
-| [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | branches, conventional commits, review checklist, versioning |
-| [docs/TASKS.md](docs/TASKS.md) | the task board (owner + status) |
-| [docs/STYLE_GUIDE_CODE.md](docs/STYLE_GUIDE_CODE.md) | coding conventions |
-| [docs/decisions/](docs/decisions/README.md) | architecture decision records (ADRs) |
-| [docs/agents/CODEX_PROMPT.md](docs/agents/CODEX_PROMPT.md) | copy-paste prompts to start Codex as the art producer (Prompt 0: spec v2 restart) |
-| [art/README.md](art/README.md) | art pipeline entry point: spec, style guide, pipeline, tracker, per-character briefs and prompts |
-| [art/REVIEW.md](art/REVIEW.md) | art review queue: every generated image version, newest first |
-| [ASSETS.md](ASSETS.md) | sprite sheet format and the Sprite Lab quick-import path |
 
-## A note on characters
+## A note on the characters
 
-Using recognizable anime characters is fine for a personal demo. A public or commercial
-release would need licenses from the rights holders (Shueisha / Studio Pierrot for Naruto,
-Shueisha / Madhouse for Hunter x Hunter, Shueisha / MAPPA for Jujutsu Kaisen, for example), or
-original characters inspired by those archetypes.
+This is a personal, non-commercial portfolio project. Naruto, Sasuke, Killua, Gojo, Goku and Luffy, and their techniques, belong to their creators and rights holders (Shueisha and the studios behind *Naruto*, *Hunter x Hunter*, *Jujutsu Kaisen*, *Dragon Ball* and *One Piece*). This project is not affiliated with or endorsed by any of them. A public or commercial release would use original characters.
