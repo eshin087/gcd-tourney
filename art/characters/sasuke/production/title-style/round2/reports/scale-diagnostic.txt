@@ -1,5 +1,5 @@
 exit 0
-node tools/scale-audit.mjs sasuke --root C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\combined-fixtures\diagnostic --public C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\public\reviews\sasuke-round2\diagnostic --out C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\public\reviews\sasuke-round2\diagnostic\scale
+node tools/scale-audit.mjs sasuke --root <repo>\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\combined-fixtures\diagnostic --public <repo>\.worktrees\art-sasuke-title-production\public\reviews\sasuke-round2\diagnostic --out <repo>\.worktrees\art-sasuke-title-production\public\reviews\sasuke-round2\diagnostic\scale
 
 == sasuke: idle head 39x38 px (declared palette #15162a #2b3764 #3a426d #314377 #3a4c85 #435ea3)
    1 ref, 7 ok, 3 unmeasured

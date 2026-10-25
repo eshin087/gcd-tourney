@@ -8,4 +8,4 @@ Review hub: `/art-review/title-production/index.html`. Approved pilot: `/art-rev
 
 Validation: local application build and browser checks are recorded at handoff. No engine/tool changes, main edits, merge or production deployment by Codex. Claude alone integrates; retain all four local worktrees because slim GitHub exports omit raw source art.
 
-Worktree: C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-title-style-pilot
+Worktree: <repo>\.worktrees\art-title-style-pilot

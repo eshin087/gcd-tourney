@@ -8,6 +8,6 @@ Validation: latest full 48-color production pack FAILS on32 animations and write
 
 No new strip is user-approved. Claude alone merges and deploys production. DO NOT MERGE this checkpoint.
 
-Worktree: C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-killua-title-production (retain for raw sources and coordinator cleanup).
+Worktree: <repo>\.worktrees\art-killua-title-production (retain for raw sources and coordinator cleanup).
 
 Latest local checkpoint includes all41 non-idle diagnostic animations plus idle05, specialDown07 hair correction, block/specialUp measured fits, four version-scoped manual pose checks and footwear-proxy correction. Build passes80 modules. A committed preview is published separately; the diagnostic is not a live replacement.

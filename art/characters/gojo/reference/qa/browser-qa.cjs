@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const { spawn } = require('node:child_process');
-const { chromium } = require('C:/Users/eshin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const { chromium } = require('playwright');
 
 (async () => {
   const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', '--host', '127.0.0.1', '--port', '5189', '--strictPort'], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -10,7 +10,7 @@ const { chromium } = require('C:/Users/eshin/.cache/codex-runtimes/codex-primary
     server.on('error', e => { clearTimeout(timer); reject(e); });
     server.on('exit', code => { clearTimeout(timer); reject(new Error(`Preview server exited ${code}`)); });
   });
-  const browser = await chromium.launch({ headless: true, timeout: 30000, executablePath: 'C:/Users/eshin/AppData/Local/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-win64/chrome-headless-shell.exe' });
+  const browser = await chromium.launch({ headless: true, timeout: 30000 });
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     const logs = [], errors = [];
