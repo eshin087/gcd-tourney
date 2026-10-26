@@ -9,7 +9,8 @@
 //  launch     [horizontal, vertical] speed -> knocks the victim into the air
 //  groundBounce / wallBounce  the victim bounces off the floor / ring barrier (a per-combo budget: JUGGLE.ground / .wall)
 //  launcher   a jump or dash input after it connects chases the victim into the air
-//  next/cancel  chain into the next move from this frame on
+//  next/cancel  chain into the next move from this frame on; without `next`, `cancel` is a landed tilt's gatling
+//             frame (ADR 0056; CHAIN below holds the windows, the fresh-flick read and the chain magnet)
 //  spark      'light' | 'heavy' | 'smash' impact effect size
 //  boxPad     [x, y] world units the sprite hit box grows by for the overlap test (default 0.1/0.12, air 0.18/0.45)
 //  hardKnockdown  no tech roll on the landing after this hit (ADR 0022); unset, it defaults to true for ground-bounce
@@ -28,19 +29,19 @@
 //  feet       a light pop: the victim lands on their feet instead of in a knockdown (Smash's low-knockback hits)
 //  charge     a smash attack: Heavy held on frame `at` holds the swing up to `max` frames, for up to `mul` × the damage
 export const MOVES = {
-  light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 2.2, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, chain: true, btn: 'light', meleeClash: 'light' },
-  light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 2.4, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, chain: true, btn: 'light', meleeClash: 'light' },
-  light3: { anim: 'light3', startup: 6, active: 4, recovery: 14, dmg: 36, reach: 1.55, width: 1.0, hitstun: 24, push: 2.8, airPop: 6, hitstop: 8, lunge: 5, next: 'light4', cancel: 9, sfx: 'whoosh', spark: 'light', light: true, low: true, chain: true, btn: 'light', meleeClash: 'light' },
+  light1: { anim: 'light1', startup: 5, active: 3, recovery: 11, dmg: 28, reach: 1.3, width: 0.95, hitstun: 22, push: 1.5, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light2', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, chain: true, btn: 'light', meleeClash: 'light' },
+  light2: { anim: 'light2', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.35, width: 0.95, hitstun: 22, push: 1.7, airPop: 5.5, hitstop: 7, lunge: 4.5, next: 'light3', cancel: 7, sfx: 'whoosh', spark: 'light', light: true, chain: true, btn: 'light', meleeClash: 'light' },
+  light3: { anim: 'light3', startup: 6, active: 4, recovery: 14, dmg: 36, reach: 1.55, width: 1.0, hitstun: 24, push: 2.3, airPop: 6, hitstop: 8, lunge: 5, next: 'light4', cancel: 9, sfx: 'whoosh', spark: 'light', light: true, low: true, chain: true, btn: 'light', meleeClash: 'light' },
   light4: { anim: 'light4', startup: 9, active: 4, recovery: 22, dmg: 58, reach: 1.65, width: 1.05, launch: [14, 6], hitstop: 13, lunge: 6, sfx: 'whooshHeavy', spark: 'smash', big: true, shake: 0.5, wallBounce: true, chain: true, btn: 'light', meleeClash: 'light' },
   heavy: { anim: 'heavy', startup: 12, active: 5, recovery: 22, dmg: 64, reach: 1.4, width: 1.05, launch: [2.4, 15.5], hitstop: 12, lunge: 5.5, hop: 5, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.45, launcher: true, yTol: 1.7, boxPad: [0.14, 0.3], btn: 'heavy', meleeClash: 'heavy' },
   // ---- tilts, dash attack and smash attacks (ADR 0042): until Codex draws them they show the strips FALLBACK names
   // (src/game/sprites.js), whose hit boxes they use
-  // forward tilt: a long poke that pushes them out (+4 on hit, -5 on block)
-  fTilt: { anim: 'fTilt', startup: 7, active: 3, recovery: 15, dmg: 46, reach: 1.6, width: 1.0, hitstun: 22, push: 4, airPop: 5.5, hitstop: 9, lunge: 3, sfx: 'whoosh', spark: 'heavy', btn: 'light', meleeClash: 'light' },
+  // forward tilt: a long poke that pushes them out (+4 on hit, -5 on block); on a landed hit it gatlings (`cancel`)
+  fTilt: { anim: 'fTilt', startup: 7, active: 3, recovery: 15, dmg: 46, reach: 1.6, width: 1.0, hitstun: 22, push: 3.2, airPop: 5.5, hitstop: 9, lunge: 3, cancel: 10, sfx: 'whoosh', spark: 'heavy', btn: 'light', meleeClash: 'light' },
   // up tilt: an anti-air that pops them just over the head, so it juggles into itself or an up air
   uTilt: { anim: 'uTilt', startup: 6, active: 6, recovery: 14, dmg: 38, reach: 1.15, width: 1.0, launch: [0.4, 8.5], feet: true, hitstop: 8, lunge: 2.5, yTol: 2.2, boxPad: [0.35, 0.5], sfx: 'whoosh', spark: 'heavy', btn: 'light', meleeClash: 'light' },
-  // down tilt: a quick low poke (+11 on hit: links into a jab or a tilt; +1 on block)
-  dTilt: { anim: 'dTilt', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.5, width: 0.95, hitstun: 26, push: 1.6, airPop: 5, hitstop: 7, lunge: 2, low: true, sfx: 'whoosh', spark: 'light', btn: 'light', meleeClash: 'light' },
+  // down tilt: a quick low poke (+11 on hit: links into a jab or a tilt; +1 on block); gatlings on a landed hit
+  dTilt: { anim: 'dTilt', startup: 5, active: 3, recovery: 12, dmg: 30, reach: 1.5, width: 0.95, hitstun: 26, push: 1.6, airPop: 5, hitstop: 7, lunge: 2, cancel: 8, low: true, sfx: 'whoosh', spark: 'light', btn: 'light', meleeClash: 'light' },
   // dash attack: Light during a dash with the stick held; it carries the dash in and pops them up a little (-6 on block)
   dashAttack: { anim: 'dashAttack', startup: 8, active: 5, recovery: 25, dmg: 50, reach: 1.5, width: 1.05, launch: [4, 8.5], feet: true, hitstop: 10, lunge: 10, sfx: 'whooshHeavy', spark: 'heavy', big: true, shake: 0.3, btn: 'light', meleeClash: 'light' },
   // smash attacks: slow, punishable (-8 to -10 on block), and Heavy held on frame `charge.at` charges them
@@ -63,6 +64,22 @@ export const MOVES = {
   // lightning bursts through them on the hit (`blastFx`) instead of the white smash spark (ENG-SKL-KIL)
   echoStrike: { anim: 'specialForward', startup: 3, active: 4, recovery: 18, dmg: 70, reach: 1.6, width: 1.1, launch: [15, 6], hitstop: 12, spark: 'smash', big: true, shake: 0.5, wallBounce: true, boxPad: [0.2, 0.3], sfx: 'whooshHeavy', blastFx: { fx: 'palmShock', scale: 0.7, smoke: 0, ring: 1 }, color: '#62d8ff' },
   vanishKick: { anim: 'light4', startup: 2, active: 5, recovery: 20, dmg: 75, reach: 1.7, width: 1.15, launch: [17, 6.5], hitstop: 16, spark: 'smash', big: true, shake: 0.8, wallBounce: true, yTol: 2.4, sfx: 'whooshHeavy' },
+};
+
+// Combo flow (ADR 0056): the gatling hybrid, the mash rule and the buffers that make strings come out.
+//  buffer  frames a Light / Heavy press waits for a chain, gatling or on-hit cancel. All of these windows are counted
+//          in the fighter's LIVE frames (Fighter.buffered): hitstop and world freezes no longer eat them, so a
+//          follow-up pressed on the hit spark comes out when the body unfreezes instead of being forgotten
+//  act     the same window for starting a normal out of idle, a run, a dash, the air or a landing
+//  fresh   a stick direction flicked at most this many frames before the press is deliberate: mid-string it picks
+//          the tilt or smash; a direction merely held (walking, approaching) mashes the jab string / launcher
+//  magnet  a chain or gatling started on a landed hit lunges to close the gap the last hit's push opened: lunge is
+//          raised to `gap × rate` units/s (capped at `max`), the gap measured to `closeTo` — combo spacing, just
+//          outside Game.separate's 0.72 — because the packed art hits with its drawn fist boxes, shorter than
+//          `reach`. Mid-string pokes whiffing was the loudest feel complaint
+export const CHAIN = {
+  buffer: 12, act: 10, fresh: 9,
+  magnet: { closeTo: 0.85, rate: 16, max: 14 },
 };
 
 // Homing super dash contact hit

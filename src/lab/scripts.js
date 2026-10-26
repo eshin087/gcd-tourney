@@ -349,6 +349,13 @@ export const SCENARIOS = [
   },
   // ------------------------------------------------ combos (ADR 0026 routes): `room` = units from the dummy to the barrier behind it
   {
+    id: 'gatling', group: 'combo', name: 'Gatling string (mash)', brief: 'hold toward + mash Light: tilt flows into the whole string',
+    info: 'The stick held toward the dummy the whole time (a walk-up, never re-flicked), Light mashed: the forward tilt opener lands and gatlings into the jab string — light1, light2, light3, light4 — with the chain magnet closing each gap (ADR 0056). Only the opener reads the held direction; mid-string, a held stick mashes the string and only a fresh flick picks a tilt.',
+    setup: { gap: 1.45 },
+    a: [{ t: 0, len: 80, stick: 'toward' }, tap(0, 'light'), tap(16, 'light'), tap(30, 'light'), tap(44, 'light'), tap(58, 'light')],
+    b: [],
+  },
+  {
     id: 'airCombo', group: 'combo', name: 'Air combo', brief: 'launch, chase, air string, spike',
     info: 'Light × 3, Heavy launcher, jump to chase, air string, air heavy spike (ground bounce).',
     setup: { gap: 1.2 },

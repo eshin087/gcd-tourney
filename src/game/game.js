@@ -782,6 +782,9 @@ export class Game {
       for (let i = 0; i < 2; i++) if (this.brains[i]) this.brains[i].update(this);
     }
     if (this.training) this.hud.history?.tick(this.pads[0], deviceLayout(this.input));
+    // live-frame buffers (ADR 0056): note what frozenF each press happened at, every sim frame — the fighters
+    // skip update() during world freezes, so Fighter.buffered's bookkeeping can't live there
+    for (const f of this.fighters) f.stampPresses();
     if (this.superFlash) {
       this.superFlash.t++;
       if (this.superFlash.t >= this.superFlash.len) {
@@ -791,15 +794,15 @@ export class Game {
     }
     if (this.clash?.lite) {
       // a special clash: the world holds still for its one beat (updateClash ends it)
-      for (const f of this.fighters) f.prev.copy(f.pos);
+      for (const f of this.fighters) { f.prev.copy(f.pos); f.frozenF++; }
       this.updateClash();
       this.fxTicks(true);
       return;
     }
     if (this.freeze > 0) {
-      // super flash: the world holds its breath (inputs still buffer)
+      // super flash: the world holds its breath (inputs still buffer, and the frozen frames don't age them)
       this.freeze--;
-      for (const f of this.fighters) f.prev.copy(f.pos);
+      for (const f of this.fighters) { f.prev.copy(f.pos); f.frozenF++; }
       this.fxTicks(true);
       return;
     }
@@ -1097,6 +1100,7 @@ export class Game {
       att.moveHit = true;
       att.hitPoint = at;
       const r = def.takeHit(att, m, dir);
+      if (r === 'hit') att.moveLanded = true; // clean hit, not blocked or parried: the gatling gate (ADR 0056)
       att.hitPoint = null;
       if (!attacking || r === 'parry') continue; // a parried attacker is already staggered
       if (m.rush) {
