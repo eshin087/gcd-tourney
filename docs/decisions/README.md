@@ -80,6 +80,7 @@ when a decision should be revisited.
 | [0053](0053-hd-effect-pages.md) | HD effects on one page per owner (`atlas_hd_shared.png`, `atlas_hd_<fighter>.png`, at most 2048 x 4096 each, `owner` on the effect): a match loads the shared pages and its two fighters' only (`Effects.prepare`), procedural stand-ins until a page is in; `atlas.png` is the shared page itself | Accepted |
 | [0054](0054-god-spectator-level.md) | GOD, a CPU vs CPU-only level above IMPOSSIBLE: MasterBrain style `god` with new knobs that default to today's values (`rallyDecay`, `rallyParry`, `clashChain`, `energyAnswer`, `exactTech`) and a `god` combo persona; against a person `?level=god` is IMPOSSIBLE | Accepted |
 | [0055](0055-clash-moves-own-art.md) | Beam clashes in each move's own art (drawn HD `band`s for the streams, `clashKnot`, the Kamehameha head pressed into the collision), Reversal: Red as its orb shoved forward, Hollow Purple clear of the floor, the winner holding its push pose while its attack stops at the loser in the move's own burst, and the Gigant Pistol as a clash body for beam and orb ultimates | Accepted |
+| [0056](0056-gatling-hybrid-combo-flow.md) | Gatling hybrid combo flow: cancel and attack buffers counted in live frames (hitstop and world freezes no longer eat presses), landed forward/down tilts gatling into the jab string / a flicked tilt / the launcher or a flicked smash, mash continues the jab string while only a fresh stick flick picks a tilt, and chains lunge-magnetize to combo spacing; whiffs and blocks keep Smash recovery | Accepted |
 
 ## Template
 

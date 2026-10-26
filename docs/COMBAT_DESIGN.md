@@ -87,18 +87,18 @@ hit lands, so the hit spark sits on the fist or foot (the packer warns past 24 p
 
 | Move | Input | Startup | Active | Recovery | Total | Dmg | Reach / width | Hitstop | On hit | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
-| light1 | Light | 5 | 3 | 11 | 19 | 28 | 1.3 / 0.95 | 7 | stun 22, push 2.2 | jab; chains to light2 from f7; lunge 4.5 |
-| light2 | Light (chain) | 5 | 3 | 12 | 20 | 30 | 1.35 / 0.95 | 7 | stun 22, push 2.4 | chains to light3 from f7 |
-| light3 | Light (chain) | 6 | 4 | 14 | 24 | 36 | 1.55 / 1.0 | 8 | stun 24, push 2.8 | front kick, `low` (hurtLow); chains to light4 from f9 |
+| light1 | Light | 5 | 3 | 11 | 19 | 28 | 1.3 / 0.95 | 7 | stun 22, push 1.5 | jab; chains to light2 from f7; lunge 4.5 |
+| light2 | Light (chain) | 5 | 3 | 12 | 20 | 30 | 1.35 / 0.95 | 7 | stun 22, push 1.7 | chains to light3 from f7 |
+| light3 | Light (chain) | 6 | 4 | 14 | 24 | 36 | 1.55 / 1.0 | 8 | stun 24, push 2.3 | front kick, `low` (hurtLow); chains to light4 from f9 |
 | light4 | Light (chain) | 9 | 4 | 22 | 35 | 58 | 1.65 / 1.05 | 13 | launch [14, 6] | roundhouse smash, **wall bounce** |
 | heavy | Heavy | 12 | 5 | 22 | 39 | 64 | 1.4 / 1.05 | 12 | launch [2.4, 15.5] | **launcher**, hop at f5, yTol 1.7 |
 | airLight1 | Light (air) | 4 | 4 | 9 | 17 | 24 | 1.4 / 1.0 | 7 | air pop 6.2 | chains to airLight2 from f7 |
 | airLight2 | Light (chain) | 4 | 4 | 10 | 18 | 26 | 1.45 / 1.0 | 7 | air pop 6.4 | chains to airLight3 from f8 |
 | airLight3 | Light (chain) | 6 | 4 | 14 | 24 | 40 | 1.55 / 1.05 | 11 | launch [12, 4.5] | knock-away, **wall bounce** |
 | airHeavy | Heavy (air) | 9 | 6 | 16 | 31 | 62 | 1.45 / 1.15 | 15 | launch [3, -22] | double-axe **spike**, **ground bounce** (budget: 2 per combo), yTol 2.4, `boxPad` [0.5, 0.45] |
-| fTilt | → + Light | 7 | 3 | 15 | 25 | 46 | 1.6 / 1.0 | 9 | stun 22, push 4 | forward tilt: +4 on hit, -5 on block; lunge 3 |
+| fTilt | → + Light | 7 | 3 | 15 | 25 | 46 | 1.6 / 1.0 | 9 | stun 22, push 3.2 | forward tilt: +4 on hit, -5 on block; lunge 3; gatlings from f10 on a landed hit (ADR 0056) |
 | uTilt | ↑ + Light | 6 | 6 | 14 | 26 | 38 | 1.15 / 1.0 | 8 | launch [0.4, 8.5], **feet** | up tilt, anti-air: pops them over the head; juggles into itself or an up air; yTol 2.2, lunge 2.5 |
-| dTilt | ↓ + Light | 5 | 3 | 12 | 20 | 30 | 1.5 / 0.95 | 7 | stun 26, push 1.6 | down tilt, `low`: +11 on hit (links into a jab or a tilt), +1 on block |
+| dTilt | ↓ + Light | 5 | 3 | 12 | 20 | 30 | 1.5 / 0.95 | 7 | stun 26, push 1.6 | down tilt, `low`: +11 on hit, +1 on block; gatlings from f8 on a landed hit (ADR 0056) |
 | dashAttack | Light in a dash (stick held) | 8 | 5 | 25 | 38 | 50 | 1.5 / 1.05 | 10 | launch [4, 8.5], **feet** | lunge 10; -6 on block |
 | fSmash | → + Heavy | 15 | 4 | 30 | 49 | 90 | 1.7 / 1.05 | 14 | launch [17, 7] | **charge** at f6 up to 60 f (×1.4 dmg); wall bounce; -10 on block |
 | uSmash | ↑ + Heavy | 11 | 6 | 26 | 43 | 80 | 1.2 / 1.05 | 13 | launch [2, 17] | **charge** at f5; yTol 2.4, lunge 3; -8 on block |
@@ -132,11 +132,28 @@ behind / both sides), `feet` (a light pop: they land on their feet) and `charge`
 
 ## Systems
 
-### Auto combo and chains
-- `Light ×4` (the **jab string**, stick neutral): light1 → light2 → light3 → light4. Chains happen on **whiff or hit**
-  once the move reaches its `cancel` frame, with a 10-frame input buffer. Only the jab strings (`chain`) chain into
-  other normals; the directional normals link (below).
-- On hit, a light can cancel into **heavy** (the launcher), so `Light ×3 → Heavy` is the core route.
+### Auto combo, chains and the gatling hybrid (ADR 0056)
+All windows in `CHAIN` (`src/game/moves.js`), and **every one is counted in the fighter's live frames**
+(`Fighter.buffered`): hitstop and world freezes don't age a buffered press, so a follow-up pressed on the hit
+spark comes out when the body unfreezes (the rule the timed tech already followed). Chains and cancels buffer
+`CHAIN.buffer` = 12 frames; starting a normal out of idle, a run, a dash, the air or a landing buffers
+`CHAIN.act` = 10 (guard, parry and burst reads are unchanged).
+
+- `Light ×4` (the **jab string**): light1 → light2 → light3 → light4. Chains happen on **whiff or hit** once the
+  move reaches its `cancel` frame. **Mashing Light continues the string even with a direction held**: at each
+  press the fighter notes whether the direction was a fresh flick (within `CHAIN.fresh` = 9 frames of the press)
+  or merely held to walk — only a fresh flick picks a tilt or smash mid-string. Openers still read the stick as
+  ADR 0042 says (walk-up + Light is the forward tilt; it just flows onward now).
+- **Gatling (on a landed hit only — never on block or whiff):** a ground light normal cancels from its `cancel`
+  frame into the jab string (mash), into a fresh-flicked **tilt** (each tilt once per string), or into **Heavy** —
+  the launcher, or a fresh-flicked **smash attack** as the ender. Launching normals (up tilt, dash attack,
+  light4) don't gatling: their pop is the follow-up (links, chase). So fTilt → mash → jabs → launcher works, while
+  a blocked or whiffed tilt keeps its full Smash recovery and stays punishable.
+- **Chain magnet:** a chain or gatling started on a landed hit raises its lunge (up to `CHAIN.magnet.max` = 14
+  u/s) to close to combo spacing (`closeTo` 0.85), so mid-string hits stop whiffing after pushback. Openers get
+  no magnet; spacing on the first hit is honest.
+- On hit, a jab light can cancel into **heavy** (the launcher) even on block, as before; `Light ×3 → Heavy` is
+  still the core route.
 - On hit, a ground normal can cancel into the **signature special** if Special was pressed and there's 1 bar.
   A rush special cancelled this way starts at its `cancelStartup` (Rasengan 14, Chidori 16, Rasenshuriken 18;
   raw 24 / 28 / 30), so light ×3 → special is a true combo while a raw one stays slow (ADR 0015).
@@ -147,8 +164,10 @@ behind / both sides), `feet` (a light pop: they land on their feet) and `charge`
   Heavy: neutral launcher, ←/→ forward smash, ↑ up smash, ↓ down smash. Air Light: neutral the air string (neutral air),
   forward air or back air along the facing, ↑ up air, ↓ the spike (down air); air Heavy is the spike. ↑ / ↓ also walk in
   depth, so a Light while walking up or down the lane is a tilt (as for specials).
-- **Links.** Tilts, smash attacks, the dash attack and the forward / back / up airs never cancel into another normal:
-  the next move has to land inside the hit stun (down tilt → jab, up tilt → up tilt, up tilt → short-hop up air). On hit
+- **Links and gatlings.** On a **landed** hit, the forward and down tilt gatling into the jab string, a flicked
+  tilt or the launcher / a flicked smash (ADR 0056, above); blocked or whiffed they keep their full recovery.
+  Smash attacks, the dash attack, the up tilt and the forward / back / up airs never cancel into another normal:
+  the next move has to land inside the hit stun (up tilt → up tilt, up tilt → short-hop up air). On hit
   they still cancel into a special, vanish, super, ultimate, and a launching hit into the super dash.
 - **Smash attacks** hold on their charge frame while Heavy stays down (up to 60 frames, up to ×1.4 damage, the sprite
   glows and trembles); the knockback stays the move's. All startup, so it can be hit out of.

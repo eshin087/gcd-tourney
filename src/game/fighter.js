@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { SpriteActor } from './sprites.js';
-import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH, NORMALS, AIR, CLASH, PROJECTILES } from './moves.js';
+import { MOVES, SPECIALS, ULTIMATE, SUPER_DASH, VANISH, DEFENSE, THROW, JUGGLE, MELEE_CLASH, NORMALS, AIR, CHAIN, CLASH, PROJECTILES } from './moves.js';
 import { ARENA_LIMIT, GRAVITY, DT, MAX_HP, MAX_KI, KI_BAR, RING_HALF, RING_TOP, RING_LIP } from './constants.js';
 import { Pad, CSTICK } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -160,6 +160,12 @@ export class Fighter {
     this.rollFz = this.face.y;
     // directional normals and Smash air (ADR 0042)
     this.atkMx = this.atkMy = 0; // the stick when Light or Heavy was last pressed (normalFor)
+    // combo flow (ADR 0056)
+    this.atkFresh = false; // the stick at that press was a fresh flick (CHAIN.fresh), not a held walk direction
+    this.frozenF = 0; // frames this body has spent frozen (hitstop, world freezes): Fighter.buffered discounts them
+    this.pressFroz = { light: 0, heavy: 0, jump: 0, dash: 0 }; // frozenF when each was last pressed (Game.stepWorld stamps it)
+    this.stringUsed = new Set(); // tilts already gatling'd into this string (each once; cleared on a fresh opener)
+    this.moveLanded = false; // the running move's hit landed clean (not blocked or parried): the gatling gate
     this.jumped2 = false; // the double jump is used (back on landing or when hit)
     this.shortHop = false; // the jump squat running was Jump + attack: a short hop, the aerial out at once
     this.fastFell = false;
@@ -303,6 +309,54 @@ export class Fighter {
     this.startMove(name, MOVES[name]);
   }
 
+  // ---- combo flow (ADR 0056): live-frame buffers, the fresh-flick read and the gatling hybrid
+
+  // The direction the stick holds right now was flicked within CHAIN.fresh frames of now: a deliberate aim, not a
+  // direction merely held to walk or approach. Read at the press (update() stores it in atkFresh).
+  freshDir(p) {
+    const x = p.mx, y = p.my;
+    const k = Math.abs(y) > 0.6 && Math.abs(y) > Math.abs(x) ? (y > 0 ? 'u' : 'd') : Math.abs(x) > 0.5 ? (x > 0 ? 'r' : 'l') : null;
+    return !!k && p.frame - p.dirPress[k] <= CHAIN.fresh;
+  }
+
+  // Pad.buffered counted in this body's LIVE frames: hitstop and world freezes (frozenF, stamped per press by
+  // Game.stepWorld) no longer eat the window, so a follow-up pressed on the hit spark still comes out.
+  buffered(name, win) {
+    const b = this.pad.b[name];
+    return b.lastPress >= 0 && this.pad.frame - b.lastPress - (this.frozenF - (this.pressFroz[name] ?? this.frozenF)) <= win;
+  }
+
+  // Called by Game.stepWorld every sim frame (fighters skip update() during world freezes, so it can't live there).
+  stampPresses() {
+    const b = this.pad.b;
+    for (const k in this.pressFroz) if (b[k].pressed) this.pressFroz[k] = this.frozenF;
+  }
+
+  // The stick-read gatling target out of a landed light normal (null: keep the mash route). Each tilt gatlings once
+  // per string; the jab string polices itself (bounded sequence, hitstun decay and the combo cap do the rest).
+  gatlingNormal(btn) {
+    const name = this.normalFor(btn);
+    const m = MOVES[name];
+    if (!m || m.air || name === this.moveName) return null;
+    if (m.btn === 'light' && !m.chain && this.stringUsed.has(name)) return null;
+    return name;
+  }
+
+  // Start a chain / gatling follow-up. On a landed hit the next move lunges to close the gap the last hit's push
+  // opened (CHAIN.magnet): whiffing mid-string was the loudest feel complaint.
+  startChain(name) {
+    const base = MOVES[name];
+    let m = base;
+    if (this.moveLanded && !this.air && !base.air) {
+      const gap = this.distTo() - CHAIN.magnet.closeTo;
+      if (gap > 0) {
+        m = { ...base, lunge: Math.min(CHAIN.magnet.max, Math.max(base.lunge ?? 0, gap * CHAIN.magnet.rate)) };
+      }
+    }
+    this.startMove(name, m);
+    if (!base.chain && base.btn === 'light') this.stringUsed.add(name);
+  }
+
   // The C-stick (ADR 0042, Smash's): the right stick flicked one way, a buffered press like a button's. The newest way
   // pressed within `win` frames, or null.
   cPress(win) {
@@ -396,6 +450,7 @@ export class Fighter {
   // --------------------------------------------------------------- actions
   startMove(name, m) {
     if (this.state === 'attack') this.endMoveFx();
+    if (this.opp && this.opp.combo === 0) this.stringUsed.clear(); // a fresh opener: the gatling menu resets (ADR 0056)
     this.move = m;
     this.moveName = name;
     this.state = 'attack';
@@ -403,6 +458,7 @@ export class Fighter {
     this.t = 0;
     this.hitDone = false;
     this.moveHit = false;
+    this.moveLanded = false;
     this.chargeT = 0;
     this.chargeMul = 1;
     this.chargeDone = false;
@@ -1020,12 +1076,12 @@ export class Fighter {
     }
     const c = this.cPress(6);
     if (c) { this.startC(c); return true; }
-    if (p.buffered('heavy', 6) && !b.special.down) {
+    if (this.buffered('heavy', CHAIN.act) && !b.special.down) {
       p.consume('heavy');
       this.startNormal('heavy');
       return true;
     }
-    if (p.buffered('light', 6)) {
+    if (this.buffered('light', CHAIN.act)) {
       p.consume('light');
       this.startNormal('light');
       return true;
@@ -1062,8 +1118,8 @@ export class Fighter {
     }
     const c = this.cPress(5);
     if (c) { this.startC(c); return true; }
-    if (p.buffered('heavy', 5)) { p.consume('heavy'); this.startNormal('heavy'); return true; }
-    if (p.buffered('light', 5)) { p.consume('light'); this.startNormal('light'); return true; }
+    if (this.buffered('heavy', CHAIN.act)) { p.consume('heavy'); this.startNormal('heavy'); return true; }
+    if (this.buffered('light', CHAIN.act)) { p.consume('light'); this.startNormal('light'); return true; }
     if (b.special.pressed) { this.spPending = false; return this.doProjectile(); }
     if ((b.dash.pressed || p.dashDir) && this.startSuperDash()) return true;
     if (b.jump.pressed && !this.jumped2 && this.chase <= 0) { this.doubleJump(); return true; }
@@ -1078,7 +1134,10 @@ export class Fighter {
     this.pad = p;
     this.clock++;
     if (p.b.special.pressed) { this.spPress = p.frame; this.spPending = true; this.spMx = p.mx; this.spMy = p.my; }
-    if (p.b.light.pressed || p.b.heavy.pressed) { this.atkMx = p.mx; this.atkMy = p.my; } // normalFor's fallback stick
+    if (p.b.light.pressed || p.b.heavy.pressed) {
+      this.atkMx = p.mx; this.atkMy = p.my; // normalFor's fallback stick
+      this.atkFresh = this.freshDir(p); // a deliberate flick picks a tilt mid-string; a held direction mashes the string
+    }
     // every Guard press is a parry attempt unless another press came less than `lockout` frames ago
     // (read even during hitstop, so a press in block stun can parry the next hit of a string)
     if (p.b.guard.pressed) {
@@ -1092,6 +1151,7 @@ export class Fighter {
 
     if (this.hitstop > 0) {
       this.hitstop--;
+      this.frozenF++; // frozen frames don't age the live-frame buffers (Fighter.buffered)
       if (this.hitstop === 0) {
         this.shaking = false;
         if (this.clashOut) this.leaveClash();
@@ -1156,8 +1216,8 @@ export class Fighter {
           if (this.wantsThrow()) { p.consume('light'); p.consume('heavy'); this.startThrow(); break; }
           const c = this.cPress(6);
           if (c) { this.startC(c); break; }
-          if (p.buffered('heavy', 6)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); break; }
-          if (p.buffered('light', 6)) {
+          if (this.buffered('heavy', CHAIN.act)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); break; }
+          if (this.buffered('light', CHAIN.act)) {
             p.consume('light');
             // the stick still held through a forward dash: the dash attack (ADR 0042); let go, the lunging jab
             const aim = this.aimsNormals() && dmath.hypot(p.mx, p.my) > 0.5;
@@ -1712,14 +1772,26 @@ export class Fighter {
     if (phase === 1 && !this.hitDone && !m.projectile) this.game.checkMelee(this, m);
     if (phase === 2 && m.special && t === B) this.endMoveFx();
 
-    // cancels (DBFZ style: chain -> launcher -> special/super, jump-cancel launcher)
-    if (m.next && t >= m.cancel && p.buffered('light', 10)) {
+    // cancels (DBFZ chains + the gatling hybrid, ADR 0056: chain / gatling -> launcher or smash -> special/super,
+    // jump-cancel launcher). The jab string still chains on whiff or block; everything else needs the hit to land.
+    if (m.next && t >= m.cancel && this.buffered('light', CHAIN.buffer)) {
       p.consume('light');
-      this.startMove(m.next, MOVES[m.next]);
+      // mid-string a fresh flick gatlings into that tilt instead of the next jab (mash keeps the string)
+      const g = this.moveLanded && this.atkFresh ? this.gatlingNormal('light') : null;
+      this.startChain(g && MOVES[g].btn === 'light' ? g : m.next);
+      return;
+    }
+    // a landed tilt gatlings onward (ADR 0056): mash continues the jab string, a fresh flick picks another tilt.
+    // Launching normals (up tilt, dash attack, the enders) stay Smash links: their pop is the follow-up.
+    if (this.moveLanded && !m.air && !m.special && m.btn === 'light' && !m.chain && !m.launch && t >= (m.cancel ?? B)
+        && this.buffered('light', CHAIN.buffer)) {
+      p.consume('light');
+      const g = this.atkFresh ? this.gatlingNormal('light') : null;
+      this.startChain(g && MOVES[g].btn === 'light' ? g : 'light1');
       return;
     }
     if (this.moveHit && t >= A) {
-      if (m.launcher && (p.buffered('jump', 10) || p.buffered('dash', 10))) {
+      if (m.launcher && (this.buffered('jump', CHAIN.buffer) || this.buffered('dash', CHAIN.buffer))) {
         p.consume('jump'); p.consume('dash');
         this.startChase();
         return;
@@ -1727,9 +1799,16 @@ export class Fighter {
       if (this.wantsVanish()) { this.startVanish(); return; }
       if (!m.special && kit.wantsSuper(this)) { kit.startSuper(this); return; }
       if (!m.special && this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); return; }
-      if (m.light && p.buffered('heavy', 8)) { p.consume('heavy'); this.startMove('heavy', MOVES.heavy); return; }
+      // Heavy out of a light normal: the launcher, or mid-string a flicked smash attack as the ender (ADR 0056).
+      // The jab lights cancel as before (hit or block); a tilt needs its hit to land, like its other gatlings.
+      if (!m.air && m.btn === 'light' && !m.launch && (m.light || this.moveLanded) && this.buffered('heavy', CHAIN.buffer)) {
+        p.consume('heavy');
+        const g = this.moveLanded && this.atkFresh ? this.gatlingNormal('heavy') : null;
+        this.startChain(g ?? 'heavy');
+        return;
+      }
       // the air string ends in the spike; the other aerials link (ADR 0042: only `chain` moves cancel into a normal)
-      if (m.air && m.chain && p.buffered('heavy', 8)) { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
+      if (m.air && m.chain && this.buffered('heavy', CHAIN.buffer)) { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
       if (!m.special && !m.air && this.spPending) {
         this.spPending = false;
         this.cancelSpecial = true; // kit.js START.rush reads it for the faster cancelled startup
@@ -1737,7 +1816,7 @@ export class Fighter {
         this.cancelSpecial = false;
         if (ok) return;
       }
-      if ((m.wallBounce || m.launch) && t >= B && (p.buffered('dash', 8) || p.dashDir) && this.airDashes === 0) {
+      if ((m.wallBounce || m.launch) && t >= B && (this.buffered('dash', CHAIN.buffer) || p.dashDir) && this.airDashes === 0) {
         p.consume('dash');
         this.startSuperDash();
         return;
