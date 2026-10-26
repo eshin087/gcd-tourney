@@ -3,7 +3,7 @@
   "fighters": [
     {
       "id": "naruto",
-      "source": "C:\\Users\\eshin\\Desktop\\Claude Code\\gcdTourney\\.worktrees\\art-naruto-proportions\\art\\characters\\naruto\\raw\\idle_v05.png",
+      "source": "<repo>\\.worktrees\\art-naruto-proportions\\art\\characters\\naruto\\raw\\idle_v05.png",
       "sha256": "c3236abfeec7b7b212aae9498707edfbbb228726f0a935f3d3da0acbb965d717",
       "version": 5,
       "targetHeadPx": 25.21402951469189,
@@ -49,7 +49,7 @@
     },
     {
       "id": "sasuke",
-      "source": "C:\\Users\\eshin\\Desktop\\Claude Code\\gcdTourney\\.worktrees\\art-sasuke-proportions\\art\\characters\\sasuke\\raw\\idle_v06.png",
+      "source": "<repo>\\.worktrees\\art-sasuke-proportions\\art\\characters\\sasuke\\raw\\idle_v06.png",
       "sha256": "b233e3df823910d7e7a266ed03f00afc7e252c2261a951056a289a0adac20331",
       "version": 6,
       "targetHeadPx": 24.48673197462748,
@@ -95,7 +95,7 @@
     },
     {
       "id": "killua",
-      "source": "C:\\Users\\eshin\\Desktop\\Claude Code\\gcdTourney\\.worktrees\\art-scale-fix-killua\\art\\characters\\killua\\raw\\idle_v03.png",
+      "source": "<repo>\\.worktrees\\art-scale-fix-killua\\art\\characters\\killua\\raw\\idle_v03.png",
       "sha256": "dabd85e2a8124db44dfcda275b8e327518a6257e2b3e2d4a8570adf7a603b61b",
       "version": 3,
       "targetHeadPx": 24.225774996334824,
@@ -141,7 +141,7 @@
     },
     {
       "id": "gojo",
-      "source": "C:\\Users\\eshin\\Desktop\\Claude Code\\gcdTourney\\.worktrees\\art-gojo-full-redraw\\art\\characters\\gojo\\raw\\idle_v04.png",
+      "source": "<repo>\\.worktrees\\art-gojo-full-redraw\\art\\characters\\gojo\\raw\\idle_v04.png",
       "sha256": "104468594714019e6cacfca8db68341c7b60dc54edf3dd12094745e197484024",
       "version": 4,
       "targetHeadPx": 23.2002389724186,

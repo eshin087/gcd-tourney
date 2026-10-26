@@ -1,5 +1,5 @@
 exit 1
-node tools/pack-sprites.mjs sasuke --quantize 48 --strict-scale --root C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\fixtures\launched --out C:\Users\eshin\Desktop\Claude Code\gcdTourney\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\packs\launched\strict --no-writeback
+node tools/pack-sprites.mjs sasuke --quantize 48 --strict-scale --root <repo>\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\fixtures\launched --out <repo>\.worktrees\art-sasuke-title-production\art\characters\sasuke\production\title-style\round2\packs\launched\strict --no-writeback
 GCD Tourney sprite packer v2
   art:  art/characters/sasuke/production/title-style/round2/fixtures/launched
   out:  art/characters/sasuke/production/title-style/round2/packs/launched/strict
