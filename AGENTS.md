@@ -270,7 +270,9 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
   every deploy. Put review pages under `public/reviews/<batch>/` or `public/art-review/`: production never ships them,
   and `npm run pr -- preview` carries only the review files your branch changed, so your review link still works. Any
   other large review, QA or source folder goes outside `public/` or into `EXCLUDE` in `tools/export-head.mjs`. Publish
-  one preview when a batch is ready for the user, not after every commit. If the deploy stops with "REFUSED" (over
+  one preview when a batch is ready for the user, not after every commit. **Preview deployments are deleted after 1
+  day** (user decision 2026-11-01): publish right before you ring for review, and when a review waits longer, run
+  `npm run pr -- preview` again and link the new URL instead of an old one. If the deploy stops with "REFUSED" (over
   250 MB), move out the folder it names; never raise `GCD_DEPLOY_MAX_MB` yourself, ring Claude instead.
 
 - **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).

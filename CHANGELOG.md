@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (TOOL-067, user decision): Vercel keeps gcd-tourney preview deployments for 1 day (production 1 week); preview review links expire after a day, so republish with `npm run pr -- preview` when a review waits. CLAUDE.md and AGENTS.md say so.
 - Added (TOOL-067): `npm run deploy` refuses a build over 250 MB before uploading and names its largest folders (tools/deploy-size.mjs, `GCD_DEPLOY_MAX_MB`); a production deploy is ~175 MB today. CLAUDE.md and AGENTS.md gain a "Deployment storage" rule. Vercel team default retention is now 1 week (1 day for errored and canceled), so new projects start there too.
 - Fixed (TOOL-067): a preview deploy carries the review files its own branch changed (`public/reviews/<batch>/`, `public/art-review/` plus its catalog), so phone review links work again after TOOL-066 left both folders out of every deploy; production still ships none.
 - Changed (TOOL-066): `npm run deploy` leaves `public/reviews/` and `public/art-review/` out of the export (tools/export-head.mjs, beside `art/`): Vite copied both into every deployment, so each of 223 deployments held ~1.26 GB and the Vercel account showed 347 GB of deployment storage against the Hobby plan's 10 GB; a deployment is now ~175 MB. The art review page finds its catalog only locally. Vercel-side: old deployments removed, retention set to 1 week (1 day for errored and canceled).

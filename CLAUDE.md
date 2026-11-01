@@ -280,8 +280,11 @@ deploy and 725 MB of review screenshots plus 360 MB of art-review pictures went 
    and names the largest folders. Fix what it names. Raise `GCD_DEPLOY_MAX_MB` (or `DEFAULT_MAX_MB`) only when the
    shipped game itself grew, such as new fighters, and say why in the commit.
 3. **Deploy deliberately.** One preview per PR when it is ready for the user, not after every commit; production
-   deploys come from `npm run pr -- merge`. Retention is 1 week (1 day for errored and canceled) on every project
-   and as the team default; don't lengthen it without the user's yes.
+   deploys come from `npm run pr -- merge`. **This project keeps preview deployments for 1 day** (user decision
+   2026-11-01; production 1 week, errored and canceled 1 day): at ~175 MB each, a week of previews alone would pass
+   10 GB. A preview link in NOW.md, REVIEW.md or a PR stops working after a day, so publish it when the user is about
+   to review, and republish (`npm run pr -- preview`) rather than reuse an old link. The team default and the other
+   projects keep 1 week. Don't lengthen either without the user's yes.
 4. When the usage page nears the limit, check deploy count and size per project first (`vercel api /v6/deployments`)
    before deleting anything, and ask the user before bulk removals.
 
