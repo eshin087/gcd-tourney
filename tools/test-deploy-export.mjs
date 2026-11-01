@@ -11,7 +11,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { EXCLUDE, exportTree } from './export-head.mjs';
+import { EXCLUDE, changedReviewFiles, exportTree } from './export-head.mjs';
+import { DEFAULT_MAX_MB, checkDeploySize, formatSize, maxMb } from './deploy-size.mjs';
 import { SPARSE } from './sparse-art.mjs';
 import { isScratchCopy, removeCopy, scratchDir, sweepStale } from './scratch-dir.mjs';
 
@@ -130,13 +131,67 @@ function main() {
   for (const [i, e] of EXCLUDE.entries()) {
     const g = path.join(BASE, `guard${i}`);
     fs.mkdirSync(path.join(g, ...e.split('/')), { recursive: true });
+    fs.writeFileSync(path.join(g, ...e.split('/'), 'stray.png'), 'x');
     let threw = false;
     try { exportTree({ root: REPO, dest: g, index: path.join(BASE, `guard${i}.index`) }); } catch { threw = true; }
     check(threw, `exportTree refuses an export that holds ${e}/`);
   }
 }
 
-try { main(); await cleanup(); } catch (e) { failures++; console.log(`  FAIL crashed: ${e.stack}`); }
+// TOOL-067: a preview carries the review files its branch changed and nothing else under the review folders
+function previewReviews() {
+  git(REPO, 'switch', '-q', '-c', 'review/batch');
+  put('public/reviews/new-batch/index.html', '<!doctype html>\n');
+  put('public/reviews/new-batch/01.png');
+  put('public/art-review/new-item.png');
+  git(REPO, 'add', '-A'); git(REPO, 'commit', '-q', '-m', 'review batch');
+  const changed = changedReviewFiles({ root: REPO, rev: 'HEAD', base: 'main' }).sort();
+  const wantChanged = ['public/art-review/new-item.png', 'public/art-review/review.json', 'public/reviews/new-batch/01.png',
+    'public/reviews/new-batch/index.html'];
+  check(JSON.stringify(changed) === JSON.stringify(wantChanged), `changedReviewFiles: the branch's review files plus the catalog (${changed})`);
+  check(changedReviewFiles({ root: REPO, rev: 'main', base: 'main' }).length === 0, 'changedReviewFiles: main itself changes nothing');
+
+  const r = exportOf(REPO, 'preview');
+  check(!r.err, `preview-less export of the review branch succeeds (${r.err?.message})`);
+  check(!r.files.some((f) => f.startsWith('public/reviews/') || f.startsWith('public/art-review/')), 'without include, no review file ships');
+  const dest = path.join(BASE, 'preview-inc');
+  fs.mkdirSync(dest, { recursive: true });
+  let err = null;
+  try { exportTree({ root: REPO, dest, index: path.join(BASE, 'preview-inc.index'), include: changed }); } catch (e) { err = e; }
+  check(!err, `export with the branch's review files succeeds (${err?.message})`);
+  const got = err ? [] : files(dest);
+  check(wantChanged.every((f) => got.includes(f)), 'the preview holds every review file the branch changed');
+  check(!got.includes('public/reviews/beam-clash-r1/01.png'), 'the preview leaves out review batches the branch did not touch');
+  check(!got.some((f) => f.startsWith('art/')), 'art/ never ships, even in a preview');
+
+  let threw = false;
+  try { exportTree({ root: REPO, dest: path.join(BASE, 'bad-inc'), index: path.join(BASE, 'bad-inc.index'), include: ['art/manifest.json'] }); } catch { threw = true; }
+  check(threw, 'include refuses a path under art/');
+  threw = false;
+  try { exportTree({ root: REPO, dest: path.join(BASE, 'bad-inc2'), index: path.join(BASE, 'bad-inc2.index'), include: ['public/reviews'] }); } catch { threw = true; }
+  check(threw, 'include refuses a whole review folder (only paths inside it)');
+  git(REPO, 'switch', '-q', 'main');
+}
+
+// TOOL-067: the size guard measures the build output and names the largest folders when it refuses
+function sizeGuard() {
+  const out = path.join(BASE, 'output');
+  fs.mkdirSync(path.join(out, 'static', 'characters', 'naruto'), { recursive: true });
+  fs.mkdirSync(path.join(out, 'static', 'reviews', 'big'), { recursive: true });
+  fs.writeFileSync(path.join(out, 'static', 'characters', 'naruto', 'sheet.png'), Buffer.alloc(1024 * 1024));
+  fs.writeFileSync(path.join(out, 'static', 'reviews', 'big', 'clip.mp4'), Buffer.alloc(3 * 1024 * 1024));
+  const ok = checkDeploySize(out, { limit: 10 });
+  check(ok.ok && Math.abs(ok.mb - 4) < 0.01, `checkDeploySize: 4 MB under a 10 MB limit passes (${ok.mb})`);
+  const bad = checkDeploySize(out, { limit: 2 });
+  check(!bad.ok && bad.top[0].dir === 'static/reviews', `checkDeploySize: over the limit, the largest folder comes first (${bad.top[0]?.dir})`);
+  const text = formatSize(bad).join('\n');
+  check(/REFUSED/.test(text) && text.includes('static/reviews'), 'formatSize: a refusal says so and names the folder');
+  check(maxMb({}) === DEFAULT_MAX_MB && maxMb({ GCD_DEPLOY_MAX_MB: '400' }) === 400 && maxMb({ GCD_DEPLOY_MAX_MB: 'x' }) === DEFAULT_MAX_MB,
+    'maxMb: default, override, and junk falls back to the default');
+  check(checkDeploySize(path.join(BASE, 'missing')).mb === 0, 'checkDeploySize: a missing folder is 0 MB');
+}
+
+try { main(); previewReviews(); sizeGuard(); await cleanup(); } catch (e) { failures++; console.log(`  FAIL crashed: ${e.stack}`); }
 finally {
   if (!KEEP) {
     try { git(REPO, 'worktree', 'remove', '--force', WT); } catch { /* already gone */ }

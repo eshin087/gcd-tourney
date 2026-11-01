@@ -166,7 +166,7 @@ documentation that stays true.
 | `npm run sprites decals` | pack the approved ground decals into `public/decals/` (atlas.json + the pages of each page set, at most 4 per match; ADR 0024, `tools/pack-decals.mjs`) |
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
 | `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
-| `npm run deploy` | build a clean export of HEAD (committed work only) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch) |
+| `npm run deploy` | build a clean export of HEAD (committed work only, without `art/` and the review folders) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch, which carries the review files that branch changed). Refuses a build over 250 MB before uploading (`GCD_DEPLOY_MAX_MB`; see "Deployment storage") |
 | `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work. It verifies each `--art` folder's tracked `raw/` files are on disk (TOOL-048) |
 | `npm run pr -- art <id>[,<id>]` | (inside a sparse worktree) add more raw art there with the same patterns as `start --art`, drop patterns a shell rewrote (`C:/Program Files/Git/art/...`), and verify the raws are on disk. Use it instead of a hand-typed `git sparse-checkout add` |
 | `npm run pr -- open` | (in a worktree on a named branch, never detached HEAD) publish the branch slim and open or update its GitHub PR |
@@ -181,7 +181,7 @@ documentation that stays true.
 | `npm run lint:simmath` | simulation math lint (`tools/lint-sim-math.mjs`; third step of `prebuild`, ADR 0036): `Math.sin` / `cos` / `hypot` / `atan2` / `pow` / `exp` / `log` ... in a gameplay file (fighter, kit, game, projectiles, clash, techAnim, basis, moves, input, characters) fails the build with `file:line`; use `src/game/dmath.js`, which every engine computes identically |
 | `npm run test:lints` | lint regression test (`tools/test-lints.mjs`, fixtures in tools/.test-fixtures/lints/): the planted `MODE_ORDER` bug, a wide valid-syntax sample, one doctored case per animation-contract rule; run after any change to the two lints |
 | `npm run test:anims` | tech pose test (`tools/test-tech-anims.mjs`: animation selection, beat transitions, back rolls, wall facing, missing-art fallbacks); run after changes to the tech states or `src/game/techAnim.js` |
-| `npm run test:guard` | art merge guard test (`tools/test-pr-guard.mjs`: throw-away git repo under tools/.test-fixtures/; unapproved, held, approved, off-size and shipped-version branches, merge-result verdicts, `--force-art` parsing) plus the sparse worktree test (`tools/test-sparse-art.mjs`: real `pr start --art` and `pr art` in a throw-away repo, raw/ on disk) and the deploy export test (`tools/test-deploy-export.mjs`: no art/ in an export from a sparse worktree, TOOL-052; stale sweep and a locked export removed by `tools/rm-later.mjs`, TOOL-053); run after changes to `tools/pr-guard.mjs`, `tools/pr.mjs`, `tools/sparse-art.mjs`, `tools/deploy.mjs`, `tools/export-head.mjs`, `tools/scratch-dir.mjs` or `tools/rm-later.mjs` |
+| `npm run test:guard` | art merge guard test (`tools/test-pr-guard.mjs`: throw-away git repo under tools/.test-fixtures/; unapproved, held, approved, off-size and shipped-version branches, merge-result verdicts, `--force-art` parsing) plus the sparse worktree test (`tools/test-sparse-art.mjs`: real `pr start --art` and `pr art` in a throw-away repo, raw/ on disk) and the deploy export test (`tools/test-deploy-export.mjs`: no art/ in an export from a sparse worktree, TOOL-052; stale sweep and a locked export removed by `tools/rm-later.mjs`, TOOL-053; review folders left out and a preview's own review files kept, the size guard, TOOL-066/067); run after changes to `tools/pr-guard.mjs`, `tools/pr.mjs`, `tools/sparse-art.mjs`, `tools/deploy.mjs`, `tools/deploy-size.mjs`, `tools/export-head.mjs`, `tools/scratch-dir.mjs` or `tools/rm-later.mjs` |
 | `npm run test:alts` | attack-alt picker test (`tools/test-anim-alts.mjs`: balanced Thue-Morse alternation, never three in a row, base when the alt is missing, `?alts` override; ADR 0031); run after changes to `src/game/animAlts.js` or the alt hooks in fighter.js |
 | `npm run test:sprites` | packer regression test (`tools/test-pack-sprites.mjs`, fixtures in tools/.test-fixtures/, never touches art/ or public/); run after any tools/ change |
 
@@ -264,6 +264,26 @@ audit recipe: [AI_COLLABORATION.md](docs/AI_COLLABORATION.md#storage-hygiene-202
 5. Hygiene never touches `art/**/raw/` or any versioned `_vNN` input (ADR 0007), approved art, unmerged commits or
    another agent's uncommitted work. Deleting anything beyond rules 1-3's routine outputs needs the user's yes,
    asked through the approvals desk (ADR 0039).
+
+### Deployment storage (user request, 2026-11-01; TOOL-066, TOOL-067)
+
+The Vercel account is on the Hobby plan: **10 GB of deployment storage for every project together**, and each
+retained deployment counts in full. On 2026-11-01 it showed 347 GB, because Vite copies all of `public/` into each
+deploy and 725 MB of review screenshots plus 360 MB of art-review pictures went up with all 223 deployments.
+
+1. **Review material never ships to production.** `public/reviews/` and `public/art-review/` stay out of every
+   deploy (`EXCLUDE` in `tools/export-head.mjs`). A preview carries only the review files its own branch changed, so
+   its review page still works on the user's phone. A new kind of large review, QA or source folder goes into
+   `EXCLUDE` (or outside `public/`) in the same change that adds it. Never commit videos, archives or raw exports
+   under `public/` for the game to ship.
+2. **Respect the size guard.** `npm run deploy` refuses a build over 250 MB before uploading (`tools/deploy-size.mjs`)
+   and names the largest folders. Fix what it names. Raise `GCD_DEPLOY_MAX_MB` (or `DEFAULT_MAX_MB`) only when the
+   shipped game itself grew, such as new fighters, and say why in the commit.
+3. **Deploy deliberately.** One preview per PR when it is ready for the user, not after every commit; production
+   deploys come from `npm run pr -- merge`. Retention is 1 week (1 day for errored and canceled) on every project
+   and as the team default; don't lengthen it without the user's yes.
+4. When the usage page nears the limit, check deploy count and size per project first (`vercel api /v6/deployments`)
+   before deleting anything, and ask the user before bulk removals.
 
 ### Code and integration rules
 
