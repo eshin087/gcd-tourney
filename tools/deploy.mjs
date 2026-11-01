@@ -6,7 +6,7 @@
 // Claude and Codex share one working copy, so it usually holds someone's unfinished, unreviewed
 // work. Deploying from a clean export of HEAD (minus art/, public/reviews/ and public/art-review/: the ~2.3 GB of
 // raw generations and review material the game never reads, see tools/export-head.mjs) means only committed work
-// can reach https://gcd-tourney.vercel.app, and a deployment is a few tens of MB instead of 1.26 GB.
+// can reach https://gcd-tourney.vercel.app, and a deployment is ~175 MB instead of 1.26 GB.
 // Needs: a linked Vercel project (.vercel/project.json, made by `vercel link`) and the Vercel CLI.
 // `vercel build` runs its own `npm install` in the export, so the deploy takes about a minute.
 
@@ -14,7 +14,8 @@ import { execFileSync, execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { exportTree } from './export-head.mjs';
+import { changedReviewFiles, exportTree } from './export-head.mjs';
+import { checkDeploySize, formatSize } from './deploy-size.mjs';
 import { removeCopy, scratchDir, sweepStale } from './scratch-dir.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -50,12 +51,24 @@ sweepStale({ log: (m) => console.log(`deploy: ${m}`) });
 const work = fs.mkdtempSync(path.join(SCRATCH, 'gcd-deploy-'));
 // export HEAD minus art/ and the review folders with git itself (tools/export-head.mjs: a private index, safe in sparse art worktrees)
 const index = path.join(SCRATCH, `gcd-deploy-${process.pid}.index`);
+// The review folders stay out of every deploy (TOOL-066), but a preview brings back the review files its own branch
+// changed, so the review page the user opens on a phone works without shipping every older batch (TOOL-067)
+const include = PREVIEW ? changedReviewFiles({ root: ROOT, rev: 'HEAD', base: 'main' }) : [];
+if (include.length) console.log(`deploy: the preview carries ${include.length} review file(s) this branch changed`);
+// Refuse an oversized build before anything is uploaded: every retained deployment counts against the account's
+// 10 GB of deployment storage (tools/deploy-size.mjs, TOOL-067)
+const guardSize = () => {
+  const r = checkDeploySize(path.join(work, '.vercel', 'output'));
+  formatSize(r).forEach((l) => (r.ok ? console.log(l) : console.error(l)));
+  if (!r.ok) { process.exitCode = 1; throw new Error('deploy refused: build output over the size limit'); }
+};
 try {
-  exportTree({ root: ROOT, rev: 'HEAD', dest: work, index });
+  exportTree({ root: ROOT, rev: 'HEAD', dest: work, index, include });
   fs.mkdirSync(path.join(work, '.vercel'), { recursive: true });
   fs.copyFileSync(LINK, path.join(work, '.vercel', 'project.json'));
   if (PREVIEW) {
     sh('vercel build', work);
+    guardSize();
     // the CLI prints the deployment URL on stdout (progress goes to stderr)
     const out = execSync('vercel deploy --prebuilt', { cwd: work, stdio: ['ignore', 'pipe', 'inherit'], env: VERCEL_ENV }).toString();
     const url = (out.match(/https:\/\/\S+\.vercel\.app/g) || []).pop();
@@ -63,6 +76,7 @@ try {
     if (url) console.log(`PREVIEW_URL=${url}`);
   } else {
     sh('vercel build --prod', work);
+    guardSize();
     sh('vercel deploy --prebuilt --prod', work);
     console.log(`\ndeployed commit ${head} (committed work only)`);
   }

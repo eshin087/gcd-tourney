@@ -265,6 +265,14 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
 
 ## Safe boundaries for code changes
 
+- **Deployment storage is small** (user request 2026-11-01; TOOL-066, TOOL-067; CLAUDE.md "Deployment storage").
+  The Vercel Hobby account holds 10 GB across every project, and it reached 347 GB when review folders shipped with
+  every deploy. Put review pages under `public/reviews/<batch>/` or `public/art-review/`: production never ships them,
+  and `npm run pr -- preview` carries only the review files your branch changed, so your review link still works. Any
+  other large review, QA or source folder goes outside `public/` or into `EXCLUDE` in `tools/export-head.mjs`. Publish
+  one preview when a batch is ready for the user, not after every commit. If the deploy stops with "REFUSED" (over
+  250 MB), move out the folder it names; never raise `GCD_DEPLOY_MAX_MB` yourself, ring Claude instead.
+
 - **Every new feature or character lands through a pull request** ([ADR 0013](docs/decisions/0013-pull-requests-in-worktrees.md)).
   Work on a task branch in one real Git worktree. Use the worktree supplied by the Codex app or other host when
   available. For a manual CLI session, or when an art task needs this repository's sparse checkout, the optional
