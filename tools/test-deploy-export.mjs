@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { exportTree } from './export-head.mjs';
+import { EXCLUDE, exportTree } from './export-head.mjs';
 import { SPARSE } from './sparse-art.mjs';
 import { isScratchCopy, removeCopy, scratchDir, sweepStale } from './scratch-dir.mjs';
 
@@ -43,6 +43,10 @@ function buildRepo() {
   put('art/characters/naruto/raw/_rejected/run_v01.png');
   put('art/crowd/raw/fan_v01.png');
   put('art/vfx/raw/glow_v01.png');
+  // review material under public/ ships with Vite's copy of public/ unless the export leaves it out (2026-11-01)
+  put('public/reviews/beam-clash-r1/01.png');
+  put('public/art-review/review.json', '{}\n');
+  put('public/art-reviewed.txt', 'not public/art-review/: must ship\n');
   git(REPO, 'add', '-A'); git(REPO, 'commit', '-q', '-m', 'main');
   // the sparse worktree `pr start` makes: everything but raw/
   git(REPO, 'worktree', 'add', '-q', '--no-checkout', '-b', 'art/x', WT);
@@ -104,7 +108,7 @@ function main() {
   buildRepo();
   check(!fs.existsSync(path.join(WT, 'art/characters/naruto/raw/idle_v01.png')) && fs.existsSync(path.join(WT, 'art/characters/naruto/hitboxes.json')),
     'the fixture worktree is sparse: raw/ is outside the checkout, other art is on disk');
-  const want = ['artwork.md', 'package.json', 'public/characters/naruto/sheet.png', 'src/game/code.js'];
+  const want = ['artwork.md', 'package.json', 'public/art-reviewed.txt', 'public/characters/naruto/sheet.png', 'src/game/code.js'];
 
   // the old way (read-tree + git rm --cached art) leaks raw/ in the sparse worktree: proves the fixture reproduces the bug
   const oldIdx = path.join(BASE, 'old.index'), env = { ...process.env, GIT_INDEX_FILE: oldIdx };
@@ -116,17 +120,20 @@ function main() {
   for (const [root, name] of [[REPO, 'main'], [WT, 'sparse']]) {
     const r = exportOf(root, name);
     check(!r.err, `${name}: export succeeds (${r.err?.message})`);
-    check(!r.files.some((f) => f.startsWith('art/')), `${name}: no art/ in the export (${r.files.filter((f) => f.startsWith('art/'))})`);
-    check(JSON.stringify(r.files) === JSON.stringify(want), `${name}: the export is exactly the committed tree minus art/ (${r.files})`);
+    const out = r.files.filter((f) => EXCLUDE.some((e) => f.startsWith(e + '/')));
+    check(out.length === 0, `${name}: no art/, public/reviews/ or public/art-review/ in the export (${out})`);
+    check(JSON.stringify(r.files) === JSON.stringify(want), `${name}: the export is exactly the committed tree minus the excluded paths (${r.files})`);
     check(r.n === want.length, `${name}: exportTree counts ${r.n} files`);
   }
 
-  // the guard: anything under art/ in the destination makes exportTree throw before a deploy can use it
-  const g = path.join(BASE, 'guard');
-  fs.mkdirSync(path.join(g, 'art'), { recursive: true });
-  let threw = false;
-  try { exportTree({ root: REPO, dest: g, index: path.join(BASE, 'guard.index') }); } catch { threw = true; }
-  check(threw, 'exportTree refuses an export that holds art/');
+  // the guard: anything under an excluded path in the destination makes exportTree throw before a deploy can use it
+  for (const [i, e] of EXCLUDE.entries()) {
+    const g = path.join(BASE, `guard${i}`);
+    fs.mkdirSync(path.join(g, ...e.split('/')), { recursive: true });
+    let threw = false;
+    try { exportTree({ root: REPO, dest: g, index: path.join(BASE, `guard${i}.index`) }); } catch { threw = true; }
+    check(threw, `exportTree refuses an export that holds ${e}/`);
+  }
 }
 
 try { main(); await cleanup(); } catch (e) { failures++; console.log(`  FAIL crashed: ${e.stack}`); }
