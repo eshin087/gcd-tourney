@@ -4,8 +4,9 @@
 //   the live site is untouched, and the user can try the PR on a phone before it merges (ADR 0018).
 //
 // Claude and Codex share one working copy, so it usually holds someone's unfinished, unreviewed
-// work. Deploying from a clean export of HEAD (minus art/, the ~1 GB of raw generations the game
-// never reads) means only committed work can reach https://gcd-tourney.vercel.app.
+// work. Deploying from a clean export of HEAD (minus art/, public/reviews/ and public/art-review/: the ~2.3 GB of
+// raw generations and review material the game never reads, see tools/export-head.mjs) means only committed work
+// can reach https://gcd-tourney.vercel.app, and a deployment is a few tens of MB instead of 1.26 GB.
 // Needs: a linked Vercel project (.vercel/project.json, made by `vercel link`) and the Vercel CLI.
 // `vercel build` runs its own `npm install` in the export, so the deploy takes about a minute.
 
@@ -47,7 +48,7 @@ const SCRATCH = scratchDir();
 sweepStale({ log: (m) => console.log(`deploy: ${m}`) });
 
 const work = fs.mkdtempSync(path.join(SCRATCH, 'gcd-deploy-'));
-// export HEAD minus art/ with git itself (tools/export-head.mjs: a private index, safe in sparse art worktrees)
+// export HEAD minus art/ and the review folders with git itself (tools/export-head.mjs: a private index, safe in sparse art worktrees)
 const index = path.join(SCRATCH, `gcd-deploy-${process.pid}.index`);
 try {
   exportTree({ root: ROOT, rev: 'HEAD', dest: work, index });
