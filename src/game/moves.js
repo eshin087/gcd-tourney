@@ -80,9 +80,15 @@ export const MOVES = {
 //  chaseFire  the launcher chase's held attack (chaseAtk) fires within this range while the chase still homes
 //          (close enough that a rising victim can't out-run the swing's startup); once the chase ends it fires
 //          anywhere inside the juggle range (AIR.juggle) and lets the DBFZ float close the rest
+//  follow  auto-chases (ENG-125): Light or Special at a victim reeling in the air chases them and fires on arrival —
+//          the launcher's super jump, a knock-away ender's homing super dash, a super jump from the floor at a ground
+//          or wall bounce, a super dash from the air. `max` per combo (the victim's chaseN; with the bounce budget, the
+//          decay and the cap it keeps a combo from looping), within `range` on the ground plane. From the floor it
+//          chases only a victim a jab can't take: higher than `minY` or farther than `reach`
 export const CHAIN = {
   buffer: 12, act: 10, fresh: 9, chaseFire: 1.6,
   magnet: { closeTo: 0.85, rate: 16, max: 14 },
+  follow: { max: 3, range: 7, minY: 0.6, reach: 1.4 },
 };
 
 // Homing super dash contact hit
@@ -130,6 +136,9 @@ export const AIR = { fullHop: 13.6, shortHop: 9.6, doubleJump: 12.6, chord: 2, f
 //             "handball" is a real, limited route
 //  ground     ground bounce: rises at `up`, keeps `keep` of the horizontal speed; `max` per combo, air stun `stun[n - 1]`
 //  floor      a hard landing (impact > `impact`) bounces once at `keep` × the impact and `slide` of the horizontal speed
+//  keep       stun floors (ENG-125), after the decay: a `chain` hit (the jab and air strings) leaves at least that much
+//             stun, so a string that started on hit finishes; a `launcher` hit leaves that much air stun, so the chase
+//             still meets a relaunch late in a combo. Combos end on the route budget (bounces, CHAIN.follow, the cap)
 export const JUGGLE = {
   cap: 22,
   decay: { per: 0.045, floor: 0.35 },
@@ -141,6 +150,7 @@ export const JUGGLE = {
   wall: { max: 3, minSpeed: 5, keep: 0.55, up: 7, stun: [32, 28, 22] },
   ground: { max: 2, up: 11, keep: 0.35, stun: [30, 24] },
   floor: { impact: 8, keep: 0.32, slide: 0.5 },
+  keep: { chain: 14, launcher: 24 },
 };
 
 // Hit flash on the victim's sprite (ENG-064, src/game/hitFlash.js). Render only; frames at 60 fps, counted every
