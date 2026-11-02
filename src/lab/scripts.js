@@ -356,6 +356,13 @@ export const SCENARIOS = [
     b: [],
   },
   {
+    id: 'autoChase', group: 'combo', name: 'Launcher auto-chase (no jump)', brief: 'Heavy launcher, then only Light: the chase and aerial fire themselves',
+    info: 'Light × 3 into the Heavy launcher, then nothing but attack buttons: the Light pressed on the launcher\'s hit super-jumps after them by itself and the aerial fires as the chase reaches them (no Jump timing). More Lights ride the air string and the Heavy ends in the spike. Jump or Dash still chase the manual way.',
+    setup: { gap: 1.2 },
+    a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'heavy'), tap(56, 'light'), tap(80, 'light'), tap(92, 'light'), tap(106, 'heavy')],
+    b: [],
+  },
+  {
     id: 'airCombo', group: 'combo', name: 'Air combo', brief: 'launch, chase, air string, spike',
     info: 'Light × 3, Heavy launcher, jump to chase, air string, air heavy spike (ground bounce).',
     setup: { gap: 1.2 },

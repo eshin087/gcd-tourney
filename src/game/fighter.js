@@ -104,6 +104,7 @@ export class Fighter {
     this.wb = false; // wall bounce pending
     this.gbCount = this.wbCount = 0; // bounces this combo (the JUGGLE budget)
     this.chase = 0;
+    this.chaseAtk = null; // attack button held through the launcher's chase: the aerial fires itself on arrival (ADR 0056)
     this.airDashes = 0;
     this.forceTech = false;
     this.shaking = false;
@@ -451,6 +452,7 @@ export class Fighter {
   startMove(name, m) {
     if (this.state === 'attack') this.endMoveFx();
     if (this.opp && this.opp.combo === 0) this.stringUsed.clear(); // a fresh opener: the gatling menu resets (ADR 0056)
+    this.chaseAtk = null; // any attack starting supersedes the chase's held one
     this.move = m;
     this.moveName = name;
     this.state = 'attack';
@@ -611,6 +613,7 @@ export class Fighter {
     this.airDodged = true;
     this.dodgeCalled = false;
     this.chase = 0;
+    this.chaseAtk = null;
     this.spPending = false;
     this.endMoveFx();
     this.move = null;
@@ -1116,6 +1119,14 @@ export class Fighter {
       if (b.jump.pressed && !this.jumped2 && this.chase <= 0) { this.doubleJump(); return true; }
       return false;
     }
+    // during the launcher's chase a Light waits in chaseAtk and the arrival gate (the air state) decides the
+    // swing's frame, so a mash and a lone press arrive the same way instead of whiffing early; a Heavy still
+    // fires at once (the deliberate, manually timed spike)
+    if (this.chase > 0 && this.buffered('light', CHAIN.act)) {
+      p.consume('light');
+      this.chaseAtk = 'light';
+      return true;
+    }
     const c = this.cPress(5);
     if (c) { this.startC(c); return true; }
     if (this.buffered('heavy', CHAIN.act)) { p.consume('heavy'); this.startNormal('heavy'); return true; }
@@ -1365,6 +1376,25 @@ export class Fighter {
         if (this.chase > 0 || this.juggling()) this.faceOpponent();
         else this.setSide(this.side);
         this.tryFastFall();
+        // the chase's held attack (chaseAtk): fire as the juggle range is reached, so the aerial starts in the
+        // DBFZ float and rides the string; drop it if they got out of the reel
+        if (this.chaseAtk) {
+          const o = this.opp;
+          // while the chase still homes, wait until level AND no longer out-rising us (distTo is ground-plane
+          // only, and an air attack hovers, so a swing fired into a fresh launch's rise is left behind); the
+          // air string then starts inside the float and rides
+          const near = this.chase > 0
+            ? this.distTo() <= CHAIN.chaseFire && Math.abs(o.pos.y - this.pos.y) <= CHAIN.chaseFire
+              && o.vel.y - this.vel.y <= 3
+            : this.distTo() <= AIR.juggle;
+          if (o.ko || (o.state !== 'launched' && o.state !== 'held')) this.chaseAtk = null;
+          else if (near) {
+            const b = this.chaseAtk;
+            this.chaseAtk = null;
+            this.startNormal(b);
+            break;
+          }
+        }
         if (this.tryAirActions()) break;
         if (!kick) freeAnim();
         break;
@@ -1791,9 +1821,16 @@ export class Fighter {
       return;
     }
     if (this.moveHit && t >= A) {
-      if (m.launcher && (this.buffered('jump', CHAIN.buffer) || this.buffered('dash', CHAIN.buffer))) {
-        p.consume('jump'); p.consume('dash');
+      // Jump, Dash — or just Light (the user's 2026-11-01 ask): a Light on the launcher's hit chases too, and
+      // the air string fires itself when the chase reaches them (chaseAtk, the air state), so the launcher ->
+      // air combo needs no jump timing. The spike stays a deliberate ender (ridden string, or Dash -> Heavy):
+      // a lone spike fired into a fresh launch can never line up — the faller out-floats the chaser.
+      if (m.launcher && (this.buffered('jump', CHAIN.buffer) || this.buffered('dash', CHAIN.buffer)
+          || this.buffered('light', CHAIN.buffer))) {
+        const atk = this.buffered('light', CHAIN.buffer) ? 'light' : null;
+        p.consume('jump'); p.consume('dash'); p.consume('light');
         this.startChase();
+        this.chaseAtk = atk;
         return;
       }
       if (this.wantsVanish()) { this.startVanish(); return; }
@@ -1849,6 +1886,7 @@ export class Fighter {
   }
 
   onLand() {
+    this.chaseAtk = null; // back on the floor: the chase's held attack is moot
     switch (this.state) {
       case 'kit':
         kit.onLand(this);
@@ -2148,6 +2186,7 @@ export class Fighter {
     this.gapF = 0;
     this.hardKD = !!(m.hardKnockdown ?? (m.groundBounce || (m.unblockable && m.big)));
     this.noTech = !!m.noTech; // a super finish's impact can't be timed-teched (ADR 0028)
+    this.chaseAtk = null; // taking a hit drops the chase's held attack
     this.combo = wasStunned ? this.combo + 1 : 1;
     this.carry.set(0, 0);
     this.airDodged = this.jumped2 = this.fastFell = false; // getting hit gives the air dodge and the double jump back (for after the tech)

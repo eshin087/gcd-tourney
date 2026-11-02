@@ -200,8 +200,18 @@ spark comes out when the body unfreezes (the rule the timed tech already followe
 
 ### Launcher and chase
 - `heavy` hops and launches the victim upward ([2.4, 15.5]).
-- After it connects, **Jump or Dash** (buffered 10 f) triggers `startChase()`: a super jump toward the
-  victim's predicted position, with reduced gravity for 16 frames and ghost trails.
+- After it connects, **Jump, Dash or Light** (buffered `CHAIN.buffer` = 12 live frames) triggers
+  `startChase()`: a super jump toward the victim's predicted position, with reduced gravity for 16 frames and
+  ghost trails.
+- **Light alone continues the combo** (ADR 0056 follow-up, 2026-11-01): a Light on the launcher's hit chases
+  and holds (`chaseAtk`), and the air string fires itself once the chase is close, level and no longer
+  out-risen (`CHAIN.chaseFire`; after the chase ends, anywhere inside `AIR.juggle`), landing in the DBFZ float
+  and riding the string. A Light pressed **during** the chase waits the same way instead of whiffing into empty
+  air; starting any attack, getting hit, air-dodging or landing drops the held press, and so does the victim
+  escaping the reel. So mashing `Light ×3 → Heavy → Light ...` plays the whole launcher route with no jump
+  timing. Jump and Dash still chase the manual way, and the spike stays a deliberate ender (the ridden string's
+  Heavy, or Dash → Heavy out of the super dash): a lone spike fired into a fresh launch can never line up,
+  because a launched victim falls floatier than the chaser.
 
 ### Air combo
 - In the air: airLight1 → airLight2 → airLight3 (knock-away, wall bounce), or cancel any air light into

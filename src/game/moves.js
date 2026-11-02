@@ -77,8 +77,11 @@ export const MOVES = {
 //          raised to `gap × rate` units/s (capped at `max`), the gap measured to `closeTo` — combo spacing, just
 //          outside Game.separate's 0.72 — because the packed art hits with its drawn fist boxes, shorter than
 //          `reach`. Mid-string pokes whiffing was the loudest feel complaint
+//  chaseFire  the launcher chase's held attack (chaseAtk) fires within this range while the chase still homes
+//          (close enough that a rising victim can't out-run the swing's startup); once the chase ends it fires
+//          anywhere inside the juggle range (AIR.juggle) and lets the DBFZ float close the rest
 export const CHAIN = {
-  buffer: 12, act: 10, fresh: 9,
+  buffer: 12, act: 10, fresh: 9, chaseFire: 1.6,
   magnet: { closeTo: 0.85, rate: 16, max: 14 },
 };
 
