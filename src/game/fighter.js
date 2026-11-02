@@ -105,6 +105,8 @@ export class Fighter {
     this.gbCount = this.wbCount = 0; // bounces this combo (the JUGGLE budget)
     this.chase = 0;
     this.chaseAtk = null; // attack button held through the launcher's chase: the aerial fires itself on arrival (ADR 0056)
+    this.chaseN = 0; // auto-chases taken against this fighter in the current combo (CHAIN.follow.max)
+    this.followDash = false; // the running super dash is a knock-away's follow-up: presses wait for the arrival
     this.airDashes = 0;
     this.forceTech = false;
     this.shaking = false;
@@ -164,7 +166,7 @@ export class Fighter {
     // combo flow (ADR 0056)
     this.atkFresh = false; // the stick at that press was a fresh flick (CHAIN.fresh), not a held walk direction
     this.frozenF = 0; // frames this body has spent frozen (hitstop, world freezes): Fighter.buffered discounts them
-    this.pressFroz = { light: 0, heavy: 0, jump: 0, dash: 0 }; // frozenF when each was last pressed (Game.stepWorld stamps it)
+    this.pressFroz = { light: 0, heavy: 0, jump: 0, dash: 0, special: 0 }; // frozenF when each was last pressed (Game.stepWorld stamps it)
     this.stringUsed = new Set(); // tilts already gatling'd into this string (each once; cleared on a fresh opener)
     this.moveLanded = false; // the running move's hit landed clean (not blocked or parried): the gatling gate
     this.jumped2 = false; // the double jump is used (back on landing or when hit)
@@ -356,6 +358,60 @@ export class Fighter {
     }
     this.startMove(name, m);
     if (!base.chain && base.btn === 'light') this.stringUsed.add(name);
+  }
+
+  // ---- follow-ups (ENG-125): Light or Special at a victim reeling in the air chases them and fires on arrival
+
+  // The button a follow-up holds: Special (a special on arrival) over Light; Guard held makes Special a vanish instead
+  followAtk() {
+    if (this.buffered('special', CHAIN.buffer) && !this.pad.b.guard.down) return 'special';
+    return this.buffered('light', CHAIN.buffer) ? 'light' : null;
+  }
+
+  // The opponent reels in the air within reach of an auto-chase and this combo has chases left. A Smash light pop
+  // (`feet`) stays a manual follow-up
+  canFollow() {
+    const o = this.opp, F = CHAIN.follow;
+    return !o.ko && o.air && o.state === 'launched' && !o.feetLand && o.chaseN < F.max && this.distTo() <= F.range;
+  }
+
+  // A knock-away's follow-up: the homing super dash, its held attack fired on arrival (updateSuperDash)
+  startFollow(atk) {
+    if (!this.startSuperDash()) return false;
+    this.consumeFollow();
+    this.chaseAtk = atk;
+    this.followDash = true;
+    this.opp.chaseN++;
+    return true;
+  }
+
+  consumeFollow() {
+    const p = this.pad;
+    p.consume('light'); p.consume('special');
+    this.spPending = false;
+  }
+
+  // Cancel the running normal into the special the stick picks (the air slot out of an aerial). Returns true when one
+  // came out
+  cancelToSpecial(m) {
+    this.spPending = false;
+    this.pad.consume('special');
+    this.cancelSpecial = true; // kit.js START.rush reads it for the faster cancelled startup
+    const ok = m.air && this.air ? this.doProjectile() : this.doSpecial();
+    this.cancelSpecial = false;
+    return ok;
+  }
+
+  // The held attack lands: Special fires the special (its cancel startup; the air slot in the air), else Light's
+  // normal (the air string beside a reeling victim)
+  fireChaseAtk(b) {
+    if (b === 'special') {
+      this.cancelSpecial = true;
+      const ok = this.air ? this.doProjectile() : this.doSpecial();
+      this.cancelSpecial = false;
+      if (ok) return;
+    }
+    this.startNormal('light');
   }
 
   // The C-stick (ADR 0042, Smash's): the right stick flicked one way, a buffered press like a button's. The newest way
@@ -558,6 +614,7 @@ export class Fighter {
   startSuperDash() {
     if (this.airDashes > 0) return false; // one super dash per trip through the air
     this.airDashes = 1;
+    this.followDash = false; // startFollow marks its own
     this.setState('superDash');
     this.airAttack = false;
     this.faceOpponent();
@@ -986,9 +1043,12 @@ export class Fighter {
     }
     if (s.phase === 'toss') {
       this.actor.setPhase('light4', k < 4 ? 1 : 2, Math.min(0.999, k < 4 ? k / 4 : (k - 4) / T.recovery));
-      // the toss wall-bounces them: chase with the super dash, or vanish behind them
+      // the toss wall-bounces them: chase with the super dash (Light or Special: the follow-up, ENG-125), or vanish
+      // behind them
       if (k >= 6 && o.state === 'launched' && !o.ko) {
         if ((p.buffered('dash', 8) || p.dashDir) && this.airDashes === 0) { p.consume('dash'); this.throwSt = null; this.startSuperDash(); return; }
+        const atk = this.followAtk();
+        if (atk && this.canFollow() && this.airDashes === 0) { this.throwSt = null; this.startFollow(atk); return; }
         if (this.wantsVanish()) { this.throwSt = null; this.startVanish(); return; }
       }
       if (k >= 4 + T.recovery) { this.throwSt = null; this.setState('idle'); }
@@ -1084,6 +1144,12 @@ export class Fighter {
       this.startNormal('heavy');
       return true;
     }
+    // Light at a victim reeling in the air out of a jab's reach — a ground bounce, a wall bounce coming back, a
+    // knock-away still flying, a throw's toss — is the follow-up super dash (ENG-125): it homes in at their height
+    // (a super jump sails over a low faller), catches them and the air string swings off the catch
+    const F = CHAIN.follow, o = this.opp;
+    if (this.buffered('light', CHAIN.act) && this.canFollow() && (o.pos.y > F.minY || this.distTo() > F.reach)
+        && this.startFollow('light')) return true;
     if (this.buffered('light', CHAIN.act)) {
       p.consume('light');
       this.startNormal('light');
@@ -1112,6 +1178,10 @@ export class Fighter {
     if (this.wantsUltimate()) { p.consume('heavy'); p.consume('special'); this.startUltimate(); return true; }
     // air dodge works after an air attack too (it's the way out, not another attack)
     if (!this.airDodged && p.buffered('guard', 3)) { p.consume('guard'); this.startAirDodge(); return true; }
+    // Light at a victim reeling beyond the DBFZ float (or after this jump's air string is spent) is the follow-up
+    // super dash: it catches them and the air string swings off the catch (ENG-125)
+    if (this.chase <= 0 && this.airDashes === 0 && this.buffered('light', CHAIN.act) && this.canFollow()
+        && (this.airAttack || this.distTo() > AIR.juggle) && this.startFollow('light')) return true;
     // one air string per jump in a juggle (DBFZ: airAttack holds until landing, a super dash or a tech); Smash aerials in
     // the open clear it as they end, so a jump can carry several (ADR 0042)
     if (this.airAttack) {
@@ -1391,7 +1461,7 @@ export class Fighter {
           else if (near) {
             const b = this.chaseAtk;
             this.chaseAtk = null;
-            this.startNormal(b);
+            this.fireChaseAtk(b);
             break;
           }
         }
@@ -1401,6 +1471,9 @@ export class Fighter {
       }
       case 'land':
         this.vel.x *= 0.6; this.vel.z *= 0.6;
+        // landing lag can't act, so like hitstop it doesn't age the buffers (ENG-125): a follow-up pressed on the way
+        // down (Heavy after the spike) comes out on the first free frame instead of expiring on the floor
+        if (!(this.t >= 3 && this.landLag <= 6)) this.frozenF++;
         if (this.t >= 3 && this.landLag <= 6 && this.tryActions()) break;
         if (this.t >= this.landLag) this.setState('idle');
         freeAnim();
@@ -1630,6 +1703,13 @@ export class Fighter {
     if (this.t % 2 === 0) this.actor.ghost(this.def.color, 0.24, 0.5);
     if (this.t % 6 === 0) audio.play('whoosh', 0.4);
     const p = this.pad;
+    if (this.followDash) {
+      // a follow-up (ENG-125): presses wait in chaseAtk instead of cancelling the dash short of a victim still flying
+      // away; the dash's contact hit catches them and the held attack swings off it
+      const atk = this.followAtk();
+      if (atk) { this.consumeFollow(); if (this.chaseAtk !== 'special') this.chaseAtk = atk; }
+      if (o.ko || (o.state !== 'launched' && o.state !== 'held')) { this.chaseAtk = null; this.followDash = false; }
+    }
     // cancel into an attack
     const c = this.t >= 6 && this.cPress(6);
     if (c) {
@@ -1645,17 +1725,22 @@ export class Fighter {
       return;
     }
     if (dist < 1.0) {
+      let hit = false;
       if (o.hittable) {
         const dir = new THREE.Vector2(o.pos.x - this.pos.x, o.pos.z - this.pos.z).normalize();
-        o.takeHit(this, { ...S, name: 'superDash' }, dir);
+        hit = o.takeHit(this, { ...S, name: 'superDash' }, dir) === 'hit';
         this.moveHit = true;
       } else if (o.evading) this.game.onEvade(o); // flew through their dodge
       this.vel.multiplyScalar(0.15);
       if (this.air) { this.airAttack = false; this.setState('air', 'jumpFall'); this.vel.y = Math.max(this.vel.y, 3); }
       else this.setState('idle');
+      const b = this.followDash && hit ? this.chaseAtk : null;
+      this.followDash = false;
+      if (b) { this.chaseAtk = null; this.fireChaseAtk(b); }
       return;
     }
     if (this.t >= S.maxFrames) {
+      this.followDash = false;
       this.vel.multiplyScalar(0.3);
       if (this.air) this.setState('air', 'jumpFall');
       else this.setState('idle');
@@ -1804,6 +1889,14 @@ export class Fighter {
 
     // cancels (DBFZ chains + the gatling hybrid, ADR 0056: chain / gatling -> launcher or smash -> special/super,
     // jump-cancel launcher). The jab string still chains on whiff or block; everything else needs the hit to land.
+    // A knock-away ender (a launch that is neither the launcher nor a Smash pop) holds Light and Special for its
+    // follow-up (ENG-125, below): the special would whiff the victim it just sent flying
+    const away = !!m.launch && !m.launcher && !m.feet;
+    // Special first (ENG-125): buffered in live frames like the other buttons (a tap released during the startup
+    // still counts), it beats the next jab of a mash, so the special ender comes out where it was pressed; out of an
+    // aerial it is the air special
+    if (this.moveHit && t >= A && !m.special && !(away && this.canFollow()) && !p.b.guard.down && !this.wantsUltimate()
+        && (this.spPending || this.buffered('special', CHAIN.buffer)) && this.cancelToSpecial(m)) return;
     if (m.next && t >= m.cancel && this.buffered('light', CHAIN.buffer)) {
       p.consume('light');
       // mid-string a fresh flick gatlings into that tilt instead of the next jab (mash keeps the string)
@@ -1821,16 +1914,18 @@ export class Fighter {
       return;
     }
     if (this.moveHit && t >= A) {
+      // a special's own follow-up is Light alone (Special again would chain specials)
+      const atk = m.special ? (this.buffered('light', CHAIN.buffer) ? 'light' : null) : this.followAtk();
+      const auto = !!atk && this.canFollow();
       // Jump, Dash — or just Light (the user's 2026-11-01 ask): a Light on the launcher's hit chases too, and
       // the air string fires itself when the chase reaches them (chaseAtk, the air state), so the launcher ->
       // air combo needs no jump timing. The spike stays a deliberate ender (ridden string, or Dash -> Heavy):
-      // a lone spike fired into a fresh launch can never line up — the faller out-floats the chaser.
-      if (m.launcher && (this.buffered('jump', CHAIN.buffer) || this.buffered('dash', CHAIN.buffer)
-          || this.buffered('light', CHAIN.buffer))) {
-        const atk = this.buffered('light', CHAIN.buffer) ? 'light' : null;
-        p.consume('jump'); p.consume('dash'); p.consume('light');
+      // a lone spike fired into a fresh launch can never line up — the faller out-floats the chaser. The Light
+      // chase is an auto-chase: it counts toward CHAIN.follow.max (Jump and Dash stay free)
+      if (m.launcher && (this.buffered('jump', CHAIN.buffer) || this.buffered('dash', CHAIN.buffer) || auto)) {
+        p.consume('jump'); p.consume('dash');
         this.startChase();
-        this.chaseAtk = atk;
+        if (auto) { this.consumeFollow(); this.chaseAtk = atk; this.opp.chaseN++; }
         return;
       }
       if (this.wantsVanish()) { this.startVanish(); return; }
@@ -1846,13 +1941,9 @@ export class Fighter {
       }
       // the air string ends in the spike; the other aerials link (ADR 0042: only `chain` moves cancel into a normal)
       if (m.air && m.chain && this.buffered('heavy', CHAIN.buffer)) { p.consume('heavy'); this.startMove('airHeavy', MOVES.airHeavy); return; }
-      if (!m.special && !m.air && this.spPending) {
-        this.spPending = false;
-        this.cancelSpecial = true; // kit.js START.rush reads it for the faster cancelled startup
-        const ok = this.doSpecial();
-        this.cancelSpecial = false;
-        if (ok) return;
-      }
+      // a knock-away's follow-up (ENG-125): Light or Special once its active frames are over homes in with the super
+      // dash, catches them and swings the held button off the catch, wherever they fly, wall bounce or not
+      if (away && t >= B && auto && this.startFollow(atk)) return;
       if ((m.wallBounce || m.launch) && t >= B && (this.buffered('dash', CHAIN.buffer) || p.dashDir) && this.airDashes === 0) {
         p.consume('dash');
         this.startSuperDash();
@@ -2187,13 +2278,14 @@ export class Fighter {
     this.hardKD = !!(m.hardKnockdown ?? (m.groundBounce || (m.unblockable && m.big)));
     this.noTech = !!m.noTech; // a super finish's impact can't be timed-teched (ADR 0028)
     this.chaseAtk = null; // taking a hit drops the chase's held attack
+    this.followDash = false;
     this.combo = wasStunned ? this.combo + 1 : 1;
     this.carry.set(0, 0);
     this.airDodged = this.jumped2 = this.fastFell = false; // getting hit gives the air dodge and the double jump back (for after the tech)
     this.feetLand = !!m.feet && !this.ko; // a light pop lands on the feet (ADR 0042); anything else tumbles
     this.dodgeDir = null;
     if (this.grab) { this.grab = null; this.heldT = 0; } // knocked out of a throw's grip
-    if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; this.gbCount = this.wbCount = 0; }
+    if (!wasStunned) { this.gb = false; this.wb = false; this.bounced = false; this.gbCount = this.wbCount = this.chaseN = 0; }
     const J = JUGGLE;
     const scale = Math.max(m.minScale ?? J.scale.floor, 1 - (this.combo - 1) * J.scale.per); // supers keep a higher floor
     const charged = m.charge && att.move === m ? att.chargeMul : 1; // a held smash attack (ADR 0042)
@@ -2254,6 +2346,13 @@ export class Fighter {
       const pw = m.push ?? 3;
       this.vel.x = dir.x * pw;
       this.vel.z = dir.y * pw;
+    }
+    // stun floors (ENG-125, JUGGLE.keep): a string that started on hit finishes and a late relaunch can still be
+    // chased, so a combo ends on its route budget instead of a link quietly dropping out of the decay
+    const keep = m.chain ? J.keep.chain : m.launcher ? J.keep.launcher : 0;
+    if (keep && !this.ko) {
+      if (this.state === 'launched') this.airStun = Math.max(this.airStun, keep);
+      else this.stun = Math.max(this.stun, keep);
     }
     if (m.lock) {
       // one multi-hit move (beam, vortex ticks) holds them until its next tick: it can't be teched midway

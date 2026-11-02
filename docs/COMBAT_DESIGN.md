@@ -137,7 +137,9 @@ All windows in `CHAIN` (`src/game/moves.js`), and **every one is counted in the 
 (`Fighter.buffered`): hitstop and world freezes don't age a buffered press, so a follow-up pressed on the hit
 spark comes out when the body unfreezes (the rule the timed tech already followed). Chains and cancels buffer
 `CHAIN.buffer` = 12 frames; starting a normal out of idle, a run, a dash, the air or a landing buffers
-`CHAIN.act` = 10 (guard, parry and burst reads are unchanged).
+`CHAIN.act` = 10 (guard, parry and burst reads are unchanged). **Landing lag doesn't age them either** (ENG-125):
+a button pressed on the way down (Heavy as the spike lands them) comes out on the first free frame instead of
+expiring on the floor.
 
 - `Light ×4` (the **jab string**): light1 → light2 → light3 → light4. Chains happen on **whiff or hit** once the
   move reaches its `cancel` frame. **Mashing Light continues the string even with a direction held**: at each
@@ -154,9 +156,14 @@ spark comes out when the body unfreezes (the rule the timed tech already followe
   no magnet; spacing on the first hit is honest.
 - On hit, a jab light can cancel into **heavy** (the launcher) even on block, as before; `Light ×3 → Heavy` is
   still the core route.
-- On hit, a ground normal can cancel into the **signature special** if Special was pressed and there's 1 bar.
-  A rush special cancelled this way starts at its `cancelStartup` (Rasengan 14, Chidori 16, Rasenshuriken 18;
-  raw 24 / 28 / 30), so light ×3 → special is a true combo while a raw one stays slow (ADR 0015).
+- On hit (or block), a normal cancels into the **special** the stick picks if Special was pressed and there's
+  the ki. A rush special cancelled this way starts at its `cancelStartup` (Rasengan 14, Chidori 16, Rasenshuriken
+  18; raw 24 / 28 / 30), so light ×3 → special is a true combo while a raw one stays slow (ADR 0015). Since
+  ENG-125 the Special press is **buffered in live frames like the other buttons** (a tap released during the
+  normal's startup still counts; before, letting go of the button before the hit dropped it), it **beats the next
+  jab of a mash** (the special ender comes out where it was pressed), and **aerials cancel into the air special**
+  too. Out of a knock-away ender (light4, a smash attack, airLight3...) it doesn't cancel on the spot (it would
+  whiff the victim it just sent flying): it becomes that ender's follow-up (below).
 
 ### Directional normals and Smash air (ADR 0042)
 - **The stick picks the normal** (`NORMALS`, `Fighter.normalFor`), read as the attack starts (a stick neutral by then
@@ -212,6 +219,36 @@ spark comes out when the body unfreezes (the rule the timed tech already followe
   timing. Jump and Dash still chase the manual way, and the spike stays a deliberate ender (the ridden string's
   Heavy, or Dash → Heavy out of the super dash): a lone spike fired into a fresh launch can never line up,
   because a launched victim falls floatier than the chaser.
+- The Light chase is an **auto-chase** (ENG-125): it counts toward the combo's `CHAIN.follow.max` = 3; once they are
+  spent, Light on the launcher no longer chases (Jump and Dash still do). A Special on the launcher's hit is the
+  plain special cancel (an up special's rising hit meets them).
+
+### Follow-ups: Light chases every knock-away (ENG-125, ADR 0057)
+One rule: **once the opponent reels in the air out of reach, Light (or Special) continues the combo.** Each is an
+auto-chase, at most `CHAIN.follow.max` = 3 per combo (the victim's `chaseN`, reset on a fresh combo), within
+`CHAIN.follow.range` = 7 units; a Smash light pop (`feet`) stays a manual follow-up.
+- **After a knock-away ender** (a hit with `launch` that is neither the launcher nor a light pop: light4, the
+  smash attacks, airLight3, the back air, the spike, rush specials, the vanish kick), Light or Special pressed
+  any time from the hit on (buffered 12 live frames) fires once its active frames are over: the **follow-up super
+  dash** homes in, its contact hit catches them, and the held button swings off the catch (Light: the air string
+  in the DBFZ float, or a jab on the floor; Special: the special with its cancel startup, the air special in the
+  air). Presses during the dash wait in `chaseAtk` instead of cancelling it short of a victim still flying away.
+  A special's own follow-up is Light alone.
+- **After a throw's toss**: the same, from the toss's sixth frame.
+- **From the floor** (idle, run, landing), Light at a victim reeling in the air that a jab can't take (higher than
+  `minY` 0.6 or farther than `reach` 1.4: a ground bounce, a wall bounce coming back, a knock-away still flying)
+  is the follow-up super dash. A low, close victim gets the jab.
+- **From the air**, Light at a victim reeling beyond the DBFZ float (`AIR.juggle`), or after this jump's air string
+  is spent, is the follow-up super dash (one super dash per airtime still applies).
+- **Strings finish** (`JUGGLE.keep`): a `chain` hit (the jab and air strings) leaves at least 14 frames of stun
+  after the decay, so a started string's next hit always lands; a launcher hit leaves at least 24 frames of air
+  stun, so a relaunch late in a combo can still be chased. Combos end on their route budget (3 auto-chases, the
+  bounce budget, the 22-hit cap) and the victim's tech, not on a link dropping out of the decay mid-string.
+
+What keeps it fair: the chase budget, the bounce budget, damage scaling (floor 40 %), launched gravity growing with
+the combo, the combo cap, and the defender's tech (on the first open frame) and Burst. A full no-jump route —
+`Light ×3 → Heavy → Light … → Heavy (spike) → Heavy (relaunch) → Light … → follow-up` — runs about 14-16 hits for
+about a third of the health bar.
 
 ### Air combo
 - In the air: airLight1 → airLight2 → airLight3 (knock-away, wall bounce), or cancel any air light into
@@ -246,6 +283,7 @@ said "once per combo" while the code re-armed on every bounce hit (unlimited).
 - **One per airtime.** `airDashes` resets only on landing.
 - It can cancel into light/heavy (or airLight1/airHeavy) after frame 6. A move with `launch` or `wallBounce` can
   cancel into super dash after its active frames to chase the victim.
+- A **follow-up** super dash (ENG-125, above) keeps Light and Special presses for its contact hit instead.
 
 ### Dash and jump
 - Dash: 15 frames at 16 u/s (back dash 12) with decay, invulnerable for the first 8 frames. From frame 4 it can
@@ -547,6 +585,8 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
   Launch air stun is `max(6, 40 − 1.6·combo) × decay`, and a juggle hit's air stun is
   `max(5, 26 − combo) × decay`. Juggle pop shrinks with the combo (`airPop × max(0.5, 1 − 0.03·combo)`), and
   launched gravity grows (`min(1.35, 0.6 + 0.035·combo)`).
+- **Stun floors** (`JUGGLE.keep`, ENG-125): after the decay, a `chain` hit leaves at least 14 frames of stun and a
+  launcher at least 24 frames of air stun (Follow-ups, above).
 - **Combo cap**: at **22 hits** a launched victim is forced to air tech automatically.
 - **Multi-hit lock** (`lock` on a hit): beam ticks (`tickEvery + 3`) and Rasenshuriken / Blue vortex ticks
   (`tick + 3`) keep air stun and hit stun at least that long, so one committed multi-hit move can't be teched
@@ -919,6 +959,11 @@ AMAZING 15+, LEGENDARY 20+ hits, STYLISH! with 4+ different techniques).
 stick neutral on the Lights (a held direction picks a tilt or an aerial, ADR 0042). Smash-style starters: down tilt →
 jab string; up tilt → up tilt → short-hop up air; short-hop neutral or forward air → down tilt.
 Spend 1 bar on Vanish or Special to extend. End with the Ultimate for 3 bars.
+
+No-jump version (ENG-124 / ENG-125): `Light ×3 → Heavy → mash Light (chase, air string) → Heavy (spike) → Heavy
+(relaunch, pressed on the way down) → mash Light (chase, air string, follow-up dash, air string)`. Any knock-away
+(light4, a smash, airLight3, a throw, a wall bounce) continues on Light alone; Special after one dashes in and fires
+the special on the catch.
 
 ## Balance process
 

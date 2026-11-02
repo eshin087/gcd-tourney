@@ -363,6 +363,27 @@ export const SCENARIOS = [
     b: [],
   },
   {
+    id: 'followUp', group: 'combo', name: 'Knock-away follow-up (mash Light)', brief: 'Light × 4, keep mashing: dash in, catch, air string',
+    info: 'The fourth jab knocks them away; the Light still being mashed homes in with the super dash, catches them and runs the air string off the catch (ENG-125, ADR 0057). The same works after every knock-away — a smash attack, the third air Light, a back air, the spike\'s ground bounce, a wall bounce, a throw — up to 3 auto-chases per combo.',
+    setup: { gap: 1.2 },
+    a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light'), ...[52, 61, 70, 79, 88, 97, 106, 115, 124].map((t) => tap(t, 'light'))],
+    b: [],
+  },
+  {
+    id: 'stringSpecial', group: 'combo', name: 'String into special', brief: 'Light × 4, then Special: it dashes in and fires on the catch',
+    info: 'A Special pressed during the string is buffered like the other buttons, so an early tap still counts. Out of light 1-3 it cancels straight into the special; after the knock-away fourth jab it super dashes in and fires the special on the catch (the air special in the air), instead of whiffing the victim it just sent flying (ENG-125).',
+    setup: { gap: 1.2 },
+    a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'light'), tap(46, 'special')],
+    b: [],
+  },
+  {
+    id: 'relaunchRoute', group: 'combo', name: 'Spike, relaunch, second air string', brief: 'the full route: no jump, Heavy pressed early on the way down',
+    info: 'Launcher, auto-chase, air string, spike; the Heavy pressed while still falling from the spike waits out the landing lag (ENG-125) and relaunches the bounce; Light chases again and the second air string now always finishes (JUGGLE.keep), into a knock-away follow-up: the route ends on its budget of 3 auto-chases.',
+    setup: { gap: 1.2 },
+    a: [tap(0, 'light'), tap(12, 'light'), tap(24, 'light'), tap(38, 'heavy'), ...[56, 65, 74, 83, 92, 101].map((t) => tap(t, 'light')), tap(112, 'heavy'), tap(150, 'heavy'), ...[186, 195, 204, 213, 222, 231, 240, 249, 258, 267, 276].map((t) => tap(t, 'light'))],
+    b: [],
+  },
+  {
     id: 'airCombo', group: 'combo', name: 'Air combo', brief: 'launch, chase, air string, spike',
     info: 'Light × 3, Heavy launcher, jump to chase, air string, air heavy spike (ground bounce).',
     setup: { gap: 1.2 },
