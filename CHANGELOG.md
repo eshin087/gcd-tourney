@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ENG-124, ADR 0056 follow-up): the launcher continues into the air combo on the attack button alone, DBFZ style: a Light on the heavy launcher's hit super-jumps after the victim by itself and the air string fires once the chase is close, level and no longer out-risen, so launcher -> air combo needs no jump timing. A Light during the chase waits for the arrival instead of whiffing; Jump and Dash still chase manually and the spike stays a deliberate ender.
 - Changed (TOOL-067, user decision): Vercel keeps gcd-tourney preview deployments for 1 day (production 1 week); preview review links expire after a day, so republish with `npm run pr -- preview` when a review waits. CLAUDE.md and AGENTS.md say so.
 - Added (TOOL-067): `npm run deploy` refuses a build over 250 MB before uploading and names its largest folders (tools/deploy-size.mjs, `GCD_DEPLOY_MAX_MB`); a production deploy is ~175 MB today. CLAUDE.md and AGENTS.md gain a "Deployment storage" rule. Vercel team default retention is now 1 week (1 day for errored and canceled), so new projects start there too.
 - Fixed (TOOL-067): a preview deploy carries the review files its own branch changed (`public/reviews/<batch>/`, `public/art-review/` plus its catalog), so phone review links work again after TOOL-066 left both folders out of every deploy; production still ships none.
