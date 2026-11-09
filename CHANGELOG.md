@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Approved (ART-SIZE-R8, audit2 #11): the user approved Luffy run v02 and down v04 as drawn via Claude ("Approve both (Recommended)"). The 48-color pack selects both versions, but their automatic head probes are unmeasured and final Astra anatomy/scale review remains pending; the prior specialForward arm/palm diagnostic hold remains.
 - Approved (ART-SIZE-R8, audit2 #8): the user approved Goku run v10 and bair v02 as drawn via Claude ("Approve both"); B11 also covers R3. Final Astra audit holds run v10 for internal registration and bair v02 for a short upper torso; the R3 color/kick repairs pass. Runtime contact checks remain Claude-owned.
 - Changed (ART-SIZE-R8, audit2 #6): Luffy run v02, down v04 and specialForward v02 are ready for visual review in a candidate-only atlas. Run used 1/3 image calls, down used 3/3, and R4 used no image calls. Final Astra audit remains pending; specialForward's prior arm/palm diagnostic hold remains.
 - Approved (ART-SIZE-R8, audit2 #9): Luffy specialForward v02 (R4 speck fix) approved via Claude under the user's overnight auto-approval instruction; the user had not yet seen the image. Run v02 and down v04 remain pending visual approval; specialForward's prior arm/palm diagnostic hold remains.

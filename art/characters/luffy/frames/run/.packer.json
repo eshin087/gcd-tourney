@@ -1,0 +1,30 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/run_v02.png",
+  "version": 2,
+  "source": [
+    "characters/luffy/raw/run_v02.png",
+    "characters/luffy/raw/run_v02.json"
+  ],
+  "sourceHash": "cd7887b9e8aabb7e647a72acfa51e8c4cb56c1fb",
+  "bodyHeight": 188,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "run_00.png": "3b7132c82dd06fcd7c44172561e607aabd8ed445",
+    "run_01.png": "79fb69a1fa65604200b0218b2da76ea2b0c037f6",
+    "run_02.png": "a94d1792af961f088f7748dcbce7eb04ca9812ce",
+    "run_03.png": "57a8372ec2ea99452a616b1c6ce34ec2c8208ccd",
+    "run_04.png": "3687fc9e965fab7675004ca9ed6d4909138ddacf",
+    "run_05.png": "9824be78ba59c04b006a357d75a43674551ff48c",
+    "run_06.png": "2bf0c592ae4682314c2ce64a80f66c40fea2e0c9",
+    "run_07.png": "acfa20f97f14c4c9e8912009b568ba3b32de4d60"
+  }
+}
