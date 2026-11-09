@@ -1118,11 +1118,10 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 14,
+          "version": 13,
           "approvedVersion": 13,
           "reviewStatus": "approved",
-          "technicalHold": true,
-          "hold": "Visually approved as drawn via Claude relay audit2 #5; v13 still fails the strict head gate (.94 vs feet 1.05) and remains in _qa_hold, not packed. v14 was rejected at head 1.14; Part A call budget is exhausted.",
+          "_integration": "ART-SIZE-R8 B5 (Claude, user 2026-11-08 \"Yes, my picks\": v13 as drawn, Claude to fit its size at pack). The packer's verdict at x1 is head/hair drift (head .94, feet 1.05), not a uniform size error, so no uniform scale fixes it (art/CHARACTER_SCALE.md): the body is already at size and only the head reads 6 % small, inside the user's 8 % audit line. Packed as drawn at x1; v14 stays rejected in raw/_rejected/.",
           "reviewPage": "public/reviews/size-r8-audit2-gojo-b2-b7/",
           "approvalSource": "user via Claude relay audit2 #5: \"Yes, my picks\""
         },
