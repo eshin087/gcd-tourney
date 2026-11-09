@@ -1,8 +1,7 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
-"generated": "2026-10-19T06:31:08.565Z",
-
+ "generated": "2026-11-09T02:34:56.806Z",
  "fighters": {
   "naruto": {
    "idleGarmentPx": 3325,
@@ -800,7 +799,7 @@
    }
   },
   "sasuke": {
-   "idleGarmentPx": 2899,
+   "idleGarmentPx": 2876,
    "anims": {
     "idle": {
      "v": 7,
@@ -899,16 +898,16 @@
      "flag": "small"
     },
     "jumpSquat": {
-     "v": 3,
+     "v": 8,
      "body": [
-      0.829
+      0.925
      ],
      "head": [
-      1.085
+      1.059
      ],
-     "median": 0.829,
-     "headMedian": 1.085,
-     "flag": "small"
+     "median": 0.925,
+     "headMedian": 1.059,
+     "flag": null
     },
     "jumpUp": {
      "v": 5,
@@ -1389,21 +1388,21 @@
      "flag": "small"
     },
     "stagger": {
-     "v": 8,
+     "v": 9,
      "body": [
-      1.099,
-      1.146,
-      1.04,
-      1.106
+      1.001,
+      0.993,
+      0.964,
+      1.01
      ],
      "head": [
+      0.988,
       0.974,
-      0.972,
-      0.984,
-      1
+      1.01,
+      0.994
      ],
-     "median": 1.103,
-     "headMedian": 0.979,
+     "median": 0.997,
+     "headMedian": 0.991,
      "flag": null
     },
     "ko": {

@@ -312,21 +312,21 @@
      ]
     },
     "jumpSquat": {
-     "v": 7,
-     "head": 0.985,
-     "feet": 0.829,
+     "v": 8,
+     "head": 1.059,
+     "feet": 0.772,
      "range": 0,
      "verdict": "manual",
-     "reason": "manual QA by Claude (round 6 calibration): Crouch: the head probe reads 0.985 with low confidence. v07 repaints only the reaching arm of v06: at bodyHeight 157 (raw/jumpSquat_v07.json) the crown (y 84) and floor (y 240) match v06, whose fit was head 1.01, garment area 0.92 and sandal 1.06 of idle07. The forearm now reads about 25-28 px against 25 in the neutral and combat cells (v06 about 40). Auto hurt box 86 x 151 at x 91 (idle 101, guard 95, land 98 wide). Not an art approval. (art/characters/sasuke/production/round4/claude-calibration/CALIBRATION.md (round 6))",
+     "reason": "manual QA by Codex (manual packed-cell scale check, ART-SIZE-R8): Candidate v08 is a low-confidence crouch; exact 48-color packed cell compared at one density with idle f0 and approved title-style neutral/combat. Head read 1.059 (within ±6%; width 43 px, same as idle's 43; forward head pitch shortens the crown-to-chin box). Body B 0.925 (7.5% below idle, within the ±10% advisory); visual check of shoulders, torso, visible arm/leg widths, sandal geometry and clothing volume found no material scale drift. Rear arm and far leg are foreshortened/partly hidden by the pose; their apparent lengths were not used. Technical scale pass only, not design or contact approval. (art/scale/size-r8/SASUKE_A1_A2.md)",
      "frames": [
       {
-       "head": 0.985,
-       "feet": 0.829,
+       "head": 1.059,
+       "feet": 0.772,
        "box": [
-        146,
-        85,
-        189,
-        117
+        144,
+        80,
+        187,
+        116
        ]
       }
      ]
@@ -1679,49 +1679,49 @@
      ]
     },
     "stagger": {
-     "v": 8,
-     "head": 0.979,
-     "feet": 1.325,
-     "range": 0.028,
+     "v": 9,
+     "head": 0.991,
+     "feet": 1.404,
+     "range": 0.036,
      "verdict": "ok",
      "frames": [
       {
-       "head": 0.974,
-       "feet": 1.389,
+       "head": 0.988,
+       "feet": 1.373,
        "box": [
-        117,
+        119,
+        27,
+        155,
+        66
+       ]
+      },
+      {
+       "head": 0.974,
+       "feet": 1.425,
+       "box": [
+        109,
         26,
-        154,
+        145,
         62
        ]
       },
       {
-       "head": 0.972,
-       "feet": 1.243,
+       "head": 1.01,
+       "feet": 1.382,
        "box": [
-        87,
-        25,
-        124,
-        59
+        120,
+        32,
+        158,
+        71
        ]
       },
       {
-       "head": 0.984,
-       "feet": 1.261,
+       "head": 0.994,
+       "feet": 1.47,
        "box": [
-        133,
-        37,
-        171,
-        73
-       ]
-      },
-      {
-       "head": 1,
-       "feet": 1.425,
-       "box": [
-        117,
+        110,
         26,
-        155,
+        146,
         63
        ]
       }
@@ -2520,178 +2520,178 @@
     },
     "dashAttack": {
      "v": 5,
-     "head": 1,
-     "feet": 1.083,
-     "range": 0.077,
+     "head": 1.051,
+     "feet": 1.139,
+     "range": 0.102,
      "verdict": "ok",
      "frames": [
       {
-       "head": 0.974,
-       "feet": 1.069,
-       "box": [
-        141,
-        97,
-        178,
-        134
-       ]
-      },
-      {
        "head": 1.026,
-       "feet": 1.083,
+       "feet": 1.137,
        "box": [
-        162,
-        97,
-        201,
-        135
+        142,
+        88,
+        181,
+        127
        ]
       },
       {
-       "head": 1.051,
-       "feet": 0.986,
+       "head": 1.053,
+       "feet": 1.139,
        "box": [
-        147,
-        103,
-        187,
-        143
+        164,
+        89,
+        206,
+        128
        ]
       },
       {
-       "head": 1,
-       "feet": 1.168,
+       "head": 1.128,
+       "feet": 1.078,
        "box": [
-        137,
-        102,
-        176,
-        139
-       ]
-      },
-      {
-       "head": 1,
-       "feet": 1.104,
-       "box": [
-        133,
-        100,
-        171,
+        148,
+        94,
+        191,
         137
        ]
       },
       {
-       "head": 1,
-       "feet": 1.038,
+       "head": 1.077,
+       "feet": 1.236,
        "box": [
-        131,
-        97,
-        169,
-        135
+        138,
+        93,
+        179,
+        133
        ]
       },
       {
-       "head": 0.974,
-       "feet": 1.088,
+       "head": 1.051,
+       "feet": 1.161,
        "box": [
-        143,
-        98,
-        181,
-        134
+        133,
+        92,
+        173,
+        132
+       ]
+      },
+      {
+       "head": 1.051,
+       "feet": 1.148,
+       "box": [
+        131,
+        88,
+        171,
+        129
+       ]
+      },
+      {
+       "head": 1.051,
+       "feet": 1.124,
+       "box": [
+        144,
+        88,
+        184,
+        128
        ]
       }
      ]
     },
     "fSmash": {
      "v": 2,
-     "head": 1.047,
-     "feet": 1.509,
-     "range": 0.107,
+     "head": 0.992,
+     "feet": 1.395,
+     "range": 0.052,
      "verdict": "ok",
      "frames": [
       {
-       "head": 1.051,
-       "feet": 1.61,
+       "head": 1,
+       "feet": 1.538,
        "box": [
-        103,
-        49,
+        105,
+        59,
         143,
-        89
+        97
        ]
       },
       {
-       "head": 0.996,
-       "feet": 1.597,
+       "head": 0.952,
+       "feet": 1.463,
        "box": [
         106,
-        56,
-        145,
-        91
+        65,
+        144,
+        99
        ]
       },
       {
-       "head": 1.103,
-       "feet": 1.532,
+       "head": 1,
+       "feet": 1.384,
        "box": [
         157,
-        70,
-        199,
-        111
+        80,
+        196,
+        117
        ]
       },
       {
-       "head": 1.04,
-       "feet": 1.382,
+       "head": 0.992,
+       "feet": 1.371,
        "box": [
-        146,
-        64,
-        186,
-        100
+        145,
+        73,
+        183,
+        107
        ]
       },
       {
-       "head": 1.049,
-       "feet": 1.214,
+       "head": 1.004,
+       "feet": 1.172,
        "box": [
-        140,
-        58,
-        182,
-        93
+        139,
+        67,
+        179,
+        101
        ]
       },
       {
-       "head": 1.039,
-       "feet": 1.34,
+       "head": 0.979,
+       "feet": 1.263,
        "box": [
         135,
-        58,
-        177,
-        93
-       ]
-      },
-      {
-       "head": 1.047,
-       "feet": 1.509,
-       "box": [
-        129,
-        62,
-        170,
+        67,
+        174,
         100
        ]
       },
       {
-       "head": 1.077,
-       "feet": 1.468,
+       "head": 0.986,
+       "feet": 1.395,
        "box": [
-        102,
-        52,
-        143,
-        92
+        129,
+        71,
+        168,
+        107
        ]
       },
       {
-       "head": 1.025,
-       "feet": 1.596,
+       "head": 1,
+       "feet": 1.411,
        "box": [
-        100,
-        49,
+        104,
+        62,
+        142,
+        100
+       ]
+      },
+      {
+       "head": 0.969,
+       "feet": 1.517,
+       "box": [
+        102,
+        59,
         138,
-        89
+        95
        ]
       }
      ]
@@ -2858,69 +2858,69 @@
     },
     "bair": {
      "v": 1,
-     "head": 1.046,
-     "feet": 1.637,
-     "range": 0.058,
+     "head": 0.962,
+     "feet": 1.513,
+     "range": 0.061,
      "verdict": "ok",
      "frames": [
       {
-       "head": 1.039,
-       "feet": 1.54,
+       "head": 0.962,
+       "feet": 1.425,
        "box": [
-        146,
-        53,
-        186,
-        91
-       ]
-      },
-      {
-       "head": 1.053,
-       "feet": 1.553,
-       "box": [
-        97,
-        49,
-        137,
-        89
-       ]
-      },
-      {
-       "head": 1.077,
-       "feet": 1.699,
-       "box": [
-        114,
+        145,
         67,
-        155,
-        108
+        182,
+        102
        ]
       },
       {
-       "head": 1.019,
-       "feet": 1.657,
+       "head": 1,
+       "feet": 1.466,
        "box": [
-        122,
-        74,
-        163,
-        111
+        99,
+        63,
+        137,
+        101
        ]
       },
       {
-       "head": 1.039,
-       "feet": 1.675,
+       "head": 0.974,
+       "feet": 1.561,
        "box": [
-        100,
-        47,
-        140,
-        85
+        115,
+        80,
+        152,
+        118
        ]
       },
       {
-       "head": 1.053,
-       "feet": 1.616,
+       "head": 0.939,
+       "feet": 1.515,
        "box": [
-        143,
-        53,
-        184,
-        92
+        123,
+        87,
+        160,
+        120
+       ]
+      },
+      {
+       "head": 0.955,
+       "feet": 1.523,
+       "box": [
+        102,
+        62,
+        139,
+        96
+       ]
+      },
+      {
+       "head": 0.962,
+       "feet": 1.51,
+       "box": [
+        141,
+        66,
+        179,
+        101
        ]
       }
      ]

@@ -1,4 +1,14 @@
 # Art review queue
+
+## Sasuke ART-SIZE-R8 A1-A2 (2026-11-08)
+
+The [review page](../public/reviews/size-r8-a1-a2/index.html) shows A1 and A2 at the exact packed pixel density beside the prior approved strips, approved idle/neutral/combat cells, and guard/vanish context. The committed 48-color atlas passes the new candidates' scale gate; it still has unrelated existing Sasuke warnings. These candidates are **not approved**; jumpSquat v07 and stagger v08 remain the approved versions. Generation calls, exact inputs and hashes are in the [inventory](characters/sasuke/production/size-r8/GENERATION_INVENTORY.md); the [technical record](scale/size-r8/SASUKE_A1_A2.md) separates scale checks from design approval.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-11-08 | Sasuke | jumpSquat | [v08](characters/sasuke/raw/jumpSquat_v08.png) · [review](../public/reviews/size-r8-a1-a2/index.html#a1) · [calls](characters/sasuke/production/size-r8/GENERATION_INVENTORY.md) | v08 | needs review | Reduced torso, sleeves and trouser bulk while keeping the one-frame spot-dodge crouch | Quantized 48-color pack exit 0; candidate has manual low-confidence scale pass. Head H 1.059 (43 px width, matches idle); body B 0.925, pose-noisy and within ±10%. See [heads sheet](scale/heads-sasuke.png), [body sheet](scale/body-sasuke-jumpSquat-stagger.png) and [technical record](scale/size-r8/SASUKE_A1_A2.md). User approval pending. |
+| 2026-11-08 | Sasuke | stagger | [v09](characters/sasuke/raw/stagger_v09.png) · [review](../public/reviews/size-r8-a1-a2/index.html#a2) · [calls](characters/sasuke/production/size-r8/GENERATION_INVENTORY.md) | v09 | needs review | Corrected shoulders and torso while keeping the four-frame 150 ms loop | Quantized 48-color pack exit 0; all four heads are 0.974-1.010 of idle (median 0.991), body B median 0.997. See [heads sheet](scale/heads-sasuke.png), [body sheet](scale/body-sasuke-jumpSquat-stagger.png) and [technical record](scale/size-r8/SASUKE_A1_A2.md). User approval pending. |
+
 ## Clash HD effects (ART-CLASH-HD; relay beam-clash-6)
 
 All eight HD VFX drawings were approved as drawn by the user via Claude relay beam-clash-6 #3: “Approve all 8 (Recommended)”. The [phone review page](../public/reviews/clash-hd/index.html) shows loops, 2x frames, tiled stream checks and seven approved-effect comparisons. C1 and C6 use v02 after corrective Luna-medium calls; the other six are v01. Generation prompts and hashes: [call inventory](vfx/production/clash-hd/CALLS.md). Candidate packing reports all expected frame counts and no new tile/fill warnings; three unrelated existing warnings remain for streamBolt, streamFlame and gumArm. Visual approval does not claim runtime integration or shipment.
