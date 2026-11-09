@@ -1,4 +1,16 @@
 # Art review queue
+
+## Spell effects round 1 (ART-SPELL-R1)
+
+All three v01 candidates are packed and awaiting user review; none is approved. The [review gallery](../public/reviews/spell-fx-r1/index.html) shows each frame in white, blue and orange beside its current stand-in. The game continues using the existing effects until approval. Generation paths and call budgets are recorded in the [call inventory](vfx/production/spell-fx-r1/CALLS.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-11-08 | Shared | shockRing | [raw](vfx/raw/shockRing_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#shockRing) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | needs review | Six-frame expanding elliptical shock ring, breaking into arcs | Candidate pack 6/6 at x0.968; split: even sidecar; no new warnings. |
+| 2026-11-08 | Shared | impactBurst | [raw](vfx/raw/impactBurst_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#impactBurst) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | needs review | Six-frame compact impact with uneven spikes and dispersing shards | Candidate pack 6/6 at x1.0; no new warnings. |
+| 2026-11-08 | Shared | flare | [raw](vfx/raw/flare_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#flare) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | needs review | Four-frame looping root flare with short rays and sparkles | Candidate pack 4/4 at x1.316; no new warnings. |
+
+---
 ## Clash HD effects (ART-CLASH-HD; relay beam-clash-6)
 
 All eight HD VFX drawings were approved as drawn by the user via Claude relay beam-clash-6 #3: “Approve all 8 (Recommended)”. The [phone review page](../public/reviews/clash-hd/index.html) shows loops, 2x frames, tiled stream checks and seven approved-effect comparisons. C1 and C6 use v02 after corrective Luna-medium calls; the other six are v01. Generation prompts and hashes: [call inventory](vfx/production/clash-hd/CALLS.md). Candidate packing reports all expected frame counts and no new tile/fill warnings; three unrelated existing warnings remain for streamBolt, streamFlame and gumArm. Visual approval does not claim runtime integration or shipment.
