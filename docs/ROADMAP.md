@@ -63,7 +63,9 @@ The user signed off on 2026-10-10 (USR-001); DOC-001 (docs fact check) is the la
 
 ## 💭 M6: Modes and depth (v0.7.0)
 - Training mode: frame data display, hitbox overlay toggle, dummy recording and playback, reset positions.
-- Arcade ladder with a simple story card per character. Survival.
+- ✅ Arcade ladder (ENG-127, ADR 0058): EASY / NORMAL / HARD courses, one round per rival, a best-of-3 dark mirror
+  boss, continues that halve the score, records per fighter and course. Still open: a story card per character.
+- Survival.
 - Assists or tag teams (3v3, DBFZ-style) as an **ADR-gated** design decision.
 
 ## 💭 M7: Online (v0.8.x, ADR 0036)

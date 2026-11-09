@@ -137,6 +137,7 @@ export default {
   id: 'naruto',
   name: 'NARUTO',
   subtitle: 'Orange Hokage-to-be',
+  rival: 'sasuke', // arcade (ADR 0058): always the GRAND FINAL of his run
   look: 'spiky blonde hair, blue eyes, three whisker marks on each cheek, dark blue forehead protector with a metal plate, orange jumpsuit with black shoulders, blue sandals',
   color: '#ff8a1c',
   aura: [1.0, 0.55, 0.12],
