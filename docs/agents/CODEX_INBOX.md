@@ -33,9 +33,11 @@ except A3's. Do not edit `src/` or `tools/`.
 - Worktree: one real worktree on branch `art/size-r8-a` (the app's managed worktree plus `npm run pr -- art
   naruto,sasuke,killua`, or `npm run pr -- start art/size-r8-a --art naruto,sasuke,killua`), dev port 5251. Reuse it
   for every version.
-- Generation: every image call on `gpt-6-luna`, reasoning `medium`; at most 3 calls per image, counting failed and
-  unsaved ones, recorded in one candidate inventory. The final anatomy and scale audit of the packed atlas runs on
-  `gpt-6-astra` (`medium`) after the user's approval; an Astra pass never replaces that approval.
+- Generation: **user decision 2026-11-08 (relayed as a USER DECISION):** "Use their current model": this chat, Audit #2
+  and the Spell Chat generate on the model they run now; the GPT-6 Luna rule is waived for these three chats in this
+  round only. At most 3 calls per image, counting failed and unsaved ones, recorded in one candidate inventory. The
+  final anatomy and scale audit of the packed atlas runs after the user's approval (on `gpt-6-astra` `medium` when you
+  can start one, otherwise say which model did it); an audit pass never replaces that approval.
 - **The drawing contract for every redraw:** keep the move: the same frame count, phases and action, with the strike
   frame where it is now (gameplay timing lives in `src/game/moves.js` and must not change). Change the body: draw it at
   idle f0's build at the same pixel density, meaning the same head, torso length, shoulder width, limb thickness and
@@ -88,9 +90,9 @@ and shrink between moves; fix the 34 strips off by 8 % or more, redraw the ones 
 not, and send every new drawing to the user. Task **ART-SIZE-R8**; the record, the list and the evidence boards are
 **[art/scale/size-r8/AUDIT.md](../../art/scale/size-r8/AUDIT.md)** (read it first).
 
-**Your part:** redraws B1-B10 and pixel repairs R3-R4 (Gojo, Goku, Luffy). "Character Art Audit #1" (lane `audit1`)
+**Your part:** redraws B1-B11 and pixel repair R4 (Gojo, Goku, Luffy). "Character Art Audit #1" (lane `audit1`)
 does Sasuke, Naruto and Killua. **Claude resizes C4-C14 on `art/size-r8-resize`:** do not change any strip's
-`packScale`, including Goku `bair` and Luffy `specialForward`, which you repair and Claude resizes. Do not edit `src/`
+`packScale`, including Luffy `specialForward`, which you repair and Claude resized (PR #230, approved and merged). Do not edit `src/`
 or `tools/`.
 
 - Worktree: one real worktree on branch `art/size-r8-b` (managed worktree plus `npm run pr -- art gojo,goku,luffy`, or
@@ -111,9 +113,12 @@ Items, in this order:
 - [ ] 5. **B8 Goku `run`** (v09): hair and face at idle's size on the same body. **B9 Luffy `run`** (v01): hat and
   face at idle's size on the same body.
 - [ ] 6. **B10 Luffy `down`** (v03): both frames at idle's scale (f0 is small, f1 big).
-- [ ] 7. **R3 Goku `bair`** (v01): repair f0's dark blob under the chin and pale patch at the waist and f2's skin patch
-  on the gi. **R4 Luffy `specialForward`** (v01): remove f5's stray orange speck by the rear foot. Same pixels, a
-  script, no image call, each as the strip's next version.
+- [ ] 7. **B11 Goku `bair`** (v01, 6 frames; changed 2026-11-08): **redraw**, not a repair. It is about 17 % small, and
+  Claude's x1.15 resize clipped the rear kick of f2-f3 13-15 px past the cell edge, so draw it at idle's size with the
+  kick inside the cell (the strip keeps `packScale` 1), without f0's dark blob under the chin, the pale waist patch and
+  f2's skin patch on the gi. **R4 Luffy `specialForward`** (v01): remove f5's stray orange speck by the rear foot (same
+  pixels, a script, no image call, as the strip's next version; Claude's PR #230 packs it at `packScale` 1.08, which
+  you leave as it is).
 - [ ] 8. Ring for approval per fighter as in item 10 above, then record, Astra audit and hand back as in item 11 (lane
   `audit2`).
 

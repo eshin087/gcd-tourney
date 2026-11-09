@@ -60,6 +60,7 @@ Evidence boards (same pixel density and floor line, dashed line = idle crown):
 | B8 | Goku | run (v09) | 8 | Head (hair and face) about 15-18 % bigger on an idle-size body | audit2 |
 | B9 | Luffy | run (v01) | 8 | Head (hat and face) about 10-12 % bigger on an idle-size body | audit2 |
 | B10 | Luffy | down (v03) | 2 | f0 (crawl) about 12 % small, f1 (lying) about 5-20 % big: a pop inside the strip | audit2 |
+| B11 | Goku | bair (v01) | 6 | About 17 % small (head 0.90, area 0.82). A resize cannot fix it: at x1.15 the rear kick of f2-f3 clips 13-15 px past the cell edge. Redraw at idle's size with the kick inside the cell; this also replaces repair R3 (f0 dark blob under the chin and pale waist patch, f2 skin patch on the gi) | audit2 |
 
 Pixel repairs, no image call (new `_vNN` from the same pixels):
 
@@ -67,10 +68,10 @@ Pixel repairs, no image call (new `_vNN` from the same pixels):
 |---|---|---|---|---|
 | R1 | Naruto | airHeavyAlt (v04) | f2-f4: the thigh pouch is blue (about 60 px a frame) instead of black like the other frames | audit1 |
 | R2 | Naruto | jumpSquat (v04) | f0: small orange blob beside the rear fist | audit1 |
-| R3 | Goku | bair (v01) | f0: dark blob under the chin, pale patch at the waist; f2: skin-coloured patch on the gi. Claude resizes it (C4) | audit2 |
+| R3 | Goku | bair (v01) | Moved into redraw B11 (2026-11-08) | audit2 |
 | R4 | Luffy | specialForward (v01) | f5: stray orange speck by the rear foot. Claude resizes it (C14) | audit2 |
 
-### Resize in the pack (Claude, branch `art/size-r8-resize`; drawing unchanged)
+### Resize in the pack (Claude, branch `art/size-r8-resize`, PR #230; drawing unchanged)
 
 Factor = the new `animations.<anim>.packScale` relative to today's. Checked at the new size beside idle f0 before it ships.
 
@@ -79,10 +80,10 @@ Factor = the new `animations.<anim>.packScale` relative to today's. Checked at t
 | C1 | Sasuke | bair (v01) | head 1.08-1.09 (two templates), area 1.04 | x0.93 |
 | C2 | Sasuke | fSmash (v02) | head 1.04-1.05, area 1.07 | x0.95 |
 | C3 | Sasuke | dashAttack (v05) | head 0.95-0.96, thickest part 0.78 (lunge), by eye about 8-12 % small | x1.06 |
-| C4 | Goku | bair (v01) | head 0.90, area 0.82, by eye -17 % | x1.15 |
+| C4 | Goku | bair (v01) | head 0.90, area 0.82, by eye -17 % | moved to redraw B11: x1.15 clips the kick by 13-15 px |
 | C5 | Goku | uair (v01) | head 0.97, area 0.82 (tucked), by eye -13 % | x1.10 |
 | C6 | Goku | intro (v01) | head 0.90, area 0.94, thickness 0.90 | x1.10 |
-| C7 | Goku | fSmash (v01) | area 1.12, thickness 1.09-1.12, by eye +11-17 % | x0.90 |
+| C7 | Goku | fSmash (v01) | area 1.12, thickness 1.09-1.12, by eye +11-17 % (f0 about idle size) | x0.92 (x0.90 left f0 about 7 % small; the charge holds f1) |
 | C8 | Goku | fTilt (v01) | head 1.09, area 1.05 | x0.94 |
 | C9 | Goku | dTilt (v01) | head 1.08, area 1.03, shoulders +9 % | x0.93 |
 | C10 | Goku | fair (v01, already x0.92) | head 1.06, thickness 1.16, by eye +8 % | x0.94 |
@@ -103,3 +104,11 @@ Factor = the new `animations.<anim>.packScale` relative to today's. Checked at t
   the shin, specialUp f0-f3 arms ending in flat cuts (check whether the engine's arm limb covers them).
 - Killua: combat strips (idle included) have a shorter upper body than his neutral cell; his show strips (win, taunt,
   superPose, intro, down, ko) use the neutral's longer torso. Each family is consistent inside itself.
+
+## User decisions after the audit (2026-11-08, question box in this chat)
+
+- **The 13 resizes** (C1-C3, C5-C14; review page public/reviews/size-r8-resize/ on PR #230): "Approve all 13".
+- **Codex model for this round:** "Character Art Audit #1" stopped before drawing because it cannot confirm or select
+  GPT-6 Luna (medium), which the 2026-10-12 rule requires for character-art generation. Asked how the three Codex art
+  chats (Audit #1, Audit #2, Spell Chat) should proceed, the user answered "Use their current model": the Luna rule is
+  waived for those three chats in this round only. It does not change the rule elsewhere.
