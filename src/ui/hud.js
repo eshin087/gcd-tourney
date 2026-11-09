@@ -243,13 +243,18 @@ export class Hud {
     s.addEventListener('animationend', (e) => { if (e.target === s) s.remove(); });
   }
 
-  setup(fighters, assets, hint) {
+  // o.rounds: round pips per side (the round wins a match takes); o.stage: an arcade stage line under the intro's VS;
+  // o.shadow: the side whose portrait is shaded as the arcade's dark mirror (ADR 0058), -1 for none
+  setup(fighters, assets, hint, o = {}) {
+    const rounds = o.rounds ?? 2;
     fighters.forEach((f, i) => {
       const P = this.p[i];
       P.name.textContent = f.def.name;
       P.portrait.innerHTML = '';
       P.portrait.append(portraitCanvas(assets[i]));
       P.side.style.setProperty('--pc', f.def.color);
+      P.side.classList.toggle('shadow', o.shadow === i);
+      if (P.wins.children.length !== rounds) P.wins.innerHTML = '<i></i>'.repeat(rounds);
       P.trailHp = MAX_HP;
       this.combo[i].hits = 0;
       this.combo[i].el.classList.remove('show');
@@ -261,7 +266,7 @@ export class Hud {
     this.cards.innerHTML = fighters.map((f, i) => `
       <div class="card c${i + 1}" style="--pc:${f.def.color}">
         <div class="cn">${f.def.name}</div><div class="cs">${f.def.subtitle}</div>
-      </div>`).join('<div class="vs">VS</div>');
+      </div>`).join(`<div class="vs">VS${o.stage ? `<small>${o.stage}</small>` : ''}</div>`);
   }
 
   show(v) {

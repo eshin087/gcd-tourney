@@ -317,6 +317,26 @@ B: game.fighters[1], M: 'RASENGAN' }, true, true)` shows any line)
       drawn palm of either fighter (its size scales with the body). `game.cam.set('focus', p1)` eases
       depthK back to 1 over about half a second (no pop); ko and victory too.
 
+**Arcade (ENG-127, ADR 0058)**
+- [ ] `npm run test:arcade` passes (ladder order, courses, the rival in the GRAND FINAL, scoring, continues, records).
+- [ ] SELECT MODE → ARCADE: one fighter pick, then COURSE ◀ EASY / NORMAL / HARD ▶ with the picked fighter's record
+      under it and the course's six CPU levels in the right panel; Esc goes back to the fighter pick, then SELECT MODE.
+- [ ] The ladder shows five rivals and a `???` silhouette, the stage, `<you> VS <them>`, the CPU level and ONE ROUND.
+      Each rival fight has one round pip per side and `STAGE n · <name>` under the intro's VS; the announcer names the
+      stage instead of his second welcome line.
+- [ ] Winning a rival fight: STAGE n CLEAR with its score lines (VICTORY, TIME, HEALTH, BEST COMBO when there was one,
+      PERFECT when untouched, × the CPU level), RUN SCORE, NEXT FIGHT / QUIT RUN. The beaten cell shows KO.
+- [ ] Losing: DEFEATED with the winner's hero shot and `SCORE a → a/2`; CONTINUE replays the same fight, GIVE UP
+      and QUIT RUN (and pause → QUIT TO TITLE) end the run.
+- [ ] Stage 6 reveals DARK <your fighter>: a violet card and HUD portrait, a dark shade with a violet outline in the
+      ring, best of 3 (two pips), two ki bars at every round start; "And facing them... DARK <name>?!".
+- [ ] Beating it: WORLD CHAMPION · <course> COURSE with the run's score, clear time, longest combo, continues, the
+      badges (FIRST CLEAR!, NEW RECORD!, FASTEST CLEAR!, NO CONTINUES ★) and the record line; ARCADE AGAIN shows a
+      star on the fighter's cell. VS CPU, 2 PLAYERS and online still play best of 3 with two pips.
+- [ ] A whole run unattended, with `?debug`: a CPU brain on P1 (`game.brains[0] = new (game.brains[1].constructor)
+      (game.fighters[0], 'hard', false); game.input.bind(game.pads, 'cpu')` after each fight starts) reaches the
+      champion screen with no console error.
+
 ### Mobile (landscape touch)
 
 Emulate a phone in the browser dev tools (landscape, width under 768 px so touch is emulated, e.g. 740 x 360),

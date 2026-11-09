@@ -29,6 +29,7 @@ Goku and Luffy are also playable. Every fighter shares one baseline kit (directi
 - **A deterministic simulation.** The game runs on a fixed 60 Hz step, so both players' machines compute the same match. A build-time lint blocks floating-point math calls that differ between browser engines, and recorded matches replay frame for frame as regression tests.
 - **Per-frame hitboxes.** A hit lands only where the fist or foot on the current sprite frame overlaps the opponent's body.
 - **CPU opponents with real tiers.** The top level reads frame data, parries, punishes and composes new combos every match. A spectator-only "God" level shows off the whole engine.
+- **Arcade mode.** Beat every other fighter in one-round fights on an EASY, NORMAL or HARD course, then face a dark mirror of your own fighter. Every fight is scored, and your best score and fastest clear are saved per fighter.
 - **Beam and melee clashes.** When two ultimates collide, both players play a short rhythm chart and the better timing wins.
 - **Runs anywhere.** Keyboard, PlayStation or Xbox pads with rebinding, and an on-screen touch layout for phones.
 - **No asset files for sound.** All music and sound effects are synthesized live with WebAudio.
