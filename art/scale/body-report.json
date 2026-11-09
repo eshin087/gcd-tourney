@@ -1,7 +1,7 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
- "generated": "2026-11-09T03:22:51.618Z",
+ "generated": "2026-11-09T04:21:40.110Z",
  "fighters": {
   "naruto": {
    "idleGarmentPx": 3325,
@@ -799,7 +799,7 @@
    }
   },
   "sasuke": {
-   "idleGarmentPx": 2876,
+   "idleGarmentPx": 2899,
    "anims": {
     "idle": {
      "v": 7,
@@ -898,16 +898,16 @@
      "flag": "small"
     },
     "jumpSquat": {
-     "v": 9,
+     "v": 3,
      "body": [
-      0.925
+      0.829
      ],
      "head": [
-      1.059
+      1.085
      ],
-     "median": 0.925,
-     "headMedian": 1.059,
-     "flag": null
+     "median": 0.829,
+     "headMedian": 1.085,
+     "flag": "small"
     },
     "jumpUp": {
      "v": 5,
@@ -1388,21 +1388,21 @@
      "flag": "small"
     },
     "stagger": {
-     "v": 9,
+     "v": 8,
      "body": [
-      1.001,
-      0.993,
-      0.964,
-      1.01
+      1.099,
+      1.146,
+      1.04,
+      1.106
      ],
      "head": [
-      0.988,
       0.974,
-      1.01,
-      0.994
+      0.972,
+      0.984,
+      1
      ],
-     "median": 0.997,
-     "headMedian": 0.991,
+     "median": 1.103,
+     "headMedian": 0.979,
      "flag": null
     },
     "ko": {
@@ -2493,7 +2493,7 @@
    }
   },
   "gojo": {
-   "idleGarmentPx": 7563,
+   "idleGarmentPx": 7646,
    "anims": {
     "idle": {
      "v": 6,
@@ -2646,27 +2646,27 @@
      "flag": "small"
     },
     "light1": {
-     "v": 5,
+     "v": 8,
      "body": [
-      0.896,
-      0.92,
-      0.96,
-      0.938,
-      0.93,
-      0.926,
-      0.926
+      0.879,
+      0.904,
+      0.922,
+      0.911,
+      0.944,
+      0.946,
+      0.952
      ],
      "head": [
-      1,
-      0.971,
-      0.971,
-      0.971,
-      0.971,
-      1,
-      1
+      0.914,
+      0.914,
+      0.943,
+      0.963,
+      0.955,
+      0.914,
+      0.943
      ],
-     "median": 0.926,
-     "headMedian": 0.971,
+     "median": 0.922,
+     "headMedian": 0.943,
      "flag": null
     },
     "light2": {

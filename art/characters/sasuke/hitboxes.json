@@ -572,24 +572,32 @@
     "3": {
       "hit": [
         [
-          199,
-          116,
-          13,
-          17
+          184,
+          106,
+          28,
+          27
         ]
+      ],
+      "hand": [
+        197,
+        111
       ]
     },
     "4": {
       "hit": [
         [
-          199,
-          116,
-          13,
-          17
+          193,
+          105,
+          19,
+          28
         ]
+      ],
+      "hand": [
+        207,
+        111
       ]
     },
-    "_scale": 0.92,
-    "_note": "ENG-112 fTilt v03 active punch frames 3/4 after user-authorized unchanged-source packScale 0.92. Boxes follow the leading fist at the front of the extended arm on quantized cells; crops are rebuilt from current atlas cells 184/185."
+    "_scale": 1,
+    "_note": "ART-SIZE-R8 A3 fTilt v04: remeasured on the final 48-color quantized atlas, active frames 3/4 at cells 186/187. Boxes pad the visible lead-fist bounds by about 3 px; hand anchors sit on the forward knuckle points. This strip is packed at packScale 1. Integration (Claude, user 2026-11-08: \"Approve v04, keep reach\"): each hit box is the union of that drawn-fist box ([184,106,17,16] / [193,105,18,16]) and the v03 box the game used ([199,116,13,17] at both frames), so the move lands everything it did before."
   }
 }
