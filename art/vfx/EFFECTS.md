@@ -263,9 +263,13 @@ line thicknesses come out as specified.
 
 ## glow: soft light disc
 
-- **In game:** held glows: behind the aura (character color), behind the orb and lightning hands, the
-  bulbs at a beam's origin and head, the beam clash core, the fireball halo, and a quick growing flash on
-  explosions and smash hits. Pulses between its 2 frames.
+- **In game (ENG-132, 2026-11-08):** only small lights now: at a hand (Rasengan, Rasenshuriken, Dragon Fist,
+  Chidori; capped at scale 0.3 by `Effects.light`), at the root and head of a beam drawn as the shader ribbon, a
+  shot's `halo` when its entry asks for one, and the clash core when the drawn `clashKnot` is missing. The user
+  found the big ones weird ("glow discs / bubbles"): the disc behind a charging or firing fighter's aura, the
+  growing flashes on explosions, smash hits, Bursts and clash ends, the halos under the ki blasts and the fireball,
+  the Spirit Bomb's halo and the white core over the clash knot are gone. The HD `flare` (ART-SPELL-R1) replaces
+  the small lights once approved. Pulses between its 2 frames.
 - **Look:** a round disc of light made of **3 hard concentric steps**: outer ring ~35% alpha, middle
   ring ~70%, core 100%. No smooth gradient.
 - **Color:** white (tinted), **with real alpha**.

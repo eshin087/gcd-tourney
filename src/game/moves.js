@@ -322,8 +322,8 @@ export const PROJECTILES = {
   // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
   // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash). As the anime fires them
   // (ENG-SKL-GOK): one blast per palm thrust (`every` frames apart), the HD ki sphere turned along its flight with no
-  // bloom disc (`halo`), a flash at the palm (`muzzle`) and its own small burst on hit
-  kiBlast: { count: 3, every: 4, spread: 0.1, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'kiBlast', scale: 0.75, orient: true, glowColor: 0x5ab0ff, halo: 0.2, sfx: 'flash', spark: 'none',
+  // glow disc under it (ENG-132), a flash at the palm (`muzzle`) and its own small burst on hit
+  kiBlast: { count: 3, every: 4, spread: 0.1, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'kiBlast', scale: 0.75, orient: true, glowColor: 0x5ab0ff, sfx: 'flash', spark: 'none',
     muzzle: { fx: 'kiMuzzle', scale: 0.4 }, burstFx: { fx: 'kiBlastBurst', scale: 0.42, smoke: 0, shake: 0.12 } },
   // Luffy's Gum-Gum Pistol: the stretched fist itself, very fast and short-lived (~6 u, like the Chidori Spear).
   // Physical, so it cancels shots but never beam-clashes. Drawn as the rubber arm (the shared `limb`, ENG-SKL-LUF): the arm
@@ -519,7 +519,8 @@ export const SPECIAL_MOVES = {
   },
 
   // ---- Luffy (Enies Lobby arc, Gear Second / Gear Third; ADR 0032)
-  gumPistol: { kind: 'shot', anim: 'special', startup: 11, active: 3, recovery: 20, projectile: true, proj: 'pistol', cost: 50, name: 'GUM-GUM PISTOL', color: '#e8402a' },
+  // (startup 9 / recovery 18 since the 2026-11-08 balance run, ADR 0011: the Chidori Spear's frames; it was 11 / 20)
+  gumPistol: { kind: 'shot', anim: 'special', startup: 9, active: 3, recovery: 18, projectile: true, proj: 'pistol', cost: 50, name: 'GUM-GUM PISTOL', color: '#e8402a' },
   gumPistolAir: { kind: 'shot', anim: 'throw', startup: 9, active: 3, recovery: 16, air: true, projectile: true, proj: 'pistol', cost: 50, name: 'GUM-GUM PISTOL', color: '#e8402a' },
   // both palms shoved forward: a short lunge that sends them into the wall. Physical: no beam clash. Contact shows the
   // double palm (`hitPose`, specialForward f3) and the air shoved out of them (`blastFx`) instead of the white-out

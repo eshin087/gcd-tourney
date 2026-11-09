@@ -29,7 +29,12 @@ const FRAG = /* glsl */ `
 
 const qz = new THREE.Quaternion();
 const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with its colors resolved (Effects.modeShell)
-const zAxis = new THREE.Vector3(0, 0, 1);
+const zAxis = new THREE.Vector3(0, 0, 1), xAxis = new THREE.Vector3(1, 0, 0);
+// round 1's stand-ins and the HD redraws that replace them once approved (ENG-132, ART-SPELL-R1): [name, scale factor]
+const HD_FOR = { ring: ['shockRing', 1], burst: ['impactBurst', 1], clashBurst: ['impactBurst', 1] };
+// a held light at a hand or a beam's root: the drawn `flare` once approved, else the stepped glow no bigger than this
+// (a bigger one read as a flat bubble round the hand: the user's "glow discs", 2026-11-08)
+const LIGHT_MAX = 0.3;
 const tPull = new THREE.Vector3(), tSwirl = new THREE.Vector3(), yAxis = new THREE.Vector3(0, 1, 0);
 
 // an effects page: pixel-exact, sRGB, no mipmaps
@@ -265,6 +270,10 @@ export class Effects {
   }
 
   spawn(name, x, y, z, o = {}) {
+    // round 1's 128 px ring and starbursts read low-res beside the HD art (ENG-132): once their HD redraws are approved
+    // (art/vfx/SPELL_FX_R1_BRIEF.md) they stand in everywhere; a held (looping) one keeps its own strip
+    const hd = !o.loop && HD_FOR[name];
+    if (hd && this.drawn(hd[0])) { o = { ...o, scale: (o.scale ?? 1) * hd[1], ms: undefined, frame: undefined }; name = hd[0]; }
     const { a, S, wait } = this.source(name);
     const mat = new THREE.ShaderMaterial({
       uniforms: {
@@ -287,6 +296,9 @@ export class Effects {
     const s = S.cellWorld * (o.scale ?? 1);
     mesh.scale.set(s * (o.flipX ? -1 : 1), s, s);
     mesh.position.set(x, y + RING_TOP, z);
+    // `flat`: laid on the floor instead of facing the camera (a telegraph on the ground: a camera-facing disc there
+    // stood up round the target like a dome)
+    if (o.flat) mesh.quaternion.setFromAxisAngle(xAxis, -Math.PI / 2);
     this.scene.add(mesh);
     const ms = o.ms ?? a.ms;
     const it = {
@@ -306,6 +318,7 @@ export class Effects {
       random: !!o.random,
       stretch: o.stretch ?? 1,
       seq: o.seq ?? null, // frames played in this order, one per `ms`, then it ends (a strip with a held loop inside)
+      flat: !!o.flat,
     };
     if (it.seq) it.life = (it.seq.length * ms) / 1000;
     it.max = it.life;
@@ -344,6 +357,13 @@ export class Effects {
   drop(id) {
     const it = this.keepers.get(id);
     if (it) { it.life = -1; this.keepers.delete(id); }
+  }
+
+  // A small held light at a hand or at a beam's root, kept under `id` (ENG-132): the drawn `flare` once approved, else
+  // the stepped glow capped at LIGHT_MAX, so it lights the palm instead of standing round it as a disc
+  light(id, x, y, z, o = {}) {
+    if (this.drawn('flare')) return this.keep(id, 'flare', x, y, z, { ...o, opacity: 1, glow: o.glow ?? 0.3 });
+    return this.keep(id, 'glow', x, y, z, { ...o, scale: Math.min(o.scale ?? LIGHT_MAX, LIGHT_MAX) });
   }
 
   update(dt, camera) {
@@ -387,6 +407,7 @@ export class Effects {
         const s = it.base * (1 + it.grow * it.t);
         it.mesh.scale.set(Math.sign(it.mesh.scale.x) * s * it.stretch, s, s);
       }
+      if (it.flat) continue;
       it.rot += it.spin * dt;
       qz.setFromAxisAngle(zAxis, it.rot);
       it.mesh.quaternion.copy(camera.quaternion).multiply(qz);
@@ -466,7 +487,6 @@ export class Effects {
       this.spawn('lightning', x + (Math.random() - 0.5) * 0.3, 0.3 + i, z, { scale: 1.25, random: true, life: 0.22, color, rot: Math.random() * 6.28, order: 9, glow: 2.2 });
     }
     this.spawn('streak', x, 0, z, { bottom: true, scale: 3.5, color, life: 0.25, glow: 2, order: 8 });
-    this.spawn('glow', x, 0.4, z, { scale: 3, color, opacity: 0.8, life: 0.3, fade: true, glow: 1.5 });
     this.ring({ x, z }, color, 1.6);
     this.overlay.flash('#e8f6ff', 0.5);
   }
@@ -493,13 +513,13 @@ export class Effects {
       this.spawn('ring', x, y, z, { ...top, order: 7, scale: 1.0, color: 0xffd27a, glow: 0.3 });
       this.spawn('star', x, y, z, { ...top, scale: 0.7, color: 0xffffff, glow: 0.9 });
     } else {
-      // smash: brief white flash
-      this.spawn('glow', x, y, z, { ...top, order: 6, scale: 1.0, color: 0xffffff, glow: 0.6, life: 0.12, fade: true, grow: 3 });
-      this.spawn('burst', x, y, z, { ...top, order: 7, scale: 1.1, rot: Math.random() * 6, color: 0xffe8a0, glow: 0.35 });
-      this.spawn('burst', x, y, z, { ...top, order: 8, scale: 0.65, rot: Math.random() * 6, color: 0xffffff, glow: 0.6 });
+      // smash: the bursts flash white. Less bloom and a smaller star than before: with a growing glow disc, and on an
+      // explosion or a clash's blast, they read as a giant plain white blob over both fighters (ENG-132)
+      this.spawn('burst', x, y, z, { ...top, order: 7, scale: 0.95, rot: Math.random() * 6, color: 0xffe8a0, glow: 0.3 });
+      this.spawn('burst', x, y, z, { ...top, order: 8, scale: 0.6, rot: Math.random() * 6, color: 0xffffff, glow: 0.35 });
       this.spawn('lines', x, y, z, { ...top, scale: 1.5, color: 0xffffff, glow: 0.3, rot: Math.random() * 6 });
       this.spawn('ring', x, y, z, { ...top, order: 7, scale: 1.4, color: 0xffcf6a, glow: 0.4 });
-      this.spawn('star', x, y, z, { ...top, scale: 1.0, color: 0xffffff, glow: 1.2 });
+      this.spawn('star', x, y, z, { ...top, scale: 0.75, color: 0xffffff, glow: 0.6 });
     }
     const n = kind === 'light' ? 3 : kind === 'heavy' ? 5 : 8;
     for (let k = 0; k < n; k++) {
@@ -542,8 +562,14 @@ export class Effects {
     this.spawn('lines', x, y, z, { scale: 0.7, color: 0xbfe2ff, depthTest: false, order: 8, glow: 0.4 });
   }
 
+  // An explosion's blast in its own color: the smash spark's two white bursts and white star, slowed down by the
+  // explosion's slow-mo, read as a giant plain white blob over both fighters (ENG-132)
   bigImpact(x, y, z, color) {
-    this.hit(x, y, z, 'smash', color);
+    const top = { depthTest: false, order: 7 };
+    this.spawn('burst', x, y, z, { ...top, scale: 0.6, rot: Math.random() * 6, color, glow: 0.2, opacity: 0.85 }); // the HD impactBurst once approved
+    this.spawn('burst', x, y, z, { ...top, order: 8, scale: 0.35, rot: Math.random() * 6, color: 0xffffff, glow: 0.25 });
+    this.spawn('lines', x, y, z, { ...top, order: 8, scale: 1.4, color: 0xffffff, glow: 0.3, rot: Math.random() * 6 });
+    this.spawn('star', x, y, z, { ...top, order: 8, scale: 0.55, color: 0xffffff, glow: 0.5 });
     this.spawn('ring', x, 0.1, z, { scale: 2.2, color: 0xffffff, order: 6, ms: 50 });
   }
 
@@ -551,9 +577,12 @@ export class Effects {
     this.spawn('ring', pos.x, y, pos.z, { scale: 1.2 * scale, color, opacity: 0.9, glow: 0.3 });
   }
 
+  // A start burst (a mode starting, a Burst out of a combo): a starburst behind him and a shockwave at his feet. On his
+  // chest in front of everything at 3-4 world units it covered him as a flat low-res emblem (ENG-132)
   burstAt(f, color, scale = 1) {
-    this.spawn('burst', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 0.9 * scale, color, depthTest: false, order: 7, glow: 1 });
-    this.spawn('ring', f.pos.x, f.pos.y + 0.8, f.pos.z, { scale: 1.3 * scale, color, depthTest: false, order: 7, glow: 1 });
+    const p = f.pos, bk = this.camFwd;
+    this.spawn('burst', p.x + bk.x * 0.3, p.y + 0.8, p.z + bk.z * 0.3, { scale: 0.7 * scale, color, order: 1, glow: 0.6 });
+    this.spawn('ring', p.x, p.y + 0.05, p.z, { scale: 0.95 * scale, color, order: 1, glow: 0.4 });
   }
 
   dashBurst(f, big = false) {
@@ -571,8 +600,7 @@ export class Effects {
   // a beam clash's finish (ADR 0034): a heavy hit in the side's color without the smash's white flash, and less smoke,
   // so the loser still reads as they fly
   clashBlast(x, y, z, color) {
-    this.spawn('glow', x, y, z, { scale: 0.8, color, life: 0.3, fade: true, grow: 1.4, depthTest: false, order: 6, opacity: 0.7, glow: 0.4 });
-    this.hit(x, y, z, 'heavy', color);
+    this.hit(x, y, z, 'heavy', color); // its burst is the HD impactBurst once approved (no glow disc on the loser, ENG-132)
     this.spawn('ring', x, 0.1, z, { scale: 1.6, color, order: 6, ms: 50, glow: 0.3 });
     for (let k = 0; k < 3; k++) this.smoke(x + (Math.random() - 0.5) * 1.2, y * 0.4 + Math.random() * 0.4, z + (Math.random() - 0.5) * 1.2, 0.7);
   }
@@ -580,17 +608,18 @@ export class Effects {
   // a held technique that won a beam clash against a stream from the air bursts up the line into them (ADR 0034): a few
   // copies of it racing from the hand to the target, the lead one biggest
   techBlast(kind, from, to, color) {
-    const name = kind === 'chidori' ? 'lightning' : kind === 'kiFist' ? 'glow' : 'orb';
+    // the Dragon Fist races as Goku's drawn ki (a plain yellow glow ball before, ENG-132), its art pointing along the line
+    const ki = kind === 'kiFist' && this.drawn('kiBlast');
+    const name = kind === 'chidori' ? 'lightning' : ki ? 'kiBlast' : 'orb';
     const life = 0.12, vel = [(to.x - from.x) / life, (to.y - from.y) / life, (to.z - from.z) / life];
     for (let k = 0; k < 3; k++) {
-      this.spawn(name, from.x, from.y, from.z, { scale: 0.75 - k * 0.18, vel, life: life + k * 0.03, color: kind === 'rasengan' || kind === 'rasenshuriken' ? 0xffffff : color, random: name === 'lightning', order: 8, glow: 0.6, depthTest: false });
+      this.spawn(name, from.x, from.y, from.z, { scale: (0.75 - k * 0.18) * (ki ? 0.55 : 1), vel, life: life + k * 0.03, color: ki || kind === 'rasengan' || kind === 'rasenshuriken' ? 0xffffff : color, random: name === 'lightning', order: 8, glow: 0.6, depthTest: false, flipX: ki && to.x < from.x });
     }
     this.spawn('ring', to.x, to.y, to.z, { scale: 1.1, color, depthTest: false, order: 8, glow: 0.5 });
   }
 
   explosion(x, y, z, color = 0xffb040) {
-    this.spawn('glow', x, y, z, { scale: 1.3, color, life: 0.4, fade: true, grow: 1.6, depthTest: false, order: 6, opacity: 0.9, glow: 0.7 });
-    this.bigImpact(x, y, z, color);
+    this.bigImpact(x, y, z, color); // no growing glow disc over it (ENG-132): the bursts and smoke carry the blast
     for (let k = 0; k < 5; k++) this.smoke(x + (Math.random() - 0.5) * 1.6, y * 0.5 + Math.random() * 0.6, z + (Math.random() - 0.5) * 1.6, 1.1);
   }
 
@@ -660,11 +689,12 @@ export class Effects {
     }
   }
 
-  // Charging aura: flame tongues + light streaks + glow, tinted per character.
+  // Charging aura: flame tongues + light streaks, tinted per character.
   // `front`: the share of flames drawn in front of the body (a power-up keeps them behind, so the fighter reads).
-  // Under half power (a beam clash's thin aura) a frame may spawn no flame and never a light streak. `disc`: the soft
-  // glow behind the body (off in a clash, where it read as a bubble round each fighter).
-  auraTick(f, power = 1, camRight, front = 0.2, disc = true) {
+  // Under half power (a beam clash's thin aura) a frame may spawn no flame and never a light streak. `disc`: the glow
+  // disc behind the body, off by default: the stepped `glow` sprite read as a flat bubble round the fighter, first in
+  // clashes (ADR 0055), then on every beam charge and fire (user 2026-11-08, ENG-132); the flames carry the aura.
+  auraTick(f, power = 1, camRight, front = 0.2, disc = false) {
     // a mode can recolor the aura (Nine-Tails Cloak burns red-orange)
     const c = new THREE.Color(f.mode?.auraColor ?? f.def.color);
     const core = new THREE.Color().setRGB(...(f.mode?.auraCore ?? f.def.auraCore));
@@ -716,14 +746,14 @@ export class Effects {
         this.keep('hand' + f.index, 'rasengan', p.x, p.y, p.z, { scale: 0.5 * k, order: 9, glow: 0.45 });
       }
       const s = (forming ? 0.2 + prog * 0.3 : 0.45) * k;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s, color: 0x8ac8ff, opacity: 0.3 * halo, order: 3, glow: 0.8 });
+      this.light('handGlow' + f.index, p.x, p.y, p.z, { scale: s, color: 0x8ac8ff, opacity: 0.3 * halo, order: 3, glow: 0.8 });
       if (Math.random() < 0.3) this.spawn('star', p.x, p.y, p.z, { scale: 0.18, frame: 2, vel: [(Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3], life: 0.2, color: 0xbfe4ff, order: 9, glow: 1.5 });
     } else if (kind === 'rasenshuriken') {
       // the wind shuriken: four blades spinning round a Rasengan core, held high in startup and thrust forward in active
       const p = phase === 0 ? at(0.25, 1.55) : at(0.7, 0.8);
       const s = (phase === 0 ? 0.25 + prog * 0.4 : 0.65) * k;
       this.keep('hand' + f.index, 'rasenshuriken', p.x, p.y, p.z, { scale: s, order: 9, glow: 0.15 });
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * 0.9, color: 0x8ac8ff, opacity: 0.25 * halo, order: 3, glow: 0.4 });
+      this.light('handGlow' + f.index, p.x, p.y, p.z, { scale: s * 0.9, color: 0x8ac8ff, opacity: 0.25 * halo, order: 3, glow: 0.4 });
       if (Math.random() < 0.35) {
         const a = Math.random() * Math.PI * 2;
         this.spawn('streak', p.x + Math.cos(a) * s * 1.2, p.y + Math.sin(a) * s * 0.6, p.z, { scale: 0.3, color: 0xe8f6ff, vel: [-Math.sin(a) * 6, Math.cos(a) * 3, 0], life: 0.1, order: 8, glow: 0.8 });
@@ -734,7 +764,7 @@ export class Effects {
       // big glow disc hid him)
       const p = phase === 0 ? at(-0.2, 0.8) : at(0.7, 0.85);
       const s = (phase === 0 ? 0.3 + prog * 0.4 : 0.75) * k;
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: s * (phase === 0 ? 1.1 : 0.7), color: 0xffd84a, opacity: 0.4 * halo, order: 3, glow: 0.6 });
+      this.light('handGlow' + f.index, p.x, p.y, p.z, { scale: s * (phase === 0 ? 1.1 : 0.7), color: 0xffd84a, opacity: 0.4 * halo, order: 3, glow: 0.6 });
       if ((phase === 1 && !quiet) || (quiet && pos)) {
         // raised along the billboard's up and a step behind it along the view (a point raised straight up comes nearer
         // the downward-looking camera and would cover him), so it frames him; held into a beam clash too (ADR 0055),
@@ -759,7 +789,7 @@ export class Effects {
         this.drop('handForm' + f.index);
         this.keep('hand' + f.index, 'chidori', p.x, p.y, p.z, { scale: (quiet ? 0.4 : 0.55) * k, order: 9, glow: quiet ? 0.3 : 0.5, flipX: flip });
       }
-      this.keep('handGlow' + f.index, 'glow', p.x, p.y, p.z, { scale: (forming ? 0.3 + prog * 0.4 : 0.6) * k, color: 0x5aa8ff, opacity: 0.28 * halo, order: 3, glow: 0.6 });
+      this.light('handGlow' + f.index, p.x, p.y, p.z, { scale: (forming ? 0.3 + prog * 0.4 : 0.6) * k, color: 0x5aa8ff, opacity: 0.28 * halo, order: 3, glow: 0.6 });
       if (Math.random() < (quiet ? 0.2 : 0.45)) {
         const a = Math.random() * Math.PI * 2;
         this.spawn('arc', p.x + Math.cos(a) * 0.25, p.y + Math.sin(a) * 0.2, p.z, { scale: 0.3, life: 0.08, color: 0xe8f7ff, rot: a, order: 9, glow: quiet ? 0.8 : 1.4 });
@@ -854,7 +884,9 @@ export class Effects {
   // The Nine-Tails Cloak wells up over him (the mode starts)
   cloakBurst(f, C) {
     const p = f.renderPos || f.pos;
-    this.spawn('ring', p.x, p.y + 0.8, p.z, { scale: 2.2, color: C.rim, glow: 0.8, order: 8, depthTest: false });
+    // a shockwave at his feet, behind him (a ring 2.2 times over his chest in front of everything covered him as a flat
+    // low-res emblem, ENG-132); the HD shockRing replaces it once approved
+    this.spawn('ring', p.x, p.y + 0.05, p.z, { scale: 1.0, color: C.rim, glow: 0.4, order: 1 });
     for (let i = 0; i < 10; i++) {
       const a = (i / 10) * Math.PI * 2;
       this.spawn('bubble', p.x + Math.cos(a) * 0.3, p.y + 0.3 + Math.random() * 1.1, p.z, {

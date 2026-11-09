@@ -8,17 +8,21 @@ paused._
 
 ## Your next actions
 
-**Sprite size audit (ART-SIZE-R8, 2026-11-08; Claude "Character art sprite consistency audit", Codex "Character Art Audit #1" lane `audit1` and "#2" lane `audit2`):** all 286 fighter strips audited; 34 were off by 8 % or more (art/scale/size-r8/AUDIT.md). The 13 you approved ("Approve all 13") are **live**: Sasuke back air, forward smash, dash attack; Goku forward smash, forward air, forward/down tilt, up air, intro; Luffy down special, forward air, heavy, forward special (PR [#230](https://github.com/eshin087/gcd-tourney/pull/230), merge `bc905a48`). The other 21 are being **redrawn** by the two Codex audit chats on their current model (your decision: "Use their current model"), including Sasuke's spot-dodge and parried poses. **Your action:** approve each fighter's redraws when Claude asks in this chat (review link each time). Spell visuals (ENG-132): Claude is sweeping every special, super and clash; the Codex "Character Spell Chat" gets the art part next.
+**Spell visuals (ENG-132, 2026-11-08): live** (PR [#234](https://github.com/eshin087/gcd-tourney/pull/234), merge `d3e072e2`): no more flat glow discs (beam charges, ki blasts, Dragon Fist, Spirit Bomb, Rasenshuriken), no white ball over the clash knot, the Four-Tails beam in its drawn stream, the Kamehameha and Hollow Purple no longer covering their fighter. The Codex "Character Spell Chat" is drawing HD shock rings, impact bursts and hand flares (ART-SPELL-R1) for the remaining low-res ones; you approve those images here.
+
+**Sprite size audit (ART-SIZE-R8, 2026-11-08; Claude "Character art sprite consistency audit", Codex "Character Art Audit #1" lane `audit1` and "#2" lane `audit2`):** all 286 fighter strips audited; 34 were off by 8 % or more (art/scale/size-r8/AUDIT.md). The 13 you approved ("Approve all 13") are **live**: Sasuke back air, forward smash, dash attack; Goku forward smash, forward air, forward/down tilt, up air, intro; Luffy down special, forward air, heavy, forward special (PR [#230](https://github.com/eshin087/gcd-tourney/pull/230), merge `bc905a48`). The other 21 are being **redrawn** by the two Codex audit chats on their current model (your decision: "Use their current model"); Sasuke's spot-dodge crouch (v08, specks cleaned as v09) and parried stagger (v09) are approved (PR #236) and go live with Claude's integration. **Your action:** approve each fighter's redraws when Claude asks in this chat (review link each time). Spell visuals (ENG-132): Claude is sweeping every special, super and clash; the Codex "Character Spell Chat" gets the art part next.
 
 **ART-SIZE-R8 / audit1 #1: blocked before first generation.** This chat cannot verify or select the required GPT-6 Luna model with medium reasoning, and the image tool exposes no model selector. No candidates or game changes were made. The managed worktree is ready at `E:\Vibe Coding\.codex\worktrees\art-size-r8-a\gcdTourney` on branch `art/size-r8-a`; continue with A1 Sasuke `jumpSquat` v08, then A2 `stagger` v09, in a Codex task configured as `gpt-6-luna` / `medium`. Each candidate still needs the user's review.
 
-**Luffy power nudge: live (CHAR-luffy-balance, 2026-11-08; PR [#232](https://github.com/eshin087/gcd-tourney/pull/232), merge `07293ad0`; [ADR 0011](decisions/0011-kit-baseline-and-balance.md)). He is still the weakest for the Hard CPU.** His power is 1.02 (was 1.00). A change that small cannot be measured (360 Hard vs Hard matches are about ±9 % per fighter), and it does not fix him: over his 360 matches in runs 12-16 he wins 37 %, under the 40-60 % target (Sasuke 61 %, Goku 58 %, Naruto 56 %, Gojo 48 %, Killua 40 %), also on the resized art. **If you want him brought up, tell Claude "try the Pistol"**: his Gum-Gum Pistol on the Chidori Spear's frames (same half bar, the Pistol is slower), measured with a Luffy-only run. A few matches by hand against Naruto and Sasuke would say whether it is his kit or the CPU's use of it: https://gcd-tourney.vercel.app/?fight=luffy,naruto&mode=solo&level=hard
+**Luffy's faster Pistol: live (CHAR-luffy-balance, 2026-11-08; PR [#235](https://github.com/eshin087/gcd-tourney/pull/235), merge `59195385`; [ADR 0011](decisions/0011-kit-baseline-and-balance.md) run 17).** His ground Gum-Gum Pistol is startup 9 / recovery 18 (was 11 / 20, the Chidori Spear's frames); his power is 1.02 (PR #232). Neither can be measured with CPU runs (the A/B over 600 Hard vs Hard matches: 42 % old frames, 39 % new; the Hard CPU fires the Pistol about once a match), so judge it in hand: https://gcd-tourney.vercel.app/?fight=luffy,sasuke&mode=solo&level=hard (tap Special). He is still the weakest for the Hard CPU, about 39 % over 960 matches, and the steady signal is two matchups: 26 % against Sasuke and 34 % against Naruto. **If you want him brought up further, tell Claude "look into the Sasuke matchup"**: find what loses those matches before another number moves.
 
 **CPUs play your combo follow-ups: live (ENG-126, 2026-11-08; PR [#229](https://github.com/eshin087/gcd-tourney/pull/229), merge `806a36ad`).** The IMPOSSIBLE, INSANE and spectated CPUs now continue combos with Light or Special the way you do, at most 3 chases a combo (about nine a match; their combos are not longer on average, which is ENG-074). Watch two of them: https://gcd-tourney.vercel.app/?fight=goku,luffy&mode=cpu . Hard, Normal and Easy CPUs do not use the follow-ups yet (ENG-131).
 
 **Arcade mode: live (ENG-127, ADR 0058, 2026-11-09):** SELECT MODE → ARCADE: pick a fighter and a course (EASY / NORMAL / HARD), beat the other five in one-round fights, then your DARK mirror (best of 3). Continues halve the score; the champion screen saves your records. PR [#228](https://github.com/eshin087/gcd-tourney/pull/228), merge 856508a8. Play it: https://gcd-tourney.vercel.app . **Your action:** none. Say if the NORMAL shadow (INSANE) is too hard; its numbers are COURSES / BOSS in src/game/arcade.js.
 
 **Storage cleanup done (OPS-013, 2026-11-08): one thing left for you.** About 14.9 GB of finished-task leftovers are gone from the drive (merged skills worktrees, an old plain copy, an orphaned Codex checkout, the trailer videos, duplicate git objects). **Your action:** in the Codex app, archive the chats **"5 - Luffy"** and **"5 - Goku"**: each still holds a clean 5.5 GB worktree whose work is merged. Two small folders in `.worktrees/` keep seven versioned images that are in no commit; their READMEs say to review them by 2026-11-22.
+
+**Dev server fix: merged (TOOL-069, 2026-11-08; PR [#233](https://github.com/eshin087/gcd-tourney/pull/233), merge `3137203b`).** A dev server started in the main folder no longer keeps the folders of the Claude app's worktrees or the test fixtures open, so `npm run test:sprites` runs in a worktree while that server is up (checked in a real worktree after the merge: 437 checks passed), and an edit in a worktree no longer reloads the main server's page. Tools only, so nothing was deployed and nothing in the game changed. Nothing for you to do: no server was running from the main folder at merge time, and the next one you start has the new setting.
 
 **Prune fix: merged (TOOL-068, 2026-11-08; PR [#231](https://github.com/eshin087/gcd-tourney/pull/231), merge `4d31c19f`).** `npm run pr -- prune` now finds finished art worktrees like the three the cleanup had to remove by hand: a helper branch that reached main through its feature branch counts as merged, frames the packer wrote back and nobody edited no longer hold a worktree, and `--dry-run` says why each worktree stays. It also stops taking a brand-new branch for merged. Tools only, so nothing was deployed and nothing in the game changed. Nothing for you to do.
 
@@ -107,7 +111,7 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-11-09 02:13 UTC._
+_Generated by `npm run status` at 2026-11-09 02:57 UTC._
 
 ### Needs you now (0)
 _Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
@@ -159,12 +163,12 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
-- 07293ad03 11-08 18:12 Merge branch 'feature/luffy-power'
-- 478897211 11-08 18:10 docs(now): fix a doubled full stop in the ENG-126 entry
-- 9ee70e90d 11-08 18:10 docs(now): Luffy power nudge ready for the user's call (PR #232 preview); ENG-126 entry trimmed
-- d0a8952c2 11-08 18:08 Merge branch 'main' into feature/luffy-power
-- 46372edc9 11-08 18:08 test(det): re-record both replay fixtures after ART-SIZE-R8; Luffy-only run 16 logged (ADR 0011)
-- f01756b75 11-08 18:07 docs(now): TOOL-068 prune fix merged (PR #231, 4d31c19f)
+- 833327e50 11-08 18:56 docs(now): spell visuals live (PR #234, d3e072e2); Sasuke A1-A2 redraws approved (ART-SIZE-R8)
+- d3e072e23 11-08 18:54 Merge branch 'feature/spell-visuals'
+- 266eccc6e 11-08 18:54 test(det): re-record both replay fixtures after merging main again (ENG-132)
+- 23988ce8e 11-08 18:53 Merge branch 'main' into feature/spell-visuals
+- 74d1c1971 11-08 18:52 test(det): re-record both replay fixtures after merging main (ENG-132)
+- 3137203b7 11-08 18:52 Merge branch 'fix/vite-watch-claude-worktrees'
 <!-- status:end -->
 
 

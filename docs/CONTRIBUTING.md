@@ -30,7 +30,10 @@ commits and a review checklist, especially when two AI agents (Claude and Codex)
   npm run deploy
   ```
 
-  Worktrees live in `.worktrees/` inside the project (git-ignored, not watched by the dev server). Never run
+  Worktrees live in `.worktrees/` inside the project (git-ignored, not watched by the dev server); the Claude
+  app keeps its managed ones in `.claude/worktrees/`, which the main folder's dev server leaves alone as well
+  (TOOL-069). A dev server reloads only for edits in the checkout it was started from, so test a worktree on its
+  own server. Never run
   `git clean -x` in the main folder: it deletes ignored files, including every worktree's uncommitted work.
   Never merge on GitHub (button or `gh pr merge`): GitHub holds a slim rewrite of local `main`, and a merge made
   there breaks the next fast-forward publish. Publishing local `main` marks the PR merged.

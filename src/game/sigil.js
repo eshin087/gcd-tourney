@@ -8,9 +8,11 @@ const SIZE = 256; // texture px; drawn at SIGIL.size world units (about 80 px pe
 
 // Timing and look (seconds, world units). `pop`: the scale-in with a small overshoot; `spin`: turns per second;
 // `burst`: what a successful read adds (a faster spin, a larger flare).
+// Size: about the fighter's height. At 2.7 units it grew past both fighters and covered the opponent, and through
+// Amaterasu's 2 s charge it stood behind him like a flat billboard (ENG-132, the user's "glow discs")
 export const SIGIL = {
-  size: 2.7, lift: 1.05, back: 0.35, opacity: 0.95, pop: 0.12, spin: 0.35, fade: 0.25,
-  burst: { spin: 2.2, grow: 0.35, len: 0.35 },
+  size: 1.6, lift: 1.05, back: 0.35, opacity: 0.85, pop: 0.12, spin: 0.35, fade: 0.25,
+  burst: { spin: 2.2, grow: 0.2, len: 0.35 },
 };
 
 // palette snap: crisp, fully opaque or clear texels, the colors of the cut-in art (art/characters/sasuke/CHARACTER.md §7)
