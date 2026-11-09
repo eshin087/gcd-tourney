@@ -1278,7 +1278,17 @@ export class Game {
     const [a, b] = this.fighters;
     this.arena.npcCue('clash', { tier: 'special' });
     const mid = v3.set((a.pos.x + b.pos.x) / 2, Math.max(a.pos.y, b.pos.y) + 0.9, (a.pos.z + b.pos.z) / 2);
-    this.fx.explosion(mid.x, mid.y, mid.z, new THREE.Color(0xbfe0ff));
+    // each technique blows out in its own drawn blast on the one it hits (the Rasengan's spiral, the Chidori's burst), as
+    // a special's hit does; the generic explosion stands in for a move without one. One white explosion with two smash
+    // sparks on one spot read as a giant plain white blob over both fighters (ENG-132)
+    let own = 0;
+    for (const f of [a, b]) {
+      const B = f.move?.blastFx, o = f.opp;
+      if (!B?.fx) continue;
+      this.fx.blast(B.fx, o.pos.x, o.pos.y + 0.9, o.pos.z, B.scale ?? 1, new THREE.Color(f.move.color ?? f.def.color), B.smoke ?? 1, o.pos.x < f.pos.x);
+      own++;
+    }
+    if (!own) this.fx.explosion(mid.x, mid.y, mid.z, new THREE.Color(0xbfe0ff));
     if (Math.min(a.pos.y, b.pos.y) < 1.5) this.fx.ground.impact(mid, { kind: 'trade' });
     else this.fx.debris(mid.x, mid.z, 12, 1.2);
     this.fx.overlay.impactFrame(4);
