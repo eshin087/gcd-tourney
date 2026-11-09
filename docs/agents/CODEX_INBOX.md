@@ -57,6 +57,7 @@ Items, in this order:
   neutral's width, head at idle's size. Then ring `audit1 --for user --kind approval` with A1-A2 (the user's own
   example) before you go on: their review page shows each new version beside idle f0, the neutral cell and the old
   version at one density, plus Sasuke's `guard` and `vanish` frames for context.
+  - BLOCKED: This chat cannot verify or select the required GPT-6 Luna model with medium reasoning, and the image tool exposes no model selector. No image calls or candidates were made. Resume A1-A2 in a Codex task configured as `gpt-6-luna` / `medium`.
 - [ ] 3. **A3 Sasuke `fTilt`** (v03, 7 frames, packed at `packScale` 0.92): redraw at idle's proportions, and pack the
   new version at `packScale` 1 (this item may change it).
 - [ ] 4. **A4 Naruto `light2`** (v06, 7 frames): limbs, sandals, fists and torso at idle's size (head is right). Check
