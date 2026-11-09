@@ -605,18 +605,43 @@ affects players), a highlight tier that reserves bars before it can be drawn (CP
 `comboLog[i].steps` lists each decision of a combo with the edges that were possible and their weights, which is the
 place to start when a route ends early.
 
+**Follow-ups (ENG-126, ADR 0057).** The composer's `follow`, `followSp:<slot>` and `chaseL` edges are the player's
+auto-chases, which the engine counts on the victim (`chaseN`, at most `CHAIN.follow.max` = 3 per combo). To count
+them in a soak, wrap `game.frame` in the page and log every frame on which a fighter's `chaseN` grew (the attacker
+is in `superDash` for a follow-up dash, in `air` for the launcher's Light chase). Over the 30 ordered pairs of the six
+fighters, `soak(30, { pairs, seed: 100 })`, 2026-11-08:
+
+| | spectated CPUs before | after | IMPOSSIBLE vs IMPOSSIBLE before | after |
+|---|---|---|---|---|
+| auto-chases per match (most in one combo) | 1.0 (1) | 9.0 (3) | 0.2 (1) | 9.6 (3) |
+| super dashes in a combo per match: follow-up / Dash | 1.0 / 9.8 | 7.3 / 6.3 | 0.2 / 11.5 | 9.6 / 3.0 |
+| average combo, hits (2+ hit combos) | 5.4 | 5.5 | 6.8 | 6.9 |
+| `long12PerMatch` | 0.9 | 0.9 | 2.6 | 3.2 |
+| `links.connected` | 99 % | 99 % | 100 % | 100 % |
+| `comboShare` / `rounds.avg` | 42 % / 35 s | 43 % / 36 s | 59 % / 28 s | 59 % / 26 s |
+
+IMPOSSIBLE vs IMPOSSIBLE is not a mode the game offers: after `startMatch`, replace `game.brains` with
+`new MasterBrain(f, 'impossible', game.brainSeed(i))`. The spectated CPUs' combos did not get longer because the
+manual Dash and Jump chases already reached the same spots; what ends them is the defender (timed impact techs end
+about a third, bursts another 8 %) and the hitstun decay (ENG-074).
+
 ## Balance round-robin (CPU vs CPU)
 
 Use it after any kit, stat or AI change, and when a fighter joins (ADR 0011). It plays every ordered pair
-(both sides) with Hard CPUs on both sides, by frame stepping (works while the pane is hidden; ~110 s of game
-per match, ~6 min of real time for 72 matches).
+(both sides) with Hard CPUs on both sides, by frame stepping (works while the pane is hidden; ~105 s of game
+per match; with six fighters a pass over the 30 ordered pairs is 30 matches, 10 per fighter).
+
+The Hard brain is `CpuBrain` (`ai.js`), which has its own combo logic: a change to the combo composer
+(`aiCombo.js`, the IMPOSSIBLE / INSANE / spectated brains) does not move these numbers.
 
 1. Open `/?fight=naruto,sasuke&mode=solo&level=hard&debug`.
-2. Paste, then call `rrStep(30000)` repeatedly (each call ~20 s) until it returns `'done'`:
+2. Paste, then call `rrStep(30000)` repeatedly (each call ~20 s) until it returns `'done'`. Rendering is most of a
+   step: wrapping `game.render` to draw every 20th call (page only) makes a match take about a second, and a hidden
+   pane only advances while a call is waiting on it.
 
 ```js
 const { CpuBrain } = await import('/src/game/ai.js');
-const ids = ['naruto', 'sasuke', 'killua', 'gojo'];
+const ids = ['naruto', 'sasuke', 'killua', 'gojo', 'goku', 'luffy'];
 window.RR = { queue: [], results: [], cur: null };
 for (let k = 0; k < 6; k++) for (const a of ids) for (const b of ids) if (a !== b) RR.queue.push([a, b]);
 window.rrStep = (budget) => {
