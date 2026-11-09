@@ -1096,6 +1096,14 @@
           "reviewStatus": "technical hold",
           "technicalHold": true,
           "hold": "v10 strict head gate passes at median 1.00, but body proxy median .767 is below approved jumpFall .889; three calls used.",
+          "b4Disposition": {
+            "source": "USER DECISION via Claude relay audit2 #13",
+            "exactQuote": "Keep v07 (Recommended)",
+            "result": "closed-keep-approved-v07",
+            "approvedLiveVersion": 7,
+            "furtherRedrawsAuthorized": false,
+            "candidatesPreserved": "art/characters/gojo/raw/_rejected/airLight1_v08.png; art/characters/gojo/raw/_rejected/airLight1_v09.png; art/characters/gojo/raw/_rejected/airLight1_v10.png"
+          },
           "reviewPage": "public/reviews/size-r8-audit2-gojo-b2-b7/"
         },
         "airLight2": {
