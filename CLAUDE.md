@@ -228,7 +228,9 @@ docs/          SDLC docs, ADRs, task board, agent prompts
 The docs-only/main exceptions below still apply.
 
 1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
-   `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
+   `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches). From
+   PowerShell a bare `--` never reaches npm, which then keeps the flags: type `node tools/pr.mjs prune --dry-run`
+   (pr honours a swallowed `--dry-run` and refuses its other swallowed flags, TOOL-071).
 2. Never copy the project folder as a substitute for a worktree. Use the host's managed-worktree feature when
    available. In a manual CLI session, the optional project helper can create a real Git worktree and branch.
 3. For an art task created with the helper, use `npm run pr -- start <branch> --art <id>[,<id>]` so the required

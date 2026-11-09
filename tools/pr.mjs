@@ -10,6 +10,8 @@
 //   npm run pr -- check <branch>            (anywhere) the art guard alone, read-only: what `merge` would refuse (tools/pr-guard.mjs)
 //   npm run pr -- prune [--dry-run]         (in the main checkout) remove clean worktrees whose branch is merged;
 //                                           --dry-run also says why each other worktree stays
+// From PowerShell, quote the separator (`npm run pr '--' prune --dry-run`) or call `node tools/pr.mjs` directly: a bare
+// `--` is dropped there and npm keeps the flags (TOOL-071 honours a swallowed --dry-run and refuses the others).
 //
 // Why worktrees: Claude sessions and Codex share the main checkout, so `git checkout` there would yank files
 // out from under the others. Each feature lives in its own folder and branch; main only receives merges.
@@ -38,6 +40,34 @@ const REPO = 'eshin087/gcd-tourney';
 const PREFIXES = ['feature/', 'fix/', 'art/', 'docs/', 'chore/'];
 
 const [cmd, ...rest] = process.argv.slice(2);
+
+// TOOL-071: PowerShell drops a bare `--`, so `npm run pr -- prune --dry-run` reaches npm as `run pr prune --dry-run`,
+// and npm keeps every flag after the script name as its own setting (npm_config_dry_run=true): the script got `prune`
+// alone, and on 2026-11-09 a Codex chat's dry run removed a worktree for real. `--art naruto` and `--force-art "<why>"`
+// lose the flag and leave its value behind as a stray argument; `--no-deploy` vanishes, so a merge would deploy anyway.
+// A swallowed --dry-run is honoured (the safe reading of it); any other swallowed pr flag stops the command before it
+// changes anything and says what to type instead. Only `npm run pr` itself counts (npm_lifecycle_event), not an npm
+// script further up that started this one.
+const NPM_FLAGS = [
+  ['npm_config_art', '--art'], ['npm_config_force_art', '--force-art'], ['npm_config_full', '--full'],
+  ['npm_config_title', '--title'], ['npm_config_deploy', '--no-deploy', (v) => v === '' || v === 'false'],
+  ['npm_config_install', '--no-install', (v) => v === '' || v === 'false'],
+];
+function swallowedFlags(env) {
+  if (env.npm_lifecycle_event !== 'pr') return;
+  const lost = NPM_FLAGS.filter(([key, , set = (v) => v !== undefined]) => env[key] !== undefined && set(env[key])).map(([, name]) => name);
+  if (lost.length) {
+    console.error(`[pr] npm kept ${lost.join(', ')} for itself, so this script never saw ${lost.length > 1 ? 'them' : 'it'} (from PowerShell a bare -- is ` +
+      `dropped, and npm reads the flags after the script name as its own settings). Nothing was changed. It received only: ` +
+      `${[cmd, ...rest].join(' ')}\n[pr] Type it as \`node tools/pr.mjs ${cmd ?? '<command>'} ...\` with the flags, or quote the separator: \`npm run pr '--' ${cmd ?? '<command>'} ...\``);
+    process.exit(1);
+  }
+  if (env.npm_config_dry_run === 'true' && !rest.includes('--dry-run')) {
+    console.log('[pr] npm kept --dry-run for itself (from PowerShell a bare -- is dropped): treating this run as --dry-run');
+    rest.push('--dry-run');
+  }
+}
+swallowedFlags(process.env);
 const flag = (name) => rest.includes(name);
 const opt = (name) => { const i = rest.indexOf(name); return i >= 0 ? rest[i + 1] : undefined; };
 const positional = positionalArg(rest);

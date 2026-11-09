@@ -290,7 +290,10 @@ Useful URLs: `/?fight=naruto,sasuke&mode=solo&level=hard` (skip menus), `&debug`
   after auditing its status. Never run `npm run pr -- open` from a detached HEAD.
 - **Worktree workflow rules.** The docs-only/main exceptions above still apply.
   1. Before starting, run `git worktree list` and report any worktree whose branch is already merged into
-     `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches).
+     `main` (check with `npm run pr -- prune --dry-run`; `git branch --merged` also lists brand-new branches). From
+     PowerShell a bare `--` never reaches npm, which then keeps the flags (on 2026-11-09 a dry run became a real
+     prune): type `node tools/pr.mjs prune --dry-run`, or `npm run pr '--' ...`. Since TOOL-071 pr honours a
+     swallowed `--dry-run` and refuses its other swallowed flags (`--art`, `--force-art`, `--no-deploy`, ...).
   2. Never copy the project folder as a substitute for a worktree. Use the host's managed-worktree feature when
      available, or create a real Git worktree with the project helper in a manual CLI session.
   3. For an art task created with the project helper, use `npm run pr -- start <branch> --art <id>[,<id>]` so the
