@@ -288,6 +288,12 @@ needed; the next run reads them instead of raw. Rules:
 
 Re-running the packer on unchanged input produces byte-identical output (safe to commit).
 
+The marker's file name, its `generatedBy` value and the two hashes live in `tools/packer-marker.mjs` (Node built-ins
+only), shared with `npm run pr -- prune`. Its `framesDrift(dir, artDir, names)` lists what stops frames from being
+plain packer output: a file the marker does not list, a frame whose hash differs or that is gone, or source files
+that are missing or no longer match `sourceHash`. Prune treats untracked frames with no drift as rebuildable, so
+they do not keep a merged worktree (TOOL-068); anything it lists does, and prune names it.
+
 ### Sidecar `raw/<anim>.json` / `raw/<anim>_vNN.json` (optional)
 
 ```json
