@@ -130,3 +130,51 @@ standing hurtbox is 0.68 units wide, the art packs' are 0.41-0.52 (widened to th
 stays a while, narrow the placeholder hurtbox instead of buffing his kit (ENG-038). No errors, ring-outs outside a
 KO, NaN positions or stuck states in about 650 matches. Re-run when Sasuke's art lands and after any kit change
 (ENG-037).
+
+### Six fighters (2026-11-08; ENG-048, CHAR-goku-balance, CHAR-luffy-balance)
+
+The first run with Goku and Luffy, and the first since run 10-11. Everything changed in between: all six fighters
+are on their approved art (drawn hit and hurt boxes), the kits were revamped (ADR 0050 and the per-fighter skills
+work), and the combat rules moved (directional normals and Smash air, ADR 0042; the gatling hybrid and the
+auto follow-ups, ADR 0056 / 0057). So these rows start a new series and are not comparable with runs 1-11.
+
+Hard vs Hard (`CpuBrain`), every ordered pair, best of 3; one pass is 30 matches, 10 per fighter. `Math.random`
+seeded per match (5000 + the match index), intro skipped. Run on the ENG-126 branch, which does not touch the Hard
+brain (it has its own combo logic, not the combo composer).
+
+| run | matches | Naruto | Sasuke | Killua | Gojo | Goku | Luffy | P1 side |
+|---|---|---|---|---|---|---|---|---|
+| 12 (passes 1-6) | 180 | 50 % | 55 % | 45 % | 55 % | 50 % | 45 % | 51 % |
+| 13 (passes 7-12) | 180 | 62 % | 65 % | 38 % | 38 % | 58 % | 38 % | 51 % |
+| **12-13 pooled** | **360** | **56 %** (67/120) | **60 %** (72/120) | **42 %** (50/120) | **47 %** (56/120) | **54 %** (65/120) | **42 %** (50/120) | **51 %** |
+
+Head to head, pooled (row's wins out of the 24 matches of that pair):
+
+| | Naruto | Sasuke | Killua | Gojo | Goku | Luffy |
+|---|---|---|---|---|---|---|
+| Naruto | - | 9 | 13 | 15 | 13 | 17 |
+| Sasuke | 15 | - | 16 | 15 | 12 | 14 |
+| Killua | 11 | 8 | - | 10 | 12 | 9 |
+| Gojo | 9 | 9 | 14 | - | 12 | 12 |
+| Goku | 11 | 12 | 12 | 12 | - | 18 |
+| Luffy | 7 | 10 | 15 | 12 | 6 | - |
+
+Read (2026-11-08): on the pooled 360 every fighter is inside the 40-60 % target and the side bias is gone (51 %).
+Sasuke sits at the top edge (60 %), Killua and Luffy near the bottom (42 %). Two runs of 60 matches per fighter
+differ by up to 17 points for the same build (Gojo 55 % then 38 %), which is what 60 matches give (about ±13 % at two
+sigma), so only the pooled row is worth reading; at 120 matches per fighter it is ±9 %. The spread across the six is
+real but small (chi-square about 14.5 on 5 degrees of freedom, p near 0.01). Pairs worth a look by hand: Goku beats
+Luffy 18 of 24 and Naruto beats him 17 of 24; Sasuke beats Killua 16 of 24 and Naruto 15 of 24. Every kit move got
+used (the Hard CPU's most used specials: Reversal: Red 280, Chidori Spear 224, Lightning Palm 198, Dragon Fist 195,
+Rasenshuriken 181; least: Yo-Yo 34, Rising Kick 38, Uzumaki Barrage 40, Gum-Gum Rocket 44). No draws, time-outs, NaN
+positions or console errors in the 360 matches; a match lasts 102 s on average.
+
+No number was changed. Proposals for the user, smallest first, each to be re-run before the next:
+
+1. **Leave it** (recommended): all six are in the target band, and the CPU is a stand-in for players.
+2. **Luffy power 1.00 to 1.02** (stat index 0.98 to 1.00, inside the 0.93-1.02 band): he is the one fighter with two
+   lopsided pairings.
+3. **Killua**: his stat index is already 1.01 (the top of the band is 1.02), so not a stat; a kit number instead, and
+   only if hands-on play agrees he is weak (his defense, 0.95, is the cast's lowest by design).
+4. **Sasuke**: nothing unless a third run keeps him at 60 % or above; then Chidori Spear 72 to 68 (the Hard CPU's
+   second most used special).

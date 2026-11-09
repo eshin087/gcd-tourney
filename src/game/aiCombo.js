@@ -6,7 +6,10 @@
 // super dash. Among the edges that work it draws one, weighted by a per-match persona (a style read from the kit
 // data), a length tier per combo, freshness, and a cooldown on routes either CPU used recently. Every draw comes from
 // the brain's seeded rng, so `?seed=` replays them. It presses buttons only through the brain (tap, special, keep).
-import { MOVES, VANISH, SUPER_DASH, JUGGLE, PROJECTILES, DEFENSE, SUPERS, AIR } from './moves.js';
+// It plays the combo rules a player has (ADR 0056 / 0057): the stun floors that let a string finish (JUGGLE.keep), and
+// the auto-chases, Light or Special at a victim reeling in the air out of reach (the `follow` edges), which the
+// engine budgets at CHAIN.follow.max per combo. Its Dash and Jump chases stay the manual, unbudgeted way.
+import { MOVES, VANISH, SUPER_DASH, JUGGLE, PROJECTILES, DEFENSE, SUPERS, AIR, CHAIN } from './moves.js';
 import { specialFor, kitOf } from './kit.js';
 import { ARENA_LIMIT, GRAVITY, DT, ROUND_TIME } from './constants.js';
 import { gauss, pickW } from './rng.js';
@@ -26,16 +29,19 @@ const RUN = 0, DONE = 1, FAIL = -1;
 // ------------------------------------------------------------------ prediction (JUGGLE + MOVES only)
 export const decayAt = (c) => Math.max(J.decay.floor, 1 - (c - 1) * J.decay.per);
 
+// The stun floor a hit of move m leaves after the decay (JUGGLE.keep, ADR 0057): a jab or air string hit, a launcher
+export const keepOf = (m) => (m?.chain ? J.keep.chain : m?.launcher ? J.keep.launcher : 0);
+
 // Stun a victim gets from its c-th hit. kind: 'launch' (air stun of a launching hit), 'juggle' (an airborne victim
 // hit without a launch), 'wall' / 'bounce' (the n-th wall / ground bounce of the combo, n from 0), else grounded hit
-// stun from the move's `base` hitstun.
-export function stunAfter(kind, c, base = 20, n = 0) {
+// stun from the move's `base` hitstun. `m`: the move that hits, for its stun floor (Fighter.takeHit applies the same).
+export function stunAfter(kind, c, base = 20, n = 0, m = null) {
   switch (kind) {
-    case 'launch': return Math.round(Math.max(J.launchStun.min, J.launchStun.base - c * J.launchStun.per) * decayAt(c));
-    case 'juggle': return Math.round(Math.max(J.airStun.min, J.airStun.base - c * J.airStun.per) * decayAt(c));
+    case 'launch': return Math.max(keepOf(m), Math.round(Math.max(J.launchStun.min, J.launchStun.base - c * J.launchStun.per) * decayAt(c)));
+    case 'juggle': return Math.max(keepOf(m), Math.round(Math.max(J.airStun.min, J.airStun.base - c * J.airStun.per) * decayAt(c)));
     case 'wall': return J.wall.stun[Math.min(n, J.wall.stun.length - 1)];
     case 'bounce': return J.ground.stun[Math.min(n, J.ground.stun.length - 1)];
-    default: return Math.round(base * decayAt(c));
+    default: return Math.max(keepOf(m), Math.round(base * decayAt(c)));
   }
 }
 
@@ -150,11 +156,12 @@ export function predictFlight(o, n = PF) {
 }
 
 // distance a lunging ground move covers from frame t until its first active frame (its lunge fades over startup+active)
-export function lungeTo(m, t = 0) {
-  if (!m.lunge || m.air) return 0;
+// (`lunge`: its speed when something raised it, the chain magnet)
+export function lungeTo(m, t = 0, lunge = m.lunge) {
+  if (!lunge || m.air) return 0;
   const B = m.startup + m.active;
   let d = 0;
-  for (let k = Math.max(0, t); k < m.startup; k++) d += (m.lunge * (1 - k / B)) / 60;
+  for (let k = Math.max(0, t); k < m.startup; k++) d += (lunge * (1 - k / B)) / 60;
   return d;
 }
 
@@ -203,6 +210,9 @@ export function intercept(f, o, name, ready, R, dash = false) {
   const dashRun = dash ? 1.0 : 0; // the dash itself (16 u/s, 4 frames before the light can come out)
   const near = Math.max(0.3, b.near), far = farFor(b, o);
   const low = b.y0 - (m.boxPad?.[1] ?? 0.12) + 0.08 - bodyTop(o); // their feet must be above this for the body to reach the box
+  // Light from the floor at a victim reeling in the air out of a jab's reach is the follow-up super dash, not this
+  // normal (Fighter.tryActions, ADR 0057): the `follow` edge's. A light out of a dash stays the lunging jab.
+  const chases = !dash && m.btn === 'light' && chaseOpen(o);
   for (let k = ready + m.startup + (dash ? 4 : 0); k < flight.n; k++) {
     if (!PL[k]) return null;
     if (PS[k] < MARGIN + 1 || PY[k] - f.pos.y > b.top || PY[k] - f.pos.y <= low) continue;
@@ -211,6 +221,10 @@ export function intercept(f, o, name, ready, R, dash = false) {
     if (along + lunge + dashRun < 0.35) return null; // they flew past us
     const room = walk * Math.max(0, press - ready);
     if (along < near || along > far + room) continue;
+    if (chases) {
+      const i = Math.max(0, press), gap = Math.max(0, Math.hypot(PX[i] - f.pos.x, PZ[i] - f.pos.z) - room);
+      if (PY[i] > CHAIN.follow.minY || gap > CHAIN.follow.reach) continue;
+    }
     meetOut.k = k;
     meetOut.press = press;
     meetOut.walk = Math.max(0, along - (far - 0.15));
@@ -220,10 +234,18 @@ export function intercept(f, o, name, ready, R, dash = false) {
   return null;
 }
 
+// An auto-chase is open against this victim (Fighter.canFollow, without the range): they reel in the air from a real
+// launch (a Smash light pop stays a manual follow-up), the combo has chases left in its budget (CHAIN.follow.max,
+// the victim's chaseN), and we have this airtime's super dash.
+// (on the floor the dash is always back: Fighter.physics returns it on landing)
+const chaseOpen = (o) => !o.ko && o.state === 'launched' && o.air && !o.feetLand && o.chaseN < CHAIN.follow.max;
+export const followOpen = (f, o) => chaseOpen(o) && (!f.air || f.airDashes === 0);
+
 // Frames until a super dash started `wait` frames from now touches the predicted victim (Fighter.updateSuperDash:
-// 18 u/s straight at them, contact under 1 unit, at most 42 frames), or null.
-export function superDashGap(f, wait) {
-  let ax = f.pos.x, ay = f.pos.y, az = f.pos.z;
+// 18 u/s straight at them, contact under 1 unit, at most 42 frames), or null. `y0`: our height when it starts (the
+// floor, for a dash after our landing).
+export function superDashGap(f, wait, y0 = f.pos.y) {
+  let ax = f.pos.x, ay = y0, az = f.pos.z;
   const step = SUPER_DASH.speed / 60;
   for (let k = wait; k < Math.min(flight.n, wait + SUPER_DASH.maxFrames); k++) {
     const tx = PX[k], ty = PY[k] + (PY[k] > 0.05 ? 0.1 : 0), tz = PZ[k];
@@ -398,14 +420,22 @@ function aerialMeets(f, o, name, R, ff = false) {
 // Can our move `name`, its first active frame k frames from now, meet the predicted victim? Our lunge during the
 // startup closes in; a juggled victim must still be low enough for the boxes. An air move follows the victim
 // sideways by itself (Fighter.updateAttack's juggle tracking), so only its height matters.
-function meets(x, name, k, selfY = x.f.pos.y) {
+// `chained`: started as a chain or a cancel out of a hit that landed, so the chain magnet raises its lunge to close the
+// gap that hit's push opened (CHAIN.magnet, Fighter.startChain, ADR 0056); the bodies still stop at combo spacing.
+function meets(x, name, k, selfY = x.f.pos.y, chained = false) {
   const f = x.f, R = x.c.R, m = MOVES[name], b = artBox(f, name);
   const i = Math.min(PF - 1, Math.max(0, k));
   const dy = PY[i] - selfY, pad = m.boxPad?.[1] ?? (m.air ? 0.45 : 0.12);
   // their body (feet .. top) must overlap the box's height
   if (dy >= b.top || dy + bodyTop(x.o) <= b.y0 - pad + 0.08) return false;
   if (m.air) return true;
-  const dx = ((PX[i] - f.pos.x) * R.x + (PZ[i] - f.pos.z) * R.z) * x.c.toward - lungeTo(m);
+  const raw = ((PX[i] - f.pos.x) * R.x + (PZ[i] - f.pos.z) * R.z) * x.c.toward;
+  let dx = raw - lungeTo(m);
+  if (chained && f.moveLanded) {
+    const M = CHAIN.magnet, j = Math.max(0, i - m.startup); // the gap as the engine measures it, when the move starts
+    const gap = Math.hypot(PX[j] - f.pos.x, PZ[j] - f.pos.z) - M.closeTo;
+    if (gap > 0) dx = Math.max(Math.min(raw, M.closeTo - 0.1), raw - lungeTo(m, 0, Math.min(M.max, Math.max(m.lunge ?? 0, gap * M.rate))));
+  }
   return dx > b.near + 0.05 && dx < farFor(b, x.o) - 0.05;
 }
 
@@ -413,14 +443,14 @@ function gapChain(x) {
   const m = x.m;
   if (!inAttack(x) || !m.next) return null;
   const g = Math.max(0, m.cancel - x.t) + MOVES[m.next].startup;
-  return m.air || meets(x, m.next, g) ? g : null; // (an air chain tracks the victim: Fighter.updateAttack)
+  return m.air || meets(x, m.next, g, x.f.pos.y, true) ? g : null; // (an air chain tracks the victim: Fighter.updateAttack)
 }
 
 function gapHeavyCancel(x) {
   const m = x.m;
   if (!inAttack(x) || (!m.light && !m.air) || x.f.moveName === 'airHeavy') return null;
   const g = MOVES[m.air ? 'airHeavy' : 'heavy'].startup;
-  return m.air || meets(x, 'heavy', g) ? g : null;
+  return m.air || meets(x, 'heavy', g, x.f.pos.y, true) ? g : null;
 }
 
 // frames into a throw's toss (its super dash and vanish open from frame 6, Fighter.updateThrow), or -1
@@ -452,12 +482,60 @@ function gapSuperDash(x) {
   return k == null ? null : k + 1;
 }
 
+// A knock-away ender: a hit of ours that launches and is neither the launcher nor a Smash light pop. Light or Special
+// after its active frames is its follow-up (Fighter.updateAttack), so a special no longer cancels out of it.
+const knockAway = (m) => !!m && !!m.launch && !m.launcher && !m.feet;
+
+// The auto-chase (ADR 0057): frames until its homing super dash touches them, from where the engine starts it: the
+// end of a knock-away's active frames, a throw's toss, the free air beyond the DBFZ float (or with this jump's air
+// string spent), or the floor at a victim a jab can't take. null when the engine wouldn't read the press as one (no
+// chase left in the budget, out of CHAIN.follow.range, the super dash spent) or the dash can't reach them in time.
+// The swing off the catch needs no check of its own: the held button fires on the contact frame.
+function gapFollow(x) {
+  const f = x.f, o = x.o, m = x.m, F = CHAIN.follow, toss = tossK(f);
+  if (!followOpen(f, o)) return null;
+  let wait, y0 = f.pos.y;
+  if (toss >= 0) wait = Math.max(0, TOSS_OPEN - toss);
+  else if (inAttack(x)) {
+    if (!knockAway(m)) return null;
+    wait = Math.max(0, m.startup + m.active - x.t);
+  } else if (f.state === 'air') {
+    if (f.chase > 0 || (!f.airAttack && x.c.dist <= AIR.juggle)) return null; // (inside the float Light is the air string)
+    wait = 0;
+  } else {
+    // (a Light out of a dash is the lunging jab, and Guard reads no attack button)
+    if (!groundSide(x) || f.state === 'dash' || f.state === 'guard') return null;
+    wait = readyIn(f);
+    y0 = 0;
+  }
+  if (wait > 30) return null;
+  const i = Math.min(PF - 1, wait), d = Math.hypot(PX[i] - f.pos.x, PZ[i] - f.pos.z);
+  if (!PL[i] || PY[i] <= 0.02 || d > F.range - 0.3) return null; // they must still be in the air, in range, at the press
+  // from the floor only a victim a jab can't take is chased (higher than minY or beyond reach); else Light is the jab
+  if (y0 === 0 && toss < 0 && !inAttack(x) && !(PY[i] > F.minY + 0.05 || d > F.reach + 0.1)) return null;
+  const k = superDashGap(f, wait + 1, y0);
+  return k == null ? null : k + 1;
+}
+
+// The special a Special follow-up fires off the catch (Fighter.fireChaseAtk): the air slot the stick picks when the
+// dash ends in the air, as it does on a victim still up there. Frames from the contact hit to its own hit, or null
+// when it can't link: a shot from point blank, a dive only onto a victim low enough for its slam.
+function arrivalGap(m, y) {
+  if (m.kind === 'shot') return PROJECTILES[m.proj] ? m.startup + 2 : null;
+  if (m.kind === 'dive') return y < 1.3 ? (m.hang ?? 0) + Math.ceil(y / Math.max(1, -m.slamV) * 60) + 2 : null;
+  return null;
+}
+
 // a kit special, as a cancel on hit (fromCancel) or from neutral / the air
 function gapKit(x, m, air) {
   const f = x.f, c = x.c, o = x.o;
   if (f.ki < (m.cost ?? 0)) return null;
+  // out of a knock-away the engine holds Special for the follow-up while a chase is open (the `followSp` edges)
+  if (inAttack(x) && knockAway(x.m) && chaseOpen(o) && c.dist <= CHAIN.follow.range) return null;
   const cancel = !air && inAttack(x) && !x.m.special && !x.m.air;
-  const ready = air ? (airFree(x) ? 0 : null) : cancel ? 0 : (groundSide(x) ? readyIn(f) : null);
+  // an aerial that hit cancels into the air special (ADR 0057)
+  const airCancel = air && inAttack(x) && f.air && !!x.m.air && !x.m.special;
+  const ready = air ? (airFree(x) || airCancel ? 0 : null) : cancel ? 0 : (groundSide(x) ? readyIn(f) : null);
   if (ready == null || ready > 20) return null;
   const lead = ready + (cancel || air ? 0 : 2); // a neutral special fires on the release
   const dist = Math.hypot(c.sx, c.dy);
@@ -616,8 +694,13 @@ function buildEdges(def) {
     id: 'relaunch', nodes: ['L1', 'L2', 'G3'], tags: ['relaunch'], w: 2.5, opt: 2.6, act: 'heavy',
     pre: (x) => (x.o.state === 'launched' && x.o.pos.y >= 0.6 && x.o.pos.y < 1.7 && Math.abs(x.c.sx) < 1.6 ? gapHeavyCancel(x) : null),
   });
-  // launcher follow-ups
+  // launcher follow-ups: the Jump chase (manual: the air hit is the AFREE node's), or Light (ADR 0056 / 0057): the
+  // same super jump with the air string fired by itself on arrival, one of the combo's budgeted auto-chases
   add({ id: 'chase', nodes: ['LAUNCH'], tags: ['air'], w: 3, opt: 3, act: 'jump', pre: (x) => (inAttack(x) ? CHASE : null) });
+  add({
+    id: 'chaseL', nodes: ['LAUNCH'], tags: ['air', 'follow'], w: 1.6, opt: 2.2, act: 'followL',
+    pre: (x) => (inAttack(x) && chaseOpen(x.o) && x.c.dist <= CHAIN.follow.range ? CHASE : null),
+  });
   // air string
   add({ id: 'a2', nodes: ['A1'], tags: ['air', 'string'], w: 5, opt: 3, act: 'chain', pre: gapChain });
   add({
@@ -663,6 +746,40 @@ function buildEdges(def) {
     w: { G4: 0.8, LAUNCH: 0.9, FLY: 1.2, UT: 0.5, AFREE: 0.6, AIRLOCK: 2, WALLBACK: 1, GBUP: 1.6, RESTART: 0.6 },
     opt: { G4: 1.5, LAUNCH: 2, FLY: 2.5, UT: 1.4, AFREE: 1, AIRLOCK: 3, WALLBACK: 2.8, GBUP: 3, RESTART: 1.5 }, act: 'sd', pre: gapSuperDash,
   });
+  // The auto-chase (ADR 0057): Light at a victim reeling in the air out of reach — off a knock-away ender (the fourth
+  // jab, a smash attack, the third air Light, the spike, a wall-bouncing special), a throw's toss, from the floor at
+  // one a jab can't take (a bounce coming back), from the air with the string spent — is the same homing dash with
+  // the swing fired off its catch: the air string, or the jab on the floor. At most CHAIN.follow.max per combo (the
+  // engine's count, the victim's chaseN): past it Light is a plain normal again and the Dash edge above is what's left.
+  add({
+    id: 'follow', nodes: ['G4', 'FLY', 'AFREE', 'AIRLOCK', 'WALLBACK', 'GBUP', 'RESTART'], tags: ['dash', 'follow'], tool: 'superDash',
+    w: { G4: 2, FLY: 1.8, AFREE: 0.8, AIRLOCK: 2.2, WALLBACK: 1.6, GBUP: 1.4, RESTART: 1.4 },
+    opt: { G4: 2.2, FLY: 2.7, AFREE: 1.2, AIRLOCK: 3.1, WALLBACK: 2.9, GBUP: 3.1, RESTART: 2 }, act: 'follow', pre: gapFollow,
+  });
+  // ...or Special, which fires the special off the catch instead: the air slot's, on a victim still in the air. Out
+  // of a normal or a toss only (a special's own follow-up is Light alone, Fighter.updateAttack)
+  const seenF = new Set();
+  for (const slot of AIR_SLOTS) {
+    const m = specialFor(def, slot);
+    if (!m || seenF.has(m) || (m.kind !== 'shot' && m.kind !== 'dive')) continue;
+    seenF.add(m);
+    const tags = ['dash', 'follow', 'kit'];
+    if (bouncesOffWall(m)) tags.push('wall');
+    if (m.kind === 'dive') tags.push('gb');
+    add({
+      id: 'followSp:' + slot, nodes: ['G4', 'FLY'], tags, slot, m, cost: m.cost ?? 0, tool: specialId(m), act: 'followSp',
+      w: { G4: 0.8, FLY: 0.7 }, opt: m.kind === 'dive' ? 2 : 1.4,
+      pre: (x) => {
+        if (x.f.ki < (m.cost ?? 0) || x.m?.special) return null;
+        const g = gapFollow(x);
+        if (g == null) return null;
+        // the dash has to end in the air (the air slot fires there), and the special to land inside the catch's stun
+        const y = PY[Math.min(PF - 1, g)], a = arrivalGap(m, y);
+        if (a == null || y < 0.35 || stunAfter('juggle', x.combo + 1) < a + MARGIN) return null;
+        return g;
+      },
+    });
+  }
   // vanish: behind them, then the kick (wall bounce); a second and third in one combo are the ping-pong
   add({
     id: 'vanish', nodes: ['G3', 'G4', 'LAUNCH', 'A1', 'A2', 'FLY', 'DT', 'UT', 'HOP', 'AFREE', 'AIRLOCK', 'WALLBACK', 'GBUP', 'RESTART'], tags: ['vanish'], tool: 'vanish', cost: VANISH.cost,
@@ -752,8 +869,15 @@ function buildEdges(def) {
     if (bouncesOffWall(m)) tags.push('wall');
     if (m.kind === 'dive') tags.push('gb');
     add({
-      id: 'airKit:' + slot, nodes: ['AFREE', 'WALLBACK', 'GBUP'], tags, slot, m, cost: m.cost ?? 0, tool: specialId(m), act: 'special',
-      w: { AFREE: 0.7, WALLBACK: 0.5, GBUP: 0.7 }, opt: m.kind === 'dive' ? 2 : 1.2, pre: (x) => gapKit(x, m, true),
+      // (A1 / A2: an air Light that hit cancels into it, ADR 0057)
+      id: 'airKit:' + slot, nodes: ['AFREE', 'WALLBACK', 'GBUP', 'A1', 'A2'], tags, slot, m, cost: m.cost ?? 0, tool: specialId(m), act: 'special',
+      w: { AFREE: 0.7, WALLBACK: 0.5, GBUP: 0.7, A1: 0.15, A2: 0.5 }, opt: m.kind === 'dive' ? 2 : 1.2,
+      pre: (x) => {
+        const g = gapKit(x, m, true);
+        // cancelled out of the air string, a plain shot ends the combo: we hang in its recovery with the string spent
+        if (g != null && (x.node === 'A1' || x.node === 'A2') && m.kind === 'shot' && !bouncesOffWall(m)) { x.extra = ['ender']; x.optk = 0.5; }
+        return g;
+      },
     });
   }
   return E;
@@ -826,15 +950,19 @@ function afterStun(e, x) {
   const tags = x.extra;
   const wall = (tags?.includes('wall') || e.tags.includes('wall')) && o.wbCount < J.wall.max ? stunAfter('wall', c, 0, o.wbCount) : 0;
   const gb = (tags?.includes('gb') || e.tags.includes('gb')) && o.gbCount < J.ground.max ? stunAfter('bounce', c, 0, o.gbCount) : 0;
-  const of = (m) => (!m ? 0 : Math.max(m.lock ?? 0, m.launch ? stunAfter('launch', c) : air ? stunAfter('juggle', c) : stunAfter('ground', c, m.hitstun ?? 20)));
+  // (with the move's stun floor, JUGGLE.keep: a string hit or a launcher late in a combo still leaves a real window)
+  const of = (m) => (!m ? 0 : Math.max(m.lock ?? 0, m.launch ? stunAfter('launch', c, 0, 0, m) : air ? stunAfter('juggle', c, 0, 0, m) : stunAfter('ground', c, m.hitstun ?? 20, 0, m)));
   let s = 0;
   switch (e.act) {
     case 'chain': s = of(MOVES[x.m?.next]); break;
     case 'heavy': s = of(x.m?.air ? MOVES.airHeavy : MOVES.heavy); break;
     case 'airHeavy': s = of(MOVES.airHeavy); break;
     case 'airLight': s = of(MOVES.airLight1); break;
-    case 'jump': s = stunAfter('juggle', c); break;
+    case 'jump': case 'followL': s = stunAfter('juggle', c, 0, 0, MOVES.airLight1); break; // the chase's first air hit
     case 'sd': s = of(SUPER_DASH); break;
+    // the catch, then the swing fired off it: the air string's first hit
+    case 'follow': s = Math.max(of(SUPER_DASH), stunAfter('juggle', c + 1, 0, 0, MOVES.airLight1)); break;
+    case 'followSp': s = e.m.kind === 'dive' ? stunAfter('launch', c + 1) : stunAfter('juggle', c + 1); break;
     case 'vanish': s = of(MOVES.vanishKick); break;
     case 'meet': case 'airNormal': s = of(MOVES[e.meet.move]); break;
     case 'hop': s = of(MOVES.uair); break;
@@ -859,9 +987,11 @@ function afterStun(e, x) {
 // recovery in the air (a vanish kick, a rush or teleport strike, the last hit of an air string) leaves only the super
 // dash or another bar to follow its launch; a grind, a ground shot or a ground ender leaves time to walk up and meet.
 function followable(e, x) {
-  const f = x.f, ki = f.ki - (e.cost ?? 0), sd = f.airDashes === 0 && e.act !== 'sd';
+  const f = x.f, ki = f.ki - (e.cost ?? 0), sd = f.airDashes === 0 && e.act !== 'sd' && e.act !== 'follow' && e.act !== 'followSp';
   switch (e.act) {
     case 'vanish': return sd || ki >= VANISH.cost;
+    // a dive's slam bounces them off the floor beside us; a shot fired off the catch leaves us air-locked, the dash spent
+    case 'followSp': return e.m?.kind === 'dive' || ki >= VANISH.cost;
     case 'special': return !!(e.m?.kind === 'pull' || e.m?.vortex || (e.m?.kind === 'shot' && !e.m.air)) || sd || ki >= VANISH.cost;
     case 'chain': return !x.m?.air || x.m.next !== 'airLight3' || sd || ki >= VANISH.cost;
     default: return true;
@@ -1098,6 +1228,9 @@ export class ComboComposer {
   drive(site, c) {
     const f = this.f, o = f.opp;
     if (!this.live || this.over || o.ko) return false;
+    // an auto-chase of ours is on its way (the launcher's Light chase): the engine holds the swing and fires it on
+    // arrival (Fighter.chaseAtk), so nothing is pressed over it
+    if (f.chaseAtk && f.state === 'air') return true;
     if (this.waiting && !this.bounce) return true; // let them fly into the barrier / floor
     let node, key;
     if (this.bounce) { node = this.bounce.kind === 'wall' ? 'WALLBACK' : 'GBUP'; key = 'b' + this.bounce.serial; }
@@ -1244,6 +1377,39 @@ export class ComboComposer {
         if (!inAttack(x)) return FAIL;
         b.tap('jump');
         return DONE; // the air hit comes from the AFREE node
+      case 'followL':
+        // Light on the launcher's hit: the chase, and the air string fires itself as it arrives
+        if (!inAttack(x)) return FAIL;
+        if (b.hold.light > 0) return RUN;
+        b.mx = 0; b.my = 0;
+        b.tap('light');
+        return pressed(this.lastGap);
+      case 'follow':
+      case 'followSp': {
+        // pressed on the frame the engine reads it as the follow-up: a knock-away's active frames over, the toss
+        // open, free in the air or on the floor. (On the floor a victim who came down into a jab's reach meanwhile
+        // gets the jab instead, which continues the combo just the same.)
+        if (!followOpen(f, x.o) || x.c.dist > CHAIN.follow.range) return FAIL;
+        const toss = tossK(f);
+        if (toss >= 0) {
+          if (toss < TOSS_OPEN) return RUN;
+        } else if (f.state === 'attack' && f.move) {
+          if (x.t < f.move.startup + f.move.active) return RUN;
+        } else if (f.state === 'air') {
+          if (f.chase > 0) return RUN;
+          if (!f.airAttack && x.c.dist <= AIR.juggle) return FAIL; // drifted into the float: Light would be the air string
+        } else if (readyIn(f) > 0 || f.state === 'dash') return RUN;
+        if (e.act === 'followSp') {
+          if (f.ki < (e.cost ?? 0)) return FAIL;
+          if (b.hold.special > 0 || f.pad.b.special.down) return RUN;
+          b.special(e.slot, 2); // (the stick at the press picks the slot on arrival: Fighter.spMy)
+        } else {
+          if (b.hold.light > 0) return RUN;
+          b.mx = 0; b.my = 0;
+          b.tap('light');
+        }
+        return pressed(this.lastGap);
+      }
       case 'sd': {
         if (f.airDashes > 0) return FAIL;
         const toss = tossK(f);
@@ -1273,7 +1439,7 @@ export class ComboComposer {
         if (!st.ok) {
           // from neutral the special comes out on the release, so wait until we can act at all
           const air = e.slot === 'air' || e.slot === 'airDown';
-          const can = air ? airFree(x) : inAttack(x) || readyIn(f) === 0;
+          const can = air ? airFree(x) || (inAttack(x) && f.air && !!x.m.air) : inAttack(x) || readyIn(f) === 0;
           if (!can) return (st.waited = (st.waited ?? 0) + 1) > 25 ? FAIL : RUN;
           st.ok = true;
           b.special(e.slot, 2);

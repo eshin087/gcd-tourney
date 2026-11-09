@@ -64,7 +64,14 @@ Numbers in `CHAIN.follow` and `JUGGLE.keep` (`src/game/moves.js`); logic in `Fig
 - CPU vs CPU (3 matches, same seeds as production): 0 violations; time in combos 42 % (production 46 %), 12+ hit
   combos 0.33 per match (0.67); rounds shorter on average (30 s vs 37 s) as the follow-ups deal more.
 - The CPU combo composer (`aiCombo.js`) still predicts stun without the floors, so it is cautious, never wrong;
-  teaching it the follow-ups is a follow-up task.
+  teaching it the follow-ups is a follow-up task. **Done in ENG-126 (2026-11-08):** the composer has `follow`
+  (Light), `followSp:<slot>` (Special) and `chaseL` (Light on the launcher) edges, offers none once the victim's
+  `chaseN` reaches `CHAIN.follow.max`, and reads the stun floors and the chain magnet. Over the 30 ordered pairs of
+  the six fighters (same seeds before and after), spectated CPUs went from 1.0 to 9.0 auto-chases per match and never
+  past 3 in a combo; combo length barely moved for them (5.4 to 5.5 hits on average, 0.9 combos of 12+ hits per
+  match both times), because the manual Dash and Jump chases already reached the same spots and their combos end on
+  the defender's timed techs, bursts and the hitstun decay (ENG-074). The IMPOSSIBLE brain's routes grew: 2.6 to 3.2
+  combos of 12+ hits per match, rounds 28 s to 26 s.
 - The simulation changed: SIM_ID moved and both det fixtures were re-recorded (replay and rollback stress MATCH).
   The new fields (`chaseN`, `followDash`) ride the generic snapshot.
 - Tune by data: `CHAIN.follow.max` (2 would end the no-jump route after the relaunch), `JUGGLE.keep`.
