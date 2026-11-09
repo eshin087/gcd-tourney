@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SIZE-R8, audit2 #13): the user chose to keep Gojo airLight1 v07 and closed B4 with no further redraws ("Keep v07 (Recommended)"). Candidates v08-v10 remain preserved in `raw/_rejected/`; approved v07 remains current.
 - Decision (ART-SIZE-R8, audit2 #12): the user directed Claude to ship Goku bair v02 despite the Astra short-torso hold ("Ship v02 (Recommended)"). The hold and `scaleManualQA` result `hold` remain unchanged; Claude will merge with `--force-art` citing #12.
 - Approved (ART-SIZE-R8, audit2 #11): the user approved Luffy run v02 and down v04 as drawn via Claude ("Approve both (Recommended)"). The 48-color pack selects both versions, but their automatic head probes are unmeasured and final Astra anatomy/scale review remains pending; the prior specialForward arm/palm diagnostic hold remains.
 - Approved (ART-SIZE-R8, audit2 #8): the user approved Goku run v10 and bair v02 as drawn via Claude ("Approve both"); B11 also covers R3. Final Astra audit holds run v10 for internal registration and bair v02 for a short upper torso; the R3 color/kick repairs pass. Runtime contact checks remain Claude-owned.
