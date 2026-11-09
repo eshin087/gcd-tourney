@@ -1,0 +1,68 @@
+{
+  "title": "Luffy ART-SIZE-R8 B9/B10 exact production atlas audit metrics",
+  "auditor": "GPT-6 Astra (medium)",
+  "date": "2026-11-09",
+  "branch": "art/size-r8-b",
+  "atlas": {
+    "path": "public/characters/luffy/sheet.png",
+    "sha256": "4d0fa71916948303dcff65d75f2d1129bf0c224ed9890d748bdb180245fe41b1",
+    "size": [4096, 2816],
+    "colors": 48,
+    "cell": [256, 256],
+    "pivot": [128, 240]
+  },
+  "metadata": {
+    "path": "public/characters/luffy/anims.json",
+    "sha256": "2cdfc780f78314b761be2d5861ae427957f26fb10efd6819940fd98ac118dd6c",
+    "run": { "cells": [8, 9, 10, 11, 12, 13, 14, 15], "durationsMs": [60, 60, 60, 60, 60, 60, 60, 60], "loop": true, "manifestVersion": 2, "bodyHeight": 204 },
+    "down": { "cells": [79, 80], "durationsMs": [80, 420], "loop": false, "manifestVersion": 4, "bodyHeight": 106 }
+  },
+  "references": [
+    { "role": "approved idle f0", "path": "public/characters/luffy/calibration-r3/reference-approved-idle-f0.png", "sha256": "a26d94992f0c3ee5fcff26cc043bc6ba797f432ea9def450d6f6afafd90e522d" },
+    { "role": "approved title neutral", "path": "public/characters/luffy/calibration-r3/reference-neutral.png", "sha256": "8e9da76421c52e5fa449ce55b2dba1933b52e74d15ccd4a69090b9f97eb082b1" },
+    { "role": "approved title combat", "path": "public/characters/luffy/calibration-r3/reference-combat.png", "sha256": "439678e0a9689edc3cc9686d51a65f9d546e2e68aae20760de8e7f4391a306e0" }
+  ],
+  "sources": [
+    { "animation": "run", "version": 2, "path": "art/characters/luffy/raw/run_v02.png", "sha256": "e719904a758dbc715558085c0e0f612abfc993dd4ffa9745d066ace54ce46d49", "contactSheetSha256": "3ed6989ed2e499c939e1a4e793785a2070b01dbe3cb166000cd9695b2fb95046" },
+    { "animation": "down", "version": 4, "path": "art/characters/luffy/raw/down_v04.png", "sha256": "91410326b72f1d64c9ec4545eaef731ffb559f399a77cd349ba9807e9c8458dd", "contactSheetSha256": "10a8e084f68891d268451e5c8b06836c26c6e7e51a0b80d1e265b316ae78f67b" }
+  ],
+  "exactAtlasBoards": [
+    { "animation": "run", "path": "public/reviews/size-r8-audit2-luffy-b9-b10-r4/astra-run-v02-exact-atlas-references.png", "sha256": "19793b67df9525760bdbb3962e8ed7ad4e517879ab43021628a17ad6b8629956" },
+    { "animation": "down", "path": "public/reviews/size-r8-audit2-luffy-b9-b10-r4/astra-down-v04-exact-atlas-references.png", "sha256": "856589ee33fea13d14d7585ffb78fdcff11e62aa39cfe8ea9cb07a06c0909874" }
+  ],
+  "headProbe": {
+    "state": "unmeasured for both strips; probe is disabled for Luffy and ratios are not used",
+    "run": { "head": 1.088, "feet": 0.972 },
+    "down": { "head": 1.514, "feet": 0.58 }
+  },
+  "registrationLandmark": {
+    "method": "same-color hat extent, inclusive x coordinates; clothing marker, not skull measurement",
+    "referenceWidthsPx": { "idle": 55, "neutral": 52, "combat": 56 },
+    "runFrames": [
+      { "frame": 0, "cell": 8, "alphaBounds": [53, 55, 211, 241], "hatExtent": [141, 194], "hatWidth": 54, "centerX": 167.5 },
+      { "frame": 1, "cell": 9, "alphaBounds": [6, 53, 159, 241], "hatExtent": [86, 140], "hatWidth": 55, "centerX": 113 },
+      { "frame": 2, "cell": 10, "alphaBounds": [31, 56, 217, 241], "hatExtent": [122, 176], "hatWidth": 55, "centerX": 149 },
+      { "frame": 3, "cell": 11, "alphaBounds": [4, 61, 193, 241], "hatExtent": [93, 148], "hatWidth": 56, "centerX": 120.5 },
+      { "frame": 4, "cell": 12, "alphaBounds": [4, 57, 180, 241], "hatExtent": [91, 144], "hatWidth": 54, "centerX": 117.5 },
+      { "frame": 5, "cell": 13, "alphaBounds": [66, 57, 190, 241], "hatExtent": [126, 178], "hatWidth": 53, "centerX": 152 },
+      { "frame": 6, "cell": 14, "alphaBounds": [22, 58, 209, 241], "hatExtent": [110, 163], "hatWidth": 54, "centerX": 136.5 },
+      { "frame": 7, "cell": 15, "alphaBounds": [4, 65, 194, 241], "hatExtent": [98, 151], "hatWidth": 54, "centerX": 124.5 }
+    ],
+    "f0ToF1DeltaPx": -54.5,
+    "f7ToF0LoopDeltaPx": 43
+  },
+  "downFrames": [
+    { "frame": 0, "cell": 79, "alphaBounds": [53, 143, 215, 241] },
+    { "frame": 1, "cell": 80, "alphaBounds": [39, 149, 212, 241] }
+  ],
+  "containment": {
+    "rule": "x0>=4, x1Exclusive<=252, y0>=4, y1Exclusive<=241",
+    "allTenFramesPass": true,
+    "note": "No opaque pixel on a cell boundary; every strip frame reaches y=240 at the shared pivot floor line. Static containment only, not runtime grounding."
+  },
+  "verdicts": {
+    "runV02": "hold: internal registration discontinuities; visible anatomy/scale is reference-consistent",
+    "downV04": "pass: visible anatomy/scale within stated landmark uncertainty; hidden limb segments are not numeric passes"
+  },
+  "report": "art/characters/luffy/production/size-r8-b9-b10-r4/ASTRA_FINAL_AUDIT.md"
+}
