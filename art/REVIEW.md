@@ -1,5 +1,16 @@
 # Art review queue
 
+## ART-SIZE-R8 Gojo B1 (audit2 #1)
+
+The [review gallery](../public/reviews/size-r8-audit2-gojo-b1/index.html) shows approved light1 v05 beside user-approved v08 and the Gojo title-style neutral/combat references. The [generation inventory](characters/gojo/production/size-r8-b1/ATTEMPT_INVENTORY.md) preserves all calls and part hashes. The user approved v08 via Claude relay audit2 #3: “Approve, keep reach.” The measured palm location remains short of the original x206–226 target (f2 x175–196; f3 x179–191), which the user accepted. Astra's final audit is a separate technical HOLD for the smaller head probes at f0/f1/f5 and enlarged front shoes; Claude runtime contact/grounding verification remains open. See the [final Astra audit](characters/gojo/production/size-r8-b1/ASTRA_FINAL_AUDIT.md). The approval status is unchanged.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-11-08 | Gojo | light1 | [v06](characters/gojo/raw/light1_v06.png) · [parts](characters/gojo/raw/_parts/light1_v06_A.png) | v06 | rejected | First 4+3 body-proportion redraw | Stitch B factor 0.647; parts too different in scale. Internal technical rejection, not user-reviewed. |
+| 2026-11-08 | Gojo | light1 | [v07](characters/gojo/raw/light1_v07.png) · [parts](characters/gojo/raw/_parts/light1_v07_A.png) | v07 | rejected | Revised 4+3 redraw; measured stitch 1.0034 | Superseded before user review; its packed atlas was not separately audited. Not a user rejection. |
+| 2026-11-08 | Gojo | light1 | [v08](characters/gojo/raw/light1_v08.png) · [gallery](../public/reviews/size-r8-audit2-gojo-b1/index.html) · [heads](scale/heads-gojo.png) · [body](scale/body-gojo-light1.png) · [Astra audit](characters/gojo/production/size-r8-b1/ASTRA_FINAL_AUDIT.md) | v08 | approved | Redrawn seven-frame jab; right hand remains pocketed and phases/timing match | Pack: 54 anims/254 frames, 48 colors; scale gate 45 ok/8 manual/0 flagged. Body median 0.922; head median 0.943. Approved by user via Claude relay audit2 #3: “Approve, keep reach.” The measured palm reach (f2 x175–196; f3 x179–191, vs original x206–226 target) is accepted as drawn; hitboxes match the visible hand. Separate Astra technical HOLD: head probes .914 at f0/f1/f5 and front shoe 38–40 px vs idle 36 px; full segment comparison is uncertain. Claude runtime contact/grounding remains open. approvedVersion=8; approval remains distinct from technical clearance. See [inventory](characters/gojo/production/size-r8-b1/ATTEMPT_INVENTORY.md). |
+
+
 ## Spell effects round 1 (ART-SPELL-R1)
 
 The user approved shockRing v01, impactBurst v01 and flare v01 as drawn via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. This approves the drawings; Claude owns their engine integration. The [review gallery](../public/reviews/spell-fx-r1/index.html) preserves the frame-by-frame white, blue and orange comparisons beside current stand-ins. Generation paths and call budgets are recorded in the [call inventory](vfx/production/spell-fx-r1/CALLS.md).

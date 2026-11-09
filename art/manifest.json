@@ -932,8 +932,8 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 5,
-          "approvedVersion": 5
+          "version": 8,
+          "approvedVersion": 8
         },
         "light2": {
           "frames": 7,
