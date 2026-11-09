@@ -148,7 +148,8 @@ src/world/announcer.js      the live announcer (ADR 0048): walks the ring behind
 src/world/announcerSymbols.js  his manga symbols (sweat, !!, ?, dizzy ...): painted pixel maps on one sprite (ENG-119)
 src/world/voidStage.js      Unlimited Void (Gojo's domain): cosmos sky shader + black mirror floor, swapped in by
                             Game.startDomain via setStage('void'); with the super's `open` the view plays the anime's
-                            sequence (ADR 0049): the black sphere swallowing the arena (syncView waits for it), the
+                            sequence (ADR 0049): the black sphere swallowing the arena (syncView waits for it, and
+                            the sphere switches the stage itself once it reaches the camera), the
                             flooded head, the glass shatter at the end
 src/ui/
   hud.js                    health/ki bars + burst gems, timer, combo counter (blue when escapable) with its ticker
