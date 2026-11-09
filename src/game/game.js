@@ -17,7 +17,7 @@ import { makeBrain, DummyBrain } from './ai.js';
 import { Orb, Beam, Vortex, spawnProjectiles, ShotViews } from './projectiles.js';
 import { ULTIMATE, DEFENSE, THROW, CLASH, PROJECTILES, MELEE_CLASH } from './moves.js';
 import { makeChart, beatChart, seedOf, Judge } from './clash.js';
-import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, laneBody, releaseFist, resumeLaneStrike, isEnergy, ENERGY_LOCK, shroudLevel, modeLook, bombTick } from './kit.js';
+import { kitOf, rushBody, formingOrb, releaseOrb, resumeRampage, laneBody, releaseFist, resumeLaneStrike, isEnergy, ENERGY_LOCK, shroudLevel, modeLook, bombTick, purpleHold } from './kit.js';
 import { ShowDirector } from './showDirector.js';
 import { Pad } from '../core/input.js';
 import { audio } from '../core/audio.js';
@@ -1029,6 +1029,8 @@ export class Game {
       // the Spirit Bomb gathers through the super flash too (the kit state is still in its flash)
       const KS = f.state === 'kit' ? f.kitState : null;
       if (KS?.phase === 'flash' && KS.m?.bomb && this.superFlash?.who === f) bombTick(f, KS, KS.m, KS.m.bomb, this.superFlash.t / this.superFlash.len);
+      // and Hollow Purple's Red and Blue come into his palms before the merge
+      if (KS?.phase === 'flash' && KS.m?.kind === 'orb' && KS.m.look && this.superFlash?.who === f) purpleHold(f, KS, KS.m, this.superFlash.t / this.superFlash.len);
       if (f.state === 'charge') {
         lines = Math.max(lines, chargeTick(this, f, f.t, frozen)); // canon power-up per fighter (ENG-069)
         this.linesFocus = f;

@@ -64,7 +64,7 @@ export const STREAM_STYLES = {
   bolt: { fx: 'streamBolt', seg: 1.5, scroll: 9, tint: 0.55, glow: 0.45 },
   lance: { fx: 'streamLance', seg: 1.4, scroll: 14, tint: 0.4, glow: 0.4 },
   flame: { fx: 'streamFlame', seg: 1.6, scroll: 6, full: true, glow: 0.2 },
-  orb: { orb: 'redOrb', hd: 'reversalRed', push: 'redPush', orbScale: 0.5, hdScale: 0.95, pushScale: 0.9, front: { redOrb: 0.2, reversalRed: 0.15, redPush: 0.09 }, width: 0.42, wave: 'ripple', waveEvery: 0.14, waveLife: 0.22 },
+  orb: { orb: 'redOrb', hd: 'reversalRed', push: 'redPush', orbScale: 0.5, hdScale: 0.95, pushScale: 0.9, front: { redOrb: 0.2, reversalRed: 0.15, redPush: 0.09 }, width: 0.42, wave: 'ripple', waveGap: 0.5, waveRate: 3, waveScale: [0.22, 0.5], waveFrame: 1 },
 };
 
 // A palette's drawn band (`band`: an HD tile strip that continues the move's own art, ADR 0055) as a stream style, once
@@ -85,6 +85,8 @@ export function streamStyle(game, pal, inClash) {
 }
 const styleKey = (St) => St.fx ?? St.orb ?? 'ribbon';
 const BEAM_KEEPS = ['beamO', 'beamOx', 'beamHx', 'beamOrb', 'beamH', 'beamH2']; // BeamView.sync's held pieces (+ owner index)
+const ORB_RINGS = 12; // at most this many of Red's repulsion rings between his hand and the orb (BeamView.sync)
+const ringKey = (owner, j) => 'beamRing' + owner + '_' + j;
 
 const up = new THREE.Vector3(0, 1, 0);
 const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpC = new THREE.Vector3();
@@ -229,7 +231,6 @@ class BeamView {
     this.mesh.renderOrder = 6;
     this.mesh.matrixAutoUpdate = false;
     game.scene.add(this.mesh);
-    this.waveT = -1; // when the last ripple left the orb (render clock)
   }
 
   dispose() {
@@ -239,6 +240,7 @@ class BeamView {
     // its held pieces go with it: left to expire they hung on for 90 ms of wall time, a Red orb at the old clash point
     // after Gojo was launched (ENG-132)
     for (const k of BEAM_KEEPS) this.game.fx.drop(k + this.owner);
+    for (let j = 0; j < ORB_RINGS; j++) this.game.fx.drop(ringKey(this.owner, j));
   }
 
   // Orient the ribbon along the beam, widened toward the camera.
@@ -303,8 +305,8 @@ class BeamView {
     }
     if (St.orb) {
       // Reversal: Red shoved into the other attack (ADR 0055): the orb's front on the struggle point (the beam's head,
-      // which runs on through the loser when Red wins), swelling on a good beat; repulsion ripples run from the
-      // fingertips into it. The drawn shove (`push`) once approved, else the HD orb turned along the line, else the old one
+      // which runs on through the loser when Red wins), swelling on a good beat. The drawn shove (`push`) once approved,
+      // else the HD orb turned along the line, else the old one
       const art = fx.drawn(St.push) ? St.push : fx.drawn(St.hd) ? St.hd : St.orb;
       const sc = art === St.push ? St.pushScale : art === St.hd ? St.hdScale : St.orbScale;
       const s = sc * (beam.clash ? 1 + beam.clash.kick * 0.15 : 1) * beam.fade;
@@ -312,10 +314,15 @@ class BeamView {
       const ox = beam.origin.x + beam.dir.x * at, oy = beam.origin.y + beam.dir.y * at, oz = beam.origin.z + beam.dir.z * at;
       const it = fx.keep('beamOrb' + id, art, ox, oy, oz, { scale: s, order: 7, glow: 0.3, flipX: art !== St.orb && flip });
       it.rot = art !== St.orb ? (flip ? -phi : phi) : 0;
-      if (time - this.waveT >= St.waveEvery && beam.fade > 0.5 && at > 0.6) {
-        this.waveT = time;
-        const v = (at - 0.15) / St.waveLife, o = beam.origin;
-        fx.spawn(St.wave, o.x + beam.dir.x * 0.15, o.y + beam.dir.y * 0.15, o.z + beam.dir.z * 0.15, { scale: 0.2, grow: 1.6, life: St.waveLife, fade: true, vel: [beam.dir.x * v, beam.dir.y * v, beam.dir.z * v], color, opacity: 0.45, order: 6, glow: 0.3 });
+      // repulsion rings run from his fingertips into it: a row `waveGap` apart, marching on at `waveRate` gaps a second
+      // and swelling as they near it, so an orb shoved far out (fired from the air, a body width and more from his
+      // hand) stays tied to him. One ripple every 0.14 s faded out on the way, and the orb hung there alone (ENG-132)
+      const gap = at - 0.15, n = beam.fade > 0.5 && at > 0.6 ? Math.min(ORB_RINGS, Math.max(1, Math.floor(gap / St.waveGap))) : 0, o = beam.origin;
+      for (let j = 0; j < ORB_RINGS; j++) {
+        if (j >= n) { fx.drop(ringKey(id, j)); continue; }
+        const u = (j + ((time * St.waveRate) % 1)) / n, d = 0.15 + u * gap, W = St.waveScale;
+        const ring = fx.keep(ringKey(id, j), St.wave, o.x + beam.dir.x * d, o.y + beam.dir.y * d, o.z + beam.dir.z * d, { scale: W[0] + (W[1] - W[0]) * u, color, opacity: 0.8 * Math.min(1, u * 5, (1 - u) * 5), order: 6, glow: 0.3 });
+        if (ring) ring.frame = St.waveFrame;
       }
     } else if (!beam.clash && !St.fx) {
       fx.keep('beamH' + id, 'glow', h.x, h.y, h.z, { scale: (beam.hitting ? 1.25 : 0.95) * pulse * beam.fade, color, opacity: 1, order: 7, glow: 0.4 });

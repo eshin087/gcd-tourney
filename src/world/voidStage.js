@@ -20,15 +20,17 @@ const VS = /* glsl */ `
 
 // The cosmos seen in direction n: deep black, a faint indigo nebula, log-spiral galaxy arms round the core (uCore, kept
 // behind the fight on screen), the blinding core and the horizon line through it, starlight streaming out of the core
-// and stars; `sky` 0 leaves out the arms and the starlight (the mirror floor: reflected they snake). Hard bands (band) so
-// it reads like the pixel art rather than a soft gradient. Linear colors: keep the dark ones very dark, the output
-// encoding lifts them.
+// and stars; `sky` 0 leaves out the arms and the starlight (the mirror floor: reflected they snake), `core` 0 the core
+// and the horizon line (the opening sphere: a black ball, not a lamp). Hard bands (band) so it reads like the pixel art
+// rather than a soft gradient. Linear colors: keep the dark ones very dark, the output encoding lifts them. The core is
+// small and has no halo: a wide one (the old exp(-9 ang) bands in white were ~30 degrees across) filled the top of the
+// fight camera's screen as one flat grey shape, and its mirror image the floor (ENG-132)
 const COSMOS = /* glsl */ `
   uniform float uTime, uDim;
   uniform vec3 uCore;
   float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
   float band(float x, float n) { return floor(clamp(x, 0.0, 1.0) * n + 0.5) / n; }
-  vec3 cosmos(vec3 n, float sky) {
+  vec3 cosmos(vec3 n, float sky, float core) {
     float ang = acos(clamp(dot(n, uCore), -1.0, 1.0));
     vec3 ax1 = normalize(cross(uCore, vec3(0.0, 1.0, 0.0)));
     vec3 ax2 = cross(ax1, uCore);
@@ -37,8 +39,8 @@ const COSMOS = /* glsl */ `
     c += vec3(0.012, 0.008, 0.035) * band(exp(-ang * 1.6), 4.0);
     float arm = sin(2.0 * th + 6.0 * log(ang + 0.04) - uTime * 0.5);
     c += vec3(0.05, 0.09, 0.26) * band(smoothstep(0.8, 0.98, arm) * exp(-ang * 2.2), 3.0) * sky;
-    c += vec3(0.95, 1.0, 1.35) * band(exp(-ang * 9.0), 5.0) * 1.6;
-    c += vec3(0.4, 0.6, 1.0) * band(exp(-abs(n.y - uCore.y) * 45.0) * exp(-ang * 1.1), 3.0) * 0.7;
+    c += vec3(0.95, 1.0, 1.35) * band(exp(-ang * 26.0), 4.0) * 1.8 * core;
+    c += vec3(0.4, 0.6, 1.0) * band(exp(-abs(n.y - uCore.y) * 45.0) * exp(-ang * 1.1), 3.0) * 0.7 * core;
     float lanes = 48.0, u = (th + 3.14159) / 6.28318 * lanes, lane = floor(u);
     float pos = fract(ang * 0.55 - uTime * (0.35 + hash(vec2(lane, 3.0)) * 0.9) + hash(vec2(lane, 9.0)));
     float streak = step(0.9, pos) * step(0.5, hash(vec2(lane, 1.0))) * step(abs(fract(u) - 0.5), 0.1);
@@ -54,7 +56,7 @@ const SKY_FS = /* glsl */ `
   ${COSMOS}
   varying vec3 vW;
   void main() {
-    gl_FragColor = vec4(cosmos(normalize(vW), 1.0), 1.0);
+    gl_FragColor = vec4(cosmos(normalize(vW), 1.0, 1.0), 1.0);
   }`;
 
 // a black mirror: the cosmos reflected (more of it at grazing angles, so the far floor carries the blinding horizon the
@@ -68,29 +70,36 @@ const FLOOR_FS = /* glsl */ `
     float d = length(vW.xz);
     r.xz += 0.006 * sin(d * 3.0 - uTime * 1.5);
     float fres = 0.18 + 0.82 * pow(1.0 - abs(v.y), 4.0);
-    vec3 c = cosmos(normalize(r), 0.0) * fres * 0.8;
+    vec3 c = cosmos(normalize(r), 0.0, 1.0) * fres * 0.8;
     float ring = step(0.475, abs(fract(d * 0.35 - uTime * 0.25) - 0.5));
     c += vec3(0.035, 0.05, 0.12) * ring * exp(-d * 0.12);
     gl_FragColor = vec4(c, 1.0);
   }`;
 
-// the domain's black sphere bursting out of him: black, with a hard white-blue rim at its silhouette
+// the domain's black sphere bursting out of him: the void already inside it (its nebula, galaxy arms and stars seen
+// through it, with no core), a deep-blue shading toward its edge and a hard white-blue rim at its silhouette. Plain
+// black with a rim, it read as a flat 2D disc swelling over him (ENG-132)
 const SPHERE_VS = /* glsl */ `
   varying vec3 vN;
   varying vec3 vV;
+  varying vec3 vW;
   void main() {
     vec4 w = modelMatrix * vec4(position, 1.0);
+    vW = w.xyz;
     vN = normalize(mat3(modelMatrix) * normal);
     vV = normalize(cameraPosition - w.xyz);
     gl_Position = projectionMatrix * viewMatrix * w;
   }`;
 const SPHERE_FS = /* glsl */ `
+  ${COSMOS}
   varying vec3 vN;
   varying vec3 vV;
+  varying vec3 vW;
   void main() {
     float f = 1.0 - abs(dot(normalize(vN), normalize(vV)));
     float rim = floor(pow(f, 3.0) * 4.0 + 0.2) / 4.0;
-    gl_FragColor = vec4(vec3(0.75, 0.9, 1.4) * rim, 1.0);
+    vec3 c = cosmos(normalize(vW - cameraPosition), 1.0, 0.0) + vec3(0.03, 0.05, 0.16) * band(f * f, 3.0);
+    gl_FragColor = vec4(c + vec3(0.75, 0.9, 1.4) * rim, 1.0);
   }`;
 
 const tmp = new THREE.Vector3();
@@ -113,15 +122,18 @@ export function buildVoidStage(scene) {
   );
   sky.renderOrder = -10;
   group.add(sky);
-  const floor = new THREE.Mesh(new THREE.CircleGeometry(60, 64), new THREE.ShaderMaterial({ vertexShader: VS, fragmentShader: FLOOR_FS, uniforms }));
+  // out to just inside the sky, so the mirror meets the sky at the horizon: at 60 units its far edge cut the core's
+  // glow on screen with a ragged line (ENG-132)
+  const floor = new THREE.Mesh(new THREE.CircleGeometry(280, 128), new THREE.ShaderMaterial({ vertexShader: VS, fragmentShader: FLOOR_FS, uniforms }));
   floor.rotation.x = -Math.PI / 2;
   floor.position.y = RING_TOP - 0.002;
   group.add(floor);
   // lit things (debris) still need a light while the arena is hidden
   group.add(new THREE.HemisphereLight(0xbfd8ff, 0x101030, 1.4));
 
-  // the opening sphere lives outside the group: it shows over the arena it swallows
-  const sphere = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 20), new THREE.ShaderMaterial({ vertexShader: SPHERE_VS, fragmentShader: SPHERE_FS }));
+  // the opening sphere lives outside the group: it shows over the arena it swallows (both sides: from inside it the
+  // camera must still see it, never the arena again)
+  const sphere = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 20), new THREE.ShaderMaterial({ vertexShader: SPHERE_VS, fragmentShader: SPHERE_FS, uniforms, side: THREE.DoubleSide }));
   sphere.visible = false;
   scene.add(sphere);
   let opening = null; // { at, t, len } while the sphere grows
@@ -169,9 +181,16 @@ export function buildVoidStage(scene) {
         if (!game.domain) { opening = null; sphere.visible = false; }
         else {
           opening.t += dt;
-          const u = Math.min(1, opening.t / opening.len), reach = cam.position.distanceTo(opening.at) + 1.5;
-          sphere.scale.setScalar(Math.max(0.2, reach * (1 - (1 - u) * (1 - u))));
-          if (u >= 1) { opening = null; sphere.visible = false; }
+          const u = Math.min(1, opening.t / opening.len), dist = cam.position.distanceTo(opening.at), r = Math.max(0.2, (dist + 1.5) * (1 - (1 - u) * (1 - u)));
+          sphere.scale.setScalar(r);
+          // the void takes over as soon as the sphere has swallowed the camera, in this very frame: Game.syncView ran
+          // before this update, and the arena showed again (one frame, or the rest of the opening once the camera was
+          // inside a sphere drawn from outside only) before the void came in (ENG-132)
+          if (u >= 1 || r >= dist - cam.near * 2) {
+            opening = null;
+            sphere.visible = false;
+            game.setStage('void');
+          }
         }
       }
       if (shatter) {

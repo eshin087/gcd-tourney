@@ -42,7 +42,8 @@ with the beam and orb ultimates; the winner's attack **blasts through and stops*
   band (`Beam.restyle(true)`); its view is rebuilt when the style changes (`ShotViews`, by style key).
 - **Red** (`style: 'orb'`): no ribbon. The orb's front sits on the struggle point (the beam's head), so the head carries
   it through the loser when Red wins. Art: `redPush` once approved, else the HD `reversalRed` turned along the line, else
-  round 1's `redOrb`. Small repulsion ripples run from the fingertips into it.
+  round 1's `redOrb`. Small repulsion ripples run from the fingertips into it (since ENG-133 a row of them
+  no more than half a unit apart, so an orb shoved far out from an air shot stays tied to Gojo's hand).
 - **Kamehameha head in a clash**: drawn at 0.72 scale, its front on the struggle point, so two beams press into each
   other at the collision.
 - **Hollow Purple in a clash**: drawn at 0.7 scale (`look.clashScale`), its front on the struggle point and clear of the

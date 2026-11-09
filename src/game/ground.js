@@ -182,15 +182,20 @@ vec2 gdSlope = vec2(0.0);
   #if defined(GD_TINTED)
     diffuseColor.rgb = uTint * dot(gdTex.rgb, vec3(0.3, 0.59, 0.11)) * 1.8;
   #elif defined(GD_HOLO)
-    // the holo floor draws the damage as glowing outlines: luma and alpha edges against the 4 neighbor texels
+    // the holo floor draws the damage as thin glowing lines: the decal's outline (alpha edges against the 4 neighbor
+    // texels) and its dark crack lines (a dark texel beside a clearly lighter one), with its hot seams in the tint.
+    // Every luma step of the painted rubble lit up before, on top of a fill under the dark texels, so a crater under a
+    // punch read as a glowing cyan splash and a big burn (Kirin, the Spirit Bomb) as one flat bright oval (ENG-132)
     vec2 gdD = uRect.zw / vec2(uCell.x / uTile.x, uCell.y); // one texel
-    float gdL = dot(gdTex.rgb, vec3(0.3, 0.59, 0.11)), gdE = 0.0;
+    float gdL = dot(gdTex.rgb, vec3(0.3, 0.59, 0.11)), gdE = 0.0, gdC = 0.0;
     for (int i = 0; i < 4; i++) {
       vec2 o = i == 0 ? vec2(gdD.x, 0.0) : i == 1 ? vec2(-gdD.x, 0.0) : i == 2 ? vec2(0.0, gdD.y) : vec2(0.0, -gdD.y);
       vec4 n = texture2D(map, uRect.xy + gdT * uRect.zw + o);
-      gdE = max(gdE, n.a < 0.5 ? 1.0 : abs(gdL - dot(n.rgb, vec3(0.3, 0.59, 0.11))) * 3.0);
+      if (n.a < 0.5) gdE = 1.0;
+      else gdC = max(gdC, dot(n.rgb, vec3(0.3, 0.59, 0.11)) - gdL);
     }
-    diffuseColor.rgb = uLine * (min(gdE, 1.0) * 1.4 + (1.0 - gdL) * 0.18) + uTint * gdHeat * 2.0;
+    float gdLine = max(gdE * 0.8, step(0.2, gdC) * (1.0 - smoothstep(0.22, 0.5, gdL)) * 0.6);
+    diffuseColor.rgb = uLine * gdLine + uTint * gdHeat * 0.8;
   #elif defined(GD_FLOOR)
     // Ring damage is the ring's own stone, broken: the art only says how much darker (and how deep) each texel is
     // than untouched stone, and the floor texture under it shows through, grid lines included. Painted rim tones

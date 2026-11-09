@@ -39,7 +39,8 @@ none of it feeds the simulation (no new simulation state; the determinism fixtur
    glow disc, erased specks drawn into it and its own hit (`burst`) instead of the explosion. A looping `beamCharge`
    keeps the hands apart and the two drift together. The spawn point and the clash body stay where they were.
 6. **Domain (Unlimited Void):** `open` makes `Game.startDomain` hand the opening to the view: a black sphere with a hard
-   rim bursts out of him and swallows the arena (`voidStage.open`; `Game.syncView` keeps the arena until it has),
+   rim (the void's stars seen through it) bursts out of him and swallows the arena (`voidStage.open`; `Game.syncView`
+   keeps the arena until it has, and the view switches to the void the moment the sphere reaches the camera),
    then the cosmos inside (a log-spiral galaxy round a core kept behind the fight, streaming starlight and stars in the
    sky; a black mirror floor whose Fresnel reflection carries the horizon the fight camera rarely sees; specks of
    starlight rushing past the camera), the frozen opponent's head flooded with light (`flood`), and `shatter`, a pane

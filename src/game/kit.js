@@ -198,6 +198,10 @@ export function releaseOrb(f) {
   return fo && formOrb(f, fo.k, fo.S);
 }
 
+// where Red and Blue become Purple: [forward, up] off his feet. The orb is released there (formOrb), and the drawn
+// collision rolls onto it as it grows (mergeLook)
+const PURPLE_AT = [0.9, 0.98];
+
 // Red and Blue become Purple 0.9 ahead of him, and it rolls out
 function formOrb(f, k, S) {
   const g = f.game, id = 'purple' + f.index;
@@ -205,7 +209,7 @@ function formOrb(f, k, S) {
   g.fx.drop(id + 'b');
   g.fx.drop(id + 'g');
   g.fx.drop(id + 'f');
-  const ob = g.spawnOrb(f, S, new THREE.Vector3(f.pos.x + f.face.x * 0.9, f.pos.y + 0.98, f.pos.z + f.face.y * 0.9), k.ultimate);
+  const ob = g.spawnOrb(f, S, new THREE.Vector3(f.pos.x + f.face.x * PURPLE_AT[0], f.pos.y + PURPLE_AT[1], f.pos.z + f.face.y * PURPLE_AT[0]), k.ultimate);
   k.phase = 'fire';
   k.t0 = 0;
   return ob;
@@ -252,14 +256,17 @@ function mergeLook(f, k, S, a) {
   const pick = (list) => list?.[Math.min(i, list.length - 1)];
   const P = f.renderPos || f.pos;
   const fixed = (fwd, up) => new THREE.Vector3(P.x + f.face.x * fwd, P.y + up, P.z + f.face.y * fwd);
-  const meet = drawnPoint(f, H?.meet) ?? fixed(0.9, 0.98);
-  // the collision plays by progress from formF to the release (formOrb drops it), so it never outlasts the merge
+  const meet = drawnPoint(f, H?.meet) ?? fixed(...PURPLE_AT);
+  // the collision plays by progress from formF to the release (formOrb drops it), so it never outlasts the merge. It
+  // starts where the palms meet and rolls forward as it grows, onto the spot the orb is released from: centred on the
+  // palms all the way, its last frames (a body wide) covered his chest and the orb then popped out ahead (ENG-132)
   const formAt = drawn ? L.formAt ?? 0.3 : 0.55, formF = Math.max(1, Math.round(formAt * mergeOf(k)));
   if (k.t0 >= formF) {
     g.fx.drop(id + 'r');
     g.fx.drop(id + 'b');
-    const it = g.fx.keep(id + 'f', L.form, meet.x, meet.y, meet.z, { scale: L.formScale ?? 0.8, order: 9, depthTest: false });
-    if (it?.a) it.frame = Math.min(it.a.n - 1, Math.floor(((k.t0 - formF) / Math.max(1, mergeOf(k) - formF)) * it.a.n));
+    const p = Math.min(1, (k.t0 - formF) / Math.max(1, mergeOf(k) - formF)), at = meet.lerp(fixed(...PURPLE_AT), p * p * (3 - 2 * p));
+    const it = g.fx.keep(id + 'f', L.form, at.x, at.y, at.z, { scale: L.formScale ?? 0.8, order: 9, depthTest: false });
+    if (it?.a) it.frame = Math.min(it.a.n - 1, Math.floor(p * it.a.n));
     return;
   }
   const e = a * a * (3 - 2 * a), pull = drawn ? a * a * a : e;
@@ -268,6 +275,21 @@ function mergeLook(f, k, S, a) {
   const s = (L.handScale ?? 0.3) * (1 + 0.06 * dmath.sin(k.t0 * 0.9));
   g.fx.keep(id + 'r', L.red, r.x, r.y, r.z, { scale: s, order: 9, flipX: f.actor.flip < 0 });
   g.fx.keep(id + 'b', L.blue, b.x, b.y, b.z, { scale: s, order: 9 });
+}
+
+// Hollow Purple through its super flash (Game.fxTicks, the kit state still in its flash; `u` the flash's progress): Red
+// and Blue swell into his palms on the flash's held frame as the ultimate splash clears, under the same ids, so the merge
+// carries on from them. His hands were empty for the whole flash, about 85 frames (ENG-132). View only
+export function purpleHold(f, k, S, u) {
+  const L = S.look, id = 'purple' + f.index, H = f.def.hands?.[S.pose ?? 'beamCharge'], i = f.actor.fi ?? 0;
+  const pick = (list) => list?.[Math.min(i, list.length - 1)];
+  const P = f.renderPos || f.pos;
+  const fixed = (fwd, up) => new THREE.Vector3(P.x + f.face.x * fwd, P.y + up, P.z + f.face.y * fwd);
+  const w = Math.min(1, Math.max(0, (u - 0.2) / 0.5)), s = (L.handScale ?? 0.3) * w * w * (3 - 2 * w);
+  if (s < 0.02) return;
+  const r = drawnPoint(f, pick(H?.near)) ?? fixed(-0.58, 1.06), b = drawnPoint(f, pick(H?.far)) ?? fixed(0.59, 1.06);
+  f.game.fx.keep(id + 'r', L.red, r.x, r.y, r.z, { scale: s, order: 9, flipX: f.actor.flip < 0 });
+  f.game.fx.keep(id + 'b', L.blue, b.x, b.y, b.z, { scale: s, order: 9 });
 }
 
 // a won clash: the pounce went through, so the beast roars it out (the recover phase, still in the shroud)
@@ -686,7 +708,9 @@ function stormTick(f, k, S, W) {
       const r = Math.random() * S.radius * 0.9, q = Math.random() * Math.PI * 2;
       g.fx.spawn('arc', a.x + dmath.cos(q) * r, 0.12, a.z + dmath.sin(q) * r * 0.6, { scale: 0.35, life: 0.1, color: 0xd8f0ff, rot: q, order: 7, glow: 1 });
     }
-    if (level > 0.6 && Math.random() < 0.07) {
+    // flashes under the clouds only for the old clouds: the drawn ones light up inside and drop their own fork, and
+    // this crackle star (`lightning` is a radial splash, not a bolt) hung in mid-air beside the dragon (ENG-132)
+    if (level > 0.6 && !g.fx.drawn?.('stormCloud') && Math.random() < 0.07) {
       const off = (Math.random() - 0.5) * W.spread * W.clouds * 0.8;
       g.fx.spawn('lightning', a.x + R.x * off, W.height - 0.7, a.z + R.z * off, { scale: 0.8, random: true, life: 0.08, color: 0xd8f0ff, rot: Math.PI / 2, order: 2, glow: 1.6 });
     }

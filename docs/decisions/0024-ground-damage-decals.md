@@ -58,7 +58,9 @@ decals next to a floor drawn at 64 px per unit.
   and path, clip inside the ring footprint and use the dirt names), the brick stand walls (a KO crash leaves a hole,
   body-shaped when it was fast, until the round resets), and the ki barrier (a wall bounce cracks it in the barrier's
   color; it flickers, dissolves and sheds falling shards). The training room draws decals as holographic outlines in
-  the grid's color (no 3D rubble); the domain hides the arena's decals and skips new ones.
+  the grid's color (no 3D rubble): the decal's outline and its dark crack lines only, never its painted rubble, so a
+  crater under a punch is not a glowing splash and a big burn is not a flat bright oval (ENG-133); the
+  domain hides the arena's decals and skips new ones.
 - **Charge.** One decal per charging fighter upgrades in place (crack_s, crack 50 frames later, fracture_ring 110
   frames after crack_s, then the fighter's own fracture when the gauge fills, with chunks and slabs).
   `ground.charge: false` keeps the floor still (Gojo: Infinity). The power-up effects (`src/game/chargeFx.js`, ADR 0023) call

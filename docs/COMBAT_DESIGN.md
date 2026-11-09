@@ -376,8 +376,8 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
 - **Domain** (`unlimitedVoid`, Gojo): a 50-frame flash, then the stage becomes the void
   (`src/world/voidStage.js`) and the opponent is `held` for 150 frames (~2.5 s) while Gojo combos freely.
   The domain ends early on a KO. The anime's sequence (ADR 0049, view only): the Six Eyes glint as the blindfold comes
-  up, a black sphere bursting out of him that swallows the arena (18 frames), an endless cosmos inside on a black mirror
-  floor, light flooding the frozen opponent's head, and the void shattering like glass when it ends. The hold starts
+  up, a black sphere bursting out of him with the void's stars inside it that swallows the arena (18 frames at most:
+  the void takes over the moment it reaches the camera), an endless cosmos inside on a black mirror floor, light flooding the frozen opponent's head, and the void shattering like glass when it ends. The hold starts
   the frame the domain opens, as before.
 - Super hits carry `minScale` (0.8 for the flurries): combo scaling never takes them below 80 %.
 - A fighter without a second super fires their ultimate from SUPER.
@@ -390,9 +390,11 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   for 26 frames and fuse 0.9 ahead of him; the orb (radius 1.45) rolls forward at 15 units/s for up to 2.4 s,
   erases the opponent's projectiles and vortices, carves a trench, and hits once for 260 (unblockable, unscaled,
   wall bounce). Gojo recovers 24 frames after the release. Avoid it by leaving its lane or vanishing. The anime's look
-  (ADR 0049): Red in his near palm and Blue in his far one, his hands bringing them together (`beamCharge` played by
-  the merge's progress), the two colliding into Purple, the HD mass erasing a clean trench, and a violet hit that
-  swallows them instead of the white explosion; the Six Eyes glint as the merge starts. Timing unchanged.
+  (ADR 0049): Red in his near palm and Blue in his far one (swelling in through the flash's held frame, so the
+  splash clears on them), his hands bringing them together (`beamCharge` played by the merge's progress), the two
+  colliding into Purple where his palms meet and rolling forward as it grows onto the spot the orb is released from,
+  the HD mass erasing a clean trench, and a violet hit that swallows them instead of the white explosion; the Six Eyes
+  glint as the merge starts. Timing unchanged.
 - **Rampage** (kind `rampage`, ADR 0017): a roar, a pounce on all fours committed to its line, a mauling for what it
   catches. Naruto's old Four-Tails; no fighter uses it since ADR 0045, the kind stays for a future one.
 - **Godspeed: Whirlwind** (Killua, kind `reflex`): a 40-frame flash, then for 300 frames his body answers up to 4
@@ -546,8 +548,8 @@ with each side's attack drawn as a stream from their hands. Numbers in `CLASH.st
 - **How it looks** (ADR 0034, 0055): each move keeps its shape (`stream.style`), drawn in its own HD band once
   approved (`stream.band`: spearStream, palmStream, fireballStream): Lightning Palm a branching white-violet zigzag,
   Chidori Spear a straight lightning lance, Great Fireball a fire torrent (bands tiled along the stream). Reversal: Red
-  is its orb shoved forward, its front on the meeting point, repulsion ripples running into it from Gojo's fingertips
-  (no stream). A Rasengan / Chidori is held at the hand; the Dragon Fist keeps its golden envelope (and, once drawn,
+  is its orb shoved forward, its front on the meeting point, a row of repulsion rings marching into it from Gojo's
+  fingertips (no stream), so an orb shoved far out (fired from the air) stays tied to his hand. A Rasengan / Chidori is held at the hand; the Dragon Fist keeps its golden envelope (and, once drawn,
   its dragon bursts from the fist to the meeting point). Two knots (one per side's color, `clashKnot` once approved,
   else `clashBurst`) mark the meeting point in front of everything inside a size budget; the aura thins to its flames
   (no glow disc), no glow discs at the hands, the flashes are short and colored, so both fighters stay readable. A
