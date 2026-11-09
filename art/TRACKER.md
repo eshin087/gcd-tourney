@@ -514,12 +514,15 @@ manifest lists all ten per fighter (status `todo`, bodyHeight copied from that f
 ## VFX atlas (step 10)
 
 Brief: [vfx/EFFECTS.md](vfx/EFFECTS.md). Candidates `art/vfx/raw/<effect>_vNN.png` (the packer uses
-the highest version). VFX cells stay 128 x 128 (ppu 56). Missing effects fall back to the procedural
+the highest version). Standard VFX cells stay 128 x 128 (ppu 56); entries marked HD use 256 x 256 cells at 112 ppu (see [CLASH_HD_BRIEF.md](vfx/CLASH_HD_BRIEF.md)). Missing effects fall back to the procedural
 ones.
 
 | effect | frames | ms | color rule | anchor | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|
 | clashKnot | 8 | 40 | white (tinted) | center | approved | v02 | v02 | ART-CLASH-HD collision knot; approved as drawn via Claude relay beam-clash-6 #3 (“Approve all 8 (Recommended)”). See [call inventory](vfx/production/clash-hd/CALLS.md) and [review page](../public/reviews/clash-hd/index.html). |
+| shockRing | 6 | 45 | white (tinted) | center | approved | v01 | v01 | ART-SPELL-R1; approved as drawn by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. Candidate pack 6/6 at x0.968. |
+| impactBurst | 6 | 40 | white (tinted) | center | approved | v01 | v01 | ART-SPELL-R1; approved as drawn by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. Candidate pack 6/6 at x1.0. |
+| flare | 4 | 60 | white (tinted) | center | approved | v01 | v01 | ART-SPELL-R1; approved as drawn by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. Candidate pack 4/4 at x1.316. |
 | spearStream | 4 | 35 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Chidori Spear stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
 | palmStream | 4 | 30 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Lightning Palm stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
 | fireballStream | 4 | 50 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Great Fireball stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |

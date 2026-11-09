@@ -36,7 +36,7 @@
     "cell": 256,
     "ppu": 112,
     "pages": [
-      { "image": "atlas_hd_shared.png", "owner": "shared", "cols": 8, "rows": 3 },
+      { "image": "atlas_hd_shared.png", "owner": "shared", "cols": 8, "rows": 6 },
       { "image": "atlas_hd_sasuke.png", "owner": "sasuke", "cols": 8, "rows": 15 },
       { "image": "atlas_hd_killua.png", "owner": "killua", "cols": 8, "rows": 11 },
       { "image": "atlas_hd_goku.png", "owner": "goku", "cols": 10, "rows": 16 },
@@ -49,6 +49,9 @@
       "clashKnot": { "page": 0, "row": 0, "n": 8, "ms": 40 },
       "poof": { "page": 0, "row": 1, "n": 7, "ms": 40 },
       "subLog": { "page": 0, "row": 2, "n": 5, "ms": 70 },
+      "shockRing": { "page": 0, "row": 3, "n": 6, "ms": 45 },
+      "impactBurst": { "page": 0, "row": 4, "n": 6, "ms": 40 },
+      "flare": { "page": 0, "row": 5, "n": 4, "ms": 60 },
       "spearStream": { "page": 1, "row": 0, "n": 4, "ms": 35 },
       "fireballStream": { "page": 1, "row": 1, "n": 4, "ms": 50 },
       "chidori": { "page": 1, "row": 2, "n": 8, "ms": 35 },

@@ -32,6 +32,9 @@ const shellLooks = new WeakMap(); // a power-up's `shell` data -> the same with 
 const zAxis = new THREE.Vector3(0, 0, 1), xAxis = new THREE.Vector3(1, 0, 0);
 // round 1's stand-ins and the HD redraws that replace them once approved (ENG-132, ART-SPELL-R1): [name, scale factor]
 const HD_FOR = { ring: ['shockRing', 1], burst: ['impactBurst', 1], clashBurst: ['impactBurst', 1] };
+// their bloom at most this: they read by their shape (the brief), and a stand-in's heavy glow on the HD ring turned
+// Killua's Whirlwind shockwave into a thick white band across both fighters
+const HD_GLOW = 0.35;
 // a held light at a hand or a beam's root: the drawn `flare` once approved, else the stepped glow no bigger than this
 // (a bigger one read as a flat bubble round the hand: the user's "glow discs", 2026-11-08)
 const LIGHT_MAX = 0.3;
@@ -273,7 +276,7 @@ export class Effects {
     // round 1's 128 px ring and starbursts read low-res beside the HD art (ENG-132): once their HD redraws are approved
     // (art/vfx/SPELL_FX_R1_BRIEF.md) they stand in everywhere; a held (looping) one keeps its own strip
     const hd = !o.loop && HD_FOR[name];
-    if (hd && this.drawn(hd[0])) { o = { ...o, scale: (o.scale ?? 1) * hd[1], ms: undefined, frame: undefined }; name = hd[0]; }
+    if (hd && this.drawn(hd[0])) { o = { ...o, scale: (o.scale ?? 1) * hd[1], ms: undefined, frame: undefined, glow: Math.min(o.glow ?? 0, HD_GLOW) }; name = hd[0]; }
     const { a, S, wait } = this.source(name);
     const mat = new THREE.ShaderMaterial({
       uniforms: {
