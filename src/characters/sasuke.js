@@ -149,6 +149,7 @@ export default {
   id: 'sasuke',
   name: 'SASUKE',
   subtitle: 'Last of the Clan',
+  rival: 'naruto', // arcade (ADR 0058): always the GRAND FINAL of his run
   look: 'spiky black hair with a blue sheen swept back, long bangs framing the face, dark eyes, dark blue forehead protector, navy high-collar short-sleeve shirt, white arm warmers, white shorts, white leg wraps, dark sandals',
   color: '#4a7bff',
   aura: [0.25, 0.55, 1.0],

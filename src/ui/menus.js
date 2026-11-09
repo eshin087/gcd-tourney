@@ -5,6 +5,7 @@ import { IS_TOUCH_DEVICE } from '../core/touch.js';
 import { kitOf } from '../game/kit.js';
 import { SPECIAL_MOVES, SUPERS } from '../game/moves.js';
 import { CPU_LEVELS, WATCH_LEVELS } from '../game/ai.js';
+import { COURSES, COURSE_IDS, MAX_RIVALS, loadRecords, recordFor, clearedIds } from '../game/arcade.js';
 import { loopStart } from '../game/animPhase.js';
 import { QUICK } from '../net/quickChat.js';
 
@@ -73,6 +74,7 @@ const NO_COVER = Object.freeze({ x: 0, y: 0 }); // resultsCover() off the result
 // cursor a screen returns to (a hard-coded index went stale when CPU VS CPU was added). The ids of the
 // fight rows (solo, versus, cpu) are the charSelect / startMatch mode strings.
 const MODES = [
+  { id: 'arcade', label: 'ARCADE', sub: 'beat the whole cast, one round each · then face your shadow' },
   { id: 'solo', label: 'VS CPU', sub: 'fight the computer' },
   { id: 'versus', label: '2 PLAYERS', sub: 'same keyboard or two gamepads' },
   { id: 'online', label: 'ONLINE', sub: 'a room for you and your friends · watch while you wait' },
@@ -375,7 +377,8 @@ export class Menus {
     audio.play('ui');
   }
 
-  // mode: 'solo' | 'versus' | 'cpu' | 'training'. onBack overrides where Esc on the first pick goes.
+  // mode: 'solo' | 'versus' | 'cpu' | 'training' | 'arcade'. onBack overrides where Esc on the first pick goes.
+  // Arcade (ADR 0058) picks one fighter, then the course instead of a CPU level, and stars the fighters with a clear.
   charSelect(mode, onBack = null) {
     if (!this.game.loaded) return this.game.whenLoaded(() => this.charSelect(mode, onBack)); // it shows every fighter's art
     this.clear();
@@ -389,11 +392,14 @@ export class Menus {
     let step = 0; // 0 = P1 picking, 1 = P2/CPU picking, 2 = difficulty
     const picks = [null, null];
     const cpuLevel = mode === 'solo' || mode === 'cpu'; // modes with a difficulty step
-    const levels = (mode === 'cpu' ? WATCH_LEVELS : CPU_LEVELS).map((l) => l.toUpperCase());
-    let level = mode === 'cpu' ? levels.length - 1 : 1; // spectating defaults to GOD: the point is to watch the best bots
-    const tags = { solo: ['P1', 'CPU'], cpu: ['CPU 1', 'CPU 2'], training: ['P1', 'DUMMY'] }[mode] || ['P1', 'P2'];
-    const who = { solo: ['P1', 'Pick the CPU opponent'], cpu: ['Pick CPU 1', 'Pick CPU 2'], training: ['P1', 'Pick the training dummy'] }[mode] || ['P1', 'P2'];
-    const go = mode === 'cpu' ? 'WATCH' : 'FIGHT';
+    const arcade = mode === 'arcade'; // one pick, then the course
+    const levels = (arcade ? COURSE_IDS.map((c) => COURSES[c].label) : mode === 'cpu' ? WATCH_LEVELS : CPU_LEVELS).map((l) => l.toUpperCase());
+    let level = mode === 'cpu' ? levels.length - 1 : 1; // spectating defaults to GOD: the point is to watch the best bots; arcade to NORMAL
+    const recs = arcade ? loadRecords() : null;
+    const stars = arcade ? clearedIds(recs) : null;
+    const tags = { solo: ['P1', 'CPU'], cpu: ['CPU 1', 'CPU 2'], training: ['P1', 'DUMMY'], arcade: ['P1', 'ARCADE'] }[mode] || ['P1', 'P2'];
+    const who = { solo: ['P1', 'Pick the CPU opponent'], cpu: ['Pick CPU 1', 'Pick CPU 2'], training: ['P1', 'Pick the training dummy'], arcade: ['P1', ''] }[mode] || ['P1', 'P2'];
+    const go = mode === 'cpu' ? 'WATCH' : arcade ? 'START' : 'FIGHT';
 
     const title = el('div', 'screen-title', mode === 'cpu' ? 'CHOOSE THE FIGHTERS' : 'CHOOSE YOUR FIGHTER');
     const wrap = el('div', 'cs-wrap');
@@ -419,6 +425,7 @@ export class Menus {
       if (i < roster.length) {
         c.append(portraitCanvas(assets[i], 34));
         c.style.setProperty('--pc', roster[i].color);
+        if (stars?.has(roster[i].id)) c.classList.add('cleared');
       } else {
         c.classList.add('locked');
         c.innerHTML = '<span>?</span>';
@@ -433,7 +440,28 @@ export class Menus {
     wrap.append(sides[0].s, grid, sides[1].s);
     this.root.append(title, wrap, diff, hint);
 
+    // arcade: the right panel describes the run (and the picked course's climb) instead of a second fighter
+    const arcadeSide = () => {
+      const S = sides[1], C = COURSES[COURSE_IDS[level]];
+      S.preview = null;
+      S.art.classList.add('hidden');
+      S.cv.classList.add('hidden');
+      S.name.textContent = 'TOURNAMENT';
+      S.name.style.color = '';
+      S.sub.textContent = `${Math.min(MAX_RIVALS, roster.length - 1)} rivals · then your shadow`;
+      S.moves.innerHTML = step === 2
+        ? C.levels.map((l, k) => `<div>stage ${k + 1} <b>${l.toUpperCase()}</b></div>`).join('') + `<div>shadow <b>${C.boss.toUpperCase()}</b></div>`
+        : '<div>lose a fight? <b>CONTINUE</b></div><div>each continue halves the score</div>';
+      this.previews = sides.map((x) => x.preview).filter(Boolean);
+    };
+    // the picked fighter's record on the chosen course
+    const recLine = () => {
+      const r = recordFor(recs, COURSE_IDS[level], roster[picks[0]]?.id);
+      return r ? `BEST ${r.best.toLocaleString('en-US')} · CLEARED ${r.clears}×${r.clean ? ' · NO-CONTINUE ★' : ''}` : 'NOT CLEARED YET';
+    };
+
     const showSide = (i, idx, anim = 'idle') => {
+      if (arcade && i === 1) return arcadeSide();
       const S = sides[i];
       if (idx == null || idx >= roster.length) {
         S.name.textContent = idx == null ? '' : 'COMING SOON';
@@ -475,11 +503,13 @@ export class Menus {
         c.classList.toggle('picked2', picks[1] === i);
       });
       if (step < 2) showSide(step, cursor);
+      else if (arcade) arcadeSide(); // the course's climb follows the course
       diff.classList.toggle('hidden', step !== 2);
-      diff.innerHTML = `<span class="arrow">◀</span> CPU LEVEL: <b>${levels[level]}</b> <span class="arrow">▶</span>`;
+      diff.innerHTML = `<span class="arrow">◀</span> ${arcade ? 'COURSE' : 'CPU LEVEL'}: <b>${levels[level]}</b> <span class="arrow">▶</span>` +
+        (arcade ? `<small>${recLine()}</small>` : '');
       const touchUi = this.game.input.lastDevice === 'touch';
       hint.textContent = touchUi
-        ? step === 2 ? `Tap ◀ ▶ to change the level · tap the level to ${go}` : 'Tap a fighter to pick'
+        ? step === 2 ? `Tap ◀ ▶ to change the ${arcade ? 'course' : 'level'} · tap it to ${go}` : 'Tap a fighter to pick'
         : step === 2 ? `Left/Right to change · Enter to ${go} · Esc to go back`
         : `${who[step]} · Arrows/WASD to move · Enter to select · Esc to go back`;
     };
@@ -490,14 +520,19 @@ export class Menus {
       if (step === 0) {
         picks[0] = cursor;
         showSide(0, cursor, 'taunt');
-        step = 1;
-        cursor = roster.length > 1 ? (cursor + 1) % roster.length : 0;
+        if (arcade) step = 2; // no second pick: the run brings the rivals
+        else {
+          step = 1;
+          cursor = roster.length > 1 ? (cursor + 1) % roster.length : 0;
+        }
       } else if (step === 1) {
         picks[1] = cursor;
         showSide(1, cursor, 'taunt');
         if (cpuLevel) step = 2;
         else if (mode === 'training') return this.game.startTraining({ p1: roster[picks[0]].id, p2: roster[picks[1]].id });
         else return this.game.startMatch({ mode, p1: roster[picks[0]].id, p2: roster[picks[1]].id });
+      } else if (arcade) {
+        return this.game.startArcade(roster[picks[0]].id, COURSE_IDS[level]);
       } else {
         return this.game.startMatch({ mode, p1: roster[picks[0]].id, p2: roster[picks[1]].id, level: levels[level].toLowerCase() });
       }
@@ -520,7 +555,7 @@ export class Menus {
       back: () => {
         audio.play('ui');
         if (step === 0) return onBack ? onBack() : this.modeSelect(this.modeIndex(mode));
-        step--;
+        step = arcade ? 0 : step - 1;
         picks[step] = null;
         if (step === 0) showSide(1, null);
         render();

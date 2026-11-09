@@ -29,7 +29,9 @@ import { ROSTER, getChar } from '../characters/index.js';
 import { loadFighterAsset, fighterMeta, actorView } from './sprites.js';
 import { saveState, loadState } from './snapshot.js';
 import { BoxViewer } from './boxViewer.js';
-import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT, MAX_KI } from './constants.js';
+import { DT, ROUND_TIME, ROUNDS_TO_WIN, RING_TOP, ARENA_LIMIT, MAX_KI, MAX_HP } from './constants.js';
+import { ArcadeRun, BOSS, shadowDef, saveClear } from './arcade.js';
+import { arcadeLadder, arcadeClear, arcadeDefeat, arcadeChampion } from '../ui/arcadeMenus.js';
 
 const v3 = new THREE.Vector3();
 // Stands in for the HUD, camera, effects, stages and menus while a rollback re-simulates frames that were already shown
@@ -153,6 +155,9 @@ export class Game {
     this.excite = 0.15;
     this.timeLeft = ROUND_TIME;
     this.round = 1;
+    this.roundsToWin = ROUNDS_TO_WIN; // per match: an arcade rival fight is a single round (ADR 0058)
+    this.arcade = null; // the arcade fight under way ({ opp, level, stage, boss, rounds, no, of, course }), or null
+    this.arcadeRun = null; // the arcade run between fights (arcade.js ArcadeRun)
     this.freeze = 0;
     this.superFlash = null;
     this.dim = 0;
@@ -253,11 +258,17 @@ export class Game {
     audio.init();
     this.cleanupMatch();
     this.arena.shuffleCrowd(); // a different crowd every match
-    const defs = [getChar(cfg.p1), getChar(cfg.p2)];
-    const assets = defs.map((d) => this.rosterAssets[ROSTER.indexOf(d)]);
+    // arcade (ADR 0058): a fight of the run; the last one is a dark mirror of the player's own fighter
+    this.arcade = cfg.arcade ?? null;
+    this.roundsToWin = cfg.arcade?.rounds ?? ROUNDS_TO_WIN;
+    this.arcadeStats = this.arcade ? { hurt: false, best: 0, frames: 0 } : null;
+    const base = [getChar(cfg.p1), getChar(cfg.p2)];
+    const assets = base.map((d) => this.rosterAssets[ROSTER.indexOf(d)]);
+    const defs = this.arcade?.boss ? [base[0], shadowDef(base[1])] : base;
     this.assets = assets;
     this.fighters = defs.map((d, i) => new Fighter(this, d, assets[i], i));
-    if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18); // mirror match tint
+    if (this.arcade?.boss) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(...BOSS.tint);
+    else if (defs[0] === defs[1]) this.fighters[1].actor.mat.uniforms.tint.value.setRGB(0.78, 0.86, 1.18); // mirror match tint
     this.fx.ground.prepare(this.fighters, this.renderer.renderer); // their decal pages, uploaded now
     this.fx.prepare(this.fighters, this.renderer.renderer); // and their HD effect pages (ADR 0053)
     for (const a of assets) a.prepare(this.renderer.renderer); // and every sheet page (SheetAsset.prepare)
@@ -279,7 +290,12 @@ export class Game {
     this.director = this.watching ? new ShowDirector(this) : null; // spectator-only choreography (ADR 0027)
     // online: this machine's player on every device (a spectator on none); the other side arrives over the network
     this.input.bind(this.pads, cfg.mode === 'online' ? (cfg.spectate ? 'cpu' : 'solo') : cfg.mode === 'solo' || cfg.mode === 'cpu' ? cfg.mode : 'versus');
-    this.hud.setup(this.fighters, assets, matchHint(this.hintMode, deviceLayout(this.input)));
+    const A = this.arcade;
+    this.hud.setup(this.fighters, assets, matchHint(this.hintMode, deviceLayout(this.input)), {
+      rounds: this.roundsToWin,
+      stage: A ? `STAGE ${A.no} · ${A.stage}` : '',
+      shadow: A?.boss ? 1 : -1,
+    });
     this.round = 1;
     this.frameNo = 0; // per match: cooldown stamps and beam-clash charts read it, and every machine must agree
     this.nextShotId = 0;
@@ -474,6 +490,8 @@ export class Game {
   cleanupMatch() {
     this.training = false;
     this.domain = null;
+    this.arcade = this.arcadeStats = null; // the run itself (arcadeRun) outlives its fights
+    this.roundsToWin = ROUNDS_TO_WIN;
     for (const v of this.vortices) v.kill();
     this.vortices = [];
     this.setStage('arena');
@@ -543,6 +561,7 @@ export class Game {
     this.koTriggered = false;
     this.roundWinner = null;
     for (const p of this.pads) p.clear();
+    if (this.arcade?.boss) b.ki = Math.max(b.ki, BOSS.startKi); // the shadow starts every round with bars in hand
   }
 
   // Start-of-round facing in world space: the camera can still be on the menu orbit
@@ -691,7 +710,59 @@ export class Game {
 
   exitTraining() { this.toMenu(() => this.menus.modeSelect(this.menus.modeIndex('training'))); }
 
-  quitToTitle() { this.toMenu(() => this.menus.title()); }
+  quitToTitle() {
+    this.arcadeRun = null; // quitting mid-run gives it up
+    this.toMenu(() => this.menus.title());
+  }
+
+  // ------------------------------------------------------------ arcade (ADR 0058; rules in arcade.js, screens in arcadeMenus.js)
+  // A run is a ladder of solo matches: each fight is a VS CPU match with an `arcade` entry in its cfg, so every rule
+  // that tells a person from a CPU (input binding, hints, the CPU brain) works as in VS CPU.
+  startArcade(p1, course, seed) {
+    this.arcadeRun = new ArcadeRun({ p1, course, roster: ROSTER, seed });
+    this.arcadeLadder();
+  }
+
+  // the ladder screen between fights, over the arena's menu orbit
+  arcadeLadder() {
+    const run = this.arcadeRun;
+    this.toMenu(() => arcadeLadder(this.menus, run, { fight: () => this.arcadeFight(), quit: () => this.quitToTitle() }));
+  }
+
+  arcadeFight() {
+    const run = this.arcadeRun, F = run.fight;
+    this.startMatch({ mode: 'solo', p1: run.p1, p2: F.opp, level: F.level, arcade: { ...F, no: run.stageNo, of: run.fights.length, course: run.course } });
+  }
+
+  // per fixed frame while an arcade fight runs: whether the player has taken any damage (PERFECT), the fight time
+  // (the run's clear time) and the shadow's quicker ki
+  arcadeTick() {
+    const S = this.arcadeStats, [p, cpu] = this.fighters;
+    if (p.hp < MAX_HP) S.hurt = true;
+    if (this.state !== 'fight' || !this.inputLive) return;
+    S.frames++;
+    if (this.arcade.boss && !cpu.ko && cpu.state !== 'charge') cpu.ki = Math.min(MAX_KI, cpu.ki + BOSS.kiPerFrame);
+  }
+
+  // the end of an arcade fight: score it, then STAGE CLEAR (on to the ladder), DEFEAT (continue or give up) or the
+  // champion screen after the shadow
+  arcadeResults(w) {
+    const run = this.arcadeRun, p = this.fighters[0], S = this.arcadeStats;
+    const won = w === p;
+    const res = run.finish({ won, timeLeft: this.timeLeft, hpFrac: p.hp / MAX_HP, bestCombo: S.best, perfect: won && !S.hurt, frames: S.frames });
+    const title = () => this.quitToTitle();
+    if (!won) {
+      arcadeDefeat(this.menus, w, run, { cont: () => { run.continueRun(); this.arcadeFight(); }, quit: title });
+    } else if (!run.done) {
+      arcadeClear(this.menus, w, run, res, { next: () => this.arcadeLadder(), quit: title });
+    } else {
+      const saved = saveClear(run);
+      arcadeChampion(this.menus, w, run, res, saved, {
+        again: () => { this.arcadeRun = null; this.toMenu(() => this.menus.charSelect('arcade')); },
+        title,
+      });
+    }
+  }
 
   // One simulation frame (DT): the world, then the match clock and its flow. Everything here counts frames, never the
   // wall clock, so every machine and refresh rate plays the same match from the same inputs (ADR 0036).
@@ -839,6 +910,7 @@ export class Game {
         if (f.sinceHit > 50 && !reeling && f.state !== 'burst') f.burstUsed = 0; // no rounds here: the burst comes back
       }
     }
+    if (this.arcadeStats) this.arcadeTick();
     if (this.state === 'fight' && this.inputLive && !this.clash) {
       this.timeLeft -= DT;
       if (this.timeLeft <= 0) this.timeUp();
@@ -917,6 +989,7 @@ export class Game {
   // A combo ended: the rating (GREAT 10+, AMAZING 15+, LEGENDARY 20+ hits, STYLISH! with 4+ different techniques)
   // and a cheer that grows with it.
   onComboEnd(att, def, C) {
+    if (this.arcadeStats && att.index === 0) this.arcadeStats.best = Math.max(this.arcadeStats.best, C.hits);
     const rated = this.hud.comboEnd(att.index, C.hits, C.kinds.size);
     this.arena.npcCue('combo', { f: att, victim: def, hits: C.hits });
     if (C.hits >= 8) audio.play('cheer', Math.min(1.4, 0.3 + C.hits * 0.05));
@@ -2313,8 +2386,8 @@ export class Game {
         }
         break;
       case 'roundIntro': {
-        const wins = this.fighters.map((f) => f.wins);
-        const final = wins[0] === ROUNDS_TO_WIN - 1 && wins[1] === ROUNDS_TO_WIN - 1;
+        const wins = this.fighters.map((f) => f.wins), R = this.roundsToWin;
+        const final = R > 1 && wins[0] === R - 1 && wins[1] === R - 1; // a one-round fight has no "final round"
         if (t > 0.3 && once('round')) {
           this.hud.announce(final ? 'FINAL ROUND' : `ROUND ${this.round}`, 'round', 1100);
           audio.play('taiko');
@@ -2354,7 +2427,7 @@ export class Game {
       case 'roundEnd':
         if (t > 3.4 && once('next')) {
           const w = this.roundWinner;
-          if (w.wins >= ROUNDS_TO_WIN) this.matchEnd(w);
+          if (w.wins >= this.roundsToWin) this.matchEnd(w);
           else this.nextRound();
         }
         break;
@@ -2367,7 +2440,8 @@ export class Game {
           this.hud.show(false);
           this.hud.clearAnnounce();
           // online, the room comes back once both players agree on the result (net/online.js)
-          if (this.cfg.mode !== 'online') this.menus.results(w,
+          if (this.arcade) this.arcadeResults(w);
+          else if (this.cfg.mode !== 'online') this.menus.results(w,
             () => this.startMatch(this.cfg),
             () => this.toMenu(() => this.menus.charSelect(this.cfg.mode)),
             () => this.quitToTitle());

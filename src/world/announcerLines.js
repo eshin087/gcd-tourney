@@ -21,6 +21,12 @@ export const LINES = {
   matchPoint: { style: 'talk', prio: 4, anim: 'point', secs: 1.2, look: 'A', lines: ['One more round and {A} takes it all!', '{A} is one round from victory!'] },
   finalRound: { style: 'shout', prio: 4, anim: 'shout', secs: 1.2, lines: ['FINAL ROUND!! Everything is on the line!!', 'It all comes down to this!!'] },
   begin: { style: 'shout', prio: 4, anim: 'shout', secs: 1.0, lines: ['BEGIN!!', 'LET THE MATCH BEGIN!!', 'FIGHT!!!', 'START!!'] },
+  // arcade (ADR 0058): the stage instead of welcome2 ({M} the stage's name, {N} its number), the dark mirror's entrance
+  // instead of introB, and the champion call after the shadow falls
+  arcadeStage: { style: 'talk', prio: 4, anim: 'point', secs: 1.4, lines: ['Stage {N}: the {M}!!', 'On to the {M}!!', 'It\'s the {M}, folks!! Stage {N}!!'] },
+  arcadeShadow: { style: 'panic', prio: 4, anim: 'shocked', secs: 1.4, sym: 'sweat', lines: ['W-wait... what is that dark energy?!', 'Something is wrong, folks... very wrong!!'] },
+  arcadeBoss: { style: 'panic', prio: 4, anim: 'shocked', secs: 1.4, look: 'A', sym: 'what', lines: ['And facing them... {A}?!', 'Is that... {A}?! There are TWO of them?!'] },
+  champion: { style: 'shout', prio: 5, anim: 'cheer', secs: 2.4, look: 'A', sym: 'spark', lines: ['{A} is the WORLD CHAMPION!!', '{A} has conquered the whole tournament!!'] },
 
   // the huge moments: spoken
   super: { style: 'shout', prio: 3, cool: 6, anim: 'shout', secs: 1.3, look: 'A', sym: 'bang', lines: ['{A} is going all out!!', '{M}!! UNBELIEVABLE POWER!!', 'Look at that energy!!', '{M}?!! INCREDIBLE!!'] },

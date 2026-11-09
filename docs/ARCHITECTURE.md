@@ -60,6 +60,9 @@ src/game/
                             tech escapes; reachT (threats timed to the drawn strike)
   aiTech.js                 timed impact tech (ADR 0028): impactAhead (live frames to a launched fighter's next floor
                             or wall impact) and TechTimer (per-level timing for CpuBrain, MasterBrain, the dummy)
+  arcade.js                 arcade ladder rules (ADR 0058): COURSES, the shuffled ladder (a fighter's `rival` last,
+                            then the dark mirror), shadowDef / BOSS, scoreFight / SCORE, ArcadeRun, the browser's
+                            records (gcd.arcade). No DOM or three.js: tools/test-arcade.mjs runs it in Node
   showDirector.js           ShowDirector (ADR 0027, CPU vs CPU only): cues one beam clash per match (a random
                             moment and challenger) for the two brains to play; never presses a button
   projectiles.js            Projectile (shuriken, fireball, bolt, red, yo-yo: `returns`, its string a `limb`, ADR 0052;
@@ -151,7 +154,10 @@ src/ui/
   hud.js                    health/ki bars + burst gems, timer, combo counter (blue when escapable) with its ticker
                             chips and rating (ADR 0026), callouts, TAGS technique banners (ADR 0022), announcements,
                             super cut-in, clash bar and rhythm track
-  menus.js                  DOM menus: title, mode select, char select, pause, results, training panel
+  menus.js                  DOM menus: title, mode select, char select (arcade: one pick, then the course), pause,
+                            results, training panel
+  arcadeMenus.js            arcade screens (ADR 0058): the ladder between fights, stage clear, defeat + continue,
+                            the champion screen (side panels like Menus.results)
   speechBubble.js           the announcer's lines: a small caption above his head (DOM, under the HUD)
   controls.js               controls panel: keyboard / PlayStation / Xbox layouts, live input highlights,
                             click-to-rebind, input history (training room + pause menu)
@@ -262,7 +268,7 @@ renderer.render             low-res render -> bloom -> grade -> nearest upscale
 
 `menu -> intro (flythrough, fighter cards) -> roundIntro ("ROUND n", "FIGHT!") -> fight -> ko | timeup
 -> roundEnd -> (nextRound | matchEnd -> results)`, plus `draw` and `training`. Best of 3 rounds
-(`ROUNDS_TO_WIN = 2`), 99 s each. `Game.state` and `Game.stateT` hold the current state and how long
+(`Game.roundsToWin`, `ROUNDS_TO_WIN = 2` unless an arcade rival fight sets 1), 99 s each. `Game.state` and `Game.stateT` hold the current state and how long
 it has run, in seconds counted from frames (`tickFlow`: a KO slow-mo frame counts for more), so the flow keeps its
 timing on any refresh rate and every machine agrees on the frame each transition happens.
 
@@ -469,6 +475,14 @@ The menus never touch game state directly. They call `Game` methods (`startMatch
 CHARACTER SELECT) goes through `Game.toMenu(open)`: it tears the match down, hides the old screen, then opens the next
 one, falling back to the title (with a `[menus]` console error) if that throws. The SELECT MODE rows live in one
 `MODES` table in `menus.js`, which `modeIndex()` reads too, so a screen returns to the right row.
+
+**Arcade (ADR 0058)** is a ladder of ordinary VS CPU matches: `Game.startArcade` builds an `ArcadeRun`
+(`src/game/arcade.js`), `arcadeLadder` shows the ladder over the menu orbit, `arcadeFight` starts the fight as
+`startMatch({ mode: 'solo', ..., arcade })` (so every person-versus-CPU rule applies unchanged), `arcadeTick` counts
+the fight time and whether the player was hurt (PERFECT) and feeds the shadow its extra ki, and `arcadeResults`
+replaces the results panel with stage clear, defeat (continue or give up) or the champion screen
+(`src/ui/arcadeMenus.js`). The boss is `shadowDef(def)`: the player's fighter as data with another name, colour,
+defense and a standing `outline` rim (hitFlash.js).
 
 ## Audio
 
