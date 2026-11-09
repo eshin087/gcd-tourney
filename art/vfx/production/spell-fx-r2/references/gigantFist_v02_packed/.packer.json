@@ -1,0 +1,18 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/gigantFist_v02.png",
+  "version": 2,
+  "source": [
+    "vfx/raw/gigantFist_v02.png",
+    "vfx/raw/gigantFist_v02.json"
+  ],
+  "sourceHash": "1fe719721ffa8d97d5949e4dc521ffb0df72a75a",
+  "cell": 256,
+  "files": {
+    "gigantFist_00.png": "53eedd0d242af025ceadf5d92da2701bc0eb6c0e",
+    "gigantFist_01.png": "c2947ff1090a3f810e6d972d2bc96cc546aa5f7f",
+    "gigantFist_02.png": "61069b4c2759a92970c40f4e26bf2bcd3594ff2c",
+    "gigantFist_03.png": "121ca65e762bddd83b3118d06648d4220cd267ed"
+  }
+}
