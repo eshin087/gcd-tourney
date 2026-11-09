@@ -1,7 +1,7 @@
 # Sasuke ART-SIZE-R8 A3 — fTilt v04 review record
 
 Date: 2026-11-08
-Disposition: **candidate ready for user image review; not approved; Astra audit pending user approval**
+Disposition: **user-approved via Claude relay `audit1 #5` (“Approve v04, keep reach”); Astra anatomy/visible-scale PASS at moderate confidence; runtime contact/hurtbox QA pending Claude**
 
 ## Candidate and provenance
 
@@ -17,7 +17,7 @@ Disposition: **candidate ready for user image review; not approved; Astra audit 
 
 - Head H by frame: `[0.977,0.999,0.981,1.003,0.997,1.002,1.003]`; median `0.999`. All seven are within the automatic ±6% band, with no detected within-strip head pop.
 - Body garment-area B by frame: `[0.906,0.903,0.897,0.917,0.942,0.935,0.955]`; median `0.917`, no body-sheet flag. B is an advisory area proxy with about ±10% pose noise; f2 is only 0.003 below 0.90 and is not a calibrated segment-length measurement. Compare the torso, shoulder, arm, leg, hand, sandal and clothing volumes visually in [the body sheet](../../../public/reviews/size-r8-a3/body-sheet.png) beside approved idle f0 and the title-style combat cell.
-- Shoe-area proxy by frame: `[1.057,1.161,1.055,1.085,1.210,1.251,1.302]`; median `1.161`. The latter recovery poses turn the sandals and change their visible area; this proxy is uncertain and is not treated as a foot-size pass. The seven packed cells remain for explicit visual review and the post-approval Astra anatomy comparison.
+- Shoe-area proxy by frame: `[1.057,1.161,1.055,1.085,1.210,1.251,1.302]`; median `1.161`. The latter recovery poses turn the sandals and change their visible area; this proxy is uncertain and is not treated as a foot-size pass. User approved v04, and the post-approval Astra audit found no visible foot-size defect.
 - The required `npm run lineup` check reported Sasuke heads `52/52` ok or not judged. Its image rows do not include fTilt, so those generated cross-cast files were not retained; the fTilt-specific comparison is the body sheet and review page.
 
 ## Hitbox and hand-point remeasurement
@@ -33,4 +33,8 @@ Measured from the final quantized active cells 186/187, with the visible lead-fi
 
 ## Review status
 
-The prior v03 remains the user-approved version. v04 is filed as a new candidate with `version: 4`, `approvedVersion: 3`, and `reviewStatus: "needs review"`. The candidate's visual anatomy/scale assessment by Astra is deliberately pending the user's drawing decision. Packed-cell comparisons, source parts, generation prompts, hashes and reference images are linked from the [A3 review page](../../../public/reviews/size-r8-a3/index.html) and [generation inventory](../../characters/sasuke/production/size-r8/GENERATION_INVENTORY.md).
+The user approved v04 by Claude relay `audit1 #5` (“Approve v04, keep reach”). The manifest records `version: 4`, `approvedVersion: 4`, and `reviewStatus: "approved"`. v03 is preserved as the prior version. Runtime contact/hurtbox QA remains Claude's responsibility. Packed-cell comparisons, source parts, generation prompts, hashes and reference images are linked from the [A3 review page](index.html) and the [generation inventory](call-inventory.md).
+
+## Post-approval Astra anatomy and scale audit — 2026-11-09
+
+**Anatomy: PASS. Visible scale: PASS at moderate confidence.** The exact 48-color atlas SHA-256 is `f044cb78d55b99ea46c85ded46c9aacf63d21326c51fbb719df25db7d64c98b4` (cells 183–189); metadata SHA-256 is `808ae00d35dc8461875c23653516956122ec02ca1442974347c2c19c8ccdd418`. All seven poses retain the existing move reach, phase/timing contract and feet on y240. Head H is 0.977–1.003 (median 0.999). The current body proxy B is 0.897–0.955 (median 0.917) and is advisory with about ±10% pose noise. Typical visible-contour uncertainty is ±2–3 packed pixels; hidden shoulder/elbow/hip/knee and far-foot lengths cannot be certified numerically. No visible anatomy/scale hold was found. This is not runtime contact/hurtbox validation; Claude owns that check.
