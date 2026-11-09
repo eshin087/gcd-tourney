@@ -66,7 +66,7 @@ Added by [ADR 0032](0032-goku-and-luffy-kits.md) (2026-10-13):
 | SUPER | Spirit Bomb (skyStrike: 280, dodgeable; ADR 0050, was the Kaio-ken Rush flurry) | Gear Second: Jet Gatling (flurry from the front, 9×20 + 125) |
 | ultimate | **Kamehameha** (the shared beam: the cast's one beam) | **Gear Third: Gigant Pistol** (laneStrike: 270, dodgeable) |
 | passive | - | - |
-| stats (index) | 6.2 / 1.02 / 1.0 (1.02) | 6.1 / 1.0 / 1.0 (0.98) |
+| stats (index) | 6.2 / 1.02 / 1.0 (1.02) | 6.1 / 1.02 / 1.0 (1.00; power 1.0 until 2026-11-08) |
 
 ### 3. New engine pieces (all data-driven)
 
@@ -178,3 +178,38 @@ No number was changed. Proposals for the user, smallest first, each to be re-run
    only if hands-on play agrees he is weak (his defense, 0.95, is the cast's lowest by design).
 4. **Sasuke**: nothing unless a third run keeps him at 60 % or above; then Chidori Spear 72 to 68 (the Hard CPU's
    second most used special).
+
+### Luffy power 1.00 to 1.02 (2026-11-08, the user's pick: "Nudge Luffy")
+
+Proposal 2, then the same 360 matches again: same protocol and seeds, on main `b8102009` (it adds the arcade ladder,
+ENG-127, which does not change an ordinary match) plus the nudge.
+
+| run | matches | Naruto | Sasuke | Killua | Gojo | Goku | Luffy | P1 side |
+|---|---|---|---|---|---|---|---|---|
+| 14 (passes 1-6) | 180 | 53 % | 57 % | 40 % | 52 % | 68 % | 30 % | 49 % |
+| 15 (passes 7-12) | 180 | 60 % | 67 % | 38 % | 47 % | 53 % | 35 % | 51 % |
+| **14-15 pooled** | **360** | **57 %** (68/120) | **62 %** (74/120) | **39 %** (47/120) | **49 %** (59/120) | **61 %** (73/120) | **33 %** (39/120) | **50 %** |
+| **12-15, all four** | **720** | **56 %** (135/240) | **61 %** (146/240) | **40 %** (97/240) | **48 %** (115/240) | **58 %** (138/240) | **37 %** (89/240) | **51 %** |
+
+Luffy's pairings over runs 12-15 (his wins of 48): Naruto 11, Sasuke 17, Goku 17, Gojo 20, Killua 24.
+
+Read (2026-11-08):
+
+- **The nudge cannot be seen.** Two per cent more damage is worth a point or two of win rate at most, and a 360-match
+  run is ±9 % per fighter. Luffy scoring 33 % with the buff after 42 % without it is that noise (1.5 sigma on the
+  difference), not an effect of the buff: more damage does not lose matches. A change this small needs thousands of
+  matches to measure, so decide it on design grounds (stat index 1.00, inside the band).
+- **What the second run does add is the order.** Over 720 matches Luffy is at 37 % (about ±6 %), Killua 40 %, Sasuke
+  61 %: Luffy is probably below the 40-60 % target, Killua on its lower edge and Sasuke on its upper edge. The first
+  run's "everyone inside the band" was too kind to Luffy.
+- **Caution.** These are Hard CPUs playing each kit, and this log already notes the CPU's taste for rush specials.
+  Luffy loses most to Naruto (11 of 48); whether that is his kit or the CPU's use of it needs a look by hand.
+
+Proposals, none applied:
+
+1. Keep the +2 % (harmless, in the right direction) and treat Luffy as still open.
+2. A change big enough to measure, on one move: his Gum-Gum Pistol costs the same half bar as Sasuke's Chidori Spear
+   but is slower and a little weaker (startup 11 against 9, recovery 20 against 18, 70 damage against 72), though it
+   reaches further (about 6.3 units against 4.8); matching the Spear's frames is the smallest step with a visible size.
+3. Measure the next change with a Luffy-only run (his 10 ordered pairings, 30 or more passes per setting), which puts
+   all the matches where the change is.
