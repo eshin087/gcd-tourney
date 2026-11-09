@@ -1122,6 +1122,7 @@
           "approvedVersion": 13,
           "reviewStatus": "approved",
           "_integration": "ART-SIZE-R8 B5 (Claude, user 2026-11-08 \"Yes, my picks\": v13 as drawn, Claude to fit its size at pack). The packer's verdict at x1 is head/hair drift (head .94, feet 1.05), not a uniform size error, so no uniform scale fixes it (art/CHARACTER_SCALE.md): the body is already at size and only the head reads 6 % small, inside the user's 8 % audit line. Packed as drawn at x1; v14 stays rejected in raw/_rejected/.",
+          "scaleManualQA": {"version": 13, "result": "pass", "by": "GPT-6 Astra (medium)", "note": "All six actual quantized atlas frames inspected against approved idle, title neutral/combat and airborne pose control. Head median 0.939 is inside the user 8% line; feet median 1.05. Tucked/recovery torso projection has stated landmark uncertainty consistent with airborne folding; no clear independent anatomy failure established. Packed x1 as drawn; no uniform scale correction. Runtime contact and recovery transitions remain Claude checks.", "evidence": "art/characters/gojo/production/size-r8-b2-b7/ASTRA_FINAL_AUDIT.md (Codex branch art/size-r8-b, 4465b2f21)", "atlasSha256": "0ec94868a62f3a81116ed5fc1dfbd19431ac4168567419c9e3bdf0f3675e264d"},
           "reviewPage": "public/reviews/size-r8-audit2-gojo-b2-b7/",
           "approvalSource": "user via Claude relay audit2 #5: \"Yes, my picks\""
         },
