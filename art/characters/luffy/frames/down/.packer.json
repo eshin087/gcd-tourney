@@ -1,0 +1,24 @@
+{
+  "generatedBy": "tools/pack-sprites.mjs",
+  "note": "Frames cleaned from raw/. Edit freely: edited frames are never overwritten.",
+  "sourceFile": "raw/down_v04.png",
+  "version": 4,
+  "source": [
+    "characters/luffy/raw/down_v04.png",
+    "characters/luffy/raw/down_v04.json"
+  ],
+  "sourceHash": "325c32fae2b9846b542f7d7bc662faa7ea474633",
+  "bodyHeight": 98,
+  "cell": {
+    "frameWidth": 256,
+    "frameHeight": 256,
+    "pivot": [
+      128,
+      240
+    ]
+  },
+  "files": {
+    "down_00.png": "aa7ff524f604cc4670a90eb571c290f2fb46ecd2",
+    "down_01.png": "241223e3fb69f7dc58396eb9251c190ab486fb4b"
+  }
+}

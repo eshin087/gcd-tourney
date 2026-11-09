@@ -1,0 +1,56 @@
+{
+  "character": "goku",
+  "asset": "run",
+  "version": 10,
+  "result": "pass",
+  "targetBranch": "art/size-r8-b3",
+  "targetCommitReported": "1cab54a9a",
+  "targetGitMetadataVerified": false,
+  "atlas": {
+    "path": "public/characters/goku/sheet.png",
+    "sha256": "145de80c6e48d1d85b0375474baa2a181795ef08790a99d8f05ed292d93c2d95",
+    "animsSha256": "ef2fc347a7f95ad203cdb6000ee3a33a3f00182fc3de461299dde78209175bca",
+    "dimensions": [4096, 3328],
+    "cellSize": 256,
+    "packScale": 0.92,
+    "runCells": [8, 9, 10, 11, 12, 13, 14, 15],
+    "frameMs": [60, 60, 60, 60, 60, 60, 60, 60],
+    "loop": true
+  },
+  "registrationFix": {
+    "metadataPath": "art/characters/goku/raw/run_v10.json",
+    "metadataSha256": "58bf1524c32593a658f2f90f75098c5ba092a3dac41ee369ea62e087b4894da8",
+    "frameOffsets": [[7, 0], [-4, 0], [-53, 0], [60, 0], [60, 0], [32, 0], [-44, 0], [4, 0]],
+    "targetCenterX": 124,
+    "measurement": "For each exact packed cell, find the alpha bounding box; take rows 45%-62% down from its top, then the x centroid of all opaque pixels in that band. This measures a broad torso/hip-region band, not a fitted anatomical hip joint."
+  },
+  "frames": [
+    {"frame": 0, "cell": 8, "alphaBounds": [53, 28, 211, 241], "bandY": [124, 160], "bandCentroidX": 123.62},
+    {"frame": 1, "cell": 9, "alphaBounds": [52, 34, 196, 241], "bandY": [127, 162], "bandCentroidX": 123.97},
+    {"frame": 2, "cell": 10, "alphaBounds": [43, 26, 191, 241], "bandY": [123, 159], "bandCentroidX": 124.26},
+    {"frame": 3, "cell": 11, "alphaBounds": [44, 31, 213, 241], "bandY": [126, 161], "bandCentroidX": 123.19},
+    {"frame": 4, "cell": 12, "alphaBounds": [53, 23, 215, 241], "bandY": [121, 158], "bandCentroidX": 123.79},
+    {"frame": 5, "cell": 13, "alphaBounds": [59, 24, 195, 241], "bandY": [122, 159], "bandCentroidX": 123.93},
+    {"frame": 6, "cell": 14, "alphaBounds": [66, 23, 189, 241], "bandY": [121, 158], "bandCentroidX": 124.65},
+    {"frame": 7, "cell": 15, "alphaBounds": [47, 24, 215, 241], "bandY": [122, 159], "bandCentroidX": 124.16}
+  ],
+  "summary": {
+    "centroidMinX": 123.19,
+    "centroidMaxX": 124.65,
+    "centroidSpreadPx": 1.46,
+    "maxAbsoluteDeviationFromTargetPx": 0.81,
+    "distinctOpaqueRgbColorsInRun": 46,
+    "allCellsContained": true,
+    "occupiedBoundsAcrossRun": [43, 23, 215, 241],
+    "floorSolesAtY": 240
+  },
+  "references": {
+    "idleApprovedSha256": "57fbbd3cb99fc92a30dafdd478479971e4e9d497e035c846e9fd28ecb126fe03",
+    "titleNeutralSha256": "748ace13116f05cde59ca1ad390655bca26156e351fd6afcf307d2aad7ee7445",
+    "titleCombatSha256": "5714f663bd847e7ce9bb258d49872b85190fbcc9de3a75678acaa2fc25bfd69c"
+  },
+  "evidence": [
+    "public/reviews/size-r8-audit2-goku-run-recheck/run-v10-exact-atlas-and-reference-cells.png",
+    "public/reviews/size-r8-audit2-goku-run-recheck/run-v10-hip-band-registration-guide.png"
+  ]
+}
