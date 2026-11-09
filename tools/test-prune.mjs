@@ -5,15 +5,22 @@
 // the real `pr prune` there. On 2026-11-08 three merged art worktrees (8.6 GB) had sat for three weeks: one branch had
 // reached main through its feature branch, and all three held untracked frames the packer had written back.
 // (A registered worktree whose folder is gone is covered by tools/test-sparse-art.mjs.)
+// TOOL-070: on the same day the prune emptied the main checkout's node_modules through a node_modules junction in a
+// finished worktree (Git for Windows deletes through junctions); links must go before git removes a worktree.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { GENERATED_BY, MARKER, framesDrift, hashFiles, sha1 } from './packer-marker.mjs';
+import { dropLinks, findLinks, restoreLinks } from './worktree-links.mjs';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.join(TOOL_DIR, '.test-fixtures', 'prune');
+// Outside the fixture repository, like the main checkout's node_modules is outside a worktree.
+const OUTSIDE = path.join(TOOL_DIR, '.test-fixtures', 'prune-outside');
+const PKG = 'node_modules/pkg/index.js';
+const samePath = (a, b) => path.resolve(a).toLowerCase() === path.resolve(b).toLowerCase();
 const KEEP = process.argv.includes('--keep');
 let failures = 0, passes = 0;
 const check = (ok, msg) => { if (ok) passes++; else { failures++; console.log(`  FAIL ${msg}`); } };
@@ -45,10 +52,12 @@ function packFrames(dir, name, count = 2) {
 
 function buildRepo() {
   fs.rmSync(REPO, { recursive: true, force: true });
+  fs.rmSync(OUTSIDE, { recursive: true, force: true });
+  put(OUTSIDE, PKG, 'outside package\n');
   fs.mkdirSync(REPO, { recursive: true });
   git(REPO, 'init', '-q', '-b', 'main');
   git(REPO, 'config', 'user.email', 'prune@test'); git(REPO, 'config', 'user.name', 'prune test'); git(REPO, 'config', 'core.autocrlf', 'false');
-  for (const f of ['pr.mjs', 'pr-guard.mjs', 'sparse-art.mjs', 'scratch-dir.mjs', 'packer-marker.mjs']) put(REPO, 'tools/' + f, fs.readFileSync(path.join(TOOL_DIR, f)));
+  for (const f of ['pr.mjs', 'pr-guard.mjs', 'sparse-art.mjs', 'scratch-dir.mjs', 'packer-marker.mjs', 'worktree-links.mjs']) put(REPO, 'tools/' + f, fs.readFileSync(path.join(TOOL_DIR, f)));
   put(REPO, 'tools/publish.mjs', '// stub: the fixture never publishes\n');
   put(REPO, '.gitignore', '.worktrees/\nnode_modules/\n');
   put(REPO, 'package.json', '{ "name": "prune-fixture", "private": true }\n');
@@ -93,7 +102,15 @@ function main() {
   commit(open, 'open.txt', 'fix open');
   const detached = path.join(REPO, '.worktrees', 'detached');
   git(REPO, 'worktree', 'add', '-q', '--detach', detached, 'main');
-  for (const b of ['fix/late', 'art/frames', 'art/edited', 'art/stray', 'art/resourced', 'fix/notes', 'feature/mid']) mergeToMain(b);
+  // 8) TOOL-070: a merged worktree whose ignored node_modules folders (one nested) are junctions to a folder outside it
+  const linked = add('fix/linked');
+  commit(linked, 'linked.txt', 'fix linked');
+  for (const b of ['fix/late', 'art/frames', 'art/edited', 'art/stray', 'art/resourced', 'fix/notes', 'feature/mid', 'fix/linked']) mergeToMain(b);
+  const outsideMods = path.join(OUTSIDE, 'node_modules');
+  fs.symlinkSync(outsideMods, path.join(linked, 'node_modules'), 'junction');
+  fs.mkdirSync(path.join(linked, 'server'));
+  fs.symlinkSync(outsideMods, path.join(linked, 'server', 'node_modules'), 'junction');
+  fs.symlinkSync(outsideMods, path.join(notes, 'node_modules'), 'junction'); // in a worktree prune keeps
 
   packFrames(via, 'spark');
   packFrames(frames, 'spark');
@@ -112,6 +129,18 @@ function main() {
   check(framesDrift(glow, path.join(frames, 'art'), ['glow_00.png', 'glow_01.png', MARKER]).length === 0, 'framesDrift: untouched frames beside a committed .gitkeep are packer output');
   check(framesDrift(glow, path.join(frames, 'art')).some((d) => d.file === '.gitkeep'), 'framesDrift: judging the whole folder names the file the marker does not list');
   check(framesDrift(path.join(frames, 'art', 'vfx', 'raw'), path.join(frames, 'art')).length === 1, 'framesDrift: a folder without a marker is never packer output');
+
+  // the link helpers on their own (tools/worktree-links.mjs)
+  const probe = path.join(OUTSIDE, 'probe');
+  put(probe, 'real/file.txt');
+  fs.symlinkSync(outsideMods, path.join(probe, 'real', 'mods'), 'junction');
+  const found = findLinks(probe);
+  check(found.length === 1 && samePath(found[0], path.join(probe, 'real', 'mods')), `findLinks finds a nested junction and does not walk into it (${found.join(', ')})`);
+  const dropped = dropLinks(probe);
+  check(dropped.length === 1 && !fs.existsSync(path.join(probe, 'real', 'mods')) && on(OUTSIDE, PKG) && on(probe, 'real/file.txt'),
+    'dropLinks removes the link itself, not what it points to');
+  check(restoreLinks(dropped).length === 0 && samePath(fs.readlinkSync(path.join(probe, 'real', 'mods')), outsideMods) && on(probe, 'real/mods/pkg/index.js'),
+    'restoreLinks puts the junction back where it was');
 
   // 6) --dry-run names every worktree and why it stays or goes, and changes nothing
   const before = git(REPO, 'worktree', 'list', '--porcelain');
@@ -138,8 +167,10 @@ function main() {
     `an unrelated untracked file and a modified one keep the worktree and are named (${(r1.stdout + r1.stderr).match(/.*fix-notes.*/)})`);
   check(said(/kept .*fix-open: fix\/open is not merged: 1 commit\(s\) of it are not in main/, r1.stderr), `an unmerged branch is listed with its reason (${(r1.stdout + r1.stderr).match(/.*fix-open.*/)})`);
   check(said(/skipped .*detached: detached HEAD, which prune never removes/, r1.stdout), 'a detached worktree is listed as skipped');
+  check(said(/would remove .*fix-linked \(fix\/linked merged; its link\(s\) go first, never followed: node_modules, server\/node_modules\)/, r1.stdout),
+    `--dry-run names the links that go before the worktree (${(r1.stdout + r1.stderr).match(/.*fix-linked.*/)})`);
   const lines = (r1.stdout + r1.stderr).split('\n').filter((l) => l.startsWith('[pr] '));
-  const all = [via, mid, fresh, fork, late, frames, edited, stray, resourced, notes, open, detached];
+  const all = [via, mid, fresh, fork, late, frames, edited, stray, resourced, notes, open, detached, linked];
   check(all.every((d) => lines.filter((l) => l.includes(d)).length === 1) && lines.length === all.length, `--dry-run says one line about every registered worktree (${lines.length} lines for ${all.length})`);
   check(git(REPO, 'worktree', 'list', '--porcelain') === before && on(frames, 'art/vfx/frames/spark/spark_00.png') && on(via, `art/vfx/frames/spark/${MARKER}`) && git(REPO, 'branch', '--list', 'art/via'),
     '--dry-run changes nothing');
@@ -149,10 +180,13 @@ function main() {
   const listed = (dir) => git(REPO, 'worktree', 'list', '--porcelain').toLowerCase().includes(dir.replace(/\\/g, '/').toLowerCase());
   const branchOf = (b) => git(REPO, 'branch', '--list', b);
   check(r2.status === 0, `prune exits 0 (${r2.status}) ${r2.stderr.trim().split('\n').pop()}`);
-  for (const [d, b] of [[via, 'art/via'], [mid, 'feature/mid'], [late, 'fix/late'], [frames, 'art/frames']]) {
+  for (const [d, b] of [[via, 'art/via'], [mid, 'feature/mid'], [late, 'fix/late'], [frames, 'art/frames'], [linked, 'fix/linked']]) {
     check(!fs.existsSync(d) && !listed(d) && !branchOf(b), `prune removes the worktree and branch of ${b} (${r2.stdout.match(new RegExp(`.*${path.basename(d)}.*`))} ${r2.stderr.trim()})`);
   }
   check(/removed .*art-via \(art\/via merged through another branch; 1 folder\(s\) of untouched packer frames go with it/.test(r2.stdout), 'prune says what went with the worktree');
+  check(on(OUTSIDE, PKG), 'removing a worktree leaves what its junctions point to untouched (TOOL-070: git deletes through them)');
+  check(/removed the link node_modules -> .*first/.test(r2.stdout) && /removed the link server[\\/]node_modules -> /.test(r2.stdout), `prune names each link it removed first (${r2.stdout.match(/.*removed the link.*/g)})`);
+  check(fs.lstatSync(path.join(notes, 'node_modules')).isSymbolicLink() && on(notes, PKG), 'a kept worktree keeps its link');
   for (const [d, b] of [[fresh, 'fix/new'], [fork, 'fix/fork'], [edited, 'art/edited'], [stray, 'art/stray'], [resourced, 'art/resourced'], [notes, 'fix/notes'], [open, 'fix/open']]) {
     check(fs.existsSync(d) && listed(d) && branchOf(b), `prune keeps the worktree and branch of ${b}`);
   }
@@ -167,6 +201,8 @@ function main() {
   if (!KEEP) {
     try { git(REPO, 'worktree', 'prune'); } catch { /* removed below anyway */ }
     fs.rmSync(REPO, { recursive: true, force: true });
+    check(on(OUTSIDE, PKG), 'cleaning up the fixture (a kept worktree still links outside) leaves the outside folder alone');
+    fs.rmSync(OUTSIDE, { recursive: true, force: true });
   }
   console.log(`${failures ? 'FAILED' : 'ok'}: ${passes} checks passed, ${failures} failed`);
   process.exitCode = failures ? 1 : 0;
