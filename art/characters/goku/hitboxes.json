@@ -86,9 +86,9 @@
         ]
       ]
     },
-    "_v": 1,
+    "_v": 2,
     "_scale": 0.92,
-    "_note": "ENG-112 bair v01: packed-cell contact override (Claude integration check 2026-10-18); f2/f3 kick screen-left behind Goku, so the boxes follow the extended rear foot and shin instead of the default front box over his body. Measured on the packed cells at packScale 0.92."
+    "_note": "ENG-112 bair v01: packed-cell contact override (Claude integration check 2026-10-18); f2/f3 kick screen-left behind Goku, so the boxes follow the extended rear foot and shin instead of the default front box over his body. Measured on the packed cells at packScale 0.92. ART-SIZE-R8 B11 (Claude 2026-11-09): kept unchanged for bair v02. v02's kicking foot and shin sit inside them (f2 x4-44 y129-156, f3 x8-48 y134-160 in the packed cells), so the union of the drawn foot and the live box is the live box and the kick's reach stays the same."
   },
   "uTilt": {
     "3": { "hit": [[146, 25, 26, 25]] },
