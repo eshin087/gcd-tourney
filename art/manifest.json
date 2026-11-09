@@ -1069,8 +1069,12 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 7,
-          "approvedVersion": 7
+          "version": 10,
+          "approvedVersion": 7,
+          "reviewStatus": "technical hold",
+          "technicalHold": true,
+          "hold": "v10 strict head gate passes at median 1.00, but body proxy median .767 is below approved jumpFall .889; three calls used.",
+          "reviewPage": "public/reviews/size-r8-audit2-gojo-b2-b7/"
         },
         "airLight2": {
           "frames": 5,
@@ -1114,8 +1118,13 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 12,
-          "approvedVersion": 12
+          "version": 13,
+          "approvedVersion": 13,
+          "reviewStatus": "approved",
+          "_integration": "ART-SIZE-R8 B5 (Claude, user 2026-11-08 \"Yes, my picks\": v13 as drawn, Claude to fit its size at pack). The packer's verdict at x1 is head/hair drift (head .94, feet 1.05), not a uniform size error, so no uniform scale fixes it (art/CHARACTER_SCALE.md): the body is already at size and only the head reads 6 % small, inside the user's 8 % audit line. Packed as drawn at x1; v14 stays rejected in raw/_rejected/.",
+          "scaleManualQA": {"version": 13, "result": "pass", "by": "GPT-6 Astra (medium)", "note": "All six actual quantized atlas frames inspected against approved idle, title neutral/combat and airborne pose control. Head median 0.939 is inside the user 8% line; feet median 1.05. Tucked/recovery torso projection has stated landmark uncertainty consistent with airborne folding; no clear independent anatomy failure established. Packed x1 as drawn; no uniform scale correction. Runtime contact and recovery transitions remain Claude checks.", "evidence": "art/characters/gojo/production/size-r8-b2-b7/ASTRA_FINAL_AUDIT.md (Codex branch art/size-r8-b, 4465b2f21)", "atlasSha256": "0ec94868a62f3a81116ed5fc1dfbd19431ac4168567419c9e3bdf0f3675e264d"},
+          "reviewPage": "public/reviews/size-r8-audit2-gojo-b2-b7/",
+          "approvalSource": "user via Claude relay audit2 #5: \"Yes, my picks\""
         },
         "airHeavy": {
           "frames": 6,
@@ -1466,8 +1475,11 @@
           "required": true,
           "step": 7,
           "status": "approved",
-          "version": 7,
-          "approvedVersion": 7
+          "version": 8,
+          "approvedVersion": 8,
+          "reviewStatus": "approved",
+          "reviewPage": "public/reviews/size-r8-audit2-gojo-b2-b7/",
+          "approvalSource": "user via Claude relay audit2 #5: \"Yes, my picks\""
         },
         "intro": {
           "frames": 4,
@@ -1612,14 +1624,14 @@
         "airHeavyAlt": { "altOf": "airHeavy", "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 215, "ms": [50, 45, 45, 70, 70, 40], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "hurtHighAlt": { "altOf": "hurtHigh", "frames": 3, "loop": false, "bodyHeight": 216, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
         "hurtLowAlt": { "altOf": "hurtLow", "frames": 3, "loop": false, "bodyHeight": 199, "ms": [70, 90, 100], "required": false, "step": 9, "status": "todo", "version": 0, "approvedVersion": null },
-        "fTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 232, "ms": [35, 30, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo fTilt v01 approved as drawn" },
+        "fTilt": {"frames":7,"loop":false,"phases":[2,2,3],"bodyHeight":232,"ms":[35,30,40,50,60,50,30],"required":false,"step":9,"status":"approved","version":2,"approvedVersion":2,"reviewStatus":"approved","technicalHold":true,"reviewPage":"public/reviews/size-r8-audit2-gojo-b2-b7/","approvalSource":"user via Claude relay audit2 #5: \"Yes, my picks\""},
         "uTilt": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 228, "ms": [40, 35, 40, 60, 60, 50, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo uTilt v01 approved as drawn" },
         "dTilt": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 216, "ms": [35, 30, 50, 50, 50, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo dTilt v02 approved as drawn" },
         "dashAttack": { "frames": 7, "loop": false, "phases": [2, 2, 3], "bodyHeight": 225, "ms": [40, 40, 50, 60, 60, 60, 40], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo dashAttack v01 approved as drawn" },
-        "fSmash": { "frames": 9, "loop": false, "phases": [4, 2, 3], "bodyHeight": 225, "ms": [50, 60, 50, 40, 40, 70, 70, 60, 40], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo fSmash v01 approved as drawn" },
+        "fSmash": {"frames":9,"loop":false,"phases":[4,2,3],"bodyHeight":225,"ms":[50,60,50,40,40,70,70,60,40],"required":false,"step":9,"status":"approved","version":2,"approvedVersion":2,"reviewStatus":"approved","technicalHold":true,"reviewPage":"public/reviews/size-r8-audit2-gojo-b2-b7/","approvalSource":"user via Claude relay audit2 #5: \"Yes, my picks\""},
         "uSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 228, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo uSmash v01 approved as drawn" },
         "dSmash": { "frames": 8, "loop": false, "phases": [3, 2, 3], "bodyHeight": 216, "ms": [50, 40, 30, 50, 70, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo dSmash v01 approved as drawn" },
-        "fair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 225, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo fair v01 approved as drawn" },
+        "fair": {"frames":6,"loop":false,"phases":[2,2,2],"bodyHeight":225,"ms":[45,40,50,60,50,30],"required":false,"step":9,"status":"approved","version":2,"approvedVersion":2,"reviewStatus":"approved","technicalHold":true,"reviewPage":"public/reviews/size-r8-audit2-gojo-b2-b7/","approvalSource":"user via Claude relay audit2 #5: \"Yes, my picks\""},
         "bair": { "frames": 6, "loop": false, "phases": [2, 2, 2], "bodyHeight": 219, "ms": [50, 40, 50, 70, 60, 30], "required": false, "step": 9, "status": "approved", "version": 2, "approvedVersion": 2, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/", "approvalSource": "user via Claude relay combat #30: Gojo bair v02 approved as drawn" },
         "uair": { "frames": 6, "loop": false, "phases": [2, 1, 3], "bodyHeight": 228, "ms": [45, 40, 50, 60, 50, 30], "required": false, "step": 9, "status": "approved", "version": 1, "approvedVersion": 1, "reviewStatus": "approved", "technicalHold": true, "reviewPage": "public/reviews/normals-gojo/uair-r2/retry-34/", "approvalSource": "user via Claude relay combat #35: Approve uair v01" }
       },
