@@ -12,6 +12,16 @@ deterministic debug helpers and CPU-vs-CPU soaks. Run the parts that match your 
 npm run dev          # http://127.0.0.1:5188  (npm run dev:alt -> port 5200)
 ```
 
+The dev server's file watcher stays out of four folders of the checkout it was started in: `.worktrees/`,
+`.claude/worktrees/`, `tools/.test-fixtures/` and `.publish-cache/` (`vite.config.js`, TOOL-069). Two things follow:
+
+- The tool tests (`npm run test:sprites`, `test:guard`, `test:lints` ...) run beside a running dev server, in the
+  same checkout or in a worktree under it. Before TOOL-069 the watcher held the fixture folders open and Windows
+  refused the tests' folder renames (`EPERM ... rename`); a server started before that fix still does, until it restarts.
+- A server reloads only for edits in its own checkout. Test a worktree's change on a server started in that worktree
+  (`npx vite --port 52xx`). The main folder's server still serves a worktree's files by path, but keeps the copy it
+  first read: later edits there reach it only when it restarts.
+
 | URL | Use |
 |---|---|
 | `/` | normal boot: title, mode select, char select |
