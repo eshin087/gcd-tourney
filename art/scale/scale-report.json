@@ -317,7 +317,7 @@
      "feet": 0.772,
      "range": 0,
      "verdict": "manual",
-     "reason": "manual QA by Codex (manual packed-cell scale check, ART-SIZE-R8): v09 is a no-call pixel repair derived from the user-approved v08 drawing: only 54 dark-red pixels in narrowly bounded knee-edge masks were remapped to nearby non-red outline or blue pixels; no pose geometry or head pixels changed. The v08 low-confidence measurements carry forward pending exact atlas recheck: H 1.059 (43 px width, idle 43 px), body B 0.925 (7.5% below idle, within the ±10% advisory). Technical scale check only; final independent anatomy audit and contact review remain separate. (art/scale/size-r8/SASUKE_A1_A2.md)",
+     "reason": "manual QA by Codex (manual packed-cell scale check, ART-SIZE-R8): v09 is a no-call pixel repair derived from the user-approved v08 drawing: 54 dark-red knee-edge pixels were remapped within narrow masks; all other source pixels, pose geometry and head pixels are unchanged. In the exact current packed atlas, H 1.059 (43 px width, idle 43 px), body B 0.925 (7.5% below idle, within the ±10% advisory). Manual visible anatomy check and independent GPT-6 Astra audit passed at moderate confidence; far-side limbs are partly occluded. See the linked technical/audit record; runtime contact/hurtbox review remains separate. (art/scale/size-r8/SASUKE_A1_A2.md)",
      "frames": [
       {
        "head": 1.059,
@@ -2290,80 +2290,80 @@
      ]
     },
     "fTilt": {
-     "v": 3,
-     "head": 1.031,
-     "feet": 0.991,
-     "range": 0.037,
+     "v": 4,
+     "head": 0.999,
+     "feet": 1.161,
+     "range": 0.026,
      "verdict": "ok",
      "frames": [
       {
-       "head": 1.031,
-       "feet": 0.881,
+       "head": 0.977,
+       "feet": 1.057,
        "box": [
-        110,
-        75,
-        148,
-        114
+        108,
+        62,
+        142,
+        99
        ]
       },
       {
-       "head": 1.063,
-       "feet": 1.004,
+       "head": 0.999,
+       "feet": 1.161,
        "box": [
-        131,
-        78,
-        169,
-        118
+        122,
+        65,
+        158,
+        102
        ]
       },
       {
-       "head": 1.05,
-       "feet": 1.053,
-       "box": [
-        133,
-        76,
-        170,
-        116
-       ]
-      },
-      {
-       "head": 1.026,
-       "feet": 0.991,
+       "head": 0.981,
+       "feet": 1.055,
        "box": [
         118,
-        78,
-        156,
-        116
+        65,
+        153,
+        102
        ]
       },
       {
-       "head": 1.026,
-       "feet": 1.024,
+       "head": 1.003,
+       "feet": 1.085,
+       "box": [
+        117,
+        65,
+        153,
+        105
+       ]
+      },
+      {
+       "head": 0.997,
+       "feet": 1.21,
        "box": [
         115,
-        77,
-        153,
-        115
+        63,
+        152,
+        100
        ]
       },
       {
-       "head": 1.026,
-       "feet": 0.971,
+       "head": 1.002,
+       "feet": 1.251,
        "box": [
-        112,
-        79,
+        114,
+        63,
+        150,
+        101
+       ]
+      },
+      {
+       "head": 1.003,
+       "feet": 1.302,
+       "box": [
+        113,
+        64,
         149,
-        117
-       ]
-      },
-      {
-       "head": 1.039,
-       "feet": 0.909,
-       "box": [
-        107,
-        75,
-        143,
-        114
+        103
        ]
       }
      ]
