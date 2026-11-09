@@ -2,6 +2,10 @@
 
 GPT-6 Astra (medium), 2026-11-09. User approved both drawings via relay audit2 #8, quote **"Approve both"**. That image/design approval remains intact. This report identifies separate technical holds; it does not reject or alter the user's approved art.
 
+## Later shipping decision (relay audit2 #12)
+
+After this audit, the user directed Claude to ship bair v02 despite the short-upper-torso HOLD: **"Ship v02 (Recommended)"**. This is a shipping decision, not a new image approval or an anatomy/scale pass. The measured HOLD and version-bound `scaleManualQA` result `hold` remain unchanged. Claude owns the forced integration and will cite relay #12 with `--force-art`.
+
 ## Result
 
 | Strip | Final disposition | Reason |
@@ -9,7 +13,7 @@ GPT-6 Astra (medium), 2026-11-09. User approved both drawings via relay audit2 #
 | B8 run v10 | **HOLD: internal registration**; visible anatomy/scale acceptable | Large horizontal body/head shifts at f2-to-f3 and f5-to-f6 remain in the exact packed cells. All frames fit their cells and the f7-to-f0 seam is small, but that does not clear the internal jumps. |
 | B11 bair v02 / R3 replacement | **HOLD: short upper torso relative to approved idle/title anatomy** | Near-upright f0/f5 have a substantially compressed neckline-to-belt section, corroborated by smaller head/upper-body presentation. Tucked legs alone cannot explain it. Corrected color defects and complete f2/f3 kick are confirmed. |
 
-No `scaleManualQA` pass object is provided for either held strip. No pixels, scales, offsets, source inputs, manifest, approval records or production outputs were changed. Any remediation is for Claude/user coordination; this report does not prescribe or perform a rescale.
+No `scaleManualQA` pass object is provided for either held strip. The audit itself changed no pixels, scales, offsets, source inputs, manifest, approval records or production outputs. Relay #12 later changed only the documented shipping disposition for bair v02; it did not change the audit finding or authorize a rescale.
 
 ## Exact artifact
 
