@@ -932,7 +932,7 @@
           "required": true,
           "step": 5,
           "status": "approved",
-          "version": 5,
+          "version": 8,
           "approvedVersion": 5
         },
         "light2": {

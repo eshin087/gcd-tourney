@@ -1,8 +1,7 @@
 {
  "tool": "tools/body-sheet.mjs",
  "method": "B = sqrt(opaque px in the fighter's bodyColors (art/scale/builds.json, sheet colours within RGB 8) / the same on idle f0), per packed frame; head = anims.json scaleAudit frame head (null = not read). median = median B of the strip; flag big > 1.12, small < 0.88. Advisory: +-10 % pose noise, confirm by body segments (art/CHARACTER_SCALE.md Body sheet).",
-"generated": "2026-10-19T06:31:08.565Z",
-
+ "generated": "2026-11-09T04:21:40.110Z",
  "fighters": {
   "naruto": {
    "idleGarmentPx": 3325,
@@ -2494,7 +2493,7 @@
    }
   },
   "gojo": {
-   "idleGarmentPx": 7563,
+   "idleGarmentPx": 7646,
    "anims": {
     "idle": {
      "v": 6,
@@ -2647,27 +2646,27 @@
      "flag": "small"
     },
     "light1": {
-     "v": 5,
+     "v": 8,
      "body": [
-      0.896,
-      0.92,
-      0.96,
-      0.938,
-      0.93,
-      0.926,
-      0.926
+      0.879,
+      0.904,
+      0.922,
+      0.911,
+      0.944,
+      0.946,
+      0.952
      ],
      "head": [
-      1,
-      0.971,
-      0.971,
-      0.971,
-      0.971,
-      1,
-      1
+      0.914,
+      0.914,
+      0.943,
+      0.963,
+      0.955,
+      0.914,
+      0.943
      ],
-     "median": 0.926,
-     "headMedian": 0.971,
+     "median": 0.922,
+     "headMedian": 0.943,
      "flag": null
     },
     "light2": {
