@@ -8,7 +8,8 @@
 //   npm run pr -- merge <branch> [--no-deploy] [--force-art "<reason>"]  (in the main checkout) art guard, merge --no-ff,
 //                                           publish main, remove the worktree, deploy main to production
 //   npm run pr -- check <branch>            (anywhere) the art guard alone, read-only: what `merge` would refuse (tools/pr-guard.mjs)
-//   npm run pr -- prune [--dry-run]         (in the main checkout) remove clean worktrees whose branch is merged
+//   npm run pr -- prune [--dry-run]         (in the main checkout) remove clean worktrees whose branch is merged;
+//                                           --dry-run also says why each other worktree stays
 //
 // Why worktrees: Claude sessions and Codex share the main checkout, so `git checkout` there would yank files
 // out from under the others. Each feature lives in its own folder and branch; main only receives merges.
@@ -25,6 +26,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { framesDrift } from './packer-marker.mjs';
 import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead, worktreeHolding } from './pr-guard.mjs';
 import { SPARSE, artFolders, folderPatterns, mangledPatterns, rawGaps, sparsePatterns } from './sparse-art.mjs';
 
@@ -44,6 +46,8 @@ const git = (args, cwd = ROOT, inherit = false) =>
 // Only npm needs a shell on Windows (npm.cmd); node and gh run directly so paths with spaces stay intact.
 const sh = (file, args, cwd = ROOT) => execFileSync(file === 'node' ? process.execPath : file, args,
   { cwd, stdio: 'inherit', shell: file === 'npm' && process.platform === 'win32' });
+// Untrimmed, with room for a long listing (every first-parent commit of main, a worktree full of untracked files).
+const gitRaw = (args, cwd = ROOT) => execFileSync('git', args, { cwd, stdio: ['ignore', 'pipe', 'inherit'], maxBuffer: 256 << 20 }).toString();
 const die = (msg) => { console.error(`[pr] ${msg}`); process.exit(1); };
 // Inside the project so it is one folder; .gitignore and vite.config.js keep git and the dev server out of it.
 const worktreeDir = (branch) => path.join(ROOT, '.worktrees', branch.replace(/\//g, '-'));
@@ -237,47 +241,139 @@ function check() {
   process.exitCode = guard.ok ? 0 : 1;
 }
 
+// Which branches `prune` treats as merged into main, and for the others the reason (--dry-run prints it).
+// Merged = the tip is in main and the branch has commits of its own. "The tip is in main" alone is what
+// `git branch --merged` tests, and it also holds for a branch nobody has committed to yet, whose worktree a session
+// may have just opened. Two signals say the branch carries work, and both must hold:
+//   1. the tip is not on main's first-parent line: main never pointed at it itself, it only has it through a merge.
+//      A branch cut from main, or fast-forwarded along it, sits on that line. Needs no stored state.
+//   2. a reflog records a commit made there: the branch's own, or its worktree's HEAD (commits made on a detached
+//      HEAD before the branch got its name). A branch cut from another branch's commit (the fresh worktree of a
+//      forked session) passes signal 1 once that commit lands, but both logs hold only "Created from", "renamed" and
+//      checkouts. Reflogs expire (90 days by default): with no entries left, signal 1 decides alone.
+// The test used to be "the tip is a merged-in parent of a merge commit in main" (what `pr merge` makes). It missed a
+// tip that reached main through another branch (TOOL-068: an art helper branch its feature branch fast-forwarded to
+// and then built on; three such worktrees, 8.6 GB, sat for weeks), and it took a new branch for merged when it was cut
+// from a commit of main that a feature branch had merged in (`git merge main` there makes it a merge parent too).
+const COMMITTED = /^(commit|cherry-pick|revert|am)\b|\brebase\b|: Merge made by /;
+function mergeChecker() {
+  const lines = (args, cwd) => gitRaw(args, cwd).split('\n').filter(Boolean);
+  const reflog = (ref, cwd) => { try { return lines(['reflog', 'show', '--format=%gs', ref], cwd); } catch { return []; } };
+  const mergedTips = new Set(lines(['rev-list', '--merges', '--parents', 'main']).flatMap((line) => line.split(' ').slice(2)));
+  const mainLine = new Set(lines(['rev-list', '--first-parent', 'main']));
+  const heads = (extra) => lines(['for-each-ref', ...extra, '--format=%(objectname) %(refname)', 'refs/heads/'])
+    .map((line) => [line.slice(line.indexOf(' ') + 1).replace('refs/heads/', ''), line.slice(0, line.indexOf(' '))]);
+  const tips = new Map(heads([]));
+  const inMain = new Set(heads(['--merged', 'main']).map(([name]) => name));
+  // `dir`: the branch's worktree when its folder exists (its HEAD reflog is the second place a commit can show)
+  return (branch, dir) => {
+    const tip = tips.get(branch);
+    if (!tip) return { merged: false, why: 'it has no commits yet' }; // an unborn branch (`git worktree add --orphan`)
+    if (!inMain.has(branch)) return { merged: false, why: `${git(['rev-list', '--count', `main..refs/heads/${branch}`])} commit(s) of it are not in main` };
+    if (mainLine.has(tip)) return { merged: false, why: 'it has no commits of its own: its tip is a commit main itself was at (a new branch, or one only fast-forwarded to main)' };
+    const log = [...reflog(`refs/heads/${branch}`), ...(dir ? reflog('HEAD', dir) : [])];
+    if (log.length && !log.some((entry) => COMMITTED.test(entry))) return { merged: false, why: 'it has no commits of its own: its tip is in main, but no reflog records a commit made on it (a new branch cut from another branch\'s commit)' };
+    return { merged: true, via: mergedTips.has(tip) ? '' : ' through another branch' };
+  };
+}
+
+// A worktree's uncommitted paths, every untracked file on its own (git folds a wholly untracked folder into one line).
+function uncommitted(dir) {
+  const fields = gitRaw(['status', '--porcelain=v1', '-z', '--untracked-files=all'], dir).split('\0');
+  const list = [];
+  for (let i = 0; i < fields.length; i++) {
+    if (!fields[i]) continue;
+    const code = fields[i].slice(0, 2);
+    list.push({ code, file: fields[i].slice(3) });
+    if (/[RC]/.test(code)) i++; // the next field is the path it was renamed or copied from
+  }
+  return list;
+}
+const changeWord = (code) => (/U|AA|DD/.test(code) ? 'merge conflict' : code.includes('D') ? 'deleted' : code.includes('R') ? 'renamed' : /[AC]/.test(code) ? 'added' : 'modified');
+const named = (items, max = 8) => items.slice(0, max).join(', ') + (items.length > max ? `, and ${items.length - max} more` : '');
+
+// art/**/frames/<name>/: where the packer writes cleaned frames back (tools/pack-sprites.mjs writeBack).
+const FRAMES_DIR = /^art\/(?:[^/]+\/)*frames\/[^/]+$/;
+// Sorts a worktree's uncommitted paths into what keeps it (`keep`, each with its reason) and what may go with it
+// (`frames`: folder -> its untracked files). Only one thing may go (TOOL-068): untracked files in a frames/<name>/
+// folder that the packer wrote and nobody touched since, whose source raws are unchanged (framesDrift). A pack writes
+// those again, and an art worktree is full of them after its branch merged. Everything else is somebody's work.
+function sortUncommitted(dir, list) {
+  const keep = [], byFolder = new Map(), frames = new Map();
+  for (const { code, file } of list) {
+    const folder = path.posix.dirname(file);
+    if (code !== '??') keep.push(`${file} (${changeWord(code)})`);
+    else if (!FRAMES_DIR.test(folder)) keep.push(`${file} (untracked)`);
+    else byFolder.set(folder, [...(byFolder.get(folder) || []), file]);
+  }
+  for (const [folder, files] of byFolder) {
+    const drift = framesDrift(path.join(dir, folder), path.join(dir, 'art'), files.map((file) => path.posix.basename(file)));
+    if (drift.length) keep.push(...drift.map((d) => `${folder}/${d.file} (${d.why})`));
+    else frames.set(folder, files);
+  }
+  return { keep, frames };
+}
+// Deletes exactly the files that were checked, then each folder if that emptied it. Anything that appeared in between
+// stays, and `git worktree remove` (never forced) then refuses the worktree: git has the last word on "clean".
+function dropFrames(dir, frames) {
+  for (const [folder, files] of frames) {
+    for (const file of files) fs.unlinkSync(path.join(dir, file));
+    try { fs.rmdirSync(path.join(dir, folder)); } catch { /* tracked files remain: they leave with the worktree */ }
+  }
+}
+
 // Worktrees outlive their branch when a merge could not remove them (a session was still inside, or a branch
-// was merged some other way). Remove the clean ones; anything with uncommitted work stays and is listed.
+// was merged some other way). Remove the ones with nothing to lose: a merged branch (mergeChecker) and no uncommitted
+// work beyond untouched packer frames (sortUncommitted). Anything else stays; a merged one is listed with the files
+// that kept it, and --dry-run also lists the unmerged and detached ones with the reason, so no worktree is passed
+// over in silence. A detached HEAD is never removed: its commits may be reachable only from there, and the app that
+// made it archives it.
 // A registration whose folder is already gone loses only git's entry (and the merged branch); the rest are reported.
 // Folders in .worktrees/ that are not git worktrees (hand-made copies) are only reported, never deleted.
 function prune() {
   if (currentBranch() !== 'main') die('run this in the main checkout');
   const dry = flag('--dry-run');
-  // "merged" = the branch tip is a merged-in parent of a merge commit on main (what `pr merge` makes);
-  // `git branch --merged` would also count a just-started branch with no commits yet
-  const mergedTips = new Set(git(['rev-list', '--merges', '--parents', 'main']).split('\n')
-    .flatMap((line) => line.split(' ').slice(2)));
-  const merged = new Set(git(['for-each-ref', '--format=%(refname:short) %(objectname)', 'refs/heads/']).split('\n')
-    .map((line) => line.split(' ')).filter(([, sha]) => mergedTips.has(sha)).map(([name]) => name));
+  const stateOf = mergeChecker();
   const trees = worktrees();
   for (const t of trees) {
+    const state = t.branch ? stateOf(t.branch, t.gone ? null : t.dir) : null;
     // git status cannot run in a folder that is gone (spawnSync ENOENT once aborted the whole prune): clear a merged
     // branch's entry like a removal would, report any other and go on
     if (t.gone) {
       const why = t.locked ? 'it is locked (`git worktree unlock` it if the folder is really gone)'
         : !t.branch ? 'it has a detached HEAD, whose commits may be reachable only from there'
-          : !merged.has(t.branch) ? `${t.branch} is not merged` : '';
+          : !state.merged ? `${t.branch} is not merged (${state.why})` : '';
       if (why) console.warn(`[pr] kept the registration of ${t.dir}: its folder is missing, but ${why}`);
-      else if (dry) console.log(`[pr] would clear the registration of ${t.dir}: its folder is missing (${t.branch} merged)`);
+      else if (dry) console.log(`[pr] would clear the registration of ${t.dir}: its folder is missing (${t.branch} merged${state.via})`);
       else if (clearGone(t.dir)) {
         try { git(['branch', '-d', t.branch], ROOT, true); } catch { /* checked out elsewhere */ }
-        console.log(`[pr] cleared the registration of ${t.dir}: its folder is missing (${t.branch} merged)`);
+        console.log(`[pr] cleared the registration of ${t.dir}: its folder is missing (${t.branch} merged${state.via})`);
       }
       continue;
     }
-    if (!t.branch || !merged.has(t.branch)) continue;
-    let dirty;
-    try { dirty = git(['status', '--porcelain'], t.dir); } catch {
-      console.warn(`[pr] kept ${t.dir}: git status failed there, so its work is unknown; retry later`);
+    if (!t.branch) {
+      if (dry) console.log(`[pr] skipped ${t.dir}: detached HEAD, which prune never removes (archive it through the app that made it)`);
       continue;
     }
-    if (dirty) { console.warn(`[pr] kept ${t.dir}: ${t.branch} is merged but has uncommitted work`); continue; }
-    if (dry) { console.log(`[pr] would remove ${t.dir} (${t.branch} merged)`); continue; }
+    if (!state.merged) {
+      if (dry) console.warn(`[pr] kept ${t.dir}: ${t.branch} is not merged: ${state.why}`);
+      continue;
+    }
+    if (t.locked) { console.warn(`[pr] kept ${t.dir}: ${t.branch} is merged${state.via} but the worktree is locked (\`git worktree unlock\` it first)`); continue; }
+    let work;
+    try { work = sortUncommitted(t.dir, uncommitted(t.dir)); } catch (e) {
+      console.warn(`[pr] kept ${t.dir}: its uncommitted work could not be read (${String(e.message).split('\n')[0]}); retry later`);
+      continue;
+    }
+    if (work.keep.length) { console.warn(`[pr] kept ${t.dir}: ${t.branch} is merged${state.via} but has uncommitted work: ${named(work.keep)}`); continue; }
+    const folders = [...work.frames.keys()].map((folder) => folder + '/');
+    const how = `${t.branch} merged${state.via}` + (folders.length ? `; ${folders.length} folder(s) of untouched packer frames go with it: ${named(folders, 4)}` : '');
+    if (dry) { console.log(`[pr] would remove ${t.dir} (${how})`); continue; }
     try {
+      dropFrames(t.dir, work.frames);
       git(['worktree', 'remove', t.dir], ROOT, true);
       try { git(['branch', '-d', t.branch], ROOT, true); } catch { /* checked out elsewhere */ }
-      console.log(`[pr] removed ${t.dir} (${t.branch} merged)`);
+      console.log(`[pr] removed ${t.dir} (${how})`);
     } catch {
       console.warn(`[pr] could not remove ${t.dir} (a session or editor may have it open); retry later`);
     }

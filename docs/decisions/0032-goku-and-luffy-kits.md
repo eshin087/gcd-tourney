@@ -23,7 +23,7 @@ erases projectiles, a rampage pounces and mauls, a skyStrike marks a spot).
    1.02.
 2. **Luffy** (`src/characters/luffy.js`): Gum-Gum Pistol (a physical shot, 70, ~6 u), Bazooka (rush, 145), Rocket
    (dive), Gear Second (mode on ↓: × 1.25 speed, × 1.1 damage), Whip (low rush on ←), Gear Second: Jet Gatling (flurry
-   from the front), Gear Third: Gigant Pistol (laneStrike). Stat index 0.98.
+   from the front), Gear Third: Gigant Pistol (laneStrike). Stat index 0.98 (1.00 since 2026-11-08: power 1.02, ADR 0011).
    The user's list put the Whip on ↓; ADR 0011 keeps ↓ for modes and counters, so Gear Second takes ↓ and the Whip ←.
 3. **New SUPERS kind `laneStrike`** (`src/game/kit.js`): `windup` frames on `pose` (beamCharge), then a strike that
    travels down the lane he faces to `reach` in `extend` frames (strikePose, beamFire), one unblockable hit

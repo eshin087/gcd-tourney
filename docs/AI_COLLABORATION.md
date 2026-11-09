@@ -411,7 +411,7 @@ are in CLAUDE.md and AGENTS.md; this is the recipe behind them.
 
 | Leftover | Who | When | How |
 |---|---|---|---|
-| Merged helper worktree | coordinator | after `npm run pr -- merge` | the merge removes it; then `npm run pr -- prune` (dry run first) |
+| Merged helper worktree | coordinator | after `npm run pr -- merge` | the merge removes it; then `npm run pr -- prune` (dry run first: it says why each worktree stays, with the files that kept a merged one). Untracked frames the packer wrote back and nobody edited do not keep a worktree (TOOL-068) |
 | Merged app-managed worktree | coordinator | after its merge | archive it through the Codex/Claude app (worktree rule 5), after auditing its dirty and ignored files |
 | Unregistered `.worktrees/<name>` folder (empty shell after a Windows removal, old plain copy) | coordinator | when `prune --dry-run` lists it | delete once it holds nothing unique (see the audit below) |
 | A worktree's `node_modules/`, `dist/` | the task's owner | when the task ends (merged, abandoned or handed over) | delete both; `npm install` / `npm run build` recreate them |
