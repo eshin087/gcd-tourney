@@ -594,10 +594,12 @@ export const SUPERS = {
   // Unlimited Void (Gojo). The anime's sequence (ENG-SKL-GOJ, src/world/voidStage.js), view only: the Six Eyes `glint`
   // as the domain opens (`on: 'cast'`; [forward, up] off his feet on superPose), a black sphere bursting out of him that
   // swallows the arena over `open` frames (the cosmos inside), light flooding the frozen opponent's head (`flood`) and
-  // the void shattering like glass when it ends (`shatter`). The hold is unchanged: they freeze the frame it opens
+  // the void shattering like glass when it ends (`shatter`; `shatterTiles`, the same picture at twice the detail in four
+  // tiles laid 2 x 2, once all four are packed: ART-SPELL-R2). The hold is unchanged: they freeze the frame it opens
   unlimitedVoid: {
     kind: 'domain', cost: 300, flash: 50, len: 150, name: 'DOMAIN EXPANSION: UNLIMITED VOID', color: '#9fd8ff',
     glint: { fx: 'sixEyesGlint', at: [0.06, 1.58], scale: 0.55, on: 'cast' }, open: 18, flood: { fx: 'voidFlood', scale: 0.48, up: 1.5 }, shatter: 'voidShatter',
+    shatterTiles: ['voidShatterTL', 'voidShatterTR', 'voidShatterBL', 'voidShatterBR'],
   },
   // Kirin (Sasuke): `storm` plays the anime's sequence inside the sky strike's frames (ENG-SKL-SAS, kit.js stormTick):
   // the Great Fireball breathed up (it takes `heat` frames to reach the sky), `clouds` thunderclouds `spread` apart
@@ -675,12 +677,14 @@ export const SUPERS = {
   // fist raised) with air rushing in (`puff`: [frame, forward, up] on the windup) and ends on the wind-back (`windBack`
   // frames of the strike's f0); the giant arm is drawn from the strip's shoulder to the giant fist (`arm`) and snaps
   // back after; its impact (`blastFx`) replaces the white-out; then he is chibi Luffy through the recovery (`after`,
-  // longer on a hit: `hitRecovery`, while they fly into the wall)
+  // longer on a hit: `hitRecovery`, while they fly into the wall). The arm is as thick as the fist's wrist (ART-SPELL-R2:
+  // gigantArm v02's 170 px tube, the wrist of gigantFist v02 on the same rows, so `thick` = the fist's cell x 170 / 256);
+  // v01's 86 px tube under the 200 px fist read as a thin flat band (ENG-133)
   gigantPistol: {
     kind: 'laneStrike', cost: 300, flash: 44, windup: 34, answerWindup: 12, extend: 8, reach: 7, width: 1.1, height: 2.0, dmg: 270, launch: [22, 9], recovery: 30,
     pose: 'beamCharge', strikePose: 'beamFire', fist: { color: 0xf6c9a0, scale: 2.4 }, name: 'GEAR THIRD: GIGANT PISTOL', color: '#e8402a', ground: 'stone',
     windupOnce: true, windBack: 6, puff: { fx: 'gear3Puff', at: [[2, 0.14, 1.42], [12, -0.3, 1.2], [20, -0.45, 1.3]], scale: 0.32 },
-    arm: { fx: 'gigantArm', fist: 'gigantFist', thick: 0.4, tube: 86 / 256, fistScale: 0.567, up: 0.9, back: 10 },
+    arm: { fx: 'gigantArm', fist: 'gigantFist', thick: 0.86, tube: 170 / 256, fistScale: 0.567, up: 0.9, back: 10 },
     blastFx: { fx: 'gigantImpact', scale: 1.35, smoke: 4 }, after: { fx: 'luffyChibi', scale: 0.85 }, hitRecovery: 54,
   },
 };

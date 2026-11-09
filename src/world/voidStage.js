@@ -202,10 +202,27 @@ export function buildVoidStage(scene) {
           return { x: cam.position.x + tmp.x * d, y: cam.position.y + tmp.y * d - RING_TOP, z: cam.position.z + tmp.z * d };
         };
         const p = at(), h = 2 * d * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2), w = h * cam.aspect;
-        const it = game.fx.spawn(S.shatter, p.x, p.y, p.z, { depthTest: false, order: 30, follow: at });
-        const s = Math.max(w, h) * 1.12;
-        it.base = s;
-        it.mesh.scale.set(s, s, s);
+        const s = Math.max(w, h) * 1.12, T = S.shatterTiles;
+        if (T?.length === 4 && T.every((n) => game.fx.drawn(n))) {
+          // twice the detail (ART-SPELL-R2): one picture in four 256 px tiles (top-left, top-right, bottom-left,
+          // bottom-right) laid 2 x 2 along the camera's axes, each a quarter of the pane. One 256 px cell stretched over
+          // the screen drew its shards with pixels ~3.4 times everything else's
+          const q = s / 4, k = (s / 2) * 1.004; // a hair over, so no seam opens between the tiles
+          T.forEach((name, i) => {
+            const ox = i % 2 ? q : -q, oy = i < 2 ? q : -q;
+            const tile = () => {
+              const c = at(), e = cam.matrixWorld.elements;
+              return { x: c.x + e[0] * ox + e[4] * oy, y: c.y + e[1] * ox + e[5] * oy, z: c.z + e[2] * ox + e[6] * oy };
+            };
+            const t0 = tile(), it = game.fx.spawn(name, t0.x, t0.y, t0.z, { depthTest: false, order: 30, follow: tile });
+            it.base = k;
+            it.mesh.scale.set(k, k, k);
+          });
+        } else {
+          const it = game.fx.spawn(S.shatter, p.x, p.y, p.z, { depthTest: false, order: 30, follow: at });
+          it.base = s;
+          it.mesh.scale.set(s, s, s);
+        }
       }
       const S = game.domain && !opening ? lookOf(game.domain.owner) : null;
       if (!S) return;
