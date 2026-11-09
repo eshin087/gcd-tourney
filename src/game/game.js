@@ -1051,7 +1051,10 @@ export class Game {
         if (f.def.beam?.chant && f.beam?.t === 1 && !frozen) this.hud.callout(f.index, f.def.beam.chant.at(-1), f.def.beam.mid, true);
         if (!f.shroud) this.fx.auraTick(f, 0.6, this.cam.right);
       }
-      else if (f.state === 'clash') this.fx.auraTick(f, 0.3, this.cam.right, 0, false); // a thin aura behind the body: the flames and streaks hid it, the disc read as a bubble (ADR 0055)
+      else if (f.state === 'clash') {
+        this.fx.auraTick(f, 0.3, this.cam.right, 0); // a thin aura behind the body: the flames and streaks hid it (ADR 0055)
+        if (f.def.beam?.gather) this.fx.dropGather(f); // an ultimate clash fires out of the charge: its ball leaves the hip
+      }
       // Luffy's techniques (ENG-SKL-LUF): the afterimages of a power-up with `ghost` (modeLook: Gear Second), the
       // Rocket's arms, a rush's stretched leg (the Whip's `sweep`), the Gigant Pistol's giant arm
       const km = f.state === 'kit' ? f.kitState : null;
@@ -1279,16 +1282,17 @@ export class Game {
     if (Math.min(a.pos.y, b.pos.y) < 1.5) this.fx.ground.impact(mid, { kind: 'trade' });
     else this.fx.debris(mid.x, mid.z, 12, 1.2);
     this.fx.overlay.impactFrame(4);
-    this.fx.overlay.flash('#ffffff', 0.7);
+    this.fx.overlay.flash('#ffffff', 0.45); // softer: on the explosion it whited the whole frame (ENG-132)
     audio.play('explosion', 1.2);
     this.cam.shake(1);
     this.slowmo(0.3, 0.6);
     this.excite = 1;
     audio.play('cheer');
+    // the explosion above is the blast: two smash sparks on top of it on one spot read as a giant white blob (ENG-132)
     for (const f of [a, b]) {
       const o = f.opp;
       const d = new THREE.Vector2(f.pos.x - o.pos.x, f.pos.z - o.pos.z).normalize();
-      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'smash', hitFlash: 'special' }, d);
+      f.takeHit(o, { dmg: CLASH.special.dmg, launch: [12, 8], hitstop: 16, unblockable: true, big: true, projectileHit: true, spark: 'none', hitFlash: 'special' }, d);
     }
   }
 
@@ -1844,9 +1848,9 @@ export class Game {
     return ka === kb ? -1 : ka > kb ? 0 : 1;
   }
 
-  // The meeting point (ADR 0034): two clashBurst knots, one in each side's color (the second mirrored), around a small
-  // white core, inside a size budget below the fighters' height. No full-size white glow: with the bloom it buried the
-  // fighters. Rings, sparks, smoke and debris keep it alive.
+  // The meeting point (ADR 0034): two clashBurst knots, one in each side's color (the second mirrored), inside a size
+  // budget below the fighters' height. No white glow core over the drawn knot: with the bloom it read as a plain white
+  // ball and hid the knot's art (ENG-132). Rings, sparks, smoke and debris keep it alive.
   clashSparks(c) {
     const p = c.point, now = c.timer, k = c.lite ? 0.55 : c.C.sparks ?? 1; // the special clash sits between two lit specials, a beam clash between two short streams
     const pulse = 1 + dmath.sin(now * 0.6) * 0.08 + c.kick * 0.18;
@@ -1854,12 +1858,12 @@ export class Game {
     // the drawn collision (`clashKnot`, ADR 0055) once approved, else round 1's clashBurst; above a beam's head and
     // Hollow Purple (order 8), so the collision always reads in front
     const knot = this.fx.drawn('clashKnot') ? 'clashKnot' : 'clashBurst';
-    const top = { order: 9, depthTest: false, glow: 0.25, opacity: 0.95 };
+    const top = { order: 9, depthTest: false, glow: knot === 'clashKnot' ? 0.1 : 0.25, opacity: 0.95 }; // the drawn knot's own bands, not bloom
     this.fx.keep('clashA', knot, p.x, p.y, p.z, { ...top, scale: size, color: c.ca });
     const b = this.fx.keep('clashB', knot, p.x, p.y, p.z, { ...top, scale: size * 0.86, color: c.cb });
     b.mesh.scale.x = -Math.abs(b.mesh.scale.x);
     if (b.t === 0) b.t = 0.09; // out of step with the first knot
-    this.fx.keep('clashCore', 'glow', p.x, p.y, p.z, { scale: (knot === 'clashKnot' ? 0.18 : 0.3) * pulse, color: 0xffffff, opacity: 1, order: 10, depthTest: false, glow: 0.8 });
+    if (knot !== 'clashKnot') this.fx.keep('clashCore', 'glow', p.x, p.y, p.z, { scale: 0.3 * pulse, color: 0xffffff, opacity: 1, order: 10, depthTest: false, glow: 0.8 });
     if (now % 18 === 0) this.fx.spawn('ring', p.x, p.y, p.z, { scale: 1.2 * k, color: c.mix, order: 6, depthTest: false, glow: 0.6 });
     if (now % 3 === 0) {
       const a = Math.random() * Math.PI * 2;
@@ -2188,8 +2192,7 @@ export class Game {
     this.freeze = Math.max(this.freeze, DEFENSE.burst.freeze);
     for (const v of this.vortices) if (v.owner === f.opp) v.kill(); // a grinding Rasenshuriken / Blue lets go too
     this.fx.burstAt(f, col, 1.4);
-    this.fx.spawn('glow', p.x, p.y + 0.9, p.z, { scale: 1.6, color: col, opacity: 0.85, life: 0.35, fade: true, grow: 1.2, depthTest: false, order: 6, glow: 1 });
-    this.fx.spawn('lines', p.x, p.y + 0.8, p.z, { scale: 1.6, color: 0xffffff, glow: 0.6, depthTest: false, order: 8 });
+    this.fx.spawn('lines', p.x, p.y + 0.8, p.z, { scale: 1.6, color: 0xffffff, glow: 0.6, depthTest: false, order: 8 }); // (no growing glow disc over him, ENG-132)
     this.fx.overlay.flash(f.def.color, 0.35);
     this.fx.overlay.impactFrame(2);
     this.cam.zoomPunch(0.6);

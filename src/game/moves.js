@@ -322,8 +322,8 @@ export const PROJECTILES = {
   // Goku's ki blast volley: three quick blasts in a narrow fan. No beam clash: a volley of small blasts has no
   // stream to push (his Kamehameha and Dragon Fist are the energy moves that clash). As the anime fires them
   // (ENG-SKL-GOK): one blast per palm thrust (`every` frames apart), the HD ki sphere turned along its flight with no
-  // bloom disc (`halo`), a flash at the palm (`muzzle`) and its own small burst on hit
-  kiBlast: { count: 3, every: 4, spread: 0.1, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'kiBlast', scale: 0.75, orient: true, glowColor: 0x5ab0ff, halo: 0.2, sfx: 'flash', spark: 'none',
+  // glow disc under it (ENG-132), a flash at the palm (`muzzle`) and its own small burst on hit
+  kiBlast: { count: 3, every: 4, spread: 0.1, speed: 24, radius: 0.4, dmg: 24, hitstun: 18, push: 2, airPop: 4, life: 0.9, sprite: 'kiBlast', scale: 0.75, orient: true, glowColor: 0x5ab0ff, sfx: 'flash', spark: 'none',
     muzzle: { fx: 'kiMuzzle', scale: 0.4 }, burstFx: { fx: 'kiBlastBurst', scale: 0.42, smoke: 0, shake: 0.12 } },
   // Luffy's Gum-Gum Pistol: the stretched fist itself, very fast and short-lived (~6 u, like the Chidori Spear).
   // Physical, so it cancels shots but never beam-clashes. Drawn as the rubber arm (the shared `limb`, ENG-SKL-LUF): the arm

@@ -736,16 +736,15 @@ export function bombTick(f, k, S, B, flashU = null) {
     const x0 = P.x + U.x * h0, y0 = P.y + U.y * h0, z0 = P.z + U.z * h0;
     x = x0 + (a.x - x0) * e; y = y0 + (r * 0.6 - y0) * e; z = z0 + (a.z - z0) * e;
   }
-  g.fx.keep(id, B.fx, x, y, z, { scale, order: 8, glow: 0.35 });
-  g.fx.keep(id + 'g', 'glow', x, y, z, { scale: scale * 1.6, color: 0x9edcff, opacity: 0.3, order: 2, glow: 0.4 });
+  g.fx.keep(id, B.fx, x, y, z, { scale, order: 8, glow: 0.35 }); // the drawn bomb carries its light (no halo disc, ENG-132)
   const level = flashU != null ? flashU * 0.6 : Math.min(1, 0.6 + t / 20);
   g.stormAt = g.frameNo;
   g.stormDim = level * B.dim;
   g.stormLift = level * B.lift; // the camera takes in the sphere over his head (camera.js)
   if (mark) {
-    // the spot it will land on darkens under it (the dodge cue)
+    // the spot it will land on darkens under it (the dodge cue), laid on the floor: standing up it was a dome over them
     const a = k.at;
-    g.fx.keep(id + 's', 'glow', a.x, 0.08, a.z, { scale: S.radius * (0.6 + 0.6 * Math.min(1, t / start)), color: 0x2e7ce8, opacity: 0.22, order: 1, glow: 0.2 });
+    g.fx.keep(id + 's', 'glow', a.x, 0.02, a.z, { scale: S.radius * (0.6 + 0.6 * Math.min(1, t / start)), color: 0x2e7ce8, opacity: 0.3, order: 1, glow: 0.2, flat: true });
   }
   if ((mark && t >= start) || Math.random() > 0.8) return;
   // the energy of everything around flowing in: motes from all round the stage, from the floor up
@@ -1394,8 +1393,9 @@ const UPDATE = {
       // drawn bursting out of the whole body's outline)
       const BF = m.burstFx;
       if (BF) g.fx.spawn(BF.fx, p.x, p.y + (BF.center ? 0.9 * (f.actor?.depthK ?? 1) : 0), p.z, { bottom: !BF.center, scale: BF.scale ?? 1, order: 8 });
-      else g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
-      if (m.cloak) g.fx.cloakBurst(f, m.cloak); // the chakra wells up over him all at once
+      else if (!m.cloak) g.fx.burstAt(f, m.auraColor ?? m.color, 1.4);
+      if (m.cloak) g.fx.cloakBurst(f, m.cloak); // the chakra wells up over him all at once (no starburst over it: with his
+      // body filling with chakra it read as a flat orange emblem, ENG-132)
       else if (f.mode.fx === 'chakra') for (let i = 0; i < 8; i++) burst(g, 'chakra', p.x + (Math.random() - 0.5) * 1.2, p.y + 0.5, p.z, m.auraColor, 1.4);
       else if (!BF) burst(g, 'lightning', p.x, p.y + 0.9, p.z, 0xd8f0ff, 1.6); // a burstFx is the whole start burst
       g.fx.overlay.flash(m.auraColor ?? m.color, BF ? 0.15 : 0.35);
@@ -1581,7 +1581,7 @@ const UPDATE = {
       f.actor.setPhase(V && k.t0 >= S.delay - V.swing ? S.strikePose ?? 'beamFire' : S.pose ?? 'beamCharge', 1, 0.5);
       const a = k.at;
       if (!V) {
-        g.fx.keep('kirin' + f.index, 'glow', a.x, 0.1, a.z, { scale: S.radius * (1 + 0.15 * dmath.sin(k.t0 * 0.5)), color: S.color, opacity: 0.55, order: 2, glow: 1 });
+        g.fx.keep('kirin' + f.index, 'glow', a.x, 0.02, a.z, { scale: S.radius * (1 + 0.15 * dmath.sin(k.t0 * 0.5)), color: S.color, opacity: 0.45, order: 2, glow: 0.4, flat: true }); // the strike zone on the floor
         if (k.t0 % 5 === 0) g.fx.spawn('lightning', a.x + (Math.random() - 0.5) * 1.4, 3.2 + Math.random(), a.z, { scale: 0.9, random: true, life: 0.1, color: 0xd8f0ff, order: 9, glow: 2 });
       }
       if (k.t0 >= S.delay) {
