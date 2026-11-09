@@ -44,7 +44,9 @@ none of it feeds the simulation (no new simulation state; the determinism fixtur
    then the cosmos inside (a log-spiral galaxy round a core kept behind the fight, streaming starlight and stars in the
    sky; a black mirror floor whose Fresnel reflection carries the horizon the fight camera rarely sees; specks of
    starlight rushing past the camera), the frozen opponent's head flooded with light (`flood`), and `shatter`, a pane
-   of black glass cracking open over the view when it ends, instead of the white flashes. Its data is read from the
+   of black glass cracking open over the view when it ends, instead of the white flashes (`shatterTiles`, since
+   ART-SPELL-R2: the same picture at twice the detail in four 256 px tiles laid 2 x 2, used once all four are packed;
+   one cell stretched over the screen came out chunky). Its data is read from the
    owner's SUPER, so a domain restored by a rollback simply shows the void.
 7. **Glint:** a super's `glint` spawns the Six Eyes gleam at `at` [forward, up] off the feet, at the flash start or, with
    `on: 'merge'`, when Hollow Purple's merge starts (the ultimate splash covers its flash).

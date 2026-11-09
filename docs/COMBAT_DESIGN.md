@@ -377,8 +377,9 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   (`src/world/voidStage.js`) and the opponent is `held` for 150 frames (~2.5 s) while Gojo combos freely.
   The domain ends early on a KO. The anime's sequence (ADR 0049, view only): the Six Eyes glint as the blindfold comes
   up, a black sphere bursting out of him with the void's stars inside it that swallows the arena (18 frames at most:
-  the void takes over the moment it reaches the camera), an endless cosmos inside on a black mirror floor, light flooding the frozen opponent's head, and the void shattering like glass when it ends. The hold starts
-  the frame the domain opens, as before.
+  the void takes over the moment it reaches the camera), an endless cosmos inside on a black mirror floor, light
+  flooding the frozen opponent's head, and the void shattering like glass when it ends (`voidShatter` drawn at twice
+  the detail in four tiles laid 2 x 2 over the view). The hold starts the frame the domain opens, as before.
 - Super hits carry `minScale` (0.8 for the flurries): combo scaling never takes them below 80 %.
 - A fighter without a second super fires their ultimate from SUPER.
 
@@ -414,7 +415,8 @@ and budget table in [ADR 0011](decisions/0011-kit-baseline-and-balance.md), whic
   leaves: leave the lane or jump during the windup. It clashes with a beam or orb ultimate (ADR 0055): the giant fist
   pushed against it, a 12-frame windup when it answers one. 30 frames of recovery, 54 after a hit. The anime
   (ADR 0051): the windup plays once through (the thumb bite, the arm swelling with air puffs, the giant fist raised)
-  and ends on the wind-back; the giant arm is drawn from his shoulder to the giant fist down the lane and snaps back;
+  and ends on the wind-back; the giant arm, inflated as thick as the fist's wrist, is drawn from his shoulder to the
+  giant fist down the lane and snaps back;
   its own impact replaces the white-out; then chibi Luffy stands where he was for the rest of the recovery (the body
   hidden, visual only).
 - **Kamehameha** (Goku): the shared beam (below), his `beam` palette and look (ADR 0050).
