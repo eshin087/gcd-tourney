@@ -193,6 +193,14 @@ ENG-127, which does not change an ordinary match) plus the nudge.
 
 Luffy's pairings over runs 12-15 (his wins of 48): Naruto 11, Sasuke 17, Goku 17, Gojo 20, Killua 24.
 
+**Run 16, Luffy only, on the resized art.** While runs 14-15 ran, ART-SIZE-R8 landed on main: 13 strips pack at a
+new size and their hit boxes with them (Luffy's launcher ×1.12, Bazooka ×1.08, forward air ×0.88; Goku's forward
+smash and tilts smaller, up air bigger; Sasuke's back air and forward smash smaller, dash attack bigger). Runs 12-15
+are on the art before it. So one more run on main `bc905a48` with the nudge, Luffy's 10 ordered pairings × 12 passes
+(seeds 9000 + the match index): **Luffy 37 % (44/120)**; his wins of 24 against Naruto 10, Sasuke 4, Killua 10,
+Gojo 9, Goku 11; P1 side 52 %. The resize did not move him: over his 360 matches in runs 12-16 he is at 37 %
+(133/360, about ±5 %).
+
 Read (2026-11-08):
 
 - **The nudge cannot be seen.** Two per cent more damage is worth a point or two of win rate at most, and a 360-match
