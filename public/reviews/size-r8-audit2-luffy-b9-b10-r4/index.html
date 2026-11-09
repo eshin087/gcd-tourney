@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Luffy size audit review — B9, B10, R4</title>
+  <style>
+    :root{color-scheme:dark;--bg:#11131a;--panel:#1b1f29;--line:#303746;--text:#f0f2f6;--muted:#a7afbd;--cyan:#91e6df;--amber:#ffd27a;--green:#98e6ad}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:32px 22px 56px}h1,h2,h3{line-height:1.2}h1{font-size:2rem;margin:.2rem 0 .6rem}h2{font-size:1.35rem;margin:0 0 .7rem}h3{font-size:1rem;margin:1rem 0 .35rem}.eyebrow{color:var(--cyan);text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:700}.muted{color:var(--muted)}.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:18px 0}.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.fact{background:#131720;border:1px solid var(--line);border-radius:8px;padding:12px}.tag{display:inline-block;border-radius:999px;padding:3px 10px;background:#43371d;color:var(--amber);font-size:.8rem;font-weight:700}.board{overflow-x:auto;background:#101218;border-radius:8px;padding:10px}.board img{display:block;max-width:none;height:auto;image-rendering:pixelated}.small img{max-width:100%;width:auto}.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pair img{width:100%;height:auto;image-rendering:pixelated}.reference{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}.reference img{max-width:100%;height:auto;image-rendering:pixelated}.refbox{background:#131720;border:1px solid var(--line);border-radius:8px;padding:12px;max-width:100%}.refbox img{max-height:330px}.caption{color:var(--muted);font-size:.9rem;margin:.5rem 0 0}a{color:var(--cyan)}code{overflow-wrap:anywhere}.section{scroll-margin-top:12px}@media(max-width:700px){main{padding:20px 12px 40px}.pair{grid-template-columns:1fr}}
+  </style>
+</head>
+<body><main>
+  <p class="eyebrow">Character Art Audit #2 · Luffy · B9, B10 and R4</p>
+  <h1>Luffy redraw and repair review</h1>
+  <p class="muted">The user approved specialForward v02 via Claude relay audit2 #9 under their instruction to auto-approve while away; they had not yet seen the image. Run v02 and down v04 still need visual approval. This review pack is candidate-only; it does not replace the production atlas. Visual approval and final Astra anatomy/scale review are separate steps.</p>
+
+  <section class="panel">
+    <h2>Review status</h2>
+    <div class="facts">
+      <div class="fact"><b>B9 · run v02</b><br>Eight-frame run redraw. One image-generation call. Existing bodyHeight and pack scale are unchanged.</div>
+      <div class="fact"><b>B10 · down v04</b><br>Two-frame crawl/lying redraw. Three image-generation calls total, the 3/3 limit. Existing timing is unchanged.</div>
+      <div class="fact"><b>R4 · specialForward v02</b><br>Approved via relay #9 under the overnight auto-approval instruction; user had not yet viewed it. Pixel-only f5 repair removes the detached orange speck. No image-generation calls; packScale remains 1.08.</div>
+      <div class="fact"><b>Technical status</b><br>Final Astra review of these exact packed candidates has not run. The prior diagnostic hold for specialForward's arm/palm fragments remains.</div>
+    </div>
+    <p><span class="tag">run/down approval needed</span> The gallery shows packed candidate cells at 256×256 and the raw strips. The manifest's approvedVersion is run v01, down v03 and specialForward v02. The candidate atlas remains review-only because it includes unapproved run v02 and down v04.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Approved Luffy references</h2>
+    <div class="reference">
+      <div class="refbox"><b>Approved idle f0</b><img src="idle-f0.png" alt="Approved Luffy idle frame zero extracted from the candidate atlas"></div>
+      <div class="refbox"><b>Approved title-style neutral and combat cells</b><img src="references/title_style_draft.png" alt="Approved Luffy title-style neutral and combat references"></div>
+    </div>
+  </section>
+
+  <section class="panel section" id="run">
+    <h2>B9 · run v02</h2>
+    <p>Compare v01 on the first row with v02 on the second row. Each cell is from the quantized atlas at its native 256×256 density. The eight-frame sequence and 60 ms timing remain unchanged. Measured frame placement offsets clear the source clip on f3, f4 and f7; bodyHeight 204 and the existing character packScale 0.92 are unchanged.</p>
+    <div class="board"><img src="run-compare.png" alt="Packed Luffy run v01 first row and run v02 second row, eight frames each"></div>
+    <p class="caption">Top row: live run v01. Bottom row: candidate run v02. <a href="raw/run_v02.png">Open raw run v02</a> · <a href="raw/run_v02.json">source and placement record</a>.</p>
+  </section>
+
+  <section class="panel section" id="down">
+    <h2>B10 · down v04</h2>
+    <p>Compare v03 on the first row with v04 on the second row. The two frames retain [80, 420] ms timing, bodyHeight 106 and the existing character packScale 0.92. The candidate used all three authorized image calls.</p>
+    <div class="board small"><img src="down-compare.png" alt="Packed Luffy down v03 first row and down v04 second row, crawl and lying frames"></div>
+    <p class="caption">Top row: live down v03. Bottom row: candidate down v04. <a href="raw/down_v04.png">Open raw down v04</a> · <a href="raw/down_v04.json">source and attempt record</a>.</p>
+  </section>
+
+  <section class="panel section" id="specialForward">
+    <h2>R4 · specialForward v02, frame 5 <span class="tag">approved as drawn · Astra hold remains</span></h2>
+    <p>The two cells show live v01 above and repaired v02 below. The repair clears only the isolated orange fragment at the rear foot; it changes no pose, timing or scale. The user approved v02 via Claude relay audit2 #9 under their overnight instruction; the user had not yet seen the image. The existing diagnostic exemption and Astra hold for discontinuous arm/palm fragments remain in place.</p>
+    <div class="board small"><img src="specialForward-f5-compare.png" alt="Packed Luffy specialForward v01 frame 5 above and pixel-repaired v02 frame 5 below"></div>
+    <p class="caption"><a href="raw/specialForward_v02.png">Open raw specialForward v02</a> · <a href="raw/specialForward_v02.json">pixel repair provenance</a> · <a href="atlas/characters/luffy/sheet.png">candidate atlas sheet</a> · <a href="atlas/characters/luffy/anims.json">candidate animation metadata</a>.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Candidate atlas and technical status</h2>
+    <p>The review atlas is a 48-color candidate pack for side-by-side review only. Its temporary manual-QA overrides were used only to build this gallery; they are not in <code>art/manifest.json</code> and do not constitute an Astra pass. Run v02 and down v04 still await visual approval. Final Astra audit remains pending; specialForward v02 is approved but its earlier diagnostic exemption and arm/palm technical hold remain.</p>
+    <p class="muted">Pack details and exact SHA-256 values: <a href="ATLAS_INFO.md">ATLAS_INFO.md</a> · generation and repair provenance: <a href="ATTEMPT_INVENTORY.md">ATTEMPT_INVENTORY.md</a>.</p>
+  </section>
+</main></body></html>
