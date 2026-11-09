@@ -1,0 +1,74 @@
+{
+  "title": "Luffy ART-SIZE-R8 run v02 offset-pack Astra recheck metrics",
+  "auditor": "GPT-6 Astra (medium)",
+  "relay": "audit2 #15",
+  "date": "2026-11-09",
+  "source": {
+    "worktree": "E:/Vibe Coding/Claude Code/gcdTourney/.worktrees/art-size-r8-b4",
+    "branch": "art/size-r8-b4",
+    "commit": "e3ca6a4e5c54e004eb6f3d48250526863de71583"
+  },
+  "atlas": {
+    "path": "public/characters/luffy/sheet.png",
+    "sha256": "4edce4bb847658d02c9123dbce70b994d16f017f1de1da5843433c48ed4074b5",
+    "metadataPath": "public/characters/luffy/anims.json",
+    "metadataSha256": "6d5975ef83790a52698ffb27767c942197bf986e035f107c2ec26f8170fc54d8",
+    "dimensions": [4096, 2816],
+    "colors": 48,
+    "animation": "run",
+    "version": 2,
+    "cells": [8, 9, 10, 11, 12, 13, 14, 15],
+    "durationsMs": [60, 60, 60, 60, 60, 60, 60, 60],
+    "loop": true,
+    "frameOffsets": [[-18, 0], [39, 0], [3, 0], [58, 0], [63, 0], [5, 0], [16, 0], [58, 0]],
+    "globalPackScale": 0.92
+  },
+  "raw": {
+    "stripPath": "art/characters/luffy/raw/run_v02.png",
+    "stripSha256": "e719904a758dbc715558085c0e0f612abfc993dd4ffa9745d066ace54ce46d49",
+    "sidecarPath": "art/characters/luffy/raw/run_v02.json",
+    "sidecarSha256": "5a0c286b2f3ad4e80191f5d6f059b701c0e75d3430e8151c8643ad5898649fa1"
+  },
+  "references": [
+    { "role": "approved idle f0", "path": "public/characters/luffy/calibration-r3/reference-approved-idle-f0.png", "sha256": "a26d94992f0c3ee5fcff26cc043bc6ba797f432ea9def450d6f6afafd90e522d" },
+    { "role": "approved neutral", "path": "public/characters/luffy/calibration-r3/reference-neutral.png", "sha256": "8e9da76421c52e5fa449ce55b2dba1933b52e74d15ccd4a69090b9f97eb082b1" },
+    { "role": "approved combat", "path": "public/characters/luffy/calibration-r3/reference-combat.png", "sha256": "439678e0a9689edc3cc9686d51a65f9d546e2e68aae20760de8e7f4391a306e0" }
+  ],
+  "previousAtlasSha256": "4d0fa71916948303dcff65d75f2d1129bf0c224ed9890d748bdb180245fe41b1",
+  "registration": {
+    "previousHatCenterDeltasPx": { "f0ToF1": -54.5, "f7ToF0": 43 },
+    "correctedTorsoCenterX": [124, 125.4],
+    "correctedHatBandX": [151.6, 158.8],
+    "correctedWholeBodyMassCenterX": [128.3, 132.4],
+    "independentWholeBodyMassCentersX": [128.56, 128.34, 131.24, 131.59, 132.42, 131.55, 132.02, 132.1],
+    "f0ToF1MassDeltaPx": -0.22,
+    "f7ToF0LoopMassDeltaPx": -3.54,
+    "hatBandCentersXApprox": [150.5, 149, 152, 149.5, 152.5, 157, 151.5, 151.5],
+    "alphaBoundsExclusive": [
+      [36, 55, 194, 241],
+      [42, 53, 195, 241],
+      [34, 56, 220, 241],
+      [33, 61, 222, 241],
+      [39, 57, 215, 241],
+      [71, 57, 195, 241],
+      [37, 58, 224, 241],
+      [31, 65, 221, 241]
+    ],
+    "leadingShinEstimatesPx": [50, 55, 50, 48, 48, 42, 50, 45],
+    "shinUncertaintyPx": [6, 8],
+    "necklineToSashEstimatePx": [42, 48],
+    "necklineToSashUncertaintyPx": [5, 6],
+    "allFramesInside4pxMargin": true
+  },
+  "probe": {
+    "verdict": "unmeasured",
+    "useInManualVerdict": false,
+    "note": "Luffy head probe is disabled; numerical head/feet ratios were not used."
+  },
+  "verdict": "pass: corrected registration and visible anatomy/scale within stated uncertainty; runtime contact remains Claude-owned",
+  "board": {
+    "path": "public/reviews/size-r8-audit2-luffy-b9-b10-r4/astra-run-v02-offset-recheck-exact-atlas-references.png",
+    "sha256": "618aafa9a5e37f359d752b04448e9f1031a594e185d0a476a708b30263d3537d"
+  },
+  "report": "art/characters/luffy/production/size-r8-b9-b10-r4/ASTRA_RUN_V02_REGISTRATION_RECHECK.md"
+}

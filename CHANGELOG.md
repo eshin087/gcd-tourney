@@ -16,6 +16,7 @@ Every change adds a line under **Unreleased** in the right group: Added, Changed
 Fixed, Security. Reference task ids and ADRs where useful.
 
 ## [Unreleased]
+- Changed (ART-SIZE-R8, audit2 #15): GPT-6 Astra rechecked Luffy run v02 on Claude's offset pack (atlas 4edce4bb…); the prior registration hold is cleared, and visible anatomy/scale passes within stated uncertainty. Runtime grounding/contact remains Claude-owned; see `art/characters/luffy/production/size-r8-b9-b10-r4/ASTRA_RUN_V02_REGISTRATION_RECHECK.md`.
 - Changed (ART-SIZE-R8, audit2 #14): GPT-6 Astra audited Luffy run v02 and down v04 in the exact production atlas. Run remains held for 54.5 px internal registration movement and a 43 px loop seam despite reference-consistent scale; down passes manual visible anatomy/scale within stated uncertainty. Runtime contact and grounding remain Claude-owned; see `art/characters/luffy/production/size-r8-b9-b10-r4/ASTRA_FINAL_AUDIT.md`.
 - Changed (ART-SIZE-R8, audit2 #13): the user chose to keep Gojo airLight1 v07 and closed B4 with no further redraws ("Keep v07 (Recommended)"). Candidates v08-v10 remain preserved in `raw/_rejected/`; approved v07 remains current.
 - Decision (ART-SIZE-R8, audit2 #12): the user directed Claude to ship Goku bair v02 despite the Astra short-torso hold ("Ship v02 (Recommended)"). The hold and `scaleManualQA` result `hold` remain unchanged; Claude will merge with `--force-art` citing #12.
