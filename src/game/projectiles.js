@@ -68,13 +68,14 @@ export const STREAM_STYLES = {
 };
 
 // A palette's drawn band (`band`: an HD tile strip that continues the move's own art, ADR 0055) as a stream style, once
-// the atlas has it; in a clash only (`inClash`): the ultimate beams keep their shader ribbon while they simply fire.
+// the atlas has it; in a clash (`inClash`), and with `solo` when it simply fires too: the other ultimate beams keep their
+// shader ribbon, but the Four-Tails beam's read as a banded capsule with a stepped disc for a head (ENG-132).
 // One frozen style per band, so a saved state's style is the same object (snapshot.js keeps STREAM_STYLES static).
 const BAND_STYLES = new Map();
 const HD_CELL_WORLD = 256 / 112; // an HD cell's world size (art/SPEC.md "VFX atlas"), the band's length at scale 1
 export function streamStyle(game, pal, inClash) {
   const B = pal.band;
-  if (B && inClash && game.fxMeta?.anims?.[B.fx]) {
+  if (B && (inClash || B.solo) && game.fxMeta?.anims?.[B.fx]) {
     let St = BAND_STYLES.get(B);
     if (!St) BAND_STYLES.set(B, (St = Object.freeze({ fx: B.fx, band: true, seg: HD_CELL_WORLD * (B.scale ?? 1), scroll: B.scroll ?? 8, full: true, glow: B.glow ?? 0.25 })));
     return St;
@@ -83,6 +84,7 @@ export function streamStyle(game, pal, inClash) {
   return St.fx && !game.fxMeta?.anims?.[St.fx] ? STREAM_STYLES.ribbon : St;
 }
 const styleKey = (St) => St.fx ?? St.orb ?? 'ribbon';
+const BEAM_KEEPS = ['beamO', 'beamOx', 'beamHx', 'beamOrb', 'beamH', 'beamH2']; // BeamView.sync's held pieces (+ owner index)
 
 const up = new THREE.Vector3(0, 1, 0);
 const tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3(), tmpC = new THREE.Vector3();
@@ -195,6 +197,7 @@ class BeamView {
     this.game = game;
     const b = beam.pal, St = beam.St;
     this.key = styleKey(St);
+    this.owner = beam.owner.index; // its held pieces are keyed by the owner (sync)
     this.mat = St.fx
       ? new THREE.ShaderMaterial({
         uniforms: {
@@ -233,6 +236,9 @@ class BeamView {
     this.game.scene.remove(this.mesh);
     this.mat.dispose();
     this.mesh.geometry.dispose();
+    // its held pieces go with it: left to expire they hung on for 90 ms of wall time, a Red orb at the old clash point
+    // after Gojo was launched (ENG-132)
+    for (const k of BEAM_KEEPS) this.game.fx.drop(k + this.owner);
   }
 
   // Orient the ribbon along the beam, widened toward the camera.
@@ -277,7 +283,7 @@ class BeamView {
     const pulse = 1 + dmath.sin(time * 30) * 0.08;
     // the bulb at the hands, small and drawn behind the sprite (fighters are order 2) so it lights the palm without
     // covering the body. Not in a clash or for a drawn band: there the soft disc read as a stand-in glow (ADR 0055)
-    if (!beam.clash && !beam.stream && !St.band) fx.keep('beamO' + id, 'glow', beam.origin.x, beam.origin.y, beam.origin.z, { scale: 0.5 * pulse * beam.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
+    if (!beam.clash && !beam.stream && !St.band) fx.light('beamO' + id, beam.origin.x, beam.origin.y, beam.origin.z, { scale: 0.5 * pulse * beam.fade, color, opacity: 0.9, order: 1, glow: 0.3 });
     const h = beam.head, P = beam.pal;
     const R = this.game.cam.right, sx = beam.dir.x * R.x + beam.dir.z * R.z, flip = sx < 0, phi = dmath.atan2(beam.dir.y, Math.abs(sx));
     // the technique itself held at the palms while it fires (`originFx`: the Kamehameha's ball, ENG-SKL-GOK), in front
@@ -286,8 +292,11 @@ class BeamView {
     // (ADR 0055): smaller, its front on the struggle point, so two Kamehamehas read as two beams pushing
     if (P.originFx) fx.keep('beamOx' + id, P.originFx.fx, beam.origin.x, beam.origin.y, beam.origin.z, { scale: P.originFx.scale * (beam.clash ? 0.7 : pulse) * beam.fade, order: 7, glow: P.originFx.glow ?? 0.3 });
     if (P.headFx && (!St.fx || St.band) && !St.orb) {
-      const s = P.headFx.scale * beam.fade * (beam.clash ? 0.72 + beam.clash.kick * 0.08 : 1);
-      const back = (P.headFx.front ?? 0.45) * fx.cellWorld * s; // its front sits on the head: centre it that far back
+      // never longer than the beam itself: its tail reached back over the fighter (the Kamehameha pressed short by a close
+      // collision in an ultimate clash, and on its first fire frames, covered Goku's head and chest, ENG-132)
+      const front = P.headFx.front ?? 0.45;
+      const s = Math.min(P.headFx.scale * beam.fade * (beam.clash ? 0.72 + beam.clash.kick * 0.08 : 1), beam.len / ((front + 0.5) * fx.cellWorld));
+      const back = front * fx.cellWorld * s; // its front sits on the head: centre it that far back
       const it = fx.keep('beamHx' + id, P.headFx.fx, h.x - beam.dir.x * back, h.y - beam.dir.y * back, h.z - beam.dir.z * back, { scale: s * (beam.hitting ? 1.1 : 1), order: 7, glow: P.headFx.glow ?? 0.3, flipX: flip });
       it.rot = flip ? -phi : phi;
       return;
@@ -343,9 +352,9 @@ export class ShotViews {
           v = { lance: fx.span(L.fx, p.from ?? p.pos, d, L.len, g.cam.right, { seq: L.seq, ms: L.ms, order: 8, glow: L.glow ?? 0.3, depthTest: false }) };
         } else {
           v = { sprite: fx.spawn(P.sprite, p.pos.x, p.pos.y, p.pos.z, { scale: P.scale, loop: true, life: 999, order: 7, color: P.color ?? 0xffffff, glow: P.color ? 1.2 : 0, random: !!P.random }) };
-          // `halo`: the glow disc under the sprite: false or 0 for none (full-color art that carries its own light:
-          // Reversal: Red, Goku's ki blasts get a faint one), a number for its opacity
-          if (P.glowColor && P.halo !== false && P.halo !== 0) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: typeof P.halo === 'number' ? P.halo : 0.5, order: 6 });
+          // `halo`: a glow disc under the sprite at that opacity, only when a shot asks for one: every shot's art now
+          // carries its own light, and the disc read as a bubble round the ki blasts and the fireball (ENG-132)
+          if (P.glowColor && typeof P.halo === 'number' && P.halo > 0) v.glow = fx.spawn('glow', p.pos.x, p.pos.y, p.pos.z, { scale: P.scale * 0.9 + 0.3, color: P.glowColor, loop: true, life: 999, opacity: P.halo, order: 6 });
         }
         if (P.limb) Object.assign(v, { limb: P.limb, owner: p.owner });
         this.shots.set(p.id, v);
@@ -469,7 +478,6 @@ export class Projectile {
     const back = { x: this.pos.x - this.vel.x * 0.03, z: this.pos.z - this.vel.z * 0.03 };
     if (this.P.trail === 'fire' && Math.random() < 0.5) fx.spawn('fire', back.x, this.pos.y, back.z, { scale: 0.7, life: 0.2, fade: true, opacity: 0.8 });
     if (this.P.trail === 'bolt') fx.spawn('lightning', back.x, this.pos.y, back.z, { scale: 0.55, random: true, life: 0.06, color: 0xd8f0ff, rot: Math.random() * 6.28, order: 7, glow: 1.6 });
-    if (this.P.trail === 'red' && Math.random() < 0.6) fx.spawn('glow', back.x, this.pos.y, back.z, { scale: 0.8, life: 0.12, color: 0xff3048, opacity: 0.6, fade: true, order: 6 });
     if (this.pos.y < 0.1 || Math.abs(this.pos.x) > ARENA_LIMIT + 4 || Math.abs(this.pos.z) > ARENA_LIMIT + 4 || this.life <= 0) {
       if (this.pos.y < 0.1 && this.P.burstFx) {
         fx.blast(this.P.burstFx.fx, this.pos.x, 0.4, this.pos.z, this.P.burstFx.scale ?? 1, new THREE.Color(this.P.burstFx.color ?? this.P.glowColor ?? 0xffffff), this.P.burstFx.smoke, this.flipsLeft(), this.P.burstFx.ring);
@@ -501,7 +509,6 @@ export class Projectile {
         if (!this.game.resim) this.game.shotViews?.hang(this, I.hang ?? 0.4);
       } else {
         fx.spawn('ring', this.pos.x, this.pos.y, this.pos.z, { scale: 0.9, color: 0xd8f2ff, glow: 1, order: 8 });
-        fx.spawn('glow', this.pos.x, this.pos.y, this.pos.z, { scale: 1, color: 0x9fd8ff, opacity: 0.5, life: 0.25, fade: true });
       }
       // frames, not the render clock: the ki charge below decides a fight (ADR 0036)
       if (!o.infinityCallT || this.game.frameNo - o.infinityCallT > 120) {
@@ -631,10 +638,15 @@ export class Orb {
       // it and what it erases (violet specks) drawn into it. In a clash (ADR 0055) it is drawn smaller and clear of the
       // floor, its front on the struggle point: at full size its lower half sank into the floor as a dome and it hid the
       // other side's beam and the collision. View only: the clash still places the orb itself (Game.placeClash)
-      const s = this.r * (L.massScale ?? 1) * this.grow * (1 + 0.03 * dmath.sin(this.t * 0.7)) * (this.clash ? L.clashScale ?? 0.7 : 1);
+      let s = this.r * (L.massScale ?? 1) * this.grow * (1 + 0.03 * dmath.sin(this.t * 0.7)) * (this.clash ? L.clashScale ?? 0.7 : 1);
       let q = p;
       if (this.clash) {
-        const P = this.clash.point, vr = s * fx.cellWorld * (L.radius ?? 0.45);
+        // pushed back toward him it shrinks to the room in front of him instead of sliding over him (ENG-132): its back
+        // stays half a body in front of his feet
+        const P = this.clash.point, o = this.owner.pos, R = fx.cellWorld * (L.radius ?? 0.45);
+        const room = Math.max(0.3, (P.x - o.x) * this.dir.x + (P.z - o.z) * this.dir.z - 0.35);
+        s = Math.min(s, room / (2 * R));
+        const vr = s * R;
         q = tmpA.set(P.x - this.dir.x * vr, Math.max(P.y, vr * 0.95), P.z - this.dir.z * vr);
       }
       fx.keep(this.id, L.mass, q.x, q.y, q.z, { scale: s, order: 8, glow: 0.15 });
@@ -722,7 +734,6 @@ export class Vortex {
       const it = fx.keep(this.id, m.dome, p.x, p.y, p.z, { scale: 0.95 * Math.max(0.35, grow), order: 8, glow: 0 });
       const left = m.len - this.t;
       it.frame = this.t < 4 ? (this.t < 2 ? 0 : 1) : left < 10 ? 4 + Math.min(3, Math.floor((10 - left) / 2.5)) : 2 + (Math.floor(this.t / 3) % 2);
-      fx.keep(this.id + 'g', 'glow', p.x, p.y, p.z, { scale: 0.4 + 1.6 * grow, color: C.glow, opacity: 0.2, order: 3, glow: 0.3 });
     } else if (m.look) {
       // Lapse: Blue, the anime's look (ENG-SKL-GOJ): the HD attraction point with no glow disc over the victim, and floor
       // rubble torn up and dragged into it
