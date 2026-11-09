@@ -19,12 +19,13 @@ exact atlas hashes, prompts and generation provenance are in the
 
 ## Naruto ART-SIZE-R8 A4-A8, R1-R2 (2026-11-09)
 
-The [batch decision page](../public/reviews/size-r8-naruto/index.html) shows the latest packed candidate for each
-requested strip beside approved idle/combat context, plus the body and head-scale evidence. The images use a
-candidate-only warning-mode diagnostic atlas; they are not the production sheet. A4-A8 remain on the technical holds
-listed below. The user chose to keep them held and proceed to Killua, and approved R1/R2 via Claude relay `audit1 #7`. That
-approval covers those exact script-only edits, with inherited geometry evidence rather than new anatomy
-certification. Every versioned attempt and pixel diff is preserved in the [generation inventory](characters/naruto/production/size-r8/GENERATION_INVENTORY.md).
+The [batch decision page](../public/reviews/size-r8-naruto/index.html) retains the earlier packed diagnostic
+candidates beside approved idle/combat context. Relay `audit1 #9` authorized up to three more image calls per A4-A8
+item. All five budgets are spent; the supplemental candidates remain under `raw/_qa_hold/` because none clears all
+required head/body/floor/contact thresholds. They are not queued for image approval. The rows below document the
+prior held versions and their historical evidence. The user approved R1/R2 via Claude relay `audit1 #7`; those exact
+script-only edits have inherited geometry evidence rather than new anatomy certification. Every new call, version
+and hash is preserved in the [generation inventory](characters/naruto/production/size-r8/GENERATION_INVENTORY.md).
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
@@ -36,7 +37,7 @@ certification. Every versioned attempt and pixel diff is preserved in the [gener
 | 2026-11-09 | Naruto | airHeavyAlt | [v05](characters/naruto/raw/airHeavyAlt_v05.png) · [review](../public/reviews/size-r8-naruto/index.html#r1) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v05 | approved | Script recolored 2,253 thigh-pouch pixels to black in documented masks; approved by the user via Claude relay `audit1 #7`. | Every other RGBA pixel matches approved v04; geometry evidence is inherited, not a new anatomy certification. |
 | 2026-11-09 | Naruto | jumpSquat | [v05](characters/naruto/raw/jumpSquat_v05.png) · [review](../public/reviews/size-r8-naruto/index.html#r2) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v05 | approved | Script made three orange pixels beside the rear fist transparent; approved by the user via Claude relay `audit1 #7`. | All other RGBA pixels match approved v04; H 1.000 and B 0.882 (pose-sensitive advisory), continuity only. |
 
-All earlier A4-A8 image attempts remain versioned and are listed in the inventory; the newest candidate for each move is the only version presented for that decision. A4-A8 remain unapproved on technical hold; R1/R2 v05 are user-approved.
+All A4-A8 attempts remain versioned in the inventory. No supplemental candidate is promoted or presented for approval; the existing live versions remain unchanged on technical hold. R1/R2 v05 are user-approved. Killua A9/A10 approvals via relay `audit1 #8` are recorded in the section above.
 
 ## Sasuke ART-SIZE-R8 A3 (2026-11-08)
 
