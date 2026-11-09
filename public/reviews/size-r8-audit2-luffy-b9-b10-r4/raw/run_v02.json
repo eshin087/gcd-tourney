@@ -1,0 +1,116 @@
+{
+  "source": "ImageGen built-in call exec-a4d5a995-ef3b-491e-82b8-45e27128e0f9.png; one 4x2 contact sheet, generated 2026-11-09 and retained unchanged as raw/_parts/run_v02_grid.png",
+  "sourceSHA256": {
+    "contactSheet": "3ed6989ed2e499c939e1a4e793785a2070b01dbe3cb166000cd9695b2fb95046"
+  },
+  "sourceSize": [
+    1774,
+    887
+  ],
+  "normalization": {
+    "method": "palette-preserving downsample of the entire 4x2 square-cell grid to 1024x512, then top and bottom rows saved as the four-frame A and B strips; no pose-specific scale chosen",
+    "factor": 0.57722661,
+    "outputSize": [
+      1024,
+      512
+    ]
+  },
+  "attempts": {
+    "generationCalls": 1,
+    "budget": 3
+  },
+  "stitch": {
+    "bFactor": 0.9849,
+    "measured": 0.9849,
+    "scaledPart": "B",
+    "scaledBy": 0.9849,
+    "idleScaleA": 0.7989,
+    "idleScaleB": 0.7868,
+    "afterB_vs_A": 0.989,
+    "parts": [
+      "raw/_parts/run_v02_A.png",
+      "raw/_parts/run_v02_B.png"
+    ],
+    "poses": [
+      4,
+      4
+    ],
+    "layout": [
+      "figures",
+      "figures"
+    ],
+    "gapPx": 24,
+    "tool": "tools/stitch-parts.mjs"
+  },
+  "frameOffsets": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      26,
+      0
+    ],
+    [
+      25,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      28,
+      0
+    ]
+  ],
+  "placementQA": {
+    "reason": "With the existing global packScale x0.92 and unchanged bodyHeight, the packer placed frames 3, 4 and 7 at x=-20, -19 and -22. Measured final-cell shifts +24, +23 and +26 restore the 4px safe margin; the pre-scale sidecar offsets above are multiplied by 0.92 by the packer. No pose, timing, body scale or packScale changed.",
+    "measuredFinalCellOffsets": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        24,
+        0
+      ],
+      [
+        23,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        26,
+        0
+      ]
+    ]
+  }
+}

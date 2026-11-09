@@ -1,0 +1,22 @@
+{
+  "source": "ImageGen built-in call exec-f06ed458-a081-435b-b0ef-fbb190d1e327.png; generated 2026-11-09 as a 2-cell contact sheet and retained unchanged as raw/_parts/down_v04_grid.png",
+  "sourceSHA256": {
+    "contactSheet": "10a8e084f68891d268451e5c8b06836c26c6e7e51a0b80d1e265b316ae78f67b"
+  },
+  "sourceSize": [
+    1774,
+    887
+  ],
+  "normalization": {
+    "method": "palette-preserving uniform downsample of two square source cells to the canonical 512x256 strip; one common atlas bodyHeight scale remains 106",
+    "factor": 0.2886133,
+    "outputSize": [
+      512,
+      256
+    ]
+  },
+  "attempts": {
+    "generationCalls": 3,
+    "budget": 3
+  }
+}
