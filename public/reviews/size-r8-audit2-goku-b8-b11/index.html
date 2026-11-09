@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ART-SIZE-R8 B8 and B11 · Goku review</title>
+  <style>
+    :root{color-scheme:dark;--bg:#11131a;--panel:#1a1d27;--line:#414654;--text:#f3f4f8;--muted:#b8bdc9;--cyan:#4dd7ff;--green:#4fd39b;--amber:#ffd24a}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif}main{max-width:1240px;margin:auto;padding:28px 20px 60px}h1,h2{line-height:1.2}h1{font-size:2rem;margin:.3rem 0}h2{font-size:1.35rem;margin:0 0 12px}.eyebrow{color:var(--cyan);font-weight:700;letter-spacing:.08em;text-transform:uppercase}.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:18px 0}.hold{border-left:5px solid var(--amber)}.info{border-left:5px solid var(--cyan)}.muted,small{color:var(--muted)}a{color:#83dfff}.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.fact{padding:12px;background:#222633;border-radius:8px}.tag{display:inline-block;padding:2px 9px;border-radius:99px;background:#243444;color:var(--cyan);font-size:.82rem;font-weight:700}.tag.hold{background:#43371d;color:var(--amber)}.tag.pass{background:#193c32;color:var(--green)}.board{overflow-x:auto;background:#13151c;border-radius:8px;padding:10px}.board img{display:block;width:100%;height:auto;image-rendering:pixelated}.section{scroll-margin-top:12px}@media(max-width:700px){main{padding:18px 12px 40px}}
+  </style>
+</head>
+<body><main>
+  <p class="eyebrow">Character Art Audit #2 · Goku · B8 and B11</p>
+  <h1>Goku redraw review</h1>
+  <p class="muted">Please review the drawings as art candidates. Run v10 replaces the oversized head on run v09. Bair v02 redraws the six-frame back kick and also addresses R3's color defects. The previously approved versions remain current until you decide.</p>
+
+  <section class="panel info">
+    <h2>Review status</h2>
+    <div class="facts">
+      <div class="fact"><b>B8 · run v10</b><br>Eight-frame gait and 60 ms timing retained; hair and face redrawn at the approved idle scale.</div>
+      <div class="fact"><b>B11 · bair v02</b><br>Six-frame back kick retained; f0 chin/waist artifacts and f2 gi skin patch corrected; f3 kick moved inside the cell.</div>
+      <div class="fact"><b>Packed candidate atlas</b><br>38 animations, 196 frames, 48 colors. Both candidates are in the atlas; existing unrelated warnings remain.</div>
+      <div class="fact"><b>Still pending</b><br>Goku has no automatic head probe. Manual one-scale comparisons are preliminary; final Astra anatomy and runtime contact checks remain open.</div>
+    </div>
+    <p><span class="tag hold">needs user review</span> Visual approval does not clear the Astra or runtime holds.</p>
+  </section>
+
+  <section class="panel section" id="run">
+    <h2>B8 · run v10 <span class="tag hold">needs review · preliminary manual scale check</span></h2>
+    <p>Compared all eight packed frames at 256×256 beside approved idle f0, the approved title-style neutral/combat cells and the prior run v09. Hair and face visually track the approved head; torso, limb and boot landmarks appear coherent within an estimated 6–8 px pose/rotation uncertainty. Measured frame offsets [16,0] and [7,0] at source scale clear clipping on frames 3 and 4; no rescaling was applied. The body-color proxy is unreliable for this palette and is not claimed as a pass.</p>
+    <div class="board"><img src="run-v10-compare.png" alt="Packed Goku run v10 compared with approved idle, title-style neutral and combat references, and prior run v09"></div>
+    <details><summary>Open raw candidate</summary><div class="board"><img src="run-v10-raw.png" alt="Raw eight-frame Goku run v10 candidate"></div></details>
+    <p class="muted">Candidate: <a href="run-v10-raw.png">raw run v10</a> · <a href="INVENTORY-B8-run.md">generation and measurement inventory</a> · board SHA-256 <code>B759965AB2E785C3F7D7668D67AB0D31D8B492D4031A145F330C225D16EB6F5A</code>.</p>
+  </section>
+
+  <section class="panel section" id="bair">
+    <h2>B11 · bair v02 <span class="tag hold">needs review · preliminary manual scale check</span></h2>
+    <p>All six back-kick frames are retained. The f2/f3 rear kick remains inside the cell after a measured +14 px source-scale horizontal offset on f3 (about +13 px at the unchanged fighter pack scale); no rescaling was applied. The f0 dark chin blob and pale waist patch, and f2 skin patch on the gi, are corrected. The manual one-scale comparison judged head, torso and visible limb/build landmarks coherent within about 6–8 px uncertainty for airborne rotation.</p>
+    <div class="board"><img src="bair-v02-compare.png" alt="Packed Goku bair v02 compared with approved idle, title-style neutral and combat references, and prior bair v01"></div>
+    <details><summary>Open raw candidate</summary><div class="board"><img src="bair-v02-raw.png" alt="Raw six-frame Goku bair v02 candidate"></div></details>
+    <p class="muted">Candidate: <a href="bair-v02-raw.png">raw bair v02</a> · <a href="INVENTORY-B11-bair.md">generation and measurement inventory</a> · board SHA-256 <code>861637CF8C932032312A90422735EA6F85424C96A9BAA5F56F3081AA06BCFFA7</code>.</p>
+  </section>
+
+  <section class="panel hold">
+    <h2>Technical and integration holds</h2>
+    <p>These are packed review candidates, not final anatomy/scale audits. The head probe is disabled for Goku, so the records use version-specific manual comparisons with stated uncertainty. GPT-6 Astra still needs to inspect the exact approved quantized atlas; Claude still owns runtime contact and integration review. Existing unrelated Goku pack warnings are unchanged.</p>
+  </section>
+</main></body></html>
