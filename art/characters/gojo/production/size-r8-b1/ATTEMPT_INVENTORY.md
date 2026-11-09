@@ -20,7 +20,7 @@ Part B for v08 is byte-identical to v07_B, reused to preserve the measured stitc
 |---|---:|---:|---:|---|
 | v06 | 0.4180 | 0.2705 | 0.6470 | rejected before review: parts differ too much in body scale |
 | v07 | 0.4102 | 0.4116 | 1.0034 | superseded before user review |
-| v08 | 0.4075 | 0.4116 | 1.0099 | selected drawing candidate; packed with contact hold below |
+| v08 | 0.4075 | 0.4116 | 1.0099 | user-approved drawing; current reach accepted |
 
 ## v08 packed evidence
 
@@ -30,8 +30,8 @@ Part B for v08 is byte-identical to v07_B, reused to preserve the measured stitc
 - Timing/phases unchanged: seven frames, phases [2,2,3], durations [30,30,40,50,50,50,30].
 - Quantized atlas SHA-256: 93B73C1C7236FD23792EFE263D97D02431CA76A6C084B8C78D50019A819E9E67. Gojo-only scale report preserved as scale-report-v08.json.
 
-## Technical hold: active contact position
+## User-approved reach decision
 
-Packed f2 hand/skin pixels x175–196, y55–73; f3 x179–191, y55–73. The animation brief requires palm x206–226, y64–86. The f2/f3 hitbox overrides match visible pixels ([174,54,24,21], [178,54,15,21]); extending gameplay boxes to the brief zone would create invisible reach. This is a contact-placement HOLD, not a scale-gate failure. Part A has exhausted three calls; a fresh budget or user-directed disposition is needed before correction.
+User decision via Claude relay audit2 #3: “Approve, keep reach.” The user accepted the measured f2 palm pixels x175–196, y55–73 and f3 x179–191, y55–73 despite the original brief target x206–226, y64–86. Hitbox overrides remain aligned to visible pixels ([174,54,24,21], [178,54,15,21]); the approved reach is unchanged. This resolves the prior design/contact-placement hold. Independent Astra anatomy/scale audit and Claude runtime contact verification remain pending.
 
-No user image approval, Astra final anatomy/scale audit, merge, runtime contact pass or production deployment is recorded.
+User approved v08 via Claude relay audit2 #3: “Approve, keep reach.” Astra final anatomy/scale audit, Claude runtime contact verification, merge and production deployment remain pending.
