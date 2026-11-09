@@ -2,18 +2,20 @@
 
 ## Killua ART-SIZE-R8 A9-A10 (2026-11-09)
 
-The [batch review page](../public/reviews/size-r8-killua/index.html) shows the approved v08/v07 drawings beside the
-new packed v09/v08 candidates, approved idle/neutral/combat references, and the body-area comparison. A9 preserves
-its four-frame loop and reduces shorts, limb and hand size toward neutral. A10 preserves the five-frame kip-up and
-narrows f1-f4 toward idle build. The strict candidate pack remains held on getup v08: the prior manual QA is for v07,
-the lying f0 head probe is low-confidence, and its floor-contact measure is above the pivot. The diagnostic atlas
-was written outside the repository with a temporary manifest override; production art was not changed. Generation
-calls, prompts and hashes are in the [inventory](characters/killua/production/size-r8/GENERATION_INVENTORY.md).
+The [batch review page](../public/reviews/size-r8-killua/index.html) shows the formerly approved v08/v07 drawings beside
+the packed v09/v08 drawings, approved idle/neutral/combat references, and the body-area comparison. The user approved
+both drawings as made via Claude relay `audit1 #8` (“Approve both”). Astra's final diagnostic-atlas audit passed A9
+superPose v09 anatomy and scale. A10 getup v08 also passed anatomy and scale; its v08-specific manual QA explains the
+lying-frame head-probe misread. A10 remains on technical hold because the literal floor-contact predicate flags the
+folded feet in f0; Claude must disposition runtime contact/shadow behavior before technical clearance. The report,
+exact atlas hashes, prompts and generation provenance are in the
+[Astra audit](characters/killua/production/size-r8/ASTRA_AUDIT.md) and
+[inventory](characters/killua/production/size-r8/GENERATION_INVENTORY.md). No production atlas was written.
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
-| 2026-11-09 | Killua | superPose | [v09](characters/killua/raw/superPose_v09.png) · [review](../public/reviews/size-r8-killua/index.html#a9) · [calls](characters/killua/production/size-r8/GENERATION_INVENTORY.md) | v09 | needs review | Four-frame Whirlwind loop retained; shorts, legs and hands redrawn toward approved neutral size. | Head H 0.975-1.029 (median 1.000); body B 0.890-0.938 (median 0.910, pose-sensitive advisory). Candidate cells are diagnostic only; no hitbox override exists. |
-| 2026-11-09 | Killua | getup | [v08](characters/killua/raw/getup_v08.png) · [review](../public/reviews/size-r8-killua/index.html#a10) · [calls](characters/killua/production/size-r8/GENERATION_INVENTORY.md) | v08 | needs review | Five-frame kip-up retained; f1-f4 torso, arms and legs redrawn toward idle build. | H f1-f4 1.010-1.050; f0 0.480 low-confidence. Body B `[0.730, 0.866, 0.966, 0.831, 0.892]`, median 0.866. Strict candidate pack HOLD: stale v07 manual QA, unmeasured lying pose, f0 floor contact 77% within 5 px of y=240 and lowest fifth 13 px above line. |
+| 2026-11-09 | Killua | superPose | [v09](characters/killua/raw/superPose_v09.png) · [review](../public/reviews/size-r8-killua/index.html#a9) · [calls](characters/killua/production/size-r8/GENERATION_INVENTORY.md) | v09 | approved | Four-frame Whirlwind loop retained; shorts, legs and hands redrawn toward approved neutral size. User approved v09 as drawn via Claude relay `audit1 #8`: “Approve both”. | Astra PASS on every packed frame and the four-frame loop against the 48-color diagnostic atlas (SHA-256 `90A4F8EA…DD6BE30`); H 0.975-1.029, B median 0.910 (pose-sensitive advisory). Version-bound anatomy/scale QA recorded; no hitbox override exists. |
+| 2026-11-09 | Killua | getup | [v08](characters/killua/raw/getup_v08.png) · [review](../public/reviews/size-r8-killua/index.html#a10) · [calls](characters/killua/production/size-r8/GENERATION_INVENTORY.md) | v08 | approved | Five-frame kip-up retained; f1-f4 torso, arms and legs redrawn toward idle build. User approved v08 as drawn via Claude relay `audit1 #8`: “Approve both”. | Astra anatomy/scale PASS for all five frames; f0 H 0.480 is a rotated-head probe failure, not a small head. Version-bound anatomy QA recorded. Overall TECHNICAL HOLD for the separate floor predicate: 98/128 columns within 5 px of y=240, but folded-foot lowest fifth is 13 px above it. Claude must check runtime contact/shadow; see [audit](characters/killua/production/size-r8/ASTRA_AUDIT.md). |
 
 ## Naruto ART-SIZE-R8 A4-A8, R1-R2 (2026-11-09)
 

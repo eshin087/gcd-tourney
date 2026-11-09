@@ -35,7 +35,7 @@
 </head>
 <body>
   <h1>Killua ART-SIZE-R8: A9-A10</h1>
-  <p class="state"><strong>Visual approval requested for the two newest drawings.</strong> These are versioned candidates. Their diagnostic packed cells are shown below at 256 px. The normal candidate pack did not replace the production sheet; getup v08 has a technical hold recorded separately from the user's visual decision.</p>
+  <p class="state"><strong>Visual approval received via Claude relay <code>audit1 #8</code>.</strong> The user approved superPose v09 and getup v08 as drawn (“Approve both”). Astra's exact-atlas anatomy/scale audit passes both drawings. Getup v08 remains on technical hold for the folded-foot floor-contact finding pending Claude's runtime contact/shadow disposition. No production atlas was written.</p>
 
   <section class="verdict" aria-label="Review summary">
     <article><h2>Identity</h2><p>Both strips retain Killua's approved silver-white hair, purple shirt, navy collar and shorts, and purple-white shoes. The original four-frame superPose loop and five-frame kip-up order remain.</p></article>
@@ -48,7 +48,7 @@
   <h3>Approved packed v08 and candidate packed v09</h3>
   <div class="raw-grid">
     <figure><figcaption>Approved v08</figcaption><div class="strip-scroll"><a href="superPose-approved-packed.png"><img src="superPose-approved-packed.png" alt="Approved Killua superPose v08 packed cells"></a></div></figure>
-    <figure><figcaption>Candidate v09</figcaption><div class="strip-scroll"><a href="superPose-candidate-packed.png"><img src="superPose-candidate-packed.png" alt="Candidate Killua superPose v09 packed cells"></a></div></figure>
+    <figure><figcaption>User-approved v09 — Astra anatomy/scale PASS</figcaption><div class="strip-scroll"><a href="superPose-candidate-packed.png"><img src="superPose-candidate-packed.png" alt="User-approved Killua superPose v09 packed cells"></a></div></figure>
   </div>
   <details><summary>Open the original 1536×1024 source strips</summary>
     <div class="raw-grid">
@@ -61,7 +61,7 @@
   <p>Five-frame kip-up. The same action sequence remains: lying on his back, rolling over the shoulders, springing airborne, landing in a crouch, then standing. Frames f1-f4 narrow the torso, sleeves and limbs toward idle build.</p>
   <div class="raw-grid">
     <figure><figcaption>Approved v07</figcaption><div class="strip-scroll"><a href="getup-approved-packed.png"><img src="getup-approved-packed.png" alt="Approved Killua getup v07 packed cells"></a></div></figure>
-    <figure><figcaption>Candidate v08</figcaption><div class="strip-scroll"><a href="getup-candidate-packed.png"><img src="getup-candidate-packed.png" alt="Candidate Killua getup v08 packed cells"></a></div></figure>
+    <figure><figcaption>User-approved v08 — anatomy/scale PASS; floor-contact HOLD</figcaption><div class="strip-scroll"><a href="getup-candidate-packed.png"><img src="getup-candidate-packed.png" alt="User-approved Killua getup v08 packed cells"></a></div></figure>
   </div>
   <details><summary>Open the original 1536×1024 source strips</summary>
     <div class="raw-grid">
@@ -76,8 +76,8 @@
   <figure><a href="body-candidates.png"><img class="body-sheet" src="body-candidates.png" alt="Packed body-area comparison for Killua idle, superPose v09 and getup v08"></a><figcaption>Body-area B is a pose-sensitive advisory; confirm it against individual visible body segments.</figcaption></figure>
 
   <h2>Technical findings</h2>
-  <p class="hold"><strong>Getup v08: technical hold.</strong> The ordinary strict candidate pack refuses to write because the existing manual scale QA is version-bound to v07 and v08's lying f0 head probe is unmeasured (0.480). Head ratios for f1-f4 are 1.019, 1.018, 1.050 and 1.010. Body-area B is 0.730, 0.866, 0.966, 0.831 and 0.892 (median 0.866), below the ±10% advisory band. The packer also reports f0 floor contact: 77% of its body is within 5 px of y=240, with the lowest fifth 13 px above the line.</p>
-  <p>The displayed candidate atlas was packed in an isolated diagnostic folder using a temporary manifest that selects these versions only to produce cells. The repository manifest still has approvedVersion v08 for superPose and v07 for getup; no candidate art was written to <code>public/characters/killua/</code> or the production frame folders. The user may approve or reject each drawing while the technical hold remains open.</p>
+  <p><strong>Astra anatomy/scale audit:</strong> <code>superPose</code> v09 passes all four frames and its loop. <code>getup</code> v08 passes anatomy and scale across all five frames; f0's 0.480 head probe is invalid for the rotated full-size head. Its version-bound anatomy QA does not clear the separate floor rule. The literal f0 check finds 98/128 occupied columns (76.5625%) within 5 px of y=240, with fifth gaps [0, 0, 1, 1, 13] px. The folded legs/feet cause the last-fifth warning while the hand/back/hip support is grounded. <strong class="hold">Getup remains on technical hold</strong> until Claude checks runtime contact and shadow at the spec camera. The frame-by-frame record is in the branch at <code>art/characters/killua/production/size-r8/ASTRA_AUDIT.md</code>.</p>
+  <p>The displayed atlas was packed in an isolated diagnostic folder using the repository's approved versions and quantized to 48 colors; its review-strip crops were verified pixel-identical to the atlas cells. It did not write <code>public/characters/killua/</code> or production frame folders. The manifest records the visual approvals separately from technical QA.</p>
   <p>Generation calls, exact prompts, hashes and pack evidence are recorded in the committed branch file <code>art/characters/killua/production/size-r8/GENERATION_INVENTORY.md</code>.</p>
 </body>
 </html>
