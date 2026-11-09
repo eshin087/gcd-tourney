@@ -42,7 +42,8 @@
       { "image": "atlas_hd_goku.png", "owner": "goku", "cols": 10, "rows": 16 },
       { "image": "atlas_hd_goku_2.png", "owner": "goku", "cols": 8, "rows": 1 },
       { "image": "atlas_hd_naruto.png", "owner": "naruto", "cols": 8, "rows": 9 },
-      { "image": "atlas_hd_gojo.png", "owner": "gojo", "cols": 8, "rows": 13 },
+      { "image": "atlas_hd_gojo.png", "owner": "gojo", "cols": 8, "rows": 16 },
+      { "image": "atlas_hd_gojo_2.png", "owner": "gojo", "cols": 8, "rows": 1 },
       { "image": "atlas_hd_luffy.png", "owner": "luffy", "cols": 8, "rows": 14 }
     ],
     "effects": {
@@ -117,20 +118,24 @@
       "purpleBurst": { "page": 6, "row": 10, "n": 8, "ms": 45 },
       "voidFlood": { "page": 6, "row": 11, "n": 8, "ms": 40 },
       "voidShatter": { "page": 6, "row": 12, "n": 8, "ms": 50 },
-      "gumArm": { "page": 7, "row": 0, "n": 2, "ms": 60 },
-      "gumFist": { "page": 7, "row": 1, "n": 4, "ms": 40 },
-      "gumImpact": { "page": 7, "row": 2, "n": 7, "ms": 35 },
-      "bazookaBlast": { "page": 7, "row": 3, "n": 8, "ms": 45 },
-      "rocketSnap": { "page": 7, "row": 4, "n": 6, "ms": 45 },
-      "whipSweep": { "page": 7, "row": 5, "n": 6, "ms": 40 },
-      "gear2Steam": { "page": 7, "row": 6, "n": 8, "ms": 60 },
-      "gear2Burst": { "page": 7, "row": 7, "n": 7, "ms": 45 },
-      "gatlingFists": { "page": 7, "row": 8, "n": 6, "ms": 35 },
-      "gear3Puff": { "page": 7, "row": 9, "n": 6, "ms": 45 },
-      "gigantArm": { "page": 7, "row": 10, "n": 2, "ms": 60 },
-      "gigantFist": { "page": 7, "row": 11, "n": 4, "ms": 40 },
-      "gigantImpact": { "page": 7, "row": 12, "n": 8, "ms": 50 },
-      "luffyChibi": { "page": 7, "row": 13, "n": 6, "ms": 80 }
+      "voidShatterTL": { "page": 6, "row": 13, "n": 8, "ms": 50 },
+      "voidShatterTR": { "page": 6, "row": 14, "n": 8, "ms": 50 },
+      "voidShatterBL": { "page": 6, "row": 15, "n": 8, "ms": 50 },
+      "voidShatterBR": { "page": 7, "row": 0, "n": 8, "ms": 50 },
+      "gumArm": { "page": 8, "row": 0, "n": 2, "ms": 60 },
+      "gumFist": { "page": 8, "row": 1, "n": 4, "ms": 40 },
+      "gumImpact": { "page": 8, "row": 2, "n": 7, "ms": 35 },
+      "bazookaBlast": { "page": 8, "row": 3, "n": 8, "ms": 45 },
+      "rocketSnap": { "page": 8, "row": 4, "n": 6, "ms": 45 },
+      "whipSweep": { "page": 8, "row": 5, "n": 6, "ms": 40 },
+      "gear2Steam": { "page": 8, "row": 6, "n": 8, "ms": 60 },
+      "gear2Burst": { "page": 8, "row": 7, "n": 7, "ms": 45 },
+      "gatlingFists": { "page": 8, "row": 8, "n": 6, "ms": 35 },
+      "gear3Puff": { "page": 8, "row": 9, "n": 6, "ms": 45 },
+      "gigantArm": { "page": 8, "row": 10, "n": 2, "ms": 60 },
+      "gigantFist": { "page": 8, "row": 11, "n": 4, "ms": 40 },
+      "gigantImpact": { "page": 8, "row": 12, "n": 8, "ms": 50 },
+      "luffyChibi": { "page": 8, "row": 13, "n": 6, "ms": 80 }
     }
   }
 }

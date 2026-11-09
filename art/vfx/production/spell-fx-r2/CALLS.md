@@ -33,3 +33,10 @@ Record each source call immediately, including its exact returned image path and
 - Candidate atlas placements: gigantArm row 10 and gigantFist row 11 of the Luffy HD page; voidShatterTL/TR/BL rows 13-15 of the Gojo HD page and voidShatterBR row 0 of Gojo page 2.
 - Review gallery assets are extracted from the actual packed candidate atlas and production v01 atlas. It shows a four-arm-length Luffy join and all eight 512px Gojo comparisons (v01 enlarged 2x beside the four packed tiles).
 - After extracting review evidence, the active gigantArm frame folder was restored to its approved v01 cells, and the candidate-only fist frame folder was removed after its exact v02 packed cells were preserved under references/. Standard production pack then exited 0 with 110 approved effects / 697 frames / 8 HD pages; it selected gigantArm v01 and gigantFist v01, leaving every R2 asset unapproved.
+
+## Approval and promoted output
+
+- The user approved gigantArm v02, gigantFist v02, voidShatterTL/TR/BL/BR v01 as drawn via Claude relay spells #7: “Approve all six”. This is image approval; Claude still owns runtime integration and production merge.
+- Promoted the preserved approved gigantArm v02 and gigantFist v02 packed frames to their active frame folders. The four Gojo tile frame folders already held the reviewed cells. Versioned raw sources remain unchanged.
+- Standard production pack after approval: node tools/pack-sprites.mjs vfx, exit 0; 114 effects / 729 frames / 9 HD pages. All six approved rows appear at their exact 2, 4, or 8 frame counts; only the three pre-existing streamBolt, streamFlame and gumArm warnings remain.
+- `npm run build` passed after promotion. It reports the same five pre-existing optional-animation warnings for Luffy, Naruto, Sasuke, Killua and Gojo.
