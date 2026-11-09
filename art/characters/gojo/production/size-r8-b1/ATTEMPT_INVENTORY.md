@@ -32,6 +32,6 @@ Part B for v08 is byte-identical to v07_B, reused to preserve the measured stitc
 
 ## User-approved reach decision
 
-User decision via Claude relay audit2 #3: “Approve, keep reach.” The user accepted the measured f2 palm pixels x175–196, y55–73 and f3 x179–191, y55–73 despite the original brief target x206–226, y64–86. Hitbox overrides remain aligned to visible pixels ([174,54,24,21], [178,54,15,21]); the approved reach is unchanged. This resolves the prior design/contact-placement hold. Independent Astra anatomy/scale audit and Claude runtime contact verification remain pending.
+User decision via Claude relay audit2 #3: “Approve, keep reach.” The user accepted the measured f2 palm pixels x175–196, y55–73 and f3 x179–191, y55–73 despite the original brief target x206–226, y64–86. Hitbox overrides remain aligned to visible pixels ([174,54,24,21], [178,54,15,21]); the approved reach is unchanged. The final Astra audit is recorded in [ASTRA_FINAL_AUDIT.md](ASTRA_FINAL_AUDIT.md): technical HOLD for smaller head probes in f0/f1/f5 and enlarged front shoes. The user's approved drawing and accepted reach remain unchanged. Claude runtime contact/grounding verification remains pending.
 
-User approved v08 via Claude relay audit2 #3: “Approve, keep reach.” Astra final anatomy/scale audit, Claude runtime contact verification, merge and production deployment remain pending.
+User approved v08 via Claude relay audit2 #3: “Approve, keep reach.” This approval remains distinct from the Astra technical HOLD. Claude owns runtime contact/grounding verification and integration; merge and production deployment remain pending.
