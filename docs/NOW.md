@@ -10,7 +10,7 @@ paused._
 
 **Spell visuals (ENG-132 + ART-SPELL-R1, 2026-11-08): live** (PR [#234](https://github.com/eshin087/gcd-tourney/pull/234), merge `d3e072e2`; PR [#237](https://github.com/eshin087/gcd-tourney/pull/237), merge `238395b1`): no more flat glow discs (beam charges, ki blasts, Dragon Fist, Spirit Bomb, Rasenshuriken), no white ball over the clash knot, the Four-Tails beam in its drawn stream, the Kamehameha and Hollow Purple no longer covering their fighter, and the HD shock ring, impact burst and hand flare you approved (v01 each) in place of the old low-res ring, starbursts and glow lights. Nothing is waiting on you here.
 
-**Sprite size audit (ART-SIZE-R8, 2026-11-08; Claude "Character art sprite consistency audit", Codex "Character Art Audit #1" lane `audit1` and "#2" lane `audit2`):** all 286 fighter strips audited; 34 were off by 8 % or more (art/scale/size-r8/AUDIT.md). The 13 you approved ("Approve all 13") are **live**: Sasuke back air, forward smash, dash attack; Goku forward smash, forward air, forward/down tilt, up air, intro; Luffy down special, forward air, heavy, forward special (PR [#230](https://github.com/eshin087/gcd-tourney/pull/230), merge `bc905a48`). The other 21 are being **redrawn** by the two Codex audit chats on their current model (your decision: "Use their current model"); Sasuke's spot-dodge crouch (jumpSquat v09) and parried stagger (v09) are **live** (PR [#238](https://github.com/eshin087/gcd-tourney/pull/238), merge `5714fcf6`): both now at his idle build, and a punish after a parry still lands. Gojo's jab (light1 v08) and Sasuke's forward tilt (fTilt v04) are **live** too (PR [#242](https://github.com/eshin087/gcd-tourney/pull/242), merge `6c5841e4`; your "Approve, keep reach" for each: both moves reach exactly as far as before). Killua's super pose (v09) and get-up (v08) and Naruto's two pixel fixes are **live** too (PR [#247](https://github.com/eshin087/gcd-tourney/pull/247), merge `52308cb0`). Naruto's five redraws are on hold (drawn too slim); Claude will propose a different approach. Gojo's special, forward smash, forward air, forward tilt and air light 3 are **live** too (PR [#248](https://github.com/eshin087/gcd-tourney/pull/248), merge `12cb0ebb`; air light 3 v13 kicks a little further with full-length legs). Overnight (your "auto approve everything"): Claude approves only drawings that pass every check and marks them not yet seen by you; Goku's back air v02, Luffy's run v02 and down v04 are held for your morning review, and Naruto's five are being redone from his approved sprite. **Your action:** approve each fighter's redraws when Claude asks in this chat (review link each time).
+**Sprite size audit (ART-SIZE-R8): morning summary, 2026-11-09.** Live: the 13 resizes (PR #230); Sasuke's spot dodge, parried stagger and forward tilt (#238, #242); Gojo's jab, special, forward smash, forward air, forward tilt and air light 3 (#242, #248); Killua's super pose and get-up (#247); Goku's run v10, with its frames steadied so he no longer sways while running (#250); Naruto's air heavy alt pouch and spot-dodge blob fixes (#247). Every redrawn strike keeps its live reach. **Auto-approved overnight under your "auto approve everything", not yet seen by you:** Luffy's special-forward speck fix (v02, 204 pixels; live in #250; revert with `git revert -m 1 9efcedbf3` if you dislike it). **Your decisions:** (1) Luffy run v02 (head 9 % big, just over your 8 % line) and down v04 (a lying pose the probe can't read): https://gcd-tourney-qtlglvhdw-eshin087s-projects.vercel.app/reviews/size-r8-audit2-luffy-b9-b10-r4/index.html ; (2) Goku back air v02, which you approved but Astra holds (upper torso 25-35 % short): ship it anyway, redraw, or keep v01: https://gcd-tourney-b0dc5za2s-eshin087s-projects.vercel.app/reviews/size-r8-audit2-goku-b8-b11/index.html ; (3) Naruto's five (light 2, stagger, taunt, light 3 alt, special down): both redraw approaches came out too slim or off contact, so the live versions stay; keep them or try another approach; (4) Gojo's air jab: 6 tries never fixed the torso, so v07 stays live. Answer in the Claude chat "Character art sprite consistency audit".
 
 **Luffy's faster Pistol: live (CHAR-luffy-balance, 2026-11-08; PR [#235](https://github.com/eshin087/gcd-tourney/pull/235), merge `59195385`; [ADR 0011](decisions/0011-kit-baseline-and-balance.md) run 17).** His ground Gum-Gum Pistol is startup 9 / recovery 18 (was 11 / 20, the Chidori Spear's frames); his power is 1.02 (PR #232). Neither can be measured with CPU runs (the A/B over 600 Hard vs Hard matches: 42 % old frames, 39 % new; the Hard CPU fires the Pistol about once a match), so judge it in hand: https://gcd-tourney.vercel.app/?fight=luffy,sasuke&mode=solo&level=hard (tap Special). He is still the weakest for the Hard CPU, about 39 % over 960 matches, and the steady signal is two matchups: 26 % against Sasuke and 34 % against Naruto. **If you want him brought up further, tell Claude "look into the Sasuke matchup"**: find what loses those matches before another number moves.
 
@@ -109,14 +109,15 @@ paused._
 This generated block describes **main only**. Unmerged PR candidates are listed above and in each real worktree's REVIEW.md; they are not part of main yet.
 
 <!-- status:begin -->
-_Generated by `npm run status` at 2026-11-09 09:44 UTC._
+_Generated by `npm run status` at 2026-11-09 10:08 UTC._
 
 ### Needs you now (0)
 _Answered only in the Claude chat "0 - Approvals" (ADR 0039); its watcher is off: open that chat and type /approvals._
 - nothing
 
-### Still marked "needs review" in art/REVIEW.md (48)
+### Still marked "needs review" in art/REVIEW.md (50)
 _Bookkeeping: the newest row of each asset. Anything the user must actually answer is in "Needs you now"._
+- **Luffy** (2): run v02, down v04
 - **Naruto** (5): light2 v08, stagger v11, taunt v13, light3Alt v06, …
 - **Gojo** (1): charge v08
 - **Goku** (2): uSmash v05, dSmash v06
@@ -162,12 +163,12 @@ _Bookkeeping: the newest row of each asset. Anything the user must actually answ
 - OPS-017: Licensing decision before promoting public online play (ROADMAP: anime characters are fin… [open]
 
 ### Last commits
-- 12cb0ebbe 11-09 01:43 Merge branch 'art/size-r8-b2'
-- 72ce20fa0 11-09 01:42 test(det): re-record both replay fixtures for Gojo B2-B7 (ART-SIZE-R8)
-- 19d7b1b3d 11-09 01:40 art(gojo): record Astra's manual scale pass for airLight3 v13 (ART-SIZE-R8 B5)
-- a7321e411 11-09 01:39 Merge branch 'main' into art/size-r8-b2
-- 84b10f15a 11-09 01:01 docs(tasks): overnight auto-approval rule and Naruto second approach (ART-SIZE-R8)
-- 6d9935a62 11-09 00:35 docs(tasks): Goku run v10 and bair v02 approved (ART-SIZE-R8 B8, B11)
+- 9efcedbf3 11-09 02:07 Merge branch 'art/size-r8-b3'
+- c57de60eb 11-09 02:06 docs(changelog): Goku run v10 and Luffy R4 (ART-SIZE-R8)
+- 5606674a5 11-09 02:06 test(det): re-record both replay fixtures for Goku run v10 and Luffy R4 (ART-SIZE-R8)
+- 0b493a16b 11-09 02:05 build(goku): repack after the run v10 manual QA record (ART-SIZE-R8)
+- 77534c3c1 11-09 02:04 art(goku): record Astra's recheck pass for run v10 (ART-SIZE-R8 B8)
+- 1cab54a9a 11-09 01:51 fix(goku): steady run v10's frame registration; pack Luffy's specialForward v02 (ART-SIZE-R8 B8, R4)
 <!-- status:end -->
 
 
