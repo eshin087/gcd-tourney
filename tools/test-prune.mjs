@@ -28,6 +28,9 @@ const check = (ok, msg) => { if (ok) passes++; else { failures++; console.log(` 
 const git = (cwd, ...a) => execFileSync('git', a, { cwd, stdio: ['ignore', 'pipe', 'pipe'] }).toString().trim();
 const put = (dir, rel, data = 'x\n') => { const f = path.join(dir, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, data); };
 const pr = (...args) => spawnSync(process.execPath, [path.join(REPO, 'tools', 'pr.mjs'), ...args], { cwd: REPO, encoding: 'utf8' });
+// As `npm run pr ...` from PowerShell runs it (TOOL-071): the flags npm kept for itself arrive only as npm_config_* settings.
+const prNpm = (npmEnv, ...args) => spawnSync(process.execPath, [path.join(REPO, 'tools', 'pr.mjs'), ...args],
+  { cwd: REPO, encoding: 'utf8', env: { ...process.env, npm_lifecycle_event: 'pr', ...npmEnv } });
 const on = (dir, rel) => fs.existsSync(path.join(dir, rel));
 const wt = (branch) => path.join(REPO, '.worktrees', branch.replace(/\//g, '-'));
 const commit = (dir, file, msg) => { put(dir, file, msg + '\n'); git(dir, 'add', '--', file); git(dir, 'commit', '-q', '-m', msg); };
@@ -174,6 +177,25 @@ function main() {
   check(all.every((d) => lines.filter((l) => l.includes(d)).length === 1) && lines.length === all.length, `--dry-run says one line about every registered worktree (${lines.length} lines for ${all.length})`);
   check(git(REPO, 'worktree', 'list', '--porcelain') === before && on(frames, 'art/vfx/frames/spark/spark_00.png') && on(via, `art/vfx/frames/spark/${MARKER}`) && git(REPO, 'branch', '--list', 'art/via'),
     '--dry-run changes nothing');
+
+  // 6b) TOOL-071: `npm run pr -- prune --dry-run` typed in PowerShell reaches the script as `prune` with npm_config_dry_run
+  //     (on 2026-11-09 that ran a real prune); a swallowed --dry-run stays a dry run, other swallowed flags stop the command
+  const rd = prNpm({ npm_config_dry_run: 'true' }, 'prune');
+  check(rd.status === 0 && /treating this run as --dry-run/.test(rd.stdout) && /would remove .*art-via/.test(rd.stdout),
+    `a --dry-run npm swallowed is honoured (${rd.status}) ${(rd.stdout + rd.stderr).split('\n')[0]}`);
+  check(git(REPO, 'worktree', 'list', '--porcelain') === before && git(REPO, 'branch', '--list', 'art/via') && on(via, `art/vfx/frames/spark/${MARKER}`),
+    'the swallowed --dry-run changes nothing');
+  const mainTip = git(REPO, 'rev-parse', 'main');
+  const ra = prNpm({ npm_config_art: 'true' }, 'start', 'fix/swallowed', 'naruto');
+  check(ra.status === 1 && /npm kept --art for itself/.test(ra.stderr) && /Nothing was changed/.test(ra.stderr) && /received only: start fix\/swallowed naruto/.test(ra.stderr),
+    `a swallowed --art stops \`start\` and shows what arrived (${ra.status}) ${ra.stderr.trim().split('\n')[0]}`);
+  check(!fs.existsSync(wt('fix/swallowed')) && !git(REPO, 'branch', '--list', 'fix/swallowed'), 'the refused start made no worktree and no branch');
+  const rm = prNpm({ npm_config_force_art: 'true', npm_config_deploy: '' }, 'merge', 'fix/open', 'a reason');
+  check(rm.status === 1 && /npm kept --force-art, --no-deploy for itself/.test(rm.stderr) && /node tools\/pr\.mjs merge/.test(rm.stderr),
+    `a swallowed --force-art and --no-deploy stop \`merge\` before anything (${rm.status}) ${rm.stderr.trim().split('\n')[0]}`);
+  check(git(REPO, 'rev-parse', 'main') === mainTip && fs.existsSync(open) && git(REPO, 'branch', '--list', 'fix/open'), 'the refused merge left main and the worktree alone');
+  const rn = prNpm({ npm_lifecycle_event: 'test:guard', npm_config_art: 'true' }, 'prune', '--dry-run');
+  check(rn.status === 0 && !/npm kept/.test(rn.stdout + rn.stderr), 'settings of an npm script further up (not `npm run pr`) are left alone');
 
   // 7) the real prune removes exactly what the dry run announced
   const r2 = pr('prune');
