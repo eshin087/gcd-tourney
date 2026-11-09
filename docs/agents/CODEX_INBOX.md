@@ -15,6 +15,109 @@ How it works:
 
 ---
 
+## Size audit round 8: redraw Sasuke, Naruto and Killua strips (2026-11-08, Claude) - chat "Character Art Audit #1", relay lane `audit1`
+
+**The user's request (2026-11-08, Claude chat "Character art sprite consistency audit"):** "audit all the art sprites
+and animation and ensure everything is consistent. i'm still seeing instances where some sprites are much bigger than
+the others. for example i think when sasuke parries or spot dodges it gets big." The user opened this chat and
+"Character Art Audit #2" for the new images. Task **ART-SIZE-R8**. Claude audited all 286 packed strips; the record,
+the full list and the evidence boards are **[art/scale/size-r8/AUDIT.md](../../art/scale/size-r8/AUDIT.md)** (read it
+first, then the boards it links). **User decisions:** fix the 34 strips off by 8 % or more; strips whose head is right
+but whose body is not are **redrawn by Codex**, and every new drawing goes to the user for approval; the 14 strips that
+are uniformly the wrong size are resized in the pack by Claude (branch `art/size-r8-resize`, ADR 0041).
+
+**Your part:** redraws A1-A10 and pixel repairs R1-R2 (Sasuke, Naruto, Killua). Chat "Character Art Audit #2" (lane
+`audit2`) does Gojo, Goku and Luffy; do not touch those three fighters, and do not change any strip's `packScale`
+except A3's. Do not edit `src/` or `tools/`.
+
+- Worktree: one real worktree on branch `art/size-r8-a` (the app's managed worktree plus `npm run pr -- art
+  naruto,sasuke,killua`, or `npm run pr -- start art/size-r8-a --art naruto,sasuke,killua`), dev port 5251. Reuse it
+  for every version.
+- Generation: every image call on `gpt-6-luna`, reasoning `medium`; at most 3 calls per image, counting failed and
+  unsaved ones, recorded in one candidate inventory. The final anatomy and scale audit of the packed atlas runs on
+  `gpt-6-astra` (`medium`) after the user's approval; an Astra pass never replaces that approval.
+- **The drawing contract for every redraw:** keep the move: the same frame count, phases and action, with the strike
+  frame where it is now (gameplay timing lives in `src/game/moves.js` and must not change). Change the body: draw it at
+  idle f0's build at the same pixel density, meaning the same head, torso length, shoulder width, limb thickness and
+  length, hand and foot size and clothing volume, and compare upright poses with the approved neutral cell
+  (`public/art-review/title-style-pilot/<id>-neutral_v01.png`). Hair, clothing and posed bounding boxes are separate
+  measurements; never resize a crouch to standing height (ADR 0029 and the production contract). Save each image as the
+  strip's next `_vNN`; never overwrite or reuse one.
+- Pack with `node tools/pack-sprites.mjs <id> --quantize 48` (add `--keep-palette` for a pixel repair, which adds no
+  colour, so every other strip stays byte for byte), then check the new frames in the actual atlas beside idle f0
+  (`npm run body <id> <anim>` and a lineup).
+  If a redrawn strip has entries in `art/characters/<id>/hitboxes.json` (Sasuke `fTilt` does), re-measure its boxes and
+  hand points on the new packed frames and set `_scale` to the strip's pack scale.
+
+Items, in this order:
+
+- [ ] 1. **A1 Sasuke `jumpSquat`** (v07, 1 frame): his spot-dodge pose (`dodgePose`). Torso, arms and trousers at
+  idle's build; keep the crouch.
+- [ ] 2. **A2 Sasuke `stagger`** (v08, 4 frames): plays when his attack is parried. Shoulders and torso at the approved
+  neutral's width, head at idle's size. Then ring `audit1 --for user --kind approval` with A1-A2 (the user's own
+  example) before you go on: their review page shows each new version beside idle f0, the neutral cell and the old
+  version at one density, plus Sasuke's `guard` and `vanish` frames for context.
+- [ ] 3. **A3 Sasuke `fTilt`** (v03, 7 frames, packed at `packScale` 0.92): redraw at idle's proportions, and pack the
+  new version at `packScale` 1 (this item may change it).
+- [ ] 4. **A4 Naruto `light2`** (v06, 7 frames): limbs, sandals, fists and torso at idle's size (head is right). Check
+  it beside `light2Alt` v05 so the alternating pair has no size pop.
+- [ ] 5. **A5 Naruto `stagger`** (v08) and **A6 `taunt`** (v10): full-length legs and torso under the same head (87 % and
+  83 % of the neutral's height today).
+- [ ] 6. **A7 Naruto `light3Alt`** (v02): the standing leg of kick frames f1-f4 at full length (light3 v04 is right).
+- [ ] 7. **A8 Naruto `specialDown`** (v05): roar frames f2-f3 at the size of f0-f1 and idle.
+- [ ] 8. **R1 Naruto `airHeavyAlt`** (v04): f2-f4 thigh pouch black like the other frames; **R2 Naruto `jumpSquat`** (v04):
+  remove the orange blob beside the rear fist in f0. Both from the same pixels (a script, no image call), each as the
+  strip's next version.
+- [ ] 9. **A9 Killua `superPose`** (v08): shorts, legs and hands at the neutral's size. **A10 Killua `getup`** (v07):
+  f1-f4 torso, arms and legs at idle's build.
+- [ ] 10. Ring for approval as each fighter's strips are ready (one ring per fighter is fine; the user does not have
+  to wait for the whole list): REVIEW.md rows, a review page per batch, a committed preview (`npm run pr -- preview`),
+  then `node tools/relay.mjs ring audit1 --for user --kind approval --note "<strips and versions; review link>"` and
+  stop on that batch. The approvals desk is off, so the ring reaches Claude's chat, which asks the user.
+- [ ] 11. After a relayed approval: record it (REVIEW.md, manifest `status` / `approvedVersion`, TRACKER), run the
+  Astra audit on the packed atlas, commit, `npm run pr -- open`, and ring `audit1` (not `--for user`) with the branch,
+  commit and any holds. Claude integrates and merges; you never merge or deploy production.
+
+---
+
+## Size audit round 8: redraw Gojo, Goku and Luffy strips (2026-11-08, Claude) - chat "Character Art Audit #2", relay lane `audit2`
+
+**The user's request (2026-11-08):** the same as in the section above ("Character Art Audit #1"): sprites still grow
+and shrink between moves; fix the 34 strips off by 8 % or more, redraw the ones whose head is right but whose body is
+not, and send every new drawing to the user. Task **ART-SIZE-R8**; the record, the list and the evidence boards are
+**[art/scale/size-r8/AUDIT.md](../../art/scale/size-r8/AUDIT.md)** (read it first).
+
+**Your part:** redraws B1-B10 and pixel repairs R3-R4 (Gojo, Goku, Luffy). "Character Art Audit #1" (lane `audit1`)
+does Sasuke, Naruto and Killua. **Claude resizes C4-C14 on `art/size-r8-resize`:** do not change any strip's
+`packScale`, including Goku `bair` and Luffy `specialForward`, which you repair and Claude resizes. Do not edit `src/`
+or `tools/`.
+
+- Worktree: one real worktree on branch `art/size-r8-b` (managed worktree plus `npm run pr -- art gojo,goku,luffy`, or
+  `npm run pr -- start art/size-r8-b --art gojo,goku,luffy`), dev port 5252.
+- Generation, the drawing contract, packing, hit boxes, versions and the approval
+  ring work exactly as in items 1-11 of the section above, with lane `audit2`. Goku and Luffy have no title-style
+  neutral cell: their idle f0 and their approved `title_style_draft` lineup cells are the reference. Gojo: keep his head
+  exactly as in idle; what is short is the torso and legs under it (the user rejected an enlarged Gojo head before).
+
+Items, in this order:
+
+- [ ] 1. **B1 Gojo `light1`** (v05, 7 frames): his jab; torso and legs at idle's length (the crown drops 31 px today).
+  Ring `audit2 --for user --kind approval` with B1 alone first, so the user can judge the fix on his most-seen move.
+- [ ] 2. **B2 Gojo `special`** (v07): f3-f7 at the size of f0-f2. **B3 `fSmash`** (v01): torso and legs at full length.
+- [ ] 3. **B4 Gojo `airLight1`** (v07), **B5 `airLight3`** (v12), **B6 `fair`** (v01): torso and legs at the length of
+  his `jumpFall` (which is right), so he no longer shrinks during air normals.
+- [ ] 4. **B7 Gojo `fTilt`** (v01): trouser legs and jacket at idle's width.
+- [ ] 5. **B8 Goku `run`** (v09): hair and face at idle's size on the same body. **B9 Luffy `run`** (v01): hat and
+  face at idle's size on the same body.
+- [ ] 6. **B10 Luffy `down`** (v03): both frames at idle's scale (f0 is small, f1 big).
+- [ ] 7. **R3 Goku `bair`** (v01): repair f0's dark blob under the chin and pale patch at the waist and f2's skin patch
+  on the gi. **R4 Luffy `specialForward`** (v01): remove f5's stray orange speck by the rear foot. Same pixels, a
+  script, no image call, each as the strip's next version.
+- [ ] 8. Ring for approval per fighter as in item 10 above, then record, Astra audit and hand back as in item 11 (lane
+  `audit2`).
+
+---
+
 ## Clash HD art: each move's own look in a beam clash (2026-10-19, Claude) - chat "6 - beam clash", relay lane `beam-clash-6`
 
 **The user's request (2026-10-19):** "the beam clashes between all the characters are really buggy janky and not looking
