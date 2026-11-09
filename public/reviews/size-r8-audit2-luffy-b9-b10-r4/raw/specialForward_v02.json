@@ -1,0 +1,36 @@
+{
+  "frames": 7,
+  "split": "even",
+  "erase": [
+    [
+      931,
+      300,
+      120,
+      115
+    ],
+    [
+      1241,
+      300,
+      130,
+      115
+    ]
+  ],
+  "source": "R4 deterministic pixel repair copied from specialForward_v01; no image generation. Removed the detached orange rear-foot fragment from frame f5 at source bounds x1611..1622,y560..576; preserves the previous palm-fragment erase regions.",
+  "sourceSHA256": {
+    "v01": "7148219c2ae26fd4de0216cf1fc41e503afea8391f708137c067eb945d9b3098"
+  },
+  "pixelRepair": {
+    "bounds": [
+      1611,
+      560,
+      12,
+      17
+    ],
+    "changedPixels": 204,
+    "method": "set detached-fragment bounds to flat #FF00FF; no scale, timing, pose, or other pixels changed"
+  },
+  "attempts": {
+    "imageGenerationCalls": 0,
+    "pixelRepairCalls": 1
+  }
+}

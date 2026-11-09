@@ -1,0 +1,291 @@
+{
+  "atlasSha256": "e596d3bbfa12e13a26e8c59390e650a004bc3602e14939efedcb0693fdf9df21",
+  "animsSha256": "f97537105d1be50bac901936b4706c117777927439b605617464a479b49aaa94",
+  "boundsConvention": "x0,y0,x1-exclusive,y1-exclusive",
+  "run": {
+    "metadata": {
+      "frames": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "durations": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "loop": true
+    },
+    "version": 10,
+    "bounds": [
+      [
+        47,
+        28,
+        205,
+        241
+      ],
+      [
+        56,
+        34,
+        200,
+        241
+      ],
+      [
+        92,
+        26,
+        240,
+        241
+      ],
+      [
+        4,
+        31,
+        173,
+        241
+      ],
+      [
+        4,
+        23,
+        166,
+        241
+      ],
+      [
+        30,
+        24,
+        166,
+        241
+      ],
+      [
+        106,
+        23,
+        229,
+        241
+      ],
+      [
+        43,
+        24,
+        211,
+        241
+      ]
+    ],
+    "top35Registration": [
+      {
+        "cell": 8,
+        "top35OpaqueBoundsInclusive": [
+          118,
+          28,
+          170,
+          62
+        ],
+        "centerX": 144.0
+      },
+      {
+        "cell": 9,
+        "top35OpaqueBoundsInclusive": [
+          130,
+          34,
+          181,
+          68
+        ],
+        "centerX": 155.5
+      },
+      {
+        "cell": 10,
+        "top35OpaqueBoundsInclusive": [
+          165,
+          26,
+          216,
+          60
+        ],
+        "centerX": 190.5
+      },
+      {
+        "cell": 11,
+        "top35OpaqueBoundsInclusive": [
+          84,
+          31,
+          136,
+          65
+        ],
+        "centerX": 110.0
+      },
+      {
+        "cell": 12,
+        "top35OpaqueBoundsInclusive": [
+          75,
+          23,
+          126,
+          57
+        ],
+        "centerX": 100.5
+      },
+      {
+        "cell": 13,
+        "top35OpaqueBoundsInclusive": [
+          92,
+          24,
+          143,
+          58
+        ],
+        "centerX": 117.5
+      },
+      {
+        "cell": 14,
+        "top35OpaqueBoundsInclusive": [
+          158,
+          23,
+          210,
+          57
+        ],
+        "centerX": 184.0
+      },
+      {
+        "cell": 15,
+        "top35OpaqueBoundsInclusive": [
+          122,
+          24,
+          173,
+          58
+        ],
+        "centerX": 147.5
+      }
+    ]
+  },
+  "bair": {
+    "metadata": {
+      "frames": [
+        184,
+        185,
+        186,
+        187,
+        188,
+        189
+      ],
+      "durations": [
+        50,
+        40,
+        50,
+        70,
+        60,
+        30
+      ],
+      "loop": false,
+      "phases": [
+        2,
+        2,
+        2
+      ]
+    },
+    "version": 2,
+    "bounds": [
+      [
+        115,
+        56,
+        215,
+        241
+      ],
+      [
+        91,
+        58,
+        173,
+        241
+      ],
+      [
+        4,
+        59,
+        150,
+        241
+      ],
+      [
+        8,
+        70,
+        158,
+        241
+      ],
+      [
+        103,
+        65,
+        185,
+        241
+      ],
+      [
+        115,
+        62,
+        213,
+        241
+      ]
+    ],
+    "top35Registration": [
+      {
+        "cell": 184,
+        "top35OpaqueBoundsInclusive": [
+          158,
+          56,
+          203,
+          90
+        ],
+        "centerX": 180.5
+      },
+      {
+        "cell": 185,
+        "top35OpaqueBoundsInclusive": [
+          121,
+          58,
+          166,
+          92
+        ],
+        "centerX": 143.5
+      },
+      {
+        "cell": 186,
+        "top35OpaqueBoundsInclusive": [
+          91,
+          59,
+          141,
+          93
+        ],
+        "centerX": 116.0
+      },
+      {
+        "cell": 187,
+        "top35OpaqueBoundsInclusive": [
+          89,
+          70,
+          147,
+          104
+        ],
+        "centerX": 118.0
+      },
+      {
+        "cell": 188,
+        "top35OpaqueBoundsInclusive": [
+          126,
+          65,
+          178,
+          99
+        ],
+        "centerX": 152.0
+      },
+      {
+        "cell": 189,
+        "top35OpaqueBoundsInclusive": [
+          157,
+          62,
+          201,
+          96
+        ],
+        "centerX": 179.0
+      }
+    ]
+  },
+  "registrationMethod": "Exact opaque bounds in first 35 occupied rows of each cell. This follows upper hair/head location, is not a head-size/anthropometry proxy."
+}
