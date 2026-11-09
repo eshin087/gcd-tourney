@@ -476,24 +476,25 @@
     "2": {
       "hit": [
         [
-          25,
-          165,
-          47,
-          43
+          32,
+          170,
+          44,
+          40
         ]
       ]
     },
     "3": {
       "hit": [
         [
-          8,
-          132,
-          45,
-          39
+          16,
+          140,
+          42,
+          36
         ]
       ]
     },
-    "_note": "ENG-112 bair v01: packed-cell contact override after Astra preliminary audit; f2/f3 kick screen-left behind Sasuke, so boxes follow the extended near foot rather than the default front/right box."
+    "_note": "ENG-112 bair v01: packed-cell contact override after Astra preliminary audit; f2/f3 kick screen-left behind Sasuke, so boxes follow the extended near foot rather than the default front/right box. ART-SIZE-R8 2026-11-08: strip resized x0.93 (packScale), boxes scaled about the pivot to match.",
+    "_scale": 0.93
   },
   "dTilt": {
     "3": {
@@ -523,25 +524,25 @@
     "3": {
       "hit": [
         [
-          223,
-          94,
-          31,
-          23
+          229,
+          85,
+          33,
+          24
         ]
       ]
     },
     "4": {
       "hit": [
         [
-          223,
-          94,
-          31,
-          23
+          229,
+          85,
+          33,
+          24
         ]
       ]
     },
-    "_scale": 0.7502,
-    "_note": "ENG-112 dashAttack v05: phases [3,2,2] make f3/f4 the lead-fist punch. Boxes follow the fist at the front of the arm on quantized cells after auto-head fit x0.7502."
+    "_scale": 0.795,
+    "_note": "ENG-112 dashAttack v05: phases [3,2,2] make f3/f4 the lead-fist punch. Boxes follow the fist at the front of the arm on quantized cells after auto-head fit x0.7502. ART-SIZE-R8 2026-11-08: strip resized x1.06 (packScale), boxes scaled about the pivot to match."
   },
   "uSmash": {
     "3": {

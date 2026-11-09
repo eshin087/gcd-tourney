@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Size Fix Review</title>
+<style>
+  :root { --bg: #15121b; --ink: #ece9f2; --dim: #a9a3b8; --line: #2c2636; --accent: #ffd36b; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, Segoe UI, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; margin: 4px 0 6px; }
+  h2 { font-size: 17px; margin: 26px 0 6px; color: var(--accent); }
+  p, li { color: var(--dim); }
+  ul { padding-left: 20px; }
+  img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 6px; image-rendering: pixelated; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Size fixes in the pack (ART-SIZE-R8)</h1>
+  <p>13 strips that were drawn uniformly too big or too small, resized in the pack. The drawings are unchanged; every
+  other frame of these fighters is byte for byte the same. Each row: the idle, then two frames before and after, all at
+  the game's pixel density on one floor line (dashed line = the idle's crown; green background = after).</p>
+  <ul>
+    <li>Sasuke: back air x0.93, forward smash x0.95, dash attack x1.06</li>
+    <li>Goku: forward smash x0.92, forward air x0.94, forward tilt x0.94, down tilt x0.93, up air x1.10, intro x1.10</li>
+    <li>Luffy: down special x0.82, forward air x0.88, heavy x1.12, forward special x1.08</li>
+  </ul>
+  <p>Goku's back air could not grow (its kick already reaches the cell edge), so it is redrawn by Codex with the other
+  20 strips. Record: art/scale/size-r8/AUDIT.md.</p>
+  <h2>Sasuke</h2>
+  <img src="sasuke.png" alt="Sasuke back air, forward smash and dash attack before and after">
+  <h2>Goku</h2>
+  <img src="goku.png" alt="Goku forward smash, forward air, forward tilt, down tilt, up air and intro before and after">
+  <h2>Luffy</h2>
+  <img src="luffy.png" alt="Luffy down special, forward air, heavy and forward special before and after">
+</main>
+</body>
+</html>
