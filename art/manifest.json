@@ -118,16 +118,15 @@
           "approvedVersion": 10,
           "reviewStatus": "approved",
           "approvalSource": "USER APPROVAL via Claude relay audit2 #8: user approved Goku run v10; quote: \"Approve both\".",
-          "technicalHold": true,
-          "hold": "Astra HOLD: internal run registration jumps f2-to-f3 by 80.5 px and f5-to-f6 by 66.5 px in the exact packed atlas. Visible anatomy/scale is acceptable; runtime root/contact review remains Claude-owned.",
+          "technicalHold": false,
+          "hold": "Cleared 2026-11-09: Astra's registration hold (frame-to-frame swing) is resolved by Claude's frameOffsets in raw/run_v10.json (hips within 1.46 px of x124); Astra recheck PASS (Codex c19233495).",
           "scaleManualQA": {
             "version": 10,
-            "result": "hold",
-            "by": "GPT-6 Astra (medium), exact packed-atlas audit 2026-11-09",
-            "note": "Exact 48-color production atlas audit. Visible anatomy and relative head/body scale are acceptable, but HOLD internal registration: upper-head center shifts -80.5 px from f2 to f3 and +66.5 px from f5 to f6; the loop seam f7-to-f0 differs by -3.5 px. All frames are contained. This is a positional consistency hold, not a scale failure, and no rescale or offset was applied. User approved the drawing as drawn via Claude relay audit2 #8; runtime root/contact review remains Claude-owned.",
-            "evidence": "art/characters/goku/production/size-r8-b8-b11/ASTRA_FINAL_AUDIT.md; public/reviews/size-r8-audit2-goku-b8-b11/astra-run-registration-and-seam.png; public/reviews/size-r8-audit2-goku-b8-b11/astra-run-all-frames.png",
-            "atlasSha256": "e596d3bbfa12e13a26e8c59390e650a004bc3602e14939efedcb0693fdf9df21",
-            "metadataSha256": "f97537105d1be50bac901936b4706c117777927439b605617464a479b49aaa94"
+            "result": "pass",
+            "by": "GPT-6 Astra (medium), read-only exact-atlas recheck 2026-11-09",
+            "note": "PASS after Claude's registration fix. In the exact supplied quantized production atlas, the opaque-pixel x centroid of each frame's 45%-62% torso/hip-region band is 123.19-124.65 (1.46 px total spread; target 124). All eight cells are contained. Manual comparison at a common 256 px cell density with approved idle f0 and title neutral/combat finds head, torso, limb, gi and boot proportions coherent; the corrected metadata changes position only, and packScale remains 0.92. Goku's automatic head probe is disabled and was not used as evidence. Static art QA only; runtime root/contact and hit/hurtbox behavior remain Claude-owned.",
+            "evidence": "art/characters/goku/production/size-r8-b8-b11/ASTRA_RUN_V10_RECHECK.md; public/reviews/size-r8-audit2-goku-run-recheck/run-v10-registration-metrics.json; public/reviews/size-r8-audit2-goku-run-recheck/run-v10-exact-atlas-and-reference-cells.png; public/reviews/size-r8-audit2-goku-run-recheck/run-v10-hip-band-registration-guide.png",
+            "atlasSha256": "145de80c6e48d1d85b0375474baa2a181795ef08790a99d8f05ed292d93c2d95"
           }
         },
         "dash": { "packScale": 0.945, "_packScale": "ART-SIZE-R7 2026-10-18: drawn about 6 % larger than goku's other strips (median of independent measures vs the fighter's consensus: head template 1.13, body area 1.00, hand landmarks 1.03-1.09); resized, drawing unchanged","frames":2,"loop":true,"bodyHeight":207,"ms":[60,60],"required":true,"step":8,"status":"approved","version":9,"approvedVersion":9,"scaleManualQA":{"version":9,"result":"pass","by":"GPT-6 Astra (medium), final5 strict quantized-pixel audit","note":"Exact version-bound pass on the 48-color strict atlas SHA256 fbccd9bf1958a7d3e7c701ea062aa2b99f031456e3d25cd010a81c47e5286054 and metadata SHA256 e98d7a2addcdbf932438ac43b89f507177b9071194359a40e042bab68fdfdc9f; packed at x1. This records technical scale/anatomy review only, not design approval or runtime contact approval.","evidence":"art/characters/goku/production/manual-audit-r3/FINAL5_STRICT_AUDIT.md"}},
