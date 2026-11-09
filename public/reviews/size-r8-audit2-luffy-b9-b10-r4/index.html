@@ -12,17 +12,17 @@
 <body><main>
   <p class="eyebrow">Character Art Audit #2 · Luffy · B9, B10 and R4</p>
   <h1>Luffy redraw and repair review</h1>
-  <p class="muted">Please review run v02, down v04 and specialForward v02 as drawings. This review pack is candidate-only; it does not replace the production atlas. Visual approval and the final Astra anatomy/scale audit are separate steps.</p>
+  <p class="muted">The user approved specialForward v02 via Claude relay audit2 #9 under their instruction to auto-approve while away; they had not yet seen the image. Run v02 and down v04 still need visual approval. This review pack is candidate-only; it does not replace the production atlas. Visual approval and final Astra anatomy/scale review are separate steps.</p>
 
   <section class="panel">
     <h2>Review status</h2>
     <div class="facts">
       <div class="fact"><b>B9 · run v02</b><br>Eight-frame run redraw. One image-generation call. Existing bodyHeight and pack scale are unchanged.</div>
       <div class="fact"><b>B10 · down v04</b><br>Two-frame crawl/lying redraw. Three image-generation calls total, the 3/3 limit. Existing timing is unchanged.</div>
-      <div class="fact"><b>R4 · specialForward v02</b><br>Pixel-only f5 repair: remove the detached orange speck by the rear foot. No image-generation calls; packScale remains 1.08.</div>
+      <div class="fact"><b>R4 · specialForward v02</b><br>Approved via relay #9 under the overnight auto-approval instruction; user had not yet viewed it. Pixel-only f5 repair removes the detached orange speck. No image-generation calls; packScale remains 1.08.</div>
       <div class="fact"><b>Technical status</b><br>Final Astra review of these exact packed candidates has not run. The prior diagnostic hold for specialForward's arm/palm fragments remains.</div>
     </div>
-    <p><span class="tag">visual approval needed</span> The gallery shows packed candidate cells at 256×256 and the raw strips. The official manifest retains the previously approved versions until the user decides.</p>
+    <p><span class="tag">run/down approval needed</span> The gallery shows packed candidate cells at 256×256 and the raw strips. The manifest's approvedVersion is run v01, down v03 and specialForward v02. The candidate atlas remains review-only because it includes unapproved run v02 and down v04.</p>
   </section>
 
   <section class="panel">
@@ -48,15 +48,15 @@
   </section>
 
   <section class="panel section" id="specialForward">
-    <h2>R4 · specialForward v02, frame 5</h2>
-    <p>The two cells show live v01 above and repaired v02 below. The repair clears only the isolated orange fragment at the rear foot; it changes no pose, timing or scale. The existing diagnostic exemption and Astra hold for discontinuous arm/palm fragments remain in place.</p>
+    <h2>R4 · specialForward v02, frame 5 <span class="tag">approved as drawn · Astra hold remains</span></h2>
+    <p>The two cells show live v01 above and repaired v02 below. The repair clears only the isolated orange fragment at the rear foot; it changes no pose, timing or scale. The user approved v02 via Claude relay audit2 #9 under their overnight instruction; the user had not yet seen the image. The existing diagnostic exemption and Astra hold for discontinuous arm/palm fragments remain in place.</p>
     <div class="board small"><img src="specialForward-f5-compare.png" alt="Packed Luffy specialForward v01 frame 5 above and pixel-repaired v02 frame 5 below"></div>
     <p class="caption"><a href="raw/specialForward_v02.png">Open raw specialForward v02</a> · <a href="raw/specialForward_v02.json">pixel repair provenance</a> · <a href="atlas/characters/luffy/sheet.png">candidate atlas sheet</a> · <a href="atlas/characters/luffy/anims.json">candidate animation metadata</a>.</p>
   </section>
 
   <section class="panel">
     <h2>Candidate atlas and technical status</h2>
-    <p>The review atlas is a 48-color candidate pack for side-by-side review only. Its temporary manual-QA overrides were used only to build this gallery; they are not in <code>art/manifest.json</code> and do not constitute an Astra pass. The production manifest keeps run v01 and down v03 as approved versions, specialForward v01 as the approved version, and the existing diagnostic exemption/technical hold until the user reviews the candidates and Astra audits the final packed atlas.</p>
+    <p>The review atlas is a 48-color candidate pack for side-by-side review only. Its temporary manual-QA overrides were used only to build this gallery; they are not in <code>art/manifest.json</code> and do not constitute an Astra pass. Run v02 and down v04 still await visual approval. Final Astra audit remains pending; specialForward v02 is approved but its earlier diagnostic exemption and arm/palm technical hold remain.</p>
     <p class="muted">Pack details and exact SHA-256 values: <a href="ATLAS_INFO.md">ATLAS_INFO.md</a> · generation and repair provenance: <a href="ATTEMPT_INVENTORY.md">ATTEMPT_INVENTORY.md</a>.</p>
   </section>
 </main></body></html>
