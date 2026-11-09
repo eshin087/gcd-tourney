@@ -1,13 +1,28 @@
 # Art review queue
 
+## Killua ART-SIZE-R8 A9-A10 (2026-11-09)
+
+The [batch review page](../public/reviews/size-r8-killua/index.html) shows the approved v08/v07 drawings beside the
+new packed v09/v08 candidates, approved idle/neutral/combat references, and the body-area comparison. A9 preserves
+its four-frame loop and reduces shorts, limb and hand size toward neutral. A10 preserves the five-frame kip-up and
+narrows f1-f4 toward idle build. The strict candidate pack remains held on getup v08: the prior manual QA is for v07,
+the lying f0 head probe is low-confidence, and its floor-contact measure is above the pivot. The diagnostic atlas
+was written outside the repository with a temporary manifest override; production art was not changed. Generation
+calls, prompts and hashes are in the [inventory](characters/killua/production/size-r8/GENERATION_INVENTORY.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-11-09 | Killua | superPose | [v09](characters/killua/raw/superPose_v09.png) · [review](../public/reviews/size-r8-killua/index.html#a9) · [calls](characters/killua/production/size-r8/GENERATION_INVENTORY.md) | v09 | needs review | Four-frame Whirlwind loop retained; shorts, legs and hands redrawn toward approved neutral size. | Head H 0.975-1.029 (median 1.000); body B 0.890-0.938 (median 0.910, pose-sensitive advisory). Candidate cells are diagnostic only; no hitbox override exists. |
+| 2026-11-09 | Killua | getup | [v08](characters/killua/raw/getup_v08.png) · [review](../public/reviews/size-r8-killua/index.html#a10) · [calls](characters/killua/production/size-r8/GENERATION_INVENTORY.md) | v08 | needs review | Five-frame kip-up retained; f1-f4 torso, arms and legs redrawn toward idle build. | H f1-f4 1.010-1.050; f0 0.480 low-confidence. Body B `[0.730, 0.866, 0.966, 0.831, 0.892]`, median 0.866. Strict candidate pack HOLD: stale v07 manual QA, unmeasured lying pose, f0 floor contact 77% within 5 px of y=240 and lowest fifth 13 px above line. |
+
 ## Naruto ART-SIZE-R8 A4-A8, R1-R2 (2026-11-09)
 
 The [batch decision page](../public/reviews/size-r8-naruto/index.html) shows the latest packed candidate for each
 requested strip beside approved idle/combat context, plus the body and head-scale evidence. The images use a
-candidate-only warning-mode diagnostic atlas; they are not the production sheet. The five redraws A4-A8 have the
-technical holds listed below, so the current handoff asks whether to authorize additional generation calls for named
-items or keep them held and proceed to Killua. R1/R2 are exact script-only pixel edits and remain separate from art
-approval. Every versioned attempt and pixel diff is preserved in the [generation inventory](characters/naruto/production/size-r8/GENERATION_INVENTORY.md).
+candidate-only warning-mode diagnostic atlas; they are not the production sheet. A4-A8 remain on the technical holds
+listed below. The user chose to keep them held and proceed to Killua, and approved R1/R2 via Claude relay `audit1 #7`. That
+approval covers those exact script-only edits, with inherited geometry evidence rather than new anatomy
+certification. Every versioned attempt and pixel diff is preserved in the [generation inventory](characters/naruto/production/size-r8/GENERATION_INVENTORY.md).
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
@@ -16,10 +31,10 @@ approval. Every versioned attempt and pixel diff is preserved in the [generation
 | 2026-11-09 | Naruto | taunt | [v13](characters/naruto/raw/taunt_v13.png) · [review](../public/reviews/size-r8-naruto/index.html#a6) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v13 | needs review | Two-frame pointing and laugh loop redrawn. | Strict head gate H 1.054-1.067 fails; body B 0.503-0.510 (median 0.506). Three image calls used. TECHNICAL HOLD. |
 | 2026-11-09 | Naruto | light3Alt | [v06](characters/naruto/raw/light3Alt_v06.png) · [review](../public/reviews/size-r8-naruto/index.html#a7) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v06 | needs review | Seven-frame sweep redraw with background-only cleanup in v05/v06; action and f1-f4 kick sequence retained. | Head H 0.960-1.002 passes; body B 0.555-0.616 (median 0.592). Strike is 51 px below light3 v04's hit height (>24 px tolerance). TECHNICAL HOLD. |
 | 2026-11-09 | Naruto | specialDown | [v08](characters/naruto/raw/specialDown_v08.png) · [review](../public/reviews/size-r8-naruto/index.html#a8) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v08 | needs review | Four-frame crouched gather, roar and recovery redraw; 2/1/1 phases preserved. | Strict head gate H 1.034-1.069 fails; body B 0.560-0.653 (median 0.595), feet proxy 0.694. The old v02 exemption is stale and was not applied. Three image calls used. TECHNICAL HOLD. |
-| 2026-11-09 | Naruto | airHeavyAlt | [v05](characters/naruto/raw/airHeavyAlt_v05.png) · [review](../public/reviews/size-r8-naruto/index.html#r1) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v05 | needs review | Script recolored 2,253 thigh-pouch pixels to black in documented masks. | Every other RGBA pixel matches approved v04; geometry evidence is inherited, not a new anatomy certification. |
-| 2026-11-09 | Naruto | jumpSquat | [v05](characters/naruto/raw/jumpSquat_v05.png) · [review](../public/reviews/size-r8-naruto/index.html#r2) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v05 | needs review | Script made three orange pixels beside the rear fist transparent. | All other RGBA pixels match approved v04; H 1.000 and B 0.882 (pose-sensitive advisory), continuity only. |
+| 2026-11-09 | Naruto | airHeavyAlt | [v05](characters/naruto/raw/airHeavyAlt_v05.png) · [review](../public/reviews/size-r8-naruto/index.html#r1) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v05 | approved | Script recolored 2,253 thigh-pouch pixels to black in documented masks; approved by the user via Claude relay `audit1 #7`. | Every other RGBA pixel matches approved v04; geometry evidence is inherited, not a new anatomy certification. |
+| 2026-11-09 | Naruto | jumpSquat | [v05](characters/naruto/raw/jumpSquat_v05.png) · [review](../public/reviews/size-r8-naruto/index.html#r2) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v05 | approved | Script made three orange pixels beside the rear fist transparent; approved by the user via Claude relay `audit1 #7`. | All other RGBA pixels match approved v04; H 1.000 and B 0.882 (pose-sensitive advisory), continuity only. |
 
-All earlier A4-A8 image attempts remain versioned and are listed in the inventory; the newest candidate for each move is the only version presented for this decision. None of this batch is approved by the user yet.
+All earlier A4-A8 image attempts remain versioned and are listed in the inventory; the newest candidate for each move is the only version presented for that decision. A4-A8 remain unapproved on technical hold; R1/R2 v05 are user-approved.
 
 ## Sasuke ART-SIZE-R8 A3 (2026-11-08)
 

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Killua ART-SIZE-R8 — A9-A10</title>
+  <style>
+    :root { color-scheme: dark; font: 15px/1.55 system-ui, sans-serif; background: #10111a; color: #e8e9f2; }
+    body { max-width: 1360px; margin: 0 auto; padding: 28px 20px 56px; }
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 34px; }
+    p { max-width: 92ch; }
+    a { color: #a8c7ff; }
+    code { color: #c4d4ff; }
+    .state { border-left: 4px solid #e0a83b; padding: 12px 16px; background: #242231; }
+    .verdict { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .verdict article, .card { padding: 12px 15px; background: #191a27; border: 1px solid #34364a; border-radius: 8px; }
+    .card { margin: 16px 0; }
+    .card h3 { margin: 4px 0 8px; }
+    .strip-scroll { overflow-x: auto; padding: 10px; background: #0c0d14; border: 1px solid #34364a; border-radius: 8px; }
+    .strip-scroll img { display: block; width: auto; height: 256px; max-width: none; image-rendering: pixelated; }
+    .raw-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .raw-grid figure { margin: 0; padding: 10px; background: #0c0d14; border: 1px solid #34364a; border-radius: 8px; }
+    .raw-grid img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+    .cell { display: inline-block; vertical-align: top; width: 256px; height: 256px; background: #262735; image-rendering: pixelated; }
+    .body-sheet { max-width: 100%; height: auto; image-rendering: pixelated; border: 1px solid #34364a; border-radius: 8px; }
+    .hold { color: #ffd483; font-weight: 650; }
+    .ok { color: #99ddb3; font-weight: 650; }
+    @media (max-width: 760px) {
+      body { padding: 18px 12px 40px; }
+      .verdict, .raw-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Killua ART-SIZE-R8: A9-A10</h1>
+  <p class="state"><strong>Visual approval requested for the two newest drawings.</strong> These are versioned candidates. Their diagnostic packed cells are shown below at 256 px. The normal candidate pack did not replace the production sheet; getup v08 has a technical hold recorded separately from the user's visual decision.</p>
+
+  <section class="verdict" aria-label="Review summary">
+    <article><h2>Identity</h2><p>Both strips retain Killua's approved silver-white hair, purple shirt, navy collar and shorts, and purple-white shoes. The original four-frame superPose loop and five-frame kip-up order remain.</p></article>
+    <article><h2>Proportions and pose</h2><p>SuperPose v09 narrows the shorts and limbs and reduces hand size toward the approved neutral. Getup v08 narrows f1-f4 toward idle build while retaining the lying, inverted, airborne, crouch and stance poses.</p></article>
+    <article><h2>Technical</h2><p>SuperPose head ratios are 0.975-1.029 (median 1.000) and body B median is 0.910. Getup f1-f4 head ratios are 1.010-1.050; f0 is low-confidence. Getup body B median is 0.866 and the packer reports a floor-contact hold on f0.</p></article>
+  </section>
+
+  <h2 id="a9">A9 · <code>superPose</code> v09</h2>
+  <p>Four-frame subtle loop. Shorts, legs and hands were redrawn toward the approved neutral's size; pose and loop timing are retained. Head probe reads all frames. Body-area B by frame is 0.938, 0.890, 0.900 and 0.920 (median 0.910), an advisory comparison to idle f0. No hitbox or hand override is defined for this animation.</p>
+  <h3>Approved packed v08 and candidate packed v09</h3>
+  <div class="raw-grid">
+    <figure><figcaption>Approved v08</figcaption><div class="strip-scroll"><a href="superPose-approved-packed.png"><img src="superPose-approved-packed.png" alt="Approved Killua superPose v08 packed cells"></a></div></figure>
+    <figure><figcaption>Candidate v09</figcaption><div class="strip-scroll"><a href="superPose-candidate-packed.png"><img src="superPose-candidate-packed.png" alt="Candidate Killua superPose v09 packed cells"></a></div></figure>
+  </div>
+  <details><summary>Open the original 1536×1024 source strips</summary>
+    <div class="raw-grid">
+      <figure><figcaption>Approved source v08</figcaption><a href="sources/superPose_v08.png"><img src="sources/superPose_v08.png" alt="Killua superPose v08 source strip"></a></figure>
+      <figure><figcaption>Candidate source v09</figcaption><a href="sources/superPose_v09.png"><img src="sources/superPose_v09.png" alt="Killua superPose v09 source strip"></a></figure>
+    </div>
+  </details>
+
+  <h2 id="a10">A10 · <code>getup</code> v08</h2>
+  <p>Five-frame kip-up. The same action sequence remains: lying on his back, rolling over the shoulders, springing airborne, landing in a crouch, then standing. Frames f1-f4 narrow the torso, sleeves and limbs toward idle build.</p>
+  <div class="raw-grid">
+    <figure><figcaption>Approved v07</figcaption><div class="strip-scroll"><a href="getup-approved-packed.png"><img src="getup-approved-packed.png" alt="Approved Killua getup v07 packed cells"></a></div></figure>
+    <figure><figcaption>Candidate v08</figcaption><div class="strip-scroll"><a href="getup-candidate-packed.png"><img src="getup-candidate-packed.png" alt="Candidate Killua getup v08 packed cells"></a></div></figure>
+  </div>
+  <details><summary>Open the original 1536×1024 source strips</summary>
+    <div class="raw-grid">
+      <figure><figcaption>Approved source v07</figcaption><a href="sources/getup_v07.png"><img src="sources/getup_v07.png" alt="Killua getup v07 source strip"></a></figure>
+      <figure><figcaption>Candidate source v08</figcaption><a href="sources/getup_v08.png"><img src="sources/getup_v08.png" alt="Killua getup v08 source strip"></a></figure>
+    </div>
+  </details>
+
+  <h2>Scale references</h2>
+  <p>These packed candidate cells and the approved references below share the same pixel scale. The body sheet shows idle f0, approved combat, and every candidate frame in one comparison.</p>
+  <div class="strip-scroll"><a href="idle-packed.png"><img class="cell" src="idle-packed.png" alt="Killua packed idle frame 0"></a><a href="killua-neutral_v01.png"><img class="cell" src="killua-neutral_v01.png" alt="Approved Killua title-style neutral cell"></a><a href="killua-combat_v01.png"><img class="cell" src="killua-combat_v01.png" alt="Approved Killua title-style combat cell"></a></div>
+  <figure><a href="body-candidates.png"><img class="body-sheet" src="body-candidates.png" alt="Packed body-area comparison for Killua idle, superPose v09 and getup v08"></a><figcaption>Body-area B is a pose-sensitive advisory; confirm it against individual visible body segments.</figcaption></figure>
+
+  <h2>Technical findings</h2>
+  <p class="hold"><strong>Getup v08: technical hold.</strong> The ordinary strict candidate pack refuses to write because the existing manual scale QA is version-bound to v07 and v08's lying f0 head probe is unmeasured (0.480). Head ratios for f1-f4 are 1.019, 1.018, 1.050 and 1.010. Body-area B is 0.730, 0.866, 0.966, 0.831 and 0.892 (median 0.866), below the ±10% advisory band. The packer also reports f0 floor contact: 77% of its body is within 5 px of y=240, with the lowest fifth 13 px above the line.</p>
+  <p>The displayed candidate atlas was packed in an isolated diagnostic folder using a temporary manifest that selects these versions only to produce cells. The repository manifest still has approvedVersion v08 for superPose and v07 for getup; no candidate art was written to <code>public/characters/killua/</code> or the production frame folders. The user may approve or reject each drawing while the technical hold remains open.</p>
+  <p>Generation calls, exact prompts, hashes and pack evidence are recorded in the committed branch file <code>art/characters/killua/production/size-r8/GENERATION_INVENTORY.md</code>.</p>
+</body>
+</html>

@@ -26,6 +26,7 @@
     th, td { border: 1px solid #3a3c50; padding: 8px 10px; text-align: left; vertical-align: top; }
     th { background: #202231; }
     .hold { color: #ffd483; font-weight: 650; }
+    .ok { color: #99ddb3; font-weight: 650; }
     @media (max-width: 760px) {
       body { padding: 18px 12px 40px; }
       .verdict { grid-template-columns: 1fr; }
@@ -35,7 +36,7 @@
 </head>
 <body>
   <h1>Naruto ART-SIZE-R8: A4-A8, R1-R2</h1>
-  <p class="state"><strong>Decision needed before further work.</strong> The latest candidate set is unapproved. The five redraws A4-A8 have measurable anatomy or contact holds; no image approval is being requested while those holds remain. R1/R2 are script-only pixel repairs and preserve their approved source geometry.</p>
+  <p class="state"><strong>Decision recorded via Claude relay <code>audit1 #7</code>.</strong> The user approved R1/R2 v05. A4-A8 remain unapproved on the listed anatomy or contact holds; the user chose to keep them held and proceed to Killua. R1/R2 are script-only pixel repairs and preserve their approved source geometry.</p>
 
   <section class="verdict" aria-label="Review summary">
     <article><h2>Identity</h2><p>All candidates preserve Naruto's orange-and-black outfit, blond hair, headband and right-facing 3/4 sprite design. R1/R2 change only the requested trouser pixels.</p></article>
@@ -43,8 +44,8 @@
     <article><h2>Technical</h2><p>The visible candidates come from a warning-mode diagnostic atlas, not the production sheet. Strict packing stops at taunt and specialDown. Light2Alt's strike is 38 px above light2's current hit, and light3Alt's strike is 51 px below light3's hit; both exceed the 24 px contact tolerance.</p></article>
   </section>
 
-  <h2>Decision requested through Claude</h2>
-  <p>Should I make one additional image-generation call for any named A4-A8 item, beyond the original three-call cap, to correct the listed body/contact holds? Please name each authorized item. A7 already has four call events if the failed tool invocation is counted, and its history is fully disclosed in the inventory. Or keep the latest A4-A8 versions unapproved on technical hold and proceed to Killua. The current images remain available below for context; a visual decision would not clear the technical holds.</p>
+  <h2>Decision recorded</h2>
+  <p>The user's answer, relayed by Claude in <code>audit1 #7</code>, was: “Yes, move to Killua”. This keeps A4-A8 unapproved on their existing technical holds; no additional generation calls for them were authorized. The user approved the script-only R1/R2 v05 repairs as made. Those approvals do not certify new anatomy or clear runtime checks.</p>
 
   <h2>Latest candidate strips</h2>
   <p>Each diagnostic strip shows approved idle f0 and combat context first, followed by the candidate's packed frames from left to right. Open an image in a new tab to inspect its 256 px cells at native size.</p>
@@ -59,9 +60,9 @@
 
   <article class="card" id="a8"><h3>A8 · <code>specialDown</code> v08 <span class="hold">TECHNICAL HOLD</span></h3><p>Four-phase gather and roar retained. Head ratios 1.034-1.069 fail strict scale; body B is 0.560-0.653 and the feet proxy is 0.694. The old v02 probe exemption is stale and was not applied. Three generation calls used.</p><div class="strip-scroll"><a href="specialDown-contact.png"><img src="specialDown-contact.png" alt="Naruto specialDown v08 packed frames with idle and combat references"></a></div></article>
 
-  <article class="card" id="r1"><h3>R1 · <code>airHeavyAlt</code> v05</h3><p>Script-only pouch recolor: 2,253 masked pixels changed; all remaining RGBA pixels match approved v04. This inherits v04 geometry evidence and is not a new anatomy certification.</p><div class="strip-scroll"><a href="airHeavyAlt-contact.png"><img src="airHeavyAlt-contact.png" alt="Naruto airHeavyAlt v05 packed frames with idle and combat references"></a></div></article>
+  <article class="card" id="r1"><h3>R1 · <code>airHeavyAlt</code> v05 <span class="ok">USER-APPROVED</span></h3><p>Script-only pouch recolor: 2,253 masked pixels changed; all remaining RGBA pixels match approved v04. The user approved v05 via Claude relay <code>audit1 #7</code>. This inherits v04 geometry evidence and is not a new anatomy certification.</p><div class="strip-scroll"><a href="airHeavyAlt-contact.png"><img src="airHeavyAlt-contact.png" alt="Naruto airHeavyAlt v05 packed frames with idle and combat references"></a></div></article>
 
-  <article class="card" id="r2"><h3>R2 · <code>jumpSquat</code> v05</h3><p>Script-only cleanup made three orange pixels beside the rear fist transparent; all other RGBA pixels match approved v04. Head ratio is 1.000 and body B is 0.882, an advisory pose-sensitive value.</p><div class="strip-scroll"><a href="jumpSquat-contact.png"><img src="jumpSquat-contact.png" alt="Naruto jumpSquat v05 packed frame with idle and combat references"></a></div></article>
+  <article class="card" id="r2"><h3>R2 · <code>jumpSquat</code> v05 <span class="ok">USER-APPROVED</span></h3><p>Script-only cleanup made three orange pixels beside the rear fist transparent; all other RGBA pixels match approved v04. The user approved v05 via Claude relay <code>audit1 #7</code>. Head ratio is 1.000 and body B is 0.882, an advisory pose-sensitive value.</p><div class="strip-scroll"><a href="jumpSquat-contact.png"><img src="jumpSquat-contact.png" alt="Naruto jumpSquat v05 packed frame with idle and combat references"></a></div></article>
 
   <h2>Packed body evidence</h2>
   <p>B measures opaque garment-color area against packed idle f0. It is advisory and pose-sensitive; the large shortfalls in the upright poses above are visible in the same-scale comparison. H is the packer's head probe, including hair.</p>
