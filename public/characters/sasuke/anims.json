@@ -393,7 +393,7 @@
         "feetFrames": [1.128, 1.055],
         "boxes": [[153, 90, 194, 121], [147, 89, 188, 121]]
       },
-      "jumpSquat": { "head": 1.059, "feet": 0.772, "verdict": "manual", "v": 8, "frames": [1.059], "feetFrames": [0.772], "boxes": [[144, 80, 187, 116]] },
+      "jumpSquat": { "head": 1.059, "feet": 0.772, "verdict": "manual", "v": 9, "frames": [1.059], "feetFrames": [0.772], "boxes": [[144, 80, 187, 116]] },
       "jumpUp": {
         "head": null,
         "feet": null,

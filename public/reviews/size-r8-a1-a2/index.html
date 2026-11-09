@@ -30,30 +30,32 @@
 </head>
 <body>
   <h1>Sasuke ART-SIZE-R8: A1 + A2</h1>
-  <p class="state"><strong>Waiting for the user's drawing approval.</strong> The approved versions remain jumpSquat v07 and stagger v08. Candidates v08 and v09 are packed for review only; nothing here approves or ships them.</p>
-  <p>Every sprite tile below is one 256×256 cell at native packed pixel density. New cells come from the exact 48-color candidate atlas. Prior cells come from the committed pre-candidate atlas. The approved title-style neutral/combat cells and Sasuke idle f0 provide the body and scale references.</p>
+  <p class="state"><strong>A1 and A2 drawings are approved via Claude relay audit1 #3.</strong> The user approved the jumpSquat v08 drawing and directed a script-only knee-speck cleanup as v09; stagger v09 is approved as drawn. The current 48-color atlas is packed. Astra's anatomy/scale audit passes; Claude's runtime contact and integration checks remain separate.</p>
+  <p>Every sprite tile below is one 256×256 cell at native packed pixel density. Current A1/A2 cells come from the exact 48-color atlas. Prior cells come from the committed pre-candidate atlas. Approved title-style neutral/combat cells and Sasuke idle f0 provide the body and scale references.</p>
 
   <section id="a1">
-    <h2>A1 — <code>jumpSquat</code> v08</h2>
-    <p>One 70 ms non-looping spot-dodge crouch. The pose stays compressed; review torso, arms and trouser build at the same scale as idle.</p>
+    <h2>A1 — <code>jumpSquat</code> v09 (script cleanup of approved v08 drawing)</h2>
+    <p>One 70 ms non-looping spot-dodge crouch. The user approved v08's drawing, then asked for dark-red knee specks to be removed with a script. v09 changes 54 pixels in narrow knee-edge masks; v08 remains byte-for-byte preserved and all other v09 source pixels match it.</p>
     <div class="grid">
       <figure class="tile"><img src="idle-f0.png" alt="Sasuke idle frame 0"><figcaption>Approved idle f0</figcaption></figure>
       <figure class="tile"><img src="sasuke-neutral-v01.png" alt="Approved title-style Sasuke neutral"><figcaption>Approved title-style neutral</figcaption></figure>
       <figure class="tile"><img src="jumpSquat-v07-packed.png" alt="Previously approved jumpSquat v07"><figcaption>Approved jumpSquat v07</figcaption></figure>
-      <figure class="tile"><img src="jumpSquat-v08-packed.png" alt="Candidate jumpSquat v08"><figcaption>Candidate jumpSquat v08</figcaption></figure>
+      <figure class="tile"><img src="jumpSquat-v08-packed.png" alt="User-approved jumpSquat v08 drawing"><figcaption>User-approved drawing · v08 source</figcaption></figure>
+      <figure class="tile"><img src="jumpSquat-v09-packed.png" alt="User-directed scripted knee-speck cleanup, jumpSquat v09"><figcaption>User-directed pixel cleanup · v09</figcaption></figure>
     </div>
     <table class="metrics">
       <tr><th>Check</th><th>Result</th></tr>
       <tr><td>Packed scale</td><td>Manual low-confidence pose pass. Head probe H 1.059 (within ±6%); measured head width 43 px, same as idle f0. Forward head pitch shortens its crown-to-chin projection.</td></tr>
       <tr><td>Body proxy</td><td>B 0.925 (7.5% below idle, within the proxy's ±10% advisory). The crouch folds and overlaps the cloth and far-side limbs.</td></tr>
       <tr><td>Visible build</td><td>Shoulder and torso width, visible arm/leg thickness, sandal geometry and clothing volume were compared against idle and neutral at the same density. Rear arm and far leg are foreshortened or partly hidden, so their apparent lengths are not used.</td></tr>
+      <tr><td>Final anatomy audit</td><td>GPT-6 Astra: PASS, moderate confidence. No visible scale/build defect, clipping or detached remnant; far arm/leg and hip landmarks remain partly occluded (about ±3 px landmark uncertainty). Runtime contact/hurtbox checks remain with Claude.</td></tr>
     </table>
-    <details class="raw"><summary>View the full generated source</summary><p><img src="jumpSquat-v08-source.png" alt="Raw generated source for jumpSquat v08"></p></details>
+    <details class="raw"><summary>View the preserved v08 source and cleaned v09 source</summary><p><img src="jumpSquat-v08-source.png" alt="Preserved raw generated source for jumpSquat v08"></p><p><img src="jumpSquat-v09-source.png" alt="Script-cleaned raw source for jumpSquat v09"></p></details>
   </section>
 
   <section id="a2">
-    <h2>A2 — <code>stagger</code> v09</h2>
-    <p>Four 150 ms looping frames. Phase order stays right-lean, center, left-lean, center. Candidate head ratios are 0.988, 0.974, 1.010 and 0.994; body B values are 1.001, 0.993, 0.964 and 1.010.</p>
+    <h2>A2 — <code>stagger</code> v09 (approved as drawn)</h2>
+    <p>Four 150 ms looping frames. Phase order stays right-lean, center, left-lean, center. The user approved v09 as drawn via Claude relay audit1 #3. Head ratios are 0.988, 0.974, 1.010 and 0.994; body B values are 1.001, 0.993, 0.964 and 1.010.</p>
     <h3>Previously approved v08</h3>
     <div class="frames">
       <figure class="tile"><img src="stagger-v08-f0-packed.png" alt="stagger v08 frame 0"><figcaption>v08 · f0</figcaption></figure>
@@ -61,14 +63,14 @@
       <figure class="tile"><img src="stagger-v08-f2-packed.png" alt="stagger v08 frame 2"><figcaption>v08 · f2</figcaption></figure>
       <figure class="tile"><img src="stagger-v08-f3-packed.png" alt="stagger v08 frame 3"><figcaption>v08 · f3</figcaption></figure>
     </div>
-    <h3>Candidate v09</h3>
+    <h3>User-approved v09 · exact current atlas</h3>
     <div class="frames">
-      <figure class="tile"><img src="stagger-v09-f0-packed.png" alt="stagger v09 frame 0"><figcaption>v09 · f0</figcaption></figure>
-      <figure class="tile"><img src="stagger-v09-f1-packed.png" alt="stagger v09 frame 1"><figcaption>v09 · f1</figcaption></figure>
-      <figure class="tile"><img src="stagger-v09-f2-packed.png" alt="stagger v09 frame 2"><figcaption>v09 · f2</figcaption></figure>
-      <figure class="tile"><img src="stagger-v09-f3-packed.png" alt="stagger v09 frame 3"><figcaption>v09 · f3</figcaption></figure>
+      <figure class="tile"><img src="stagger-v09-atlas-f0.png" alt="stagger v09 frame 0 from current atlas"><figcaption>v09 · f0</figcaption></figure>
+      <figure class="tile"><img src="stagger-v09-atlas-f1.png" alt="stagger v09 frame 1 from current atlas"><figcaption>v09 · f1</figcaption></figure>
+      <figure class="tile"><img src="stagger-v09-atlas-f2.png" alt="stagger v09 frame 2 from current atlas"><figcaption>v09 · f2</figcaption></figure>
+      <figure class="tile"><img src="stagger-v09-atlas-f3.png" alt="stagger v09 frame 3 from current atlas"><figcaption>v09 · f3</figcaption></figure>
     </div>
-    <p>The candidate pack reports median H 0.991 and median B 0.997. Every frame remains within the head tolerance; the four-frame loop and its timings are unchanged.</p>
+    <p>The exact pack reports median H 0.991 and median B 0.997. Every frame remains within head tolerance. Astra passed all four poses and the f3→f0 return at moderate-to-high confidence; hidden hip/knee positions remain uncertain by about ±3 px.</p>
     <details class="raw"><summary>View the full generated source</summary><p><img src="stagger-v09-source.png" alt="Raw generated source for stagger v09"></p></details>
   </section>
 
@@ -83,6 +85,6 @@
     </div>
   </section>
 
-  <p>Call counts: jumpSquat v08 1/3; stagger v09 1/3. The current-model waiver came from user decision relay <code>audit1 #2</code> and applies to these three art chats for this round only. See the <a href="call-inventory.md">generation inventory</a>, <a href="scale-record.md">technical scale record</a> and <a href="atlas-provenance.json">atlas hashes</a>.</p>
+  <p>Image-call counts: jumpSquat v08 1/3; jumpSquat v09 cleanup used no image call; stagger v09 1/3. The current-model waiver came from user decision relay <code>audit1 #2</code> and applies to these three art chats this round only. Approval came via <code>audit1 #3</code>. See the <a href="call-inventory.md">generation inventory</a>, <a href="scale-record.md">technical scale record</a>, <a href="astra-final-audit.md">Astra audit findings</a> and <a href="atlas-provenance.json">atlas hashes</a>.</p>
 </body>
 </html>

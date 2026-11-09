@@ -1,7 +1,7 @@
 {
   "baseCommit": "4d764f2993456d9af6b12f1f2fbb7f3e58bb6548",
   "oldAtlasSha256": "006321cd96309de35e319607d3b61b3e2995a6193b0a70f6bee428fc8b19b664",
-  "candidateAtlasSha256": "3d0d86e8c4de5e4ce557fb780baf31fe6575c4b04e1e0d6d63abd89a7a25f0b3",
-  "candidateMetadataSha256": "99b178f3e511d867c6eea477b9ee4af06c61bbbe84e6be23943780992c9587e4",
-  "note": "Old strips are cells from the committed pre-candidate atlas; v08/v09 and idle/guard/vanish are cells from the exact new 48-color candidate atlas. Review images do not approve art or promote it to production."
+  "candidateAtlasSha256": "f2cdb72288827e04f285e6fb4257aefa3e36ad5e6a16d4a9aec5563a8550d236",
+  "candidateMetadataSha256": "84791b2840ec878545694fcdc8909aff3e2ddfa4fdce7cbda7967982785d9da7",
+  "note": "Old strips are cells from the committed pre-candidate atlas; approved jumpSquat v09, approved stagger v09 and current idle/guard/vanish are cells from this exact 48-color atlas. The user approved the A1 drawing with the directed no-call knee-speck cleanup and approved A2 as drawn via relay audit1 #3. This is a review snapshot; main integration and runtime contact/hurtbox checks remain with Claude."
 }

@@ -312,12 +312,12 @@
      ]
     },
     "jumpSquat": {
-     "v": 8,
+     "v": 9,
      "head": 1.059,
      "feet": 0.772,
      "range": 0,
      "verdict": "manual",
-     "reason": "manual QA by Codex (manual packed-cell scale check, ART-SIZE-R8): Candidate v08 is a low-confidence crouch; exact 48-color packed cell compared at one density with idle f0 and approved title-style neutral/combat. Head read 1.059 (within ±6%; width 43 px, same as idle's 43; forward head pitch shortens the crown-to-chin box). Body B 0.925 (7.5% below idle, within the ±10% advisory); visual check of shoulders, torso, visible arm/leg widths, sandal geometry and clothing volume found no material scale drift. Rear arm and far leg are foreshortened/partly hidden by the pose; their apparent lengths were not used. Technical scale pass only, not design or contact approval. (art/scale/size-r8/SASUKE_A1_A2.md)",
+     "reason": "manual QA by Codex (manual packed-cell scale check, ART-SIZE-R8): v09 is a no-call pixel repair derived from the user-approved v08 drawing: only 54 dark-red pixels in narrowly bounded knee-edge masks were remapped to nearby non-red outline or blue pixels; no pose geometry or head pixels changed. The v08 low-confidence measurements carry forward pending exact atlas recheck: H 1.059 (43 px width, idle 43 px), body B 0.925 (7.5% below idle, within the ±10% advisory). Technical scale check only; final independent anatomy audit and contact review remain separate. (art/scale/size-r8/SASUKE_A1_A2.md)",
      "frames": [
       {
        "head": 1.059,

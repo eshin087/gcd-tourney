@@ -1,6 +1,6 @@
 # Sasuke ART-SIZE-R8 generation inventory (audit1)
 
-This inventory records every image-generation call for A1-A2, including failed or unsaved calls. Maximum: 3 calls per image. These redraws are user-review candidates; the model waiver below is not image approval.
+This inventory records every image-generation call for A1-A2, including failed or unsaved calls, and the user-directed no-call A1 pixel cleanup. Maximum: 3 calls per generated image. Approvals are recorded separately below.
 
 ## Authorization and references
 
@@ -15,14 +15,15 @@ This inventory records every image-generation call for A1-A2, including failed o
 | Approved combat build and pixel density | `art/characters/sasuke/reference/idle_approved.png` | `e2a9a1f44bef56a16cfb4807f5539179e7140607e2056e08772649435fb1680c` |
 | Approved neutral scale and anatomy | `public/art-review/title-style-pilot/sasuke-neutral_v01.png` | `fbc6b37701c9055b7e1349aec0b1f035ed1aa21638a66541ffbf71ba3e222352` |
 
-## A1 — Sasuke `jumpSquat` v08
+## A1 — Sasuke `jumpSquat` v08 drawing and v09 cleanup
 
 - Current source: `art/characters/sasuke/raw/jumpSquat_v07.png`, 1536x1024, SHA-256 `8b8cb826e0d4105e5bc66dc1bd25e6c6e8399b1d7b8930f778b35428ed3ad1bb`.
 - Contract: 1 frame, non-looping, 70 ms, manifest `bodyHeight` 162. Keep the crouch and head size; bring torso, arms and trousers back to idle's build.
 - Calls: **1/3 used**. Call 1 was made with the current chat model under the relay #2 waiver. The image tool did not expose a model ID.
 - Call 1 output: `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-00e27e34-48f1-4d3f-a2e7-d7f35d66c1e4.png`; copied without modifying the source to `art/characters/sasuke/raw/jumpSquat_v08.png`.
-- Call 1 output SHA-256: `070d56d6b7d0ac8b9ac947958d098e7aed0a8c9dc52b25bd493da70c9e8eb9b3`; 1254x1254 px. The final 48-color pack selected v08 and exited 0 with no `scale gate:` line. Packed ratios: body B 0.925 (within the body proxy's ±10% noise), head H 1.059 (within ±6%; manual check because the crouch probe is low-confidence). Head width is 43 px, matching idle f0's 43 px; the pitched pose shortens its vertical projection. See the version-bound [scale record](scale-record.md) and [review page](index.html#a1).
-- Calls used: **1/3**. Selected candidate remains v08; no retry call.
+- Call 1 output SHA-256: `070d56d6b7d0ac8b9ac947958d098e7aed0a8c9dc52b25bd493da70c9e8eb9b3`; 1254x1254 px. The initial 48-color pack selected v08 and exited 0 with no `scale gate:` line. Its packed ratios carried to the pixel-identical body/head in v09: body B 0.925 (within the body proxy's ±10% noise), head H 1.059 (within ±6%; manual check because the crouch probe is low-confidence). Head width is 43 px, matching idle f0's 43 px; the pitched pose shortens its vertical projection. See the version-bound [scale record](scale-record.md) and [review page](index.html#a1).
+- User decision via Claude relay `audit1 #3`: approve the v08 drawing and remove the dark-red trouser-knee specks with a script as v09, using the same pixels and no image call. The v08 source remains byte-for-byte preserved. The v09 source is SHA-256 `ca0be85ccfbfe23ec7c38b740c41c2cd86fce8c8bd10b658374f273a391fe370`; a pixel comparison confirms 54 pixels changed only inside two narrow knee-edge masks, with all other pixels unchanged.
+- Final packed/approved candidate: v09. Its exact atlas H is 1.059 and body B is 0.925; see the current-atlas record below. Astra independently passed the visible anatomy/scale review at moderate confidence. Calls: **1/3 generated**; the cleanup used no image-generation call.
 
 ### A1 call 1 prompt
 
@@ -46,14 +47,15 @@ Avoid: extra poses or characters, effects, sword unsheathed, text, labels, borde
 - Calls: **1/3 used**. Call 1 used the current chat model under relay #2; the image tool did not expose a model ID.
 - Call 1 output: `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-c0d44670-fb8e-4b1c-8c9a-7e23a9c21dae.png`; copied without modifying the source to `art/characters/sasuke/raw/stagger_v09.png`.
 - Call 1 output SHA-256: `074823f35e326544095ede3dbc0f31065457f3e9d709328427b239c643752751`; 1536x1024 px.
-- The final 48-color pack selected v09 and exited 0 with no `scale gate:` line. Packed ratios: body B per frame 1.001, 0.993, 0.964, 1.010 (median 0.997); head H per frame 0.988, 0.974, 1.010, 0.994 (median 0.991). No body or head pop flagged. These are technical measurements only, not user approval.
+- The final 48-color pack selected v09 and exited 0 with no `scale gate:` line. Packed ratios: body B per frame 1.001, 0.993, 0.964, 1.010 (median 0.997); head H per frame 0.988, 0.974, 1.010, 0.994 (median 0.991). No body or head pop flagged. The user approved v09 as drawn via Claude relay `audit1 #3`; Astra's independent audit also passes.
 
 ## Final exact candidate atlas
 
-- Sheet SHA-256: `3d0d86e8c4de5e4ce557fb780baf31fe6575c4b04e1e0d6d63abd89a7a25f0b3`.
-- Metadata SHA-256: `99b178f3e511d867c6eea477b9ee4af06c61bbbe84e6be23943780992c9587e4`.
-- Head sheet: `art/scale/heads-sasuke.png` (SHA-256 `9640ddcd362b9ca77678e1d0255faa6cefd4213ae022fb6b55ae735effbe32ec`).
-- Body sheet: `art/scale/body-sasuke-jumpSquat-stagger.png` (SHA-256 `47952387442561388dc67dc34d9ec90622f327a5c62ae957e0dc61c81c9733c8`).
+- Sheet SHA-256: `f2cdb72288827e04f285e6fb4257aefa3e36ad5e6a16d4a9aec5563a8550d236`.
+- Metadata SHA-256: `84791b2840ec878545694fcdc8909aff3e2ddfa4fdce7cbda7967982785d9da7`.
+- Head sheet: `art/scale/heads-sasuke.png` (SHA-256 `1235d7937e17575a410752502e1b11be371dc130280afb66cdba8cb579a6da3c`).
+- Body sheet: `art/scale/body-sasuke-jumpSquat-stagger.png` (SHA-256 `deb48126eabe8f477d366a443b87b9de6c4e60d0a633dd1119ea3f704d30c071`).
+- Final audit: [`astra-final-audit.md`](astra-final-audit.md), PASS for A1 and A2; runtime contact/hurtbox validation remains separate.
 - Review crops and old-atlas provenance: `public/reviews/size-r8-a1-a2/`.
 
 ### A2 call 1 prompt
