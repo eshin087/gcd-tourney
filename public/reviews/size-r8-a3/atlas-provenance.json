@@ -1,0 +1,51 @@
+{
+  "batch": "ART-SIZE-R8 A3",
+  "character": "sasuke",
+  "animation": "fTilt",
+  "version": 4,
+  "baseCommit": "085031024",
+  "priorPackedAtlasSha256": "f2cdb72288827e04f285e6fb4257aefa3e36ad5e6a16d4a9aec5563a8550d236",
+  "priorPackedMetadataSha256": "84791b2840ec878545694fcdc8909aff3e2ddfa4fdce7cbda7967982785d9da7",
+  "candidatePackedAtlasSha256": "f044cb78d55b99ea46c85ded46c9aacf63d21326c51fbb719df25db7d64c98b4",
+  "candidatePackedMetadataSha256": "808ae00d35dc8461875c23653516956122ec02ca1442974347c2c19c8ccdd418",
+  "changedAtlasCells": [
+    183,
+    184,
+    185,
+    186,
+    187,
+    188,
+    189
+  ],
+  "animationCells": [
+    183,
+    184,
+    185,
+    186,
+    187,
+    188,
+    189
+  ],
+  "phaseCounts": [
+    3,
+    2,
+    2
+  ],
+  "durationsMs": [
+    35,
+    30,
+    40,
+    50,
+    60,
+    50,
+    30
+  ],
+  "packScale": 1,
+  "hitboxesSha256": "67fafdd00b56b796a0f7f0af2dabdf799b45200cd47c225a3c5d0356a19ea469",
+  "stitchedSourceSha256": "0c7dae4d7b44029e76bef3a2a97204c98ac049cce34bae012db0675812b8c5d3",
+  "stitchSidecarSha256": "ad7037b44c93e0f783c1835f36d7e5ed7a6aa16285f5aab68d8345a6e64e1352",
+  "bodySheetSha256": "4e9fb6a4f014d69ab5d46cbeceb40dc1845e9a23363814e54a6420910fa706a6",
+  "headSheetSha256": "f495525acf5b02dcca7a3b4cf8f3d715ed2e3179e13cfcfeb4c159544cb29f47",
+  "generatedPartASha256": "6052f356788d6cc276e1c9174c82b9a99b39531b2c5c743fd0244666e583def9",
+  "generatedPartBSha256": "fa5f997fa0159799ecfc8e52f8191deb724c838fb015d0086fda3147491de9af"
+}

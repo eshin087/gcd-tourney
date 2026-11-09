@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sasuke fTilt v04 — ART-SIZE-R8 A3</title>
+  <style>
+    :root { color-scheme: dark; font: 15px/1.5 system-ui, sans-serif; background: #10111a; color: #e8e9f2; }
+    body { max-width: 1320px; margin: 0 auto; padding: 28px 20px 56px; }
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin: 34px 0 12px; }
+    p { max-width: 88ch; }
+    .state { border-left: 4px solid #dcae42; padding: 10px 14px; background: #242231; }
+    .verdict { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .verdict article, .panel { padding: 12px 14px; background: #191a27; border: 1px solid #34364a; border-radius: 8px; }
+    .frames { display: grid; grid-template-columns: repeat(7, minmax(128px, 1fr)); gap: 10px; overflow-x: auto; padding-bottom: 6px; }
+    .references { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .tile { margin: 0; padding: 9px; background: #191a27; border: 1px solid #34364a; border-radius: 8px; }
+    .tile img { display: block; width: 100%; max-width: 256px; aspect-ratio: 1; object-fit: contain; margin: 0 auto; background: #252638; image-rendering: pixelated; }
+    figcaption { margin-top: 7px; font-size: 13px; color: #c7c9d8; }
+    .strip img, .sheet img { display: block; width: 100%; height: auto; image-rendering: pixelated; background: #191a27; border: 1px solid #34364a; border-radius: 8px; }
+    .strip { max-width: 1120px; }
+    .sheet { max-width: 1100px; }
+    .metrics { border-collapse: collapse; width: 100%; max-width: 1000px; }
+    .metrics th, .metrics td { border: 1px solid #3a3c50; padding: 8px 10px; text-align: left; vertical-align: top; }
+    .metrics th { background: #202231; }
+    code { color: #c4d4ff; }
+    a { color: #a8c7ff; }
+    details { margin-top: 12px; }
+    @media (max-width: 760px) {
+      body { padding: 18px 12px 40px; }
+      .verdict { grid-template-columns: 1fr; }
+      .frames { grid-template-columns: repeat(2, minmax(128px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Sasuke ART-SIZE-R8 A3: <code>fTilt</code> v04</h1>
+  <p class="state"><strong>Candidate awaiting user image approval.</strong> v03 remains the approved version. v04 redraws the seven-frame step-in straight punch at <code>packScale: 1</code>; fTilt's phase timing stays unchanged. The final Astra anatomy/scale audit runs after the user's decision. Claude retains runtime contact/hurtbox and integration checks.</p>
+
+  <section class="verdict" aria-label="Review verdict">
+    <article><h2>Identity</h2><p>Face, blue-black hair, white high-collar shirt, purple rope belt, navy trousers, forearm guards, sandals and sheathed sword follow the approved Sasuke references.</p></article>
+    <article><h2>Proportions and pose</h2><p>The frame sequence remains guard → step → punch preparation → two active punches → recovery → guard. Head H is 0.977–1.003 (median 0.999). Body proxy B is 0.897–0.955 (median 0.917); it is advisory, so compare the body sheet and every frame directly.</p></article>
+    <article><h2>Technical</h2><p>48-color quantized pack passes with no fTilt scale-gate failure. Only atlas cells 183–189 changed. Active frames are still f3/f4; their hit boxes and hand points were remeasured at <code>_scale: 1</code>.</p></article>
+  </section>
+
+  <h2>Frame comparison at packed cell size</h2>
+  <p>Each tile is one 256×256 cell from a quantized atlas. The old strip was packed at 0.92; v04 is packed at 1.00. The same idle f0, approved neutral and approved combat cells below provide body-scale context.</p>
+  <h3>Previously approved v03</h3>
+  <div class="frames">
+    <figure class="tile"><img src="fTilt-v03-f0.png" alt="Approved fTilt v03 frame 0"><figcaption>v03 · f0 guard</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v03-f1.png" alt="Approved fTilt v03 frame 1"><figcaption>v03 · f1 step</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v03-f2.png" alt="Approved fTilt v03 frame 2"><figcaption>v03 · f2 draw</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v03-f3.png" alt="Approved fTilt v03 frame 3"><figcaption>v03 · f3 active 1</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v03-f4.png" alt="Approved fTilt v03 frame 4"><figcaption>v03 · f4 active 2</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v03-f5.png" alt="Approved fTilt v03 frame 5"><figcaption>v03 · f5 retract</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v03-f6.png" alt="Approved fTilt v03 frame 6"><figcaption>v03 · f6 return</figcaption></figure>
+  </div>
+  <h3>New candidate v04</h3>
+  <div class="frames">
+    <figure class="tile"><img src="fTilt-v04-f0.png" alt="Candidate fTilt v04 frame 0"><figcaption>v04 · f0 guard</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v04-f1.png" alt="Candidate fTilt v04 frame 1"><figcaption>v04 · f1 step</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v04-f2.png" alt="Candidate fTilt v04 frame 2"><figcaption>v04 · f2 draw</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v04-f3.png" alt="Candidate fTilt v04 frame 3"><figcaption>v04 · f3 active 1</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v04-f4.png" alt="Candidate fTilt v04 frame 4"><figcaption>v04 · f4 active 2</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v04-f5.png" alt="Candidate fTilt v04 frame 5"><figcaption>v04 · f5 retract</figcaption></figure>
+    <figure class="tile"><img src="fTilt-v04-f6.png" alt="Candidate fTilt v04 frame 6"><figcaption>v04 · f6 return</figcaption></figure>
+  </div>
+
+  <h2>Approved scale references</h2>
+  <div class="references">
+    <figure class="tile"><img src="idle-f0.png" alt="Approved Sasuke idle frame 0"><figcaption>Approved combat idle f0</figcaption></figure>
+    <figure class="tile"><img src="sasuke-neutral-v01.png" alt="Approved Sasuke title-style neutral"><figcaption>Approved title-style neutral</figcaption></figure>
+    <figure class="tile"><img src="sasuke-combat-v01.png" alt="Approved Sasuke title-style combat"><figcaption>Approved title-style combat</figcaption></figure>
+  </div>
+
+  <h2>Body and scale evidence</h2>
+  <p>The body-area proxy is close to its advisory boundary: f2 reads 0.897, while the seven-frame median is 0.917. Check visible torso, shoulder, limb, clothing and sandal volume in the side-by-side sheet. The foot report is a shoe-area proxy, not a pure length measure; it ranges 1.055–1.302 (median 1.161) across the changing stance and sandal angles, so it is not treated as a numerical foot-size pass.</p>
+  <figure class="sheet"><img src="body-sheet.png" alt="All seven packed fTilt v04 frames beside approved idle f0 and title-style combat reference, with body and head proxy ratios"><figcaption>Body sheet: candidate frames beside approved idle and combat references at one pixel density. B is the advisory garment-area proxy; H is the scale-gate head ratio.</figcaption></figure>
+  <details><summary>Open the full Sasuke head-scale sheet</summary><figure class="sheet"><img src="heads-sheet.png" alt="Sasuke scale-gate head comparisons across packed animations"></figure></details>
+
+  <h2>Active-frame hitbox and hand points</h2>
+  <table class="metrics">
+    <tr><th>Frame</th><th>Atlas cell</th><th>Hit box [x,y,w,h]</th><th>Hand point [x,y]</th></tr>
+    <tr><td>f3</td><td>186</td><td><code>[184,106,17,16]</code></td><td><code>[197,111]</code></td></tr>
+    <tr><td>f4</td><td>187</td><td><code>[193,105,18,16]</code></td><td><code>[207,111]</code></td></tr>
+  </table>
+  <p>The boxes pad the visible lead-fist bounds by about 3 px. The hand anchors sit on the forward knuckles. Runtime contact remains unvalidated.</p>
+
+  <details class="strip"><summary>View the full source strips</summary>
+    <h3>Stitched candidate source v04</h3><img src="fTilt-v04-source.png" alt="Stitched raw fTilt v04 source strip">
+    <h3>Approved source v03</h3><img src="fTilt-v03-source.png" alt="Raw fTilt v03 source strip">
+  </details>
+
+  <p>Review choices: approve <code>fTilt v04</code>, or request specific frame corrections; v03 remains approved until the user decides. See the <a href="call-inventory.md">generation-call inventory</a>, <a href="scale-record.md">packed scale record</a> and <a href="atlas-provenance.json">atlas hashes and changed cells</a>.</p>
+</body>
+</html>

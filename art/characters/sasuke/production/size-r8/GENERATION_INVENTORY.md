@@ -1,6 +1,6 @@
 # Sasuke ART-SIZE-R8 generation inventory (audit1)
 
-This inventory records every image-generation call for A1-A2, including failed or unsaved calls, and the user-directed no-call A1 pixel cleanup. Maximum: 3 calls per generated image. Approvals are recorded separately below.
+This inventory records every image-generation call for A1-A3, including failed or unsaved calls, and the user-directed no-call A1 pixel cleanup. Maximum: 3 calls per generated image/part. Approvals are recorded separately below.
 
 ## Authorization and references
 
@@ -72,3 +72,58 @@ Style: crisp hard-edged hi-res pixel art, same approved title style. Hard pixel 
 Palette: use Sasuke's approved palette from Image 1 only (34 colors; never exceed 48 character colors). Flat solid #FF00FF background; do not use magenta on the character.
 Avoid: extra frames or characters, effects, sword unsheathed, text, labels, borders, grid lines, floor or shadow, clipped anatomy, enlarged head/hands/feet, bulky shoulders/torso, or any change to the specified action.
 ```
+
+## A3 — Sasuke `fTilt` v04 (candidate; user review pending)
+
+- Prior approved source: `art/characters/sasuke/raw/fTilt_v03.png`, SHA-256 `8beadfcd2ff7d0490be491d123d55c5f1f25d0ed4e8019a12c5d7db3a8fcf440`; prior `packScale` was 0.92. v03 remains the approved version until the user decides on v04.
+- Contract: seven non-looping frames, phases `[3,2,2]`, durations `[35,30,40,50,60,50,30]` ms, manifest `bodyHeight` 180. f0-f2 prepare, f3-f4 are the two active straight-punch frames, f5-f6 recover. The moveset and strike timing were not changed.
+- Generation model: current chat model under the user waiver in relay `audit1 #2`; the image tool exposes no rendering-model ID.
+- Part A budget: **2/3 calls used**. Attempt 1 was rejected before generation because six reference paths exceeded the tool's five-image limit; no image was produced, and it is counted. Attempt 2 is completed image-generation event `exec-10f40ed0-bcf6-49f4-8c38-4e074c5132fc`.
+- Part A output: `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-10f40ed0-bcf6-49f4-8c38-4e074c5132fc.png`, copied without pixel edits to `art/characters/sasuke/raw/_parts/fTilt_v04_A.png`; 2172x724 px; SHA-256 `6052f356788d6cc276e1c9174c82b9a99b39531b2c5c743fd0244666e583def9`.
+- Part A references: Image 1 approved model sheet (identity/outfit/palette), Image 2 approved expressions, Image 3 approved idle (head/build/pixel density), Image 4 approved Sasuke neutral, Image 5 prior fTilt v03 (f0-f3 action and framing only).
+
+### A3 Part A tool-recorded prompt
+
+```text
+Use case: stylized-concept. Asset type: one part of a high-resolution pixel-art game animation strip.
+Primary request: create Part A containing exactly four consecutive full-body animation frames, f0-f3, in one horizontal row for a fighting-game sprite. Wide 4:1 strip layout, four equal slots, left to right. This is a new redraw of the same move.
+Reference roles:
+Image 1: approved identity, outfit and palette.
+Image 2: approved face and expression guide.
+Image 3: approved combat idle; match its head size, body build and pixel density.
+Image 4: approved upright neutral anatomy and scale.
+Image 5: prior animation strip, for exact f0-f3 pose, action, framing and sequence only. Do not copy its proportions; the old drawing's body-to-head balance is the problem being corrected.
+Subject: the same lean, pale young male anime fighter shown in the approved references. Dark blue-black spiky hair with long cheek-framing bangs, open white high-collar shirt, thick purple rope belt and rear bow, navy waist cloth over navy pants, dark forearm guards, black open-toed sandals, straight sword sheathed across the lower back. Preserve his established face and outfit.
+Action: reproduce exactly the first four poses from Image 5, in order: f0 ready guard, f1 stepping forward, f2 drawing the lead arm into the punch, f3 the lead-hand straight punch fully extended toward screen-right at chest height. Preserve the existing 3/4 view facing screen-right, stance, progression and frame spacing. f3 is the first active strike frame; do not move the strike earlier or later. Each pose is distinct and belongs to this sequence.
+Anatomy: match Image 3's head, torso length, shoulder width, limb length and thickness, hands, feet and clothing volume at the same pixel density. Use Image 4 for upright body proportions. Keep the same anatomy through all four poses. Do not enlarge the head, thicken the arms or trousers, shorten the legs, inflate shoulders, or uniformly resize a pose to its bounding box. Keep the sword sheathed and consistent.
+Style: crisp hard-edged HD pixel-art anime fan-art sprite, 3-5 cel-shading tones per material, clean 1 px dark outline, restricted consistent character palette of no more than 48 colors. Flat exact #FF00FF magenta background.
+Output constraints: exactly four separate full-body poses, one row, equal-size slots with clear magenta gaps, no overlap, no cropping, hands and sandals fully visible. Hard pixels only: no anti-aliasing, blur, gradients, dithering, noise, glow or painterly texture. No text, labels, borders, floor, cast shadow, speed lines, hit sparks, effects, extra props or extra figures.
+```
+
+- Part B budget: **1/3 call used**. Completed image-generation event `exec-2050e735-0056-4d27-9751-759f160a987e`.
+- Part B output: `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-2050e735-0056-4d27-9751-759f160a987e.png`, copied without pixel edits to `art/characters/sasuke/raw/_parts/fTilt_v04_B.png`; 2172x724 px; SHA-256 `fa5f997fa0159799ecfc8e52f8191deb724c838fb015d0086fda3147491de9af`.
+- Part B references: Image 1 approved model sheet, Image 2 approved idle, Image 3 approved Sasuke neutral, Image 4 prior fTilt v03 (f4-f6 action only), Image 5 newly generated Part A (consistent v04 build and style).
+
+### A3 Part B tool-recorded prompt
+
+```text
+Use case: stylized-concept. Asset type: the second part of a high-resolution pixel-art game animation strip.
+Primary request: create Part B containing exactly three consecutive full-body frames, f4-f6, in one horizontal row. These follow immediately after the four frames in Image 5, and finish the existing seven-frame move. Wide 3:1 layout, three equal slots, left to right.
+Reference roles:
+Image 1: approved identity, outfit and palette.
+Image 2: approved combat idle; match its head size, build and pixel density.
+Image 3: approved upright neutral anatomy and scale.
+Image 4: previous animation strip, for exact f4-f6 pose, action and sequence only. Do not copy its proportions; they are being corrected.
+Image 5: newly generated Part A, for the exact new body build, face, colors, line weight, shading, scale and spacing. Do not repeat its f0-f3 actions.
+Subject: continue the same lean, pale young male anime fighter in the references. Dark blue-black spiky hair with long cheek-framing bangs, open white high-collar shirt, thick purple rope belt and rear bow, navy waist cloth over navy pants, dark forearm guards, black open-toed sandals, straight sword sheathed across the lower back. Preserve his face and outfit from Image 5.
+Action: exactly the final three poses from Image 4 in order: f4 holds the lead-hand chest-height straight punch fully extended toward screen-right (the second and final active strike frame); f5 retracts the lead arm into recovery; f6 returns to the original ready guard, matching the starting stance of Image 5 frame 0. Preserve the existing 3/4 view facing screen-right. Do not add or omit poses, duplicate frames, change timing, or move the strike frames.
+Anatomy: match Image 5 and Image 2 exactly in head size, torso length, shoulder width, limb thickness and length, hand and foot size, and clothing volume at the same pixel density. Keep anatomy consistent across all three poses. Do not enlarge the head, thicken arms or trousers, shorten legs, inflate shoulders, or resize poses by their bounding boxes. Keep the sword sheathed.
+Style: crisp hard-edged HD pixel-art anime fan-art sprite, 3-5 cel-shading tones per material, clean 1 px dark outline, restricted consistent character palette of no more than 48 colors. Flat exact #FF00FF magenta background.
+Output constraints: exactly three separate full-body poses in one row, equal-size slots, clear magenta gaps, no overlap, no cropping; hands and sandals fully visible. Hard pixels only: no anti-aliasing, blur, gradients, dithering, noise, glow or painterly texture. No text, labels, borders, floor, cast shadow, speed lines, hit sparks, effects, extra props or extra figures.
+```
+
+- Stitch: `npm run stitch -- sasuke fTilt v04` measured Part B at factor `0.9972` against Part A; Part B was scaled by that measured factor. The retained sidecar records `[4,3]` poses, the 24 px gap, and `anatomy.measurement: auto-head`. Stitched source is `art/characters/sasuke/raw/fTilt_v04.png`, SHA-256 `0c7dae4d7b44029e76bef3a2a97204c98ac049cce34bae012db0675812b8c5d3`.
+- Final candidate pack: `node tools/pack-sprites.mjs sasuke --quantize 48 --keep-palette` exited 0: 53 animations / 245 frames, 48 colors. fTilt v04 is in cells 183-189, phases `[3,2,2]`, and the auto-head probe is `ok` at H 1.00 with no fit and no fTilt scale-gate failure. The only changed atlas cells versus branch base `085031024` are 183-189. Candidate sheet SHA-256 `f044cb78d55b99ea46c85ded46c9aacf63d21326c51fbb719df25db7d64c98b4`; metadata SHA-256 `808ae00d35dc8461875c23653516956122ec02ca1442974347c2c19c8ccdd418`.
+- Packed measurements: H per frame `[0.977,0.999,0.981,1.003,0.997,1.002,1.003]`, median `0.999`. Body garment-area B `[0.906,0.903,0.897,0.917,0.942,0.935,0.955]`, median `0.917`, no body-sheet flag; this is an advisory proxy, with one frame just below 0.90. Shoe-area proxy is `[1.057,1.161,1.055,1.085,1.210,1.251,1.302]`, median `1.161`; the wide/angled stride makes this proxy uncertain, so it is not treated as a foot-size pass. The equal-density body sheet and approved neutral/combat/idle comparisons are in the review page. The cast lineup command reported Sasuke heads 52/52 ok or not judged; its generated cross-cast files were restored afterward because it does not contain fTilt.
+- `hitboxes.json` was remeasured on packed active frames f3/f4 (cells 186/187): f3 hit `[184,106,17,16]`, hand `[197,111]`; f4 hit `[193,105,18,16]`, hand `[207,111]`; `_scale: 1`. No runtime contact/hurtbox validation is claimed.
+- **Approval:** not yet approved. Keep `approvedVersion: 3`; user image approval and the final independent anatomy/scale audit remain pending.

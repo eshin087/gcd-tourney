@@ -518,9 +518,13 @@
           "required": false,
           "step": 9,
           "status": "approved",
-          "version": 3,
+          "version": 4,
           "approvedVersion": 3,
-          "approvalSource": "user via Claude relay combat #7: Approve fTilt v03", "packScale": 0.92
+          "approvalSource": "user via Claude relay combat #7: Approve fTilt v03",
+          "packScale": 1,
+          "_packScale": "ART-SIZE-R8 A3: v04 is redrawn at the approved idle proportions and packed at 1.0; the prior v03 x0.92 import scale is not carried forward.",
+          "reviewStatus": "needs review",
+          "reviewPage": "public/reviews/size-r8-a3/"
         },
         "uTilt": {
           "frames": 7,
