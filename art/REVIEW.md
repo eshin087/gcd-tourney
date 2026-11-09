@@ -2,13 +2,13 @@
 
 ## Spell effects round 1 (ART-SPELL-R1)
 
-All three v01 candidates are packed and awaiting user review; none is approved. The [review gallery](../public/reviews/spell-fx-r1/index.html) shows each frame in white, blue and orange beside its current stand-in. The game continues using the existing effects until approval. Generation paths and call budgets are recorded in the [call inventory](vfx/production/spell-fx-r1/CALLS.md).
+The user approved shockRing v01, impactBurst v01 and flare v01 as drawn via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. This approves the drawings; Claude owns their engine integration. The [review gallery](../public/reviews/spell-fx-r1/index.html) preserves the frame-by-frame white, blue and orange comparisons beside current stand-ins. Generation paths and call budgets are recorded in the [call inventory](vfx/production/spell-fx-r1/CALLS.md).
 
 | date | character | asset | file | version | status | what changed | QA notes |
 |---|---|---|---|---|---|---|---|
-| 2026-11-08 | Shared | shockRing | [raw](vfx/raw/shockRing_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#shockRing) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | needs review | Six-frame expanding elliptical shock ring, breaking into arcs | Candidate pack 6/6 at x0.968; split: even sidecar; no new warnings. |
-| 2026-11-08 | Shared | impactBurst | [raw](vfx/raw/impactBurst_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#impactBurst) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | needs review | Six-frame compact impact with uneven spikes and dispersing shards | Candidate pack 6/6 at x1.0; no new warnings. |
-| 2026-11-08 | Shared | flare | [raw](vfx/raw/flare_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#flare) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | needs review | Four-frame looping root flare with short rays and sparkles | Candidate pack 4/4 at x1.316; no new warnings. |
+| 2026-11-08 | Shared | shockRing | [raw](vfx/raw/shockRing_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#shockRing) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | approved | Six-frame expanding elliptical shock ring, breaking into arcs | Candidate pack 6/6 at x0.968; split: even sidecar; no new warnings. Approved by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. |
+| 2026-11-08 | Shared | impactBurst | [raw](vfx/raw/impactBurst_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#impactBurst) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | approved | Six-frame compact impact with uneven spikes and dispersing shards | Candidate pack 6/6 at x1.0; no new warnings. Approved by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. |
+| 2026-11-08 | Shared | flare | [raw](vfx/raw/flare_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#flare) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | approved | Four-frame looping root flare with short rays and sparkles | Candidate pack 4/4 at x1.316; no new warnings. Approved by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. |
 
 ---
 ## Clash HD effects (ART-CLASH-HD; relay beam-clash-6)

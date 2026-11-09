@@ -4,7 +4,7 @@ Date: 2026-11-08
 Authorization: user decision delivered as Claude relay spells #1: "Use their current model" (waives the GPT-6 Luna rule for this chat for this round only). This is not image approval.
 Generation route: built-in image_gen; this tool exposes no rendering-model selector. Current Codex model directs the prompts per the decision.
 Budget: maximum 3 image-generation calls per effect, cumulative; every call, including a failed or rejected attempt, is recorded here.
-Approval: pending user review via Claude; no image is approved.
+Approval: user approved shockRing v01, impactBurst v01 and flare v01 as drawn via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”.
 
 | Effect | Calls used / max | Call | Prompt | Archived source | Exact image_gen output | Verdict |
 |---|---:|---|---|---|---|

@@ -520,9 +520,9 @@ ones.
 | effect | frames | ms | color rule | anchor | status | version | approved | notes |
 |---|---|---|---|---|---|---|---|---|
 | clashKnot | 8 | 40 | white (tinted) | center | approved | v02 | v02 | ART-CLASH-HD collision knot; approved as drawn via Claude relay beam-clash-6 #3 (“Approve all 8 (Recommended)”). See [call inventory](vfx/production/clash-hd/CALLS.md) and [review page](../public/reviews/clash-hd/index.html). |
-| shockRing | 6 | 45 | white (tinted) | center | packed | v01 | - | ART-SPELL-R1; needs user review. Candidate pack 6/6 at x0.968; see [calls](vfx/production/spell-fx-r1/CALLS.md) and [gallery](../public/reviews/spell-fx-r1/index.html#shockRing). |
-| impactBurst | 6 | 40 | white (tinted) | center | packed | v01 | - | ART-SPELL-R1; needs user review. Candidate pack 6/6 at x1.0; see [calls](vfx/production/spell-fx-r1/CALLS.md) and [gallery](../public/reviews/spell-fx-r1/index.html#impactBurst). |
-| flare | 4 | 60 | white (tinted) | center | packed | v01 | - | ART-SPELL-R1; needs user review. Candidate pack 4/4 at x1.316; see [calls](vfx/production/spell-fx-r1/CALLS.md) and [gallery](../public/reviews/spell-fx-r1/index.html#flare). |
+| shockRing | 6 | 45 | white (tinted) | center | approved | v01 | v01 | ART-SPELL-R1; approved as drawn by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. Candidate pack 6/6 at x0.968. |
+| impactBurst | 6 | 40 | white (tinted) | center | approved | v01 | v01 | ART-SPELL-R1; approved as drawn by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. Candidate pack 6/6 at x1.0. |
+| flare | 4 | 60 | white (tinted) | center | approved | v01 | v01 | ART-SPELL-R1; approved as drawn by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. Candidate pack 4/4 at x1.316. |
 | spearStream | 4 | 35 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Chidori Spear stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
 | palmStream | 4 | 30 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Lightning Palm stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
 | fireballStream | 4 | 50 | full color | center, tile | approved | v01 | v01 | ART-CLASH-HD Great Fireball stream; approved as drawn via Claude relay beam-clash-6 #3; exact 256px tiles. |
