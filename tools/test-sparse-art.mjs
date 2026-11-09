@@ -30,7 +30,7 @@ function buildRepo() {
   fs.mkdirSync(REPO, { recursive: true });
   git(REPO, 'init', '-q', '-b', 'main');
   git(REPO, 'config', 'user.email', 'sparse@test'); git(REPO, 'config', 'user.name', 'sparse test'); git(REPO, 'config', 'core.autocrlf', 'false');
-  for (const f of ['pr.mjs', 'pr-guard.mjs', 'sparse-art.mjs', 'scratch-dir.mjs', 'packer-marker.mjs']) put('tools/' + f, fs.readFileSync(path.join(TOOL_DIR, f)));
+  for (const f of ['pr.mjs', 'pr-guard.mjs', 'sparse-art.mjs', 'scratch-dir.mjs', 'packer-marker.mjs', 'worktree-links.mjs']) put('tools/' + f, fs.readFileSync(path.join(TOOL_DIR, f)));
   put('tools/publish.mjs', '// stub: `pr merge` publishes to GitHub; the fixture never does\n');
   put('.gitignore', '.worktrees/\nnode_modules/\n');
   put('package.json', '{ "name": "sparse-fixture", "private": true }\n');

@@ -29,6 +29,7 @@ import { fileURLToPath } from 'node:url';
 import { framesDrift } from './packer-marker.mjs';
 import { checkArt, formatReport, forceReason, overrideMessage, positionalArg, resolveHead, worktreeHolding } from './pr-guard.mjs';
 import { SPARSE, artFolders, folderPatterns, mangledPatterns, rawGaps, sparsePatterns } from './sparse-art.mjs';
+import { dropLinks, findLinks, restoreLinks } from './worktree-links.mjs';
 
 // The main checkout, wherever this copy of the script lives (it also runs from inside a worktree).
 const ROOT = path.dirname(execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'],
@@ -68,6 +69,22 @@ function clearGone(dir) {
     return false;
   }
 }
+// `git worktree remove` for a worktree that still exists. Its links go first (tools/worktree-links.mjs, TOOL-070): Git for
+// Windows deletes through a junction, and one in a finished worktree emptied the main checkout's node_modules. If git
+// then refuses (uncommitted work, a file held open), the links are put back for whoever still uses the worktree.
+function removeWorktree(dir) {
+  const dropped = dropLinks(dir);
+  for (const { link, target } of dropped) console.log(`[pr] removed the link ${path.relative(dir, link)} -> ${target ?? '?'} first, so git cannot delete what it points to`);
+  try { git(['worktree', 'remove', dir], ROOT, true); } catch (e) {
+    const lost = restoreLinks(dropped.filter((d) => fs.existsSync(path.dirname(d.link))));
+    if (lost.length) console.warn(`[pr] could not put back the link(s) ${lost.join(', ')}`);
+    throw e;
+  }
+}
+const linkNote = (dir) => {
+  const links = findLinks(dir).map((l) => path.relative(dir, l).replace(/\\/g, '/'));
+  return links.length ? `; its link(s) go first, never followed: ${named(links, 4)}` : '';
+};
 
 function start() {
   const branch = positional;
@@ -203,8 +220,8 @@ function merge() {
   }
   const dir = worktreeDir(branch);
   if (fs.existsSync(dir)) {
-    try { git(['worktree', 'remove', dir], ROOT, true); } catch {
-      if (!missing(dir)) console.warn(`[pr] left ${dir}: git could not remove it (uncommitted files, or a file still open there); \`git worktree remove\` it later`);
+    try { removeWorktree(dir); } catch {
+      if (!missing(dir)) console.warn(`[pr] left ${dir}: git could not remove it (uncommitted files, a file still open there, or a link that would not go); \`git worktree remove\` it later`);
     }
   }
   // A folder deleted without git (an app's own worktree cleanup), or a removal that deleted the folder but not git's
@@ -367,15 +384,16 @@ function prune() {
     }
     if (work.keep.length) { console.warn(`[pr] kept ${t.dir}: ${t.branch} is merged${state.via} but has uncommitted work: ${named(work.keep)}`); continue; }
     const folders = [...work.frames.keys()].map((folder) => folder + '/');
-    const how = `${t.branch} merged${state.via}` + (folders.length ? `; ${folders.length} folder(s) of untouched packer frames go with it: ${named(folders, 4)}` : '');
+    const how = `${t.branch} merged${state.via}` + (folders.length ? `; ${folders.length} folder(s) of untouched packer frames go with it: ${named(folders, 4)}` : '') + linkNote(t.dir);
     if (dry) { console.log(`[pr] would remove ${t.dir} (${how})`); continue; }
     try {
       dropFrames(t.dir, work.frames);
-      git(['worktree', 'remove', t.dir], ROOT, true);
+      removeWorktree(t.dir);
       try { git(['branch', '-d', t.branch], ROOT, true); } catch { /* checked out elsewhere */ }
       console.log(`[pr] removed ${t.dir} (${how})`);
-    } catch {
-      console.warn(`[pr] could not remove ${t.dir} (a session or editor may have it open); retry later`);
+    } catch (e) {
+      const why = /^could not remove the link/.test(e.message) ? e.message : 'a session or editor may have it open';
+      console.warn(`[pr] could not remove ${t.dir} (${why}); retry later`);
     }
   }
   const known = new Set(trees.map((t) => t.dir));
