@@ -176,7 +176,7 @@ export default {
     super: 'jetGatling',
     ultimate: 'gigantPistol', // a giant fist down his lane, not a beam (ADR 0032)
   },
-  stats: { speed: 6.1, power: 1.0, defense: 1.0 }, // stat index 0.98 (ADR 0011)
+  stats: { speed: 6.1, power: 1.02, defense: 1.0 }, // stat index 1.00 (ADR 0011; power 1.0 until the 2026-11-08 balance run)
   // floor damage (ground.js, ADR 0024): plain stone craters (rubber, no element)
   ground: { style: 'stone', tint: '#e8402a' },
   model,
