@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import { decalTests } from './test-pack-decals.mjs';
 import * as probe from './scale-probe.mjs';
+import { framesDrift } from './packer-marker.mjs';
 import { loadPacked } from './scale-audit.mjs';
 import * as THREE from 'three';
 
@@ -596,6 +597,9 @@ function main() {
   const idleDir = path.join(ART, 'characters', 'testy', 'frames', 'idle');
   check(fs.existsSync(path.join(idleDir, 'idle_07.png')) && fs.existsSync(path.join(idleDir, '.packer.json')), 'cleaned idle frames written back + marker');
   check(!fs.existsSync(path.join(ART, 'characters', 'testy', 'frames', 'light3', '.packer.json')), 'human frames (light3) not overwritten');
+  // `pr prune` throws away untracked frames this helper calls untouched (TOOL-068): it must agree with the packer's own marker
+  check(framesDrift(idleDir, ART).length === 0, `write-back: framesDrift reads the packer's marker and finds its frames untouched (${JSON.stringify(framesDrift(idleDir, ART))})`);
+  check(framesDrift(path.join(ART, 'characters', 'testy', 'frames', 'light3'), ART).length === 1, 'framesDrift: human frames (no marker) are never packer output');
 
   // UI
   const por = loadPng(path.join(OUT, 'characters', 'testy', 'portrait.png'));
@@ -787,6 +791,7 @@ function main() {
   const t3 = r3.json.characters.find((c) => c.id === 'testy');
   check(t3.packed.find((p) => p.anim === 'idle').source === 'raw/idle.png', 'run 3: changed raw re-imported');
   check(Buffer.compare(before, fs.readFileSync(path.join(idleDir, 'idle_00.png'))) !== 0, 'run 3: frames/idle refreshed');
+  check(framesDrift(idleDir, ART).length === 0, 'run 3: framesDrift finds the re-imported frames untouched');
 
   // run 4: hand-edited frames win over a newer raw
   const f0 = loadPng(path.join(idleDir, 'idle_00.png'));
@@ -799,6 +804,9 @@ function main() {
   check(t4.packed.find((p) => p.anim === 'idle').source === 'frames/idle/' && t4.packed.find((p) => p.anim === 'idle').edited === true, 'run 4: edited frames used');
   check(anyWarn(t4.warnings, /idle: raw\/idle\.png or its sidecar changed but frames\/idle\/ has manual edits/), 'run 4: manual-edit warning');
   check(Buffer.compare(edited, fs.readFileSync(path.join(idleDir, 'idle_00.png'))) === 0, 'run 4: edited frame preserved');
+  const drift4 = framesDrift(idleDir, ART);
+  check(drift4.some((d) => d.file === 'idle_00.png' && /edited/.test(d.why)) && drift4.some((d) => d.file === '' && /changed since/.test(d.why)) && drift4.length === 2,
+    `run 4: framesDrift names the edited frame and the changed raw (${JSON.stringify(drift4)})`);
   const idle4 = t4.packed.find((p) => p.anim === 'idle');
   check(idle4.scale === 1 && idle4.notes.some((n) => /stray pixel/.test(n)), `run 4: stray pixel ignored, idle not rescaled (x${idle4.scale})`);
   // the idle now keeps its fists close to the body (run 3 art): hitboxes must still isolate the limb

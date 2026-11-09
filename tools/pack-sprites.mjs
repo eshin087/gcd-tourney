@@ -17,12 +17,12 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
 import { auditCharacter, compactAudit, resolveGate, exemptionsFrom, verdictText, staleExemptText, FLAGGED, hex } from './scale-probe.mjs';
 import { packDecals, printDecalReport, updateDecalStatus } from './pack-decals.mjs';
 import { skippedFiles } from './sparse-art.mjs';
+import { MARKER, GENERATED_BY, sha1, hashFiles } from './packer-marker.mjs';
 import { PAGE_PX, pageFile, sheetFiles, frameCell } from '../src/art/sheetPages.js';
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -303,7 +303,6 @@ const UI_ITEMS = {
 };
 
 const MAGENTA = [255, 0, 255];
-const MARKER = '.packer.json';
 
 // ============================================================== CLI
 class UsageError extends Error {}
@@ -408,7 +407,6 @@ const listDirs = (p) => listDir(p).filter((d) => d.isDirectory()).map((d) => d.n
 const listFiles = (p) => listDir(p).filter((d) => d.isFile()).map((d) => d.name);
 const natural = (a, b) => a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' });
 const listPngs = (p) => listFiles(p).filter((n) => /\.png$/i.test(n)).sort(natural);
-const sha1 = (buf) => crypto.createHash('sha1').update(buf).digest('hex');
 const rel = (from, p) => path.relative(from, p).split(path.sep).join('/');
 
 function readJson(file) {
@@ -1416,12 +1414,6 @@ function pickRaw(entry, name, want = null) {
   return null; // only a sidecar
 }
 
-function hashFiles(files) {
-  const h = crypto.createHash('sha1');
-  for (const f of files) { h.update(path.basename(f)); h.update(fs.readFileSync(f)); }
-  return h.digest('hex');
-}
-
 // Which raw file packer-written frames were cleaned from (markers before packer v2 only list the source paths).
 function markerOrigin(marker) {
   const src = Array.isArray(marker.source) ? marker.source.filter((s) => typeof s === 'string' && /\.png$/i.test(s)) : [];
@@ -2305,7 +2297,7 @@ function writeBack(env, dir, prefix, cells, src, R, extra = {}) {
     files[name] = sha1(buf);
   });
   const marker = {
-    generatedBy: 'tools/pack-sprites.mjs', note: 'Frames cleaned from raw/. Edit freely: edited frames are never overwritten.',
+    generatedBy: GENERATED_BY, note: 'Frames cleaned from raw/. Edit freely: edited frames are never overwritten.',
     sourceFile: src.label, version: src.version ?? null, source: src.hashInputs.map((f) => rel(env.artDir, f)), sourceHash: hashFiles(src.hashInputs), ...extra, files,
   };
   fs.writeFileSync(path.join(dir, MARKER), JSON.stringify(marker, null, 2) + '\n');

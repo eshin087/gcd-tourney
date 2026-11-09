@@ -15,6 +15,26 @@ How it works:
 
 ---
 
+## Spell effects round 1: HD shock ring, impact burst and flare (2026-11-08, Claude) - chat "Character Spell Chat", relay lane `spells`
+
+**The user's request (2026-11-08, Claude chat "Character art sprite consistency audit"):** "There are also some spells
+that look weird during the clashes and stuff so use the 'Character Spell Chat' codex chat to help you out as well."
+They picked glow discs / bubbles, the beams themselves and the clash point. Task **ART-SPELL-R1** (engine side ENG-132,
+Claude). The brief is the contract: **[art/vfx/SPELL_FX_R1_BRIEF.md](../../art/vfx/SPELL_FX_R1_BRIEF.md)** (read it
+first). **User decision (relayed as a USER DECISION):** "Use their current model": you generate on the model you run
+now; the GPT-6 Luna rule is waived for this chat this round only.
+
+- [ ] 1. Worktree `art/spell-fx-r1` (`npm run pr -- start art/spell-fx-r1 --art vfx`, or a managed worktree plus
+  `npm run pr -- art vfx`), port 5253. Do not edit `src/` or `tools/`.
+- [ ] 2. Draw S1 `shockRing`, S2 `impactBurst` and S3 `flare` (v01 each, tinted white, at most 3 calls per image), add
+  their manifest rows, candidate-pack them and build the review page (brief section 4).
+- [ ] 3. Ring `node tools/relay.mjs ring spells --for user --kind approval --note "<items, versions, review link>"` from
+  main and stop. After a relayed approval: record it (REVIEW.md, manifest `status` / `approvedVersion`, TRACKER), pack
+  the approved items (`npm run sprites vfx`), commit, `npm run pr -- open`, and ring `spells` (not `--for user`) with
+  the branch and commit. Claude wires them in and merges.
+
+---
+
 ## Size audit round 8: redraw Sasuke, Naruto and Killua strips (2026-11-08, Claude) - chat "Character Art Audit #1", relay lane `audit1`
 
 **The user's request (2026-11-08, Claude chat "Character art sprite consistency audit"):** "audit all the art sprites
