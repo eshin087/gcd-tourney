@@ -221,3 +221,36 @@ Proposals, none applied:
    reaches further (about 6.3 units against 4.8); matching the Spear's frames is the smallest step with a visible size.
 3. Measure the next change with a Luffy-only run (his 10 ordered pairings, 30 or more passes per setting), which puts
    all the matches where the change is.
+
+### Gum-Gum Pistol on the Chidori Spear's frames (2026-11-08, the user's pick: "Try the Pistol")
+
+Proposal 2, measured the way proposal 3 says. Luffy's 10 ordered pairings × 30 passes, and every match played twice
+from the same seed (20000 + the pairing's index): once with the old frames (startup 11, recovery 20) and once with
+the new ones (9 and 18), switched in the page between matches. Power 1.02, the resized art, Hard vs Hard, 600 matches.
+
+| run 17 | matches | Luffy | his wins of 60 against Naruto | Sasuke | Killua | Gojo | Goku | P1 side |
+|---|---|---|---|---|---|---|---|---|
+| old frames (11 / 20) | 300 | 42 % (125) | 28 | 14 | 29 | 26 | 28 | 52 % |
+| new frames (9 / 18) | 300 | 39 % (116) | 16 | 15 | 33 | 27 | 25 | 47 % |
+
+By seed: Luffy won with both settings 44 times, only with the old frames 81, only with the new 72, with neither 103.
+
+Read (2026-11-08):
+
+- **No measurable effect.** Three points lower with the new frames, where the difference of two 300-match samples is
+  good to about ±8; the paired count (72 against 81) says the same, and the two halves of the run disagree in sign
+  (passes 1-15: 45 % old, 35 % new; passes 16-30: 38 % old, 42 % new).
+- **It could not have shown.** The Hard CPU fires the Pistol about 1.2 times a match (707 uses in the 600 matches),
+  so two frames of startup on it barely touch a CPU match. For a person it is another question, a faster neutral
+  poke, and only hands-on play answers it. The change is on its branch for that; these numbers neither support nor
+  oppose it.
+- **The steady signal is a matchup, not a move.** Over every Luffy run (12-17) he has won 26 % against Sasuke (50 of
+  192) and 34 % against Naruto (65 of 192), against 50 % with Killua (96), 43 % with Gojo (82) and 42 % with Goku
+  (81). Overall he is at 39 % (374 of 960).
+
+Proposals, none applied beyond the branch:
+
+1. Decide the Pistol frames by feel (the branch preview), not by this log.
+2. Before another number moves, find what loses him the Sasuke and Naruto matches: watch a set of Hard CPU matches of
+   each with the combo and damage logs on (who lands the first hit, which moves do the damage, how his Pistol and Whip
+   fare against Chidori and Rasengan), then change the one thing that explains it and measure with a run like 17.

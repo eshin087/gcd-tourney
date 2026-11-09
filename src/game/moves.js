@@ -519,7 +519,8 @@ export const SPECIAL_MOVES = {
   },
 
   // ---- Luffy (Enies Lobby arc, Gear Second / Gear Third; ADR 0032)
-  gumPistol: { kind: 'shot', anim: 'special', startup: 11, active: 3, recovery: 20, projectile: true, proj: 'pistol', cost: 50, name: 'GUM-GUM PISTOL', color: '#e8402a' },
+  // (startup 9 / recovery 18 since the 2026-11-08 balance run, ADR 0011: the Chidori Spear's frames; it was 11 / 20)
+  gumPistol: { kind: 'shot', anim: 'special', startup: 9, active: 3, recovery: 18, projectile: true, proj: 'pistol', cost: 50, name: 'GUM-GUM PISTOL', color: '#e8402a' },
   gumPistolAir: { kind: 'shot', anim: 'throw', startup: 9, active: 3, recovery: 16, air: true, projectile: true, proj: 'pistol', cost: 50, name: 'GUM-GUM PISTOL', color: '#e8402a' },
   // both palms shoved forward: a short lunge that sends them into the wall. Physical: no beam clash. Contact shows the
   // double palm (`hitPose`, specialForward f3) and the air shoved out of them (`blastFx`) instead of the white-out
