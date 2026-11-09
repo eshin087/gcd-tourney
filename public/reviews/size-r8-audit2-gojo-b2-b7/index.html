@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ART-SIZE-R8 B2–B7 · Gojo review</title>
+  <style>
+    :root{color-scheme:dark;--bg:#11131a;--panel:#1a1d27;--line:#414654;--text:#f3f4f8;--muted:#b8bdc9;--cyan:#4dd7ff;--green:#4fd39b;--amber:#ffd24a}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif}main{max-width:1240px;margin:auto;padding:28px 20px 60px}h1,h2,h3{line-height:1.2}h1{font-size:2rem;margin:.3rem 0}h2{font-size:1.35rem;margin:0 0 12px}h3{font-size:1rem;margin:0 0 8px}.eyebrow{color:var(--cyan);font-weight:700;letter-spacing:.08em;text-transform:uppercase}.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin:18px 0}.hold{border-left:5px solid var(--amber)}.info{border-left:5px solid var(--cyan)}.muted,small{color:var(--muted)}a{color:#83dfff}.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.fact{padding:12px;background:#222633;border-radius:8px}.tag{display:inline-block;padding:2px 9px;border-radius:99px;background:#243444;color:var(--cyan);font-size:.82rem;font-weight:700}.tag.hold{background:#43371d;color:var(--amber)}.tag.pass{background:#193c32;color:var(--green)}.scroll{overflow-x:auto;background:#13151c;border-radius:8px;padding:10px}.strip{display:block;width:auto;height:512px;max-width:none;image-rendering:pixelated}.wide{display:block;width:100%;height:auto;image-rendering:pixelated}.candidate{display:grid;grid-template-columns:1fr 1fr;gap:12px}.candidate figure{margin:0;min-width:0;overflow-x:auto;background:#13151c;border-radius:8px;padding:10px}.candidate img{display:block;width:auto;height:512px;max-width:none;object-fit:contain;image-rendering:pixelated}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;vertical-align:top;padding:9px;border-bottom:1px solid var(--line)}.table th{color:var(--muted)}.section{scroll-margin-top:12px}@media(max-width:700px){.candidate{grid-template-columns:1fr}.candidate img{height:400px}.table{font-size:.9rem}.table th:nth-child(3),.table td:nth-child(3){display:none}}
+  </style>
+</head>
+<body><main>
+  <p class="eyebrow">Character Art Audit #2 · Gojo · B2–B7</p>
+  <h1>Gojo redraw review</h1>
+  <p class="muted">The user approved special v08, fSmash v02, airLight3 v13, fair v02 and fTilt v02 as drawn via Claude relay audit2 #5. airLight1 v10 remains unapproved. Visual approval is separate from technical holds and Claude’s later integration checks.</p>
+
+  <section class="panel info">
+    <h2>Review status</h2>
+    <div class="facts">
+      <div class="fact"><b>Packed candidates</b><br>special v08, fSmash v02, airLight1 v10, fair v02 and fTilt v02.</div>
+      <div class="fact"><b>Not in the packed atlas</b><br>airLight3 v13 is shown from raw because strict head scale failed. The current candidate atlas still uses v12; v13 is visually approved but remains raw because strict head scale failed.</div>
+      <div class="fact"><b>Batch atlas</b><br>54 animations, 254 frames, 48 colors; packer completed with pre-existing unrelated warnings.</div>
+      <div class="fact"><b>Decision</b><br>The five selected approvals are recorded. airLight1 v10 remains unapproved; technical holds and integration checks remain separate.</div>
+    </div>
+    <p><b>Recorded as approved by the user via Claude relay audit2 #5: special v08, fSmash v02, airLight3 v13, fair v02 and fTilt v02. airLight1 v10 remains needs review.</b></p>
+  </section>
+
+  <section class="panel">
+    <h2>At a glance</h2>
+    <table class="table"><thead><tr><th>Batch</th><th>Candidate</th><th>Scale and packed QA</th><th>Review note</th></tr></thead><tbody>
+      <tr><td>B2</td><td><a href="#special">special v08</a> <span class="tag pass">approved as drawn</span></td><td>Pack pass; head .958; body B .892</td><td>Approved via Claude relay audit2 #5.</td></tr>
+      <tr><td>B3</td><td><a href="#fSmash">fSmash v02</a> <span class="tag pass">approved as drawn</span></td><td>Pack pass; head .971; body B .958</td><td>Approved via Claude relay audit2 #5; prior technical hold remains.</td></tr>
+      <tr><td>B4</td><td><a href="#airLight1">airLight1 v10</a> <span class="tag hold">unapproved · technical hold</span></td><td>Head pass 1.00; body B .767 vs jumpFall .889</td><td>Compact torso remains; three image calls used.</td></tr>
+      <tr><td>B5</td><td><a href="#airLight3">airLight3 v13</a> <span class="tag hold">approved as drawn · technical hold</span></td><td>Strict pack failed: head .94, feet 1.05</td><td>Raw strip only; v14 rejected at head 1.14; Part A call budget exhausted.</td></tr>
+      <tr><td>B6</td><td><a href="#fair">fair v02</a> <span class="tag pass">approved as drawn</span></td><td>Pack pass; head .999; body B .880 vs jumpFall .889</td><td>Approved via Claude relay audit2 #5; prior technical hold remains.</td></tr>
+      <tr><td>B7</td><td><a href="#fTilt">fTilt v02</a> <span class="tag pass">approved as drawn</span></td><td>Pack pass; head 1.016; body B .935</td><td>Approved via Claude relay audit2 #5; prior technical hold remains.</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>Approved scale references</h2>
+    <div class="candidate">
+      <figure><img src="idle-approved.png" alt="Approved Gojo idle reference"><figcaption>Approved Gojo idle anchor</figcaption></figure>
+      <figure><img src="gojo-combat_v01.png" alt="Approved Gojo title-style combat reference"><figcaption>Approved title-style combat reference</figcaption></figure>
+    </div>
+    <p class="muted"><a href="gojo-neutral_v01.png">Approved title-style neutral reference</a></p>
+  </section>
+
+  <section class="panel section" id="special">
+    <h2>B2 · special v08 <span class="tag pass">approved as drawn · packed scale pass</span></h2>
+    <p>Eight frames; phases and timing are unchanged. The revised f3–f7 poses no longer shrink relative to f0–f2. Head median .958; body-area proxy median .892; feet proxy median 1.091. The strip packs at 48 colors.</p>
+    <div class="candidate"><figure><img src="atlas-special-v07.png" alt="Approved special v07 from previous atlas"><figcaption>Approved v07 · packed atlas</figcaption></figure><figure><img src="atlas-special-v08.png" alt="Approved special v08 from current atlas"><figcaption>Approved v08 · packed atlas</figcaption></figure></div>
+    <p><a href="INVENTORY-B2-special.md">Generation and measurement inventory</a></p>
+  </section>
+
+  <section class="panel section" id="fSmash">
+    <h2>B3 · fSmash v02 <span class="tag pass">approved as drawn · packed scale pass</span></h2>
+    <p>Nine frames; phases [4,2,3], timing and packScale unchanged. Head median .971; body-area proxy median .958; no scale-gate flag. Packed active palm bounds: f4 x190–199/y46–72; f5 x181–192/y46–70. Sidecar boxes are recorded in hitboxes.json.</p>
+    <div class="candidate"><figure><img src="atlas-fSmash-v01.png" alt="Approved fSmash v01 from previous atlas"><figcaption>Approved v01 · packed atlas</figcaption></figure><figure><img src="atlas-fSmash-v02.png" alt="Approved fSmash v02 from current atlas"><figcaption>Approved v02 · packed atlas</figcaption></figure></div>
+    <p><a href="INVENTORY-B3-fSmash.md">Generation and measurement inventory</a></p>
+  </section>
+
+  <section class="panel section hold" id="airLight1">
+    <h2>B4 · airLight1 v10 <span class="tag hold">unapproved · technical body-scale hold</span></h2>
+    <p>Five frames; strict head gate passes at median 1.00. Body-area proxy median .767 is below approved jumpFall at .889, and the packed comparison still shows a compact torso. Active palm pixels measure x211–223/y69–88 on f1/f2; sidecar boxes are recorded. Three generation calls were used. This drawing is available for visual review, but its technical hold remains.</p>
+    <div class="candidate"><figure><img src="atlas-airLight1-v07.png" alt="Approved airLight1 v07 from previous atlas"><figcaption>Approved v07 · packed atlas</figcaption></figure><figure><img src="atlas-airLight1-v10.png" alt="Candidate airLight1 v10 from current atlas"><figcaption>Candidate v10 · packed atlas</figcaption></figure></div>
+    <p><a href="INVENTORY-B4-airLight1.md">Generation and measurement inventory</a></p>
+  </section>
+
+  <section class="panel section hold" id="airLight3">
+    <h2>B5 · airLight3 v13 <span class="tag hold">approved as drawn · technical hold · not packed</span></h2>
+    <p>The strict pack failed with head .94 while the feet proxy was 1.05. Therefore v13 is not quantized and is not in the atlas; this comparison shows previously approved and currently packed v12 beside visually approved but held raw v13. v14 was rejected after its head probe reached 1.14. Part A used all three calls, so no further generation is included in this batch.</p>
+    <div class="candidate"><figure><img src="atlas-airLight3-v12-approved.png" alt="Approved airLight3 v12 from packed atlas"><figcaption>v12 · current packed atlas; v13 visually approved</figcaption></figure><figure><img src="airLight3-v13-held-raw.png" alt="Held unquantized airLight3 v13 raw strip"><figcaption>Approved as drawn · held raw v13; strict head gate failed</figcaption></figure></div>
+    <p><a href="INVENTORY-B5-airLight3.md">Generation and measurement inventory</a></p>
+  </section>
+
+  <section class="panel section" id="fair">
+    <h2>B6 · fair v02 <span class="tag pass">approved as drawn · packed scale pass</span></h2>
+    <p>Six frames; phases [2,2,2], packScale and timing unchanged. Head median .999; feet proxy .96. Body-area proxy median .880 vs approved jumpFall .889. The folded poses track the approved jumpFall pose envelope.</p>
+    <div class="candidate"><figure><img src="atlas-fair-v01.png" alt="Approved fair v01 from previous atlas"><figcaption>Approved v01 · packed atlas</figcaption></figure><figure><img src="atlas-fair-v02.png" alt="Approved fair v02 from current atlas"><figcaption>Approved v02 · packed atlas</figcaption></figure></div>
+    <p><a href="INVENTORY-B6-fair.md">Generation and measurement inventory</a></p>
+  </section>
+
+  <section class="panel section" id="fTilt">
+    <h2>B7 · fTilt v02 <span class="tag pass">approved as drawn · packed scale pass</span></h2>
+    <p>Seven frames; phases [2,2,3], packScale and timing unchanged. Head median 1.016; feet proxy 1.014; body-area proxy median .935. On upright f0/f6, jacket width samples are 36 vs 37 px at y64, 25 vs 25 at y80, 28 vs 27 at y88; trouser runs at y168/176/184/200 are 19/17/19/15 px, matching idle.</p>
+    <div class="candidate"><figure><img src="atlas-fTilt-v01.png" alt="Approved fTilt v01 from previous atlas"><figcaption>Approved v01 · packed atlas</figcaption></figure><figure><img src="atlas-fTilt-v02.png" alt="Approved fTilt v02 from current atlas"><figcaption>Approved v02 · packed atlas</figcaption></figure></div>
+    <p><a href="INVENTORY-B7-fTilt.md">Generation and measurement inventory</a></p>
+  </section>
+
+  <section class="panel">
+    <h2>Cross-animation packed evidence</h2>
+    <p>The body sheet includes packed candidates and approved references. Its airLight3 row is approved v12; held v13 is not packed. The lineup likewise shows approved airLight3 v12.</p>
+    <details><summary>Open body sheet and lineup</summary><div class="scroll"><img class="wide" src="body-sheet-b2-b7.png" alt="Packed body comparison sheet for Gojo B2–B7"></div><div class="scroll"><img class="wide" src="gojo-packed-lineup.png" alt="Gojo packed candidate lineup"></div></details>
+    <p class="muted">Final packed atlas SHA-256: <code>178d87fe22dd9da6fbeb6b878f60fe0f1a8498f4ecccf50b70afa4b0a2f78e80</code>. <a href="scale-report-gojo-b2-b7.json">Per-frame head/feet scale data</a> · <a href="body-report-gojo-b2-b7.json">Body proxy data</a>. These measurements and static checks are not an Astra final anatomy audit. Existing unrelated pack warnings remain.</p>
+  </section>
+</main></body></html>
