@@ -60,17 +60,29 @@ const detFixtures = () => ({
   },
 });
 
+// Folders the dev server's file watcher stays out of. Each is this checkout's own folder, resolved from __dirname:
+// a dev server started inside a worktree sits under a .worktrees/ (or .claude/worktrees/) path too, and a
+// '**/.worktrees/**' glob made it ignore every one of its own files (no reload after an edit).
+const unwatched = (dir) => resolve(__dirname, dir).replace(/\\/g, '/') + '/**';
 // .worktrees/ holds full copies of the project (npm run pr): watching them would reload on every edit there.
-// Only this checkout's own folder: a dev server started inside a worktree sits under a .worktrees/ path too,
-// and a '**/.worktrees/**' glob made it ignore every one of its own files (no reload after an edit).
-const worktrees = resolve(__dirname, '.worktrees').replace(/\\/g, '/') + '/**';
+const worktrees = unwatched('.worktrees');
+// .claude/worktrees/ holds the Claude app's managed worktrees, full copies as well. The watcher also keeps a handle
+// open on every folder it follows, and Windows refuses to rename a folder while one inside it is held: with a server
+// running from the main checkout, `npm run test:sprites` in a worktree died with EPERM on a rename (TOOL-069).
+const appWorktrees = unwatched('.claude/worktrees');
+// tools/.test-fixtures/ is where the tool tests build throw-away art trees and git repositories. Nothing there is
+// served, and the same handles broke a test run in the checkout its own dev server was started from.
+const testFixtures = unwatched('tools/.test-fixtures');
 // .publish-cache/ is the bare repository tools/publish.mjs rewrites history in; nothing there is served.
-const publishCache = resolve(__dirname, '.publish-cache').replace(/\\/g, '/') + '/**';
+const publishCache = unwatched('.publish-cache');
 
 export default defineConfig({
   plugins: [detFixtures()],
   define: { 'import.meta.env.SIM_ID': JSON.stringify(simId()) },
-  server: { port: 5188, strictPort: true, host: '127.0.0.1', watch: { ignored: [worktrees, publishCache] } },
+  server: {
+    port: 5188, strictPort: true, host: '127.0.0.1',
+    watch: { ignored: [worktrees, appWorktrees, testFixtures, publishCache] },
+  },
   // only the real pages: the default crawls every .html under the root, worktree copies included
   optimizeDeps: { entries: ['index.html', 'sprites.html', 'art-review.html', 'lab.html'] },
   build: {
