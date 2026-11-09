@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Regression test for sparse art worktrees (TOOL-048: `pr start --art`, `pr art`, tools/sparse-art.mjs), and for
-// `pr prune` / `pr merge` meeting a registered worktree whose folder is gone (TOOL-063).
+// `pr prune` / `pr merge` meeting a registered worktree whose folder is gone (TOOL-063). What prune calls a finished
+// worktree is tested in tools/test-prune.mjs.
 //   node tools/test-sparse-art.mjs   (part of `npm run test:guard`; add --keep to keep tools/.test-fixtures/sparse-art/)
 // Builds a throw-away repository under tools/.test-fixtures/ holding a copy of tools/pr.mjs and its imports, then runs
 // the real `pr start` there and checks what lands on disk: art/vfx/raw/ was empty in a worktree on 2026-10-15 and the
@@ -29,7 +30,7 @@ function buildRepo() {
   fs.mkdirSync(REPO, { recursive: true });
   git(REPO, 'init', '-q', '-b', 'main');
   git(REPO, 'config', 'user.email', 'sparse@test'); git(REPO, 'config', 'user.name', 'sparse test'); git(REPO, 'config', 'core.autocrlf', 'false');
-  for (const f of ['pr.mjs', 'pr-guard.mjs', 'sparse-art.mjs', 'scratch-dir.mjs']) put('tools/' + f, fs.readFileSync(path.join(TOOL_DIR, f)));
+  for (const f of ['pr.mjs', 'pr-guard.mjs', 'sparse-art.mjs', 'scratch-dir.mjs', 'packer-marker.mjs']) put('tools/' + f, fs.readFileSync(path.join(TOOL_DIR, f)));
   put('tools/publish.mjs', '// stub: `pr merge` publishes to GitHub; the fixture never does\n');
   put('.gitignore', '.worktrees/\nnode_modules/\n');
   put('package.json', '{ "name": "sparse-fixture", "private": true }\n');
