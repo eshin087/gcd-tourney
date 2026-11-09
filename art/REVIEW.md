@@ -35,6 +35,44 @@ The user approved shockRing v01, impactBurst v01 and flare v01 as drawn via Clau
 | 2026-11-08 | Shared | flare | [raw](vfx/raw/flare_v01.png) · [review](../public/reviews/spell-fx-r1/index.html#flare) · [calls](vfx/production/spell-fx-r1/CALLS.md) | v01 | approved | Four-frame looping root flare with short rays and sparkles | Candidate pack 4/4 at x1.316; no new warnings. Approved by the user via Claude relay spells #3: “shockRing v01, impactBurst v01, flare v01”. |
 
 ---
+## Killua ART-SIZE-R8 A9-A10 (2026-11-09)
+
+The [batch review page](../public/reviews/size-r8-killua/index.html) shows the formerly approved v08/v07 drawings beside
+the packed v09/v08 drawings, approved idle/neutral/combat references, and the body-area comparison. The user approved
+both drawings as made via Claude relay `audit1 #8` (“Approve both”). Astra's final diagnostic-atlas audit passed A9
+superPose v09 anatomy and scale. A10 getup v08 also passed anatomy and scale; its v08-specific manual QA explains the
+lying-frame head-probe misread. A10 remains on technical hold because the literal floor-contact predicate flags the
+folded feet in f0; Claude must disposition runtime contact/shadow behavior before technical clearance. The report,
+exact atlas hashes, prompts and generation provenance are in the
+[Astra audit](characters/killua/production/size-r8/ASTRA_AUDIT.md) and
+[inventory](characters/killua/production/size-r8/GENERATION_INVENTORY.md). No production atlas was written.
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-11-09 | Killua | superPose | [v09](characters/killua/raw/superPose_v09.png) · [review](../public/reviews/size-r8-killua/index.html#a9) · [calls](characters/killua/production/size-r8/GENERATION_INVENTORY.md) | v09 | approved | Four-frame Whirlwind loop retained; shorts, legs and hands redrawn toward approved neutral size. User approved v09 as drawn via Claude relay `audit1 #8`: “Approve both”. | Astra PASS on every packed frame and the four-frame loop against the 48-color diagnostic atlas (SHA-256 `90A4F8EA…DD6BE30`); H 0.975-1.029, B median 0.910 (pose-sensitive advisory). Version-bound anatomy/scale QA recorded; no hitbox override exists. |
+| 2026-11-09 | Killua | getup | [v08](characters/killua/raw/getup_v08.png) · [review](../public/reviews/size-r8-killua/index.html#a10) · [calls](characters/killua/production/size-r8/GENERATION_INVENTORY.md) | v08 | approved | Five-frame kip-up retained; f1-f4 torso, arms and legs redrawn toward idle build. User approved v08 as drawn via Claude relay `audit1 #8`: “Approve both”. | Astra anatomy/scale PASS for all five frames; f0 H 0.480 is a rotated-head probe failure, not a small head. Version-bound anatomy QA recorded. Overall TECHNICAL HOLD for the separate floor predicate: 98/128 columns within 5 px of y=240, but folded-foot lowest fifth is 13 px above it. Claude must check runtime contact/shadow; see [audit](characters/killua/production/size-r8/ASTRA_AUDIT.md). |
+
+## Naruto ART-SIZE-R8 A4-A8, R1-R2 (2026-11-09)
+
+The [batch decision page](../public/reviews/size-r8-naruto/index.html) shows the latest packed candidate for each
+requested strip beside approved idle/combat context, plus the body and head-scale evidence. The images use a
+candidate-only warning-mode diagnostic atlas; they are not the production sheet. A4-A8 remain on the technical holds
+listed below. The user chose to keep them held and proceed to Killua, and approved R1/R2 via Claude relay `audit1 #7`. That
+approval covers those exact script-only edits, with inherited geometry evidence rather than new anatomy
+certification. Every versioned attempt and pixel diff is preserved in the [generation inventory](characters/naruto/production/size-r8/GENERATION_INVENTORY.md).
+
+| date | character | asset | file | version | status | what changed | QA notes |
+|---|---|---|---|---|---|---|---|
+| 2026-11-09 | Naruto | light2 | [v08](characters/naruto/raw/light2_v08.png) · [review](../public/reviews/size-r8-naruto/index.html#a4) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v08 | needs review | Seven-frame light punch redraw; phases 2/2/3 and active f2-f3 preserved. Auto-head fit x1.1403; packScale remains 1. | Head H 0.988-1.037 passes, but body B 0.716-0.734 (median 0.729); drawn strike is 38 px above approved light2Alt v05 (>24 px tolerance). Hit boxes remeasured on fitted cells: f2 `[195,65,28,23]`, f3 `[190,67,30,23]`, `_scale: 1.1403`; no hand anchors exist for this move. TECHNICAL HOLD. |
+| 2026-11-09 | Naruto | stagger | [v11](characters/naruto/raw/stagger_v11.png) · [review](../public/reviews/size-r8-naruto/index.html#a5) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v11 | needs review | Four-frame 150 ms dizzy loop redrawn under an idle-size head. | Head H 0.984-1.034; body B 0.536-0.551 (median 0.546), visibly short in upright torso and legs. TECHNICAL HOLD. |
+| 2026-11-09 | Naruto | taunt | [v13](characters/naruto/raw/taunt_v13.png) · [review](../public/reviews/size-r8-naruto/index.html#a6) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v13 | needs review | Two-frame pointing and laugh loop redrawn. | Strict head gate H 1.054-1.067 fails; body B 0.503-0.510 (median 0.506). Three image calls used. TECHNICAL HOLD. |
+| 2026-11-09 | Naruto | light3Alt | [v06](characters/naruto/raw/light3Alt_v06.png) · [review](../public/reviews/size-r8-naruto/index.html#a7) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v06 | needs review | Seven-frame sweep redraw with background-only cleanup in v05/v06; action and f1-f4 kick sequence retained. | Head H 0.960-1.002 passes; body B 0.555-0.616 (median 0.592). Strike is 51 px below light3 v04's hit height (>24 px tolerance). TECHNICAL HOLD. |
+| 2026-11-09 | Naruto | specialDown | [v08](characters/naruto/raw/specialDown_v08.png) · [review](../public/reviews/size-r8-naruto/index.html#a8) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v08 | needs review | Four-frame crouched gather, roar and recovery redraw; 2/1/1 phases preserved. | Strict head gate H 1.034-1.069 fails; body B 0.560-0.653 (median 0.595), feet proxy 0.694. The old v02 exemption is stale and was not applied. Three image calls used. TECHNICAL HOLD. |
+| 2026-11-09 | Naruto | airHeavyAlt | [v05](characters/naruto/raw/airHeavyAlt_v05.png) · [review](../public/reviews/size-r8-naruto/index.html#r1) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v05 | approved | Script recolored 2,253 thigh-pouch pixels to black in documented masks; approved by the user via Claude relay `audit1 #7`. | Every other RGBA pixel matches approved v04; geometry evidence is inherited, not a new anatomy certification. |
+| 2026-11-09 | Naruto | jumpSquat | [v05](characters/naruto/raw/jumpSquat_v05.png) · [review](../public/reviews/size-r8-naruto/index.html#r2) · [calls](characters/naruto/production/size-r8/GENERATION_INVENTORY.md) | v05 | approved | Script made three orange pixels beside the rear fist transparent; approved by the user via Claude relay `audit1 #7`. | All other RGBA pixels match approved v04; H 1.000 and B 0.882 (pose-sensitive advisory), continuity only. |
+
+All earlier A4-A8 image attempts remain versioned and are listed in the inventory; the newest candidate for each move is the only version presented for that decision. A4-A8 remain unapproved on technical hold; R1/R2 v05 are user-approved.
+
 ## Sasuke ART-SIZE-R8 A3 (2026-11-08)
 
 The [review page](../public/reviews/size-r8-a3/index.html) compares every packed fTilt v04 frame with approved v03 and with idle/neutral/combat references at 256 px per cell. The user approved v04 via Claude relay `audit1 #5` (“Approve v04, keep reach”); reach is retained. The exact 48-color pack passes with packScale 1, phases/timing unchanged and no fTilt scale-gate failure. Astra's final audit passed visible anatomy and scale at moderate confidence on atlas hash `f044cb78`; head ratios are 0.977-1.003 (median 0.999), and current body garment-area B is 0.897-0.955 (median 0.917, advisory). The shoe-area proxy is pose-sensitive and not treated as a size pass. Hitboxes and hand points for active f3/f4 were remeasured with `_scale: 1`. Runtime contact/hurtbox QA remains a separate Claude check. See the [generation inventory](characters/sasuke/production/size-r8/GENERATION_INVENTORY.md), [packed scale record](scale/size-r8/SASUKE_A3.md), and [head sheet](scale/heads-sasuke.png).

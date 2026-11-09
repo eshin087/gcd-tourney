@@ -105,18 +105,30 @@
   "_heavyAlt": "Claude 2026-10-14 (QA-NAR-ALTS-CAL round 2): the kicking foot of v02 f3/f4 at bodyHeight 205, for the packer's visual check only (an alt ships its base's boxes). The auto finder read the strike at chest height; the drawn foot lands within 19 px of heavy's uppercut.",
   "_light1Alt": "Claude 2026-10-14 (QA-NAR-ALTS-CAL): the drawn hook fist on v01 f2/f3 in the calibrated pack (bodyHeight 168). Only the packer's visual check reads these: an alt ships its base's boxes (ADR 0031 amendment). The auto finder had read the strike at knee height.",
   "light2": {
+    "2": {
+      "hit": [
+        [
+          195,
+          65,
+          28,
+          23
+        ]
+      ]
+    },
     "3": {
       "hit": [
         [
           190,
-          86,
-          24,
-          21
+          67,
+          30,
+          23
         ]
       ]
-    }
+    },
+    "_scale": 1.1403,
+    "_note": "ART-SIZE-R8 A4 light2 v08: active f2/f3 lead-fist and cuff boxes remeasured on the fitted 48-color cells (f2 [195,65,28,23], f3 [190,67,30,23]); _scale 1.1403 includes the auto-head fit with packScale 1. The alternating light2Alt contact-height mismatch remains a technical hold."
   },
-  "_light2V06": "light2 v06 f3 (Claude, 2026-10-12, measured on the title-style art at bodyHeight 185): since the size pass (180 -> 185) the auto rule \"rising strike above the idle head\" picks the hair (box x 91-169, y 61-90); the jab fist is at x 194-211, y 89-104 (cuff from x 190). f2 keeps its auto fist box.",
+  "_light2V06": "light2 v06 f3 (Claude, 2026-10-12, measured on the title-style art at bodyHeight 185): since the size pass (180 -> 185) the auto rule \"rising strike above the idle head\" picks the hair (box x 91-169, y 61-90); the jab fist is at x 194-211, y 89-104 (cuff from x 190). Superseded by the v08 boxes above.",
   "heavy": {
     "3": {
       "hit": [

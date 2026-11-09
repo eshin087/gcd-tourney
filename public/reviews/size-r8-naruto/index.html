@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naruto ART-SIZE-R8 — A4-A8, R1-R2</title>
+  <style>
+    :root { color-scheme: dark; font: 15px/1.55 system-ui, sans-serif; background: #10111a; color: #e8e9f2; }
+    body { max-width: 1360px; margin: 0 auto; padding: 28px 20px 56px; }
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 34px; }
+    p { max-width: 90ch; }
+    a { color: #a8c7ff; }
+    code { color: #c4d4ff; }
+    .state { border-left: 4px solid #e0a83b; padding: 12px 16px; background: #242231; }
+    .verdict { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .verdict article, .card { padding: 12px 15px; background: #191a27; border: 1px solid #34364a; border-radius: 8px; }
+    .card { margin: 16px 0; }
+    .card h3 { margin: 4px 0 8px; }
+    .strip-scroll { overflow-x: auto; padding: 10px; background: #0c0d14; border: 1px solid #34364a; border-radius: 8px; }
+    .strip-scroll img { display: block; width: auto; height: 256px; max-width: none; image-rendering: pixelated; }
+    .sheet { max-width: 1180px; }
+    .sheet img { display: block; width: 100%; height: auto; image-rendering: pixelated; border: 1px solid #34364a; border-radius: 8px; }
+    table { border-collapse: collapse; width: 100%; max-width: 1280px; }
+    th, td { border: 1px solid #3a3c50; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #202231; }
+    .hold { color: #ffd483; font-weight: 650; }
+    .ok { color: #99ddb3; font-weight: 650; }
+    @media (max-width: 760px) {
+      body { padding: 18px 12px 40px; }
+      .verdict { grid-template-columns: 1fr; }
+      table { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Naruto ART-SIZE-R8: A4-A8, R1-R2</h1>
+  <p class="state"><strong>Decision recorded via Claude relay <code>audit1 #7</code>.</strong> The user approved R1/R2 v05. A4-A8 remain unapproved on the listed anatomy or contact holds; the user chose to keep them held and proceed to Killua. R1/R2 are script-only pixel repairs and preserve their approved source geometry.</p>
+
+  <section class="verdict" aria-label="Review summary">
+    <article><h2>Identity</h2><p>All candidates preserve Naruto's orange-and-black outfit, blond hair, headband and right-facing 3/4 sprite design. R1/R2 change only the requested trouser pixels.</p></article>
+    <article><h2>Proportions and pose</h2><p>The redraws preserve their requested frame counts and actions, but their garment-area B medians are light2 0.729, stagger 0.546, taunt 0.506, light3Alt 0.592 and specialDown 0.595 against idle. Taunt and specialDown also miss the strict head gate.</p></article>
+    <article><h2>Technical</h2><p>The visible candidates come from a warning-mode diagnostic atlas, not the production sheet. Strict packing stops at taunt and specialDown. Light2Alt's strike is 38 px above light2's current hit, and light3Alt's strike is 51 px below light3's hit; both exceed the 24 px contact tolerance.</p></article>
+  </section>
+
+  <h2>Decision recorded</h2>
+  <p>The user's answer, relayed by Claude in <code>audit1 #7</code>, was: “Yes, move to Killua”. This keeps A4-A8 unapproved on their existing technical holds; no additional generation calls for them were authorized. The user approved the script-only R1/R2 v05 repairs as made. Those approvals do not certify new anatomy or clear runtime checks.</p>
+
+  <h2>Latest candidate strips</h2>
+  <p>Each diagnostic strip shows approved idle f0 and combat context first, followed by the candidate's packed frames from left to right. Open an image in a new tab to inspect its 256 px cells at native size.</p>
+
+  <article class="card" id="a4"><h3>A4 · <code>light2</code> v08 <span class="hold">TECHNICAL HOLD</span></h3><p>Head ratios 0.988-1.037; body B 0.716-0.734. The active strike height is 38 px above approved <code>light2Alt</code> v05, outside the 24 px tolerance. Boxes were remeasured at the fitted atlas scale; see the technical record.</p><div class="strip-scroll"><a href="light2-contact.png"><img src="light2-contact.png" alt="Naruto light2 v08 packed frames with idle and combat references"></a></div></article>
+
+  <article class="card" id="a5"><h3>A5 · <code>stagger</code> v11 <span class="hold">TECHNICAL HOLD</span></h3><p>Four-frame loop retained. Head ratios 0.984-1.034, while body B is 0.536-0.551. The upright torso and legs remain far below idle volume.</p><div class="strip-scroll"><a href="stagger-contact.png"><img src="stagger-contact.png" alt="Naruto stagger v11 packed frames with idle and combat references"></a></div></article>
+
+  <article class="card" id="a6"><h3>A6 · <code>taunt</code> v13 <span class="hold">TECHNICAL HOLD</span></h3><p>Two-frame pointing loop retained. Head ratios 1.054-1.067 fail the strict head gate; body B is 0.503-0.510. Three generation calls used.</p><div class="strip-scroll"><a href="taunt-contact.png"><img src="taunt-contact.png" alt="Naruto taunt v13 packed frames with idle and combat references"></a></div></article>
+
+  <article class="card" id="a7"><h3>A7 · <code>light3Alt</code> v06 <span class="hold">TECHNICAL HOLD</span></h3><p>Seven-frame sweep retained. Head ratios 0.960-1.002 pass, but body B is 0.555-0.616. The strike is 51 px below light3 v04's hit height; tolerance is 24 px.</p><div class="strip-scroll"><a href="light3Alt-contact.png"><img src="light3Alt-contact.png" alt="Naruto light3Alt v06 packed frames with idle and combat references"></a></div></article>
+
+  <article class="card" id="a8"><h3>A8 · <code>specialDown</code> v08 <span class="hold">TECHNICAL HOLD</span></h3><p>Four-phase gather and roar retained. Head ratios 1.034-1.069 fail strict scale; body B is 0.560-0.653 and the feet proxy is 0.694. The old v02 probe exemption is stale and was not applied. Three generation calls used.</p><div class="strip-scroll"><a href="specialDown-contact.png"><img src="specialDown-contact.png" alt="Naruto specialDown v08 packed frames with idle and combat references"></a></div></article>
+
+  <article class="card" id="r1"><h3>R1 · <code>airHeavyAlt</code> v05 <span class="ok">USER-APPROVED</span></h3><p>Script-only pouch recolor: 2,253 masked pixels changed; all remaining RGBA pixels match approved v04. The user approved v05 via Claude relay <code>audit1 #7</code>. This inherits v04 geometry evidence and is not a new anatomy certification.</p><div class="strip-scroll"><a href="airHeavyAlt-contact.png"><img src="airHeavyAlt-contact.png" alt="Naruto airHeavyAlt v05 packed frames with idle and combat references"></a></div></article>
+
+  <article class="card" id="r2"><h3>R2 · <code>jumpSquat</code> v05 <span class="ok">USER-APPROVED</span></h3><p>Script-only cleanup made three orange pixels beside the rear fist transparent; all other RGBA pixels match approved v04. The user approved v05 via Claude relay <code>audit1 #7</code>. Head ratio is 1.000 and body B is 0.882, an advisory pose-sensitive value.</p><div class="strip-scroll"><a href="jumpSquat-contact.png"><img src="jumpSquat-contact.png" alt="Naruto jumpSquat v05 packed frame with idle and combat references"></a></div></article>
+
+  <h2>Packed body evidence</h2>
+  <p>B measures opaque garment-color area against packed idle f0. It is advisory and pose-sensitive; the large shortfalls in the upright poses above are visible in the same-scale comparison. H is the packer's head probe, including hair.</p>
+  <figure class="sheet"><img src="body-candidates-1.png" alt="Body sheet comparing Naruto idle and combat references to jumpSquat, light2, stagger, light3Alt and airHeavyAlt candidates"><figcaption>Body sheet 1: idle f0, combat reference and candidate frames at one cell density.</figcaption></figure>
+  <figure class="sheet"><img src="body-candidates-2.png" alt="Body sheet comparing Naruto idle and combat references to taunt and specialDown candidates"><figcaption>Body sheet 2: taunt and specialDown against idle f0 and combat reference.</figcaption></figure>
+  <details class="sheet"><summary>Open all head-scale comparisons</summary><img src="heads-sheet.png" alt="Naruto head-scale report for the current candidate versions"></details>
+
+  <h2>Remeasured light2 boxes</h2>
+  <table>
+    <tr><th>Frame</th><th>Packed cell</th><th>Hit box [x,y,w,h]</th><th>Hand point</th></tr>
+    <tr><td>f2</td><td>39</td><td><code>[195,65,28,23]</code></td><td>None defined</td></tr>
+    <tr><td>f3</td><td>40</td><td><code>[190,67,30,23]</code></td><td>None defined</td></tr>
+  </table>
+  <p>The hitbox sidecar records <code>_scale: 1.1403</code>, the measured auto-head fit with packScale 1. No reach extension was added.</p>
+
+  <p>Source hashes, call history and scripted pixel diffs are recorded in the committed generation inventory. Detailed scale/contact evidence is in <code>art/scale/size-r8/NARUTO_A4_A8_R1_R2.md</code>. The normal strict pack does not write a production atlas for these candidates.</p>
+</body>
+</html>
