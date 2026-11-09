@@ -9,15 +9,16 @@ Source inventory: [generation and pixel-repair inventory](../../characters/narut
 
 Relay `audit1 #9` authorized up to three additional image calls per A4-A8 item, edited from approved Naruto art.
 All five budgets are exhausted. None of the supplemental candidates clears every requested head/body/floor/contact
-gate. Via user decision relayed as `audit1 #10`, A4-A8 is closed with the approved/live versions retained: `light2`
-v06, `stagger` v08, `taunt` v10, `light3Alt` v02 and `specialDown` v05. No further image calls are authorized and
-no candidate was approved. All newer redraw versions are held under `raw/_qa_hold/` so the retained approved files
-remain the pack inputs. No pack change was made here; Claude will resize `specialDown` v05's roar frames f2-f3 on its
-own branch and show the user. R1/R2 v05 were approved by the user via Claude relay `audit1 #7`; their script-only
+gate. Via user decision relayed as `audit1 #11`, which supersedes #10, A4-A8 is closed with the approved/live versions
+retained: `light2` v06, `stagger` v08, `taunt` v10, `light3Alt` v02 and `specialDown` v05. No further image calls
+are authorized and no candidate was approved. All newer redraw versions are held under `raw/_qa_hold/` so the
+retained approved files remain the pack inputs. No pack change or resize is authorized for `specialDown`: the user
+measured roar heads only 2-3% larger and confirmed the feet match the crouch frames, choosing to keep v05 as is.
+R1/R2 v05 were approved by the user via Claude relay `audit1 #7`; their script-only
 pixel repairs and inherited geometry evidence are recorded below. Image approval remains separate from
 technical/runtime clearance.
 
-## Relay #10 closure and held versions
+## Relay #11 closure and held versions
 
 The 15 unapproved first-pass source PNGs above each selected `approvedVersion` were moved from `raw/` to
 `raw/_qa_hold/`. No source was deleted or overwritten; all supplemental relay #9 candidates and parts were already
@@ -80,9 +81,9 @@ are not evidence for v10 and no hitbox update was made. Pack scale stays 1.
 
 ## Current review state
 
-All A4-A8 candidates are held and unapproved; relay #10 closed the batch and retained the five already-approved live
-versions listed above. No new user review ring was appropriate because none met relay #9's technical thresholds.
-`specialDown` v05 has no pack edit in this branch; Claude owns the separate roar-frame resize and user review. R1/R2
+All A4-A8 candidates are held and unapproved; relay #11 supersedes #10, closes the batch, and retains the five
+already-approved live versions listed above. No new user review ring was appropriate because none met relay #9's
+technical thresholds. `specialDown` v05 remains unchanged, with no pack edit or resize authorized. R1/R2
 v05 are approved by the user via Claude relay #7, with continuity-only QA. Killua A9/A10 approvals via relay #8 are
 recorded separately in `art/REVIEW.md`, the manifest and tracker; A10 retains its separate floor-contact/runtime hold
 for Claude.
