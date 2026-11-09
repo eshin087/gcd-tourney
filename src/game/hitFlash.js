@@ -88,6 +88,13 @@ export function hitFlashUniforms(f, u, time) {
       u.rimColor.value.copy(F.color);
     }
   }
+  // a standing outline from the fighter's data (the arcade's dark mirror, ADR 0058), shown whenever no hit rim is
+  // brighter
+  const O = f.def.outline;
+  if (O && rim < O.amount) {
+    rim = O.amount;
+    u.rimColor.value.copy(f.outlineColor ??= new THREE.Color(O.color));
+  }
   u.lift.value = lift;
   u.rim.value = rim;
   u.rimPx.value = H.rimPx;

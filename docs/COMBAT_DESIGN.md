@@ -931,6 +931,16 @@ an up or down tilt), a short hop under them for the up air, a three-bar move tha
   predicted flight (a light pop lands on the feet and ends the combo there), a Smash aerial's own landing lag, the
   art's boxes.
 
+- **Follow-ups** (ADR 0057, ENG-126): the composer plays the auto-chases a player has. `follow` is Light at a victim
+  reeling in the air out of reach (off a knock-away ender or a throw's toss, from the floor at a bounce coming back,
+  from the air with the string spent): the homing dash, with the swing the engine fires off the catch. `followSp:<slot>`
+  is Special there (the air special off the catch), and `chaseL` is Light on the launcher (the super jump, the air
+  string fired on arrival). The engine budgets them at `CHAIN.follow.max` per combo and the composer offers none past
+  it; its Dash and Jump edges stay, unbudgeted like a player's. It also knows that Light from the floor at such a
+  victim is the chase and no longer a jab, that an air Light that hit cancels into the air special (`airKit` at `A1` /
+  `A2`, an ender unless the shot wall-bounces), the stun floors of `JUGGLE.keep` in its lookahead, and the chain
+  magnet (ADR 0056) when it checks that the next jab or the launcher reaches.
+
 - **Only true links.** Each edge's link gap is checked against the victim's stun left with **2+ frames of margin**
   (a victim holding Guard techs on the first open frame), using `JUGGLE`, a forecast of the victim's flight (barrier
   and floor bounces, the bounce budget, hitstop) and the art's hit boxes (a strike drawn high misses a crouched body).

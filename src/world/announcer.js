@@ -308,15 +308,18 @@ export class Announcer {
     }
     if (this.pendingWin && this.clock - this.pendingWin.t > 1.4) this.sayWin();
     if (st === 'intro') {
+      // an arcade fight (ADR 0058) names its stage; the shadow match gets its own unease
+      const A = game.arcade;
       if (t > 0.4 && once('w1')) this.say('welcome', {}, false, true);
-      if (t > 1.9 && once('w2')) this.say('welcome2', {}, false, true);
+      if (t > 1.9 && once('w2')) this.say(A ? (A.boss ? 'arcadeShadow' : 'arcadeStage') : 'welcome2', { M: A?.stage, N: A?.no }, false, true);
       if (t > 3.9 && once('a')) this.say('introA', { A: a }, false, true);
-      if (t > 5.1 && once('b')) this.say('introB', { A: b }, false, true);
+      if (t > 5.1 && once('b')) this.say(A?.boss ? 'arcadeBoss' : 'introB', { A: b }, false, true);
     } else if (st === 'roundIntro') {
       if (t > 0.45 && once('r')) {
-        const wins = game.fighters.map((f) => f.wins);
-        const lead = wins[0] === ROUNDS_TO_WIN - 1 ? a : wins[1] === ROUNDS_TO_WIN - 1 ? b : null;
-        if (wins[0] === ROUNDS_TO_WIN - 1 && wins[1] === ROUNDS_TO_WIN - 1) this.say('finalRound');
+        // a one-round fight (arcade) has no match point or final round: every fighter is one round from the win
+        const wins = game.fighters.map((f) => f.wins), R = game.roundsToWin ?? ROUNDS_TO_WIN;
+        const lead = R < 2 ? null : wins[0] === R - 1 ? a : wins[1] === R - 1 ? b : null;
+        if (R > 1 && wins[0] === R - 1 && wins[1] === R - 1) this.say('finalRound');
         else if (lead) this.say('matchPoint', { A: lead });
         else this.say('round', { N: game.round });
       }
@@ -452,7 +455,7 @@ export class Announcer {
   // the round's winner: said after the count, or on its own when there is no count to wait for
   sayWin() {
     const w = this.pendingWin;
-    if (w && this.say(w.match ? 'matchWin' : 'roundWin', { A: w.f }, true, true)) {
+    if (w && this.say(w.champ ? 'champion' : w.match ? 'matchWin' : 'roundWin', { A: w.f }, true, true)) {
       this.pendingWin = null;
       this.look = w.f;
     }
@@ -853,7 +856,11 @@ export class Announcer {
         // roundOver cues before it counts the win; after a KO the line waits for his count (Announcer.flow)
         if (!f) break;
         this.look = f;
-        this.pendingWin = { f, match: f.wins + 1 >= ROUNDS_TO_WIN, t: this.clock };
+        {
+          const match = f.wins + 1 >= (this.game?.roundsToWin ?? ROUNDS_TO_WIN);
+          // beating the arcade's shadow is the whole tournament won
+          this.pendingWin = { f, match, champ: match && !!this.game?.arcade?.boss && f.index === 0, t: this.clock };
+        }
         this.count = this.koWho = null;
         this.route = this.place === 'hop' ? this.route.slice(0, 1) : []; // a hop in the air lands first
         this.route.push({ kind: 'winner', who: f });
