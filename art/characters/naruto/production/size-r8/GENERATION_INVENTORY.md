@@ -1,6 +1,6 @@
 # Naruto ART-SIZE-R8 generation and pixel-repair inventory (audit1)
 
-This is the single candidate inventory for A4-A8 and R1-R2. It records every image-generation call, including failed or unsaved calls. The original cap was 3 calls per image; relay `audit1 #9` separately authorizes up to 3 additional calls for each A4-A8 item. A7's earlier history has four call events if the tool-rejected invocation is counted. Pixel repairs use no image calls. Relay #9 is not image approval; any candidate that clears the technical gates still waits for the user.
+This is the single candidate inventory for A4-A8 and R1-R2. It records every image-generation call, including failed or unsaved calls. The original cap was 3 calls per image; relay `audit1 #9` separately authorized up to 3 additional calls for each A4-A8 item. A7's earlier history has four call events if the tool-rejected invocation is counted. Pixel repairs use no image calls. User decision relay `audit1 #10` closed A4-A8 with the previously approved live versions retained; every newer unapproved redraw is held under `raw/_qa_hold/`, and no further calls are authorized. Relay #10 is a decision, not image approval. R1/R2 v05 were approved via relay #7.
 
 ## Authorization and contract
 
@@ -8,6 +8,7 @@ This is the single candidate inventory for A4-A8 and R1-R2. It records every ima
 - Work authorized by relay `audit1 #6` (2026-11-09): Naruto A4 `light2`, A5 `stagger`, A6 `taunt`, A7 `light3Alt`, A8 `specialDown`, then pixel repairs R1 `airHeavyAlt` and R2 `jumpSquat`; one review ring after the complete Naruto batch.
 - Drawing contract: keep each canonical animation's frame count, phase, action and strike frame/timing; match approved idle f0's build and pixel density. Compare upright poses to the approved title-style neutral. Do not use the superseded 200 px / 6.5-head targets. No packScale changes.
 - Relay `audit1 #9` (2026-11-09) authorizes up to 3 additional image calls per A4-A8 item. Use the approved packed idle f0 cell as the base edit and also the approved title-style combat cell for strike items A4/A7; change only limb pose while preserving head, torso width, sleeves, trousers, sandals and outline weight. Keep every attempt in `raw/_qa_hold/` until it meets strict head H 0.95-1.05, body B median 0.90-1.10, applicable attack-alt strike-height tolerance (24 px), and feet at y=240. Then queue only passing versions for the usual user approval; Claude checks each item. The message is a work/budget decision, not image approval.
+- User decision relayed as `audit1 #10` (2026-11-09): close A4-A8, keep approved/live `light2` v06, `stagger` v08, `taunt` v10, `light3Alt` v02 and `specialDown` v05; no more image calls. Keep all unapproved newer versions held. Do not change `specialDown` pack data in this worktree; Claude will shrink roar frames f2-f3 on its own branch and show the user. This is not image approval.
 - R1/R2: create the next source version from the exact current pixels using scripts only; log changed pixel coordinates/masks and hashes; all unrelated pixels must remain identical.
 
 ## Approved and comparison references
@@ -27,11 +28,11 @@ This is the single candidate inventory for A4-A8 and R1-R2. It records every ima
 
 | Item | Original source SHA-256 | Latest candidate | Contract | Earlier calls | Relay #9 calls |
 |---|---|---|---|---|---|
-| A4 `light2` | `1541327eaf6f2a01f0e10843040dcd13b2c721bae82484949ce205983a3372ce` | v08; v09 (two held parts); v10 (held full strip); next held version v11 | 7 frames, phases 2/2/3, active f2-f3; compare with approved `light2Alt` v05 | 3 calls: two part calls + v08 | 3/3; stop |
-| A5 `stagger` | `be43bf84a100d4b4e0e03eb794b48d941291f426ada8630f291f4b5dd6f11ac7` | v11; v12-v14 held; next v15 | 4-frame loop, 150 ms/frame | 3/3 | 3/3; stop |
-| A6 `taunt` | `a7699b300b2600979e3fe11bb78ddfede0fe7f28f918433d6210e19f9180eb7f` | v13; v14-v16 held; next v17 | 2-frame loop, 250 ms/frame | 3/3 | 3/3; stop |
-| A7 `light3Alt` | `d83954bfb36ee1fc5ac08c2d3ff6ea636ef2baa5002c5dd8ba06e18e93173249` | v06; v07 (two held parts); v08 (held full strip); next held version v09 | 7 frames, phases 2/2/3; low sweep; kick frames f1-f4 standing leg restored to full length | 4 call events if counting failed invocation: two parts + failed + v04; cleanup uses no calls | 3/3; stop |
-| A8 `specialDown` | `fa2c9057a4f45376a0403343eecce3a673131cb1af37f0bcbeacb8eee2094ea8` | v08; v09-v11 held; next held version v12 | 4 frames, phases 2/1/1; roar f2-f3 match f0-f1 and idle | 3/3 | 3/3; stop |
+| A4 `light2` | `1541327eaf6f2a01f0e10843040dcd13b2c721bae82484949ce205983a3372ce` | v07-v08 moved to hold; v09 (two held parts); v10 (held full strip); no further version authorized | 7 frames, phases 2/2/3, active f2-f3; compare with approved `light2Alt` v05 | 3 calls: two part calls + v08 | 3/3; closed by #10, keep v06 live |
+| A5 `stagger` | `be43bf84a100d4b4e0e03eb794b48d941291f426ada8630f291f4b5dd6f11ac7` | v09-v11 moved to hold; v12-v14 already held; no further version authorized | 4-frame loop, 150 ms/frame | 3/3 | 3/3; closed by #10, keep v08 live |
+| A6 `taunt` | `a7699b300b2600979e3fe11bb78ddfede0fe7f28f918433d6210e19f9180eb7f` | v11-v13 moved to hold; v14-v16 already held; no further version authorized | 2-frame loop, 250 ms/frame | 3/3 | 3/3; closed by #10, keep v10 live |
+| A7 `light3Alt` | `d83954bfb36ee1fc5ac08c2d3ff6ea636ef2baa5002c5dd8ba06e18e93173249` | v03-v06 moved to hold; v07 (two held parts); v08 (held full strip); no further version authorized | 7 frames, phases 2/2/3; low sweep; kick frames f1-f4 standing leg restored to full length | 4 call events if counting failed invocation: two parts + failed + v04; cleanup uses no calls | 3/3; closed by #10, keep v02 live |
+| A8 `specialDown` | `fa2c9057a4f45376a0403343eecce3a673131cb1af37f0bcbeacb8eee2094ea8` | v06-v08 moved to hold; v09-v11 already held; no further version authorized | 4 frames, phases 2/1/1; roar f2-f3 match f0-f1 and idle | 3/3 | 3/3; closed by #10, keep v05 live; Claude owns pack resize |
 | R1 `airHeavyAlt` | `c7411f1b739343984a5d54fb9d6c2b0907f9b9dc67d8e94b87ce9f66d12b68ac` | v05 | Script recolor of f2-f4 thigh pouch to black | no image call |
 | R2 `jumpSquat` | `5c4c350e2322139711760581cf498813c227bc9febf02b4b144b73119f30042f` | v05 | Script remove three orange pixels beside rear fist in f0 | no image call |
 
@@ -299,7 +300,7 @@ Correct the supplied four-frame horizontal Naruto specialDown fan-art strip as o
 
 ### A5 correction attempt 3: `stagger` v11
 
-- Call `exec-73aefb2f-6dfe-435b-899f-169dbf130705`; generated output `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-73aefb2f-6dfe-435b-899f-169dbf130705.png`, copied unchanged to `art/characters/naruto/raw/stagger_v11.png`.
+- Call `exec-73aefb2f-6dfe-435b-899f-169dbf130705`; generated output `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-73aefb2f-6dfe-435b-899f-169dbf130705.png`, copied unchanged to `art/characters/naruto/raw/_qa_hold/stagger_v11.png` after relay #10.
 - Dimensions 2172x724; SHA-256 `f5850a49746b17ca795837f81f42cdcf953086b894969658a6c72859bc1b4dfb`.
 - Inputs: approved model sheet, idle, title-style neutral and candidate `stagger_v10` for action.
 - Result: final generation attempt; keeps four mild dizzy frames, makes head smaller and restores body length beneath it. Packed scale/pose QA pending.
@@ -313,7 +314,7 @@ Make the third and final generation attempt for Naruto's four-frame stagger stri
 
 ### A6 correction attempt 3: `taunt` v13
 
-- Call `exec-e6cf65ab-1934-429e-a190-acf88a5f189f`; generated output `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-e6cf65ab-1934-429e-a190-acf88a5f189f.png`, copied unchanged to `art/characters/naruto/raw/taunt_v13.png`.
+- Call `exec-e6cf65ab-1934-429e-a190-acf88a5f189f`; generated output `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-e6cf65ab-1934-429e-a190-acf88a5f189f.png`, copied unchanged to `art/characters/naruto/raw/_qa_hold/taunt_v13.png` after relay #10.
 - Dimensions 1774x887; SHA-256 `a31a0c389c4e5d4c76da130100159daac196fe21fc9047eb686b7bb971ac4d76`.
 - Inputs: approved model sheet, idle, title-style neutral and candidate `taunt_v12` for the same two poses.
 - Result: final generation attempt; measured prompt corrected the head smaller-than-idle issue while retaining the body and finger target. Packed QA pending.
@@ -327,7 +328,7 @@ Make the third and final generation attempt for Naruto's two-frame pointing taun
 
 ### A8 correction attempt 3: `specialDown` v08
 
-- Call `exec-ab2bd323-7e83-4e5a-8265-f17d37854ead`; generated output `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-ab2bd323-7e83-4e5a-8265-f17d37854ead.png`, copied unchanged to `art/characters/naruto/raw/specialDown_v08.png`.
+- Call `exec-ab2bd323-7e83-4e5a-8265-f17d37854ead`; generated output `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-ab2bd323-7e83-4e5a-8265-f17d37854ead.png`, copied unchanged to `art/characters/naruto/raw/_qa_hold/specialDown_v08.png` after relay #10.
 - Dimensions 2172x724; SHA-256 `32a04a0e86c7d16d3c78db9fbd0b71171241db45d8ebe6b8bfd7991ef0b20874`.
 - Inputs: approved model sheet, expressions, idle, title-style neutral and candidate `specialDown_v07` for its exact four-pose action.
 - Result: final generation attempt; keeps crouched gather and roar while correcting the measured head/body proportions. Packed QA pending.
@@ -343,7 +344,7 @@ Make the third and final generation attempt for Naruto's four-frame specialDown 
 ### A4 `light2` correction: v08
 
 - Call `exec-dc93e5a1-6eec-4a8b-bfed-160d16e30e39`, using the current chat model under the one-round waiver in relay #2; the image tool supplied no rendering-model identifier.
-- Output `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-dc93e5a1-6eec-4a8b-bfed-160d16e30e39.png`, copied unchanged to `art/characters/naruto/raw/light2_v08.png`.
+- Output `E:\Vibe Coding\.codex\generated_images\01a1bdc6-197c-7b01-b15e-921d5c059ab8\exec-dc93e5a1-6eec-4a8b-bfed-160d16e30e39.png`, copied unchanged to `art/characters/naruto/raw/_qa_hold/light2_v08.png` after relay #10.
 - Dimensions 2170x725; SHA-256 `a57d5c8170878a80736f207825ba753c96fad6ca4c87b5db5dc3244c0a207cf4`.
 - The generation prompt requested the same seven-frame action and timing, corrected limb/sandal/fist/torso size against the approved idle and kept strike reach. The verbatim prompt and full input list were not retained in the inventory before the context handoff; this summary is not a verbatim prompt record.
 - Packed evidence: auto-head fit x1.1403 makes the head probe pass; body B remains 0.716-0.734 and the `light2Alt` contact mismatch is 38 px. See `art/scale/size-r8/NARUTO_A4_A8_R1_R2.md`.
@@ -360,4 +361,4 @@ Make the third and final generation attempt for Naruto's four-frame specialDown 
 
 ## Final candidate QA and review
 
-The exact per-frame measurements, technical holds, strict-pack outcome and remeasured `light2` hit boxes are recorded in `art/scale/size-r8/NARUTO_A4_A8_R1_R2.md`. The review page is `public/reviews/size-r8-naruto/index.html`; it labels its images as candidate-only warning-mode diagnostics. No Naruto version in this batch is user-approved yet.
+The exact per-frame measurements, technical holds, strict-pack outcome and remeasured `light2` hit boxes are recorded in `art/scale/size-r8/NARUTO_A4_A8_R1_R2.md`. The review page is `public/reviews/size-r8-naruto/index.html`; it labels its images as candidate-only warning-mode diagnostics. Relay #10 closed A4-A8 with the approved/live versions retained and every newer unapproved version held; it did not approve any candidate. R1/R2 v05 are approved by the user via Claude relay #7.

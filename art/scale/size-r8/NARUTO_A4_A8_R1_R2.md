@@ -9,9 +9,28 @@ Source inventory: [generation and pixel-repair inventory](../../characters/narut
 
 Relay `audit1 #9` authorized up to three additional image calls per A4-A8 item, edited from approved Naruto art.
 All five budgets are exhausted. None of the supplemental candidates clears every requested head/body/floor/contact
-gate, so they remain quarantined and no new image is queued for approval. The prior live versions stay unchanged.
-R1/R2 v05 were approved by the user via Claude relay `audit1 #7`; their script-only pixel repairs and inherited
-geometry evidence are recorded below. Image approval remains separate from technical/runtime clearance.
+gate. Via user decision relayed as `audit1 #10`, A4-A8 is closed with the approved/live versions retained: `light2`
+v06, `stagger` v08, `taunt` v10, `light3Alt` v02 and `specialDown` v05. No further image calls are authorized and
+no candidate was approved. All newer redraw versions are held under `raw/_qa_hold/` so the retained approved files
+remain the pack inputs. No pack change was made here; Claude will resize `specialDown` v05's roar frames f2-f3 on its
+own branch and show the user. R1/R2 v05 were approved by the user via Claude relay `audit1 #7`; their script-only
+pixel repairs and inherited geometry evidence are recorded below. Image approval remains separate from
+technical/runtime clearance.
+
+## Relay #10 closure and held versions
+
+The 15 unapproved first-pass source PNGs above each selected `approvedVersion` were moved from `raw/` to
+`raw/_qa_hold/`. No source was deleted or overwritten; all supplemental relay #9 candidates and parts were already
+quarantined. Manifest `version` and `approvedVersion` remain unchanged, because they continue to record the newest
+saved candidate and the selected approved input respectively.
+
+| Item | Selected live version | Newly quarantined first-pass versions | Relay #9 versions already held |
+|---|---:|---|---|
+| A4 `light2` | v06 | v07-v08 | v09 parts, v10 |
+| A5 `stagger` | v08 | v09-v11 | v12-v14 |
+| A6 `taunt` | v10 | v11-v13 | v14-v16 |
+| A7 `light3Alt` | v02 | v03-v06 | v07 parts, v08 |
+| A8 `specialDown` | v05 | v06-v08 | v09-v11 |
 
 ## Candidate measurements
 
@@ -52,7 +71,7 @@ are not evidence for v10 and no hitbox update was made. Pack scale stays 1.
 - Supplemental candidates were packed in isolated per-item diagnostic roots at 48 colors. Strict scale checks and
   body sheets never wrote to the worktree's `public/` or `frames/`; temporary atlases are not production outputs.
 - Relay #9's 3/3 additional calls were used for every A4-A8 item. The generation inventory records each call id,
-  source path/hash, references, prompt scope and candidate measurements. All supplemental files stay under
+  source path/hash, references, prompt scope and candidate measurements. All unapproved A4-A8 files stay under
   `art/characters/naruto/raw/_qa_hold/`; none is promoted or queued for image approval.
 - The original candidate/contact findings in the table remain historical context. No attempt changes the approved
   live versions, `packScale`, or runtime boxes. R1/R2 used no image calls and were approved via relay #7.
@@ -61,7 +80,9 @@ are not evidence for v10 and no hitbox update was made. Pack scale stays 1.
 
 ## Current review state
 
-All A4-A8 supplemental candidates are held and unapproved; no new user review ring was appropriate because none met
-relay #9's technical thresholds. R1/R2 v05 are approved by the user via Claude relay #7, with continuity-only QA.
-Killua A9/A10 approvals via relay #8 are recorded separately in `art/REVIEW.md`, the manifest and tracker; A10 retains
-its separate floor-contact/runtime hold for Claude.
+All A4-A8 candidates are held and unapproved; relay #10 closed the batch and retained the five already-approved live
+versions listed above. No new user review ring was appropriate because none met relay #9's technical thresholds.
+`specialDown` v05 has no pack edit in this branch; Claude owns the separate roar-frame resize and user review. R1/R2
+v05 are approved by the user via Claude relay #7, with continuity-only QA. Killua A9/A10 approvals via relay #8 are
+recorded separately in `art/REVIEW.md`, the manifest and tracker; A10 retains its separate floor-contact/runtime hold
+for Claude.
