@@ -2,6 +2,10 @@
 
 GPT-6 Astra (medium), 2026-11-09. The user approved run v02 and down v04 as drawn via Claude relay audit2 #11 ("Approve both (Recommended)"). This report records technical anatomy/scale findings only; it does not change the user's image approval.
 
+## Current status after relay audit2 #15
+
+The run v02 registration hold below was specific to the earlier atlas SHA-256 `4d0fa71916948303dcff65d75f2d1129bf0c224ed9890d748bdb180245fe41b1`. Claude added per-frame registration offsets and produced a new exact pack on `art/size-r8-b4`; GPT-6 Astra rechecked that atlas and **cleared the registration and visible anatomy/scale holds**. See [ASTRA_RUN_V02_REGISTRATION_RECHECK.md](ASTRA_RUN_V02_REGISTRATION_RECHECK.md) and [its metrics](astra-run-v02-offset-recheck.json). The historical result and measurements below describe only the prior pack.
+
 ## Result
 
 | Strip | Final disposition | Reason |
