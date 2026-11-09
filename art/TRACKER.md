@@ -534,8 +534,8 @@ ones.
 | gumFist | 4 | 40 | full color | center | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #2; packed to four HD frames. Integration pending. |
 | gumImpact | 7 | 35 | full color | center | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #2. Relay #4 sidecar erases box borders and drops the split last half; packer now imports 7/7. |
 | gear3Puff | 6 | 45 | full color | center | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #6; packed 6/6 to Luffy's HD owner page. |
-| gigantArm | 2 | 60 | full color | center, tile | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #6. Relay #7 replaces the even split with exact 256px tiles from both raw halves; 2/2 packs with no tile-edge warning. Tube remains about 87/96px thick. |
-| gigantFist | 4 | 40 | full color | center | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #6; Claude cleared wrist continuity in-game because the fist covers the arm end; 3:1 source canvas remains. |
+| gigantArm | 2 | 60 | full color | center, tile | approved | v02 | v02 | ART-SPELL-R2 v02: 2/2 packed, 170px thick, 9 visible colors. User approved v02 as drawn via Claude relay spells #7: “Approve all six”. |
+| gigantFist | 4 | 40 | full color | center | approved | v02 | v02 | ART-SPELL-R2 v02: 4/4 packed, 220px hand, exact 170px wrist, 14 visible colors. User approved v02 as drawn via Claude relay spells #7: “Approve all six”. |
 | gigantImpact | 8 | 50 | full color | center | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #6; 8/8 maps with no broad white-out. |
 | luffyChibi | 6 | 80 | full color | bottom | approved | v01 | v01 | User approved as drawn via Claude relay luffy-skills #6; 6/6 maps; deliberately SD and not subject to Astra anatomy/scale audit. |
 | reference/vfx_style_sheet_vNN.png -> vfx_style_sheet.png (optional style anchor) | - | - | - | - | todo | - | - | attach the approved copy to every VFX prompt |
@@ -577,6 +577,10 @@ ones.
 | infinityRipple | 6 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A6; HD, fill 0.6; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. 6/6 production frames; source dimensions, palette and magenta holds remain documented. |
 | voidFlood | 8 | 40 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A11; HD, fill 0.9; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. Motion is subtle and center ring appears oversized; source holds remain documented. |
 | voidShatter | 8 | 50 | full color | center | approved | v01 | v01 | Gojo skills batch 3, A12; HD, fill 1.0; user approved as drawn via Claude relay gojo-skills #4: “Approve all three”. Source dimensions, palette and magenta holds remain documented. |
+| voidShatterTL | 8 | 50 | full color | center | approved | v01 | v01 | ART-SPELL-R2; Gojo HD exit tile, 8/8 exact 256px frames packed at x1 (9-color maximum). User approved v01 via Claude relay spells #7: “Approve all six”. |
+| voidShatterTR | 8 | 50 | full color | center | approved | v01 | v01 | ART-SPELL-R2; Gojo HD exit tile, 8/8 exact 256px frames packed at x1 (9-color maximum). User approved v01 via Claude relay spells #7: “Approve all six”. |
+| voidShatterBL | 8 | 50 | full color | center | approved | v01 | v01 | ART-SPELL-R2; Gojo HD exit tile, 8/8 exact 256px frames packed at x1 (9-color maximum). User approved v01 via Claude relay spells #7: “Approve all six”. |
+| voidShatterBR | 8 | 50 | full color | center | approved | v01 | v01 | ART-SPELL-R2; Gojo HD exit tile, 8/8 exact 256px frames packed at x1 (9-color maximum). User approved v01 via Claude relay spells #7: “Approve all six”. |
 
 ## Shared UI (step 11)
 
