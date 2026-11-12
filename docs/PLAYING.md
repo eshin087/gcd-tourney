@@ -128,7 +128,7 @@ These are the default bindings. You can rebind them in the controls menu.
 
 ### Phone / tablet (landscape)
 
-Open https://gcd-tourney.vercel.app on your phone and turn it sideways (portrait shows a "rotate" screen).
+Open https://gcdtourney.vercel.app on your phone and turn it sideways (portrait shows a "rotate" screen).
 Android goes fullscreen on the first tap; on iPhone use Share > Add to Home Screen for a fullscreen app.
 
 - **Left half of the screen:** a joystick appears under your thumb. Flick twice in a direction to dash.

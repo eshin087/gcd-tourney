@@ -112,7 +112,7 @@ perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permissi
 
 Routine PR metadata updates use the project-local saved rule in `.codex/rules/gcd-tourney-pr.rules`.
 Prepare the body file in a separate command, then run exactly this argument order:
-`gh pr edit --repo eshin087/gcd-tourney <number> --body-file <project-relative-file>`
+`gh pr edit --repo eshin087/gcdtourney <number> --body-file <project-relative-file>`
 (optionally add `--title`). Use numeric PR IDs, never another repository/URL or a second repository
 flag. The rule covers future PR numbers; do not bundle file writes with the GitHub command.
 It is a prefix approval rule, not an argument-validation firewall or a filesystem write grant.
@@ -165,8 +165,8 @@ documentation that stays true.
 | `npm run sprites stage npc ui` | pack the approved stage slots, NPC sheets and title art into `public/stage|npc|ui/` |
 | `npm run sprites decals` | pack the approved ground decals into `public/decals/` (atlas.json + the pages of each page set, at most 4 per match; ADR 0024, `tools/pack-decals.mjs`) |
 | `node tools/pack-sprites.mjs vfx crowd stage npc ui --candidates` | pack unapproved world art into git-ignored `public/preview/` (see it with `?art=custom`) |
-| `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcd-tourney |
-| `npm run deploy` | build a clean export of HEAD (committed work only, without `art/` and the review folders) and deploy it to Vercel production: https://gcd-tourney.vercel.app (only from `main`; `-- --preview` for a branch, which carries the review files that branch changed). Refuses a build over 250 MB before uploading (`GCD_DEPLOY_MAX_MB`; see "Deployment storage") |
+| `npm run publish:github` | push a slim copy of `main` (no raw art) to the private repo github.com/eshin087/gcdtourney |
+| `npm run deploy` | build a clean export of HEAD (committed work only, without `art/` and the review folders) and deploy it to Vercel production: https://gcdtourney.vercel.app (only from `main`; `-- --preview` for a branch, which carries the review files that branch changed). Refuses a build over 250 MB before uploading (`GCD_DEPLOY_MAX_MB`; see "Deployment storage") |
 | `npm run pr -- start feature/<name>` | optional manual CLI helper that creates a named worktree + branch off main in the repository's `.worktrees/` folder; `--art <id>[,<id>]` adds only that character's or art kind's raw art. Use the host's managed-worktree flow when available; never use `--full` for art work. It verifies each `--art` folder's tracked `raw/` files are on disk (TOOL-048) |
 | `npm run pr -- art <id>[,<id>]` | (inside a sparse worktree) add more raw art there with the same patterns as `start --art`, drop patterns a shell rewrote (`C:/Program Files/Git/art/...`), and verify the raws are on disk. Use it instead of a hand-typed `git sparse-checkout add` |
 | `npm run pr -- open` | (in a worktree on a named branch, never detached HEAD) publish the branch slim and open or update its GitHub PR |

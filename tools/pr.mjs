@@ -36,7 +36,7 @@ import { dropLinks, findLinks, restoreLinks } from './worktree-links.mjs';
 // The main checkout, wherever this copy of the script lives (it also runs from inside a worktree).
 const ROOT = path.dirname(execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'],
   { cwd: path.dirname(fileURLToPath(import.meta.url)) }).toString().trim());
-const REPO = 'eshin087/gcd-tourney';
+const REPO = 'eshin087/gcdtourney';
 const PREFIXES = ['feature/', 'fix/', 'art/', 'docs/', 'chore/'];
 
 const [cmd, ...rest] = process.argv.slice(2);

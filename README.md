@@ -2,9 +2,9 @@
 
 **A browser-based HD-2D anime arena fighter with online play, built on Three.js.**
 
-**[Play it in your browser](https://gcd-tourney.vercel.app)** on a computer, a gamepad or a phone (landscape). No install or sign-up.
+**[Play it in your browser](https://gcdtourney.vercel.app)** on a computer, a gamepad or a phone (landscape). No install or sign-up.
 
-<a href="https://gcd-tourney.vercel.app"><img src="public/ui/title_art.png" alt="Title screen: two pixel-art fighters squared off in a sunset tournament arena with a temple and a cheering crowd" width="100%"></a>
+<a href="https://gcdtourney.vercel.app"><img src="public/ui/title_art.png" alt="Title screen: two pixel-art fighters squared off in a sunset tournament arena with a temple and a cheering crowd" width="100%"></a>
 
 Pixel-art fighters battle inside a real 3D tournament arena with a cinematic camera, auras, super flashes and rhythm-based ultimate clashes. It plays like a modern anime fighter: combos, parries, dodges, throws, beam clashes and a CPU you can set anywhere from Easy to Impossible. You can also open an online room and send friends the link.
 

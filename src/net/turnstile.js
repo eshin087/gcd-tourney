@@ -5,7 +5,7 @@
 // production for now (the user's call, 2026-10-16): SITEKEY is empty, so public rooms open without the check; to switch
 // it on, create the widget, put its site key here and deploy the game, then set the server's secret (server/README.md).
 const TEST_SITEKEY = '1x00000000000000000000AA';
-export const SITEKEY = ''; // the gcd-tourney rooms widget on the user's Cloudflare account (server/README.md)
+export const SITEKEY = ''; // the gcdtourney rooms widget on the user's Cloudflare account (server/README.md)
 const SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
 
 let loading = null;

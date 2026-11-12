@@ -6,7 +6,7 @@
 // Claude and Codex share one working copy, so it usually holds someone's unfinished, unreviewed
 // work. Deploying from a clean export of HEAD (minus art/, public/reviews/ and public/art-review/: the ~2.3 GB of
 // raw generations and review material the game never reads, see tools/export-head.mjs) means only committed work
-// can reach https://gcd-tourney.vercel.app, and a deployment is ~175 MB instead of 1.26 GB.
+// can reach https://gcdtourney.vercel.app, and a deployment is ~175 MB instead of 1.26 GB.
 // Needs: a linked Vercel project (.vercel/project.json, made by `vercel link`) and the Vercel CLI.
 // `vercel build` runs its own `npm install` in the export, so the deploy takes about a minute.
 
@@ -32,7 +32,7 @@ const dirty = git('status', '--porcelain', '--', '.', ':(exclude)art').split('\n
 const MAIN = path.dirname(git('rev-parse', '--path-format=absolute', '--git-common-dir'));
 const LINK = [ROOT, MAIN].map((d) => path.join(d, '.vercel', 'project.json')).find((p) => fs.existsSync(p));
 if (!LINK) {
-  console.error('deploy: no .vercel/project.json; run `vercel link --project gcd-tourney` in the main checkout first');
+  console.error('deploy: no .vercel/project.json; run `vercel link --project gcdtourney` in the main checkout first');
   process.exit(1);
 }
 if (!PREVIEW && branch !== 'main') {
