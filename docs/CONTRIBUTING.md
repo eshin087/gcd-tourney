@@ -148,7 +148,7 @@ exists for architectural decisions, and the commit is conventional.
 
 ## Hosting and the GitHub mirror
 
-- **GitHub** (private): https://github.com/eshin087/gcd-tourney. PRs come from `npm run pr` (above). `npm run publish:github` pushes `main`
+- **GitHub** (private): https://github.com/eshin087/gcdtourney. PRs come from `npm run pr` (above). `npm run publish:github` pushes `main`
   without raw image generations (`art/**/raw/`, `_rejected/`, `_old/`, contact sheets), which stay only in
   the local repository (several GB and growing). The rewrite is deterministic, so pushes are fast-forwards. Needs
   `python -m pip install git-filter-repo`.
@@ -160,7 +160,7 @@ exists for architectural decisions, and the commit is conventional.
   cache rebuilds itself; `npm run publish:github -- --full` forces a rebuild, and deleting the folder is always safe.
   Each run rewrites the whole branch on purpose: filter-repo's incremental `--state-branch` mode gives revert
   commits different ids than a full rewrite (see tools/publish.mjs).
-- **Vercel**: https://gcd-tourney.vercel.app. `npm run deploy` (tools/deploy.mjs) exports HEAD without `art/` into
+- **Vercel**: https://gcdtourney.vercel.app. `npm run deploy` (tools/deploy.mjs) exports HEAD without `art/` into
   a temp folder, builds it there (`prebuild` runs the build lints, `tools/lint-anims.mjs` and `tools/check-undeclared.mjs`, then writes
   `public/art-index.json`, the list of packed art, so production never requests a missing file) and deploys the prebuilt output. Only committed work goes live; uncommitted
   changes are listed as "not deployed". Deploys are on demand, not on every push.

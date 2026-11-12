@@ -89,7 +89,7 @@ perform an otherwise authorized merge. See docs/AI_COLLABORATION.md for permissi
 
 Routine PR metadata updates use the project-local saved rule in `.codex/rules/gcd-tourney-pr.rules`.
 Prepare the body file in a separate command, then run exactly this argument order:
-`gh pr edit --repo eshin087/gcd-tourney <number> --body-file <project-relative-file>`
+`gh pr edit --repo eshin087/gcdtourney <number> --body-file <project-relative-file>`
 (optionally add `--title`). Use numeric PR IDs, never another repository/URL or a second repository
 flag. The rule covers future PR numbers; do not bundle file writes with the GitHub command.
 It is a prefix approval rule, not an argument-validation firewall or a filesystem write grant.

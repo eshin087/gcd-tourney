@@ -39,7 +39,7 @@ Deployed: https://gcd-tourney-lobby.eshin087.workers.dev (2026-10-16). Redeploye
 
 **Off for now** (the user's call, 2026-10-16: "Not now"): no widget exists, `SITEKEY` is empty and the Worker has no
 `TURNSTILE_SECRET`, so anyone may open a public room; the directory lists at most two per address instead. To switch
-it on: create a managed widget for `gcd-tourney.vercel.app` (and each preview address to be tested) with action
+it on: create a managed widget for `gcdtourney.vercel.app` (and each preview address to be tested) with action
 `create_room`, put its site key in `SITEKEY` (`src/net/turnstile.js`) and deploy the game, then
 `wrangler secret put TURNSTILE_SECRET` here (the server checks tokens as soon as the secret exists, so the game must
 have the site key first).
@@ -47,7 +47,7 @@ have the site key first).
 When it is on, opening a public room takes a Turnstile token: the client's widget (`src/net/turnstile.js`, action `create_room`)
 produces it, and the room checks it once with siteverify before listing the room. The widget's site key is `SITEKEY` in
 `src/net/turnstile.js`; its secret is the Worker secret `TURNSTILE_SECRET` (`wrangler secret put`, never in a file).
-Tokens must come from production or a preview (`gcd-tourney*.vercel.app`), and each preview address must be on the
+Tokens must come from production or a preview (`gcdtourney*.vercel.app`; older `gcd-tourney*` previews too), and each preview address must be on the
 widget's domain list. Locally, `server/.dev.vars` (git-ignored) holds Cloudflare's always-pass test secret and
 `TURNSTILE_DEV=1`, and a page on localhost uses the test site key.
 

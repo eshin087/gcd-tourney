@@ -727,7 +727,7 @@ Expected today: a fresh recording replays exactly at `'60'`, `'120'`, `'144'` an
 `randomSeed`, and with `Math.hypot` / `Math.sin` deliberately skewed by an ulp (the simulation no longer calls them).
 Cross-browser (an iPhone matched on 2026-10-15): open each fixture in Safari (iPhone) and Firefox and read the
 verdict, on production or a branch preview
-(https://gcd-tourney.vercel.app/?det=naruto-sasuke-s7 and https://gcd-tourney.vercel.app/?det=gojo-killua-s3).
+(https://gcdtourney.vercel.app/?det=naruto-sasuke-s7 and https://gcdtourney.vercel.app/?det=gojo-killua-s3).
 A split inside a window the fixture has a trace for (`log.traces`, added with `det.addTrace(log, from, to)` then
 `det.save(log)`) also prints the first differing frame, the fields and that browser's values; compare them with
 `det.replay(log, { stopAt: k + 1, dumpAt: k })` here. Compare the per-frame hashes, never the final result: a

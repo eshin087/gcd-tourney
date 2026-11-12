@@ -12,7 +12,7 @@ import { RoomCore } from './roomCore.js';
 
 const HEARTBEAT_MS = 3 * 60 * 1000; // the directory drops a room it hasn't heard from in 7 minutes
 // the pages a Turnstile token may come from (siteverify's hostname): production and its preview deployments
-const TOKEN_HOST = /^gcd-tourney[a-z0-9-]*\.vercel\.app$/;
+const TOKEN_HOST = /^gcd-?tourney[a-z0-9-]*\.vercel\.app$/;
 
 const hashIp = async (ip) => {
   if (!ip) return null;

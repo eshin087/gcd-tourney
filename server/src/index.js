@@ -10,7 +10,7 @@ export { Room } from './room.js';
 export { Directory } from './directory.js';
 
 // pages that may open a room: production, its preview deployments, and local development (incl. a phone on the LAN)
-const ORIGIN = /^(https:\/\/gcd-tourney[a-z0-9-]*\.vercel\.app|http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)(:\d+)?)$/;
+const ORIGIN = /^(https:\/\/gcd-?tourney[a-z0-9-]*\.vercel\.app|http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)(:\d+)?)$/;
 
 const text = (body, status = 200) => new Response(body + '\n', { status, headers: { 'content-type': 'text/plain' } });
 
