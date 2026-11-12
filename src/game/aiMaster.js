@@ -1770,11 +1770,20 @@ export class MasterBrain {
     return null;
   }
 
-  // walk to `gap` units beside them on screen, in their depth lane; true when there
+  // walk to `gap` units beside them on screen, in their depth lane; true when there.
+  // Holding a spacing (footsies, waiting for a super's range) has hysteresis: it walks until it is within 0.15 of the
+  // gap, then stands until it drifts 0.45 off (0.4 in depth). Without it two CPUs holding spacing against each other
+  // nudge the distance back and forth across the 0.15 line and flip run/idle every 2-3 frames, which reads as a bug.
+  // Close-range gaps (under 1.5: into a throw, a jab, oki) stay exact, so a CPU never stalls just out of reach.
   approach(c, gap) {
     const want = Math.abs(c.sx) - gap;
-    this.mx = Math.abs(want) > 0.15 ? c.toward * Math.sign(want) : 0;
-    this.my = Math.abs(c.sd) > 0.18 ? Math.sign(c.sd) : 0;
+    const loose = gap >= 1.5 && this.holdGap != null && Math.abs(this.holdGap - gap) < 0.3;
+    const stillX = Math.abs(want) <= (loose ? 0.45 : 0.15);
+    const stillD = Math.abs(c.sd) <= (loose && this.holdLane ? 0.4 : 0.18);
+    this.holdGap = stillX ? gap : null;
+    this.holdLane = stillD;
+    this.mx = stillX ? 0 : c.toward * Math.sign(want);
+    this.my = stillD ? 0 : Math.sign(c.sd);
     return Math.abs(want) < 0.45 && Math.abs(c.sd) < 0.45;
   }
 
